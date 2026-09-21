@@ -4,7 +4,7 @@ Only hand-authored/generated data belongs here. Original Master Rallye bytes
 must never be copied into test fixtures.
 
 `test_library.py` builds minimal DX/DXT streams in temporary directories and
-contains 22 behavioral tests covering:
+contains 22 R1 behavioral tests covering:
 
 - tag-2 draws, tag-7 groups, and tag-8 children;
 - local-to-global addressing and winding;
@@ -18,6 +18,13 @@ contains 22 behavioral tests covering:
 - independent BGRA channels, stored row order, PNG row conversion, and UV V
   transforms;
 - archive-root filtering in the R0 inventory scanner.
+
+`test_r2.py` adds nine pure-Python checks for shared glTF/Blender coordinate
+conversion, native scale and winding, independent consumer UV policies,
+geometry fingerprints, exact/source versus normalized display normals,
+zero/non-finite/count validation, per-corner expansion, and safe add-on ZIP
+contents. Blender-only synthetic
+tests and fixture generation live in `tests/blender/`.
 
 Run with:
 

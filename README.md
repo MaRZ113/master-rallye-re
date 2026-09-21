@@ -8,11 +8,34 @@ read-only.
 
 ## Current scope
 
-Phase R1 is complete: the vehicle DX/DXT research has been promoted into a
-reusable Python library, all 78 resources below `DataGx/Vehicles` have been
-scanned, and an experimental glTF 2.0 exporter preserves draw and texture-slot
-metadata. R1 excludes course resources, executable analysis, writing game
-formats, and Blender integration.
+Phase R2 is complete: the validated vehicle DX/DXT library now drives a native
+Blender add-on with single-resource and vehicle-folder import, editable meshes,
+preview materials, and preserved draw/group/source metadata. The R1 corpus
+result remains 78/78 vehicle DX resources parsed and validated. R2 excludes
+course resources, executable analysis, and writing game formats.
+
+## Blender add-on
+
+Build the installable local ZIP with:
+
+```powershell
+py -3 tools/build_blender_addon.py
+```
+
+Install the ignored `dist/master_rallye_io-r2.zip` from Blender preferences.
+The add-on provides **File > Import > Master Rallye DX (.dx)** and **Import
+Master Rallye Vehicle Folder**. It was tested with Blender 5.2.2 LTS; Blender
+4.3+ is the expected API baseline, but other versions were not tested.
+
+The importer creates one normally editable mesh per DX, retains physical draw
+membership, source vertex/triangle IDs, and exact source-normal provenance as
+mesh attributes, and stores group, texture-slot, material-candidate,
+validation, and trailing-layout metadata on the object. Blender preview UVs use
+direct source V; this is intentionally independent from the unchanged glTF
+`flip-v` policy. Blender-calculated display normals avoid known Blender 5.2.2
+native custom-normal crashes while the source values remain preserved. It is
+an import/authoring tool only: arbitrary edits cannot yet be
+written back to the game. See `docs/blender-importer.md`.
 
 ## Library and research CLI
 
