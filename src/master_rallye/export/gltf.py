@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from ..assets import AssetResolver
+from ..coords import transform_normals, transform_positions, transform_uv_values
 from ..dxt import PNG_ROWS_FLIP_VERTICAL, has_transparency, parse_dxt, write_png
 from ..errors import ExportError
 from ..model import DrawRecord, DxModel
@@ -83,13 +84,6 @@ def _pack_float_vectors(values: tuple[tuple[float, ...], ...]) -> bytes:
     flattened = (component for value in values for component in value)
     return struct.pack(f"<{len(values) * width}f", *flattened)
 
-
-def transform_uv_values(
-    values: tuple[tuple[float, float], ...],
-    flip_v: bool,
-) -> tuple[tuple[float, float], ...]:
-    """Apply only the requested coordinate-space V transform."""
-    return tuple((u, 1.0 - v if flip_v else v) for u, v in values)
 
 
 def _draw_metadata(draw: DrawRecord, group_label: str | None) -> dict[str, Any]:

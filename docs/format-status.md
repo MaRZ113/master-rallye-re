@@ -1,4 +1,4 @@
-# Format status (Phase R1)
+# Format status (Phase R2)
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
@@ -51,3 +51,22 @@ available.
 Header words `135` and `1337`, draw flags/control semantics beyond known
 boundaries, opaque trailing sections, runtime material blending, and course DX
 variants remain unresolved. No executable or Ghidra analysis was performed.
+
+## R2 Blender integration status
+
+- **PASS, tested in Blender 5.2.2 LTS.** The installable add-on imports one
+  vehicle DX or every DX directly in a selected vehicle folder.
+- Shared conversion maps source/glTF `(X, Y, Z)` to Blender `(X, -Z, Y)` at
+  scale 1.0. This is a handedness-preserving rotation; stored-global winding
+  and imported normals are retained.
+- One editable mesh per DX preserves all triangles, all UV sets, original
+  normals, raw color-like bytes, point source IDs, and face draw/triangle/group
+  IDs. Draw tags 2/7/8 and group hierarchy remain structured object metadata.
+- Corrected texture handling remains two explicit transforms: decoded PNG rows
+  use `flip-vertical`, while model UVs use `V' = 1 - V`. R2 did not change DXT
+  structure/BGRA confidence or R1 geometry findings.
+- Headless synthetic import, ZIP installation, save/reload, Astero folder
+  discovery, and eight diverse real resources passed. This is importer
+  validation, not a new binary-format confidence promotion.
+- Runtime multi-texture/alpha semantics remain **UNKNOWN** and the Principled
+  materials are provisional previews. No DX/DXT writer exists.

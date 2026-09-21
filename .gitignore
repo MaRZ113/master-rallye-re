@@ -13,3 +13,6 @@ DataScene/
 *.dxb
 *.sfl
 *.hnt
+
+dist/
+*.blend
