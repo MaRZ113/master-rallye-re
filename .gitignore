@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Original game data must stay external.
+Data.sma*
+DataGame/
+DataGx/
+DataScene/
+*.dx
+*.dxt
+*.dxb
+*.sfl
+*.hnt

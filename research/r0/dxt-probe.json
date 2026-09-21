@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "summary": {
+    "file_count": 6960,
+    "magic_counts": {
+      "0x0000FEED": 6960
+    },
+    "version_counts": {
+      "1": 6960
+    },
+    "dimension_counts": {
+      "128x128": 3380,
+      "32x32": 1223,
+      "64x64": 1114,
+      "256x256": 167,
+      "16x16": 392,
+      "8x16": 131,
+      "4x16": 26,
+      "32x16": 54,
+      "8x32": 29,
+      "16x32": 186,
+      "32x64": 14,
+      "128x32": 13,
+      "128x64": 20,
+      "4x32": 7,
+      "64x128": 15,
+      "8x64": 1,
+      "128x256": 74,
+      "256x64": 63,
+      "256x32": 14,
+      "256x16": 1,
+      "256x8": 1,
+      "256x128": 2,
+      "128x16": 2,
+      "64x16": 4,
+      "16x8": 4,
+      "16x64": 5,
+      "8x8": 17,
+      "64x32": 1
+    },
+    "rgba32_size_matches": 6960,
+    "nonmatching_files": []
+  },
+  "representative_records": [
+    {
+      "path": "DataGx/Vehicles/Astero/acamo64b-tga.dxt",
+      "size": 16404,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0xD4C3A4AF",
+      "width": 64,
+      "height": 64,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asterohelmet-tga.dxt",
+      "size": 4116,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0xD6FE13E1",
+      "width": 32,
+      "height": 32,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asteroleftdoor1-tga.dxt",
+      "size": 16404,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0x3F957AC0",
+      "width": 64,
+      "height": 64,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asterolight1-tga.dxt",
+      "size": 4116,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0x4669D74D",
+      "width": 32,
+      "height": 32,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asteropanels128-tga.dxt",
+      "size": 65556,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0x7278D8BC",
+      "width": 128,
+      "height": 128,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asterorightdoor1-tga.dxt",
+      "size": 16404,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0xA36DE3AE",
+      "width": 64,
+      "height": 64,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asterotread-tga.dxt",
+      "size": 4116,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0x70B65E06",
+      "width": 32,
+      "height": 32,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asterowheel64-tga.dxt",
+      "size": 16404,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0xB0416F57",
+      "width": 64,
+      "height": 64,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asterowheel643-tga.dxt",
+      "size": 16404,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0x1AA0F7ED",
+      "width": 64,
+      "height": 64,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/asterowheelrim-tga.dxt",
+      "size": 1044,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0xB84BBB54",
+      "width": 16,
+      "height": 16,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/black-tga.dxt",
+      "size": 1044,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0x6B3FE5F6",
+      "width": 16,
+      "height": 16,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    },
+    {
+      "path": "DataGx/Vehicles/Astero/brakelight32-tga.dxt",
+      "size": 4116,
+      "magic": "0x0000FEED",
+      "version": 1,
+      "word_0x08": "0x552D7521",
+      "width": 32,
+      "height": 32,
+      "rgba32_size_match": true,
+      "first_sample_alpha_values": [
+        255
+      ]
+    }
+  ]
+}

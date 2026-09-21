@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "schema_version": 1,
+      "file": "car.dx",
+      "size": 136339,
+      "header": {
+        "magic": "0x0000D00D",
+        "word_0x04": 135,
+        "word_0x08": 1337,
+        "vertex_count": 2543
+      },
+      "sections": {
+        "positions": {
+          "offset": "0x10",
+          "count": 2543,
+          "bbox_min": [
+            -1.0181684494018555,
+            -0.2285960614681244,
+            -2.1541671752929688
+          ],
+          "bbox_max": [
+            1.0181684494018555,
+            1.4095109701156616,
+            2.1642723083496094
+          ]
+        },
+        "normals": {
+          "count": 2543,
+          "length_min": 0.9999999284428347,
+          "length_max": 1.0000000738963215,
+          "length_mean": 0.9999999985806768
+        },
+        "colors": {
+          "count": 2543,
+          "byte_length": 10172,
+          "alpha_values": [
+            255
+          ]
+        },
+        "uv_sets": {
+          "count": 1,
+          "entries_per_set": 2543,
+          "ranges": [
+            {
+              "min": [
+                -10.888911247253418,
+                -0.07942050695419312
+              ],
+              "max": [
+                11.888911247253418,
+                1.9990010261535645
+              ]
+            }
+          ]
+        },
+        "indices": {
+          "offset": "0x165B4",
+          "count": 6063,
+          "triangle_count": 2021,
+          "divisible_by_3": true,
+          "min": 0,
+          "max": 545,
+          "all_in_vertex_range": true
+        },
+        "trailing": {
+          "offset": "0x19512",
+          "first_two_u32": [
+            1,
+            27
+          ],
+          "unparsed_bytes": 32641
+        }
+      },
+      "sidecar": {
+        "material_count": 28,
+        "mesh_count": 39,
+        "mesh_span": 2089
+      }
+    },
+    {
+      "schema_version": 1,
+      "file": "complete.dx",
+      "size": 141485,
+      "header": {
+        "magic": "0x0000D00D",
+        "word_0x04": 135,
+        "word_0x08": 1337,
+        "vertex_count": 2657
+      },
+      "sections": {
+        "positions": {
+          "offset": "0x10",
+          "count": 2657,
+          "bbox_min": [
+            -1.0181684494018555,
+            -0.0007334845140576363,
+            -2.1541671752929688
+          ],
+          "bbox_max": [
+            1.0181684494018555,
+            1.8507301807403564,
+            2.1642723083496094
+          ]
+        },
+        "normals": {
+          "count": 2657,
+          "length_min": 0.9999999284428347,
+          "length_max": 1.0000000738963215,
+          "length_mean": 0.9999999987349119
+        },
+        "colors": {
+          "count": 2657,
+          "byte_length": 10628,
+          "alpha_values": [
+            255
+          ]
+        },
+        "uv_sets": {
+          "count": 1,
+          "entries_per_set": 2657,
+          "ranges": [
+            {
+              "min": [
+                -10.888911247253418,
+                -0.07942050695419312
+              ],
+              "max": [
+                11.888911247253418,
+                1.9990010261535645
+              ]
+            }
+          ]
+        },
+        "indices": {
+          "offset": "0x175BC",
+          "count": 7269,
+          "triangle_count": 2423,
+          "divisible_by_3": true,
+          "min": 0,
+          "max": 545,
+          "all_in_vertex_range": true
+        },
+        "trailing": {
+          "offset": "0x1AE86",
+          "first_two_u32": [
+            1,
+            24
+          ],
+          "unparsed_bytes": 31271
+        }
+      },
+      "sidecar": {
+        "material_count": 28,
+        "mesh_count": 34,
+        "mesh_span": 2423
+      }
+    },
+    {
+      "schema_version": 1,
+      "file": "wheel.dx",
+      "size": 12995,
+      "header": {
+        "magic": "0x0000D00D",
+        "word_0x04": 135,
+        "word_0x08": 1337,
+        "vertex_count": 220
+      },
+      "sections": {
+        "positions": {
+          "offset": "0x10",
+          "count": 220,
+          "bbox_min": [
+            -0.14652660489082336,
+            -0.3845731019973755,
+            -0.39050576090812683
+          ],
+          "bbox_max": [
+            0.14652661979198456,
+            0.3845731019973755,
+            0.39050576090812683
+          ]
+        },
+        "normals": {
+          "count": 220,
+          "length_min": 0.9999999654530013,
+          "length_max": 1.0000000360302235,
+          "length_mean": 0.9999999992458841
+        },
+        "colors": {
+          "count": 220,
+          "byte_length": 880,
+          "alpha_values": [
+            255
+          ]
+        },
+        "uv_sets": {
+          "count": 1,
+          "entries_per_set": 220,
+          "ranges": [
+            {
+              "min": [
+                -0.16918480396270752,
+                -0.07942050695419312
+              ],
+              "max": [
+                5.830815315246582,
+                1.079420566558838
+              ]
+            }
+          ]
+        },
+        "indices": {
+          "offset": "0x1F08",
+          "count": 756,
+          "triangle_count": 252,
+          "divisible_by_3": true,
+          "min": 0,
+          "max": 71,
+          "all_in_vertex_range": true
+        },
+        "trailing": {
+          "offset": "0x24F0",
+          "first_two_u32": [
+            1,
+            5
+          ],
+          "unparsed_bytes": 3539
+        }
+      },
+      "sidecar": {
+        "material_count": 5,
+        "mesh_count": 2,
+        "mesh_span": 252
+      }
+    },
+    {
+      "schema_version": 1,
+      "file": "car.dx",
+      "size": 130467,
+      "header": {
+        "magic": "0x0000D00D",
+        "word_0x04": 135,
+        "word_0x08": 1337,
+        "vertex_count": 2455
+      },
+      "sections": {
+        "positions": {
+          "offset": "0x10",
+          "count": 2455,
+          "bbox_min": [
+            -1.0951634645462036,
+            -0.202485129237175,
+            -2.717029333114624
+          ],
+          "bbox_max": [
+            1.0949273109436035,
+            1.393196702003479,
+            2.6391265392303467
+          ]
+        },
+        "normals": {
+          "count": 2455,
+          "length_min": 0.9999999312255609,
+          "length_max": 1.0000000716114306,
+          "length_mean": 0.9999999998160024
+        },
+        "colors": {
+          "count": 2455,
+          "byte_length": 9820,
+          "alpha_values": [
+            255
+          ]
+        },
+        "uv_sets": {
+          "count": 1,
+          "entries_per_set": 2455,
+          "ranges": [
+            {
+              "min": [
+                -4.312597751617432,
+                -0.07942050695419312
+              ],
+              "max": [
+                5.830815315246582,
+                1.079420566558838
+              ]
+            }
+          ]
+        },
+        "indices": {
+          "offset": "0x15954",
+          "count": 6042,
+          "triangle_count": 2014,
+          "divisible_by_3": true,
+          "min": 0,
+          "max": 401,
+          "all_in_vertex_range": true
+        },
+        "trailing": {
+          "offset": "0x18888",
+          "first_two_u32": [
+            1,
+            19
+          ],
+          "unparsed_bytes": 29979
+        }
+      },
+      "sidecar": {
+        "material_count": 23,
+        "mesh_count": 33,
+        "mesh_span": 2062
+      }
+    },
+    {
+      "schema_version": 1,
+      "file": "complete.dx",
+      "size": 42781,
+      "header": {
+        "magic": "0x0000D00D",
+        "word_0x04": 135,
+        "word_0x08": 1337,
+        "vertex_count": 837
+      },
+      "sections": {
+        "positions": {
+          "offset": "0x10",
+          "count": 837,
+          "bbox_min": [
+            -1.4999998807907104,
+            0.3634512722492218,
+            -1.4265847206115723
+          ],
+          "bbox_max": [
+            1.5,
+            2.2084875106811523,
+            1.4265846014022827
+          ]
+        },
+        "normals": {
+          "count": 837,
+          "length_min": 0.9999999487977369,
+          "length_max": 1.000000072543187,
+          "length_mean": 1.0000000009210965
+        },
+        "colors": {
+          "count": 837,
+          "byte_length": 3348,
+          "alpha_values": [
+            255
+          ]
+        },
+        "uv_sets": {
+          "count": 1,
+          "entries_per_set": 837,
+          "ranges": [
+            {
+              "min": [
+                -0.010466992855072021,
+                0.0
+              ],
+              "max": [
+                1.0048309564590454,
+                1.0
+              ]
+            }
+          ]
+        },
+        "indices": {
+          "offset": "0x75CC",
+          "count": 2010,
+          "triangle_count": 670,
+          "divisible_by_3": true,
+          "min": 0,
+          "max": 282,
+          "all_in_vertex_range": true
+        },
+        "trailing": {
+          "offset": "0x8580",
+          "first_two_u32": [
+            1,
+            6
+          ],
+          "unparsed_bytes": 8605
+        }
+      },
+      "sidecar": {
+        "material_count": 10,
+        "mesh_count": 4,
+        "mesh_span": 670
+      }
+    }
+  ]
+}
