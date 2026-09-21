@@ -1,4 +1,4 @@
-# Asset map (Phase R0)
+# Asset map (through Phase R1)
 
 ## Scope and provenance
 
@@ -6,13 +6,13 @@ The source is an external, extracted `Data.sma` tree. It was read only. No game
 asset or executable is copied into this repository, and neither `MRallye.exe`
 nor the patched executable was inspected.
 
-The reproducible inventory covers 7,596 files (806,539,849 bytes):
+The reproducible inventory covers 7,595 files (806,260,689 bytes):
 
 | Extension | Files | Bytes | Median bytes |
 |---|---:|---:|---:|
 | `.dxt` | 6,960 | 305,808,064 | 65,556 |
 | `.dx` | 160 | 451,488,195 | 129,711 |
-| `.txt` | 149 | 6,923,597 | 8,363 |
+| `.txt` | 148 | 6,644,437 | 8,317 |
 | `.xml` | 122 | 23,268,179 | 58,817 |
 | `.dxb` | 113 | 265,604 | 904 |
 | `.hnt` | 54 | 326,491 | 3,044 |
@@ -136,3 +136,55 @@ is **UNKNOWN**.
 - `research/r0/mesh-proof.json`: compact results from the experimental DX
   leading-section parser; it contains counts/ranges, not copied geometry.
 - `research/r0/dxt-probe.json`: archive-wide DXT header/size invariants.
+## R0.5 draw-to-texture proof
+
+`Astero/wheel.dx` now closes the rendering part of the vehicle chain:
+
+```text
+5 top-level binary records
+  -> 5 complete, non-overlapping index ranges
+  -> 5 complete, non-overlapping local vertex ranges
+  -> local uint16 triangle + vertex_base
+  -> stored uint32 global triangle (first two corners swapped)
+  -> exact sidecar material candidate by ordered texture tuple
+  -> first non-Null DXT slot used as proof diffuse map
+```
+
+All 756 indices (252 triangles) and all 220 vertices are covered exactly. The
+five texture tuples identify TXT materials in binary order
+`0, 2, 1, 4, 3`; therefore binary order is not TXT material order and no
+direct material-index field has been claimed. The same addressing equation
+holds in `Astero/complete.dx`, `Bruno/wheel.dx`, and `Astero/car.dx`. **HIGH**.
+
+`Astero/car.txt` contains a 68-triangle `$chull(Astero)` span at source index
+1937. It is absent from the compiled draw table: the first labeled binary
+`screenfront` draw starts at binary triangle 1937 and matches TXT triangle
+2005 after subtracting exactly 68. All subsequent screen/brake-light spans
+then align. This explains the 2089-vs-2021 triangle discrepancy as omission of
+the `$chull` exporter node from this render resource. **HIGH**.
+
+## R1 reusable extraction path
+
+```text
+external vehicle DX
+  -> master_rallye.dx: bounded binary parse
+  -> flat physical draws + preserved group hierarchy
+  -> reconstructed global triangles + stored-table comparison
+  -> optional TXT sidecar candidate matching
+  -> master_rallye.assets: case-insensitive DXT resolution
+  -> master_rallye.dxt: cached BGRA-to-PNG decode
+  -> one glTF primitive per physical draw
+  -> model.gltf + model.bin + textures/*.png + metadata.json
+```
+
+This path is independent of a sidecar for binary parsing and contains no
+per-vehicle offsets. Corpus scanning is deliberately restricted to
+`DataGx/Vehicles`: **78/78 parsed and validated**, **49 fully accounted**, **29
+partially accounted due only to opaque trailing sections**, and **0 failed**.
+All 78 reconstructed global index tables match exactly. Tags 2, 7, and 8 are
+the complete observed vehicle draw-tag set.
+
+The R1 proof set exported Astero complete/car/wheel, Bruno car/wheel,
+ChevyBlazer car, Ufo complete, and `megane/sus` with one implementation. Derived
+glTF, BIN, PNG, OBJ, and preview images remain only in ignored local output and
+are not repository artifacts.

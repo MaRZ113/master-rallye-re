@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-09-21T08:30:11.166197+00:00",
+  "generated_utc": "2026-09-21T09:34:07.904986+00:00",
   "source_descriptor": "external extracted Data.sma root (path intentionally omitted)",
-  "file_count": 7596,
-  "total_bytes": 806539849,
+  "file_count": 7595,
+  "total_bytes": 806260689,
   "aggregates": {
     "extensions": {
       ".dx": {
@@ -42,11 +42,11 @@
         "median": 462038.0
       },
       ".txt": {
-        "count": 149,
-        "bytes": 6923597,
+        "count": 148,
+        "bytes": 6644437,
         "min": 0,
         "max": 299784,
-        "median": 8363
+        "median": 8317.0
       },
       ".xml": {
         "count": 122,
@@ -64,13 +64,6 @@
       }
     },
     "directories": {
-      ".": {
-        "count": 1,
-        "bytes": 279160,
-        "min": 279160,
-        "max": 279160,
-        "median": 279160
-      },
       "DataGame": {
         "count": 23,
         "bytes": 1054184,
@@ -871,7 +864,7 @@
       "other.dxt": 21,
       "other.hnt": 24,
       "other.sfl": 12,
-      "other.txt": 36,
+      "other.txt": 35,
       "other.xml": 87,
       "semantic-car.dx": 26,
       "semantic-car.txt": 25,
@@ -883,7 +876,7 @@
     "signatures": {
       "binary-unrecognized": 7269,
       "empty": 1,
-      "mostly-ascii": 202,
+      "mostly-ascii": 201,
       "text-angle-bracket": 124
     },
     "size_ranges": {
@@ -900,7 +893,7 @@
       "32768-65535": 75,
       "65536-131071": 3488,
       "131072-262143": 151,
-      "262144-524287": 206,
+      "262144-524287": 205,
       "524288-1048575": 32,
       "4194304-8388607": 1,
       "8388608-16777215": 35
@@ -85221,17 +85214,6 @@
       ],
       "resource_family": "scene/RaceTest",
       "sha256": "af2595e48d36c2f18fb41bea4f7d123e0347e8eae3c1e6c1fddf6a9b7287229b"
-    },
-    {
-      "path": "master_rallye_data_sma_tree.txt",
-      "extension": ".txt",
-      "size": 279160,
-      "first_64_hex": "46 6f 6c 64 65 72 20 50 41 54 48 20 6c 69 73 74 69 6e 67 20 66 6f 72 20 76 6f 6c 75 6d 65 20 53 53 44 20 53 55 37 35 30 0d 0a 56 6f 6c 75 6d 65 20 73 65 72 69 61 6c 20 6e 75 6d 62 65 72 20 69",
-      "signature": "mostly-ascii",
-      "stem": "master_rallye_data_sma_tree",
-      "matching_stem_neighbors": [],
-      "resource_family": "master_rallye_data_sma_tree.txt",
-      "sha256": "4cfb44bc446176a7a842c459058be04e18fd0915f489b2d5f24f90c44c6503cc"
     }
   ]
 }

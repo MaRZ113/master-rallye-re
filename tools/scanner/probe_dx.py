@@ -20,11 +20,14 @@ def sidecar_info(path: Path):
             "mesh_size_sum": sum(m["size"] for m in meshes), "meshes": meshes,
             "texture_names": sorted(set(textures), key=str.lower)}
 
-def probe(path: Path):
+def probe(path: Path, root: Path | None = None):
     data = path.read_bytes()
-    display = path.resolve().as_posix()
-    marker = '/Data.sma_unpacked/'
-    display = display.split(marker, 1)[1] if marker in display else path.name
+    display = path.name
+    if root is not None:
+        try:
+            display = path.resolve().relative_to(root.resolve()).as_posix()
+        except ValueError:
+            display = path.name
     if len(data) < 16: return {"path": display, "size": len(data), "error": "too short"}
     words = struct.unpack_from("<4I", data)
     count = words[3]
@@ -62,8 +65,8 @@ def probe(path: Path):
             "candidate_u32_hits": hits, "ascii_strings": ascii_strings(data), "sidecar": sidecar}
 
 def main():
-    ap=argparse.ArgumentParser(); ap.add_argument("files", nargs="+", type=Path); ap.add_argument("--output", type=Path)
-    args=ap.parse_args(); result={"schema_version":1,"files":[probe(p.resolve()) for p in args.files]}
+    ap=argparse.ArgumentParser(); ap.add_argument("files", nargs="+", type=Path); ap.add_argument("--output", type=Path); ap.add_argument("--root", type=Path)
+    args=ap.parse_args(); result={"schema_version":1,"files":[probe(p.resolve(), args.root) for p in args.files]}
     payload=json.dumps(result,indent=2,ensure_ascii=False)+"\n"
     if args.output: args.output.write_text(payload,encoding="utf-8")
     else: print(payload,end="")

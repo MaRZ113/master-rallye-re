@@ -52,6 +52,17 @@ def summarize_sizes(values: list[int]) -> dict:
     return {"count": len(values), "bytes": sum(values), "min": min(values),
             "max": max(values), "median": statistics.median(values)}
 
+def collect_paths(source: Path) -> list[Path]:
+    """Return files from the three archive roots only, never root siblings."""
+    return sorted(
+        (
+            path
+            for root_name in sorted(EXPECTED_ROOTS)
+            for path in (source / root_name).rglob("*")
+            if path.is_file()
+        ),
+        key=lambda path: path.as_posix().lower(),
+    )
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", required=True, type=Path)
@@ -67,7 +78,7 @@ def main() -> int:
         if source == target or source in target.parents: raise SystemExit("refusing to write output below --source")
         target.parent.mkdir(parents=True, exist_ok=True)
 
-    paths = sorted((p for p in source.rglob("*") if p.is_file()), key=lambda p: p.as_posix().lower())
+    paths = collect_paths(source)
     sibling_groups = defaultdict(list)
     for path in paths: sibling_groups[(path.parent, path.stem.lower())].append(path)
     records, extension_sizes, directory_sizes = [], defaultdict(list), defaultdict(list)

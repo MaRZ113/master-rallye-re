@@ -1,56 +1,79 @@
-# `.dxt` format notes (R0)
+# `.dxt` format notes (Phase R1, orientation correction)
 
-Status: **CONFIRMED** uncompressed texture wrapper; channel naming is **HIGH**.
+Status: **CONFIRMED** uncompressed wrapper; channel order **HIGH**; stored raster
+row orientation **HIGH**; raster-corrected glTF UV policy **HIGH**. The two
+vertical transforms are documented separately.
 
 Despite the extension, these files are not DDS containers and do not contain
-DXT1/DXT3/DXT5 block payloads.
+DXT1/DXT3/DXT5 block-compressed payloads.
 
 ## Layout
 
 | Offset | Representation | Interpretation | Confidence |
 |---:|---|---|---|
-| `0x00` | `ED FE 00 00` / `uint32 0xFEED` | magic | **CONFIRMED** |
-| `0x04` | `01 00 00 00` / `uint32 1` | constant; possibly version | **CONFIRMED** value / **LOW** meaning |
-| `0x08` | varying `uint32` | unknown identifier/hash/checksum candidate | **UNKNOWN** |
+| `0x00` | `uint32 0xFEED` | magic | **CONFIRMED** |
+| `0x04` | `uint32 1` | constant, possibly version | value **CONFIRMED**, meaning **LOW** |
+| `0x08` | `uint32` | unknown identifier/hash/checksum candidate | **UNKNOWN** |
 | `0x0C` | `uint32 W` | width | **CONFIRMED** |
 | `0x10` | `uint32 H` | height | **CONFIRMED** |
 | `0x14` | `W * H * 4 bytes` | one uncompressed 32-bit pixel plane | **CONFIRMED** |
 
-Archive-wide evidence: all 6,960 files have magic `0xFEED`, word `1`, and exact
-size `20 + W*H*4`. Observed dimensions range over rectangular and square power-
-of-two combinations from 4/8-pixel axes through 256. There are no trailing bytes
-for stored mip levels. Runtime-generated mipmaps remain possible but untested.
+All 6,960 archive files have the magic, word `1`, and exact size
+`20 + W*H*4`. No stored mip tail is present.
 
-## Targeted examples
+## Raw pixels and channels
 
-- Astero `glass-tga.dxt`: header width/height 32x32; file size 4,116 =
-  `20 + 32*32*4`; alpha is 255 for all 1,024 pixels.
-- Astero `asterowheelrim-tga.dxt`: 16x16; file size 1,044.
-- Astero `asteropanels128-tga.dxt`: 128x128; file size 65,556.
-- Astero `asterowheel64-tga.dxt`: 64x64; file size 16,404.
-- Astero `asterolight1-tga.dxt`: 32x32; all pixels have non-opaque alpha and
-  there are 209 distinct alpha values.
-- Astero `windscreen32-tga.dxt`: 32x32; all pixels have non-opaque alpha and
-  there are 66 distinct alpha values.
+`parse_dxt_bytes()` preserves the payload exactly in `DxtTexture.bgra`; it does
+not reorder channels or rows. Brake-light samples and alpha-bearing light/window
+samples support BGRA at **HIGH** confidence. Synthetic tests independently prove
+BGRA-to-RGBA conversion without involving vertical transforms.
 
-The fourth byte is the alpha channel: its variation agrees with sidecar
-`HasAlpha/UsesAlpha=Yes` for light/windscreen textures and remains 255 in the
-opaque samples. **HIGH**.
+## Stored raster rows versus PNG rows
 
-The first three payload bytes are most likely BGRA order. Brake-light samples
-have average channels `(105.1, 102.4, 251.9)` and `(5.1, 17.6, 127.9)`, making
-the third stored byte the semantic red channel. This is **HIGH**, not promoted
-to absolute confirmation without an independent known-color reference.
+The stored DXT row sequence is vertically inverted relative to a conventional
+visually upright PNG presentation. This was checked on multiple asymmetric
+Astero textures:
 
-## Prototype
+- `mastersticker263-tga`: only a vertical raster-row reversal makes `MASTER`
+  and `263` simultaneously upright;
+- `asteropanels128-tga`: sponsor text/panel elements reverse top-to-bottom;
+- `asteroleftdoor1-tga` and `asterorightdoor1-tga`: door details and asymmetric
+  contours occupy the coherent top/bottom positions only after row reversal.
 
-`tools/prototypes/dxt_decode.py` validates the header/size and writes PNG. It
-requires the caller to select/accept channel order (`bgra` default, `rgba`
-alternative). No decoded copyrighted texture is stored in the repository.
+The reusable encoder exposes two explicit policies:
+
+- `preserve-stored`: PNG row 0 receives stored row 0;
+- `flip-vertical` (default presentation policy): PNG row 0 receives stored row
+  `H-1`, continuing until stored row 0 becomes the last PNG row.
+
+The transform occurs only during PNG encoding. `DxtTexture.bgra` remains the
+forensic raw plane. glTF and OBJ exporters pass `flip-vertical` explicitly.
+
+## Independent UV experiment
+
+After fixing PNG presentation rows, Astero `complete.dx` was exported and
+rendered again in both coordinate modes:
+
+- upright PNG rows + direct V placed the number above the sponsor mark and put
+  door details in vertically inconsistent locations;
+- upright PNG rows + `V' = 1 - V` placed `MASTER` above the readable `263`, put
+  door handles/details in the expected upper-door region, and kept panels,
+  windows, lights, and body stripes coherent.
+
+Therefore the R1 glTF preview policy remains `V' = 1 - V`, now at **HIGH**
+confidence from a raster-corrected experiment. This is independent of the
+required DXT-to-PNG row reversal. Both UV modes remain available for research.
+
+## Export behavior
+
+The exporter caches each decoded texture once per operation, applies the
+explicit `flip-vertical` PNG policy, and records both `texture_raster_row_policy`
+and selected `uv_mode` in metadata. Only first-non-`Null` preview bindings are
+decoded; other slots remain metadata.
 
 ## Unresolved
 
-- meaning/derivation of word `0x08`;
-- vertical origin (top-down versus bottom-up) under the renderer;
-- whether runtime sampling treats color channels linearly or as sRGB;
-- whether word `1` is a version, type, or flags field.
+- meaning/derivation of header word `0x08`;
+- whether word `1` is a version, type, or flags field;
+- linear versus sRGB runtime sampling;
+- runtime multi-texture combination semantics.

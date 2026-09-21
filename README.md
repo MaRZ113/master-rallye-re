@@ -8,12 +8,40 @@ read-only.
 
 ## Current scope
 
-Phase R0: asset archaeology and format mapping. R0 deliberately excludes
-whole-program executable analysis and a production Blender importer.
+Phase R1 is complete: the vehicle DX/DXT research has been promoted into a
+reusable Python library, all 78 resources below `DataGx/Vehicles` have been
+scanned, and an experimental glTF 2.0 exporter preserves draw and texture-slot
+metadata. R1 excludes course resources, executable analysis, writing game
+formats, and Blender integration.
+
+## Library and research CLI
+
+The package lives in `src/master_rallye`. Run the CLI from the repository root:
+
+```powershell
+py -3 tools/mrtool.py inspect "..\Data.sma_unpacked\DataGx\Vehicles\Astero\complete.dx" --json ".research-output\r1\astero-inspect.json"
+
+py -3 tools/mrtool.py export `
+  "..\Data.sma_unpacked\DataGx\Vehicles\Astero\complete.dx" `
+  --format gltf `
+  --output ".research-output\r1\astero-complete" `
+  --flip-v --strict
+
+py -3 tools/mrtool.py scan-vehicles `
+  "..\Data.sma_unpacked\DataGx\Vehicles" `
+  --report research/r1/vehicle-coverage.json `
+  --markdown research/r1/vehicle-coverage.md `
+  --unknown-records research/r1/unknown-records.json
+```
+
+Exports are local validation artifacts under ignored `.research-output/` and
+must not be committed. DXT parsing preserves raw stored BGRA rows; PNG export
+explicitly uses the `flip-vertical` presentation policy. The evidenced glTF
+vehicle preview uses `--flip-v` as a separate UV-coordinate transform. The
+material preview uses the first non-`Null` texture only; all original ordered
+slots and candidates remain metadata.
 
 ## Reproduce R0 metadata
-
-Run from this repository, with the extracted archive beside it:
 
 ```powershell
 py -3 tools/scanner/inventory.py `
@@ -31,17 +59,10 @@ py -3 tools/scanner/probe_dxt.py `
 ```
 
 The generated paths are archive-relative; the external source location is not
-embedded in the reports.
+embedded in reports. Earlier forensic tools remain under `tools/prototypes`
+and `tools/scanner` for reproducibility.
 
-## Experimental tools
-
-- `tools/prototypes/dx_mesh_probe.py`: parses only confirmed leading DX sections
-  and emits diagnostic JSON. It intentionally does not emit faces while local
-  draw-record vertex bases remain unresolved.
-- `tools/prototypes/dxt_decode.py`: validates the custom DXT wrapper and writes a
-  PNG with explicit `bgra`/`rgba` channel selection.
-
-Run synthetic-only tests with:
+Run the synthetic-only suite with:
 
 ```powershell
 py -3 -m unittest discover -s tests\synthetic -v

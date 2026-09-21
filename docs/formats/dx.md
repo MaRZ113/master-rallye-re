@@ -1,96 +1,177 @@
-# `.dx` format notes (R0)
+# `.dx` vehicle format notes (Phase R1)
 
-Status: **HIGH** for the leading geometry arrays; **UNKNOWN** for complete
-material/draw/hierarchy reconstruction.
+Status: **HIGH** for the vehicle geometry/draw grammar. The corpus result covers
+all 78 files under `DataGx/Vehicles`; it does not claim compatibility with
+course DX resources.
 
-## Archive invariant
+All values below are little-endian. The reusable implementation is
+`src/master_rallye/dx.py`; structured models and diagnostics are in
+`src/master_rallye/model.py`.
 
-All 160 `.dx` files begin:
-
-```text
-0D D0 00 00  87 00 00 00  39 05 00 00
-```
-
-Evidence: `inventory.json`, all 160 records. This proves a shared format family.
-The meanings of the constants `135` and `1337` are **UNKNOWN**.
-
-## Confirmed leading layout
-
-All integer and float values below are little-endian.
+## Leading geometry layout
 
 | Offset | Representation | Interpretation | Confidence |
 |---:|---|---|---|
-| `0x00` | `0D D0 00 00` / `uint32 0xD00D` | format magic | **CONFIRMED** |
-| `0x04` | `87 00 00 00` / `uint32 135` | constant, meaning unknown | **CONFIRMED** value / **UNKNOWN** meaning |
-| `0x08` | `39 05 00 00` / `uint32 1337` | constant, meaning unknown | **CONFIRMED** value / **UNKNOWN** meaning |
+| `0x00` | `uint32 0xD00D` | format magic | **CONFIRMED** |
+| `0x04` | `uint32 135` | constant, meaning unknown | value **CONFIRMED**, meaning **UNKNOWN** |
+| `0x08` | `uint32 1337` | constant, meaning unknown | value **CONFIRMED**, meaning **UNKNOWN** |
 | `0x0C` | `uint32 N` | vertex count | **HIGH** |
 | `0x10` | `N * 3 * float32` | XYZ positions | **HIGH** |
-| `0x10 + 12N` | `N * 3 * float32` | XYZ normals | **HIGH** |
-| `0x10 + 24N` | `N * 4 bytes` | per-vertex color-like values | **HIGH** |
-| `0x10 + 28N` | `uint32 U` | UV-set count (`1` in five probes) | **HIGH** |
+| next | `N * 3 * float32` | XYZ normals | **HIGH** |
+| next | `N * 4 bytes` | color-like per-vertex values | representation **HIGH** |
+| next | `uint32 U` | UV-set count | **HIGH** |
 | next | `U * N * 2 * float32` | UV pairs | **HIGH** |
-| next | `uint32 I` | index count | **HIGH** |
-| next | `I * uint16` | triangle index buffer, grouped/local | **HIGH** representation / **MEDIUM** addressing |
-| next | variable records | draw/material records with texture stems | **MEDIUM** |
+| next | `uint32 I` | local index count | **HIGH** |
+| next | `I * uint16` | draw-local triangle indices | **HIGH** |
 
-## Field evidence
+Every extent is checked before unpacking. Counts have explicit safety limits;
+malformed data raises a section-specific structured error.
 
-### Astero `wheel.dx`
+## Draw-table envelope and stopping rule
 
-- `0x0C`: `DC 00 00 00` = 220.
-- `0x10..0xA5F`: 220 plausible XYZ triples.
-- `0xA60..0x14AF`: 220 normal triples; measured mean length is 1.0.
-- `0x14B0..0x181F`: 220 `FF FF FF FF` color entries.
-- `0x1820`: `01 00 00 00` = one UV set.
-- `0x1824..0x1F03`: 220 UV pairs.
-- `0x1F04`: `F4 02 00 00` = 756 indices = 252 triangles.
-- `0x1F08..0x24EF`: `uint16` indices.
-- `0x24F0`: unresolved `uint32 1`.
-- `0x24F4`: `05 00 00 00`; five variable records follow. This equals the five
-  sidecar materials, but its exact type is still **MEDIUM**.
-- `0x2524`: length-prefixed ASCII `asterowheel64-tga`, followed by
-  `rubber-tga` and `Null`, matching `wheel.txt` slots.
+Immediately after local indices are two words:
 
-Reasoning for vertex count: the computed boundaries land exactly on normals,
-colors, UV count, and index count; all indices fit `uint16`; the sidecar span is
-252, exactly the decoded triangle count. Confidence: **HIGH**.
+| Relative offset | Type | Interpretation | Confidence |
+|---:|---|---|---|
+| `+0x00` | `uint32`, observed `1` | preamble/control, meaning unknown | value **CONFIRMED** |
+| `+0x04` | `uint32 R` | declared top-level/root-related count | representation **CONFIRMED**, exact semantics **MEDIUM** |
+| `+0x08` | variable | physical record stream | **HIGH** |
 
-### Differential validation
+R0.5 treated `R` as a universal recursive parse bound. Corpus evidence refines
+that rule: physical records are read sequentially until the following global
+index envelope `(uint32 1, uint32 I)` is reached. Type-7 hierarchy is then
+reconstructed from child counts. In 67 files `R` equals reconstructed root
+count; in 11 car resources it is one smaller. Those 11 still have complete,
+disjoint draw coverage and exact stored-global agreement, so the mismatch is a
+diagnostic rather than a parse failure.
 
-| File | N at `0x0C` | Parsed triangles | TXT mesh span | UV sets | Normal mean | First trailing words |
-|---|---:|---:|---:|---:|---:|---|
-| Astero `car.dx` | 2543 | 2021 | 2089 | 1 | 1.0 | `1, 27` |
-| Astero `complete.dx` | 2657 | 2423 | 2423 | 1 | 1.0 | `1, 24` |
-| Astero `wheel.dx` | 220 | 252 | 252 | 1 | 1.0 | `1, 5` |
-| Bruno `car.dx` | 2455 | 2014 | 2062 | 1 | 1.0 | `1, 19` |
-| Ufo `complete.dx` | 837 | 670 | 670 | 1 | 1.0 | `1, 6` |
+## Draw core (tag 2)
 
-The changing `N`, bounding boxes, and index counts are vehicle-specific payload;
-the section ordering and constants are format structure. **HIGH**.
+Offsets are relative to the 40-byte core. Type-7/8 records add prefixes before
+the same core fields.
 
-The maximum raw index is much smaller than `N` in the probes (for example 71
-versus 220 in Astero wheel), while records after the index buffer contain
-ranges/offset-like integers. Therefore indices likely use per-draw local vertex
-bases. This is **MEDIUM**, and is why the R0 tool does not emit faces/OBJ.
+| Core offset | Width/type | Proposed meaning | Evidence | Confidence |
+|---:|---|---|---|---|
+| `+0x00` | `uint32` | core tag (`2`) | all 78 vehicle files | value **CONFIRMED** |
+| `+0x04` | `uint32` | vertex base | exact global reconstruction | **HIGH** |
+| `+0x08` | `uint32` | maximum local vertex, inclusive | all observed local indices fit | **HIGH** |
+| `+0x0C` | `uint32` | index start in local buffer | exact range reconstruction | **HIGH** |
+| `+0x10` | `uint32` | index count | exact range reconstruction | **HIGH** |
+| `+0x14` | `uint32` | `unknown_0x14` | raw value preserved | **UNKNOWN** |
+| `+0x18` | `uint32` | `unknown_0x18` | raw value preserved | **UNKNOWN** |
+| `+0x1C` | `float32` | unknown scalar | raw value preserved | **UNKNOWN** |
+| `+0x20` | 4 bytes | flags/control bytes | raw value preserved | **UNKNOWN** |
+| `+0x24` | `uint32` | `unknown_0x24` | raw value preserved | **UNKNOWN** |
+| `+0x28` | `uint32 T` | texture-slot count | parseable ordered strings and sidecar matches | **HIGH** |
+| next | repeated | `uint32 length` + bytes | texture resource stem | **HIGH** |
+| final | `uint32` | observed terminator/control | boundary **HIGH**, semantics **UNKNOWN** |
 
-## TXT correlation
+Astero wheel draw 0 begins at `0x24F8`: base 0, inclusive local maximum 53,
+index start 0, index count 216, then slots `asterowheel64-tga`, `rubber-tga`,
+and `Null`. The five records consume the table exactly and account for all 252
+triangles.
 
-TXT sidecars contain mesh names and hierarchy; targeted searches found no
-`shell` or `paintwork` strings in Astero binaries. Conversely, DX draw records
-contain texture stems such as `underdash-tga` and `asterowheel64-tga`.
-Interpretation: hierarchy naming is sidecar-only while rendering records retain
-texture bindings. **HIGH** for observed samples, not yet an engine-wide rule.
+## Tags 7 and 8
 
-## Prototype
+Tag 7 has a length-prefixed label, five preserved `uint32` control words, an
+embedded draw core, and zero or more direct child records. Corpus comparison
+shows that the **fifth** control word is the direct child count. The older R0.5
+word-3 inference was accidental: those two values happened to agree in the
+four-file sample. Boundaries and fifth-word child count are **HIGH** across 25
+vehicle files; other controls remain **UNKNOWN**.
 
-`tools/prototypes/dx_mesh_probe.py` parses only the confirmed leading sections,
-checks normal lengths/index bounds, and outputs compact JSON. It deliberately
-stops before interpreting variable draw records.
+Tag 8 has two preserved `uint32` prefix words followed by a draw core. It occurs
+as a child form in the same 25 files. Type-7 labels such as `screenfront` match
+sidecar source-node names, but the runtime semantics of the prefix controls are
+not claimed.
 
-## Unresolved
+The parser exposes both the flat physical draw sequence and reconstructed group
+hierarchy. Unknown tags stop parsing with offset, tag, context bytes, and known
+neighbor information; none appeared in the vehicle corpus.
 
-- exact meaning of header words at `0x04` and `0x08`;
-- draw-record field schema and local vertex-base application;
-- correspondence between every TXT mesh span and binary draw group;
-- material flags, hierarchy/transform storage, collision or skinning data;
-- whether the same record variants apply to large course `.dx` files.
+## Local-to-global addressing and winding
+
+For each stored local triangle `(a, b, c)` in a draw:
+
+```text
+stored_global_triangle = (b + vertex_base,
+                          a + vertex_base,
+                          c + vertex_base)
+```
+
+The global table has this envelope:
+
+| Relative field | Type | Interpretation | Confidence |
+|---|---|---|---|
+| preamble | `uint32`, observed `1` | control, meaning unknown | value **CONFIRMED** |
+| count | `uint32` | global index count | **HIGH** |
+| indices | `count * uint32` | stored global triangle indices | **HIGH** |
+
+The formula exactly matches all stored indices in all 78 vehicle resources.
+For the R0.5 sample it covers 14,844 indices: Astero wheel 756, Astero complete
+7,269, Bruno wheel 756, and Astero car 6,063. Geometric face normals using this
+order agree with averaged stored vertex normals for 119,454 corpus triangles,
+oppose for 98, and are near zero for 425, supporting this winding for glTF.
+
+A global table may be absent at clean EOF in the reusable grammar; that case is
+parsed but cannot earn the stored-table validation. A truncated envelope/table
+is an error.
+
+## Coverage diagnostics are not grammar
+
+Across this particular corpus, draw index ranges and vertex ranges are complete
+and disjoint in all 78 files. The library reports uncovered/overlapping indices
+and unused/shared vertices, but does not reject an otherwise safe model merely
+because ranges do not partition the full vertex buffer. Synthetic tests cover
+unused and shared/overlapping vertex ranges.
+
+## Sidecars and material matching
+
+DX parsing never requires TXT. Where present, matching uses normalized ordered
+texture tuples; shorter sidecar tuples are padded with `Null` to the binary
+width. A draw may therefore have zero, one, or several material candidates.
+No material-index field has been identified. Binary texture slots are retained
+as the authoritative binding evidence.
+
+The corpus has 132 ambiguous matches and 63 unmatched draws. Six resources lack
+a sidecar. No non-`Null` texture reference is missing from its vehicle asset
+directory. The preview exporter selects the first non-`Null` slot only and
+preserves every original slot/candidate in glTF extras and `metadata.json`.
+
+## Trailing sections
+
+The bytes after the global index table are represented neutrally as
+`TrailingSection`.
+
+A recognized 56-byte family contains:
+
+| Footer offset | Type | Interpretation | Confidence |
+|---:|---|---|---|
+| `+0x00` | `uint32` | unknown | **UNKNOWN** |
+| `+0x04` | `float32` | unknown | **UNKNOWN** |
+| `+0x08` | `float32` | unknown | **UNKNOWN** |
+| `+0x0C` | `uint32` | unknown | **UNKNOWN** |
+| `+0x10` | `3 * float32` | observed bounding-box midpoint | **HIGH** |
+| `+0x1C` | `float32` | unknown | **UNKNOWN** |
+| `+0x20` | `3 * float32` | position bounding-box minimum | **HIGH** |
+| `+0x2C` | `3 * float32` | position bounding-box maximum | **HIGH** |
+
+It occurs in 49 resources: 24 `complete` and all 25 `wheel` files. Opaque tails
+occur in all 26 `car` files, two `complete` files, and one `sus` file. Sizes
+range from 44 to 6,600 bytes. Opaque content is preserved, hashed in reports,
+and makes a resource `PARTIALLY_ACCOUNTED`, not failed.
+
+## Astero car sidecar discrepancy
+
+Binary draws cover 2,021 triangles while `car.txt` spans 2,089. The sidecar
+`$chull(Astero)` node starts at 1,937 and has size 68; the binary `screenfront`
+group begins at 1,937 while its sidecar span begins at 2,005. Removing only
+that source span aligns every later screen/brake-light span. This supports
+omission of the source hull from this render DX at **HIGH** confidence; no
+claim is made about collision use.
+
+## Still unresolved
+
+Header constants, draw flags/control meanings, runtime multi-texture semantics,
+opaque trailing families, and course variants remain unresolved. No executable
+analysis was used.

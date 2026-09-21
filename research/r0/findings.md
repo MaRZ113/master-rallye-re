@@ -15,8 +15,8 @@
 
 ## Inventory highlights
 
-- 7,596 files / 806,539,849 bytes.
-- 6,960 DXT, 160 DX, 149 TXT, 122 XML, 113 DXB, 54 HNT, 36 SFL, 2 XML#.
+- 7,595 files / 806,260,689 bytes.
+- 6,960 DXT, 160 DX, 148 TXT, 122 XML, 113 DXB, 54 HNT, 36 SFL, 2 XML#.
 - 190 same-stem cross-extension groups: 136 DX+TXT, 52 HNT+XML, and 2
   HNT+XML+XML#.
 - 607 SHA-256 duplicate groups. Repeated course textures dominate the largest
@@ -73,7 +73,7 @@ font/sprite-like evidence, but its records remain unmapped.
 `dx_mesh_probe.py` successfully parses the confirmed leading DX sections and
 writes diagnostic JSON. `dxt_decode.py` validates and decodes the observed
 uncompressed texture wrapper into PNG with an explicit channel-order option.
-Two synthetic-only unit tests pass. No original or decoded game asset is stored
+The synthetic-only suite now contains eight tests after the R0.5 extensions. No original or decoded game asset is stored
 in Git.
 
 ## Checkpoint
