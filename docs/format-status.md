@@ -117,3 +117,22 @@ variants remain unresolved. No executable or Ghidra analysis was performed.
   CONFIRMED**.
 - The conservative DXT encoder remains ready for a later stage, but Blender DXT
   export was not added.
+
+## R4A vehicle runtime-role status
+
+- **RUNTIME OBSERVATION / CONFIRMED:** `complete.dx` is used for presentation,
+  `car.dx` for the race body/chassis, and `wheel.dx` is separately instantiated
+  during a race.
+- **STATIC FORMAT FACT:** all 26 car resources have opaque trailing data whose
+  first raw u32 is `101`; 25/26 car resources contain a literal `$chull(...)`;
+  24 standard TXT spans differ from compiled render triangles by exactly the
+  named hull span.
+- **DATA LINK / HIGH:** `collision.xml` defines `ConvexHull/PlaneThickness`
+  and named overrides matching nine literal `$chull` names. The exact marker-101
+  trailing schema and runtime activation remain unknown.
+- **HIGH:** 25/26 car resources use tag-7/tag-8 state groups, predominantly
+  `screen*` and `blight`; complete and wheel resources use tag 2 only.
+- **HIGH:** all 25 separate wheel resources are 252-triangle tag-2 visual
+  templates. Wheel/suspension physics remains separate in `vehicles.xml`.
+- **UNRESOLVED:** the complete-for-car lift is not assigned to bounds, wheel
+  duplication, or suspension transforms without another controlled test.

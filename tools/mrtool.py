@@ -18,6 +18,7 @@ from master_rallye.dx import parse_dx
 from master_rallye.export.gltf import export_gltf
 from master_rallye.export.obj import export_obj
 from master_rallye.sidecar import apply_material_candidates, parse_sidecar, resolve_sidecar
+from master_rallye.roles import write_vehicle_role_reports
 
 
 def load_sidecar(model, input_path: Path, explicit: Path | None):
@@ -120,6 +121,20 @@ def audit_textures_command(args) -> int:
     return 0
 
 
+def vehicle_roles_command(args) -> int:
+    markdown = args.markdown or args.report.with_suffix(".md")
+    report = write_vehicle_role_reports(
+        args.vehicle_root, args.report, markdown, args.comparison
+    )
+    summary = report["summary"]
+    print(
+        f"vehicle roles: {summary['vehicle_folder_count']} folders, "
+        f"{summary['dx_resource_count']} DX, {summary['car_complete_pair_count']} car/complete pairs, "
+        f"{summary['parse_failure_count']} failures"
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mrtool", description="Master Rallye clean-room research CLI")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -155,6 +170,13 @@ def build_parser() -> argparse.ArgumentParser:
     audit.add_argument("input", type=Path)
     audit.add_argument("--report", type=Path)
     audit.set_defaults(function=audit_textures_command)
+
+    roles = commands.add_parser("vehicle-roles", help="read-only vehicle resource-role matrix")
+    roles.add_argument("vehicle_root", type=Path)
+    roles.add_argument("--report", required=True, type=Path)
+    roles.add_argument("--markdown", type=Path)
+    roles.add_argument("--comparison", type=Path)
+    roles.set_defaults(function=vehicle_roles_command)
     return parser
 
 

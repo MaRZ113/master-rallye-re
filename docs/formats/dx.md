@@ -161,14 +161,26 @@ occur in all 26 `car` files, two `complete` files, and one `sus` file. Sizes
 range from 44 to 6,600 bytes. Opaque content is preserved, hashed in reports,
 and makes a resource `PARTIALLY_ACCOUNTED`, not failed.
 
-## Astero car sidecar discrepancy
+R4A adds a structural correlation without assigning a payload schema: every
+`car.dx` opaque tail begins with raw little-endian u32 `101`. SeatBuggy is the
+only `complete.dx` whose structural TXT retains `$chull(...)`, and its opaque
+tail also begins with `101`. The other opaque complete outlier, Ufo, is 44
+bytes and begins with `1339`. These raw values remain unknown markers.
+
+## Car collision-hull sidecar discrepancy
 
 Binary draws cover 2,021 triangles while `car.txt` spans 2,089. The sidecar
 `$chull(Astero)` node starts at 1,937 and has size 68; the binary `screenfront`
 group begins at 1,937 while its sidecar span begins at 2,005. Removing only
-that source span aligns every later screen/brake-light span. This supports
-omission of the source hull from this render DX at **HIGH** confidence; no
-claim is made about collision use.
+that source span aligns every later screen/brake-light span.
+
+R4A generalizes the arithmetic: in 24 standard car resources, TXT mesh span
+minus compiled render triangles equals the literal `$chull(...)` span exactly.
+Pajero's nonstandard `Pajero.txt` does not reconcile with the compiled count;
+forklift has no named hull. Combined with `collision.xml`'s literal
+`ConvexHull/PlaneThickness` fields and the marker-101 correlation, this is
+**HIGH** evidence of a collision-hull-associated non-render structure. It does
+not yet locate the complete collision payload or prove runtime activation.
 
 ## Still unresolved
 

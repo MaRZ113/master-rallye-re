@@ -22,6 +22,13 @@ analysis remain out of scope.
 The confirmed scope is same-topology vertex-position editing only. Topology,
 UV, normal, and material writing are not runtime-confirmed.
 
+Phase R4A has mapped the three vehicle resource roles across all 26 vehicle
+folders: `complete.dx` is the assembled presentation resource, `car.dx` is the
+race body/chassis resource, and `wheel.dx` is a separately instantiated race
+visual template. Static `$chull`, collision XML, draw-group, and trailing-data
+links are documented without claiming that collision is wholly stored in
+`car.dx`. See `docs/vehicle-runtime-roles.md` and `research/r4a/`.
+
 ## Blender add-on
 
 Build the installable local ZIP with:
@@ -64,6 +71,12 @@ py -3 tools/mrtool.py scan-vehicles `
   --report research/r1/vehicle-coverage.json `
   --markdown research/r1/vehicle-coverage.md `
   --unknown-records research/r1/unknown-records.json
+
+py -3 tools/mrtool.py vehicle-roles `
+  "..\Data.sma_unpacked\DataGx\Vehicles" `
+  --report research/r4a/vehicle-resource-matrix.json `
+  --markdown research/r4a/vehicle-resource-matrix.md `
+  --comparison research/r4a/car-vs-complete.md
 ```
 
 Exports are local validation artifacts under ignored `.research-output/` and
