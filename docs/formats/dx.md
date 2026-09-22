@@ -175,3 +175,24 @@ claim is made about collision use.
 Header constants, draw flags/control meanings, runtime multi-texture semantics,
 opaque trailing families, and course variants remain unresolved. No executable
 analysis was used.
+
+## R2.5 sidecar discovery and writer evidence
+
+Sidecar lookup is no longer limited to `<dx-stem>.txt`. Every same-directory
+TXT is parsed and scored from normalized ordered texture-tuple matches,
+unique/ambiguous/unmatched draws, mesh-span compatibility, and weak filename
+hints. Exact-stem matching receives a small preference but cannot defeat
+substantially stronger structural evidence. Equal top scores remain ambiguous.
+The 78-file vehicle scan selected 78 unique best-evidence candidates, including
+12 non-exact names; all candidates and scores remain metadata.
+
+TXT texture entries preserve nullable `HasAlpha`, `UsesAlpha`, and `IsNoise`.
+These are sidecar fields, not inferred renderer flags, and `HasAlpha` remains
+distinct from `UsesAlpha`.
+
+Legacy same-topology v1 evidence supports a future byte-preserving template
+patcher: Astero complete reproduced byte-identically in positions-only,
+no-bounds mode, and a one-vertex edit changed only one position byte while the
+modern parser still validated. This does **not** constitute a production DX
+writer. Legacy v3 is **CONTRADICTED**: its output had invalid local ranges and
+6,285 reconstructed/stored global-index mismatches.

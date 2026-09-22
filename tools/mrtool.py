@@ -12,21 +12,23 @@ SOURCE_ROOT = REPOSITORY_ROOT / "src"
 if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
+from master_rallye.audit import audit_texture_tree
 from master_rallye.coverage import write_coverage_reports
 from master_rallye.dx import parse_dx
 from master_rallye.export.gltf import export_gltf
 from master_rallye.export.obj import export_obj
-from master_rallye.sidecar import apply_material_candidates, parse_sidecar
+from master_rallye.sidecar import apply_material_candidates, parse_sidecar, resolve_sidecar
 
 
-def load_sidecar(input_path: Path, explicit: Path | None):
-    path = explicit or input_path.with_suffix(".txt")
-    return parse_sidecar(path) if path.exists() else None
+def load_sidecar(model, input_path: Path, explicit: Path | None):
+    if explicit is not None:
+        return parse_sidecar(explicit) if explicit.exists() else None
+    return resolve_sidecar(model, input_path.parent).sidecar
 
 
 def inspect_command(args) -> int:
     model = parse_dx(args.input)
-    sidecar = load_sidecar(args.input, args.sidecar)
+    sidecar = load_sidecar(model, args.input, args.sidecar)
     apply_material_candidates(model.physical_draws, sidecar)
     summary = model.to_summary()
     summary["sidecar_present"] = sidecar is not None
@@ -62,7 +64,7 @@ def export_command(args) -> int:
     model = parse_dx(args.input)
     if args.strict and not model.diagnostics.validated:
         raise SystemExit("strict export refused: geometry validation did not pass")
-    sidecar = load_sidecar(args.input, args.sidecar)
+    sidecar = load_sidecar(model, args.input, args.sidecar)
     texture_directory = args.texture_directory or args.input.parent
     if args.format == "gltf":
         result = export_gltf(
@@ -100,6 +102,24 @@ def scan_command(args) -> int:
     return 0
 
 
+def audit_textures_command(args) -> int:
+    report = audit_texture_tree(args.input)
+    payload = json.dumps(report, indent=2, ensure_ascii=False) + "\n"
+    if args.report:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(payload, encoding="utf-8")
+    else:
+        print(payload, end="")
+    summary = report["summary"]
+    print(
+        f"texture audit: {summary['dxt_present']} present, "
+        f"{summary['apparently_unreferenced']} apparently unreferenced, "
+        f"{summary['missing_referenced_resources']} missing references",
+        file=sys.stderr,
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mrtool", description="Master Rallye clean-room research CLI")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -130,6 +150,11 @@ def build_parser() -> argparse.ArgumentParser:
     scan.add_argument("--markdown", type=Path)
     scan.add_argument("--unknown-records", type=Path)
     scan.set_defaults(function=scan_command)
+
+    audit = commands.add_parser("audit-textures", help="read-only DX/TXT/DXT reference audit")
+    audit.add_argument("input", type=Path)
+    audit.add_argument("--report", type=Path)
+    audit.set_defaults(function=audit_textures_command)
     return parser
 
 

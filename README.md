@@ -8,11 +8,11 @@ read-only.
 
 ## Current scope
 
-Phase R2 is complete: the validated vehicle DX/DXT library now drives a native
+Phase R2.5 is complete: the validated vehicle DX/DXT library now drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, and preserved draw/group/source metadata. The R1 corpus
 result remains 78/78 vehicle DX resources parsed and validated. R2 excludes
-course resources, executable analysis, and writing game formats.
+course resources and executable analysis. R2.5 adds only conservative, same-size DXT replacement primitives; no DX writer or Blender export-back operator exists.
 
 ## Blender add-on
 
@@ -90,3 +90,22 @@ Run the synthetic-only suite with:
 ```powershell
 py -3 -m unittest discover -s tests\synthetic -v
 ```
+
+## R2.5 legacy evidence consolidation
+
+The recovered texFinder project was treated as non-authoritative historical
+evidence. Its useful DXT writer model was independently reproduced: all 1,143
+vehicle DXT resources round-trip byte-identically through the new conservative
+same-size, exact-header-preserving encoder. Legacy DX v1 demonstrates a safe
+positions-only template patch; legacy v3 fails modern draw/index validation and
+was rejected. Evidence-scored TXT discovery now handles nonstandard filenames,
+and nullable `HasAlpha` / `UsesAlpha` / `IsNoise` values survive into Blender
+metadata. The read-only audit is available as:
+
+```powershell
+py -3 tools/mrtool.py audit-textures `
+  "..\Data.sma_unpacked\DataGx\Vehicles" `
+  --report ".research-output\r2_5\texture-audit.json"
+```
+
+See `research/r2_5/findings.md`; R3 has not begun.

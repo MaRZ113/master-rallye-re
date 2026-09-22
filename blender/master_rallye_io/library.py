@@ -30,6 +30,7 @@ try:
         apply_material_candidates,
         normalize_texture_value,
         parse_sidecar,
+        resolve_sidecar,
     )
 except ModuleNotFoundError:
     from .vendor.master_rallye.assets import AssetResolver
@@ -60,4 +61,5 @@ except ModuleNotFoundError:
         apply_material_candidates,
         normalize_texture_value,
         parse_sidecar,
+        resolve_sidecar,
     )

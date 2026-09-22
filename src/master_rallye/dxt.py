@@ -25,6 +25,7 @@ class DxtTexture:
     width: int
     height: int
     bgra: bytes
+    header: bytes
 
 
 def parse_dxt_bytes(data: bytes, source: str = "<bytes>") -> DxtTexture:
@@ -38,7 +39,7 @@ def parse_dxt_bytes(data: bytes, source: str = "<bytes>") -> DxtTexture:
     expected = 20 + width * height * 4
     if len(data) != expected:
         raise BoundsError(f"DXT size mismatch in {source}: expected {expected}, got {len(data)}")
-    return DxtTexture(source, word_0x04, word_0x08, width, height, data[20:])
+    return DxtTexture(source, word_0x04, word_0x08, width, height, data[20:], data[:20])
 
 
 def parse_dxt(path: Path) -> DxtTexture:
@@ -84,3 +85,78 @@ def write_png(
 
 def has_transparency(texture: DxtTexture) -> bool:
     return any(alpha != 255 for alpha in texture.bgra[3::4])
+
+
+def decode_rgba_pixels(
+    texture: DxtTexture,
+    row_policy: str = PNG_ROWS_FLIP_VERTICAL,
+) -> bytes:
+    """Return RGBA pixels with an explicit stored/upright row policy."""
+    if row_policy not in PNG_ROW_POLICIES:
+        raise ValueError(f"unknown RGBA row policy {row_policy!r}")
+    rows = range(texture.height)
+    if row_policy == PNG_ROWS_FLIP_VERTICAL:
+        rows = reversed(range(texture.height))
+    output = bytearray()
+    stride = texture.width * 4
+    for y in rows:
+        source = texture.bgra[y * stride:(y + 1) * stride]
+        for index in range(0, len(source), 4):
+            blue, green, red, alpha = source[index:index + 4]
+            output.extend((red, green, blue, alpha))
+    return bytes(output)
+
+
+def encode_dxt_pixels(
+    template: DxtTexture,
+    rgba: bytes,
+    width: int,
+    height: int,
+    *,
+    row_policy: str = PNG_ROWS_FLIP_VERTICAL,
+) -> bytes:
+    """Replace a same-size template payload while preserving its 20-byte header."""
+    if (width, height) != (template.width, template.height):
+        raise ValueError(
+            f"DXT replacement dimensions {width}x{height} do not match "
+            f"template {template.width}x{template.height}"
+        )
+    expected = width * height * 4
+    if len(rgba) != expected:
+        raise BoundsError(
+            f"RGBA payload size mismatch: expected {expected}, got {len(rgba)}"
+        )
+    if row_policy not in PNG_ROW_POLICIES:
+        raise ValueError(f"unknown RGBA row policy {row_policy!r}")
+    rows = range(height)
+    if row_policy == PNG_ROWS_FLIP_VERTICAL:
+        rows = reversed(range(height))
+    payload = bytearray()
+    stride = width * 4
+    for y in rows:
+        source = rgba[y * stride:(y + 1) * stride]
+        for index in range(0, len(source), 4):
+            red, green, blue, alpha = source[index:index + 4]
+            payload.extend((blue, green, red, alpha))
+    header = template.header
+
+    if len(header) != 20:
+        raise BoundsError(f"DXT template header must be 20 bytes, got {len(header)}")
+    return header + bytes(payload)
+
+
+def replace_dxt_pixels(
+    template: DxtTexture,
+    rgba: bytes,
+    width: int,
+    height: int,
+    *,
+    row_policy: str = PNG_ROWS_FLIP_VERTICAL,
+) -> bytes:
+    return encode_dxt_pixels(
+        template,
+        rgba,
+        width,
+        height,
+        row_policy=row_policy,
+    )

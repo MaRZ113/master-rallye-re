@@ -96,6 +96,17 @@ def validate_object(obj, expected):
         "record tags missing",
     )
     require(len(metadata["groups"]) == expected["group_count"], "group metadata missing")
+    require(
+        metadata["sidecar"]["materials"][0]["textures"][0]["has_alpha"] is False
+        and metadata["sidecar"]["materials"][0]["textures"][0]["uses_alpha"] is True
+        and metadata["sidecar"]["materials"][0]["textures"][0]["is_noise"] is False,
+        "TXT texture flags missing from Blender metadata",
+    )
+    require(
+        metadata["sidecar_resolution"]["selected_path"].endswith("synthetic.txt")
+        and not metadata["sidecar_resolution"]["ambiguous"],
+        "evidence-scored sidecar selection metadata missing",
+    )
     require(metadata["groups"][0]["draw_ids"] == [0, 1], "group hierarchy changed")
     presentation = metadata["texture_presentation"]
     require(presentation["png_row_policy"] == "flip-vertical", "PNG policy changed")

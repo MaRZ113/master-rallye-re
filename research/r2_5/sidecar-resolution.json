@@ -1,0 +1,3861 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-09-22T04:55:17.819236+00:00",
+  "source_descriptor": "external DataGx/Vehicles (path omitted)",
+  "summary": {
+    "total_dx": 78,
+    "selected": 78,
+    "ambiguous": 0,
+    "non_exact_selected": 12
+  },
+  "files": [
+    {
+      "path": "Astero/car.dx",
+      "selected": "car.txt",
+      "score": 3846,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3846,
+          "matched_draws": 32,
+          "unique_matches": 32,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3144,
+          "matched_draws": 27,
+          "unique_matches": 25,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 70,
+          "matched_draws": 3,
+          "unique_matches": 3,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 29,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Astero/complete.dx",
+      "selected": "complete.txt",
+      "score": 2809,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2809,
+          "matched_draws": 24,
+          "unique_matches": 20,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2620,
+          "matched_draws": 22,
+          "unique_matches": 22,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 2,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 670,
+          "matched_draws": 7,
+          "unique_matches": 7,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 17,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Astero/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 554,
+          "matched_draws": 5,
+          "unique_matches": 3,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 340,
+          "matched_draws": 3,
+          "unique_matches": 3,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 2,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Bruno/car.dx",
+      "selected": "car.txt",
+      "score": 2526,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 2526,
+          "matched_draws": 21,
+          "unique_matches": 21,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2260,
+          "matched_draws": 19,
+          "unique_matches": 19,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 2,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 180,
+          "matched_draws": 3,
+          "unique_matches": 3,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 18,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Bruno/complete.dx",
+      "selected": "complete.txt",
+      "score": 1941,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 1941,
+          "matched_draws": 16,
+          "unique_matches": 16,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 1660,
+          "matched_draws": 14,
+          "unique_matches": 14,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 2,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 490,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 11,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Bruno/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 340,
+          "matched_draws": 3,
+          "unique_matches": 3,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 2,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "ChevyBlazer/car.dx",
+      "selected": "car.txt",
+      "score": 4257,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 4257,
+          "matched_draws": 36,
+          "unique_matches": 33,
+          "ambiguous_matches": 3,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3601,
+          "matched_draws": 31,
+          "unique_matches": 28,
+          "ambiguous_matches": 3,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 160,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 32,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "ChevyBlazer/complete.dx",
+      "selected": "complete.txt",
+      "score": 2855,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2855,
+          "matched_draws": 24,
+          "unique_matches": 22,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2834,
+          "matched_draws": 24,
+          "unique_matches": 22,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 410,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 19,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "ChevyBlazer/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Forester/car.dx",
+      "selected": "car.txt",
+      "score": 3246,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3246,
+          "matched_draws": 27,
+          "unique_matches": 27,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3240,
+          "matched_draws": 27,
+          "unique_matches": 27,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Forester.txt",
+          "score": 2070,
+          "matched_draws": 18,
+          "unique_matches": 18,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 9,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "ForesterWheel.txt",
+          "score": -270,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 27,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Forester/complete.dx",
+      "selected": "complete.txt",
+      "score": 2061,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2061,
+          "matched_draws": 17,
+          "unique_matches": 17,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 1390,
+          "matched_draws": 12,
+          "unique_matches": 12,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Forester.txt",
+          "score": 1000,
+          "matched_draws": 9,
+          "unique_matches": 9,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 8,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "ForesterWheel.txt",
+          "score": 480,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 12,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Forester/wheel.dx",
+      "selected": "ForesterWheel.txt",
+      "score": 616,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "ForesterWheel.txt",
+          "score": 616,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": false,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Forester.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "forklift/car.dx",
+      "selected": "car.txt",
+      "score": 1175,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 1175,
+          "matched_draws": 10,
+          "unique_matches": 8,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 1024,
+          "matched_draws": 9,
+          "unique_matches": 7,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -100,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 10,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "forklift/complete.dx",
+      "selected": "complete.txt",
+      "score": 1415,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 1415,
+          "matched_draws": 12,
+          "unique_matches": 10,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 744,
+          "matched_draws": 7,
+          "unique_matches": 5,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 530,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 7,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "forklift/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Frontera/car.dx",
+      "selected": "car.txt",
+      "score": 4086,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 4086,
+          "matched_draws": 34,
+          "unique_matches": 34,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3185,
+          "matched_draws": 28,
+          "unique_matches": 23,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 6,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 310,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 29,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Frontera/complete.dx",
+      "selected": "car.txt",
+      "score": 2880,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 2880,
+          "matched_draws": 24,
+          "unique_matches": 24,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2671,
+          "matched_draws": 24,
+          "unique_matches": 14,
+          "ambiguous_matches": 10,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 1060,
+          "matched_draws": 10,
+          "unique_matches": 10,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 14,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Frontera/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 485,
+          "matched_draws": 5,
+          "unique_matches": 0,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "IceCream/car.dx",
+      "selected": "car.txt",
+      "score": 3264,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3264,
+          "matched_draws": 28,
+          "unique_matches": 24,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 1461,
+          "matched_draws": 14,
+          "unique_matches": 11,
+          "ambiguous_matches": 3,
+          "unmatched_draws": 15,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -290,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 29,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "IceCream/complete.dx",
+      "selected": "complete.txt",
+      "score": 2559,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2559,
+          "matched_draws": 22,
+          "unique_matches": 18,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 1521,
+          "matched_draws": 14,
+          "unique_matches": 11,
+          "ambiguous_matches": 3,
+          "unmatched_draws": 9,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 267,
+          "matched_draws": 4,
+          "unique_matches": 3,
+          "ambiguous_matches": 1,
+          "unmatched_draws": 19,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "IceCream/wheel.dx",
+      "selected": "complete.txt",
+      "score": 600,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 575,
+          "matched_draws": 5,
+          "unique_matches": 3,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Jump/car.dx",
+      "selected": "car.txt",
+      "score": 3606,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3606,
+          "matched_draws": 30,
+          "unique_matches": 30,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2904,
+          "matched_draws": 25,
+          "unique_matches": 23,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 350,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 25,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Jump/complete.dx",
+      "selected": "car.txt",
+      "score": 2280,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 2280,
+          "matched_draws": 19,
+          "unique_matches": 19,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2209,
+          "matched_draws": 19,
+          "unique_matches": 15,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 720,
+          "matched_draws": 7,
+          "unique_matches": 7,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 12,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Jump/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 554,
+          "matched_draws": 5,
+          "unique_matches": 3,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Kamaz/car.dx",
+      "selected": "car.txt",
+      "score": 3874,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3874,
+          "matched_draws": 33,
+          "unique_matches": 29,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3218,
+          "matched_draws": 28,
+          "unique_matches": 24,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -330,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 33,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Kamaz/complete.dx",
+      "selected": "complete.txt",
+      "score": 3049,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 3049,
+          "matched_draws": 26,
+          "unique_matches": 22,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2378,
+          "matched_draws": 21,
+          "unique_matches": 17,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -260,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 26,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Kamaz/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Kangoo/car.dx",
+      "selected": "car.txt",
+      "score": 3486,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3486,
+          "matched_draws": 29,
+          "unique_matches": 29,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2830,
+          "matched_draws": 24,
+          "unique_matches": 24,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -290,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 29,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Kangoo/complete.dx",
+      "selected": "complete.txt",
+      "score": 2541,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2541,
+          "matched_draws": 21,
+          "unique_matches": 21,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 1870,
+          "matched_draws": 16,
+          "unique_matches": 16,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 440,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 16,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Kangoo/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "KiaSportage/car.dx",
+      "selected": "car.txt",
+      "score": 3869,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3869,
+          "matched_draws": 34,
+          "unique_matches": 25,
+          "ambiguous_matches": 9,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2586,
+          "matched_draws": 24,
+          "unique_matches": 16,
+          "ambiguous_matches": 8,
+          "unmatched_draws": 11,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -350,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 35,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "KiaSportage/complete.dx",
+      "selected": "complete.txt",
+      "score": 2896,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2896,
+          "matched_draws": 25,
+          "unique_matches": 20,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2355,
+          "matched_draws": 21,
+          "unique_matches": 16,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 260,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 22,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "KiaSportage/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 501,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 501,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 480,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -40,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 4,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "LandCruiser/car.dx",
+      "selected": "car.txt",
+      "score": 3874,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3874,
+          "matched_draws": 33,
+          "unique_matches": 29,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3868,
+          "matched_draws": 33,
+          "unique_matches": 29,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 320,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 28,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "LandCruiser/complete.dx",
+      "selected": "complete.txt",
+      "score": 2717,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2717,
+          "matched_draws": 24,
+          "unique_matches": 16,
+          "ambiguous_matches": 8,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2696,
+          "matched_draws": 24,
+          "unique_matches": 16,
+          "ambiguous_matches": 8,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 930,
+          "matched_draws": 9,
+          "unique_matches": 9,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 15,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "LandCruiser/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 508,
+          "matched_draws": 5,
+          "unique_matches": 1,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 508,
+          "matched_draws": 5,
+          "unique_matches": 1,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Mattserati/car.dx",
+      "selected": "car.txt",
+      "score": 3126,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3126,
+          "matched_draws": 26,
+          "unique_matches": 26,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2684,
+          "matched_draws": 23,
+          "unique_matches": 21,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 3,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Matt1500.txt",
+          "score": 2600,
+          "matched_draws": 22,
+          "unique_matches": 22,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 4,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "MattWheel.txt",
+          "score": 260,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 22,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Mattserati/complete.dx",
+      "selected": "car.txt",
+      "score": 2400,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 2400,
+          "matched_draws": 20,
+          "unique_matches": 20,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2329,
+          "matched_draws": 20,
+          "unique_matches": 16,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Matt1500.txt",
+          "score": 2270,
+          "matched_draws": 19,
+          "unique_matches": 19,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "MattWheel.txt",
+          "score": 710,
+          "matched_draws": 7,
+          "unique_matches": 7,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 13,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Mattserati/wheel.dx",
+      "selected": "MattWheel.txt",
+      "score": 616,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "MattWheel.txt",
+          "score": 616,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": false,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Matt1500.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 554,
+          "matched_draws": 5,
+          "unique_matches": 3,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "megane/car.dx",
+      "selected": "car.txt",
+      "score": 3966,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3966,
+          "matched_draws": 33,
+          "unique_matches": 33,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3960,
+          "matched_draws": 33,
+          "unique_matches": 33,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "sus.txt",
+          "score": 580,
+          "matched_draws": 7,
+          "unique_matches": 7,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 26,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Sbuggywheel.txt",
+          "score": -330,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 33,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "megane/complete.dx",
+      "selected": "complete.txt",
+      "score": 3141,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 3141,
+          "matched_draws": 26,
+          "unique_matches": 26,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2470,
+          "matched_draws": 21,
+          "unique_matches": 21,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Sbuggywheel.txt",
+          "score": 390,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 21,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "sus.txt",
+          "score": 130,
+          "matched_draws": 3,
+          "unique_matches": 3,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 23,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "megane/sus.dx",
+      "selected": "sus.txt",
+      "score": 126,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "sus.txt",
+          "score": 126,
+          "matched_draws": 1,
+          "unique_matches": 1,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 120,
+          "matched_draws": 1,
+          "unique_matches": 1,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 120,
+          "matched_draws": 1,
+          "unique_matches": 1,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Sbuggywheel.txt",
+          "score": -10,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "megane/wheel.dx",
+      "selected": "Sbuggywheel.txt",
+      "score": 616,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "Sbuggywheel.txt",
+          "score": 616,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": false,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "sus.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Navara/car.dx",
+      "selected": "car.txt",
+      "score": 4377,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 4377,
+          "matched_draws": 37,
+          "unique_matches": 34,
+          "ambiguous_matches": 3,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3331,
+          "matched_draws": 29,
+          "unique_matches": 26,
+          "ambiguous_matches": 3,
+          "unmatched_draws": 8,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -370,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 37,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Navara/complete.dx",
+      "selected": "complete.txt",
+      "score": 3095,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 3095,
+          "matched_draws": 26,
+          "unique_matches": 24,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2554,
+          "matched_draws": 22,
+          "unique_matches": 20,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 4,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 260,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 22,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Navara/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 501,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 501,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 480,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -40,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 4,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "NewRav/car.dx",
+      "selected": "car.txt",
+      "score": 4206,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 4206,
+          "matched_draws": 35,
+          "unique_matches": 35,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3160,
+          "matched_draws": 27,
+          "unique_matches": 27,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 8,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 300,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 30,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "NewRav/complete.dx",
+      "selected": "complete.txt",
+      "score": 2421,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2421,
+          "matched_draws": 20,
+          "unique_matches": 20,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2400,
+          "matched_draws": 20,
+          "unique_matches": 20,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 450,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 15,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "NewRav/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Pajero/car.dx",
+      "selected": "complete.txt",
+      "score": 2782,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2782,
+          "matched_draws": 25,
+          "unique_matches": 19,
+          "ambiguous_matches": 6,
+          "unmatched_draws": 8,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Pajero.txt",
+          "score": 1490,
+          "matched_draws": 14,
+          "unique_matches": 14,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 19,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "PajeroWheel.txt",
+          "score": 60,
+          "matched_draws": 3,
+          "unique_matches": 3,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 30,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Pajero/complete.dx",
+      "selected": "complete.txt",
+      "score": 2638,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2638,
+          "matched_draws": 24,
+          "unique_matches": 13,
+          "ambiguous_matches": 11,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Pajero.txt",
+          "score": 1310,
+          "matched_draws": 12,
+          "unique_matches": 12,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 13,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "PajeroWheel.txt",
+          "score": 660,
+          "matched_draws": 7,
+          "unique_matches": 7,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 18,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Pajero/wheel.dx",
+      "selected": "PajeroWheel.txt",
+      "score": 486,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "PajeroWheel.txt",
+          "score": 486,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": true,
+          "exact_stem": false,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 485,
+          "matched_draws": 5,
+          "unique_matches": 0,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "Pajero.txt",
+          "score": 470,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Patrol/car.dx",
+      "selected": "car.txt",
+      "score": 4086,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 4086,
+          "matched_draws": 34,
+          "unique_matches": 34,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3055,
+          "matched_draws": 27,
+          "unique_matches": 22,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 7,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 310,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 29,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Patrol/complete.dx",
+      "selected": "car.txt",
+      "score": 3120,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3120,
+          "matched_draws": 26,
+          "unique_matches": 26,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2911,
+          "matched_draws": 26,
+          "unique_matches": 16,
+          "ambiguous_matches": 10,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 1040,
+          "matched_draws": 10,
+          "unique_matches": 10,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 16,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Patrol/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 485,
+          "matched_draws": 5,
+          "unique_matches": 0,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "RMonster/car.dx",
+      "selected": "car.txt",
+      "score": 3966,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3966,
+          "matched_draws": 33,
+          "unique_matches": 33,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3180,
+          "matched_draws": 27,
+          "unique_matches": 27,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 6,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "RMonster.txt",
+          "score": 2790,
+          "matched_draws": 24,
+          "unique_matches": 24,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 9,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "RMonsterWheel.txt",
+          "score": -330,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 33,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "RMonster/complete.dx",
+      "selected": "complete.txt",
+      "score": 2901,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2901,
+          "matched_draws": 24,
+          "unique_matches": 24,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2230,
+          "matched_draws": 19,
+          "unique_matches": 19,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "RMonster.txt",
+          "score": 1840,
+          "matched_draws": 16,
+          "unique_matches": 16,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 8,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "RMonsterWheel.txt",
+          "score": 410,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 19,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "RMonster/wheel.dx",
+      "selected": "RMonsterWheel.txt",
+      "score": 616,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "RMonsterWheel.txt",
+          "score": 616,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": false,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "RMonster.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "SeatBuggy/car.dx",
+      "selected": "car.txt",
+      "score": 3851,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3851,
+          "matched_draws": 33,
+          "unique_matches": 28,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3195,
+          "matched_draws": 28,
+          "unique_matches": 23,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -330,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 33,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "SeatBuggy/complete.dx",
+      "selected": "complete.txt",
+      "score": 2914,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2914,
+          "matched_draws": 25,
+          "unique_matches": 21,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2258,
+          "matched_draws": 20,
+          "unique_matches": 16,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 400,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 20,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "SeatBuggy/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Simmbugghini/car.dx",
+      "selected": "car.txt",
+      "score": 3126,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3126,
+          "matched_draws": 26,
+          "unique_matches": 26,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3028,
+          "matched_draws": 26,
+          "unique_matches": 22,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "SimmWheel.txt",
+          "score": 260,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 22,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 260,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 22,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Simmbugghini/complete.dx",
+      "selected": "car.txt",
+      "score": 2640,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 2640,
+          "matched_draws": 22,
+          "unique_matches": 22,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2454,
+          "matched_draws": 22,
+          "unique_matches": 13,
+          "ambiguous_matches": 9,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "SimmWheel.txt",
+          "score": 950,
+          "matched_draws": 9,
+          "unique_matches": 9,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 13,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 950,
+          "matched_draws": 9,
+          "unique_matches": 9,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 13,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Simmbugghini/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "SimmWheel.txt",
+          "score": 616,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": false,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 485,
+          "matched_draws": 5,
+          "unique_matches": 0,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Tata/car.dx",
+      "selected": "car.txt",
+      "score": 4594,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 4594,
+          "matched_draws": 39,
+          "unique_matches": 35,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2745,
+          "matched_draws": 25,
+          "unique_matches": 20,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 14,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -390,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 39,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Tata/complete.dx",
+      "selected": "complete.txt",
+      "score": 3626,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 3626,
+          "matched_draws": 31,
+          "unique_matches": 26,
+          "ambiguous_matches": 5,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2198,
+          "matched_draws": 20,
+          "unique_matches": 16,
+          "ambiguous_matches": 4,
+          "unmatched_draws": 11,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 80,
+          "matched_draws": 3,
+          "unique_matches": 3,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 28,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Tata/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 501,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 501,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 350,
+          "matched_draws": 3,
+          "unique_matches": 3,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 1,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -40,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 4,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Terrano/car.dx",
+      "selected": "car.txt",
+      "score": 3966,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3966,
+          "matched_draws": 33,
+          "unique_matches": 33,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 3050,
+          "matched_draws": 26,
+          "unique_matches": 26,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 7,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 320,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 28,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Terrano/complete.dx",
+      "selected": "complete.txt",
+      "score": 2421,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2421,
+          "matched_draws": 20,
+          "unique_matches": 20,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2400,
+          "matched_draws": 20,
+          "unique_matches": 20,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 450,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 15,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Terrano/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Ufo/car.dx",
+      "selected": "car.txt",
+      "score": 1400,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 1400,
+          "matched_draws": 12,
+          "unique_matches": 10,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 1004,
+          "matched_draws": 9,
+          "unique_matches": 7,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 3,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Ufo/complete.dx",
+      "selected": "complete.txt",
+      "score": 695,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 695,
+          "matched_draws": 6,
+          "unique_matches": 4,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 674,
+          "matched_draws": 6,
+          "unique_matches": 4,
+          "ambiguous_matches": 2,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "WildCat/car.dx",
+      "selected": "car.txt",
+      "score": 3486,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3486,
+          "matched_draws": 29,
+          "unique_matches": 29,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2830,
+          "matched_draws": 24,
+          "unique_matches": 24,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -290,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 29,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "WildCat/complete.dx",
+      "selected": "complete.txt",
+      "score": 2541,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2541,
+          "matched_draws": 21,
+          "unique_matches": 21,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 1870,
+          "matched_draws": 16,
+          "unique_matches": 16,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 440,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 16,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "WildCat/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 621,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 621,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 600,
+          "matched_draws": 5,
+          "unique_matches": 5,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -50,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 5,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Xtrail/car.dx",
+      "selected": "car.txt",
+      "score": 3846,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "car.txt",
+          "score": 3846,
+          "matched_draws": 32,
+          "unique_matches": 32,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 2930,
+          "matched_draws": 25,
+          "unique_matches": 25,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 7,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": -320,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 32,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Xtrail/complete.dx",
+      "selected": "complete.txt",
+      "score": 2901,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "complete.txt",
+          "score": 2901,
+          "matched_draws": 24,
+          "unique_matches": 24,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": 2360,
+          "matched_draws": 20,
+          "unique_matches": 20,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 4,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "wheel.txt",
+          "score": 280,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 20,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    },
+    {
+      "path": "Xtrail/wheel.dx",
+      "selected": "wheel.txt",
+      "score": 501,
+      "ambiguous": false,
+      "candidates": [
+        {
+          "path": "wheel.txt",
+          "score": 501,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": true,
+          "exact_stem": true,
+          "name_hint": true,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "complete.txt",
+          "score": 480,
+          "matched_draws": 4,
+          "unique_matches": 4,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 0,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        },
+        {
+          "path": "car.txt",
+          "score": -40,
+          "matched_draws": 0,
+          "unique_matches": 0,
+          "ambiguous_matches": 0,
+          "unmatched_draws": 4,
+          "mesh_span_compatible": false,
+          "exact_stem": false,
+          "name_hint": false,
+          "malformed": false,
+          "error": null
+        }
+      ]
+    }
+  ]
+}

@@ -142,6 +142,24 @@ def build_metadata(
         "sidecar": None if sidecar is None else {
             "source": sidecar.source,
             "declared_material_count": sidecar.declared_material_count,
+            "materials": [
+                {
+                    "number": material.number,
+                    "name": material.name,
+                    "textures": [
+                        {
+                            "slot": texture.slot,
+                            "source_tga": texture.source_tga,
+                            "resource_stem": texture.resource_stem,
+                            "has_alpha": texture.has_alpha,
+                            "uses_alpha": texture.uses_alpha,
+                            "is_noise": texture.is_noise,
+                        }
+                        for texture in material.textures
+                    ],
+                }
+                for material in sidecar.materials
+            ],
             "meshes": [
                 {"name": mesh.name, "index": mesh.index, "size": mesh.size}
                 for mesh in sidecar.meshes

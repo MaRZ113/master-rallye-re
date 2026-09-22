@@ -13,8 +13,8 @@ from .library import (
     expand_corner_normals,
     float32_signed_bits,
     parse_dx,
-    parse_sidecar,
     prepare_display_normals,
+    resolve_sidecar,
     transform_blender_normals,
     transform_blender_positions,
     transform_uv_values,
@@ -197,12 +197,8 @@ def import_dx_resource(
             + "; ".join(model.diagnostics.errors)
         )
 
-    sidecar_path = source.with_suffix(".txt")
-    sidecar = (
-        parse_sidecar(sidecar_path)
-        if import_sidecar and sidecar_path.exists()
-        else None
-    )
+    sidecar_resolution = resolve_sidecar(model, source.parent) if import_sidecar else None
+    sidecar = sidecar_resolution.sidecar if sidecar_resolution else None
     apply_material_candidates(model.physical_draws, sidecar)
     positions = transform_blender_positions(model.vertices.positions)
     transformed_normals = transform_blender_normals(model.vertices.normals)
@@ -264,6 +260,31 @@ def import_dx_resource(
         normal_diagnostics=normal_diagnostics,
         display_normal_strategy=normal_strategy,
     )
+    if sidecar_resolution is not None:
+        metadata["sidecar_resolution"] = {
+            "selected_path": (
+                str(sidecar_resolution.selected_path.resolve())
+                if sidecar_resolution.selected_path else None
+            ),
+            "score": sidecar_resolution.score,
+            "ambiguous": sidecar_resolution.ambiguous,
+            "candidates": [
+                {
+                    "path": str(candidate.path.resolve()),
+                    "score": candidate.score,
+                    "matched_draws": candidate.matched_draws,
+                    "unique_matches": candidate.unique_matches,
+                    "ambiguous_matches": candidate.ambiguous_matches,
+                    "unmatched_draws": candidate.unmatched_draws,
+                    "mesh_span_compatible": candidate.mesh_span_compatible,
+                    "exact_stem": candidate.exact_stem,
+                    "name_hint": candidate.name_hint,
+                    "malformed": candidate.malformed,
+                    "error": candidate.error,
+                }
+                for candidate in sidecar_resolution.candidates
+            ],
+        }
     metadata["blender"] = {
         "representation": "one-object-per-dx",
         "point_attributes": [

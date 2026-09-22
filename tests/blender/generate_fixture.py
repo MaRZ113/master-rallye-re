@@ -131,9 +131,9 @@ def generate(output: Path):
     (output / "synthetic.txt").write_text(
         "Materials(Size 2)\n"
         "Material number [ 0] has name [SyntheticTop]\n"
-        "Texture [ 0] Name[Synthetic-Top.tga]\n"
+        "Texture [ 0] HasAlpha [No] UsesAlpha [Yes] IsNoise [No] Name[Synthetic-Top.tga]\n"
         "Material number [ 1] has name [SyntheticBottom]\n"
-        "Texture [ 0] Name[Synthetic-Bottom.tga]\n"
+        "Texture [ 0] HasAlpha [Yes] UsesAlpha [No] IsNoise [Yes] Name[Synthetic-Bottom.tga]\n"
         "moMesh(Name [synthetic_group] Index 0 Size 2)\n",
         encoding="latin-1",
     )

@@ -77,3 +77,21 @@ decoded; other slots remain metadata.
 - whether word `1` is a version, type, or flags field;
 - linear versus sRGB runtime sampling;
 - runtime multi-texture combination semantics.
+
+## R2.5 conservative encoder evidence
+
+`DxtTexture` now preserves both the untouched BGRA plane and the exact 20-byte
+header. `decode_rgba_pixels()` exposes stored versus upright row policy;
+`encode_dxt_pixels()` / `replace_dxt_pixels()` accept upright RGBA, require the
+template dimensions, reverse rows into stored order, convert RGBA to BGRA, and
+prepend the exact template header.
+
+This is a **template-preserving same-size writer**, not proof of arbitrary
+header/dimension creation. A read-only validation over all 1,143 vehicle DXT
+files (26 families, 11 dimension pairs, 153 alpha-bearing files) produced
+1,143/1,143 byte-identical results with zero header or payload differences.
+The actual legacy PNG pipeline independently reproduced 6/6 diverse samples.
+Synthetic tests separately cover channel order, row order, alpha, header
+preservation, and dimension/payload rejection. Confidence in the existing
+structure and BGRA interpretation is unchanged; same-size encode inversion is
+**HIGH**.

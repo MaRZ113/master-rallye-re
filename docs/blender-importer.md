@@ -169,9 +169,24 @@ textures.
 ## Known limitations
 
 - Vehicle DX only; Course DX is outside R2.
-- No DX/DXT writer or in-game replacement path.
+- No DX writer, Blender export-back operator, or in-game replacement path. R2.5 only adds a same-size template-preserving DXT pixel primitive to the Python library.
 - No exact runtime multi-texture or alpha semantics.
 - Opaque trailing sections are classified and hashed, not embedded in the
   `.blend`.
 - Source identity metadata assists future writer research but cannot preserve
   identity through every arbitrary Blender topology operation.
+
+## R2.5 sidecar discovery
+
+The importer uses the shared evidence-scored resolver rather than requiring
+`<dx-stem>.txt`. Selected path, score, ambiguity state, and every alternate
+candidate with its evidence metrics are stored in `mr_metadata_json`.
+Nonstandard files such as `ForesterWheel.txt`, `PajeroWheel.txt`, and
+`MattWheel.txt` can therefore be selected without a hardcoded alias table.
+
+Sidecar material metadata now includes nullable `has_alpha`, `uses_alpha`, and
+`is_noise` for every texture entry. These fields are preserved for future
+research only; the R2 preview shader was not redesigned around them. Folder
+warnings are printed as `resource -> warning` lines before the aggregate
+summary. All R2.2 raster, direct-V Blender UV, normal-provenance, and safe
+display-normal policies remain unchanged.

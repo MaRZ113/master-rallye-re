@@ -1,4 +1,4 @@
-# Format status (Phase R2)
+# Format status (Phase R2.5)
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
@@ -75,4 +75,21 @@ variants remain unresolved. No executable or Ghidra analysis was performed.
   folder discovery, and 19 diverse real resources passed. This is importer
   validation, not a new binary-format confidence promotion.
 - Runtime multi-texture/alpha semantics remain **UNKNOWN** and the Principled
-  materials are provisional previews. No DX/DXT writer exists.
+  materials are provisional previews. No DX writer exists; R2.5 only adds a conservative same-size template-preserving DXT pixel primitive.
+
+## R2.5 legacy consolidation status
+
+- Recovered texFinder components are classified under `research/legacy`; no
+  legacy code, game asset, or derived conversion output was vendored.
+- Conservative DXT replacement is **HIGH** for same-size template use:
+  1,143/1,143 modern and 6/6 actual legacy-pipeline samples were byte-identical.
+- Evidence-scored sidecar resolution selected a unique best candidate for all
+  78 vehicle DX files, 12 with non-exact names. Selection confidence remains
+  evidence-relative; alternate candidates are preserved.
+- TXT `HasAlpha`, `UsesAlpha`, and `IsNoise` are preserved independently.
+  Runtime meanings remain **UNKNOWN**.
+- Legacy v1 supports the **HIGH**-confidence safe-template-patch principle for
+  fixed-size positions. Legacy v3 topology rebuild is **CONTRADICTED** by modern
+  local/global index validation.
+- Blender 5.2.2 synthetic and 19-resource real regression tests still pass.
+  No DX writer or Blender export-back operator exists in R2.5.

@@ -10,7 +10,7 @@ from typing import Any
 from .assets import AssetResolver
 from .dx import parse_dx
 from .errors import UnknownRecordTagError
-from .sidecar import apply_material_candidates, parse_sidecar
+from .sidecar import apply_material_candidates, resolve_sidecar
 
 
 def _relative(path: Path, root: Path) -> str:
@@ -66,10 +66,10 @@ def scan_vehicle_corpus(vehicle_root: Path) -> tuple[dict[str, Any], dict[str, A
 
     for path in files:
         relative = _relative(path, root)
-        sidecar_path = path.with_suffix(".txt")
         try:
             model = parse_dx(path)
-            sidecar = parse_sidecar(sidecar_path) if sidecar_path.exists() else None
+            sidecar_resolution = resolve_sidecar(model, path.parent)
+            sidecar = sidecar_resolution.sidecar
             apply_material_candidates(model.physical_draws, sidecar)
             resolver = AssetResolver(path.parent)
 
@@ -164,6 +164,12 @@ def scan_vehicle_corpus(vehicle_root: Path) -> tuple[dict[str, Any], dict[str, A
                 "unused_vertex_count": model.diagnostics.unused_vertex_count,
                 "shared_vertex_count": model.diagnostics.shared_vertex_count,
                 "sidecar_present": sidecar is not None,
+                "sidecar_selected": (
+                    sidecar_resolution.selected_path.name
+                    if sidecar_resolution.selected_path else None
+                ),
+                "sidecar_score": sidecar_resolution.score,
+                "sidecar_ambiguous": sidecar_resolution.ambiguous,
                 "sidecar_material_count": sidecar.declared_material_count if sidecar else None,
                 "material_match_count": unique_matches + len(ambiguous),
                 "unique_material_match_count": unique_matches,
@@ -186,7 +192,7 @@ def scan_vehicle_corpus(vehicle_root: Path) -> tuple[dict[str, Any], dict[str, A
                 "parsed": False,
                 "validated": False,
                 "fully_accounted": False,
-                "sidecar_present": sidecar_path.exists(),
+                "sidecar_present": any(path.parent.glob("*.txt")),
                 "parser_warnings": [],
                 "parser_failure": {"type": type(error).__name__, "message": str(error)},
             })
@@ -200,7 +206,7 @@ def scan_vehicle_corpus(vehicle_root: Path) -> tuple[dict[str, Any], dict[str, A
                 "parsed": False,
                 "validated": False,
                 "fully_accounted": False,
-                "sidecar_present": sidecar_path.exists(),
+                "sidecar_present": any(path.parent.glob("*.txt")),
                 "parser_warnings": [],
                 "parser_failure": {"type": type(error).__name__, "message": str(error)},
             })

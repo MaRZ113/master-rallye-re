@@ -53,6 +53,8 @@ class IMPORT_SCENE_OT_master_rallye_vehicle(bpy.types.Operator):
                 )
                 imported.append(result.object)
                 warnings.extend(result.warnings)
+                for warning in result.warnings:
+                    print(f"[Master Rallye] {source.name}: {warning}")
             except Exception as error:
                 if self.strict_validation:
                     self.report({"ERROR"}, f"{source.name}: {error}")

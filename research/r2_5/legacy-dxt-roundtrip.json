@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "source_descriptor": "external read-only vehicle DXT samples (path omitted)",
+  "legacy_pipeline": "legacy BGRA + flip-vertical decode; default SWAP_RB + bottom-up encode",
+  "sample_count": 6,
+  "byte_identical": 6,
+  "files": [
+    {
+      "path": "Astero/asterolight1-tga.dxt",
+      "original_sha256": "ced4e4f898664507341f9aac005599934d0aa975507b179f3e90f7fadf4b8a84",
+      "rebuilt_sha256": "ced4e4f898664507341f9aac005599934d0aa975507b179f3e90f7fadf4b8a84",
+      "byte_identical": true,
+      "byte_size": 4116
+    },
+    {
+      "path": "Forester/forestside128-tga.dxt",
+      "original_sha256": "c2a0c91d42e8b34516c4773f2bfdc78d0b0ad6010f157d12b8505d79cf94ec97",
+      "rebuilt_sha256": "c2a0c91d42e8b34516c4773f2bfdc78d0b0ad6010f157d12b8505d79cf94ec97",
+      "byte_identical": true,
+      "byte_size": 65556
+    },
+    {
+      "path": "Pajero/bonblue-tga.dxt",
+      "original_sha256": "488e72e8c177dcba08eb5d953617939c15fdaaf0ecaeaacff5adcbbcc0dd5bc6",
+      "rebuilt_sha256": "488e72e8c177dcba08eb5d953617939c15fdaaf0ecaeaacff5adcbbcc0dd5bc6",
+      "byte_identical": true,
+      "byte_size": 65556
+    },
+    {
+      "path": "ChevyBlazer/blackplastic-tga.dxt",
+      "original_sha256": "b8ce3c34a4906aa1b06e8d8392ef7a9c1478539e035964bf7e5e96aae5b2a4c3",
+      "rebuilt_sha256": "b8ce3c34a4906aa1b06e8d8392ef7a9c1478539e035964bf7e5e96aae5b2a4c3",
+      "byte_identical": true,
+      "byte_size": 276
+    },
+    {
+      "path": "Ufo/ghost_wheel-tga.dxt",
+      "original_sha256": "6041afc5c4d424f08d6a15ce721a1a2839103ff681fea257b481d17349092938",
+      "rebuilt_sha256": "6041afc5c4d424f08d6a15ce721a1a2839103ff681fea257b481d17349092938",
+      "byte_identical": true,
+      "byte_size": 1044
+    },
+    {
+      "path": "Bruno/map128striped1-tga.dxt",
+      "original_sha256": "00e8fc7b52f67ff0c508674389e01ef82a8d3d78b93cf13682ff66c2b186fe4c",
+      "rebuilt_sha256": "00e8fc7b52f67ff0c508674389e01ef82a8d3d78b93cf13682ff66c2b186fe4c",
+      "byte_identical": true,
+      "byte_size": 65556
+    }
+  ]
+}
