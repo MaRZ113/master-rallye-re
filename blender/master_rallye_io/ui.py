@@ -94,6 +94,12 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         row = layout.row(align=True)
         row.operator("object.master_rallye_print_metadata", icon="CONSOLE")
         row.operator("object.master_rallye_reload_textures", icon="FILE_REFRESH")
+        layout.separator()
+        layout.operator(
+            "export_scene.master_rallye_dx_positions",
+            text="Export DX — Positions Only",
+            icon="EXPORT",
+        )
 
 
 CLASSES = (

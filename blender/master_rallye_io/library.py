@@ -14,12 +14,23 @@ try:
         prepare_display_normals,
         transform_blender_normals,
         transform_blender_positions,
+        transform_blender_positions_to_source,
         transform_normals,
         transform_positions,
         transform_uv_values,
         triangles_from_indices,
     )
+    from master_rallye.authoring import (
+        AuthoringValidation,
+        INVALID_PROVENANCE,
+        POSITIONS_ONLY_CHANGED,
+        SOURCE_IDENTICAL,
+        UNSUPPORTED_TOPOLOGY_CHANGED,
+        provenance_fingerprint,
+        validate_authoring_state,
+    )
     from master_rallye.dx import parse_dx
+    from master_rallye.dx_writer import write_dx_positions
     from master_rallye.dxt import (
         PNG_ROWS_FLIP_VERTICAL,
         has_transparency,
@@ -45,12 +56,23 @@ except ModuleNotFoundError:
         prepare_display_normals,
         transform_blender_normals,
         transform_blender_positions,
+        transform_blender_positions_to_source,
         transform_normals,
         transform_positions,
         transform_uv_values,
         triangles_from_indices,
     )
+    from .vendor.master_rallye.authoring import (
+        AuthoringValidation,
+        INVALID_PROVENANCE,
+        POSITIONS_ONLY_CHANGED,
+        SOURCE_IDENTICAL,
+        UNSUPPORTED_TOPOLOGY_CHANGED,
+        provenance_fingerprint,
+        validate_authoring_state,
+    )
     from .vendor.master_rallye.dx import parse_dx
+    from .vendor.master_rallye.dx_writer import write_dx_positions
     from .vendor.master_rallye.dxt import (
         PNG_ROWS_FLIP_VERTICAL,
         has_transparency,

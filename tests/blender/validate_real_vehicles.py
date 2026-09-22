@@ -132,6 +132,7 @@ def main() -> None:
     from master_rallye_io.blender_materials import PreviewMaterialCache
     from master_rallye_io.blender_mesh import create_collection, import_dx_resource
     from master_rallye_io.blender_metadata import authoring_status
+    from master_rallye_io.blender_export import export_dx_positions
 
     bpy.ops.wm.read_factory_settings(use_empty=True)
     master_rallye_io.register()
@@ -218,6 +219,23 @@ def main() -> None:
             f"{resource}: reload normal strategy",
         )
 
+    zero_edit_results = []
+    zero_root = report_path.parent / "r3-zero-edit"
+    zero_root.mkdir(parents=True, exist_ok=True)
+    for family, filename in REQUIRED_SAMPLES:
+        obj = next(
+            item for item in bpy.data.objects
+            if item.get("mr_source_path")
+            and Path(item["mr_source_path"]).parent.name.casefold() == family.casefold()
+            and Path(item["mr_source_path"]).name.casefold() == filename.casefold()
+        )
+        output = zero_root / f"{family}-{filename}"
+        result = export_dx_positions(obj, output)
+        source_bytes = Path(obj["mr_source_path"]).read_bytes()
+        require(result.patch.byte_identical, f"{family}/{filename}: zero edit")
+        require(output.read_bytes() == source_bytes, f"{family}/{filename}: byte identity")
+        zero_edit_results.append(f"{family}/{filename}")
+
     preview_images = [image for image in bpy.data.images if image.get("mr_dxt_source")]
     require(preview_images, "no real preview textures loaded")
     require(
@@ -235,11 +253,12 @@ def main() -> None:
         "save_reload": "PASS",
         "preview_image_count": len(preview_images),
         "required_samples": samples,
+        "r3_zero_edit_exports": zero_edit_results,
         "all_resources": sorted(reports_by_resource.values(), key=lambda item: item["resource"]),
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print("R2_REAL_VEHICLE_PASS", json.dumps(payload, sort_keys=True))
+    print("R3_REAL_VEHICLE_PASS", json.dumps(payload, sort_keys=True))
 
 
 if __name__ == "__main__":

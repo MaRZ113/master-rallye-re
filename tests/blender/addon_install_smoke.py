@@ -23,6 +23,8 @@ if not hasattr(bpy.ops.import_scene, "master_rallye_dx"):
     raise AssertionError("single DX operator missing after ZIP install")
 if not hasattr(bpy.ops.import_scene, "master_rallye_vehicle"):
     raise AssertionError("vehicle folder operator missing after ZIP install")
+if not hasattr(bpy.ops.export_scene, "master_rallye_dx_positions"):
+    raise AssertionError("positions-only DX operator missing after ZIP install")
 
 payload = {
     "blender_version": bpy.app.version_string,
@@ -55,5 +57,14 @@ if fixture is not None:
     payload["vendored_import"] = "PASS"
     payload["blender_uv_policy"] = "direct-v"
     payload["display_normal_strategy"] = "blender-calculated-fallback"
+    zero_output = archive.parent / "packaged-zero-edit.dx"
+    result = bpy.ops.export_scene.master_rallye_dx_positions(
+        filepath=str(zero_output),
+    )
+    if result != {"FINISHED"}:
+        raise AssertionError(f"packaged zero-edit export failed: {result}")
+    if zero_output.read_bytes() != fixture.read_bytes():
+        raise AssertionError("packaged zero-edit export was not byte-identical")
+    payload["positions_only_export"] = "PASS"
 
-print("R2_ADDON_INSTALL_PASS", json.dumps(payload, sort_keys=True))
+print("R3_ADDON_INSTALL_PASS", json.dumps(payload, sort_keys=True))

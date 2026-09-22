@@ -6,13 +6,16 @@ import json
 from pathlib import Path
 
 from .library import (
+    AuthoringValidation,
     BLENDER_PREVIEW_UV_POLICY,
     GLTF_PREVIEW_UV_POLICY,
     convention_metadata,
     geometry_fingerprint,
+    provenance_fingerprint,
+    validate_authoring_state,
 )
 
-IMPORTER_VERSION = "2.0.1"
+IMPORTER_VERSION = "3.0.0"
 FORMAT_STATUS = "R1_VEHICLE_DX_HIGH"
 REQUIRED_POINT_ATTRIBUTES = {
     "mr_source_vertex",
@@ -68,9 +71,18 @@ def build_metadata(
     display_normal_strategy: str,
 ):
     positions = tuple(positions)
+    face_draws = []
+    source_triangles = []
+    face_groups = []
+    for draw in model.physical_draws:
+        for relative_index in range(draw.triangle_count):
+            face_draws.append(draw.draw_index)
+            source_triangles.append(draw.index_start // 3 + relative_index)
+            face_groups.append(draw.top_level_index)
+    source_vertex_ids = tuple(range(model.vertex_count))
     return {
-        "schema_version": 2,
-        "phase": "R2",
+        "schema_version": 3,
+        "phase": "R3",
         "importer_version": IMPORTER_VERSION,
         "format_status": FORMAT_STATUS,
         "source": {
@@ -119,6 +131,13 @@ def build_metadata(
             "uv_set_count": len(model.uv_sets),
             "draw_count": len(model.physical_draws),
             "source_fingerprint": geometry_fingerprint(positions, triangles),
+            "source_provenance_fingerprint": provenance_fingerprint(
+                triangles,
+                source_vertex_ids,
+                source_triangles,
+                face_draws,
+                face_groups,
+            ),
         },
         "validation": {
             "validated": model.diagnostics.validated,
@@ -172,7 +191,11 @@ def build_metadata(
             "raw_embedded": False,
         },
         "round_trip": {
-            "writer_available": False,
+            "writer_available": True,
+            "writer_mode": "template-preserving-positions-only",
+            "same_topology_required": True,
+            "source_template_sha256_required": True,
+            "safe_bounds_required": True,
             "source_identity_is_provenance_only": True,
             "arbitrary_topology_edits_supported": False,
         },
@@ -183,6 +206,8 @@ def apply_object_metadata(obj, metadata):
     geometry = metadata["geometry"]
     source = metadata["source"]
     obj["mr_source_path"] = source["path"]
+    obj["mr_source_sha256"] = source["sha256"]
+    obj["mr_source_byte_size"] = source["byte_size"]
     obj["mr_resource_name"] = source["name"]
     obj["mr_vertex_count"] = geometry["vertex_count"]
     obj["mr_triangle_count"] = geometry["triangle_count"]
@@ -192,6 +217,9 @@ def apply_object_metadata(obj, metadata):
     obj["mr_importer_version"] = metadata["importer_version"]
     obj["mr_display_normal_strategy"] = metadata["normal_provenance"]["display_strategy"]
     obj["mr_source_geometry_fingerprint"] = geometry["source_fingerprint"]
+    obj["mr_source_provenance_fingerprint"] = geometry[
+        "source_provenance_fingerprint"
+    ]
     obj["mr_metadata_json"] = json.dumps(
         metadata,
         ensure_ascii=False,
@@ -215,27 +243,43 @@ def current_geometry_fingerprint(mesh):
     return geometry_fingerprint(positions, _mesh_triangles(mesh))
 
 
-def authoring_status(obj):
+def _attribute_values(mesh, name, member):
+    attribute = mesh.attributes.get(name)
+    if attribute is None:
+        return None
+    return tuple(getattr(item, member) for item in attribute.data)
+
+
+def authoring_validation(obj):
     if obj is None or obj.type != "MESH" or "mr_metadata_json" not in obj:
-        return "UNKNOWN"
+        return AuthoringValidation("INVALID_PROVENANCE", ("not an imported Master Rallye mesh",), ())
     mesh = obj.data
-    if len(mesh.vertices) != int(obj.get("mr_vertex_count", -1)):
-        return "TOPOLOGY_CHANGED"
-    if len(mesh.polygons) != int(obj.get("mr_triangle_count", -1)):
-        return "TOPOLOGY_CHANGED"
     attribute_names = set(mesh.attributes.keys())
     if not REQUIRED_POINT_ATTRIBUTES.issubset(attribute_names):
-        return "TOPOLOGY_CHANGED"
+        missing = sorted(REQUIRED_POINT_ATTRIBUTES - attribute_names)
+        return AuthoringValidation("INVALID_PROVENANCE", (f"missing point attributes: {missing}",), ())
     if not REQUIRED_FACE_ATTRIBUTES.issubset(attribute_names):
-        return "TOPOLOGY_CHANGED"
-    expected = obj.get("mr_source_geometry_fingerprint", "")
-    if not expected:
-        return "UNKNOWN"
-    return (
-        "SOURCE_IDENTICAL"
-        if current_geometry_fingerprint(mesh) == expected
-        else "GEOMETRY_EDITED"
+        missing = sorted(REQUIRED_FACE_ATTRIBUTES - attribute_names)
+        return AuthoringValidation("INVALID_PROVENANCE", (f"missing face attributes: {missing}",), ())
+    positions = tuple(tuple(float(value) for value in vertex.co) for vertex in mesh.vertices)
+    faces = _mesh_triangles(mesh)
+    return validate_authoring_state(
+        positions=positions,
+        faces=faces,
+        source_vertex_ids=_attribute_values(mesh, "mr_source_vertex", "value"),
+        source_vertex_valid=_attribute_values(mesh, "mr_source_vertex_valid", "value"),
+        source_triangle_ids=_attribute_values(mesh, "mr_source_triangle", "value"),
+        draw_ids=_attribute_values(mesh, "mr_draw_id", "value"),
+        group_ids=_attribute_values(mesh, "mr_group_id", "value"),
+        expected_vertex_count=int(obj.get("mr_vertex_count", -1)),
+        expected_face_count=int(obj.get("mr_triangle_count", -1)),
+        expected_geometry_fingerprint=str(obj.get("mr_source_geometry_fingerprint", "")),
+        expected_provenance_fingerprint=str(obj.get("mr_source_provenance_fingerprint", "")),
     )
+
+
+def authoring_status(obj):
+    return authoring_validation(obj).status
 
 
 def refresh_authoring_status(obj):

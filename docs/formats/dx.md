@@ -1,4 +1,4 @@
-# `.dx` vehicle format notes (Phase R1)
+# `.dx` vehicle format notes (through Phase R3)
 
 Status: **HIGH** for the vehicle geometry/draw grammar. The corpus result covers
 all 78 files under `DataGx/Vehicles`; it does not claim compatibility with
@@ -196,3 +196,24 @@ no-bounds mode, and a one-vertex edit changed only one position byte while the
 modern parser still validated. This does **not** constitute a production DX
 writer. Legacy v3 is **CONTRADICTED**: its output had invalid local ranges and
 6,285 reconstructed/stored global-index mismatches.
+
+## R3 template-preserving position writer
+
+The vehicle parser now exposes the exact position buffer as
+`position_offset`, `vertex_count`, and a 12-byte stride. The writer derives
+all patch locations from those parsed values; it performs no byte-pattern or
+float-sequence search.
+
+The complete 78-file vehicle corpus passed:
+
+- 78/78 byte-identical zero-edit round trips;
+- 78/78 safe temporary single-position edits;
+- zero unexpected changed bytes;
+- exact preservation of known draw/index/material/trailing structures and
+  pre-existing diagnostics after reparse.
+
+This evidence is **HIGH** for template-preserving same-topology position
+replacement in the known vehicle corpus. It does not establish a general DX
+serialization grammar or game-runtime acceptance. Bounds are not rewritten;
+safe mode requires the candidate inside the original AABB and rejects any edit
+that changes parser diagnostics.

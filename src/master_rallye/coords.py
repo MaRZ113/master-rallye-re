@@ -59,8 +59,14 @@ def normal_to_blender(value: Sequence[float]) -> Vector3:
 
 
 def blender_position_to_source(value: Sequence[float]) -> Vector3:
-    """Inverse of position_to_blender for future writer research."""
+    """Exact inverse of position_to_blender for authoring export."""
     return (float(value[0]), float(value[2]), -float(value[1]))
+
+
+def transform_blender_positions_to_source(
+    values: Iterable[Sequence[float]],
+) -> tuple[Vector3, ...]:
+    return tuple(blender_position_to_source(value) for value in values)
 
 
 def transform_positions(values: Iterable[Sequence[float]]) -> tuple[Vector3, ...]:

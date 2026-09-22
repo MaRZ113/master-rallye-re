@@ -1,8 +1,9 @@
-# Blender vehicle importer (Phase R2)
+# Blender vehicle importer and position exporter (Phase R3)
 
-The R2 add-on imports proven Master Rallye **vehicle** DX resources directly
-into an editable Blender mesh. It does not write DX/DXT files and it does not
-support Course DX resources.
+The add-on imports proven Master Rallye **vehicle** DX resources directly into
+an editable Blender mesh. R3 additionally writes only same-topology vertex
+positions through the exact original binary template. It does not write DXT,
+rebuild topology, or support Course DX resources.
 
 ## Compatibility
 
@@ -18,7 +19,7 @@ Build the ignored distribution artifact from the repository root:
 py -3 tools/build_blender_addon.py
 ```
 
-This creates `dist/master_rallye_io-r2.zip`. The build copies the canonical
+This creates `dist/master_rallye_io-r3.zip`. The build copies the canonical
 `src/master_rallye` package into the add-on's private `vendor` namespace;
 there is no second editable parser copy in the repository.
 
@@ -147,13 +148,28 @@ The status diagnostic distinguishes:
 
 - `SOURCE_IDENTICAL`: counts, required provenance attributes, topology, and
   target-space geometry fingerprint still match the import;
-- `GEOMETRY_EDITED`: topology still maps but coordinates changed;
-- `TOPOLOGY_CHANGED`: counts or required provenance attributes changed;
-- `UNKNOWN`: insufficient metadata.
+- `POSITIONS_ONLY_CHANGED`: complete source provenance remains valid and
+  coordinates changed;
+- `UNSUPPORTED_TOPOLOGY_CHANGED`: topology, triangle mapping, or draw/group
+  membership changed;
+- `INVALID_PROVENANCE`: source identity attributes or metadata are missing,
+  duplicated, invalid, or out of range.
 
-This is an early safety signal, not a byte-perfect round-trip guarantee.
-Arbitrary topology edits may invalidate one-to-one source identity. No writer
-exists in R2.
+Only `SOURCE_IDENTICAL` and `POSITIONS_ONLY_CHANGED` are exportable.
+
+## Experimental positions-only export
+
+Use **File > Export > Master Rallye DX — Positions Only (Experimental)** or
+the button in the Master Rallye object panel. The exporter requires complete
+1:1 source vertex/triangle identity, unchanged topology and draw membership,
+identity object transforms, the import-time source SHA-256, and positions
+inside the original AABB. It refuses the original source path.
+
+Unchanged position records retain their exact original bytes. Changed vertices
+replace only their 12-byte XYZ records. Before a file is written, the writer
+audits the binary diff, reparses the candidate, compares every known
+non-position structure and diagnostic, and hashes preserved sections. See
+`docs/dx-writer.md`.
 
 ## Save and reload
 
@@ -169,7 +185,9 @@ textures.
 ## Known limitations
 
 - Vehicle DX only; Course DX is outside R2.
-- No DX writer, Blender export-back operator, or in-game replacement path. R2.5 only adds a same-size template-preserving DXT pixel primitive to the Python library.
+- No topology-changing serializer, normal/UV/material writer, bounds updater,
+  DXT Blender export, or automatic game replacement.
+- Positions-only output is experimental until the human runtime gate passes.
 - No exact runtime multi-texture or alpha semantics.
 - Opaque trailing sections are classified and hashed, not embedded in the
   `.blend`.

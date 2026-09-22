@@ -1,4 +1,4 @@
-# Format status (Phase R2.5)
+# Format status (Phase R3 runtime-validated checkpoint)
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
@@ -75,7 +75,7 @@ variants remain unresolved. No executable or Ghidra analysis was performed.
   folder discovery, and 19 diverse real resources passed. This is importer
   validation, not a new binary-format confidence promotion.
 - Runtime multi-texture/alpha semantics remain **UNKNOWN** and the Principled
-  materials are provisional previews. No DX writer exists; R2.5 only adds a conservative same-size template-preserving DXT pixel primitive.
+  materials are provisional previews.
 
 ## R2.5 legacy consolidation status
 
@@ -92,4 +92,28 @@ variants remain unresolved. No executable or Ghidra analysis was performed.
   fixed-size positions. Legacy v3 topology rebuild is **CONTRADICTED** by modern
   local/global index validation.
 - Blender 5.2.2 synthetic and 19-resource real regression tests still pass.
-  No DX writer or Blender export-back operator exists in R2.5.
+
+## R3 safe writer status
+
+- **PASS (automated):** 78/78 vehicle DX files produce byte-identical zero-edit
+  output and 78/78 pass a temporary AABB-safe single-position patch.
+- The writer patches only parsed 12-byte XYZ records, audits all byte changes,
+  reparses output, preserves non-position section hashes, and refuses new
+  warnings or structural differences.
+- Blender 5.2.2 passed untouched, one-vertex, provenance-rejection, and
+  save/reload export tests. Twelve diverse real resources exported
+  byte-identically through Blender.
+- Source SHA-256 and byte size are import metadata; export requires the same
+  template, identity object transforms, complete provenance, unchanged
+  topology/draw membership, and a different output path.
+- Support remains **EXPERIMENTAL / POSITIONS ONLY / SAME TOPOLOGY / TEMPLATE
+  PRESERVING**. Runtime status is **RUNTIME VALIDATED — PASS** for
+  same-topology vertex-position edits in `complete.dx` presentation/menu and
+  `car.dx` race contexts (2026-09-22).
+- The tested `car.dx` edit retained collision, damage/deformation, and glass
+  breakage. This validates writer output, not a claim that collision data is
+  stored in `car.dx`.
+- Topology-changing, UV, normal, and material writing remain **NOT RUNTIME
+  CONFIRMED**.
+- The conservative DXT encoder remains ready for a later stage, but Blender DXT
+  export was not added.

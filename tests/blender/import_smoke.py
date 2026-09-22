@@ -186,6 +186,10 @@ def main():
         hasattr(bpy.ops.import_scene, "master_rallye_vehicle"),
         "vehicle folder operator not registered",
     )
+    require(
+        hasattr(bpy.ops.export_scene, "master_rallye_dx_positions"),
+        "positions-only export operator not registered",
+    )
 
     folder_result = bpy.ops.import_scene.master_rallye_vehicle(
         directory=str(fixture),
@@ -325,11 +329,86 @@ def main():
     require(obj.mode == "EDIT", "mesh cannot enter Edit Mode")
     bpy.ops.object.mode_set(mode="OBJECT")
     require(authoring_status(obj) == "SOURCE_IDENTICAL", "untouched status changed")
+    zero_output = blend_path.parent / "synthetic-zero-edit.dx"
+    bpy.context.view_layer.objects.active = obj
+    zero_result = bpy.ops.export_scene.master_rallye_dx_positions(
+        filepath=str(zero_output),
+    )
+    require(zero_result == {"FINISHED"}, "zero-edit export operator failed")
+    require(
+        zero_output.read_bytes() == (fixture / "synthetic.dx").read_bytes(),
+        "zero-edit Blender export was not byte-identical",
+    )
     original_x = obj.data.vertices[0].co.x
     obj.data.vertices[0].co.x = original_x + 0.25
-    require(authoring_status(obj) == "GEOMETRY_EDITED", "edit not detected")
+    require(
+        authoring_status(obj) == "POSITIONS_ONLY_CHANGED",
+        "positions-only edit not detected",
+    )
+    edited_output = blend_path.parent / "synthetic-one-vertex.dx"
+    edited_result = bpy.ops.export_scene.master_rallye_dx_positions(
+        filepath=str(edited_output),
+    )
+    require(edited_result == {"FINISHED"}, "one-vertex export failed")
+    from master_rallye.dx_writer import patch_dx_positions
+    from master_rallye.dx import parse_dx
+    expected_positions = list(parse_dx(fixture / "synthetic.dx").vertices.positions)
+    expected_positions[0] = (expected_positions[0][0] + 0.25, 0.0, 0.0)
+    expected_patch = patch_dx_positions(
+        (fixture / "synthetic.dx").read_bytes(),
+        expected_positions,
+    )
+    require(
+        edited_output.read_bytes() == expected_patch.data,
+        "Blender one-vertex output differs from canonical writer",
+    )
     obj.data.vertices[0].co.x = original_x
     require(authoring_status(obj) == "SOURCE_IDENTICAL", "restored status changed")
+
+    duplicate = obj.data.attributes["mr_source_vertex"].data
+    original_source_id = duplicate[1].value
+    duplicate[1].value = duplicate[0].value
+    refused_output = blend_path.parent / "must-not-exist.dx"
+    if refused_output.exists():
+        refused_output.unlink()
+    try:
+        refused = bpy.ops.export_scene.master_rallye_dx_positions(
+            filepath=str(refused_output),
+        )
+    except RuntimeError as error:
+        refused = {"CANCELLED"}
+        require("duplicate source vertex IDs" in str(error), "wrong refusal reason")
+    require(refused == {"CANCELLED"}, "invalid provenance export was not refused")
+    require(not refused_output.exists(), "refused export wrote a file")
+    duplicate[1].value = original_source_id
+    from master_rallye_io.blender_metadata import refresh_authoring_status
+    require(
+        refresh_authoring_status(obj) == "SOURCE_IDENTICAL",
+        "restored provenance status changed",
+    )
+
+    import bmesh
+    from master_rallye_io.blender_export import export_dx_positions
+    topology_obj = obj.copy()
+    topology_obj.data = obj.data.copy()
+    bpy.context.scene.collection.objects.link(topology_obj)
+    topology_mesh = topology_obj.data
+    edit_mesh = bmesh.new()
+    edit_mesh.from_mesh(topology_mesh)
+    edit_mesh.verts.new((0.25, 0.25, 0.25))
+    edit_mesh.to_mesh(topology_mesh)
+    edit_mesh.free()
+    topology_output = blend_path.parent / "topology-must-not-exist.dx"
+    if topology_output.exists():
+        topology_output.unlink()
+    try:
+        export_dx_positions(topology_obj, topology_output)
+    except ValueError as error:
+        require("vertex count" in str(error), "wrong topology refusal reason")
+    else:
+        raise AssertionError("topology-modified mesh export was not refused")
+    require(not topology_output.exists(), "topology refusal wrote a file")
+    bpy.data.objects.remove(topology_obj, do_unlink=True)
 
     blend_path.parent.mkdir(parents=True, exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=str(blend_path))
@@ -362,6 +441,17 @@ def main():
         ),
         "cached image path did not survive reload",
     )
+    bpy.context.view_layer.objects.active = reloaded
+    reloaded.select_set(True)
+    reload_output = blend_path.parent / "synthetic-reloaded-zero-edit.dx"
+    reload_result = bpy.ops.export_scene.master_rallye_dx_positions(
+        filepath=str(reload_output),
+    )
+    require(reload_result == {"FINISHED"}, "save/reload export failed")
+    require(
+        reload_output.read_bytes() == (fixture / "synthetic.dx").read_bytes(),
+        "save/reload zero-edit output was not byte-identical",
+    )
 
     report = {
         "blender_version": bpy.app.version_string,
@@ -381,6 +471,12 @@ def main():
         "invalid_normal_warning_cases": 3,
         "cache_warning_duplication": "PASS",
         "folder_warning_count": folder_warning_count,
+        "positions_only_export": "PASS",
+        "zero_edit_byte_identical": True,
+        "one_vertex_export": "PASS",
+        "invalid_provenance_rejection": "PASS",
+        "topology_modification_rejection": "PASS",
+        "save_reload_export": "PASS",
         "vertex_count": len(reloaded.data.vertices),
         "triangle_count": len(reloaded.data.polygons),
         "material_count": len(reloaded.data.materials),
@@ -389,7 +485,7 @@ def main():
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    print("R2_SYNTHETIC_BLENDER_PASS", json.dumps(report, sort_keys=True))
+    print("R3_SYNTHETIC_BLENDER_PASS", json.dumps(report, sort_keys=True))
 
 
 if __name__ == "__main__":

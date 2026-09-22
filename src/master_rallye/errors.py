@@ -20,6 +20,10 @@ class ExportError(MasterRallyeError):
     """An interchange export could not be produced."""
 
 
+class DxWriteError(ExportError):
+    """A template-preserving DX write failed a safety gate."""
+
+
 @dataclass(frozen=True)
 class UnknownRecordEvidence:
     source: str

@@ -7,17 +7,36 @@ from .dxt import (
     parse_dxt_bytes,
     replace_dxt_pixels,
 )
-from .errors import BoundsError, ExportError, FormatError, MasterRallyeError, UnknownRecordTagError
+from .dx_writer import audit_binary_diff, patch_dx_positions, write_dx_positions
+from .authoring import (
+    INVALID_PROVENANCE,
+    POSITIONS_ONLY_CHANGED,
+    SOURCE_IDENTICAL,
+    UNSUPPORTED_TOPOLOGY_CHANGED,
+    provenance_fingerprint,
+    validate_authoring_state,
+)
+from .errors import BoundsError, DxWriteError, ExportError, FormatError, MasterRallyeError, UnknownRecordTagError
 from .sidecar import parse_sidecar, resolve_sidecar
 
 __all__ = [
     "BoundsError",
     "ExportError",
+    "DxWriteError",
     "FormatError",
     "MasterRallyeError",
     "UnknownRecordTagError",
     "parse_dx",
     "parse_dx_bytes",
+    "patch_dx_positions",
+    "write_dx_positions",
+    "audit_binary_diff",
+    "SOURCE_IDENTICAL",
+    "POSITIONS_ONLY_CHANGED",
+    "UNSUPPORTED_TOPOLOGY_CHANGED",
+    "INVALID_PROVENANCE",
+    "provenance_fingerprint",
+    "validate_authoring_state",
     "parse_dxt",
     "parse_dxt_bytes",
     "decode_rgba_pixels",

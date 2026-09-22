@@ -8,11 +8,19 @@ read-only.
 
 ## Current scope
 
-Phase R2.5 is complete: the validated vehicle DX/DXT library now drives a native
+Phase R3 is complete: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
-preview materials, and preserved draw/group/source metadata. The R1 corpus
-result remains 78/78 vehicle DX resources parsed and validated. R2 excludes
-course resources and executable analysis. R2.5 adds only conservative, same-size DXT replacement primitives; no DX writer or Blender export-back operator exists.
+preview materials, preserved draw/group/source metadata, and a fail-closed
+same-topology **positions-only** DX export. All 78 vehicle resources produce a
+byte-identical zero-edit result and pass an in-memory single-position patch.
+On 2026-09-22, human testing in the original game runtime confirmed visible,
+artifact-free same-topology position edits in `complete.dx` (presentation/menu)
+and `car.dx` (race). Course resources, general DX serialization, and executable
+analysis remain out of scope.
+
+**FIRST CONFIRMED WRITABLE MASTER RALLYE VEHICLE GEOMETRY — 2026-09-22.**
+The confirmed scope is same-topology vertex-position editing only. Topology,
+UV, normal, and material writing are not runtime-confirmed.
 
 ## Blender add-on
 
@@ -22,7 +30,7 @@ Build the installable local ZIP with:
 py -3 tools/build_blender_addon.py
 ```
 
-Install the ignored `dist/master_rallye_io-r2.zip` from Blender preferences.
+Install the ignored `dist/master_rallye_io-r3.zip` from Blender preferences.
 The add-on provides **File > Import > Master Rallye DX (.dx)** and **Import
 Master Rallye Vehicle Folder**. It was tested with Blender 5.2.2 LTS; Blender
 4.3+ is the expected API baseline, but other versions were not tested.
@@ -33,9 +41,10 @@ mesh attributes, and stores group, texture-slot, material-candidate,
 validation, and trailing-layout metadata on the object. Blender preview UVs use
 direct source V; this is intentionally independent from the unchanged glTF
 `flip-v` policy. Blender-calculated display normals avoid known Blender 5.2.2
-native custom-normal crashes while the source values remain preserved. It is
-an import/authoring tool only: arbitrary edits cannot yet be
-written back to the game. See `docs/blender-importer.md`.
+native custom-normal crashes while the source values remain preserved. Only
+same-topology position edits can be written through the experimental
+original-template exporter; arbitrary edits cannot be written back. See
+`docs/blender-importer.md` and `docs/dx-writer.md`.
 
 ## Library and research CLI
 
@@ -108,4 +117,5 @@ py -3 tools/mrtool.py audit-textures `
   --report ".research-output\r2_5\texture-audit.json"
 ```
 
-See `research/r2_5/findings.md`; R3 has not begun.
+See `research/r2_5/findings.md` for legacy consolidation and
+`research/r3/findings.md` / `docs/dx-writer.md` for the safe writer.

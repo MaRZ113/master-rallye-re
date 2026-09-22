@@ -93,6 +93,18 @@ class VertexData:
     normals: tuple[tuple[float, float, float], ...]
     colors: bytes
 
+    @property
+    def position_stride(self) -> int:
+        return 12
+
+    @property
+    def position_buffer_size(self) -> int:
+        return len(self.positions) * self.position_stride
+
+    @property
+    def position_buffer_end(self) -> int:
+        return self.position_offset + self.position_buffer_size
+
 
 @dataclass(frozen=True)
 class GlobalIndexTable:
