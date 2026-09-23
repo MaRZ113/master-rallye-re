@@ -133,9 +133,7 @@ width. A draw may therefore have zero, one, or several material candidates.
 No material-index field has been identified. Binary texture slots are retained
 as the authoritative binding evidence.
 
-The corpus has 132 ambiguous matches and 63 unmatched draws. Six resources lack
-a sidecar. No non-`Null` texture reference is missing from its vehicle asset
-directory. The preview exporter selects the first non-`Null` slot only and
+The R4D corpus has 1,365 unique, 99 ambiguous, and 14 unmatched draw-to-material matches after evidence-scored sidecar resolution. A sidecar candidate is selected for all 78 resources, including 12 non-exact filenames. No non-`Null` DX texture reference is missing from its vehicle asset directory. The preview exporter selects the first non-`Null` slot only and
 preserves every original slot/candidate in glTF extras and `metadata.json`.
 
 ## Trailing sections

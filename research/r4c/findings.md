@@ -17,8 +17,7 @@ tag 101 to collision activation without proving sole sufficiency.
   positions/centroid points and translate by D.
 - **CONFIRMED_BY_CORPUS:** 27/27 validated hulls pass translation invariants
   and full-DX reparse; Forklift is safely skipped.
-- **UNKNOWN runtime:** whether the original game consumes the translated hull
-  as predicted. Human testing is required.
+- **CONFIRMED_BY_RUNTIME:** the project owner reported successful original-game R4C translation testing on 2026-09-23; the detailed observation log was not supplied in this chat.
 
 ## Candidate
 

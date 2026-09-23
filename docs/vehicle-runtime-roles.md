@@ -112,8 +112,7 @@ still not proving that tag 101 is the only required runtime condition.
 
 R4C now provides an isolated test of that linkage: Astero render geometry is
 kept byte-identical while only proven positional fields in tag 101 move by
-`+0.40` source-X units. Automated validation passes; runtime status remains
-**WAITING FOR HUMAN TEST**.
+`+0.40` source-X units. Automated validation passes; the project owner reports **CONFIRMED_BY_RUNTIME** on 2026-09-23. Detailed observations remain external.
 
 The lift remains an **UNRESOLVED_RUNTIME_TRANSFORM_DEPENDENCY**. For Astero,
 source-Y minima differ (`car` -0.228596, `complete` -0.000733), and similar
@@ -123,3 +122,7 @@ factors.
 
 See `research/r4a/` for the corpus matrix, linkage details, damage evidence,
 and proposed controlled tests.
+
+## R4D material-role note
+
+The resource roles above remain unchanged. R4D inventories material bindings in every complete, car, wheel, and other vehicle DX resource. Menu and race roles require separate runtime material checks; shared texture names alone do not establish identical rendering. See docs/vehicle-materials.md and research/r4d/material-corpus.md.

@@ -1,4 +1,4 @@
-# Format status (Phase R4C automated collision-writer checkpoint)
+# Format status (Phase R4D material-semantics research checkpoint)
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
@@ -7,7 +7,7 @@
 | `.dxb` | Compiled 2D/font/sprite-batch-like resource. | **LOW** | All 113 begin `0x0000F001, 125`; record layout is not mapped. |
 | `.hnt` | Plain-text dependency manifest for scene/frontend resources. | **CONFIRMED** | 54 readable files name models/textures used by adjacent scene XML. |
 | `.sfl` | 20-byte header plus a single `W*H` byte raster plane. Semantic meaning is unresolved. | **HIGH** structural / **UNKNOWN** semantic | Exact size invariant in all 36 files. |
-| `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; 72 of 78 vehicle resources have a sidecar. |
+| `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
 
 ## R1 vehicle-corpus evidence
@@ -35,8 +35,7 @@
 Binary texture bindings are matched to sidecar materials using **normalized
 ordered texture-tuple matching**, padding missing sidecar slots with `Null` to
 the binary tuple width. There is still no material-index field. The corpus has
-132 ambiguous draw matches and 63 unmatched draws; ambiguity is preserved as a
-candidate list. No referenced texture was missing.
+1,365 unique, 99 ambiguous, and 14 unmatched draw matches after R4D evidence-scored resolution; ambiguity is preserved as a candidate list. No referenced texture was missing.
 
 For preview only, glTF uses the first non-`Null` slot as `baseColorTexture`.
 Runtime multi-texture blending remains **UNKNOWN**. Raw `DxtTexture.bgra`
@@ -170,7 +169,14 @@ opaque collision prefix; it did not perform broad executable analysis.
 - The Astero collision-only candidate moves source X by `+0.40`; 132 bytes in
   39 authorized X components change, with zero visual-mesh or unexpected
   changes.
-- **RUNTIME VALIDATION: WAITING FOR HUMAN TEST.** Translation is not yet
-  `CONFIRMED_BY_RUNTIME`.
+- **CONFIRMED_BY_RUNTIME:** project owner reports successful R4C collision translation testing on 2026-09-23. Detailed observations were not supplied with this update.
 - Scale, rotation, individual hull editing, topology changes, BSP/tag-100 and
   cylinder/tag-102 writing remain unsupported.
+
+## R4D material-semantics status
+
+- **CONFIRMED_BY_CORPUS:** 1,478/1,478 physical vehicle draws inventoried; 18 neutral structural signatures. Current evidence-scored sidecar resolver yields 1,365 unique, 99 multiple, and 14 unmatched draw matches. These counts reflect the current resolver.
+- **CONFIRMED_BY_EXECUTABLE:** original PE imports Direct3D 8; registered shader families include base, alpha, alphatest, environment, noise, water, and particle.
+- **HIGH_CONFIDENCE_INFERENCE:** inspected COM wrappers correspond to SetRenderState and SetTextureStageState; vehicle-specific stage mapping and operations remain UNKNOWN.
+- **PARTIAL:** Blender material preview remains first non-Null texture because the DX-to-runtime shader linkage is unresolved. No material writer was added.
+- **R4D VERDICT: MORE WORK NEEDED; next phase R4D.1.** See docs/vehicle-materials.md and research/r4d/findings.md.

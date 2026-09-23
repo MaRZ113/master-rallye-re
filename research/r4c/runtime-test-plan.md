@@ -2,7 +2,7 @@
 
 ## Automated state
 
-**RUNTIME VALIDATION: WAITING FOR HUMAN TEST**
+**RUNTIME VALIDATION: CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; this document retains the original test plan.
 
 The ignored candidate is generated at:
 

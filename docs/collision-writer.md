@@ -71,8 +71,7 @@ distances, face areas, and topology are validated after float32 translation.
 
 The ignored R4C package translates only Astero `car.dx` collision geometry by
 `(+0.40, 0, 0)` source units. Source X is the evidenced lateral vehicle axis;
-the visual mesh remains byte-identical. Runtime state is **WAITING FOR HUMAN
-TEST**. Parser acceptance is not runtime confirmation.
+the visual mesh remains byte-identical. Runtime status is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 report. Detailed observations were not supplied with this update.
 
 ## Unsupported
 

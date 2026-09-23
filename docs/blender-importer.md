@@ -209,7 +209,7 @@ Nonstandard files such as `ForesterWheel.txt`, `PajeroWheel.txt`, and
 
 Sidecar material metadata now includes nullable `has_alpha`, `uses_alpha`, and
 `is_noise` for every texture entry. These fields are preserved for future
-research only; the R2 preview shader was not redesigned around them. Folder
+research only; the preview shader remains conservative after R4D corpus analysis because exact stage and alpha-state mapping is unresolved. See docs/blender-materials.md. Folder
 warnings are printed as `resource -> warning` lines before the aggregate
 summary. All R2.2 raster, direct-V Blender UV, normal-provenance, and safe
 display-normal policies remain unchanged.
