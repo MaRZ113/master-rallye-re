@@ -50,7 +50,7 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 `docs/vehicle-authoring.md`, `docs/texture-authoring.md`, and
 `docs/vehicle-packaging.md`.
 
-Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; a single Astero +3-vertex/+1-triangle candidate is ready for human testing. **Topology runtime validation is WAITING FOR HUMAN.** The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
+Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
 ## Blender add-on
 

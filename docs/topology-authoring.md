@@ -1,6 +1,6 @@
 # Experimental vehicle topology authoring (R4F)
 
-The **SAME-TOPOLOGY VEHICLE SDK V1 BASELINE** is frozen and runtime-confirmed. Its **Export DX - Safe Attributes** command still uses the original byte-patch writer. **Export DX - Topology Changing (Experimental)** is a separate render-core rebuild path. F1 has automated structural evidence only; game acceptance is **WAITING FOR HUMAN**.
+The **SAME-TOPOLOGY VEHICLE SDK V1 BASELINE** is frozen and runtime-confirmed. Its **Export DX - Safe Attributes** command still uses the original byte-patch writer. **Export DX - Topology Changing (Experimental)** is a separate render-core rebuild path. The F1 Astero `car.dx` +3-vertex/+1-triangle candidate is **CONFIRMED_BY_RUNTIME**; see `research/r4f/runtime-results.md`.
 
 ## Blender workflow
 
@@ -18,4 +18,4 @@ The exporter compiles triangle corners in draw-ID order, then Blender polygon an
 
 Existing draw records, material/texture names, group labels, collision bytes and the marker-1339 bounds footer are copied. The writer updates only render arrays, indices, global table and the four proven draw range fields. All new positions must stay inside the original combined render/collision AABB. Existing draw sets and UV-set count are fixed; deleting every triangle from a draw, adding a material/draw, editing collision, or moving outside original bounds requires later research. Every compiled vertex must be referenced by a triangle. Local indices are uint16 (at most 65,536 vertices per draw). Unknown material controls remain raw.
 
-The writer reparses its output and verifies all indices, draw identities, material fields, prefix, collision and suffix. A full protected vehicle-corpus zero-edit dry run was byte-identical for **78/78** resources; an Astero Blender +3-vertex/+1-triangle export matched the direct F1 writer SHA-256. These are automated checks, not a runtime topology claim. See `docs/dx-render-rebuilder.md` and `research/r4f/runtime-test-plan.md`.
+The writer reparses its output and verifies all indices, draw identities, material fields, prefix, collision and suffix. A full protected vehicle-corpus zero-edit dry run was byte-identical for **78/78** resources; an Astero Blender +3-vertex/+1-triangle export matched the direct F1 writer SHA-256. Human testing then confirmed the new triangle in-game with normal collision, damage, glass and wheels. See `docs/dx-render-rebuilder.md` and `research/r4f/runtime-test-plan.md`.

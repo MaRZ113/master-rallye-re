@@ -1,0 +1,23 @@
+{
+  "phase": "R4F",
+  "candidate": "F1_raised_triangle",
+  "resource": "Astero/car.dx",
+  "source_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90",
+  "candidate_sha256": "b03e8402baef682bb5665ccbce3a9cc8342e87409b3a5bd2170e9674d6ed7835",
+  "source_vertices": 2543,
+  "output_vertices": 2546,
+  "source_triangles": 2021,
+  "output_triangles": 2022,
+  "game_loads": "PASS",
+  "vehicle_loads": "PASS",
+  "new_triangle_visible": "PASS",
+  "primary_collision": "WORKS_NORMALLY",
+  "external_damage": "WORKS",
+  "internal_mesh_damage": "WORKS",
+  "breakable_glass": "WORKS",
+  "wheels": "NORMAL",
+  "general_vehicle_function": "NORMAL",
+  "conclusion": "TOPOLOGY-CHANGING VEHICLE RENDER WRITING CONFIRMED_BY_RUNTIME",
+  "evidence_kind": "project_owner_human_runtime_observation",
+  "scope": "tested Astero car.dx F1 existing-draw topology candidate"
+}
