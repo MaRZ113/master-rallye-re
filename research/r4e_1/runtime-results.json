@@ -1,0 +1,35 @@
+{
+  "phase": "R4E.1 human runtime closeout",
+  "evidence_source": "project owner report supplied with R4F request",
+  "results": [
+    {
+      "candidate": "N1_normal_rotation",
+      "vehicle": "Astero",
+      "resource": "car.dx",
+      "draw_id": 11,
+      "source_normal_count": 192,
+      "normal_transform": "(x,y,z)->(z,y,-x); +90 degrees about source +Y",
+      "candidate_sha256": "420c8bcef88808f89b6f87682c98210b617e83d42b02d10fc2df7c41c63b2dc0",
+      "result": "PASS",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "human_observation": "Reflection/shading pattern on targeted chrome/chromebar visibly changed; geometry stayed in the same position and shape. Effect agrees with the D3D8 camera-space-normal environment mapping path.",
+      "unchanged_claims": "Positions, UVs, colors, materials, topology and collision remained unchanged in the validated candidate."
+    },
+    {
+      "candidate": "M1_env_disable",
+      "vehicle": "Astero",
+      "resource": "car.dx",
+      "draw_id": 7,
+      "mask_before": 7,
+      "mask_after": 3,
+      "bit_disabled": 4,
+      "candidate_sha256": "9e7bbf175630dccec2f6bd5ba697dcd398f9dca06c0b9e4eebf035adf4c7a682",
+      "result": "PASS",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "human_observation": "Targeted body material lost environment/reflection contribution while its primary body/livery texture remained visible. Other reflective materials, including chrome/rims/chromebar, remained reflective.",
+      "unchanged_claims": "Texture slots, whitepaint DXT, geometry, collision and other material state remained unchanged in the validated candidate."
+    }
+  ],
+  "scope": "Human observation confirms these two specific candidates and the corresponding same-topology writer paths. No topology-changing runtime claim follows.",
+  "screenshots_committed": false
+}

@@ -6,4 +6,4 @@ Both writer audits pass. N1 rotates all 192 original Astero draw-11 normals +90 
 
 Regression evidence: 77 Python synthetic tests passed; protected original corpus 78/78 DX and 6,960/6,960 DXT zero edits passed; Blender 5.2.2 passed full 78-resource zero exports, 22-resource real regression, synthetic import/edit checks, packaged add-on installation, and focused N1/M1 export audit.
 
-**Automated verdict: READY FOR HUMAN TEST. Runtime status: WAITING FOR HUMAN.** SDK v1 is not frozen yet. If both pass, recommend R4F; if N1 remains inconclusive, prepare constant-normal fallback; if M1 fails, investigate only its field. No topology-changing writer work began.
+**Human runtime closeout: N1 PASS, M1 PASS — both CONFIRMED_BY_RUNTIME. SAME-TOPOLOGY VEHICLE SDK V1 BASELINE FROZEN.** See runtime-results.md/json. N1 visibly changed chrome/chromebar reflection/shading with geometry intact; M1 removed body-draw environment contribution while slot-0 livery and other reflective materials remained. The constant-normal fallback is unnecessary. Topology-changing DX writing remains an R4F task.

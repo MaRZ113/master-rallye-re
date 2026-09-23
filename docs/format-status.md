@@ -194,6 +194,6 @@ passes ZIP CRC/member-hash checks; E5 human testing confirms the game accepts th
 See docs/vehicle-authoring.md, docs/texture-authoring.md and
 docs/vehicle-packaging.md.
 
-## R4E.1 focused runtime gap
+## R4E.1 same-topology SDK v1 closeout
 
-The remaining same-topology runtime questions are consumption of edited DX normals and the effect of patching the established environment feature bit. N1 and M1 are isolated Astero car.dx probes. Neither is called runtime-confirmed before human testing. See research/r4e_1/runtime-test-plan.md.
+N1 human testing confirmed that rotating all 192 Astero draw-11 normals changed the target chrome/chromebar reflection/shading without moving geometry. M1 human testing confirmed that clearing environment mask bit 0x04 on Astero body draw 7 removed its reflection contribution while preserving slot-0 livery and unrelated reflective materials. Both writer paths are **CONFIRMED_BY_RUNTIME**. The **SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is FROZEN**: position, normal, UV, color, DXT-content, alpha and environment state edits, tag-101 translation, dependency resolution, bundling and full-tree Python SMA packaging. Unknown fields remain raw. Topology-changing DX output is not part of this baseline. See research/r4e_1/runtime-results.md.
