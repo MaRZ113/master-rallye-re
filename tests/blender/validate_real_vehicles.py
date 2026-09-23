@@ -12,7 +12,7 @@ from pathlib import Path
 import bpy
 
 
-FOLDER_FAMILIES = ("Astero", "Pajero", "Forester", "Bruno", "Ufo", "megane")
+FOLDER_FAMILIES = ("Astero", "Pajero", "Forester", "Bruno", "SeatBuggy", "Ufo", "megane")
 REQUIRED_SAMPLES = (
     ("Astero", "complete.dx"),
     ("Astero", "car.dx"),
@@ -24,6 +24,8 @@ REQUIRED_SAMPLES = (
     ("Bruno", "car.dx"),
     ("Bruno", "wheel.dx"),
     ("ChevyBlazer", "car.dx"),
+    ("SeatBuggy", "car.dx"),
+    ("SeatBuggy", "complete.dx"),
     ("Ufo", "complete.dx"),
     ("megane", "sus.dx"),
 )
@@ -80,6 +82,30 @@ def validate_import(obj, model) -> dict:
     normal = metadata["normal_provenance"]
     require(normal["diagnostics"]["count"] == model.vertex_count, f"{resource}: normal count")
     import_warnings = metadata["blender"]["import_warnings"]
+    collision = metadata["collision"]
+    require(collision["tag101_present"] == (model.collision.convex_hull is not None), f"{resource}: tag101 metadata")
+    overlay_count = 0
+    if model.collision.convex_hull is not None and model.collision.validated:
+        require(collision["overlay"]["created"], f"{resource}: collision overlay missing")
+        overlay_objects = [bpy.data.objects.get(name) for name in collision["overlay"]["objects"]]
+        require(all(item is not None for item in overlay_objects), f"{resource}: collision object missing")
+        overlay_count = len(overlay_objects)
+        require(overlay_count == 3, f"{resource}: collision overlay count")
+        roles = {item.get("mr_collision_role"): item for item in overlay_objects}
+        from master_rallye.coords import transform_blender_positions
+        hull = model.collision.convex_hull
+        for role, representation in (
+            ("representation-a", hull.representation_a),
+            ("representation-b", hull.representation_b),
+        ):
+            overlay = roles[role]
+            expected = transform_blender_positions(representation.geometry_a.vertices)
+            actual = tuple(tuple(vertex.co) for vertex in overlay.data.vertices)
+            require(actual == expected, f"{resource}: {role} coordinate alignment")
+            require(overlay.hide_select and overlay.hide_render, f"{resource}: {role} not read-only")
+        sphere = roles["base-radius-preview"]
+        require(tuple(sphere.location) == transform_blender_positions(hull.base_geometry.vertices)[0], f"{resource}: base center alignment")
+        require(abs(sphere.empty_display_size - hull.base_scalar) < 1e-6, f"{resource}: base radius")
     if (
         normal["diagnostics"]["non_finite_count"] == 0
         and normal["diagnostics"]["near_zero_count"] == 0
@@ -106,6 +132,9 @@ def validate_import(obj, model) -> dict:
         "normal_min_magnitude": normal["diagnostics"]["min_magnitude"],
         "normal_max_magnitude": normal["diagnostics"]["max_magnitude"],
         "display_normal_strategy": normal["display_strategy"],
+        "collision_tags": list(model.collision.tag_ids),
+        "collision_validated": model.collision.validated,
+        "collision_overlay_count": overlay_count,
     }
 
 
@@ -218,6 +247,8 @@ def main() -> None:
             == reports_by_resource[resource]["display_normal_strategy"],
             f"{resource}: reload normal strategy",
         )
+        for name in metadata.get("collision", {}).get("overlay", {}).get("objects", []):
+            require(bpy.data.objects.get(name) is not None, f"{resource}: reload collision overlay")
 
     zero_edit_results = []
     zero_root = report_path.parent / "r3-zero-edit"

@@ -228,6 +228,7 @@ def _section_hashes(data: bytes, model: DxModel) -> dict[str, str]:
         "uv_and_local_indices": (model.uv_count_offset, model.draw_table_offset),
         "draw_and_global_tables": (model.draw_table_offset, model.trailing.offset),
         "trailing": (model.trailing.offset, len(data)),
+        "collision": (model.collision.offset, model.collision.end_offset),
     }
     return {
         name: hashlib.sha256(data[start:end]).hexdigest()
@@ -263,6 +264,11 @@ def _validate_reparse(
             output.global_index_table.indices if output.global_index_table else None,
         ),
         ("trailing bytes", original.trailing.data, output.trailing.data),
+        (
+            "tag101 payload hash",
+            original.collision.convex_hull.sha256 if original.collision.convex_hull else None,
+            output.collision.convex_hull.sha256 if output.collision.convex_hull else None,
+        ),
         ("warnings", original.diagnostics.warnings, output.diagnostics.warnings),
         ("errors", original.diagnostics.errors, output.diagnostics.errors),
     )

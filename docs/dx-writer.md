@@ -128,5 +128,10 @@ incorrect placement, and loss of normal collision/damage behavior.
 This does **not** prove that collision data is stored inside `car.dx`. The
 supported conclusion is that the race runtime expects the structure/role
 represented by `car.dx` for normal vehicle collision/damage behavior, and that
-substituting `complete.dx` is incompatible with that pipeline. The exact
-dependency remains unresolved and is reserved for R4A.
+substituting `complete.dx` is incompatible with that pipeline. R4B subsequently
+parsed the tag-101 collision structure, but runtime binding and causality
+remain unresolved.
+
+R4B writer regression hashes the exact parsed tag-101 range. All **28/28**
+tag-101 resources preserve that hash during both zero-edit and safe
+single-position corpus tests. Collision bytes are never patched.

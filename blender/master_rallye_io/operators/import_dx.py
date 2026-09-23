@@ -21,6 +21,7 @@ class IMPORT_SCENE_OT_master_rallye_dx(bpy.types.Operator, ImportHelper):
     import_sidecar: BoolProperty(name="Import TXT sidecar metadata", default=True)
     load_textures: BoolProperty(name="Load DXT preview textures", default=True)
     strict_validation: BoolProperty(name="Require validated geometry", default=True)
+    show_collision: BoolProperty(name="Show collision overlay", default=True)
     collection_name: StringProperty(name="Collection name", default="")
 
     def execute(self, context):
@@ -35,6 +36,7 @@ class IMPORT_SCENE_OT_master_rallye_dx(bpy.types.Operator, ImportHelper):
                 import_sidecar=self.import_sidecar,
                 load_textures=self.load_textures,
                 strict=self.strict_validation,
+                show_collision=self.show_collision,
             )
         except Exception as error:
             bpy.data.collections.remove(collection)

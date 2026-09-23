@@ -54,9 +54,15 @@ if fixture is not None:
         raise AssertionError("vendored Blender UV policy mismatch")
     if metadata["normal_provenance"]["display_strategy"] != "blender-calculated-fallback":
         raise AssertionError("vendored normal strategy mismatch")
+    if not metadata["collision"]["tag101_present"]:
+        raise AssertionError("vendored collision parser metadata missing")
+    overlays = [item for item in bpy.data.objects if item.get("mr_collision_owner") == obj["mr_source_path"]]
+    if len(overlays) != 3:
+        raise AssertionError("vendored collision overlay mismatch")
     payload["vendored_import"] = "PASS"
     payload["blender_uv_policy"] = "direct-v"
     payload["display_normal_strategy"] = "blender-calculated-fallback"
+    payload["collision_overlay"] = "PASS"
     zero_output = archive.parent / "packaged-zero-edit.dx"
     result = bpy.ops.export_scene.master_rallye_dx_positions(
         filepath=str(zero_output),

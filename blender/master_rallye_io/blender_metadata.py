@@ -15,8 +15,8 @@ from .library import (
     validate_authoring_state,
 )
 
-IMPORTER_VERSION = "3.0.0"
-FORMAT_STATUS = "R1_VEHICLE_DX_HIGH"
+IMPORTER_VERSION = "4.0.0"
+FORMAT_STATUS = "R4B_VEHICLE_DX_COLLISION_READ"
 REQUIRED_POINT_ATTRIBUTES = {
     "mr_source_vertex",
     "mr_source_vertex_valid",
@@ -80,9 +80,39 @@ def build_metadata(
             source_triangles.append(draw.index_start // 3 + relative_index)
             face_groups.append(draw.top_level_index)
     source_vertex_ids = tuple(range(model.vertex_count))
+    hull = model.collision.convex_hull
+    collision_metadata = {
+        "tags": list(model.collision.tag_ids),
+        "validated": model.collision.validated,
+        "warnings": list(model.collision.warnings),
+        "errors": list(model.collision.errors),
+        "tag101_present": hull is not None,
+        "tag101": None if hull is None else {
+            "tag_offset": hull.tag_offset,
+            "payload_offset": hull.payload_offset,
+            "end_offset": hull.end_offset,
+            "payload_size": hull.payload_size,
+            "sha256": hull.sha256,
+            "base_center": list(hull.base_geometry.vertices[0]) if hull.base_geometry.vertex_count == 1 else None,
+            "base_scalar": hull.base_scalar,
+            "base_scalar_semantics": "bounding-radius-CONFIRMED_BY_CORPUS-for-27-nonempty-vehicle-hulls",
+            "representation_a": {
+                "vertex_count": hull.representation_a.geometry_a.vertex_count,
+                "triangle_count": hull.representation_a.geometry_a.triangle_count,
+                "edge_count": len(hull.representation_a.edges),
+                "face_count": hull.representation_a.face_count,
+            },
+            "representation_b": {
+                "vertex_count": hull.representation_b.geometry_a.vertex_count,
+                "triangle_count": hull.representation_b.geometry_a.triangle_count,
+                "edge_count": len(hull.representation_b.edges),
+                "face_count": hull.representation_b.face_count,
+            },
+        },
+    }
     return {
         "schema_version": 3,
-        "phase": "R3",
+        "phase": "R4B",
         "importer_version": IMPORTER_VERSION,
         "format_status": FORMAT_STATUS,
         "source": {
@@ -190,6 +220,7 @@ def build_metadata(
             "sha256": model.trailing.sha256,
             "raw_embedded": False,
         },
+        "collision": collision_metadata,
         "round_trip": {
             "writer_available": True,
             "writer_mode": "template-preserving-positions-only",

@@ -14,6 +14,7 @@ if str(SOURCE_ROOT) not in sys.path:
 
 from master_rallye.audit import audit_texture_tree
 from master_rallye.coverage import write_coverage_reports
+from master_rallye.collision_analysis import write_collision_corpus_reports
 from master_rallye.dx import parse_dx
 from master_rallye.export.gltf import export_gltf
 from master_rallye.export.obj import export_obj
@@ -135,6 +136,18 @@ def vehicle_roles_command(args) -> int:
     return 0
 
 
+def collision_corpus_command(args) -> int:
+    markdown = args.markdown or args.report.with_suffix(".md")
+    report = write_collision_corpus_reports(args.vehicle_root, args.report, markdown)
+    summary = report["summary"]
+    print(
+        f"collision corpus: {summary['dx_resource_count']} DX, "
+        f"tag101 {summary['tag101_count']}, validated {summary['tag101_validated_count']}, "
+        f"failures {summary['failed_resource_count']}"
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mrtool", description="Master Rallye clean-room research CLI")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -177,6 +190,12 @@ def build_parser() -> argparse.ArgumentParser:
     roles.add_argument("--markdown", type=Path)
     roles.add_argument("--comparison", type=Path)
     roles.set_defaults(function=vehicle_roles_command)
+
+    collision = commands.add_parser("scan-collision", help="read-only vehicle collision-section scan")
+    collision.add_argument("vehicle_root", type=Path)
+    collision.add_argument("--report", required=True, type=Path)
+    collision.add_argument("--markdown", type=Path)
+    collision.set_defaults(function=collision_corpus_command)
     return parser
 
 

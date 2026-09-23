@@ -65,6 +65,7 @@ def markdown(payload: dict) -> str:
         f"| Zero-edit byte-identical | {summary['zero_edit_byte_identical']} |",
         f"| Safe single-position validated | {summary['single_position_validated']} |",
         f"| Single-position skipped | {summary['single_position_skipped']} |",
+        f"| Tag-101 payload hashes preserved | {summary['tag101_payload_preserved']}/{summary['tag101_resources']} |",
         f"| Failures | {summary['failures']} |",
         "",
         "A single-position pass means the candidate stayed inside the original AABB,",
@@ -95,6 +96,9 @@ def main() -> int:
         try:
             data = path.read_bytes()
             model = parse_dx_bytes(data, source=relative)
+            tag101_before = model.collision.convex_hull.sha256 if model.collision.convex_hull else None
+            item["tag101_present"] = tag101_before is not None
+            item["tag101_sha256_before"] = tag101_before
             zero = patch_dx_positions(data, model.vertices.positions, source=relative)
             item["zero_edit_byte_identical"] = zero.byte_identical
             item["source_sha256"] = zero.source_sha256
@@ -116,6 +120,12 @@ def main() -> int:
                     value.to_dict() for value in changed.diff.changed_ranges
                 ]
                 item["post_write_validated"] = changed.output_model.diagnostics.validated
+                tag101_after = (
+                    changed.output_model.collision.convex_hull.sha256
+                    if changed.output_model.collision.convex_hull else None
+                )
+                item["tag101_sha256_after"] = tag101_after
+                item["tag101_payload_preserved"] = tag101_before == tag101_after
                 item["unexpected_ranges"] = [
                     value.to_dict() for value in changed.diff.unexpected_ranges
                 ]
@@ -144,6 +154,12 @@ def main() -> int:
             item.get("single_position") == "SKIPPED" for item in resources
         ),
         "failures": sum(item["status"] == "FAIL" for item in resources),
+        "tag101_resources": sum(item.get("tag101_present") is True for item in resources),
+        "tag101_payload_preserved": sum(
+            item.get("tag101_present") is True
+            and item.get("tag101_payload_preserved") is True
+            for item in resources
+        ),
     }
     args.json.parent.mkdir(parents=True, exist_ok=True)
     args.markdown.parent.mkdir(parents=True, exist_ok=True)

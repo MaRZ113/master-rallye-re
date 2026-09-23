@@ -20,6 +20,7 @@ class IMPORT_SCENE_OT_master_rallye_vehicle(bpy.types.Operator):
     import_sidecar: BoolProperty(name="Import TXT sidecar metadata", default=True)
     load_textures: BoolProperty(name="Load DXT preview textures", default=True)
     strict_validation: BoolProperty(name="Require validated geometry", default=True)
+    show_collision: BoolProperty(name="Show collision overlays", default=True)
 
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
@@ -50,6 +51,7 @@ class IMPORT_SCENE_OT_master_rallye_vehicle(bpy.types.Operator):
                     load_textures=self.load_textures,
                     strict=self.strict_validation,
                     material_cache=cache,
+                    show_collision=self.show_collision,
                 )
                 imported.append(result.object)
                 warnings.extend(result.warnings)

@@ -8,7 +8,7 @@ read-only.
 
 ## Current scope
 
-Phase R3 is complete: the validated vehicle DX/DXT library drives a native
+Phase R4B is complete: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed
 same-topology **positions-only** DX export. All 78 vehicle resources produce a
@@ -29,6 +29,14 @@ visual template. Static `$chull`, collision XML, draw-group, and trailing-data
 links are documented without claiming that collision is wholly stored in
 `car.dx`. See `docs/vehicle-runtime-roles.md` and `research/r4a/`.
 
+Phase R4B reconstructs the exact vehicle tag-101 collision-hull structure.
+All 78 vehicle DX resources parse; tag 101 occurs in 28, with 27 finite,
+non-empty validated hulls and one explicitly retained Forklift non-finite
+outlier. Representation A is an AABB helper and representation B is a closed
+convex polyhedron at **HIGH** confidence. The Blender add-on can display both
+as read-only overlays. R3 remains positions-only; R4B adds no collision writer.
+See `docs/formats/dx-collision.md` and `docs/blender-collision.md`.
+
 ## Blender add-on
 
 Build the installable local ZIP with:
@@ -37,7 +45,7 @@ Build the installable local ZIP with:
 py -3 tools/build_blender_addon.py
 ```
 
-Install the ignored `dist/master_rallye_io-r3.zip` from Blender preferences.
+Install the ignored `dist/master_rallye_io-r4b.zip` from Blender preferences.
 The add-on provides **File > Import > Master Rallye DX (.dx)** and **Import
 Master Rallye Vehicle Folder**. It was tested with Blender 5.2.2 LTS; Blender
 4.3+ is the expected API baseline, but other versions were not tested.
@@ -51,7 +59,8 @@ direct source V; this is intentionally independent from the unchanged glTF
 native custom-normal crashes while the source values remain preserved. Only
 same-topology position edits can be written through the experimental
 original-template exporter; arbitrary edits cannot be written back. See
-`docs/blender-importer.md` and `docs/dx-writer.md`.
+`docs/blender-importer.md`, `docs/blender-collision.md`, and
+`docs/dx-writer.md`.
 
 ## Library and research CLI
 
@@ -77,6 +86,11 @@ py -3 tools/mrtool.py vehicle-roles `
   --report research/r4a/vehicle-resource-matrix.json `
   --markdown research/r4a/vehicle-resource-matrix.md `
   --comparison research/r4a/car-vs-complete.md
+
+py -3 tools/mrtool.py scan-collision `
+  "..\Data.sma_unpacked\DataGx\Vehicles" `
+  --report research/r4b/tag101-corpus.json `
+  --markdown research/r4b/tag101-corpus.md
 ```
 
 Exports are local validation artifacts under ignored `.research-output/` and

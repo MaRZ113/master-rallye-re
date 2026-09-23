@@ -1,4 +1,4 @@
-# Format status (Phase R3 runtime-validated checkpoint)
+# Format status (Phase R4B collision-hull checkpoint)
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
@@ -49,8 +49,9 @@ available.
 ## Still outside the claim
 
 Header words `135` and `1337`, draw flags/control semantics beyond known
-boundaries, opaque trailing sections, runtime material blending, and course DX
-variants remain unresolved. No executable or Ghidra analysis was performed.
+boundaries, runtime material blending, and course DX variants remain
+unresolved. R4B used targeted reader/writer inspection only for the formerly
+opaque collision prefix; it did not perform broad executable analysis.
 
 ## R2 Blender integration status
 
@@ -123,16 +124,33 @@ variants remain unresolved. No executable or Ghidra analysis was performed.
 - **RUNTIME OBSERVATION / CONFIRMED:** `complete.dx` is used for presentation,
   `car.dx` for the race body/chassis, and `wheel.dx` is separately instantiated
   during a race.
-- **STATIC FORMAT FACT:** all 26 car resources have opaque trailing data whose
-  first raw u32 is `101`; 25/26 car resources contain a literal `$chull(...)`;
+- **STATIC FORMAT FACT:** all 26 car resources have trailing data whose first
+  u32 is tag `101`; 25/26 car resources contain a literal `$chull(...)`;
   24 standard TXT spans differ from compiled render triangles by exactly the
   named hull span.
 - **DATA LINK / HIGH:** `collision.xml` defines `ConvexHull/PlaneThickness`
-  and named overrides matching nine literal `$chull` names. The exact marker-101
-  trailing schema and runtime activation remain unknown.
+  and named overrides matching nine literal `$chull` names. R4B now maps the
+  exact tag-101 wire schema; runtime activation remains unresolved.
 - **HIGH:** 25/26 car resources use tag-7/tag-8 state groups, predominantly
   `screen*` and `blight`; complete and wheel resources use tag 2 only.
 - **HIGH:** all 25 separate wheel resources are 252-triangle tag-2 visual
   templates. Wheel/suspension physics remains separate in `vehicles.xml`.
 - **UNRESOLVED:** the complete-for-car lift is not assigned to bounds, wheel
   duplication, or suspension transforms without another controlled test.
+
+## R4B collision-hull status
+
+- **HIGH structural:** tag 101 is base GeometryBlock + float + two repeated,
+  counted convex-hull representations. All nested counts and reference domains
+  have strict bounds/index validation.
+- The 78-file vehicle scan found tag 100/101/102 in **0/28/53** resources.
+  Twenty-seven tag-101 hulls are finite and validated; Forklift is the one
+  structurally parsed but non-finite static-only outlier.
+- **CONFIRMED_BY_CORPUS:** the base scalar is a bounding radius (27/27) and
+  each face scalar is polygon area in both representations (27/27).
+- **HIGH:** representation A is an 8-vertex/12-triangle AABB helper;
+  representation B is a closed convex polyhedron with Euler characteristic 2.
+- Tag 102 is structurally two float32 values after its tag; meanings remain
+  **UNKNOWN**. Tag 100 is distinct but absent from this corpus and remains raw.
+- Blender 5.2.2 read-only overlays use the shared coordinate transform and do
+  not enter the R3 export path. R4B implements no collision writer.

@@ -1,0 +1,6337 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-09-23T03:23:42.299317+00:00",
+  "source_descriptor": "external read-only DataGx/Vehicles root (path omitted)",
+  "summary": {
+    "dx_resource_count": 78,
+    "parsed_resource_count": 78,
+    "failed_resource_count": 0,
+    "tag100_count": 0,
+    "tag101_count": 28,
+    "tag101_validated_count": 27,
+    "tag101_failed_count": 1,
+    "tag102_count": 53,
+    "tag101_nonempty_count": 27,
+    "base_1v_0t_count": 28,
+    "representation_a_box_count": 27,
+    "base_scalar_radius_match_count": 27,
+    "representation_b_closed_count": 27,
+    "representation_b_euler2_count": 27,
+    "representation_b_convex_count": 27,
+    "face_scalar_area_match_a_count": 27,
+    "face_scalar_area_match_b_count": 27
+  },
+  "resources": [
+    {
+      "resource": "Astero/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 130999,
+      "collision_prefix_end_offset": 136295,
+      "unparsed_trailing_offset": 136295,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 130999,
+        "payload_offset": 131003,
+        "end_offset": 136295,
+        "payload_size": 5292,
+        "total_size_with_tag": 5296,
+        "sha256": "38a2a20354a44bf914a53d1a44ef1053ff1a0b70d6f272af0c392fdf69765f3e",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 131003,
+          "end_offset": 131023,
+          "vertices": [
+            [
+              -0.015474319458007812,
+              0.7146068215370178,
+              0.01336967945098877
+            ]
+          ]
+        },
+        "base_scalar": 2.516017436981201,
+        "base_scalar_offset": 131023,
+        "base_center_to_representation_a_aabb_center": 2.8870999813079834e-08,
+        "base_center_to_representation_a_max_corner": 2.5160173342105328,
+        "base_scalar_radius_abs_error": 1.0277066841979376e-07,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 131027,
+          "end_offset": 131891,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 131027,
+            "end_offset": 131275,
+            "aabb": {
+              "minimum": [
+                -1.031559944152832,
+                -0.011102261021733284,
+                -2.1709516048431396
+              ],
+              "maximum": [
+                1.0006113052368164,
+                1.4403159618377686,
+                2.197690963745117
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 131275,
+            "end_offset": 131295,
+            "aabb": {
+              "minimum": [
+                -0.015474319458007812,
+                0.7146068215370178,
+                0.01336967945098877
+              ],
+              "maximum": [
+                -0.015474319458007812,
+                0.7146068215370178,
+                0.01336967945098877
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.750480234681163e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 131891,
+          "end_offset": 136295,
+          "byte_size": 4404,
+          "geometry_a": {
+            "vertex_count": 28,
+            "triangle_count": 52,
+            "offset": 131891,
+            "end_offset": 132859,
+            "aabb": {
+              "minimum": [
+                -1.031559944152832,
+                -0.011102261021733284,
+                -2.1709516048431396
+              ],
+              "maximum": [
+                1.0006113052368164,
+                1.4403159618377686,
+                2.197690963745117
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 78,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 132859,
+            "end_offset": 132879,
+            "aabb": {
+              "minimum": [
+                -4.273870581528172e-05,
+                0.6719357371330261,
+                -0.2867967486381531
+              ],
+              "maximum": [
+                -4.273870581528172e-05,
+                0.6719357371330261,
+                -0.2867967486381531
+              ]
+            }
+          },
+          "referenced_vertex_count": 28,
+          "edge_count": 67,
+          "face_count": 41,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 3.245818787078747e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Astero)",
+                "index": 1937,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Astero/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 141429,
+      "collision_prefix_end_offset": 141441,
+      "unparsed_trailing_offset": 141441,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 141429,
+        "end_offset": 141441,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Astero/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12939,
+      "collision_prefix_end_offset": 12951,
+      "unparsed_trailing_offset": 12951,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12939,
+        "end_offset": 12951,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Bruno/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 126519,
+      "collision_prefix_end_offset": 130423,
+      "unparsed_trailing_offset": 130423,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 126519,
+        "payload_offset": 126523,
+        "end_offset": 130423,
+        "payload_size": 3900,
+        "total_size_with_tag": 3904,
+        "sha256": "e2c028842df75b4cdebc259999dd28654bb44236ecd3adf0cb295fe083027f4f",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 126523,
+          "end_offset": 126543,
+          "vertices": [
+            [
+              1.2046406538956944e-07,
+              0.7055560946464539,
+              -0.035856083035469055
+            ]
+          ]
+        },
+        "base_scalar": 2.9822306632995605,
+        "base_scalar_offset": 126543,
+        "base_center_to_representation_a_aabb_center": 4.4764858841271825e-08,
+        "base_center_to_representation_a_max_corner": 2.982230721343214,
+        "base_scalar_radius_abs_error": 5.804365343919926e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 126547,
+          "end_offset": 127411,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 126547,
+            "end_offset": 126795,
+            "aabb": {
+              "minimum": [
+                -1.034129023551941,
+                -0.0038031379226595163,
+                -2.7416067123413086
+              ],
+              "maximum": [
+                1.03412926197052,
+                1.4149153232574463,
+                2.6698944568634033
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 126795,
+            "end_offset": 126815,
+            "aabb": {
+              "minimum": [
+                1.2046406538956944e-07,
+                0.7055560946464539,
+                -0.035856083035469055
+              ],
+              "maximum": [
+                1.2046406538956944e-07,
+                0.7055560946464539,
+                -0.035856083035469055
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.71496446657693e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 127411,
+          "end_offset": 130423,
+          "byte_size": 3012,
+          "geometry_a": {
+            "vertex_count": 22,
+            "triangle_count": 40,
+            "offset": 127411,
+            "end_offset": 128163,
+            "aabb": {
+              "minimum": [
+                -1.034129023551941,
+                -0.0038031379226595163,
+                -2.7416067123413086
+              ],
+              "maximum": [
+                1.03412926197052,
+                1.4149153232574463,
+                2.6698944568634033
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 60,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 128163,
+            "end_offset": 128183,
+            "aabb": {
+              "minimum": [
+                1.8254429789976712e-07,
+                0.6129137277603149,
+                -0.09116050601005554
+              ],
+              "maximum": [
+                1.8254429789976712e-07,
+                0.6129137277603149,
+                -0.09116050601005554
+              ]
+            }
+          },
+          "referenced_vertex_count": 22,
+          "edge_count": 45,
+          "face_count": 25,
+          "descriptor_primary_lengths": [
+            3,
+            4,
+            6
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4,
+            6
+          ],
+          "face_scalar_area_max_abs_error": 1.2775612123760993e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Bruno)",
+                "index": 1958,
+                "triangle_count": 48
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Bruno/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 138564,
+      "collision_prefix_end_offset": 138576,
+      "unparsed_trailing_offset": 138576,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 138564,
+        "end_offset": 138576,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Bruno/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12932,
+      "collision_prefix_end_offset": 12944,
+      "unparsed_trailing_offset": 12944,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12932,
+        "end_offset": 12944,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "ChevyBlazer/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": true,
+      "collision_tags": [
+        101,
+        102
+      ],
+      "collision_prefix_offset": 139873,
+      "collision_prefix_end_offset": 143117,
+      "unparsed_trailing_offset": 143117,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 143105,
+        "end_offset": 143117,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      },
+      "tag101": {
+        "tag_offset": 139873,
+        "payload_offset": 139877,
+        "end_offset": 143105,
+        "payload_size": 3228,
+        "total_size_with_tag": 3232,
+        "sha256": "43fc3e9910b32da5938ca319586315e072f9e8fdd0b0fb357713e87467ea8a19",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 139877,
+          "end_offset": 139897,
+          "vertices": [
+            [
+              -0.0024971961975097656,
+              0.8343331813812256,
+              -0.1907045841217041
+            ]
+          ]
+        },
+        "base_scalar": 2.69500732421875,
+        "base_scalar_offset": 139897,
+        "base_center_to_representation_a_aabb_center": 9.546056389808655e-09,
+        "base_center_to_representation_a_max_corner": 2.6950072796975784,
+        "base_scalar_radius_abs_error": 4.452117163822322e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 139901,
+          "end_offset": 140765,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 139901,
+            "end_offset": 140149,
+            "aabb": {
+              "minimum": [
+                -1.039408564567566,
+                -0.006265621166676283,
+                -2.531916379928589
+              ],
+              "maximum": [
+                1.0344141721725464,
+                1.6749320030212402,
+                2.1505072116851807
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 140149,
+            "end_offset": 140169,
+            "aabb": {
+              "minimum": [
+                -0.0024971961975097656,
+                0.8343331813812256,
+                -0.1907045841217041
+              ],
+              "maximum": [
+                -0.0024971961975097656,
+                0.8343331813812256,
+                -0.1907045841217041
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 4.222895313432673e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 140765,
+          "end_offset": 143105,
+          "byte_size": 2340,
+          "geometry_a": {
+            "vertex_count": 16,
+            "triangle_count": 28,
+            "offset": 140765,
+            "end_offset": 141301,
+            "aabb": {
+              "minimum": [
+                -1.039408564567566,
+                -0.006265621166676283,
+                -2.531916379928589
+              ],
+              "maximum": [
+                1.0344141721725464,
+                1.6749320030212402,
+                2.1505072116851807
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 42,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 141301,
+            "end_offset": 141321,
+            "aabb": {
+              "minimum": [
+                -0.000697820505592972,
+                0.6462163925170898,
+                -0.03531165048480034
+              ],
+              "maximum": [
+                -0.000697820505592972,
+                0.6462163925170898,
+                -0.03531165048480034
+              ]
+            }
+          },
+          "referenced_vertex_count": 16,
+          "edge_count": 35,
+          "face_count": 21,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.512343361653734e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Chevy)",
+                "index": 0,
+                "triangle_count": 28
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "ChevyBlazer/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 153144,
+      "collision_prefix_end_offset": 153156,
+      "unparsed_trailing_offset": 153156,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 153144,
+        "end_offset": 153156,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "ChevyBlazer/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12941,
+      "collision_prefix_end_offset": 12953,
+      "unparsed_trailing_offset": 12953,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12941,
+        "end_offset": 12953,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Forester/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 128486,
+      "collision_prefix_end_offset": 132714,
+      "unparsed_trailing_offset": 132714,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 128486,
+        "payload_offset": 128490,
+        "end_offset": 132714,
+        "payload_size": 4224,
+        "total_size_with_tag": 4228,
+        "sha256": "4b31b4b0062c7c1fb4253bd0dfe410f1b02dc78c0e9292f9e0a468f2038fe123",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 128490,
+          "end_offset": 128510,
+          "vertices": [
+            [
+              1.6676832359507898e-08,
+              0.7164835929870605,
+              -0.002075030468404293
+            ]
+          ]
+        },
+        "base_scalar": 2.489619493484497,
+        "base_scalar_offset": 128510,
+        "base_center_to_representation_a_aabb_center": 4.7712661473029506e-08,
+        "base_center_to_representation_a_max_corner": 2.489619534426114,
+        "base_scalar_radius_abs_error": 4.0941616763490174e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 128514,
+          "end_offset": 129378,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 128514,
+            "end_offset": 128762,
+            "aabb": {
+              "minimum": [
+                -0.9496884346008301,
+                -0.021518239751458168,
+                -2.181903123855591
+              ],
+              "maximum": [
+                0.9496884942054749,
+                1.4544854164123535,
+                2.17775297164917
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 128762,
+            "end_offset": 128782,
+            "aabb": {
+              "minimum": [
+                1.6676832359507898e-08,
+                0.7164835929870605,
+                -0.002075030468404293
+              ],
+              "maximum": [
+                1.6676832359507898e-08,
+                0.7164835929870605,
+                -0.002075030468404293
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 9.36371833404337e-08,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 129378,
+          "end_offset": 132714,
+          "byte_size": 3336,
+          "geometry_a": {
+            "vertex_count": 24,
+            "triangle_count": 44,
+            "offset": 129378,
+            "end_offset": 130202,
+            "aabb": {
+              "minimum": [
+                -0.9496884346008301,
+                -0.021518239751458168,
+                -2.181903123855591
+              ],
+              "maximum": [
+                0.9496884942054749,
+                1.4544854164123535,
+                2.17775297164917
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 66,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 130202,
+            "end_offset": 130222,
+            "aabb": {
+              "minimum": [
+                -1.379651877186916e-07,
+                0.6356533169746399,
+                0.2894560396671295
+              ],
+              "maximum": [
+                -1.379651877186916e-07,
+                0.6356533169746399,
+                0.2894560396671295
+              ]
+            }
+          },
+          "referenced_vertex_count": 24,
+          "edge_count": 50,
+          "face_count": 28,
+          "descriptor_primary_lengths": [
+            3,
+            4,
+            6
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4,
+            6
+          ],
+          "face_scalar_area_max_abs_error": 1.35976591097986e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Forester)",
+                "index": 1785,
+                "triangle_count": 68
+              }
+            ]
+          },
+          {
+            "sidecar": "Forester.txt",
+            "meshes": [
+              {
+                "name": "$chull(Forester)",
+                "index": 1864,
+                "triangle_count": 88
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Forester/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 140085,
+      "collision_prefix_end_offset": 140097,
+      "unparsed_trailing_offset": 140097,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 140085,
+        "end_offset": 140097,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Forester/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12946,
+      "collision_prefix_end_offset": 12958,
+      "unparsed_trailing_offset": 12958,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12946,
+        "end_offset": 12958,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "forklift/car.dx",
+      "evidence_class": "STATIC_FORMAT_ONLY_OUTLIER",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 77880,
+      "collision_prefix_end_offset": 77988,
+      "unparsed_trailing_offset": 77988,
+      "unparsed_trailing_byte_count": 44,
+      "status": "FAILED",
+      "warnings": [],
+      "errors": [
+        "tag101 base geometry vertex 0 component 0 at 0x13044 in car.dx: non-finite float",
+        "tag101 base geometry vertex 0 component 1 at 0x13048 in car.dx: non-finite float",
+        "tag101 base geometry vertex 0 component 2 at 0x1304C in car.dx: non-finite float",
+        "tag101 representation A geometry B vertex 0 component 0 at 0x13064 in car.dx: non-finite float",
+        "tag101 representation A geometry B vertex 0 component 1 at 0x13068 in car.dx: non-finite float",
+        "tag101 representation A geometry B vertex 0 component 2 at 0x1306C in car.dx: non-finite float",
+        "tag101 representation B geometry B vertex 0 component 0 at 0x1308C in car.dx: non-finite float",
+        "tag101 representation B geometry B vertex 0 component 1 at 0x13090 in car.dx: non-finite float",
+        "tag101 representation B geometry B vertex 0 component 2 at 0x13094 in car.dx: non-finite float"
+      ],
+      "tag101": {
+        "tag_offset": 77880,
+        "payload_offset": 77884,
+        "end_offset": 77988,
+        "payload_size": 104,
+        "total_size_with_tag": 108,
+        "sha256": "51e829626337a5cdc3fc436b5c27771d1acc7adef3553b9f8c09d28c39416e68",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 77884,
+          "end_offset": 77904,
+          "vertices": [
+            [
+              NaN,
+              NaN,
+              NaN
+            ]
+          ]
+        },
+        "base_scalar": 0.0,
+        "base_scalar_offset": 77904,
+        "base_center_to_representation_a_aabb_center": null,
+        "base_center_to_representation_a_max_corner": null,
+        "base_scalar_radius_abs_error": null,
+        "representation_a_axis_aligned_box": false,
+        "representation_a": {
+          "offset": 77908,
+          "end_offset": 77948,
+          "byte_size": 40,
+          "geometry_a": {
+            "vertex_count": 0,
+            "triangle_count": 0,
+            "offset": 77908,
+            "end_offset": 77916,
+            "aabb": null,
+            "topology": {
+              "unique_edge_count": 0,
+              "all_triangle_edges_incident_twice": false,
+              "euler_characteristic": 0,
+              "convex_supporting_planes": null
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 77916,
+            "end_offset": 77936,
+            "aabb": {
+              "minimum": [
+                NaN,
+                NaN,
+                NaN
+              ],
+              "maximum": [
+                NaN,
+                NaN,
+                NaN
+              ]
+            }
+          },
+          "referenced_vertex_count": 0,
+          "edge_count": 0,
+          "face_count": 0,
+          "descriptor_primary_lengths": [],
+          "descriptor_secondary_lengths": [],
+          "face_loop_lengths": [],
+          "face_scalar_area_max_abs_error": 0.0,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 77948,
+          "end_offset": 77988,
+          "byte_size": 40,
+          "geometry_a": {
+            "vertex_count": 0,
+            "triangle_count": 0,
+            "offset": 77948,
+            "end_offset": 77956,
+            "aabb": null,
+            "topology": {
+              "unique_edge_count": 0,
+              "all_triangle_edges_incident_twice": false,
+              "euler_characteristic": 0,
+              "convex_supporting_planes": null
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 77956,
+            "end_offset": 77976,
+            "aabb": {
+              "minimum": [
+                NaN,
+                NaN,
+                NaN
+              ],
+              "maximum": [
+                NaN,
+                NaN,
+                NaN
+              ]
+            }
+          },
+          "referenced_vertex_count": 0,
+          "edge_count": 0,
+          "face_count": 0,
+          "descriptor_primary_lengths": [],
+          "descriptor_secondary_lengths": [],
+          "face_loop_lengths": [],
+          "face_scalar_area_max_abs_error": 0.0,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": []
+      }
+    },
+    {
+      "resource": "forklift/complete.dx",
+      "evidence_class": "STATIC_FORMAT_ONLY_OUTLIER",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 86920,
+      "collision_prefix_end_offset": 86932,
+      "unparsed_trailing_offset": 86932,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 86920,
+        "end_offset": 86932,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "forklift/wheel.dx",
+      "evidence_class": "STATIC_FORMAT_ONLY_OUTLIER",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12941,
+      "collision_prefix_end_offset": 12953,
+      "unparsed_trailing_offset": 12953,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12941,
+        "end_offset": 12953,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Frontera/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 138546,
+      "collision_prefix_end_offset": 143782,
+      "unparsed_trailing_offset": 143782,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 138546,
+        "payload_offset": 138550,
+        "end_offset": 143782,
+        "payload_size": 5232,
+        "total_size_with_tag": 5236,
+        "sha256": "caa33e063df266421558b7c2d68e5259212a7a357f8221bae49bc435f0c39a23",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 138550,
+          "end_offset": 138570,
+          "vertices": [
+            [
+              -2.9802322387695312e-08,
+              0.7109360694885254,
+              -0.1263716220855713
+            ]
+          ]
+        },
+        "base_scalar": 2.579446315765381,
+        "base_scalar_offset": 138570,
+        "base_center_to_representation_a_aabb_center": 1.4901161193847656e-08,
+        "base_center_to_representation_a_max_corner": 2.5794462204278035,
+        "base_scalar_radius_abs_error": 9.533757738822146e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 138574,
+          "end_offset": 139438,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 138574,
+            "end_offset": 138822,
+            "aabb": {
+              "minimum": [
+                -0.9959974884986877,
+                -0.07780072093009949,
+                -2.3712382316589355
+              ],
+              "maximum": [
+                0.995997428894043,
+                1.4996728897094727,
+                2.118494987487793
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 138822,
+            "end_offset": 138842,
+            "aabb": {
+              "minimum": [
+                -2.9802322387695312e-08,
+                0.7109360694885254,
+                -0.1263716220855713
+              ],
+              "maximum": [
+                -2.9802322387695312e-08,
+                0.7109360694885254,
+                -0.1263716220855713
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 4.3865853172064817e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 139438,
+          "end_offset": 143782,
+          "byte_size": 4344,
+          "geometry_a": {
+            "vertex_count": 28,
+            "triangle_count": 52,
+            "offset": 139438,
+            "end_offset": 140406,
+            "aabb": {
+              "minimum": [
+                -0.9959974884986877,
+                -0.07780072093009949,
+                -2.3712382316589355
+              ],
+              "maximum": [
+                0.995997428894043,
+                1.4996728897094727,
+                2.118494987487793
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 78,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 140406,
+            "end_offset": 140426,
+            "aabb": {
+              "minimum": [
+                -7.587043364765123e-05,
+                0.703211784362793,
+                -0.3149568736553192
+              ],
+              "maximum": [
+                -7.587043364765123e-05,
+                0.703211784362793,
+                -0.3149568736553192
+              ]
+            }
+          },
+          "referenced_vertex_count": 28,
+          "edge_count": 66,
+          "face_count": 40,
+          "descriptor_primary_lengths": [
+            3,
+            4,
+            6
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4,
+            6
+          ],
+          "face_scalar_area_max_abs_error": 6.611008451784528e-08,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Frontera)",
+                "index": 1991,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Frontera/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 149211,
+      "collision_prefix_end_offset": 149223,
+      "unparsed_trailing_offset": 149223,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 149211,
+        "end_offset": 149223,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Frontera/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12914,
+      "collision_prefix_end_offset": 12926,
+      "unparsed_trailing_offset": 12926,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12914,
+        "end_offset": 12926,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "IceCream/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 194723,
+      "collision_prefix_end_offset": 198039,
+      "unparsed_trailing_offset": 198039,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 194723,
+        "payload_offset": 194727,
+        "end_offset": 198039,
+        "payload_size": 3312,
+        "total_size_with_tag": 3316,
+        "sha256": "49f9ff40de0aade603eab15d4a6851db0b9296eadc957baa2364daba3c2f3417",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 194727,
+          "end_offset": 194747,
+          "vertices": [
+            [
+              -0.0033332109451293945,
+              1.3256847858428955,
+              -0.3168981671333313
+            ]
+          ]
+        },
+        "base_scalar": 2.884953260421753,
+        "base_scalar_offset": 194747,
+        "base_center_to_representation_a_aabb_center": 2.7241185307502747e-08,
+        "base_center_to_representation_a_max_corner": 2.884953251975441,
+        "base_scalar_radius_abs_error": 8.44631209417912e-09,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 194751,
+          "end_offset": 195615,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 194751,
+            "end_offset": 194999,
+            "aabb": {
+              "minimum": [
+                -1.1178197860717773,
+                0.002644116524606943,
+                -2.6256723403930664
+              ],
+              "maximum": [
+                1.1111533641815186,
+                2.6487255096435547,
+                1.9918760061264038
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 194999,
+            "end_offset": 195019,
+            "aabb": {
+              "minimum": [
+                -0.0033332109451293945,
+                1.3256847858428955,
+                -0.3168981671333313
+              ],
+              "maximum": [
+                -0.0033332109451293945,
+                1.3256847858428955,
+                -0.3168981671333313
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 4.610241433056217e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 195615,
+          "end_offset": 198039,
+          "byte_size": 2424,
+          "geometry_a": {
+            "vertex_count": 18,
+            "triangle_count": 32,
+            "offset": 195615,
+            "end_offset": 196223,
+            "aabb": {
+              "minimum": [
+                -1.1178197860717773,
+                0.002644116524606943,
+                -2.6256723403930664
+              ],
+              "maximum": [
+                1.1111533641815186,
+                2.6487255096435547,
+                1.9918760061264038
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 48,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 196223,
+            "end_offset": 196243,
+            "aabb": {
+              "minimum": [
+                -0.0025640714447945356,
+                0.8943660855293274,
+                0.1480407416820526
+              ],
+              "maximum": [
+                -0.0025640714447945356,
+                0.8943660855293274,
+                0.1480407416820526
+              ]
+            }
+          },
+          "referenced_vertex_count": 18,
+          "edge_count": 36,
+          "face_count": 20,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 3.629859186560225e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Icevan)",
+                "index": 1957,
+                "triangle_count": 28
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "IceCream/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 127385,
+      "collision_prefix_end_offset": 127397,
+      "unparsed_trailing_offset": 127397,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 127385,
+        "end_offset": 127397,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "IceCream/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12939,
+      "collision_prefix_end_offset": 12951,
+      "unparsed_trailing_offset": 12951,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12939,
+        "end_offset": 12951,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Jump/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 122385,
+      "collision_prefix_end_offset": 127297,
+      "unparsed_trailing_offset": 127297,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 122385,
+        "payload_offset": 122389,
+        "end_offset": 127297,
+        "payload_size": 4908,
+        "total_size_with_tag": 4912,
+        "sha256": "520f8c6d015d3f7c67b14714b27480236dcb2f85cb39007e1d2d8979a681cf44",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 122389,
+          "end_offset": 122409,
+          "vertices": [
+            [
+              2.9802322387695312e-08,
+              0.664889395236969,
+              -0.1480032205581665
+            ]
+          ]
+        },
+        "base_scalar": 2.394742727279663,
+        "base_scalar_offset": 122409,
+        "base_center_to_representation_a_aabb_center": 1.5832483768463135e-08,
+        "base_center_to_representation_a_max_corner": 2.3947428345539334,
+        "base_scalar_radius_abs_error": 1.0727427035561732e-07,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 122413,
+          "end_offset": 123277,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 122413,
+            "end_offset": 122661,
+            "aabb": {
+              "minimum": [
+                -0.9223794937133789,
+                -0.026609571650624275,
+                -2.247012138366699
+              ],
+              "maximum": [
+                0.9223795533180237,
+                1.3563883304595947,
+                1.9510056972503662
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 122661,
+            "end_offset": 122681,
+            "aabb": {
+              "minimum": [
+                2.9802322387695312e-08,
+                0.664889395236969,
+                -0.1480032205581665
+              ],
+              "maximum": [
+                2.9802322387695312e-08,
+                0.664889395236969,
+                -0.1480032205581665
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.693120150747518e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 123277,
+          "end_offset": 127297,
+          "byte_size": 4020,
+          "geometry_a": {
+            "vertex_count": 26,
+            "triangle_count": 48,
+            "offset": 123277,
+            "end_offset": 124173,
+            "aabb": {
+              "minimum": [
+                -0.9223794937133789,
+                -0.026609571650624275,
+                -2.247012138366699
+              ],
+              "maximum": [
+                0.9223795533180237,
+                1.3563883304595947,
+                1.9510056972503662
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 72,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 124173,
+            "end_offset": 124193,
+            "aabb": {
+              "minimum": [
+                0.0017504236893728375,
+                0.6216689348220825,
+                -0.2250637263059616
+              ],
+              "maximum": [
+                0.0017504236893728375,
+                0.6216689348220825,
+                -0.2250637263059616
+              ]
+            }
+          },
+          "referenced_vertex_count": 26,
+          "edge_count": 61,
+          "face_count": 37,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.677965757451716e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Jump)",
+                "index": 1794,
+                "triangle_count": 64
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Jump/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 134440,
+      "collision_prefix_end_offset": 134452,
+      "unparsed_trailing_offset": 134452,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 134440,
+        "end_offset": 134452,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Jump/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12941,
+      "collision_prefix_end_offset": 12953,
+      "unparsed_trailing_offset": 12953,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12941,
+        "end_offset": 12953,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Kamaz/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 146407,
+      "collision_prefix_end_offset": 151043,
+      "unparsed_trailing_offset": 151043,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 146407,
+        "payload_offset": 146411,
+        "end_offset": 151043,
+        "payload_size": 4632,
+        "total_size_with_tag": 4636,
+        "sha256": "b350e66c5742b341cd3ef734a57380eb10ce4475ce015ed9a90a9aaffa374d1b",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 146411,
+          "end_offset": 146431,
+          "vertices": [
+            [
+              1.4743609710876626e-07,
+              1.5203109979629517,
+              0.07101106643676758
+            ]
+          ]
+        },
+        "base_scalar": 4.304873943328857,
+        "base_scalar_offset": 146431,
+        "base_center_to_representation_a_aabb_center": 5.927727639168478e-08,
+        "base_center_to_representation_a_max_corner": 4.304874143393114,
+        "base_scalar_radius_abs_error": 2.0006425671681427e-07,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 146435,
+          "end_offset": 147299,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 146435,
+            "end_offset": 146683,
+            "aabb": {
+              "minimum": [
+                -1.454728126525879,
+                -0.033989567309617996,
+                -3.6706271171569824
+              ],
+              "maximum": [
+                1.4547284841537476,
+                3.0746116638183594,
+                3.8126492500305176
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 146683,
+            "end_offset": 146703,
+            "aabb": {
+              "minimum": [
+                1.4743609710876626e-07,
+                1.5203109979629517,
+                0.07101106643676758
+              ],
+              "maximum": [
+                1.4743609710876626e-07,
+                1.5203109979629517,
+                0.07101106643676758
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 3.992317942902446e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 147299,
+          "end_offset": 151043,
+          "byte_size": 3744,
+          "geometry_a": {
+            "vertex_count": 28,
+            "triangle_count": 52,
+            "offset": 147299,
+            "end_offset": 148267,
+            "aabb": {
+              "minimum": [
+                -1.454728126525879,
+                -0.033989567309617996,
+                -3.6706271171569824
+              ],
+              "maximum": [
+                1.4547284841537476,
+                3.0746116638183594,
+                3.8126492500305176
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 78,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 148267,
+            "end_offset": 148287,
+            "aabb": {
+              "minimum": [
+                2.1466364241717883e-09,
+                1.6143085956573486,
+                0.5559437870979309
+              ],
+              "maximum": [
+                2.1466364241717883e-09,
+                1.6143085956573486,
+                0.5559437870979309
+              ]
+            }
+          },
+          "referenced_vertex_count": 28,
+          "edge_count": 56,
+          "face_count": 30,
+          "descriptor_primary_lengths": [
+            3,
+            4,
+            8
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4,
+            8
+          ],
+          "face_scalar_area_max_abs_error": 3.4032605178424546e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Kamaz)",
+                "index": 0,
+                "triangle_count": 72
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Kamaz/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 161058,
+      "collision_prefix_end_offset": 161070,
+      "unparsed_trailing_offset": 161070,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 161058,
+        "end_offset": 161070,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Kamaz/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12942,
+      "collision_prefix_end_offset": 12954,
+      "unparsed_trailing_offset": 12954,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12942,
+        "end_offset": 12954,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Kangoo/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 146029,
+      "collision_prefix_end_offset": 150497,
+      "unparsed_trailing_offset": 150497,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 146029,
+        "payload_offset": 146033,
+        "end_offset": 150497,
+        "payload_size": 4464,
+        "total_size_with_tag": 4468,
+        "sha256": "1aa1b1d326a7a88c6d83f68079c32c48495f17a77214aa2f878462c5aabe7fa9",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 146033,
+          "end_offset": 146053,
+          "vertices": [
+            [
+              5.960464477539063e-08,
+              0.7317191362380981,
+              0.00014197826385498047
+            ]
+          ]
+        },
+        "base_scalar": 2.4521470069885254,
+        "base_scalar_offset": 146053,
+        "base_center_to_representation_a_aabb_center": 2.7939677238464355e-08,
+        "base_center_to_representation_a_max_corner": 2.452147119474718,
+        "base_scalar_radius_abs_error": 1.1248619280479488e-07,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 146057,
+          "end_offset": 146921,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 146057,
+            "end_offset": 146305,
+            "aabb": {
+              "minimum": [
+                -1.0349096059799194,
+                -0.02271324023604393,
+                -2.090986728668213
+              ],
+              "maximum": [
+                1.034909725189209,
+                1.4861514568328857,
+                2.091270685195923
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 146305,
+            "end_offset": 146325,
+            "aabb": {
+              "minimum": [
+                5.960464477539063e-08,
+                0.7317191362380981,
+                0.00014197826385498047
+              ],
+              "maximum": [
+                5.960464477539063e-08,
+                0.7317191362380981,
+                0.00014197826385498047
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.1433280039673264e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 146921,
+          "end_offset": 150497,
+          "byte_size": 3576,
+          "geometry_a": {
+            "vertex_count": 24,
+            "triangle_count": 44,
+            "offset": 146921,
+            "end_offset": 147745,
+            "aabb": {
+              "minimum": [
+                -1.0349096059799194,
+                -0.02271324023604393,
+                -2.090986728668213
+              ],
+              "maximum": [
+                1.034909725189209,
+                1.4861514568328857,
+                2.091270685195923
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 66,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 147745,
+            "end_offset": 147765,
+            "aabb": {
+              "minimum": [
+                2.673183416845859e-07,
+                0.6762291193008423,
+                0.31237804889678955
+              ],
+              "maximum": [
+                2.673183416845859e-07,
+                0.6762291193008423,
+                0.31237804889678955
+              ]
+            }
+          },
+          "referenced_vertex_count": 24,
+          "edge_count": 54,
+          "face_count": 32,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.223273826678195e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Kangoo)",
+                "index": 2077,
+                "triangle_count": 52
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Kangoo/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 156680,
+      "collision_prefix_end_offset": 156692,
+      "unparsed_trailing_offset": 156692,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 156680,
+        "end_offset": 156692,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Kangoo/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12929,
+      "collision_prefix_end_offset": 12941,
+      "unparsed_trailing_offset": 12941,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12929,
+        "end_offset": 12941,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "KiaSportage/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 138418,
+      "collision_prefix_end_offset": 141710,
+      "unparsed_trailing_offset": 141710,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 138418,
+        "payload_offset": 138422,
+        "end_offset": 141710,
+        "payload_size": 3288,
+        "total_size_with_tag": 3292,
+        "sha256": "1658b3f59c2a8561758d953de93cf1c838b94f02066a3b3774e0add8f355fa00",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 138422,
+          "end_offset": 138442,
+          "vertices": [
+            [
+              0.0001277923583984375,
+              0.8249518275260925,
+              -0.1427708864212036
+            ]
+          ]
+        },
+        "base_scalar": 2.7272379398345947,
+        "base_scalar_offset": 138442,
+        "base_center_to_representation_a_aabb_center": 2.0489096641540527e-08,
+        "base_center_to_representation_a_max_corner": 2.727238058610692,
+        "base_scalar_radius_abs_error": 1.1877609740196249e-07,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 138446,
+          "end_offset": 139310,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 138446,
+            "end_offset": 138694,
+            "aabb": {
+              "minimum": [
+                -1.1750253438949585,
+                -0.035593073815107346,
+                -2.4484822750091553
+              ],
+              "maximum": [
+                1.1752809286117554,
+                1.6854966878890991,
+                2.162940502166748
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 138694,
+            "end_offset": 138714,
+            "aabb": {
+              "minimum": [
+                0.0001277923583984375,
+                0.8249518275260925,
+                -0.1427708864212036
+              ],
+              "maximum": [
+                0.0001277923583984375,
+                0.8249518275260925,
+                -0.1427708864212036
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.286877309742863e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 139310,
+          "end_offset": 141710,
+          "byte_size": 2400,
+          "geometry_a": {
+            "vertex_count": 16,
+            "triangle_count": 28,
+            "offset": 139310,
+            "end_offset": 139846,
+            "aabb": {
+              "minimum": [
+                -1.1750253438949585,
+                -0.035593073815107346,
+                -2.4484822750091553
+              ],
+              "maximum": [
+                1.1752809286117554,
+                1.6854966878890991,
+                2.162940502166748
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 42,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 139846,
+            "end_offset": 139866,
+            "aabb": {
+              "minimum": [
+                -0.000714660796802491,
+                0.8852711319923401,
+                -0.4023672640323639
+              ],
+              "maximum": [
+                -0.000714660796802491,
+                0.8852711319923401,
+                -0.4023672640323639
+              ]
+            }
+          },
+          "referenced_vertex_count": 16,
+          "edge_count": 36,
+          "face_count": 22,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 4.800475483790478e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Kia)",
+                "index": 0,
+                "triangle_count": 32
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "KiaSportage/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 150977,
+      "collision_prefix_end_offset": 150989,
+      "unparsed_trailing_offset": 150989,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 150977,
+        "end_offset": 150989,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "KiaSportage/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12846,
+      "collision_prefix_end_offset": 12858,
+      "unparsed_trailing_offset": 12858,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12846,
+        "end_offset": 12858,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "LandCruiser/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": true,
+      "collision_tags": [
+        101,
+        102
+      ],
+      "collision_prefix_offset": 152359,
+      "collision_prefix_end_offset": 157343,
+      "unparsed_trailing_offset": 157343,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 157331,
+        "end_offset": 157343,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      },
+      "tag101": {
+        "tag_offset": 152359,
+        "payload_offset": 152363,
+        "end_offset": 157331,
+        "payload_size": 4968,
+        "total_size_with_tag": 4972,
+        "sha256": "7a877350fa8c6b20aa0ef3190b0607447d0971b834609dd6e5ad2709519d28d0",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 152363,
+          "end_offset": 152383,
+          "vertices": [
+            [
+              3.3306690738754696e-16,
+              0.7100985646247864,
+              -0.16364359855651855
+            ]
+          ]
+        },
+        "base_scalar": 2.551802635192871,
+        "base_scalar_offset": 152383,
+        "base_center_to_representation_a_aabb_center": 1.3038516044616703e-08,
+        "base_center_to_representation_a_max_corner": 2.551802651816967,
+        "base_scalar_radius_abs_error": 1.6624095877659784e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 152387,
+          "end_offset": 153251,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 152387,
+            "end_offset": 152635,
+            "aabb": {
+              "minimum": [
+                -0.9878818988800049,
+                -0.016068484634160995,
+                -2.401604175567627
+              ],
+              "maximum": [
+                0.9878818988800049,
+                1.4362655878067017,
+                2.07431697845459
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 152635,
+            "end_offset": 152655,
+            "aabb": {
+              "minimum": [
+                3.3306690738754696e-16,
+                0.7100985646247864,
+                -0.16364359855651855
+              ],
+              "maximum": [
+                3.3306690738754696e-16,
+                0.7100985646247864,
+                -0.16364359855651855
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.7043957889484318e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 153251,
+          "end_offset": 157331,
+          "byte_size": 4080,
+          "geometry_a": {
+            "vertex_count": 26,
+            "triangle_count": 48,
+            "offset": 153251,
+            "end_offset": 154147,
+            "aabb": {
+              "minimum": [
+                -0.9878818988800049,
+                -0.016068484634160995,
+                -2.401604175567627
+              ],
+              "maximum": [
+                0.9878818988800049,
+                1.4362655878067017,
+                2.07431697845459
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 72,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 154147,
+            "end_offset": 154167,
+            "aabb": {
+              "minimum": [
+                -0.050812844187021255,
+                0.6218585968017578,
+                -0.2993384301662445
+              ],
+              "maximum": [
+                -0.050812844187021255,
+                0.6218585968017578,
+                -0.2993384301662445
+              ]
+            }
+          },
+          "referenced_vertex_count": 26,
+          "edge_count": 62,
+          "face_count": 38,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.0671848738041945e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Landcruiser)",
+                "index": 2231,
+                "triangle_count": 64
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "LandCruiser/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 162857,
+      "collision_prefix_end_offset": 162869,
+      "unparsed_trailing_offset": 162869,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 162857,
+        "end_offset": 162869,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "LandCruiser/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12933,
+      "collision_prefix_end_offset": 12945,
+      "unparsed_trailing_offset": 12945,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12933,
+        "end_offset": 12945,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Mattserati/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 119352,
+      "collision_prefix_end_offset": 123556,
+      "unparsed_trailing_offset": 123556,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 119352,
+        "payload_offset": 119356,
+        "end_offset": 123556,
+        "payload_size": 4200,
+        "total_size_with_tag": 4204,
+        "sha256": "c42a6aba29467e3766994a259a1fac269b5217ba5c41f45acbb8789678f2d2fc",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 119356,
+          "end_offset": 119376,
+          "vertices": [
+            [
+              2.9802322387695312e-08,
+              0.6989091634750366,
+              -0.023866891860961914
+            ]
+          ]
+        },
+        "base_scalar": 2.083752155303955,
+        "base_scalar_offset": 119376,
+        "base_center_to_representation_a_aabb_center": 6.984919309616089e-10,
+        "base_center_to_representation_a_max_corner": 2.083752167104137,
+        "base_scalar_radius_abs_error": 1.1800181720644787e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 119380,
+          "end_offset": 120244,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 119380,
+            "end_offset": 119628,
+            "aabb": {
+              "minimum": [
+                -0.9222199320793152,
+                -0.003973604645580053,
+                -1.755192756652832
+              ],
+              "maximum": [
+                0.92221999168396,
+                1.4017919301986694,
+                1.7074589729309082
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 119628,
+            "end_offset": 119648,
+            "aabb": {
+              "minimum": [
+                2.9802322387695312e-08,
+                0.6989091634750366,
+                -0.023866891860961914
+              ],
+              "maximum": [
+                2.9802322387695312e-08,
+                0.6989091634750366,
+                -0.023866891860961914
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.743066644939063e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 120244,
+          "end_offset": 123556,
+          "byte_size": 3312,
+          "geometry_a": {
+            "vertex_count": 22,
+            "triangle_count": 40,
+            "offset": 120244,
+            "end_offset": 120996,
+            "aabb": {
+              "minimum": [
+                -0.9222199320793152,
+                -0.003973604645580053,
+                -1.755192756652832
+              ],
+              "maximum": [
+                0.92221999168396,
+                1.4017919301986694,
+                1.7074589729309082
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 60,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 120996,
+            "end_offset": 121016,
+            "aabb": {
+              "minimum": [
+                0.00020457791106309742,
+                0.6905473470687866,
+                -0.1185828149318695
+              ],
+              "maximum": [
+                0.00020457791106309742,
+                0.6905473470687866,
+                -0.1185828149318695
+              ]
+            }
+          },
+          "referenced_vertex_count": 22,
+          "edge_count": 50,
+          "face_count": 30,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 8.587384692226863e-08,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Mattserati)",
+                "index": 1760,
+                "triangle_count": 64
+              }
+            ]
+          },
+          {
+            "sidecar": "Matt1500.txt",
+            "meshes": [
+              {
+                "name": "$chull(Mattserati)",
+                "index": 1784,
+                "triangle_count": 64
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Mattserati/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 129191,
+      "collision_prefix_end_offset": 129203,
+      "unparsed_trailing_offset": 129203,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 129191,
+        "end_offset": 129203,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Mattserati/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12933,
+      "collision_prefix_end_offset": 12945,
+      "unparsed_trailing_offset": 12945,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12933,
+        "end_offset": 12945,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "megane/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 146388,
+      "collision_prefix_end_offset": 149440,
+      "unparsed_trailing_offset": 149440,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 146388,
+        "payload_offset": 146392,
+        "end_offset": 149440,
+        "payload_size": 3048,
+        "total_size_with_tag": 3052,
+        "sha256": "a41c1bf13e4bc2bded1c69129c54bdd33c7986c702171bc87073fc23d953d832",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 146392,
+          "end_offset": 146412,
+          "vertices": [
+            [
+              -0.001086011528968811,
+              0.6200237274169922,
+              -0.17820560932159424
+            ]
+          ]
+        },
+        "base_scalar": 2.4719932079315186,
+        "base_scalar_offset": 146412,
+        "base_center_to_representation_a_aabb_center": 1.801731619773922e-08,
+        "base_center_to_representation_a_max_corner": 2.471993141060168,
+        "base_scalar_radius_abs_error": 6.687135067906524e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 146416,
+          "end_offset": 147280,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 146416,
+            "end_offset": 146664,
+            "aabb": {
+              "minimum": [
+                -1.172788381576538,
+                -0.002242425689473748,
+                -2.264026403427124
+              ],
+              "maximum": [
+                1.1706163883209229,
+                1.2422899007797241,
+                1.9076151847839355
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 146664,
+            "end_offset": 146684,
+            "aabb": {
+              "minimum": [
+                -0.001086011528968811,
+                0.6200237274169922,
+                -0.17820560932159424
+              ],
+              "maximum": [
+                -0.001086011528968811,
+                0.6200237274169922,
+                -0.17820560932159424
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.221418071712833e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 147280,
+          "end_offset": 149440,
+          "byte_size": 2160,
+          "geometry_a": {
+            "vertex_count": 16,
+            "triangle_count": 28,
+            "offset": 147280,
+            "end_offset": 147816,
+            "aabb": {
+              "minimum": [
+                -1.172788381576538,
+                -0.002242425689473748,
+                -2.264026403427124
+              ],
+              "maximum": [
+                1.1706163883209229,
+                1.2422899007797241,
+                1.9076151847839355
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 42,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 147816,
+            "end_offset": 147836,
+            "aabb": {
+              "minimum": [
+                -0.0010850795079022646,
+                0.6515551209449768,
+                -0.6849533915519714
+              ],
+              "maximum": [
+                -0.0010850795079022646,
+                0.6515551209449768,
+                -0.6849533915519714
+              ]
+            }
+          },
+          "referenced_vertex_count": 16,
+          "edge_count": 32,
+          "face_count": 18,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 4.192744995634712e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Sbuggy)",
+                "index": 2032,
+                "triangle_count": 68
+              }
+            ]
+          },
+          {
+            "sidecar": "sus.txt",
+            "meshes": [
+              {
+                "name": "$chull(Sbuggy)",
+                "index": 0,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "megane/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 157175,
+      "collision_prefix_end_offset": 157187,
+      "unparsed_trailing_offset": 157187,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 157175,
+        "end_offset": 157187,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "megane/sus.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 2713,
+      "collision_prefix_end_offset": 5969,
+      "unparsed_trailing_offset": 5969,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 2713,
+        "payload_offset": 2717,
+        "end_offset": 5969,
+        "payload_size": 3252,
+        "total_size_with_tag": 3256,
+        "sha256": "0aceaf7479cc2ea951bbe484a2221b1804f9d1d656cae48ba76bd44ffaf24e37",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 2717,
+          "end_offset": 2737,
+          "vertices": [
+            [
+              -0.0010854940628632903,
+              0.6200235486030579,
+              -0.1782054454088211
+            ]
+          ]
+        },
+        "base_scalar": 2.4719929695129395,
+        "base_scalar_offset": 2737,
+        "base_center_to_representation_a_aabb_center": 3.1020041595846404e-08,
+        "base_center_to_representation_a_max_corner": 2.4719931286407646,
+        "base_scalar_radius_abs_error": 1.591278251389383e-07,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 2741,
+          "end_offset": 3605,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 2741,
+            "end_offset": 2989,
+            "aabb": {
+              "minimum": [
+                -1.1727874279022217,
+                -0.0022427858784794807,
+                -2.264026403427124
+              ],
+              "maximum": [
+                1.1706163883209229,
+                1.2422899007797241,
+                1.9076155424118042
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 2989,
+            "end_offset": 3009,
+            "aabb": {
+              "minimum": [
+                -0.0010854940628632903,
+                0.6200235486030579,
+                -0.1782054454088211
+              ],
+              "maximum": [
+                -0.0010854940628632903,
+                0.6200235486030579,
+                -0.1782054454088211
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 5.715617135138018e-08,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 3605,
+          "end_offset": 5969,
+          "byte_size": 2364,
+          "geometry_a": {
+            "vertex_count": 18,
+            "triangle_count": 32,
+            "offset": 3605,
+            "end_offset": 4213,
+            "aabb": {
+              "minimum": [
+                -1.1727874279022217,
+                -0.0022427858784794807,
+                -2.264026403427124
+              ],
+              "maximum": [
+                1.1706163883209229,
+                1.2422899007797241,
+                1.9076155424118042
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 48,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 4213,
+            "end_offset": 4233,
+            "aabb": {
+              "minimum": [
+                -0.0010851055849343538,
+                0.6324700713157654,
+                -0.5198767781257629
+              ],
+              "maximum": [
+                -0.0010851055849343538,
+                0.6324700713157654,
+                -0.5198767781257629
+              ]
+            }
+          },
+          "referenced_vertex_count": 18,
+          "edge_count": 35,
+          "face_count": 19,
+          "descriptor_primary_lengths": [
+            3,
+            4,
+            5
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4,
+            5
+          ],
+          "face_scalar_area_max_abs_error": 1.1649834341653786e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Sbuggy)",
+                "index": 2032,
+                "triangle_count": 68
+              }
+            ]
+          },
+          {
+            "sidecar": "sus.txt",
+            "meshes": [
+              {
+                "name": "$chull(Sbuggy)",
+                "index": 0,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "megane/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12929,
+      "collision_prefix_end_offset": 12941,
+      "unparsed_trailing_offset": 12941,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12929,
+        "end_offset": 12941,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Navara/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 163033,
+      "collision_prefix_end_offset": 166265,
+      "unparsed_trailing_offset": 166265,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 163033,
+        "payload_offset": 163037,
+        "end_offset": 166265,
+        "payload_size": 3228,
+        "total_size_with_tag": 3232,
+        "sha256": "4d2f1e45385ed3bcfc58f85232bdebe9b22dc2130412ea0036229457e87d92c5",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 163037,
+          "end_offset": 163057,
+          "vertices": [
+            [
+              -0.0015221238136291504,
+              0.7793266773223877,
+              -0.24315762519836426
+            ]
+          ]
+        },
+        "base_scalar": 2.920081853866577,
+        "base_scalar_offset": 163057,
+        "base_center_to_representation_a_aabb_center": 2.0023435354232788e-08,
+        "base_center_to_representation_a_max_corner": 2.920081778444259,
+        "base_scalar_radius_abs_error": 7.542231816870526e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 163061,
+          "end_offset": 163925,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 163061,
+            "end_offset": 163309,
+            "aabb": {
+              "minimum": [
+                -1.0325947999954224,
+                0.004574735648930073,
+                -2.8629908561706543
+              ],
+              "maximum": [
+                1.029550552368164,
+                1.5540785789489746,
+                2.376675605773926
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 163309,
+            "end_offset": 163329,
+            "aabb": {
+              "minimum": [
+                -0.0015221238136291504,
+                0.7793266773223877,
+                -0.24315762519836426
+              ],
+              "maximum": [
+                -0.0015221238136291504,
+                0.7793266773223877,
+                -0.24315762519836426
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.673000949471316e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 163925,
+          "end_offset": 166265,
+          "byte_size": 2340,
+          "geometry_a": {
+            "vertex_count": 16,
+            "triangle_count": 28,
+            "offset": 163925,
+            "end_offset": 164461,
+            "aabb": {
+              "minimum": [
+                -1.0325947999954224,
+                0.004574735648930073,
+                -2.8629908561706543
+              ],
+              "maximum": [
+                1.029550552368164,
+                1.5540785789489746,
+                2.376675605773926
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 42,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 164461,
+            "end_offset": 164481,
+            "aabb": {
+              "minimum": [
+                0.0002669253444764763,
+                0.7399848103523254,
+                0.09044712781906128
+              ],
+              "maximum": [
+                0.0002669253444764763,
+                0.7399848103523254,
+                0.09044712781906128
+              ]
+            }
+          },
+          "referenced_vertex_count": 16,
+          "edge_count": 35,
+          "face_count": 21,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.0183987015087723e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Navara)",
+                "index": 2366,
+                "triangle_count": 28
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Navara/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 174296,
+      "collision_prefix_end_offset": 174308,
+      "unparsed_trailing_offset": 174308,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 174296,
+        "end_offset": 174308,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Navara/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12848,
+      "collision_prefix_end_offset": 12860,
+      "unparsed_trailing_offset": 12860,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12848,
+        "end_offset": 12860,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "NewRav/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 132186,
+      "collision_prefix_end_offset": 137542,
+      "unparsed_trailing_offset": 137542,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 132186,
+        "payload_offset": 132190,
+        "end_offset": 137542,
+        "payload_size": 5352,
+        "total_size_with_tag": 5356,
+        "sha256": "ee06909738bb23c30aea5ad1bf4dedba1c52d277fa101b89dc1db9f947ebc016",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 132190,
+          "end_offset": 132210,
+          "vertices": [
+            [
+              -2.9802322387695312e-08,
+              0.6840932369232178,
+              -0.08784306049346924
+            ]
+          ]
+        },
+        "base_scalar": 2.330240488052368,
+        "base_scalar_offset": 132210,
+        "base_center_to_representation_a_aabb_center": 1.1525116860866547e-08,
+        "base_center_to_representation_a_max_corner": 2.3302406101876714,
+        "base_scalar_radius_abs_error": 1.221353032043737e-07,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 132214,
+          "end_offset": 133078,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 132214,
+            "end_offset": 132462,
+            "aabb": {
+              "minimum": [
+                -0.9308387637138367,
+                -0.002379082841798663,
+                -2.110790491104126
+              ],
+              "maximum": [
+                0.9308387041091919,
+                1.3705655336380005,
+                1.9351043701171875
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 132462,
+            "end_offset": 132482,
+            "aabb": {
+              "minimum": [
+                -2.9802322387695312e-08,
+                0.6840932369232178,
+                -0.08784306049346924
+              ],
+              "maximum": [
+                -2.9802322387695312e-08,
+                0.6840932369232178,
+                -0.08784306049346924
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 8.995206179918114e-08,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 133078,
+          "end_offset": 137542,
+          "byte_size": 4464,
+          "geometry_a": {
+            "vertex_count": 28,
+            "triangle_count": 52,
+            "offset": 133078,
+            "end_offset": 134046,
+            "aabb": {
+              "minimum": [
+                -0.9308387637138367,
+                -0.002379082841798663,
+                -2.110790491104126
+              ],
+              "maximum": [
+                0.9308387041091919,
+                1.3705655336380005,
+                1.9351043701171875
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 78,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 134046,
+            "end_offset": 134066,
+            "aabb": {
+              "minimum": [
+                -0.040959302335977554,
+                0.6992074847221375,
+                -0.25573423504829407
+              ],
+              "maximum": [
+                -0.040959302335977554,
+                0.6992074847221375,
+                -0.25573423504829407
+              ]
+            }
+          },
+          "referenced_vertex_count": 28,
+          "edge_count": 68,
+          "face_count": 42,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.0576819625972576e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Custom)",
+                "index": 1892,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "NewRav/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 142464,
+      "collision_prefix_end_offset": 142476,
+      "unparsed_trailing_offset": 142476,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 142464,
+        "end_offset": 142476,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "NewRav/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12915,
+      "collision_prefix_end_offset": 12927,
+      "unparsed_trailing_offset": 12927,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12915,
+        "end_offset": 12927,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Pajero/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 145291,
+      "collision_prefix_end_offset": 150323,
+      "unparsed_trailing_offset": 150323,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 145291,
+        "payload_offset": 145295,
+        "end_offset": 150323,
+        "payload_size": 5028,
+        "total_size_with_tag": 5032,
+        "sha256": "eee508aea6a9f7ae330638001711ca360c2d1068a5310ed61e288bc99704e8f5",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 145295,
+          "end_offset": 145315,
+          "vertices": [
+            [
+              1.1920928955078125e-07,
+              0.7316095232963562,
+              -0.24129533767700195
+            ]
+          ]
+        },
+        "base_scalar": 2.5287907123565674,
+        "base_scalar_offset": 145315,
+        "base_center_to_representation_a_aabb_center": 1.862645149230957e-08,
+        "base_center_to_representation_a_max_corner": 2.5287906408213465,
+        "base_scalar_radius_abs_error": 7.153522085801001e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 145319,
+          "end_offset": 146183,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 145319,
+            "end_offset": 145567,
+            "aabb": {
+              "minimum": [
+                -1.005393624305725,
+                -0.039600811898708344,
+                -2.4297194480895996
+              ],
+              "maximum": [
+                1.0053938627243042,
+                1.5028198957443237,
+                1.9471287727355957
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 145567,
+            "end_offset": 145587,
+            "aabb": {
+              "minimum": [
+                1.1920928955078125e-07,
+                0.7316095232963562,
+                -0.24129533767700195
+              ],
+              "maximum": [
+                1.1920928955078125e-07,
+                0.7316095232963562,
+                -0.24129533767700195
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.6831639843294397e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 146183,
+          "end_offset": 150323,
+          "byte_size": 4140,
+          "geometry_a": {
+            "vertex_count": 26,
+            "triangle_count": 48,
+            "offset": 146183,
+            "end_offset": 147079,
+            "aabb": {
+              "minimum": [
+                -1.005393624305725,
+                -0.039600811898708344,
+                -2.4297194480895996
+              ],
+              "maximum": [
+                1.0053938627243042,
+                1.5028198957443237,
+                1.9471287727355957
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 72,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 147079,
+            "end_offset": 147099,
+            "aabb": {
+              "minimum": [
+                -0.06053008511662483,
+                0.6988138556480408,
+                -0.3969496488571167
+              ],
+              "maximum": [
+                -0.06053008511662483,
+                0.6988138556480408,
+                -0.3969496488571167
+              ]
+            }
+          },
+          "referenced_vertex_count": 26,
+          "edge_count": 63,
+          "face_count": 39,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 4.75085862206015e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "Pajero.txt",
+            "meshes": [
+              {
+                "name": "$chull(Pajero)",
+                "index": 1916,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Pajero/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 156431,
+      "collision_prefix_end_offset": 156443,
+      "unparsed_trailing_offset": 156443,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 156431,
+        "end_offset": 156443,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Pajero/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12932,
+      "collision_prefix_end_offset": 12944,
+      "unparsed_trailing_offset": 12944,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12932,
+        "end_offset": 12944,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Patrol/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 131256,
+      "collision_prefix_end_offset": 136552,
+      "unparsed_trailing_offset": 136552,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 131256,
+        "payload_offset": 131260,
+        "end_offset": 136552,
+        "payload_size": 5292,
+        "total_size_with_tag": 5296,
+        "sha256": "8be07003f0f532e603518789d9fc26248819d1a26679e929c25ac66fba5c5583",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 131260,
+          "end_offset": 131280,
+          "vertices": [
+            [
+              1.1920928955078125e-07,
+              0.6294006705284119,
+              -0.2167215347290039
+            ]
+          ]
+        },
+        "base_scalar": 2.8813347816467285,
+        "base_scalar_offset": 131280,
+        "base_center_to_representation_a_aabb_center": 0.0,
+        "base_center_to_representation_a_max_corner": 2.881334797236324,
+        "base_scalar_radius_abs_error": 1.558959539238458e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 131284,
+          "end_offset": 132148,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 131284,
+            "end_offset": 131532,
+            "aabb": {
+              "minimum": [
+                -0.9685797691345215,
+                -0.2020435333251953,
+                -2.799867630004883
+              ],
+              "maximum": [
+                0.9685800075531006,
+                1.460844874382019,
+                2.366424560546875
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 131532,
+            "end_offset": 131552,
+            "aabb": {
+              "minimum": [
+                1.1920928955078125e-07,
+                0.6294006705284119,
+                -0.2167215347290039
+              ],
+              "maximum": [
+                1.1920928955078125e-07,
+                0.6294006705284119,
+                -0.2167215347290039
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.1615210243908223e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 132148,
+          "end_offset": 136552,
+          "byte_size": 4404,
+          "geometry_a": {
+            "vertex_count": 28,
+            "triangle_count": 52,
+            "offset": 132148,
+            "end_offset": 133116,
+            "aabb": {
+              "minimum": [
+                -0.9685797691345215,
+                -0.2020435333251953,
+                -2.799867630004883
+              ],
+              "maximum": [
+                0.9685800075531006,
+                1.460844874382019,
+                2.366424560546875
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 78,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 133116,
+            "end_offset": 133136,
+            "aabb": {
+              "minimum": [
+                -0.04764995723962784,
+                0.6055439114570618,
+                -0.4964379072189331
+              ],
+              "maximum": [
+                -0.04764995723962784,
+                0.6055439114570618,
+                -0.4964379072189331
+              ]
+            }
+          },
+          "referenced_vertex_count": 28,
+          "edge_count": 67,
+          "face_count": 41,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.0839405106821687e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Patrol)",
+                "index": 1998,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Patrol/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 142592,
+      "collision_prefix_end_offset": 142604,
+      "unparsed_trailing_offset": 142604,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 142592,
+        "end_offset": 142604,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Patrol/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12927,
+      "collision_prefix_end_offset": 12939,
+      "unparsed_trailing_offset": 12939,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12927,
+        "end_offset": 12939,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "RMonster/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 125896,
+      "collision_prefix_end_offset": 130160,
+      "unparsed_trailing_offset": 130160,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 125896,
+        "payload_offset": 125900,
+        "end_offset": 130160,
+        "payload_size": 4260,
+        "total_size_with_tag": 4264,
+        "sha256": "2a11798fc54b57f8a54e186c7dac5e5a896a9c758240badb5441639ee2936bdf",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 125900,
+          "end_offset": 125920,
+          "vertices": [
+            [
+              -0.015474259853363037,
+              0.7146068215370178,
+              -0.08875524997711182
+            ]
+          ]
+        },
+        "base_scalar": 2.6051719188690186,
+        "base_scalar_offset": 125920,
+        "base_center_to_representation_a_aabb_center": 2.1420419216156006e-08,
+        "base_center_to_representation_a_max_corner": 2.605171810533634,
+        "base_scalar_radius_abs_error": 1.0833538466314963e-07,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 125924,
+          "end_offset": 126788,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 125924,
+            "end_offset": 126172,
+            "aabb": {
+              "minimum": [
+                -1.031559944152832,
+                -0.011102275922894478,
+                -2.375201463699341
+              ],
+              "maximum": [
+                1.000611424446106,
+                1.4403159618377686,
+                2.197690963745117
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 126172,
+            "end_offset": 126192,
+            "aabb": {
+              "minimum": [
+                -0.015474259853363037,
+                0.7146068215370178,
+                -0.08875524997711182
+              ],
+              "maximum": [
+                -0.015474259853363037,
+                0.7146068215370178,
+                -0.08875524997711182
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 9.381569121558186e-08,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 126788,
+          "end_offset": 130160,
+          "byte_size": 3372,
+          "geometry_a": {
+            "vertex_count": 22,
+            "triangle_count": 40,
+            "offset": 126788,
+            "end_offset": 127540,
+            "aabb": {
+              "minimum": [
+                -1.031559944152832,
+                -0.011102275922894478,
+                -2.375201463699341
+              ],
+              "maximum": [
+                1.000611424446106,
+                1.4403159618377686,
+                2.197690963745117
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 60,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 127540,
+            "end_offset": 127560,
+            "aabb": {
+              "minimum": [
+                -0.0006734957569278777,
+                0.6782264709472656,
+                0.41791120171546936
+              ],
+              "maximum": [
+                -0.0006734957569278777,
+                0.6782264709472656,
+                0.41791120171546936
+              ]
+            }
+          },
+          "referenced_vertex_count": 22,
+          "edge_count": 51,
+          "face_count": 31,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.332620334082435e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Rmonster)",
+                "index": 1842,
+                "triangle_count": 44
+              }
+            ]
+          },
+          {
+            "sidecar": "RMonster.txt",
+            "meshes": [
+              {
+                "name": "$chull(Rmonster)",
+                "index": 1695,
+                "triangle_count": 76
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "RMonster/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 130119,
+      "collision_prefix_end_offset": 130131,
+      "unparsed_trailing_offset": 130131,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 130119,
+        "end_offset": 130131,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "RMonster/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12914,
+      "collision_prefix_end_offset": 12926,
+      "unparsed_trailing_offset": 12926,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12914,
+        "end_offset": 12926,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "SeatBuggy/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 123976,
+      "collision_prefix_end_offset": 127736,
+      "unparsed_trailing_offset": 127736,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 123976,
+        "payload_offset": 123980,
+        "end_offset": 127736,
+        "payload_size": 3756,
+        "total_size_with_tag": 3760,
+        "sha256": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 123980,
+          "end_offset": 124000,
+          "vertices": [
+            [
+              -0.0010857649613171816,
+              0.6124566197395325,
+              -0.020055772736668587
+            ]
+          ]
+        },
+        "base_scalar": 2.4138782024383545,
+        "base_scalar_offset": 124000,
+        "base_center_to_representation_a_aabb_center": 8.222746377070575e-09,
+        "base_center_to_representation_a_max_corner": 2.413878223622518,
+        "base_scalar_radius_abs_error": 2.1184163312426563e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 124004,
+          "end_offset": 124868,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 124004,
+            "end_offset": 124252,
+            "aabb": {
+              "minimum": [
+                -1.172788143157959,
+                -0.0022424545604735613,
+                -2.03898286819458
+              ],
+              "maximum": [
+                1.170616626739502,
+                1.2271556854248047,
+                1.9988713264465332
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 124252,
+            "end_offset": 124272,
+            "aabb": {
+              "minimum": [
+                -0.0010857649613171816,
+                0.6124566197395325,
+                -0.020055772736668587
+              ],
+              "maximum": [
+                -0.0010857649613171816,
+                0.6124566197395325,
+                -0.020055772736668587
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.236065483884886e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 124868,
+          "end_offset": 127736,
+          "byte_size": 2868,
+          "geometry_a": {
+            "vertex_count": 20,
+            "triangle_count": 36,
+            "offset": 124868,
+            "end_offset": 125548,
+            "aabb": {
+              "minimum": [
+                -1.172788143157959,
+                -0.0022424545604735613,
+                -2.03898286819458
+              ],
+              "maximum": [
+                1.170616626739502,
+                1.2271556854248047,
+                1.9988713264465332
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 54,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 125548,
+            "end_offset": 125568,
+            "aabb": {
+              "minimum": [
+                -0.0010850923135876656,
+                0.7299914360046387,
+                -0.721813440322876
+              ],
+              "maximum": [
+                -0.0010850923135876656,
+                0.7299914360046387,
+                -0.721813440322876
+              ]
+            }
+          },
+          "referenced_vertex_count": 20,
+          "edge_count": 43,
+          "face_count": 25,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.0960678881465356e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Seatbuggy)",
+                "index": 0,
+                "triangle_count": 68
+              }
+            ]
+          },
+          {
+            "sidecar": "complete.txt",
+            "meshes": [
+              {
+                "name": "$chull(Seatbuggy)",
+                "index": 0,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "SeatBuggy/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": true,
+      "collision_tags": [
+        101,
+        102
+      ],
+      "collision_prefix_offset": 135978,
+      "collision_prefix_end_offset": 139750,
+      "unparsed_trailing_offset": 139750,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 139738,
+        "end_offset": 139750,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      },
+      "tag101": {
+        "tag_offset": 135978,
+        "payload_offset": 135982,
+        "end_offset": 139738,
+        "payload_size": 3756,
+        "total_size_with_tag": 3760,
+        "sha256": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 135982,
+          "end_offset": 136002,
+          "vertices": [
+            [
+              -0.0010857649613171816,
+              0.6124566197395325,
+              -0.020055772736668587
+            ]
+          ]
+        },
+        "base_scalar": 2.4138782024383545,
+        "base_scalar_offset": 136002,
+        "base_center_to_representation_a_aabb_center": 8.222746377070575e-09,
+        "base_center_to_representation_a_max_corner": 2.413878223622518,
+        "base_scalar_radius_abs_error": 2.1184163312426563e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 136006,
+          "end_offset": 136870,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 136006,
+            "end_offset": 136254,
+            "aabb": {
+              "minimum": [
+                -1.172788143157959,
+                -0.0022424545604735613,
+                -2.03898286819458
+              ],
+              "maximum": [
+                1.170616626739502,
+                1.2271556854248047,
+                1.9988713264465332
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 136254,
+            "end_offset": 136274,
+            "aabb": {
+              "minimum": [
+                -0.0010857649613171816,
+                0.6124566197395325,
+                -0.020055772736668587
+              ],
+              "maximum": [
+                -0.0010857649613171816,
+                0.6124566197395325,
+                -0.020055772736668587
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.236065483884886e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 136870,
+          "end_offset": 139738,
+          "byte_size": 2868,
+          "geometry_a": {
+            "vertex_count": 20,
+            "triangle_count": 36,
+            "offset": 136870,
+            "end_offset": 137550,
+            "aabb": {
+              "minimum": [
+                -1.172788143157959,
+                -0.0022424545604735613,
+                -2.03898286819458
+              ],
+              "maximum": [
+                1.170616626739502,
+                1.2271556854248047,
+                1.9988713264465332
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 54,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 137550,
+            "end_offset": 137570,
+            "aabb": {
+              "minimum": [
+                -0.0010850923135876656,
+                0.7299914360046387,
+                -0.721813440322876
+              ],
+              "maximum": [
+                -0.0010850923135876656,
+                0.7299914360046387,
+                -0.721813440322876
+              ]
+            }
+          },
+          "referenced_vertex_count": 20,
+          "edge_count": 43,
+          "face_count": 25,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.0960678881465356e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Seatbuggy)",
+                "index": 0,
+                "triangle_count": 68
+              }
+            ]
+          },
+          {
+            "sidecar": "complete.txt",
+            "meshes": [
+              {
+                "name": "$chull(Seatbuggy)",
+                "index": 0,
+                "triangle_count": 68
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "SeatBuggy/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12929,
+      "collision_prefix_end_offset": 12941,
+      "unparsed_trailing_offset": 12941,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12929,
+        "end_offset": 12941,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Simmbugghini/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 130176,
+      "collision_prefix_end_offset": 133996,
+      "unparsed_trailing_offset": 133996,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 130176,
+        "payload_offset": 130180,
+        "end_offset": 133996,
+        "payload_size": 3816,
+        "total_size_with_tag": 3820,
+        "sha256": "aff2ad36c0cb347b22e65fc771b1a6927118062a7cf5fe05fd214b0b636d6f55",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 130180,
+          "end_offset": 130200,
+          "vertices": [
+            [
+              -1.5134457953536185e-07,
+              0.6332364678382874,
+              -0.06965619325637817
+            ]
+          ]
+        },
+        "base_scalar": 2.1924121379852295,
+        "base_scalar_offset": 130200,
+        "base_center_to_representation_a_aabb_center": 2.8859051430649127e-08,
+        "base_center_to_representation_a_max_corner": 2.192412075103872,
+        "base_scalar_radius_abs_error": 6.288135745435852e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 130204,
+          "end_offset": 131068,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 130204,
+            "end_offset": 130452,
+            "aabb": {
+              "minimum": [
+                -1.0046569108963013,
+                -0.005125624127686024,
+                -1.910805106163025
+              ],
+              "maximum": [
+                1.0046565532684326,
+                1.2715985774993896,
+                1.7714927196502686
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 130452,
+            "end_offset": 130472,
+            "aabb": {
+              "minimum": [
+                -1.5134457953536185e-07,
+                0.6332364678382874,
+                -0.06965619325637817
+              ],
+              "maximum": [
+                -1.5134457953536185e-07,
+                0.6332364678382874,
+                -0.06965619325637817
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.0517088355754822e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 131068,
+          "end_offset": 133996,
+          "byte_size": 2928,
+          "geometry_a": {
+            "vertex_count": 20,
+            "triangle_count": 36,
+            "offset": 131068,
+            "end_offset": 131748,
+            "aabb": {
+              "minimum": [
+                -1.0046569108963013,
+                -0.005125624127686024,
+                -1.910805106163025
+              ],
+              "maximum": [
+                1.0046565532684326,
+                1.2715985774993896,
+                1.7714927196502686
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 54,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 131748,
+            "end_offset": 131768,
+            "aabb": {
+              "minimum": [
+                0.00011504771828185767,
+                0.6112346053123474,
+                0.009697837755084038
+              ],
+              "maximum": [
+                0.00011504771828185767,
+                0.6112346053123474,
+                0.009697837755084038
+              ]
+            }
+          },
+          "referenced_vertex_count": 20,
+          "edge_count": 44,
+          "face_count": 26,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.166559927019307e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Simm)",
+                "index": 1876,
+                "triangle_count": 48
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Simmbugghini/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 140177,
+      "collision_prefix_end_offset": 140189,
+      "unparsed_trailing_offset": 140189,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 140177,
+        "end_offset": 140189,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Simmbugghini/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12937,
+      "collision_prefix_end_offset": 12949,
+      "unparsed_trailing_offset": 12949,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12937,
+        "end_offset": 12949,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Tata/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 121870,
+      "collision_prefix_end_offset": 126134,
+      "unparsed_trailing_offset": 126134,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 121870,
+        "payload_offset": 121874,
+        "end_offset": 126134,
+        "payload_size": 4260,
+        "total_size_with_tag": 4264,
+        "sha256": "89359bac113dcf4081d20714e393f1885bc6708cf47d214dd1d784efe873e72d",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 121874,
+          "end_offset": 121894,
+          "vertices": [
+            [
+              -5.960464477539063e-08,
+              0.8209445476531982,
+              -0.17204618453979492
+            ]
+          ]
+        },
+        "base_scalar": 2.8686270713806152,
+        "base_scalar_offset": 121894,
+        "base_center_to_representation_a_aabb_center": 1.1175870895385742e-08,
+        "base_center_to_representation_a_max_corner": 2.868627018066287,
+        "base_scalar_radius_abs_error": 5.331432806343628e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 121898,
+          "end_offset": 122762,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 121898,
+            "end_offset": 122146,
+            "aabb": {
+              "minimum": [
+                -1.1653169393539429,
+                -0.048851512372493744,
+                -2.6448001861572266
+              ],
+              "maximum": [
+                1.1653168201446533,
+                1.6907405853271484,
+                2.3007078170776367
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 122146,
+            "end_offset": 122166,
+            "aabb": {
+              "minimum": [
+                -5.960464477539063e-08,
+                0.8209445476531982,
+                -0.17204618453979492
+              ],
+              "maximum": [
+                -5.960464477539063e-08,
+                0.8209445476531982,
+                -0.17204618453979492
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 2.128220168984285e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 122762,
+          "end_offset": 126134,
+          "byte_size": 3372,
+          "geometry_a": {
+            "vertex_count": 22,
+            "triangle_count": 40,
+            "offset": 122762,
+            "end_offset": 123514,
+            "aabb": {
+              "minimum": [
+                -1.1653169393539429,
+                -0.048851512372493744,
+                -2.6448001861572266
+              ],
+              "maximum": [
+                1.1653168201446533,
+                1.6907405853271484,
+                2.3007078170776367
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 60,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 123514,
+            "end_offset": 123534,
+            "aabb": {
+              "minimum": [
+                1.4821999627656623e-07,
+                0.7951971888542175,
+                0.04202503338456154
+              ],
+              "maximum": [
+                1.4821999627656623e-07,
+                0.7951971888542175,
+                0.04202503338456154
+              ]
+            }
+          },
+          "referenced_vertex_count": 22,
+          "edge_count": 51,
+          "face_count": 31,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.1371254116099294e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Tata)",
+                "index": 2022,
+                "triangle_count": 44
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Tata/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 136580,
+      "collision_prefix_end_offset": 136592,
+      "unparsed_trailing_offset": 136592,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 136580,
+        "end_offset": 136592,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Tata/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12849,
+      "collision_prefix_end_offset": 12861,
+      "unparsed_trailing_offset": 12861,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12849,
+        "end_offset": 12861,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Terrano/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": true,
+      "collision_tags": [
+        101,
+        102
+      ],
+      "collision_prefix_offset": 142994,
+      "collision_prefix_end_offset": 146562,
+      "unparsed_trailing_offset": 146562,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 146550,
+        "end_offset": 146562,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      },
+      "tag101": {
+        "tag_offset": 142994,
+        "payload_offset": 142998,
+        "end_offset": 146550,
+        "payload_size": 3552,
+        "total_size_with_tag": 3556,
+        "sha256": "1a82fb913c64a40bfbdb7914b3e2229634e16872dd3cab5e627d543deedc7e85",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 142998,
+          "end_offset": 143018,
+          "vertices": [
+            [
+              -0.0023649930953979492,
+              0.8069456815719604,
+              -0.11803114414215088
+            ]
+          ]
+        },
+        "base_scalar": 2.5632104873657227,
+        "base_scalar_offset": 143018,
+        "base_center_to_representation_a_aabb_center": 3.6088749766349792e-09,
+        "base_center_to_representation_a_max_corner": 2.5632104685358588,
+        "base_scalar_radius_abs_error": 1.8829863890346132e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 143022,
+          "end_offset": 143886,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 143022,
+            "end_offset": 143270,
+            "aabb": {
+              "minimum": [
+                -1.0819295644760132,
+                -0.0033142638858407736,
+                -2.297037124633789
+              ],
+              "maximum": [
+                1.0771995782852173,
+                1.6172056198120117,
+                2.0609748363494873
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 143270,
+            "end_offset": 143290,
+            "aabb": {
+              "minimum": [
+                -0.0023649930953979492,
+                0.8069456815719604,
+                -0.11803114414215088
+              ],
+              "maximum": [
+                -0.0023649930953979492,
+                0.8069456815719604,
+                -0.11803114414215088
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.4404610748641744e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 143886,
+          "end_offset": 146550,
+          "byte_size": 2664,
+          "geometry_a": {
+            "vertex_count": 18,
+            "triangle_count": 32,
+            "offset": 143886,
+            "end_offset": 144494,
+            "aabb": {
+              "minimum": [
+                -1.0819295644760132,
+                -0.0033142638858407736,
+                -2.297037124633789
+              ],
+              "maximum": [
+                1.0771995782852173,
+                1.6172056198120117,
+                2.0609748363494873
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 48,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 144494,
+            "end_offset": 144514,
+            "aabb": {
+              "minimum": [
+                -0.0006200205534696579,
+                0.7470134496688843,
+                -0.2519187927246094
+              ],
+              "maximum": [
+                -0.0006200205534696579,
+                0.7470134496688843,
+                -0.2519187927246094
+              ]
+            }
+          },
+          "referenced_vertex_count": 18,
+          "edge_count": 40,
+          "face_count": 24,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.0097929203922718e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Terrano)",
+                "index": 0,
+                "triangle_count": 32
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Terrano/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 154070,
+      "collision_prefix_end_offset": 154082,
+      "unparsed_trailing_offset": 154082,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 154070,
+        "end_offset": 154082,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Terrano/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12938,
+      "collision_prefix_end_offset": 12950,
+      "unparsed_trailing_offset": 12950,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12938,
+        "end_offset": 12950,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Ufo/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 78924,
+      "collision_prefix_end_offset": 85480,
+      "unparsed_trailing_offset": 85480,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 78924,
+        "payload_offset": 78928,
+        "end_offset": 85480,
+        "payload_size": 6552,
+        "total_size_with_tag": 6556,
+        "sha256": "6de1bb98ee3f1a9ddad8f1f3c0b7c523085f38704c7dc19460e78ad80e87e5ec",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 78928,
+          "end_offset": 78948,
+          "vertices": [
+            [
+              5.960464477539063e-08,
+              0.7883460521697998,
+              1.7763568394002505e-15
+            ]
+          ]
+        },
+        "base_scalar": 2.393801212310791,
+        "base_scalar_offset": 78948,
+        "base_center_to_representation_a_aabb_center": 1.8626451492309656e-08,
+        "base_center_to_representation_a_max_corner": 2.3938012719119253,
+        "base_scalar_radius_abs_error": 5.960113425018676e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 78952,
+          "end_offset": 79816,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 78952,
+            "end_offset": 79200,
+            "aabb": {
+              "minimum": [
+                -1.622249960899353,
+                -0.059120021760463715,
+                -1.542851448059082
+              ],
+              "maximum": [
+                1.6222500801086426,
+                1.6358121633529663,
+                1.542851448059082
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 79200,
+            "end_offset": 79220,
+            "aabb": {
+              "minimum": [
+                5.960464477539063e-08,
+                0.7883460521697998,
+                1.7763568394002505e-15
+              ],
+              "maximum": [
+                5.960464477539063e-08,
+                0.7883460521697998,
+                1.7763568394002505e-15
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.2809255167667288e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 79816,
+          "end_offset": 85480,
+          "byte_size": 5664,
+          "geometry_a": {
+            "vertex_count": 43,
+            "triangle_count": 82,
+            "offset": 79816,
+            "end_offset": 81324,
+            "aabb": {
+              "minimum": [
+                -1.622249960899353,
+                -0.059120021760463715,
+                -1.542851448059082
+              ],
+              "maximum": [
+                1.6222500801086426,
+                1.6358121633529663,
+                1.542851448059082
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 123,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 81324,
+            "end_offset": 81344,
+            "aabb": {
+              "minimum": [
+                -0.007008945569396019,
+                0.720625638961792,
+                0.007512710057199001
+              ],
+              "maximum": [
+                -0.007008945569396019,
+                0.720625638961792,
+                0.007512710057199001
+              ]
+            }
+          },
+          "referenced_vertex_count": 43,
+          "edge_count": 85,
+          "face_count": 44,
+          "descriptor_primary_lengths": [
+            3,
+            4,
+            10
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4,
+            10
+          ],
+          "face_scalar_area_max_abs_error": 4.922378893379431e-08,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(monkey)",
+                "index": 741,
+                "triangle_count": 138
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Ufo/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": false,
+      "collision_tags": [],
+      "collision_prefix_offset": 42737,
+      "collision_prefix_end_offset": 42737,
+      "unparsed_trailing_offset": 42737,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "resource": "WildCat/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 137064,
+      "collision_prefix_end_offset": 140380,
+      "unparsed_trailing_offset": 140380,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 137064,
+        "payload_offset": 137068,
+        "end_offset": 140380,
+        "payload_size": 3312,
+        "total_size_with_tag": 3316,
+        "sha256": "c4243fc6ae1d29a9837c02b619600ee46b0f68b49a267745d970f5d8814bd69a",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 137068,
+          "end_offset": 137088,
+          "vertices": [
+            [
+              2.2702843693878094e-07,
+              0.6897752285003662,
+              -0.02247919701039791
+            ]
+          ]
+        },
+        "base_scalar": 2.302279472351074,
+        "base_scalar_offset": 137088,
+        "base_center_to_representation_a_aabb_center": 2.4331854529324172e-08,
+        "base_center_to_representation_a_max_corner": 2.30227954789387,
+        "base_scalar_radius_abs_error": 7.55427955745347e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 137092,
+          "end_offset": 137956,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 137092,
+            "end_offset": 137340,
+            "aabb": {
+              "minimum": [
+                -0.9755934476852417,
+                -0.020155085250735283,
+                -1.983271598815918
+              ],
+              "maximum": [
+                0.9755939245223999,
+                1.3997055292129517,
+                1.9383132457733154
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 137340,
+            "end_offset": 137360,
+            "aabb": {
+              "minimum": [
+                2.2702843693878094e-07,
+                0.6897752285003662,
+                -0.02247919701039791
+              ],
+              "maximum": [
+                2.2702843693878094e-07,
+                0.6897752285003662,
+                -0.02247919701039791
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 7.792544920448563e-08,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 137956,
+          "end_offset": 140380,
+          "byte_size": 2424,
+          "geometry_a": {
+            "vertex_count": 18,
+            "triangle_count": 32,
+            "offset": 137956,
+            "end_offset": 138564,
+            "aabb": {
+              "minimum": [
+                -0.9755934476852417,
+                -0.020155085250735283,
+                -1.983271598815918
+              ],
+              "maximum": [
+                0.9755939245223999,
+                1.3997055292129517,
+                1.9383132457733154
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 48,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 138564,
+            "end_offset": 138584,
+            "aabb": {
+              "minimum": [
+                1.6569592276027834e-07,
+                0.7438532114028931,
+                -0.03330099955201149
+              ],
+              "maximum": [
+                1.6569592276027834e-07,
+                0.7438532114028931,
+                -0.03330099955201149
+              ]
+            }
+          },
+          "referenced_vertex_count": 18,
+          "edge_count": 36,
+          "face_count": 20,
+          "descriptor_primary_lengths": [
+            3,
+            4,
+            5
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4,
+            5
+          ],
+          "face_scalar_area_max_abs_error": 1.2028793394680548e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Bowler)",
+                "index": 1950,
+                "triangle_count": 40
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "WildCat/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 149084,
+      "collision_prefix_end_offset": 149096,
+      "unparsed_trailing_offset": 149096,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 149084,
+        "end_offset": 149096,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "WildCat/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12926,
+      "collision_prefix_end_offset": 12938,
+      "unparsed_trailing_offset": 12938,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12926,
+        "end_offset": 12938,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Xtrail/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": true,
+      "tag102_present": false,
+      "collision_tags": [
+        101
+      ],
+      "collision_prefix_offset": 124708,
+      "collision_prefix_end_offset": 128648,
+      "unparsed_trailing_offset": 128648,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag101": {
+        "tag_offset": 124708,
+        "payload_offset": 124712,
+        "end_offset": 128648,
+        "payload_size": 3936,
+        "total_size_with_tag": 3940,
+        "sha256": "268e6545b4bce46182428686c2c5ab88ea61706ec65f8afb5907a44c6df105cd",
+        "base_geometry": {
+          "vertex_count": 1,
+          "triangle_count": 0,
+          "offset": 124712,
+          "end_offset": 124732,
+          "vertices": [
+            [
+              -5.960464477539063e-08,
+              0.8107045888900757,
+              -0.05573737621307373
+            ]
+          ]
+        },
+        "base_scalar": 2.76894474029541,
+        "base_scalar_offset": 124732,
+        "base_center_to_representation_a_aabb_center": 1.30385160446167e-08,
+        "base_center_to_representation_a_max_corner": 2.768944773736453,
+        "base_scalar_radius_abs_error": 3.3441042823767475e-08,
+        "representation_a_axis_aligned_box": true,
+        "representation_a": {
+          "offset": 124736,
+          "end_offset": 125600,
+          "byte_size": 864,
+          "geometry_a": {
+            "vertex_count": 8,
+            "triangle_count": 12,
+            "offset": 124736,
+            "end_offset": 124984,
+            "aabb": {
+              "minimum": [
+                -1.1653169393539429,
+                -0.04885151609778404,
+                -2.4158761501312256
+              ],
+              "maximum": [
+                1.1653168201446533,
+                1.6702606678009033,
+                2.304401397705078
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 18,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 124984,
+            "end_offset": 125004,
+            "aabb": {
+              "minimum": [
+                -5.960464477539063e-08,
+                0.8107045888900757,
+                -0.05573737621307373
+              ],
+              "maximum": [
+                -5.960464477539063e-08,
+                0.8107045888900757,
+                -0.05573737621307373
+              ]
+            }
+          },
+          "referenced_vertex_count": 8,
+          "edge_count": 12,
+          "face_count": 6,
+          "descriptor_primary_lengths": [
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            4
+          ],
+          "face_scalar_area_max_abs_error": 3.3792784392971953e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "representation_b": {
+          "offset": 125600,
+          "end_offset": 128648,
+          "byte_size": 3048,
+          "geometry_a": {
+            "vertex_count": 20,
+            "triangle_count": 36,
+            "offset": 125600,
+            "end_offset": 126280,
+            "aabb": {
+              "minimum": [
+                -1.1653169393539429,
+                -0.04885151609778404,
+                -2.4158761501312256
+              ],
+              "maximum": [
+                1.1653168201446533,
+                1.6702606678009033,
+                2.304401397705078
+              ]
+            },
+            "topology": {
+              "unique_edge_count": 54,
+              "all_triangle_edges_incident_twice": true,
+              "euler_characteristic": 2,
+              "convex_supporting_planes": true
+            }
+          },
+          "geometry_b": {
+            "vertex_count": 1,
+            "triangle_count": 0,
+            "offset": 126280,
+            "end_offset": 126300,
+            "aabb": {
+              "minimum": [
+                -1.633888496144209e-05,
+                0.7094321250915527,
+                0.3955652713775635
+              ],
+              "maximum": [
+                -1.633888496144209e-05,
+                0.7094321250915527,
+                0.3955652713775635
+              ]
+            }
+          },
+          "referenced_vertex_count": 20,
+          "edge_count": 46,
+          "face_count": 28,
+          "descriptor_primary_lengths": [
+            3,
+            4
+          ],
+          "descriptor_secondary_lengths": [
+            3
+          ],
+          "face_loop_lengths": [
+            3,
+            4
+          ],
+          "face_scalar_area_max_abs_error": 1.2155912543221348e-07,
+          "face_scalars_match_polygon_area": true
+        },
+        "source_chull_candidates": [
+          {
+            "sidecar": "car.txt",
+            "meshes": [
+              {
+                "name": "$chull(Xtrail)",
+                "index": 2066,
+                "triangle_count": 44
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": "Xtrail/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 138846,
+      "collision_prefix_end_offset": 138858,
+      "unparsed_trailing_offset": 138858,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 138846,
+        "end_offset": 138858,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    },
+    {
+      "resource": "Xtrail/wheel.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "tag100_present": false,
+      "tag101_present": false,
+      "tag102_present": true,
+      "collision_tags": [
+        102
+      ],
+      "collision_prefix_offset": 12846,
+      "collision_prefix_end_offset": 12858,
+      "unparsed_trailing_offset": 12858,
+      "unparsed_trailing_byte_count": 44,
+      "status": "VALIDATED",
+      "warnings": [],
+      "errors": [],
+      "tag102": {
+        "tag_offset": 12846,
+        "end_offset": 12858,
+        "value_0": 0.4000000059604645,
+        "value_1": 0.20000000298023224,
+        "sha256": "ce6b85b7a24a7210b5d27bf77e6a4b906918443c49a598b11f97b755e46ec686"
+      }
+    }
+  ],
+  "failures": []
+}

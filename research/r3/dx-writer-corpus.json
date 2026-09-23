@@ -7,6 +7,8 @@
     {
       "path": "Astero/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "38a2a20354a44bf914a53d1a44ef1053ff1a0b70d6f272af0c392fdf69765f3e",
       "zero_edit_byte_identical": true,
       "source_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90",
       "original_warnings": [],
@@ -29,11 +31,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "38a2a20354a44bf914a53d1a44ef1053ff1a0b70d6f272af0c392fdf69765f3e",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Astero/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "853a1e7e76b00c1b4c0747e19ec6a4c110bda7923a974bc807c7f5907645331f",
       "original_warnings": [],
@@ -56,11 +62,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Astero/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "17edbf252c31bf671e19786c25694cc1cfad8599a39d881189e75971eb79aef6",
       "original_warnings": [],
@@ -83,11 +93,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Bruno/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "e2c028842df75b4cdebc259999dd28654bb44236ecd3adf0cb295fe083027f4f",
       "zero_edit_byte_identical": true,
       "source_sha256": "c7a456332e31c67647394467d2e0e467df048160ae634ab2b8d024eb9d61204f",
       "original_warnings": [],
@@ -110,11 +124,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "e2c028842df75b4cdebc259999dd28654bb44236ecd3adf0cb295fe083027f4f",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Bruno/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "d6ad922dff2b3fbac98b5df383ee1faca9e929b222e89e883b98bf6be29301ec",
       "original_warnings": [],
@@ -137,11 +155,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Bruno/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "9132ebbd9dae94d34387094ad0943129db9fab0f5d94304a10fd7df0665676c9",
       "original_warnings": [],
@@ -164,11 +186,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "ChevyBlazer/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "43fc3e9910b32da5938ca319586315e072f9e8fdd0b0fb357713e87467ea8a19",
       "zero_edit_byte_identical": true,
       "source_sha256": "d847cd8e684d9f6ff75d560e64429098448a665cc423b8d7c509e6146e9e0c7e",
       "original_warnings": [
@@ -193,11 +219,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "43fc3e9910b32da5938ca319586315e072f9e8fdd0b0fb357713e87467ea8a19",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "ChevyBlazer/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "b17ad51f7b4c1316c5ccb235570b7b2527aa57245b88a7a34e6f583ef5a185dd",
       "original_warnings": [],
@@ -220,11 +250,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "ChevyBlazer/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "acced5c9eb583c7ea969c1ba17ff61ee6cc4442f5b9cd3b01846b9139347a22a",
       "original_warnings": [],
@@ -247,11 +281,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Forester/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "4b31b4b0062c7c1fb4253bd0dfe410f1b02dc78c0e9292f9e0a468f2038fe123",
       "zero_edit_byte_identical": true,
       "source_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
       "original_warnings": [],
@@ -274,11 +312,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "4b31b4b0062c7c1fb4253bd0dfe410f1b02dc78c0e9292f9e0a468f2038fe123",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Forester/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "a38566e0d653c586fc53594de2276e8c3f50d882126f26ee5792d74794cd3ca1",
       "original_warnings": [],
@@ -301,11 +343,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Forester/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
       "original_warnings": [],
@@ -328,11 +374,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "forklift/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "51e829626337a5cdc3fc436b5c27771d1acc7adef3553b9f8c09d28c39416e68",
       "zero_edit_byte_identical": true,
       "source_sha256": "fe1ba9aa3f6db62d819faa610320808844471e1b65390c291e0763e97d533f3f",
       "original_warnings": [],
@@ -355,11 +405,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "51e829626337a5cdc3fc436b5c27771d1acc7adef3553b9f8c09d28c39416e68",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "forklift/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "0e73c139a254a4ad529c675d705a4cd02f63a5b32556e865b2d1f96710f0f1b9",
       "original_warnings": [],
@@ -382,11 +436,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "forklift/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "b5df2e3a11da0e3295e9597a05e8709f2460f02d81fb06e388c5f5049a6d6278",
       "original_warnings": [],
@@ -409,11 +467,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Frontera/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "caa33e063df266421558b7c2d68e5259212a7a357f8221bae49bc435f0c39a23",
       "zero_edit_byte_identical": true,
       "source_sha256": "345a143d24945d72f212eea033d6349b51b70d3df36a60dac22e98e2d380940c",
       "original_warnings": [],
@@ -436,11 +498,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "caa33e063df266421558b7c2d68e5259212a7a357f8221bae49bc435f0c39a23",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Frontera/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "ca116a97752e097b8d97000feb937f47a9f19c4a1b25618860e95bd2210dc82d",
       "original_warnings": [],
@@ -463,11 +529,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Frontera/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "5742358403aa633c04562347522f316818c069c8d6dfbed47e1288aa19b85899",
       "original_warnings": [],
@@ -490,11 +560,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "IceCream/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "49f9ff40de0aade603eab15d4a6851db0b9296eadc957baa2364daba3c2f3417",
       "zero_edit_byte_identical": true,
       "source_sha256": "90a99fd7d7b18e3e33b1bc005df58b6f7222349bb45e5b41a725ec6f230a9d9a",
       "original_warnings": [
@@ -519,11 +593,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "49f9ff40de0aade603eab15d4a6851db0b9296eadc957baa2364daba3c2f3417",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "IceCream/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "1cae2964dc2d99f3e0727a7597c80c4fd4eb524590519c414362514992d12b3e",
       "original_warnings": [],
@@ -546,11 +624,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "IceCream/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "48ec2e91d6770bcca19ae13e24f32cfa63747c0aeb53713fead1a6d3c13d8178",
       "original_warnings": [],
@@ -573,11 +655,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Jump/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "520f8c6d015d3f7c67b14714b27480236dcb2f85cb39007e1d2d8979a681cf44",
       "zero_edit_byte_identical": true,
       "source_sha256": "a6ad8bcb7c71e572f065a5c3710308730c2c4f0cc8b32f25af279adc923a7baa",
       "original_warnings": [],
@@ -600,11 +686,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "520f8c6d015d3f7c67b14714b27480236dcb2f85cb39007e1d2d8979a681cf44",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Jump/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "bf7dc94e437fd66b90f9ca54fc150651a834b75147c894bf7804c98f1aa9a65a",
       "original_warnings": [],
@@ -627,11 +717,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Jump/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "81c6a980df7c32ae16702afda6a42dfb6f9b5917c9cd6d7ddb4e3a84c0bf0ab0",
       "original_warnings": [],
@@ -654,11 +748,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Kamaz/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "b350e66c5742b341cd3ef734a57380eb10ce4475ce015ed9a90a9aaffa374d1b",
       "zero_edit_byte_identical": true,
       "source_sha256": "6f7cf0aa22ec998a2a98f0e642e156442ccd82b50b94ae8e80ec418459442b4f",
       "original_warnings": [
@@ -683,11 +781,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "b350e66c5742b341cd3ef734a57380eb10ce4475ce015ed9a90a9aaffa374d1b",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Kamaz/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "77a67510ec66ba29f6fb958a301610e504941511912ebb15c456fcd2d0f749bd",
       "original_warnings": [],
@@ -710,11 +812,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Kamaz/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "e4b1566b39efc881f88621ccc013baa4b02c290abd3d9d5a0844dd1f4f9e43da",
       "original_warnings": [],
@@ -737,11 +843,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Kangoo/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "1aa1b1d326a7a88c6d83f68079c32c48495f17a77214aa2f878462c5aabe7fa9",
       "zero_edit_byte_identical": true,
       "source_sha256": "8935c280c1a4d7dc63e30b3961fbb353445db2162c14bbd09e034cba717fe81d",
       "original_warnings": [],
@@ -764,11 +874,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "1aa1b1d326a7a88c6d83f68079c32c48495f17a77214aa2f878462c5aabe7fa9",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Kangoo/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "58064a3a73ff76133b0412b2c59e74177f186b2db72ce81868ebaeb3775c35c8",
       "original_warnings": [],
@@ -791,11 +905,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Kangoo/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "859446d5ee1c83f107f0804b0f13351f1397262092b86c7f4da8c1f6c5ffe3da",
       "original_warnings": [],
@@ -818,11 +936,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "KiaSportage/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "1658b3f59c2a8561758d953de93cf1c838b94f02066a3b3774e0add8f355fa00",
       "zero_edit_byte_identical": true,
       "source_sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451",
       "original_warnings": [
@@ -847,11 +969,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "1658b3f59c2a8561758d953de93cf1c838b94f02066a3b3774e0add8f355fa00",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "KiaSportage/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "eb6532bde0d488c7d922f9fe5ba132cbff9a608553a9db6b59b69fc1aed891a3",
       "original_warnings": [],
@@ -874,11 +1000,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "KiaSportage/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "9f8d512102e0ccaacd2232cfb7f957fd549bf07b571c3db5e161e3a2c4c18017",
       "original_warnings": [],
@@ -901,11 +1031,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "LandCruiser/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "7a877350fa8c6b20aa0ef3190b0607447d0971b834609dd6e5ad2709519d28d0",
       "zero_edit_byte_identical": true,
       "source_sha256": "c3a61a935244e9e1dcfcd72ecf993ea301e371794ba33d931dd8cfd205627103",
       "original_warnings": [],
@@ -928,11 +1062,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "7a877350fa8c6b20aa0ef3190b0607447d0971b834609dd6e5ad2709519d28d0",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "LandCruiser/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "825ae5fc03e81e780981156f2f168b1445f3596c48455b302bee4d230d3954df",
       "original_warnings": [],
@@ -955,11 +1093,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "LandCruiser/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "9c82ed7d7c964ea9e7b3245cb7712c5e0a61ede6fe8d1a97d4fc6b81e176b669",
       "original_warnings": [],
@@ -982,11 +1124,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Mattserati/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "c42a6aba29467e3766994a259a1fac269b5217ba5c41f45acbb8789678f2d2fc",
       "zero_edit_byte_identical": true,
       "source_sha256": "e0db7a014f60c71291337e1b3c43909926957132f50017b7ef9e00610fd528e2",
       "original_warnings": [],
@@ -1009,11 +1155,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "c42a6aba29467e3766994a259a1fac269b5217ba5c41f45acbb8789678f2d2fc",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Mattserati/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "c16ee8d4ae0fe5a6ea35ff5af78993e6687f38a067f5d06866d6aea21c4fce24",
       "original_warnings": [],
@@ -1036,11 +1186,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Mattserati/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "e6e19dd1c30d4f4201aafb11c17173899b92b054fdb72bf51a96f97ca71eb44c",
       "original_warnings": [],
@@ -1063,11 +1217,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "megane/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "a41c1bf13e4bc2bded1c69129c54bdd33c7986c702171bc87073fc23d953d832",
       "zero_edit_byte_identical": true,
       "source_sha256": "d082eb75dc537194f1bf0284e31e5a28a73d91b5a0ba29642bc0d5c7ad93fb7f",
       "original_warnings": [],
@@ -1090,11 +1248,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "a41c1bf13e4bc2bded1c69129c54bdd33c7986c702171bc87073fc23d953d832",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "megane/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "ae0af00383e68dc985e150088fc46c3371a7dec130b52d3a9b1b06395a9b80a6",
       "original_warnings": [],
@@ -1117,11 +1279,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "megane/sus.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "0aceaf7479cc2ea951bbe484a2221b1804f9d1d656cae48ba76bd44ffaf24e37",
       "zero_edit_byte_identical": true,
       "source_sha256": "affb90fd0ce200474443cdbe94a5067980aea2114eecdaea8851e3d5cadbe297",
       "original_warnings": [],
@@ -1144,11 +1310,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "0aceaf7479cc2ea951bbe484a2221b1804f9d1d656cae48ba76bd44ffaf24e37",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "megane/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "83b54805dad324f17e4e9eb9db8285c227a9190ac452b7c16d375b227465a124",
       "original_warnings": [],
@@ -1171,11 +1341,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Navara/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "4d2f1e45385ed3bcfc58f85232bdebe9b22dc2130412ea0036229457e87d92c5",
       "zero_edit_byte_identical": true,
       "source_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655",
       "original_warnings": [
@@ -1200,11 +1374,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "4d2f1e45385ed3bcfc58f85232bdebe9b22dc2130412ea0036229457e87d92c5",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Navara/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "0edab556302273db41736993cdd041e73b1894419a623526c91f458b5fcfdc2e",
       "original_warnings": [],
@@ -1227,11 +1405,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Navara/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "2ae0c70a1912edfa8c628038541305132bf6843a00d33ce8761f351f17b72e08",
       "original_warnings": [],
@@ -1254,11 +1436,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "NewRav/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "ee06909738bb23c30aea5ad1bf4dedba1c52d277fa101b89dc1db9f947ebc016",
       "zero_edit_byte_identical": true,
       "source_sha256": "615f00a1d61ec84170c49c52727fcdd68fc96fcb89f1690324edf445ad3fbee6",
       "original_warnings": [],
@@ -1281,11 +1467,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "ee06909738bb23c30aea5ad1bf4dedba1c52d277fa101b89dc1db9f947ebc016",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "NewRav/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "d2feb13f8673d25a284b7f0e00dbfa9c9c66c073bac1120bdd68c0d392d93eaf",
       "original_warnings": [],
@@ -1308,11 +1498,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "NewRav/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "335e5632714974bfc04087391854647c5f37289fe0d6625c56c265a66a049e94",
       "original_warnings": [],
@@ -1335,11 +1529,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Pajero/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "eee508aea6a9f7ae330638001711ca360c2d1068a5310ed61e288bc99704e8f5",
       "zero_edit_byte_identical": true,
       "source_sha256": "9d051539ce10ba650840bba6c50b2c8ba9f68b6960661280f69680f0bb7f2c90",
       "original_warnings": [
@@ -1364,11 +1562,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "eee508aea6a9f7ae330638001711ca360c2d1068a5310ed61e288bc99704e8f5",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Pajero/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "0a52e1956b7105619b91f9bf7e08eacf443da06e3aed798336a8e04cb6daa3ab",
       "original_warnings": [],
@@ -1391,11 +1593,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Pajero/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "31db2076dcfbdb85714f650712d4e5f2e4efb6cc8b72b695a14588387142f877",
       "original_warnings": [],
@@ -1418,11 +1624,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Patrol/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "8be07003f0f532e603518789d9fc26248819d1a26679e929c25ac66fba5c5583",
       "zero_edit_byte_identical": true,
       "source_sha256": "d3ca392b8ffc08bf2470fbdeb5099acc6be1675baab74a79b9e59d3596c0fa0c",
       "original_warnings": [
@@ -1447,11 +1657,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "8be07003f0f532e603518789d9fc26248819d1a26679e929c25ac66fba5c5583",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Patrol/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "0fe36065ad5662f018237cba3e84c2005843256fe0fa67cb7011186ff636d838",
       "original_warnings": [],
@@ -1474,11 +1688,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Patrol/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "b37ce51051d9c828c517213d87933ccb73a3d3fdd9557deb4fef33299347c409",
       "original_warnings": [],
@@ -1501,11 +1719,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "RMonster/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "2a11798fc54b57f8a54e186c7dac5e5a896a9c758240badb5441639ee2936bdf",
       "zero_edit_byte_identical": true,
       "source_sha256": "b3c4e3485f7b864829ec594977230dc18a6deb4cdef9382757fecee5fdf42a46",
       "original_warnings": [
@@ -1530,11 +1752,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "2a11798fc54b57f8a54e186c7dac5e5a896a9c758240badb5441639ee2936bdf",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "RMonster/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "1a0f9252ae96bd6d44eb4d088c682556f2abec584bb061d8c558cf284c17612c",
       "original_warnings": [],
@@ -1557,11 +1783,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "RMonster/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "868b70f4fe21804854fdc5ef87235dbf85d6d34610045799bcc83cc7b63ac60d",
       "original_warnings": [],
@@ -1584,11 +1814,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "SeatBuggy/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
       "zero_edit_byte_identical": true,
       "source_sha256": "468031a187dc968eda6451eb7e5b7dde2ec557c7fbfe5a77d0f09d195046b6e0",
       "original_warnings": [
@@ -1613,11 +1847,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "SeatBuggy/complete.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
       "zero_edit_byte_identical": true,
       "source_sha256": "f25827a54fb51dccfc3ec1dbd2eadbe7d83f8393dc9e124136e3f1f9fe72712e",
       "original_warnings": [],
@@ -1640,11 +1878,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "SeatBuggy/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "0d97a6c9df7ac62e2499d9f9e8e700f0f4b0bc1ec798e6de3b3c69b485175cbe",
       "original_warnings": [],
@@ -1667,11 +1909,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Simmbugghini/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "aff2ad36c0cb347b22e65fc771b1a6927118062a7cf5fe05fd214b0b636d6f55",
       "zero_edit_byte_identical": true,
       "source_sha256": "b1345dfb75e6074b7592ec8f42c59fe3d1811b25cc2a75f3c2665487256963bb",
       "original_warnings": [],
@@ -1694,11 +1940,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "aff2ad36c0cb347b22e65fc771b1a6927118062a7cf5fe05fd214b0b636d6f55",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Simmbugghini/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "87c8a5bb9a23757cb8c4fad4145051dc6787c65813274089ba6f68c269d1a0d8",
       "original_warnings": [],
@@ -1721,11 +1971,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Simmbugghini/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "6da9a59930c80ea54ed56371946f66b541758b410de19a11ce8165aa4623910d",
       "original_warnings": [],
@@ -1748,11 +2002,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Tata/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "89359bac113dcf4081d20714e393f1885bc6708cf47d214dd1d784efe873e72d",
       "zero_edit_byte_identical": true,
       "source_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
       "original_warnings": [
@@ -1777,11 +2035,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "89359bac113dcf4081d20714e393f1885bc6708cf47d214dd1d784efe873e72d",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Tata/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "cb8d8e0b5f265c91ce565e7a15c3a8601edd76b6b5ba210296a5d1ec85d5ba6a",
       "original_warnings": [],
@@ -1804,11 +2066,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Tata/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "f106abef3ba6926350cfc2796b54c17bb762d2b057a0232c4f3d8676dcf638ea",
       "original_warnings": [],
@@ -1831,11 +2097,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Terrano/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "1a82fb913c64a40bfbdb7914b3e2229634e16872dd3cab5e627d543deedc7e85",
       "zero_edit_byte_identical": true,
       "source_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b",
       "original_warnings": [],
@@ -1858,11 +2128,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "1a82fb913c64a40bfbdb7914b3e2229634e16872dd3cab5e627d543deedc7e85",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Terrano/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "7833f4e91b0507d988791094eec2e1f5f61c0779340fccbeef8966bb3898d7fe",
       "original_warnings": [],
@@ -1885,11 +2159,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Terrano/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "1b132a537509035086a4dad7d23a021cbb5e59041c216f9b444682f2383aa5f5",
       "original_warnings": [],
@@ -1912,11 +2190,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Ufo/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "6de1bb98ee3f1a9ddad8f1f3c0b7c523085f38704c7dc19460e78ad80e87e5ec",
       "zero_edit_byte_identical": true,
       "source_sha256": "f6995450ea0bcaebb51150f1472b5d2b72e82ce57e3d0207f2199376fe5718e2",
       "original_warnings": [],
@@ -1939,11 +2221,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "6de1bb98ee3f1a9ddad8f1f3c0b7c523085f38704c7dc19460e78ad80e87e5ec",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Ufo/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "2040ed600ba79d5e4157e758c719d7e7804c34a7007bd57085e3f0a8e57ecd0a",
       "original_warnings": [],
@@ -1966,11 +2252,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "WildCat/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "c4243fc6ae1d29a9837c02b619600ee46b0f68b49a267745d970f5d8814bd69a",
       "zero_edit_byte_identical": true,
       "source_sha256": "ccbcb74985d5b21a594b471eb42d242b5eb5809d8646e57ece08b4a1cd6614cd",
       "original_warnings": [],
@@ -1993,11 +2283,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "c4243fc6ae1d29a9837c02b619600ee46b0f68b49a267745d970f5d8814bd69a",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "WildCat/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "296ce5390834c2f2a0c6ffb0e230e12160f70f679542b157187a266450a74328",
       "original_warnings": [],
@@ -2020,11 +2314,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "WildCat/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "a627f60b382f7f00ba577c532377ff078b59ab8a488f89daa53c34ca3cdb2af4",
       "original_warnings": [],
@@ -2047,11 +2345,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Xtrail/car.dx",
       "status": "PASS",
+      "tag101_present": true,
+      "tag101_sha256_before": "268e6545b4bce46182428686c2c5ab88ea61706ec65f8afb5907a44c6df105cd",
       "zero_edit_byte_identical": true,
       "source_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
       "original_warnings": [
@@ -2076,11 +2378,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": "268e6545b4bce46182428686c2c5ab88ea61706ec65f8afb5907a44c6df105cd",
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Xtrail/complete.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "ce1694d24a09934cccc3163cfc3561c9308c2cac8d1a65443279c0eb00cda652",
       "original_warnings": [],
@@ -2103,11 +2409,15 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     },
     {
       "path": "Xtrail/wheel.dx",
       "status": "PASS",
+      "tag101_present": false,
+      "tag101_sha256_before": null,
       "zero_edit_byte_identical": true,
       "source_sha256": "f05ac990b6ea2312f2a2d552ec886aded4c68a8d8fac027f99e1fc7b0826779c",
       "original_warnings": [],
@@ -2130,6 +2440,8 @@
         }
       ],
       "post_write_validated": true,
+      "tag101_sha256_after": null,
+      "tag101_payload_preserved": true,
       "unexpected_ranges": []
     }
   ],
@@ -2138,6 +2450,8 @@
     "zero_edit_byte_identical": 78,
     "single_position_validated": 78,
     "single_position_skipped": 0,
-    "failures": 0
+    "failures": 0,
+    "tag101_resources": 28,
+    "tag101_payload_preserved": 28
   }
 }

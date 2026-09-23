@@ -1,4 +1,4 @@
-# Blender vehicle importer and position exporter (Phase R3)
+# Blender vehicle importer and position exporter (through Phase R4B)
 
 The add-on imports proven Master Rallye **vehicle** DX resources directly into
 an editable Blender mesh. R3 additionally writes only same-topology vertex
@@ -19,7 +19,7 @@ Build the ignored distribution artifact from the repository root:
 py -3 tools/build_blender_addon.py
 ```
 
-This creates `dist/master_rallye_io-r3.zip`. The build copies the canonical
+This creates `dist/master_rallye_io-r4b.zip`. The build copies the canonical
 `src/master_rallye` package into the add-on's private `vendor` namespace;
 there is no second editable parser copy in the repository.
 
@@ -41,6 +41,9 @@ stem. Resource names are preserved; the operator does not assume only
 
 Both modes leave original game files read-only. Preview PNGs are decoded into
 the operating-system temporary cache and reused during the import.
+
+The optional **Show collision hulls** setting creates read-only tag-101 helper
+objects when available. See `docs/blender-collision.md`.
 
 ## Authoring representation
 
@@ -191,6 +194,8 @@ textures.
 - No exact runtime multi-texture or alpha semantics.
 - Opaque trailing sections are classified and hashed, not embedded in the
   `.blend`.
+- Collision tag-101 overlays are read-only forensic helpers; collision export
+  and editing are not supported.
 - Source identity metadata assists future writer research but cannot preserve
   identity through every arbitrary Blender topology operation.
 

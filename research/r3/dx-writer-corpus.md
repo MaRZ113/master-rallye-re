@@ -9,6 +9,7 @@ DX resource was retained in the repository.
 | Zero-edit byte-identical | 78 |
 | Safe single-position validated | 78 |
 | Single-position skipped | 0 |
+| Tag-101 payload hashes preserved | 28/28 |
 | Failures | 0 |
 
 A single-position pass means the candidate stayed inside the original AABB,

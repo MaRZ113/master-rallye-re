@@ -1,4 +1,4 @@
-# `.dx` vehicle format notes (through Phase R3)
+# `.dx` vehicle format notes (through Phase R4B)
 
 Status: **HIGH** for the vehicle geometry/draw grammar. The corpus result covers
 all 78 files under `DataGx/Vehicles`; it does not claim compatibility with
@@ -156,16 +156,16 @@ A recognized 56-byte family contains:
 | `+0x20` | `3 * float32` | position bounding-box minimum | **HIGH** |
 | `+0x2C` | `3 * float32` | position bounding-box maximum | **HIGH** |
 
-It occurs in 49 resources: 24 `complete` and all 25 `wheel` files. Opaque tails
-occur in all 26 `car` files, two `complete` files, and one `sus` file. Sizes
-range from 44 to 6,600 bytes. Opaque content is preserved, hashed in reports,
-and makes a resource `PARTIALLY_ACCOUNTED`, not failed.
+It occurs in 49 resources: 24 `complete` and all 25 `wheel` files. The R1
+compatibility classification called larger tails opaque. R4B separates their
+exact collision prefix from any remaining bytes: tag 101 is fully parsed in all
+26 `car` files, SeatBuggy `complete`, and megane `sus`; tag 102 is also parsed
+where present. A separate 44-byte unknown remainder is still preserved.
 
-R4A adds a structural correlation without assigning a payload schema: every
-`car.dx` opaque tail begins with raw little-endian u32 `101`. SeatBuggy is the
-only `complete.dx` whose structural TXT retains `$chull(...)`, and its opaque
-tail also begins with `101`. The other opaque complete outlier, Ufo, is 44
-bytes and begins with `1339`. These raw values remain unknown markers.
+R4A observed that every `car.dx` tail begins with u32 `101`. R4B confirms this
+as a section tag and reconstructs its exact nested geometry/topology grammar.
+See `docs/formats/dx-collision.md`. Ufo's 44-byte complete tail begins with
+`1339` and remains an unknown non-collision remainder.
 
 ## Car collision-hull sidecar discrepancy
 
@@ -177,16 +177,17 @@ that source span aligns every later screen/brake-light span.
 R4A generalizes the arithmetic: in 24 standard car resources, TXT mesh span
 minus compiled render triangles equals the literal `$chull(...)` span exactly.
 Pajero's nonstandard `Pajero.txt` does not reconcile with the compiled count;
-forklift has no named hull. Combined with `collision.xml`'s literal
-`ConvexHull/PlaneThickness` fields and the marker-101 correlation, this is
-**HIGH** evidence of a collision-hull-associated non-render structure. It does
-not yet locate the complete collision payload or prove runtime activation.
+forklift has no named hull. Combined with `collision.xml` and the now-parsed
+tag-101 convex structures, this is **HIGH** evidence linking `$chull` source
+content to the compiled non-render collision section. It does not prove
+runtime activation or a one-to-one source-triangle mapping.
 
 ## Still unresolved
 
 Header constants, draw flags/control meanings, runtime multi-texture semantics,
-opaque trailing families, and course variants remain unresolved. No executable
-analysis was used.
+remaining unknown tails, and course variants remain unresolved. R4B used only
+targeted reader/writer inspection for the collision prefix, not broad
+executable analysis.
 
 ## R2.5 sidecar discovery and writer evidence
 

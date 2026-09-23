@@ -5,6 +5,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from .collision import CollisionSections
+
 
 @dataclass(frozen=True)
 class TextureSlot:
@@ -175,6 +177,7 @@ class DxModel:
     declared_top_level_record_count: int
     draw_groups: list[DrawGroup]
     global_index_table: GlobalIndexTable | None
+    collision: CollisionSections
     trailing: TrailingSection
     diagnostics: ValidationDiagnostics
 
@@ -228,6 +231,22 @@ class DxModel:
             "group_labels": self.group_labels,
             "stored_global_indices": self.global_index_table is not None,
             "global_indices_match": self.global_index_table.reconstructed_match if self.global_index_table else False,
+            "collision": {
+                "tag_ids": list(self.collision.tag_ids),
+                "parsed_end_offset": self.collision.end_offset,
+                "unparsed_offset": self.collision.unparsed_offset,
+                "unparsed_byte_count": len(self.collision.unparsed_data),
+                "validated": self.collision.validated,
+                "warnings": list(self.collision.warnings),
+                "errors": list(self.collision.errors),
+                "tag101": ({
+                    "tag_offset": self.collision.convex_hull.tag_offset,
+                    "payload_offset": self.collision.convex_hull.payload_offset,
+                    "end_offset": self.collision.convex_hull.end_offset,
+                    "payload_size": self.collision.convex_hull.payload_size,
+                    "sha256": self.collision.convex_hull.sha256,
+                } if self.collision.convex_hull else None),
+            },
             "diagnostics": {
                 "validated": self.diagnostics.validated,
                 "index_coverage": self.diagnostics.index_coverage,

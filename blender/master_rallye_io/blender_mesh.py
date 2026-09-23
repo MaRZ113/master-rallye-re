@@ -22,6 +22,7 @@ from .library import (
 )
 
 from .blender_materials import PreviewMaterialCache
+from .blender_collision import create_collision_overlay
 from .blender_metadata import apply_object_metadata, build_metadata
 
 
@@ -188,6 +189,7 @@ def import_dx_resource(
     load_textures: bool = True,
     strict: bool = True,
     material_cache: PreviewMaterialCache | None = None,
+    show_collision: bool = True,
 ):
     source = dx_path.resolve()
     model = parse_dx(source)
@@ -245,12 +247,19 @@ def import_dx_resource(
     resource_material_warnings = cache.warnings[warning_start:]
     warnings = tuple(
         list(model.diagnostics.warnings)
+        + list(model.collision.errors)
         + normal_warnings
         + resource_material_warnings
     )
 
     obj = bpy.data.objects.new(object_name or source.stem, mesh)
     collection.objects.link(obj)
+    collision_objects = ()
+    collision_collection = None
+    if show_collision:
+        collision_objects, collision_collection = create_collision_overlay(
+            model, collection, str(source), object_name or source.stem
+        )
     metadata = build_metadata(
         model,
         sidecar,
@@ -302,6 +311,13 @@ def import_dx_resource(
         "material_slots": len(mesh.materials),
         "display_normal_strategy": normal_strategy,
         "import_warnings": list(warnings),
+    }
+    metadata["collision"]["overlay"] = {
+        "created": bool(collision_objects),
+        "collection": collision_collection.name if collision_collection else None,
+        "objects": [item.name for item in collision_objects],
+        "read_only": True,
+        "export_supported": False,
     }
     apply_object_metadata(obj, metadata)
     return BlenderImportResult(

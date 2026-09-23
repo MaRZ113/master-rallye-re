@@ -5,7 +5,14 @@ from __future__ import annotations
 import argparse
 import json
 import struct
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from tests.helpers.collision_fixture import tag101, tag102
 
 DX_MAGIC = 0x0000D00D
 DXT_MAGIC = 0x0000FEED
@@ -101,6 +108,7 @@ def build_dx(normals=MAIN_NORMALS, textures=("synthetic-top-tga", "synthetic-bot
         struct.pack("<2I", 1, len(global_indices))
         + struct.pack("<6I", *global_indices)
     )
+    blob += tag101(suffix=tag102() + struct.pack("<I", 1339) + b"S" * 40)
     return bytes(blob)
 
 

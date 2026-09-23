@@ -8,6 +8,7 @@ from .dxt import (
     replace_dxt_pixels,
 )
 from .dx_writer import audit_binary_diff, patch_dx_positions, write_dx_positions
+from .collision import parse_collision_sections
 from .authoring import (
     INVALID_PROVENANCE,
     POSITIONS_ONLY_CHANGED,
@@ -31,6 +32,7 @@ __all__ = [
     "patch_dx_positions",
     "write_dx_positions",
     "audit_binary_diff",
+    "parse_collision_sections",
     "SOURCE_IDENTICAL",
     "POSITIONS_ONLY_CHANGED",
     "UNSUPPORTED_TOPOLOGY_CHANGED",

@@ -6,6 +6,7 @@ import math
 import struct
 from pathlib import Path
 
+from .collision import parse_collision_sections
 from .errors import BoundsError, FormatError, UnknownRecordEvidence, UnknownRecordTagError
 from .model import (
     BoundingData,
@@ -492,6 +493,9 @@ def parse_dx_bytes(data: bytes, source: str = "<bytes>", source_path: Path | Non
         )
 
     trailing = _classify_trailing(data, offset, positions)
+    collision = parse_collision_sections(
+        trailing.data, base_offset=offset, source=source, strict=False
+    )
     if trailing.layout_family == "footer56-unmatched":
         diagnostics.warnings.append("56-byte trailing structure does not match the position bounds")
 
@@ -514,6 +518,7 @@ def parse_dx_bytes(data: bytes, source: str = "<bytes>", source_path: Path | Non
         declared_top_level_record_count=top_count,
         draw_groups=groups,
         global_index_table=global_table,
+        collision=collision,
         trailing=trailing,
         diagnostics=diagnostics,
     )

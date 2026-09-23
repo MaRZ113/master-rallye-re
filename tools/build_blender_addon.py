@@ -45,7 +45,7 @@ def build(output: Path, root: Path) -> dict:
             info.external_attr = 0o644 << 16
             archive.writestr(info, source.read_bytes())
         manifest = {
-            "artifact": "Master Rallye R3 Blender add-on",
+            "artifact": "Master Rallye R4B Blender add-on",
             "addon_module": "master_rallye_io",
             "bundled_library": "master_rallye_io.vendor.master_rallye",
             "source_of_truth": "src/master_rallye",
@@ -63,7 +63,7 @@ def main() -> int:
     parser.add_argument(
         "--output",
         type=Path,
-        default=repository / "dist" / "master_rallye_io-r3.zip",
+        default=repository / "dist" / "master_rallye_io-r4b.zip",
     )
     args = parser.parse_args()
     result = build(args.output.resolve(), repository)

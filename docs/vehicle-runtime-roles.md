@@ -25,8 +25,9 @@ correlation is not promoted to runtime causality.
 - **RUNTIME OBSERVATION / CONFIRMED:** same-topology position edits preserve
   collision, deformation/damage, and glass breakage when this resource retains
   its original structure.
-- **STATIC FORMAT FACT:** present in all 26 folders. All have opaque trailing
-  data beginning with raw u32 `101`; its semantic name remains unknown.
+- **STATIC FORMAT FACT:** present in all 26 folders. All contain parsed tag 101
+  convex-hull collision structures; 25 are finite and non-empty, while
+  Forklift is a structurally valid non-finite outlier.
 - **STATIC FORMAT FACT:** 25/26 use tags 2/7/8; forklift uses tag 2 only.
 - **CONFIRMED_BY_NAME:** every selected structural car TXT has crew-associated
   names; 25/26 have `$chull(...)` and forklift is the exception.
@@ -54,15 +55,15 @@ TXT source mesh span - compiled render triangle count
 
 Pajero uses a nonstandard `Pajero.txt` structural sidecar whose exporter span
 does not reconcile with the compiled car, and forklift has no named hull.
-Every car nevertheless has the raw trailing marker `101`. SeatBuggy is the
+Every car nevertheless has parsed tag `101`. SeatBuggy is the
 only complete sidecar with `$chull(...)`; it is also the only complete trailing
 section beginning with `101`. The other ordinary complete files use the bounds
 footer (Ufo has a separate 44-byte opaque outlier).
 
-This is **HIGH** evidence that `$chull` source content and the marker-101
-trailing family participate in the race collision structure. It does not yet
-prove the exact trailing layout, that collision is wholly stored in `car.dx`,
-or how the runtime activates it.
+R4B proves the tag-101 wire layout and identifies an AABB helper plus detailed
+closed convex polyhedron. This is **HIGH** evidence that `$chull` source
+content participates in the compiled collision structure. It does not prove
+that collision is wholly stored in `car.dx` or how the runtime activates it.
 
 ## Resource graph
 
@@ -73,7 +74,7 @@ Vehicle identifier/folder
 ├── race body/chassis -> car.dx                         CONFIRMED runtime
 │   ├── crew meshes                                     CONFIRMED_BY_NAME
 │   ├── tag-7/tag-8 glass/light state groups (25/26)    HIGH
-│   └── $chull + marker-101 structural family           HIGH association
+│   └── $chull + parsed tag-101 convex hull              HIGH association
 ├── race visual wheel template -> wheel.dx (25/26)      CONFIRMED runtime
 ├── chassis/wheel/suspension physics -> vehicles.xml    CONFIRMED data
 ├── damage thresholds/strengths -> vehicles.xml         CONFIRMED data
@@ -94,6 +95,13 @@ duplicate wheels, lifted placement, and loss of normal collision/damage.
 The supported conclusion is: **the race runtime expects the structure/role
 represented by `car.dx`; substituting `complete.dx` is incompatible with that
 pipeline.** This is not proof that all collision data resides in `car.dx`.
+
+SeatBuggy provides a positive control. Its `car.dx` and `complete.dx` tag-101
+sections are byte-identical (SHA-256
+`ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb`),
+and the tested complete-to-race substitution retained collision and damage.
+This strongly correlates tag 101 with the active vehicle collision path, while
+still not proving that tag 101 is the only required runtime condition.
 
 The lift remains an **UNRESOLVED_RUNTIME_TRANSFORM_DEPENDENCY**. For Astero,
 source-Y minima differ (`car` -0.228596, `complete` -0.000733), and similar

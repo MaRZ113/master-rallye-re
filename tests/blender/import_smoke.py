@@ -122,6 +122,19 @@ def validate_object(obj, expected):
         "normal fallback strategy property missing",
     )
     require(obj["mr_authoring_status"] == "SOURCE_IDENTICAL", "initial status changed")
+    collision = metadata["collision"]
+    require(collision["tag101_present"], "tag101 metadata missing")
+    require(collision["validated"], "synthetic collision did not validate")
+    require(collision["overlay"]["created"], "collision overlay not created")
+    overlays = [
+        bpy.data.objects.get(name)
+        for name in collision["overlay"]["objects"]
+    ]
+    require(all(item is not None for item in overlays), "collision overlay objects missing")
+    require(len(overlays) == 3, "expected sphere plus representation A/B overlays")
+    require(all(item.hide_select for item in overlays), "collision overlay is selectable/editable")
+    roles = {item.get("mr_collision_role") for item in overlays}
+    require(roles == {"base-radius-preview", "representation-a", "representation-b"}, "collision roles wrong")
     require(all(polygon.loop_total == 3 for polygon in mesh.polygons), "not triangular")
     require(len(mesh.corner_normals) == len(mesh.loops), "corner normals missing")
     expected_uvs = [tuple(value) for value in expected["uvs"]]
@@ -418,6 +431,15 @@ def main():
         if obj.get("mr_resource_name") == "synthetic.dx"
     )
     reloaded_metadata = validate_object(reloaded, expected)
+    reloaded_overlays = [
+        bpy.data.objects.get(name)
+        for name in reloaded_metadata["collision"]["overlay"]["objects"]
+    ]
+    require(len(reloaded_overlays) == 3, "collision overlay did not survive reload")
+    require(
+        all("mr_collision_metadata_json" in item for item in reloaded_overlays if item.type == "MESH"),
+        "collision mesh metadata did not survive reload",
+    )
     require(reloaded_metadata["groups"] == metadata["groups"], "groups lost on reload")
     reloaded_fallback = next(
         obj for obj in bpy.data.objects
@@ -477,6 +499,8 @@ def main():
         "invalid_provenance_rejection": "PASS",
         "topology_modification_rejection": "PASS",
         "save_reload_export": "PASS",
+        "collision_overlay": "PASS",
+        "collision_overlay_count": len(reloaded_overlays),
         "vertex_count": len(reloaded.data.vertices),
         "triangle_count": len(reloaded.data.polygons),
         "material_count": len(reloaded.data.materials),
