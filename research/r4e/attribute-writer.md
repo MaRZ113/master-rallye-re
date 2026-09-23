@@ -4,4 +4,4 @@
 
 Blender maps loops to source IDs and uses strict 1e-6 corner agreement. It never averages a seam. Source-space normal vectors are exported from `mr_source_normal`; native Blender custom-normal APIs remain unused after prior crashes. Colors are preserved raw when unchanged, then quantized through the imported `MR Vertex Color` channels when edited. No BGR/RGB semantic assumption is needed for byte patching.
 
-78/78 vehicle DX resources passed zero-edit identity with normals, UV sets and raw colors both in the library and through Blender 5.2.2. Synthetic isolated edits and Blender 5.2.2 source-indexed edits passed. E1/E2/E3 await game confirmation. Collision and render topology hashes are recorded per candidate.
+78/78 vehicle DX resources passed zero-edit identity with normals, UV sets and raw colors both in the library and through Blender 5.2.2. Synthetic isolated edits and Blender 5.2.2 source-indexed edits passed. E1 UV and E3 vertex-color edits are confirmed by runtime; E2 normal edit was inconclusive. R4E.1 prepares a stronger all-normal probe. Collision and render topology hashes are recorded per candidate.

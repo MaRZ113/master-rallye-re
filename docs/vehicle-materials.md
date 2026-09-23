@@ -31,4 +31,6 @@ alpha-test selector is zero. An existing slot-1 helper permits toggling mask
 bit 4; this control is structurally checked but still awaits an isolated
 runtime test. Existing texture content can be replaced under the same DXT
 name. Flag bytes 1-3, unknown controls, texture strings and new material
-creation remain untouched. E4 probes the windscreen alpha-enable change.\n
+creation remain untouched. E4 confirms in-game that disabling the existing windscreen alpha-enable byte makes it opaque.\n
+
+R4E.1 isolates the environment mask bit writer: Astero body draw 7 has acamo64b-tga in slot 0, whitepaint-tga in slot 1 and feature mask 7. A 0x4-only disable candidate is structurally validated but requires human Reflections-ON testing.

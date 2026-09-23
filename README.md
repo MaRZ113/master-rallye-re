@@ -15,12 +15,11 @@ same-topology **positions-only** DX export. All 78 vehicle resources produce a
 byte-identical zero-edit result and pass an in-memory single-position patch.
 On 2026-09-22, human testing in the original game runtime confirmed visible,
 artifact-free same-topology position edits in `complete.dx` (presentation/menu)
-and `car.dx` (race). Course resources, general DX serialization, and executable
-analysis remain out of scope.
+and `car.dx` (race). Course resources and general DX serialization remain
+out of scope; targeted executable material tracing is documented below.
 
 **FIRST CONFIRMED WRITABLE MASTER RALLYE VEHICLE GEOMETRY — 2026-09-22.**
-The confirmed scope is same-topology vertex-position editing only. Topology,
-UV, normal, and material writing are not runtime-confirmed.
+That R3 milestone confirmed position writing. Subsequent E1, E3 and E4 human tests confirmed same-topology UV, vertex-color, and alpha-flag edits. Normal writing remains inconclusive; topology writing remains unsupported.
 
 Phase R4A has mapped the three vehicle resource roles across all 26 vehicle
 folders: `complete.dx` is the assembled presentation resource, `car.dx` is the
@@ -47,9 +46,7 @@ export is supported. See `docs/collision-writer.md` and `research/r4c/`.
 Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT probes now have human in-game results: M1/M3 reflection helpers, M2 glass source-alpha, and M4 active brake-glow alpha. See research/r4d_1/runtime-results.md. See docs/vehicle-materials.md and research/r4d_1/findings.md.
 
 Phase R4E adds same-topology attribute authoring, same-size DXT replacement, exact
-vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. E1-E4
-DX edits and E5 Python-packed archive are prepared for human runtime tests;
-structural validation does not establish their game behavior. See
+vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human testing confirms E1 UV, E3 vertex color, E4 alpha flag, and E5 full-tree Python Data.sma packing. E2 normal is inconclusive. R4E.1 prepares stronger normal and isolated environment-bit probes. See
 `docs/vehicle-authoring.md`, `docs/texture-authoring.md`, and
 `docs/vehicle-packaging.md`.
 
@@ -72,7 +69,7 @@ mesh attributes, and stores group, texture-slot, material-candidate,
 validation, and trailing-layout metadata on the object. Blender preview UVs use
 direct source V; this is intentionally independent from the unchanged glTF
 `flip-v` policy. Blender-calculated display normals avoid known Blender 5.2.2
-native custom-normal crashes while the source values remain preserved. The original-template exporter now patches same-topology positions, source-space normals, UVs, raw vertex colors and selected fixed material-state bytes. E1-E5 still await human runtime validation; arbitrary topology edits cannot be written back. See
+native custom-normal crashes while the source values remain preserved. The original-template exporter now patches same-topology positions, source-space normals, UVs, raw vertex colors and selected fixed material-state bytes. E1, E3, E4, and E5 are runtime-confirmed; E2 normals were inconclusive. The environment feature-bit writer awaits runtime validation. Arbitrary topology edits cannot be written back. See
 `docs/blender-importer.md`, `docs/blender-collision.md`, and
 `docs/dx-writer.md`.
 

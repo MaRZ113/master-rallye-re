@@ -1,0 +1,69 @@
+{
+  "phase": "R4E human runtime closeout",
+  "results": [
+    {
+      "candidate": "E1_uv",
+      "result": "PASS",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "edit": "Astero car.dx draw 12 mastersticker263-tga; U +0.05 on 80 source vertices",
+      "human_observation": "Sticker visibly shifted toward the door edge; visual geometry unchanged.",
+      "human_evidence_source": "project owner R4E.1 report",
+      "candidate_output_sha256": "20f8357b2a9f9a65ef61e9e7ba7fbc9998e04200bb11ccd0fc265d64b4fe1cf4",
+      "generation_validation_path": ".research-output/r4e/runtime-tests/E1_uv/validation.json",
+      "candidate_source_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90"
+    },
+    {
+      "candidate": "E2_normal",
+      "result": "INCONCLUSIVE",
+      "confidence": "RUNTIME_INCONCLUSIVE",
+      "edit": "Astero car.dx draw 11 chromebar/chrome; eight normals rotated about 15 degrees",
+      "human_observation": "No clearly visible difference identified; limited edit does not establish whether runtime consumes the edited normal buffer.",
+      "human_evidence_source": "project owner R4E.1 report",
+      "candidate_output_sha256": "704a5d32e41b678605bc75bf6772b1dc17920908e29eb4712c228fe1ba944e7d",
+      "generation_validation_path": ".research-output/r4e/runtime-tests/E2_normal/validation.json",
+      "candidate_source_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90"
+    },
+    {
+      "candidate": "E3_color",
+      "result": "PASS",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "edit": "Astero car.dx draw 7; limited RGB source-vertex colors darkened, alpha unchanged",
+      "human_observation": "Localized darkening near front edge of hood/grille; agrees with stage-0 diffuse modulation.",
+      "human_evidence_source": "project owner R4E.1 report",
+      "candidate_output_sha256": "0b75a99faa63471a0dcd23b9cabb7e5b0948891e0984e7421ede48dd1764e214",
+      "generation_validation_path": ".research-output/r4e/runtime-tests/E3_color/validation.json",
+      "candidate_source_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90"
+    },
+    {
+      "candidate": "E4_alpha",
+      "result": "PASS",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "edit": "Astero car.dx draw 23 windscreen; alpha-family flag 1 to 0, texture unchanged",
+      "human_observation": "Windscreen became opaque; confirms serialized flag-to-runtime alpha shader path.",
+      "human_evidence_source": "project owner R4E.1 report",
+      "candidate_output_sha256": "3e9d762bb16f2d4f2aecbbd3b6cd385ec366b0c2dadacfb837bed763a1d97bb6",
+      "generation_validation_path": ".research-output/r4e/runtime-tests/E4_alpha/validation.json",
+      "candidate_source_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90"
+    },
+    {
+      "candidate": "E5_python_sma",
+      "result": "PASS",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "edit": "Full original extracted tree plus E1 car.dx override, Python ZIP-compatible Data.sma",
+      "human_observation": "Original game accepted archive, loaded Astero, and displayed E1 UV modification.",
+      "human_evidence_source": "project owner R4E.1 report",
+      "generation_validation_path": ".research-output/r4e/runtime-tests/E5_python_sma/validation.json",
+      "archive_member_count": 7595,
+      "archive_structural_status": "STRUCTURALLY_VALID",
+      "archive_scope": "full original extracted tree with one controlled override",
+      "local_generation_sha256": "e020089057f264145edc56c6cf05c75129c95b5ac1a86c3b1c342b5a2abc90c2",
+      "human_tested_archive_sha256": null,
+      "hash_scope": "local pre-runtime generated E5 archive; the large archive used in the owner's test was not supplied"
+    }
+  ],
+  "limits": [
+    "E2 is inconclusive, not a failed normal writer.",
+    "E5 runtime proof covers the full-tree Python packaging workflow with one controlled override; incomplete or malformed archives are not covered.",
+    "Original candidate-generation metadata remains unchanged."
+  ]
+}

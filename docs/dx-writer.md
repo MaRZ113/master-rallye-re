@@ -145,4 +145,4 @@ unchanged for position edits. Every changed range has field and identity;
 full diff audit and post-write reparse preserve topology, collision, unknown
 draw bytes and opaque tails. Blender corner divergence is rejected without
 averaging or vertex splitting. 78/78 vehicle DX zero edits are byte-identical.
-E1-E4 game tests are pending; these new write families are not runtime-proven.
+Human testing confirms E1 UV, E3 vertex color, and E4 alpha-flag writing. The limited E2 normal probe was inconclusive; R4E.1 N1 and the environment-bit probe await human testing.
