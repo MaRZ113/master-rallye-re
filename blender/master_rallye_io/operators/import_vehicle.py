@@ -54,6 +54,10 @@ class IMPORT_SCENE_OT_master_rallye_vehicle(bpy.types.Operator):
                     show_collision=self.show_collision,
                 )
                 imported.append(result.object)
+                result.object["mr_resource_role"] = {
+                    "car.dx": "RACE BODY", "complete.dx": "PRESENTATION",
+                    "wheel.dx": "WHEEL TEMPLATE"
+                }.get(source.name.casefold(), "AUXILIARY")
                 warnings.extend(result.warnings)
                 for warning in result.warnings:
                     print(f"[Master Rallye] {source.name}: {warning}")

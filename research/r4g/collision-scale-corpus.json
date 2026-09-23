@@ -1,0 +1,235 @@
+{
+  "summary": {
+    "tag101": 28,
+    "zero_edit_identity": 28,
+    "nonuniform_scale_pass": 27,
+    "known_nonfinite_outlier": 1,
+    "failures": 0,
+    "unexpected_diff_total": 0
+  },
+  "resources": [
+    {
+      "resource": "Astero/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 413,
+      "status": "PASS"
+    },
+    {
+      "resource": "Bruno/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 311,
+      "status": "PASS"
+    },
+    {
+      "resource": "ChevyBlazer/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 270,
+      "status": "PASS"
+    },
+    {
+      "resource": "Forester/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 354,
+      "status": "PASS"
+    },
+    {
+      "resource": "forklift/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": false,
+      "unexpected_diff_count": null,
+      "status": "KNOWN_NONFINITE_OUTLIER"
+    },
+    {
+      "resource": "Frontera/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 402,
+      "status": "PASS"
+    },
+    {
+      "resource": "IceCream/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 265,
+      "status": "PASS"
+    },
+    {
+      "resource": "Jump/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 382,
+      "status": "PASS"
+    },
+    {
+      "resource": "Kamaz/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 365,
+      "status": "PASS"
+    },
+    {
+      "resource": "Kangoo/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 354,
+      "status": "PASS"
+    },
+    {
+      "resource": "KiaSportage/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 269,
+      "status": "PASS"
+    },
+    {
+      "resource": "LandCruiser/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 381,
+      "status": "PASS"
+    },
+    {
+      "resource": "Mattserati/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 324,
+      "status": "PASS"
+    },
+    {
+      "resource": "megane/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 251,
+      "status": "PASS"
+    },
+    {
+      "resource": "megane/sus.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 265,
+      "status": "PASS"
+    },
+    {
+      "resource": "Navara/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 258,
+      "status": "PASS"
+    },
+    {
+      "resource": "NewRav/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 411,
+      "status": "PASS"
+    },
+    {
+      "resource": "Pajero/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 381,
+      "status": "PASS"
+    },
+    {
+      "resource": "Patrol/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 397,
+      "status": "PASS"
+    },
+    {
+      "resource": "RMonster/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 333,
+      "status": "PASS"
+    },
+    {
+      "resource": "SeatBuggy/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 303,
+      "status": "PASS"
+    },
+    {
+      "resource": "SeatBuggy/complete.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 306,
+      "status": "PASS"
+    },
+    {
+      "resource": "Simmbugghini/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 305,
+      "status": "PASS"
+    },
+    {
+      "resource": "Tata/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 324,
+      "status": "PASS"
+    },
+    {
+      "resource": "Terrano/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 287,
+      "status": "PASS"
+    },
+    {
+      "resource": "Ufo/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 497,
+      "status": "PASS"
+    },
+    {
+      "resource": "WildCat/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 276,
+      "status": "PASS"
+    },
+    {
+      "resource": "Xtrail/car.dx",
+      "zero_edit": true,
+      "nonuniform_scale": true,
+      "unexpected_diff_count": 0,
+      "changed_byte_count": 304,
+      "status": "PASS"
+    }
+  ]
+}

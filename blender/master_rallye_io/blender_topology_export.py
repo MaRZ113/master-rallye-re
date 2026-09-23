@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from pathlib import Path
 
 from .blender_export import _object_transform_is_identity, export_dx_attributes
@@ -11,10 +12,12 @@ from .library import parse_dx
 try:
     from master_rallye.coords import blender_position_to_source
     from master_rallye.topology_writer import rebuild_topology, source_geometry
+    from master_rallye.bounds import bound_points
     from master_rallye.vertex_compiler import CornerInput, FaceInput, compile_faces
 except ModuleNotFoundError:
     from .vendor.master_rallye.coords import blender_position_to_source
     from .vendor.master_rallye.topology_writer import rebuild_topology, source_geometry
+    from .vendor.master_rallye.bounds import bound_points
     from .vendor.master_rallye.vertex_compiler import CornerInput, FaceInput, compile_faces
 
 
@@ -112,7 +115,19 @@ def preview_topology(obj):
     source_path, source, model = _source_and_model(obj)
     faces, material_draws = _faces_from_blender(obj, model)
     geometry, compilation = compile_faces(model, faces, material_draws)
-    rebuilt = rebuild_topology(source, geometry)
+    old_bounds = model.collision.spatial_bounds_1339
+    if old_bounds is None:
+        raise ValueError("vehicle marker-1339 spatial bounds missing")
+    compiled_positions = (vertex.position for draw in geometry.values() for vertex in draw.vertices)
+    points = bound_points(compiled_positions, model.collision.convex_hull)
+    needs_bounds = any(
+        any(point[i] < old_bounds.minimum[i] - 1e-6 or point[i] > old_bounds.maximum[i] + 1e-6
+            for i in range(3))
+        or math.dist(point, old_bounds.center) > old_bounds.radius + 1e-5
+        for point in points
+    )
+    rebuilt = rebuild_topology(source, geometry,
+                               bounds_mode="recompute" if needs_bounds else "preserve")
     return source_path, rebuilt, compilation
 
 
@@ -141,6 +156,7 @@ def export_topology(obj, destination: Path):
         return safe_result, compilation
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_bytes(rebuilt.data)
+    obj["mr_last_export_path"] = str(destination)
     obj["mr_topology_last_export_json"] = json.dumps({
         "mode": "EXPERIMENTAL_TOPOLOGY_REBUILD",
         "compilation": compilation.to_dict(),

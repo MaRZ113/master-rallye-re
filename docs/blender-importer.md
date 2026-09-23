@@ -231,4 +231,8 @@ separate project/staging paths. See vehicle-authoring.md and texture-authoring.m
 
 ## R4F authoring extension
 
-The panel lists existing draw IDs/materials, shows draw IDs on selected faces, and assigns selected faces to an existing draw. A distinct **Export DX - Topology Changing (Experimental)** command previews source/compiled counts and splits. It requires explicit triangulation and complete source-space normal, color and UV data; it refuses missing or ambiguous draw membership. Generated provenance remains tooling metadata only. The output render core is rebuilt and collision bytes remain untouched. See docs/topology-authoring.md. R4F topology output awaits the F1 human runtime test.
+The panel lists existing draw IDs/materials, shows draw IDs on selected faces, and assigns selected faces to an existing draw. A distinct **Export DX - Topology Changing (Experimental)** command previews source/compiled counts and splits. It requires explicit triangulation and complete source-space normal, color and UV data; it refuses missing or ambiguous draw membership. Generated provenance remains tooling metadata only. The output render core is rebuilt and collision bytes remain untouched. See docs/topology-authoring.md. The F1 Astero car.dx topology output was confirmed by human runtime testing; R4G complete/wheel and expanded-bounds cases await their own tests.
+
+## R4G vehicle workflow controls
+
+Imported objects display RACE BODY, PRESENTATION or WHEEL TEMPLATE roles. The sidebar can save a VehicleProject, validate it, and build an isolated mod staging tree. A car.dx with a finite tag101 hull exposes source-space collision translation and per-axis scale controls, validation/reset, preview center/radius/AABB and source hash. Marker-1339 box/sphere visualization is opt-in. These controls do not write the source DX; collision scale and expanded bounds await original-game tests. See docs/vehicle-project.md and docs/collision-authoring.md.

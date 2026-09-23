@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Mapping, Sequence
 
 from .dx import MAX_INDICES, MAX_VERTICES, parse_dx_bytes
+from .bounds import compute_bounds1339, parse_bounds1339, replace_bounds1339
 from .errors import DxWriteError
 from .model import DxModel
 
@@ -183,8 +184,10 @@ def _check_grammar(source: bytes, model: DxModel) -> tuple[tuple[float, ...], tu
     return minimum, maximum
 
 
-def rebuild_topology(source: bytes, edits: Mapping[int, DrawGeometry] | None = None) -> TopologyRebuild:
+def rebuild_topology(source: bytes, edits: Mapping[int, DrawGeometry] | None = None, *, bounds_mode: str = "preserve") -> TopologyRebuild:
     """Rebuild render arrays/indices for the fixed source draw set; never save a file."""
+    if bounds_mode not in {"preserve", "recompute"}:
+        raise DxWriteError("bounds_mode must be preserve or recompute")
     model = parse_dx_bytes(source)
     minimum, maximum = _check_grammar(source, model)
     originals = source_geometry(model)
@@ -218,7 +221,9 @@ def rebuild_topology(source: bytes, edits: Mapping[int, DrawGeometry] | None = N
             if vertex.source_vertex_id is not None and not draw.vertex_base <= vertex.source_vertex_id <= draw.vertex_base + draw.local_vertex_max:
                 raise DxWriteError(f"draw {draw.draw_index}: source provenance belongs to another draw")
             for axis, component in enumerate(vertex.position):
-                if not math.isfinite(component) or not minimum[axis] - 1e-6 <= component <= maximum[axis] + 1e-6:
+                if not math.isfinite(component) or abs(component) > 10000:
+                    raise DxWriteError(f"draw {draw.draw_index}: vertex position outside sane finite range")
+                if bounds_mode == "preserve" and not minimum[axis] - 1e-6 <= component <= maximum[axis] + 1e-6:
                     raise DxWriteError(f"draw {draw.draw_index}: vertex position outside original bounds")
             positions += _attribute_bytes(source, model, vertex, draw.draw_index, "position")
             normals += _attribute_bytes(source, model, vertex, draw.draw_index, "normal")
@@ -263,6 +268,14 @@ def rebuild_topology(source: bytes, edits: Mapping[int, DrawGeometry] | None = N
     suffix = source[model.trailing.offset:]
     output = prefix + array_region + table + global_region + suffix
     parsed = parse_dx_bytes(output)
+    if bounds_mode == "recompute" and output != source:
+        source_bounds = parse_bounds1339(model.collision.unparsed_data, model.collision.unparsed_offset)
+        if source_bounds is None:
+            raise DxWriteError("unrecognized source spatial bounds")
+        new_bounds = compute_bounds1339(parsed.vertices.positions, parsed.collision.convex_hull,
+                                        offset=parsed.collision.unparsed_offset)
+        output = replace_bounds1339(output, new_bounds, footer_offset=parsed.collision.unparsed_offset)
+        parsed = parse_dx_bytes(output)
     if not parsed.diagnostics.validated or parsed.diagnostics.warnings != model.diagnostics.warnings:
         raise DxWriteError(f"rebuilt DX failed validation: {parsed.diagnostics.errors}; {parsed.diagnostics.warnings}")
     if parsed.vertex_count != vertex_base or parsed.local_indices != tuple(local) or parsed.global_index_table.indices != tuple(global_indices):
@@ -286,15 +299,24 @@ def rebuild_topology(source: bytes, edits: Mapping[int, DrawGeometry] | None = N
             raw_new[start:start + 4] = b"\x00" * 4
         if raw_old != raw_new:
             raise DxWriteError(f"draw {old.draw_index}: unexpected record bytes changed")
-    if output[:12] != prefix or output[parsed.trailing.offset:] != suffix:
-        raise DxWriteError("external prefix or suffix changed")
+    if output[:12] != prefix:
+        raise DxWriteError("external prefix changed")
+    if bounds_mode == "preserve" or output == source:
+        if output[parsed.trailing.offset:] != suffix:
+            raise DxWriteError("external suffix changed")
+    elif output[parsed.trailing.offset:parsed.collision.unparsed_offset] != source[model.trailing.offset:model.collision.unparsed_offset]:
+        raise DxWriteError("collision or pre-bounds suffix changed")
     if model.collision.convex_hull is not None:
         before = model.collision.convex_hull.raw
         after = parsed.collision.convex_hull.raw if parsed.collision.convex_hull else None
         if before != after:
             raise DxWriteError("tag-101 collision bytes changed")
-    if parsed.collision.tag_ids != model.collision.tag_ids or parsed.collision.unparsed_data != model.collision.unparsed_data:
-        raise DxWriteError("collision/footer structure changed")
+    if parsed.collision.tag_ids != model.collision.tag_ids:
+        raise DxWriteError("collision tag structure changed")
+    if bounds_mode == "preserve" and parsed.collision.unparsed_data != model.collision.unparsed_data:
+        raise DxWriteError("bounds footer changed unexpectedly")
+    if bounds_mode == "recompute" and parsed.collision.spatial_bounds_1339 is None:
+        raise DxWriteError("rebuilt spatial bounds failed reparse")
     semantic_equivalent = (
         parsed.vertex_count == model.vertex_count
         and parsed.vertices.positions == model.vertices.positions
@@ -311,7 +333,7 @@ def rebuild_topology(source: bytes, edits: Mapping[int, DrawGeometry] | None = N
         output, _sha(source), _sha(output), model.vertex_count, parsed.vertex_count,
         model.triangle_count, parsed.triangle_count, model.trailing.offset, parsed.trailing.offset,
         tuple(changed_draws), 0, _sha(source[model.collision.offset:model.collision.end_offset]),
-        _sha(suffix), output == source, semantic_equivalent, parsed,
+        _sha(output[parsed.trailing.offset:]), output == source, semantic_equivalent, parsed,
     )
 
 

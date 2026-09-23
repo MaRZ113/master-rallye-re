@@ -203,6 +203,7 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         layout = self.layout
         status = refresh_authoring_status(obj)
         layout.label(text=obj.get("mr_resource_name", obj.name), icon="MESH_DATA")
+        layout.label(text=f"Role: {obj.get('mr_resource_role', 'AUXILIARY')}")
         layout.label(text=f"Position/topology: {status}")
         source = Path(obj.get("mr_source_path", ""))
         layout.label(text=f"Source: {source.name or 'unknown'}")
@@ -254,6 +255,24 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
             show.visible = True
             hide = row.operator("object.master_rallye_collision_visibility", text="Hide Collision", icon="HIDE_ON")
             hide.visible = False
+        if collision.get("tag101_present") and obj.get("mr_resource_name", "").casefold() == "car.dx":
+            edit_box = layout.box()
+            edit_box.label(text="Collision authoring: source XYZ", icon="MESH_CUBE")
+            edit_box.prop(obj, '["mr_collision_translation"]', text="Translate")
+            edit_box.prop(obj, '["mr_collision_scale"]', text="Per-axis scale")
+            buttons = edit_box.row(align=True)
+            buttons.operator("object.master_rallye_collision_preview", text="Validate / Preview")
+            buttons.operator("object.master_rallye_collision_reset", text="Reset")
+            edit_box.label(text=f"Status: {obj.get('mr_collision_validation_status', 'SOURCE')}")
+            try:
+                preview = json.loads(obj.get("mr_collision_preview_json", "{}"))
+                edit_box.label(text=f"Center: {preview.get('center', 'source')}")
+                edit_box.label(text=f"Radius: {preview.get('radius', 'source')}")
+                edit_box.label(text=f"AABB min: {preview.get('minimum', 'source')}")
+                edit_box.label(text=f"AABB max: {preview.get('maximum', 'source')}")
+            except (ValueError, TypeError):
+                pass
+            edit_box.label(text=f"Source SHA: {str(obj.get('mr_source_sha256',''))[:16]}...")
         row = layout.row(align=True)
         row.operator("object.master_rallye_print_metadata", icon="CONSOLE")
         row.operator("object.master_rallye_reload_textures", icon="FILE_REFRESH")
@@ -329,6 +348,19 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         except Exception:
             topology.label(text="Draw list unavailable")
         topology.operator("export_scene.master_rallye_dx_topology", text="Export DX - Topology Changing (Experimental)", icon="EXPORT")
+        bounds_row = layout.row(align=True)
+        show_bounds = bounds_row.operator("object.master_rallye_bounds_visibility", text="Show Bounds")
+        show_bounds.visible = True
+        hide_bounds = bounds_row.operator("object.master_rallye_bounds_visibility", text="Hide Bounds")
+        hide_bounds.visible = False
+        project_box = layout.box()
+        project_box.label(text="Vehicle project", icon="OUTLINER_COLLECTION")
+        project_box.operator("import_scene.master_rallye_vehicle", text="Import Vehicle Folder")
+        project_box.operator("export_scene.master_rallye_vehicle_project", text="Save Vehicle Project")
+        project_box.operator("object.master_rallye_validate_vehicle", text="Validate Vehicle")
+        project_box.operator("export_scene.master_rallye_build_vehicle", text="Build Vehicle Mod")
+        project_box.label(text=f"Project: {Path(obj.get('mr_vehicle_project_path', '')).name or 'unsaved'}")
+        project_box.label(text=f"Validation: {obj.get('mr_vehicle_validation_status', 'not run')}")
         layout.separator()
         layout.operator("export_scene.master_rallye_dx_attributes", text="Export DX - Safe Attributes", icon="EXPORT")
         layout.operator(

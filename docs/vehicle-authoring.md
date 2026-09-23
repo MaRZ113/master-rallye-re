@@ -17,3 +17,7 @@ CLI: `mrtool validate-edit source.dx edit.json --output replacement.dx`. The JSO
 ## R4F topology-changing experimental path
 
 Blender now exposes a separate **Export DX - Topology Changing (Experimental)** action and an existing-draw face-assignment tool. It can add/remove vertices and triangles and split corners for UV, normal or color discontinuities within the original draw/material set. The old **Export DX - Safe Attributes** path is unchanged for same-topology files. A protected corpus zero-edit rebuild was 78/78 byte-identical; the F1 Astero +3-vertex/+1-triangle output is confirmed by human game testing. See docs/topology-authoring.md and docs/dx-render-rebuilder.md.
+
+## R4G project workflow
+
+Import Vehicle Folder labels car, complete and wheel roles. Export changed DX resources, stage same-size DXT replacements, preview limited tag101 translation/scale, then Save Vehicle Project, Validate Vehicle and Build Vehicle Mod. The existing same-topology exporter remains available. The topology exporter now recalculates marker-1339 bounds when new geometry exceeds donor coverage. B1/C1/P1/W1 await human runtime tests; see docs/vehicle-sdk.md, docs/vehicle-project.md and research/r4g/runtime-test-plan.md.

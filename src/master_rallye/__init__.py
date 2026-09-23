@@ -16,6 +16,9 @@ from .collision_writer import (
     translate_tag101,
     write_dx_collision_translation,
 )
+from .bounds import DxSpatialBounds1339, parse_bounds1339, compute_bounds1339
+from .collision_scale import scale_tag101, scale_dx_collision
+from .vehicle_project import VehicleProject, validate_vehicle, build_vehicle_mod
 from .authoring import (
     INVALID_PROVENANCE,
     POSITIONS_ONLY_CHANGED,
@@ -35,6 +38,14 @@ __all__ = [
     "FormatError",
     "MasterRallyeError",
     "UnknownRecordTagError",
+    "DxSpatialBounds1339",
+    "parse_bounds1339",
+    "compute_bounds1339",
+    "scale_tag101",
+    "scale_dx_collision",
+    "VehicleProject",
+    "validate_vehicle",
+    "build_vehicle_mod",
     "parse_dx",
     "parse_dx_bytes",
     "patch_dx_positions",

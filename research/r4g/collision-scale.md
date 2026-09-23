@@ -1,0 +1,7 @@
+# R4G collision-scale semantics
+
+R4B established Representation A as an AABB helper, Representation B as detailed convex geometry, the base scalar as AABB-corner radius, geometry-B points as vertex means, and face scalars as polygon areas. R4C proved rigid translation in-game.
+
+R4G scale_tag101 accepts positive finite source-space scale factors and an optional center. It transforms detailed B vertices and builds A corners from the transformed B extrema in the original corner order. It updates base and both geometry-B means; base radius is the farthest A corner from the new base mean. For each face, polygon area is recomputed using its unchanged primary-index loop. Indices, edges, adjacency, face descriptors and face loops are preserved byte-for-byte. A full-DX scale updates marker-1339 bounds because collision geometry contributes to them. The binary audit authorizes only five proven geometry vertex families, base scalar, face scalars and the four bounds fields.
+
+The protected corpus yielded 28/28 tag101 zero-edit identities and 27/27 finite hull non-uniform scale passes at (1.2, 1.0, 0.9), with zero unexpected changed bytes. The one non-finite Forklift hull remains a scale rejection. C1 uses an isolated 20% source-X lateral widening of Astero; structural validation passed, game behavior awaits human testing. No collision topology creation or rotation is included.

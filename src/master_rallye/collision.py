@@ -10,6 +10,7 @@ import hashlib
 import math
 import struct
 from dataclasses import dataclass
+from .bounds import DxSpatialBounds1339, parse_bounds1339
 
 from .errors import BoundsError, FormatError
 
@@ -125,6 +126,7 @@ class CollisionSections:
     unparsed_data: bytes
     warnings: tuple[str, ...] = ()
     errors: tuple[str, ...] = ()
+    spatial_bounds_1339: DxSpatialBounds1339 | None = None
 
     @property
     def tag_ids(self) -> tuple[int, ...]:
@@ -361,4 +363,5 @@ def parse_collision_sections(
     return CollisionSections(
         base_offset, reader.absolute(offset), bsp, convex, cylinder,
         reader.absolute(offset), data[offset:], (), tuple(reader.errors),
+        parse_bounds1339(data[offset:], reader.absolute(offset)),
     )

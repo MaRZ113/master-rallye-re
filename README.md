@@ -8,7 +8,7 @@ read-only.
 
 ## Current scope
 
-Phase R4F adds an experimental topology-changing vehicle DX render-core writer. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
+Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed
 same-topology **positions-only** DX export. All 78 vehicle resources produce a
@@ -40,8 +40,8 @@ Phase R4C adds an exact tag-101 serializer and conservative template-preserving
 rigid translation. All 28 tag-101 sections and complete DX templates round-trip
 byte-identically at zero edit; all 27 validated finite hulls pass in-memory
 translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
-collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. No scale, rotation, topology, BSP, cylinder, or Blender collision
-export is supported. See `docs/collision-writer.md` and `research/r4c/`.
+collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. R4C itself did not add scale, rotation, topology, BSP, cylinder, or Blender collision
+export; R4G adds conservative per-axis scale pending human testing. See `docs/collision-writer.md` and `research/r4c/`.
 
 Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT probes now have human in-game results: M1/M3 reflection helpers, M2 glass source-alpha, and M4 active brake-glow alpha. See research/r4d_1/runtime-results.md. See docs/vehicle-materials.md and research/r4d_1/findings.md.
 
@@ -71,7 +71,7 @@ mesh attributes, and stores group, texture-slot, material-candidate,
 validation, and trailing-layout metadata on the object. Blender preview UVs use
 direct source V; this is intentionally independent from the unchanged glTF
 `flip-v` policy. Blender-calculated display normals avoid known Blender 5.2.2
-native custom-normal crashes while the source values remain preserved. The original-template exporter now patches same-topology positions, source-space normals, UVs, raw vertex colors and selected fixed material-state bytes. E1, E3, E4, and E5 are runtime-confirmed; E2 normals were inconclusive. The environment feature-bit writer awaits runtime validation. Arbitrary topology edits cannot be written back. See
+native custom-normal crashes while the source values remain preserved. The original-template exporter now patches same-topology positions, source-space normals, UVs, raw vertex colors and selected fixed material-state bytes. E1, E3, E4, and E5 are runtime-confirmed; the stronger R4E.1 N1 resolved the earlier inconclusive E2 normal probe. The environment feature-bit writer and R4F topology writing have runtime confirmation in their tested contexts. See
 `docs/blender-importer.md`, `docs/blender-collision.md`, and
 `docs/dx-writer.md`.
 
@@ -164,3 +164,7 @@ py -3 tools/mrtool.py audit-textures `
 
 See `research/r2_5/findings.md` for legacy consolidation and
 `research/r3/findings.md` / `docs/dx-writer.md` for the safe writer.
+
+## R4G vehicle SDK hardening (automated)
+
+R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) are ready under ignored local output. These four capabilities remain WAITING FOR HUMAN; the full Vehicle SDK v1 is not yet frozen. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.

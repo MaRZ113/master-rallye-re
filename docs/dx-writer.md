@@ -145,8 +145,12 @@ unchanged for position edits. Every changed range has field and identity;
 full diff audit and post-write reparse preserve topology, collision, unknown
 draw bytes and opaque tails. Blender corner divergence is rejected without
 averaging or vertex splitting. 78/78 vehicle DX zero edits are byte-identical.
-Human testing confirms E1 UV, E3 vertex color, and E4 alpha-flag writing. The limited E2 normal probe was inconclusive; R4E.1 N1 and the environment-bit probe await human testing.
+Human testing confirms E1 UV, E3 vertex color, and E4 alpha-flag writing. The limited E2 normal probe was inconclusive; R4E.1 N1 and M1 later confirmed normal and environment-bit writing in-game.
 
 ## R4F separate render-core writer
 
-`src/master_rallye/topology_writer.py` is a distinct experimental path for vehicle topology changes. It rebuilds per-draw render arrays and indices while preserving existing draw/material records and collision/footer bytes. The R3 positions-only function above and R4E safe attribute patcher remain unchanged for same-topology export. The new path is structurally validated and **WAITING FOR HUMAN** runtime proof. See docs/dx-render-rebuilder.md.
+`src/master_rallye/topology_writer.py` is a distinct experimental path for vehicle topology changes. It rebuilds per-draw render arrays and indices while preserving existing draw/material records and collision/footer bytes. The R3 positions-only function above and R4E safe attribute patcher remain unchanged for same-topology export. The F1 Astero car.dx +3-vertex/+1-triangle output was subsequently **CONFIRMED_BY_RUNTIME**; expanded-bounds and complete/wheel probes await human testing. See docs/dx-render-rebuilder.md.
+
+## R4G writer extension
+
+The published same-topology byte patch path and R4F existing-draw topology path coexist. R4G adds opt-in marker-1339 bounds recomputation to the topology writer, with the original footer preserved at zero edit. New generated positions may exceed the donor bounds only in recompute mode. The full DX is reparsed and collision bytes are preserved for topology-only edits. See docs/vehicle-bounds.md and research/r4g/bounds-corpus.json.

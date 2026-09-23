@@ -22,6 +22,7 @@ from master_rallye.sidecar import apply_material_candidates, parse_sidecar, reso
 from master_rallye.roles import write_vehicle_role_reports
 from master_rallye.r4e_writer import patch_dx_attributes, write_dx_attributes
 from master_rallye.texture_authoring import export_texture, replace_texture
+from master_rallye.vehicle_project import VehicleProject, validate_vehicle, build_vehicle_mod
 from master_rallye.vehicle_packaging import (
     vehicle_dependencies, texture_users, bundle_vehicle, pack_sma, unpack_sma,
 )
@@ -57,35 +58,23 @@ def r4e_command(args):
         result=pack_sma(args.root,args.output,json.loads(args.overrides.read_text(encoding="utf-8")) if args.overrides else None)
     elif command=="unpack-sma":
         result=unpack_sma(args.source,args.output)
+    elif command=="validate-vehicle":
+        project=VehicleProject.load(args.project)
+        result=validate_vehicle(project)
     elif command=="build-vehicle-mod":
-        project=json.loads(args.project.read_text(encoding="utf-8"))
-        vehicle=Path(project["source_vehicle_dir"])
-        replacements={key:Path(value) for key,value in project.get("replacements",{}).items()}
-        for name,edit in project.get("texture_edits",{}).items():
-            from master_rallye.texture_authoring import replace_texture
-            source=vehicle/name
-            output=args.output/"_build"/name
-            spec=edit
-            replace_texture(source,Path(spec["png"]),output,expected_source_sha256=spec["source_sha256"])
-            replacements[name]=output
-        for name,edit in project.get("dx_edits",{}).items():
-            source=vehicle/name
-            output=args.output/"_build"/name
-            spec=edit
-            patch=write_dx_attributes(source,output,expected_source_sha256=spec["source_sha256"],positions=spec.get("positions"),normals=spec.get("normals"),uv_sets=spec.get("uv_sets"),colors=spec.get("colors"),material_alpha={int(k):v for k,v in spec.get("material_alpha",{}).items()},material_env={int(k):v for k,v in spec.get("material_env",{}).items()})
-            replacements[name]=output
-        stage=args.output/"staging"
-        result=bundle_vehicle(vehicle,replacements,stage)
-        if args.sma:
-            if not args.sma_root:
-                raise ValueError("--sma requires --sma-root pointing to the full unpacked original archive")
-            overrides={
-                item["archive_path"]:stage/item["archive_path"]
-                for item in result["files"]
-            }
-            result["sma"]=pack_sma(args.sma_root,args.sma,overrides)
+        project=VehicleProject.load(args.project)
+        result=build_vehicle_mod(project,args.output,sma=args.sma,sma_root=args.sma_root)
     else:
         raise ValueError(f"unsupported command {command}")
+    if command in {"validate-vehicle", "build-vehicle-mod"}:
+        dependencies = result.get("dependency_manifest") or {}
+        display = {key:value for key,value in result.items()
+                   if key not in {"compiled", "dependency_manifest"}}
+        display["dependencies"] = {
+            "binding_count": len(dependencies.get("bindings", [])),
+            "unresolved_count": dependencies.get("unresolved_count")}
+        print(json.dumps(display,indent=2,ensure_ascii=False))
+        return 1 if result["status"] == "FAIL" else 0
     print(json.dumps(result,indent=2,ensure_ascii=False))
     return 0
 
@@ -301,6 +290,9 @@ def build_parser() -> argparse.ArgumentParser:
     pack.add_argument("--output",required=True,type=Path)
     pack.add_argument("--overrides",type=Path,help="JSON archive path to replacement file map")
     pack.set_defaults(function=r4e_command)
+    validate=commands.add_parser("validate-vehicle",help="check a VehicleProject with actionable PASS/WARN/FAIL diagnostics")
+    validate.add_argument("project",type=Path)
+    validate.set_defaults(function=r4e_command)
     build=commands.add_parser("build-vehicle-mod",help="validate project edits and stage a vehicle mod")
     build.add_argument("project",type=Path)
     build.add_argument("--output",required=True,type=Path)

@@ -258,6 +258,14 @@ def import_dx_resource(
 
     obj = bpy.data.objects.new(object_name or source.stem, mesh)
     obj["mr_target_draw_id"] = 0
+    obj["mr_resource_role"] = {
+        "car.dx": "RACE BODY", "complete.dx": "PRESENTATION", "wheel.dx": "WHEEL TEMPLATE"
+    }.get(source.name.casefold(), "AUXILIARY")
+    obj["mr_vehicle_source_dir"] = str(source.parent.resolve())
+    obj["mr_vehicle_project_path"] = ""
+    obj["mr_collision_scale"] = [1.0, 1.0, 1.0]
+    obj["mr_collision_translation"] = [0.0, 0.0, 0.0]
+    obj["mr_collision_validation_status"] = "SOURCE"
     for draw_id, slot in draw_material_slots.items():
         obj[f"mr_draw_material_slot_{draw_id}"] = slot
     collection.objects.link(obj)
