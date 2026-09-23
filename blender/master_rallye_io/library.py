@@ -31,6 +31,9 @@ try:
     )
     from master_rallye.dx import parse_dx
     from master_rallye.dx_writer import write_dx_positions
+    from master_rallye.r4e_writer import aggregate_corners, classify_edit, write_dx_attributes
+    from master_rallye.texture_authoring import decode_rgba_png, replace_texture
+    from master_rallye.vehicle_packaging import texture_users
     from master_rallye.dxt import (
         PNG_ROWS_FLIP_VERTICAL,
         has_transparency,
@@ -73,6 +76,9 @@ except ModuleNotFoundError:
     )
     from .vendor.master_rallye.dx import parse_dx
     from .vendor.master_rallye.dx_writer import write_dx_positions
+    from .vendor.master_rallye.r4e_writer import aggregate_corners, classify_edit, write_dx_attributes
+    from .vendor.master_rallye.texture_authoring import decode_rgba_png, replace_texture
+    from .vendor.master_rallye.vehicle_packaging import texture_users
     from .vendor.master_rallye.dxt import (
         PNG_ROWS_FLIP_VERTICAL,
         has_transparency,

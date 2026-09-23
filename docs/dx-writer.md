@@ -135,3 +135,14 @@ remain unresolved.
 R4B writer regression hashes the exact parsed tag-101 range. All **28/28**
 tag-101 resources preserve that hash during both zero-edit and safe
 single-position corpus tests. Collision bytes are never patched.
+
+## R4E extension
+
+`src/master_rallye/r4e_writer.py` adds per-source-vertex normals (12 bytes),
+UV sets (8 bytes each), raw colors (4 bytes), alpha-enable byte 0, and the
+existing-helper environment mask bit. The R3 position patch path is called
+unchanged for position edits. Every changed range has field and identity;
+full diff audit and post-write reparse preserve topology, collision, unknown
+draw bytes and opaque tails. Blender corner divergence is rejected without
+averaging or vertex splitting. 78/78 vehicle DX zero edits are byte-identical.
+E1-E4 game tests are pending; these new write families are not runtime-proven.

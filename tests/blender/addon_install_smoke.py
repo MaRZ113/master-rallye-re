@@ -23,6 +23,8 @@ if not hasattr(bpy.ops.import_scene, "master_rallye_dx"):
     raise AssertionError("single DX operator missing after ZIP install")
 if not hasattr(bpy.ops.import_scene, "master_rallye_vehicle"):
     raise AssertionError("vehicle folder operator missing after ZIP install")
+if not hasattr(bpy.ops.export_scene, "master_rallye_dx_attributes"):
+    raise AssertionError("R4E attribute DX operator missing after ZIP install")
 if not hasattr(bpy.ops.export_scene, "master_rallye_dx_positions"):
     raise AssertionError("positions-only DX operator missing after ZIP install")
 

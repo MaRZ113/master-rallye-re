@@ -18,8 +18,17 @@ A material binding should retain ordered DX slots, raw core/prefix control words
 - Chrome/envmap: slot-1 presence sets runtime mask bit 0x4; the env shader uses stage 1 with camera-space normals, a COUNT2 transform, and a MODULATEALPHA_ADDCOLOR operation. A reflection-vector coordinate claim would be incorrect.
 - Light/glow: brake/glow-like alpha draws also request _alpha; byte 2 is not the alpha-test selector. M4 confirms active brake-light glow alpha response while the base lamp remains. Additive blending, emission, and dynamic lights remain UNKNOWN.
 
-No production material writer exists. See research/r4d_1/dx-to-runtime-material.md, alpha-path.md, texture-stage-map.md, and runtime-test-plan.md for exact evidence and next tests.
+R4E provides restricted template-preserving fixed-field material edits. See research/r4d_1/dx-to-runtime-material.md, alpha-path.md, texture-stage-map.md, and runtime-test-plan.md for exact evidence and next tests.
 
 ## R4D.1 in-game closeout
 
 M1 and M3 confirm distinct body/helmet and chrome/trim reflection helpers; both are gated by Reflections. M2 confirms glass source-alpha blending. M4 confirms active brake-glow alpha strength. See research/r4d_1/runtime-results.md and JSON for candidate hashes and human evidence. These observations do not prove exact transparent sorting or damage fade.
+
+## R4E fixed-field authoring
+
+Existing draw alpha enable (flag byte 0) can be toggled on draws whose
+alpha-test selector is zero. An existing slot-1 helper permits toggling mask
+bit 4; this control is structurally checked but still awaits an isolated
+runtime test. Existing texture content can be replaced under the same DXT
+name. Flag bytes 1-3, unknown controls, texture strings and new material
+creation remain untouched. E4 probes the windscreen alpha-enable change.\n

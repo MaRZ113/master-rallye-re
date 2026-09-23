@@ -183,3 +183,15 @@ opaque collision prefix; it did not perform broad executable analysis.
 ## R4D.1 material update
 
 The tag-2 loader maps serialized flag bytes to runtime +0x22/+0x23/+0x20/+0x21 and unknown_0x24 to runtime feature mask +0x34. The base shader uses source-alpha blending (Z writes off) or alpha test >128 (Z writes on). The observed vehicle corpus has no alpha-test byte set. Stage 1 of the environment shader uses camera-space normals and a COUNT2 transform. Four same-size DXT tests now have human in-game results: body and chrome helpers disappear with Reflections OFF; glass and active brake-glow alpha vary continuously. See research/r4d_1/runtime-results.md. See research/r4d_1/findings.md.
+
+## R4E authoring status
+
+The same-topology DX attribute patcher passes 78/78 real vehicle zero edits
+with positions, normals, UVs, and raw colors supplied, including the Blender 5.2.2 full-corpus export. The DXT PNG-to-DXT zero-edit path is byte-identical for 6,960/6,960 files. E1-E4 controlled edits
+pass reparse, field diff, topology and collision preservation, but have not
+yet been tested in the game. Same-size DXT authoring preserves the observed
+20-byte header and BGRA dimensions. The exact vehicle dependency resolver
+and staging helper are automated. A full Python-generated SMA candidate
+passes ZIP CRC/member-hash checks, while runtime acceptance is pending.
+See docs/vehicle-authoring.md, docs/texture-authoring.md and
+docs/vehicle-packaging.md.

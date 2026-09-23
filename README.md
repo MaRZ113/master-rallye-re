@@ -8,7 +8,7 @@ read-only.
 
 ## Current scope
 
-Phase R4C automated work is complete: the validated vehicle DX/DXT library drives a native
+Phase R4E automated work is implemented. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed
 same-topology **positions-only** DX export. All 78 vehicle resources produce a
@@ -44,7 +44,14 @@ translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
 collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. No scale, rotation, topology, BSP, cylinder, or Blender collision
 export is supported. See `docs/collision-writer.md` and `research/r4c/`.
 
-Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT runtime probes are prepared but have no in-game result. See docs/vehicle-materials.md and research/r4d_1/findings.md.
+Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT probes now have human in-game results: M1/M3 reflection helpers, M2 glass source-alpha, and M4 active brake-glow alpha. See research/r4d_1/runtime-results.md. See docs/vehicle-materials.md and research/r4d_1/findings.md.
+
+Phase R4E adds same-topology attribute authoring, same-size DXT replacement, exact
+vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. E1-E4
+DX edits and E5 Python-packed archive are prepared for human runtime tests;
+structural validation does not establish their game behavior. See
+`docs/vehicle-authoring.md`, `docs/texture-authoring.md`, and
+`docs/vehicle-packaging.md`.
 
 ## Blender add-on
 
@@ -54,7 +61,7 @@ Build the installable local ZIP with:
 py -3 tools/build_blender_addon.py
 ```
 
-Install the ignored `dist/master_rallye_io-r4b.zip` from Blender preferences.
+Install the ignored `dist/master_rallye_io.zip` from Blender preferences.
 The add-on provides **File > Import > Master Rallye DX (.dx)** and **Import
 Master Rallye Vehicle Folder**. It was tested with Blender 5.2.2 LTS; Blender
 4.3+ is the expected API baseline, but other versions were not tested.
@@ -65,9 +72,7 @@ mesh attributes, and stores group, texture-slot, material-candidate,
 validation, and trailing-layout metadata on the object. Blender preview UVs use
 direct source V; this is intentionally independent from the unchanged glTF
 `flip-v` policy. Blender-calculated display normals avoid known Blender 5.2.2
-native custom-normal crashes while the source values remain preserved. Only
-same-topology position edits can be written through the experimental
-original-template exporter; arbitrary edits cannot be written back. See
+native custom-normal crashes while the source values remain preserved. The original-template exporter now patches same-topology positions, source-space normals, UVs, raw vertex colors and selected fixed material-state bytes. E1-E5 still await human runtime validation; arbitrary topology edits cannot be written back. See
 `docs/blender-importer.md`, `docs/blender-collision.md`, and
 `docs/dx-writer.md`.
 

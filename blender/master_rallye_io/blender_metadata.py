@@ -15,8 +15,8 @@ from .library import (
     validate_authoring_state,
 )
 
-IMPORTER_VERSION = "4.0.0"
-FORMAT_STATUS = "R4B_VEHICLE_DX_COLLISION_READ"
+IMPORTER_VERSION = "4.1.0"
+FORMAT_STATUS = "R4E_SAME_TOPOLOGY_ATTRIBUTE_AUTHORING"
 REQUIRED_POINT_ATTRIBUTES = {
     "mr_source_vertex",
     "mr_source_vertex_valid",
@@ -112,7 +112,7 @@ def build_metadata(
     }
     return {
         "schema_version": 3,
-        "phase": "R4B",
+        "phase": "R4E",
         "importer_version": IMPORTER_VERSION,
         "format_status": FORMAT_STATUS,
         "source": {
@@ -223,7 +223,7 @@ def build_metadata(
         "collision": collision_metadata,
         "round_trip": {
             "writer_available": True,
-            "writer_mode": "template-preserving-positions-only",
+            "writer_mode": "template-preserving-same-topology-attributes",
             "same_topology_required": True,
             "source_template_sha256_required": True,
             "safe_bounds_required": True,
@@ -257,6 +257,7 @@ def apply_object_metadata(obj, metadata):
         separators=(",", ":"),
     )
     obj["mr_authoring_status"] = "SOURCE_IDENTICAL"
+    obj["mr_staging_directory"] = ""
 
 
 def _mesh_triangles(mesh):

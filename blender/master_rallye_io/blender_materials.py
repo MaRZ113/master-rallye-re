@@ -54,6 +54,7 @@ class PreviewMaterialCache:
         image.name = f"MR {source.stem}"
         image.alpha_mode = "STRAIGHT"
         image["mr_dxt_source"] = str(source.resolve())
+        image["mr_dxt_sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
         image["mr_png_row_policy"] = PNG_ROWS_FLIP_VERTICAL
         self.images[key] = (image, has_transparency(texture))
         return self.images[key]
@@ -67,6 +68,9 @@ class PreviewMaterialCache:
         if primary and self.load_textures and source is None:
             self.warnings.append(f"draw {draw.draw_index}: missing texture {primary!r}")
 
+        helper_name = draw.texture_slots[1].value if len(draw.texture_slots)>1 else "Null"
+        helper_source = self.resolver.resolve_texture(helper_name) if self.load_textures and helper_name.casefold()!="null" else None
+        show_helper = bool(helper_source and draw.unknown_0x24 & 4 and helper_name.casefold() in {"whitepaint-tga", "chrome-tga"})
         image = None
         transparent = False
         if source is not None:
@@ -91,7 +95,15 @@ class PreviewMaterialCache:
         material["mr_serialized_texture_mask"] = draw.unknown_0x24
         material["mr_runtime_alpha_enabled"] = alpha_enabled
         material["mr_runtime_alpha_test"] = alpha_test
-        material["mr_secondary_stage_preview"] = "UNKNOWN"
+        material["mr_secondary_stage_preview"] = (
+            "APPROXIMATE_ENV_NORMALS" if show_helper
+            else "NOT_SHOWN"
+        )
+        material["mr_environment_helper"] = helper_name
+        material["mr_environment_confidence"] = (
+            "CONFIRMED_BY_RUNTIME_M1_M3" if helper_name.casefold() in
+            {"whitepaint-tga", "chrome-tga"} else "CONFIRMED_BY_EXECUTABLE_PATH"
+        )
         material["mr_primary_texture_slot"] = primary or "Null"
         material["mr_runtime_blending_known"] = True
         material["mr_preview_source_slot"] = next(
@@ -106,10 +118,24 @@ class PreviewMaterialCache:
             image_node = nodes.new("ShaderNodeTexImage")
             image_node.image = image
             image_node.interpolation = "Linear"
-            material.node_tree.links.new(image_node.outputs["Color"], shader.inputs["Base Color"])
+            base_color = image_node.outputs["Color"]
+            if show_helper:
+                helper_image,_ = self._decode_image(helper_source)
+                helper_node=nodes.new("ShaderNodeTexImage")
+                helper_node.image=helper_image
+                coordinates=nodes.new("ShaderNodeTexCoord")
+                material.node_tree.links.new(coordinates.outputs["Normal"],helper_node.inputs["Vector"])
+                combine=nodes.new("ShaderNodeMixRGB")
+                combine.blend_type="ADD"
+                combine.inputs[0].default_value=(0.55 if "chrome" in helper_name.casefold() else 0.25)
+                material.node_tree.links.new(base_color,combine.inputs[1])
+                material.node_tree.links.new(helper_node.outputs["Color"],combine.inputs[2])
+                base_color=combine.outputs["Color"]
+            material.node_tree.links.new(base_color, shader.inputs["Base Color"])
             if alpha_enabled:
                 material.node_tree.links.new(image_node.outputs["Alpha"], shader.inputs["Alpha"])
             material["mr_dxt_source"] = str(source.resolve())
+            material["mr_dxt_sha256"] = image.get("mr_dxt_sha256")
             material["mr_png_row_policy"] = PNG_ROWS_FLIP_VERTICAL
         if alpha_enabled:
             if alpha_test and hasattr(material, "blend_method"):

@@ -1,4 +1,4 @@
-# Blender vehicle importer and position exporter (through Phase R4B)
+# Blender vehicle importer and same-topology exporter (through Phase R4E)
 
 The add-on imports proven Master Rallye **vehicle** DX resources directly into
 an editable Blender mesh. R3 additionally writes only same-topology vertex
@@ -213,3 +213,15 @@ research only; the preview shader remains conservative after R4D corpus analysis
 warnings are printed as `resource -> warning` lines before the aggregate
 summary. All R2.2 raster, direct-V Blender UV, normal-provenance, and safe
 display-normal policies remain unchanged.
+
+## R4E authoring
+
+The new **Export DX - Safe Attributes** operation validates import provenance,
+source hash, triangle/draw mapping, source-indexed UV loops, source-space
+`mr_source_normal` and `MR Vertex Color` before patching the DX template. A UV,
+normal, or color divergence between corners of one source vertex is rejected
+with `REQUIRES_R4F_TOPOLOGY_WRITER`. The existing positions-only export remains
+for R3-compatible workflows. Fixed alpha/env edits are staged by draw ID in the
+material inspector. The selected texture can be exported to PNG, validated,
+staged from an edited PNG, and queried for reverse users. All writes go to
+separate project/staging paths. See vehicle-authoring.md and texture-authoring.md.

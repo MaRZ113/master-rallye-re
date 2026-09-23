@@ -20,6 +20,75 @@ from master_rallye.export.gltf import export_gltf
 from master_rallye.export.obj import export_obj
 from master_rallye.sidecar import apply_material_candidates, parse_sidecar, resolve_sidecar
 from master_rallye.roles import write_vehicle_role_reports
+from master_rallye.r4e_writer import patch_dx_attributes, write_dx_attributes
+from master_rallye.texture_authoring import export_texture, replace_texture
+from master_rallye.vehicle_packaging import (
+    vehicle_dependencies, texture_users, bundle_vehicle, pack_sma, unpack_sma,
+)
+import hashlib
+
+def r4e_command(args):
+    command=args.command
+    if command=="inspect-vehicle":
+        result=vehicle_dependencies(args.vehicle_dir)
+    elif command=="texture-users":
+        result=texture_users(args.vehicle_dir,args.texture)
+    elif command=="export-texture":
+        result=export_texture(args.source,args.output)
+    elif command=="replace-texture":
+        result=replace_texture(args.source,args.png,args.output,expected_source_sha256=args.source_sha256)
+    elif command=="validate-edit":
+        data=args.source.read_bytes()
+        spec=json.loads(args.edit.read_text(encoding="utf-8"))
+        expected=spec.get("source_sha256")
+        if hashlib.sha256(data).hexdigest()!=expected:
+            raise ValueError("source SHA-256 mismatch")
+        patch=patch_dx_attributes(data,positions=spec.get("positions"),normals=spec.get("normals"),uv_sets=spec.get("uv_sets"),colors=spec.get("colors"),material_alpha={int(k):v for k,v in spec.get("material_alpha",{}).items()},material_env={int(k):v for k,v in spec.get("material_env",{}).items()})
+        result=patch.to_dict()
+        if args.output:
+            if args.output.resolve()==args.source.resolve():
+                raise ValueError("refusing to overwrite DX source")
+            args.output.parent.mkdir(parents=True,exist_ok=True)
+            args.output.write_bytes(patch.data)
+    elif command=="bundle-vehicle":
+        spec=json.loads(args.replacements.read_text(encoding="utf-8"))
+        result=bundle_vehicle(args.vehicle_dir,{key:Path(value) for key,value in spec.items()},args.output)
+    elif command=="pack-sma":
+        result=pack_sma(args.root,args.output,json.loads(args.overrides.read_text(encoding="utf-8")) if args.overrides else None)
+    elif command=="unpack-sma":
+        result=unpack_sma(args.source,args.output)
+    elif command=="build-vehicle-mod":
+        project=json.loads(args.project.read_text(encoding="utf-8"))
+        vehicle=Path(project["source_vehicle_dir"])
+        replacements={key:Path(value) for key,value in project.get("replacements",{}).items()}
+        for name,edit in project.get("texture_edits",{}).items():
+            from master_rallye.texture_authoring import replace_texture
+            source=vehicle/name
+            output=args.output/"_build"/name
+            spec=edit
+            replace_texture(source,Path(spec["png"]),output,expected_source_sha256=spec["source_sha256"])
+            replacements[name]=output
+        for name,edit in project.get("dx_edits",{}).items():
+            source=vehicle/name
+            output=args.output/"_build"/name
+            spec=edit
+            patch=write_dx_attributes(source,output,expected_source_sha256=spec["source_sha256"],positions=spec.get("positions"),normals=spec.get("normals"),uv_sets=spec.get("uv_sets"),colors=spec.get("colors"),material_alpha={int(k):v for k,v in spec.get("material_alpha",{}).items()},material_env={int(k):v for k,v in spec.get("material_env",{}).items()})
+            replacements[name]=output
+        stage=args.output/"staging"
+        result=bundle_vehicle(vehicle,replacements,stage)
+        if args.sma:
+            if not args.sma_root:
+                raise ValueError("--sma requires --sma-root pointing to the full unpacked original archive")
+            overrides={
+                item["archive_path"]:stage/item["archive_path"]
+                for item in result["files"]
+            }
+            result["sma"]=pack_sma(args.sma_root,args.sma,overrides)
+    else:
+        raise ValueError(f"unsupported command {command}")
+    print(json.dumps(result,indent=2,ensure_ascii=False))
+    return 0
+
 
 
 def load_sidecar(model, input_path: Path, explicit: Path | None):
@@ -196,6 +265,48 @@ def build_parser() -> argparse.ArgumentParser:
     collision.add_argument("--report", required=True, type=Path)
     collision.add_argument("--markdown", type=Path)
     collision.set_defaults(function=collision_corpus_command)
+    vehicle=commands.add_parser("inspect-vehicle",help="exact DX/DXT dependencies for one vehicle")
+    vehicle.add_argument("vehicle_dir",type=Path)
+    vehicle.set_defaults(function=r4e_command)
+    users=commands.add_parser("texture-users",help="reverse DX draw users for a vehicle DXT")
+    users.add_argument("vehicle_dir",type=Path)
+    users.add_argument("texture")
+    users.set_defaults(function=r4e_command)
+    tex_export=commands.add_parser("export-texture",help="DXT to upright PNG")
+    tex_export.add_argument("source",type=Path)
+    tex_export.add_argument("--output",required=True,type=Path)
+    tex_export.set_defaults(function=r4e_command)
+    tex_replace=commands.add_parser("replace-texture",help="same-size PNG into header-preserving DXT")
+    tex_replace.add_argument("source",type=Path)
+    tex_replace.add_argument("png",type=Path)
+    tex_replace.add_argument("--source-sha256",required=True)
+    tex_replace.add_argument("--output",required=True,type=Path)
+    tex_replace.set_defaults(function=r4e_command)
+    edit=commands.add_parser("validate-edit",help="validate and optionally write source-indexed DX edits")
+    edit.add_argument("source",type=Path)
+    edit.add_argument("edit",type=Path)
+    edit.add_argument("--output",type=Path)
+    edit.set_defaults(function=r4e_command)
+    bundle=commands.add_parser("bundle-vehicle",help="stage validated vehicle replacements")
+    bundle.add_argument("vehicle_dir",type=Path)
+    bundle.add_argument("replacements",type=Path,help="JSON mapping original basename to replacement path")
+    bundle.add_argument("--output",required=True,type=Path)
+    bundle.set_defaults(function=r4e_command)
+    unpack=commands.add_parser("unpack-sma",help="unpack ZIP-compatible Data.sma")
+    unpack.add_argument("source",type=Path)
+    unpack.add_argument("--output",required=True,type=Path)
+    unpack.set_defaults(function=r4e_command)
+    pack=commands.add_parser("pack-sma",help="pack validated DataGx/DataGame tree")
+    pack.add_argument("root",type=Path)
+    pack.add_argument("--output",required=True,type=Path)
+    pack.add_argument("--overrides",type=Path,help="JSON archive path to replacement file map")
+    pack.set_defaults(function=r4e_command)
+    build=commands.add_parser("build-vehicle-mod",help="validate project edits and stage a vehicle mod")
+    build.add_argument("project",type=Path)
+    build.add_argument("--output",required=True,type=Path)
+    build.add_argument("--sma",type=Path)
+    build.add_argument("--sma-root",type=Path,help="full unpacked source archive required for --sma")
+    build.set_defaults(function=r4e_command)
     return parser
 
 
