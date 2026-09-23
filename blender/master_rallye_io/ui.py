@@ -300,6 +300,36 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
                         on=buttons.operator("object.master_rallye_material_state",text="Env On")
                         on.draw_id=draw_id; on.field="env"; on.enabled=True
         layout.separator()
+        topology = layout.box()
+        topology.label(text="Topology (experimental)", icon="MESH_DATA")
+        selected_draws = set()
+        try:
+            if obj.mode == "EDIT":
+                import bmesh
+                bm = bmesh.from_edit_mesh(obj.data)
+                draw_layer = bm.faces.layers.int.get("mr_draw_id")
+                if draw_layer is not None:
+                    selected_draws = {face[draw_layer] for face in bm.faces if face.select}
+            else:
+                draw_attr = obj.data.attributes.get("mr_draw_id")
+                if draw_attr is not None:
+                    selected_draws = {draw_attr.data[face.index].value for face in obj.data.polygons if face.select}
+        except Exception:
+            selected_draws = set()
+        topology.label(text=f"Selected face draw IDs: {', '.join(map(str, sorted(selected_draws))) if selected_draws else 'none'}")
+        if "mr_target_draw_id" in obj:
+            topology.prop(obj, '["mr_target_draw_id"]', text="Existing draw ID")
+        topology.operator("object.master_rallye_assign_draw", text="Assign Selected Faces to MR Draw")
+        try:
+            draw_metadata = json.loads(obj["mr_metadata_json"])["draws"]
+            draw_list = topology.column(align=True)
+            for draw in draw_metadata:
+                slots = draw.get("texture_slots", [])
+                draw_list.label(text=f"{draw['draw_id']}: {slots[0] if slots else 'Null'} / {slots[1] if len(slots)>1 else 'Null'}")
+        except Exception:
+            topology.label(text="Draw list unavailable")
+        topology.operator("export_scene.master_rallye_dx_topology", text="Export DX - Topology Changing (Experimental)", icon="EXPORT")
+        layout.separator()
         layout.operator("export_scene.master_rallye_dx_attributes", text="Export DX - Safe Attributes", icon="EXPORT")
         layout.operator(
             "export_scene.master_rallye_dx_positions",

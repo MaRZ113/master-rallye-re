@@ -15,7 +15,7 @@ from .library import (
     validate_authoring_state,
 )
 
-IMPORTER_VERSION = "4.1.0"
+IMPORTER_VERSION = "4.2.0"
 FORMAT_STATUS = "R4E_SAME_TOPOLOGY_ATTRIBUTE_AUTHORING"
 REQUIRED_POINT_ATTRIBUTES = {
     "mr_source_vertex",

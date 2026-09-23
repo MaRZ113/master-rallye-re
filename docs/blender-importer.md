@@ -1,9 +1,10 @@
-# Blender vehicle importer and same-topology exporter (through Phase R4E)
+# Blender vehicle importer and experimental topology exporter (R4F)
 
 The add-on imports proven Master Rallye **vehicle** DX resources directly into
-an editable Blender mesh. R3 additionally writes only same-topology vertex
-positions through the exact original binary template. It does not write DXT,
-rebuild topology, or support Course DX resources.
+an editable Blender mesh. The R3/R4E safe exporters patch same-topology DX
+attributes against the original template; R4E also stages same-size DXT
+replacements. R4F adds a separate experimental topology rebuild action for
+existing draws. Course DX resources remain unsupported.
 
 ## Compatibility
 
@@ -19,7 +20,7 @@ Build the ignored distribution artifact from the repository root:
 py -3 tools/build_blender_addon.py
 ```
 
-This creates `dist/master_rallye_io-r4b.zip`. The build copies the canonical
+This creates `dist/master_rallye_io.zip`. The build copies the canonical
 `src/master_rallye` package into the add-on's private `vendor` namespace;
 there is no second editable parser copy in the repository.
 
@@ -62,6 +63,8 @@ remain face membership rather than separate objects.
 | Face | `mr_source_triangle` | Original reconstructed triangle identity |
 | Face | `mr_group_id` | Top-level structural draw group |
 | Point | `mr_color_byte_0..3` | Exact original color-like bytes |
+| Point | `mr_generated_vertex`, `mr_parent_source_vertex` | Tooling-only generated/parent provenance for R4F |
+| Face | `mr_source_face_valid`, `mr_draw_assignment_valid` | Distinguish original faces and explicit existing-draw assignment |
 
 All UV sets are imported as `MR UV 0`, `MR UV 1`, and so on. A
 `MR Vertex Color` preview attribute is also created. Original normals are
@@ -225,3 +228,7 @@ for R3-compatible workflows. Fixed alpha/env edits are staged by draw ID in the
 material inspector. The selected texture can be exported to PNG, validated,
 staged from an edited PNG, and queried for reverse users. All writes go to
 separate project/staging paths. See vehicle-authoring.md and texture-authoring.md.
+
+## R4F authoring extension
+
+The panel lists existing draw IDs/materials, shows draw IDs on selected faces, and assigns selected faces to an existing draw. A distinct **Export DX - Topology Changing (Experimental)** command previews source/compiled counts and splits. It requires explicit triangulation and complete source-space normal, color and UV data; it refuses missing or ambiguous draw membership. Generated provenance remains tooling metadata only. The output render core is rebuilt and collision bytes remain untouched. See docs/topology-authoring.md. R4F topology output awaits the F1 human runtime test.

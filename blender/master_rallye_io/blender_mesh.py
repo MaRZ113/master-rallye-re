@@ -87,6 +87,10 @@ def _apply_source_attributes(
     _integer_attribute(mesh, "mr_draw_id", "FACE", face_draws)
     _integer_attribute(mesh, "mr_source_triangle", "FACE", source_triangles)
     _integer_attribute(mesh, "mr_group_id", "FACE", face_groups)
+    _boolean_attribute(mesh, "mr_source_face_valid", "FACE", (True for _ in face_draws))
+    _boolean_attribute(mesh, "mr_draw_assignment_valid", "FACE", (True for _ in face_draws))
+    _boolean_attribute(mesh, "mr_generated_vertex", "POINT", (False for _ in range(vertex_count)))
+    _integer_attribute(mesh, "mr_parent_source_vertex", "POINT", (-1 for _ in range(vertex_count)))
     for channel in range(4):
         _integer_attribute(
             mesh,
@@ -253,6 +257,9 @@ def import_dx_resource(
     )
 
     obj = bpy.data.objects.new(object_name or source.stem, mesh)
+    obj["mr_target_draw_id"] = 0
+    for draw_id, slot in draw_material_slots.items():
+        obj[f"mr_draw_material_slot_{draw_id}"] = slot
     collection.objects.link(obj)
     collision_objects = ()
     collision_collection = None
@@ -305,7 +312,8 @@ def import_dx_resource(
             "mr_source_normal_bits_y",
             "mr_source_normal_bits_z",
         ],
-        "face_attributes": ["mr_draw_id", "mr_source_triangle", "mr_group_id"],
+        "face_attributes": ["mr_draw_id", "mr_source_triangle", "mr_group_id", "mr_source_face_valid", "mr_draw_assignment_valid"],
+        "topology_point_attributes": ["mr_generated_vertex", "mr_parent_source_vertex"],
         "raw_color_attributes": [f"mr_color_byte_{index}" for index in range(4)],
         "uv_layers": [f"MR UV {index}" for index in range(len(model.uv_sets))],
         "material_slots": len(mesh.materials),

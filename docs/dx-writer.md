@@ -146,3 +146,7 @@ full diff audit and post-write reparse preserve topology, collision, unknown
 draw bytes and opaque tails. Blender corner divergence is rejected without
 averaging or vertex splitting. 78/78 vehicle DX zero edits are byte-identical.
 Human testing confirms E1 UV, E3 vertex color, and E4 alpha-flag writing. The limited E2 normal probe was inconclusive; R4E.1 N1 and the environment-bit probe await human testing.
+
+## R4F separate render-core writer
+
+`src/master_rallye/topology_writer.py` is a distinct experimental path for vehicle topology changes. It rebuilds per-draw render arrays and indices while preserving existing draw/material records and collision/footer bytes. The R3 positions-only function above and R4E safe attribute patcher remain unchanged for same-topology export. The new path is structurally validated and **WAITING FOR HUMAN** runtime proof. See docs/dx-render-rebuilder.md.

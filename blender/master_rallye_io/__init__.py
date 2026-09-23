@@ -4,10 +4,10 @@ from __future__ import annotations
 bl_info = {
     "name": "Master Rallye Vehicle IO",
     "author": "master-rallye-re clean-room project",
-    "version": (4, 1, 0),
+    "version": (4, 2, 0),
     "blender": (4, 3, 0),
     "location": "File > Import; 3D View > Sidebar > Master Rallye",
-    "description": "Import vehicles, inspect collision, and safely export same-topology DX attributes",
+    "description": "Import vehicles; safe same-topology and experimental topology DX export",
     "category": "Import-Export",
 }
 
@@ -29,6 +29,7 @@ def _menu_import(self, context):
 
 def _menu_export(self, context):
     self.layout.operator("export_scene.master_rallye_dx_attributes", text="Master Rallye DX - Safe Attributes")
+    self.layout.operator("export_scene.master_rallye_dx_topology", text="Master Rallye DX - Topology Changing (Experimental)")
     self.layout.operator(
         "export_scene.master_rallye_dx_positions",
         text="Master Rallye DX — Positions Only (Experimental)",

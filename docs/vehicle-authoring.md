@@ -13,3 +13,7 @@ CLI: `mrtool validate-edit source.dx edit.json --output replacement.dx`. The JSO
 ## Same-topology vehicle SDK v1 baseline
 
 **FROZEN after R4E.1 human tests.** Positions (R3), normals (N1), UVs (E1), vertex colors (E3), same-size DXT content replacement (R4D.1), alpha-family flag writing (E4), environment feature writing (M1), tag-101 translation (R4C), and the full-tree Python `Data.sma` packaging workflow (E5) are runtime-confirmed. Exact vehicle dependency resolution and staging/bundling are implemented as part of that workflow. The earlier weak E2 normal test remains historically inconclusive; N1 resolved its runtime question. Unknown material fields stay raw. Topology-changing writing is outside SDK v1. See research/r4e_1/runtime-results.md.
+
+## R4F topology-changing experimental path
+
+Blender now exposes a separate **Export DX - Topology Changing (Experimental)** action and an existing-draw face-assignment tool. It can add/remove vertices and triangles and split corners for UV, normal or color discontinuities within the original draw/material set. The old **Export DX - Safe Attributes** path is unchanged for same-topology files. A protected corpus zero-edit rebuild was 78/78 byte-identical; the F1 Astero output awaits a human game test. See docs/topology-authoring.md and docs/dx-render-rebuilder.md.

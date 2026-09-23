@@ -8,7 +8,7 @@ read-only.
 
 ## Current scope
 
-Phase R4E automated work is implemented. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
+Phase R4F adds an experimental topology-changing vehicle DX render-core writer. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed
 same-topology **positions-only** DX export. All 78 vehicle resources produce a
@@ -49,6 +49,8 @@ Phase R4E adds same-topology attribute authoring, same-size DXT replacement, exa
 vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human testing confirms E1 UV, E3 vertex color, E4 alpha flag, and E5 full-tree Python Data.sma packing. E2 normal was inconclusive; stronger R4E.1 N1 and M1 human tests confirmed normal and environment-feature writing. The SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is now frozen. See
 `docs/vehicle-authoring.md`, `docs/texture-authoring.md`, and
 `docs/vehicle-packaging.md`.
+
+Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; a single Astero +3-vertex/+1-triangle candidate is ready for human testing. **Topology runtime validation is WAITING FOR HUMAN.** The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
 ## Blender add-on
 
