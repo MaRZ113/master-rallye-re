@@ -24,6 +24,10 @@ class DxWriteError(ExportError):
     """A template-preserving DX write failed a safety gate."""
 
 
+class CollisionWriteError(DxWriteError):
+    """A template-preserving tag-101 write failed a safety gate."""
+
+
 @dataclass(frozen=True)
 class UnknownRecordEvidence:
     source: str

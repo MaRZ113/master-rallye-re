@@ -1,4 +1,4 @@
-# Format status (Phase R4B collision-hull checkpoint)
+# Format status (Phase R4C automated collision-writer checkpoint)
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
@@ -154,3 +154,23 @@ opaque collision prefix; it did not perform broad executable analysis.
   **UNKNOWN**. Tag 100 is distinct but absent from this corpus and remains raw.
 - Blender 5.2.2 read-only overlays use the shared coordinate transform and do
   not enter the R3 export path. R4B implements no collision writer.
+
+## R4C collision-writer status
+
+- **CONFIRMED_BY_WRITER_READER:** 28/28 tag-101 payloads and 28/28 complete DX
+  zero edits are byte-identical, including Forklift's preserved non-finite bit
+  patterns.
+- **CONFIRMED_BY_CORPUS:** base, A geometry-B, and B geometry-B points are
+  arithmetic means of their associated positional vertices across all 27
+  finite hulls. This closes the translation dependency map.
+- **PASS automated:** 27/27 validated hulls translate in memory, retain radius,
+  topology, adjacency, pairwise distances, face areas, and centroid/AABB
+  relationships, and reparse inside otherwise byte-identical DX templates.
+- Forklift translation remains refused. No validation was weakened.
+- The Astero collision-only candidate moves source X by `+0.40`; 132 bytes in
+  39 authorized X components change, with zero visual-mesh or unexpected
+  changes.
+- **RUNTIME VALIDATION: WAITING FOR HUMAN TEST.** Translation is not yet
+  `CONFIRMED_BY_RUNTIME`.
+- Scale, rotation, individual hull editing, topology changes, BSP/tag-100 and
+  cylinder/tag-102 writing remain unsupported.

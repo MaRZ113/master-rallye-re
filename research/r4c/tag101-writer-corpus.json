@@ -1,0 +1,1078 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-09-23T04:17:24.735156+00:00",
+  "source_descriptor": "external read-only DataGx/Vehicles root (path omitted)",
+  "translation_dry_run_delta": [
+    0.001,
+    -0.002,
+    0.003
+  ],
+  "summary": {
+    "tag101_resource_count": 28,
+    "structurally_parsed_count": 28,
+    "validated_count": 27,
+    "static_only_outlier_count": 1,
+    "tag101_zero_edit_byte_identical_count": 28,
+    "full_dx_zero_edit_byte_identical_count": 28,
+    "translation_pass_count": 27,
+    "translation_skip_count": 1,
+    "translation_fail_count": 0,
+    "failure_count": 0
+  },
+  "resources": [
+    {
+      "resource": "Astero/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90",
+      "tag101_offset": 130999,
+      "tag101_end_offset": 136295,
+      "tag101_byte_count": 5296,
+      "tag101_sha256": "38a2a20354a44bf914a53d1a44ef1053ff1a0b70d6f272af0c392fdf69765f3e",
+      "source_validation_errors": [],
+      "serialized_sha256": "38a2a20354a44bf914a53d1a44ef1053ff1a0b70d6f272af0c392fdf69765f3e",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 299,
+        "changed_field_count": 39,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.613171410485563e-08,
+          "maximum_face_area_error": 1.1392123155928857e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "3e253b26b3f7a7c9c7043ae1b680b089c4c142660a47bf45525ccebd66eb376a"
+      }
+    },
+    {
+      "resource": "Bruno/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "c7a456332e31c67647394467d2e0e467df048160ae634ab2b8d024eb9d61204f",
+      "tag101_offset": 126519,
+      "tag101_end_offset": 130423,
+      "tag101_byte_count": 3904,
+      "tag101_sha256": "e2c028842df75b4cdebc259999dd28654bb44236ecd3adf0cb295fe083027f4f",
+      "source_validation_errors": [],
+      "serialized_sha256": "e2c028842df75b4cdebc259999dd28654bb44236ecd3adf0cb295fe083027f4f",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 248,
+        "changed_field_count": 33,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 7.0763718440503e-08,
+          "maximum_face_area_error": 1.3985592595133767e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "5644c55b01d7a493ece48247e148c69638a8a755458716f5c9041712da32f9fa"
+      }
+    },
+    {
+      "resource": "ChevyBlazer/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "d847cd8e684d9f6ff75d560e64429098448a665cc423b8d7c509e6146e9e0c7e",
+      "tag101_offset": 139873,
+      "tag101_end_offset": 143105,
+      "tag101_byte_count": 3232,
+      "tag101_sha256": "43fc3e9910b32da5938ca319586315e072f9e8fdd0b0fb357713e87467ea8a19",
+      "source_validation_errors": [],
+      "serialized_sha256": "43fc3e9910b32da5938ca319586315e072f9e8fdd0b0fb357713e87467ea8a19",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 210,
+        "changed_field_count": 27,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.867875645966137e-08,
+          "maximum_face_area_error": 1.1992328641241556e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "9bcab494ecca05efca4da9b69fae340fbf1e99610d907bf3135e02b94a44b60d"
+      }
+    },
+    {
+      "resource": "Forester/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
+      "tag101_offset": 128486,
+      "tag101_end_offset": 132714,
+      "tag101_byte_count": 4228,
+      "tag101_sha256": "4b31b4b0062c7c1fb4253bd0dfe410f1b02dc78c0e9292f9e0a468f2038fe123",
+      "source_validation_errors": [],
+      "serialized_sha256": "4b31b4b0062c7c1fb4253bd0dfe410f1b02dc78c0e9292f9e0a468f2038fe123",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 271,
+        "changed_field_count": 35,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 2.584420144557953e-08,
+          "maximum_pairwise_distance_error": 3.938507076028941e-08,
+          "maximum_face_area_error": 1.1368689101232121e-07,
+          "maximum_aabb_shift_error": 2.584420144557953e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "c4d239f75766cd5f7be3ce221244807055a9658ac6e44e3b8c2cfd3a941dc654"
+      }
+    },
+    {
+      "resource": "forklift/car.dx",
+      "evidence_class": "STATIC_FORMAT_ONLY_OUTLIER",
+      "source_dx_sha256": "fe1ba9aa3f6db62d819faa610320808844471e1b65390c291e0763e97d533f3f",
+      "tag101_offset": 77880,
+      "tag101_end_offset": 77988,
+      "tag101_byte_count": 108,
+      "tag101_sha256": "51e829626337a5cdc3fc436b5c27771d1acc7adef3553b9f8c09d28c39416e68",
+      "source_validation_errors": [
+        "tag101 base geometry vertex 0 component 0 at 0x13044 in car.dx: non-finite float",
+        "tag101 base geometry vertex 0 component 1 at 0x13048 in car.dx: non-finite float",
+        "tag101 base geometry vertex 0 component 2 at 0x1304C in car.dx: non-finite float",
+        "tag101 representation A geometry B vertex 0 component 0 at 0x13064 in car.dx: non-finite float",
+        "tag101 representation A geometry B vertex 0 component 1 at 0x13068 in car.dx: non-finite float",
+        "tag101 representation A geometry B vertex 0 component 2 at 0x1306C in car.dx: non-finite float",
+        "tag101 representation B geometry B vertex 0 component 0 at 0x1308C in car.dx: non-finite float",
+        "tag101 representation B geometry B vertex 0 component 1 at 0x13090 in car.dx: non-finite float",
+        "tag101 representation B geometry B vertex 0 component 2 at 0x13094 in car.dx: non-finite float"
+      ],
+      "serialized_sha256": "51e829626337a5cdc3fc436b5c27771d1acc7adef3553b9f8c09d28c39416e68",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "SKIPPED",
+        "reason": "source tag101 validation failed; static-only outlier"
+      }
+    },
+    {
+      "resource": "Frontera/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "345a143d24945d72f212eea033d6349b51b70d3df36a60dac22e98e2d380940c",
+      "tag101_offset": 138546,
+      "tag101_end_offset": 143782,
+      "tag101_byte_count": 5236,
+      "tag101_sha256": "caa33e063df266421558b7c2d68e5259212a7a357f8221bae49bc435f0c39a23",
+      "source_validation_errors": [],
+      "serialized_sha256": "caa33e063df266421558b7c2d68e5259212a7a357f8221bae49bc435f0c39a23",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 285,
+        "changed_field_count": 39,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 2.584420144557953e-08,
+          "maximum_pairwise_distance_error": 2.980139945929494e-08,
+          "maximum_face_area_error": 1.0035335762381692e-07,
+          "maximum_aabb_shift_error": 2.584420144557953e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "39af11e9b1f6031f2df42053b2a79d5986ac66bba411ec909fac9239f05de04e"
+      }
+    },
+    {
+      "resource": "IceCream/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "90a99fd7d7b18e3e33b1bc005df58b6f7222349bb45e5b41a725ec6f230a9d9a",
+      "tag101_offset": 194723,
+      "tag101_end_offset": 198039,
+      "tag101_byte_count": 3316,
+      "tag101_sha256": "49f9ff40de0aade603eab15d4a6851db0b9296eadc957baa2364daba3c2f3417",
+      "source_validation_errors": [],
+      "serialized_sha256": "49f9ff40de0aade603eab15d4a6851db0b9296eadc957baa2364daba3c2f3417",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 230,
+        "changed_field_count": 29,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 9.336508810520172e-08,
+          "maximum_pairwise_distance_error": 1.2664920134852764e-07,
+          "maximum_face_area_error": 4.31117809895909e-07,
+          "maximum_aabb_shift_error": 9.336508810520172e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "af52fe52df357a41d73ab8fe14bf94020bdb90b243018e5d4228c245d03123fc"
+      }
+    },
+    {
+      "resource": "Jump/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "a6ad8bcb7c71e572f065a5c3710308730c2c4f0cc8b32f25af279adc923a7baa",
+      "tag101_offset": 122385,
+      "tag101_end_offset": 127297,
+      "tag101_byte_count": 4912,
+      "tag101_sha256": "520f8c6d015d3f7c67b14714b27480236dcb2f85cb39007e1d2d8979a681cf44",
+      "source_validation_errors": [],
+      "serialized_sha256": "520f8c6d015d3f7c67b14714b27480236dcb2f85cb39007e1d2d8979a681cf44",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 281,
+        "changed_field_count": 37,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 2.584420144557953e-08,
+          "maximum_pairwise_distance_error": 3.380752522375019e-08,
+          "maximum_face_area_error": 1.0947184492238193e-07,
+          "maximum_aabb_shift_error": 2.584420144557953e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "b1889b5e2eae37cc0e01e1c71fe3e9bf4c0308c75b44699cdde192a41c743646"
+      }
+    },
+    {
+      "resource": "Kamaz/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "6f7cf0aa22ec998a2a98f0e642e156442ccd82b50b94ae8e80ec418459442b4f",
+      "tag101_offset": 146407,
+      "tag101_end_offset": 151043,
+      "tag101_byte_count": 4636,
+      "tag101_sha256": "b350e66c5742b341cd3ef734a57380eb10ce4475ce015ed9a90a9aaffa374d1b",
+      "source_validation_errors": [],
+      "serialized_sha256": "b350e66c5742b341cd3ef734a57380eb10ce4475ce015ed9a90a9aaffa374d1b",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 261,
+        "changed_field_count": 39,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 9.336508810520172e-08,
+          "maximum_pairwise_distance_error": 1.1856830273160313e-07,
+          "maximum_face_area_error": 6.969344212848227e-07,
+          "maximum_aabb_shift_error": 9.336508810520172e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "11a0003bff67e307b336e3280abede0d47f1a87bc2c891d91c790c436a0fd777"
+      }
+    },
+    {
+      "resource": "Kangoo/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "8935c280c1a4d7dc63e30b3961fbb353445db2162c14bbd09e034cba717fe81d",
+      "tag101_offset": 146029,
+      "tag101_end_offset": 150497,
+      "tag101_byte_count": 4468,
+      "tag101_sha256": "1aa1b1d326a7a88c6d83f68079c32c48495f17a77214aa2f878462c5aabe7fa9",
+      "source_validation_errors": [],
+      "serialized_sha256": "1aa1b1d326a7a88c6d83f68079c32c48495f17a77214aa2f878462c5aabe7fa9",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 270,
+        "changed_field_count": 35,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.878805969279256e-08,
+          "maximum_face_area_error": 1.0906086078676935e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "7114d221456444f8bd7e2739a9da4c7794ab41819d8f7bf7b916f0fad2f10f1e"
+      }
+    },
+    {
+      "resource": "KiaSportage/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451",
+      "tag101_offset": 138418,
+      "tag101_end_offset": 141710,
+      "tag101_byte_count": 3292,
+      "tag101_sha256": "1658b3f59c2a8561758d953de93cf1c838b94f02066a3b3774e0add8f355fa00",
+      "source_validation_errors": [],
+      "serialized_sha256": "1658b3f59c2a8561758d953de93cf1c838b94f02066a3b3774e0add8f355fa00",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 193,
+        "changed_field_count": 27,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.697401211397391e-08,
+          "maximum_face_area_error": 1.2025221973743783e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "1e3f53549daec8502c94b59799b8d923c6ce1b45d941bb4929c48b4a680d3f17"
+      }
+    },
+    {
+      "resource": "LandCruiser/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "c3a61a935244e9e1dcfcd72ecf993ea301e371794ba33d931dd8cfd205627103",
+      "tag101_offset": 152359,
+      "tag101_end_offset": 157331,
+      "tag101_byte_count": 4972,
+      "tag101_sha256": "7a877350fa8c6b20aa0ef3190b0607447d0971b834609dd6e5ad2709519d28d0",
+      "source_validation_errors": [],
+      "serialized_sha256": "7a877350fa8c6b20aa0ef3190b0607447d0971b834609dd6e5ad2709519d28d0",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 281,
+        "changed_field_count": 37,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 2.584420144557953e-08,
+          "maximum_pairwise_distance_error": 3.277688764846687e-08,
+          "maximum_face_area_error": 1.1671873956231593e-07,
+          "maximum_aabb_shift_error": 2.584420144557953e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "933e51cd4a47e3ee39f59388152253b96de96d7430789ef06c1f8009a64edd15"
+      }
+    },
+    {
+      "resource": "Mattserati/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "e0db7a014f60c71291337e1b3c43909926957132f50017b7ef9e00610fd528e2",
+      "tag101_offset": 119352,
+      "tag101_end_offset": 123556,
+      "tag101_byte_count": 4204,
+      "tag101_sha256": "c42a6aba29467e3766994a259a1fac269b5217ba5c41f45acbb8789678f2d2fc",
+      "source_validation_errors": [],
+      "serialized_sha256": "c42a6aba29467e3766994a259a1fac269b5217ba5c41f45acbb8789678f2d2fc",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 247,
+        "changed_field_count": 33,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 2.584420144557953e-08,
+          "maximum_pairwise_distance_error": 2.8741964586131985e-08,
+          "maximum_face_area_error": 8.86832580704322e-08,
+          "maximum_aabb_shift_error": 2.584420144557953e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "7e9200e474abe70464eea6b1dd7cd60c71546cba19cd198c42ae7e052ec6aed7"
+      }
+    },
+    {
+      "resource": "megane/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "d082eb75dc537194f1bf0284e31e5a28a73d91b5a0ba29642bc0d5c7ad93fb7f",
+      "tag101_offset": 146388,
+      "tag101_end_offset": 149440,
+      "tag101_byte_count": 3052,
+      "tag101_sha256": "a41c1bf13e4bc2bded1c69129c54bdd33c7986c702171bc87073fc23d953d832",
+      "source_validation_errors": [],
+      "serialized_sha256": "a41c1bf13e4bc2bded1c69129c54bdd33c7986c702171bc87073fc23d953d832",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 207,
+        "changed_field_count": 27,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.595363588601799e-08,
+          "maximum_face_area_error": 1.0781274628612891e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "5bc93313f198419cfabebbb040fa4ba6b77e8077923b86c8dbf8210136da28d1"
+      }
+    },
+    {
+      "resource": "megane/sus.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "affb90fd0ce200474443cdbe94a5067980aea2114eecdaea8851e3d5cadbe297",
+      "tag101_offset": 2713,
+      "tag101_end_offset": 5969,
+      "tag101_byte_count": 3256,
+      "tag101_sha256": "0aceaf7479cc2ea951bbe484a2221b1804f9d1d656cae48ba76bd44ffaf24e37",
+      "source_validation_errors": [],
+      "serialized_sha256": "0aceaf7479cc2ea951bbe484a2221b1804f9d1d656cae48ba76bd44ffaf24e37",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 224,
+        "changed_field_count": 29,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.732561175226692e-08,
+          "maximum_face_area_error": 1.08784041330523e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "f76b8a91348d3d7fcbe2e4dabef1c114a2ab87972219343944f44250d90391df"
+      }
+    },
+    {
+      "resource": "Navara/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655",
+      "tag101_offset": 163033,
+      "tag101_end_offset": 166265,
+      "tag101_byte_count": 3232,
+      "tag101_sha256": "4d2f1e45385ed3bcfc58f85232bdebe9b22dc2130412ea0036229457e87d92c5",
+      "source_validation_errors": [],
+      "serialized_sha256": "4d2f1e45385ed3bcfc58f85232bdebe9b22dc2130412ea0036229457e87d92c5",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 192,
+        "changed_field_count": 27,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.49204570102313e-08,
+          "maximum_face_area_error": 1.3541499477298657e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "8484755c063e94ce89da892760b0703a3a9a7e69473f8119bdb5c892fd8c42e4"
+      }
+    },
+    {
+      "resource": "NewRav/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "615f00a1d61ec84170c49c52727fcdd68fc96fcb89f1690324edf445ad3fbee6",
+      "tag101_offset": 132186,
+      "tag101_end_offset": 137542,
+      "tag101_byte_count": 5356,
+      "tag101_sha256": "ee06909738bb23c30aea5ad1bf4dedba1c52d277fa101b89dc1db9f947ebc016",
+      "source_validation_errors": [],
+      "serialized_sha256": "ee06909738bb23c30aea5ad1bf4dedba1c52d277fa101b89dc1db9f947ebc016",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 309,
+        "changed_field_count": 39,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 2.584420144557953e-08,
+          "maximum_pairwise_distance_error": 3.277688853664529e-08,
+          "maximum_face_area_error": 1.0456292187654981e-07,
+          "maximum_aabb_shift_error": 2.584420144557953e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "a74f1e6c81be138a47f81083d140d5090c1cf85b55603b9b26b32e65e7f0bd8e"
+      }
+    },
+    {
+      "resource": "Pajero/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "9d051539ce10ba650840bba6c50b2c8ba9f68b6960661280f69680f0bb7f2c90",
+      "tag101_offset": 145291,
+      "tag101_end_offset": 150323,
+      "tag101_byte_count": 5032,
+      "tag101_sha256": "eee508aea6a9f7ae330638001711ca360c2d1068a5310ed61e288bc99704e8f5",
+      "source_validation_errors": [],
+      "serialized_sha256": "eee508aea6a9f7ae330638001711ca360c2d1068a5310ed61e288bc99704e8f5",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 271,
+        "changed_field_count": 37,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.592174672803708e-08,
+          "maximum_face_area_error": 1.2520644394886649e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "56dc4c1d2973b3fa620f253685105ce39c4856ba1c8cbc14411ab4b237e5e201"
+      }
+    },
+    {
+      "resource": "Patrol/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "d3ca392b8ffc08bf2470fbdeb5099acc6be1675baab74a79b9e59d3596c0fa0c",
+      "tag101_offset": 131256,
+      "tag101_end_offset": 136552,
+      "tag101_byte_count": 5296,
+      "tag101_sha256": "8be07003f0f532e603518789d9fc26248819d1a26679e929c25ac66fba5c5583",
+      "source_validation_errors": [],
+      "serialized_sha256": "8be07003f0f532e603518789d9fc26248819d1a26679e929c25ac66fba5c5583",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 304,
+        "changed_field_count": 39,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 2.584420144557953e-08,
+          "maximum_pairwise_distance_error": 3.7040611466920836e-08,
+          "maximum_face_area_error": 1.539675054118561e-07,
+          "maximum_aabb_shift_error": 2.584420144557953e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "fba36a2a0106aa7fc8bb92f38d4c3a5dcfbae816a4682d72567417727c284bd7"
+      }
+    },
+    {
+      "resource": "RMonster/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "b3c4e3485f7b864829ec594977230dc18a6deb4cdef9382757fecee5fdf42a46",
+      "tag101_offset": 125896,
+      "tag101_end_offset": 130160,
+      "tag101_byte_count": 4264,
+      "tag101_sha256": "2a11798fc54b57f8a54e186c7dac5e5a896a9c758240badb5441639ee2936bdf",
+      "source_validation_errors": [],
+      "serialized_sha256": "2a11798fc54b57f8a54e186c7dac5e5a896a9c758240badb5441639ee2936bdf",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 251,
+        "changed_field_count": 33,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.485635895003838e-08,
+          "maximum_face_area_error": 1.1924746345925996e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "ae1e28e471db80dce6110402841fcba5d2e008a54e27082408ab45191bd35f14"
+      }
+    },
+    {
+      "resource": "SeatBuggy/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "468031a187dc968eda6451eb7e5b7dde2ec557c7fbfe5a77d0f09d195046b6e0",
+      "tag101_offset": 123976,
+      "tag101_end_offset": 127736,
+      "tag101_byte_count": 3760,
+      "tag101_sha256": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
+      "source_validation_errors": [],
+      "serialized_sha256": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 251,
+        "changed_field_count": 31,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.386447681805407e-08,
+          "maximum_face_area_error": 1.0435511743622783e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "e9cd8d19b3ae201dd851e2feaee647923f7b92462e7e828b442310902a9adcd6"
+      }
+    },
+    {
+      "resource": "SeatBuggy/complete.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "f25827a54fb51dccfc3ec1dbd2eadbe7d83f8393dc9e124136e3f1f9fe72712e",
+      "tag101_offset": 135978,
+      "tag101_end_offset": 139738,
+      "tag101_byte_count": 3760,
+      "tag101_sha256": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
+      "source_validation_errors": [],
+      "serialized_sha256": "ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 251,
+        "changed_field_count": 31,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.386447681805407e-08,
+          "maximum_face_area_error": 1.0435511743622783e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "e9cd8d19b3ae201dd851e2feaee647923f7b92462e7e828b442310902a9adcd6"
+      }
+    },
+    {
+      "resource": "Simmbugghini/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "b1345dfb75e6074b7592ec8f42c59fe3d1811b25cc2a75f3c2665487256963bb",
+      "tag101_offset": 130176,
+      "tag101_end_offset": 133996,
+      "tag101_byte_count": 3820,
+      "tag101_sha256": "aff2ad36c0cb347b22e65fc771b1a6927118062a7cf5fe05fd214b0b636d6f55",
+      "source_validation_errors": [],
+      "serialized_sha256": "aff2ad36c0cb347b22e65fc771b1a6927118062a7cf5fe05fd214b0b636d6f55",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 236,
+        "changed_field_count": 31,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.411580599774425e-08,
+          "maximum_face_area_error": 9.602339812175842e-08,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "2129b57e19f8b47a25933fcfe9d1f157628f1d006eaf33cdc323b8e148bb3eb8"
+      }
+    },
+    {
+      "resource": "Tata/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+      "tag101_offset": 121870,
+      "tag101_end_offset": 126134,
+      "tag101_byte_count": 4264,
+      "tag101_sha256": "89359bac113dcf4081d20714e393f1885bc6708cf47d214dd1d784efe873e72d",
+      "source_validation_errors": [],
+      "serialized_sha256": "89359bac113dcf4081d20714e393f1885bc6708cf47d214dd1d784efe873e72d",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 241,
+        "changed_field_count": 33,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.486897508040101e-08,
+          "maximum_face_area_error": 1.2896417089791612e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "a6fd943162ed9579d365a2d35f94cee6adc4ab3463f764cf44786a7cb929bced"
+      }
+    },
+    {
+      "resource": "Terrano/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b",
+      "tag101_offset": 142994,
+      "tag101_end_offset": 146550,
+      "tag101_byte_count": 3556,
+      "tag101_sha256": "1a82fb913c64a40bfbdb7914b3e2229634e16872dd3cab5e627d543deedc7e85",
+      "source_validation_errors": [],
+      "serialized_sha256": "1a82fb913c64a40bfbdb7914b3e2229634e16872dd3cab5e627d543deedc7e85",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 229,
+        "changed_field_count": 29,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.627864967967412e-08,
+          "maximum_face_area_error": 1.1262933963251953e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "c01be268803e819999ae370cfc386248e7143cef93ccdde1a8a364de7ecdd0de"
+      }
+    },
+    {
+      "resource": "Ufo/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "f6995450ea0bcaebb51150f1472b5d2b72e82ce57e3d0207f2199376fe5718e2",
+      "tag101_offset": 78924,
+      "tag101_end_offset": 85480,
+      "tag101_byte_count": 6556,
+      "tag101_sha256": "6de1bb98ee3f1a9ddad8f1f3c0b7c523085f38704c7dc19460e78ad80e87e5ec",
+      "source_validation_errors": [],
+      "serialized_sha256": "6de1bb98ee3f1a9ddad8f1f3c0b7c523085f38704c7dc19460e78ad80e87e5ec",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 426,
+        "changed_field_count": 54,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 7.23766491184108e-08,
+          "maximum_face_area_error": 8.460693212697379e-08,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "e9b125a55881eb0dfdf053f96198f19195d0d282c374c0edde0c8823bf9b5056"
+      }
+    },
+    {
+      "resource": "WildCat/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "ccbcb74985d5b21a594b471eb42d242b5eb5809d8646e57ece08b4a1cd6614cd",
+      "tag101_offset": 137064,
+      "tag101_end_offset": 140380,
+      "tag101_byte_count": 3316,
+      "tag101_sha256": "c4243fc6ae1d29a9837c02b619600ee46b0f68b49a267745d970f5d8814bd69a",
+      "source_validation_errors": [],
+      "serialized_sha256": "c4243fc6ae1d29a9837c02b619600ee46b0f68b49a267745d970f5d8814bd69a",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 229,
+        "changed_field_count": 29,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 2.584420144557953e-08,
+          "maximum_pairwise_distance_error": 3.921878777290999e-08,
+          "maximum_face_area_error": 1.0226329472118323e-07,
+          "maximum_aabb_shift_error": 2.584420144557953e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "511ba51ae1ef015ed4256bbf8c3e0457c42eec1ece747fdf0a24cc503e42a0f6"
+      }
+    },
+    {
+      "resource": "Xtrail/car.dx",
+      "evidence_class": "PC_VEHICLE_CORPUS",
+      "source_dx_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
+      "tag101_offset": 124708,
+      "tag101_end_offset": 128648,
+      "tag101_byte_count": 3940,
+      "tag101_sha256": "268e6545b4bce46182428686c2c5ab88ea61706ec65f8afb5907a44c6df105cd",
+      "source_validation_errors": [],
+      "serialized_sha256": "268e6545b4bce46182428686c2c5ab88ea61706ec65f8afb5907a44c6df105cd",
+      "tag101_zero_edit_byte_identical": true,
+      "full_dx_zero_edit_byte_identical": true,
+      "translation": {
+        "status": "PASS",
+        "delta": [
+          0.0010000000474974513,
+          -0.0020000000949949026,
+          0.003000000026077032
+        ],
+        "changed_byte_count": 228,
+        "changed_field_count": 31,
+        "unexpected_diff_count": 0,
+        "validation": {
+          "status": "PASS",
+          "float32_tolerance": 2e-05,
+          "maximum_delta_error": 4.668254405260086e-08,
+          "maximum_pairwise_distance_error": 6.769359250924367e-08,
+          "maximum_face_area_error": 1.2309082997319365e-07,
+          "maximum_aabb_shift_error": 4.668254405260086e-08,
+          "base_radius_unchanged": true,
+          "topology_unchanged": true,
+          "adjacency_unchanged": true,
+          "centroid_relationships_preserved": true
+        },
+        "visual_geometry_changed_bytes": 0,
+        "output_tag101_sha256": "14f63a88d4576c97a57f76c69aded15a3b3b89e6faae299de577f6c3590bb1c4"
+      }
+    }
+  ],
+  "failures": []
+}

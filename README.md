@@ -8,7 +8,7 @@ read-only.
 
 ## Current scope
 
-Phase R4B is complete: the validated vehicle DX/DXT library drives a native
+Phase R4C automated work is complete: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed
 same-topology **positions-only** DX export. All 78 vehicle resources produce a
@@ -36,6 +36,14 @@ outlier. Representation A is an AABB helper and representation B is a closed
 convex polyhedron at **HIGH** confidence. The Blender add-on can display both
 as read-only overlays. R3 remains positions-only; R4B adds no collision writer.
 See `docs/formats/dx-collision.md` and `docs/blender-collision.md`.
+
+Phase R4C adds an exact tag-101 serializer and conservative template-preserving
+rigid translation. All 28 tag-101 sections and complete DX templates round-trip
+byte-identically at zero edit; all 27 validated finite hulls pass in-memory
+translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
+collision-only candidate is ready, but runtime status remains **WAITING FOR
+HUMAN TEST**. No scale, rotation, topology, BSP, cylinder, or Blender collision
+export is supported. See `docs/collision-writer.md` and `research/r4c/`.
 
 ## Blender add-on
 
@@ -91,6 +99,11 @@ py -3 tools/mrtool.py scan-collision `
   "..\Data.sma_unpacked\DataGx\Vehicles" `
   --report research/r4b/tag101-corpus.json `
   --markdown research/r4b/tag101-corpus.md
+
+py -3 tools/scanner/validate_collision_writer.py `
+  "..\Data.sma_unpacked\DataGx\Vehicles" `
+  --json research/r4c/tag101-writer-corpus.json `
+  --markdown research/r4c/tag101-writer-corpus.md
 ```
 
 Exports are local validation artifacts under ignored `.research-output/` and

@@ -60,8 +60,8 @@ def representation():
 
 def tag101(*, suffix=b"", base_triangles=()):
     payload = bytearray(struct.pack("<I", 101))
-    payload += geometry_block(((0.5, 0.5, 0.5),), base_triangles)
-    payload += struct.pack("<f", math.sqrt(3.0) * 0.5)
+    payload += geometry_block(((0.25, 0.25, 0.25),), base_triangles)
+    payload += struct.pack("<f", math.sqrt(11.0) * 0.25)
     payload += representation()
     payload += representation()
     payload += suffix

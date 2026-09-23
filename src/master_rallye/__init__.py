@@ -9,6 +9,13 @@ from .dxt import (
 )
 from .dx_writer import audit_binary_diff, patch_dx_positions, write_dx_positions
 from .collision import parse_collision_sections
+from .collision_writer import (
+    patch_dx_collision_translation,
+    replace_dx_tag101,
+    serialize_tag101,
+    translate_tag101,
+    write_dx_collision_translation,
+)
 from .authoring import (
     INVALID_PROVENANCE,
     POSITIONS_ONLY_CHANGED,
@@ -17,13 +24,14 @@ from .authoring import (
     provenance_fingerprint,
     validate_authoring_state,
 )
-from .errors import BoundsError, DxWriteError, ExportError, FormatError, MasterRallyeError, UnknownRecordTagError
+from .errors import BoundsError, CollisionWriteError, DxWriteError, ExportError, FormatError, MasterRallyeError, UnknownRecordTagError
 from .sidecar import parse_sidecar, resolve_sidecar
 
 __all__ = [
     "BoundsError",
     "ExportError",
     "DxWriteError",
+    "CollisionWriteError",
     "FormatError",
     "MasterRallyeError",
     "UnknownRecordTagError",
@@ -33,6 +41,11 @@ __all__ = [
     "write_dx_positions",
     "audit_binary_diff",
     "parse_collision_sections",
+    "serialize_tag101",
+    "replace_dx_tag101",
+    "translate_tag101",
+    "patch_dx_collision_translation",
+    "write_dx_collision_translation",
     "SOURCE_IDENTICAL",
     "POSITIONS_ONLY_CHANGED",
     "UNSUPPORTED_TOPOLOGY_CHANGED",

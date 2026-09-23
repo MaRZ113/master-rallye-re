@@ -44,6 +44,13 @@ correlation is not promoted to runtime causality.
 - **UNKNOWN:** wheel/suspension physics does not follow from visual geometry.
   Physics parameters live separately in `vehicles.xml`.
 
+Additional runtime controls reinforce that separation: removing `wheel.dx`
+removes only visible wheel geometry while driving, body collision, and damage
+remain functional. A foreign `wheel.dx` is instantiated at the target
+vehicle's wheel positions, and its missing referenced DXT files render as a
+checkerboard until the donor textures are supplied. These are runtime
+observations about visual instancing/resource resolution, not wheel physics.
+
 ## Structural binding evidence
 
 Twenty-four standard car sidecars satisfy this exact relationship:
@@ -102,6 +109,11 @@ sections are byte-identical (SHA-256
 and the tested complete-to-race substitution retained collision and damage.
 This strongly correlates tag 101 with the active vehicle collision path, while
 still not proving that tag 101 is the only required runtime condition.
+
+R4C now provides an isolated test of that linkage: Astero render geometry is
+kept byte-identical while only proven positional fields in tag 101 move by
+`+0.40` source-X units. Automated validation passes; runtime status remains
+**WAITING FOR HUMAN TEST**.
 
 The lift remains an **UNRESOLVED_RUNTIME_TRANSFORM_DEPENDENCY**. For Astero,
 source-Y minima differ (`car` -0.228596, `complete` -0.000733), and similar

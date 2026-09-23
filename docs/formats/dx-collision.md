@@ -109,8 +109,11 @@ calling them primal/dual structures, and it does not establish whether the
 runtime uses GJK, SAT, or another collision algorithm.
 
 Both representations normally contain a one-vertex/zero-triangle
-`geometry_b`. Representation A's point equals the base/AABB centre;
-representation B's point generally does not. The latter point's meaning is
+`geometry_b`. Representation A's point equals its geometry-A arithmetic mean
+and the base/AABB centre. Representation B's point equals its geometry-A
+arithmetic mean in 27/27 finite hulls (maximum error `5.85e-8`). These are
+therefore positional centroid/reference points for translation at
+**CONFIRMED_BY_CORPUS** confidence; their deeper runtime purpose remains
 **UNKNOWN**.
 
 ## Tags 100 and 102
@@ -145,6 +148,9 @@ R4B hashes the parsed tag-101 byte range and verifies it is unchanged after
 every writer reparse. Corpus regression preserved 28/28 tag-101 hashes for
 zero-edit and one-position tests.
 
-Collision authoring/serialization is intentionally absent. A future writer
-must begin with zero-edit and template-preserving tests; arbitrary collision
-topology construction is not justified by R4B.
+R4C adds a canonical serializer and a translation-only template patcher:
+28/28 tag-101 sections and full DX templates round-trip byte-identically, and
+27/27 validated hulls pass in-memory translation. Only the five GeometryBlock
+vertex families may change. Counts, topology, radius, areas, tag 102, and all
+non-tag101 bytes remain unchanged. Runtime validation is **WAITING FOR HUMAN
+TEST**; arbitrary collision topology construction is not justified.
