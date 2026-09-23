@@ -1,9 +1,9 @@
 # R4D alpha evidence
 
-Counts are uniquely matched sidecar texture entries per draw, including repeated car/complete bindings.
+Counts are sidecar texture entries within uniquely matched physical draw/material bindings, including repeated car/complete resources. They are not counts of physical draws.
 Actual alpha means at least one DXT pixel with alpha below 255. This is CONFIRMED_BY_CORPUS, not a render-state claim.
 
-| HasAlpha | UsesAlpha | DXT alpha below 255 | Bindings |
+| HasAlpha | UsesAlpha | DXT alpha below 255 | Texture entries |
 |---|---|---|---:|
 | No | No | No | 2114 |
 | Yes | Yes | Yes | 223 |

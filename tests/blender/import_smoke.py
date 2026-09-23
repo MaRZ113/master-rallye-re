@@ -151,6 +151,24 @@ def validate_object(obj, expected):
         all(material and material.use_nodes for material in mesh.materials),
         "preview materials missing",
     )
+    for material in mesh.materials:
+        require(
+            material.get("mr_preview_semantics") == "R4D1_PRIMARY_SLOT_ALPHA_ONLY",
+            "Preview V2 did not load",
+        )
+        flags = material.get("mr_serialized_flags_0x20_hex")
+        slots = json.loads(material.get("mr_texture_slots_json", "null"))
+        require(
+            any(draw["flags_0x20_hex"] == flags
+                and draw["texture_slots"] == slots
+                and draw["unknown_0x24"] == material.get("mr_serialized_texture_mask")
+                for draw in metadata["draws"]),
+            "preview material lost canonical DX slots/flags/mask",
+        )
+        require(
+            material.get("mr_runtime_alpha_enabled") == bool(int(flags[:2], 16)),
+            "preview alpha mode differs from traced byte 0",
+        )
     images = [
         node.image
         for material in mesh.materials

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import tempfile
 from pathlib import Path
@@ -70,7 +71,13 @@ class PreviewMaterialCache:
         transparent = False
         if source is not None:
             image, transparent = self._decode_image(source)
-        key = (str(source.resolve()).casefold() if source else None, transparent)
+        # Serialized byte order was traced through the executable loader:
+        # flag byte 0 -> runtime +0x22, byte 1 -> +0x23.
+        alpha_enabled = bool(draw.flags_0x20[0])
+        alpha_test = bool(draw.flags_0x20[1])
+        slots = tuple(slot.value for slot in draw.texture_slots)
+        key = (str(source.resolve()).casefold() if source else None,
+               slots, draw.flags_0x20, draw.unknown_0x24)
         if key in self.materials:
             return self.materials[key]
 
@@ -78,9 +85,18 @@ class PreviewMaterialCache:
         material = bpy.data.materials.new(name=f"MR Preview - {_safe(label)}")
         material.use_nodes = True
         material.diffuse_color = (1.0, 1.0, 1.0, 1.0)
-        material["mr_preview_semantics"] = "PROVISIONAL_FIRST_NON_NULL_SLOT"
+        material["mr_preview_semantics"] = "R4D1_PRIMARY_SLOT_ALPHA_ONLY"
+        material["mr_texture_slots_json"] = json.dumps(slots)
+        material["mr_serialized_flags_0x20_hex"] = draw.flags_0x20.hex()
+        material["mr_serialized_texture_mask"] = draw.unknown_0x24
+        material["mr_runtime_alpha_enabled"] = alpha_enabled
+        material["mr_runtime_alpha_test"] = alpha_test
+        material["mr_secondary_stage_preview"] = "UNKNOWN"
         material["mr_primary_texture_slot"] = primary or "Null"
-        material["mr_runtime_blending_known"] = False
+        material["mr_runtime_blending_known"] = True
+        material["mr_preview_source_slot"] = next(
+            (slot.slot for slot in draw.texture_slots if slot.value.casefold() != "null"), -1
+        )
         nodes = material.node_tree.nodes
         nodes.clear()
         output = nodes.new("ShaderNodeOutputMaterial")
@@ -91,15 +107,23 @@ class PreviewMaterialCache:
             image_node.image = image
             image_node.interpolation = "Linear"
             material.node_tree.links.new(image_node.outputs["Color"], shader.inputs["Base Color"])
-            material.node_tree.links.new(image_node.outputs["Alpha"], shader.inputs["Alpha"])
+            if alpha_enabled:
+                material.node_tree.links.new(image_node.outputs["Alpha"], shader.inputs["Alpha"])
             material["mr_dxt_source"] = str(source.resolve())
             material["mr_png_row_policy"] = PNG_ROWS_FLIP_VERTICAL
-        if transparent:
-            if hasattr(material, "surface_render_method"):
+        if alpha_enabled:
+            if alpha_test and hasattr(material, "blend_method"):
+                material.blend_method = "CLIP"
+                if hasattr(material, "alpha_threshold"):
+                    material.alpha_threshold = 128 / 255
+            elif hasattr(material, "surface_render_method"):
                 material.surface_render_method = "DITHERED"
             elif hasattr(material, "blend_method"):
                 material.blend_method = "BLEND"
             material.use_transparency_overlap = False
-            material["mr_alpha_preview"] = "PROVISIONAL_DECODED_ALPHA"
+            material["mr_alpha_preview"] = (
+                "ALPHATEST_APPROXIMATION" if alpha_test else "ALPHABLEND_APPROXIMATION"
+            )
+            material["mr_dxt_has_nonopaque_alpha"] = transparent
         self.materials[key] = material
         return material

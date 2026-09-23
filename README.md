@@ -44,7 +44,7 @@ translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
 collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. No scale, rotation, topology, BSP, cylinder, or Blender collision
 export is supported. See `docs/collision-writer.md` and `research/r4c/`.
 
-Phase R4D has inventoried 1,478 vehicle draw/material bindings and established Direct3D 8 shader-family evidence. Texture-stage mapping and main blend equations remain unresolved, so Blender preview stays conservative and R4D proceeds to material-semantics hardening. See docs/vehicle-materials.md and research/r4d/findings.md.
+Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT runtime probes are prepared but have no in-game result. See docs/vehicle-materials.md and research/r4d_1/findings.md.
 
 ## Blender add-on
 

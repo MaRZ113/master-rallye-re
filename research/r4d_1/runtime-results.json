@@ -1,0 +1,156 @@
+{
+  "phase": "R4D.1 runtime closeout",
+  "runtime_status": "CONFIRMED_BY_RUNTIME",
+  "results": [
+    {
+      "test": "M1",
+      "folder": "M1_body_helper",
+      "texture": "whitepaint-tga.dxt",
+      "source_sha256": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+      "candidates": [
+        {
+          "variant": "white",
+          "relative_candidate": "white/whitepaint-tga.dxt",
+          "sha256": "df6c35f25615d664b4ba92f9af9eef667394f22ab7ca1f95384e0409982d9f9d",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": false
+        },
+        {
+          "variant": "black",
+          "relative_candidate": "black/whitepaint-tga.dxt",
+          "sha256": "178d3adba3df0c26f6c03dc9efc1ee0fd383d3bc72abe4a61e4ec216f7d10fe0",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": false
+        },
+        {
+          "variant": "gray",
+          "relative_candidate": "gray/whitepaint-tga.dxt",
+          "sha256": "81871fdb1df2bbebbc8bcecbc9915bbc670a3c3fd214f33ba5e4aa4dc91947a7",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": false
+        }
+      ],
+      "screenshot_count": 12,
+      "affected": "body and helmets; chrome, lamps, glass, and number stickers unaffected",
+      "observation": "white/gray/black changes the reflection contribution continuously; disappears with Reflections OFF",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "metadata_runtime_tested_at_generation": false,
+      "human_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
+    },
+    {
+      "test": "M2",
+      "folder": "M2_windscreen_alpha",
+      "texture": "windscreen32-tga.dxt",
+      "source_sha256": "f8c343db0d8647c62248521800fc7fad2dfba029f055e9a04e14fdb47252a30d",
+      "candidates": [
+        {
+          "variant": "alpha255",
+          "relative_candidate": "alpha255/windscreen32-tga.dxt",
+          "sha256": "3fcb50d20fefd9c96cdc5c13a9973e21872bc90e9301375d004d7cd9998787e6",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": true
+        },
+        {
+          "variant": "alpha128",
+          "relative_candidate": "alpha128/windscreen32-tga.dxt",
+          "sha256": "21990a6781bce45857cacc497d738dafb40231d29b3491c5d93e8dd43e1a506a",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": true
+        },
+        {
+          "variant": "alpha0",
+          "relative_candidate": "alpha0/windscreen32-tga.dxt",
+          "sha256": "57a642542acf23e11fb50aaef84455ed393704015d6853c3a80ae4dfcb380b01",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": true
+        }
+      ],
+      "screenshot_count": 9,
+      "affected": "glazing around vehicle; lamps unaffected",
+      "observation": "255/128/0 alpha changes transparency continuously; normal glass uses source-alpha blending",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "metadata_runtime_tested_at_generation": false,
+      "human_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
+    },
+    {
+      "test": "M3",
+      "folder": "M3_envmap",
+      "texture": "chrome-tga.dxt",
+      "source_sha256": "939902c0933e270f54a52844f884a66479a58ac76e3abde788a8e6d46c6dc901",
+      "candidates": [
+        {
+          "variant": "asymmetric",
+          "relative_candidate": "asymmetric/chrome-tga.dxt",
+          "sha256": "44080e1f9088c9a216e644714e094131d60caf4b7805c78ad5a0577d7ffa7ec7",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": false
+        }
+      ],
+      "screenshot_count": 6,
+      "affected": "rims, bullbar and reflective trim",
+      "observation": "asymmetric helper appears with Reflections ON and disappears with OFF",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "metadata_runtime_tested_at_generation": false,
+      "human_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
+    },
+    {
+      "test": "M4",
+      "folder": "M4_brake_glow",
+      "texture": "breaklightsonglow-tga.dxt",
+      "source_sha256": "2fa12d48010bf763215d5bd02e35244da148dbb8bfa2da98d8da8dd651b654e3",
+      "candidates": [
+        {
+          "variant": "alpha255",
+          "relative_candidate": "alpha255/breaklightsonglow-tga.dxt",
+          "sha256": "902d85681bb881b8fc8432d7cc7b6440bccacf803f9a54318e06f59315a73e34",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": true
+        },
+        {
+          "variant": "alpha128",
+          "relative_candidate": "alpha128/breaklightsonglow-tga.dxt",
+          "sha256": "ff76657c6de48835b033fce041b5ae9f0c9c2d90d53c064f380955aaedf4407d",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": true
+        },
+        {
+          "variant": "alpha0",
+          "relative_candidate": "alpha0/breaklightsonglow-tga.dxt",
+          "sha256": "4cb571033252aa66b11c22d735947f68fe9d2dcbad8361f8812785a7556ae23f",
+          "same_dimensions": true,
+          "same_header": true,
+          "same_length": true,
+          "rgb_preserved": true
+        }
+      ],
+      "screenshot_count": 3,
+      "affected": "active rear brake-light glow while braking; base lamp stays",
+      "observation": "255/128/0 alpha changes glow strength/transparency; additive and emission remain unproved",
+      "confidence": "CONFIRMED_BY_RUNTIME",
+      "metadata_runtime_tested_at_generation": false,
+      "human_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
+    }
+  ],
+  "limits": [
+    "Human observations and screenshots establish the tested effects; screenshots alone do not prove the executable path.",
+    "Exact transparent sorting, damage attenuation and Null-slot binding remain open."
+  ]
+}

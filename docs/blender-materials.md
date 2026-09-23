@@ -1,9 +1,9 @@
-# Blender vehicle material previews
+# Blender vehicle material previews (R4D.1 V2)
 
-The R2 Blender material is an approximation: first non-Null DX texture as Principled Base Color, decoded texture alpha connected to Principled Alpha, and a provisional transparency setting when the DXT has non-opaque pixels. It is not a reconstruction of Direct3D 8 texture-stage operations.
+Preview V2 uses the executable-traced DX flag byte 0 for alpha enable and byte 1 for alpha test selection. The observed 78 vehicle DX resources all have byte 1=0, so their enabled alpha materials preview as blended. Stage-0 texture color is shown through Principled Base Color; stage-1 environment/helper composition is not approximated until M1/M3 game observations.
 
-R4D has not yet established a direct mapping from DX slots/control fields to stage 0/1, blend equations, or alpha-test thresholds. Therefore the preview shader remains conservative. A two-texture node graph, chrome mapping, and glow emission would imply unsupported runtime behavior at this checkpoint.
+Each preview material carries ordered serialized slots, the exact four raw flag bytes, the serialized mask, traced alpha choice, source DXT path, and the preview source-slot index. Draw-specific canonical metadata remains on the object. Identical images with different flags/slots/masks receive separate preview materials. The node graph is a preview; source DX and sidecar metadata are canonical. No material writing is supported.
 
-Canonical source evidence is the object metadata JSON: draw identity, all ordered slots, sidecar material candidates and nullable flags, raw control words, and source provenance. Blender nodes are not the authoritative representation. The R4D corpus adds external analysis of per-texture alpha and neutral signatures; it does not mutate imported DX bytes.
+The executable establishes a stage-0 texture/vertex-diffuse modulation and an environment stage-1 path with camera-space normals. The exact slot-to-stage binding for Null-slot cases and body-helper visual response remains open. Preview status: **PARTIAL**. M1-M4 have human in-game results: whitepaint and chrome are reflection helpers, glass and active brake glow show continuous alpha response. Preview still does not claim exact Direct3D 8 parity.
 
-Preview status: **PARTIAL**. The base image is useful for geometry review; glass/chrome/body layering/glow fidelity is not yet validated. See docs/vehicle-materials.md.
+Runtime closeout: research/r4d_1/runtime-results.md. A preview may label slot-1 helpers and alpha paths with runtime confidence, but does not reproduce the exact environment transform or blend sorting.

@@ -1,4 +1,4 @@
-# Format status (Phase R4D material-semantics research checkpoint)
+# Format status (Phase R4D.1 vehicle-material hardening)
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
@@ -38,7 +38,7 @@ the binary tuple width. There is still no material-index field. The corpus has
 1,365 unique, 99 ambiguous, and 14 unmatched draw matches after R4D evidence-scored resolution; ambiguity is preserved as a candidate list. No referenced texture was missing.
 
 For preview only, glTF uses the first non-`Null` slot as `baseColorTexture`.
-Runtime multi-texture blending remains **UNKNOWN**. Raw `DxtTexture.bgra`
+The DX-to-runtime alpha and feature-mask mappings are **CONFIRMED_BY_EXECUTABLE**; slot-to-stage resource binding and multi-texture appearance remain **PARTIAL**. Raw `DxtTexture.bgra`
 preserves stored rows; PNG presentation explicitly reverses their vertical
 order. A new raster-corrected comparison on asymmetric Astero panel, sticker,
 and door textures independently supports glTF `V' = 1 - V` at **HIGH**
@@ -74,8 +74,7 @@ opaque collision prefix; it did not perform broad executable analysis.
 - Headless synthetic import, ZIP installation, save/reload, Astero/Pajero
   folder discovery, and 19 diverse real resources passed. This is importer
   validation, not a new binary-format confidence promotion.
-- Runtime multi-texture/alpha semantics remain **UNKNOWN** and the Principled
-  materials are provisional previews.
+- Runtime alpha blend/test states and stage-0/env stage-1 operations are traced; exact body-helper appearance remains **UNKNOWN**. Blender Preview V2 is an evidence-backed approximation, not runtime parity.
 
 ## R2.5 legacy consolidation status
 
@@ -180,3 +179,7 @@ opaque collision prefix; it did not perform broad executable analysis.
 - **HIGH_CONFIDENCE_INFERENCE:** inspected COM wrappers correspond to SetRenderState and SetTextureStageState; vehicle-specific stage mapping and operations remain UNKNOWN.
 - **PARTIAL:** Blender material preview remains first non-Null texture because the DX-to-runtime shader linkage is unresolved. No material writer was added.
 - **R4D VERDICT: MORE WORK NEEDED; next phase R4D.1.** See docs/vehicle-materials.md and research/r4d/findings.md.
+
+## R4D.1 material update
+
+The tag-2 loader maps serialized flag bytes to runtime +0x22/+0x23/+0x20/+0x21 and unknown_0x24 to runtime feature mask +0x34. The base shader uses source-alpha blending (Z writes off) or alpha test >128 (Z writes on). The observed vehicle corpus has no alpha-test byte set. Stage 1 of the environment shader uses camera-space normals and a COUNT2 transform. Four same-size DXT tests now have human in-game results: body and chrome helpers disappear with Reflections OFF; glass and active brake-glow alpha vary continuously. See research/r4d_1/runtime-results.md. See research/r4d_1/findings.md.

@@ -1,0 +1,121 @@
+{
+  "source": "recomputed from local DX/TXT/DXT corpus; source path omitted",
+  "draws": 1478,
+  "resource_count": 78,
+  "unique_sidecar_matches": 1365,
+  "unknown_0x24": {
+    "formula": "(slot0 != Null ? 1 : 0) | (flags_0x20[2] != 0 ? 2 : 0) | (slot1 != Null ? 4 : 0)",
+    "matches": 1478,
+    "total": 1478,
+    "exceptions": [],
+    "distribution": {
+      "1": 21,
+      "2": 2,
+      "3": 363,
+      "5": 151,
+      "6": 3,
+      "7": 938
+    }
+  },
+  "slot_presence": {
+    "000": 2,
+    "010": 3,
+    "100": 384,
+    "110": 1089
+  },
+  "flags_0x20_bytes": [
+    {
+      "0": 1241,
+      "1": 237
+    },
+    {
+      "0": 1478
+    },
+    {
+      "0": 172,
+      "1": 1306
+    },
+    {
+      "0": 2,
+      "1": 1476
+    }
+  ],
+  "flag0_vs_slot0_UsesAlpha": {
+    "matches": 1364,
+    "total": 1365,
+    "pairs": {
+      "(False, False)": 1141,
+      "(False, True)": 1,
+      "(True, True)": 223
+    },
+    "exceptions": [
+      {
+        "resource": "Kamaz/complete.dx",
+        "draw": 19,
+        "slot0": "lamp1-tga",
+        "slot1": "glass-tga",
+        "flag_byte0": 0,
+        "sidecar_slot0_UsesAlpha": true,
+        "material": "Material #62"
+      }
+    ]
+  },
+  "flag2_to_mask_bit2": {
+    "matches": 1478,
+    "total": 1478
+  },
+  "alpha_texture_entries": {
+    "HasAlpha=False;UsesAlpha=False;DXT_alpha=False": 2114,
+    "HasAlpha=False;UsesAlpha=True;DXT_alpha=False": 4,
+    "HasAlpha=True;UsesAlpha=False;DXT_alpha=False": 6,
+    "HasAlpha=True;UsesAlpha=False;DXT_alpha=True": 48,
+    "HasAlpha=True;UsesAlpha=True;DXT_alpha=True": 223
+  },
+  "alpha_family_names": {
+    "byte2_0": {
+      "BLightGlow": 11,
+      "BrakeGlow": 2,
+      "Material #26": 2,
+      "Material #273": 2,
+      "Material #58": 1,
+      "Material #288": 1,
+      "Material #377": 1,
+      "Material #764": 1,
+      "BlightOn": 1,
+      "glow": 1,
+      "Material #154": 1
+    },
+    "byte2_1": {
+      "WindScreen": 24,
+      "BrokenGlass": 22,
+      "broken": 16,
+      "WScreen32": 14,
+      "GlassBroken": 10,
+      "Windscreen": 8,
+      "SBWind32": 8,
+      "brokenwin": 7,
+      "glass": 7,
+      "FScreen32": 5,
+      "Windscreen32": 5,
+      "WindScreen32": 5,
+      "FLight2": 4,
+      "wins": 4,
+      "Material #64": 4,
+      "ws": 4,
+      "winbroke": 3,
+      "WindScreenB32": 3,
+      "brokenglass": 3,
+      "Material #4": 3,
+      "HeadLight": 2,
+      "HeadLight2": 2,
+      "JHLight32": 2,
+      "JHLight322": 2,
+      "Lights2": 2,
+      "lights out": 2,
+      "CLight ": 2,
+      "Lamp322": 2,
+      "MNet1": 2,
+      "MWind32": 2
+    }
+  }
+}
