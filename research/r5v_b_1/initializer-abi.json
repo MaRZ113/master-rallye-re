@@ -1,0 +1,13 @@
+{
+  "build": "retail",
+  "evidence": "RAW_GHIDRA_SUPPORTED",
+  "function": "0x45A0B0",
+  "calling_convention": "x86 thiscall-shaped, ECX=this, callee ret 0x30",
+  "stack_dwords": 12,
+  "total_inputs_including_this": 13,
+  "record_stride": 52,
+  "destinations": ["+0x04", "+0x08", "+0x0c", "+0x10", "+0x14", "+0x18", "+0x1c", "+0x20", "+0x24", "+0x28", "+0x2c", "+0x30"],
+  "callsites": ["0x458ED8", "0x4591B8", "0x459572"],
+  "owned_name": {"offset": "+0x20", "deep_copy_helper": "0x4D1990", "temporary_free": "0x5B4C00", "record_destructor": "0x458D60"},
+  "reagent_semantic_reconstruction": "unavailable: automatic approval review rejected LLM data egress"
+}

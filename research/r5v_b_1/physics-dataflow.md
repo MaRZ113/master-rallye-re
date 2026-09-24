@@ -1,0 +1,7 @@
+# Physics namespaces — retail
+
+`RAW_GHIDRA_SUPPORTED`: `0x4C0B20` takes a numeric car-instance parameter and reads `Race/Car%d/CarType`, then `Race/RaceName`, before calling `0x4BC590`. That latter function reads dimensions/suspension under `Vehicles/Car%d/...`. The same instance number is used for `Car%d`/`Controller/Car%d` keys in `0x4C0B20`. Its caller `0x48EB40` loops over race cars and calls it for each instance. Accordingly, `Car%d` here is a **race car instance slot**, not demonstrably the global registry ID. That interpretation is supported by the caller/keys, though the exact copying/aliasing mechanism remains untyped.
+
+Retail `DataGame/vehicles.xml` contains named `Vehicles/Astero/...` physics values (R5V-B counted 147 fields). The missing edge is `Race/Car%d/CarType` or selected ID → named `Vehicles/Astero` definition → populated instance `Vehicles/Car%d` values. Neither `0x4BC590` nor `0x4C0B20` proves that record25's owned name `Astero` controls this bridge. `0x48FAD0` registers a `CarModelDataFile` setting; its presence also does not prove a name-to-physics transfer.
+
+**Hard gate:** valid Astero physics for ID25 is not proven. It would be unsafe to infer it merely from asset folder naming or an initialized record string. A future bounded trace must identify the writer of `Race/Car%d/CarType`, the producer of `Vehicles/Car%d` values, and the selected registry ID/name used in that producer.

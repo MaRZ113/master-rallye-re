@@ -1,0 +1,19 @@
+{
+  "build": "retail",
+  "evidence": "RAW_GHIDRA_SUPPORTED",
+  "known_edges": [
+    {"from": "class2 local index 11", "to": "absolute ID25", "at": "0x481E20"},
+    {"from": "absolute ID25", "to": "registry record pointer", "at": "0x4819B0"},
+    {"from": "unlocked absolute ID25", "to": "Frontend/VehicleSelect/CarModel integer", "at": "0x4819B0"},
+    {"from": "Race/Car%d/CarType", "to": "race car instance setup", "at": "0x4C0B20"},
+    {"from": "race car instance index", "to": "Vehicles/Car%d physics reads", "at": "0x4BC590"}
+  ],
+  "unresolved_edges": [
+    "CarModel integer to preview complete.dx",
+    "selected quick-race ID to race car/wheel resource name",
+    "record +0x20 to resource-path name",
+    "record25/Astero to named physics and Car%d instance values",
+    "class2 twelfth widget and all P0/P1 bounds"
+  ],
+  "r5v_c_readiness": "STILL_BLOCKED"
+}
