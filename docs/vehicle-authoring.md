@@ -12,7 +12,7 @@ CLI: `mrtool validate-edit source.dx edit.json --output replacement.dx`. The JSO
 
 ## Same-topology vehicle SDK v1 baseline
 
-**FROZEN after R4E.1 human tests.** Positions (R3), normals (N1), UVs (E1), vertex colors (E3), same-size DXT content replacement (R4D.1), alpha-family flag writing (E4), environment feature writing (M1), tag-101 translation (R4C), and the full-tree Python `Data.sma` packaging workflow (E5) are runtime-confirmed. Exact vehicle dependency resolution and staging/bundling are implemented as part of that workflow. The earlier weak E2 normal test remains historically inconclusive; N1 resolved its runtime question. Unknown material fields stay raw. Topology-changing writing is outside SDK v1. See research/r4e_1/runtime-results.md.
+**FROZEN after R4E.1 human tests.** Positions (R3), normals (N1), UVs (E1), vertex colors (E3), same-size DXT content replacement (R4D.1), alpha-family flag writing (E4), environment feature writing (M1), tag-101 translation (R4C), and the full-tree Python `Data.sma` packaging workflow (E5) are runtime-confirmed. Exact vehicle dependency resolution and staging/bundling are implemented as part of that workflow. The earlier weak E2 normal test remains historically inconclusive; N1 resolved its runtime question. Unknown material fields stay raw. This paragraph records the R4E.1 same-topology baseline; R4F/R4G subsequently extended the full Vehicle SDK v1 to runtime-confirmed existing-draw topology writing. See research/r4e_1/runtime-results.md.
 
 ## R4F topology-changing experimental path
 
@@ -20,4 +20,4 @@ Blender now exposes a separate **Export DX - Topology Changing (Experimental)** 
 
 ## R4G project workflow
 
-Import Vehicle Folder labels car, complete and wheel roles. Export changed DX resources, stage same-size DXT replacements, preview limited tag101 translation/scale, then Save Vehicle Project, Validate Vehicle and Build Vehicle Mod. The existing same-topology exporter remains available. The topology exporter now recalculates marker-1339 bounds when new geometry exceeds donor coverage. B1/C1/P1/W1 await human runtime tests; see docs/vehicle-sdk.md, docs/vehicle-project.md and research/r4g/runtime-test-plan.md.
+Import Vehicle Folder labels car, complete and wheel roles. Export changed DX resources, stage same-size DXT replacements, preview limited tag101 translation/scale, then Save Vehicle Project, Validate Vehicle and Build Vehicle Mod. The existing same-topology exporter remains available. The topology exporter now recalculates marker-1339 bounds when new geometry exceeds donor coverage. B1/C1/P1/W1 later passed human runtime tests; see docs/vehicle-sdk.md, docs/vehicle-project.md and research/r4g/runtime-test-plan.md.

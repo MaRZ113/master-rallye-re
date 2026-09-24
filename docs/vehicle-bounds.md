@@ -16,4 +16,4 @@ WildCat/car.dx stores a radius about 0.00019169 smaller than the radius of its f
 
 The R4G writer preserves the original 44 bytes at zero edit and in the published R4F in-bounds mode. Its explicit recompute mode derives extrema, midpoint and a float32 radius rounded outward enough to contain every selected point. It rejects non-finite or implausibly large coordinates, reparses the whole DX, and permits new geometry outside the donor AABB. A direct recompute of the original corpus matches full footer bytes in 26/78, so byte-exact reproduction is not claimed. See research/r4g/bounds-corpus.json for every error and candidate formula.
 
-Blender topology export chooses recomputation when a compiled vertex exceeds donor min/max or stored sphere coverage. The B1 expanded-bounds Astero result is structurally validated and WAITING FOR HUMAN.
+Blender topology export chooses recomputation when a compiled vertex exceeds donor min/max or stored sphere coverage. B1 later passed original-game testing: the triangle beyond donor bounds was visible and deformed with damage, while primary collision and physics stayed normal. See ../research/r4g/runtime-results.md.

@@ -152,5 +152,4 @@ R4C adds a canonical serializer and a translation-only template patcher:
 28/28 tag-101 sections and full DX templates round-trip byte-identically, and
 27/27 validated hulls pass in-memory translation. Only the five GeometryBlock
 vertex families may change. Counts, topology, radius, areas, tag 102, and all
-non-tag101 bytes remain unchanged. Runtime validation is **WAITING FOR HUMAN
-TEST**; arbitrary collision topology construction is not justified.
+non-tag101 bytes remain unchanged. R4C translation was later confirmed by human runtime testing. R4G C1 also confirmed finite existing-tag101 per-axis scaling through widened wall contact with normal physics and damage. Arbitrary collision topology construction remains unsupported; see ../../research/r4g/runtime-results.md.

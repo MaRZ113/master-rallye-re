@@ -1,4 +1,6 @@
-# R4G isolated human runtime tests
+# R4G isolated human runtime test plan
+
+This is the pre-runtime test procedure. Human results subsequently passed for B1, C1, P1 and W1; see runtime-results.md/json. The instructions and candidate hashes below remain as the original test record.
 
 Use one candidate at a time with the already runtime-confirmed full-tree Python Data.sma workflow. The four candidate directories are ignored local output under .research-output/r4g/runtime-tests/. Each includes an asset, validation.json and TEST_INSTRUCTIONS.txt. Keep game Reflections/settings and original Astero installation comparable. Do not install multiple candidates simultaneously. No new Data.sma is included in this repository.
 
@@ -17,4 +19,4 @@ P1: inspect the presentation/menu Astero. Check load, a new hood/body triangle v
 
 W1: check a race with Astero. Look for the changed wheel visual on all four wheel instances and verify steering/suspension, wheel physics and general behavior remain normal. Source 220 vertices/252 triangles; candidate 223/253.
 
-Automated parsing and binary audits do not count as human runtime confirmation. Report PASS/FAIL/INCONCLUSIVE and any artifacts for each ID. If all four pass, Vehicle SDK v1 may be frozen as a runtime-confirmed baseline; next proposed phase is R5T-A course/track asset archaeology. R5V EXE vehicle-slot work is optional and separate. Neither begins in R4G.
+Automated parsing and binary audits alone did not establish runtime behavior. The later human tests reported PASS for all four IDs, so Vehicle SDK v1 is now frozen as a runtime-confirmed baseline. The next proposed phase is R5T-A course/track asset archaeology. R5V EXE vehicle-slot work remains optional and separate; neither begins in this closeout.

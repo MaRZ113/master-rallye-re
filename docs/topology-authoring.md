@@ -22,4 +22,4 @@ The writer reparses its output and verifies all indices, draw identities, materi
 
 ## R4G expanded bounds
 
-The topology rebuilder offers an explicit recompute-bounds mode. It permits finite sane-size new vertices beyond the donor AABB, computes marker-1339 extrema/center/covering radius, reparses the output and preserves collision topology. Blender chooses this mode when geometry exceeds the donor box or sphere; the published R4F in-bounds path remains byte-compatible. Astero B1/P1/W1 candidates are structurally ready; their new runtime contexts still need human testing. See docs/vehicle-bounds.md.
+The topology rebuilder offers an explicit recompute-bounds mode. It permits finite sane-size new vertices beyond the donor AABB, computes marker-1339 extrema/center/covering radius, reparses the output and preserves collision topology. Blender chooses this mode when geometry exceeds the donor box or sphere; the published R4F in-bounds path remains byte-compatible. Astero B1/P1/W1 candidates passed original-game human tests; see research/r4g/runtime-results.md. See docs/vehicle-bounds.md.

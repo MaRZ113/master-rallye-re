@@ -1,17 +1,28 @@
-# Vehicle SDK v1 development baseline
+# MASTER RALLYE VEHICLE SDK v1 — RUNTIME-CONFIRMED BASELINE
 
-R4G is the last planned vehicle-core hardening phase. The F1 Astero race car.dx topology edit is confirmed in the original game. B1 expanded bounds, C1 collision scale, P1 presentation topology, and W1 wheel topology are WAITING FOR HUMAN. Do not call the full Vehicle SDK v1 runtime-confirmed until all four pass.
+R4F F1 and R4G B1, C1, P1 and W1 passed original-game testing. The full existing-donor vehicle authoring baseline is frozen at v1. See the separate human evidence in ../research/r4f/runtime-results.md and ../research/r4g/runtime-results.md.
 
-## Supported authoring path
+## Runtime-confirmed capabilities
 
-- Import a vehicle folder in Blender. Imported objects show RACE BODY (car.dx), PRESENTATION (complete.dx), and WHEEL TEMPLATE (wheel.dx) roles.
-- Edit existing-draw triangle geometry, source normals, UVs, vertex colors, and approved material alpha/environment controls. All faces must use an existing donor draw/material identity. The same-topology byte-patch path remains available.
-- The topology exporter recompiles render vertices, local and global indices and draw spans. If geometry exceeds stored bounds or sphere coverage, it recomputes marker-1339 bounds.
-- Tag101 collision translation is runtime-confirmed. Positive per-axis scale around a chosen source-space center is structurally validated on 27 finite corpus hulls and awaits C1 runtime confirmation. The known non-finite Forklift hull is rejected for scale.
-- Export a VehicleProject JSON, validate it, then build a staging tree. Texture content replacement keeps original DXT dimensions/header. Optional full-tree Data.sma packaging uses an explicit destination and never overwrites an existing archive.
+- Topology-changing render writing for car.dx, complete.dx and wheel.dx; the wheel edit appears on all four runtime-instanced wheels.
+- Position, source-space normal, UV and vertex-color writing.
+- Same-dimension DXT content replacement.
+- Alpha and environment material-state writing on established material fields.
+- Expanded render bounds through marker-1339 recomputation.
+- Tag101 rigid collision translation and finite existing-hull per-axis scale.
+- Preserved procedural vehicle damage and breakable glass in the tested car edits.
+- Dependency resolution, vehicle staging/bundling and Python full-tree Data.sma packing with controlled overrides.
 
-Commands: py -3 tools/mrtool.py validate-vehicle project.json and py -3 tools/mrtool.py build-vehicle-mod project.json --output output. See vehicle-project.md, vehicle-bounds.md, and collision-authoring.md.
+## Authoring workflow
 
-## Deliberate v1 limits
+Import a vehicle folder in Blender; car.dx, complete.dx and wheel.dx show distinct roles. Edit geometry only within existing donor draw/material identities, or use the same-topology attribute path. The topology exporter rebuilds render arrays and indices and recomputes marker-1339 when needed. Finite tag101 hulls support translation and positive per-axis scale. Save a VehicleProject, validate it, then build a separate staging tree. Same-dimension DXT replacements and optional full-tree SMA output use explicit destinations. The project validator checks donor hashes, roles, draw/material identity, bounds, collision and dependencies. See vehicle-project.md, vehicle-bounds.md, collision-authoring.md and ../research/r4g/custom-vehicle-readiness.md.
 
-No new draw/material records or texture strings, no empty draw, no new UV-set count, no collision topology/BSP reconstruction, no extra EXE vehicle slots, no track support. Wheel and presentation topology, expanded bounds and collision scale still need human runtime tests. The project file records donor source SHA-256 values and the validator refuses unsupported fields.
+CLI: py -3 tools/mrtool.py validate-vehicle project.json; py -3 tools/mrtool.py build-vehicle-mod project.json --output output.
+
+## SDK v1 limits
+
+- Existing donor draw/material identities and texture strings only; no arbitrary new draw, material or string creation.
+- No collision-hull-from-scratch generator, tag100 BSP rebuild or arbitrary collision topology.
+- No extra vehicle slot EXE patch and no track support in this vehicle baseline.
+- Rare or unknown auxiliary semantics remain optional future research.
+- The known non-finite Forklift tag101 hull remains rejected for scaling; it is preserved at zero edit.

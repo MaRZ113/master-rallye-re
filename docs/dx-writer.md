@@ -149,7 +149,7 @@ Human testing confirms E1 UV, E3 vertex color, and E4 alpha-flag writing. The li
 
 ## R4F separate render-core writer
 
-`src/master_rallye/topology_writer.py` is a distinct experimental path for vehicle topology changes. It rebuilds per-draw render arrays and indices while preserving existing draw/material records and collision/footer bytes. The R3 positions-only function above and R4E safe attribute patcher remain unchanged for same-topology export. The F1 Astero car.dx +3-vertex/+1-triangle output was subsequently **CONFIRMED_BY_RUNTIME**; expanded-bounds and complete/wheel probes await human testing. See docs/dx-render-rebuilder.md.
+`src/master_rallye/topology_writer.py` is a distinct experimental path for vehicle topology changes. It rebuilds per-draw render arrays and indices while preserving existing draw/material records and collision/footer bytes. The R3 positions-only function above and R4E safe attribute patcher remain unchanged for same-topology export. The F1 Astero car.dx +3-vertex/+1-triangle output was subsequently **CONFIRMED_BY_RUNTIME**; R4G B1/P1/W1 subsequently passed human testing for expanded bounds and complete/wheel topology. See docs/dx-render-rebuilder.md.
 
 ## R4G writer extension
 

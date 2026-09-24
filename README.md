@@ -41,7 +41,7 @@ rigid translation. All 28 tag-101 sections and complete DX templates round-trip
 byte-identically at zero edit; all 27 validated finite hulls pass in-memory
 translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
 collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. R4C itself did not add scale, rotation, topology, BSP, cylinder, or Blender collision
-export; R4G adds conservative per-axis scale pending human testing. See `docs/collision-writer.md` and `research/r4c/`.
+export; R4G per-axis scale is confirmed by the C1 human wall-contact test. See `docs/collision-writer.md` and `research/r4c/`.
 
 Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT probes now have human in-game results: M1/M3 reflection helpers, M2 glass source-alpha, and M4 active brake-glow alpha. See research/r4d_1/runtime-results.md. See docs/vehicle-materials.md and research/r4d_1/findings.md.
 
@@ -165,6 +165,6 @@ py -3 tools/mrtool.py audit-textures `
 See `research/r2_5/findings.md` for legacy consolidation and
 `research/r3/findings.md` / `docs/dx-writer.md` for the safe writer.
 
-## R4G vehicle SDK hardening (automated)
+## MASTER RALLYE VEHICLE SDK v1 — RUNTIME-CONFIRMED BASELINE
 
-R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) are ready under ignored local output. These four capabilities remain WAITING FOR HUMAN; the full Vehicle SDK v1 is not yet frozen. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.
+R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) were generated under ignored local output and then tested in-game. B1, C1, P1 and W1 each passed original-game testing. The full existing-donor Vehicle SDK v1 baseline is frozen; see research/r4g/runtime-results.md for the separate human evidence. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.

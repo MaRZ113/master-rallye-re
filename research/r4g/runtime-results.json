@@ -1,0 +1,67 @@
+{
+  "phase": "R4G",
+  "evidence_type": "human_observation_original_game",
+  "status": "PASS",
+  "vehicle_sdk_v1": "RUNTIME_CONFIRMED_BASELINE",
+  "prior_r4f": {
+    "candidate": "F1",
+    "status": "PASS",
+    "source_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90",
+    "candidate_sha256": "b03e8402baef682bb5665ccbce3a9cc8342e87409b3a5bd2170e9674d6ed7835",
+    "observations": [
+      "New car.dx vertices and triangle render correctly.",
+      "Original primary collision works.",
+      "External and internal procedural damage work.",
+      "Breakable glass works.",
+      "Wheels and general vehicle function remain normal."
+    ],
+    "source": "research/r4f/runtime-results.md"
+  },
+  "tests": {
+    "B1": {
+      "status": "PASS",
+      "resource": "Astero/car.dx",
+      "candidate_sha256": "7de8988d598de649d993ae132e80353da60b8393a154da73b5fb4b7e08db56ce",
+      "observations": [
+        "New render triangle beyond donor bounds is visible in game.",
+        "Recomputed bounds are accepted by the runtime.",
+        "New geometry participates in visual damage and deformation.",
+        "Primary collision remains unchanged.",
+        "Vehicle physics remain normal."
+      ]
+    },
+    "C1": {
+      "status": "PASS",
+      "resource": "Astero/car.dx",
+      "candidate_sha256": "5c7db535a4e37d449ab952c4e1f6c768c20eee62bd7452ae3df1dde27cbac67d",
+      "observations": [
+        "Tag101 collision is widened; wall contact occurs at the widened physical boundary.",
+        "Visual mesh remains unchanged.",
+        "Collision remains active.",
+        "Damage continues to work.",
+        "Physics registers the modified collision normally."
+      ]
+    },
+    "P1": {
+      "status": "PASS",
+      "resource": "Astero/complete.dx",
+      "candidate_sha256": "a1ce0fbebd8b49dacb0b2890a40b20799fdd4c6a43eac874c7751f6ffa91023f",
+      "observations": [
+        "Topology-changing complete.dx loads in presentation and menu contexts.",
+        "Added hood triangle is visible.",
+        "Presentation model otherwise behaves normally."
+      ]
+    },
+    "W1": {
+      "status": "PASS",
+      "resource": "Astero/wheel.dx",
+      "candidate_sha256": "7a5d9d8ebad68a7b2827f63bbec75442350526a97b9423d365e46e8bedd510d5",
+      "observations": [
+        "Topology-changing wheel.dx loads in race.",
+        "Added triangle appears on all four runtime-instanced wheels.",
+        "Steering, suspension and wheel physics remain unaffected."
+      ]
+    }
+  },
+  "scope": "These observations confirm the tested Astero candidates and the bounded donor-identity authoring workflow; they do not prove arbitrary new draw, material, string, collision topology or EXE slot construction."
+}

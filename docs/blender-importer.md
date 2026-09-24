@@ -193,7 +193,7 @@ textures.
 - Vehicle DX only; Course DX is outside R2.
 - No topology-changing serializer, normal/UV/material writer, bounds updater,
   DXT Blender export, or automatic game replacement.
-- Positions-only output is experimental until the human runtime gate passes.
+- At this R2 stage, positions-only output still awaited human runtime testing. The later R3 test passed; see format-status.md.
 - No exact runtime multi-texture or alpha semantics.
 - Opaque trailing sections are classified and hashed, not embedded in the
   `.blend`.
@@ -231,7 +231,7 @@ separate project/staging paths. See vehicle-authoring.md and texture-authoring.m
 
 ## R4F authoring extension
 
-The panel lists existing draw IDs/materials, shows draw IDs on selected faces, and assigns selected faces to an existing draw. A distinct **Export DX - Topology Changing (Experimental)** command previews source/compiled counts and splits. It requires explicit triangulation and complete source-space normal, color and UV data; it refuses missing or ambiguous draw membership. Generated provenance remains tooling metadata only. The output render core is rebuilt and collision bytes remain untouched. See docs/topology-authoring.md. The F1 Astero car.dx topology output was confirmed by human runtime testing; R4G complete/wheel and expanded-bounds cases await their own tests.
+The panel lists existing draw IDs/materials, shows draw IDs on selected faces, and assigns selected faces to an existing draw. A distinct **Export DX - Topology Changing (Experimental)** command previews source/compiled counts and splits. It requires explicit triangulation and complete source-space normal, color and UV data; it refuses missing or ambiguous draw membership. Generated provenance remains tooling metadata only. The output render core is rebuilt and collision bytes remain untouched. See docs/topology-authoring.md. The F1 Astero car.dx topology output was confirmed by human runtime testing; R4G B1/P1/W1 subsequently confirmed expanded bounds and complete/wheel topology in their tested contexts.
 
 ## R4G vehicle workflow controls
 
