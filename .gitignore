@@ -16,3 +16,10 @@ DataScene/
 
 dist/
 *.blend
+*.gxm
+*.gxi
+*.gxb
+*.gxp
+*.tga
+*.exe
+*.sma

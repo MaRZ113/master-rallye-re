@@ -168,3 +168,7 @@ See `research/r2_5/findings.md` for legacy consolidation and
 ## MASTER RALLYE VEHICLE SDK v1 — RUNTIME-CONFIRMED BASELINE
 
 R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) were generated under ignored local output and then tested in-game. B1, C1, P1 and W1 each passed original-game testing. The full existing-donor Vehicle SDK v1 baseline is frozen; see research/r4g/runtime-results.md for the separate human evidence. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.
+
+## R-DEMO research branch
+
+Development-era demo asset archaeology is isolated on `research/r-demo-pipeline`. Start with [the pipeline evidence](docs/demo-development-pipeline.md) and [R-DEMO findings](research/r-demo/findings.md). GXI, GXB, GXP, and a conservative GXM prefix reader are documented under `docs/formats/`. First-pass human Trooper 8.4.1 tests confirm live GXM body/presentation/wheel visual roles. Clean DXT regeneration, isolated `$chull` collision, Debug capture and file-access tracing remain the continuation gates; see [runtime evidence and protocols](research/r-demo/runtime/loader-matrix.md).

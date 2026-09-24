@@ -1,0 +1,5662 @@
+{
+  "files": [
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Course/France1/France1.gxm",
+      "size": 11489135,
+      "header_words": [
+        853762,
+        0,
+        262505,
+        121,
+        185751,
+        97824,
+        61917,
+        49278
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Course/Italy1/track01.gxm",
+      "size": 8728347,
+      "header_words": [
+        984834,
+        0,
+        189937,
+        66,
+        142131,
+        89485,
+        47377,
+        34048
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Frontend/Title/circles.gxm",
+      "size": 433317,
+      "header_words": [
+        460546,
+        0,
+        0,
+        0,
+        13824,
+        0,
+        4608,
+        2304
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 165932,
+        "record_count": 4608,
+        "vector_c_offset": 405536,
+        "vector_c_count": 2304,
+        "hierarchy_offset": 433184,
+        "vector_c_bounds": [
+          [
+            -199.37168884277344,
+            164.8955535888672
+          ],
+          [
+            -36.72895431518555,
+            2.1885161913814954e-06
+          ],
+          [
+            16.15554428100586,
+            380.4227600097656
+          ]
+        ],
+        "no_material_record_count": 4608,
+        "no_vector_b_record_count": 4608
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 32,
+        "vector_a_count": 13824,
+        "vector_b_offset": 165920,
+        "vector_b_count": 0,
+        "sentinel_offset": 165920,
+        "remainder_offset": 165932,
+        "vector_b_bounds": []
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Markers/green_marker.gxm",
+      "size": 1571,
+      "header_words": [
+        67330,
+        0,
+        15,
+        0,
+        36,
+        10,
+        12,
+        8
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Markers/purple_marker.gxm",
+      "size": 1571,
+      "header_words": [
+        67330,
+        0,
+        15,
+        0,
+        36,
+        10,
+        12,
+        8
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Markers/red_marker.gxm",
+      "size": 1571,
+      "header_words": [
+        67330,
+        0,
+        15,
+        0,
+        36,
+        10,
+        12,
+        8
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Markers/yellow_marker.gxm",
+      "size": 1571,
+      "header_words": [
+        67330,
+        0,
+        15,
+        0,
+        36,
+        10,
+        12,
+        8
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Misc/Checkpoints/banner.gxm",
+      "size": 6295,
+      "header_words": [
+        132866,
+        0,
+        74,
+        2,
+        138,
+        32,
+        46,
+        36
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Misc/Checkpoints/checkpoint.gxm",
+      "size": 10824,
+      "header_words": [
+        132866,
+        0,
+        200,
+        2,
+        192,
+        84,
+        64,
+        48
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Misc/Sky/cloud1/clouds1.gxm",
+      "size": 20397,
+      "header_words": [
+        67330,
+        0,
+        0,
+        1,
+        588,
+        141,
+        196,
+        108
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 1,
+      "tail_offset": 130,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 8890,
+        "record_count": 196,
+        "vector_c_offset": 19070,
+        "vector_c_count": 108,
+        "hierarchy_offset": 20366,
+        "vector_c_bounds": [
+          [
+            -1000.0,
+            1000.0
+          ],
+          [
+            -984.8078002929688,
+            984.8077392578125
+          ],
+          [
+            0.0,
+            1000.0
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 130,
+        "vector_a_count": 588,
+        "vector_b_offset": 7186,
+        "vector_b_count": 141,
+        "sentinel_offset": 8878,
+        "remainder_offset": 8890,
+        "vector_b_bounds": [
+          [
+            -0.05639493465423584,
+            1.9436050653457642
+          ],
+          [
+            0.003000000026077032,
+            0.9980000257492065
+          ],
+          [
+            -0.22996926307678223,
+            1.0144121646881104
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Misc/Sky/cloud1/layer1.gxm",
+      "size": 18773,
+      "header_words": [
+        67330,
+        0,
+        0,
+        1,
+        540,
+        123,
+        180,
+        108
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 1,
+      "tail_offset": 130,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 8098,
+        "record_count": 180,
+        "vector_c_offset": 17446,
+        "vector_c_count": 108,
+        "hierarchy_offset": 18742,
+        "vector_c_bounds": [
+          [
+            -1000.0,
+            1000.0
+          ],
+          [
+            -984.8078002929688,
+            984.8077392578125
+          ],
+          [
+            0.0,
+            1000.0
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 130,
+        "vector_a_count": 540,
+        "vector_b_offset": 6610,
+        "vector_b_count": 123,
+        "sentinel_offset": 8086,
+        "remainder_offset": 8098,
+        "vector_b_bounds": [
+          [
+            -0.05639493465423584,
+            1.9436050653457642
+          ],
+          [
+            0.0004995167255401611,
+            0.9800000190734863
+          ],
+          [
+            0.9994691014289856,
+            1.0144121646881104
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Misc/Sky/cloud2/clouds2.gxm",
+      "size": 20397,
+      "header_words": [
+        67330,
+        0,
+        0,
+        1,
+        588,
+        141,
+        196,
+        108
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 1,
+      "tail_offset": 130,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 8890,
+        "record_count": 196,
+        "vector_c_offset": 19070,
+        "vector_c_count": 108,
+        "hierarchy_offset": 20366,
+        "vector_c_bounds": [
+          [
+            -1000.0,
+            1000.0
+          ],
+          [
+            -984.8078002929688,
+            984.8077392578125
+          ],
+          [
+            0.0,
+            1000.0
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 130,
+        "vector_a_count": 588,
+        "vector_b_offset": 7186,
+        "vector_b_count": 141,
+        "sentinel_offset": 8878,
+        "remainder_offset": 8890,
+        "vector_b_bounds": [
+          [
+            -0.05639493465423584,
+            1.9436050653457642
+          ],
+          [
+            0.003000000026077032,
+            0.9980000257492065
+          ],
+          [
+            -0.22996926307678223,
+            1.0144121646881104
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Misc/Sky/cloud2/layer2.gxm",
+      "size": 18776,
+      "header_words": [
+        67330,
+        0,
+        0,
+        1,
+        540,
+        123,
+        180,
+        108
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 1,
+      "tail_offset": 133,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 8101,
+        "record_count": 180,
+        "vector_c_offset": 17449,
+        "vector_c_count": 108,
+        "hierarchy_offset": 18745,
+        "vector_c_bounds": [
+          [
+            -1000.0,
+            1000.0
+          ],
+          [
+            -984.8078002929688,
+            984.8077392578125
+          ],
+          [
+            0.0,
+            1000.0
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 133,
+        "vector_a_count": 540,
+        "vector_b_offset": 6613,
+        "vector_b_count": 123,
+        "sentinel_offset": 8089,
+        "remainder_offset": 8101,
+        "vector_b_bounds": [
+          [
+            -0.05639493465423584,
+            1.9436050653457642
+          ],
+          [
+            0.0004995167255401611,
+            0.9800000190734863
+          ],
+          [
+            0.9994691014289856,
+            1.0144121646881104
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Misc/Sky/clouds.gxm",
+      "size": 20394,
+      "header_words": [
+        67330,
+        0,
+        0,
+        1,
+        588,
+        141,
+        196,
+        108
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 1,
+      "tail_offset": 127,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 8887,
+        "record_count": 196,
+        "vector_c_offset": 19067,
+        "vector_c_count": 108,
+        "hierarchy_offset": 20363,
+        "vector_c_bounds": [
+          [
+            -1000.0,
+            1000.0
+          ],
+          [
+            -984.8078002929688,
+            984.8077392578125
+          ],
+          [
+            0.0,
+            1000.0
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 127,
+        "vector_a_count": 588,
+        "vector_b_offset": 7183,
+        "vector_b_count": 141,
+        "sentinel_offset": 8875,
+        "remainder_offset": 8887,
+        "vector_b_bounds": [
+          [
+            -0.05639493465423584,
+            1.9436050653457642
+          ],
+          [
+            0.003000000026077032,
+            0.9800000190734863
+          ],
+          [
+            -0.22996926307678223,
+            1.0144121646881104
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Misc/Sky/layer1.gxm",
+      "size": 18765,
+      "header_words": [
+        67330,
+        0,
+        0,
+        1,
+        540,
+        123,
+        180,
+        108
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 1,
+      "tail_offset": 122,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 8090,
+        "record_count": 180,
+        "vector_c_offset": 17438,
+        "vector_c_count": 108,
+        "hierarchy_offset": 18734,
+        "vector_c_bounds": [
+          [
+            -1000.0,
+            1000.0
+          ],
+          [
+            -984.8078002929688,
+            984.8077392578125
+          ],
+          [
+            0.0,
+            1000.0
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 122,
+        "vector_a_count": 540,
+        "vector_b_offset": 6602,
+        "vector_b_count": 123,
+        "sentinel_offset": 8078,
+        "remainder_offset": 8090,
+        "vector_b_bounds": [
+          [
+            -0.05639493465423584,
+            1.9436050653457642
+          ],
+          [
+            0.0004995167255401611,
+            0.9800000190734863
+          ],
+          [
+            0.9994691014289856,
+            1.0144121646881104
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/bigrock.gxm",
+      "size": 57762,
+      "header_words": [
+        67330,
+        0,
+        1346,
+        1,
+        708,
+        1152,
+        236,
+        122
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/bigrockx2.gxm",
+      "size": 57762,
+      "header_words": [
+        67330,
+        0,
+        1346,
+        1,
+        708,
+        1152,
+        236,
+        122
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/bigrockx4.gxm",
+      "size": 57762,
+      "header_words": [
+        67330,
+        0,
+        1346,
+        1,
+        708,
+        1152,
+        236,
+        122
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/bigrockx8.gxm",
+      "size": 57762,
+      "header_words": [
+        67330,
+        0,
+        1346,
+        1,
+        708,
+        1152,
+        236,
+        122
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/carPointer.gxm",
+      "size": 2611,
+      "header_words": [
+        66306,
+        0,
+        45,
+        0,
+        66,
+        0,
+        22,
+        13
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/Console/console.gxm",
+      "size": 657,
+      "header_words": [
+        132610,
+        0,
+        8,
+        0,
+        12,
+        0,
+        4,
+        8
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/rock.gxm",
+      "size": 57786,
+      "header_words": [
+        67330,
+        0,
+        1346,
+        1,
+        708,
+        1152,
+        236,
+        122
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/Rocksx2.gxm",
+      "size": 57769,
+      "header_words": [
+        67330,
+        0,
+        1346,
+        1,
+        708,
+        1152,
+        236,
+        122
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/Rocksx4.gxm",
+      "size": 57769,
+      "header_words": [
+        67330,
+        0,
+        1346,
+        1,
+        708,
+        1152,
+        236,
+        122
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/Rocksx8.gxm",
+      "size": 57769,
+      "header_words": [
+        67330,
+        0,
+        1346,
+        1,
+        708,
+        1152,
+        236,
+        122
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/multiPlayer/track1/multi.gxm",
+      "size": 923941,
+      "header_words": [
+        66306,
+        0,
+        19398,
+        13,
+        19398,
+        6821,
+        6466,
+        3269
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/ai_tests/valley.gxm",
+      "size": 626347,
+      "header_words": [
+        197890,
+        0,
+        20825,
+        25,
+        9636,
+        2255,
+        3212,
+        1691
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/boinds/track01.gxm",
+      "size": 1629436,
+      "header_words": [
+        657154,
+        0,
+        26750,
+        36,
+        28212,
+        25745,
+        9404,
+        4933
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/collisiontests/crack.gxm",
+      "size": 1029199,
+      "header_words": [
+        394498,
+        0,
+        43035,
+        25,
+        9978,
+        5317,
+        3326,
+        1845
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/collisiontests/crack2.gxm",
+      "size": 1029115,
+      "header_words": [
+        394498,
+        0,
+        43047,
+        25,
+        9978,
+        5329,
+        3326,
+        1810
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/gordonMegane/car.gxm",
+      "size": 196883,
+      "header_words": [
+        131842,
+        0,
+        0,
+        4,
+        5304,
+        3984,
+        1768,
+        1157
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/gordonMegane/wheel.gxm",
+      "size": 10605,
+      "header_words": [
+        66306,
+        0,
+        0,
+        3,
+        324,
+        107,
+        108,
+        67
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/gordonTrack/flatTrack.gxm",
+      "size": 367703,
+      "header_words": [
+        983810,
+        0,
+        20849,
+        25,
+        174,
+        2264,
+        58,
+        51
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/gordonTrack/track.gxm",
+      "size": 699247,
+      "header_words": [
+        983810,
+        0,
+        22643,
+        25,
+        10116,
+        4752,
+        3372,
+        1811
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/gps_test/gps_arrow.gxm",
+      "size": 2834,
+      "header_words": [
+        66818,
+        0,
+        49,
+        0,
+        72,
+        0,
+        24,
+        14
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Test/RussiaTurkey1/RussiaTurkey1.gxm",
+      "size": 8325199,
+      "header_words": [
+        1377538,
+        0,
+        256464,
+        82,
+        115143,
+        69905,
+        38381,
+        31934
+      ],
+      "prefix_kind": "opaque_after_header",
+      "material_count_parsed": 0,
+      "tail_offset": 32,
+      "word_0x10_equals_3x_word_0x18": true
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Copy of Mercedes/car.gxm",
+      "size": 195867,
+      "header_words": [
+        132866,
+        0,
+        0,
+        17,
+        5160,
+        2313,
+        1720,
+        1150
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 17,
+      "tail_offset": 2304,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 91992,
+        "record_count": 1720,
+        "vector_c_offset": 181420,
+        "vector_c_count": 1150,
+        "hierarchy_offset": 195220,
+        "vector_c_bounds": [
+          [
+            -1.1491738557815552,
+            1.1491738557815552
+          ],
+          [
+            -2.08876895904541,
+            2.2102179527282715
+          ],
+          [
+            -0.021518230438232422,
+            1.527069091796875
+          ]
+        ],
+        "no_material_record_count": 88,
+        "no_vector_b_record_count": 88
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2304,
+        "vector_a_count": 5160,
+        "vector_b_offset": 64224,
+        "vector_b_count": 2313,
+        "sentinel_offset": 91980,
+        "remainder_offset": 91992,
+        "vector_b_bounds": [
+          [
+            -3.0447049140930176,
+            4.044704914093018
+          ],
+          [
+            -0.10486842691898346,
+            1.0
+          ],
+          [
+            -2.2035255432128906,
+            2.9017446041107178
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Copy of Mercedes/complete.gxm",
+      "size": 231795,
+      "header_words": [
+        329474,
+        0,
+        0,
+        22,
+        6288,
+        2276,
+        2096,
+        1351
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 3110,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 105890,
+        "record_count": 2096,
+        "vector_c_offset": 214870,
+        "vector_c_count": 1351,
+        "hierarchy_offset": 231082,
+        "vector_c_bounds": [
+          [
+            -1.1491738557815552,
+            1.1491738557815552
+          ],
+          [
+            -2.0802648067474365,
+            2.1870429515838623
+          ],
+          [
+            -0.38457316160202026,
+            1.5131675004959106
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3110,
+        "vector_a_count": 6288,
+        "vector_b_offset": 78566,
+        "vector_b_count": 2276,
+        "sentinel_offset": 105878,
+        "remainder_offset": 105890,
+        "vector_b_bounds": [
+          [
+            -3.0447049140930176,
+            5.830815315246582
+          ],
+          [
+            -0.10486842691898346,
+            1.079420566558838
+          ],
+          [
+            -2.2035255432128906,
+            2.9017446041107178
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Copy of Mercedes/lpha/car.gxm",
+      "size": 187043,
+      "header_words": [
+        132866,
+        0,
+        0,
+        17,
+        4896,
+        2313,
+        1632,
+        1104
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 17,
+      "tail_offset": 1784,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 88304,
+        "record_count": 1632,
+        "vector_c_offset": 173156,
+        "vector_c_count": 1104,
+        "hierarchy_offset": 186404,
+        "vector_c_bounds": [
+          [
+            -1.1491738557815552,
+            1.1491738557815552
+          ],
+          [
+            -2.0802648067474365,
+            2.1870429515838623
+          ],
+          [
+            -0.021406356245279312,
+            1.5131675004959106
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 1784,
+        "vector_a_count": 4896,
+        "vector_b_offset": 60536,
+        "vector_b_count": 2313,
+        "sentinel_offset": 88292,
+        "remainder_offset": 88304,
+        "vector_b_bounds": [
+          [
+            -3.0447049140930176,
+            4.044704914093018
+          ],
+          [
+            -0.10486842691898346,
+            1.0
+          ],
+          [
+            -2.2035255432128906,
+            2.9017446041107178
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Copy of Mercedes/lpha/wheel.gxm",
+      "size": 27002,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 573,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12093,
+        "record_count": 252,
+        "vector_c_offset": 25185,
+        "vector_c_count": 146,
+        "hierarchy_offset": 26937,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 573,
+        "vector_a_count": 756,
+        "vector_b_offset": 9645,
+        "vector_b_count": 203,
+        "sentinel_offset": 12081,
+        "remainder_offset": 12093,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Copy of Mercedes/wheel.gxm",
+      "size": 27267,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 838,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12358,
+        "record_count": 252,
+        "vector_c_offset": 25450,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27202,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 838,
+        "vector_a_count": 756,
+        "vector_b_offset": 9910,
+        "vector_b_count": 203,
+        "sentinel_offset": 12346,
+        "remainder_offset": 12358,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Copy of MercedesAlpha/car.gxm",
+      "size": 187043,
+      "header_words": [
+        132866,
+        0,
+        0,
+        17,
+        4896,
+        2313,
+        1632,
+        1104
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 17,
+      "tail_offset": 1784,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 88304,
+        "record_count": 1632,
+        "vector_c_offset": 173156,
+        "vector_c_count": 1104,
+        "hierarchy_offset": 186404,
+        "vector_c_bounds": [
+          [
+            -1.1491738557815552,
+            1.1491738557815552
+          ],
+          [
+            -2.0802648067474365,
+            2.1870429515838623
+          ],
+          [
+            -0.021406356245279312,
+            1.5131675004959106
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 1784,
+        "vector_a_count": 4896,
+        "vector_b_offset": 60536,
+        "vector_b_count": 2313,
+        "sentinel_offset": 88292,
+        "remainder_offset": 88304,
+        "vector_b_bounds": [
+          [
+            -3.0447049140930176,
+            4.044704914093018
+          ],
+          [
+            -0.10486842691898346,
+            1.0
+          ],
+          [
+            -2.2035255432128906,
+            2.9017446041107178
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Copy of MercedesAlpha/wheel.gxm",
+      "size": 27002,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 573,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12093,
+        "record_count": 252,
+        "vector_c_offset": 25185,
+        "vector_c_count": 146,
+        "hierarchy_offset": 26937,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 573,
+        "vector_a_count": 756,
+        "vector_b_offset": 9645,
+        "vector_b_count": 203,
+        "sentinel_offset": 12081,
+        "remainder_offset": 12093,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Jump/car.gxm",
+      "size": 217595,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5616,
+        2795,
+        1872,
+        1301
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 2904,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 103848,
+        "record_count": 1872,
+        "vector_c_offset": 201180,
+        "vector_c_count": 1301,
+        "hierarchy_offset": 216792,
+        "vector_c_bounds": [
+          [
+            -0.9654351472854614,
+            0.9654351472854614
+          ],
+          [
+            -1.9510056972503662,
+            2.247012138366699
+          ],
+          [
+            -0.2280452996492386,
+            1.3563883304595947
+          ]
+        ],
+        "no_material_record_count": 64,
+        "no_vector_b_record_count": 64
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2904,
+        "vector_a_count": 5616,
+        "vector_b_offset": 70296,
+        "vector_b_count": 2795,
+        "sentinel_offset": 103836,
+        "remainder_offset": 103848,
+        "vector_b_bounds": [
+          [
+            -14.711078643798828,
+            15.711078643798828
+          ],
+          [
+            -0.07942050695419312,
+            1.4843597412109375
+          ],
+          [
+            -0.26270705461502075,
+            1.763373613357544
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Jump/complete.gxm",
+      "size": 255283,
+      "header_words": [
+        329474,
+        0,
+        0,
+        24,
+        6816,
+        2758,
+        2272,
+        1514
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 24,
+      "tail_offset": 3210,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 118110,
+        "record_count": 2272,
+        "vector_c_offset": 236242,
+        "vector_c_count": 1514,
+        "hierarchy_offset": 254410,
+        "vector_c_bounds": [
+          [
+            -0.9654351472854614,
+            0.9654351472854614
+          ],
+          [
+            -1.9282665252685547,
+            2.2182674407958984
+          ],
+          [
+            -0.45360660552978516,
+            1.3476368188858032
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3210,
+        "vector_a_count": 6816,
+        "vector_b_offset": 85002,
+        "vector_b_count": 2758,
+        "sentinel_offset": 118098,
+        "remainder_offset": 118110,
+        "vector_b_bounds": [
+          [
+            -14.711078643798828,
+            15.711078643798828
+          ],
+          [
+            -0.07942050695419312,
+            1.4843597412109375
+          ],
+          [
+            -0.26270705461502075,
+            1.763373613357544
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Jump/wheel.gxm",
+      "size": 27227,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 798,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12318,
+        "record_count": 252,
+        "vector_c_offset": 25410,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27162,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 798,
+        "vector_a_count": 756,
+        "vector_b_offset": 9870,
+        "vector_b_count": 203,
+        "sentinel_offset": 12306,
+        "remainder_offset": 12318,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/JumpAlpha/car.gxm",
+      "size": 211727,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5424,
+        2795,
+        1808,
+        1267
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 3084,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 101724,
+        "record_count": 1808,
+        "vector_c_offset": 195728,
+        "vector_c_count": 1267,
+        "hierarchy_offset": 210932,
+        "vector_c_bounds": [
+          [
+            -0.9654351472854614,
+            0.9654351472854614
+          ],
+          [
+            -1.9282665252685547,
+            2.2182674407958984
+          ],
+          [
+            -0.2280452996492386,
+            1.3476368188858032
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3084,
+        "vector_a_count": 5424,
+        "vector_b_offset": 68172,
+        "vector_b_count": 2795,
+        "sentinel_offset": 101712,
+        "remainder_offset": 101724,
+        "vector_b_bounds": [
+          [
+            -14.711078643798828,
+            15.711078643798828
+          ],
+          [
+            -0.07942050695419312,
+            1.4843597412109375
+          ],
+          [
+            -0.26270705461502075,
+            1.763373613357544
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/JumpAlpha/wheel.gxm",
+      "size": 27277,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 848,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12368,
+        "record_count": 252,
+        "vector_c_offset": 25460,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27212,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 848,
+        "vector_a_count": 756,
+        "vector_b_offset": 9920,
+        "vector_b_count": 203,
+        "sentinel_offset": 12356,
+        "remainder_offset": 12368,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/LandCruiser/car.gxm",
+      "size": 224818,
+      "header_words": [
+        132866,
+        0,
+        0,
+        24,
+        5769,
+        2935,
+        1923,
+        1335
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 24,
+      "tail_offset": 3531,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 107991,
+        "record_count": 1923,
+        "vector_c_offset": 207975,
+        "vector_c_count": 1335,
+        "hierarchy_offset": 223995,
+        "vector_c_bounds": [
+          [
+            -1.0280054807662964,
+            1.0280054807662964
+          ],
+          [
+            -2.118494987487793,
+            2.3898093700408936
+          ],
+          [
+            -0.20602121949195862,
+            1.435349702835083
+          ]
+        ],
+        "no_material_record_count": 68,
+        "no_vector_b_record_count": 68
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3531,
+        "vector_a_count": 5769,
+        "vector_b_offset": 72759,
+        "vector_b_count": 2935,
+        "sentinel_offset": 107979,
+        "remainder_offset": 107991,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.35857099294662476,
+            1.499969482421875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/LandCruiser/complete.gxm",
+      "size": 262480,
+      "header_words": [
+        329474,
+        0,
+        0,
+        28,
+        6957,
+        2898,
+        2319,
+        1546
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 28,
+      "tail_offset": 4194,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 122466,
+        "record_count": 2319,
+        "vector_c_offset": 243042,
+        "vector_c_count": 1546,
+        "hierarchy_offset": 261594,
+        "vector_c_bounds": [
+          [
+            -1.0280054807662964,
+            1.0280054807662964
+          ],
+          [
+            -2.0378153324127197,
+            2.3898093700408936
+          ],
+          [
+            -0.5074542760848999,
+            1.4255058765411377
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 4194,
+        "vector_a_count": 6957,
+        "vector_b_offset": 87678,
+        "vector_b_count": 2898,
+        "sentinel_offset": 122454,
+        "remainder_offset": 122466,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.35857099294662476,
+            1.499969482421875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/LandCruiser/wheel.gxm",
+      "size": 27289,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 860,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12380,
+        "record_count": 252,
+        "vector_c_offset": 25472,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27224,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 860,
+        "vector_a_count": 756,
+        "vector_b_offset": 9932,
+        "vector_b_count": 203,
+        "sentinel_offset": 12368,
+        "remainder_offset": 12380,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/LandCruiserAlpha/car.gxm",
+      "size": 218160,
+      "header_words": [
+        132866,
+        0,
+        0,
+        23,
+        5565,
+        2935,
+        1855,
+        1299
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 23,
+      "tail_offset": 3297,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 105309,
+        "record_count": 1855,
+        "vector_c_offset": 201757,
+        "vector_c_count": 1299,
+        "hierarchy_offset": 217345,
+        "vector_c_bounds": [
+          [
+            -1.0280054807662964,
+            1.0280054807662964
+          ],
+          [
+            -2.0378153324127197,
+            2.3898093700408936
+          ],
+          [
+            -0.20602121949195862,
+            1.4255058765411377
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3297,
+        "vector_a_count": 5565,
+        "vector_b_offset": 70077,
+        "vector_b_count": 2935,
+        "sentinel_offset": 105297,
+        "remainder_offset": 105309,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.35857099294662476,
+            1.499969482421875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/LandCruiserAlpha/wheel.gxm",
+      "size": 27339,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 910,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12430,
+        "record_count": 252,
+        "vector_c_offset": 25522,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27274,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 910,
+        "vector_a_count": 756,
+        "vector_b_offset": 9982,
+        "vector_b_count": 203,
+        "sentinel_offset": 12418,
+        "remainder_offset": 12430,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/megane/car.gxm",
+      "size": 227510,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5970,
+        2707,
+        1990,
+        1365
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 2781,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 106917,
+        "record_count": 1990,
+        "vector_c_offset": 210385,
+        "vector_c_count": 1365,
+        "hierarchy_offset": 226765,
+        "vector_c_bounds": [
+          [
+            -1.1763790845870972,
+            1.1763789653778076
+          ],
+          [
+            -1.9076155424118042,
+            2.264026403427124
+          ],
+          [
+            -0.24559864401817322,
+            1.2440376281738281
+          ]
+        ],
+        "no_material_record_count": 68,
+        "no_vector_b_record_count": 68
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2781,
+        "vector_a_count": 5970,
+        "vector_b_offset": 74421,
+        "vector_b_count": 2707,
+        "sentinel_offset": 106905,
+        "remainder_offset": 106917,
+        "vector_b_bounds": [
+          [
+            -7.6663713455200195,
+            8.66637134552002
+          ],
+          [
+            -0.0027074282988905907,
+            1.0224556922912598
+          ],
+          [
+            -0.4690532684326172,
+            4.709171772003174
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/megane/complete.gxm",
+      "size": 265288,
+      "header_words": [
+        329474,
+        0,
+        0,
+        27,
+        7158,
+        2670,
+        2386,
+        1576
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 27,
+      "tail_offset": 3555,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 121503,
+        "record_count": 2386,
+        "vector_c_offset": 245563,
+        "vector_c_count": 1576,
+        "hierarchy_offset": 264475,
+        "vector_c_bounds": [
+          [
+            -1.1763790845870972,
+            1.1763789653778076
+          ],
+          [
+            -1.874714970588684,
+            2.2550032138824463
+          ],
+          [
+            -0.42313963174819946,
+            1.2440376281738281
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3555,
+        "vector_a_count": 7158,
+        "vector_b_offset": 89451,
+        "vector_b_count": 2670,
+        "sentinel_offset": 121491,
+        "remainder_offset": 121503,
+        "vector_b_bounds": [
+          [
+            -7.6663713455200195,
+            8.66637134552002
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.4690532684326172,
+            4.709171772003174
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/megane/wheel.gxm",
+      "size": 27235,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 806,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12326,
+        "record_count": 252,
+        "vector_c_offset": 25418,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27170,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 806,
+        "vector_a_count": 756,
+        "vector_b_offset": 9878,
+        "vector_b_count": 203,
+        "sentinel_offset": 12314,
+        "remainder_offset": 12326,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/MeganeAlpha/car.gxm",
+      "size": 221149,
+      "header_words": [
+        132866,
+        0,
+        0,
+        21,
+        5766,
+        2707,
+        1922,
+        1329
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 21,
+      "tail_offset": 2844,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 104532,
+        "record_count": 1922,
+        "vector_c_offset": 204464,
+        "vector_c_count": 1329,
+        "hierarchy_offset": 220412,
+        "vector_c_bounds": [
+          [
+            -1.1763790845870972,
+            1.1763789653778076
+          ],
+          [
+            -1.874714970588684,
+            2.2550032138824463
+          ],
+          [
+            -0.24559864401817322,
+            1.2440376281738281
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2844,
+        "vector_a_count": 5766,
+        "vector_b_offset": 72036,
+        "vector_b_count": 2707,
+        "sentinel_offset": 104520,
+        "remainder_offset": 104532,
+        "vector_b_bounds": [
+          [
+            -7.6663713455200195,
+            8.66637134552002
+          ],
+          [
+            -0.0027074282988905907,
+            1.0224556922912598
+          ],
+          [
+            -0.4690532684326172,
+            4.709171772003174
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/MeganeAlpha/wheel.gxm",
+      "size": 27285,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 856,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12376,
+        "record_count": 252,
+        "vector_c_offset": 25468,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27220,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 856,
+        "vector_a_count": 756,
+        "vector_b_offset": 9928,
+        "vector_b_count": 203,
+        "sentinel_offset": 12364,
+        "remainder_offset": 12376,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Mercedes/car.gxm",
+      "size": 224818,
+      "header_words": [
+        132866,
+        0,
+        0,
+        24,
+        5769,
+        2935,
+        1923,
+        1335
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 24,
+      "tail_offset": 3531,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 107991,
+        "record_count": 1923,
+        "vector_c_offset": 207975,
+        "vector_c_count": 1335,
+        "hierarchy_offset": 223995,
+        "vector_c_bounds": [
+          [
+            -1.0280054807662964,
+            1.0280054807662964
+          ],
+          [
+            -2.118494987487793,
+            2.3898093700408936
+          ],
+          [
+            -0.20602121949195862,
+            1.435349702835083
+          ]
+        ],
+        "no_material_record_count": 68,
+        "no_vector_b_record_count": 68
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3531,
+        "vector_a_count": 5769,
+        "vector_b_offset": 72759,
+        "vector_b_count": 2935,
+        "sentinel_offset": 107979,
+        "remainder_offset": 107991,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.35857099294662476,
+            1.499969482421875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Mercedes/complete.gxm",
+      "size": 262480,
+      "header_words": [
+        329474,
+        0,
+        0,
+        28,
+        6957,
+        2898,
+        2319,
+        1546
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 28,
+      "tail_offset": 4194,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 122466,
+        "record_count": 2319,
+        "vector_c_offset": 243042,
+        "vector_c_count": 1546,
+        "hierarchy_offset": 261594,
+        "vector_c_bounds": [
+          [
+            -1.0280054807662964,
+            1.0280054807662964
+          ],
+          [
+            -2.0378153324127197,
+            2.3898093700408936
+          ],
+          [
+            -0.5074542760848999,
+            1.4255058765411377
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 4194,
+        "vector_a_count": 6957,
+        "vector_b_offset": 87678,
+        "vector_b_count": 2898,
+        "sentinel_offset": 122454,
+        "remainder_offset": 122466,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.35857099294662476,
+            1.499969482421875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Mercedes/lpha/car.gxm",
+      "size": 218160,
+      "header_words": [
+        132866,
+        0,
+        0,
+        23,
+        5565,
+        2935,
+        1855,
+        1299
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 23,
+      "tail_offset": 3297,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 105309,
+        "record_count": 1855,
+        "vector_c_offset": 201757,
+        "vector_c_count": 1299,
+        "hierarchy_offset": 217345,
+        "vector_c_bounds": [
+          [
+            -1.0280054807662964,
+            1.0280054807662964
+          ],
+          [
+            -2.0378153324127197,
+            2.3898093700408936
+          ],
+          [
+            -0.20602121949195862,
+            1.4255058765411377
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3297,
+        "vector_a_count": 5565,
+        "vector_b_offset": 70077,
+        "vector_b_count": 2935,
+        "sentinel_offset": 105297,
+        "remainder_offset": 105309,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.35857099294662476,
+            1.499969482421875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Mercedes/lpha/wheel.gxm",
+      "size": 27339,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 910,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12430,
+        "record_count": 252,
+        "vector_c_offset": 25522,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27274,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 910,
+        "vector_a_count": 756,
+        "vector_b_offset": 9982,
+        "vector_b_count": 203,
+        "sentinel_offset": 12418,
+        "remainder_offset": 12430,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Mercedes/wheel.gxm",
+      "size": 27289,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 860,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12380,
+        "record_count": 252,
+        "vector_c_offset": 25472,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27224,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 860,
+        "vector_a_count": 756,
+        "vector_b_offset": 9932,
+        "vector_b_count": 203,
+        "sentinel_offset": 12368,
+        "remainder_offset": 12380,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/MercedesAlpha/car.gxm",
+      "size": 218160,
+      "header_words": [
+        132866,
+        0,
+        0,
+        23,
+        5565,
+        2935,
+        1855,
+        1299
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 23,
+      "tail_offset": 3297,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 105309,
+        "record_count": 1855,
+        "vector_c_offset": 201757,
+        "vector_c_count": 1299,
+        "hierarchy_offset": 217345,
+        "vector_c_bounds": [
+          [
+            -1.0280054807662964,
+            1.0280054807662964
+          ],
+          [
+            -2.0378153324127197,
+            2.3898093700408936
+          ],
+          [
+            -0.20602121949195862,
+            1.4255058765411377
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3297,
+        "vector_a_count": 5565,
+        "vector_b_offset": 70077,
+        "vector_b_count": 2935,
+        "sentinel_offset": 105297,
+        "remainder_offset": 105309,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.35857099294662476,
+            1.499969482421875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/MercedesAlpha/wheel.gxm",
+      "size": 27339,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 910,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12430,
+        "record_count": 252,
+        "vector_c_offset": 25522,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27274,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 910,
+        "vector_a_count": 756,
+        "vector_b_offset": 9982,
+        "vector_b_count": 203,
+        "sentinel_offset": 12418,
+        "remainder_offset": 12430,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Trooper/car.gxm",
+      "size": 222749,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5937,
+        2376,
+        1979,
+        1353
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 3117,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 102885,
+        "record_count": 1979,
+        "vector_c_offset": 205781,
+        "vector_c_count": 1353,
+        "hierarchy_offset": 222017,
+        "vector_c_bounds": [
+          [
+            -1.0221880674362183,
+            1.0221880674362183
+          ],
+          [
+            -2.11833119392395,
+            2.4824628829956055
+          ],
+          [
+            -0.13421539962291718,
+            1.5566637516021729
+          ]
+        ],
+        "no_material_record_count": 68,
+        "no_vector_b_record_count": 68
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3117,
+        "vector_a_count": 5937,
+        "vector_b_offset": 74361,
+        "vector_b_count": 2376,
+        "sentinel_offset": 102873,
+        "remainder_offset": 102885,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            2.9985013008117676
+          ],
+          [
+            -0.35056352615356445,
+            1.174172282218933
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Trooper/complete.gxm",
+      "size": 260215,
+      "header_words": [
+        329474,
+        0,
+        0,
+        25,
+        7125,
+        2339,
+        2375,
+        1564
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 25,
+      "tail_offset": 3580,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 117160,
+        "record_count": 2375,
+        "vector_c_offset": 240648,
+        "vector_c_count": 1564,
+        "hierarchy_offset": 259416,
+        "vector_c_bounds": [
+          [
+            -1.0221880674362183,
+            1.0221880674362183
+          ],
+          [
+            -2.084911584854126,
+            2.465073347091675
+          ],
+          [
+            -0.38457316160202026,
+            1.5317445993423462
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3580,
+        "vector_a_count": 7125,
+        "vector_b_offset": 89080,
+        "vector_b_count": 2339,
+        "sentinel_offset": 117148,
+        "remainder_offset": 117160,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            2.9985013008117676
+          ],
+          [
+            -0.35056352615356445,
+            1.174172282218933
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Trooper/TrooperFrontEnd.gxm",
+      "size": 260215,
+      "header_words": [
+        329474,
+        0,
+        0,
+        25,
+        7125,
+        2339,
+        2375,
+        1564
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 25,
+      "tail_offset": 3580,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 117160,
+        "record_count": 2375,
+        "vector_c_offset": 240648,
+        "vector_c_count": 1564,
+        "hierarchy_offset": 259416,
+        "vector_c_bounds": [
+          [
+            -1.0221880674362183,
+            1.0221880674362183
+          ],
+          [
+            -2.084911584854126,
+            2.465073347091675
+          ],
+          [
+            -0.38457316160202026,
+            1.5317445993423462
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3580,
+        "vector_a_count": 7125,
+        "vector_b_offset": 89080,
+        "vector_b_count": 2339,
+        "sentinel_offset": 117148,
+        "remainder_offset": 117160,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            2.9985013008117676
+          ],
+          [
+            -0.35056352615356445,
+            1.174172282218933
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/Trooper/wheel.gxm",
+      "size": 27234,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 805,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12325,
+        "record_count": 252,
+        "vector_c_offset": 25417,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27169,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 805,
+        "vector_a_count": 756,
+        "vector_b_offset": 9877,
+        "vector_b_count": 203,
+        "sentinel_offset": 12313,
+        "remainder_offset": 12325,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/TrooperAlpha/car.gxm",
+      "size": 216515,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5733,
+        2376,
+        1911,
+        1317
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 3307,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 100627,
+        "record_count": 1911,
+        "vector_c_offset": 199987,
+        "vector_c_count": 1317,
+        "hierarchy_offset": 215791,
+        "vector_c_bounds": [
+          [
+            -1.0221880674362183,
+            1.0221880674362183
+          ],
+          [
+            -2.084911584854126,
+            2.465073347091675
+          ],
+          [
+            -0.13421539962291718,
+            1.5317445993423462
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3307,
+        "vector_a_count": 5733,
+        "vector_b_offset": 72103,
+        "vector_b_count": 2376,
+        "sentinel_offset": 100615,
+        "remainder_offset": 100627,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            2.9985013008117676
+          ],
+          [
+            -0.35056352615356445,
+            1.174172282218933
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/TrooperAlpha/wheel.gxm",
+      "size": 27284,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 855,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12375,
+        "record_count": 252,
+        "vector_c_offset": 25467,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27219,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 855,
+        "vector_a_count": 756,
+        "vector_b_offset": 9927,
+        "vector_b_count": 203,
+        "sentinel_offset": 12363,
+        "remainder_offset": 12375,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/WildCat/car.gxm",
+      "size": 196695,
+      "header_words": [
+        132866,
+        0,
+        0,
+        18,
+        5073,
+        2541,
+        1691,
+        1198
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 18,
+      "tail_offset": 2306,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 93686,
+        "record_count": 1691,
+        "vector_c_offset": 181606,
+        "vector_c_count": 1198,
+        "hierarchy_offset": 195982,
+        "vector_c_bounds": [
+          [
+            -1.0280998945236206,
+            1.0280998945236206
+          ],
+          [
+            -1.8648228645324707,
+            2.056762218475342
+          ],
+          [
+            -0.24030175805091858,
+            1.4463351964950562
+          ]
+        ],
+        "no_material_record_count": 40,
+        "no_vector_b_record_count": 40
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2306,
+        "vector_a_count": 5073,
+        "vector_b_offset": 63182,
+        "vector_b_count": 2541,
+        "sentinel_offset": 93674,
+        "remainder_offset": 93686,
+        "vector_b_bounds": [
+          [
+            -1.0584408044815063,
+            2.058441162109375
+          ],
+          [
+            -0.00020018033683300018,
+            1.0249558687210083
+          ],
+          [
+            -0.26270705461502075,
+            1.244363784790039
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/WildCat/complete.gxm",
+      "size": 237112,
+      "header_words": [
+        329474,
+        0,
+        0,
+        23,
+        6345,
+        2504,
+        2115,
+        1423
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 23,
+      "tail_offset": 3088,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 109288,
+        "record_count": 2115,
+        "vector_c_offset": 219256,
+        "vector_c_count": 1423,
+        "hierarchy_offset": 236332,
+        "vector_c_bounds": [
+          [
+            -1.0280998945236206,
+            1.0280998945236206
+          ],
+          [
+            -1.8215137720108032,
+            1.9985971450805664
+          ],
+          [
+            -0.4801090955734253,
+            1.4463351964950562
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3088,
+        "vector_a_count": 6345,
+        "vector_b_offset": 79228,
+        "vector_b_count": 2504,
+        "sentinel_offset": 109276,
+        "remainder_offset": 109288,
+        "vector_b_bounds": [
+          [
+            -1.0584408044815063,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.26270705461502075,
+            1.244363784790039
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/WildCat/wheel.gxm",
+      "size": 27243,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 814,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12334,
+        "record_count": 252,
+        "vector_c_offset": 25426,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27178,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 814,
+        "vector_a_count": 756,
+        "vector_b_offset": 9886,
+        "vector_b_count": 203,
+        "sentinel_offset": 12322,
+        "remainder_offset": 12334,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/WildcatAlpha/car.gxm",
+      "size": 192868,
+      "header_words": [
+        132866,
+        0,
+        0,
+        17,
+        4953,
+        2541,
+        1651,
+        1176
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 17,
+      "tail_offset": 2271,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 92211,
+        "record_count": 1651,
+        "vector_c_offset": 178051,
+        "vector_c_count": 1176,
+        "hierarchy_offset": 192163,
+        "vector_c_bounds": [
+          [
+            -1.0280998945236206,
+            1.0280998945236206
+          ],
+          [
+            -1.8215137720108032,
+            1.9985971450805664
+          ],
+          [
+            -0.24030175805091858,
+            1.4463351964950562
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2271,
+        "vector_a_count": 4953,
+        "vector_b_offset": 61707,
+        "vector_b_count": 2541,
+        "sentinel_offset": 92199,
+        "remainder_offset": 92211,
+        "vector_b_bounds": [
+          [
+            -1.0584408044815063,
+            2.058441162109375
+          ],
+          [
+            -0.00020018033683300018,
+            1.0249558687210083
+          ],
+          [
+            -0.26270705461502075,
+            1.244363784790039
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-8.4.1",
+      "relative_path": "DataGx/Vehicles/WildcatAlpha/wheel.gxm",
+      "size": 27293,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 864,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12384,
+        "record_count": 252,
+        "vector_c_offset": 25476,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27228,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 864,
+        "vector_a_count": 756,
+        "vector_b_offset": 9936,
+        "vector_b_count": 203,
+        "sentinel_offset": 12372,
+        "remainder_offset": 12384,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Forester/car.gxm",
+      "size": 219728,
+      "header_words": [
+        132866,
+        0,
+        0,
+        15,
+        5796,
+        2629,
+        1932,
+        1292
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 15,
+      "tail_offset": 1988,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 103100,
+        "record_count": 1932,
+        "vector_c_offset": 203552,
+        "vector_c_count": 1292,
+        "hierarchy_offset": 219056,
+        "vector_c_bounds": [
+          [
+            -1.1405565738677979,
+            1.1405565738677979
+          ],
+          [
+            -2.288904905319214,
+            2.4591166973114014
+          ],
+          [
+            -0.12890398502349854,
+            1.4394054412841797
+          ]
+        ],
+        "no_material_record_count": 68,
+        "no_vector_b_record_count": 68
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 1988,
+        "vector_a_count": 5796,
+        "vector_b_offset": 71540,
+        "vector_b_count": 2629,
+        "sentinel_offset": 103088,
+        "remainder_offset": 103100,
+        "vector_b_bounds": [
+          [
+            -2.9015984535217285,
+            3.9015979766845703
+          ],
+          [
+            -0.10486842691898346,
+            1.0134648084640503
+          ],
+          [
+            -2.2035255432128906,
+            1.007721185684204
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Forester/comlplete.gxm",
+      "size": 257541,
+      "header_words": [
+        329474,
+        0,
+        0,
+        20,
+        6984,
+        2592,
+        2328,
+        1503
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 20,
+      "tail_offset": 2799,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 117723,
+        "record_count": 2328,
+        "vector_c_offset": 238767,
+        "vector_c_count": 1503,
+        "hierarchy_offset": 256803,
+        "vector_c_bounds": [
+          [
+            -1.1405565738677979,
+            1.1405565738677979
+          ],
+          [
+            -2.2575488090515137,
+            2.434892416000366
+          ],
+          [
+            -0.41866788268089294,
+            1.4073646068572998
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2799,
+        "vector_a_count": 6984,
+        "vector_b_offset": 86607,
+        "vector_b_count": 2592,
+        "sentinel_offset": 117711,
+        "remainder_offset": 117723,
+        "vector_b_bounds": [
+          [
+            -2.9015984535217285,
+            5.830815315246582
+          ],
+          [
+            -0.10486842691898346,
+            1.079420566558838
+          ],
+          [
+            -2.2035255432128906,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Forester/wheel.gxm",
+      "size": 27272,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 843,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12363,
+        "record_count": 252,
+        "vector_c_offset": 25455,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27207,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 843,
+        "vector_a_count": 756,
+        "vector_b_offset": 9915,
+        "vector_b_count": 203,
+        "sentinel_offset": 12351,
+        "remainder_offset": 12363,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/ForesterAlpha/car.gxm",
+      "size": 213824,
+      "header_words": [
+        132866,
+        0,
+        0,
+        15,
+        5592,
+        2663,
+        1864,
+        1256
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 15,
+      "tail_offset": 2100,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 101172,
+        "record_count": 1864,
+        "vector_c_offset": 198088,
+        "vector_c_count": 1256,
+        "hierarchy_offset": 213160,
+        "vector_c_bounds": [
+          [
+            -1.1405565738677979,
+            1.1405565738677979
+          ],
+          [
+            -2.2575488090515137,
+            2.434892416000366
+          ],
+          [
+            -0.12890398502349854,
+            1.4073646068572998
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2100,
+        "vector_a_count": 5592,
+        "vector_b_offset": 69204,
+        "vector_b_count": 2663,
+        "sentinel_offset": 101160,
+        "remainder_offset": 101172,
+        "vector_b_bounds": [
+          [
+            -2.9015984535217285,
+            3.9015979766845703
+          ],
+          [
+            -0.10486842691898346,
+            1.0134648084640503
+          ],
+          [
+            -2.2035255432128906,
+            1.007721185684204
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/ForesterAlpha/wheel.gxm",
+      "size": 27322,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 893,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12413,
+        "record_count": 252,
+        "vector_c_offset": 25505,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27257,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 893,
+        "vector_a_count": 756,
+        "vector_b_offset": 9965,
+        "vector_b_count": 203,
+        "sentinel_offset": 12401,
+        "remainder_offset": 12413,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Jump/car.gxm",
+      "size": 217594,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5616,
+        2795,
+        1872,
+        1301
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 2907,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 103851,
+        "record_count": 1872,
+        "vector_c_offset": 201183,
+        "vector_c_count": 1301,
+        "hierarchy_offset": 216795,
+        "vector_c_bounds": [
+          [
+            -0.9654351472854614,
+            0.9654351472854614
+          ],
+          [
+            -1.9510056972503662,
+            2.247012138366699
+          ],
+          [
+            -0.2280452996492386,
+            1.3563883304595947
+          ]
+        ],
+        "no_material_record_count": 64,
+        "no_vector_b_record_count": 64
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2907,
+        "vector_a_count": 5616,
+        "vector_b_offset": 70299,
+        "vector_b_count": 2795,
+        "sentinel_offset": 103839,
+        "remainder_offset": 103851,
+        "vector_b_bounds": [
+          [
+            -14.711078643798828,
+            15.711078643798828
+          ],
+          [
+            -0.07942050695419312,
+            1.4843597412109375
+          ],
+          [
+            -0.26270705461502075,
+            1.763373613357544
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Jump/complete.gxm",
+      "size": 255282,
+      "header_words": [
+        329474,
+        0,
+        0,
+        24,
+        6816,
+        2758,
+        2272,
+        1514
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 24,
+      "tail_offset": 3213,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 118113,
+        "record_count": 2272,
+        "vector_c_offset": 236245,
+        "vector_c_count": 1514,
+        "hierarchy_offset": 254413,
+        "vector_c_bounds": [
+          [
+            -0.9654351472854614,
+            0.9654351472854614
+          ],
+          [
+            -1.9282665252685547,
+            2.2182674407958984
+          ],
+          [
+            -0.45360660552978516,
+            1.3476368188858032
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3213,
+        "vector_a_count": 6816,
+        "vector_b_offset": 85005,
+        "vector_b_count": 2758,
+        "sentinel_offset": 118101,
+        "remainder_offset": 118113,
+        "vector_b_bounds": [
+          [
+            -14.711078643798828,
+            15.711078643798828
+          ],
+          [
+            -0.07942050695419312,
+            1.4843597412109375
+          ],
+          [
+            -0.26270705461502075,
+            1.763373613357544
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Jump/wheel.gxm",
+      "size": 27227,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 798,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12318,
+        "record_count": 252,
+        "vector_c_offset": 25410,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27162,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 798,
+        "vector_a_count": 756,
+        "vector_b_offset": 9870,
+        "vector_b_count": 203,
+        "sentinel_offset": 12306,
+        "remainder_offset": 12318,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/JumpAlpha/car.gxm",
+      "size": 211727,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5424,
+        2795,
+        1808,
+        1267
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 3084,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 101724,
+        "record_count": 1808,
+        "vector_c_offset": 195728,
+        "vector_c_count": 1267,
+        "hierarchy_offset": 210932,
+        "vector_c_bounds": [
+          [
+            -0.9654351472854614,
+            0.9654351472854614
+          ],
+          [
+            -1.9282665252685547,
+            2.2182674407958984
+          ],
+          [
+            -0.2280452996492386,
+            1.3476368188858032
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3084,
+        "vector_a_count": 5424,
+        "vector_b_offset": 68172,
+        "vector_b_count": 2795,
+        "sentinel_offset": 101712,
+        "remainder_offset": 101724,
+        "vector_b_bounds": [
+          [
+            -14.711078643798828,
+            15.711078643798828
+          ],
+          [
+            -0.07942050695419312,
+            1.4843597412109375
+          ],
+          [
+            -0.26270705461502075,
+            1.763373613357544
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/JumpAlpha/wheel.gxm",
+      "size": 27277,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 848,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12368,
+        "record_count": 252,
+        "vector_c_offset": 25460,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27212,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 848,
+        "vector_a_count": 756,
+        "vector_b_offset": 9920,
+        "vector_b_count": 203,
+        "sentinel_offset": 12356,
+        "remainder_offset": 12368,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/NewRav/car.gxm",
+      "size": 242376,
+      "header_words": [
+        67330,
+        0,
+        0,
+        23,
+        6291,
+        2932,
+        2097,
+        1533
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 23,
+      "tail_offset": 3135,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 113823,
+        "record_count": 2097,
+        "vector_c_offset": 222855,
+        "vector_c_count": 1533,
+        "hierarchy_offset": 241251,
+        "vector_c_bounds": [
+          [
+            -0.9713079929351807,
+            0.9713079929351807
+          ],
+          [
+            -1.9327192306518555,
+            2.128965377807617
+          ],
+          [
+            -0.0981069803237915,
+            1.4192298650741577
+          ]
+        ],
+        "no_material_record_count": 68,
+        "no_vector_b_record_count": 68
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3135,
+        "vector_a_count": 6291,
+        "vector_b_offset": 78627,
+        "vector_b_count": 2932,
+        "sentinel_offset": 113811,
+        "remainder_offset": 113823,
+        "vector_b_bounds": [
+          [
+            -3.406094551086426,
+            5.830815315246582
+          ],
+          [
+            -0.5539460182189941,
+            1.553945779800415
+          ],
+          [
+            -11.69501781463623,
+            5.370597839355469
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/NewRav/complete.gxm",
+      "size": 279619,
+      "header_words": [
+        329474,
+        0,
+        0,
+        28,
+        7479,
+        2851,
+        2493,
+        1744
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 28,
+      "tail_offset": 3900,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 127872,
+        "record_count": 2493,
+        "vector_c_offset": 257496,
+        "vector_c_count": 1744,
+        "hierarchy_offset": 278424,
+        "vector_c_bounds": [
+          [
+            -0.9713079929351807,
+            0.9713079929351807
+          ],
+          [
+            -1.9153238534927368,
+            2.0943386554718018
+          ],
+          [
+            -0.38457316160202026,
+            1.4013097286224365
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3900,
+        "vector_a_count": 7479,
+        "vector_b_offset": 93648,
+        "vector_b_count": 2851,
+        "sentinel_offset": 127860,
+        "remainder_offset": 127872,
+        "vector_b_bounds": [
+          [
+            -3.406094551086426,
+            5.830815315246582
+          ],
+          [
+            -0.5539460182189941,
+            1.553945779800415
+          ],
+          [
+            -11.69501781463623,
+            5.370597839355469
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/NewRav/wheel.gxm",
+      "size": 27226,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 797,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12317,
+        "record_count": 252,
+        "vector_c_offset": 25409,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27161,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 797,
+        "vector_a_count": 756,
+        "vector_b_offset": 9869,
+        "vector_b_count": 203,
+        "sentinel_offset": 12305,
+        "remainder_offset": 12317,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/newRavAlpha/car.gxm",
+      "size": 236147,
+      "header_words": [
+        67330,
+        0,
+        0,
+        23,
+        6087,
+        2932,
+        2029,
+        1497
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 23,
+      "tail_offset": 3330,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 111570,
+        "record_count": 2029,
+        "vector_c_offset": 217066,
+        "vector_c_count": 1497,
+        "hierarchy_offset": 235030,
+        "vector_c_bounds": [
+          [
+            -0.9713079929351807,
+            0.9713079929351807
+          ],
+          [
+            -1.9153238534927368,
+            2.0943386554718018
+          ],
+          [
+            -0.0981069803237915,
+            1.4013097286224365
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3330,
+        "vector_a_count": 6087,
+        "vector_b_offset": 76374,
+        "vector_b_count": 2932,
+        "sentinel_offset": 111558,
+        "remainder_offset": 111570,
+        "vector_b_bounds": [
+          [
+            -3.406094551086426,
+            5.830815315246582
+          ],
+          [
+            -0.5539460182189941,
+            1.553945779800415
+          ],
+          [
+            -11.69501781463623,
+            5.370597839355469
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/newRavAlpha/wheel.gxm",
+      "size": 27276,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 847,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12367,
+        "record_count": 252,
+        "vector_c_offset": 25459,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27211,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 847,
+        "vector_a_count": 756,
+        "vector_b_offset": 9919,
+        "vector_b_count": 203,
+        "sentinel_offset": 12355,
+        "remainder_offset": 12367,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Rav4/car.gxm",
+      "size": 223433,
+      "header_words": [
+        132866,
+        0,
+        0,
+        25,
+        5910,
+        2385,
+        1970,
+        1421
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 25,
+      "tail_offset": 3409,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 102961,
+        "record_count": 1970,
+        "vector_c_offset": 205389,
+        "vector_c_count": 1421,
+        "hierarchy_offset": 222441,
+        "vector_c_bounds": [
+          [
+            -0.9713079929351807,
+            0.9713079929351807
+          ],
+          [
+            -2.118494987487793,
+            2.1620616912841797
+          ],
+          [
+            -0.09058111160993576,
+            1.435349702835083
+          ]
+        ],
+        "no_material_record_count": 68,
+        "no_vector_b_record_count": 68
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3409,
+        "vector_a_count": 5910,
+        "vector_b_offset": 74329,
+        "vector_b_count": 2385,
+        "sentinel_offset": 102949,
+        "remainder_offset": 102961,
+        "vector_b_bounds": [
+          [
+            -5.1353840827941895,
+            6.135383605957031
+          ],
+          [
+            -0.10486842691898346,
+            1.079420566558838
+          ],
+          [
+            -11.69501781463623,
+            1.5531861782073975
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Rav4/complete.gxm",
+      "size": 261179,
+      "header_words": [
+        329474,
+        0,
+        0,
+        30,
+        7098,
+        2348,
+        2366,
+        1632
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 30,
+      "tail_offset": 4149,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 117513,
+        "record_count": 2366,
+        "vector_c_offset": 240533,
+        "vector_c_count": 1632,
+        "hierarchy_offset": 260117,
+        "vector_c_bounds": [
+          [
+            -0.9713079929351807,
+            0.9713079929351807
+          ],
+          [
+            -2.0566606521606445,
+            2.1620616912841797
+          ],
+          [
+            -0.38457316160202026,
+            1.4150125980377197
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 4149,
+        "vector_a_count": 7098,
+        "vector_b_offset": 89325,
+        "vector_b_count": 2348,
+        "sentinel_offset": 117501,
+        "remainder_offset": 117513,
+        "vector_b_bounds": [
+          [
+            -5.1353840827941895,
+            6.135383605957031
+          ],
+          [
+            -0.10486842691898346,
+            1.079420566558838
+          ],
+          [
+            -11.69501781463623,
+            1.5531861782073975
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Rav4/wheel.gxm",
+      "size": 27201,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 772,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12292,
+        "record_count": 252,
+        "vector_c_offset": 25384,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27136,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 772,
+        "vector_a_count": 756,
+        "vector_b_offset": 9844,
+        "vector_b_count": 203,
+        "sentinel_offset": 12280,
+        "remainder_offset": 12292,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/rav4Alpha/car.gxm",
+      "size": 216844,
+      "header_words": [
+        132866,
+        0,
+        0,
+        24,
+        5706,
+        2385,
+        1902,
+        1385
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 24,
+      "tail_offset": 3244,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 100348,
+        "record_count": 1902,
+        "vector_c_offset": 199240,
+        "vector_c_count": 1385,
+        "hierarchy_offset": 215860,
+        "vector_c_bounds": [
+          [
+            -0.9713079929351807,
+            0.9713079929351807
+          ],
+          [
+            -2.0566606521606445,
+            2.1620616912841797
+          ],
+          [
+            -0.09058111160993576,
+            1.4150125980377197
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3244,
+        "vector_a_count": 5706,
+        "vector_b_offset": 71716,
+        "vector_b_count": 2385,
+        "sentinel_offset": 100336,
+        "remainder_offset": 100348,
+        "vector_b_bounds": [
+          [
+            -5.1353840827941895,
+            6.135383605957031
+          ],
+          [
+            -0.10486842691898346,
+            1.079420566558838
+          ],
+          [
+            -11.69501781463623,
+            1.5531861782073975
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/rav4Alpha/wheel.gxm",
+      "size": 27251,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 822,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12342,
+        "record_count": 252,
+        "vector_c_offset": 25434,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27186,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 822,
+        "vector_a_count": 756,
+        "vector_b_offset": 9894,
+        "vector_b_count": 203,
+        "sentinel_offset": 12330,
+        "remainder_offset": 12342,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Tata/car.gxm",
+      "size": 262481,
+      "header_words": [
+        1050370,
+        0,
+        0,
+        78,
+        6015,
+        4665,
+        2005,
+        1599
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 78,
+      "tail_offset": 9909,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 138081,
+        "record_count": 2005,
+        "vector_c_offset": 242329,
+        "vector_c_count": 1599,
+        "hierarchy_offset": 261517,
+        "vector_c_bounds": [
+          [
+            -1.0792701244354248,
+            1.0811736583709717
+          ],
+          [
+            -2.2607662677764893,
+            2.673692226409912
+          ],
+          [
+            -0.005523522850126028,
+            1.6997612714767456
+          ]
+        ],
+        "no_material_record_count": 32,
+        "no_vector_b_record_count": 32
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 9909,
+        "vector_a_count": 6015,
+        "vector_b_offset": 82089,
+        "vector_b_count": 4665,
+        "sentinel_offset": 138069,
+        "remainder_offset": 138081,
+        "vector_b_bounds": [
+          [
+            -0.9913570880889893,
+            2.8906850814819336
+          ],
+          [
+            -0.10486842691898346,
+            1.0371782779693604
+          ],
+          [
+            -338.9158020019531,
+            339.92352294921875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Tata/complete.gxm",
+      "size": 309448,
+      "header_words": [
+        591618,
+        0,
+        0,
+        83,
+        7413,
+        4826,
+        2471,
+        1863
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 83,
+      "tail_offset": 10673,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 157553,
+        "record_count": 2471,
+        "vector_c_offset": 286033,
+        "vector_c_count": 1863,
+        "hierarchy_offset": 308389,
+        "vector_c_bounds": [
+          [
+            -1.0229995250701904,
+            1.0811736583709717
+          ],
+          [
+            -2.224487543106079,
+            2.6176059246063232
+          ],
+          [
+            -0.38145682215690613,
+            1.5669012069702148
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 10673,
+        "vector_a_count": 7413,
+        "vector_b_offset": 99629,
+        "vector_b_count": 4826,
+        "sentinel_offset": 157541,
+        "remainder_offset": 157553,
+        "vector_b_bounds": [
+          [
+            -0.9913570880889893,
+            5.830815315246582
+          ],
+          [
+            -0.10486842691898346,
+            1.079420566558838
+          ],
+          [
+            -338.9158020019531,
+            339.92352294921875
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Tata/wheel.gxm",
+      "size": 27011,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        185,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 796,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12100,
+        "record_count": 252,
+        "vector_c_offset": 25192,
+        "vector_c_count": 146,
+        "hierarchy_offset": 26944,
+        "vector_c_bounds": [
+          [
+            -0.11689863353967667,
+            0.21718229353427887
+          ],
+          [
+            -0.4533860385417938,
+            0.4369671046733856
+          ],
+          [
+            -0.4309142827987671,
+            0.44591233134269714
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 796,
+        "vector_a_count": 756,
+        "vector_b_offset": 9868,
+        "vector_b_count": 185,
+        "sentinel_offset": 12088,
+        "remainder_offset": 12100,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Trooper/car.gxm",
+      "size": 222754,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5937,
+        2376,
+        1979,
+        1353
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 3122,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 102890,
+        "record_count": 1979,
+        "vector_c_offset": 205786,
+        "vector_c_count": 1353,
+        "hierarchy_offset": 222022,
+        "vector_c_bounds": [
+          [
+            -1.0221880674362183,
+            1.0221880674362183
+          ],
+          [
+            -2.11833119392395,
+            2.4824628829956055
+          ],
+          [
+            -0.13421539962291718,
+            1.5566637516021729
+          ]
+        ],
+        "no_material_record_count": 68,
+        "no_vector_b_record_count": 68
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3122,
+        "vector_a_count": 5937,
+        "vector_b_offset": 74366,
+        "vector_b_count": 2376,
+        "sentinel_offset": 102878,
+        "remainder_offset": 102890,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            2.9985013008117676
+          ],
+          [
+            -0.35056352615356445,
+            1.174172282218933
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Trooper/complete.gxm",
+      "size": 260220,
+      "header_words": [
+        329474,
+        0,
+        0,
+        25,
+        7125,
+        2339,
+        2375,
+        1564
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 25,
+      "tail_offset": 3585,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 117165,
+        "record_count": 2375,
+        "vector_c_offset": 240653,
+        "vector_c_count": 1564,
+        "hierarchy_offset": 259421,
+        "vector_c_bounds": [
+          [
+            -1.0221880674362183,
+            1.0221880674362183
+          ],
+          [
+            -2.084911584854126,
+            2.465073347091675
+          ],
+          [
+            -0.38457316160202026,
+            1.5317445993423462
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3585,
+        "vector_a_count": 7125,
+        "vector_b_offset": 89085,
+        "vector_b_count": 2339,
+        "sentinel_offset": 117153,
+        "remainder_offset": 117165,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            2.9985013008117676
+          ],
+          [
+            -0.35056352615356445,
+            1.174172282218933
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Trooper/wheel.gxm",
+      "size": 27234,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 805,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12325,
+        "record_count": 252,
+        "vector_c_offset": 25417,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27169,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 805,
+        "vector_a_count": 756,
+        "vector_b_offset": 9877,
+        "vector_b_count": 203,
+        "sentinel_offset": 12313,
+        "remainder_offset": 12325,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/TrooperAlpha/car.gxm",
+      "size": 216515,
+      "header_words": [
+        132866,
+        0,
+        0,
+        22,
+        5733,
+        2376,
+        1911,
+        1317
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 22,
+      "tail_offset": 3307,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 100627,
+        "record_count": 1911,
+        "vector_c_offset": 199987,
+        "vector_c_count": 1317,
+        "hierarchy_offset": 215791,
+        "vector_c_bounds": [
+          [
+            -1.0221880674362183,
+            1.0221880674362183
+          ],
+          [
+            -2.084911584854126,
+            2.465073347091675
+          ],
+          [
+            -0.13421539962291718,
+            1.5317445993423462
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3307,
+        "vector_a_count": 5733,
+        "vector_b_offset": 72103,
+        "vector_b_count": 2376,
+        "sentinel_offset": 100615,
+        "remainder_offset": 100627,
+        "vector_b_bounds": [
+          [
+            -1.1062368154525757,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            2.9985013008117676
+          ],
+          [
+            -0.35056352615356445,
+            1.174172282218933
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/TrooperAlpha/wheel.gxm",
+      "size": 27284,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 855,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12375,
+        "record_count": 252,
+        "vector_c_offset": 25467,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27219,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 855,
+        "vector_a_count": 756,
+        "vector_b_offset": 9927,
+        "vector_b_count": 203,
+        "sentinel_offset": 12363,
+        "remainder_offset": 12375,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Wildcat/car.gxm",
+      "size": 227711,
+      "header_words": [
+        132866,
+        0,
+        0,
+        21,
+        6018,
+        2691,
+        2006,
+        1302
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 21,
+      "tail_offset": 2635,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 107155,
+        "record_count": 2006,
+        "vector_c_offset": 211455,
+        "vector_c_count": 1302,
+        "hierarchy_offset": 227079,
+        "vector_c_bounds": [
+          [
+            -1.0280998945236206,
+            1.0280998945236206
+          ],
+          [
+            -1.9383130073547363,
+            1.9832720756530762
+          ],
+          [
+            -0.2871648669242859,
+            1.3997056484222412
+          ]
+        ],
+        "no_material_record_count": 40,
+        "no_vector_b_record_count": 40
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2635,
+        "vector_a_count": 6018,
+        "vector_b_offset": 74851,
+        "vector_b_count": 2691,
+        "sentinel_offset": 107143,
+        "remainder_offset": 107155,
+        "vector_b_bounds": [
+          [
+            -9.942264556884766,
+            10.942265510559082
+          ],
+          [
+            -0.3647690415382385,
+            1.3260197639465332
+          ],
+          [
+            -0.35950568318367004,
+            1.3322179317474365
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Wildcat/complete.gxm",
+      "size": 268108,
+      "header_words": [
+        329474,
+        0,
+        0,
+        26,
+        7290,
+        2654,
+        2430,
+        1527
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 26,
+      "tail_offset": 3396,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 122736,
+        "record_count": 2430,
+        "vector_c_offset": 249084,
+        "vector_c_count": 1527,
+        "hierarchy_offset": 267408,
+        "vector_c_bounds": [
+          [
+            -1.0280998945236206,
+            1.0280998945236206
+          ],
+          [
+            -1.9147521257400513,
+            1.926852822303772
+          ],
+          [
+            -0.5010766983032227,
+            1.3553135395050049
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 3396,
+        "vector_a_count": 7290,
+        "vector_b_offset": 90876,
+        "vector_b_count": 2654,
+        "sentinel_offset": 122724,
+        "remainder_offset": 122736,
+        "vector_b_bounds": [
+          [
+            -9.942264556884766,
+            10.942265510559082
+          ],
+          [
+            -0.3647690415382385,
+            1.3260197639465332
+          ],
+          [
+            -0.35950568318367004,
+            1.3322179317474365
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/Wildcat/wheel.gxm",
+      "size": 27222,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 793,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12313,
+        "record_count": 252,
+        "vector_c_offset": 25405,
+        "vector_c_count": 146,
+        "hierarchy_offset": 27157,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 793,
+        "vector_a_count": 756,
+        "vector_b_offset": 9865,
+        "vector_b_count": 203,
+        "sentinel_offset": 12301,
+        "remainder_offset": 12313,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/WildcatAlpha/car.gxm",
+      "size": 228002,
+      "header_words": [
+        132866,
+        0,
+        0,
+        28,
+        6018,
+        2691,
+        2006,
+        1302
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 28,
+      "tail_offset": 2926,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 107446,
+        "record_count": 2006,
+        "vector_c_offset": 211746,
+        "vector_c_count": 1302,
+        "hierarchy_offset": 227370,
+        "vector_c_bounds": [
+          [
+            -1.0280998945236206,
+            1.0280998945236206
+          ],
+          [
+            -1.9383130073547363,
+            1.9832720756530762
+          ],
+          [
+            -0.2871648669242859,
+            1.3997056484222412
+          ]
+        ],
+        "no_material_record_count": 40,
+        "no_vector_b_record_count": 40
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 2926,
+        "vector_a_count": 6018,
+        "vector_b_offset": 75142,
+        "vector_b_count": 2691,
+        "sentinel_offset": 107434,
+        "remainder_offset": 107446,
+        "vector_b_bounds": [
+          [
+            -9.942264556884766,
+            10.942265510559082
+          ],
+          [
+            -0.3647690415382385,
+            1.3260197639465332
+          ],
+          [
+            -0.35950568318367004,
+            1.3322179317474365
+          ]
+        ]
+      }
+    },
+    {
+      "corpus_id": "demo-9.3.1",
+      "relative_path": "DataGx/Vehicles/WildcatAlpha/wheel.gxm",
+      "size": 26967,
+      "header_words": [
+        67330,
+        0,
+        0,
+        5,
+        756,
+        203,
+        252,
+        146
+      ],
+      "prefix_kind": "material_table",
+      "material_count_parsed": 5,
+      "tail_offset": 538,
+      "word_0x10_equals_3x_word_0x18": true,
+      "triangle_prefix": {
+        "record_offset": 12058,
+        "record_count": 252,
+        "vector_c_offset": 25150,
+        "vector_c_count": 146,
+        "hierarchy_offset": 26902,
+        "vector_c_bounds": [
+          [
+            -0.14652660489082336,
+            0.14652661979198456
+          ],
+          [
+            -0.39050576090812683,
+            0.39050576090812683
+          ],
+          [
+            -0.3845731019973755,
+            0.3845731019973755
+          ]
+        ],
+        "no_material_record_count": 0,
+        "no_vector_b_record_count": 0
+      },
+      "geometry_prefix": {
+        "vector_a_offset": 538,
+        "vector_a_count": 756,
+        "vector_b_offset": 9610,
+        "vector_b_count": 203,
+        "sentinel_offset": 12046,
+        "remainder_offset": 12058,
+        "vector_b_bounds": [
+          [
+            -0.16918480396270752,
+            5.830815315246582
+          ],
+          [
+            -0.07942050695419312,
+            1.079420566558838
+          ],
+          [
+            -0.07942086458206177,
+            1.0794203281402588
+          ]
+        ]
+      }
+    }
+  ]
+}

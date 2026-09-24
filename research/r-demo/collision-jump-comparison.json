@@ -1,0 +1,54 @@
+{
+  "source": {
+    "corpus_id": "demo-9.3.1",
+    "relative_path": "DataGx/Vehicles/Jump/car.gxm",
+    "sidecar_relative_path": "DataGx/Vehicles/Jump/car.txt",
+    "directive": "$chull(Jump)",
+    "record_start": 1808,
+    "record_count": 64,
+    "unique_point_count": 34,
+    "convex_hull_vertex_count": 26
+  },
+  "target": {
+    "corpus_id": "retail",
+    "relative_path": "Data.sma_unpacked/DataGx/Vehicles/Jump/car.dx",
+    "tag101_b_vertex_count": 26,
+    "tag101_b_triangle_count": 48
+  },
+  "axis_transform": "(x,y,z) -> (x,z,-y)",
+  "max_source_hull_to_tag101_b_distance": 6.194296387084284e-07,
+  "max_tag101_b_to_source_hull_distance": 6.194296387084284e-07,
+  "source_bounds": [
+    [
+      -0.9223794937133789,
+      0.9223795533180237
+    ],
+    [
+      -0.02660961262881756,
+      1.3563883304595947
+    ],
+    [
+      -2.247012138366699,
+      1.9510056972503662
+    ]
+  ],
+  "tag101_a_box_bounds": [
+    [
+      -0.9223794937133789,
+      0.9223795533180237
+    ],
+    [
+      -0.026609571650624275,
+      1.3563883304595947
+    ],
+    [
+      -2.247012138366699,
+      1.9510056972503662
+    ]
+  ],
+  "max_aabb_axis_difference": 4.0978193283081055e-08,
+  "tag101_base_scalar": 2.394742727279663,
+  "base_to_box_corner_radius": 2.3947428345539334,
+  "radius_difference": 1.0727427035561732e-07,
+  "evidence": "CONFIRMED_BY_CORPUS numeric correspondence; cross-build comparison"
+}

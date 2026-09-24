@@ -1,0 +1,79 @@
+# GXM source directives
+
+Only `$` tokens inside plausible u16-length printable ASCII strings are counted. A token is SOURCE_SIDE_EVIDENCE; its runtime meaning is not inferred from its name.
+
+| Corpus | Token | Occurrences |
+|---|---|---:|
+| demo-8.4.1 | `$autovsphere_300` | 3 |
+| demo-8.4.1 | `$boinds` | 2 |
+| demo-8.4.1 | `$bsp` | 29 |
+| demo-8.4.1 | `$chrome` | 12 |
+| demo-8.4.1 | `$chull` | 5 |
+| demo-8.4.1 | `$chull(Jump)` | 2 |
+| demo-8.4.1 | `$chull(Landcruiser)` | 2 |
+| demo-8.4.1 | `$chull(Mercedes)` | 3 |
+| demo-8.4.1 | `$chull(Rocksx2)` | 1 |
+| demo-8.4.1 | `$chull(Rocksx4)` | 1 |
+| demo-8.4.1 | `$chull(Rocksx8)` | 1 |
+| demo-8.4.1 | `$chull(Sbuggy)` | 2 |
+| demo-8.4.1 | `$chull(Trooper)` | 2 |
+| demo-8.4.1 | `$chull(Wildcat)` | 1 |
+| demo-8.4.1 | `$chull(banner)` | 1 |
+| demo-8.4.1 | `$chull(checkpoint)` | 1 |
+| demo-8.4.1 | `$chull(landcruiser)` | 3 |
+| demo-8.4.1 | `$chull(rock)` | 1 |
+| demo-8.4.1 | `$chull(wildcat)` | 1 |
+| demo-8.4.1 | `$cylinder_0.766_0.39` | 24 |
+| demo-8.4.1 | `$cylinder_0.766_0.40` | 8 |
+| demo-8.4.1 | `$cylinder_0.766_0.41` | 8 |
+| demo-8.4.1 | `$cylinder_0.766_0.42` | 8 |
+| demo-8.4.1 | `$cylinder_1.0_2.0` | 1 |
+| demo-8.4.1 | `$doublesided` | 14 |
+| demo-8.4.1 | `$draw` | 3 |
+| demo-8.4.1 | `$finishline` | 3 |
+| demo-8.4.1 | `$glass` | 49 |
+| demo-8.4.1 | `$grnd` | 152 |
+| demo-8.4.1 | `$grndu` | 34 |
+| demo-8.4.1 | `$grndv` | 3 |
+| demo-8.4.1 | `$landdb` | 3 |
+| demo-8.4.1 | `$nodraw` | 3 |
+| demo-8.4.1 | `$objects` | 2 |
+| demo-8.4.1 | `$objects(intrasort)` | 1 |
+| demo-8.4.1 | `$paint` | 89 |
+| demo-8.4.1 | `$perpsex` | 4 |
+| demo-8.4.1 | `$perspex` | 194 |
+| demo-8.4.1 | `$ps2cells` | 2 |
+| demo-8.4.1 | `$rubber` | 22 |
+| demo-8.4.1 | `$singleobject` | 2 |
+| demo-8.4.1 | `$singleobject(intrasort)` | 1 |
+| demo-8.4.1 | `$skirt` | 2 |
+| demo-8.4.1 | `$splittime0` | 1 |
+| demo-8.4.1 | `$splittime1` | 1 |
+| demo-8.4.1 | `$splittime2` | 1 |
+| demo-8.4.1 | `$startline` | 3 |
+| demo-9.3.1 | `$chrome` | 15 |
+| demo-9.3.1 | `$chull(Bowler)` | 2 |
+| demo-9.3.1 | `$chull(Forester)` | 2 |
+| demo-9.3.1 | `$chull(Jump)` | 2 |
+| demo-9.3.1 | `$chull(Nrav)` | 2 |
+| demo-9.3.1 | `$chull(Rav4)` | 1 |
+| demo-9.3.1 | `$chull(Tata)` | 1 |
+| demo-9.3.1 | `$chull(Trooper)` | 2 |
+| demo-9.3.1 | `$chull(rav4)` | 1 |
+| demo-9.3.1 | `$cylinder_0.766_0.39` | 18 |
+| demo-9.3.1 | `$cylinder_0.766_0.40` | 6 |
+| demo-9.3.1 | `$cylinder_0.766_0.41` | 6 |
+| demo-9.3.1 | `$cylinder_0.766_0.42` | 6 |
+| demo-9.3.1 | `$cylinder_0.766_0.49` | 2 |
+| demo-9.3.1 | `$cylinder_0.766_0.50` | 1 |
+| demo-9.3.1 | `$cylinder_0.766_0.51` | 1 |
+| demo-9.3.1 | `$cylinder_0.766_0.52` | 1 |
+| demo-9.3.1 | `$glass` | 36 |
+| demo-9.3.1 | `$paint` | 78 |
+| demo-9.3.1 | `$paint01` | 7 |
+| demo-9.3.1 | `$perpsex` | 3 |
+| demo-9.3.1 | `$perspex` | 141 |
+| demo-9.3.1 | `$perspex01` | 15 |
+| demo-9.3.1 | `$rubber` | 18 |
+
+Total raw token occurrences: 1078. Per-file offsets are in `gxm-directives.json`.
