@@ -1,0 +1,19 @@
+{
+  "phase": "R5V-B.2",
+  "build": "retail",
+  "evidence_class": "RAW_GHIDRA_ONLY",
+  "reagent_actual_reversal": false,
+  "reagent_code_files": 0,
+  "readiness": "BLOCKED",
+  "correction": "MasterRallye/PlayerT3Car0 receives absolute ID25, not class-local 11",
+  "quick_race": [
+    {"source": "class2/local11", "address": "0x481391", "target": "absolute ID25"},
+    {"source": "absolute ID25", "address": "0x481410", "target": "Race/Car0/CarID"},
+    {"source": "Race/Car0/CarID", "address": "0x44A510", "target": "VehicleRecord[25].name"},
+    {"source": "VehicleRecord[25].name", "address": "0x44A510", "target": "Race/Car0/CarType and WheelType"}
+  ],
+  "preview": {"source": "Frontend/VehicleSelect/CarModel=25", "address": "0x44C4C0", "result_if_initialized": "Vehicles/Astero/complete"},
+  "render": {"source": "Race/Car0/CarType", "address": "0x4B6B3D", "condition": "Frontend/Active true at actor creation", "result_if_taken": ["vehicles/Astero/car", "vehicles/Astero/wheel"], "branch_reachability": "UNKNOWN"},
+  "physics": {"source": "Race/Car0/CarID=25", "address": "0x44ED50", "named_prefix": "Vehicles/Astero", "runtime_prefix": "Vehicles/Car0", "instance_index_meaning": "race car index"},
+  "blocking_edges": ["Frontend/Active state at Quick Race actor creation", "twelfth frontend widget/focus behavior", "ID25 unlock flag 15 test state"]
+}

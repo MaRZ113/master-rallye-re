@@ -1,0 +1,7 @@
+# Named vehicle physics to race instance
+
+`0x44A320` calls `0x44ED50` once per race car after filling the race broker. `0x44ED50` reads the absolute `Race/CarN/CarID` with `0x4AC660` (campaign path uses `MasterRallye/CarN/CarID` through `0x4B0630`), indexes the 0x34-byte VehicleRecord array, and obtains the owned name at record `+0x20`. It builds a named configuration prefix through `0x493770` and calls `0x493E30` to read `Vehicles/<name>/...` into a temporary physics structure. Getter helpers (including `0x49B0C0`) reach the configuration reader `0x4D6650`. Retail `vehicles.xml` contains named Astero values.
+
+After optional player-specific modifiers (`0x44E400`, using `<record-name>/Player1` or `/Player2`), `0x44ED50` calls `0x4938C0` with the **race car instance index** and the temporary structure. `0x4938C0` uses `0x493600` to format `Vehicles/Car%d`, then writes members such as `Dimensions/WheelBase` through setters including `0x4940A0` and `0x4D7ED0`. The reader near `0x4BC590` consumes these `Car%d` instance keys. `%d` is the runtime race-car index (player car normally Car0), not the vehicle registry ID or class-local selection.
+
+Therefore, independently of the unresolved render-actor branch, a future normally initialized record25 with owned name `Astero` and ID25 in `Race/Car0/CarID` selects Astero's named physics and writes it into `Vehicles/Car0/...`. This is `RAW_GHIDRA_ONLY`; no ReAgent generated C++ could be compared. This is a static dataflow finding, not a runtime validation.
