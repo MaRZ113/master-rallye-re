@@ -1,0 +1,27 @@
+{
+  "build": "retail",
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "record_index": 25,
+  "singleton_offset": "0x518",
+  "stride": 52,
+  "constructor_va": "0x0045A080",
+  "array_constructor_va": "0x00458CD0",
+  "array_capacity": 26,
+  "fields": [
+    {"offset": "0x00", "size": 4, "constructor_value": "0x006903A4", "evidence": "vtable pointer"},
+    {"offset": "0x04", "size": 4, "constructor_value": null, "evidence": "unwritten; ID in initialized records"},
+    {"offset": "0x08", "size": 4, "constructor_value": null, "evidence": "unwritten; class in initialized records"},
+    {"offset": "0x0C", "size": 4, "constructor_value": null, "evidence": "unwritten; frontend speed display reads this field"},
+    {"offset": "0x10", "size": 4, "constructor_value": null, "evidence": "unwritten; frontend acceleration display reads this field"},
+    {"offset": "0x14", "size": 4, "constructor_value": null, "evidence": "unwritten; frontend handling display reads this field"},
+    {"offset": "0x18", "size": 4, "constructor_value": null, "evidence": "unwritten; frontend endurance display reads this field"},
+    {"offset": "0x1C", "size": 4, "constructor_value": null, "evidence": "unwritten; meaning unresolved"},
+    {"offset": "0x20", "size": 4, "constructor_value": "0x00000000", "evidence": "empty string pointer; destructor frees this pointer"},
+    {"offset": "0x24", "size": 4, "constructor_value": "0x3F800000", "evidence": "float32 1.0; purpose unresolved"},
+    {"offset": "0x28", "size": 4, "constructor_value": "0x3F800000", "evidence": "float32 1.0; purpose unresolved"},
+    {"offset": "0x2C", "size": 4, "constructor_value": "0x3F800000", "evidence": "float32 1.0; purpose unresolved"},
+    {"offset": "0x30", "size": 4, "constructor_value": "0x3F800000", "evidence": "float32 1.0; purpose unresolved"}
+  ],
+  "unwritten_fields_note": "The allocation uses Visual Studio 2003 operator new -> __nh_malloc, not a proved zeroing allocator. Unwritten bytes have no deterministic runtime value.",
+  "classification": "unknown; unusable as constructed, sentinel intent unproved"
+}

@@ -170,3 +170,7 @@ See `research/r2_5/findings.md` for legacy consolidation and
 ## MASTER RALLYE VEHICLE SDK v1 — RUNTIME-CONFIRMED BASELINE
 
 R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) were generated under ignored local output and then tested in-game. B1, C1, P1 and W1 each passed original-game testing. The full existing-donor Vehicle SDK v1 baseline is frozen; see research/r4g/runtime-results.md for the separate human evidence. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.
+
+## R5V-B dormant retail vehicle slot audit
+
+Targeted Ghidra analysis found that retail record 25 is allocated but its ID, class and stat integers are unwritten; the class-2 vehicle selector has an independent hardcoded limit of 11. `Frontend/VehicleSelect/VehicleList` is the class-label list, not a dynamic car registry. A case-25 unlock branch exists, but resource/physics and quick-race safety remain unproved. No patch or runtime candidate was produced; see `research/r5v_b/findings.md`.

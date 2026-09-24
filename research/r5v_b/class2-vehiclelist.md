@@ -1,0 +1,11 @@
+# retail class-2 selection path
+
+The `VehicleList` correction is central to R5V-B. In retail, `0x480B60` builds `Frontend/VehicleSelect/VehicleList` as a vector of localized **class labels** (one to three entries, gated by mode/progress), and `0x481EB0` moves the class index at screen-object `+0x10` using that vector's length. The R5V-A description of this vector as a dynamic list of cars was incorrect. This is direct Ghidra decompilation and assembly evidence; the published R5V-A commit is left intact.
+
+`gaFEScreenVehicleSelectAI` constructor `0x480A20` initializes local indices `+0x14/+0x18/+0x1C` to 0 and their fixed class capacities `+0x20/+0x24/+0x28` to **7/7/11**. `0x481F50` is actual car previous/next: it selects `current = +0x14+4*class`, `limit = +0x20+4*class`, and refuses next at `current >= limit-1`. It also checks a mode flag through `0x4AE700` / `0x4ADC30`; exact semantics remain untyped. `0x481E20` converts class-2 local index to absolute ID by `+14`, so local 11 would become ID25. `0x481E50` inversely maps every ID >=14 to class 2 with local `ID-14`; it does not cap at 24.
+
+`0x4819B0` renders selected record stats and the localized name; the car right-arrow status uses the same fixed limit. `0x481950` loops over **12** button positions, but the retail scene XML references `Button0XPos` through `Button10XPos` only. This mismatch needs UI inspection before claiming a twelfth visible marker. The menu arrow may navigate to local 11 if the class-2 limit changes from 11 to 12, but the twelfth button's visual/interaction behavior is not proven.
+
+The same selection object uses class label text, car index, stat display, model presentation and unlock logic. A one-byte 11→12 change at the UI constructor is a possible necessary edit, **not a sufficient patch**. No change was made. The progress flags checked by `0x45A150` may still lock ID25. The class-2 capacity is not XML driven.
+
+Structural comparison: `demo-8.4.1` selection constructor at `0x450FE0` has a substantially different object layout and writes count-like constants 2, 4, 7, 8, 10. `demo-9.3.1` constructor at `0x467640` has another different layout, several fields set to 1, and no retail-style 7/7/11 array. These are direct disassembly observations, not cross-version vehicle identity claims. No demo count value can be carried into retail.

@@ -1,0 +1,9 @@
+# retail `0x45A150` case 25
+
+`0x45A150` is called by the vehicle-selection display at `0x4819B0` with a pointer to the selected `0x34`-byte record (record address obtained as singleton `+0x04 + ID*0x34`). It first checks two mode/cheat flags through `0x4B0310` / `0x4AFEA0`. When neither bypass applies, it switches on the record's **stored ID at +0x04**, accepts `0..25` at `0x45A182`, and dispatches through the 26-pointer table at `0x45A298`. Some IDs fall through to the `return 1` default. Case 25 goes to `0x45A282`: it obtains flag index `15` through `0x4B0310` and returns `0x4AFB70(flag15)`. Cases 23 and 24 similarly use flag indices 13 and 14. This is a normal-shaped unlock check, not a proven race loader.
+
+Important distinction: the table has a **case for stored ID 25**, while default record 25 has **no stored ID written**. Its branch is not proof that the uninitialized record is playable. The flag index 15's configuration identity and whether it defaults true are still unproved. This path can classify the record as locked, and the frontend reads uninitialized stat fields if selected.
+
+The nearby frontend display at `0x4819B0` maps absolute ID 23 to localization group 6 index `0x16`, 24 to `0x19`, and 25 to `0x1A` in its locked-vehicle branch. The 26th English name in the retail localization row is Forklift, making that text a strong candidate for ID25's locked display. We have not proven the active language's actual runtime string or the unlocked branch's result. No localization patch was made.
+
+The structurally equivalent high-end switch was not located in `demo-8.4.1` or `demo-9.3.1`. Their `0x24` record layout and constructor/default behavior differ, so a retail case number cannot be mapped to a demo vehicle identity. See `slot25-patch-plan.md` for the gate that remains.

@@ -206,3 +206,7 @@ The same-topology SDK v1 remains frozen and runtime-confirmed. R4F maps the topo
 ## R4G marker-1339 and vehicle SDK status
 
 The final 44-byte marker-1339 block is typed as center, radius/scalar, min and max. All 78 vehicle resources agree with render plus detailed tag101-B extrema within 1e-6; 77/78 radius values agree within 1e-5, with WildCat/car.dx the documented exception. A conservative recompute writer and four isolated B1/C1/P1/W1 candidates are structurally validated. Later original-game B1/C1/P1/W1 tests all passed: expanded bounds, collision scale, complete.dx topology and wheel.dx topology are CONFIRMED_BY_RUNTIME in their tested Astero contexts. MASTER RALLYE VEHICLE SDK v1 is a RUNTIME-CONFIRMED BASELINE; see research/r4g/runtime-results.md. See docs/vehicle-bounds.md and research/r4g/findings.md.
+
+## R5V-B dormant vehicle slot audit
+
+Retail record 25 has a vtable, empty owned-name pointer and four float32 1.0 defaults, while ID/class/stat integers are left unwritten. The frontend class-2 count is compiled as 11, and its `VehicleList` vector contains class labels. The retail unlock switch has case 25, but this does not establish a playable record. R5V-B verdict: **MORE RESEARCH NEEDED; no executable/data patch or runtime candidate.** See `research/r5v_b/findings.md`.
