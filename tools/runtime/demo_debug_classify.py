@@ -28,6 +28,23 @@ PATTERNS = (
      "Shader [%s], entry %d selected"),
 )
 
+# Human-observed 8.4.1 compiler-stage fragments. The full line syntax is not
+# available yet, so these are substring matches rather than invented templates.
+STAGE_FRAGMENTS = (
+    ("model_gxm_read", "Reading GXM"),
+    ("model_cook_begin", "Making dx model for"),
+    ("sort_plane", "mCSortPlane"),
+    ("vertex_welder", "Vertex welder"),
+    ("convex_hull_build", "Building convex hull"),
+    ("bsp_build", "Building BSP tree"),
+    ("cylinder_build", "Building cylinder"),
+    ("geometry_2d_parse", "Parsing 2d geometry"),
+    ("land_database_build", "Building land database"),
+    ("object_node_insert", "Inserting object nodes"),
+    ("model_optimise", "Optimising model"),
+    ("model_cache_disabled", "Caching disabled."),
+)
+
 
 def classify_line(line: str) -> dict:
     text = TIMESTAMP.sub("", line.strip())
@@ -36,6 +53,10 @@ def classify_line(line: str) -> dict:
         if match:
             return {"category": category, "template": template,
                     "fields": match.groupdict()}
+    for category, fragment in STAGE_FRAGMENTS:
+        if fragment in text:
+            return {"category": category, "template": None,
+                    "observed_fragment": fragment, "fields": {}}
     return {"category": "unclassified", "template": None, "fields": {}}
 
 

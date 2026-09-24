@@ -12,4 +12,4 @@ The generated `demo-evolution.json` compares case-folded relative paths, then SH
 
 The most visible shift is in image resources: 1,723 GXI paths appear only in 8.4.1, while 354 GXI and 624 DXT paths appear only in 9.3.1. The 38 GXP paths are new in 9.3.1 and are concentrated in frontend graphics. Counts are path-set results and do not by themselves prove conversion or deletion of individual artworks.
 
-Both builds retain `DataGx/Vehicles/Trooper`, `Jump`, and `Wildcat`-named folders, but their resources must be compared by build. Vehicle folder presence and component counts are recorded in `cut-content.md`. Runtime loading differences between builds remain untested in this workspace.
+Both builds retain `DataGx/Vehicles/Trooper`, `Jump`, and `Wildcat`-named folders, but their resources must be compared by build. Vehicle folder presence and component counts are recorded in `cut-content.md`. Later human runtime tests found build-specific model caching behavior: 8.4.1 uses a live GXM compiler path with caching disabled on the observed path, while 9.3.1 can write a persistent DX and load DX without GXM on tested resources. See `research/r-demo2/cache-evolution.md`.

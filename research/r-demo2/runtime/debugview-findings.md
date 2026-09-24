@@ -1,0 +1,5 @@
+# DebugView capture: pending live channel test
+
+Sysinternals DebugView is installed locally. The user's attempt to read the visible 8.4.1 Debug window with `demo_debug_capture.py` failed by PID, title and list-windows. The 8.4.1 EXE contains an `OutputDebugStringA` sink, but whether observed cooker lines reach DebugView is **UNKNOWN**. Demo 9.3.1 has no visible Debug window per user observation; hidden DebugView output is likewise **UNKNOWN**.
+
+Use a short scratch-copy session with DebugView local Win32 capture enabled: start capture before the demo, select Trooper, enter one race and exit. Save raw DebugView output only under `.research-output/r-demo2/debugview/`, then make a sanitized template/timing summary here. For 9.3.1, repeat a `complete.gxm` present / `complete.dx` absent cache miss. Record whether DebugView receives any lines, especially GXM read, DX build/save and cache messages. For the crashed `$chull` candidate, capture the final complete message before exit. If DebugView has no output, report the negative observation and rely on ProcMon plus targeted EXE xrefs.

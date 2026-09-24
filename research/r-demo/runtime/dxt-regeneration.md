@@ -1,6 +1,6 @@
 # Clean DXT regeneration experiment: Trooper 8.4.1
 
-Status: original and offline reconstruction are **CONFIRMED_BY_BYTES** identical. A fresh runtime-generated DXT hash is **PENDING**. The user reports earlier DXT regeneration, but previously generated files had been present; the authoritative originals have since been restored. Do not use those older generated files as a baseline.
+Status update (R-DEMO2): a clean regenerated DXT was supplied and the three-way result is **CONFIRMED_BY_RUNTIME + CONFIRMED_BY_BYTES** byte-identical. The earlier scratch protocol below remains the reproduction method; see `research/r-demo2/dxt-regeneration.md` for the completed comparison.
 
 ## Before launch: exact source identity
 
@@ -24,4 +24,4 @@ $env:PYTHONPATH = 'src'
 python tools/scanner/r_demo_texture_compare.py --corpus-id demo-8.4.1 --corpus-root 'D:\Game\Master Rallye\corpora\demo-8.4.1' --gxi 'DataGx/Vehicles/Trooper/Black-tga.gxi' --original-dxt 'DataGx/Vehicles/Trooper/black-tga.dxt' --scratch-root '.research-output/r-demo/runtime-tests' --regenerated-dxt '.research-output/r-demo/runtime-tests/run-8_4_1/DataGx/Vehicles/Trooper/black-tga.dxt' --output '.research-output/r-demo/runtime-tests/texture-three-way.json'
 ```
 
-Adjust `--regenerated-dxt` to the actual separate scratch copy path, and set `--scratch-root` to its common ignored parent if needed. The tool refuses a regenerated path under the authoritative corpus. Record original/offline/runtime full hashes, payload hashes, CRC validity, header-field differences and the three-way verdict. Runtime result remains **UNKNOWN** until that file or its complete comparison report is supplied.
+Adjust `--regenerated-dxt` to the actual separate scratch copy path, and set `--scratch-root` to its common ignored parent if needed. The tool refuses a regenerated path under the authoritative corpus. Record original/offline/runtime full hashes, payload hashes, CRC validity, header-field differences and the three-way verdict. Runtime result was subsequently supplied; the ignored three-way report is `.research-output/r-demo2/black-tga-three-way.json`.

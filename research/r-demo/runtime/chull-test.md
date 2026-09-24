@@ -1,6 +1,6 @@
 # Isolated Trooper `$chull` runtime candidate
 
-Status: **STRUCTURAL_CANDIDATE_ONLY; runtime untested**. This is `demo-8.4.1:DataGx/Vehicles/Trooper/car.gxm` only.
+Status update (R-DEMO2): the human test **CRASHED_IN_RUNTIME** in both demo 8.4.1 and 9.3.1. The source-position-only approach is not safe as tested. Do not create another hull mutation until the crash stage and source dependencies are identified. The structural audit below describes the 8.4.1 candidate; see `research/r-demo2/chull-crash.md`.
 
 The same-build `Trooper.txt` names a final mesh `$chull(Trooper)`, GXM records 1911–1978 (68 records). Its position index triple references 36 unique Vector C entries, exactly 1317–1352. None is referenced by the preceding 1,911 records. After the established `(x,y,z)→(x,z,-y)` mapping and four-decimal rounding, 0/36 hull positions occur in the leading same-build `car.dx` position array, while 1,305 nonhull GXM positions do. This supports separation from visible render geometry; it does not identify a complete demo DX collision section.
 
@@ -17,8 +17,8 @@ The candidate translates source X by `+0.4` for these 36 positions only (observe
 
 Reproduce with `tools/scanner/r_demo_chull_candidate.py` using the source hash gate and same-build sidecar/DX. The generated `.gxm` and audit JSON remain ignored.
 
-## Human scratch test
+## Historical test protocol (already performed; crash reported)
 
-Use a separate clean runnable demo 8.4.1 copy. Record baseline hashes. Replace only scratch `car.gxm` with the candidate; retain the original scratch `car.dx`, `complete.gxm`, `wheel.gxm`, textures and other files. Start the same vehicle/race scenario as the baseline. Approach a stable wall/obstacle slowly from both lateral directions; record game load, unchanged visible body, presence of primary collision, apparent collision offset and direction, normal wheel physics, and artifacts. Restore the scratch baseline after the test. A side-by-side video or fixed viewpoint is useful, but raw media stays outside Git.
+The following was the original scratch procedure. Do not repeat the same crashing mutation without first localizing the failing cooker stage. Use a separate clean runnable demo 8.4.1 copy. Record baseline hashes. Replace only scratch `car.gxm` with the candidate; retain the original scratch `car.dx`, `complete.gxm`, `wheel.gxm`, textures and other files. Start the same vehicle/race scenario as the baseline. Approach a stable wall/obstacle slowly from both lateral directions; record game load, unchanged visible body, presence of primary collision, apparent collision offset and direction, normal wheel physics, and artifacts. Restore the scratch baseline after the test. A side-by-side video or fixed viewpoint is useful, but raw media stays outside Git.
 
-If collision shifts laterally with the body unchanged, `$chull` participation is **CONFIRMED_BY_RUNTIME** for this path. If neither shifts, the source-to-runtime collision route remains unresolved. If the visible body shifts, the candidate did not isolate collision as expected. No outcome is preassigned.
+If collision shifts laterally with the body unchanged, `$chull` participation is **CONFIRMED_BY_RUNTIME** for this path. If neither shifts, the source-to-runtime collision route remains unresolved. If the visible body shifts, the candidate did not isolate collision as expected. The observed outcome is a crash in both demos; collision offset remains untested.

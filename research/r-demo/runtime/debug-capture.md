@@ -1,6 +1,8 @@
-# Debug window capture and channel status
+# Debug window capture and channel status (historical approach)
 
-Demo 8.4.1 displays a Debug window according to the user's first-pass runtime observation. On this research host no demo process was running during the check, and `python tools/runtime/demo_debug_capture.py --list-windows --window-title Debug` returned `[]`. The actual top-level window class/title, child classes, WM_GETTEXT behavior, copy/select behavior and stdout/stderr channel are **UNKNOWN** until a live session.
+R-DEMO2 priority is Sysinternals DebugView; this Win32 control-text approach failed in user testing and should not receive further work unless DebugView also fails. See `research/r-demo2/runtime/debugview-findings.md`.
+
+Demo 8.4.1 displays a Debug window according to the user's first-pass runtime observation. On this research host no demo process was running during the check, and `python tools/runtime/demo_debug_capture.py --list-windows --window-title Debug` returned `[]`. The user subsequently reported that this helper failed to locate/read the visible window by PID, title and list-windows. Child-control details and stdout/stderr remain unknown; use DebugView as described in `research/r-demo2/runtime/debugview-findings.md`.
 
 `tools/runtime/demo_debug_capture.py` uses Win32 `EnumWindows`, `EnumChildWindows`, `GetClassNameW`, `WM_GETTEXTLENGTH` and `WM_GETTEXT` with timeouts. It waits for a title fragment, chooses a readable standard EDIT/RichEdit child, polls text, detects appended text or buffer resets, and writes timestamped UTF-8 lines. It does not inject, patch, automate input, or read process memory. The `--list-windows` diagnostic mode reports window and child classes and readable lengths without saving game text.
 

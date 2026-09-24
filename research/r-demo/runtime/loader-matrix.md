@@ -17,3 +17,7 @@ Evidence source: human in-game results supplied for the first R-DEMO pass on 202
 The case with neither file was not reported. No case above proves that any DX file is never opened, used as a cache, or used by another subsystem. The same behavior must not be assigned to `demo-9.3.1` or retail without testing.
 
 A short traced repeat should record file opens/reads/writes and Debug messages for the three resources. See `file-access-correlation.md`.
+
+## Later build-specific update
+
+The user subsequently tested demo 9.3.1 and observed persistent DX generation from GXM plus DX-only fallback. `complete.gxm` alone generated `complete.dx`; `wheel.gxm` alone generated `wheel.dx` and showed visual wheels, while `wheel.dx` alone also showed them. These are **CONFIRMED_BY_RUNTIME** for the observed 9.3.1 paths and do not change the 8.4.1 matrix above. See `research/r-demo2/cache-evolution.md`.

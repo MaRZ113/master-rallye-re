@@ -1,0 +1,5 @@
+# Original demo model cooker stage catalog
+
+The user observed the following 8.4.1 Debug-window phrases during live GXM compilation: `Caching disabled. Reading GXM`, `Making dx model for model named`, `Inserting mCSortPlane nodes`, `Vertex welder`, `Building convex hull`, `Building BSP tree`, `Building cylinder`, `Parsing 2d geometry`, `Building land database`, `Inserting object nodes`, and `Optimising model`. These are **CONFIRMED_BY_RUNTIME** as human-reported message fragments, not a complete ordered session log. Exact full lines, frequency, resource paths and stage timing are not yet available.
+
+The phrases support a live source-to-runtime model compiler in the observed 8.4.1 path. They do **not** prove every stage runs on every vehicle or that every stage serializes to the same-stem DX. DebugView and a short clean session should establish which lines appear for car, complete and wheel, and the final line before the `$chull` crash. No stage is yet labeled universal or directive-dependent.

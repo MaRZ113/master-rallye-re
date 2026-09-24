@@ -51,6 +51,10 @@ class DemoRuntimeToolTests(unittest.TestCase):
         self.assertEqual(cached["fields"]["resource"], "Black-tga.dxt")
         self.assertEqual(classify_line("Shader [shader/particle_blend], entry 0 selected")["category"],
                          "shader_selection")
+        self.assertEqual(classify_line("Building convex hull for Trooper")["category"],
+                         "convex_hull_build")
+        self.assertEqual(classify_line("Caching disabled. Reading GXM: [Trooper]")["category"],
+                         "model_gxm_read")
         self.assertEqual(classify_line("Some new debug message")["category"], "unclassified")
 
 

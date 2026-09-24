@@ -1,0 +1,5 @@
+# Isolated `$chull` candidate: crash, dependency gate
+
+The user reports that the isolated source-`$chull` modification **CRASHED_IN_RUNTIME** in both demo 8.4.1 and 9.3.1. The documented 8.4.1 candidate has SHA256 `0425e1636bc83844da241d48e30fedae2d48aff024cb4f1e329506ac64b1e699`; the exact tested 9.3.1 file hash was not supplied. The candidate changes 36 source Vector C X fields by +0.4, with no body-record references to those fields. The human crash observation is authoritative, while exact live-file identity and final cooker message remain unverified.
+
+The crash does not refute `$chull` collision provenance. Same-build source-to-generated-tag101 numerical correspondence is strong (see `gxm-to-tag101.md`). The likely missing dependency or failing stage is **UNKNOWN**. Do not generate another hull mutation until a Debug/DebugView capture identifies the last successful cooker stage and a source dependency audit covers Vector A/B, indexed records, hierarchy, normals, winding, bounds and related values. No failure cause is assigned from the crash alone.

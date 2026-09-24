@@ -1,0 +1,5 @@
+# Same-build 9.3.1 `$cylinder` and tag102: unresolved mapping
+
+Trooper `complete.gxm` contains four source names `$cylinder_0.766_0.39`, `_0.40`, `_0.41`, and `_0.42`; `wheel.gxm` contains one `$cylinder_0.766_0.39`. The matching shipped `complete.dx` and `wheel.dx` each contain a parsed tag102 with the same two float32 values `(0.4000000059604645, 0.20000000298023224)`. `car.gxm` has no `$cylinder` string and shipped `car.dx` has no tag102.
+
+These same-build associations are **CONFIRMED_BY_CORPUS**, but they do not identify which of the four complete source objects contributes to the compiled values or how the two source numbers transform. `0.39` is not copied directly into either target float. The identical complete/wheel tag102 values may reflect selection, clipping, averaging, defaults or another rule; none is established. A regenerated complete/wheel DX pair or controlled one-directive source edit would be needed. No such edit is proposed until simpler cooker/cache tests are complete.

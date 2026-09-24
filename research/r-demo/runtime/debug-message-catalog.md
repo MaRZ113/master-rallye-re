@@ -14,3 +14,7 @@ This catalog distinguishes the user's observed live examples from exact template
 | `Cannot load cached texture: [%s]` | Exact literal in both EXEs. **CONFIRMED_BY_EXECUTABLE**; no live occurrence supplied. | Cached texture load failure, high confidence. | Not measured. | `%s` cache path if emitted. |
 
 A clean Trooper selection/race session is needed to count each template and attach the actual resource paths. Other possible categories such as model loading, timing, frontend and race are intentionally unclassified until lines are observed.
+
+## Later R-DEMO2 human stage fragments
+
+The user reported these 8.4.1 live Debug-window fragments during GXM cooking: `Caching disabled. Reading GXM`, `Making dx model for model named`, `Inserting mCSortPlane nodes`, `Vertex welder`, `Building convex hull`, `Building BSP tree`, `Building cylinder`, `Parsing 2d geometry`, `Building land database`, `Inserting object nodes`, and `Optimising model`. The complete line syntax, ordering, frequencies and paths remain unknown until DebugView capture. `demo_debug_classify.py` now recognizes these as **fragments**, leaving unmatched lines unclassified. See `research/r-demo2/cooker-stages.md`.

@@ -1,6 +1,6 @@
 # GXI image container (R-DEMO)
 
-Evidence: **CONFIRMED_BY_CORPUS** for the common structural variant. Targeted demo EXE xrefs confirm a `.gxi` source/cache branch (**CONFIRMED_BY_EXECUTABLE**); exact runtime DXT regeneration bytes for a clean Trooper test remain pending.
+Evidence: **CONFIRMED_BY_CORPUS** for the common structural variant. Targeted demo EXE xrefs confirm a `.gxi` source/cache branch (**CONFIRMED_BY_EXECUTABLE**); clean Trooper runtime DXT regeneration is now byte-identical to shipped and offline bytes (**CONFIRMED_BY_RUNTIME + CONFIRMED_BY_BYTES**).
 
 Little-endian layout:
 
@@ -19,4 +19,4 @@ The strict reader is `src/master_rallye/gxi.py`, shared byte-layout code is in `
 
 For same-directory, same-stem GXI/DXT candidates, 1,124/1,157 in 8.4.1 and 326/326 in 9.3.1 regenerate byte-identically using the DXT header `(0xFEED, 1, CRC32(BGRA payload), width, height)`. All 33 8.4.1 mismatches are under `DataGx/Fonts`; some have different dimensions. A matching name alone does not prove current semantic identity. See `research/r-demo/resource-pairs.json` for each pair.
 
-For the controlled `demo-8.4.1:DataGx/Vehicles/Trooper/Black-tga.gxi` pair, the original and offline reconstructed DXT SHA256 are both `c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82`. This is a static byte result. See `research/r-demo/runtime/dxt-regeneration.md` for the pending clean runtime comparison.
+For the controlled `demo-8.4.1:DataGx/Vehicles/Trooper/Black-tga.gxi` pair, the original and offline reconstructed DXT SHA256 are both `c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82`. The clean runtime-generated copy has the same SHA256 and complete bytes; see `research/r-demo2/dxt-regeneration.md`.
