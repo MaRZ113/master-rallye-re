@@ -1,16 +1,14 @@
-# Build-specific model and texture cache evolution
+# Build-specific development cache evolution
 
 | Path | Demo 8.4.1 | Demo 9.3.1 | Retail |
 |---|---|---|---|
-| Vehicle GXM | Trooper car/complete/wheel are live sources; Debug window reports `Caching disabled. Reading GXM` and model-cooker stages on observed path (**CONFIRMED_BY_RUNTIME**, human). | Present GXM can generate a persistent DX (**CONFIRMED_BY_RUNTIME**, human). | No equivalent live-source behavior established here. |
-| Vehicle DX | Removing same-stem DX with GXM present did not visibly change tested Trooper resources; DX-only did not restore tested visuals. File access remains unknown. | Existing/generated DX can load without GXM. Observed on complete and wheel; other roles should be tested separately. | DX is the established compiled vehicle authoring target in R4G. |
-| Texture GXI/DXT | Clean Trooper Black GXI regenerates a DXT byte-identical to shipped and offline-converted bytes. | Existing static GXI/DXT correspondence and texture-cache EXE strings; clean live cache order has not been traced. | Existing DXT parser/writer work remains separate. |
-| Debug output | Visible window and compiler-stage messages; Win32 `WM_GETTEXT` helper failed to locate/read it in user testing. | No visible Debug window in user test. | No claim. |
+| Vehicle GXM | Tested Trooper source-first live compilation; model cache reports `Caching disabled`. Captured OutputDebugString gives cooker stages (**CONFIRMED_BY_RUNTIME_TRACE**). | Present GXM can cook persistent DX; cache freshness selects rebuild/load per tested LastWriteTime ordering (**CONFIRMED_BY_CONTROLLED_RUNTIME_TRACE**). | Tested retail vehicle path does not load demo GXM as live source; do not infer all GXM code was removed. |
+| Vehicle DX | Same-stem DX removal did not affect tested Trooper visuals; DX-only did not restore the tested roles. | DX persists to disk, is reloaded after cooking, and can load when GXM is absent. Safe edit output loads DX-only and visibly changes geometry. | Supplied GXM renamed to DX is not a valid body resource; body visual/collision absent while wheels remain. |
+| Texture GXI/DXT | Earlier clean Black-tga byte comparison recorded in `dxt-regeneration.md`. | A ProcMon cache miss confirms GXI→persistent DXT creation, close/reopen and full read for Black-tga. | Existing compiled-resource behavior; no general development-cooker claim. |
+| DebugView | OutputDebugString channel and captured stage order confirmed. `$chull` candidate crash ends inside convex-hull build. | **NO_OUTPUT_OBSERVED** for the tested session; logger implementation/removal remains **UNKNOWN**. | No claim. |
 
-The 8.4.1→9.3.1 change is a **runtime-confirmed behavior difference** for the named resources. Whether it is controlled by a flag, configuration, timestamp rule or build constant remains **UNKNOWN**. DebugView and ProcMon traces are needed before asserting lookup/probe order. This is a targeted model; it does not imply all DX files are unused in 8.4.1 or that retail retains a live GXM cooker.
+For tested 9.3.1 model cases, `GXM newer than DX → read/cook/overwrite/reload`; `DX newer than GXM → metadata-only GXM check/no writes/load DX`. Source-missing + DX-present falls back to DX. Both missing and equal timestamps are **UNKNOWN**. Full transition evidence and the state diagram are in `model-cache-state-machine.md`.
 
-Targeted EXE xrefs show near-parallel GXM status/reading paths and null-result fallback calls in both builds, but not the reason the observed runtime cache policy differs. See `targeted-cache-xrefs.md`.
+The source/cache ordering was deliberately controlled and is **CONFIRMED_BY_CONTROLLED_RUNTIME_TRACE**. The targeted EXE comparison does not establish that the compared helper values are specifically LastWriteTime; see `targeted-cache-xrefs.md`.
 
-A subsequent two-run 9.3.1 Trooper car DX regeneration produced identical bytes in rebuild-A and rebuild-B. This supports run-to-run cooker repeatability for the fixed source; it does not identify cache invalidation policy or explain the shipped original difference. See `rebuild-determinism.md`.
-
-The user also confirmed that the custom car DX generated from a visible GXM position edit loads with GXM absent and shows the edit in 9.3.1 (**CONFIRMED_BY_RUNTIME**). This extends the tested DX-only fallback beyond the reported complete/wheel cases, but file-probe order is still untraced.
+The deterministic 9.3.1 car rebuild A/B pair is byte-identical for the tested fixed source, while historical shipped DX differs at float and unresolved descriptor details. The safe +0.15 source edit maps to one render position and regenerated marker bounds; tag101 and topology stay unchanged. Same-build `$chull`→tag101 provenance is stronger, but the `$chull` source-only runtime edit crashes. These are oracle and safety boundaries, not changes to retail R4G.

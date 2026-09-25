@@ -30,3 +30,7 @@ Trooper `Black-tga.gxi` now recreates its DXT byte-identically in both the offli
 - **UNKNOWN:** universal GXM hierarchy controls, exact `$cylinder` formula, cache file-access order/invalidation, DebugView channel and `$chull` crash stage.
 
 No R-DEMO2 result changes the retail authoring pipeline yet. `research/r-demo2/findings.md` tracks cooker reconstruction and remaining gates.
+
+## R-DEMO2.1 pipeline update
+
+For tested 8.4.1 Trooper source paths, the runtime is source-first with persistent model caching disabled and emits OutputDebugString diagnostics. For tested 9.3.1 paths, GXM plus persistent DX follows the freshness state machine in `research/r-demo2/model-cache-state-machine.md`; GXI can generate persistent DXT. The exact DX header probe validates magic `0xD00D` and family/version `131` in the observed reader (**CONFIRMED_BY_EXE**). Retail remains a compiled-resource runtime in the tested vehicle path: supplied GXM does not load as a live vehicle source, and renaming it to DX does not make a valid compiled body. These are build-specific observed paths, not a claim that all development code was removed from retail.

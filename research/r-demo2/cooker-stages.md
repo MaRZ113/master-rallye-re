@@ -1,5 +1,7 @@
-# Original demo model cooker stage catalog
+# Model cooker stage order — DebugView-derived
 
-The user observed the following 8.4.1 Debug-window phrases during live GXM compilation: `Caching disabled. Reading GXM`, `Making dx model for model named`, `Inserting mCSortPlane nodes`, `Vertex welder`, `Building convex hull`, `Building BSP tree`, `Building cylinder`, `Parsing 2d geometry`, `Building land database`, `Inserting object nodes`, and `Optimising model`. These are **CONFIRMED_BY_RUNTIME** as human-reported message fragments, not a complete ordered session log. Exact full lines, frequency, resource paths and stage timing are not yet available.
+The real 8.4.1 DebugView export is tab-delimited `sequence / relative time / PID / message`. Its source and stage records parse automatically. For Trooper `car.gxm`, the observed sequence is `Caching disabled` → `Reading GXM` → `Making dx model` → sort-plane insertion → vertex welding → convex hull → BSP decision → cylinder decision → 2D geometry → land database → object nodes → optimization. Stage completions are reported as `done` or `not necessary`; the land-database line is a single action message without a paired completion line.
 
-The phrases support a live source-to-runtime model compiler in the observed 8.4.1 path. They do **not** prove every stage runs on every vehicle or that every stage serializes to the same-stem DX. DebugView and a short clean session should establish which lines appear for car, complete and wheel, and the final line before the `$chull` crash. No stage is yet labeled universal or directive-dependent.
+The complete normal run confirms convex hull `done`, BSP and cylinder `not necessary`, and later stages complete. For the isolated `$chull` candidate, output ends at `Building convex hull -` after sort-plane and welder completion. No later stage appears. This localizes the runtime crash inside hull building; see `chull-crash.md` and `runtime/debugview-findings.md`.
+
+This ordering is **CONFIRMED_BY_RUNTIME_TRACE** for the captured 8.4.1 Trooper path. It is not a claim that every resource takes identical branches.

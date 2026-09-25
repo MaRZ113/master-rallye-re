@@ -1,6 +1,6 @@
 # R-DEMO findings and continuation status
 
-Status: **R-DEMO historical baseline; continued in R-DEMO2**. First-pass Trooper 8.4.1 results remain recorded here. Clean DXT bytes, 9.3.1 DX regeneration and the crashing `$chull` experiment are now documented in `research/r-demo2/`; full DebugView/ProcMon traces remain pending.
+Status: **R-DEMO historical baseline; continued in R-DEMO2**. First-pass Trooper 8.4.1 results remain recorded here. Clean DXT bytes, 9.3.1 DX regeneration and the crashing `$chull` experiment are now documented in `research/r-demo2/`; DebugView/ProcMon traces are now parsed and documented in R-DEMO2.1.
 
 ## Corpus and source formats
 
@@ -30,3 +30,11 @@ The user supplied first-pass in-game observations; see `runtime/loader-matrix.md
 5. Keep the retail writer unchanged until original-cooker policy is supported by differential runtime evidence. No push or merge is authorized.
 
 The retail DX parser still does not decode the demo draw grammar. The 29 opaque GXM variants are outside this loader-focused continuation unless needed for an isolated test.
+
+## R-DEMO2.1 runtime closeout (supersedes the pending-trace notes above)
+
+The user-supplied DebugView and ProcMon traces are now parsed from their real formats. Demo 8.4.1 OutputDebugString output and the normal cooker stage order are **CONFIRMED_BY_RUNTIME / CONFIRMED_BY_RUNTIME_TRACE**. The `$chull` run ends inside convex-hull construction (**CRASHED_IN_RUNTIME**). Demo 9.3.1 has **NO_OUTPUT_OBSERVED** in DebugView; the logger-removal explanation remains unknown.
+
+ProcMon confirms source-missing DX fallback, source-to-DX cache miss and immediate reload, stale DX in-place rebuild when source LastWriteTime is newer, and fresh DX load with no source body reads or cache writes when DX LastWriteTime is newer (**CONFIRMED_BY_CONTROLLED_RUNTIME_TRACE**). A clean `Black-tga.gxi` miss creates and reloads DXT. See `model-cache-state-machine.md`, `runtime/procmon-findings.md`, and `runtime/debugview-findings.md`.
+
+The generated DX reload traverses the same 7,494 offset/length pairs as its writer; DXT matches all 261. This is mirrored serialization/deserialization traversal, not proof of function identity. Runtime-generated Black-tga DXT remains byte-identical to shipped and offline reconstructions for this one asset. Two unchanged-GXM car DX rebuilds are byte-identical. The safe +0.15 source edit is visible in-game and changes one render position plus derived marker bounds, without tag101/normals/topology changes. Same-build GXM→tag101 mapping remains evidence for provenance, not a safe hull-edit recipe. No broad ProcMon capture or new `$chull` mutation is required.

@@ -1,5 +1,9 @@
-# Isolated `$chull` candidate: crash, dependency gate
+# Isolated `$chull` candidate: crash localized to convex-hull build
 
-The user reports that the isolated source-`$chull` modification **CRASHED_IN_RUNTIME** in both demo 8.4.1 and 9.3.1. The documented 8.4.1 candidate has SHA256 `0425e1636bc83844da241d48e30fedae2d48aff024cb4f1e329506ac64b1e699`; the exact tested 9.3.1 file hash was not supplied. The candidate changes 36 source Vector C X fields by +0.4, with no body-record references to those fields. The human crash observation is authoritative, while exact live-file identity and final cooker message remain unverified.
+The user-provided 8.4.1 DebugView crash capture names Trooper `car.gxm`. Runtime messages show `Inserting moSortPlane nodes -` → `done`, then `Vertex welder -` → `done`, then `Building convex hull -`. The log ends there. No completion line follows and no later BSP, cylinder, 2D geometry, land database, object node, optimization, or cache serialization stage appears.
 
-The crash does not refute `$chull` collision provenance. Same-build source-to-generated-tag101 numerical correspondence is strong (see `gxm-to-tag101.md`). The likely missing dependency or failing stage is **UNKNOWN**. Do not generate another hull mutation until a Debug/DebugView capture identifies the last successful cooker stage and a source dependency audit covers Vector A/B, indexed records, hierarchy, normals, winding, bounds and related values. No failure cause is assigned from the crash alone.
+Classification: **CRASHED_IN_RUNTIME**. Last completed stage: vertex welder. Last started stage: convex-hull build. Crash localization: inside the convex-hull build stage (**CONFIRMED_BY_RUNTIME_TRACE**). The normal control trace runs the same stage to `done`, so the trace parser distinguishes the crash from an intentionally skipped stage.
+
+The tested position-only `$chull` candidate hash for the 8.4.1 scratch asset was `0425e1636bc83844da241d48e30fedae2d48aff024cb4f1e329506ac64b1e699`. The same-build 9.3.1 source-to-generated tag101 correspondence is documented in `gxm-to-tag101.md`, but does not identify the invariant that the edit violated. Vector A/B/C, indexed records, winding, plane offsets, bounds, hierarchy, and other dependent data remain candidates for static dependency analysis; no cause is promoted without evidence.
+
+Do not produce a second blind `$chull` mutation. The 9.3.1 DebugView test yielded **NO_OUTPUT_OBSERVED**, not proof of logger removal.

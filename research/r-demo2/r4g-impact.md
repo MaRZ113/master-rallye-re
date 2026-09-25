@@ -7,3 +7,13 @@
 - **Vehicle SDK:** the existing runtime-confirmed retail R4G writer remains unchanged. Source-era cooker output should inform later semantic validation; byte-level DX noise and unresolved secondary descriptor ordering should not become automatic SDK rewrite targets.
 
 Development-era course GXM may later serve as an original compiler oracle for R5T. This phase does not parse or modify course resources.
+
+## What the original cooker changes mean for R4G
+
+- Treat generated DX as the source→compiled semantic oracle, not a historical-byte template. Fixed-source 9.3.1 rebuild A/B is byte-identical, while shipped historical DX is not.
+- Bounds are demonstrably cooker-derived: the safe visible edit recalculated marker-1339 center/radius/maximum.
+- Tag101 is demonstrably derived from same-build `$chull` source geometry, with point mapping and cooker retriangulation. Source-only hull translation is unsafe in the tested runtime.
+- Runtime explicitly writes compiled DX then reopens it through the normal reader; future SDK output comparisons should use this persistent compiled boundary.
+- The controlled position differential preserved normals and all draw/index/collision bytes. This is one safe edit, not a universal compiler contract.
+
+These findings do not start or alter R4G implementation.
