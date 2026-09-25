@@ -9,3 +9,9 @@ Tag101 Representation A has eight AABB-helper corners; its extrema differ from t
 This mapping establishes source provenance; it does not make source-only hull translation safe. The captured 8.4.1 candidate crashes inside convex-hull construction. Do not perform a second blind mutation. `$cylinder`→tag102 remains **UNKNOWN**; the current source/target association is described in `cylinder-to-tag102.md`.
 
 Reproduce with `tools/scanner/r_demo2_chull_map.py` using the 9.3.1 source, sibling sidecar, and ignored `input/rebuild-A/car.dx`; report stays under ignored `.research-output/r-demo2/same-build-chull-map.json`.
+
+## R-DEMO2.2 same-build mapping update
+
+The detailed same-build cohort, full SHA256 values, explicit C-index→Rep-B maps, per-target-face source-record memberships and A-vector measurements are now in `collision-cooker.md` and ignored JSON reports under `.research-output/r-demo2/same-build-collision-oracle/`. Trooper uses the byte-identical runtime rebuild pair; Jump, NewRav and Tata are same-build shipped-DX controls and are not relabeled as regenerated.
+
+Across all four, candidate extreme Vector-C sets and tag101 Rep-B have equal counts with a unique bijection under `(x,y,z) → (x,z,-y)`. Float tuples are not bit-identical in general. The cooker retriangulates: exact unordered source-triangle overlap is only 16/52 for Trooper, 10/48 Jump, 10/48 NewRav, 9/32 Tata. Existing source-provenance confidence stands; safe source editing remains unproven.

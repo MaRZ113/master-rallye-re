@@ -2,7 +2,7 @@
 
 ## Status
 
-**R-DEMO2.1 PASS for the defined trace/oracle scope.** Dedicated branch/worktree only; no master changes, merge, push, EXE patch, R4G implementation, or course/track reverse engineering.
+**R-DEMO2.1 PASS for its defined trace/oracle scope. R-DEMO2.2 Collision Cooker Semantics is in progress; its crash cause is not resolved.** Dedicated branch/worktree only; no master changes, merge, push, EXE patch, R4G implementation, or course/track reverse engineering.
 
 ## Runtime traces
 
@@ -19,6 +19,14 @@
 - Same-build `$chull` points map bijectively to regenerated tag101 B vertices; source triangles are retriangulated. This establishes provenance, not a safe hull-edit recipe.
 - `$cylinder` to tag102 remains **UNKNOWN**. The current source/target association lacks a generated-output or controlled directive differential.
 
+## Collision cooker semantics (R-DEMO2.2 current)
+
+- Four 9.3.1 `$chull` cohorts show a bijective extreme Vector-C→tag101 Rep-B mapping under `(x,y,z) → (x,z,-y)`. Trooper uses a byte-identical runtime rebuild; Jump/NewRav/Tata remain shipped-DX controls.
+- Tag101 stores polygon loops/adjacency alongside a triangulated view; direct source triangle overlap is sparse. Rep-A extrema and base scalar reproduce from the tested hull; marker-1339 requires render plus Rep-B points within at most one float32 ULP.
+- Demo 9.3.1 static analysis shows a recursive `$chull` node/descendant triangle-position collector. An offline +0.4 C-only translation passes all known flat-GXM invariants, so those do not explain the runtime crash. Loader/hierarchy coverage and exact failing hull substage remain **UNKNOWN**; no second runtime mutation was attempted.
+
+See `collision-cooker.md` for full cohort hashes, mappings, Vector A/B tests, area/topology records, bounds measurements and offline checker output.
+
 ## Runtime evolution
 
 - 8.4.1: source-first, tested model path logs `Caching disabled`, reads GXM and cooks in memory; OutputDebugString stage trace active.
@@ -27,6 +35,6 @@
 
 See `model-cache-state-machine.md`, `runtime/`, `dx-regeneration.md`, `source-edit-oracle.md`, `gxm-to-tag101.md`, and `r4g-impact.md`. No broad ProcMon cache archaeology is needed for this state machine.
 
-## Roadmap (not started)
+## Roadmap
 
-The next demo-focused target is **R-DEMO2.2 — Collision Cooker Semantics**. Later course/track archaeology follows that target. This records sequencing only; neither phase has started. R4G is complete and frozen and is not the next unfinished phase.
+One narrow collision follow-up remains: map the serialized GXM hierarchy/loader output to the recursive demo 9.3.1 hull-builder input, then decide whether one coherent runtime mutation is justified. Do not start course/track archaeology until the collision follow-up is closed and the user asks for the next phase. R4G is complete and frozen.

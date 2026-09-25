@@ -17,3 +17,7 @@ Development-era course GXM may later serve as an original compiler oracle for R5
 - The controlled position differential preserved normals and all draw/index/collision bytes. This is one safe edit, not a universal compiler contract.
 
 These findings do not start or alter R4G implementation.
+
+## R-DEMO2.2 collision bounds refinement
+
+A four-vehicle 9.3.1 comparison found that Rep-A is an 8-corner box with extrema matching the mapped hull source/Rep-B extrema to float32-scale error, and the tag101 base scalar is exactly reproduced as a float32 radius from the tag101 base center to a Rep-A corner. Marker-1339 comparisons reject render-only and Rep-B-only bounds sets; render positions plus tag101-B reproduce the stored block exactly for Jump and within one float32 ULP for NewRav, Tata and regenerated Trooper. The evidence sharpens the semantic comparison only; no R4G code was changed. It does not justify treating a source `$chull` translation as safe or imply that a hull-only edit updates marker-1339.
