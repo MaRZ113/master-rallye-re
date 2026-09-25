@@ -54,7 +54,7 @@ A fresh Ghidra 12.0.4 analysis was run on the exact demo 9.3.1 executable, SHA25
 - `FUN_005de630` locates a node whose name contains `$chull`, parses its extension, gathers counts from child nodes, allocates a point input, recursively invokes `FUN_005df370`, then calls the following hull-processing functions `FUN_005f1310`, `FUN_005f21e0` and `FUN_005f2200`.
 - `FUN_005df370` walks the selected node's child chain recursively. For each internal mesh record it reads three indexed Vector3 positions and appends them to the hull input. It does not directly read internal A or B fields in this collector.
 
-The last statement concerns post-loader object offsets, not proven serialized GXM word offsets. The GXM loader's array remapping and hierarchy transforms remain unmapped. Therefore the static result identifies the recursive object/triangle input path, but not a complete serialized source dependency list or the failing subroutine.
+The last statement concerns post-loader object offsets, not proven serialized GXM word offsets. The typed node loader and child/sibling layout are now mapped in `hull-hierarchy.md`. However, `FUN_005c9990/FUN_005ca370` may rewrite each eligible mesh range into a shared internal 0x34-byte record store before the collector. The `$chull(Trooper)` result and internal-corner-to-Vector-C mapping remain unresolved, so the static collector path is known but the final serialized source dependency list is not.
 
 The 8.4.1 runtime trace confirms normal Trooper reaches `Building convex hull - done`; the C-only candidate reaches `Vertex welder - done`, starts `Building convex hull -`, and crashes before completion (**CONFIRMED_BY_RUNTIME_TRACE**). The analogous 9.3.1 test also crashed, but its DebugView result was `NO_OUTPUT_OBSERVED`.
 

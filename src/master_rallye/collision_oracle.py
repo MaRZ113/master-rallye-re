@@ -109,15 +109,23 @@ def exact_vertex_bijection(source: Mapping[int, Vec3], target: Sequence[Vec3], *
     unmatched = sorted({entry["target_index"] for entry in rejected})
     equal_counts = len(source) == len(target)
     bijective = equal_counts and not rejected and not unused and len(rows) == len(source)
-    status = "EXACT_BIJECTION" if bijective else (
-        "REJECTED_MATCHES" if rejected else "COUNT_MISMATCH" if not equal_counts else "PARTIAL_MAPPING")
+    max_distance = max((row["distance"] for row in rows), default=None)
+    if bijective and max_distance == 0.0:
+        status = "EXACT_BIJECTION"
+    elif bijective:
+        status = "BIJECTION_WITHIN_TOLERANCE"
+    elif ambiguous_pairs:
+        status = "AMBIGUOUS"
+    elif any(row["reason"] == "outside_tolerance" for row in rejected):
+        status = "OUT_OF_TOLERANCE"
+    else:
+        status = "FAILED"
     return {"status": status, "tolerance": tolerance, "ambiguity_epsilon": ambiguity_epsilon,
             "rows": rows, "bijective": bijective, "source_count": len(source),
             "target_count": len(target), "counts_equal": equal_counts,
             "all_source_points_used": not unused,
             "exact_float_match_count": sum(row["exact_float_match"] for row in rows),
-            "max_matched_distance": max((row["distance"] for row in rows), default=None),
-            "max_distance": max((row["distance"] for row in rows), default=None),
+            "max_matched_distance": max_distance, "max_distance": max_distance,
             "rejected_points": rejected, "unmatched_target_indices": unmatched,
             "unused_source_indices": unused, "ambiguous_pairs": ambiguous_pairs}
 

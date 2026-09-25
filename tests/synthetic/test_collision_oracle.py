@@ -40,7 +40,7 @@ class CollisionOracleTests(unittest.TestCase):
     def test_vertex_mapping_float_epsilon_within_tolerance(self):
         result = exact_vertex_bijection({4: (0.0, 0.0, 0.0)}, [(1e-7, 0.0, 0.0)],
                                         tolerance=1e-6)
-        self.assertEqual(result["status"], "EXACT_BIJECTION")
+        self.assertEqual(result["status"], "BIJECTION_WITHIN_TOLERANCE")
         self.assertAlmostEqual(result["max_matched_distance"], 1e-7)
 
     def test_vertex_mapping_rejects_out_of_tolerance(self):
@@ -48,7 +48,7 @@ class CollisionOracleTests(unittest.TestCase):
                                         tolerance=1e-4)
         self.assertFalse(result["bijective"])
         self.assertEqual(result["unmatched_target_indices"], [0])
-        self.assertEqual(result["rejected_points"][0]["reason"], "outside_tolerance")
+        self.assertEqual(result["status"], "OUT_OF_TOLERANCE")
         self.assertEqual(result["max_matched_distance"], None)
 
     def test_vertex_mapping_reports_ambiguous_near_duplicates(self):
@@ -56,14 +56,14 @@ class CollisionOracleTests(unittest.TestCase):
         result = exact_vertex_bijection(source, [(0.0, 5e-11, 0.0)], tolerance=1e-6,
                                         ambiguity_epsilon=1e-12)
         self.assertFalse(result["bijective"])
-        self.assertEqual(result["status"], "REJECTED_MATCHES")
+        self.assertEqual(result["status"], "AMBIGUOUS")
         self.assertEqual(result["ambiguous_pairs"][0]["source_indices"], [1, 2])
 
     def test_vertex_mapping_reports_unequal_counts_without_forcing(self):
         source = {1: (0.0, 0.0, 0.0), 2: (1.0, 0.0, 0.0)}
         result = exact_vertex_bijection(source, [gxm_to_demo_xyz(source[1])], tolerance=0.0)
         self.assertFalse(result["bijective"])
-        self.assertEqual(result["status"], "COUNT_MISMATCH")
+        self.assertEqual(result["status"], "FAILED")
         self.assertEqual(result["unused_source_indices"], [2])
 
     def test_face_set_and_winding_mapping(self):

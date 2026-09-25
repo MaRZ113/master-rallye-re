@@ -2,7 +2,7 @@
 
 ## Status
 
-**R-DEMO2.1 PASS for its defined trace/oracle scope. R-DEMO2.2 completed its bounded corpus/oracle analysis; its $chull crash cause is unresolved. R-DEMO2.3 hierarchy-to-runtime-input mapping is in progress.** Dedicated branch/worktree only; no master changes, merge, push, EXE patch, R4G implementation, or course/track reverse engineering.
+**R-DEMO2.1 PASS for its defined trace/oracle scope. R-DEMO2.2 completed its bounded corpus/oracle analysis. R-DEMO2.4 reconstructs the Trooper serialized hierarchy and EXE-confirmed node layout; final post-normalizer runtime input remains unresolved (Path U).** Dedicated branch/worktree only; no master changes, merge, push, EXE patch, R4G implementation, or course/track reverse engineering.
 
 ## Runtime traces
 
@@ -23,7 +23,7 @@
 
 - Four 9.3.1 `$chull` cohorts show a bijective extreme Vector-C→tag101 Rep-B mapping under `(x,y,z) → (x,z,-y)`. Trooper uses a byte-identical runtime rebuild; Jump/NewRav/Tata remain shipped-DX controls.
 - Tag101 stores polygon loops/adjacency alongside a triangulated view; direct source triangle overlap is sparse. Rep-A extrema and base scalar reproduce from the tested hull; marker-1339 requires render plus Rep-B points within at most one float32 ULP.
-- Demo 9.3.1 static analysis shows a recursive `$chull` node/descendant triangle-position collector. An offline +0.4 C-only translation passes all known flat-GXM invariants, so those do not explain the runtime crash. Loader/hierarchy coverage and exact failing hull substage remain **UNKNOWN**; no second runtime mutation was attempted.
+- Demo 9.3.1 typed GXM nodes map to the EXE-confirmed child/sibling layout. `$chull(Trooper)` is a leaf with raw span `[1911,1979)` (68 source triangles, 36 unique C ids). Before the recursive collector, `FUN_005c9990/FUN_005ca370` may rewrite mesh ranges and internal records. The final emitted stream is **UNRESOLVED** (Path U); no second runtime mutation was attempted.
 
 See `collision-cooker.md` for full cohort hashes, mappings, Vector A/B tests, area/topology records, bounds measurements and offline checker output.
 
@@ -37,4 +37,4 @@ See `model-cache-state-machine.md`, `runtime/`, `dx-regeneration.md`, `source-ed
 
 ## Roadmap
 
-R-DEMO2.3 is the narrow collision follow-up: map serialized GXM hierarchy/loader output to the recursive demo 9.3.1 hull-builder input. The raw-name/range correspondence is now bounded, but hierarchy control fields and loaded child links are not mapped; no further hull runtime mutation is justified yet. Do not start course/track archaeology until the collision follow-up is closed and the user asks for the next phase. R4G is complete and frozen.
+R-DEMO2.4 has mapped the serialized hierarchy, node links and collector order. The remaining narrow gate is the `$chull(Trooper)` result of `FUN_005c9990/FUN_005ca370`: final 0x34-byte records to raw C positions. The true runtime stream is not yet classified; no further hull mutation is justified. Do not start course/track archaeology until the collision follow-up is closed and the user asks for the next phase. R4G is complete and frozen.

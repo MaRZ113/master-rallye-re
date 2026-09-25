@@ -1,0 +1,1601 @@
+{
+  "schema": "r-demo2-gxm-hierarchy-v1",
+  "evidence": "CONFIRMED_BY_BYTES",
+  "runtime_mapping_evidence": "CONFIRMED_BY_EXE for node layout and links; HIGH_CONFIDENCE_INFERENCE for top-level root termination at tail EOF",
+  "source_path": "D:\\Game\\Master Rallye\\corpora\\demo-9.3.1\\DataGx\\Vehicles\\Trooper\\car.gxm",
+  "source_size": 222754,
+  "source_sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+  "sidecar_path": "D:\\Game\\Master Rallye\\corpora\\demo-9.3.1\\DataGx\\Vehicles\\Trooper\\car.txt",
+  "sidecar_sha256": "b930697e4ab2321c3ce419d2ad9413aab033217c1d6861e4093808280776fedb",
+  "sidecar_mesh_count": 28,
+  "serialized_name_span_order_matches_sidecar": true,
+  "prefix_kind": "material_table",
+  "triangle_record_count": 1979,
+  "hierarchy_tail_offset": 222022,
+  "hierarchy_tail_size": 732,
+  "hierarchy_consumed_size": 732,
+  "root_name": "Model",
+  "top_level_node_count": 2,
+  "node_count": 28,
+  "all_ranges_in_bounds": true,
+  "depth_first_serialized_ranges": [
+    {
+      "name": "shell",
+      "start": 0,
+      "count": 98,
+      "end_exclusive": 98
+    },
+    {
+      "name": "frontgrill",
+      "start": 98,
+      "count": 8,
+      "end_exclusive": 106
+    },
+    {
+      "name": "interior",
+      "start": 106,
+      "count": 82,
+      "end_exclusive": 188
+    },
+    {
+      "name": "driver01",
+      "start": 188,
+      "count": 151,
+      "end_exclusive": 339
+    },
+    {
+      "name": "head01",
+      "start": 339,
+      "count": 60,
+      "end_exclusive": 399
+    },
+    {
+      "name": "helmet01 $paint",
+      "start": 399,
+      "count": 86,
+      "end_exclusive": 485
+    },
+    {
+      "name": "driver02",
+      "start": 485,
+      "count": 101,
+      "end_exclusive": 586
+    },
+    {
+      "name": "head02",
+      "start": 586,
+      "count": 60,
+      "end_exclusive": 646
+    },
+    {
+      "name": "helmet02 $paint",
+      "start": 646,
+      "count": 86,
+      "end_exclusive": 732
+    },
+    {
+      "name": "paintwork $paint",
+      "start": 732,
+      "count": 522,
+      "end_exclusive": 1254
+    },
+    {
+      "name": "glass $glass",
+      "start": 1254,
+      "count": 16,
+      "end_exclusive": 1270
+    },
+    {
+      "name": "rbump $perspex",
+      "start": 1270,
+      "count": 38,
+      "end_exclusive": 1308
+    },
+    {
+      "name": "stickers $perspex",
+      "start": 1308,
+      "count": 14,
+      "end_exclusive": 1322
+    },
+    {
+      "name": "mirror01 $paint",
+      "start": 1322,
+      "count": 22,
+      "end_exclusive": 1344
+    },
+    {
+      "name": "spare $rubber",
+      "start": 1344,
+      "count": 153,
+      "end_exclusive": 1497
+    },
+    {
+      "name": "hub05",
+      "start": 1497,
+      "count": 90,
+      "end_exclusive": 1587
+    },
+    {
+      "name": "hlight $glass",
+      "start": 1587,
+      "count": 6,
+      "end_exclusive": 1593
+    },
+    {
+      "name": "llights $perspex",
+      "start": 1593,
+      "count": 4,
+      "end_exclusive": 1597
+    },
+    {
+      "name": "fpanel",
+      "start": 1597,
+      "count": 8,
+      "end_exclusive": 1605
+    },
+    {
+      "name": "tgrill",
+      "start": 1605,
+      "count": 2,
+      "end_exclusive": 1607
+    },
+    {
+      "name": "hlight $perspex",
+      "start": 1607,
+      "count": 26,
+      "end_exclusive": 1633
+    },
+    {
+      "name": "slight $perspex",
+      "start": 1633,
+      "count": 10,
+      "end_exclusive": 1643
+    },
+    {
+      "name": "panels $perspex",
+      "start": 1643,
+      "count": 36,
+      "end_exclusive": 1679
+    },
+    {
+      "name": "fbump $perspex",
+      "start": 1679,
+      "count": 154,
+      "end_exclusive": 1833
+    },
+    {
+      "name": "rlight $perpsex",
+      "start": 1833,
+      "count": 44,
+      "end_exclusive": 1877
+    },
+    {
+      "name": "mirror02 $paint",
+      "start": 1877,
+      "count": 22,
+      "end_exclusive": 1899
+    },
+    {
+      "name": "blight $perspex",
+      "start": 1899,
+      "count": 12,
+      "end_exclusive": 1911
+    },
+    {
+      "name": "$chull(Trooper)",
+      "start": 1911,
+      "count": 68,
+      "end_exclusive": 1979
+    }
+  ],
+  "runtime_link_mapping": [
+    {
+      "name": "shell",
+      "record_offset": 222029,
+      "parent_name": null,
+      "previous_sibling_name": null,
+      "next_sibling_name": "$chull(Trooper)",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "frontgrill",
+      "record_offset": 222048,
+      "parent_name": "shell",
+      "previous_sibling_name": null,
+      "next_sibling_name": "interior",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "interior",
+      "record_offset": 222072,
+      "parent_name": "shell",
+      "previous_sibling_name": "frontgrill",
+      "next_sibling_name": "paintwork $paint",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "driver01",
+      "record_offset": 222094,
+      "parent_name": "interior",
+      "previous_sibling_name": null,
+      "next_sibling_name": "driver02",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "head01",
+      "record_offset": 222116,
+      "parent_name": "driver01",
+      "previous_sibling_name": null,
+      "next_sibling_name": null,
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "helmet01 $paint",
+      "record_offset": 222136,
+      "parent_name": "head01",
+      "previous_sibling_name": null,
+      "next_sibling_name": null,
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "driver02",
+      "record_offset": 222165,
+      "parent_name": "interior",
+      "previous_sibling_name": "driver01",
+      "next_sibling_name": null,
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "head02",
+      "record_offset": 222187,
+      "parent_name": "driver02",
+      "previous_sibling_name": null,
+      "next_sibling_name": null,
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "helmet02 $paint",
+      "record_offset": 222207,
+      "parent_name": "head02",
+      "previous_sibling_name": null,
+      "next_sibling_name": null,
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "paintwork $paint",
+      "record_offset": 222236,
+      "parent_name": "shell",
+      "previous_sibling_name": "interior",
+      "next_sibling_name": "glass $glass",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "glass $glass",
+      "record_offset": 222266,
+      "parent_name": "shell",
+      "previous_sibling_name": "paintwork $paint",
+      "next_sibling_name": "rbump $perspex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "rbump $perspex",
+      "record_offset": 222292,
+      "parent_name": "shell",
+      "previous_sibling_name": "glass $glass",
+      "next_sibling_name": "stickers $perspex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "stickers $perspex",
+      "record_offset": 222320,
+      "parent_name": "shell",
+      "previous_sibling_name": "rbump $perspex",
+      "next_sibling_name": "mirror01 $paint",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "mirror01 $paint",
+      "record_offset": 222351,
+      "parent_name": "shell",
+      "previous_sibling_name": "stickers $perspex",
+      "next_sibling_name": "spare $rubber",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "spare $rubber",
+      "record_offset": 222380,
+      "parent_name": "shell",
+      "previous_sibling_name": "mirror01 $paint",
+      "next_sibling_name": "hlight $glass",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "hub05",
+      "record_offset": 222407,
+      "parent_name": "spare $rubber",
+      "previous_sibling_name": null,
+      "next_sibling_name": null,
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "hlight $glass",
+      "record_offset": 222426,
+      "parent_name": "shell",
+      "previous_sibling_name": "spare $rubber",
+      "next_sibling_name": "llights $perspex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "llights $perspex",
+      "record_offset": 222453,
+      "parent_name": "shell",
+      "previous_sibling_name": "hlight $glass",
+      "next_sibling_name": "fpanel",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "fpanel",
+      "record_offset": 222483,
+      "parent_name": "shell",
+      "previous_sibling_name": "llights $perspex",
+      "next_sibling_name": "tgrill",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "tgrill",
+      "record_offset": 222503,
+      "parent_name": "shell",
+      "previous_sibling_name": "fpanel",
+      "next_sibling_name": "hlight $perspex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "hlight $perspex",
+      "record_offset": 222523,
+      "parent_name": "shell",
+      "previous_sibling_name": "tgrill",
+      "next_sibling_name": "slight $perspex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "slight $perspex",
+      "record_offset": 222552,
+      "parent_name": "shell",
+      "previous_sibling_name": "hlight $perspex",
+      "next_sibling_name": "panels $perspex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "panels $perspex",
+      "record_offset": 222581,
+      "parent_name": "shell",
+      "previous_sibling_name": "slight $perspex",
+      "next_sibling_name": "fbump $perspex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "fbump $perspex",
+      "record_offset": 222610,
+      "parent_name": "shell",
+      "previous_sibling_name": "panels $perspex",
+      "next_sibling_name": "rlight $perpsex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "rlight $perpsex",
+      "record_offset": 222638,
+      "parent_name": "shell",
+      "previous_sibling_name": "fbump $perspex",
+      "next_sibling_name": "mirror02 $paint",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "mirror02 $paint",
+      "record_offset": 222667,
+      "parent_name": "shell",
+      "previous_sibling_name": "rlight $perpsex",
+      "next_sibling_name": "blight $perspex",
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "blight $perspex",
+      "record_offset": 222696,
+      "parent_name": "shell",
+      "previous_sibling_name": "mirror02 $paint",
+      "next_sibling_name": null,
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    },
+    {
+      "name": "$chull(Trooper)",
+      "record_offset": 222725,
+      "parent_name": null,
+      "previous_sibling_name": "shell",
+      "next_sibling_name": null,
+      "child_offset": 4,
+      "sibling_offset": 8,
+      "parent_offset": 12,
+      "name_offset": 20,
+      "mesh_start_offset": 28,
+      "mesh_count_offset": 32
+    }
+  ],
+  "nodes": [
+    {
+      "name": "shell",
+      "type": 1,
+      "version": 1,
+      "child_count": 19,
+      "mesh_start": 0,
+      "mesh_count": 98,
+      "mesh_end_exclusive": 98,
+      "range_in_bounds": true,
+      "record_offset": 222029,
+      "name_offset": 222041,
+      "children": [
+        {
+          "name": "frontgrill",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 98,
+          "mesh_count": 8,
+          "mesh_end_exclusive": 106,
+          "range_in_bounds": true,
+          "record_offset": 222048,
+          "name_offset": 222060,
+          "children": []
+        },
+        {
+          "name": "interior",
+          "type": 1,
+          "version": 1,
+          "child_count": 2,
+          "mesh_start": 106,
+          "mesh_count": 82,
+          "mesh_end_exclusive": 188,
+          "range_in_bounds": true,
+          "record_offset": 222072,
+          "name_offset": 222084,
+          "children": [
+            {
+              "name": "driver01",
+              "type": 1,
+              "version": 1,
+              "child_count": 1,
+              "mesh_start": 188,
+              "mesh_count": 151,
+              "mesh_end_exclusive": 339,
+              "range_in_bounds": true,
+              "record_offset": 222094,
+              "name_offset": 222106,
+              "children": [
+                {
+                  "name": "head01",
+                  "type": 1,
+                  "version": 1,
+                  "child_count": 1,
+                  "mesh_start": 339,
+                  "mesh_count": 60,
+                  "mesh_end_exclusive": 399,
+                  "range_in_bounds": true,
+                  "record_offset": 222116,
+                  "name_offset": 222128,
+                  "children": [
+                    {
+                      "name": "helmet01 $paint",
+                      "type": 1,
+                      "version": 1,
+                      "child_count": 0,
+                      "mesh_start": 399,
+                      "mesh_count": 86,
+                      "mesh_end_exclusive": 485,
+                      "range_in_bounds": true,
+                      "record_offset": 222136,
+                      "name_offset": 222148,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "driver02",
+              "type": 1,
+              "version": 1,
+              "child_count": 1,
+              "mesh_start": 485,
+              "mesh_count": 101,
+              "mesh_end_exclusive": 586,
+              "range_in_bounds": true,
+              "record_offset": 222165,
+              "name_offset": 222177,
+              "children": [
+                {
+                  "name": "head02",
+                  "type": 1,
+                  "version": 1,
+                  "child_count": 1,
+                  "mesh_start": 586,
+                  "mesh_count": 60,
+                  "mesh_end_exclusive": 646,
+                  "range_in_bounds": true,
+                  "record_offset": 222187,
+                  "name_offset": 222199,
+                  "children": [
+                    {
+                      "name": "helmet02 $paint",
+                      "type": 1,
+                      "version": 1,
+                      "child_count": 0,
+                      "mesh_start": 646,
+                      "mesh_count": 86,
+                      "mesh_end_exclusive": 732,
+                      "range_in_bounds": true,
+                      "record_offset": 222207,
+                      "name_offset": 222219,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "paintwork $paint",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 732,
+          "mesh_count": 522,
+          "mesh_end_exclusive": 1254,
+          "range_in_bounds": true,
+          "record_offset": 222236,
+          "name_offset": 222248,
+          "children": []
+        },
+        {
+          "name": "glass $glass",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1254,
+          "mesh_count": 16,
+          "mesh_end_exclusive": 1270,
+          "range_in_bounds": true,
+          "record_offset": 222266,
+          "name_offset": 222278,
+          "children": []
+        },
+        {
+          "name": "rbump $perspex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1270,
+          "mesh_count": 38,
+          "mesh_end_exclusive": 1308,
+          "range_in_bounds": true,
+          "record_offset": 222292,
+          "name_offset": 222304,
+          "children": []
+        },
+        {
+          "name": "stickers $perspex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1308,
+          "mesh_count": 14,
+          "mesh_end_exclusive": 1322,
+          "range_in_bounds": true,
+          "record_offset": 222320,
+          "name_offset": 222332,
+          "children": []
+        },
+        {
+          "name": "mirror01 $paint",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1322,
+          "mesh_count": 22,
+          "mesh_end_exclusive": 1344,
+          "range_in_bounds": true,
+          "record_offset": 222351,
+          "name_offset": 222363,
+          "children": []
+        },
+        {
+          "name": "spare $rubber",
+          "type": 1,
+          "version": 1,
+          "child_count": 1,
+          "mesh_start": 1344,
+          "mesh_count": 153,
+          "mesh_end_exclusive": 1497,
+          "range_in_bounds": true,
+          "record_offset": 222380,
+          "name_offset": 222392,
+          "children": [
+            {
+              "name": "hub05",
+              "type": 1,
+              "version": 1,
+              "child_count": 0,
+              "mesh_start": 1497,
+              "mesh_count": 90,
+              "mesh_end_exclusive": 1587,
+              "range_in_bounds": true,
+              "record_offset": 222407,
+              "name_offset": 222419,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "hlight $glass",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1587,
+          "mesh_count": 6,
+          "mesh_end_exclusive": 1593,
+          "range_in_bounds": true,
+          "record_offset": 222426,
+          "name_offset": 222438,
+          "children": []
+        },
+        {
+          "name": "llights $perspex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1593,
+          "mesh_count": 4,
+          "mesh_end_exclusive": 1597,
+          "range_in_bounds": true,
+          "record_offset": 222453,
+          "name_offset": 222465,
+          "children": []
+        },
+        {
+          "name": "fpanel",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1597,
+          "mesh_count": 8,
+          "mesh_end_exclusive": 1605,
+          "range_in_bounds": true,
+          "record_offset": 222483,
+          "name_offset": 222495,
+          "children": []
+        },
+        {
+          "name": "tgrill",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1605,
+          "mesh_count": 2,
+          "mesh_end_exclusive": 1607,
+          "range_in_bounds": true,
+          "record_offset": 222503,
+          "name_offset": 222515,
+          "children": []
+        },
+        {
+          "name": "hlight $perspex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1607,
+          "mesh_count": 26,
+          "mesh_end_exclusive": 1633,
+          "range_in_bounds": true,
+          "record_offset": 222523,
+          "name_offset": 222535,
+          "children": []
+        },
+        {
+          "name": "slight $perspex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1633,
+          "mesh_count": 10,
+          "mesh_end_exclusive": 1643,
+          "range_in_bounds": true,
+          "record_offset": 222552,
+          "name_offset": 222564,
+          "children": []
+        },
+        {
+          "name": "panels $perspex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1643,
+          "mesh_count": 36,
+          "mesh_end_exclusive": 1679,
+          "range_in_bounds": true,
+          "record_offset": 222581,
+          "name_offset": 222593,
+          "children": []
+        },
+        {
+          "name": "fbump $perspex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1679,
+          "mesh_count": 154,
+          "mesh_end_exclusive": 1833,
+          "range_in_bounds": true,
+          "record_offset": 222610,
+          "name_offset": 222622,
+          "children": []
+        },
+        {
+          "name": "rlight $perpsex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1833,
+          "mesh_count": 44,
+          "mesh_end_exclusive": 1877,
+          "range_in_bounds": true,
+          "record_offset": 222638,
+          "name_offset": 222650,
+          "children": []
+        },
+        {
+          "name": "mirror02 $paint",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1877,
+          "mesh_count": 22,
+          "mesh_end_exclusive": 1899,
+          "range_in_bounds": true,
+          "record_offset": 222667,
+          "name_offset": 222679,
+          "children": []
+        },
+        {
+          "name": "blight $perspex",
+          "type": 1,
+          "version": 1,
+          "child_count": 0,
+          "mesh_start": 1899,
+          "mesh_count": 12,
+          "mesh_end_exclusive": 1911,
+          "range_in_bounds": true,
+          "record_offset": 222696,
+          "name_offset": 222708,
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "$chull(Trooper)",
+      "type": 1,
+      "version": 1,
+      "child_count": 0,
+      "mesh_start": 1911,
+      "mesh_count": 68,
+      "mesh_end_exclusive": 1979,
+      "range_in_bounds": true,
+      "record_offset": 222725,
+      "name_offset": 222737,
+      "children": []
+    }
+  ],
+  "chull_matches": [
+    {
+      "name": "$chull(Trooper)",
+      "type": 1,
+      "version": 1,
+      "child_count": 0,
+      "mesh_start": 1911,
+      "mesh_count": 68,
+      "mesh_end_exclusive": 1979,
+      "range_in_bounds": true,
+      "record_offset": 222725,
+      "name_offset": 222737,
+      "children": []
+    }
+  ],
+  "pre_normalizer_hull_record_ids": [
+    1911,
+    1912,
+    1913,
+    1914,
+    1915,
+    1916,
+    1917,
+    1918,
+    1919,
+    1920,
+    1921,
+    1922,
+    1923,
+    1924,
+    1925,
+    1926,
+    1927,
+    1928,
+    1929,
+    1930,
+    1931,
+    1932,
+    1933,
+    1934,
+    1935,
+    1936,
+    1937,
+    1938,
+    1939,
+    1940,
+    1941,
+    1942,
+    1943,
+    1944,
+    1945,
+    1946,
+    1947,
+    1948,
+    1949,
+    1950,
+    1951,
+    1952,
+    1953,
+    1954,
+    1955,
+    1956,
+    1957,
+    1958,
+    1959,
+    1960,
+    1961,
+    1962,
+    1963,
+    1964,
+    1965,
+    1966,
+    1967,
+    1968,
+    1969,
+    1970,
+    1971,
+    1972,
+    1973,
+    1974,
+    1975,
+    1976,
+    1977,
+    1978
+  ],
+  "serialized_hull_triangle_count": 68,
+  "serialized_hull_unique_c_indices": [
+    1317,
+    1318,
+    1319,
+    1320,
+    1321,
+    1322,
+    1323,
+    1324,
+    1325,
+    1326,
+    1327,
+    1328,
+    1329,
+    1330,
+    1331,
+    1332,
+    1333,
+    1334,
+    1335,
+    1336,
+    1337,
+    1338,
+    1339,
+    1340,
+    1341,
+    1342,
+    1343,
+    1344,
+    1345,
+    1346,
+    1347,
+    1348,
+    1349,
+    1350,
+    1351,
+    1352
+  ],
+  "serialized_hull_triangle_stream": [
+    {
+      "record_index": 1911,
+      "c_indices": [
+        1321,
+        1322,
+        1324
+      ]
+    },
+    {
+      "record_index": 1912,
+      "c_indices": [
+        1324,
+        1323,
+        1321
+      ]
+    },
+    {
+      "record_index": 1913,
+      "c_indices": [
+        1348,
+        1347,
+        1349
+      ]
+    },
+    {
+      "record_index": 1914,
+      "c_indices": [
+        1349,
+        1350,
+        1348
+      ]
+    },
+    {
+      "record_index": 1915,
+      "c_indices": [
+        1327,
+        1328,
+        1334
+      ]
+    },
+    {
+      "record_index": 1916,
+      "c_indices": [
+        1334,
+        1333,
+        1327
+      ]
+    },
+    {
+      "record_index": 1917,
+      "c_indices": [
+        1324,
+        1322,
+        1320
+      ]
+    },
+    {
+      "record_index": 1918,
+      "c_indices": [
+        1350,
+        1349,
+        1351
+      ]
+    },
+    {
+      "record_index": 1919,
+      "c_indices": [
+        1351,
+        1352,
+        1350
+      ]
+    },
+    {
+      "record_index": 1920,
+      "c_indices": [
+        1321,
+        1323,
+        1319
+      ]
+    },
+    {
+      "record_index": 1921,
+      "c_indices": [
+        1320,
+        1322,
+        1326
+      ]
+    },
+    {
+      "record_index": 1922,
+      "c_indices": [
+        1322,
+        1321,
+        1325
+      ]
+    },
+    {
+      "record_index": 1923,
+      "c_indices": [
+        1325,
+        1326,
+        1322
+      ]
+    },
+    {
+      "record_index": 1924,
+      "c_indices": [
+        1319,
+        1325,
+        1321
+      ]
+    },
+    {
+      "record_index": 1925,
+      "c_indices": [
+        1317,
+        1318,
+        1328
+      ]
+    },
+    {
+      "record_index": 1926,
+      "c_indices": [
+        1328,
+        1327,
+        1317
+      ]
+    },
+    {
+      "record_index": 1927,
+      "c_indices": [
+        1318,
+        1320,
+        1330
+      ]
+    },
+    {
+      "record_index": 1928,
+      "c_indices": [
+        1330,
+        1328,
+        1318
+      ]
+    },
+    {
+      "record_index": 1929,
+      "c_indices": [
+        1317,
+        1329,
+        1319
+      ]
+    },
+    {
+      "record_index": 1930,
+      "c_indices": [
+        1320,
+        1326,
+        1332
+      ]
+    },
+    {
+      "record_index": 1931,
+      "c_indices": [
+        1332,
+        1330,
+        1320
+      ]
+    },
+    {
+      "record_index": 1932,
+      "c_indices": [
+        1326,
+        1325,
+        1331
+      ]
+    },
+    {
+      "record_index": 1933,
+      "c_indices": [
+        1331,
+        1332,
+        1326
+      ]
+    },
+    {
+      "record_index": 1934,
+      "c_indices": [
+        1331,
+        1319,
+        1329
+      ]
+    },
+    {
+      "record_index": 1935,
+      "c_indices": [
+        1319,
+        1331,
+        1325
+      ]
+    },
+    {
+      "record_index": 1936,
+      "c_indices": [
+        1317,
+        1327,
+        1329
+      ]
+    },
+    {
+      "record_index": 1937,
+      "c_indices": [
+        1330,
+        1332,
+        1334
+      ]
+    },
+    {
+      "record_index": 1938,
+      "c_indices": [
+        1334,
+        1328,
+        1330
+      ]
+    },
+    {
+      "record_index": 1939,
+      "c_indices": [
+        1332,
+        1331,
+        1333
+      ]
+    },
+    {
+      "record_index": 1940,
+      "c_indices": [
+        1333,
+        1334,
+        1332
+      ]
+    },
+    {
+      "record_index": 1941,
+      "c_indices": [
+        1333,
+        1329,
+        1327
+      ]
+    },
+    {
+      "record_index": 1942,
+      "c_indices": [
+        1329,
+        1333,
+        1331
+      ]
+    },
+    {
+      "record_index": 1943,
+      "c_indices": [
+        1318,
+        1317,
+        1335
+      ]
+    },
+    {
+      "record_index": 1944,
+      "c_indices": [
+        1335,
+        1336,
+        1318
+      ]
+    },
+    {
+      "record_index": 1945,
+      "c_indices": [
+        1323,
+        1324,
+        1340
+      ]
+    },
+    {
+      "record_index": 1946,
+      "c_indices": [
+        1340,
+        1339,
+        1323
+      ]
+    },
+    {
+      "record_index": 1947,
+      "c_indices": [
+        1338,
+        1318,
+        1336
+      ]
+    },
+    {
+      "record_index": 1948,
+      "c_indices": [
+        1318,
+        1338,
+        1320
+      ]
+    },
+    {
+      "record_index": 1949,
+      "c_indices": [
+        1317,
+        1319,
+        1337
+      ]
+    },
+    {
+      "record_index": 1950,
+      "c_indices": [
+        1337,
+        1335,
+        1317
+      ]
+    },
+    {
+      "record_index": 1951,
+      "c_indices": [
+        1324,
+        1320,
+        1338
+      ]
+    },
+    {
+      "record_index": 1952,
+      "c_indices": [
+        1338,
+        1340,
+        1324
+      ]
+    },
+    {
+      "record_index": 1953,
+      "c_indices": [
+        1337,
+        1323,
+        1339
+      ]
+    },
+    {
+      "record_index": 1954,
+      "c_indices": [
+        1323,
+        1337,
+        1319
+      ]
+    },
+    {
+      "record_index": 1955,
+      "c_indices": [
+        1336,
+        1335,
+        1341
+      ]
+    },
+    {
+      "record_index": 1956,
+      "c_indices": [
+        1341,
+        1342,
+        1336
+      ]
+    },
+    {
+      "record_index": 1957,
+      "c_indices": [
+        1335,
+        1337,
+        1343
+      ]
+    },
+    {
+      "record_index": 1958,
+      "c_indices": [
+        1343,
+        1341,
+        1335
+      ]
+    },
+    {
+      "record_index": 1959,
+      "c_indices": [
+        1338,
+        1336,
+        1342
+      ]
+    },
+    {
+      "record_index": 1960,
+      "c_indices": [
+        1342,
+        1344,
+        1338
+      ]
+    },
+    {
+      "record_index": 1961,
+      "c_indices": [
+        1337,
+        1339,
+        1345
+      ]
+    },
+    {
+      "record_index": 1962,
+      "c_indices": [
+        1345,
+        1343,
+        1337
+      ]
+    },
+    {
+      "record_index": 1963,
+      "c_indices": [
+        1339,
+        1340,
+        1346
+      ]
+    },
+    {
+      "record_index": 1964,
+      "c_indices": [
+        1346,
+        1345,
+        1339
+      ]
+    },
+    {
+      "record_index": 1965,
+      "c_indices": [
+        1346,
+        1338,
+        1344
+      ]
+    },
+    {
+      "record_index": 1966,
+      "c_indices": [
+        1338,
+        1346,
+        1340
+      ]
+    },
+    {
+      "record_index": 1967,
+      "c_indices": [
+        1342,
+        1341,
+        1347
+      ]
+    },
+    {
+      "record_index": 1968,
+      "c_indices": [
+        1347,
+        1348,
+        1342
+      ]
+    },
+    {
+      "record_index": 1969,
+      "c_indices": [
+        1341,
+        1343,
+        1349
+      ]
+    },
+    {
+      "record_index": 1970,
+      "c_indices": [
+        1349,
+        1347,
+        1341
+      ]
+    },
+    {
+      "record_index": 1971,
+      "c_indices": [
+        1344,
+        1342,
+        1348
+      ]
+    },
+    {
+      "record_index": 1972,
+      "c_indices": [
+        1348,
+        1350,
+        1344
+      ]
+    },
+    {
+      "record_index": 1973,
+      "c_indices": [
+        1343,
+        1345,
+        1351
+      ]
+    },
+    {
+      "record_index": 1974,
+      "c_indices": [
+        1351,
+        1349,
+        1343
+      ]
+    },
+    {
+      "record_index": 1975,
+      "c_indices": [
+        1345,
+        1346,
+        1352
+      ]
+    },
+    {
+      "record_index": 1976,
+      "c_indices": [
+        1352,
+        1351,
+        1345
+      ]
+    },
+    {
+      "record_index": 1977,
+      "c_indices": [
+        1346,
+        1344,
+        1350
+      ]
+    },
+    {
+      "record_index": 1978,
+      "c_indices": [
+        1350,
+        1352,
+        1346
+      ]
+    }
+  ],
+  "runtime_triangle_stream": "UNRESOLVED: loader post-pass FUN_005c9990/FUN_005ca370 may remap or rewrite internal 0x34-byte mesh records before FUN_005df370"
+}
