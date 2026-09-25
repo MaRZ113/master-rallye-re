@@ -25,7 +25,7 @@ u32 mesh_start | u32 mesh_count | u16 name_length | ASCII name |
 child_count recursive records
 ```
 
-The top-level list contains `shell` and `$chull(Trooper)`. The second root is inferred by exact parse to EOF and sidecar agreement; the outer caller loop at `FUN_005c98d0` has not yet been fully decompiled. All 28 ranges are within the 1,979-record table.
+The top-level list contains `shell` and `$chull(Trooper)`. R-DEMO2.5 confirms the outer type-2/version-7 header at file offset zero (`0x00020702`) declares two children: `005bea30` dispatches `005bdf40` for the model body, then reads its name and children. `FUN_005c98d0` is later 2D processing, not the hierarchy loader. All 28 ranges are within the 1,979-record table.
 
 `FUN_005bea30` confirms this association in the exact 9.3.1 executable: it reads the 4-byte type/version/child-count header, dispatches the type, reads the 8-byte range for type 1, reads the name, and recursively reads the declared children. The 0x24-byte type-1 object constructor is `FUN_005cd250`.
 
@@ -41,8 +41,8 @@ The child counts match the corresponding 9.3.1 sidecar nesting: `shell` has 19 d
 | `+0x0c` | parent | **CONFIRMED_BY_EXE** |
 | `+0x10` | last child | **CONFIRMED_BY_EXE** |
 | `+0x14` | name pointer | **CONFIRMED_BY_EXE** |
-| `+0x1c` | mesh start after loader normalization | **CONFIRMED_BY_EXE** |
-| `+0x20` | mesh triangle count after loader normalization | **CONFIRMED_BY_EXE** |
+| `+0x1c` | mesh record start | **CONFIRMED_BY_EXE** |
+| `+0x20` | mesh triangle count | **CONFIRMED_BY_EXE** |
 
 `FUN_004b1a60` maintains child/sibling/parent/last-child links. The `runtime_node_bindings` helper reflects the static mapping to named nodes and link slots; it does not fabricate process pointers. This reconstruction is **CONFIRMED_BY_EXE**, not a debugger-observed live node dump.
 
@@ -56,6 +56,6 @@ The child counts match the corresponding 9.3.1 sidecar nesting: `shell` has 19 d
 
 The serialized range agrees with the matching sidecar. The matching name and hierarchy topology make this the `$chull` node found by the static runtime search, with **HIGH_CONFIDENCE_INFERENCE** for mapping this file’s node identity to the runtime object.
 
-## Limit
+## Current scope
 
-This file proves serialized hierarchy and the loader's type-1 node layout. It does not prove that raw range `[1911,1979)` remains the final `+0x1c/+0x20` range after the recursive `FUN_005c9990` post-pass. That unresolved rewrite is documented in `hull-runtime-input.md`.
+R-DEMO2.5 resolves pre-hull provenance for the pinned 9.3.1 Trooper offline pair: the `$chull` positions cannot participate in a weld, and its 68 records retain their C indices. `FUN_005c9990/FUN_005ca370` range rewrites happen after hull construction. See `hull-runtime-input.md` and `vertex-welder.md` for Path B and the distinction between a static/offline reconstruction and captured native buffers. This does not generalize to other node types, sort-plane meshes, non-isolated weld classes or the 8.4.1 crash asset.

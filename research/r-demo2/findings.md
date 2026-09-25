@@ -2,7 +2,7 @@
 
 ## Status
 
-**R-DEMO2.1 PASS for its defined trace/oracle scope. R-DEMO2.2 completed its bounded corpus/oracle analysis. R-DEMO2.4 reconstructs the Trooper serialized hierarchy and EXE-confirmed node layout; final post-normalizer runtime input remains unresolved (Path U).** Dedicated branch/worktree only; no master changes, merge, push, EXE patch, R4G implementation, or course/track reverse engineering.
+**R-DEMO2.1 PASS for its trace/oracle scope; R-DEMO2.2 bounded collision oracle complete; R-DEMO2.4 hierarchy retained; R-DEMO2.5 PASS for bounded 9.3.1 pre-hull provenance (Path B).** The crash instruction remains unknown. Dedicated demo branch only; R5T unstarted.
 
 ## Runtime traces
 
@@ -23,7 +23,7 @@
 
 - Four 9.3.1 `$chull` cohorts show a bijective extreme Vector-C→tag101 Rep-B mapping under `(x,y,z) → (x,z,-y)`. Trooper uses a byte-identical runtime rebuild; Jump/NewRav/Tata remain shipped-DX controls.
 - Tag101 stores polygon loops/adjacency alongside a triangulated view; direct source triangle overlap is sparse. Rep-A extrema and base scalar reproduce from the tested hull; marker-1339 requires render plus Rep-B points within at most one float32 ULP.
-- Demo 9.3.1 typed GXM nodes map to the EXE-confirmed child/sibling layout. `$chull(Trooper)` is a leaf with raw span `[1911,1979)` (68 source triangles, 36 unique C ids). Before the recursive collector, `FUN_005c9990/FUN_005ca370` may rewrite mesh ranges and internal records. The final emitted stream is **UNRESOLVED** (Path U); no second runtime mutation was attempted.
+- R-DEMO2.5 establishes **Path B for the pinned 9.3.1 Trooper offline pair**: all 36 hull positions are isolated from the global welder, so 68 triangles / 204 corners retain their indices and translate uniformly (maximum residual `3.26e-8`). `FUN_005c9990/FUN_005ca370` are post-hull 2D processing and cannot explain the earlier crash. No new runtime mutation was made; see `vertex-welder.md` and `vertex-welder.json`. The actual fault instruction and the 8.4.1 post-weld stream remain unknown.
 
 See `collision-cooker.md` for full cohort hashes, mappings, Vector A/B tests, area/topology records, bounds measurements and offline checker output.
 
@@ -37,4 +37,4 @@ See `model-cache-state-machine.md`, `runtime/`, `dx-regeneration.md`, `source-ed
 
 ## Roadmap
 
-R-DEMO2.4 has mapped the serialized hierarchy, node links and collector order. The remaining narrow gate is the `$chull(Trooper)` result of `FUN_005c9990/FUN_005ca370`: final 0x34-byte records to raw C positions. The true runtime stream is not yet classified; no further hull mutation is justified. Do not start course/track archaeology until the collision follow-up is closed and the user asks for the next phase. R4G is complete and frozen.
+R-DEMO2.5 rejects pre-hull hierarchy/welder incompleteness for the tested 9.3.1 offline analogue. The first bounded hull probe preserves all 7,140 triple classifications at the initial EXE plane thickness. Next, if requested: one narrow hull-library follow-up at the `005fc680` plane-equivalence transition, with actual configured thickness and crash address. This is a follow-up target, not a proven fault site. No repeated hull mutation, course/track archaeology, merge or push. R4G remains frozen.

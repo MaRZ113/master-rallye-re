@@ -1,0 +1,279 @@
+{
+  "schema": "r-demo2.5-isolated-weld-oracle-v1",
+  "decision": "B",
+  "evidence": "CONFIRMED_BY_EXE control flow; REPRODUCED_OFFLINE isolated hull projection",
+  "scope": "Exact no-write proof for selected hull indices. Does not reconstruct non-hull weld classes or capture native FP control word.",
+  "baseline_sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+  "candidate_sha256": "32fcbc212f226a307a3d71c43c3cbedabcf32526f86961a3bd1af16ad3c1aac4",
+  "exe_sha256": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
+  "baseline_path": "D:\\Game\\Master Rallye\\corpora\\demo-9.3.1\\DataGx\\Vehicles\\Trooper\\car.gxm",
+  "candidate_path": "D:\\Game\\Master Rallye\\master-rallye-re-rdemo\\.research-output\\r-demo2\\invariant-candidate\\Trooper\\car.gxm",
+  "old_candidate_identity": "9.3.1 offline analogue, not byte-identical to traced 8.4.1 crash candidate",
+  "source_byte_scope_validated": true,
+  "modes": {
+    "wide_intermediates": {
+      "baseline_nearest_distance": 0.058882027302508085,
+      "candidate_nearest_distance": 0.05281336701985006,
+      "baseline_singleton_classes": 36,
+      "candidate_singleton_classes": 36,
+      "differential": {
+        "decision": "B",
+        "checks": {
+          "same_triangle_count": true,
+          "same_indices_topology_winding_adjacency": true,
+          "same_unique_position_count": true,
+          "no_degenerates": true,
+          "no_duplicate_triangles": true,
+          "same_representatives_no_external_dependency": true,
+          "uniform_translation": true,
+          "areas_preserved": true,
+          "normals_preserved": true,
+          "pre_hull_stages_excluded": true,
+          "source_scope_validated": true,
+          "post_weld_reconstruction_complete": true
+        },
+        "passed": true,
+        "baseline": {
+          "triangle_count": 68,
+          "corner_count": 204,
+          "unique_positions": 36,
+          "degenerate_triangles": [],
+          "duplicate_triangles": 0,
+          "bounds": [
+            [
+              -0.9419214725494385,
+              0.0016203278210014105,
+              -2.4824628829956055
+            ],
+            [
+              0.9419217705726624,
+              1.5566637516021729,
+              2.11833119392395
+            ]
+          ],
+          "unique_centroid": [
+            -0.07185331111152966,
+            0.7765752495227692,
+            -0.6534226474662622
+          ],
+          "corner_centroid": [
+            -0.070369518307202,
+            0.7710325915432609,
+            -0.6768724571402166
+          ]
+        },
+        "candidate": {
+          "triangle_count": 68,
+          "corner_count": 204,
+          "unique_positions": 36,
+          "degenerate_triangles": [],
+          "duplicate_triangles": 0,
+          "bounds": [
+            [
+              -0.5419214963912964,
+              0.0016203278210014105,
+              -2.4824628829956055
+            ],
+            [
+              1.3419218063354492,
+              1.5566637516021729,
+              2.11833119392395
+            ]
+          ],
+          "unique_centroid": [
+            0.3281466919514868,
+            0.7765752495227692,
+            -0.6534226474662622
+          ],
+          "corner_centroid": [
+            0.329630484877556,
+            0.7710325915432609,
+            -0.6768724571402166
+          ]
+        },
+        "expected_translation": [
+          0.4,
+          0.0,
+          0.0
+        ],
+        "fitted_translation": [
+          0.400000003184758,
+          0.0,
+          0.0
+        ],
+        "maximum_rigid_residual": 3.257802888567696e-08,
+        "maximum_expected_translation_residual": 3.5762786843029915e-08,
+        "maximum_area_change": 9.250953159067876e-08,
+        "maximum_normal_vector_change": 3.157260000269906e-07
+      },
+      "translation_math": {
+        "fixed_normal_translated_plane_max_residual": 3.5755978622376006e-08,
+        "stale_baseline_plane_max_residual": 0.3999238878836143,
+        "origin_radius_baseline": 2.797270482021312,
+        "origin_radius_candidate": 2.8271098874865164,
+        "evidence": "OFFLINE_MATHEMATICAL_DIFFERENTIAL; no stale native plane is proven"
+      },
+      "early_hull_probe": {
+        "baseline": {
+          "unique_count": 36,
+          "center": [
+            1.4901161193847656e-07,
+            0.7791420397115871,
+            -0.18206584453582764
+          ],
+          "twice_centered_radius": 5.2031818648919375,
+          "triples": 7140,
+          "supporting_triples_before_plane_dedup": 74,
+          "nearest_epsilon_gate_margin": 4.091506703662873e-06
+        },
+        "candidate": {
+          "unique_count": 36,
+          "center": [
+            0.4000001549720764,
+            0.7791420397115871,
+            -0.18206584453582764
+          ],
+          "twice_centered_radius": 5.2031818862878865,
+          "triples": 7140,
+          "supporting_triples_before_plane_dedup": 74,
+          "nearest_epsilon_gate_margin": 4.088653541289844e-06
+        },
+        "changed_triple_classifications": [],
+        "scope": "Configured thickness not captured; initial EXE default only. Binary64 diagnostic, not native execution."
+      }
+    },
+    "single_intermediates": {
+      "baseline_nearest_distance": 0.058882027302508085,
+      "candidate_nearest_distance": 0.05281336606156804,
+      "baseline_singleton_classes": 36,
+      "candidate_singleton_classes": 36,
+      "differential": {
+        "decision": "B",
+        "checks": {
+          "same_triangle_count": true,
+          "same_indices_topology_winding_adjacency": true,
+          "same_unique_position_count": true,
+          "no_degenerates": true,
+          "no_duplicate_triangles": true,
+          "same_representatives_no_external_dependency": true,
+          "uniform_translation": true,
+          "areas_preserved": true,
+          "normals_preserved": true,
+          "pre_hull_stages_excluded": true,
+          "source_scope_validated": true,
+          "post_weld_reconstruction_complete": true
+        },
+        "passed": true,
+        "baseline": {
+          "triangle_count": 68,
+          "corner_count": 204,
+          "unique_positions": 36,
+          "degenerate_triangles": [],
+          "duplicate_triangles": 0,
+          "bounds": [
+            [
+              -0.9419214725494385,
+              0.0016203714767470956,
+              -2.4824628829956055
+            ],
+            [
+              0.9419217705726624,
+              1.5566637516021729,
+              2.11833119392395
+            ]
+          ],
+          "unique_centroid": [
+            -0.07185331111152966,
+            0.7765752132464614,
+            -0.6534226723015308
+          ],
+          "corner_centroid": [
+            -0.070369518307202,
+            0.7710325546430278,
+            -0.676872481391126
+          ]
+        },
+        "candidate": {
+          "triangle_count": 68,
+          "corner_count": 204,
+          "unique_positions": 36,
+          "degenerate_triangles": [],
+          "duplicate_triangles": 0,
+          "bounds": [
+            [
+              -0.5419214963912964,
+              0.0016203714767470956,
+              -2.4824628829956055
+            ],
+            [
+              1.3419218063354492,
+              1.5566637516021729,
+              2.11833119392395
+            ]
+          ],
+          "unique_centroid": [
+            0.3281466919514868,
+            0.7765752132464614,
+            -0.6534226723015308
+          ],
+          "corner_centroid": [
+            0.329630484877556,
+            0.7710325546430278,
+            -0.676872481391126
+          ]
+        },
+        "expected_translation": [
+          0.4,
+          0.0,
+          0.0
+        ],
+        "fitted_translation": [
+          0.400000003184758,
+          0.0,
+          0.0
+        ],
+        "maximum_rigid_residual": 3.257802888567696e-08,
+        "maximum_expected_translation_residual": 3.5762786843029915e-08,
+        "maximum_area_change": 9.250953159067876e-08,
+        "maximum_normal_vector_change": 3.157259919405395e-07
+      },
+      "translation_math": {
+        "fixed_normal_translated_plane_max_residual": 3.5755978622376006e-08,
+        "stale_baseline_plane_max_residual": 0.3999238878850546,
+        "origin_radius_baseline": 2.797270431370353,
+        "origin_radius_candidate": 2.827109849356138,
+        "evidence": "OFFLINE_MATHEMATICAL_DIFFERENTIAL; no stale native plane is proven"
+      },
+      "early_hull_probe": {
+        "baseline": {
+          "unique_count": 36,
+          "center": [
+            1.4901161193847656e-07,
+            0.77914206153946,
+            -0.18206584453582764
+          ],
+          "twice_centered_radius": 5.203181807251549,
+          "triples": 7140,
+          "supporting_triples_before_plane_dedup": 74,
+          "nearest_epsilon_gate_margin": 4.140688329101749e-06
+        },
+        "candidate": {
+          "unique_count": 36,
+          "center": [
+            0.4000001549720764,
+            0.77914206153946,
+            -0.18206584453582764
+          ],
+          "twice_centered_radius": 5.203181828647499,
+          "triples": 7140,
+          "supporting_triples_before_plane_dedup": 74,
+          "nearest_epsilon_gate_margin": 4.137835166062587e-06
+        },
+        "changed_triple_classifications": [],
+        "scope": "Configured thickness not captured; initial EXE default only. Binary64 diagnostic, not native execution."
+      }
+    }
+  },
+  "full_report_sha256": "418a610636d1b281efa166f0af4e5c72e4b7cfacd4e840cb10c41073cc5f1f1c",
+  "full_report_path": ".research-output\\r-demo2\\pre-hull-weld\\trooper-post-weld.json"
+}

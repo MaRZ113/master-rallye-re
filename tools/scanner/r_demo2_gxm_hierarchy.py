@@ -54,9 +54,9 @@ def build_report(path: Path, sidecar_path: Path) -> dict:
                    if len(hulls) == 1 and hulls[0].mesh_start + hulls[0].mesh_count <= triangles.record_count
                    else ())
     return {
-        "schema": "r-demo2-gxm-hierarchy-v1",
+        "schema": "r-demo2-gxm-hierarchy-v2",
         "evidence": "CONFIRMED_BY_BYTES",
-        "runtime_mapping_evidence": "CONFIRMED_BY_EXE for node layout and links; HIGH_CONFIDENCE_INFERENCE for top-level root termination at tail EOF",
+        "runtime_mapping_evidence": "CONFIRMED_BY_EXE for node layout/links and type-2/version-7 root child count; bounded tail consumption checked separately",
         "source_path": str(path),
         "source_size": len(data),
         "source_sha256": hashlib.sha256(data).hexdigest(),
@@ -71,6 +71,8 @@ def build_report(path: Path, sidecar_path: Path) -> dict:
         "hierarchy_consumed_size": hierarchy.consumed_size,
         "root_name": hierarchy.root_name,
         "top_level_node_count": len(hierarchy.roots),
+        "header_root_child_count": prefix.header_words[0] >> 16,
+        "header_root_count_matches": len(hierarchy.roots) == prefix.header_words[0] >> 16,
         "node_count": hierarchy.node_count,
         "all_ranges_in_bounds": all(node.mesh_start + node.mesh_count <= triangles.record_count for node in nodes),
         "depth_first_serialized_ranges": [
@@ -89,7 +91,7 @@ def build_report(path: Path, sidecar_path: Path) -> dict:
         ],
         "nodes": [node_json(node, triangles.record_count) for node in hierarchy.roots],
         "chull_matches": [node_json(node, triangles.record_count) for node in hulls],
-        "pre_normalizer_hull_record_ids": (
+        "serialized_hull_record_ids": (
             list(range(hulls[0].mesh_start, hulls[0].mesh_start + hulls[0].mesh_count))
             if len(hulls) == 1 and hulls[0].mesh_start + hulls[0].mesh_count <= triangles.record_count else None
         ),
@@ -99,7 +101,7 @@ def build_report(path: Path, sidecar_path: Path) -> dict:
             {"record_index": triangle.record_index, "c_indices": list(triangle.c_indices)}
             for triangle in hull_stream
         ],
-        "runtime_triangle_stream": "UNRESOLVED: loader post-pass FUN_005c9990/FUN_005ca370 may remap or rewrite internal 0x34-byte mesh records before FUN_005df370",
+        "runtime_triangle_stream": "SERIALIZED_ONLY: this hierarchy report does not run welding. Use r_demo_vertex_weld_oracle.py; pinned Trooper pair has Path B in vertex-welder.json. FUN_005c9990/FUN_005ca370 run after hull",
     }
 
 

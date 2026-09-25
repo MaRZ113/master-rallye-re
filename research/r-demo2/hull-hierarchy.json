@@ -1,11 +1,11 @@
 {
-  "schema": "r-demo2-gxm-hierarchy-v1",
+  "schema": "r-demo2-gxm-hierarchy-v2",
   "evidence": "CONFIRMED_BY_BYTES",
-  "runtime_mapping_evidence": "CONFIRMED_BY_EXE for node layout and links; HIGH_CONFIDENCE_INFERENCE for top-level root termination at tail EOF",
-  "source_path": "D:\\Game\\Master Rallye\\corpora\\demo-9.3.1\\DataGx\\Vehicles\\Trooper\\car.gxm",
+  "runtime_mapping_evidence": "CONFIRMED_BY_EXE for node layout/links and type-2/version-7 root child count; bounded tail consumption checked separately",
+  "source_path": "..\\corpora\\demo-9.3.1\\DataGx\\Vehicles\\Trooper\\car.gxm",
   "source_size": 222754,
   "source_sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
-  "sidecar_path": "D:\\Game\\Master Rallye\\corpora\\demo-9.3.1\\DataGx\\Vehicles\\Trooper\\car.txt",
+  "sidecar_path": "..\\corpora\\demo-9.3.1\\DataGx\\Vehicles\\Trooper\\car.txt",
   "sidecar_sha256": "b930697e4ab2321c3ce419d2ad9413aab033217c1d6861e4093808280776fedb",
   "sidecar_mesh_count": 28,
   "serialized_name_span_order_matches_sidecar": true,
@@ -16,6 +16,8 @@
   "hierarchy_consumed_size": 732,
   "root_name": "Model",
   "top_level_node_count": 2,
+  "header_root_child_count": 2,
+  "header_root_count_matches": true,
   "node_count": 28,
   "all_ranges_in_bounds": true,
   "depth_first_serialized_ranges": [
@@ -942,7 +944,7 @@
       "children": []
     }
   ],
-  "pre_normalizer_hull_record_ids": [
+  "serialized_hull_record_ids": [
     1911,
     1912,
     1913,
@@ -1597,5 +1599,5 @@
       ]
     }
   ],
-  "runtime_triangle_stream": "UNRESOLVED: loader post-pass FUN_005c9990/FUN_005ca370 may remap or rewrite internal 0x34-byte mesh records before FUN_005df370"
+  "runtime_triangle_stream": "SERIALIZED_ONLY: this hierarchy report does not run welding. Use r_demo_vertex_weld_oracle.py; pinned Trooper pair has Path B in vertex-welder.json. FUN_005c9990/FUN_005ca370 run after hull"
 }
