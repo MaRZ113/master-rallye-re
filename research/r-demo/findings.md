@@ -19,21 +19,17 @@ The user supplied first-pass in-game observations; see `runtime/loader-matrix.md
 - `tools/scanner/r_demo_texture_compare.py` performs an original/offline/runtime three-way comparison using the shared GXI converter. `demo-8.4.1:DataGx/Vehicles/Trooper/Black-tga.gxi` reconstructs the original `black-tga.dxt` byte-identically (SHA256 `c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82`). A clean runtime-generated file was later supplied and is byte-identical; see `research/r-demo2/dxt-regeneration.md`.
 - An isolated Trooper `$chull` candidate translates 36 exclusive source Vector C positions by +0.4 source X. It changes 126 bytes only inside those float fields, reparses, and is stored under ignored scratch (SHA256 `0425e1636bc83844da241d48e30fedae2d48aff024cb4f1e329506ac64b1e699`). Human testing later reported a crash in both demos (**CRASHED_IN_RUNTIME**); see `research/r-demo2/chull-crash.md`.
 - `tools/runtime/demo_debug_capture.py` can inspect standard Win32 child controls and capture appended text to ignored UTF-8 logs. The user later attempted the Win32 helper by PID/title/list-windows without readable output; DebugView is now the preferred fallback. Window/control details remain unknown. `tools/runtime/demo_debug_classify.py` recognizes only observed/executable-confirmed templates; see `runtime/debug-capture.md` and `runtime/debug-message-catalog.md`.
-- Targeted PE32 xrefs in both demo EXEs locate GXI/DXT branch functions and Debug literals for reading GXI, saving a cached texture, and loading cached DX texture (**CONFIRMED_BY_EXECUTABLE**). The 8.4.1 logging sink contains an `OutputDebugStringA` call. Actual per-resource file order and active output channels still need live traces; see `runtime/targeted-exe-xrefs.md`.
+- Targeted PE32 xrefs in both demo EXEs locate GXI/DXT branch functions and cache diagnostics (**CONFIRMED_BY_EXE**). The 8.4.1 logging sink contains an `OutputDebugStringA` call. R-DEMO2.1 later captured that channel in 8.4.1 and ProcMon cache decisions in 9.3.1; those build-specific runtime results do not supply a per-resource ProcMon matrix for the 8.4.1 car/complete/wheel visual tests. See `runtime/targeted-exe-xrefs.md` and `research/r-demo2/runtime/`.
 
-## Remaining gates
+## Historical first-pass gates (closed or superseded by R-DEMO2.1)
 
-1. Repeated 9.3.1 DX rebuild determinism and a controlled visible GXM edit through the original cooker.
-2. DebugView capture in both demos, including the final stage before the `$chull` crash.
-3. ProcMon correlation for actual texture/model cache hit, miss and fallback order.
-4. Cache invalidation tests and targeted EXE cache-flag analysis.
-5. Keep the retail writer unchanged until original-cooker policy is supported by differential runtime evidence. No push or merge is authorized.
+The original continuation requested repeated DX rebuild determinism, a controlled visible GXM edit, DebugView/ProcMon capture, and cache-path analysis. Those defined R-DEMO2.1 gates are now closed; see the runtime closeout below and `research/r-demo2/findings.md`. The separate 8.4.1 per-resource ProcMon matrix was not part of that closeout and remains untested. Equal timestamps and both cache/source missing also remain unknown. Keep the retail writer unchanged until original-cooker policy is supported by evidence. No push or merge was performed.
 
 The retail DX parser still does not decode the demo draw grammar. The 29 opaque GXM variants are outside this loader-focused continuation unless needed for an isolated test.
 
 ## R-DEMO2.1 runtime closeout (supersedes the pending-trace notes above)
 
-The user-supplied DebugView and ProcMon traces are now parsed from their real formats. Demo 8.4.1 OutputDebugString output and the normal cooker stage order are **CONFIRMED_BY_RUNTIME / CONFIRMED_BY_RUNTIME_TRACE**. The `$chull` run ends inside convex-hull construction (**CRASHED_IN_RUNTIME**). Demo 9.3.1 has **NO_OUTPUT_OBSERVED** in DebugView; the logger-removal explanation remains unknown.
+The supplied DebugView and ProcMon traces are parsed from their real formats. Demo 8.4.1 OutputDebugString output and normal cooker stage order are **CONFIRMED_BY_RUNTIME / CONFIRMED_BY_RUNTIME_TRACE**. The `$chull` run ends inside convex-hull construction (**CRASHED_IN_RUNTIME**). Demo 9.3.1 has **NO_OUTPUT_OBSERVED** in the tested DebugView session; logger removal remains unknown.
 
 ProcMon confirms source-missing DX fallback, source-to-DX cache miss and immediate reload, stale DX in-place rebuild when source LastWriteTime is newer, and fresh DX load with no source body reads or cache writes when DX LastWriteTime is newer (**CONFIRMED_BY_CONTROLLED_RUNTIME_TRACE**). A clean `Black-tga.gxi` miss creates and reloads DXT. See `model-cache-state-machine.md`, `runtime/procmon-findings.md`, and `runtime/debugview-findings.md`.
 

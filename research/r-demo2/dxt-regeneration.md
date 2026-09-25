@@ -8,7 +8,7 @@
 | Offline GXI reconstruction | 1,044 | `c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82` |
 | Clean runtime regeneration | 1,044 | `c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82` |
 
-All complete bytes, the 20-byte header and payload agree. Header: magic `0x0000FEED`, version 1, CRC32 `0x6B3FE5F6` (valid), width 16, height 16. Payload SHA256 is `9503245a0161a939de15c2414db2d336e761822fa6cff8136e4148f58f1f782e`. The tested transformation is source top-down RGBA to bottom-up BGRA plus this header/CRC. Actual cache decision and file API order still need ProcMon/DebugView. The 33 September font same-stem mismatches remain exceptions; this single runtime result does not override them.
+All complete bytes, the 20-byte header and payload agree. Header: magic `0x0000FEED`, version 1, CRC32 `0x6B3FE5F6` (valid), width 16, height 16. Payload SHA256 is `9503245a0161a939de15c2414db2d336e761822fa6cff8136e4148f58f1f782e`. The tested transformation is source top-down RGBA to bottom-up BGRA plus this header/CRC. The clean scratch miss and generated-file IO are independently confirmed by the 9.3.1 ProcMon capture; see `runtime/procmon-findings.md`. This 8.4.1 three-way byte comparison and 9.3.1 event trace are separate evidence. The 33 September font same-stem mismatches remain exceptions; this single runtime result does not override them.
 
 ## Runtime evidence closeout
 

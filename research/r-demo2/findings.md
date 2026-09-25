@@ -26,3 +26,7 @@
 - Retail: tested vehicle path does not consume demo GXM as a live model source; renaming it to DX does not produce a valid compiled body. No claim that all development code was removed.
 
 See `model-cache-state-machine.md`, `runtime/`, `dx-regeneration.md`, `source-edit-oracle.md`, `gxm-to-tag101.md`, and `r4g-impact.md`. No broad ProcMon cache archaeology is needed for this state machine.
+
+## Roadmap (not started)
+
+The next demo-focused target is **R-DEMO2.2 — Collision Cooker Semantics**. Later course/track archaeology follows that target. This records sequencing only; neither phase has started. R4G is complete and frozen and is not the next unfinished phase.

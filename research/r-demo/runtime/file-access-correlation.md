@@ -1,16 +1,14 @@
-# Correlating Debug messages with file access
+# Historical Debug/file-access correlation plan
 
-Status: **PENDING**. No ProcMon trace or complete Debug session log has been supplied for this continuation. Visual equivalence after removing a DX file does not prove that DX was never opened.
+Status: **HISTORICAL; superseded in part by R-DEMO2.1**. The visual loader matrix alone still cannot prove whether a DX was opened, read, or used by another subsystem. R-DEMO2.1 added real ProcMon evidence for 9.3.1 model cache miss/build, source-missing compiled fallback, stale rebuild, fresh hit, and GXI→DXT miss; it also added a separate 8.4.1 DebugView stage capture. See `research/r-demo2/runtime/procmon-findings.md` and `debugview-findings.md`.
 
-For a short clean scratch demo 8.4.1 session, filter Process Monitor to the exact `MRallye.exe` PID and `CreateFile`, `ReadFile`, `WriteFile`, `QueryOpen` and `CloseFile`. Narrow paths to the scratch `DataGx/Vehicles/Trooper/` and relevant `.gxm`, `.dx`, `.gxi`, `.dxt`, `.gxb` extensions. Save the raw trace outside Git under ignored `.research-output/r-demo/runtime-logs/`; export timestamps, process/PID, operation, path, result and detail for only the relevant events.
+The 9.3.1 cache traces are not a per-resource access matrix for the earlier 8.4.1 car/complete/wheel visual tests. For those exact 8.4.1 cases, DX open/read/use status remains untested. The same caution applies to other resources and builds not named in the trace findings. No blanket `never opened`, `cache`, or `ignored` conclusion follows from visual equivalence.
 
-Capture Debug output concurrently. For the clean DXT regeneration case, look for a `Black-tga.gxi` read, `black-tga.dxt` create/write/close and nearby `Reading GXI` / `Saved cached texture` messages. Use order and approximate timestamps; clock bases may differ. For the Trooper car/complete/wheel loader matrix, repeat only the minimum GXM+DX, GXM-only and DX-only cases on restored scratch baselines and record opened/read/written files beside the visible result.
+The original proposed filter was the scratch `MRallye.exe` PID, `CreateFile`, `ReadFile`, `WriteFile`, `QueryOpen`, and `CloseFile`, restricted to the relevant scratch `DataGx/Vehicles/Trooper/` paths. This protocol is retained as historical documentation, not an active R-DEMO2.1 gate. Later work should first state which build and exact unresolved path it targets.
 
-| Case | Visual result from first pass | Debug messages | File opens/reads/writes | Interpretation |
-|---|---|---|---|---|
-| Trooper car GXM+DX / GXM-only / DX-only | Recorded in `loader-matrix.md`. | Pending. | Pending. | DX file-access role unknown. |
-| Trooper complete GXM+DX / GXM-only / DX-only | Recorded in `loader-matrix.md`. | Pending. | Pending. | DX file-access role unknown. |
-| Trooper wheel GXM+DX / GXM-only / DX-only | Recorded in `loader-matrix.md`. | Pending. | Pending. | DX file-access role unknown. |
-| Trooper Black-tga GXI plus original/recreated DXT | Original/offline bytes match. | Pending. | Pending. | Runtime regeneration byte identity unknown. |
-
-Summarize actual event sequences here after traces arrive. Do not infer `never opened`, `cache`, or `ignored` from missing visual differences alone.
+| Case | Evidence now available | Bounded conclusion |
+|---|---|---|
+| 8.4.1 Trooper car/complete/wheel GXM+DX, GXM-only, DX-only visual matrix | Human visual results in `loader-matrix.md`; no corresponding per-resource ProcMon matrix in R-DEMO2.1 | Visual roles are recorded; exact DX file access/use remains untested |
+| Trooper Black-tga GXI/DXT byte identity | Three-way 8.4.1 byte comparison in `research/r-demo2/dxt-regeneration.md` | Runtime output bytes equal shipped/offline bytes for this asset |
+| GXI→DXT cache miss event order | Separate 9.3.1 ProcMon capture in `research/r-demo2/runtime/procmon-findings.md` | Source/cache events confirmed for the named tested path |
+| 9.3.1 model cache branches | Five ProcMon exports and controlled timestamp cases | See `model-cache-state-machine.md`; both-missing/equal-time remain unknown |

@@ -1,6 +1,6 @@
 # GXI image container (R-DEMO)
 
-Evidence: **CONFIRMED_BY_CORPUS** for the common structural variant. Targeted demo EXE xrefs confirm a `.gxi` source/cache branch (**CONFIRMED_BY_EXECUTABLE**); clean Trooper runtime DXT regeneration is now byte-identical to shipped and offline bytes (**CONFIRMED_BY_RUNTIME + CONFIRMED_BY_BYTES**).
+Evidence: **CONFIRMED_BY_CORPUS** for the common structural variant. Targeted demo EXE xrefs confirm a `.gxi` source/cache branch (**CONFIRMED_BY_EXE**); clean Trooper runtime DXT regeneration is now byte-identical to shipped and offline bytes (**CONFIRMED_BY_RUNTIME + CONFIRMED_BY_BYTES**).
 
 Little-endian layout:
 

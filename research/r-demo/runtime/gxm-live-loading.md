@@ -6,4 +6,4 @@ The resource-removal matrix separately shows that `car.gxm` is required for the 
 
 The demo did not appear to expose retail-style external procedural body damage in this test. Missing retail-style deformation is not evidence against the visible GXM position edit.
 
-The isolated `$chull` source-position candidate later **CRASHED_IN_RUNTIME** in both demos. This leaves the exact dependency/failure stage unknown; see `research/r-demo2/chull-crash.md`.
+The isolated `$chull` source-position candidate later **CRASHED_IN_RUNTIME** in both demos. The 8.4.1 DebugView trace localizes the observed crash inside convex-hull construction; the exact failing dependency/cause remains unknown. See `research/r-demo2/chull-crash.md`.

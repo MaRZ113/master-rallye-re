@@ -10,6 +10,6 @@ This is a read-only byte-string survey, not a call-graph reconstruction. Offsets
 | `.gxp` | absent from this literal search | `0x273684` | `0x2E9E78` |
 | `.dxt` | `0x1F4A90` | `0x2735EC` | `0x2E8E0C` |
 
-The little-endian DXT magic `ED FE 00 00` occurs three times in each EXE; the GX image magic `39 30 01 00` was not found as a literal four-byte sequence. Neither observation identifies a loader function or proves file-access order. Retail retains extension literals despite no GXI/GXM/GXB/GXP assets in its supplied corpus. Precise xrefs and function addresses require a targeted disassembly or ProcMon trace and remain open.
+The little-endian DXT magic `ED FE 00 00` occurs three times in each EXE; the GX image magic `39 30 01 00` was not found as a literal four-byte sequence. Neither observation identifies a loader function or proves file-access order. Retail retains extension literals despite no GXI/GXM/GXB/GXP assets in its supplied corpus. This literal inventory alone does not provide function addresses or establish file-access order. Targeted xrefs are now documented in `runtime/targeted-exe-xrefs.md`; runtime file-access conclusions are scoped separately in `research/r-demo2/runtime/`.
 
 A continuation found targeted executable xrefs, immediate callers, `.gxi`/`.dxt` branch code and the 8.4.1 `OutputDebugStringA` sink. See `runtime/targeted-exe-xrefs.md`. The table above remains a literal-string inventory only.
