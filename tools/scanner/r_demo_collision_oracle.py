@@ -24,7 +24,7 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def analyze(gxm: bytes, sidecar_path: Path, dx: bytes, directive: str, dx_provenance: str) -> dict:
+def analyze(gxm: bytes, sidecar_path: Path, dx: bytes, directive: str, dx_provenance: str, mapping_tolerance: float) -> dict:
     prefix = parse_gxm_prefix_bytes(gxm, "same-build source GXM")
     geometry = parse_gxm_geometry_prefix_bytes(gxm, prefix)
     layout = parse_gxm_triangle_prefix_bytes(gxm, prefix, geometry)
@@ -54,7 +54,9 @@ def analyze(gxm: bytes, sidecar_path: Path, dx: bytes, directive: str, dx_proven
     if tag is None:
         raise ValueError("generated demo DX has no parsed tag101")
     rep_b = tag.representation_b.geometry_a
-    vertex_map = exact_vertex_bijection(extreme_points, rep_b.vertices)
+    vertex_map = exact_vertex_bijection(extreme_points, rep_b.vertices, tolerance=mapping_tolerance)
+    if not vertex_map["bijective"]:
+        raise ValueError(f"$chull vertex mapping rejected: {vertex_map}")
     target_to_source = {row["target_index"]: row["source_c_index"]
                         for row in vertex_map["rows"]}
     face_report = compare_triangle_topology(
@@ -148,6 +150,7 @@ def analyze(gxm: bytes, sidecar_path: Path, dx: bytes, directive: str, dx_proven
         "source_record_material_field_counts": material_counts,
         "source_duplicate_unordered_face_records": source_duplicate_face_records,
         "coordinate_transform": "(x,y,z) -> (x,z,-y)",
+        "mapping_tolerance": mapping_tolerance,
         "vector_c_to_rep_b": vertex_map,
         "source_record_to_rep_b_faces": face_report,
         "source_records_matched_to_compiled_polygon_faces": len(source_record_assignments),
@@ -190,6 +193,8 @@ def main() -> None:
     ap.add_argument("--sidecar", type=Path, required=True)
     ap.add_argument("--compiled-dx", type=Path, required=True)
     ap.add_argument("--dx-provenance", choices=("runtime-regenerated", "corpus-shipped"), required=True)
+    ap.add_argument("--mapping-tolerance", type=float, required=True,
+                    help="maximum accepted source-to-target distance in demo coordinates")
     ap.add_argument("--directive", required=True)
     ap.add_argument("--output", type=Path, required=True)
     args = ap.parse_args()
@@ -202,7 +207,7 @@ def main() -> None:
     output_root = Path(__file__).resolve().parents[2] / ".research-output" / "r-demo2"
     if output_root.resolve() not in output.parents or output.suffix.lower() != ".json":
         ap.error("output must be JSON under ignored .research-output/r-demo2")
-    report = analyze(gxm.read_bytes(), sidecar, dx.read_bytes(), args.directive, args.dx_provenance)
+    report = analyze(gxm.read_bytes(), sidecar, dx.read_bytes(), args.directive, args.dx_provenance, args.mapping_tolerance)
     report.update({"source_gxm": str(gxm), "source_sidecar": str(sidecar),
                    "compiled_dx": str(dx)})
     output.parent.mkdir(parents=True, exist_ok=True)

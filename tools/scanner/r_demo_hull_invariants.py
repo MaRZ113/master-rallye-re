@@ -12,7 +12,7 @@ import math
 import struct
 from pathlib import Path
 
-from master_rallye.collision_oracle import rigid_translation_metrics
+from master_rallye.collision_oracle import face_normal_metrics, rigid_translation_metrics
 from master_rallye.gxm import (parse_gxm_geometry_prefix_bytes,
                                 parse_gxm_prefix_bytes,
                                 parse_gxm_triangle_prefix_bytes)
@@ -87,6 +87,11 @@ def validate_pair(baseline: bytes, candidate: bytes, sidecar_path: Path,
 
     area_deltas = []
     normal_angles = []
+    a_alignment_deltas = []
+    source_normals = [struct.unpack_from("<3f", baseline, bg.vector_a_offset + i * 12)
+                      for i in range(bg.vector_a_count)]
+    candidate_normals = [struct.unpack_from("<3f", candidate, cg.vector_a_offset + i * 12)
+                         for i in range(cg.vector_a_count)]
     degenerate_faces = 0
     for row in records[first:stop]:
         face = tuple(row[4:7])
@@ -98,7 +103,16 @@ def validate_pair(baseline: bytes, candidate: bytes, sidecar_path: Path,
         dot = max(-1.0, min(1.0, sum(a * b for a, b in zip(normal0, normal1))))
         normal_angles.append(math.degrees(math.acos(dot)))
         area_deltas.append(abs(area1 - area0))
+        a_indices = tuple(row[7:10])
+        baseline_alignment = face_normal_metrics(before, face, a_indices, source_normals)
+        candidate_alignment = face_normal_metrics(after, face, a_indices, candidate_normals)
+        if not baseline_alignment["degenerate"] and not candidate_alignment["degenerate"]:
+            a_alignment_deltas.extend(abs(a - b) for a, b in zip(
+                baseline_alignment["angles_degrees"], candidate_alignment["angles_degrees"]))
 
+    max_normal_change = max(normal_angles, default=0.0)
+    max_area_change = max(area_deltas, default=0.0)
+    max_a_alignment_change = max(a_alignment_deltas, default=0.0)
     checks = {
         "record_topology_unchanged": topology_unchanged,
         "no_hull_c_positions_shared_with_outside_records": not outside_records,
@@ -107,8 +121,9 @@ def validate_pair(baseline: bytes, candidate: bytes, sidecar_path: Path,
         "vector_a_and_b_arrays_unchanged": same_a_b_arrays,
         "hull_c_changes_are_one_rigid_translation": translation is not None,
         "all_source_faces_remain_nondegenerate": degenerate_faces == 0,
-        "face_shape_changes_within_float32_noise": (max(normal_angles, default=0.0) <= 1e-3
-                                                     and max(area_deltas, default=0.0) <= 1e-5),
+        "triangle_normals_preserved": max_normal_change <= 1e-3,
+        "triangle_areas_preserved_within_float32_noise": max_area_change <= 1e-5,
+        "vector_a_face_alignment_preserved": max_a_alignment_change <= 1e-3,
     }
     return {
         "status": "FLAT_GXM_HULL_SOURCE_INVARIANTS_PASS" if all(checks.values()) else "REJECTED",
@@ -122,8 +137,9 @@ def validate_pair(baseline: bytes, candidate: bytes, sidecar_path: Path,
         "translation_error": translation_error,
         "changed_byte_count": len(changed_byte_offsets),
         "degenerate_source_faces": degenerate_faces,
-        "max_geometric_normal_angle_change_degrees": max(normal_angles, default=None),
-        "max_triangle_area_absolute_change": max(area_deltas, default=None),
+        "max_geometric_normal_angle_change_degrees": max_normal_change,
+        "max_triangle_area_absolute_change": max_area_change,
+        "max_vector_a_alignment_change_degrees": max_a_alignment_change,
         "scope_limit": "Checks serialized flat GXM range only; does not validate loader remapping, hierarchy transforms, hidden descendants, or runtime cooker success.",
     }
 

@@ -55,43 +55,71 @@ def edge_loop_vertices(edges: Sequence[tuple[int, int]], edge_loop: Sequence[int
     raise ValueError("indexed edges do not form an ordered closed polygon loop")
 
 
-def exact_vertex_bijection(source: Mapping[int, Vec3], target: Sequence[Vec3]) -> dict:
-    """Map target points to transformed source ids; exact first, unique nearest fallback.
+def exact_vertex_bijection(source: Mapping[int, Vec3], target: Sequence[Vec3], *,
+                           tolerance: float, ambiguity_epsilon: float = 1e-12) -> dict:
+    """Map target points to source ids without forcing distant or ambiguous matches.
 
-    Returns an auditable row per target vertex. It fails closed on ambiguous nearest
-    matches or reused source ids, while retaining exact-float match counts.
+    `tolerance` is the maximum accepted Euclidean distance after the observed axis
+    transform. Rejections remain explicit in the returned report.
     """
+    if not math.isfinite(tolerance) or tolerance < 0:
+        raise ValueError("mapping tolerance must be finite and nonnegative")
+    if not math.isfinite(ambiguity_epsilon) or ambiguity_epsilon < 0:
+        raise ValueError("ambiguity epsilon must be finite and nonnegative")
+    if not source or not target:
+        raise ValueError("source and target point sets must both be nonempty")
     transformed = {index: gxm_to_demo_xyz(point) for index, point in source.items()}
     exact: dict[Vec3, list[int]] = defaultdict(list)
     for index, point in transformed.items():
         exact[point].append(index)
     rows = []
+    rejected = []
+    ambiguous_pairs = []
     used = set()
     for target_index, point in enumerate(target):
-        candidates = exact.get(tuple(point), [])
-        if len(candidates) == 1 and candidates[0] not in used:
-            source_index = candidates[0]
-            distance = 0.0
-            exact_match = True
+        point = tuple(point)
+        if len(point) != 3 or any(not math.isfinite(value) for value in point):
+            rejected.append({"target_index": target_index, "reason": "invalid_target_point"})
+            continue
+        exact_ids = [index for index in exact.get(point, []) if index not in used]
+        if len(exact_ids) == 1:
+            source_index, distance = exact_ids[0], 0.0
         else:
             ordered = sorted((math.dist(point, candidate), index)
-                             for index, candidate in transformed.items())
+                             for index, candidate in transformed.items() if index not in used)
             if not ordered:
-                raise ValueError("source point set is empty")
+                rejected.append({"target_index": target_index, "reason": "no_unused_source"})
+                continue
             distance, source_index = ordered[0]
-            if len(ordered) > 1 and abs(ordered[1][0] - distance) <= 1e-12:
-                raise ValueError(f"ambiguous nearest source for target vertex {target_index}")
-            exact_match = distance == 0.0
-        if source_index in used:
-            raise ValueError(f"source vertex {source_index} reused; mapping is not bijective")
+            if len(ordered) > 1 and abs(ordered[1][0] - distance) <= ambiguity_epsilon:
+                pair = {"target_index": target_index,
+                        "source_indices": [source_index, ordered[1][1]],
+                        "distances": [distance, ordered[1][0]]}
+                ambiguous_pairs.append(pair)
+                rejected.append({"target_index": target_index, "reason": "ambiguous_nearest_source"})
+                continue
+        if distance > tolerance:
+            rejected.append({"target_index": target_index, "nearest_source_index": source_index,
+                             "nearest_distance": distance, "reason": "outside_tolerance"})
+            continue
         used.add(source_index)
         rows.append({"target_index": target_index, "source_c_index": source_index,
-                     "distance": distance, "exact_float_match": exact_match})
-    return {"rows": rows, "bijective": len(used) == len(target) == len(source),
-            "source_count": len(source), "target_count": len(target),
-            "all_source_points_used": len(used) == len(source),
+                     "distance": distance, "exact_float_match": distance == 0.0})
+    unused = sorted(set(source) - used)
+    unmatched = sorted({entry["target_index"] for entry in rejected})
+    equal_counts = len(source) == len(target)
+    bijective = equal_counts and not rejected and not unused and len(rows) == len(source)
+    status = "EXACT_BIJECTION" if bijective else (
+        "REJECTED_MATCHES" if rejected else "COUNT_MISMATCH" if not equal_counts else "PARTIAL_MAPPING")
+    return {"status": status, "tolerance": tolerance, "ambiguity_epsilon": ambiguity_epsilon,
+            "rows": rows, "bijective": bijective, "source_count": len(source),
+            "target_count": len(target), "counts_equal": equal_counts,
+            "all_source_points_used": not unused,
             "exact_float_match_count": sum(row["exact_float_match"] for row in rows),
-            "max_distance": max((row["distance"] for row in rows), default=0.0)}
+            "max_matched_distance": max((row["distance"] for row in rows), default=None),
+            "max_distance": max((row["distance"] for row in rows), default=None),
+            "rejected_points": rejected, "unmatched_target_indices": unmatched,
+            "unused_source_indices": unused, "ambiguous_pairs": ambiguous_pairs}
 
 
 def compare_triangle_topology(source_faces: Sequence[Triangle], target_faces: Sequence[Triangle],

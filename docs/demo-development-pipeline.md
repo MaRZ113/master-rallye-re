@@ -29,4 +29,4 @@ Corpus, executable, byte-comparison, controlled trace, and human runtime evidenc
 
 ## Roadmap
 
-R-DEMO2.1 is closed for its defined trace/oracle scope. The next demo target is **R-DEMO2.2 — Collision Cooker Semantics**. Later course/track archaeology follows that target. This is a roadmap only; neither target has been started. The retail Vehicle SDK baseline R4G is complete and frozen, not the next phase. See `research/r-demo2/findings.md`.
+R-DEMO2.1 is closed for its defined trace/oracle scope. R-DEMO2.2 completed its bounded corpus/oracle analysis, but the $chull crash cause remains unresolved. The active narrow follow-up is R-DEMO2.3: map serialized GXM hierarchy records to the recursive demo 9.3.1 hull-builder input. A further runtime hull mutation is gated on proving that mapping and complete input coverage. Course/track archaeology remains out of scope. The retail Vehicle SDK baseline R4G is complete and frozen. See research/r-demo2/findings.md.

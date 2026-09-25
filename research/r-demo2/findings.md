@@ -2,7 +2,7 @@
 
 ## Status
 
-**R-DEMO2.1 PASS for its defined trace/oracle scope. R-DEMO2.2 Collision Cooker Semantics is in progress; its crash cause is not resolved.** Dedicated branch/worktree only; no master changes, merge, push, EXE patch, R4G implementation, or course/track reverse engineering.
+**R-DEMO2.1 PASS for its defined trace/oracle scope. R-DEMO2.2 completed its bounded corpus/oracle analysis; its $chull crash cause is unresolved. R-DEMO2.3 hierarchy-to-runtime-input mapping is in progress.** Dedicated branch/worktree only; no master changes, merge, push, EXE patch, R4G implementation, or course/track reverse engineering.
 
 ## Runtime traces
 
@@ -37,4 +37,4 @@ See `model-cache-state-machine.md`, `runtime/`, `dx-regeneration.md`, `source-ed
 
 ## Roadmap
 
-One narrow collision follow-up remains: map the serialized GXM hierarchy/loader output to the recursive demo 9.3.1 hull-builder input, then decide whether one coherent runtime mutation is justified. Do not start course/track archaeology until the collision follow-up is closed and the user asks for the next phase. R4G is complete and frozen.
+R-DEMO2.3 is the narrow collision follow-up: map serialized GXM hierarchy/loader output to the recursive demo 9.3.1 hull-builder input. The raw-name/range correspondence is now bounded, but hierarchy control fields and loaded child links are not mapped; no further hull runtime mutation is justified yet. Do not start course/track archaeology until the collision follow-up is closed and the user asks for the next phase. R4G is complete and frozen.
