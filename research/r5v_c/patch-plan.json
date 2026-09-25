@@ -1,0 +1,85 @@
+{
+  "phase": "R5V-C",
+  "build": "retail",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "patched_sha256": "672d1945681900f3de5921e7a9032ea6d6e57d5e3fe1b49270e04994520222c2",
+  "image_base": 4194304,
+  "record25": {
+    "id": 25,
+    "class": 2,
+    "donor_id": 16,
+    "name": "Astero",
+    "stats": [
+      6,
+      6,
+      8,
+      8
+    ],
+    "meta": 0,
+    "float_bits": [
+      "3d8b1c04",
+      "3f092d67",
+      "3ef74e40",
+      "3f800000"
+    ],
+    "initializer_va": 4563120,
+    "record_offset_from_registry": 1304,
+    "owned_name": "temporary deep-copied by original initializer"
+  },
+  "injection": {
+    "entry_va": 6873760,
+    "size": 86,
+    "return_va": 4558148,
+    "original_call_va": 4561104,
+    "section": ".text"
+  },
+  "unlock_override": "ID25 only; current game-local Bonus2 flag is false",
+  "operations": [
+    {
+      "name": "text_virtual_size",
+      "file_offset": 536,
+      "virtual_address": null,
+      "rva": null,
+      "original_bytes": "94d22800",
+      "replacement_bytes": "00d32800",
+      "semantic_purpose": "Declare the zero-padded executable tail containing the stub as mapped .text"
+    },
+    {
+      "name": "registry_hook",
+      "file_offset": 363839,
+      "virtual_address": 4558143,
+      "rva": 363839,
+      "original_bytes": "e88c0b0000",
+      "replacement_bytes": "e85c552300",
+      "semantic_purpose": "Call slot25 initializer stub; stub preserves original call"
+    },
+    {
+      "name": "class2_capacity",
+      "file_offset": 526949,
+      "virtual_address": 4721253,
+      "rva": 526949,
+      "original_bytes": "0b",
+      "replacement_bytes": "0c",
+      "semantic_purpose": "Class-2 navigation count 11 to 12"
+    },
+    {
+      "name": "id25_unlock_only",
+      "file_offset": 369282,
+      "virtual_address": 4563586,
+      "rva": 369282,
+      "original_bytes": "6a0fe887",
+      "replacement_bytes": "b0015ec3",
+      "semantic_purpose": "Test-only true result for ID25 case; leave all other cases intact"
+    },
+    {
+      "name": "slot25_stub",
+      "file_offset": 2679456,
+      "virtual_address": 6873760,
+      "rva": 2679456,
+      "original_bytes": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "replacement_bytes": "568bf183ec10c7442400041c8b3dc7442404672d093fc7442408404ef73ec744240c0000803f6a008bcc68b43c6b00e8fc2ee4ff6a006a086a086a066a066a026a198d8e18050000e8c3bddcff8bcee8dcb5dcff5ec3",
+      "semantic_purpose": "Construct owned Astero temporary; initialize record25; call original continuation"
+    }
+  ],
+  "runtime_validation": "WAITING FOR HUMAN P0"
+}

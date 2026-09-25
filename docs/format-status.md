@@ -210,3 +210,7 @@ The final 44-byte marker-1339 block is typed as center, radius/scalar, min and m
 ## R5V-B dormant vehicle slot audit
 
 Retail record 25 has a vtable, empty owned-name pointer and four float32 1.0 defaults, while ID/class/stat integers are left unwritten. The frontend class-2 count is compiled as 11, and its `VehicleList` vector contains class labels. The retail unlock switch has case 25, but this does not establish a playable record. R5V-B verdict: **MORE RESEARCH NEEDED; no executable/data patch or runtime candidate.** See `research/r5v_b/findings.md`.
+
+## R5V-C ID25 experimental runtime status
+
+The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE-copy candidate. Static patch validation passes; **RUNTIME VALIDATION: WAITING FOR HUMAN P0**. There is no confirmed 26th playable vehicle yet, and P1 race testing must wait for a human P0 menu/preview pass. See research/r5v_c/validation.md.

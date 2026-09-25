@@ -174,3 +174,7 @@ R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology p
 ## R5V-B dormant retail vehicle slot audit
 
 Targeted Ghidra analysis found that retail record 25 is allocated but its ID, class and stat integers are unwritten; the class-2 vehicle selector has an independent hardcoded limit of 11. `Frontend/VehicleSelect/VehicleList` is the class-label list, not a dynamic car registry. A case-25 unlock branch exists, but resource/physics and quick-race safety remain unproved. No patch or runtime candidate was produced; see `research/r5v_b/findings.md`.
+
+## R5V-C duplicate-Astero ID25 runtime proof
+
+A hash-locked patcher now creates an ignored retail EXE copy that initializes the allocated ID25 through the original owned-string initializer, raises class-2 navigation capacity to 12 and overrides only ID25's locked flag for testing. Automated PE, instruction, byte-diff and synthetic checks pass. **RUNTIME VALIDATION: WAITING FOR HUMAN P0** (menu/preview only); P1 Quick Race is gated on the owner's P0 report. No game assets or original EXE were changed. See research/r5v_c/findings.md and research/r5v_c/runtime-test-plan.md.
