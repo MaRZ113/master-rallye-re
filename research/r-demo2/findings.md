@@ -38,3 +38,9 @@ See `model-cache-state-machine.md`, `runtime/`, `dx-regeneration.md`, `source-ed
 ## Roadmap
 
 R-DEMO2.5 rejects pre-hull hierarchy/welder incompleteness for the tested 9.3.1 offline analogue. The first bounded hull probe preserves all 7,140 triple classifications at the initial EXE plane thickness. Next, if requested: one narrow hull-library follow-up at the `005fc680` plane-equivalence transition, with actual configured thickness and crash address. This is a follow-up target, not a proven fault site. No repeated hull mutation, course/track archaeology, merge or push. R4G remains frozen.
+
+## R-DEMO2.6 exact 8.4.1 hull NULL provenance
+
+**Level C achieved; source-level failure condition remains OPEN.** Exact 8.4.1 EXE SHA256 `bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be` identifies `005C3200` as an edge endpoint-overlap predicate. `005C447B` selects literal zero when the face edge-list search finds no edge sharing a vertex-object pointer; `005BC490` writes that zero into a local list-node payload `+8`, which a later iteration passes to `005C3200` and dereferences at `005C3212`. The candidate crash and baseline non-trigger are **user-reported runtime evidence**; exact writer/CFG are **CONFIRMED_BY_EXE**, while the first differing face/endpoint set is **UNKNOWN**. The pinned 8.4.1 GXM candidate changes only 126 bytes of the 36 hull source-X positions and preserves source records/hierarchy/A/B. Its absolute-space bounds and plane offsets change; no specific stale dependent field is proven. See `r-demo2.6-hull-null-provenance.md`, `r-demo2.6-structure-map.md`, and the single read-only `r-demo2.6-runtime-followup.md`.
+
+This supersedes the older statement above that the crash instruction was unknown. No hull repair rule or new R4G writable-collision guarantee follows yet.
