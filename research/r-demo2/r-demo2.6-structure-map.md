@@ -56,3 +56,7 @@ The user's captured `16495D28` node has `+0=16495B48`, `+4=16495788` and `+8=0`.
 ```
 
 A sentinel's own `+8` has no initialized payload in `005BC430`, but the runtime chain points to the **first inserted node**, and the no-match branch supplies a literal zero. Do not interpret this as an STL implementation fingerprint or infer a missing constructor initialization as the crash cause.
+
+## R-DEMO2.7 screenshot update
+
+The later user-provided candidate screenshot set directly stops at `005C447B`. Caller loop offset `0x940` maps captured `ESI` to face index 37. That face has one edge remaining and the local list count is three. The current edge's endpoint sentinel and two node addresses are visible, but endpoint node payloads are not; the remaining edge's endpoint list is also absent. The raw address transcription and screenshot hashes are ignored under `.research-output/r-demo2/r-demo2.7-runtime-capture.json`. See `r-demo2.7-failing-face.md` for the strict limits and the one small follow-up.

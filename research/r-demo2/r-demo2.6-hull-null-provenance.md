@@ -2,9 +2,9 @@
 
 ## Executive result
 
-**Level C: structure and immediate NULL producer closed; source-level cause OPEN.** In the exact September 2001 demo, `005C3200–005C3238` is an edge endpoint-overlap predicate, not a generic comparator. It returns true if either of one edge's two endpoint pointers equals either endpoint pointer of the other edge. The failing argument is an **edge-object pointer** stored at `+8` in a circular doubly linked list node. `005C447B` explicitly sets the candidate edge pointer to zero after an exhaustive no-match search, and `005C4496` inserts that zero into the local list. The next iteration obtains it through `005C443B–005C4441`, calls `005C3200`, and faults at `005C3212` on NULL+`0x64`.
+**R-DEMO2.6 closed the structure and immediate NULL producer; R-DEMO2.7 now advances the result to Level B.** In the exact September 2001 demo, `005C3200–005C3238` is an edge endpoint-overlap predicate. It returns true if either endpoint pointer of one edge equals either endpoint pointer of the other. `005C447B` explicitly selects zero after the candidate's exhaustive no-match search; `005C4496` inserts that zero into the local list. The next iteration calls `005C3200` with NULL and faults at `005C3212` on `NULL+0x64`.
 
-The original baseline did not present a zero edge argument at the user's conditional breakpoint and completed model loading. Static code shows the condition for zero: a nonempty face edge list contains no edge sharing an endpoint with the current local-list edge. Which **face and endpoint set** first causes this for the edited input is not yet captured. The uniform translation is a demonstrated input difference, but a specific violated source/dependent invariant is **UNKNOWN**. No EXE patch or new model mutation was made.
+The candidate's direct `005C447B` stop, face index 37, and source-plane replay are documented in `r-demo2.7-first-divergence.md`. The original baseline did not hit the same ordinary breakpoint in the user's controlled run and loaded the race; this is not a universal safety claim. R-DEMO2.7 identifies plane-equivalence tolerance as the first source-level divergence under the exact executable's static default. The live configured thickness and endpoint payload identities remain unknown. No EXE patch or new model mutation was made.
 
 ## Evidence identity and limits
 
@@ -15,6 +15,8 @@ The original baseline did not present a zero edge argument at the user's conditi
 | Crash candidate `car.gxm` | `0425e1636bc83844da241d48e30fedae2d48aff024cb4f1e329506ac64b1e699` | CONFIRMED_BY_BYTES |
 | Candidate at `005C4457`, condition `EBX==0` | EBX=0; `[esp+38]=16495788`, first node `16495D28`, node `+8=0`; AV at `005C3212` reading `0x64` | USER-REPORTED CONFIRMED_BY_RUNTIME; x32dbg excerpt supplied in phase prompt, not an independently acquired raw capture |
 | Baseline, same conditional breakpoint | no trigger; completed loading | USER-REPORTED CONFIRMED_BY_RUNTIME, limited to that run |
+| R-DEMO2.7 candidate at ordinary `005C447B` | direct screenshot hit before `XOR EDI,EDI`; face 37 and one remaining face edge | CONFIRMED_BY_RUNTIME; normalized locally from user screenshots |
+| R-DEMO2.7 baseline, same ordinary breakpoint | no hit observed; user reports race loaded | USER-REPORTED CONFIRMED_BY_RUNTIME, limited to that run |
 
 The PE32 has machine `0x14c`, preferred image base `0x400000`, and DLL characteristics `0x0` (no `DYNAMIC_BASE` flag). Addresses in this report are exact virtual addresses for this executable and the reported run. Do not transfer them to 9.3.1 or retail.
 
@@ -26,13 +28,13 @@ The PE32 has machine `0x14c`, preferred image base `0x400000`, and DLL character
 4. `005C43A0` moves the first face edge pointer to a local list and removes it from the face list. While the face list remains nonempty, `005C4451–005C4479` tests face edges against the current local edge using `005C3200`. A match chooses a real pointer. If no match exists, `005C447B XOR EDI,EDI` chooses NULL. `005C4481 MOV [ESP+1C],EDI` and `005C4496 CALL 005BC490` write it into an inserted local node's `+8`.
 5. The subsequent removal scan `005C449B–005C44DE` removes matching edge pointers from the face list. With NULL chosen and normal non-NULL face edge pointers, no entry matches, so count remains nonzero. `005C44E5` loops to `005C443B`, which obtains the local first-node payload into EBX. The call at `005C4457` passes EBX as the argument; `005C3212 MOV EDX,[EAX+64]` dereferences that NULL argument.
 
-The chain from no-match branch to fault is **CONFIRMED_BY_EXE** and consistent with the user's runtime observation. Actual execution of `005C447B` in the candidate has not yet been directly breakpoint-captured. The ordinary face-list writer makes the no-match branch the concrete static producer; memory corruption or another unexpected writer is not established and cannot be categorically excluded by static analysis alone.
+The chain from no-match branch to fault is **CONFIRMED_BY_EXE**; the candidate's stop at `005C447B` is now **CONFIRMED_BY_RUNTIME** from the supplied screenshot set. The exact endpoint node payloads are absent, so this is not a full graph reconstruction. The ordinary face-list writer is the concrete static NULL producer; memory corruption is not established.
 
 ## Predicate and search invariant
 
 At `005C3200`, `ECX` is one edge pointer. Its `+0x64` points to a sentinel whose first two payloads provide endpoint pointers A/B. At `005C320B`, the stack argument becomes EAX; its `+0x64` provides endpoint pointers C/D. `005C321C–005C322D` compare A==C, A==D, B==C, B==D; `AL` becomes 1 on any equality, 0 otherwise. The caller tests `AL` at `005C445C`.
 
-Thus the local face-reordering algorithm requires a next edge sharing at least one **vertex-object identity** with the current edge while unprocessed face edges remain. When the source positions change, plane/intersection generation and endpoint selection can change which identities exist or are shared. That causal route is **INFERRED**, not proof of a particular stale GXM field. Exact first divergent face, edge sequence and endpoint identities require the bounded runtime capture in `r-demo2.6-runtime-followup.md`.
+Thus the local face-reordering algorithm requires a next edge sharing at least one **vertex-object identity** with the current edge while unprocessed face edges remain. R-DEMO2.7 maps the captured face 37 to the extra translated-source plane from `C[1317], C[1335], C[1337]`; the replay predicts the earlier `005C3E10` dedup-to-insert divergence. Exact endpoint node payloads and the loaded tolerance remain open, with one bounded capture protocol in `r-demo2.7-runtime-followup.md`.
 
 ## Exact GXM differential
 
@@ -45,6 +47,6 @@ Thus the local face-reordering algorithm requires a next edge sharing at least o
 
 ## Remaining unknowns and R4G impact
 
-The first candidate face/edge list with no shared endpoint, the corresponding baseline edge list, and the exact geometric decision upstream of that divergence remain **UNKNOWN**. Therefore no additional field recomputation rule can yet be specified for writable `$chull` GXM tooling. R4G collision writing remains frozen at its previous evidence boundary; this phase adds a concrete guard requirement for future source-edit validation: reconstruct/validate the face edge-adjacency walk and reject a no-match case before proposing a runtime-safe hull edit. This is a research requirement, not a proven repair algorithm.
+The exact face now maps to source data and the first upstream plane-equivalence decision is replayed; exact endpoint vertex identities, full face-graph components, and effective runtime thickness remain **UNKNOWN_FROM_CAPTURE**. No field recomputation rule can yet be specified for writable `$chull` GXM tooling. R4G collision writing remains frozen; future source edits still need exact plane-decision and endpoint-adjacency validation before any runtime-safety claim.
 
 This work stays in the dedicated `research/r-demo-pipeline` branch. No merge, push, R5T, runtime mutation or raw asset commit.
