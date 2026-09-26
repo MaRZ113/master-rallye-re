@@ -2,7 +2,7 @@
 
 ## Status
 
-**R-DEMO2.1 PASS for its trace/oracle scope; R-DEMO2.2 bounded collision oracle complete; R-DEMO2.4 hierarchy retained; R-DEMO2.5 PASS for bounded 9.3.1 pre-hull provenance (Path B); R-DEMO2.6 closes the exact NULL path; R-DEMO2.7 identifies the first upstream plane-decision divergence at Level B; R-DEMO2.8 prepares a hash-locked 9.3.1 +0.10 cooker candidate, with runtime DX comparison pending.** Dedicated demo branch only; R5T unstarted.
+**R-DEMO2.1 PASS for its trace/oracle scope; R-DEMO2.2 bounded collision oracle complete; R-DEMO2.4 hierarchy retained; R-DEMO2.5 PASS for bounded 9.3.1 pre-hull provenance (Path B); R-DEMO2.6 closes the exact NULL path; R-DEMO2.7 identifies the first upstream plane-decision divergence at Level B; R-DEMO2.8 provides the controlled +0.10-X cooker candidate; R-DEMO2.9 verifies the generated DX pair and reconstructs the measured collision/bounds relations.** Dedicated demo branch only; R5T unstarted.
 
 ## Runtime traces
 
@@ -52,3 +52,7 @@ This supersedes the older statement above that the crash instruction was unknown
 ## R-DEMO2.8 demo 9.3.1 +0.10 X cooker oracle
 
 The 9.3.1 original Trooper GXM was parsed independently: `$chull(Trooper)` is records `[1911,1979)` and derives 36 distinct Vector C indices `1317..1352`, with no overlap to other mesh records. An ignored candidate changes only those C.x fields by +0.10 source X. It is 222,754 bytes, SHA256 `b7a4da48f32ce0e4e9802e0656f79905b23af373d0dc0a397e8f2f64c973c5b3`; 117 byte values differ inside the 36 approved float fields. The byte audit is under `.research-output/r-demo2/931-chull-oracle/`. The existing native plane replay is 8.4.1 hash-pinned and is not applied to 9.3.1. Runtime DX results are pending; see `r-demo2.8-931-chull-oracle.md` and `tools/scanner/r_demo2_931_chull_dx_oracle.py`.
+
+## R-DEMO2.9 controlled cooker oracle and bounds reconstruction
+
+Baseline A/B are byte-identical; the +0.10-X cooker output differs in exactly 182 bytes, all explained by collision geometry, face scalars/descriptors, and marker-1339. Render geometry, indices, draw/material bytes, BSP, and cylinder data are unchanged. The 36 source C positions map to 28 retained Rep-B vertices; their vertex identity and core topology stay stable across the translation. Rep-A follows the Rep-B AABB. Render vertices union Rep-B reproduces marker-1339 min/max and center within one float32 ULP; exact radius rounding and secondary descriptor semantics remain unresolved. See `r-demo2.9-collision-cooker-oracle.md`.

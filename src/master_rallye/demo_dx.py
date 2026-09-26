@@ -11,6 +11,7 @@ import struct
 from dataclasses import dataclass
 
 from .collision import CollisionSections, parse_collision_sections
+from .collision_oracle_analysis import compare_core_topology, compare_secondary_descriptors
 from .dx import Reader
 from .errors import BoundsError, FormatError
 
@@ -126,20 +127,19 @@ def _geometry(first, second) -> dict:
 
 
 def _representation(first, second) -> dict:
+    secondary = compare_secondary_descriptors(first.face_descriptors, second.face_descriptors)
+    core_topology = compare_core_topology(first, second)
     return {"geometry_a": _geometry(first.geometry_a, second.geometry_a),
             "geometry_b": _geometry(first.geometry_b, second.geometry_b),
+            "core_topology": core_topology,
+            "secondary_descriptor_analysis": secondary,
             "referenced_vertex_indices_equal": first.referenced_vertex_indices == second.referenced_vertex_indices,
             "edges_equal": first.edges == second.edges,
             "primary_descriptors_equal": tuple(face.primary_indices for face in first.face_descriptors) ==
                                          tuple(face.primary_indices for face in second.face_descriptors),
-            "secondary_descriptors_equal": tuple(face.secondary_indices for face in first.face_descriptors) ==
-                                           tuple(face.secondary_indices for face in second.face_descriptors),
-            "secondary_descriptor_changed_faces": sum(a.secondary_indices != b.secondary_indices
-                                                      for a, b in zip(first.face_descriptors, second.face_descriptors)),
-            "secondary_descriptor_multisets_equal_per_face": (
-                len(first.face_descriptors) == len(second.face_descriptors) and
-                all(sorted(a.secondary_indices) == sorted(b.secondary_indices)
-                    for a, b in zip(first.face_descriptors, second.face_descriptors))),
+            "secondary_descriptors_equal": secondary["exact_tuples_equal"],
+            "secondary_descriptor_changed_faces": secondary["changed_face_count"],
+            "secondary_descriptor_multisets_equal_per_face": secondary["per_face_multisets_equal"],
             "edge_face_adjacency_equal": first.edge_face_adjacency == second.edge_face_adjacency,
             "face_loops_equal": first.face_loop_indices == second.face_loop_indices,
             "face_scalars": _float_stats(((x,) for x in first.face_scalars),
@@ -209,20 +209,30 @@ def _collision_verdict(collision: dict, tolerance: float) -> tuple[bool, bool]:
     a = collision["tag101"]
     if a:
         if a["first_size"] != a["second_size"]:
-            return True, False
-        for label in ("base_geometry", "representation_a", "representation_b"):
-            blocks = [a[label]] if label == "base_geometry" else [a[label]["geometry_a"], a[label]["geometry_b"]]
-            for block in blocks:
-                if block["first_counts"] != block["second_counts"] or not block["triangles_equal"]:
-                    return True, False
-                if not block["vertices"]["same_shape"] or block["vertices"]["max_abs_delta"] > tolerance:
-                    unresolved = True
+            # Payload size can change because auxiliary descriptor arrays are
+            # variable length; it is not proof of a core connectivity change.
+            unresolved = True
+        base_geometry = a["base_geometry"]
+        if base_geometry["first_counts"] != base_geometry["second_counts"] or not base_geometry["triangles_equal"]:
+            unresolved = True
+        if not base_geometry["vertices"]["same_shape"] or base_geometry["vertices"]["max_abs_delta"] > tolerance:
+            unresolved = True
         for label in ("representation_a", "representation_b"):
             rep = a[label]
+            geometry_a = rep["geometry_a"]
+            if geometry_a["first_counts"] != geometry_a["second_counts"] or not geometry_a["triangles_equal"]:
+                return True, False
+            if not geometry_a["vertices"]["same_shape"] or geometry_a["vertices"]["max_abs_delta"] > tolerance:
+                unresolved = True
+            geometry_b = rep["geometry_b"]
+            if geometry_b["first_counts"] != geometry_b["second_counts"] or not geometry_b["triangles_equal"]:
+                unresolved = True
+            if not geometry_b["vertices"]["same_shape"] or geometry_b["vertices"]["max_abs_delta"] > tolerance:
+                unresolved = True
             if not all(rep[key] for key in ("referenced_vertex_indices_equal", "edges_equal",
                                             "primary_descriptors_equal", "edge_face_adjacency_equal",
                                             "face_loops_equal")):
-                unresolved = True
+                return True, False
             if not rep["secondary_descriptors_equal"]:
                 unresolved = True  # Secondary list semantics have not been resolved.
             if not rep["face_scalars"]["same_shape"] or rep["face_scalars"]["max_abs_delta"] > tolerance:

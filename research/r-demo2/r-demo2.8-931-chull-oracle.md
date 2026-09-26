@@ -85,14 +85,20 @@ Use a separate disposable demo 9.3.1 copy; leave the original corpus untouched.
 7. Save the generated DX as `input/car_chull_xplus010.dx`.
 8. Return/provide `car_baseline_A.dx`, `car_baseline_B.dx`, `car_chull_xplus010.dx`, and the candidate audit/report. Baseline A is already staged in the repository output folder.
 
-## Results placeholder
+## Results (completed by R-DEMO2.9)
 
-| Result | Status |
-|---|---|
-| Baseline A vs B bytes and semantics | Pending fresh baseline B |
-| +0.10 candidate loaded by 9.3.1 | Pending human runtime result |
-| Modified `car.dx` hash/size | Pending |
-| Render geometry unchanged | Pending DX comparison |
-| Tag101 Rep A/B and topology | Pending DX comparison |
-| Marker-1339 and other collision blocks | Pending DX comparison |
-| Candidate runtime confirmation | Not claimed |
+The requested cooker outputs were supplied and independently audited in
+R-DEMO2.9. Baseline A and B are exactly byte-identical (124,568 bytes;
+SHA256 `8238078c40f7b419b2f3cc3a14f4511f1cdb6a8bce00f3589a39fbfcde32d5b1`).
+The +0.10-X candidate output is 124,568 bytes with SHA256
+`5947d0b0cd2d9d16fbbd52bf69a34a7f0eb4581e74379f6559d8f9fccd5fb78c`.
+
+The controlled comparison accounts for all 182 changed bytes. Render arrays,
+indices, draw/material bytes, BSP and cylinder blocks are unchanged. Rep-B
+core topology is preserved under the rigid translation; Rep-A follows the
+translated bounds. Secondary descriptor differences remain auxiliary and
+unresolved. Marker-1339 recomputation is supported by the measured point-set
+comparison. These are cooker-output and byte/structure results; no separate
+gameplay collision claim is made here. See
+[`r-demo2.9-collision-cooker-oracle.md`](r-demo2.9-collision-cooker-oracle.md)
+for the exact byte accounting and numerical analysis.
