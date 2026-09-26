@@ -13,13 +13,13 @@ Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed
 same-topology **positions-only** DX export. All 78 vehicle resources produce a
 byte-identical zero-edit result and pass an in-memory single-position patch.
-On 2026-09-22, human testing in the original game runtime confirmed visible,
+On 2026-09-22, testing in the original game runtime confirmed visible,
 artifact-free same-topology position edits in `complete.dx` (presentation/menu)
 and `car.dx` (race). Course resources and general DX serialization remain
 out of scope; targeted executable material tracing is documented below.
 
 **FIRST CONFIRMED WRITABLE MASTER RALLYE VEHICLE GEOMETRY — 2026-09-22.**
-That R3 milestone confirmed position writing. Subsequent E1, E3 and E4 human tests confirmed same-topology UV, vertex-color, and alpha-flag edits. The stronger R4E.1 normal test confirmed normal writing; topology writing remains outside the same-topology baseline.
+That R3 milestone confirmed position writing. Subsequent E1, E3 and E4 tests confirmed same-topology UV, vertex-color, and alpha-flag edits. The stronger R4E.1 normal test confirmed normal writing; topology writing remains outside the same-topology baseline.
 
 Phase R4A has mapped the three vehicle resource roles across all 26 vehicle
 folders: `complete.dx` is the assembled presentation resource, `car.dx` is the
@@ -41,12 +41,12 @@ rigid translation. All 28 tag-101 sections and complete DX templates round-trip
 byte-identically at zero edit; all 27 validated finite hulls pass in-memory
 translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
 collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. R4C itself did not add scale, rotation, topology, BSP, cylinder, or Blender collision
-export; R4G per-axis scale is confirmed by the C1 human wall-contact test. See `docs/collision-writer.md` and `research/r4c/`.
+export; R4G per-axis scale is confirmed by the C1 wall-contact test. See `docs/collision-writer.md` and `research/r4c/`.
 
-Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT probes now have human in-game results: M1/M3 reflection helpers, M2 glass source-alpha, and M4 active brake-glow alpha. See research/r4d_1/runtime-results.md. See docs/vehicle-materials.md and research/r4d_1/findings.md.
+Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT probes now have in-game results: M1/M3 reflection helpers, M2 glass source-alpha, and M4 active brake-glow alpha. See research/r4d_1/runtime-results.md. See docs/vehicle-materials.md and research/r4d_1/findings.md.
 
 Phase R4E adds same-topology attribute authoring, same-size DXT replacement, exact
-vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human testing confirms E1 UV, E3 vertex color, E4 alpha flag, and E5 full-tree Python Data.sma packing. E2 normal was inconclusive; stronger R4E.1 N1 and M1 human tests confirmed normal and environment-feature writing. The SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is now frozen. See
+vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. testing confirms E1 UV, E3 vertex color, E4 alpha flag, and E5 full-tree Python Data.sma packing. E2 normal was inconclusive; stronger R4E.1 N1 and M1 tests confirmed normal and environment-feature writing. The SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is now frozen. See
 `docs/vehicle-authoring.md`, `docs/texture-authoring.md`, and
 `docs/vehicle-packaging.md`.
 
@@ -167,8 +167,8 @@ See `research/r2_5/findings.md` for legacy consolidation and
 
 ## MASTER RALLYE VEHICLE SDK v1 — RUNTIME-CONFIRMED BASELINE
 
-R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) were generated under ignored local output and then tested in-game. B1, C1, P1 and W1 each passed original-game testing. The full existing-donor Vehicle SDK v1 baseline is frozen; see research/r4g/runtime-results.md for the separate human evidence. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.
+R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) were generated under ignored local output and then tested in-game. B1, C1, P1 and W1 each passed original-game testing. The full existing-donor Vehicle SDK v1 baseline is frozen; see research/r4g/runtime-results.md for the separate evidence. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.
 
 ## R-DEMO research branch
 
-Development-era demo asset archaeology is isolated on `research/r-demo-pipeline`. Start with [the pipeline evidence](docs/demo-development-pipeline.md) and [R-DEMO findings](research/r-demo/findings.md). GXI, GXB, GXP, and a conservative GXM prefix reader are documented under `docs/formats/`. First-pass human Trooper 8.4.1 tests confirm live GXM body/presentation/wheel visual roles. R-DEMO2.1 closes its defined cooker/cache trace and source-edit oracle scope: byte-exact runtime GXI→DXT regeneration, controlled 9.3.1 cache/fallback paths, repeated rebuild determinism for one fixed source, a visible source edit, and the `$chull` crash localized inside hull construction in 8.4.1. See [R-DEMO2 findings](research/r-demo2/findings.md) and [pipeline evidence](docs/demo-development-pipeline.md). R-DEMO2.5 establishes Path B for the pinned 9.3.1 Trooper offline pair: 36 isolated hull positions retain a rigidly translated 68-triangle post-weld stream. The earlier pre-hull attribution to `005c9990/005ca370` is corrected; these functions run after hull construction. See [vertex-welder evidence](research/r-demo2/vertex-welder.md). The runtime crash instruction remains unknown; the next bounded target is a hull-library plane-equivalence transition. No new runtime mutation or R5T work. R4G is frozen.
+Development-era demo asset archaeology is isolated on `research/r-demo-pipeline`. Start with [the pipeline evidence](docs/demo-development-pipeline.md) and [R-DEMO findings](research/r-demo/findings.md). GXI, GXB, GXP, and a conservative GXM prefix reader are documented under `docs/formats/`. First-pass Trooper 8.4.1 tests confirm live GXM body/presentation/wheel visual roles. R-DEMO2.1 closes its defined cooker/cache trace and source-edit oracle scope: byte-exact runtime GXI→DXT regeneration, controlled 9.3.1 cache/fallback paths, repeated rebuild determinism for one fixed source, a visible source edit, and the `$chull` crash localized inside hull construction in 8.4.1. See [R-DEMO2 findings](research/r-demo2/findings.md) and [pipeline evidence](docs/demo-development-pipeline.md). R-DEMO2.5 establishes Path B for the pinned 9.3.1 Trooper offline pair: 36 isolated hull positions retain a rigidly translated 68-triangle post-weld stream. The earlier pre-hull attribution to `005c9990/005ca370` is corrected; these functions run after hull construction. See [vertex-welder evidence](research/r-demo2/vertex-welder.md). The runtime crash instruction remains unknown; the next bounded target is a hull-library plane-equivalence transition. No new runtime mutation or R5T work. R4G is frozen.
