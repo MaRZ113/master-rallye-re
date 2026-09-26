@@ -1,6 +1,6 @@
 # R-DEMO development asset pipeline: current evidence
 
-This branch is isolated from `master` and reads the external `demo-8.4.1`, `demo-9.3.1`, and `retail` corpora without modifying them. Generated manifests retain `corpus_id` and `relative_path`. Raw game resources remain outside Git; controlled candidates and runtime outputs are under ignored `.research-output/`.
+This branch is isolated from `master` and reads the external `demo-8.4.1`, `demo-9.3.1`, `demo-9.10.0`, and `retail` corpora without modifying them. Generated manifests retain `corpus_id` and `relative_path`. Raw game resources remain outside Git; controlled candidates and runtime outputs are under ignored `.research-output/`.
 
 ## Image path
 
@@ -16,16 +16,19 @@ The 80 GXM files with the recognized material-table prefix (including one with z
 
 The demo DX draw grammar differs from the retail parser. Demo DX header/control words also differ (`127` predominant in September, `131` in November, `135` throughout retail). Existing retail DX parsing must not be used to invent demo draw/material semantics. Static extension strings in the retail EXE do not establish runtime source access.
 
+The later PC Gamer DEMO 9.10.0 contains source/cache vehicle assets and is the practical bridge compiler. All 18 vehicle DX files in that corpus use revision 135 and pass the retail typed parser; the full DataGx DX inventory is mixed and is not universally accepted. Human runtime testing confirmed older demo source/assets processed by the original 9.10.0 cooker can be transferred into retail: Trooper (Navara slot) and Rav4 model rendering and damage work. The exact old source build and transfer file hashes are not recorded, and physics equivalence is untested. This does not change the finding that raw revision-127/131 DX is not a direct retail bridge. Full evidence is in `research/r-bridge/r-bridge2-demo-910-bridge.md`.
+
 ## Runtime and cooker evidence
 
 - **Demo 8.4.1:** tested Trooper GXM paths are source-first with persistent model caching disabled. DebugView captured OutputDebugString diagnostics and normal cooker stage order. In R-DEMO2.7, the pinned translated `$chull` candidate directly hits the edge-order no-match branch `005C447B`, later faulting through NULL at `005C3212`; the baseline did not hit that breakpoint in the controlled run and loaded the race. A source replay of exact 8.4.1 plane construction maps the candidate face 37 to an extra plane caused by the `005C3E10` offset-tolerance comparison after translation. This is Level B: the effective runtime tolerance and exact endpoint payload graph remain **UNKNOWN_FROM_CAPTURE**. See `research/r-demo2/r-demo2.7-first-divergence.md` and `research/r-demo2/r-demo2.7-runtime-followup.md`.
 - **Demo 9.3.1:** ProcMon controlled timestamp cases confirm GXM-to-DX miss/rebuild, stale-cache rebuild, fresh-cache load, and source-missing DX fallback for the tested paths. Both-missing and equal-timestamp states remain **UNKNOWN**. No DebugView output was observed in the tested session; logger removal remains **UNKNOWN**. See `research/r-demo2/model-cache-state-machine.md` and `research/r-demo2/runtime/`.
 - **Determinism and source edit:** two unchanged-GXM 9.3.1 rebuilds are byte-identical for this controlled pair. A safe Vector C `+0.15` edit changed one DX render position and recomputed marker bounds; the user confirmed visible DX-only loading. This is a bounded oracle result, not universal cooker determinism or a general write guarantee. See `research/r-demo2/rebuild-determinism.md` and `research/r-demo2/source-edit-oracle.md`.
 - **Retail negative control:** the tested vehicle path did not consume demo GXM as a live model source; renaming it to DX did not produce a valid compiled body. This does not prove all development code was removed from retail.
+- **Retail wheel placement:** focused retail EXE disassembly shows four `wheel.dx` instances receive transforms derived from per-car wheelbase, track widths, ride heights, and per-wheel state. The binary uses `Vehicles/Car%d/...` broker paths, while the extracted XML uses named vehicle roots; the alias and the physical-suspension relationship remain unresolved. Complete-model wheel mesh centers are geometric references, not proven runtime hardpoints. See `research/r-bridge/r-bridge2-wheel-placement.md`.
 
 ## Evidence boundary and remaining unknowns
 
-Corpus, executable, byte-comparison, controlled trace, and human runtime evidence are labeled separately in the linked findings. Still unresolved are universal GXM hierarchy controls, the exact `$cylinder` formula, the 8.4.1 `$chull` runtime tolerance and endpoint-object graph, the exact meaning of the bounded static file-time helper, and the untested cache states listed above. The 8.4.1 visual loader matrix did not receive a per-resource ProcMon file-access matrix; 9.3.1 cache traces must not be generalized to it. No R-DEMO2 result changes the retail authoring pipeline.
+Corpus, executable, byte-comparison, controlled trace, and human runtime evidence are labeled separately in the linked findings. Still unresolved are universal GXM hierarchy controls, the exact `$cylinder` formula, the 8.4.1 `$chull` runtime tolerance and endpoint-object graph, the exact meaning of the bounded static file-time helper, and the untested cache states listed above. The 8.4.1 visual loader matrix did not receive a per-resource ProcMon file-access matrix; 9.3.1 cache traces must not be generalized to it. The 9.10.0 original cooker is now the confirmed practical import path; the standalone retail writer remains a separate research goal.
 
 ## Roadmap
 
