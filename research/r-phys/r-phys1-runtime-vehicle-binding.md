@@ -38,6 +38,10 @@ Controls show that these named configs evolve independently:
 - Navara is present in 9.10.0 and retail: WheelBase changes 2.6→2.8; track stays 1.7 and ride height stays 0.05. Across 147 common paths, 26 values differ.
 - Names such as `Rav4`, `Newrav`, and `NewRav` are preserved as separate literal roots. A model-directory spelling or visual similarity is not used as an alias rule.
 
+### R-PHYS2 config-survival control
+
+The focused 9.10.0→retail Trooper comparison has 147 rows: 121 exact, one numerically equal but text-different, and 25 value changes (16 `DamageParams`, 7 `Engine`, 1 `Chassis`, 1 `Suspension`). Jump and Navara controls change 21 of those same Trooper paths in at least one control; four paths are Trooper-only relative to these controls: `DamageParams/EngineThresholdDamageSpeed`, `DamageParams/MaxTyreDamage`, `DamageParams/SteeringThresholdDamageSpeed`, and `Suspension/Front/ToeIn`. This supports a shared retail retune plus a small set of Trooper-specific config deltas. It does not prove runtime consumption. The field-by-field derivation is retained in ignored `.research-output/r-phys2/r-phys2-analysis.json`.
+
 ## Static retail executable evidence
 
 Retail EXE static inspection used Ghidra 12.1.4; its exact hash and size are recorded above. The disposable Ghidra project, decompilation, and script are ignored under `.research-output/r-phys1/` and `dist/r-phys1-ghidra/`. The checked output is not a runtime trace.
@@ -54,6 +58,10 @@ Retail EXE static inspection used Ghidra 12.1.4; its exact hash and size are rec
 The local transform helper in `src/master_rallye/vehicle_config_analysis.py` captures only the branch/offset arithmetic supported by `0x004C00D0`; it deliberately names itself `wheel_spline_playback_local_offset`. A test checks all four index signs and the vertical clamp. It does not apply the outer matrix or claim world-space wheel placement.
 
 An existing scene registration in `DefaultVehicleParamBrokerRegistration.xml` names `CarModelDataFile=RMonster`; existing R4A work also establishes that `DataGame/Game.xml` registers the vehicle broker. Neither artifact links `Race/Car%d/CarType` or the spline `Vehicles/Car%d` keys to a named `Vehicles/<family>` physics record. Retail named-config XML contains no `CarN` roots. Therefore the runtime backing source/population step remains unknown.
+
+R-PHYS2 expanded the search to extracted `DataGame`, `DataGx`, and `DataScene` metadata. Across 913 text/config files and 741 compiled metadata files, no corpus file contained a numeric `Vehicles/CarN` path. Typed `Race/CarN/CarType` string assignments occur in 11 demo 8.4.1 files and 6 demo 9.10.0 files, but none were found in demo 9.3.1 or retail. Some values match named config families in those demo builds, establishing scene-level participant-to-string examples only.
+
+Retail EXE static review found `FUN_00493600` builds a numeric `Vehicles/CarN` path; `FUN_004938C0` / `FUN_00493A40` read parameter groups from that path; and `FUN_0043E4C0` iterates/constructs numeric vehicle records. Separately, `FUN_004ABCE0` registers the `Race/CarType` key and the direct literal reader `FUN_004C0B20` is `gaVehicleSplineRecordAI`; it passes its participant index to `FUN_004BC590`, whose six field reads remain specific to that spline route. The retail EXE writer/population chain and ordinary physical-contact constructor remain unproven. See [R-PHYS2](r-phys2-vehicle-param-broker.md) for exact scan counts, values, and limits.
 
 ## Complete-model wheel geometry and limits
 
@@ -86,8 +94,9 @@ This phase improves source/config provenance but does not authorize a production
 | Full config diff and literal schema | `IMPLEMENTABLE_NOW` | Field path/type/raw value and per-build provenance retained; no semantic interpretation required. |
 | Complete-model wheel mesh bounds | `IMPLEMENTABLE_WITH_CONSERVATIVE_POLICY` | Existing parser supports the observed node layouts; Navara 9.10.0 uses sidecar fallback; these are not physical points. |
 | Spline-record `CarN` reads | `IMPLEMENTABLE_WITH_CONSERVATIVE_POLICY` | Static six-field key list and observed caller are established for `gaVehicleSplineRecordAI`. |
+| Demo scene `Race/CarN/CarType` assignments | `IMPLEMENTABLE_WITH_CONSERVATIVE_POLICY` | Typed values are machine-scanned for specific demo scene files; no retail population is inferred. |
 | Spline wheel visual transform arithmetic | `IMPLEMENTABLE_WITH_CONSERVATIVE_POLICY` | Address `0x004C00D0` and all four index cases are captured; outer basis and runtime use remain contextual. |
-| Named family → numeric `Vehicles/CarN` population | `NEEDS_MORE_ORACLE_DATA` | No `CarN` XML roots, serializer, alias, or broker initialization link located. |
+| Named family → numeric `Vehicles/CarN` population | `NEEDS_MORE_ORACLE_DATA` | Scene values establish demo participant-to-string examples, but no retail link to the numeric catalog is located. |
 | General race vehicle visual transform source | `NEEDS_MORE_ORACLE_DATA` | Prior runtime wheel-placement observation exists; the static path found is spline playback only. |
 | Physical suspension/contact-point binding | `UNRESOLVED` | No matching general vehicle/contact constructor path established. |
 | Safe named-config runtime mutation | `NEEDS_MORE_ORACLE_DATA` | Would not be controlled until the active source path is established. |
