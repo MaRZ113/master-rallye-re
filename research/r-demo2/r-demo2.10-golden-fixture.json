@@ -1,0 +1,154 @@
+{
+  "schema": "r-demo2.10-source-only-hull-golden-v1",
+  "scope": "DEMO 9.3.1 Trooper controlled cooker oracle; hashes and topology metadata only, no proprietary asset bytes",
+  "input_sha256": {
+    "original_gxm": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+    "xplus010_gxm": "b7a4da48f32ce0e4e9802e0656f79905b23af373d0dc0a397e8f2f64c973c5b3",
+    "baseline_a_dx": "8238078c40f7b419b2f3cc3a14f4511f1cdb6a8bce00f3589a39fbfcde32d5b1",
+    "baseline_b_dx": "8238078c40f7b419b2f3cc3a14f4511f1cdb6a8bce00f3589a39fbfcde32d5b1",
+    "xplus010_dx": "5947d0b0cd2d9d16fbbd52bf69a34a7f0eb4581e74379f6559d8f9fccd5fb78c"
+  },
+  "sizes": {
+    "original_gxm": 222754,
+    "xplus010_gxm": 222754,
+    "baseline_a_dx": 124568,
+    "baseline_b_dx": 124568,
+    "xplus010_dx": 124568
+  },
+  "source_chull": {
+    "directive": "$chull(Trooper)",
+    "record_range_half_open": [1911, 1979],
+    "triangle_records": 68,
+    "unique_source_c_count": 36,
+    "retained_source_c_indices": [
+      1317, 1318, 1319, 1320, 1321, 1322, 1323, 1324,
+      1327, 1328, 1329, 1330, 1331, 1332, 1333, 1334,
+      1335, 1336, 1337, 1338, 1339, 1340,
+      1347, 1348, 1349, 1350, 1351, 1352
+    ],
+    "not_retained_as_distinct_vertices": [1325, 1326, 1341, 1342, 1343, 1344, 1345, 1346]
+  },
+  "native_rep_b_counts": {
+    "vertices": 28,
+    "triangles": 52,
+    "edges": 67,
+    "polygon_faces": 41
+  },
+  "source_only_generic_control": {
+    "support_tolerance": 1e-6,
+    "enumerated_point_triples": 7140,
+    "inserted_supporting_plane_groups": 41,
+    "deduplicated_supporting_plane_triples": 33,
+    "predicted_vertices": 28,
+    "predicted_polygon_faces": 41,
+    "predicted_edges": 67,
+    "fan_triangles": 52,
+    "native_algorithm_identity": "NOT_CLAIMED"
+  },
+  "comparison_after_prediction": {
+    "baseline_native_vertex_membership_exact": true,
+    "baseline_max_position_residual": 6.677050543111643e-6,
+    "polygon_face_vertex_sets_equal": true,
+    "undirected_edge_sets_equal": true,
+    "edge_face_adjacency_equal": true,
+    "face_order_equal": true,
+    "native_vertex_order_equal": false,
+    "native_edge_order_equal": false,
+    "face_loop_orientation_counts": {
+      "same_orientation_up_to_rotation": 21,
+      "reversed_up_to_rotation": 20
+    },
+    "triangulation_classification": "SAME_POLYGON_DIFFERENT_TRIANGULATION",
+    "predicted_only_unoriented_triangles": 10,
+    "native_only_unoriented_triangles": 10,
+    "xplus010_native_polygon_shell_preserved": true,
+    "native_triangle_rule": {
+      "classification": "FAN_FROM_SECOND_VERTEX_OF_STORED_NATIVE_FACE_LOOP",
+      "trooper_baseline_matching_faces": 41,
+      "trooper_baseline_face_count": 41,
+      "trooper_candidate_matching_faces": 41,
+      "trooper_candidate_face_count": 41,
+      "source_only_loop_order_rule": "UNRESOLVED"
+    },
+    "native_loop_start_matches_first_source_occurrence": {
+      "Trooper": [30, 41],
+      "Jump": [28, 37],
+      "NewRav": [27, 38],
+      "Tata": [19, 24]
+    }
+  },
+  "additional_same_build_shipped_controls": {
+    "Trooper": {
+      "source_gxm_sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+      "shipped_dx_sha256": "bf644c0530b3908789676564b4761cd670cc2bb187b084983d414bba458fa041",
+      "source_gxm_size": 222754,
+      "shipped_dx_size": 124568,
+      "rep_b_vertices": 28,
+      "triangles": 52,
+      "polygon_faces": 41,
+      "edges": 67,
+      "vertex_face_edge_adjacency_match": true,
+      "face_order_matches_prediction": true,
+      "triangulation_matches": false,
+      "native_second_loop_vertex_fan_matches_all_faces": true,
+      "native_second_loop_vertex_fan_match_count": 41
+    },
+    "Jump": {
+      "source_gxm_sha256": "55bd09e1f8c9c647c82381dba463bb555dfcc51c6b2d63b9e8e39c55231da17e",
+      "shipped_dx_sha256": "e92b9b093cfd62cb1dc2a9401b300e86b372ec5ea2df15a1d760c2faed5a771b",
+      "source_gxm_size": 217594,
+      "shipped_dx_size": 124150,
+      "rep_b_vertices": 26,
+      "triangles": 48,
+      "polygon_faces": 37,
+      "edges": 61,
+      "vertex_face_edge_adjacency_match": true,
+      "face_order_matches_prediction": true,
+      "triangulation_matches": false,
+      "native_second_loop_vertex_fan_matches_all_faces": true,
+      "native_second_loop_vertex_fan_match_count": 37
+    },
+    "NewRav": {
+      "source_gxm_sha256": "fc8208f7e23db49b6d3452eaad95475edbb933ba2774ec02e721fd178464ca0a",
+      "shipped_dx_sha256": "959641244de3cddc83d062b32a5700ba33b1f80f1ca8168899b75456864cb67c",
+      "source_gxm_size": 242376,
+      "shipped_dx_size": 136377,
+      "rep_b_vertices": 26,
+      "triangles": 48,
+      "polygon_faces": 38,
+      "edges": 62,
+      "vertex_face_edge_adjacency_match": true,
+      "face_order_matches_prediction": true,
+      "triangulation_matches": false,
+      "native_second_loop_vertex_fan_matches_all_faces": true,
+      "native_second_loop_vertex_fan_match_count": 38
+    },
+    "Tata": {
+      "source_gxm_sha256": "5db78fe87243ffae696a2b55fbd825f0f16182e32c8dce46942adabfce32dd0d",
+      "shipped_dx_sha256": "4cb609296e496db671c6e8ccaafa95119e16f4fff2fca78c08e2d71e0cfaa120",
+      "source_gxm_size": 262481,
+      "shipped_dx_size": 120296,
+      "rep_b_vertices": 18,
+      "triangles": 32,
+      "polygon_faces": 24,
+      "edges": 40,
+      "vertex_face_edge_adjacency_match": true,
+      "face_order_matches_prediction": true,
+      "triangulation_matches": false,
+      "native_second_loop_vertex_fan_matches_all_faces": true,
+      "native_second_loop_vertex_fan_match_count": 24
+    }
+  },
+  "negative_control_841": {
+    "baseline_gxm_sha256": "fd08bc10c440fce261ef126e40445002fb56359d4011c1dcbf9c2f71b0e91047",
+    "xplus040_gxm_sha256": "0425e1636bc83844da241d48e30fedae2d48aff024cb4f1e329506ac64b1e699",
+    "exe_sha256": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
+    "binary64_replay_face_counts": {
+      "baseline_stock_0_0005000000237487257": 37,
+      "xplus040_stock_0_0005000000237487257": 38,
+      "baseline_override_0_00052": 37,
+      "xplus040_override_0_00052": 37
+    },
+    "interpretation": "8.4.1-only negative control; not a 9.3.1 policy input"
+  }
+}

@@ -2,7 +2,7 @@
 
 ## Status
 
-**R-DEMO2.1 PASS for its trace/oracle scope; R-DEMO2.2 bounded collision oracle complete; R-DEMO2.4 hierarchy retained; R-DEMO2.5 PASS for bounded 9.3.1 pre-hull provenance (Path B); R-DEMO2.6 closes the exact NULL path; R-DEMO2.7 identifies the first upstream plane-decision divergence at Level B; R-DEMO2.8 provides the controlled +0.10-X cooker candidate; R-DEMO2.9 verifies the generated DX pair and reconstructs the measured collision/bounds relations.** Dedicated demo branch only; R5T unstarted.
+**R-DEMO2.1 PASS for its trace/oracle scope; R-DEMO2.2 bounded collision oracle complete; R-DEMO2.4 hierarchy retained; R-DEMO2.5 PASS for bounded 9.3.1 pre-hull provenance (Path B); R-DEMO2.6 closes the exact NULL path; R-DEMO2.7 identifies the first upstream plane-decision divergence at Level B; R-DEMO2.8 provides the controlled +0.10-X cooker candidate; R-DEMO2.9 verifies the generated DX pair and reconstructs the measured collision/bounds relations; R-DEMO2.10 reconstructs the geometric Rep-B shell from source-only input without claiming native serialization order.** Dedicated demo branch only; R5T unstarted.
 
 ## Runtime traces
 
@@ -56,3 +56,7 @@ The 9.3.1 original Trooper GXM was parsed independently: `$chull(Trooper)` is re
 ## R-DEMO2.9 controlled cooker oracle and bounds reconstruction
 
 Baseline A/B are byte-identical; the +0.10-X cooker output differs in exactly 182 bytes, all explained by collision geometry, face scalars/descriptors, and marker-1339. Render geometry, indices, draw/material bytes, BSP, and cylinder data are unchanged. The 36 source C positions map to 28 retained Rep-B vertices; their vertex identity and core topology stay stable across the translation. Rep-A follows the Rep-B AABB. Render vertices union Rep-B reproduces marker-1339 min/max and center within one float32 ULP; exact radius rounding and secondary descriptor semantics remain unresolved. See `r-demo2.9-collision-cooker-oracle.md`.
+
+## R-DEMO2.10 source-only hull core
+
+A deterministic, analysis-only source-point builder reconstructs the measured 9.3.1 Trooper Rep-B polygon shell: retained source positions, 41 polygon faces, 67 undirected edges, and edge-face adjacency. The same geometric relations are checked against Jump, NewRav and Tata. Native vertex/edge order and native triangulation are not reproduced, so this is not a serializer or a native cooker clone. See `r-demo2.10-native-hull-reconstruction.md` and its compact metadata-only golden fixture.
