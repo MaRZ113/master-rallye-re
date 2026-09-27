@@ -130,19 +130,43 @@ The raw base package also changes front/rear spring, damper, unsprung mass, whee
 
 All 17 differing `DamageParams` values will also be read from Trooper if the normal base reader consumes them. The game already has damage-capable Trooper model resources, but damage behavior is recorded as an observation and is not required for a successful first binding test.
 
-## x32dbg procedure — runtime-only pointer substitution
+## Successful human runtime test — R-PHYS2.2
 
-This is the chosen State A procedure. It changes one 32-bit pointer in process memory and an 8-byte `Trooper\0` buffer in a temporary process allocation. It does not patch the EXE file or game data files.
+The human ran the ordinary retail race in x32dbg with the imported Trooper
+model still occupying the existing Navara carrier. The successful hit was the
+second/mirrored lookup branch at `0044EE69`, immediately before `MOV EAX,[EAX]`.
+The family pointer was temporarily redirected to a process-local
+`Trooper\0` buffer and restored before downstream broker processing. This was
+a process-memory-only experiment; the on-disk EXE and game assets were not
+changed.
 
-1. Start the exact retail executable under x32dbg, with the Navara slot still selected and the imported Trooper model resources already in that slot. Set software breakpoints at `0044EDFB`, `0044EE25`, `00493E30`, `0044F170`, and `0044F343`.
-2. Start an ordinary local race with Navara. At `0044EDFB`, proceed only if EBP is `0`, ESI is `7`, EAX points to a writable catalog slot, and the DWORD at `[EAX]` points to the NUL-terminated text `Navara`. Record the slot address EAX and original DWORD `[EAX]`. If any check fails, do not patch.
-3. In x32dbg's Memory Map, allocate one `0x1000`-byte read/write page in the game process. In its dump, write the eight bytes `54 72 6F 6F 70 65 72 00` at the allocation base. Verify the ASCII text is exactly `Trooper` and NUL-terminated. Replace the DWORD at the recorded catalog slot `[EAX]` with this allocation base. Keep both addresses for restoration.
-4. Continue to `0044EE25`. EDX points to the overlay builder's output C string; expect `Trooper/Player1`. Restore the original DWORD to the recorded catalog slot, then free the temporary page. This is safe after the overlay builder has copied its input; the pending `FUN_004D1990` copies EDX's separate output buffer. Disable the `0044EDFB` breakpoint before continuing.
-5. At `00493E30`, inspect the first managed argument: evaluate `poi(poi(esp+4)+4)` and follow that resulting address in the dump as ASCII. Expect `Trooper`, return address `[ESP]=0044F0D2`, and participant index 0. The layout is pointer at object `+4`, length at `+8`, capacity at `+0xC`.
-6. At `0044F170`, if the optional overlay reader is called, evaluate and follow `poi(poi(esp+4)+4)`; expect `Trooper/Player1` and return address `[ESP]=0044F175`. If this call is not reached, record that and do not describe the test as a complete base-plus-overlay binding.
-7. Continue to `0044F343`, immediately after `FUN_004938C0` returns. Confirm EBP remains 0; this verifies the native writer returned for participant zero after the pointer has already been restored.
+| Observation | Result |
+|---|---|
+| Retail EXE SHA-256 | `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4` |
+| Lookup breakpoint | `0044EE69` |
+| EBP / participant | `0` / Car0 |
+| ESI / carrier type ID | `7` / Navara |
+| Catalog pointer slot in that process | `03488A78` |
+| Original pointer in that process | `03489640` -> `Navara` |
+| Base reader | `FUN_00493E30` received `Trooper`; caller return `0044F0D2` |
+| Overlay reader | `FUN_00493FD0` received `Trooper/Player1` |
+| Runtime writer | Normal `FUN_004938C0` path ran for the participant |
+| Race | Started |
+| Visible wheels | Corrected to the imported Trooper model |
+| Vehicle behavior | Distinct from Navara and operated with Trooper-specific behavior |
 
-If any string check fails at `0044EE25`, restore the pointer before continuing or close the game. If the process fails before reaching the restore checkpoint, terminate it; all changes are process-local and disappear with the process. The on-disk executable and assets remain unchanged.
+The heap addresses in the table are evidence for that process only. They are
+not stable identifiers and must not be embedded in a launcher, patcher, or
+configuration. The runtime result proves that the complete surviving Trooper
+package is accepted by the native retail broker and produces functional
+Trooper-specific behavior; it does not prove that each of the 147 fields
+individually affects simulation.
+
+An earlier plan proposed observing the first branch at `0044EDFB` and checking
+the copied overlay near `0044EE25`. The successful run instead used the
+alternate branch at `0044EE69`; only the values in the observation table above
+are reported as runtime evidence. The runtime implementation phase must find
+a persistent mechanism and must not copy addresses from this table.
 
 ### Car0 verification and success criteria
 
@@ -152,27 +176,25 @@ Minimum success: the expected base and overlay strings are observed, the optiona
 
 If the broker continues but the model does not visually align, first distinguish the expected `WheelBase`/`TrackWidth` values from model-resource wheel geometry. Do not immediately patch floats. If a reader rejects a path, stop at the first missing/rejected subtree; current corpus coverage shows all required base groups and player overlay fields exist.
 
-## Test record
+## Runtime test record
 
 ```text
-TEST NOT YET RUN
+HUMAN_RUNTIME_CONFIRMED — successful x32dbg pointer substitution
 
-Base family observed:
-Overlay family observed:
-FUN_00493E30 return / participant:
-FUN_00493FD0 executed:
-FUN_004938C0 return / participant:
-Car0 WheelBase:
-Car0 TrackWidthFront:
-Car0 TrackWidthRear:
-Race started:
-Wheel placement:
-Suspension behavior:
-Engine/gear behavior:
-Steering:
-Damage:
-Crash/error:
-Notes:
+Base family observed: Trooper
+Overlay family observed: Trooper/Player1
+FUN_00493E30 caller return / participant: 0044F0D2 / Car0
+FUN_00493FD0 executed: yes; Trooper/Player1
+FUN_004938C0: normal writer path reached
+Car0 WheelBase / TrackWidthFront / TrackWidthRear: not directly read in debugger
+Race started: yes
+Wheel placement: corrected for imported Trooper model
+Suspension behavior: not isolated/measured
+Engine/gear behavior: distinct overall handling observed; fields not isolated
+Steering: not isolated/measured
+Damage: not tested
+Crash/error: none reported
+Notes: temporary catalog pointer restored; on-disk EXE/assets unchanged
 ```
 
 ## Automated verification
@@ -180,8 +202,11 @@ Notes:
 - Focused R-PHYS2.2 tests: 8 passed, 0 skipped.
 - Full synthetic suite: 295 passed, 0 skipped.
 - `git diff --check`: passed.
-- No game process was launched; these checks validate evidence records, redirect-plan fields, and read-only corpus comparisons only.
+- Automated tests validate the recorded evidence and redirect-plan fields; runtime facts above were supplied by the human operator. The agent did not launch the game.
 
 ## Next action
 
-Run the short debugger procedure above in a scratch retail process and return the observed base/overlay strings, whether the writer returned for Car0, visible wheel placement, any race/physics observations, and any failure message. The next phase should compare those observations against the source values above before considering any lower-level patch.
+R-PHYS2.2 is runtime-confirmed. R-PHYS3 now traces the persistent family
+catalog source and replaces manual debugger editing with a generic,
+version-aware, reversible binding workflow. Do not begin cooker reconstruction
+until the no-debugger binding gate in the R-PHYS3 report is met.

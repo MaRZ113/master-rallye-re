@@ -1,9 +1,8 @@
 """R-PHYS2.2 runtime-only named-family redirect evidence and plan helpers.
 
 This module describes the fixed-build retail lookup path. It does not attach
-to or modify a running game. The planned intervention temporarily substitutes
-the C-string pointer stored in the existing source-family catalog entry, so
-the base reader and the separately constructed player overlay see one family.
+to or modify a running game. It records the human-confirmed temporary catalog
+pointer substitution and retains the original debugger procedure as a plan.
 """
 from __future__ import annotations
 
@@ -19,7 +18,8 @@ from .vehicle_family_broker import (
 
 
 HUMAN_RUNTIME_EVIDENCE_STATUS = "CONFIRMED_BY_HUMAN_RUNTIME"
-RUNTIME_EXPERIMENT_STATUS = "TEST_NOT_YET_RUN"
+RUNTIME_EXPERIMENT_STATUS = "CONFIRMED_BY_HUMAN_RUNTIME"
+REDIRECT_PLAN_STATUS = "PLAN_ONLY"
 
 
 @dataclass(frozen=True)
@@ -46,6 +46,54 @@ HUMAN_NAVARA_BROKER_OBSERVATION = HumanBrokerRuntimeObservation(
     family_name="Navara",
     overlay_text_visible_on_stack="Navara/Player1",
     overlay_reader_call_confirmed_in_capture=False,
+    evidence_status=HUMAN_RUNTIME_EVIDENCE_STATUS,
+)
+
+
+@dataclass(frozen=True)
+class HumanWholeFamilyRedirectObservation:
+    """The successful Navara-carrier -> Trooper-family x32dbg experiment.
+
+    Pointer values are retained as run-local evidence only. They must never be
+    used as addresses by a later launcher or patcher.
+    """
+
+    executable_sha256: str
+    breakpoint_eip: int
+    participant_index: int
+    carrier_type_id: int
+    catalog_pointer_slot_address_for_this_run: int
+    original_name_pointer_address_for_this_run: int
+    original_family: str
+    redirected_family: str
+    base_reader_entry: int
+    base_reader_caller_return: int
+    overlay_family: str
+    overlay_reader_entry: int
+    runtime_writer: int
+    race_started: bool
+    wheel_placement_corrected: bool
+    handling_changed_from_carrier: bool
+    evidence_status: str
+
+
+HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION = HumanWholeFamilyRedirectObservation(
+    executable_sha256=RETAIL_EXE_SHA256,
+    breakpoint_eip=0x0044EE69,
+    participant_index=0,
+    carrier_type_id=7,
+    catalog_pointer_slot_address_for_this_run=0x03488A78,
+    original_name_pointer_address_for_this_run=0x03489640,
+    original_family="Navara",
+    redirected_family="Trooper",
+    base_reader_entry=0x00493E30,
+    base_reader_caller_return=0x0044F0D2,
+    overlay_family="Trooper/Player1",
+    overlay_reader_entry=0x00493FD0,
+    runtime_writer=0x004938C0,
+    race_started=True,
+    wheel_placement_corrected=True,
+    handling_changed_from_carrier=True,
     evidence_status=HUMAN_RUNTIME_EVIDENCE_STATUS,
 )
 
@@ -144,5 +192,5 @@ def build_whole_family_redirect_plan(
             "pointer with a process-local NUL-terminated buffer; restore the "
             "original pointer just after the overlay builder returns, then free the buffer."
         ),
-        status=RUNTIME_EXPERIMENT_STATUS,
+        status=REDIRECT_PLAN_STATUS,
     ))
