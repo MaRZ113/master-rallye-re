@@ -1,6 +1,6 @@
 {
   "phase": "R-COOKER1.1",
-  "runtime_status": "PENDING",
+  "runtime_status": "PASS",
   "draw_prefix_verification": {
     "status": "CONFIRMED_BY_BYTES",
     "formula": "rev131 flags A B C + u32 X + u32 slot_count -> rev135 u32 1 + u32 0 + float32 1.0 + flags A 00 B C + u32 X + u32 slot_count",
@@ -2731,5 +2731,23 @@
         ]
       }
     }
+  },
+  "status": "PASS",
+  "runtime_evidence_status": "CONFIRMED_BY_RUNTIME",
+  "runtime_result": {
+    "status": "PASS",
+    "evidence": "CONFIRMED_BY_RUNTIME",
+    "scope": "Trooper car.dx, complete.dx, and wheel.dx minimal-upgrade candidates in retail",
+    "observations": {
+      "frontend_complete_model": "works",
+      "race_car_model": "works",
+      "wheel_model": "works",
+      "textures_and_material_appearance": "correct",
+      "geometry": "appears correct; no visible model deviations observed",
+      "vehicle_operation": "remains operational in retail"
+    },
+    "collision_observation": "not separately reported",
+    "damage_observation": "not separately reported",
+    "conclusion": "The official 9.10.0 local triangle reorder was not required for retail compatibility in these tested Trooper resources."
   }
 }

@@ -36,10 +36,14 @@ has begun with a controlled Trooper comparison: supplied 9.3.1 and 9.10.0
 outputs share byte-identical `car`, `complete`, and `wheel` GXM sources. Render
 attribute arrays match byte-for-byte, while per-draw triangle order and draw
 record prefixes differ. A narrow R-COOKER1.1 prototype now reserializes the
-verified Trooper draw prefix while preserving rev131 local index order. Its
-retail test is pending; no usable general 131-to-135 upgrader has been
-established. See the [initial comparison](research/r-cooker1/findings.md) and
-[prototype findings](research/r-cooker1_1/findings.md).
+verified Trooper draw prefix while preserving rev131 local index order. The
+three Trooper candidates passed retail runtime testing, showing that the
+official 9.10.0 triangle reorder was unnecessary for those tested resources.
+This is not yet a general 131-to-135 upgrader. A Subaru Forester
+cross-vehicle check is awaiting fresh same-source cooker outputs. See the
+[initial comparison](research/r-cooker1/findings.md),
+[Trooper closeout](research/r-cooker1_1/findings.md), and
+[Forester check](research/r-cooker1_2/findings.md).
 
 Vehicle Composer v0.1.0 has been published. Its MIT license covers
 this project's original code and documentation; Master Rallye and its game

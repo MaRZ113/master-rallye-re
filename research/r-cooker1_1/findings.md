@@ -1,9 +1,9 @@
 # R-COOKER1.1 — Minimal rev131 to rev135 prototype
 
-**Runtime compatibility: PENDING.** This follow-up refines the initial
-R-COOKER1 draw-prefix `UNKNOWN`; it does not rewrite what was known at that
-phase. The prototype and evidence here are limited to the controlled Trooper
-`car`, `complete`, and `wheel` pairs.
+**R-COOKER1.1 status: PASS — CONFIRMED_BY_RUNTIME.** This follow-up refines
+the initial R-COOKER1 draw-prefix `UNKNOWN`; it does not rewrite what was
+known at that phase. The byte and runtime evidence here is limited to the
+controlled Trooper `car`, `complete`, and `wheel` resources.
 
 ## Same-source provenance
 
@@ -101,14 +101,23 @@ separate material-record count for these files; the output manifest therefore
 records `material_count` as unavailable rather than treating draw count or
 texture-slot count as a material count.
 
-## Runtime gate
+## Runtime closeout — `CONFIRMED_BY_RUNTIME`
 
-The three files in
-`.research-output/r-cooker1_1/runtime-candidate/` are ready for the human
-retail test. Until that test is reported, the decisive question remains open:
+The project operator reported a successful retail test of all three
+rev131-derived candidates in
+`.research-output/r-cooker1_1/runtime-candidate/`:
 
-> Does retail accept the minimally upgraded Trooper DX while retaining rev131
-> local triangle/index ordering?
+- `complete.dx`: frontend complete model works.
+- `car.dx`: race car model works.
+- `wheel.dx`: wheel model works.
+- Textures/material appearance and geometry were reported correct, with no
+  visible model deviations; the vehicle remained operational in retail.
+- Collision and damage behavior were not separately reported in this result.
 
-See [`runtime-test-plan.md`](runtime-test-plan.md). No production upgrader is
-implemented or recommended by this phase.
+For these tested Trooper resources, the official 9.10.0 local triangle/index
+reorder is **not required for retail compatibility**. The demonstrated
+compatibility transform is revision 131 to 135 plus the verified draw-prefix
+reserialization while preserving rev131 local index order. This does not prove
+the same rule for every rev131 asset or establish a production upgrader. See
+the [runtime closeout](runtime-test-plan.md) and
+[`prototype-results.json`](prototype-results.json).

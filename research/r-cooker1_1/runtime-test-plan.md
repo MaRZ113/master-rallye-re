@@ -1,12 +1,13 @@
-# R-COOKER1.1 retail runtime test plan
+# R-COOKER1.1 Trooper runtime test and closeout
 
-**Status: PENDING.** This is one controlled test of the generated
-rev131-derived candidate package. The project operator runs the game; do not
-change physics configuration or use official 9.10.0 DX as candidate input.
+**Status: PASS — CONFIRMED_BY_RUNTIME.** The project operator reports that
+retail accepted the minimal rev131-derived Trooper candidates. The result
+closes the R-COOKER1.1 runtime gate for these three tested resources only.
 
 ## Candidate package
 
-Use the three generated files in the ignored directory:
+The tested package consisted of the three generated files in the ignored
+directory:
 
 ```text
 .research-output/r-cooker1_1/runtime-candidate/car.dx
@@ -45,8 +46,18 @@ rev135 output.
 - Does damage behavior work?
 - Does the game crash during vehicle load or race entry?
 
-The central result is whether retail accepts the candidate without the
-official 9.10.0 local triangle reorder. A pass would be runtime evidence only
-for these tested Trooper assets and this retail setup. A failure should be
-reported with the exact point of failure; do not broaden into cooker analysis
-before localizing the result.
+## Recorded runtime result
+
+- Frontend complete model: works.
+- Race car model: works.
+- Wheel model: works.
+- Textures/material appearance: correct.
+- Geometry: appears correct; no visible model deviations were observed.
+- Vehicle operation: remains operational in retail.
+- Collision and damage behavior: not separately reported.
+
+For these Trooper assets, retail compatibility does not require the official
+9.10.0 local triangle reorder. This is `CONFIRMED_BY_RUNTIME` for the tested
+`complete.dx`, `car.dx`, and `wheel.dx`; it does not establish universal
+rev131 compatibility. The backup and restore procedure above remains the
+reversible way to repeat the test.

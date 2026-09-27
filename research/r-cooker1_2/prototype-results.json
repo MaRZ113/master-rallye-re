@@ -1,0 +1,99 @@
+{
+  "phase": "R-COOKER1.2",
+  "status": "MORE_WORK_NEEDED",
+  "r_cooker1_1_closeout": {
+    "status": "PASS",
+    "runtime_evidence": "CONFIRMED_BY_RUNTIME",
+    "scope": [
+      "Trooper car.dx minimal rev131-derived candidate",
+      "Trooper complete.dx minimal rev131-derived candidate",
+      "Trooper wheel.dx minimal rev131-derived candidate"
+    ],
+    "official_triangle_reorder_required_for_tested_assets": false,
+    "reported_observations": {
+      "frontend_complete_model": "works",
+      "race_car_model": "works",
+      "wheel_model": "works",
+      "textures_and_material_appearance": "correct",
+      "geometry": "appears correct; no visible model deviations observed",
+      "vehicle_operation": "remains operational in retail",
+      "collision": "not separately reported",
+      "damage": "not separately reported"
+    }
+  },
+  "forester": {
+    "status": "WAITING_FOR_FRESH_SAME_SOURCE_OUTPUTS",
+    "source_corpus": "Demo 9.3.1 read-only corpus",
+    "source_files": {
+      "car": {
+        "corpus_name": "car.gxm",
+        "size": 219728,
+        "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535"
+      },
+      "complete": {
+        "corpus_name": "comlplete.gxm",
+        "scratch_role_name": "complete.gxm",
+        "size": 257541,
+        "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f"
+      },
+      "wheel": {
+        "corpus_name": "wheel.gxm",
+        "size": 27272,
+        "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d"
+      },
+      "gxi_source_inventory": [
+        {"name": "Black-tga.gxi", "size": 1032, "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"},
+        {"name": "Chair2-tga.gxi", "size": 16392, "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"},
+        {"name": "Chrome-tga.gxi", "size": 4104, "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"},
+        {"name": "Dcambell-tga.gxi", "size": 4104, "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"},
+        {"name": "Drichard-tga.gxi", "size": 4104, "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"},
+        {"name": "Fhelmet32-tga.gxi", "size": 4104, "sha256": "c1e9a035e6db6f6ba3c6fb9ff10a1c5fa6664a899f55e1d9cf3f97a123072f44"},
+        {"name": "Forestgrill64-tga.gxi", "size": 16392, "sha256": "34d29fe59ed5546f8b5b8525cebedef6eb92b3e3368d6c52c850bba671dc48cb"},
+        {"name": "Forestside128-tga.gxi", "size": 65544, "sha256": "924b21fc59e5718aa2394499ef8fbb230154df28f630d26e537348371eafff27"},
+        {"name": "Foresttread-tga.gxi", "size": 4104, "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"},
+        {"name": "Forestwheel64-tga.gxi", "size": 16392, "sha256": "d725a27b54d677a79d98dbe1aba08d4d3bf8fb665ec4516484687384d5400ef2"},
+        {"name": "Forestwheel643-tga.gxi", "size": 16392, "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"},
+        {"name": "Fwheelrim-tga.gxi", "size": 1032, "sha256": "612329a357b74f1c0d02b599f533be8f5bea36bc8be48c29c34a33cf80cc14e0"},
+        {"name": "Glass-tga.gxi", "size": 4104, "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"},
+        {"name": "Lights64-tga.gxi", "size": 4104, "sha256": "b56e1ac3cdf099cb6d26e14425636dd4e6a832c275722f289fc6fb493d52e5f9"},
+        {"name": "Mastersticker-tga.gxi", "size": 16392, "sha256": "e5f6f30b97785083b8220772606a2c692a886109c4b4f7711efb07fee886c389"},
+        {"name": "Mastersticker216-tga.gxi", "size": 4104, "sha256": "cf8ac060a2b4173f941672c453a8786a2e79da525356e04791abc00108c0592b"},
+        {"name": "Perspex-tga.gxi", "size": 16392, "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"},
+        {"name": "Rear128-tga.gxi", "size": 65544, "sha256": "88d80bc37f7405f9611f0de359e7a8b4d903147c671c37b934ca08cab5bfccf4"},
+        {"name": "Rubber-tga.gxi", "size": 4104, "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"},
+        {"name": "Shade16-tga.gxi", "size": 1032, "sha256": "2941826a6e7e2953861bf04586743c3dd8b242ae64b1a9b82363912265e6d50d"},
+        {"name": "Underdash-tga.gxi", "size": 65544, "sha256": "c27508562beaa668046c08581d83b4af0e2518401817d5dbf66f8eca83498e3c"},
+        {"name": "Whitepaint-tga.gxi", "size": 16392, "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"},
+        {"name": "Whitesuit-tga.gxi", "size": 4104, "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"},
+        {"name": "Windscreen32-tga.gxi", "size": 4104, "sha256": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"}
+      ]
+    },
+    "output_pairs": {
+      "car": "unavailable",
+      "complete": "unavailable",
+      "wheel": "unavailable"
+    },
+    "existing_9_3_1_unpaired_outputs": {
+      "car": {
+        "size": 128327,
+        "sha256": "eb2909b1d623f9e053a11114fe1d6d17283495bf7cab902755f87d2ee299e7de",
+        "use": "inventory only; not accepted as fresh same-source pair"
+      },
+      "complete": "not present",
+      "wheel": {
+        "size": 12937,
+        "sha256": "1e2fefdf5fdaa4eba94490a3287de2fbc14863b6812c5902ba8f4d3a089d3dd7",
+        "use": "inventory only; not accepted as fresh same-source pair"
+      }
+    },
+    "draw_prefix_formula": {
+      "status": "NOT_TESTED",
+      "records_checked": 0,
+      "matches": 0,
+      "mismatches": 0
+    },
+    "candidate_generation": "BLOCKED_BY_MISSING_PAIRED_OUTPUTS",
+    "runtime_status": "PENDING"
+  },
+  "generalization_status": "TROOPER_ONLY"
+}

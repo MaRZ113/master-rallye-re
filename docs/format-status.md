@@ -30,9 +30,14 @@ canonical parser or collision warnings/errors, have the official rev135 sizes,
 and differ from official rev135 only inside their local uint16 index arrays.
 The rev131 trailing global index tables remain byte-identical to the official
 tables; the candidates retain a locally consistent index order and table.
-Retail runtime compatibility is **PENDING**. See
+All three candidates passed retail runtime testing: frontend complete, race
+car and wheel models loaded; reported geometry and materials were correct and
+the vehicle remained operational. Thus the official triangle reorder was not
+required for these tested Trooper resources (**CONFIRMED_BY_RUNTIME**), not a
+universal format claim. Subaru Forester generalization is awaiting fresh
+same-source outputs. See
 [`research/r-cooker1_1/findings.md`](../research/r-cooker1_1/findings.md) and
-[`runtime-test-plan.md`](../research/r-cooker1_1/runtime-test-plan.md).
+[`research/r-cooker1_2/findings.md`](../research/r-cooker1_2/findings.md).
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
