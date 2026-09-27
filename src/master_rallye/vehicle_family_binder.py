@@ -15,9 +15,11 @@ from .errors import FormatError
 from .vehicle_family_broker import RETAIL_EXE_SHA256, named_vehicle_path
 from .vehicle_model_inventory import (
     MODEL_RESOURCES,
+    available_model_donors,
     build_vehicle_family_inventory,
     inventory_vehicle_model_packages,
     select_family_row,
+    select_model_donor,
     select_retail_carrier,
 )
 from .vehicle_packaging import index_sma_members, read_sma_member
@@ -30,10 +32,22 @@ from .vehicle_physics_binding import (
     validate_vehicle_family_config,
     validate_binding_request,
 )
+from .vehicle_composition import (
+    MANIFEST_SUFFIX as COMPOSITION_MANIFEST_SUFFIX,
+    OVERRIDE_INCOMPLETE_MODEL,
+    OVERRIDE_MISSING_MODEL,
+    VehicleComposition,
+    apply_vehicle_composition,
+    build_vehicle_composition_plan,
+    choose_composition_manifest_path,
+    choose_composition_output_exe,
+    discover_vehicle_composition_manifests,
+    restore_vehicle_composition,
+)
 
 
-USER_FACING_NAME = "Master Rallye Vehicle Family Binder"
-MISSING_MODEL_OVERRIDE = "ALLOW MISSING MODEL"
+USER_FACING_NAME = "Master Rallye Vehicle Composer"
+MISSING_MODEL_OVERRIDE = OVERRIDE_MISSING_MODEL
 UNVERIFIED_SCHEMA_OVERRIDE = "ALLOW UNVERIFIED SCHEMA"
 MANIFEST_SUFFIX = ".physics-bind.json"
 
@@ -187,6 +201,7 @@ def _model_provenance_label(model: dict[str, Any]) -> str:
     return {
         "DATA_SMA": "Data.sma",
         "LOOSE_OVERRIDE": "loose override",
+        "LOOSE": "loose package",
         "DATA_SMA+LOOSE": "Data.sma + loose overrides",
         "MISSING": "missing",
     }.get(model["provenance"], model["provenance"])
@@ -387,6 +402,142 @@ def _show_family_preview(
     output_fn(f"  Retail EXE:     {inventory.executable_sha256} (verified)")
 
 
+def _show_model_donor_table(
+    inventory: InstallInventory, output_fn: Callable[[str], Any]
+) -> None:
+    output_fn("Available model donors (physics config is not required):")
+    for index, row in enumerate(available_model_donors(inventory.model_packages), 1):
+        model = row["model"]
+        resources = ", ".join(
+            f"{name}={model['resources'][name]['source']}"
+            for name in MODEL_RESOURCES
+        )
+        if model.get("wheelless_by_design") and model["resources"]["wheel.dx"]["source"] == "MISSING":
+            resources = resources.replace("wheel.dx=MISSING", "wheel.dx=EXPECTED ABSENT")
+        output_fn(
+            f"  [{index:>2}] {row['family']:<18.18} {model['status']:<26.26} "
+            f"{_model_provenance_label(model)} | {resources}"
+        )
+
+
+def _choose_model_donor(
+    inventory: InstallInventory,
+    carrier: Any,
+    physics_family: str,
+    *,
+    input_fn: Callable[[str], str],
+    output_fn: Callable[[str], Any],
+) -> tuple[str, bool, bool]:
+    while True:
+        output_fn("")
+        output_fn("Model source:")
+        output_fn(f"  [1] Use physics-family model ({physics_family})")
+        output_fn(f"  [2] Keep carrier model ({carrier.family})")
+        output_fn("  [3] Choose another model donor")
+        choice = input_fn("Select model source [1-3]: ").strip()
+        if choice == "1":
+            donor = physics_family
+            break
+        if choice == "2":
+            donor = carrier.family
+            break
+        if choice == "3":
+            _show_model_donor_table(inventory, output_fn)
+            donor = _ask_selection(
+                "Model donor number or name: ",
+                lambda value: select_model_donor(inventory.model_packages, value)["family"],
+                input_fn=input_fn,
+                output_fn=output_fn,
+            )
+            break
+        output_fn("Enter 1, 2, or 3.")
+
+    model = inventory.model_packages.get(donor.casefold())
+    if model is None or model.get("provenance") == "MISSING":
+        if donor.casefold() != physics_family.casefold():
+            raise ValueError(
+                f"model donor {donor} has no effective package under DataGx\\Vehicles\\{donor}"
+            )
+        output_fn(
+            f"{donor} has no installed model package. An explicit advanced override "
+            "can keep the configuration-only experiment."
+        )
+        phrase = input_fn(
+            f"Type {OVERRIDE_MISSING_MODEL} to continue, or press Enter to stop: "
+        ).strip()
+        if phrase != OVERRIDE_MISSING_MODEL:
+            raise ValueError("model package is missing; no composition was applied")
+        return donor, True, False
+
+    if model.get("status") not in {"COMPLETE", "COMPLETE_WHEELLESS"}:
+        output_fn(
+            f"Model donor {donor} is {model['status']}; missing: "
+            f"{', '.join(model.get('missing_resources', [])) or 'package validation issue'}"
+        )
+        phrase = input_fn(
+            f"Type {OVERRIDE_INCOMPLETE_MODEL} to continue experimentally, or press Enter to stop: "
+        ).strip()
+        if phrase != OVERRIDE_INCOMPLETE_MODEL:
+            raise ValueError("model donor is incomplete; no composition was applied")
+        return donor, False, True
+    return donor, False, False
+
+
+def _show_composition_preview(
+    inventory: InstallInventory,
+    plan: Any,
+    manifest_path: Path,
+    output_fn: Callable[[str], Any],
+) -> None:
+    composition = plan.composition
+    model = plan.donor_package
+    output_fn("")
+    output_fn("COMPOSITION PREVIEW")
+    output_fn(f"  Carrier:              type {plan.type_id} / {composition.carrier_type}")
+    output_fn(f"  Physics family:       {composition.physics_family}")
+    output_fn(f"  Model donor:          {composition.model_donor}")
+    output_fn(f"  Runtime family:       {composition.runtime_family}")
+    output_fn(f"  Config:               Vehicles/{composition.physics_family} / "
+              f"{plan.config_validation.config_schema.compatibility_class}")
+    output_fn(f"  Player1:              {composition.physics_family}/Player1 / "
+              f"{plan.config_validation.player1_overlay_count} fields")
+    if model:
+        output_fn(
+            f"  Donor package:        DataGx\\Vehicles\\{composition.model_donor} / "
+            f"{model['provenance']} / {model['file_count']} files"
+        )
+    else:
+        output_fn("  Donor package:        MISSING (advanced natural-family override)")
+    output_fn(
+        f"  Runtime model path:   DataGx\\Vehicles\\{composition.runtime_family}"
+    )
+    if plan.exe_patch_required:
+        output_fn(
+            f"  EXE mapping:          {composition.carrier_type} -> {composition.physics_family}"
+        )
+        output_fn(f"  EXE patch:            REQUIRED / {plan.output_exe}")
+    else:
+        output_fn("  EXE mapping:          unchanged")
+        output_fn("  EXE patch:            NOT REQUIRED")
+    output_fn(
+        "  Model overlay:        "
+        + (f"REQUIRED ({len(plan.overlay_writes)} writes, "
+           f"{len(plan.overlay_removals)} stale loose removals)"
+           if plan.model_overlay_required else "NOT REQUIRED (natural runtime-family package)")
+    )
+    if plan.archive_fallbacks:
+        output_fn(
+            f"  Unreferenced archive fallbacks retained: {len(plan.archive_fallbacks)} "
+            "(parsed car/complete/wheel texture references are checked)"
+        )
+    output_fn(f"  Manifest:             {manifest_path}")
+    output_fn(
+        "  Runtime identity uses the physics family for both config/physics lookup "
+        "and model-resource lookup."
+    )
+    output_fn(f"  Retail EXE:           {inventory.executable_sha256} (verified)")
+
+
 def run_interactive_wizard(
     install_root: Path | None = None,
     *,
@@ -394,7 +545,7 @@ def run_interactive_wizard(
     input_fn: Callable[[str], str] | None = None,
     output_fn: Callable[[str], Any] | None = None,
 ) -> int:
-    """Family-first wizard; validation and file writes use the shared backend."""
+    """Compose a retail carrier, physics family, and independent model donor."""
     input_fn = input_fn or input
     output_fn = output_fn or print
     try:
@@ -404,17 +555,39 @@ def run_interactive_wizard(
         output_fn(f"Install root: {root}")
         output_fn(f"Retail executable build: verified ({inventory.executable_sha256})")
         output_fn("")
-        output_fn("Vehicle families (config-only and model-only entries are included):")
+        output_fn("Vehicle inventory (config-only and model-only entries are included):")
         for line in _family_table(inventory.families):
             output_fn(line)
 
-        family_row = _ask_selection(
-            "Select vehicle family to activate (number or name): ",
-            lambda value: select_family_row(inventory.families, value),
+        output_fn("")
+        output_fn("Choose retail carrier to replace (initialized release catalog only):")
+        for entry in RETAIL_FAMILY_CATALOG:
+            output_fn(f"  [{entry.type_id:>2}] {entry.family}")
+        carrier = _ask_selection(
+            "Carrier type ID or name: ",
+            select_retail_carrier,
             input_fn=input_fn,
             output_fn=output_fn,
         )
-        family = family_row["family"]
+        physics_rows = [
+            row for row in inventory.families
+            if row["base_config"]["status"] != "MISSING"
+        ]
+        output_fn("")
+        output_fn("Select physics family (named config families only):")
+        for index, row in enumerate(physics_rows, 1):
+            output_fn(
+                f"  [{index:>2}] {row['family']:<20.20} "
+                f"{row['base_config']['status']:<24.24} "
+                f"Player1 {row['player1_modifications']['status']}"
+            )
+        family_row = _ask_selection(
+            "Physics family number or name: ",
+            lambda value: select_family_row(physics_rows, value),
+            input_fn=input_fn,
+            output_fn=output_fn,
+        )
+        physics_family = family_row["family"]
         _show_schema_detail(family_row, output_fn)
         allow_unverified_schema = False
         schema_status = family_row["base_config"]["status"]
@@ -430,96 +603,72 @@ def run_interactive_wizard(
                 return 2
             allow_unverified_schema = True
         elif schema_status != "COMPATIBLE":
-            _validate_selected_family(inventory, family)
+            _validate_selected_family(inventory, physics_family)
             raise ValueError(
-                f"{family} config schema is {schema_status}; it cannot be bound."
+                f"{physics_family} config schema is {schema_status}; it cannot be bound."
             )
-        family_validation = _validate_selected_family(
+        _validate_selected_family(
             inventory,
-            family,
+            physics_family,
             allow_unverified_schema=allow_unverified_schema,
         )
 
-        model = family_row["model"]
-        if model["status"] not in {"COMPLETE", "COMPLETE_WHEELLESS"}:
-            missing = ", ".join(model["missing_resources"]) or model["status"]
-            if model["provenance"] == "MISSING":
-                output_fn(
-                    f"{family} configuration exists, but no model package was found at:\n\n"
-                    f"    DataGx\\Vehicles\\{family}\n\n"
-                    f"Missing resources: {missing}. The patched executable would not load "
-                    "the required car/complete/wheel resources."
-                )
-            else:
-                output_fn(
-                    f"{family} model package is incomplete at DataGx\\Vehicles\\{family}: "
-                    f"{missing}."
-                )
-            override = input_fn(
-                f"Type {MISSING_MODEL_OVERRIDE} to continue anyway (advanced), or press Enter to stop: "
-            ).strip()
-            if override != MISSING_MODEL_OVERRIDE:
-                return 2
-
-        output_fn("")
-        output_fn("Choose retail vehicle slot to replace (initialized release catalog only):")
-        for entry in RETAIL_FAMILY_CATALOG:
-            output_fn(f"  [{entry.type_id:>2}] {entry.family}")
-        carrier = _ask_selection(
-            "Carrier type ID or name: ",
-            select_retail_carrier,
+        model_donor, allow_missing_natural_model, allow_incomplete_model = _choose_model_donor(
+            inventory,
+            carrier,
+            physics_family,
             input_fn=input_fn,
             output_fn=output_fn,
         )
-        if carrier.family.casefold() == family.casefold():
-            raise ValueError("the selected family already matches this carrier; no binding is needed")
-
-        binding = PhysicsBinding(carrier.family, family)
-        output_path = _choose_output_path(root, carrier.family, family)
-        _show_family_preview(inventory, family_row, carrier, output_path, output_fn)
-        if family_validation.schema_override_used:
+        composition = VehicleComposition(carrier.family, physics_family, model_donor)
+        output_path = choose_composition_output_exe(root, composition)
+        manifest_path = choose_composition_manifest_path(
+            root, composition, output_exe=output_path
+        )
+        plan = build_vehicle_composition_plan(
+            inventory.executable,
+            root,
+            composition,
+            inventory.vehicle_config,
+            inventory.modifications_config,
+            inventory.data_sma,
+            inventory.archive_members,
+            root / "DataGx" / "Vehicles",
+            model_packages=inventory.model_packages,
+            allow_unverified_schema=allow_unverified_schema,
+            allow_missing_natural_model=allow_missing_natural_model,
+            allow_incomplete_model=allow_incomplete_model,
+            output_exe=output_path,
+        )
+        _show_composition_preview(inventory, plan, manifest_path, output_fn)
+        if plan.config_validation.schema_override_used:
             output_fn(
                 "WARNING: this family uses an unverified schema; the advanced "
                 "schema override will be recorded in the validation manifest."
             )
-        with _materialized_config_paths(inventory) as (vehicles_xml, modifications_xml):
-            report = validate_binding_request(
-                inventory.executable,
-                (binding,),
-                vehicles_xml,
-                modifications_xml,
-                allow_unverified_schema=allow_unverified_schema,
-            )
-            output_fn("")
-            output_fn(
-                "Patch plan: VALID; source executable remains unchanged; "
-                f"planned copy SHA-256 {report['planned_executable_sha256']}"
-            )
-            if dry_run:
-                output_fn("Preview complete. No executable, backup, or manifest was written.")
-                return 0
-            if not _ask_yes_no(
-                "Apply this vehicle-family binding? [Y/n]: ",
-                default=True,
-                input_fn=input_fn,
-                output_fn=output_fn,
-            ):
-                output_fn("Cancelled. No executable, backup, or manifest was written.")
-                return 0
-            result = apply_binding_copy(
-                inventory.executable,
-                output_path,
-                (binding,),
-                vehicles_xml,
-                modifications_xml,
-                allow_unverified_schema=allow_unverified_schema,
-            )
+        if not plan.exe_patch_required and not plan.model_overlay_required:
+            output_fn("No EXE or model files need to change for this composition.")
+            return 0
+        if dry_run:
+            output_fn("Preview complete. No executable, model files, backups, or manifest were written.")
+            return 0
+        if not _ask_yes_no(
+            "Apply this vehicle composition? [Y/n]: ",
+            default=True,
+            input_fn=input_fn,
+            output_fn=output_fn,
+        ):
+            output_fn("Cancelled. No executable, model files, backups, or manifest were written.")
+            return 0
+        result = apply_vehicle_composition(plan, manifest_path=manifest_path)
 
-        output_fn(f"Binding copy ready: {result['output_exe']}")
-        output_fn(f"Verified original backup: {result.get('backup', 'already present')}")
+        output_fn(f"Composition ready: {result['composition']}")
+        output_fn(f"Launch: {result['output_exe'] or inventory.executable}")
         output_fn(f"Manifest: {result['manifest']}")
-        output_fn("Launch the output copy from the game directory to test the binding.")
-        output_fn("Restore it later with: python tools/physics_bind.py restore")
+        output_fn(
+            "Restore later with: python tools/physics_bind.py restore --manifest "
+            f'"{result["manifest"]}"'
+        )
         return 0
     except EOFError:
         output_fn("Cancelled. No executable, backup, or manifest was written.")
@@ -631,8 +780,9 @@ def run_status_view(
         output_fn(f"Retail inventory unavailable: {exc}")
         model_packages = {}
     manifests = discover_binding_manifests(root)
-    if not manifests:
-        output_fn("No vehicle-family binding manifests found.")
+    compositions = discover_vehicle_composition_manifests(root)
+    if not manifests and not compositions:
+        output_fn("No vehicle composition or legacy binding manifests found.")
         return 0
     for item in manifests:
         output_fn("")
@@ -656,6 +806,24 @@ def run_status_view(
             )
             output_fn(f"Physics/config: Vehicles/{family} + {family}/Player1")
         output_fn(f"Patched SHA-256: {data.get('patched_sha256', '?')}")
+    for item in compositions:
+        data = item.get("manifest_data") or {}
+        composition = item.get("composition") or {}
+        output_fn("")
+        output_fn(f"Composition manifest: {item['manifest']} ({item['status']})")
+        if not item["valid"]:
+            output_fn(f"  Detail: {item.get('error', 'manifest validation failed')}")
+            continue
+        exe_changes = data.get("exe_changes")
+        output_fn(f"Carrier:       {composition.get('carrier_type', '?')}")
+        output_fn(f"Physics family: {composition.get('physics_family', '?')}")
+        output_fn(f"Model donor:   {composition.get('model_donor', '?')}")
+        output_fn(f"Runtime family: {data.get('runtime_family', '?')}")
+        output_fn(f"EXE patch:     {'yes' if exe_changes else 'no'}")
+        output_fn(f"Output EXE:    {item.get('output_exe') or 'MRallye.exe'}")
+        output_fn(f"Model files:   {len(data.get('model_overlay_changes', []))} tracked changes")
+        output_fn(f"Destination:   {data.get('model_destination_directory', '?')}")
+        output_fn(f"Source hash:   {data.get('source_exe_sha256', '?')}")
     return 0
 
 
@@ -675,26 +843,42 @@ def run_restore_menu(
     except (FormatError, OSError, ValueError) as exc:
         output_fn(f"{USER_FACING_NAME}: {exc}")
         return 2
-    manifests = discover_binding_manifests(root)
+    legacy_manifests = discover_binding_manifests(root)
+    composition_manifests = discover_vehicle_composition_manifests(root)
+    manifests = [
+        {**item, "kind": "legacy"} for item in legacy_manifests
+    ] + [
+        {**item, "kind": "composition"} for item in composition_manifests
+    ]
     if not manifests:
-        output_fn(f"No binding manifests or backups were found in {root}.")
+        output_fn(f"No vehicle composition manifests or legacy backups were found in {root}.")
         return 0
-    output_fn("Tool-owned executable copies:")
+    output_fn("Tool-managed vehicle compositions and executable copies:")
     for index, item in enumerate(manifests, 1):
         label = "ready to restore" if item["valid"] and item["status"] == "applied" else item["status"]
-        binding_text = ", ".join(
-            f"{row.get('carrier_type', '?')} -> {row.get('physics_family', '?')}"
-            for row in item["bindings"]
-        )
-        output_fn(f"  [{index}] {item['output_exe'].name} - {binding_text or 'no binding'} - {label}")
+        if item["kind"] == "legacy":
+            binding_text = ", ".join(
+                f"{row.get('carrier_type', '?')} -> {row.get('physics_family', '?')}"
+                for row in item["bindings"]
+            )
+            shown_path = item["output_exe"].name
+        else:
+            composition = item.get("composition") or {}
+            binding_text = (
+                f"{composition.get('carrier_type', '?')} / "
+                f"{composition.get('physics_family', '?')} / "
+                f"{composition.get('model_donor', '?')}"
+            )
+            shown_path = item.get("output_exe").name if item.get("output_exe") else "model overlay only"
+        output_fn(f"  [{index}] {shown_path} - {binding_text} - {label}")
     while True:
         try:
             selection = input_fn("Select copy to restore, or press Enter to cancel: ").strip()
         except EOFError:
-            output_fn("Cancelled. No executable was changed.")
+            output_fn("Cancelled. No files were changed.")
             return 0
         if not selection:
-            output_fn("Cancelled. No executable was changed.")
+            output_fn("Cancelled. No files were changed.")
             return 0
         if not selection.isdecimal() or not 1 <= int(selection) <= len(manifests):
             output_fn("Invalid selection.")
@@ -703,34 +887,51 @@ def run_restore_menu(
         if not selected["valid"]:
             output_fn(f"Cannot restore this entry: {selected.get('error', selected['status'])}")
             return 2
-        if selected["status"] != "applied":
-            output_fn("This copy is already restored.")
+        restorable_statuses = (
+            {"applied", "interrupted"} if selected["kind"] == "composition"
+            else {"applied"}
+        )
+        if selected["status"] not in restorable_statuses:
+            output_fn("This composition or copy is already restored.")
             return 0
         break
     try:
+        if selected["kind"] == "composition":
+            composition = selected.get("composition") or {}
+            restore_label = (
+                f"composition {composition.get('carrier_type', '?')} / "
+                f"{composition.get('physics_family', '?')} / "
+                f"{composition.get('model_donor', '?')}"
+            )
+        else:
+            restore_label = f"{selected['output_exe'].name} from its verified original backup"
         confirmed = _ask_yes_no(
-            f"Restore {selected['output_exe'].name} from its verified original backup? [y/N]: ",
+            f"Restore {restore_label}? [y/N]: ",
             default=False,
             input_fn=input_fn,
             output_fn=output_fn,
         )
     except EOFError:
-        output_fn("Cancelled. No executable was changed.")
+        output_fn("Cancelled. No files were changed.")
         return 0
     if not confirmed:
-        output_fn("Cancelled. No executable was changed.")
+        output_fn("Cancelled. No files were changed.")
         return 0
     try:
-        result = restore_binding_copy(selected["output_exe"])
+        if selected["kind"] == "composition":
+            result = restore_vehicle_composition(selected["manifest"], install_root=root)
+        else:
+            result = restore_binding_copy(selected["output_exe"])
     except EOFError:
-        output_fn("Cancelled. No executable was changed.")
+        output_fn("Cancelled. No files were changed.")
         return 0
     except (FormatError, OSError, ValueError) as exc:
         output_fn(f"Restore refused: {exc}")
         return 2
     output_fn(f"Restore result: {result['status']}")
-    output_fn(f"Output: {result['output_exe']}")
-    output_fn("The original MRallye.exe was not changed.")
+    if result.get("output_exe"):
+        output_fn(f"Output: {result['output_exe']}")
+    output_fn("The installed source MRallye.exe was not changed.")
     return 0
 
 
@@ -739,6 +940,7 @@ def build_status_payload(install_root: Path) -> dict[str, Any]:
     root = Path(install_root).expanduser().resolve()
     inventory = load_install_inventory(root)
     manifests = discover_binding_manifests(root)
+    compositions = discover_vehicle_composition_manifests(root)
     return {
         "install_root": str(root),
         "retail_executable": str(inventory.executable),
@@ -753,5 +955,15 @@ def build_status_payload(install_root: Path) -> dict[str, Any]:
                 "bindings": item["bindings"],
             }
             for item in manifests
+        ],
+        "compositions": [
+            {
+                "manifest": str(item["manifest"]),
+                "status": item["status"],
+                "valid": item["valid"],
+                "composition": item.get("composition"),
+                "output_exe": str(item["output_exe"]) if item.get("output_exe") else None,
+            }
+            for item in compositions
         ],
     }

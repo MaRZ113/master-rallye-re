@@ -1,4 +1,4 @@
-# R-PHYS3 — Persistent Vehicle Physics Family Binding
+# R-PHYS3 — Persistent Vehicle Family Binding
 
 **Status:** persistent Navara-to-Trooper family binding is
 **HUMAN_RUNTIME_CONFIRMED**. The user reported that the same patched executable
@@ -17,11 +17,12 @@ distinct from Navara. That test used a temporary x32dbg pointer redirect; it
 did not modify the on-disk executable. The exact evidence is recorded in
 [R-PHYS2.2](r-phys2.2-trooper-whole-family-binding.md).
 
-R-PHYS3 replaces that process-local edit with a version-locked executable-copy
-workflow. The persistent type-to-family value controls the identity used by
-both model/resource lookup and the native vehicle-config broker. The tool does
-not edit vehicle XML or copy the 147 base values; the selected family's model
-package must already be available to the game.
+R-PHYS3 replaced that process-local edit with a version-locked
+executable-copy workflow. The persistent type-to-family value controls the
+identity used by both model/resource lookup and the native vehicle-config
+broker. The original R-PHYS3 patcher did not edit vehicle XML, copy base values,
+or install model assets. R-VEH1 extends the command with a transactional model
+overlay while retaining the same family identity and verified patch backend.
 
 ```text
 carrier type in race data
@@ -115,9 +116,12 @@ family:
 }
 ```
 
-Example files are provided for Trooper, Newrav, and Forester. No model-package
-field is accepted: runtime resource availability is resolved from the selected
-family name and checked by the interactive binder before apply.
+Example files are provided for Trooper, Newrav, and Forester. These original
+schema-v1 files have no model-donor field; for backward compatibility they
+mean `model_donor = physics_family`, preserving full-family binding. R-VEH1
+schema v2 adds an explicit model donor and composes an independent model
+package under the selected physics family's runtime path. See
+[R-VEH1 composition](r-veh1-independent-model-composition.md).
 
 Validation checks the exact supported retail EXE hash, carrier identity in the
 25-entry catalog, the target family root in retail `vehicles.xml`, the retail
@@ -204,10 +208,12 @@ native Navara wheel placement and handling.
 
 ## Human runtime matrix
 
-For each row, apply one binding at a time, run the game without x32dbg, observe
-the listed behavior, exit, run `restore`, and verify native behavior using the
-restored model package. Do not combine model and physics identity in the
-binding JSON.
+For each historical row, apply one binding at a time, run the game without
+x32dbg, observe the listed behavior, exit, run `restore`, and verify native
+behavior using the restored model package. The schema-v1 examples retain the
+original coupled model/config identity. For new independent experiments use
+the R-VEH1 composer and its explicit carrier, physics-family, and model-donor
+choices.
 
 | Carrier type | Model/resource package | Physics family | Evidence / status | Race starts? | Wheels | Distinct handling | Engine / suspension / damage | Rollback |
 |---|---|---|---|---|---|---|---|---|
@@ -234,6 +240,22 @@ Newrav/Forester controls.
 The tool continues to create only a copy and leaves `MRallye.exe` unchanged.
 The tested patched executable, `.original` backup, and manifest are local
 installation files and must not be added to the repository.
+
+## R-VEH1: independent model composition
+
+R-PHYS3's runtime result established that the persistent family identity
+selects both model resources and vehicle configuration. R-VEH1 retains that
+runtime family as the selected physics family `P`, while allowing an
+independent model donor `M` to be overlaid at `DataGx\Vehicles\P`. The retail
+carrier `C` remains a separate initialized type record. The composer elides
+the executable patch when `C == P`; it uses the verified copy-only family
+patcher when `C != P`.
+
+Schema v1 still means `M = P`. Schema v2 explicitly names `model_donor`. The
+per-file overlay and conservative restore are described in the
+[R-VEH1 architecture report](r-veh1-independent-model-composition.md). Its
+independent donor behavior remains **NOT_RUNTIME_CONFIRMED** pending the three
+human tests in the [R-VEH1 test plan](r-veh1-runtime-test-plan.md).
 
 ## Status and gate
 

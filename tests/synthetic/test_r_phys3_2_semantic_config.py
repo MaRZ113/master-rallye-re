@@ -4,6 +4,7 @@ import hashlib
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest import mock
 
 from master_rallye.vehicle_config_analysis import VehicleConfigDocument, parse_vehicle_config
@@ -17,6 +18,7 @@ from master_rallye.vehicle_family_binder import (
     InstallInventory,
     run_interactive_wizard,
 )
+from master_rallye.vehicle_composition import VehicleComposition
 from master_rallye.vehicle_family_broker import PLAYER_MODIFICATION_FIELDS
 from master_rallye.vehicle_model_inventory import build_vehicle_family_inventory
 from master_rallye.vehicle_physics_binding import (
@@ -256,18 +258,41 @@ class RPhys32WizardSchemaOverrideTests(unittest.TestCase):
             config_sources={"vehicles.xml": "synthetic", "Modifications.xml": "synthetic"},
         )
 
+    @staticmethod
+    def _fake_plan(root: Path, composition: VehicleComposition):
+        return SimpleNamespace(
+            composition=composition,
+            type_id=7,
+            config_validation=SimpleNamespace(
+                config_schema=SimpleNamespace(compatibility_class="UNVERIFIED_SCHEMA"),
+                player1_overlay_count=13,
+                schema_override_used=True,
+            ),
+            exe_patch_required=True,
+            model_overlay_required=False,
+            donor_package={
+                "family": composition.model_donor,
+                "provenance": "DATA_SMA",
+                "file_count": 3,
+            },
+            overlay_writes=[], overlay_removals=[], archive_fallbacks=[],
+            destination_directory=root / "DataGx" / "Vehicles" / composition.physics_family,
+            output_exe=root / "bound.exe",
+        )
+
     def test_exact_schema_phrase_is_required_and_forwarded_to_shared_backend(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             inventory = self._inventory(root)
             with mock.patch(
-                "master_rallye.vehicle_family_binder.validate_binding_request",
-                return_value={"planned_executable_sha256": "preview"},
-            ) as validate, mock.patch(
+                "master_rallye.vehicle_family_binder.build_vehicle_composition_plan",
+                side_effect=lambda _exe, _root, composition, *_args, **_kwargs:
+                    self._fake_plan(root, composition),
+            ) as build_plan, mock.patch(
                 "master_rallye.vehicle_family_binder.load_install_inventory",
                 return_value=inventory,
             ):
-                answers = iter(["Probe", "ALLOW UNVERIFIED SCHEMA", "7"])
+                answers = iter(["7", "Probe", "ALLOW UNVERIFIED SCHEMA", "1"])
                 output: list[str] = []
                 status = run_interactive_wizard(
                     root, dry_run=True, input_fn=lambda _prompt: next(answers),
@@ -275,7 +300,7 @@ class RPhys32WizardSchemaOverrideTests(unittest.TestCase):
                 )
         self.assertEqual(status, 0)
         self.assertTrue(any("unverified schema" in line.lower() for line in output))
-        self.assertTrue(validate.call_args.kwargs["allow_unverified_schema"])
+        self.assertTrue(build_plan.call_args.kwargs["allow_unverified_schema"])
 
     def test_wrong_schema_phrase_stops_before_validation(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -285,15 +310,15 @@ class RPhys32WizardSchemaOverrideTests(unittest.TestCase):
                 "master_rallye.vehicle_family_binder.load_install_inventory",
                 return_value=inventory,
             ), mock.patch(
-                "master_rallye.vehicle_family_binder.validate_binding_request"
-            ) as validate:
-                answers = iter(["Probe", "allow unverified schema"])
+                "master_rallye.vehicle_family_binder.build_vehicle_composition_plan"
+            ) as build_plan:
+                answers = iter(["7", "Probe", "allow unverified schema"])
                 status = run_interactive_wizard(
                     root, dry_run=True, input_fn=lambda _prompt: next(answers),
                     output_fn=lambda _line: None,
                 )
         self.assertEqual(status, 2)
-        validate.assert_not_called()
+        build_plan.assert_not_called()
 
 CORPORA = Path(r"D:\Game\Master Rallye\corpora")
 VEHICLE_XMLS = {

@@ -2,9 +2,9 @@
 
 ## Current result
 
-The complete-model wheel geometry is a usable visual reference. Retail disassembly establishes a four-wheel construction/transform path for `gaWheelSplinePlaybackAI`, whose wheel instances use cached per-car dimensions plus per-wheel spline state. It does **not** establish that this is the ordinary race-body wheel renderer or the physics-contact path. The exact connection from numeric `Vehicles/Car%d/...` broker paths to named roots such as `Vehicles/Navara/...` is **UNRESOLVED**. A one-field runtime patch is therefore not ready.
+The complete-model wheel geometry is a usable visual reference. Retail disassembly establishes a four-wheel construction/transform path for `gaWheelSplinePlaybackAI`, whose wheel instances use cached per-car dimensions plus per-wheel spline state. It does **not** establish that this is the ordinary race-body wheel renderer or the physics-contact path. R-PHYS2.1 later resolved the separate ordinary-race broker chain: selected retail type -> named family -> `FUN_00493E30` config read -> `FUN_004938C0` writer to `Vehicles/CarN`. The source/population relationship between that ordinary broker and the `Car%d` records consumed by this spline-playback path remains **UNRESOLVED**. A one-field runtime patch to the spline path is therefore not ready.
 
-This stops at the R-BRIDGE2 gate **B**: the spline-playback model/config field path is statically supported, while the precise named-config alias/record source and any physics-contact relationship remain unresolved. We did not launch the game or alter a game asset.
+This report stops at the R-BRIDGE2 gate **B**: the spline-playback model/config field path is statically supported, while its precise `Car%d` record source and any physics-contact relationship remain unresolved. The ordinary-race named-family-to-`CarN` broker was subsequently resolved in [R-PHYS2.1](../r-phys/r-phys2.1-named-family-resolution.md). This report did not launch the game or alter a game asset.
 
 ## Complete-model geometry
 
@@ -65,7 +65,7 @@ Vehicles/Car%d/Suspension/Rear/RideHeight
 Vehicles/Car%d/Suspension/Front/MaxDroop
 ```
 
-Extracted retail `DataGame/vehicles.xml` has 35 named vehicle families plus the separate `Tyres` root; it has no `Vehicles/CarN/...` roots. The exact broker alias, generated runtime record, or another data source that binds numeric race car IDs to named vehicle configuration is not identified. Consequently, the report does not say that the spline path reads `Vehicles/Navara/...` just because the current body was installed in the Navara slot.
+Extracted retail `DataGame/vehicles.xml` has 35 named vehicle families plus the separate `Tyres` root; it has no `Vehicles/CarN/...` roots. R-PHYS2.1 established how the ordinary race setup reads a selected named family and publishes its parameter package to `Vehicles/CarN`. This report has not established whether the separate spline-playback constructor consumes that same published package or another record. Consequently, its `Car%d` reads cannot be attributed to `Vehicles/Navara/...` solely because a body occupies the Navara slot.
 
 The user-confirmed runtime case is a Trooper body/resources in the retail Navara slot. Trooper's 9.3.1 complete-model geometric track is `1.505128`; Navara retail XML says `TrackWidthFront/Rear=1.7`. This is consistent with inherited slot-driven placement, but without the `CarN` source proof or measured race wheel coordinates it is not a causal measurement. The Rav4 transfer is a second report of the same general wheel-placement issue, but its exact retail slot was not specified.
 
@@ -73,4 +73,4 @@ The user-confirmed runtime case is a Trooper body/resources in the retail Navara
 
 **No runtime patch is prepared.** Changing `vehicles.xml` TrackWidthFront from 1.7 to 1.6 would not be a controlled test until the `Car%d` record-to-XML mapping is proven. It could also affect physical handling; visual-only isolation is not established.
 
-The next narrow research task is to resolve the retail broker source/population path for numeric `Car%d` records used by the active vehicle renderer/physics constructor. The spline-record caller found here is not sufficient to identify that path. After the active source is proven, determine whether its wheel presentation can be tested without changing contact physics; until then, no field mutation is a controlled runtime test. No new slot or broader physics migration is in scope. See [R-PHYS1 runtime vehicle binding](../r-phys/r-phys1-runtime-vehicle-binding.md) for the follow-up audit and correction boundary.
+The next narrow research task is to determine whether the `Car%d` values read by the spline-playback path are the same package published by the ordinary race broker, and whether that path is active for the renderer/physics constructor of interest. The spline-record caller found here is not sufficient to identify that relationship. After the active source is proven, determine whether its wheel presentation can be tested without changing contact physics; until then, no field mutation is a controlled runtime test. No new slot or broader physics migration is in scope. See [R-PHYS1 runtime vehicle binding](../r-phys/r-phys1-runtime-vehicle-binding.md) for the follow-up audit and correction boundary.

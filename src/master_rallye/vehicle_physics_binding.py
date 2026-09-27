@@ -85,6 +85,24 @@ RETAIL_CATALOG_BY_FAMILY = {entry.family: entry for entry in RETAIL_FAMILY_CATAL
 class PhysicsBinding:
     carrier_type: str
     physics_family: str
+    # None is the schema-v1 compatibility default: use the physics family's
+    # natural model package, exactly as the original R-PHYS3 binder did.
+    model_donor: str | None = None
+
+    @property
+    def effective_model_donor(self) -> str:
+        return self.model_donor or self.physics_family
+
+
+def binding_config_row(binding: PhysicsBinding) -> dict[str, str]:
+    """Serialize legacy rows unchanged and include an explicit schema-v2 donor."""
+    row = {
+        "carrier_type": binding.carrier_type,
+        "physics_family": binding.physics_family,
+    }
+    if binding.model_donor is not None:
+        row["model_donor"] = binding.model_donor
+    return row
 
 
 @dataclass(frozen=True)
@@ -348,14 +366,15 @@ def _validate_family_component(family: str) -> bytes:
 
 
 def parse_binding_config_text(text: str) -> tuple[PhysicsBinding, ...]:
-    """Parse strict JSON config with separate carrier and physics identities."""
+    """Parse schema-v1 full-family bindings and schema-v2 explicit compositions."""
     try:
         document = json.loads(text)
     except json.JSONDecodeError as exc:
         raise ValueError(f"invalid binding JSON: {exc}") from exc
     if not isinstance(document, dict) or set(document) != {"schema_version", "bindings"}:
         raise ValueError("binding config must contain only schema_version and bindings")
-    if type(document["schema_version"]) is not int or document["schema_version"] != 1:
+    version = document["schema_version"]
+    if type(version) is not int or version not in {1, 2}:
         raise ValueError("unsupported binding config schema_version")
     rows = document["bindings"]
     if not isinstance(rows, list) or not rows:
@@ -363,20 +382,33 @@ def parse_binding_config_text(text: str) -> tuple[PhysicsBinding, ...]:
     bindings: list[PhysicsBinding] = []
     seen_carriers: set[str] = set()
     for index, row in enumerate(rows):
-        if not isinstance(row, dict) or set(row) != {"carrier_type", "physics_family"}:
+        expected_keys = {"carrier_type", "physics_family"}
+        if version == 2:
+            expected_keys.add("model_donor")
+        if not isinstance(row, dict) or set(row) != expected_keys:
+            if version == 1:
+                raise ValueError(
+                    f"binding {index} must contain only carrier_type and physics_family; "
+                    "model/resource identity is separate"
+                )
             raise ValueError(
-                f"binding {index} must contain only carrier_type and physics_family; "
-                "model/resource identity is separate"
+                f"binding {index} in schema_version 2 must contain carrier_type, "
+                "physics_family, and model_donor"
             )
         carrier = row["carrier_type"]
         target = row["physics_family"]
+        donor = row.get("model_donor")
         _validate_family_component(carrier)
         _validate_family_component(target)
+        if donor is not None:
+            _validate_family_component(donor)
         folded = carrier.casefold()
         if folded in seen_carriers:
             raise ValueError(f"carrier type {carrier!r} is bound more than once")
         seen_carriers.add(folded)
-        bindings.append(PhysicsBinding(carrier_type=carrier, physics_family=target))
+        bindings.append(PhysicsBinding(
+            carrier_type=carrier, physics_family=target, model_donor=donor
+        ))
     return tuple(bindings)
 
 
@@ -705,6 +737,12 @@ def validate_binding_request(
             "carrier_type_id": row.type_id,
             "current_family": row.binding.carrier_type,
             "physics_family": row.binding.physics_family,
+            "model_donor": row.binding.effective_model_donor,
+            "runtime_family": row.binding.physics_family,
+            "model_overlay_required": (
+                row.binding.effective_model_donor.casefold()
+                != row.binding.physics_family.casefold()
+            ),
             "base_groups": row.base_group_counts,
             "config_schema": row.config_schema.to_dict(),
             "schema_override_used": row.schema_override_used,
@@ -748,7 +786,10 @@ def validate_binding_request(
         ),
         "planned_changed_ranges": list(patch_result.changed_ranges),
         "source_executable_modified": False,
-        "output_copy_required": True,
+        "output_copy_required": any(
+            binding.carrier_type.casefold() != binding.physics_family.casefold()
+            for binding in bindings
+        ),
     }
 
 
@@ -791,6 +832,14 @@ def apply_binding_copy(
 ) -> dict[str, Any]:
     """Write a bound executable copy plus verified original backup/manifest."""
     bindings = tuple(bindings)
+    if any(
+        binding.model_donor is not None
+        and binding.model_donor.casefold() != binding.physics_family.casefold()
+        for binding in bindings
+    ):
+        raise ValueError(
+            "independent model donors require the Vehicle Composer transaction backend"
+        )
     source_path = source_exe.resolve()
     output_path = output_exe.resolve()
     if str(source_path).casefold() == str(output_path).casefold():
@@ -808,7 +857,7 @@ def apply_binding_copy(
     )
     patch = patch_family_initializer(source_data, bindings, catalog=catalog)
     backup_path, manifest_path = _manifest_paths(output_path)
-    binding_rows = [asdict(binding) for binding in bindings]
+    binding_rows = [binding_config_row(binding) for binding in bindings]
 
     if manifest_path.exists():
         try:

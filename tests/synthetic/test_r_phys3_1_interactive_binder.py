@@ -24,6 +24,7 @@ from master_rallye.vehicle_family_binder import (
     run_restore_menu,
     run_status_view,
 )
+from master_rallye.vehicle_composition import VehicleComposition
 from master_rallye.vehicle_model_inventory import (
     build_vehicle_family_inventory,
     inventory_vehicle_model_packages,
@@ -331,11 +332,35 @@ class RPhys31WizardTests(unittest.TestCase):
                 chosen = choose_install_root(None, input_fn=lambda _prompt: f'"{root}"', output_fn=lambda _line: None)
             self.assertEqual(chosen, root.resolve())
 
-    def test_wizard_selects_family_before_retail_carrier_and_uses_shared_backend(self):
+    @staticmethod
+    def _fake_composition_plan(root: Path, composition: VehicleComposition):
+        return SimpleNamespace(
+            composition=composition,
+            type_id=7,
+            config_validation=SimpleNamespace(
+                config_schema=SimpleNamespace(compatibility_class="COMPATIBLE"),
+                player1_overlay_count=13,
+                schema_override_used=False,
+            ),
+            exe_patch_required=(composition.carrier_type.casefold() != composition.physics_family.casefold()),
+            model_overlay_required=(composition.model_donor.casefold() != composition.physics_family.casefold()),
+            donor_package={
+                "family": composition.model_donor,
+                "provenance": "DATA_SMA",
+                "file_count": 3,
+            },
+            overlay_writes=[],
+            overlay_removals=[],
+            archive_fallbacks=[],
+            destination_directory=root / "DataGx" / "Vehicles" / composition.physics_family,
+            output_exe=(root / "bound.exe") if composition.carrier_type != composition.physics_family else None,
+        )
+
+    def test_wizard_selects_carrier_physics_and_model_and_uses_composition_backend(self):
         with tempfile.TemporaryDirectory(prefix="MR Install With Spaces ") as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root)
-            answers = iter(["Trooper", "7", ""])
+            answers = iter(["7", "Trooper", "1", ""])
             prompts: list[str] = []
             output: list[str] = []
 
@@ -346,13 +371,16 @@ class RPhys31WizardTests(unittest.TestCase):
             with (
                 mock.patch("master_rallye.vehicle_family_binder.load_install_inventory", return_value=inventory),
                 mock.patch("master_rallye.vehicle_family_binder._validate_selected_family"),
-                mock.patch("master_rallye.vehicle_family_binder.validate_binding_request", return_value={
-                    "planned_executable_sha256": "planned-hash"
-                }) as validate,
-                mock.patch("master_rallye.vehicle_family_binder.apply_binding_copy", return_value={
-                    "status": "APPLIED_TO_COPY", "output_exe": str(root / "bound.exe"),
-                    "backup": str(root / "bound.exe.original"),
-                    "manifest": str(root / "bound.exe.physics-bind.json"),
+                mock.patch(
+                    "master_rallye.vehicle_family_binder.build_vehicle_composition_plan",
+                    side_effect=lambda _exe, _root, composition, *_args, **_kwargs:
+                        self._fake_composition_plan(root, composition),
+                ) as build_plan,
+                mock.patch("master_rallye.vehicle_family_binder.apply_vehicle_composition", return_value={
+                    "status": "APPLIED_COMPOSITION",
+                    "composition": {"carrier_type": "Navara", "physics_family": "Trooper", "model_donor": "Trooper"},
+                    "output_exe": str(root / "bound.exe"),
+                    "manifest": str(root / ".research-output" / "r-veh1" / "manifests" / "candidate.json"),
                 }) as apply,
             ):
                 status = run_interactive_wizard(
@@ -360,37 +388,69 @@ class RPhys31WizardTests(unittest.TestCase):
                 )
         self.assertEqual(status, 0)
         self.assertLess(
-            prompts.index("Select vehicle family to activate (number or name): "),
             prompts.index("Carrier type ID or name: "),
+            prompts.index("Physics family number or name: "),
         )
-        self.assertEqual(validate.call_count, 1)
+        self.assertEqual(build_plan.call_count, 1)
         self.assertEqual(apply.call_count, 1)
-        self.assertEqual(apply.call_args.args[2][0].carrier_type, "Navara")
-        self.assertEqual(apply.call_args.args[2][0].physics_family, "Trooper")
-        self.assertTrue(any("both model/resource lookup" in line for line in output))
+        self.assertEqual(
+            build_plan.call_args.args[2],
+            VehicleComposition("Navara", "Trooper", "Trooper"),
+        )
+        self.assertTrue(any("both config/physics lookup" in line for line in output))
+
+    def test_keep_carrier_model_is_a_first_class_independent_choice(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            inventory = _synthetic_install(root)
+            inventory.model_packages["navara"] = {
+                "family_names": ["Navara"], "provenance": "DATA_SMA",
+                "status": "COMPLETE", "missing_resources": [],
+            }
+            answers = iter(["7", "Trooper", "2"])
+            with (
+                mock.patch("master_rallye.vehicle_family_binder.load_install_inventory", return_value=inventory),
+                mock.patch("master_rallye.vehicle_family_binder._validate_selected_family"),
+                mock.patch(
+                    "master_rallye.vehicle_family_binder.build_vehicle_composition_plan",
+                    side_effect=lambda _exe, _root, composition, *_args, **_kwargs:
+                        self._fake_composition_plan(root, composition),
+                ) as build_plan,
+            ):
+                status = run_interactive_wizard(
+                    root, dry_run=True, input_fn=lambda _prompt: next(answers),
+                    output_fn=lambda _line: None,
+                )
+        self.assertEqual(status, 0)
+        self.assertEqual(
+            build_plan.call_args.args[2],
+            VehicleComposition("Navara", "Trooper", "Navara"),
+        )
 
     def test_no_final_confirmation_means_no_apply(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root)
-            answers = iter(["Trooper", "7", "n"])
+            answers = iter(["7", "Trooper", "1", "n"])
             with (
                 mock.patch("master_rallye.vehicle_family_binder.load_install_inventory", return_value=inventory),
                 mock.patch("master_rallye.vehicle_family_binder._validate_selected_family"),
-                mock.patch("master_rallye.vehicle_family_binder.validate_binding_request", return_value={
-                    "planned_executable_sha256": "planned-hash"
-                }),
-                mock.patch("master_rallye.vehicle_family_binder.apply_binding_copy") as apply,
+                mock.patch(
+                    "master_rallye.vehicle_family_binder.build_vehicle_composition_plan",
+                    side_effect=lambda _exe, _root, composition, *_args, **_kwargs:
+                        self._fake_composition_plan(root, composition),
+                ),
+                mock.patch("master_rallye.vehicle_family_binder.apply_vehicle_composition") as apply,
             ):
                 status = run_interactive_wizard(root, input_fn=lambda _prompt: next(answers), output_fn=lambda _line: None)
         self.assertEqual(status, 0)
         apply.assert_not_called()
 
-    def test_missing_model_package_refuses_before_carrier_selection_without_override(self):
+    def test_missing_model_package_refuses_after_composition_choices_without_override(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root, model_status="MISSING")
-            answers = iter(["Trooper", ""])
+            answers = iter(["7", "Trooper", "1", ""])
             output: list[str] = []
             prompts: list[str] = []
 
@@ -401,19 +461,19 @@ class RPhys31WizardTests(unittest.TestCase):
             with (
                 mock.patch("master_rallye.vehicle_family_binder.load_install_inventory", return_value=inventory),
                 mock.patch("master_rallye.vehicle_family_binder._validate_selected_family"),
-                mock.patch("master_rallye.vehicle_family_binder.validate_binding_request") as validate,
+                mock.patch("master_rallye.vehicle_family_binder.build_vehicle_composition_plan") as build_plan,
             ):
                 status = run_interactive_wizard(root, input_fn=input_fn, output_fn=output.append)
         self.assertEqual(status, 2)
-        self.assertTrue(any("no model package was found" in line for line in output), output)
+        self.assertTrue(any("has no installed model package" in line for line in output), output)
         self.assertTrue(any("ALLOW MISSING MODEL" in prompt for prompt in prompts))
-        validate.assert_not_called()
+        build_plan.assert_not_called()
 
     def test_explicit_advanced_missing_model_override_is_required_and_previewable(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root, model_status="MISSING")
-            answers = iter(["Trooper", "ALLOW MISSING MODEL", "7"])
+            answers = iter(["7", "Trooper", "1", "ALLOW MISSING MODEL"])
             output: list[str] = []
             prompts: list[str] = []
 
@@ -424,15 +484,18 @@ class RPhys31WizardTests(unittest.TestCase):
             with (
                 mock.patch("master_rallye.vehicle_family_binder.load_install_inventory", return_value=inventory),
                 mock.patch("master_rallye.vehicle_family_binder._validate_selected_family"),
-                mock.patch("master_rallye.vehicle_family_binder.validate_binding_request", return_value={
-                    "planned_executable_sha256": "planned-hash"
-                }) as validate,
+                mock.patch(
+                    "master_rallye.vehicle_family_binder.build_vehicle_composition_plan",
+                    side_effect=lambda _exe, _root, composition, *_args, **_kwargs:
+                        self._fake_composition_plan(root, composition),
+                ) as build_plan,
             ):
                 status = run_interactive_wizard(
                     root, dry_run=True, input_fn=input_fn, output_fn=output.append
                 )
         self.assertEqual(status, 0)
-        self.assertEqual(validate.call_count, 1)
+        self.assertEqual(build_plan.call_count, 1)
+        self.assertTrue(build_plan.call_args.kwargs["allow_missing_natural_model"])
         self.assertTrue(any("ALLOW MISSING MODEL" in prompt for prompt in prompts))
 
 
@@ -483,6 +546,43 @@ class RPhys31RestoreDiscoveryTests(unittest.TestCase):
                 status = run_restore_menu(root, input_fn=lambda _prompt: next(answers), output_fn=lambda _line: None)
         self.assertEqual(status, 0)
         restore.assert_called_once_with(fake_entry["output_exe"])
+
+    def test_restore_menu_handles_model_only_composition_without_output_exe(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "MRallye.exe").write_bytes(b"synthetic")
+            fake_entry = {
+                "manifest": root / ".research-output" / "r-veh1" / "manifests" / "model-only.vehicle-compose.json",
+                "output_exe": None,
+                "valid": True,
+                "status": "applied",
+                "composition": {
+                    "carrier_type": "Navara",
+                    "physics_family": "Navara",
+                    "model_donor": "forklift",
+                },
+            }
+            answers = iter(["1", "y"])
+            output: list[str] = []
+            prompts: list[str] = []
+
+            def input_fn(prompt: str) -> str:
+                prompts.append(prompt)
+                return next(answers)
+
+            with (
+                mock.patch("master_rallye.vehicle_family_binder.discover_binding_manifests", return_value=[]),
+                mock.patch("master_rallye.vehicle_family_binder.discover_vehicle_composition_manifests", return_value=[fake_entry]),
+                mock.patch("master_rallye.vehicle_family_binder.restore_vehicle_composition", return_value={
+                    "status": "RESTORED_COMPOSITION",
+                }) as restore,
+            ):
+                status = run_restore_menu(
+                    root, input_fn=input_fn, output_fn=output.append
+                )
+        self.assertEqual(status, 0)
+        restore.assert_called_once_with(fake_entry["manifest"], install_root=root)
+        self.assertTrue(any("Restore composition Navara / Navara / forklift" in prompt for prompt in prompts))
 
     def test_status_view_shows_binding_model_source_and_manifest(self):
         with tempfile.TemporaryDirectory() as temporary:

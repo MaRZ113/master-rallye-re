@@ -1,4 +1,10 @@
-# R-PHYS3.1 - Interactive Vehicle Family Binder
+# R-PHYS3.1 - Interactive Vehicle Family Binder (Historical UI)
+
+R-VEH1 extends the same command into the **Master Rallye Vehicle Composer**.
+This report preserves the P3.1 family-first interface history; for current
+carrier / physics family / model donor choices, transaction behavior, and human
+test plans, see [R-VEH1](r-veh1-independent-model-composition.md) and its
+[runtime test plan](r-veh1-runtime-test-plan.md).
 
 **Status:** implemented; synthetic tests pass; the real-install status and
 Trooper preview were run read-only. No executable was written by the P3.1
@@ -24,9 +30,9 @@ persistent family binding: Trooper
 
 The user confirmed that the same patched executable loaded the rebuilt Trooper
 model once that package was available at `DataGx\Vehicles\Trooper`. This
-corrects the earlier physics-only interpretation. The binder does not install
-model assets; the interactive workflow checks the package before it offers a
-normal apply.
+corrects the earlier physics-only interpretation. The original P3.1 binder
+checked that model assets were already installed; R-VEH1 adds the separate
+transactional model-donor overlay described in its current report.
 
 ## Inventory and completeness rules
 
@@ -45,6 +51,12 @@ required model files are `car.dx`, `complete.dx`, and `wheel.dx`, except that
 the known Ufo family is complete without `wheel.dx`. A model-only family such
 as `forklift` remains visible, but cannot pass the config broker checks.
 
+In the P3.1 implementation, final family validation and executable patching
+ran through `validate_binding_request` and `apply_binding_copy`; the wizard did
+not implement a second patcher. R-VEH1 now builds and applies a composition
+plan through `vehicle_composition.py`, which continues to delegate EXE bytes to
+the same verified family-initializer patcher.
+
 Every named family from `vehicles.xml` is shown, including release families,
 cut/config-only families, and families that fail the strict broker schema.
 Model-only packages are included as supplemental rows. Base completeness
@@ -59,10 +71,14 @@ workflow has no patching logic of its own.
 
 The carrier menu comes only from the 25 initialized retail type records. A
 config-only family can be selected as the new family, but never appears as a
-carrier unless it is in that runtime catalog. Family selection happens before
-the carrier menu.
+carrier unless it is in that runtime catalog. In the P3.1 interface, family
+selection happened before the carrier menu. The current composer asks for the
+carrier and then explicitly asks for physics family and model donor.
 
-## User commands
+## P3.1 user commands (historical interface)
+
+The commands below remain useful for schema-v1 scripted compatibility. The
+current interactive composition flow is described in the linked R-VEH1 report.
 
 From the repository directory:
 
@@ -70,13 +86,11 @@ From the repository directory:
 python tools/physics_bind.py
 ```
 
-The wizard detects the nearest parent containing `MRallye.exe`. It verifies
-the executable hash, displays family config and model completeness, asks for
-the family first, validates its base config, Player1 overlay, and model files,
-then offers the carrier catalog. If a valid physics family has no complete
-model package, the default path stops and explains the missing
-`DataGx\Vehicles\<family>` resources. Continuing requires typing the explicit
-advanced phrase `ALLOW MISSING MODEL`.
+The historical P3.1 wizard detected the nearest parent containing
+`MRallye.exe`, verified the executable hash, and selected one coupled family.
+The current composer still detects and verifies the install, but treats carrier,
+physics family, and model donor as independent choices. Its current flow and
+advanced incomplete-package overrides are documented in the R-VEH1 report.
 
 The preview includes the source family, carrier type, both runtime lookup
 paths, resource provenance, and output path. The usual output is named like

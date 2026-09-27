@@ -41,7 +41,7 @@ def inventory_vehicle_model_packages(
         family = parts[2]
         key = family.casefold()
         relative = "/".join(parts[3:])
-        archive_files.setdefault(key, {}).setdefault(relative.casefold(), []).append(relative)
+        archive_files.setdefault(key, {}).setdefault(relative.casefold(), []).append(name)
         archive_names.setdefault(key, set()).add(family)
 
     loose_root = Path(loose_vehicles_root)
@@ -88,18 +88,48 @@ def inventory_vehicle_model_packages(
         else:
             provenance = "MISSING"
 
+        effective_files: list[dict[str, str]] = []
+        ambiguous_paths: list[str] = []
+        for relative_key in sorted(set(archive_by_path) | set(loose_by_path)):
+            archive_hits = archive_by_path.get(relative_key, [])
+            loose_hits = loose_by_path.get(relative_key, [])
+            # Keep the package ambiguous when the archive itself contains
+            # case-colliding members, even if a loose override currently masks
+            # that relative path. A future removal of the loose file would
+            # otherwise expose an order-dependent archive lookup.
+            if len(loose_hits) > 1 or len(archive_hits) > 1:
+                ambiguous_paths.append(relative_key)
+                continue
+            if loose_hits:
+                loose_path = loose_hits[0]
+                relative = Path(*loose_path.relative_to(loose_root).parts[1:]).as_posix()
+                effective_files.append({
+                    "relative_path": relative,
+                    "source": "LOOSE_OVERRIDE",
+                    "loose_path": str(loose_path),
+                    "archive_member": "",
+                })
+            elif archive_hits:
+                archive_member = archive_hits[0]
+                relative = "/".join(PurePosixPath(archive_member).parts[3:])
+                effective_files.append({
+                    "relative_path": relative,
+                    "source": "DATA_SMA",
+                    "loose_path": "",
+                    "archive_member": archive_member,
+                })
+
+        effective_by_path = {
+            item["relative_path"].casefold(): item for item in effective_files
+        }
         resource_sources: dict[str, str] = {}
         ambiguous_resources: list[str] = []
         for resource in MODEL_RESOURCES:
-            archive_hits = archive_by_path.get(resource, [])
-            loose_hits = loose_by_path.get(resource, [])
-            if len(loose_hits) > 1 or (not loose_hits and len(archive_hits) > 1):
+            if resource.casefold() in ambiguous_paths:
                 resource_sources[resource] = "AMBIGUOUS"
                 ambiguous_resources.append(resource)
-            elif loose_hits:
-                resource_sources[resource] = "LOOSE_OVERRIDE"
-            elif archive_hits:
-                resource_sources[resource] = "DATA_SMA"
+            elif resource.casefold() in effective_by_path:
+                resource_sources[resource] = effective_by_path[resource.casefold()]["source"]
             else:
                 resource_sources[resource] = "MISSING"
 
@@ -114,7 +144,7 @@ def inventory_vehicle_model_packages(
         if not is_wheel_less:
             required.append("wheel.dx")
         missing = [name for name in required if resource_sources[name] == "MISSING"]
-        if ambiguous_resources or case_collision:
+        if ambiguous_resources or ambiguous_paths or case_collision:
             status = "AMBIGUOUS_CASE_COLLISION"
         elif missing:
             status = "INCOMPLETE" if archive_present or loose_present else "MISSING"
@@ -138,7 +168,13 @@ def inventory_vehicle_model_packages(
             "required_resources": required,
             "missing_resources": missing,
             "ambiguous_resources": ambiguous_resources,
+            "ambiguous_paths": sorted(ambiguous_paths),
             "resources": effective_resources,
+            "effective_files": sorted(
+                effective_files,
+                key=lambda item: (item["relative_path"].casefold(), item["relative_path"]),
+            ),
+            "effective_file_count": len(effective_files),
             "archive_file_count": archive_count,
             "loose_file_count": loose_count,
         }
@@ -288,3 +324,37 @@ def select_retail_carrier(selection: str) -> Any:
     if len(matches) != 1:
         raise ValueError(f"unknown retail carrier selection: {value!r}")
     return matches[0]
+
+
+def available_model_donors(
+    model_packages: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Return installed model packages, including model-only families."""
+    result = []
+    for key, package in model_packages.items():
+        names = package.get("family_names", [])
+        if not names or package.get("provenance") == "MISSING":
+            continue
+        result.append({"family": names[0], "model": package})
+    return sorted(result, key=lambda row: (row["family"].casefold(), row["family"]))
+
+
+def select_model_donor(
+    model_packages: dict[str, dict[str, Any]], selection: str
+) -> dict[str, Any]:
+    """Resolve a model donor independently from physics/config families."""
+    value = selection.strip().strip('"').strip("'")
+    if not value:
+        raise ValueError("select a model donor by number or name")
+    rows = available_model_donors(model_packages)
+    if value.isdecimal():
+        index = int(value)
+        if 1 <= index <= len(rows):
+            return rows[index - 1]
+        raise ValueError(f"model donor selection {value!r} is outside 1..{len(rows)}")
+    matches = [row for row in rows if row["family"].casefold() == value.casefold()]
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        raise ValueError(f"model donor name {value!r} is ambiguous by case")
+    raise ValueError(f"unknown or unavailable model donor: {value!r}")
