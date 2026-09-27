@@ -39,8 +39,10 @@ record prefixes differ. A narrow R-COOKER1.1 prototype now reserializes the
 verified Trooper draw prefix while preserving rev131 local index order. The
 three Trooper candidates passed retail runtime testing, showing that the
 official 9.10.0 triangle reorder was unnecessary for those tested resources.
-This is not yet a general 131-to-135 upgrader. A Subaru Forester
-cross-vehicle check is awaiting fresh same-source cooker outputs. See the
+This is not yet a general 131-to-135 upgrader. The same-source Subaru
+Forester comparison matches the draw-prefix formula in all 35 records, and
+all three prototype candidates parse cleanly; its retail runtime test is
+pending. See the
 [initial comparison](research/r-cooker1/findings.md),
 [Trooper closeout](research/r-cooker1_1/findings.md), and
 [Forester check](research/r-cooker1_2/findings.md).

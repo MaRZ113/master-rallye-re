@@ -1,6 +1,6 @@
 {
   "phase": "R-COOKER1.2",
-  "status": "MORE_WORK_NEEDED",
+  "status": "READY_FOR_RUNTIME",
   "r_cooker1_1_closeout": {
     "status": "PASS",
     "runtime_evidence": "CONFIRMED_BY_RUNTIME",
@@ -22,7 +22,7 @@
     }
   },
   "forester": {
-    "status": "WAITING_FOR_FRESH_SAME_SOURCE_OUTPUTS",
+    "status": "STATIC_PASS_RUNTIME_PENDING",
     "source_corpus": "Demo 9.3.1 read-only corpus",
     "source_files": {
       "car": {
@@ -42,36 +42,366 @@
         "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d"
       },
       "gxi_source_inventory": [
-        {"name": "Black-tga.gxi", "size": 1032, "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"},
-        {"name": "Chair2-tga.gxi", "size": 16392, "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"},
-        {"name": "Chrome-tga.gxi", "size": 4104, "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"},
-        {"name": "Dcambell-tga.gxi", "size": 4104, "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"},
-        {"name": "Drichard-tga.gxi", "size": 4104, "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"},
-        {"name": "Fhelmet32-tga.gxi", "size": 4104, "sha256": "c1e9a035e6db6f6ba3c6fb9ff10a1c5fa6664a899f55e1d9cf3f97a123072f44"},
-        {"name": "Forestgrill64-tga.gxi", "size": 16392, "sha256": "34d29fe59ed5546f8b5b8525cebedef6eb92b3e3368d6c52c850bba671dc48cb"},
-        {"name": "Forestside128-tga.gxi", "size": 65544, "sha256": "924b21fc59e5718aa2394499ef8fbb230154df28f630d26e537348371eafff27"},
-        {"name": "Foresttread-tga.gxi", "size": 4104, "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"},
-        {"name": "Forestwheel64-tga.gxi", "size": 16392, "sha256": "d725a27b54d677a79d98dbe1aba08d4d3bf8fb665ec4516484687384d5400ef2"},
-        {"name": "Forestwheel643-tga.gxi", "size": 16392, "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"},
-        {"name": "Fwheelrim-tga.gxi", "size": 1032, "sha256": "612329a357b74f1c0d02b599f533be8f5bea36bc8be48c29c34a33cf80cc14e0"},
-        {"name": "Glass-tga.gxi", "size": 4104, "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"},
-        {"name": "Lights64-tga.gxi", "size": 4104, "sha256": "b56e1ac3cdf099cb6d26e14425636dd4e6a832c275722f289fc6fb493d52e5f9"},
-        {"name": "Mastersticker-tga.gxi", "size": 16392, "sha256": "e5f6f30b97785083b8220772606a2c692a886109c4b4f7711efb07fee886c389"},
-        {"name": "Mastersticker216-tga.gxi", "size": 4104, "sha256": "cf8ac060a2b4173f941672c453a8786a2e79da525356e04791abc00108c0592b"},
-        {"name": "Perspex-tga.gxi", "size": 16392, "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"},
-        {"name": "Rear128-tga.gxi", "size": 65544, "sha256": "88d80bc37f7405f9611f0de359e7a8b4d903147c671c37b934ca08cab5bfccf4"},
-        {"name": "Rubber-tga.gxi", "size": 4104, "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"},
-        {"name": "Shade16-tga.gxi", "size": 1032, "sha256": "2941826a6e7e2953861bf04586743c3dd8b242ae64b1a9b82363912265e6d50d"},
-        {"name": "Underdash-tga.gxi", "size": 65544, "sha256": "c27508562beaa668046c08581d83b4af0e2518401817d5dbf66f8eca83498e3c"},
-        {"name": "Whitepaint-tga.gxi", "size": 16392, "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"},
-        {"name": "Whitesuit-tga.gxi", "size": 4104, "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"},
-        {"name": "Windscreen32-tga.gxi", "size": 4104, "sha256": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"}
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Fhelmet32-tga.gxi",
+          "size": 4104,
+          "sha256": "c1e9a035e6db6f6ba3c6fb9ff10a1c5fa6664a899f55e1d9cf3f97a123072f44"
+        },
+        {
+          "name": "Forestgrill64-tga.gxi",
+          "size": 16392,
+          "sha256": "34d29fe59ed5546f8b5b8525cebedef6eb92b3e3368d6c52c850bba671dc48cb"
+        },
+        {
+          "name": "Forestside128-tga.gxi",
+          "size": 65544,
+          "sha256": "924b21fc59e5718aa2394499ef8fbb230154df28f630d26e537348371eafff27"
+        },
+        {
+          "name": "Foresttread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Forestwheel64-tga.gxi",
+          "size": 16392,
+          "sha256": "d725a27b54d677a79d98dbe1aba08d4d3bf8fb665ec4516484687384d5400ef2"
+        },
+        {
+          "name": "Forestwheel643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Fwheelrim-tga.gxi",
+          "size": 1032,
+          "sha256": "612329a357b74f1c0d02b599f533be8f5bea36bc8be48c29c34a33cf80cc14e0"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Lights64-tga.gxi",
+          "size": 4104,
+          "sha256": "b56e1ac3cdf099cb6d26e14425636dd4e6a832c275722f289fc6fb493d52e5f9"
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "size": 16392,
+          "sha256": "e5f6f30b97785083b8220772606a2c692a886109c4b4f7711efb07fee886c389"
+        },
+        {
+          "name": "Mastersticker216-tga.gxi",
+          "size": 4104,
+          "sha256": "cf8ac060a2b4173f941672c453a8786a2e79da525356e04791abc00108c0592b"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Rear128-tga.gxi",
+          "size": 65544,
+          "sha256": "88d80bc37f7405f9611f0de359e7a8b4d903147c671c37b934ca08cab5bfccf4"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Shade16-tga.gxi",
+          "size": 1032,
+          "sha256": "2941826a6e7e2953861bf04586743c3dd8b242ae64b1a9b82363912265e6d50d"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "c27508562beaa668046c08581d83b4af0e2518401817d5dbf66f8eca83498e3c"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit-tga.gxi",
+          "size": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "size": 4104,
+          "sha256": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"
+        }
       ]
     },
     "output_pairs": {
-      "car": "unavailable",
-      "complete": "unavailable",
-      "wheel": "unavailable"
+      "car": {
+        "same_source_identity": {
+          "first_sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+          "second_sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+          "equal": true,
+          "status": "CONFIRMED_BY_BYTES"
+        },
+        "rev131": {
+          "size": 128327,
+          "sha256": "eb2909b1d623f9e053a11114fe1d6d17283495bf7cab902755f87d2ee299e7de",
+          "revision": 131,
+          "draw_count": 15
+        },
+        "rev135_official": {
+          "size": 128522,
+          "sha256": "fbe8d15af205a3cbe95773d5241372352729f7fbcef21e61386123209a80a423",
+          "revision": 135,
+          "draw_count": 15,
+          "parser_errors": [
+            "stored global indices differ at 5449 covered positions; first 0x0"
+          ],
+          "parser_warnings": []
+        },
+        "prefix_formula": {
+          "records_checked": 15,
+          "matches": 15,
+          "mismatches": 0
+        },
+        "source_to_official_structural_comparison": {
+          "position_bytes_equal": true,
+          "normal_bytes_equal": true,
+          "color_bytes_equal": true,
+          "uv_bytes_equal": true,
+          "texture_references_equal": true,
+          "per_draw_oriented_triangle_multisets_equal": true,
+          "local_indices_equal": false,
+          "changed_local_index_values": 5449,
+          "global_table_bytes_equal": true,
+          "collision_and_tail_bytes_equal": true,
+          "normalized_changed_content_accounted": true
+        },
+        "candidate": {
+          "path": ".research-output/r-cooker1_2/forester-runtime-candidate/car.dx",
+          "size": 128522,
+          "sha256": "11433415ebeb4f4864a78e64ae2de9e0462b14fcf16b1b63e56313015e1a1086",
+          "revision": 135,
+          "draw_count": 15,
+          "vertex_count": 2459,
+          "triangle_count": 1864,
+          "collision_tag_ids": [
+            101
+          ],
+          "parser_errors": [],
+          "parser_warnings": [],
+          "collision_errors": [],
+          "collision_warnings": [],
+          "global_reconstruction_match": true
+        },
+        "candidate_vs_official": {
+          "same_size": true,
+          "changed_byte_count": 7134,
+          "all_different_bytes_inside_local_index_array": true,
+          "local_index_array_range_half_open": [
+            88548,
+            99732
+          ],
+          "changed_local_index_values": 5449,
+          "changed_index_ordinal_run_count": 64,
+          "draw_region_equal": true,
+          "global_table_equal": true,
+          "collision_and_tail_equal": true,
+          "position_normal_color_uv_bytes_equal": true,
+          "oriented_triangle_multisets_equal_per_draw": true,
+          "draws_with_different_index_order": 15,
+          "official_parser_errors": [
+            "stored global indices differ at 5449 covered positions; first 0x0"
+          ]
+        }
+      },
+      "complete": {
+        "same_source_identity": {
+          "first_sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+          "second_sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+          "equal": true,
+          "status": "CONFIRMED_BY_BYTES"
+        },
+        "rev131": {
+          "size": 138492,
+          "sha256": "d42ce558a6455a3c8e75b661b962ab472cf9a6ebeceeda9658a70ac1d163e219",
+          "revision": 131,
+          "draw_count": 15
+        },
+        "rev135_official": {
+          "size": 138687,
+          "sha256": "72a3b98f616d55e66e43bf0bbc2702bdb5ff464406ae7e14338cc3c4a5a4ee15",
+          "revision": 135,
+          "draw_count": 15,
+          "parser_errors": [
+            "stored global indices differ at 6644 covered positions; first 0x0"
+          ],
+          "parser_warnings": []
+        },
+        "prefix_formula": {
+          "records_checked": 15,
+          "matches": 15,
+          "mismatches": 0
+        },
+        "source_to_official_structural_comparison": {
+          "position_bytes_equal": true,
+          "normal_bytes_equal": true,
+          "color_bytes_equal": true,
+          "uv_bytes_equal": true,
+          "texture_references_equal": true,
+          "per_draw_oriented_triangle_multisets_equal": true,
+          "local_indices_equal": false,
+          "changed_local_index_values": 6644,
+          "global_table_bytes_equal": true,
+          "collision_and_tail_bytes_equal": true,
+          "normalized_changed_content_accounted": true
+        },
+        "candidate": {
+          "path": ".research-output/r-cooker1_2/forester-runtime-candidate/complete.dx",
+          "size": 138687,
+          "sha256": "852d2188d8ee3913ea366a684ca818b1e51bed61e4c4b685308dee3939153aa7",
+          "revision": 135,
+          "draw_count": 15,
+          "vertex_count": 2649,
+          "triangle_count": 2328,
+          "collision_tag_ids": [
+            102
+          ],
+          "parser_errors": [],
+          "parser_warnings": [],
+          "collision_errors": [],
+          "collision_warnings": [],
+          "global_reconstruction_match": true
+        },
+        "candidate_vs_official": {
+          "same_size": true,
+          "changed_byte_count": 8221,
+          "all_different_bytes_inside_local_index_array": true,
+          "local_index_array_range_half_open": [
+            95388,
+            109356
+          ],
+          "changed_local_index_values": 6644,
+          "changed_index_ordinal_run_count": 147,
+          "draw_region_equal": true,
+          "global_table_equal": true,
+          "collision_and_tail_equal": true,
+          "position_normal_color_uv_bytes_equal": true,
+          "oriented_triangle_multisets_equal_per_draw": true,
+          "draws_with_different_index_order": 15,
+          "official_parser_errors": [
+            "stored global indices differ at 6644 covered positions; first 0x0"
+          ]
+        }
+      },
+      "wheel": {
+        "same_source_identity": {
+          "first_sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+          "second_sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+          "equal": true,
+          "status": "CONFIRMED_BY_BYTES"
+        },
+        "rev131": {
+          "size": 12937,
+          "sha256": "1e2fefdf5fdaa4eba94490a3287de2fbc14863b6812c5902ba8f4d3a089d3dd7",
+          "revision": 131,
+          "draw_count": 5
+        },
+        "rev135_official": {
+          "size": 13002,
+          "sha256": "191009bd708ed20fd0d46c00572e8d8ba833ff5cff5c5f8f92b6772bd1d9a328",
+          "revision": 135,
+          "draw_count": 5,
+          "parser_errors": [
+            "stored global indices differ at 675 covered positions; first 0x3"
+          ],
+          "parser_warnings": []
+        },
+        "prefix_formula": {
+          "records_checked": 5,
+          "matches": 5,
+          "mismatches": 0
+        },
+        "source_to_official_structural_comparison": {
+          "position_bytes_equal": true,
+          "normal_bytes_equal": true,
+          "color_bytes_equal": true,
+          "uv_bytes_equal": true,
+          "texture_references_equal": true,
+          "per_draw_oriented_triangle_multisets_equal": true,
+          "local_indices_equal": false,
+          "changed_local_index_values": 675,
+          "global_table_bytes_equal": true,
+          "collision_and_tail_bytes_equal": true,
+          "normalized_changed_content_accounted": true
+        },
+        "candidate": {
+          "path": ".research-output/r-cooker1_2/forester-runtime-candidate/wheel.dx",
+          "size": 13002,
+          "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+          "revision": 135,
+          "draw_count": 5,
+          "vertex_count": 220,
+          "triangle_count": 252,
+          "collision_tag_ids": [
+            102
+          ],
+          "parser_errors": [],
+          "parser_warnings": [],
+          "collision_errors": [],
+          "collision_warnings": [],
+          "global_reconstruction_match": true
+        },
+        "candidate_vs_official": {
+          "same_size": true,
+          "changed_byte_count": 675,
+          "all_different_bytes_inside_local_index_array": true,
+          "local_index_array_range_half_open": [
+            7944,
+            9456
+          ],
+          "changed_local_index_values": 675,
+          "changed_index_ordinal_run_count": 33,
+          "draw_region_equal": true,
+          "global_table_equal": true,
+          "collision_and_tail_equal": true,
+          "position_normal_color_uv_bytes_equal": true,
+          "oriented_triangle_multisets_equal_per_draw": true,
+          "draws_with_different_index_order": 5,
+          "official_parser_errors": [
+            "stored global indices differ at 675 covered positions; first 0x3"
+          ]
+        }
+      }
     },
     "existing_9_3_1_unpaired_outputs": {
       "car": {
@@ -87,13 +417,78 @@
       }
     },
     "draw_prefix_formula": {
-      "status": "NOT_TESTED",
-      "records_checked": 0,
-      "matches": 0,
-      "mismatches": 0
+      "status": "CONFIRMED_BY_BYTES",
+      "records_checked": 35,
+      "matches": 35,
+      "mismatches": 0,
+      "formula": "rev131 A B C + u32 X + u32 slot_count -> rev135 u32 1 + u32 0 + float32 1.0 + A 00 B C + preserved u32 X + preserved u32 slot_count"
     },
-    "candidate_generation": "BLOCKED_BY_MISSING_PAIRED_OUTPUTS",
-    "runtime_status": "PENDING"
+    "candidate_generation": "GENERATED_FROM_REV131_INPUTS",
+    "runtime_status": "PENDING",
+    "source_identity_status": "CONFIRMED_BY_BYTES",
+    "source_identity_by_role": {
+      "car": {
+        "9.3.1": {
+          "path": "inputs/9.3.1_dxForester/car.gxm",
+          "size": 219728,
+          "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535"
+        },
+        "9.10.0": {
+          "path": "inputs/9.10.0_dxForester/car.gxm",
+          "size": 219728,
+          "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535"
+        },
+        "byte_identical": true,
+        "evidence": "CONFIRMED_BY_BYTES"
+      },
+      "complete": {
+        "9.3.1": {
+          "path": "inputs/9.3.1_dxForester/complete.gxm",
+          "size": 257541,
+          "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f"
+        },
+        "9.10.0": {
+          "path": "inputs/9.10.0_dxForester/complete.gxm",
+          "size": 257541,
+          "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f"
+        },
+        "byte_identical": true,
+        "evidence": "CONFIRMED_BY_BYTES"
+      },
+      "wheel": {
+        "9.3.1": {
+          "path": "inputs/9.3.1_dxForester/wheel.gxm",
+          "size": 27272,
+          "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d"
+        },
+        "9.10.0": {
+          "path": "inputs/9.10.0_dxForester/wheel.gxm",
+          "size": 27272,
+          "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d"
+        },
+        "byte_identical": true,
+        "evidence": "CONFIRMED_BY_BYTES"
+      }
+    },
+    "candidate_package": {
+      "path": ".research-output/r-cooker1_2/forester-runtime-candidate",
+      "runtime_status": "PENDING",
+      "files": [
+        "car.dx",
+        "complete.dx",
+        "wheel.dx"
+      ],
+      "all_candidates_revision_135": true,
+      "all_candidate_parsers_clean": true
+    },
+    "dxt_control": {
+      "file": "black-tga.dxt",
+      "size_9_3_1": 1044,
+      "sha256_9_3_1": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+      "size_9_10_0": 1044,
+      "sha256_9_10_0": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+      "byte_identical": true
+    }
   },
-  "generalization_status": "TROOPER_ONLY"
+  "generalization_status": "TWO_VEHICLE_STATIC_SUPPORT_PENDING_RUNTIME"
 }

@@ -34,8 +34,9 @@ All three candidates passed retail runtime testing: frontend complete, race
 car and wheel models loaded; reported geometry and materials were correct and
 the vehicle remained operational. Thus the official triangle reorder was not
 required for these tested Trooper resources (**CONFIRMED_BY_RUNTIME**), not a
-universal format claim. Subaru Forester generalization is awaiting fresh
-same-source outputs. See
+universal format claim. A same-source Subaru Forester check now matches the
+formula in 35/35 draw records, with clean rev135 prototype candidates; its
+retail runtime result is pending. See
 [`research/r-cooker1_1/findings.md`](../research/r-cooker1_1/findings.md) and
 [`research/r-cooker1_2/findings.md`](../research/r-cooker1_2/findings.md).
 

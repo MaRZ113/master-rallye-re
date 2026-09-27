@@ -1,10 +1,10 @@
 # R-COOKER1.2 — Trooper closeout and Forester generalization gate
 
-**Combined phase status: MORE_WORK_NEEDED.** The R-COOKER1.1 Trooper
-runtime gate is closed as `PASS — CONFIRMED_BY_RUNTIME`. Forester
-cross-vehicle testing is blocked at the required fresh same-source output
-gate; its draw-prefix formula has not been tested and no Forester candidate
-has been generated.
+**Status: READY_FOR_RUNTIME.** R-COOKER1.1 is closed for Trooper as
+`PASS — CONFIRMED_BY_RUNTIME`. The generic prototype was applied to Forester
+car/complete/wheel and all candidates parse cleanly. Forester runtime remains
+`PENDING`. The source GXM copies supplied for both cooker generations are
+byte-identical for car, complete, and wheel.
 
 ## R-COOKER1.1 closeout: Trooper
 
@@ -29,7 +29,7 @@ Trooper runtime gate only; it is not a universal compatibility claim or a
 production upgrader. See [R-COOKER1.1 findings](../r-cooker1_1/findings.md)
 and its [runtime closeout](../r-cooker1_1/runtime-test-plan.md).
 
-## Forester gate: waiting for fresh paired outputs
+## Forester outputs and source provenance
 
 The 9.3.1 corpus contains these exact source inputs:
 
@@ -38,7 +38,7 @@ The 9.3.1 corpus contains these exact source inputs:
 | car | `car.gxm` | 219,728 | `3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535` |
 | complete | `comlplete.gxm` | 257,541 | `3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f` |
 | wheel | `wheel.gxm` | 27,272 | `2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d` |
-| shared texture source observed | `Black-tga.gxi` | 1,032 | `f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8` |
+| shared source sidecar | `Black-tga.gxi` | 1,032 | `f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8` |
 
 The `comlplete.gxm` typo is retained in the read-only corpus. For the cooker
 role comparison it must be staged in scratch as `complete.gxm`, with its
@@ -46,28 +46,72 @@ bytes and hash unchanged. The operator reports that correcting this filename
 was runtime-confirmed to restore the Forester frontend preview; that prior
 missing preview was a filename issue, not evidence of a DX format failure.
 
-The 9.10.0 corpus has no `DataGx\\Vehicles\\Forester` directory. The
-repository's ignored `inputs/` currently contains only paired Trooper
-outputs, not Forester outputs. The 9.3.1 corpus has pre-existing `car.dx`
-and `wheel.dx` files, but no `complete.dx`; these were not freshly generated
-for this phase and their exact source-to-output provenance is not established
-here. They are not used as a same-source comparison pair.
+The 9.10.0 corpus has no `DataGx\Vehicles\Forester` directory. The
+operator supplied source snapshots under both ignored input folders. For
+each role, the 9.3.1 and 9.10.0 GXM copies have identical size and SHA256,
+matching the authoritative 9.3.1 source corpus. Source identity is therefore
+`CONFIRMED_BY_BYTES` for all three roles. The 9.3.1 `car.dx` and `wheel.dx`
+also match the original corpus outputs byte-for-byte; both `complete.dx`
+outputs are present in `inputs/`.
 
-Consequently there are no fresh Forester rev131/rev135 pairs to inspect.
-The 47-record Trooper formula cannot be generalized by assumption. The hard
-gate remains closed until fresh outputs are produced from identical GXM
-bytes in isolated copies of both demo generations. The exact handoff is in
+The read-only 9.3.1 package contains the typo `comlplete.gxm`; its bytes are
+the frontend source staged under `complete.gxm` in scratch. The operator
+reports that correcting this filename restores the frontend model. This is
+runtime-confirmed filename behavior, not DX-format evidence.
+
+## Forester draw-prefix and structural results — `CONFIRMED_BY_BYTES`
+
+The existing `cooker_diff` comparison aligns all role-labelled draw records.
+Each record was checked against the exact Trooper formula:
+
+| Role | Records | Formula matches | Mismatches |
+|---|---:|---:|---:|
+| car | 15 | 15 | 0 |
+| complete | 15 | 15 | 0 |
+| wheel | 5 | 5 | 0 |
+| **Total** | **35** | **35** | **0** |
+
+The transformed fields are the inserted `(u32 1, u32 0, float32 1.0)`,
+flags `A B C` → `A 00 B C`, and preserved `X` and texture-slot count. All
+three header revisions are 131 → 135. Position, normal, color, and UV arrays
+are byte-identical per role. Draw alignment, shared draw core, texture-name
+suffixes, recognized global-index sections, and collision/tail bytes also
+match. The local index order differs in each official rev135 output; the
+per-draw oriented triangle multisets remain equal.
+
+The paired DXT control, `black-tga.dxt`, is byte-identical: 1,044 bytes,
+SHA256 `c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82`.
+
+## Forester candidate
+
+The existing generic R-COOKER1.1 converter was used unchanged. Candidates
+were produced solely from each supplied rev131 DX, with no official rev135
+bytes used as input. All three are revision 135; the canonical parser reports
+no errors or warnings, collision parsing is clean, and reconstructed global
+indices match. Candidate hashes, sizes, role counts, and full difference
+localization against official rev135 are recorded in
+[`prototype-results.json`](prototype-results.json) and
 [`forester-diff.md`](forester-diff.md).
+
+For each role, candidate and official rev135 have equal file size. Every
+candidate-to-official changed byte falls inside the local uint16 index array;
+positions, normals, colors, UVs, draw region, global table, collision, and
+tail are byte-identical. Per-draw oriented triangle multisets are equal while
+all role draw index sequences differ in order. The official files report the
+parser's existing stored-global-index mismatch (5,449 car, 6,644 complete,
+675 wheel covered positions) because their local index order differs from the
+unchanged global table. The candidates preserve the rev131 order and parse
+with consistent local/global indices.
 
 ## Current evidence state
 
 - Trooper prefix formula: `CONFIRMED_BY_BYTES` for 47/47 Trooper records.
 - Trooper no-reorder retail result: `CONFIRMED_BY_RUNTIME` for the tested
   `car`, `complete`, and `wheel` resources.
-- Forester source identity: source bytes and hashes recorded above from the
-  read-only 9.3.1 corpus.
-- Forester same-source cooker pairs: unavailable.
-- Forester draw-prefix formula, candidate parse, and runtime: `NOT_TESTED` /
-  `PENDING`.
-- Cross-vehicle generalization: `TROOPER_ONLY` until the Forester static and
-  runtime gates are completed.
+- Forester same-source identity: `CONFIRMED_BY_BYTES` for car, complete, and
+  wheel GXM inputs across both generation folders.
+- Forester output-role formula: `CONFIRMED_BY_BYTES`, 35/35 records.
+- Forester candidates: generated by unchanged prototype; rev135 parse clean.
+- Forester retail result: `PENDING`.
+- Cross-vehicle evidence: `TWO_VEHICLE_STATIC_SUPPORT_PENDING_RUNTIME`,
+  scoped to the tested Trooper and Forester assets; no universal claim.

@@ -1,14 +1,13 @@
 # R-COOKER1.2 — Forester retail runtime test plan
 
-**Status: PENDING — static candidate gates have not been reached.** Do not
-run this test until fresh same-source rev131/rev135 output pairs are present,
-every paired Forester draw record matches the established prefix formula,
-the existing generic prototype generates all three candidates, and the
-canonical rev135 parser accepts them without errors or unexplained warnings.
+**Status: READY_FOR_RUNTIME — runtime result PENDING.** Same-source GXM
+hashes match between both input folders; all 35 Forester draw records match
+the prefix formula; the unchanged generic prototype produced three candidates
+that parse as rev135 without errors or warnings.
 
 ## Candidate package
 
-The future ignored package path is:
+The ignored candidate package is:
 
 ```text
 .research-output/r-cooker1_2/forester-runtime-candidate/
@@ -17,10 +16,24 @@ The future ignored package path is:
     wheel.dx
 ```
 
-All three files must be generated from Forester rev131 DX by the existing
-generic R-COOKER1.1 prototype. Do not use official 9.10.0 DX as candidate
-input. Preserve the rev131 local index order. Keep verified physics
+The files were generated from Forester rev131 DX by the existing generic
+R-COOKER1.1 prototype. Do not substitute official 9.10.0 DX. Candidate
+SHA256 values are in [`prototype-results.json`](prototype-results.json).
+The candidates preserve rev131 local index order. Keep verified physics
 configuration unchanged.
+
+## Test procedure
+
+1. Use the established Forester restoration/Vehicle Composer path in a
+   separate runtime test setup.
+2. Back up the active Forester `car.dx`, `complete.dx`, and `wheel.dx` and
+   record their hashes.
+3. Replace only those three DX files with the candidate files, retaining the
+   runtime filenames. Leave physics/configuration and the existing compatible
+   texture package unchanged.
+4. Check the candidate hashes before launch, then test frontend and race.
+5. Record each observation below and restore the backups afterward; verify
+   their original hashes.
 
 ## Operator observations to record
 
