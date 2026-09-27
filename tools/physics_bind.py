@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""Validate, apply, and restore a version-locked vehicle physics-family binding."""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = REPOSITORY_ROOT / "src"
+if str(SOURCE_ROOT) not in sys.path:
+    sys.path.insert(0, str(SOURCE_ROOT))
+
+from master_rallye.vehicle_physics_binding import (  # noqa: E402
+    apply_binding_copy,
+    load_binding_config,
+    restore_binding_copy,
+    validate_binding_request,
+)
+
+
+def _find_config(install_root: Path, filename: str) -> Path:
+    candidates = (
+        install_root / "DataGame" / filename,
+        install_root / "Data.sma_unpacked" / "DataGame" / filename,
+        install_root / "corpora" / "retail" / "Data.sma_unpacked" / "DataGame" / filename,
+    )
+    for path in candidates:
+        if path.is_file():
+            return path
+    return candidates[0]
+
+
+def _add_inputs(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--install-root", type=Path, required=True,
+                        help="retail game directory containing MRallye.exe")
+    parser.add_argument("--config", type=Path, required=True,
+                        help="JSON carrier_type -> physics_family binding config")
+    parser.add_argument("--vehicles-xml", type=Path,
+                        help="default: <install-root>/DataGame/vehicles.xml")
+    parser.add_argument("--modifications-xml", type=Path,
+                        help="default: <install-root>/DataGame/Modifications.xml")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="physics-bind",
+        description="Build a reversible bound copy of the exact supported retail executable.",
+    )
+    commands = parser.add_subparsers(dest="command", required=True)
+    validate = commands.add_parser("validate", help="read-only binding dry run")
+    _add_inputs(validate)
+    apply = commands.add_parser("apply", help="write a bound executable copy and original backup")
+    _add_inputs(apply)
+    apply.add_argument("--output-exe", type=Path, required=True,
+                       help="new executable path; must not be MRallye.exe")
+    restore = commands.add_parser("restore", help="restore the tool-owned copy from its verified backup")
+    restore.add_argument("--output-exe", type=Path, required=True)
+    return parser
+
+
+def _config_paths(args: argparse.Namespace) -> tuple[Path, Path]:
+    vehicles = args.vehicles_xml or _find_config(args.install_root, "vehicles.xml")
+    modifications = args.modifications_xml or _find_config(args.install_root, "Modifications.xml")
+    return vehicles, modifications
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    try:
+        if args.command == "restore":
+            result = restore_binding_copy(args.output_exe)
+        else:
+            source_exe = args.install_root / "MRallye.exe"
+            vehicles_xml, modifications_xml = _config_paths(args)
+            bindings = load_binding_config(args.config)
+            if args.command == "validate":
+                result = validate_binding_request(
+                    source_exe, bindings, vehicles_xml, modifications_xml
+                )
+            else:
+                result = apply_binding_copy(
+                    source_exe,
+                    args.output_exe,
+                    bindings,
+                    vehicles_xml,
+                    modifications_xml,
+                )
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+        return 0
+    except (OSError, ValueError) as exc:
+        print(f"physics-bind: {exc}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
