@@ -97,7 +97,7 @@ def generate(source_path: Path, output: Path) -> dict:
     validation = {
         **result.to_dict(),
         "phase": "R4F F1 topology runtime candidate",
-        "runtime_status": "WAITING_FOR_HUMAN",
+        "runtime_status": "WAITING_FOR_RUNTIME_TEST",
         "source_resource": "Astero/car.dx",
         "source_draw_id": DRAW_ID,
         "source_draw_slots": list(draw.texture_tuple),
@@ -125,7 +125,7 @@ def generate(source_path: Path, output: Path) -> dict:
         "Look at the right-side hood region (source body draw 7); one raised duplicate triangle should be visible.\n"
         "Record: game loads? Astero loads? extra triangle visible? new texture and shading correct? body otherwise normal? collision normal? ordinary damage still works? breakable glass still works? wheels normal? any artifacts?\n"
         "Avoid extreme-speed crashes. This is a visual-only topology edit; collision bytes are unchanged.\n"
-        "RUNTIME STATUS: WAITING FOR HUMAN. Do not treat reparse/corpus validation as game proof.\n",
+        "RUNTIME STATUS: WAITING FOR RUNTIME TEST. Do not treat reparse/corpus validation as game proof.\n",
         encoding="utf-8",
     )
     if _sha(source_path.read_bytes()) != SOURCE_SHA256:

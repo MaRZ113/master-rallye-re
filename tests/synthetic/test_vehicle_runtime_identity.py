@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 from master_rallye.vehicle_runtime_identity import (
-    HUMAN_CONTEXT,
+    USER_SUPPLIED_CONTEXT,
     build_identity_layers,
     scan_corpus_metadata,
     summarize_ghidra_xrefs,
@@ -83,7 +83,7 @@ class VehicleRuntimeIdentityTests(unittest.TestCase):
         self.assertEqual(result["trooper_only_control_paths"], ["Suspension/Front/ToeIn"])
         self.assertEqual(result["runtime_consumption_status"], "UNRESOLVED_FOR_NAMED_FAMILY_FIELDS")
 
-    def test_identity_map_keeps_config_folder_ui_race_and_human_evidence_separate(self):
+    def test_identity_map_keeps_config_folder_ui_race_and_user_context_separate(self):
         rphys1 = {"builds": {
             "retail": {
                 "family_names": ["Trooper", "Ufo"],
@@ -115,8 +115,8 @@ class VehicleRuntimeIdentityTests(unittest.TestCase):
             ],
             {"Trooper": 1},
         )
-        self.assertTrue(all("user-supplied" in row["source"] for row in result["human_context"]))
-        self.assertEqual(len(HUMAN_CONTEXT), 2)
+        self.assertTrue(all("user-supplied" in row["source"] for row in result["user_supplied_context"]))
+        self.assertEqual(len(USER_SUPPLIED_CONTEXT), 2)
 
     def test_xref_summary_preserves_sites_without_claiming_read_or_write_semantics(self):
         payload = {

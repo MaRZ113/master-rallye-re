@@ -292,7 +292,7 @@ class RPhys32WizardSchemaOverrideTests(unittest.TestCase):
                 "master_rallye.vehicle_family_binder.load_install_inventory",
                 return_value=inventory,
             ):
-                answers = iter(["7", "Probe", "ALLOW UNVERIFIED SCHEMA", "1"])
+                answers = iter(["Probe", "ALLOW UNVERIFIED SCHEMA", "7", "1"])
                 output: list[str] = []
                 status = run_interactive_wizard(
                     root, dry_run=True, input_fn=lambda _prompt: next(answers),
@@ -312,7 +312,7 @@ class RPhys32WizardSchemaOverrideTests(unittest.TestCase):
             ), mock.patch(
                 "master_rallye.vehicle_family_binder.build_vehicle_composition_plan"
             ) as build_plan:
-                answers = iter(["7", "Probe", "allow unverified schema"])
+                answers = iter(["Probe", "allow unverified schema"])
                 status = run_interactive_wizard(
                     root, dry_run=True, input_fn=lambda _prompt: next(answers),
                     output_fn=lambda _line: None,

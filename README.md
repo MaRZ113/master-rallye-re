@@ -8,6 +8,33 @@ read-only.
 
 ## Current scope
 
+### Vehicle restoration workflow
+
+The repository now supports three connected steps:
+
+- **Model conversion:** development-era vehicle source can be processed by the
+  original DEMO 9.10.0 cooker into resources that worked in retail for the
+  reported Trooper and Rav4 transfers. Provenance limits are recorded in the
+  [bridge report](research/r-bridge/r-bridge2-demo-910-bridge.md).
+- **Vehicle family binding:** a verified retail carrier type can be mapped to a
+  named runtime family, which selects both model resources and vehicle
+  configuration/physics.
+- **Vehicle composition:** the Vehicle Composer combines a retail carrier, a
+  physics family, and an independently selected model donor. The three core
+  composition classes described below are runtime-confirmed for the supported
+  retail build.
+
+The high-level tested path is:
+
+```text
+older demo model source -> original DEMO 9.10.0 cooker -> retail-compatible model package
+retail carrier + physics family + model donor -> Vehicle Composer -> retail runtime
+```
+
+See the [Vehicle Composer guide](docs/vehicle-composer.md) for use. R-COOKER1,
+including controlled same-source comparisons between cooker versions, remains
+future work and has not started.
+
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed
@@ -171,4 +198,4 @@ R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology p
 
 ## R-DEMO research branch
 
-Development-era demo asset archaeology is isolated on `research/r-demo-pipeline`. Start with [the pipeline evidence](docs/demo-development-pipeline.md) and [R-DEMO findings](research/r-demo/findings.md). GXI, GXB, GXP, and a conservative GXM prefix reader are documented under `docs/formats/`. First-pass Trooper 8.4.1 tests confirm live GXM body/presentation/wheel visual roles. R-DEMO2 established the bounded cooker/cache and collision-oracle evidence; see [R-DEMO2 findings](research/r-demo2/findings.md). R-DEMO2.5 establishes Path B for the pinned 9.3.1 Trooper offline pair: 36 isolated hull positions retain a rigidly translated 68-triangle post-weld stream. See [vertex-welder evidence](research/r-demo2/vertex-welder.md). R-BRIDGE2 now records a human-confirmed practical route from older demo source/assets through the original 9.10.0 cooker into retail for Trooper and Rav4. R-PHYS2.1 resolved the ordinary race named-family-to-CarN broker chain, and R-PHYS3 confirmed that persistent type-to-family binding controls both model and config lookup. The remaining wheel-placement work concerns the relation between imported model geometry and runtime wheel/contact behavior, not whether the named-family mapping exists. See [the 9.10.0 bridge report](research/r-bridge/r-bridge2-demo-910-bridge.md), [wheel-placement evidence](research/r-bridge/r-bridge2-wheel-placement.md), and [R-VEH1 composition status](research/r-phys/r-veh1-independent-model-composition.md). No new slot or broader physics migration is in scope. R4G is frozen.
+Development-era demo asset archaeology is isolated on `research/r-demo-pipeline`. Start with [the pipeline evidence](docs/demo-development-pipeline.md) and [R-DEMO findings](research/r-demo/findings.md). GXI, GXB, GXP, and a conservative GXM prefix reader are documented under `docs/formats/`. R-DEMO2 records the bounded cooker/cache and collision-oracle evidence; see [R-DEMO2 findings](research/r-demo2/findings.md). R-DEMO2.5 documents the pinned 9.3.1 Trooper source pair. R-BRIDGE2 records the operator-supplied runtime bridge observations, with source and generated hashes still unknown. R-PHYS2.1 resolved the ordinary race named-family-to-CarN broker chain, and R-PHYS3 confirmed persistent binding across model and config lookup. R-VEH1 is now `PASS` / `CONFIRMED_BY_RUNTIME` for full-family replacement, independent model/physics composition, and a forklift model-only swap; see [the closeout](research/r-phys/r-veh1-runtime-test-plan.md). This does not claim every possible asset pairing works. The unresolved spline-playback `CarN` provenance described in [wheel-placement evidence](research/r-bridge/r-bridge2-wheel-placement.md) is a separate path question. No new slot or broader physics migration is in scope. R4G is frozen.

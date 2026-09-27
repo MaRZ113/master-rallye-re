@@ -94,9 +94,9 @@ All 26 retail directories contain top-level `car.dx` and `complete.dx`. Twenty-f
 
 Folders also contain local TXT sidecars and some vehicle-specific extras; their exact relative filenames are preserved in the generated JSON. Counts do not assert that every texture or sidecar is loaded at runtime.
 
-## Human-supplied design context (separate from inventory facts)
+## User-supplied design context (separate from inventory facts)
 
-The inventory confirms that retail `Ufo` has no `wheel.dx`; the user supplies the design explanation that this omission is intentional because Ufo is wheel-less (`HUMAN_CONFIRMED_DESIGN_CONTEXT`). The inventory also confirms that lowercase `forklift` is a retail model directory with `car.dx`, `complete.dx`, and `wheel.dx`, while no same-named vehicle config family exists. The user supplies the separate project context that forklift is a cut/hidden bonus vehicle associated with hidden slot 25 (`HUMAN_CONFIRMED_CUT_HIDDEN_BONUS_CONTEXT`). Neither explanation is a scanner inference.
+The inventory confirms that retail `Ufo` has no `wheel.dx`; the user supplies the design explanation that this omission is intentional because Ufo is wheel-less (`USER_SUPPLIED_DESIGN_CONTEXT`). The inventory also confirms that lowercase `forklift` is a retail model directory with `car.dx`, `complete.dx`, and `wheel.dx`, while no same-named vehicle config family exists. The user supplies the separate project context that forklift is a cut/hidden bonus vehicle associated with hidden slot 25 (`USER_SUPPLIED_CUT_HIDDEN_CONTEXT`). Neither explanation is a scanner inference.
 
 The layered follow-up and its machine-readable source tags are documented in [R-PHYS2 Vehicle Param Broker population and physics constructor binding](r-phys2-vehicle-param-broker.md).
 

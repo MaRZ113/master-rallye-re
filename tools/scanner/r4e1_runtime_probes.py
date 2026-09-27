@@ -109,7 +109,7 @@ def _write_probe(destination: Path, patch, details: dict, instructions: str):
         "candidate_path": str(destination.resolve()),
         "candidate_sha256": sha256(destination.read_bytes()),
         "unexpected_changed_range_count": len(patch.diff.unexpected_ranges),
-        "runtime_status": "WAITING_FOR_HUMAN",
+        "runtime_status": "WAITING_FOR_RUNTIME_TEST",
     }
     (destination.parent / "validation.json").write_text(
         json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"

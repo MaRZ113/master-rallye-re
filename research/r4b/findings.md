@@ -26,7 +26,7 @@ static-only asset outlier.
 `SeatBuggy/car.dx` and `SeatBuggy/complete.dx` contain byte-identical tag-101
 sections (3,760 bytes), both with SHA-256
 `ea8ddbde932c548fbb09a6557caecb077094843abf228c860b3c28733569d8eb`.
-The human runtime experiment also found that substituting SeatBuggy
+The runtime experiment also found that substituting SeatBuggy
 `complete.dx` into the race role retained collision and damage. This is strong
 combined binary/runtime evidence that tag 101 is central to the vehicle
 collision path. It does **not** prove that tag 101 is the only condition needed

@@ -379,7 +379,7 @@ def analyze_oracle(gxm_path: Path, candidate_gxm_path: Path, sidecar_path: Path,
             "existing_parser_verdict": comparisons["baseline_A_vs_candidate"]["semantic_verdict_from_existing_demo_dx_parser"],
             "core_topology": comparisons["baseline_A_vs_candidate"]["classification"]["topology"],
             "secondary_descriptor_semantics": "UNRESOLVED",
-            "runtime": "human supplied original-cooker outputs; no local game launch performed",
+            "runtime": "operator-supplied original-cooker outputs; no local game launch performed",
         },
     }
 

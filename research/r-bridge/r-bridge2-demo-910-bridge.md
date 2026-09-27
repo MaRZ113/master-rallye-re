@@ -2,7 +2,7 @@
 
 ## Decision
 
-**The practical bridge is confirmed by human runtime testing.** Older demo source/assets were processed by the original DEMO 9.10.0 cooker; its generated DX/DXT resources were then loaded by retail in an existing vehicle slot. The user confirmed Trooper and Rav4 transfers, model rendering, and damage. Trooper was tested in the retail Navara slot. The exact older source corpus, source hashes, generated hashes, and the Rav4 target slot were not recorded. Driving physics equivalence was not tested.
+**The practical bridge is `CONFIRMED_BY_RUNTIME`.** Older demo source/assets were processed by the original DEMO 9.10.0 cooker; its generated DX/DXT resources were then loaded by retail in an existing vehicle slot. The project operator supplied the Trooper and Rav4 transfer observations, including model rendering and damage. Trooper was tested in the retail Navara slot. The exact older source corpus, source hashes, generated hashes, and the Rav4 target slot were not recorded. Driving physics equivalence was not tested.
 
 The demonstrated route is:
 
@@ -30,7 +30,7 @@ The 8.4.1, 9.3.1, 9.10.0, and retail corpora remain distinct. Hashes below are r
 
 The selected 9.10.0 Jump folder contains 25 DXT and 26 GXI files; Navara has 35 DXT and 89 GXI. Retail Jump has 29 DXT; retail Navara has 95 DXT. These are corpus inventories, not the hashes of the runtime-generated transfer sets.
 
-All six listed 9.10.0 GXM files pass the existing GXM material-table prefix parser. All six listed 9.10.0 DX files and all six corresponding retail DX files pass the retail typed parser; their headers use magic `0xD00D`, revision 135, and marker 1337. Retail parser acceptance is static structure evidence, separate from the human runtime bridge result.
+All six listed 9.10.0 GXM files pass the existing GXM material-table prefix parser. All six listed 9.10.0 DX files and all six corresponding retail DX files pass the retail typed parser; their headers use magic `0xD00D`, revision 135, and marker 1337. Retail parser acceptance is static structure evidence, separate from the runtime bridge result.
 
 ## Revision and compatibility
 
@@ -41,9 +41,9 @@ The 18 vehicle DX files present in DEMO 9.10.0 (six vehicles × car/complete/whe
 | 8.4.1 raw DX | CONFIRMED_BY_RUNTIME | UNKNOWN | UNKNOWN | REJECTED_BY_STATIC (revision 127 gate) |
 | 9.3.1 raw DX | UNKNOWN | CONFIRMED_BY_RUNTIME | UNKNOWN | REJECTED_BY_STATIC (revision 131 gate) |
 | 9.10.0 emitted vehicle DX | UNKNOWN | UNKNOWN | CONFIRMED_BY_RUNTIME | CONFIRMED_BY_RUNTIME for the reported cooker-generated vehicle resources |
-| retail DX | UNKNOWN | UNKNOWN | CONFIRMED_BY_RUNTIME for human-tested resources | CONFIRMED_BY_RUNTIME |
+| retail DX | UNKNOWN | UNKNOWN | CONFIRMED_BY_RUNTIME for runtime-tested resources | CONFIRMED_BY_RUNTIME |
 
-The human also reported that model resources from other demos worked in 9.10.0, but did not identify their exact source build or establish whether each was loaded raw or passed through the cooker. Those producer cells stay UNKNOWN. The retail-to-9.10.0 observation is runtime evidence for the tested resources, not a universal promise for every retail DX.
+The project operator also reported that model resources from other demos worked in 9.10.0, but did not identify their exact source build or establish whether each was loaded raw or passed through the cooker. Those producer cells stay UNKNOWN. The retail-to-9.10.0 observation is runtime evidence for the tested resources, not a universal promise for every retail DX.
 
 The prior R-BRIDGE1 result remains valid: raw revision-127/131 demo DX is not a direct retail candidate. Using the 9.10.0 cooker avoids that immediate blocker because tested output is in the late retail-compatible vehicle format. A standalone converter still needs evidence-backed draw/material parsing and writing.
 
@@ -71,10 +71,10 @@ Named configuration values also differ outside the DX assets: 9.10.0 Navara has 
 
 | Vehicle | Result | Known target | Missing provenance |
 |---|---|---|---|
-| Trooper | HUMAN_RUNTIME_CONFIRMED: loaded/rendered in retail and damage works; race wheel placement is wrong while complete-model placement looks correct. | Navara slot | Exact older source corpus and source/generated hashes |
-| Rav4 | HUMAN_RUNTIME_CONFIRMED: imported by the same 9.10 cooker route; model/render and damage were reported working; wheel placement issue was reported. | UNKNOWN | Exact older source corpus, target slot, and source/generated hashes |
+| Trooper | `CONFIRMED_BY_RUNTIME`: loaded/rendered in retail and damage works; race wheel placement is wrong while complete-model placement looks correct. | Navara slot | Exact older source corpus and source/generated hashes |
+| Rav4 | `CONFIRMED_BY_RUNTIME`: imported by the same 9.10 cooker route; model/render and damage were reported working; wheel placement issue was reported. | UNKNOWN | Exact older source corpus, target slot, and source/generated hashes |
 
-The current practical path is the original 9.10.0 cooker. Its DX/DXT output was generated by the game, not by this repository's writer. The human runtime record is retained in `.research-output/r-bridge2/r-bridge2-scan.json`; proprietary/generated resources remain outside Git.
+The current practical path is the original 9.10.0 cooker. Its DX/DXT output was generated by the game, not by this repository's writer. The operator-supplied runtime record is retained in `.research-output/r-bridge2/r-bridge2-scan.json`; proprietary/generated resources remain outside Git.
 
 ## Reusable analysis
 

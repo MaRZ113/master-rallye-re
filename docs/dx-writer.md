@@ -85,7 +85,7 @@ substitute for Edit Mode vertex edits in R3.
 
 The writer does not change normals, colors, UVs, indices, topology, draw
 records, group hierarchy, texture/material strings, trailing data, or bounds.
-It does not install output into the game. Runtime acceptance remains a human
+It does not install output into the game. Runtime acceptance remains a game
 test gate for every capability outside the confirmed scope below.
 
 ## Runtime validation milestone
@@ -145,11 +145,11 @@ unchanged for position edits. Every changed range has field and identity;
 full diff audit and post-write reparse preserve topology, collision, unknown
 draw bytes and opaque tails. Blender corner divergence is rejected without
 averaging or vertex splitting. 78/78 vehicle DX zero edits are byte-identical.
-Human testing confirms E1 UV, E3 vertex color, and E4 alpha-flag writing. The limited E2 normal probe was inconclusive; R4E.1 N1 and M1 later confirmed normal and environment-bit writing in-game.
+Runtime tests confirm E1 UV, E3 vertex color, and E4 alpha-flag writing. The limited E2 normal probe was inconclusive; R4E.1 N1 and M1 later confirmed normal and environment-bit writing in-game.
 
 ## R4F separate render-core writer
 
-`src/master_rallye/topology_writer.py` is a distinct experimental path for vehicle topology changes. It rebuilds per-draw render arrays and indices while preserving existing draw/material records and collision/footer bytes. The R3 positions-only function above and R4E safe attribute patcher remain unchanged for same-topology export. The F1 Astero car.dx +3-vertex/+1-triangle output was subsequently **CONFIRMED_BY_RUNTIME**; R4G B1/P1/W1 subsequently passed human testing for expanded bounds and complete/wheel topology. See docs/dx-render-rebuilder.md.
+`src/master_rallye/topology_writer.py` is a distinct experimental path for vehicle topology changes. It rebuilds per-draw render arrays and indices while preserving existing draw/material records and collision/footer bytes. The R3 positions-only function above and R4E safe attribute patcher remain unchanged for same-topology export. The F1 Astero car.dx +3-vertex/+1-triangle output was subsequently **CONFIRMED_BY_RUNTIME**; R4G B1/P1/W1 subsequently passed runtime tests for expanded bounds and complete/wheel topology. See docs/dx-render-rebuilder.md.
 
 ## R4G writer extension
 

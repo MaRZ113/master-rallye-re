@@ -1,4 +1,4 @@
-"""Create ignored Astero positions-only candidates for the human runtime gate."""
+"""Create ignored Astero positions-only candidates for the runtime gate."""
 from __future__ import annotations
 
 import json
@@ -118,7 +118,7 @@ def main() -> None:
         json.dumps(
             {
                 "phase": "R3",
-                "status": "READY_FOR_HUMAN_RUNTIME_TEST",
+                "status": "READY_FOR_RUNTIME_TEST",
                 "candidates": reports,
             },
             indent=2,
@@ -127,7 +127,7 @@ def main() -> None:
         encoding="utf-8",
     )
     (output_folder / "TEST_INSTRUCTIONS.txt").write_text(
-        "MASTER RALLYE R3 HUMAN RUNTIME TEST\n"
+        "MASTER RALLYE R3 RUNTIME TEST\n"
         "===================================\n\n"
         "These files are experimental positions-only candidates. The available XML/TXT\n"
         "does not directly prove whether complete.dx or car.dx is selected in each game\n"

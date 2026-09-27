@@ -1,13 +1,13 @@
 # R-VEH1 — Independent Model Donor and Physics Family Composition
 
-**Implementation status:** `READY_FOR_RUNTIME` for the three plans in the
-[runtime test plan](r-veh1-runtime-test-plan.md).
+**Status:** `PASS` — independent model donor and physics family composition is
+`CONFIRMED_BY_RUNTIME` for the three cases documented in the
+[runtime closeout](r-veh1-runtime-test-plan.md).
 
-**Evidence boundary:** the shared persistent family lookup is already
-`HUMAN_RUNTIME_CONFIRMED` by R-PHYS3. The new independent model-donor
-compositions in this phase are **NOT_RUNTIME_CONFIRMED**. Offline plans and
-synthetic tests do not establish that retail loads the composed model or that
-its visual, collision, wheel, or damage behavior is correct.
+The project operator supplied the runtime observations recorded there. They
+confirm the demonstrated composition classes, not every possible asset
+combination. Asset-specific dependencies and untested collision, damage, or
+other behavior remain outside those results.
 
 ## Composition identities
 
@@ -31,6 +31,10 @@ Model donor M --[only when M != P]--> transactional loose overlay at DataGx\Vehi
 R-PHYS3 established that persistent Navara-to-Trooper binding changes both
 model/resource lookup and config/physics lookup. R-VEH1 adds the independent
 `M` choice on the model branch without changing the native config broker.
+For every composition, `runtime_family = physics_family`. When carrier and
+physics family are equal, no EXE family patch is required. The runtime tests
+also establish that a model-only donor such as `forklift` needs no same-named
+physics family.
 
 ## Effective model package
 
@@ -147,14 +151,17 @@ That file is a generated research artifact and is not tracked by Git.
 
 | Claim | Status |
 |---|---|
-| Persistent family `P` feeds model lookup and named config lookup | `HUMAN_RUNTIME_CONFIRMED` by R-PHYS3 |
+| Persistent family `P` feeds model lookup and named config lookup | `CONFIRMED_BY_RUNTIME` |
 | Data.sma plus loose files resolve by filewise loose-over-archive precedence | `CONFIRMED_BY_BYTES` and synthetic tests |
 | Local Navara, Trooper, forklift, and Ufo package counts/completeness | `CONFIRMED_BY_CORPUS` for the recorded Data.sma hash |
-| `C == P` elides the EXE patch | `CONFIRMED_BY_BYTES` and synthetic tests |
-| Per-file model overlay, stale-file backup, hash-checked restore | Synthetic transaction tests; not a game runtime result |
-| `M != P` is loaded by retail as the selected model while physics remains `P` | **NOT_RUNTIME_CONFIRMED** |
-| Forklift model behavior, wheel placement, collision, and damage | **UNKNOWN until human runtime testing** |
+| `C == P` elides the EXE patch | `CONFIRMED_BY_BYTES`, synthetic tests, and the runtime-confirmed forklift case |
+| Independent model overlays load for the tested Navara and forklift donors | `CONFIRMED_BY_RUNTIME` |
+| Stale-file backup and hash-checked restore | Synthetic transaction tests; runtime rollback was not reported |
+| Full-family replacement (`C=Navara, P=Trooper, M=Trooper`) | `CONFIRMED_BY_RUNTIME` |
+| Independent model/physics (`C=Navara, P=Trooper, M=Navara`) | `CONFIRMED_BY_RUNTIME` |
+| Model-only forklift swap (`C=Navara, P=Navara, M=forklift`) | `CONFIRMED_BY_RUNTIME` |
+| Every arbitrary model/physics pairing and all asset-specific behavior | `UNRESOLVED` |
 
-The three human tests, generated paths, and restore commands are in the
-[R-VEH1 runtime test plan](r-veh1-runtime-test-plan.md). No R-COOKER1 work is
-included.
+The closeout records the operator-reported observations without adding
+unreported details about executable hashes, manifests, or rollback results.
+`R-COOKER1` has not begun.

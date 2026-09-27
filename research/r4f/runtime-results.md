@@ -1,6 +1,6 @@
-# R4F F1 human runtime result
+# R4F F1 runtime result
 
-The project owner tested the Astero `car.dx` F1 candidate in the original Master Rallye runtime. This human evidence is recorded separately from the pre-runtime candidate validation file.
+The project operator tested the Astero `car.dx` F1 candidate in the original Master Rallye runtime. This runtime evidence is recorded separately from the pre-runtime candidate validation file.
 
 | Check | Result |
 |---|---|

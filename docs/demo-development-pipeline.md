@@ -16,7 +16,7 @@ The 80 GXM files with the recognized material-table prefix (including one with z
 
 The demo DX draw grammar differs from the retail parser. Demo DX header/control words also differ (`127` predominant in September, `131` in November, `135` throughout retail). Existing retail DX parsing must not be used to invent demo draw/material semantics. Static extension strings in the retail EXE do not establish runtime source access.
 
-The later PC Gamer DEMO 9.10.0 contains source/cache vehicle assets and is the practical bridge compiler. All 18 vehicle DX files in that corpus use revision 135 and pass the retail typed parser; the full DataGx DX inventory is mixed and is not universally accepted. Human runtime testing confirmed older demo source/assets processed by the original 9.10.0 cooker can be transferred into retail: Trooper (Navara slot) and Rav4 model rendering and damage work. The exact old source build and transfer file hashes are not recorded, and physics equivalence is untested. This does not change the finding that raw revision-127/131 DX is not a direct retail bridge. Full evidence is in `research/r-bridge/r-bridge2-demo-910-bridge.md`.
+The later PC Gamer DEMO 9.10.0 contains source/cache vehicle assets and is the practical bridge compiler. All 18 vehicle DX files in that corpus use revision 135 and pass the retail typed parser; the full DataGx DX inventory is mixed and is not universally accepted. Runtime testing confirmed older demo source/assets processed by the original 9.10.0 cooker can be transferred into retail: Trooper (Navara slot) and Rav4 model rendering and damage work. The exact old source build and transfer file hashes are not recorded, and physics equivalence is untested. This does not change the finding that raw revision-127/131 DX is not a direct retail bridge. Full evidence is in `research/r-bridge/r-bridge2-demo-910-bridge.md`.
 
 ## Runtime and cooker evidence
 
@@ -28,7 +28,7 @@ The later PC Gamer DEMO 9.10.0 contains source/cache vehicle assets and is the p
 
 ## Evidence boundary and remaining unknowns
 
-Corpus, executable, byte-comparison, controlled trace, and human runtime evidence are labeled separately in the linked findings. Still unresolved are universal GXM hierarchy controls, the exact `$cylinder` formula, the 8.4.1 `$chull` runtime tolerance and endpoint-object graph, the exact meaning of the bounded static file-time helper, and the untested cache states listed above. The 8.4.1 visual loader matrix did not receive a per-resource ProcMon file-access matrix; 9.3.1 cache traces must not be generalized to it. The 9.10.0 original cooker is now the confirmed practical import path; the standalone retail writer remains a separate research goal.
+Corpus, executable, byte-comparison, controlled trace, and runtime evidence are labeled separately in the linked findings. Still unresolved are universal GXM hierarchy controls, the exact `$cylinder` formula, the 8.4.1 `$chull` runtime tolerance and endpoint-object graph, the exact meaning of the bounded static file-time helper, and the untested cache states listed above. The 8.4.1 visual loader matrix did not receive a per-resource ProcMon file-access matrix; 9.3.1 cache traces must not be generalized to it. The 9.10.0 original cooker is now the confirmed practical import path; the standalone retail writer remains a separate research goal.
 
 ## Roadmap
 

@@ -1,4 +1,4 @@
-# R4G human runtime results
+# R4G runtime results
 
 The project owner tested four isolated Astero candidates in the original Master Rallye runtime. These observations were reported after the automated R4G candidate package was generated. The original validation files describe pre-runtime state and remain unchanged.
 

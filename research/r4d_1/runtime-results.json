@@ -41,7 +41,7 @@
       "observation": "white/gray/black changes the reflection contribution continuously; disappears with Reflections OFF",
       "confidence": "CONFIRMED_BY_RUNTIME",
       "metadata_runtime_tested_at_generation": false,
-      "human_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
+      "runtime_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
     },
     {
       "test": "M2",
@@ -82,7 +82,7 @@
       "observation": "255/128/0 alpha changes transparency continuously; normal glass uses source-alpha blending",
       "confidence": "CONFIRMED_BY_RUNTIME",
       "metadata_runtime_tested_at_generation": false,
-      "human_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
+      "runtime_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
     },
     {
       "test": "M3",
@@ -105,7 +105,7 @@
       "observation": "asymmetric helper appears with Reflections ON and disappears with OFF",
       "confidence": "CONFIRMED_BY_RUNTIME",
       "metadata_runtime_tested_at_generation": false,
-      "human_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
+      "runtime_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
     },
     {
       "test": "M4",
@@ -146,11 +146,11 @@
       "observation": "255/128/0 alpha changes glow strength/transparency; additive and emission remain unproved",
       "confidence": "CONFIRMED_BY_RUNTIME",
       "metadata_runtime_tested_at_generation": false,
-      "human_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
+      "runtime_result_source": "runtime-tests/user_results.txt and user-supplied R4E brief"
     }
   ],
   "limits": [
-    "Human observations and screenshots establish the tested effects; screenshots alone do not prove the executable path.",
+    "Runtime observations and screenshots establish the tested effects; screenshots alone do not prove the executable path.",
     "Exact transparent sorting, damage attenuation and Null-slot binding remain open."
   ]
 }

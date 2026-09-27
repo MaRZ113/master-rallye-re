@@ -67,9 +67,9 @@ def _add_inputs(parser: argparse.ArgumentParser) -> None:
     )
 
 
-def build_parser() -> argparse.ArgumentParser:
+def build_parser(program_name: str = "python tools/physics_bind.py") -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="python tools/physics_bind.py",
+        prog=program_name,
         description=(
             f"{USER_FACING_NAME}. With no subcommand, compose a retail carrier, "
             "physics family, and model donor interactively. Explicit "
@@ -119,7 +119,7 @@ def _print_validation_summary(report: dict) -> None:
     print(f"Validation: {report['status']}")
     for binding in report["bindings"]:
         schema = binding["config_schema"]
-        print(f"\nFamily: {binding['physics_family']}")
+        print(f"\nPhysics family: {binding['physics_family']}")
         print(f"  Model donor: {binding.get('model_donor', binding['physics_family'])}")
         print(f"  Runtime family: {binding.get('runtime_family', binding['physics_family'])}")
         print(f"  Schema: {schema['compatibility_class']}")
@@ -160,8 +160,12 @@ def _print_validation_summary(report: dict) -> None:
             print("  Count errors: " + "; ".join(schema["count_errors"]))
 
 
-def main(argv: list[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
+def main(
+    argv: list[str] | None = None,
+    *,
+    program_name: str = "python tools/physics_bind.py",
+) -> int:
+    args = build_parser(program_name=program_name).parse_args(argv)
     try:
         if args.command is None:
             return run_interactive_wizard(args.wizard_install_root, dry_run=args.dry_run)

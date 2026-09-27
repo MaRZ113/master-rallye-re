@@ -22,7 +22,7 @@ R4E provides restricted template-preserving fixed-field material edits. See rese
 
 ## R4D.1 in-game closeout
 
-M1 and M3 confirm distinct body/helmet and chrome/trim reflection helpers; both are gated by Reflections. M2 confirms glass source-alpha blending. M4 confirms active brake-glow alpha strength. See research/r4d_1/runtime-results.md and JSON for candidate hashes and human evidence. These observations do not prove exact transparent sorting or damage fade.
+M1 and M3 confirm distinct body/helmet and chrome/trim reflection helpers; both are gated by Reflections. M2 confirms glass source-alpha blending. M4 confirms active brake-glow alpha strength. See research/r4d_1/runtime-results.md and JSON for candidate hashes and runtime evidence. These observations do not prove exact transparent sorting or damage fade.
 
 ## R4E fixed-field authoring
 

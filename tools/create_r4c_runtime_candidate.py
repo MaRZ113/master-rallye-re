@@ -16,7 +16,7 @@ if str(SRC) not in sys.path:
 from master_rallye.collision_writer import write_dx_collision_translation
 
 
-INSTRUCTIONS = """MASTER RALLYE R4C HUMAN COLLISION TEST
+INSTRUCTIONS = """MASTER RALLYE R4C COLLISION TEST
 
 This candidate changes ONLY the existing Astero car.dx tag-101 positional
 geometry. Render geometry is byte-identical. Translation: +0.40 source X,
@@ -64,7 +64,7 @@ def main() -> int:
     payload = result.to_dict()
     payload.update({
         "phase": "R4C",
-        "runtime_validation": "WAITING FOR HUMAN TEST",
+        "runtime_validation": "WAITING_FOR_RUNTIME_TEST",
         "source_resource": "DataGx/Vehicles/Astero/car.dx",
         "translation_axis_evidence": (
             "source X is lateral; source extents and shared coordinate "
@@ -84,7 +84,7 @@ def main() -> int:
         "changed_byte_count": result.diff.changed_byte_count,
         "unexpected_diff_count": 0,
         "visual_geometry_changed_bytes": 0,
-        "runtime_validation": "WAITING FOR HUMAN TEST",
+        "runtime_validation": "WAITING_FOR_RUNTIME_TEST",
     }, sort_keys=True))
     return 0
 

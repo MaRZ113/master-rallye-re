@@ -40,7 +40,7 @@ INVENTORY_SUFFIXES = {".dx", ".gxm", ".txt", ".dxt", ".gxi"}
 TRANSFER_CLAIMS = [
     {
         "vehicle": vehicle,
-        "evidence": "HUMAN_RUNTIME_CONFIRMED",
+        "evidence": "CONFIRMED_BY_RUNTIME",
         "source_build": "UNKNOWN_FROM_USER_REPORT",
         "source_hashes": None,
         "cooker_build": "9.10.0",
@@ -52,7 +52,7 @@ TRANSFER_CLAIMS = [
         "resource_roles_tested": ["car", "complete", "wheel", "materials", "damage"],
         "physics_equivalence": "NOT_TESTED",
         "provenance_note": (
-            "The user confirmed this vehicle transfer through the 9.10.0 cooker. "
+            "The project operator supplied this runtime transfer observation for the 9.10.0 cooker path. "
             "The supplied runtime report did not include source corpus identity or file hashes; "
             "the Navara target slot is explicitly established for Trooper only."
         ),
@@ -331,8 +331,8 @@ def build_report(corpora_root: Path) -> dict[str, Any]:
         "matrix_scope": {
             "8.4.1_to_retail": "static revision 127 gate on inspected model DX files",
             "9.3.1_to_retail": "static revision 131 gate on inspected model DX files",
-            "9.10.0_to_retail": "human runtime confirmed for 9.10.0-cooker output used in reported vehicle transfers; sampled corpus files also pass retail header/parser checks",
-            "retail_to_9.10.0": "human runtime confirmation for the resource sets reported; exact hashes not supplied",
+            "9.10.0_to_retail": "CONFIRMED_BY_RUNTIME for 9.10.0-cooker output used in reported vehicle transfers; sampled corpus files also pass retail header/parser checks",
+            "retail_to_9.10.0": "CONFIRMED_BY_RUNTIME for the reported resource sets; exact hashes not supplied",
             "unknown_cells": "not filled by inference",
         },
         "demo_9.10_dx_revisions": {
@@ -341,7 +341,7 @@ def build_report(corpora_root: Path) -> dict[str, Any]:
         },
         "assets": _asset_inventory(corpora),
         "cooker_bridge": {
-            "status": "CONFIRMED_BY_HUMAN_RUNTIME",
+            "status": "CONFIRMED_BY_RUNTIME",
             "pipeline": "older demo source/assets -> original demo 9.10.0 cooker -> generated DX/DXT -> retail existing slot",
             "source_build_and_generated_hashes": "UNKNOWN_FROM_USER_REPORT",
             "tested_vehicle_records": transfer_records,
@@ -352,8 +352,8 @@ def build_report(corpora_root: Path) -> dict[str, Any]:
         "complete_model_wheel_geometry": _wheel_geometry(corpora),
         "wheel_related_vehicle_config": _vehicle_config(corpora),
         "retail_static_wheel_trace": _static_wheel_trace(corpora),
-        "human_runtime_transfer_records": transfer_records,
-        "human_runtime_transfer_record_validation": transfer_validations,
+        "runtime_transfer_records": transfer_records,
+        "runtime_transfer_record_validation": transfer_validations,
         "limitations": [
             "Trooper and Rav4 transferred-file hashes and exact source corpus are absent from the user-supplied runtime note.",
             "Complete-model wheel centers are geometric measurements, not proven race hardpoints.",

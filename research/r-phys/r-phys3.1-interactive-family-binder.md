@@ -2,13 +2,13 @@
 
 R-VEH1 extends the same command into the **Master Rallye Vehicle Composer**.
 This report preserves the P3.1 family-first interface history; for current
-carrier / physics family / model donor choices, transaction behavior, and human
+carrier / physics family / model donor choices, transaction behavior, and runtime
 test plans, see [R-VEH1](r-veh1-independent-model-composition.md) and its
 [runtime test plan](r-veh1-runtime-test-plan.md).
 
 **Status:** implemented; synthetic tests pass; the real-install status and
 Trooper preview were run read-only. No executable was written by the P3.1
-checks. The human-confirmed P3 runtime result is recorded in
+checks. The P3 runtime result is recorded in
 [R-PHYS3](r-phys3-persistent-family-binding.md).
 
 ## Corrected runtime architecture
@@ -72,8 +72,8 @@ workflow has no patching logic of its own.
 The carrier menu comes only from the 25 initialized retail type records. A
 config-only family can be selected as the new family, but never appears as a
 carrier unless it is in that runtime catalog. In the P3.1 interface, family
-selection happened before the carrier menu. The current composer asks for the
-carrier and then explicitly asks for physics family and model donor.
+selection happened before the carrier menu. The Vehicle Composer preserves
+that family-first flow, then asks for the carrier and model donor.
 
 ## P3.1 user commands (historical interface)
 
@@ -132,7 +132,7 @@ python tools/physics_bind.py restore `
   --output-exe 'D:\Game\Master Rallye\MRallye_Navara-to-Trooper.exe'
 ```
 
-The tool never launches the game. The human runtime test remains the check for
+The tool never launches the game. Runtime tests remain the check for
 loader behavior, race behavior, and rollback behavior.
 
 ## Read-only installation snapshot

@@ -116,12 +116,12 @@ records satisfy the semantic reader schema.
 | Family | Initialized retail type ID | Base config | Player1 | Model package | Binder note |
 |---|---:|---|---|---|---|
 | Navara | 7 | `COMPATIBLE`, 147 fields (`7/6`) | `COMPLETE`, 13/13 | `COMPLETE`, `DATA_SMA` | Selectable carrier and source family. |
-| Kamaz | 22 | `COMPATIBLE`, 146 (`7/5`) | `COMPLETE`, 13/13 | `COMPLETE`, `DATA_SMA` | Selectable carrier; useful next human test of a different torque-array length. |
+| Kamaz | 22 | `COMPATIBLE`, 146 (`7/5`) | `COMPLETE`, 13/13 | `COMPLETE`, `DATA_SMA` | Selectable carrier; useful next runtime test of a different torque-array length. |
 | Pajero | 1 | `COMPATIBLE`, 144 (`6/6`) | `COMPLETE`, 13/13 | `COMPLETE`, `DATA_SMA` | Selectable carrier and source family. |
 | Mercedes | — | `COMPATIBLE`, 144 (`6/6`) | `COMPLETE`, 13/13 | `COMPLETE`, `DATA_SMA` | Valid source family; not an initialized retail carrier. |
 | Bowler | — | `COMPATIBLE`, 149 (`7/8`) | `COMPLETE`, 13/13 | `COMPLETE`, `DATA_SMA` | Valid source family with a different torque-array length. |
 | Custom | — | `COMPATIBLE`, 149 (`7/8`) | `COMPLETE`, 13/13 | `MISSING` | Config is valid; apply remains blocked until model resources are installed or the separate explicit model override is used. |
-| Trooper | — | `COMPATIBLE`, 147 (`7/6`) | `COMPLETE`, 13/13 | `COMPLETE`, `DATA_SMA` | Config-only in the retail type catalog; prior runtime binding remains separately human-confirmed. |
+| Trooper | — | `COMPATIBLE`, 147 (`7/6`) | `COMPLETE`, 13/13 | `COMPLETE`, `DATA_SMA` | Config-only in the retail type catalog; prior runtime binding is documented separately. |
 
 Here “—” means no initialized retail type ID, not an absent config or failed
 schema. Type IDs, config families, model packages, and frontend selectability

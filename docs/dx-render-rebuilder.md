@@ -22,4 +22,4 @@ The writer fails closed on source hash mismatch, malformed footer, noncontiguous
 - Synthetic tests cover vertex/triangle addition and removal, corner splits, index/base updates, capacity rejection, collision and suffix preservation.
 - Blender 5.2.2 duplicated an Astero body triangle and exported the same candidate bytes as the direct writer.
 
-Later R4F F1 human testing confirmed new car.dx topology with preserved collision, external/internal damage, breakable glass and wheels. R4G B1/P1/W1 then confirmed expanded bounds and complete.dx/wheel.dx topology, including four instantiated wheels. See ../research/r4f/runtime-results.md and ../research/r4g/runtime-results.md.
+Later R4F F1 runtime testing confirmed new car.dx topology with preserved collision, external/internal damage, breakable glass and wheels. R4G B1/P1/W1 then confirmed expanded bounds and complete.dx/wheel.dx topology, including four instantiated wheels. See ../research/r4f/runtime-results.md and ../research/r4g/runtime-results.md.

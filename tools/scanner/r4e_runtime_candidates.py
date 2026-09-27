@@ -64,7 +64,7 @@ def main():
         report["expected_effect"]=expected_effect
         report["dependency_manifest"]=deps
         report["packaging_method"]="loose DataGx/Vehicles/Astero/car.dx"
-        report["runtime_status"]="PENDING_HUMAN_TEST"
+        report["runtime_status"]="PENDING_RUNTIME_TEST"
         (output/name/"validation.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
         (output/name/"TEST_INSTRUCTIONS.txt").write_text(f"{name}: {expected_effect}\nBack up your game archive before using this candidate. Load Astero in a race. Test one candidate at a time, then restore the original. Record visuals and any crash.\n",encoding="utf-8")
         reports[name]={"classification":patch.classification,"changed_bytes":patch.diff.changed_byte_count,"sha256":patch.output_sha256}
@@ -78,7 +78,7 @@ def main():
         info["override_output_sha256"]=hashlib.sha256(replacement.read_bytes()).hexdigest()
         info["candidate"]="E5_python_sma"
         info["base_edit"]="E1_uv"
-        info["runtime_status"]="PENDING_HUMAN_TEST"
+        info["runtime_status"]="PENDING_RUNTIME_TEST"
         (archive.parent/"validation.json").write_text(json.dumps(info,indent=2)+"\n",encoding="utf-8")
         (archive.parent/"TEST_INSTRUCTIONS.txt").write_text("E5: replace Data.sma only after backing up the original; load Astero in a race and verify the E1 sticker mapping shift and archive acceptance. Python ZIP runtime confirmation pending.\n",encoding="utf-8")
         reports["E5_python_sma"]=info

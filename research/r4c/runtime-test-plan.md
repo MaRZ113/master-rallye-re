@@ -19,7 +19,7 @@ Automated audit: 132 changed bytes, all within 39 authorized source-X float32
 records; zero unexpected changes; zero visual-geometry changed bytes. The
 complete output reparses and validates.
 
-## Human procedure
+## Operator procedure
 
 1. Back up the original `Data.sma`.
 2. Replace only `DataGx/Vehicles/Astero/car.dx` with the candidate (renamed to

@@ -383,10 +383,12 @@ def _show_family_preview(
     output_fn("")
     output_fn("Binding preview")
     output_fn(f"  Carrier:        type {carrier.type_id} / {carrier.family}")
-    output_fn(f"  New family:     {family_row['family']}")
-    output_fn(f"  Model:          DataGx\\Vehicles\\{family_row['family']}")
-    output_fn(f"  Model source:   {_model_provenance_label(model)} ({model['status']})")
-    output_fn(f"  Physics:        Vehicles/{family_row['family']} - {base['status']}")
+    output_fn(f"  Physics family: {family_row['family']}")
+    output_fn(f"  Runtime family: {family_row['family']}")
+    output_fn(f"  Model donor:    {family_row['family']} (same as runtime family)")
+    output_fn(f"  Runtime model path: DataGx\\Vehicles\\{family_row['family']}")
+    output_fn(f"  Model donor package: {_model_provenance_label(model)} ({model['status']})")
+    output_fn(f"  Physics config: Vehicles/{family_row['family']} - {base['status']}")
     output_fn(
         f"  Modifications:  {family_row['family']}/Player1 - {overlay['status']}"
     )
@@ -430,11 +432,11 @@ def _choose_model_donor(
 ) -> tuple[str, bool, bool]:
     while True:
         output_fn("")
-        output_fn("Model source:")
+        output_fn("Model donor:")
         output_fn(f"  [1] Use physics-family model ({physics_family})")
         output_fn(f"  [2] Keep carrier model ({carrier.family})")
         output_fn("  [3] Choose another model donor")
-        choice = input_fn("Select model source [1-3]: ").strip()
+        choice = input_fn("Select model donor [1-3]: ").strip()
         if choice == "1":
             donor = physics_family
             break
@@ -497,17 +499,17 @@ def _show_composition_preview(
     output_fn(f"  Physics family:       {composition.physics_family}")
     output_fn(f"  Model donor:          {composition.model_donor}")
     output_fn(f"  Runtime family:       {composition.runtime_family}")
-    output_fn(f"  Config:               Vehicles/{composition.physics_family} / "
+    output_fn(f"  Physics config:       Vehicles/{composition.physics_family} / "
               f"{plan.config_validation.config_schema.compatibility_class}")
-    output_fn(f"  Player1:              {composition.physics_family}/Player1 / "
+    output_fn(f"  Modifications:        {composition.physics_family}/Player1 / "
               f"{plan.config_validation.player1_overlay_count} fields")
     if model:
         output_fn(
-            f"  Donor package:        DataGx\\Vehicles\\{composition.model_donor} / "
+            f"  Model donor package:  DataGx\\Vehicles\\{composition.model_donor} / "
             f"{model['provenance']} / {model['file_count']} files"
         )
     else:
-        output_fn("  Donor package:        MISSING (advanced natural-family override)")
+        output_fn("  Model donor package:  MISSING (advanced natural-family override)")
     output_fn(
         f"  Runtime model path:   DataGx\\Vehicles\\{composition.runtime_family}"
     )
@@ -560,15 +562,6 @@ def run_interactive_wizard(
             output_fn(line)
 
         output_fn("")
-        output_fn("Choose retail carrier to replace (initialized release catalog only):")
-        for entry in RETAIL_FAMILY_CATALOG:
-            output_fn(f"  [{entry.type_id:>2}] {entry.family}")
-        carrier = _ask_selection(
-            "Carrier type ID or name: ",
-            select_retail_carrier,
-            input_fn=input_fn,
-            output_fn=output_fn,
-        )
         physics_rows = [
             row for row in inventory.families
             if row["base_config"]["status"] != "MISSING"
@@ -611,6 +604,17 @@ def run_interactive_wizard(
             inventory,
             physics_family,
             allow_unverified_schema=allow_unverified_schema,
+        )
+
+        output_fn("")
+        output_fn("Choose retail carrier to replace (initialized release catalog only):")
+        for entry in RETAIL_FAMILY_CATALOG:
+            output_fn(f"  [{entry.type_id:>2}] {entry.family}")
+        carrier = _ask_selection(
+            "Carrier type ID or name: ",
+            select_retail_carrier,
+            input_fn=input_fn,
+            output_fn=output_fn,
         )
 
         model_donor, allow_missing_natural_model, allow_incomplete_model = _choose_model_donor(
@@ -666,7 +670,7 @@ def run_interactive_wizard(
         output_fn(f"Launch: {result['output_exe'] or inventory.executable}")
         output_fn(f"Manifest: {result['manifest']}")
         output_fn(
-            "Restore later with: python tools/physics_bind.py restore --manifest "
+            "Restore later with: python tools/vehicle_composer.py restore --manifest "
             f'"{result["manifest"]}"'
         )
         return 0
@@ -799,12 +803,17 @@ def run_status_view(
             entry = next((candidate for candidate in RETAIL_FAMILY_CATALOG
                           if candidate.family == carrier), None)
             model = _find_model_for_family(model_packages, family)
-            output_fn(f"Current binding: type {entry.type_id if entry else '?'} {carrier} -> {family}")
             output_fn(
-                f"Model package:  DataGx\\Vehicles\\{family} - "
+                f"Carrier: type {entry.type_id if entry else '?'} / {carrier}"
+            )
+            output_fn(f"Physics family: {family}")
+            output_fn(f"Runtime family: {family}")
+            output_fn(f"Model donor: {family} (runtime-family package)")
+            output_fn(
+                f"Model donor package: DataGx\\Vehicles\\{family} - "
                 f"{model['status']} / {_model_provenance_label(model)}"
             )
-            output_fn(f"Physics/config: Vehicles/{family} + {family}/Player1")
+            output_fn(f"Physics config: Vehicles/{family} + {family}/Player1")
         output_fn(f"Patched SHA-256: {data.get('patched_sha256', '?')}")
     for item in compositions:
         data = item.get("manifest_data") or {}
@@ -858,7 +867,8 @@ def run_restore_menu(
         label = "ready to restore" if item["valid"] and item["status"] == "applied" else item["status"]
         if item["kind"] == "legacy":
             binding_text = ", ".join(
-                f"{row.get('carrier_type', '?')} -> {row.get('physics_family', '?')}"
+                f"Carrier {row.get('carrier_type', '?')} -> physics family "
+                f"{row.get('physics_family', '?')}"
                 for row in item["bindings"]
             )
             shown_path = item["output_exe"].name

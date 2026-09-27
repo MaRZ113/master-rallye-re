@@ -1,6 +1,6 @@
-# R4E human runtime results
+# R4E runtime results
 
-The project owner tested the five controlled Astero candidates. These are human in-game observations, recorded separately from the original pre-runtime candidate metadata. No screenshot or game asset is committed.
+The project operator tested the five controlled Astero candidates. These runtime observations are recorded separately from the original pre-runtime candidate metadata. No screenshot or game asset is committed.
 
 | Candidate | Result | Observation |
 |---|---|---|

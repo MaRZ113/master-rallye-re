@@ -72,7 +72,7 @@ $PythonExe = 'C:\Users\MaRZ\.cache\codex-runtimes\codex-primary-runtime\dependen
 
 The `python` command above means the workspace's bundled Python executable when the system Python launcher is unavailable.
 
-## Human runtime procedure
+## Runtime procedure
 
 Use a separate disposable demo 9.3.1 copy; leave the original corpus untouched.
 

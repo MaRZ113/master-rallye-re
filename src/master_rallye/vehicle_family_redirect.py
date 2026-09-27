@@ -1,8 +1,9 @@
 """R-PHYS2.2 runtime-only named-family redirect evidence and plan helpers.
 
 This module describes the fixed-build retail lookup path. It does not attach
-to or modify a running game. It records the human-confirmed temporary catalog
-pointer substitution and retains the original debugger procedure as a plan.
+to or modify a running game. It records the operator-reported runtime
+observation of a temporary catalog pointer substitution and retains the
+original debugger procedure as a plan.
 """
 from __future__ import annotations
 
@@ -17,13 +18,15 @@ from .vehicle_family_broker import (
 )
 
 
-HUMAN_RUNTIME_EVIDENCE_STATUS = "CONFIRMED_BY_HUMAN_RUNTIME"
-RUNTIME_EXPERIMENT_STATUS = "CONFIRMED_BY_HUMAN_RUNTIME"
+RUNTIME_EVIDENCE_STATUS = "CONFIRMED_BY_RUNTIME"
+# Historical import name retained for callers of the research helper.
+HUMAN_RUNTIME_EVIDENCE_STATUS = RUNTIME_EVIDENCE_STATUS
+RUNTIME_EXPERIMENT_STATUS = RUNTIME_EVIDENCE_STATUS
 REDIRECT_PLAN_STATUS = "PLAN_ONLY"
 
 
 @dataclass(frozen=True)
-class HumanBrokerRuntimeObservation:
+class BrokerRuntimeObservation:
     executable_sha256: str
     breakpoint_eip: int
     esp_at_hit: int
@@ -36,7 +39,7 @@ class HumanBrokerRuntimeObservation:
     evidence_status: str
 
 
-HUMAN_NAVARA_BROKER_OBSERVATION = HumanBrokerRuntimeObservation(
+NAVARA_BROKER_RUNTIME_OBSERVATION = BrokerRuntimeObservation(
     executable_sha256=RETAIL_EXE_SHA256,
     breakpoint_eip=0x00493E30,
     esp_at_hit=0x001AF808,
@@ -46,12 +49,12 @@ HUMAN_NAVARA_BROKER_OBSERVATION = HumanBrokerRuntimeObservation(
     family_name="Navara",
     overlay_text_visible_on_stack="Navara/Player1",
     overlay_reader_call_confirmed_in_capture=False,
-    evidence_status=HUMAN_RUNTIME_EVIDENCE_STATUS,
+    evidence_status=RUNTIME_EVIDENCE_STATUS,
 )
 
 
 @dataclass(frozen=True)
-class HumanWholeFamilyRedirectObservation:
+class WholeFamilyRedirectObservation:
     """The successful Navara-carrier -> Trooper-family x32dbg experiment.
 
     Pointer values are retained as run-local evidence only. They must never be
@@ -77,7 +80,7 @@ class HumanWholeFamilyRedirectObservation:
     evidence_status: str
 
 
-HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION = HumanWholeFamilyRedirectObservation(
+TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION = WholeFamilyRedirectObservation(
     executable_sha256=RETAIL_EXE_SHA256,
     breakpoint_eip=0x0044EE69,
     participant_index=0,
@@ -94,8 +97,14 @@ HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION = HumanWholeFamilyRedirectObservation(
     race_started=True,
     wheel_placement_corrected=True,
     handling_changed_from_carrier=True,
-    evidence_status=HUMAN_RUNTIME_EVIDENCE_STATUS,
+    evidence_status=RUNTIME_EVIDENCE_STATUS,
 )
+
+# Historical import names retained for research notebooks and callers.
+HumanBrokerRuntimeObservation = BrokerRuntimeObservation
+HumanWholeFamilyRedirectObservation = WholeFamilyRedirectObservation
+HUMAN_NAVARA_BROKER_OBSERVATION = NAVARA_BROKER_RUNTIME_OBSERVATION
+HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION = TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION
 
 
 # The object supplied to FUN_00493E30 is 16 bytes at this fixed-build call

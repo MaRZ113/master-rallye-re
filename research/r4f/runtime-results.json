@@ -18,6 +18,6 @@
   "wheels": "NORMAL",
   "general_vehicle_function": "NORMAL",
   "conclusion": "TOPOLOGY-CHANGING VEHICLE RENDER WRITING CONFIRMED_BY_RUNTIME",
-  "evidence_kind": "project_owner_human_runtime_observation",
+  "evidence_kind": "project_operator_runtime_observation",
   "scope": "tested Astero car.dx F1 existing-draw topology candidate"
 }

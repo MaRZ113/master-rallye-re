@@ -54,12 +54,12 @@ In the spline-record route, `CarN` is a participant-record index: `FUN_0048EB40`
 
 Identity controls remain separate: `Newrav`/`NewRav` are config spellings while `Rav4` is a separate model directory; retail Trooper has a named config but no same-named retail model folder; retail `forklift` has a model folder but no same-named config family. These are scanner facts, not alias or playability claims.
 
-### Human context, separate from scanner facts
+### User-supplied context, separate from scanner facts
 
-- **Human-confirmed design context:** the user reports retail Ufo intentionally has no `wheel.dx` because it is a wheel-less model. Scanner fact: the retail Ufo directory lacks `wheel.dx`.
-- **Human-confirmed cut/hidden context:** the user reports `forklift` is a cut/hidden bonus vehicle associated with a hidden 25th slot. Scanner facts: the retail model directory and its model files exist; no same-named vehicle config family exists.
+- **User-supplied design context:** the user reports retail Ufo intentionally has no `wheel.dx` because it is a wheel-less model. Scanner fact: the retail Ufo directory lacks `wheel.dx`.
+- **User-supplied cut/hidden context:** the user reports `forklift` is a cut/hidden bonus vehicle associated with a hidden 25th slot. Scanner facts: the retail model directory and its model files exist; no same-named vehicle config family exists.
 
-Neither human context item is emitted as an automated scanner conclusion.
+Neither user-supplied context item is emitted as an automated scanner conclusion.
 
 ## Retail EXE static audit
 
@@ -90,7 +90,7 @@ Comparing paths changed in Jump and Navara (9.10.0→retail) shows that 21 of Tr
 - `DamageParams/SteeringThresholdDamageSpeed`
 - `Suspension/Front/ToeIn`
 
-This is evidence for a systematic retail damage/engine retune plus four Trooper-specific path changes within these XML comparisons. It does not prove that all, or any particular one, is consumed by the ordinary race physics constructor. Existing human reports about Trooper resource transfer, rendering, damage, and race-wheel placement remain project runtime observations without retained exact source hashes/measurements; they are not used as proof for this mapping.
+This is evidence for a systematic retail damage/engine retune plus four Trooper-specific path changes within these XML comparisons. It does not prove that all, or any particular one, is consumed by the ordinary race physics constructor. Earlier operator-supplied reports about Trooper resource transfer, rendering, damage, and race-wheel placement remain project runtime observations without retained exact source hashes/measurements; they are not used as proof for this mapping.
 
 ## Runtime gate and next step
 

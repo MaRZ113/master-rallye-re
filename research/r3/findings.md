@@ -68,7 +68,7 @@ because XML/TXT evidence does not directly prove the runtime selection context:
 The candidates were generated through the Blender export path. Neither was
 installed or launched by the agent.
 
-## Human runtime validation
+## Runtime validation
 
 **RUNTIME VALIDATED — PASS**
 
@@ -92,7 +92,7 @@ Topology-changing export, UV writing, normal writing, and material writing are
 
 ## Runtime-confirmed repack method
 
-The human test unpacked `Data.sma`, modified the intended resource, packed the
+The runtime test unpacked `Data.sma`, modified the intended resource, packed the
 unpacked tree as a normal ZIP archive using 7-Zip, renamed `.zip` to `.sma`,
 and launched the game. The game accepted this archive. No broader claim is
 made about required ZIP options, variants, or implementation details.

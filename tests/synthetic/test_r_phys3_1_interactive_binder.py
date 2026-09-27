@@ -360,7 +360,7 @@ class RPhys31WizardTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="MR Install With Spaces ") as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root)
-            answers = iter(["7", "Trooper", "1", ""])
+            answers = iter(["Trooper", "7", "1", ""])
             prompts: list[str] = []
             output: list[str] = []
 
@@ -388,8 +388,8 @@ class RPhys31WizardTests(unittest.TestCase):
                 )
         self.assertEqual(status, 0)
         self.assertLess(
-            prompts.index("Carrier type ID or name: "),
             prompts.index("Physics family number or name: "),
+            prompts.index("Carrier type ID or name: "),
         )
         self.assertEqual(build_plan.call_count, 1)
         self.assertEqual(apply.call_count, 1)
@@ -407,7 +407,7 @@ class RPhys31WizardTests(unittest.TestCase):
                 "family_names": ["Navara"], "provenance": "DATA_SMA",
                 "status": "COMPLETE", "missing_resources": [],
             }
-            answers = iter(["7", "Trooper", "2"])
+            answers = iter(["Trooper", "7", "2"])
             with (
                 mock.patch("master_rallye.vehicle_family_binder.load_install_inventory", return_value=inventory),
                 mock.patch("master_rallye.vehicle_family_binder._validate_selected_family"),
@@ -431,7 +431,7 @@ class RPhys31WizardTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root)
-            answers = iter(["7", "Trooper", "1", "n"])
+            answers = iter(["Trooper", "7", "1", "n"])
             with (
                 mock.patch("master_rallye.vehicle_family_binder.load_install_inventory", return_value=inventory),
                 mock.patch("master_rallye.vehicle_family_binder._validate_selected_family"),
@@ -450,7 +450,7 @@ class RPhys31WizardTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root, model_status="MISSING")
-            answers = iter(["7", "Trooper", "1", ""])
+            answers = iter(["Trooper", "7", "1", ""])
             output: list[str] = []
             prompts: list[str] = []
 
@@ -473,7 +473,7 @@ class RPhys31WizardTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root, model_status="MISSING")
-            answers = iter(["7", "Trooper", "1", "ALLOW MISSING MODEL"])
+            answers = iter(["Trooper", "7", "1", "ALLOW MISSING MODEL"])
             output: list[str] = []
             prompts: list[str] = []
 
@@ -584,7 +584,7 @@ class RPhys31RestoreDiscoveryTests(unittest.TestCase):
         restore.assert_called_once_with(fake_entry["manifest"], install_root=root)
         self.assertTrue(any("Restore composition Navara / Navara / forklift" in prompt for prompt in prompts))
 
-    def test_status_view_shows_binding_model_source_and_manifest(self):
+    def test_status_view_shows_vehicle_identities_and_manifest(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             inventory = _synthetic_install(root)
@@ -603,7 +603,11 @@ class RPhys31RestoreDiscoveryTests(unittest.TestCase):
             ):
                 status = run_status_view(root, output_fn=output.append)
         self.assertEqual(status, 0)
-        self.assertTrue(any("type 7 Navara -> Trooper" in line for line in output))
+        self.assertIn("Carrier: type 7 / Navara", output)
+        self.assertIn("Physics family: Trooper", output)
+        self.assertIn("Runtime family: Trooper", output)
+        self.assertIn("Model donor: Trooper (runtime-family package)", output)
+        self.assertTrue(any("Physics config: Vehicles/Trooper" in line for line in output))
         self.assertTrue(any("COMPLETE / Data.sma" in line for line in output))
         self.assertTrue(any("patched-hash" in line for line in output))
 

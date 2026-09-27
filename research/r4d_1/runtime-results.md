@@ -13,7 +13,7 @@ M1 whitepaint contributes continuously to body/helmet environment reflection; it
 
 M2 glass is source-alpha blended, consistent with D3D8 SRCALPHA/INVSRCALPHA and alpha test disabled for normal vehicle glass. M4 changes the active braking layer, while the base rear lamp remains. No additive blend or emission claim follows from its name.
 
-Human result source: `.research-output/r4d_1/runtime-tests/user_results.txt`. Local screenshot counts: M1=12, M2=9, M3=6, M4=3. Game screenshots, candidate DXT and source assets remain outside Git.
+Operator-supplied result source: `.research-output/r4d_1/runtime-tests/user_results.txt`. Local screenshot counts: M1=12, M2=9, M3=6, M4=3. Game screenshots, candidate DXT and source assets remain outside Git.
 
 Limits: tested on Astero and these candidates. Sorting, damage fade and unusual Null-slot bindings remain unresolved.
 

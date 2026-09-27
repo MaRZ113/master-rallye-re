@@ -238,7 +238,7 @@ def render_report(report: dict, *, source_path: Path, sidecar_path: Path, candid
         "",
         "## Runtime and DX oracle results",
         "",
-        "Pending human runtime cooking. See `r-demo2.8-931-chull-oracle.md` for the three-DX procedure. The candidate is not runtime-confirmed.",
+        "Pending operator cooker run. See `r-demo2.8-931-chull-oracle.md` for the three-DX procedure. The candidate is not runtime-confirmed.",
         "",
         "### Runtime result placeholder",
         "",

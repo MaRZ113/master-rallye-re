@@ -14,4 +14,4 @@
 | Different wheel geometry | YES WITH LIMITATION | W1 runtime PASS on all four instanced wheels; existing draw/material set |
 | Different presentation geometry | YES WITH LIMITATION | P1 runtime PASS in presentation/menu; existing draw/material set |
 
-All earlier same-topology capabilities and the F1 race-car topology edit have human runtime evidence. B1, C1, P1 and W1 passed in the original game; MASTER RALLYE VEHICLE SDK v1 is now a RUNTIME-CONFIRMED BASELINE. New draw/material identities, collision from scratch, extra EXE slots and track support remain future optional work, not claims of this baseline.
+All earlier same-topology capabilities and the F1 race-car topology edit have runtime evidence. B1, C1, P1 and W1 passed in the original game; MASTER RALLYE VEHICLE SDK v1 is now a RUNTIME-CONFIRMED BASELINE. New draw/material identities, collision from scratch, extra EXE slots and track support remain future optional work, not claims of this baseline.

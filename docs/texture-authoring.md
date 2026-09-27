@@ -6,4 +6,4 @@ Example:
 `py -3 tools/mrtool.py export-texture original.dxt --output edit.png`
 `py -3 tools/mrtool.py replace-texture original.dxt edit.png --source-sha256 HASH --output staged.dxt`
 
-The Blender panel offers export, validate, replace, and show-users operations for the selected primary material texture. Set an MR staging directory before replacement. No operation edits the original game DXT. Use `texture-users VEHICLE_DIR texture.dxt` before editing: one DXT can drive body and helmets or several chrome parts. Normal glass and active brake-glow alpha have human runtime support; arbitrary dimension changes are outside safe mode.
+The Blender panel offers export, validate, replace, and show-users operations for the selected primary material texture. Set an MR staging directory before replacement. No operation edits the original game DXT. Use `texture-users VEHICLE_DIR texture.dxt` before editing: one DXT can drive body and helmets or several chrome parts. Normal glass and active brake-glow alpha have runtime test support; arbitrary dimension changes are outside safe mode.

@@ -1,6 +1,6 @@
 # Safe GXM position edit → original 9.3.1 cooker DX
 
-## Source and human runtime result
+## Source and runtime result
 
 Scratch source candidate: `.research-output/r-demo2/source-edit/DataGx/Vehicles/Trooper/car.gxm`, SHA256 `4f6dce6a90c1824955fbd9bfa9259166e96bca07bb046a95635aae994b7c8f2d`. It changes only Vector C index 646 component 2 by `+0.15`, from `1.4849326610565186` to `1.6349326372146606`; this record belongs to visible body geometry, not `$chull`. The user reports that the generated DX loads with GXM absent and that the visual edit appears (**CONFIRMED_BY_RUNTIME**).
 

@@ -13,8 +13,11 @@ from master_rallye.vehicle_family_redirect import (
     FAMILY_CATALOG_NAME_FIELD_BASE_OFFSET,
     FAMILY_CATALOG_POINTER_READ_BREAKPOINT,
     HUMAN_NAVARA_BROKER_OBSERVATION,
-    HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION,
     HUMAN_RUNTIME_EVIDENCE_STATUS,
+    HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION,
+    NAVARA_BROKER_RUNTIME_OBSERVATION,
+    TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION,
+    RUNTIME_EVIDENCE_STATUS,
     MANAGED_FAMILY_STRING_CAPACITY_OFFSET,
     MANAGED_FAMILY_STRING_DATA_POINTER_OFFSET,
     MANAGED_FAMILY_STRING_LENGTH_OFFSET,
@@ -36,8 +39,16 @@ RETAIL_BROKER_INPUTS_AVAILABLE = (
 
 
 class RPhys22RedirectPlanTests(unittest.TestCase):
-    def test_human_runtime_observation_records_only_observed_claims(self):
-        evidence = HUMAN_NAVARA_BROKER_OBSERVATION
+    def test_legacy_human_named_imports_remain_compatibility_aliases(self):
+        self.assertIs(HUMAN_NAVARA_BROKER_OBSERVATION, NAVARA_BROKER_RUNTIME_OBSERVATION)
+        self.assertIs(
+            HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION,
+            TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION,
+        )
+        self.assertEqual(HUMAN_RUNTIME_EVIDENCE_STATUS, "CONFIRMED_BY_RUNTIME")
+
+    def test_runtime_observation_records_only_observed_claims(self):
+        evidence = NAVARA_BROKER_RUNTIME_OBSERVATION
         self.assertEqual(evidence.executable_sha256,
                          "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4")
         self.assertEqual(evidence.breakpoint_eip, 0x00493E30)
@@ -47,10 +58,10 @@ class RPhys22RedirectPlanTests(unittest.TestCase):
         self.assertEqual(evidence.family_name, "Navara")
         self.assertEqual(evidence.overlay_text_visible_on_stack, "Navara/Player1")
         self.assertFalse(evidence.overlay_reader_call_confirmed_in_capture)
-        self.assertEqual(evidence.evidence_status, HUMAN_RUNTIME_EVIDENCE_STATUS)
+        self.assertEqual(evidence.evidence_status, RUNTIME_EVIDENCE_STATUS)
 
     def test_successful_trooper_redirect_records_runtime_result_without_reusing_heap_addresses(self):
-        evidence = HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION
+        evidence = TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION
         self.assertEqual(evidence.executable_sha256,
                          "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4")
         self.assertEqual(evidence.breakpoint_eip, 0x0044EE69)
@@ -68,11 +79,11 @@ class RPhys22RedirectPlanTests(unittest.TestCase):
         self.assertTrue(evidence.race_started)
         self.assertTrue(evidence.wheel_placement_corrected)
         self.assertTrue(evidence.handling_changed_from_carrier)
-        self.assertEqual(evidence.evidence_status, HUMAN_RUNTIME_EVIDENCE_STATUS)
-        self.assertEqual(RUNTIME_EXPERIMENT_STATUS, HUMAN_RUNTIME_EVIDENCE_STATUS)
+        self.assertEqual(evidence.evidence_status, RUNTIME_EVIDENCE_STATUS)
+        self.assertEqual(RUNTIME_EXPERIMENT_STATUS, RUNTIME_EVIDENCE_STATUS)
 
     def test_managed_string_offsets_match_fixed_build_reader_accesses(self):
-        base = HUMAN_NAVARA_BROKER_OBSERVATION.family_object_address
+        base = NAVARA_BROKER_RUNTIME_OBSERVATION.family_object_address
         self.assertEqual(MANAGED_FAMILY_STRING_SIZE, 0x10)
         self.assertEqual(base + MANAGED_FAMILY_STRING_DATA_POINTER_OFFSET, 0x001AF83C)
         self.assertEqual(base + MANAGED_FAMILY_STRING_LENGTH_OFFSET, 0x001AF840)
@@ -99,7 +110,7 @@ class RPhys22RedirectPlanTests(unittest.TestCase):
         self.assertEqual(plan["restore_after_family_strings_created_breakpoint"], 0x0044EE25)
         self.assertEqual(plan["car_writer_return_breakpoint"], CAR_WRITER_RETURN_BREAKPOINT)
         self.assertEqual(plan["status"], REDIRECT_PLAN_STATUS)
-        self.assertEqual(RUNTIME_EXPERIMENT_STATUS, HUMAN_RUNTIME_EVIDENCE_STATUS)
+        self.assertEqual(RUNTIME_EXPERIMENT_STATUS, RUNTIME_EVIDENCE_STATUS)
 
     def test_nonzero_participant_keeps_source_type_separate_from_runtime_car_index(self):
         plan = build_whole_family_redirect_plan("Navara", "Trooper", 1)

@@ -1,6 +1,6 @@
 """Conservative evidence helpers for the R-PHYS2 vehicle identity audit.
 
-Corpus observations, executable string references, and human-supplied design
+Corpus observations, executable string references, and user-supplied design
 context are represented as separate evidence sources. This module does not
 resolve aliases or infer a named-family-to-runtime-slot mapping.
 """
@@ -36,20 +36,22 @@ _XML_ATTRIBUTE = re.compile(r"([A-Za-z_:][\w:.-]*)\s*=\s*([\"'])(.*?)\2", re.DOT
 _SCENE_CAR_TYPE = re.compile(r"Race[/\\]Car(?P<index>\d+)[/\\]CarType\Z", re.IGNORECASE)
 
 
-HUMAN_CONTEXT: tuple[dict[str, str], ...] = (
+USER_SUPPLIED_CONTEXT: tuple[dict[str, str], ...] = (
     {
         "subject": "retail/Ufo/wheel.dx",
-        "classification": "HUMAN_CONFIRMED_DESIGN_CONTEXT",
+        "classification": "USER_SUPPLIED_DESIGN_CONTEXT",
         "claim": "The wheel.dx omission is intentional; Ufo is a wheel-less model.",
         "source": "user-supplied project context; not inferred by the corpus scanner",
     },
     {
         "subject": "retail/forklift",
-        "classification": "HUMAN_CONFIRMED_CUT_HIDDEN_BONUS_CONTEXT",
+        "classification": "USER_SUPPLIED_CUT_HIDDEN_CONTEXT",
         "claim": "The model is a cut/hidden bonus vehicle associated with a hidden 25th slot.",
         "source": "user-supplied project context; not inferred by the corpus scanner",
     },
 )
+# Historical symbol retained for callers of the R-PHYS2 research helper.
+HUMAN_CONTEXT = USER_SUPPLIED_CONTEXT
 
 
 def _build_roots(corpora_root: Path, build: str) -> list[tuple[str, Path]]:
@@ -388,7 +390,7 @@ def build_identity_layers(rphys1: dict[str, Any], text_scan: dict[str, Any],
             "status": "NOT_BOUND_TO_NAMED_FAMILY",
             "interpretation": "No verified named-family-to-Vehicles/CarN population link or ordinary physics-constructor binding yet",
         },
-        "human_context": [dict(row) for row in HUMAN_CONTEXT],
+        "user_supplied_context": [dict(row) for row in USER_SUPPLIED_CONTEXT],
     }
 
 
@@ -449,10 +451,10 @@ def render_report(analysis: dict[str, Any]) -> str:
         "",
         "`NewRav` (config) and `Rav4` (model directory) remain distinct literal names. Retail `Trooper` has a config family without a same-named retail model folder. Retail `forklift` has model assets without a same-named config family. These are identity-separation controls, not proof of runtime use.",
         "",
-        "### Human-supplied context (kept separate from scanner facts)",
+        "### User-supplied context (kept separate from scanner facts)",
         "",
-        "- The user confirms retail Ufo lacks `wheel.dx` intentionally because it is wheel-less (`HUMAN_CONFIRMED_DESIGN_CONTEXT`). The scanner only confirms the missing file.",
-        "- The user confirms `forklift` is a cut/hidden bonus vehicle associated with hidden slot 25 (`HUMAN_CONFIRMED_CUT_HIDDEN_BONUS_CONTEXT`). The scanner independently confirms model files and no same-named config family.",
+        "- The user identifies retail Ufo's missing `wheel.dx` as intentional because it is wheel-less (`USER_SUPPLIED_DESIGN_CONTEXT`). The scanner only confirms the missing file.",
+        "- The user identifies `forklift` as a cut/hidden bonus vehicle associated with hidden slot 25 (`USER_SUPPLIED_CUT_HIDDEN_CONTEXT`). The scanner independently confirms model files and no same-named config family.",
         "",
         "## Trooper config survival",
         "",
@@ -469,9 +471,9 @@ def render_report(analysis: dict[str, Any]) -> str:
         "",
         "The selected functions show `FUN_0043F020` reads a participant `PlayerType`, prepares a numeric vehicle catalog, and attaches four per-wheel helper objects. The reviewed call chain still does not show the catalog index being derived from a named family or prove that these helper objects define physical contact points.",
         "",
-        "## Human runtime notes and R-PHYS1 cross-build evidence",
+        "## Runtime notes and R-PHYS1 cross-build evidence",
         "",
-        "Trooper's 9.10.0→retail comparison changes 25 of 147 paths: 16 `DamageParams`, 7 `Engine`, 1 `Chassis`, and 1 `Suspension`; dimensions, steering, and the remaining fields are text/value-equal except one numeric-equal textual change. Jump and Navara controls share the broad damage/engine retune pattern. Previously recorded human reports about Trooper transfer/model/damage and race-wheel placement remain unmeasured project context; they do not bind this EXE path.",
+        "Trooper's 9.10.0→retail comparison changes 25 of 147 paths: 16 `DamageParams`, 7 `Engine`, 1 `Chassis`, and 1 `Suspension`; dimensions, steering, and the remaining fields are text/value-equal except one numeric-equal textual change. Jump and Navara controls share the broad damage/engine retune pattern. Earlier operator-supplied reports about Trooper transfer/model/damage and race-wheel placement remain unmeasured project context; they do not bind this EXE path.",
         "",
         "## Runtime test gate",
         "",

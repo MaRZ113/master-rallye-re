@@ -6,7 +6,7 @@ The direct DX loader trace confirms the once-unknown 0x24 dword copies into runt
 
 Legacy texFinder heuristics at this checkpoint: glass **PARTIALLY_SUPPORTED**; chrome **PARTIALLY_SUPPORTED**; paint **PARTIALLY_SUPPORTED**; decal_on_base **STILL_UNVERIFIED**; glow **PARTIALLY_SUPPORTED**; light **STILL_UNVERIFIED**. Texture names alone do not prove render mode.
 
-Blender Preview V2 now uses the traced alpha flags, while ordered slots, raw flags, and mask remain metadata. It does not compose the unverified secondary stage or export materials. M1-M4 have human in-game results recorded in runtime-results.md/json. The material-to-stage resource binding for Null-slot cases, visual helper effects, damage attenuation, and transparent sorting remain open. The runtime closeout supports a conservative R4E same-topology material and texture authoring phase. No R4E work is part of this commit.
+Blender Preview V2 now uses the traced alpha flags, while ordered slots, raw flags, and mask remain metadata. It does not compose the unverified secondary stage or export materials. M1-M4 runtime results are recorded in runtime-results.md/json. The material-to-stage resource binding for Null-slot cases, visual helper effects, damage attenuation, and transparent sorting remain open. The runtime closeout supports a conservative R4E same-topology material and texture authoring phase. No R4E work is part of this commit.
 
 ## Regression evidence
 

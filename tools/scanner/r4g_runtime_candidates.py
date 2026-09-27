@@ -82,11 +82,11 @@ def generate(source: Path, output: Path):
     results = {}
     probes = (
         ("B1_out_of_bounds", "car.dx", 7, 5, 1, 0.12,
-         "Package only this Astero car.dx. Check game/car load, raised roof/body triangle above old bounds visible, no clipping, normal collision, damage/glass, artifacts. Runtime status: WAITING FOR HUMAN.\n"),
+         "Package only this Astero car.dx. Check game/car load, raised roof/body triangle above old bounds visible, no clipping, normal collision, damage/glass, artifacts. Runtime status: WAITING_FOR_RUNTIME_TEST.\n"),
         ("P1_complete_topology", "complete.dx", 2, 27, 1, 0.04,
-         "Package only this Astero complete.dx. Inspect presentation/menu car: added hood/body triangle visible, textures/shading correct, model otherwise normal. Runtime status: WAITING FOR HUMAN.\n"),
+         "Package only this Astero complete.dx. Inspect presentation/menu car: added hood/body triangle visible, textures/shading correct, model otherwise normal. Runtime status: WAITING_FOR_RUNTIME_TEST.\n"),
         ("W1_wheel_topology", "wheel.dx", 2, 37, 0, 0.04,
-         "Package only this Astero wheel.dx. Check race loads, protruding wheel triangle visible on all four wheel instances, steering/suspension normal, wheel physics unchanged, artifacts. Runtime status: WAITING FOR HUMAN.\n"),
+         "Package only this Astero wheel.dx. Check race loads, protruding wheel triangle visible on all four wheel instances, steering/suspension normal, wheel physics unchanged, artifacts. Runtime status: WAITING_FOR_RUNTIME_TEST.\n"),
     )
     for label, role, draw, tri, axis, delta, instructions in probes:
         rebuilt, extra = triangle_candidate(sources[role], draw, tri, axis, delta)
@@ -94,16 +94,16 @@ def generate(source: Path, output: Path):
             raise ValueError("B1 failed to exceed donor Y maximum")
         validation = {"phase": "R4G", "candidate": label, "resource": f"Astero/{role}",
                       "source_sha256": sha(sources[role]), "candidate_sha256": sha(rebuilt.data),
-                      "runtime_status": "WAITING_FOR_HUMAN", **rebuilt.to_dict(), **extra}
+                      "runtime_status": "WAITING_FOR_RUNTIME_TEST", **rebuilt.to_dict(), **extra}
         results[label] = save(output / label, role, rebuilt.data, validation, instructions)
     scaled = scale_dx_collision(sources["car.dx"], (1.2, 1.0, 1.0))
     validation = {k:v for k,v in scaled.items() if k != "data"}
     validation.update(phase="R4G", candidate="C1_collision_scale", resource="Astero/car.dx",
-                      runtime_status="WAITING_FOR_HUMAN", render_byte_identical=True,
+                      runtime_status="WAITING_FOR_RUNTIME_TEST", render_byte_identical=True,
                       scale_axis="source X lateral", source_sha256=sha(sources["car.dx"]))
     results["C1_collision_scale"] = save(
         output / "C1_collision_scale", "car.dx", scaled["data"], validation,
-        "Package only this Astero car.dx. Body render is stock; tag101 collision is widened 20% on source X. Check game/car load, earlier side-wall contact than visible body, collision present, usable handling, damage, artifacts. Runtime status: WAITING FOR HUMAN.\n")
+        "Package only this Astero car.dx. Body render is stock; tag101 collision is widened 20% on source X. Check game/car load, earlier side-wall contact than visible body, collision present, usable handling, damage, artifacts. Runtime status: WAITING_FOR_RUNTIME_TEST.\n")
     return results
 
 

@@ -1,10 +1,10 @@
-# R3 human runtime test result
+# R3 runtime test result
 
 ## Final status
 
 **RUNTIME VALIDATED — PASS (2026-09-22)**
 
-The planned human validation was completed in the original Master Rallye
+The planned runtime validation was completed in the original Master Rallye
 runtime. Both candidate roles were confirmed: the `complete.dx` position edit
 was visible in the presentation/menu model, and the `car.dx` position edit was
 visible during an actual race. The game and models loaded, and no new visual

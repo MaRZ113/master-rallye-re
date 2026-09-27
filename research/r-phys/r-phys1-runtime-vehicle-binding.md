@@ -78,9 +78,9 @@ Front/rear labels are supported for the first three by positive-Z front landmark
 
 ## Runtime transfer observation and test readiness
 
-Prior human runtime work reported a Trooper body/resources loaded into the retail Navara slot, with model rendering and damage working; race wheel placement was wrong while complete-model wheel placement looked correct. Exact source asset hashes and measured race wheel coordinates were not recorded. This is compatible with slot-driven wheel placement, but does not identify the `CarN` source or distinguish a spline playback object from the ordinary race vehicle.
+An earlier operator-supplied runtime report described Trooper body/resources loaded into the retail Navara slot, with model rendering and damage working; race wheel placement was wrong while complete-model wheel placement looked correct. Exact source asset hashes and measured race wheel coordinates were not recorded. This is compatible with slot-driven wheel placement, but does not identify the `CarN` source or distinguish a spline playback object from the ordinary race vehicle.
 
-No human runtime test was prepared in this phase. Editing a named `vehicles.xml` family would be an uninterpretable experiment until we know it feeds the numeric `CarN` broker values consumed by the relevant constructor. It may also change physical handling, while the transform observed statically is only the spline playback path.
+No runtime test was prepared in this phase. Editing a named `vehicles.xml` family would be an uninterpretable experiment until we know it feeds the numeric `CarN` broker values consumed by the relevant constructor. It may also change physical handling, while the transform observed statically is only the spline playback path.
 
 ## R4G / production implications
 
@@ -103,4 +103,4 @@ This phase improves source/config provenance but does not authorize a production
 
 ### Next phase boundary
 
-Resolve the one blocker: locate the creation/population path that supplies the named configuration values to numeric `Vehicles/CarN` for the active vehicle renderer/physics constructor. Once that path is proven, select a single wheel field and design a scratch-only human validation that observes both rendered placement and physical contact separately. Do not infer physics behavior from `gaWheelSplinePlaybackAI` alone.
+Resolve the one blocker: locate the creation/population path that supplies the named configuration values to numeric `Vehicles/CarN` for the active vehicle renderer/physics constructor. Once that path is proven, select a single wheel field and design a scratch-only runtime test that observes both rendered placement and physical contact separately. Do not infer physics behavior from `gaWheelSplinePlaybackAI` alone.

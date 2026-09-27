@@ -1,4 +1,4 @@
-# R4E.1 human runtime test plan
+# R4E.1 runtime test plan
 
 Use one candidate at a time. Both files are named `car.dx` and belong to `DataGx/Vehicles/Astero/`. The ignored package is `.research-output/r4e_1/runtime-tests/`. The installed/unpacked Astero source currently contains the old E2 probe; these candidates were built from the protected original backup matching R4E provenance. Compare against that original baseline and restore your test tree after each run. No Data.sma is included.
 

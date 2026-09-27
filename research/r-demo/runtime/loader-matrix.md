@@ -1,6 +1,6 @@
 # Demo 8.4.1 Trooper loader matrix
 
-Evidence source: human in-game results supplied for the first R-DEMO pass on 2026-09-24. The observations below are **CONFIRMED_BY_RUNTIME** for the tested Trooper paths in `demo-8.4.1`. This report has no synchronized Debug log or file-access trace, so it does not establish whether an unchanged `.dx` was opened or read.
+Evidence source: operator-supplied in-game results for the first R-DEMO pass on 2026-09-24. The observations below are **CONFIRMED_BY_RUNTIME** for the tested Trooper paths in `demo-8.4.1`. This report has no synchronized Debug log or file-access trace, so it does not establish whether an unchanged `.dx` was opened or read.
 
 | Resource case | Observed result | Evidence boundary |
 |---|---|---|

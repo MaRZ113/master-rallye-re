@@ -1,6 +1,9 @@
 # R-PHYS2.2 — Trooper whole-family runtime binding experiment
 
-**State: READY FOR HUMAN RUNTIME TEST — TEST NOT YET RUN.** This report prepares a process-local debugger test. No game was launched and no runtime or disk mutation was made during this phase.
+**Historical state:** this report originally prepared a process-local debugger
+test before runtime evidence was available. That test subsequently succeeded;
+its result is recorded below. The historical description of the original
+read-only phase is retained.
 
 ## Goal and evidence boundary
 
@@ -10,7 +13,7 @@ The controlling executable is the exact retail build SHA-256 `bf8aef32407eb6552c
 
 ## Confirmed Navara runtime hit
 
-The human observed the ordinary local-race path in x32dbg:
+The operator supplied an x32dbg capture of the ordinary local-race path:
 
 | Field | Captured value |
 |---|---|
@@ -22,7 +25,10 @@ The human observed the ordinary local-race path in x32dbg:
 | Resolved family text | `Navara` |
 | Other family text visible on the same stack | `Navara/Player1` |
 
-The ordinary participant -> `Navara` -> `FUN_00493E30` edge is **CONFIRMED_BY_HUMAN_RUNTIME**. The presence of overlay text on the stack does not prove that the optional overlay reader ran; the prepared test checks the `FUN_00493FD0` call separately.
+The ordinary participant -> `Navara` -> `FUN_00493E30` edge is
+**CONFIRMED_BY_RUNTIME**. The presence of overlay text on the stack does not
+prove that the optional overlay reader ran; the test below checks the
+`FUN_00493FD0` call separately.
 
 ## Source and managed string construction
 
@@ -44,7 +50,7 @@ FUN_0044E400(participant, class ID)
 
 `FUN_0044E400` does not derive the overlay from `local_4e8`; it re-reads the same catalog entry and appends the player suffix. Therefore a temporary change to the shared catalog C-string pointer before the first read naturally produces both `Trooper` and `Trooper/Player1`. Changing only the argument at `FUN_00493E30` would produce a hybrid and is rejected.
 
-At `FUN_00493E30`, the first argument is a 16-byte engine string object. For the human-observed object address `001AF838`, the fields used by the fixed-build helpers are:
+At `FUN_00493E30`, the first argument is a 16-byte engine string object. For the runtime-observed object address `001AF838`, the fields used by the fixed-build helpers are:
 
 | Address | Offset | Meaning supported by code |
 |---|---:|---|
@@ -130,9 +136,9 @@ The raw base package also changes front/rear spring, damper, unsprung mass, whee
 
 All 17 differing `DamageParams` values will also be read from Trooper if the normal base reader consumes them. The game already has damage-capable Trooper model resources, but damage behavior is recorded as an observation and is not required for a successful first binding test.
 
-## Successful human runtime test — R-PHYS2.2
+## Successful runtime test — R-PHYS2.2
 
-The human ran the ordinary retail race in x32dbg with the imported Trooper
+The operator ran the ordinary retail race in x32dbg with the imported Trooper
 model still occupying the existing Navara carrier. The successful hit was the
 second/mirrored lookup branch at `0044EE69`, immediately before `MOV EAX,[EAX]`.
 The family pointer was temporarily redirected to a process-local
@@ -170,7 +176,7 @@ a persistent mechanism and must not copy addresses from this table.
 
 ### Car0 verification and success criteria
 
-At `0044F343`, the ordinary caller has returned from `FUN_004938C0` with participant index 0. Static evidence shows that writer formats the path through `FUN_00493600` as `Vehicles/Car0` and writes all eight matching groups. Combined with observed reader arguments `Trooper` and (when enabled) `Trooper/Player1`, this confirms the native broker path to Car0. The internal dynamic config store's numeric field addresses are not mapped in this phase, so do not claim a debugger readout of Car0 values unless the human captures one with additional evidence.
+At `0044F343`, the ordinary caller has returned from `FUN_004938C0` with participant index 0. Static evidence shows that writer formats the path through `FUN_00493600` as `Vehicles/Car0` and writes all eight matching groups. Combined with observed reader arguments `Trooper` and (when enabled) `Trooper/Player1`, this confirms the native broker path to Car0. The internal dynamic config store's numeric field addresses are not mapped in this phase, so do not claim a debugger readout of Car0 values unless a runtime capture records it.
 
 Minimum success: the expected base and overlay strings are observed, the optional `FUN_00493FD0` call executes, the Car0 writer returns for participant 0, the game reaches the race, and wheel placement visibly moves toward the Trooper body. Record engine, suspension, steering, and damage behavior separately. A non-crash alone is not success.
 
@@ -179,7 +185,7 @@ If the broker continues but the model does not visually align, first distinguish
 ## Runtime test record
 
 ```text
-HUMAN_RUNTIME_CONFIRMED — successful x32dbg pointer substitution
+CONFIRMED_BY_RUNTIME — successful x32dbg pointer substitution
 
 Base family observed: Trooper
 Overlay family observed: Trooper/Player1
@@ -202,7 +208,7 @@ Notes: temporary catalog pointer restored; on-disk EXE/assets unchanged
 - Focused R-PHYS2.2 tests: 8 passed, 0 skipped.
 - Full synthetic suite: 295 passed, 0 skipped.
 - `git diff --check`: passed.
-- Automated tests validate the recorded evidence and redirect-plan fields; runtime facts above were supplied by the human operator. The agent did not launch the game.
+- Automated tests validate the recorded evidence and redirect-plan fields; runtime facts above were supplied by the project operator. The agent did not launch the game.
 
 ## Next action
 

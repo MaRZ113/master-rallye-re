@@ -8,7 +8,7 @@ The original proposed filter was the scratch `MRallye.exe` PID, `CreateFile`, `R
 
 | Case | Evidence now available | Bounded conclusion |
 |---|---|---|
-| 8.4.1 Trooper car/complete/wheel GXM+DX, GXM-only, DX-only visual matrix | Human visual results in `loader-matrix.md`; no corresponding per-resource ProcMon matrix in R-DEMO2.1 | Visual roles are recorded; exact DX file access/use remains untested |
+| 8.4.1 Trooper car/complete/wheel GXM+DX, GXM-only, DX-only visual matrix | Operator-reported runtime observations in `loader-matrix.md`; no corresponding per-resource ProcMon matrix in R-DEMO2.1 | Visual roles are recorded; exact DX file access/use remains untested |
 | Trooper Black-tga GXI/DXT byte identity | Three-way 8.4.1 byte comparison in `research/r-demo2/dxt-regeneration.md` | Runtime output bytes equal shipped/offline bytes for this asset |
 | GXI→DXT cache miss event order | Separate 9.3.1 ProcMon capture in `research/r-demo2/runtime/procmon-findings.md` | Source/cache events confirmed for the named tested path |
 | 9.3.1 model cache branches | Five ProcMon exports and controlled timestamp cases | See `model-cache-state-machine.md`; both-missing/equal-time remain unknown |

@@ -208,7 +208,7 @@ The separate 8.4.1 +0.4 X replay remains a negative control only:
 | Override `PlaneThickness = 0.00052` | 37 | 37 |
 
 The replay is Python binary64 analysis on the pinned 8.4.1 source/EXE inputs.
-The human runtime result for the same +0.4 candidate is separately recorded:
+The runtime result for the same +0.4 candidate is separately recorded:
 stock tolerance crashed in hull construction; at `0.00052` construction
 completed, loading continued, and collision visibly changed. This closes the
 immediate old crash question for that exact 8.4.1 experiment; it does not

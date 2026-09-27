@@ -37,7 +37,10 @@ from master_rallye.vehicle_physics_binding import (
 )
 from tests.synthetic.test_library import simple_record, synthetic_dx
 from tests.synthetic.test_r_phys3_family_binding import TEST_CATALOG, make_synthetic_pe32
+from tools.physics_bind import build_parser as physics_bind_build_parser
 from tools.physics_bind import main as physics_bind_main
+from tools.vehicle_composer import build_parser as vehicle_composer_build_parser
+from tools.vehicle_composer import main as vehicle_composer_main
 
 
 def _synthetic_dx(texture: str = "body-tga") -> bytes:
@@ -705,6 +708,24 @@ class RVeh1BatchCliTests(unittest.TestCase):
         self.assertEqual(status, 0)
         restore.assert_called_once_with(manifest, install_root=None)
         self.assertIn('"status": "RESTORED_COMPOSITION"', output.getvalue())
+
+    def test_public_entrypoint_dispatches_to_existing_interactive_backend(self):
+        with mock.patch("tools.physics_bind.run_interactive_wizard", return_value=0) as wizard:
+            self.assertEqual(vehicle_composer_main([]), 0)
+        wizard.assert_called_once_with(None, dry_run=False)
+        self.assertEqual(
+            vehicle_composer_build_parser().prog,
+            "python tools/vehicle_composer.py",
+        )
+
+    def test_legacy_entrypoint_keeps_its_name_and_shared_wizard(self):
+        with mock.patch("tools.physics_bind.run_interactive_wizard", return_value=0) as wizard:
+            self.assertEqual(physics_bind_main([]), 0)
+        wizard.assert_called_once_with(None, dry_run=False)
+        self.assertEqual(
+            physics_bind_build_parser().prog,
+            "python tools/physics_bind.py",
+        )
 
 
 if __name__ == "__main__":

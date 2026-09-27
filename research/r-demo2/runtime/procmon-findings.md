@@ -1,6 +1,6 @@
 # ProcMon trace findings — demo 9.3.1
 
-All five user-supplied CSV files were parsed using the actual ProcMon schema: `Time of Day`, `Process Name`, `PID`, `Operation`, `Path`, `Result`, `Detail`, `Event Class`, and `Sequence`. Raw exports remain ignored. Semantic classification uses file events and initial probe results, never the human filename.
+All five operator-supplied CSV files were parsed using the actual ProcMon schema: `Time of Day`, `Process Name`, `PID`, `Operation`, `Path`, `Result`, `Detail`, `Event Class`, and `Sequence`. Raw exports remain ignored. Semantic classification uses file events and initial probe results, never the export filename.
 
 | Actual trace | ProcMon-derived result |
 |---|---|

@@ -1,7 +1,7 @@
 # R-PHYS3 — Persistent Vehicle Family Binding
 
 **Status:** persistent Navara-to-Trooper family binding is
-**HUMAN_RUNTIME_CONFIRMED**. The user reported that the same patched executable
+**CONFIRMED_BY_RUNTIME**. The project operator reported that the same patched executable
 loaded the rebuilt Trooper model after the package was made available at
 `DataGx\Vehicles\Trooper`. The runtime binding resolves both model resources
 and the vehicle config/physics family. Generic carrier tests and restore
@@ -10,7 +10,7 @@ runtime observations remain separate gates.
 ## Purpose and confirmed starting point
 
 R-PHYS2.2 confirmed that a Navara carrier can consume the complete surviving
-retail Trooper physics family through the normal race setup. The human observed
+retail Trooper physics family through the normal race setup. The runtime capture showed
 `Trooper` at `FUN_00493E30`, `Trooper/Player1` at `FUN_00493FD0`, the normal
 `FUN_004938C0` writer, a started race, correctly placed wheels, and handling
 distinct from Navara. That test used a temporary x32dbg pointer redirect; it
@@ -93,8 +93,8 @@ The patcher is deliberately narrow:
   requires restore first. Restore verifies both the backup and the current
   output hash before replacing the output copy.
 - This PE layout has been verified offline, including section placement and
-  checksum. Loading and running the patched image has **not** yet been
-  verified in retail. That is the next human test.
+  checksum. At the time of this static patch-layout audit, loading the patched
+  image had not yet been verified. The later runtime result is recorded below.
 
 A new `.rphys3` section is used for Trooper because an in-place `Navara` to
 `Trooper` overwrite would exceed the old string's storage. A debugger-only
@@ -178,7 +178,7 @@ counted in the changed range.
 
 ## Apply and restore
 
-After validation, a human can create a bound copy:
+After validation, the operator can create a bound copy:
 
 ```powershell
 python tools/physics_bind.py apply `
@@ -206,18 +206,17 @@ manifest `restored`; it does not delete the backup or manifest. The installed
 the restored output copy with the original model resources restored and verify
 native Navara wheel placement and handling.
 
-## Human runtime matrix
+## R-PHYS3 runtime matrix snapshot
 
-For each historical row, apply one binding at a time, run the game without
-x32dbg, observe the listed behavior, exit, run `restore`, and verify native
-behavior using the restored model package. The schema-v1 examples retain the
-original coupled model/config identity. For new independent experiments use
-the R-VEH1 composer and its explicit carrier, physics-family, and model-donor
+The table records the R-PHYS3 phase snapshot. Its pending Jump controls were
+not part of the three R-VEH1 runtime tests. The schema-v1 examples retain the
+original coupled model/config identity. For independent compositions use the
+R-VEH1 composer and its explicit carrier, physics-family, and model-donor
 choices.
 
 | Carrier type | Model/resource package | Physics family | Evidence / status | Race starts? | Wheels | Distinct handling | Engine / suspension / damage | Rollback |
 |---|---|---|---|---|---|---|---|---|
-| Navara | rebuilt Trooper package at `DataGx\Vehicles\Trooper` | Trooper | **HUMAN_RUNTIME_CONFIRMED**: the same patched executable loaded the model after the package was present | not reported for persistent test | P2.2 debugger evidence only | P2.2 debugger evidence only | P2.2 debugger evidence only | not reported |
+| Navara | rebuilt Trooper package at `DataGx\Vehicles\Trooper` | Trooper | **CONFIRMED_BY_RUNTIME**: the same patched executable loaded the model after the package was present | not reported for persistent test | P2.2 debugger evidence only | P2.2 debugger evidence only | P2.2 debugger evidence only | not reported |
 | Jump | demo 9.3.1 `NewRav` package | Newrav | case-only folder/config spelling; schema complete; pending runtime | pending | pending | pending | pending | pending |
 | Jump | retail `Forester` package | Forester | exact retail folder/config match; control; pending runtime | pending | pending | pending | pending | pending |
 
@@ -254,8 +253,8 @@ patcher when `C != P`.
 Schema v1 still means `M = P`. Schema v2 explicitly names `model_donor`. The
 per-file overlay and conservative restore are described in the
 [R-VEH1 architecture report](r-veh1-independent-model-composition.md). Its
-independent donor behavior remains **NOT_RUNTIME_CONFIRMED** pending the three
-human tests in the [R-VEH1 test plan](r-veh1-runtime-test-plan.md).
+three demonstrated composition classes are now **CONFIRMED_BY_RUNTIME** in the
+[R-VEH1 runtime closeout](r-veh1-runtime-test-plan.md).
 
 ## Status and gate
 
@@ -265,7 +264,6 @@ from static executable arguments; the same persistent binding loaded the
 rebuilt Trooper model and resolves its config/physics family; copy-only PE
 patching, backup, manifest, and restore are covered by synthetic tests.
 
-**Still pending:** human observation of the restore workflow's runtime result,
-Newrav and Forester controls, and additional generic bindings. The current
-R-PHYS3.1 wizard dry-run is not an apply or runtime test. No cooker research is
-started by this documentation update.
+**Still pending:** runtime verification of the restore workflow, Newrav and
+Forester controls, and additional generic bindings. The R-PHYS3.1 wizard
+dry-run is not an apply or runtime test. No cooker research is included.

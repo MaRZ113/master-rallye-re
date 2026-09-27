@@ -133,7 +133,7 @@ Reusable logic is in `src/master_rallye/bridge_analysis.py`:
 
 The retail Jump controls pass local structural validation but remain `runtime_acceptance: NOT_TESTED` in this phase. Demo Jump/car fails both the revision gate and retail draw grammar. An in-memory revision-only probe changes only byte offset 4 (`0x83` to `0x87`) and still fails the retail parser at the first draw record. No output candidate or provenance ledger was created because a justification for changing only the header, or for rewriting the demo draw region, is absent.
 
-Decision: **D — evidence is insufficient to claim the full 9.3.1 DX is retail-accepted or that a minimal bridge exists.** The exact first known gate and the next structural blocker are identified. No human runtime test is ready, so no game procedure is requested.
+Decision: **D — evidence is insufficient to claim the full 9.3.1 DX is retail-accepted or that a minimal bridge exists.** The exact first known gate and the next structural blocker are identified. No runtime test had been prepared at this phase, so no game procedure was requested.
 
 ## Tests and files
 
@@ -157,4 +157,4 @@ Tracked R-BRIDGE1 files:
 - `tools/scanner/r_bridge1.py`
 - `tests/synthetic/test_r_bridge1.py`
 
-The next phase should focus only on decoding DEMO 9.3.1 Jump/car draw/material records and mapping them into the retail draw-tree writer. After that has a candidate that passes the local retail validator with a complete provenance ledger, return to the human for the smallest test: replace RETAIL Jump/car DX only and verify that retail accepts the demo-derived model file. Trooper→Navara comes after that policy is demonstrated.
+The next phase should focus only on decoding DEMO 9.3.1 Jump/car draw/material records and mapping them into the retail draw-tree writer. After that has a candidate that passes the local retail validator with a complete provenance ledger, request the smallest runtime test: replace RETAIL Jump/car DX only and verify that retail accepts the demo-derived model file. Trooper→Navara comes after that policy is demonstrated.

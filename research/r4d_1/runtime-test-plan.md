@@ -9,4 +9,4 @@ Generate ignored candidates with `py -3 tools/scanner/material_runtime_probes.py
 | M3 envmap | chrome-tga.dxt, car draws 11/17/18 | asymmetric pattern | View-rotating UV, camera normal, or another transform? |
 | M4 brake/glow | breaklightsonglow-tga.dxt, car draw 30 | alpha 255/128/0, original RGB | Same alpha behavior as glass, dynamic pass, or other effect? |
 
-Use a disposable game copy, one candidate at a time. Keep the same lighting/camera/settings, and record Reflections on/off for M1/M3. Record game build, screenshots, observations, and restore result. **Prepared, not tested in runtime**; human in-game observation is the evidence gate.
+Use a disposable game copy, one candidate at a time. Keep the same lighting/camera/settings, and record Reflections on/off for M1/M3. Record game build, screenshots, observations, and restore result. **Prepared, not tested in runtime**; a runtime observation is the evidence gate.

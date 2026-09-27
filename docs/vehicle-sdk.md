@@ -1,6 +1,6 @@
 # MASTER RALLYE VEHICLE SDK v1 — RUNTIME-CONFIRMED BASELINE
 
-R4F F1 and R4G B1, C1, P1 and W1 passed original-game testing. The full existing-donor vehicle authoring baseline is frozen at v1. See the separate human evidence in ../research/r4f/runtime-results.md and ../research/r4g/runtime-results.md.
+R4F F1 and R4G B1, C1, P1 and W1 passed original-game testing. The full existing-donor vehicle authoring baseline is frozen at v1. See the separate runtime records in ../research/r4f/runtime-results.md and ../research/r4g/runtime-results.md.
 
 ## Runtime-confirmed capabilities
 

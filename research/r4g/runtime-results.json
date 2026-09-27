@@ -1,6 +1,6 @@
 {
   "phase": "R4G",
-  "evidence_type": "human_observation_original_game",
+  "evidence_type": "runtime_observation_original_game",
   "status": "PASS",
   "vehicle_sdk_v1": "RUNTIME_CONFIRMED_BASELINE",
   "prior_r4f": {

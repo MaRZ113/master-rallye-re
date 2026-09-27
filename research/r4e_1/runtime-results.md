@@ -1,8 +1,8 @@
-# R4E.1 human runtime results
+# R4E.1 runtime results
 
 Source: project owner report supplied with the R4F request. The ignored candidate files were generated from protected original Astero `car.dx`; the candidate hashes are recorded in `runtime-results.json`. No screenshot or game asset is committed.
 
-| Probe | Result | Human observation |
+| Probe | Result | Runtime observation |
 |---|---|---|
 | N1, draw 11 chrome/chromebar, all 192 normals +90° about source +Y | **PASS — CONFIRMED_BY_RUNTIME** | Reflection/shading visibly changed on the selected chrome/chromebar; geometry remained in place and unchanged in shape. This is consistent with the recovered D3D8 camera-space-normal environment mapping path. |
 | M1, body draw 7, feature mask `0x07 → 0x03` | **PASS — CONFIRMED_BY_RUNTIME** | Targeted environment/reflection contribution disappeared. Primary body/livery texture stayed visible; chrome, rims and chromebar remained reflective. |

@@ -1,6 +1,6 @@
 # R4F automated findings
 
-R4E.1 was closed first in commit `99ba5a3`; N1 normal writing and M1 environment feature writing are confirmed by human runtime observation. The **SAME-TOPOLOGY VEHICLE SDK V1 BASELINE** is frozen.
+R4E.1 was closed first in commit `99ba5a3`; N1 normal writing and M1 environment feature writing are confirmed by runtime observation. The **SAME-TOPOLOGY VEHICLE SDK V1 BASELINE** is frozen.
 
 The 78-file vehicle corpus contains 1,478 physical draws. Vertex and index ranges are contiguous, monotonic and disjoint in all 78; all 1,478 draws reference every declared vertex. The existing local/global triangle relationship is exact. All files have a marker-1339 44-byte bounds footer after collision; footer min/max equals the render/collision union and its center is the midpoint. One scalar remains unknown and is preserved. No parsed header, draw, global, collision or footer field is an absolute file offset into the render core. The writer rejects unrecognized suffixes and keeps edits within original bounds.
 

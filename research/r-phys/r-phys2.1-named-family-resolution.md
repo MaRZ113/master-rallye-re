@@ -1,12 +1,12 @@
 # R-PHYS2.1 — Named vehicle-family source resolution
 
-**Scope:** retail `MRallye.exe`, one ordinary local race setup path. This is a focused follow-up to R-PHYS2. It does not trace downstream physics constructors. The family value at the broker entry now has one human-confirmed runtime observation; no runtime mutation has been performed.
+**Scope:** retail `MRallye.exe`, one ordinary local race setup path. This is a focused follow-up to R-PHYS2. It does not trace downstream physics constructors. The family value at the broker entry has one operator-supplied runtime observation; no runtime mutation was performed in this phase.
 
 ## Result
 
 The retail code statically resolves a participant's integer `_CarClass` through a 25-entry named-family table, then uses the resulting family name to read `Vehicles/<family>` into the temporary vehicle-parameter record. The same participant index is later passed to the writer for `Vehicles/CarN`.
 
-A human runtime observation confirms that an ordinary Navara race setup reaches `FUN_00493E30` with the base family string `Navara`. The caller return address is the expected site in `FUN_0044ED50`, and the observed EBP value is zero. This closes the prior read-only observation gate. The base/overlay/config/CarN code chain remains statically established; no whole-family mutation result is claimed.
+The supplied runtime observation confirms that an ordinary Navara race setup reaches `FUN_00493E30` with the base family string `Navara`. The caller return address is the expected site in `FUN_0044ED50`, and the observed EBP value is zero. This closes the prior read-only observation gate. The base/overlay/config/CarN code chain remains statically established; no whole-family mutation result is claimed by this phase.
 
 Retail executable used for the static audit:
 
@@ -14,9 +14,9 @@ Retail executable used for the static audit:
 - SHA-256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
 - Ghidra project: existing disposable retail project; analysis was read-only
 
-## Human runtime observation
+## Runtime observation
 
-The human tested the same retail executable hash above in x32dbg:
+The operator tested the same retail executable hash above in x32dbg:
 
 | Observation | Value |
 |---|---|
@@ -28,7 +28,7 @@ The human tested the same retail executable hash above in x32dbg:
 | Resolved family string | `Navara` |
 | Other family text visible on the same stack | `Navara/Player1` |
 
-The hit therefore confirms the ordinary Navara participant -> `Navara` -> `FUN_00493E30` edge as **CONFIRMED_BY_HUMAN_RUNTIME**. The prior static mapping identifies Navara as type ID 7, but this capture did not record ESI at the catalog lookup, so the runtime type ID itself remains a separate static fact. The visible overlay text is not by itself proof that `FUN_00493FD0` executed; the R-PHYS2.2 plan checks that call independently.
+The hit therefore confirms the ordinary Navara participant -> `Navara` -> `FUN_00493E30` edge as **CONFIRMED_BY_RUNTIME**. The prior static mapping identifies Navara as type ID 7, but this capture did not record ESI at the catalog lookup, so the runtime type ID itself remains a separate static fact. The visible overlay text is not by itself proof that `FUN_00493FD0` executed; the R-PHYS2.2 test checks that call independently.
 
 The capture did not include the numeric data-pointer, length, or capacity values inside the string object. Their offsets and allocation/lifetime behavior are reconstructed from the fixed-build helper code in [R-PHYS2.2](r-phys2.2-trooper-whole-family-binding.md); the actual pointer value must be read live if needed.
 
@@ -62,7 +62,7 @@ Evidence labels for the arrows:
 | participant index `N -> FUN_0044ED50(param_1)` | `CONFIRMED_BY_STATIC` | `FUN_0044A320` passes its loop index unchanged. |
 | `RaceData/Competitor[N]/_CarClass -> numeric class ID` | `CONFIRMED_BY_STATIC` | The call sequence prepares the competitor-property accessor with `FUN_004B0AF0`; `FUN_004B0630` calls `FUN_004B0490(N)` to select the indexed `RaceData/Competitor` record and reads its `_CarClass` property. |
 | class ID -> family string | `CONFIRMED_BY_STATIC` | `FUN_0045A3C0` catalog entry at `+0x24 + ID*0x34`; `FUN_00458E70` initializes IDs 0–24. |
-| ordinary selected Navara -> `Navara` at the broker reader | `CONFIRMED_BY_HUMAN_RUNTIME` | Human x32dbg hit at `00493E30`; `[ESP]=0044F0D2`, EBP=0, argument resolves to `Navara`. The runtime type ID was not captured in this hit. |
+| ordinary selected Navara -> `Navara` at the broker reader | `CONFIRMED_BY_RUNTIME` | Operator-supplied x32dbg hit at `00493E30`; `[ESP]=0044F0D2`, EBP=0, argument resolves to `Navara`. The runtime type ID was not captured in this hit. |
 | `local_4e8 -> FUN_00493E30` | `CONFIRMED_BY_STATIC` | Assigned from the selected catalog name, copied to a working string, and used at `0044F0CD`. |
 | `FUN_00493E30 -> Vehicles/<family>` | `CONFIRMED_BY_STATIC` | It calls `FUN_00493770` with the source-family string. |
 | `FUN_00493E30 -> VehicleParams temporary` | `CONFIRMED_BY_STATIC` | Eight group readers receive the same temporary parameter object. The return status is ignored by this caller. |
@@ -186,7 +186,7 @@ Changing only the argument at `FUN_00493E30` would leave the independently built
 
 ## Original read-only x32dbg procedure
 
-This was the observation completed by the human. Keep it as the clean control reference; do not repeat it as a mutation test.
+This was the operator-supplied observation. Keep it as the clean control reference; do not repeat it as a mutation test.
 
 Use the exact retail EXE hash above and a normal Navara local race participant. This only reads registers and memory.
 
@@ -216,6 +216,6 @@ The focused static audit source is `tools/ghidra/RPhys21NamedFamilyAudit.java`; 
 - No runtime mutation was made during R-PHYS2.1; the later R-PHYS2.2 report prepares one reversible process-local test.
 - No vehicle slot was created.
 - No proprietary asset was modified or added to Git.
-- The normal Navara family value at the ordinary broker entry is confirmed by human runtime evidence.
+- The normal Navara family value at the ordinary broker entry is confirmed by runtime evidence.
 - A reversible debugger-only pointer substitution is prepared in [R-PHYS2.2](r-phys2.2-trooper-whole-family-binding.md); it has not been run.
 - No executable or game asset was modified, and no vehicle slot or type ID was added.

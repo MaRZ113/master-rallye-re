@@ -1,6 +1,6 @@
 # Format status (Phase R4D.1 vehicle-material hardening)
 
-R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
+R4F runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
@@ -114,7 +114,7 @@ opaque collision prefix; it did not perform broad executable analysis.
 - The tested `car.dx` edit retained collision, damage/deformation, and glass
   breakage. This validates writer output, not a claim that collision data is
   stored in `car.dx`.
-- At this R3 milestone, topology-changing, UV, normal and material writing were **NOT YET RUNTIME CONFIRMED**. Later R4E.1, R4F and R4G human tests supersede this historical status; see the later sections below.
+- At this R3 milestone, topology-changing, UV, normal and material writing were **NOT YET RUNTIME CONFIRMED**. Later R4E.1, R4F and R4G runtime tests supersede this historical status; see the later sections below.
 - The conservative DXT encoder remains ready for a later stage, but Blender DXT
   export was not added.
 
@@ -183,25 +183,25 @@ opaque collision prefix; it did not perform broad executable analysis.
 
 ## R4D.1 material update
 
-The tag-2 loader maps serialized flag bytes to runtime +0x22/+0x23/+0x20/+0x21 and unknown_0x24 to runtime feature mask +0x34. The base shader uses source-alpha blending (Z writes off) or alpha test >128 (Z writes on). The observed vehicle corpus has no alpha-test byte set. Stage 1 of the environment shader uses camera-space normals and a COUNT2 transform. Four same-size DXT tests now have human in-game results: body and chrome helpers disappear with Reflections OFF; glass and active brake-glow alpha vary continuously. See research/r4d_1/runtime-results.md. See research/r4d_1/findings.md.
+The tag-2 loader maps serialized flag bytes to runtime +0x22/+0x23/+0x20/+0x21 and unknown_0x24 to runtime feature mask +0x34. The base shader uses source-alpha blending (Z writes off) or alpha test >128 (Z writes on). The observed vehicle corpus has no alpha-test byte set. Stage 1 of the environment shader uses camera-space normals and a COUNT2 transform. Four same-size DXT runtime tests show that body and chrome helpers disappear with Reflections OFF, while glass and active brake-glow alpha vary continuously. See research/r4d_1/runtime-results.md and research/r4d_1/findings.md.
 
 ## R4E authoring status
 
 The same-topology DX attribute patcher passes 78/78 real vehicle zero edits
-with positions, normals, UVs, and raw colors supplied, including the Blender 5.2.2 full-corpus export. The DXT PNG-to-DXT zero-edit path is byte-identical for 6,960/6,960 files. E1-E4 controlled edits pass reparse, field diff, topology and collision preservation. Human testing confirms E1 UV, E3 vertex color, and E4 alpha flag. E2 limited normal edit remains inconclusive. Same-size DXT authoring preserves the observed
+with positions, normals, UVs, and raw colors supplied, including the Blender 5.2.2 full-corpus export. The DXT PNG-to-DXT zero-edit path is byte-identical for 6,960/6,960 files. E1-E4 controlled edits pass reparse, field diff, topology and collision preservation. Runtime tests confirm E1 UV, E3 vertex color, and E4 alpha flag. E2 limited normal edit remains inconclusive. Same-size DXT authoring preserves the observed
 20-byte header and BGRA dimensions. The exact vehicle dependency resolver
 and staging helper are automated. A full Python-generated SMA candidate
-passes ZIP CRC/member-hash checks; E5 human testing confirms the game accepts the full-tree Python archive and loads its E1 override.
+passes ZIP CRC/member-hash checks; E5 runtime testing confirms the game accepts the full-tree Python archive and loads its E1 override.
 See docs/vehicle-authoring.md, docs/texture-authoring.md and
 docs/vehicle-packaging.md.
 
 ## R4E.1 same-topology SDK v1 closeout
 
-N1 human testing confirmed that rotating all 192 Astero draw-11 normals changed the target chrome/chromebar reflection/shading without moving geometry. M1 human testing confirmed that clearing environment mask bit 0x04 on Astero body draw 7 removed its reflection contribution while preserving slot-0 livery and unrelated reflective materials. Both writer paths are **CONFIRMED_BY_RUNTIME**. The **SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is FROZEN**: position, normal, UV, color, DXT-content, alpha and environment state edits, tag-101 translation, dependency resolution, bundling and full-tree Python SMA packaging. Unknown fields remain raw. Topology-changing DX output is not part of this baseline. See research/r4e_1/runtime-results.md.
+N1 runtime testing confirmed that rotating all 192 Astero draw-11 normals changed the target chrome/chromebar reflection/shading without moving geometry. M1 runtime testing confirmed that clearing environment mask bit 0x04 on Astero body draw 7 removed its reflection contribution while preserving slot-0 livery and unrelated reflective materials. Both writer paths are **CONFIRMED_BY_RUNTIME**. The **SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is FROZEN**: position, normal, UV, color, DXT-content, alpha and environment state edits, tag-101 translation, dependency resolution, bundling and full-tree Python SMA packaging. Unknown fields remain raw. Topology-changing DX output is not part of this baseline. See research/r4e_1/runtime-results.md.
 
 ## R4F experimental topology rebuild
 
-The same-topology SDK v1 remains frozen and runtime-confirmed. R4F maps the topology-dependent vehicle DX render fields and adds a separate experimental rebuild path. Across the protected 78-resource corpus, vertex/index draw ranges are contiguous and disjoint, and a zero-edit rebuild is byte-identical in 78/78 files. The writer retains draw/material identity, collision and bounds footer bytes; Blender compiles existing-draw triangle corners with deterministic UV/normal/color splitting. One Astero +3-vertex/+1-triangle F1 candidate has zero unexplained external differences and matched the Blender export SHA-256. **The F1 topology edit is CONFIRMED_BY_RUNTIME.** Course DX and new materials/draws remain unsupported. R4G subsequently confirmed the bounded out-of-donor-bounds path and limited collision scale in the B1/C1 human tests. See research/r4f/ and docs/dx-render-rebuilder.md.
+The same-topology SDK v1 remains frozen and runtime-confirmed. R4F maps the topology-dependent vehicle DX render fields and adds a separate experimental rebuild path. Across the protected 78-resource corpus, vertex/index draw ranges are contiguous and disjoint, and a zero-edit rebuild is byte-identical in 78/78 files. The writer retains draw/material identity, collision and bounds footer bytes; Blender compiles existing-draw triangle corners with deterministic UV/normal/color splitting. One Astero +3-vertex/+1-triangle F1 candidate has zero unexplained external differences and matched the Blender export SHA-256. **The F1 topology edit is CONFIRMED_BY_RUNTIME.** Course DX and new materials/draws remain unsupported. R4G subsequently confirmed the bounded out-of-donor-bounds path and limited collision scale in the B1/C1 runtime tests. See research/r4f/ and docs/dx-render-rebuilder.md.
 
 ## R4G marker-1339 and vehicle SDK status
 
@@ -209,11 +209,11 @@ The final 44-byte marker-1339 block is typed as center, radius/scalar, min and m
 
 ## R-DEMO source formats (research branch)
 
-The demo corpora expose GXI, GXB, GXP, and GXM. Strict GX image structure is corpus-confirmed; 1,450/1,483 same-build GXI/DXT candidates reproduce complete DXT bytes, and 31/38 November GXP images reproduce 146 indexed DXT tiles. GXM material/geometry prefixes are parsed for 80/109 files, while 29 variants remain opaque after their headers. November Jump `$chull` geometry has a float-precision numeric correspondence with retail Jump tag101. First-pass human Trooper 8.4.1 tests confirm live GXM Vector C body geometry and car/complete/wheel visual roles. R-DEMO2.1 confirmed exact runtime DXT regeneration, 9.3.1 model-cache generation/fallback and controlled cache freshness cases, repeated same-source DX rebuild identity, and a safe visible source edit. The isolated `$chull` candidate crashes inside 8.4.1 hull construction. Per-resource ProcMon file-access correlation for the 8.4.1 visual loader matrix remains untested; see `docs/demo-development-pipeline.md` and `research/r-demo2/findings.md`. These findings do not change the retail writer.
+The demo corpora expose GXI, GXB, GXP, and GXM. Strict GX image structure is corpus-confirmed; 1,450/1,483 same-build GXI/DXT candidates reproduce complete DXT bytes, and 31/38 November GXP images reproduce 146 indexed DXT tiles. GXM material/geometry prefixes are parsed for 80/109 files, while 29 variants remain opaque after their headers. November Jump `$chull` geometry has a float-precision numeric correspondence with retail Jump tag101. First-pass Trooper 8.4.1 runtime tests confirm live GXM Vector C body geometry and car/complete/wheel visual roles. R-DEMO2.1 confirmed exact runtime DXT regeneration, 9.3.1 model-cache generation/fallback and controlled cache freshness cases, repeated same-source DX rebuild identity, and a safe visible source edit. The isolated `$chull` candidate crashes inside 8.4.1 hull construction. Per-resource ProcMon file-access correlation for the 8.4.1 visual loader matrix remains untested; see `docs/demo-development-pipeline.md` and `research/r-demo2/findings.md`. These findings do not change the retail writer.
 
 ## R-DEMO2 original cooker/cache research (isolated branch)
 
-The tested 8.4.1 Trooper Black GXI regenerates a DXT byte-identical to the shipped original and offline converter (**CONFIRMED_BY_RUNTIME + CONFIRMED_BY_BYTES**). In 9.3.1, GXM can generate persistent DX and existing DX can load without GXM for observed complete/wheel paths (**CONFIRMED_BY_RUNTIME**, human). Original and one regenerated car DX retain major topology and draw/material bytes but differ in float fields and unresolved secondary tag101 descriptor ordering; full semantic equivalence is not yet claimed. Two repeated 9.3.1 car DX rebuilds are byte-identical. A controlled one-coordinate source edit generated a DX with one changed render position and recomputed marker-1339; the user confirmed visible DX-only loading. The isolated `$chull` edit **CRASHED_IN_RUNTIME** in both demos. See `research/r-demo2/findings.md`.
+The tested 8.4.1 Trooper Black GXI regenerates a DXT byte-identical to the shipped original and offline converter (**CONFIRMED_BY_RUNTIME + CONFIRMED_BY_BYTES**). In 9.3.1, GXM can generate persistent DX and existing DX can load without GXM for observed complete/wheel paths (**CONFIRMED_BY_RUNTIME**). Original and one regenerated car DX retain major topology and draw/material bytes but differ in float fields and unresolved secondary tag101 descriptor ordering; full semantic equivalence is not yet claimed. Two repeated 9.3.1 car DX rebuilds are byte-identical. A controlled one-coordinate source edit generated a DX with one changed render position and recomputed marker-1339; the project operator reported visible DX-only loading. The isolated `$chull` edit **CRASHED_IN_RUNTIME** in both demos. See `research/r-demo2/findings.md`.
 
 ## Development demo pipeline note (R-DEMO2.1)
 

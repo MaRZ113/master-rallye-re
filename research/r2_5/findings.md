@@ -92,7 +92,7 @@ Master Rallye importer warnings.
    same-topology positions-only output.
 2. R3.2: expose same-size template-preserving DXT replacement.
 3. R3.3: Blender positions-only export with strict provenance/count gates.
-4. R3.4: change one vertex, emit one modified DX, then require human
+4. R3.4: change one vertex, emit one modified DX, then require a runtime
    Master Rallye runtime validation.
 5. R3.5: only after runtime proof, add gated UV/normal/material edits.
 6. R3.6: defer topology-changing output until draw/tag/trailing construction

@@ -17,6 +17,7 @@ from master_rallye.bridge2_analysis import (
     wheel_dimension_properties,
 )
 from master_rallye.errors import FormatError
+from tools.scanner.r_bridge2 import TRANSFER_CLAIMS
 
 
 def _node(name: str, start: int, count: int, *, node_type: int = 1) -> bytes:
@@ -145,7 +146,7 @@ class Bridge2EvidenceRecordTests(unittest.TestCase):
     def test_transfer_record_does_not_invent_missing_file_provenance(self):
         record = {
             "vehicle": "Trooper",
-            "evidence": "HUMAN_RUNTIME_CONFIRMED",
+            "evidence": "CONFIRMED_BY_RUNTIME",
             "source_build": "UNKNOWN_FROM_USER_REPORT",
             "source_hashes": None,
             "cooker_build": "9.10.0",
@@ -161,13 +162,13 @@ class Bridge2EvidenceRecordTests(unittest.TestCase):
         self.assertTrue(status["target_slot_identified"])
 
     def test_transfer_record_rejects_malformed_hashes(self):
-        record = {"evidence": "HUMAN_RUNTIME_CONFIRMED", "source_hashes": ["0" * 63]}
+        record = {"evidence": "CONFIRMED_BY_RUNTIME", "source_hashes": ["0" * 63]}
         with self.assertRaisesRegex(ValueError, "malformed SHA-256"):
             validate_transfer_provenance(record)
 
     def test_transfer_record_keeps_unreported_target_slot_unknown(self):
         record = {
-            "evidence": "HUMAN_RUNTIME_CONFIRMED",
+            "evidence": "CONFIRMED_BY_RUNTIME",
             "source_build": "UNKNOWN_FROM_USER_REPORT",
             "target_slot": "UNKNOWN_FROM_USER_REPORT",
             "source_hashes": None,
@@ -175,6 +176,11 @@ class Bridge2EvidenceRecordTests(unittest.TestCase):
         }
         status = validate_transfer_provenance(record)
         self.assertFalse(status["target_slot_identified"])
+
+    def test_transfer_reader_accepts_legacy_status_without_emitting_it(self):
+        record = {"evidence": "HUMAN_RUNTIME_CONFIRMED"}
+        self.assertTrue(validate_transfer_provenance(record)["valid"])
+        self.assertEqual(TRANSFER_CLAIMS[0]["evidence"], "CONFIRMED_BY_RUNTIME")
 
 
 CORPORA = Path(r"D:\Game\Master Rallye\corpora")
