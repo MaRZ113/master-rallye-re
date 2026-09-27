@@ -1,18 +1,36 @@
 # R-PHYS2.1 — Named vehicle-family source resolution
 
-**Scope:** retail `MRallye.exe`, one ordinary local race setup path. This is a focused follow-up to R-PHYS2. It does not trace downstream physics constructors and does not claim a runtime observation.
+**Scope:** retail `MRallye.exe`, one ordinary local race setup path. This is a focused follow-up to R-PHYS2. It does not trace downstream physics constructors. The family value at the broker entry now has one human-confirmed runtime observation; no runtime mutation has been performed.
 
 ## Result
 
 The retail code statically resolves a participant's integer `_CarClass` through a 25-entry named-family table, then uses the resulting family name to read `Vehicles/<family>` into the temporary vehicle-parameter record. The same participant index is later passed to the writer for `Vehicles/CarN`.
 
-The missing live observation is narrow: no runtime capture has yet shown that a normally selected Navara reaches this call with `_CarClass == 7` and the string `Navara`. The source-to-reader and reader-to-writer paths are **CONFIRMED_BY_STATIC**; that exact in-game value is **UNRESOLVED**. Per the R-PHYS2.1 stopping rule, this phase stops at one read-only breakpoint procedure.
+A human runtime observation confirms that an ordinary Navara race setup reaches `FUN_00493E30` with the base family string `Navara`. The caller return address is the expected site in `FUN_0044ED50`, and the observed EBP value is zero. This closes the prior read-only observation gate. The base/overlay/config/CarN code chain remains statically established; no whole-family mutation result is claimed.
 
 Retail executable used for the static audit:
 
 - `MRallye.exe`: 3,121,214 bytes
 - SHA-256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
 - Ghidra project: existing disposable retail project; analysis was read-only
+
+## Human runtime observation
+
+The human tested the same retail executable hash above in x32dbg:
+
+| Observation | Value |
+|---|---|
+| Breakpoint EIP | `00493E30` |
+| ESP at hit | `001AF808` |
+| EBP at hit | `00000000` |
+| `[ESP]` caller return address | `0044F0D2` |
+| `[ESP+4]` family string object address | `001AF838` |
+| Resolved family string | `Navara` |
+| Other family text visible on the same stack | `Navara/Player1` |
+
+The hit therefore confirms the ordinary Navara participant -> `Navara` -> `FUN_00493E30` edge as **CONFIRMED_BY_HUMAN_RUNTIME**. The prior static mapping identifies Navara as type ID 7, but this capture did not record ESI at the catalog lookup, so the runtime type ID itself remains a separate static fact. The visible overlay text is not by itself proof that `FUN_00493FD0` executed; the R-PHYS2.2 plan checks that call independently.
+
+The capture did not include the numeric data-pointer, length, or capacity values inside the string object. Their offsets and allocation/lifetime behavior are reconstructed from the fixed-build helper code in [R-PHYS2.2](r-phys2.2-trooper-whole-family-binding.md); the actual pointer value must be read live if needed.
 
 ## Dataflow
 
@@ -44,7 +62,7 @@ Evidence labels for the arrows:
 | participant index `N -> FUN_0044ED50(param_1)` | `CONFIRMED_BY_STATIC` | `FUN_0044A320` passes its loop index unchanged. |
 | `RaceData/Competitor[N]/_CarClass -> numeric class ID` | `CONFIRMED_BY_STATIC` | The call sequence prepares the competitor-property accessor with `FUN_004B0AF0`; `FUN_004B0630` calls `FUN_004B0490(N)` to select the indexed `RaceData/Competitor` record and reads its `_CarClass` property. |
 | class ID -> family string | `CONFIRMED_BY_STATIC` | `FUN_0045A3C0` catalog entry at `+0x24 + ID*0x34`; `FUN_00458E70` initializes IDs 0–24. |
-| ordinary selected Navara -> ID 7 / `Navara` at runtime | `UNRESOLVED` | Requires the read-only breakpoint below. The table maps 7 to Navara, but the live participant value was not captured. |
+| ordinary selected Navara -> `Navara` at the broker reader | `CONFIRMED_BY_HUMAN_RUNTIME` | Human x32dbg hit at `00493E30`; `[ESP]=0044F0D2`, EBP=0, argument resolves to `Navara`. The runtime type ID was not captured in this hit. |
 | `local_4e8 -> FUN_00493E30` | `CONFIRMED_BY_STATIC` | Assigned from the selected catalog name, copied to a working string, and used at `0044F0CD`. |
 | `FUN_00493E30 -> Vehicles/<family>` | `CONFIRMED_BY_STATIC` | It calls `FUN_00493770` with the source-family string. |
 | `FUN_00493E30 -> VehicleParams temporary` | `CONFIRMED_BY_STATIC` | Eight group readers receive the same temporary parameter object. The return status is ignored by this caller. |
@@ -54,7 +72,7 @@ Evidence labels for the arrows:
 
 ## `FUN_0044ED50`: local values and source chain
 
-`param_1` is the current `FUN_0044A320` loop index. At entry, the two managed string locals are initialized empty. The function eventually releases both strings. The high-level names below follow Ghidra's stack-local labels; `FUN_004D1990` is the string assignment operation in these call sites.
+`param_1` is the current `FUN_0044A320` loop index. At entry, the two owned C-string pointer locals are initialized null. The function eventually releases both allocations. The high-level names below follow Ghidra's stack-local labels; `FUN_004D1990` deep-copies a C string into the pointer local. The separate 16-byte managed string objects are built later for the reader calls, as detailed in R-PHYS2.2.
 
 ### Base family: `local_4e8`
 
@@ -164,9 +182,11 @@ overlay: Trooper/Player1 -> Vehicles/Trooper/Player1/Modifications/*
 output:  participant 0 -> Vehicles/Car0/*
 ```
 
-Changing only the argument at `FUN_00493E30` would leave the independently built Navara overlay unchanged. A later runtime plan should choose a single common family-source substitution before `local_4e8` and `local_4e0` are produced, or explicitly redirect both managed strings. Keep it process-local and restore the original state on exit; do not write a persistent EXE change. The string object has engine-managed storage, so do not overwrite `Navara`'s six inline characters with the longer word `Trooper`.
+Changing only the argument at `FUN_00493E30` would leave the independently built Navara overlay unchanged. R-PHYS2.2 prepares a process-local swap of the shared catalog C-string pointer before both local names are built. Do not overwrite the existing Navara character buffer in place: its storage is separately managed and the replacement has a different length.
 
-## One read-only x32dbg observation
+## Original read-only x32dbg procedure
+
+This was the observation completed by the human. Keep it as the clean control reference; do not repeat it as a mutation test.
 
 Use the exact retail EXE hash above and a normal Navara local race participant. This only reads registers and memory.
 
@@ -193,8 +213,9 @@ The focused static audit source is `tools/ghidra/RPhys21NamedFamilyAudit.java`; 
 ## Current status
 
 - No game was launched by the analysis process.
-- No runtime mutation was made or prepared.
+- No runtime mutation was made during R-PHYS2.1; the later R-PHYS2.2 report prepares one reversible process-local test.
 - No vehicle slot was created.
 - No proprietary asset was modified or added to Git.
-- Remaining blocker: one human read-only capture of the normal Navara family string and participant index at the ordinary broker call.
-- Recommended next phase: after the observation, prepare one runtime-only whole-family substitution that redirects both the base family and its player modification overlay, then ask the human to run it.
+- The normal Navara family value at the ordinary broker entry is confirmed by human runtime evidence.
+- A reversible debugger-only pointer substitution is prepared in [R-PHYS2.2](r-phys2.2-trooper-whole-family-binding.md); it has not been run.
+- No executable or game asset was modified, and no vehicle slot or type ID was added.
