@@ -1,5 +1,7 @@
 # Master Rallye Vehicle Composer
 
+**Version: 0.1.0**
+
 The Vehicle Composer builds a supported vehicle setup by combining a retail
 carrier, a named physics family, and a model donor. The choices can be
 independent. It creates a separate executable when a family binding is needed
@@ -28,11 +30,16 @@ The project test suite uses Python's built-in `unittest` framework.
 
 ## Quick start
 
-From the repository root, run:
+Extract the release ZIP, open a terminal in the
+`MasterRallye-VehicleComposer-v0.1.0` folder, and run:
 
 ```powershell
 python tools/vehicle_composer.py
 ```
+
+The wizard detects or asks for the game installation root. If you prefer to
+start in the game folder, run the script by its full path, for example:
+`python "<COMPOSER_FOLDER>\tools\vehicle_composer.py"`.
 
 The interactive wizard detects the install root when possible, lists all
 named configuration families, asks for the physics family first, then asks
@@ -98,11 +105,10 @@ Model donor: forklift
 The forklift model appeared in a race while Navara physics remained active.
 Because carrier and physics family are both Navara, this composition needs no
 EXE family mapping change. Collision and damage behavior were absent at
-runtime. The current package has no usable collision hull: its parsed
-`car.dx` tag-101 block fails validation because nine coordinate components
-are non-finite ([corpus evidence](../research/r4b/tag101-corpus.md)). This is
-an asset limitation, not a composition failure; a future forklift package
-with valid collision data could behave differently.
+runtime. The current package has no usable collision hull: its parsed `car.dx`
+tag-101 block fails validation because nine coordinate components are
+non-finite. This is an asset limitation, not a composition failure; a future
+forklift package with valid collision data could behave differently.
 
 These tests establish the listed composition classes, not every possible
 model/physics pairing.
@@ -134,7 +140,7 @@ Restore can discover known manifests and offer a menu. To restore one known
 composition directly:
 
 ```powershell
-python tools/vehicle_composer.py restore --manifest "D:\Game\Master Rallye\.research-output\r-veh1\manifests\example.vehicle-compose.json"
+python tools/vehicle_composer.py restore --manifest "<GAME_INSTALL_ROOT>\.research-output\r-veh1\manifests\example.vehicle-compose.json"
 ```
 
 Keep the game closed while applying or restoring. Launch the separate output
@@ -151,21 +157,22 @@ executable shown in the preview when one is created.
 
 ## Advanced and automation commands
 
-The JSON workflow remains available for scripts and reproducible research.
-`validate` checks an existing binding/composition configuration, `apply`
-applies it through the same validated backend used by the wizard, and
-`restore` restores a tool-created copy or composition:
+The JSON workflow remains available for automation. These commands require an
+existing schema-v1 family-binding or schema-v2 composition JSON file; most
+users can use the interactive wizard instead. `validate` checks that file,
+`apply` uses the same validated backend as the wizard, and `restore` restores
+a tool-created copy or composition:
 
 ```powershell
 python tools/vehicle_composer.py validate `
-  --install-root "D:\Game\Master Rallye" `
-  --config "research\r-phys\vehicle-physics-bindings-trooper.example.json"
+  --install-root "<GAME_INSTALL_ROOT>" `
+  --config "<PATH_TO_BINDING_JSON>"
 
 python tools/vehicle_composer.py apply `
-  --install-root "D:\Game\Master Rallye" `
-  --config "research\r-phys\vehicle-physics-bindings-trooper.example.json"
+  --install-root "<GAME_INSTALL_ROOT>" `
+  --config "<PATH_TO_BINDING_JSON>"
 
-python tools/vehicle_composer.py restore --output-exe "D:\Game\Master Rallye\MRallye_physicsbound.exe"
+python tools/vehicle_composer.py restore --output-exe "<GAME_INSTALL_ROOT>\MRallye_physicsbound.exe"
 ```
 
 For a composition, `apply` chooses the output executable name automatically
@@ -175,6 +182,12 @@ name the donor explicitly.
 
 `tools/physics_bind.py` remains available for existing scripts and users; it
 dispatches through the same implementation.
+
+## License
+
+The MIT license applies to this project's original code and documentation.
+Master Rallye and its game assets remain the property of their respective
+rights holders. The Vehicle Composer release does not include game files.
 
 ## Known limitations
 

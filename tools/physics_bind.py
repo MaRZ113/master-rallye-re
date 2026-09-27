@@ -13,6 +13,7 @@ if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
 from master_rallye.errors import FormatError  # noqa: E402
+from master_rallye.version import __version__  # noqa: E402
 from master_rallye.vehicle_family_binder import (  # noqa: E402
     USER_FACING_NAME,
     load_install_inventory,
@@ -81,6 +82,10 @@ def build_parser(program_name: str = "python tools/physics_bind.py") -> argparse
                         help=argparse.SUPPRESS)
     parser.add_argument("--dry-run", action="store_true",
                         help="preview the interactive vehicle composition without writing files")
+    parser.add_argument(
+        "--version", action="version",
+        version=f"Master Rallye Vehicle Composer {__version__}",
+    )
     commands = parser.add_subparsers(dest="command")
 
     validate = commands.add_parser("validate", help="read-only binding validation")

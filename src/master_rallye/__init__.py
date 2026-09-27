@@ -1,73 +1,45 @@
-"""Master Rallye clean-room asset extraction research library."""
-from .dx import parse_dx, parse_dx_bytes
-from .dxt import (
-    decode_rgba_pixels,
-    encode_dxt_pixels,
-    parse_dxt,
-    parse_dxt_bytes,
-    replace_dxt_pixels,
-)
-from .dx_writer import audit_binary_diff, patch_dx_positions, write_dx_positions
-from .collision import parse_collision_sections
-from .collision_writer import (
-    patch_dx_collision_translation,
-    replace_dx_tag101,
-    serialize_tag101,
-    translate_tag101,
-    write_dx_collision_translation,
-)
-from .bounds import DxSpatialBounds1339, parse_bounds1339, compute_bounds1339
-from .collision_scale import scale_tag101, scale_dx_collision
-from .vehicle_project import VehicleProject, validate_vehicle, build_vehicle_mod
-from .authoring import (
-    INVALID_PROVENANCE,
-    POSITIONS_ONLY_CHANGED,
-    SOURCE_IDENTICAL,
-    UNSUPPORTED_TOPOLOGY_CHANGED,
-    provenance_fingerprint,
-    validate_authoring_state,
-)
-from .errors import BoundsError, CollisionWriteError, DxWriteError, ExportError, FormatError, MasterRallyeError, UnknownRecordTagError
-from .sidecar import parse_sidecar, resolve_sidecar
+"""Master Rallye clean-room asset extraction library.
+
+Public helpers are loaded on demand so importing one focused submodule does not
+eagerly import the full research library.
+"""
+from __future__ import annotations
+
+from importlib import import_module
+from importlib.util import find_spec
+
+_EXPORTS = {
+    "BoundsError": "errors", "ExportError": "errors", "DxWriteError": "errors",
+    "CollisionWriteError": "errors", "FormatError": "errors",
+    "MasterRallyeError": "errors", "UnknownRecordTagError": "errors",
+    "DxSpatialBounds1339": "bounds", "parse_bounds1339": "bounds",
+    "compute_bounds1339": "bounds", "scale_tag101": "collision_scale",
+    "scale_dx_collision": "collision_scale", "VehicleProject": "vehicle_project",
+    "validate_vehicle": "vehicle_project", "build_vehicle_mod": "vehicle_project",
+    "parse_dx": "dx", "parse_dx_bytes": "dx", "patch_dx_positions": "dx_writer",
+    "write_dx_positions": "dx_writer", "audit_binary_diff": "dx_writer",
+    "parse_collision_sections": "collision", "serialize_tag101": "collision_writer",
+    "replace_dx_tag101": "collision_writer", "translate_tag101": "collision_writer",
+    "patch_dx_collision_translation": "collision_writer",
+    "write_dx_collision_translation": "collision_writer",
+    "SOURCE_IDENTICAL": "authoring", "POSITIONS_ONLY_CHANGED": "authoring",
+    "UNSUPPORTED_TOPOLOGY_CHANGED": "authoring", "INVALID_PROVENANCE": "authoring",
+    "provenance_fingerprint": "authoring", "validate_authoring_state": "authoring",
+    "parse_dxt": "dxt", "parse_dxt_bytes": "dxt", "decode_rgba_pixels": "dxt",
+    "encode_dxt_pixels": "dxt", "replace_dxt_pixels": "dxt",
+    "parse_sidecar": "sidecar", "resolve_sidecar": "sidecar",
+}
 
 __all__ = [
-    "BoundsError",
-    "ExportError",
-    "DxWriteError",
-    "CollisionWriteError",
-    "FormatError",
-    "MasterRallyeError",
-    "UnknownRecordTagError",
-    "DxSpatialBounds1339",
-    "parse_bounds1339",
-    "compute_bounds1339",
-    "scale_tag101",
-    "scale_dx_collision",
-    "VehicleProject",
-    "validate_vehicle",
-    "build_vehicle_mod",
-    "parse_dx",
-    "parse_dx_bytes",
-    "patch_dx_positions",
-    "write_dx_positions",
-    "audit_binary_diff",
-    "parse_collision_sections",
-    "serialize_tag101",
-    "replace_dx_tag101",
-    "translate_tag101",
-    "patch_dx_collision_translation",
-    "write_dx_collision_translation",
-    "SOURCE_IDENTICAL",
-    "POSITIONS_ONLY_CHANGED",
-    "UNSUPPORTED_TOPOLOGY_CHANGED",
-    "INVALID_PROVENANCE",
-    "provenance_fingerprint",
-    "validate_authoring_state",
-    "parse_dxt",
-    "parse_dxt_bytes",
-    "decode_rgba_pixels",
-    "encode_dxt_pixels",
-    "replace_dxt_pixels",
-    "parse_sidecar",
-    "resolve_sidecar",
+    name for name, module_name in _EXPORTS.items()
+    if find_spec(f"{__name__}.{module_name}") is not None
 ]
+
+
+def __getattr__(name: str):
+    module_name = _EXPORTS.get(name)
+    if module_name is None:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+    value = getattr(import_module(f".{module_name}", __name__), name)
+    globals()[name] = value
+    return value

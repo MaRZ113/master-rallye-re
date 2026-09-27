@@ -35,6 +35,11 @@ See the [Vehicle Composer guide](docs/vehicle-composer.md) for use. R-COOKER1,
 including controlled same-source comparisons between cooker versions, remains
 future work and has not started.
 
+The first curated Vehicle Composer candidate is v0.1.0. Its MIT license covers
+this project's original code and documentation; Master Rallye and its game
+assets remain the property of their respective rights holders. The release
+archive contains no game files.
+
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed
