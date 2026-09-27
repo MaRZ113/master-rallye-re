@@ -120,12 +120,16 @@ field is accepted: runtime resource availability is resolved from the selected
 family name and checked by the interactive binder before apply.
 
 Validation checks the exact supported retail EXE hash, carrier identity in the
-25-entry catalog, the target family root in retail `vehicles.xml`, all six
-broker groups and exact path/type schema (147 base fields), and the 13
-`Player1/Modifications` float fields. It fails closed on incomplete or
-unexpected schemas. Trooper, Newrav, and Forester each pass with the current
-read-only retail XML inputs. Mercedes is rejected: its Engine group contains
-42 fields rather than the broker schema's 45.
+25-entry catalog, the target family root in retail `vehicles.xml`, the retail
+reader-aware base schema, and the 13 `Player1/Modifications` float fields.
+The base schema has 120 fixed required path/type pairs (118 ordinary fields
+plus the two Engine count headers). `Engine/Gears` determines the required
+`GearN`, `ChangeUpRevsN`, and `ChangeDownRevsN` paths; `Engine/TorqueEntries`
+determines `TorqueEntryN`. Total field count is therefore family-dependent.
+Incomplete fields and type mismatches fail closed. Unexplained but otherwise
+complete schema additions require a separately recorded experimental override.
+The implementation and cross-build evidence are detailed in
+[R-PHYS3.2](r-phys3.2-semantic-config-validation.md).
 
 Dry-run example from the repository root:
 
@@ -140,11 +144,15 @@ overlay completeness, initializer file offset, target pointer, planned
 `.rphys3` section if needed, and `source_executable_modified: false`. The
 verified local dry-runs were:
 
-| Carrier | Type ID | Physics family | Target string source | Base groups | Player1 fields | Dry-run |
+| Carrier | Type ID | Physics family | Target string source | Base fields | Player1 fields | Dry-run |
 |---|---:|---|---|---:|---:|---|
 | Navara | 7 | Trooper | new `.rphys3` string | 147 | 13 | valid |
 | Jump | 9 | Newrav | existing EXE literal | 147 | 13 | valid |
 | Jump | 9 | Forester | existing EXE literal | 147 | 13 | valid |
+
+The Base fields column records the total for each validated family, not a
+universal required field count. The former 147-field gate was replaced by the
+count-driven retail reader schema in R-PHYS3.2.
 
 For the Navara/Trooper dry-run, the pointer operand is at VA `0x00459197`
 (file offset `0x59197`); the target is planned at VA `0x00711000` in section

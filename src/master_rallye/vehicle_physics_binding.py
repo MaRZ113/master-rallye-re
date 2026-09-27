@@ -24,6 +24,10 @@ from .vehicle_family_broker import (
     analyze_family_identity,
     named_vehicle_path,
 )
+from .vehicle_config_schema import (
+    VehicleSchemaAudit,
+    analyze_vehicle_base_schema,
+)
 
 
 RETAIL_BUILD_NAME = "retail-2001-verified"
@@ -35,17 +39,6 @@ IMAGE_SCN_MEM_READ = 0x40000000
 BOUND_SECTION_NAME = b".rphys3"
 BOUND_SECTION_CHARACTERISTICS = IMAGE_SCN_CNT_INITIALIZED_DATA | IMAGE_SCN_MEM_READ
 MAX_BOUND_FAMILY_BYTES = 0x10000
-
-EXPECTED_BASE_GROUP_COUNTS = {
-    "Dimensions": 8,
-    "Chassis": 16,
-    "Steering": 5,
-    "Engine": 45,
-    "Suspension": 48,
-    "DamageParams": 25,
-}
-RETAIL_REQUIRED_BASE_SCHEMA_SHA256 = "3328204f77218f840ca734f54010b711188e69efdb7d84e84f87d7f08dac77bd"
-
 
 @dataclass(frozen=True)
 class FamilyCatalogEntry:
@@ -172,9 +165,105 @@ class ValidatedBinding:
     binding: PhysicsBinding
     type_id: int
     base_group_counts: dict[str, int]
+    config_schema: VehicleSchemaAudit
+    schema_override_used: bool
     player1_overlay_count: int
     pointer_source: str
     family_string_length: int
+
+
+@dataclass(frozen=True)
+class ValidatedVehicleFamily:
+    family: str
+    config_schema: VehicleSchemaAudit
+    schema_override_used: bool
+    player1_overlay_count: int
+
+
+def _schema_error_detail(audit: VehicleSchemaAudit) -> str:
+    parts: list[str] = []
+    if audit.missing_paths:
+        parts.append("missing: " + ", ".join(audit.missing_paths))
+        if audit.missing_path_count > len(audit.missing_paths):
+            parts.append(
+                f"{audit.missing_path_count - len(audit.missing_paths)} more missing path(s)"
+            )
+    if audit.unexpected_paths:
+        parts.append("unexpected: " + ", ".join(audit.unexpected_paths))
+    if audit.type_mismatches:
+        parts.append("type mismatches: " + "; ".join(
+            f"{path} expected {expected}, got {actual}"
+            for path, expected, actual in audit.type_mismatches
+        ))
+    if audit.count_errors:
+        parts.append("count errors: " + "; ".join(audit.count_errors))
+    return "; ".join(parts) or audit.compatibility_class
+
+
+def validate_vehicle_family_config(
+    family: str,
+    vehicle_config: VehicleConfigDocument,
+    modifications_config: VehicleConfigDocument,
+    *,
+    allow_unverified_schema: bool = False,
+) -> ValidatedVehicleFamily:
+    """Apply the single semantic schema and Player1 validator to one family."""
+    if family not in vehicle_config.families:
+        raise ValueError(f"vehicle family {family!r} is absent from vehicles.xml")
+    case_matches = [
+        candidate for candidate in vehicle_config.families
+        if candidate.casefold() == family.casefold()
+    ]
+    if len(case_matches) != 1:
+        raise ValueError(
+            f"vehicle family {family!r} is ambiguous by case: {case_matches!r}"
+        )
+    fields = vehicle_config.families[family]
+    schema = analyze_vehicle_base_schema(fields)
+    if schema.compatibility_class == "UNVERIFIED_SCHEMA" and allow_unverified_schema:
+        schema_override_used = True
+    elif schema.compatibility_class != "COMPATIBLE":
+        raise ValueError(
+            f"vehicle family {family!r} config schema is "
+            f"{schema.compatibility_class}: {_schema_error_detail(schema)}"
+        )
+    else:
+        schema_override_used = False
+
+    audit = analyze_family_identity(vehicle_config, modifications_config, family)
+    if not audit.family_config_present:
+        raise ValueError(f"vehicle family {family!r} has no base config root")
+    if audit.player1_missing_modification_fields:
+        raise ValueError(
+            f"vehicle family {family!r} Player1 overlay misses: "
+            f"{', '.join(audit.player1_missing_modification_fields)}"
+        )
+    if set(audit.player1_modification_fields) != set(PLAYER_MODIFICATION_FIELDS):
+        actual = set(audit.player1_modification_fields)
+        extra = sorted(actual - set(PLAYER_MODIFICATION_FIELDS))
+        raise ValueError(
+            f"vehicle family {family!r} Player1 overlay has unexpected fields: {extra}"
+        )
+    player1_rows = {
+        path.removeprefix("Player1/Modifications/"): row
+        for path, row in modifications_config.families.get(family, {}).items()
+        if path.startswith("Player1/Modifications/")
+    }
+    wrong_types = [
+        field for field in PLAYER_MODIFICATION_FIELDS
+        if player1_rows[field]["type"] != "Float"
+    ]
+    if wrong_types:
+        raise ValueError(
+            f"vehicle family {family!r} Player1 overlay has non-Float fields: "
+            f"{', '.join(wrong_types)}"
+        )
+    return ValidatedVehicleFamily(
+        family=family,
+        config_schema=schema,
+        schema_override_used=schema_override_used,
+        player1_overlay_count=len(audit.player1_modification_fields),
+    )
 
 
 def _align(value: int, alignment: int) -> int:
@@ -304,7 +393,7 @@ def validate_binding_families(
     modifications_config: VehicleConfigDocument,
     *,
     catalog: tuple[FamilyCatalogEntry, ...] = RETAIL_FAMILY_CATALOG,
-    required_base_schema_sha256: str = RETAIL_REQUIRED_BASE_SCHEMA_SHA256,
+    allow_unverified_schema: bool = False,
 ) -> tuple[ValidatedBinding, ...]:
     by_carrier = {entry.family: entry for entry in catalog}
     validated: list[ValidatedBinding] = []
@@ -315,41 +404,12 @@ def validate_binding_families(
                 f"carrier type {binding.carrier_type!r} is not initialized in the retail catalog"
             )
         target = binding.physics_family
-        if target not in vehicle_config.families:
-            raise ValueError(f"physics family {target!r} is absent from vehicles.xml")
-        audit = analyze_family_identity(vehicle_config, modifications_config, target)
-        if not audit.family_config_present:
-            raise ValueError(f"physics family {target!r} has no base config root")
-        schema_sha256 = family_schema_sha256(vehicle_config.families[target])
-        if schema_sha256 != required_base_schema_sha256:
-            raise ValueError(
-                f"physics family {target!r} path/type schema differs from the audited "
-                "retail broker schema"
-            )
-        if audit.base_group_counts != EXPECTED_BASE_GROUP_COUNTS:
-            raise ValueError(
-                f"physics family {target!r} base groups are incomplete or unexpected: "
-                f"{audit.base_group_counts!r}"
-            )
-        if audit.missing_base_groups:
-            raise ValueError(
-                f"physics family {target!r} is missing broker groups: "
-                f"{', '.join(audit.missing_base_groups)}"
-            )
-        if audit.player1_missing_modification_fields:
-            raise ValueError(
-                f"physics family {target!r} Player1 overlay misses: "
-                f"{', '.join(audit.player1_missing_modification_fields)}"
-            )
-        if set(audit.player1_modification_fields) != set(PLAYER_MODIFICATION_FIELDS):
-            raise ValueError(f"physics family {target!r} Player1 overlay shape is not exact")
-        player1_rows = {
-            path.removeprefix("Player1/Modifications/"): row
-            for path, row in modifications_config.families[target].items()
-            if path.startswith("Player1/Modifications/")
-        }
-        if any(player1_rows[field]["type"] != "Float" for field in PLAYER_MODIFICATION_FIELDS):
-            raise ValueError(f"physics family {target!r} Player1 overlay has an unexpected type")
+        family_validation = validate_vehicle_family_config(
+            target,
+            vehicle_config,
+            modifications_config,
+            allow_unverified_schema=allow_unverified_schema,
+        )
         if target in by_carrier:
             pointer_source = "existing stable executable family literal"
         else:
@@ -357,8 +417,10 @@ def validate_binding_families(
         validated.append(ValidatedBinding(
             binding=binding,
             type_id=carrier.type_id,
-            base_group_counts=dict(audit.base_group_counts),
-            player1_overlay_count=len(audit.player1_modification_fields),
+            base_group_counts=family_validation.config_schema.group_counts,
+            config_schema=family_validation.config_schema,
+            schema_override_used=family_validation.schema_override_used,
+            player1_overlay_count=family_validation.player1_overlay_count,
             pointer_source=pointer_source,
             family_string_length=len(_validate_family_component(target)),
         ))
@@ -366,7 +428,7 @@ def validate_binding_families(
 
 
 def family_schema_sha256(fields: Mapping[str, Mapping[str, str]]) -> str:
-    """Fingerprint relative XML paths and types, excluding mutable values."""
+    """Return a legacy diagnostic fingerprint; it is not a compatibility gate."""
     rows = sorted((path, record["type"]) for path, record in fields.items())
     canonical = json.dumps(rows, ensure_ascii=True, separators=(",", ":")).encode("ascii")
     return hashlib.sha256(canonical).hexdigest()
@@ -609,14 +671,6 @@ def _validate_retail_executable_bytes(data: bytes, expected_sha256: str = RETAIL
     return digest
 
 
-def _expected_config_group_counts(document: VehicleConfigDocument, family: str) -> dict[str, int]:
-    counts: dict[str, int] = {}
-    for path in document.families[family]:
-        group = path.split("/", 1)[0]
-        counts[group] = counts.get(group, 0) + 1
-    return dict(sorted((key, value) for key, value in counts.items() if key in EXPECTED_BASE_GROUP_COUNTS))
-
-
 def validate_binding_request(
     source_exe: Path,
     bindings: Iterable[PhysicsBinding],
@@ -625,9 +679,9 @@ def validate_binding_request(
     *,
     expected_exe_sha256: str = RETAIL_EXE_SHA256,
     catalog: tuple[FamilyCatalogEntry, ...] = RETAIL_FAMILY_CATALOG,
-    required_base_schema_sha256: str = RETAIL_REQUIRED_BASE_SCHEMA_SHA256,
+    allow_unverified_schema: bool = False,
 ) -> dict[str, Any]:
-    """Read-only dry-run audit of build, catalog, family groups, and patch sites."""
+    """Read-only dry-run audit using the semantic family-schema validator."""
     bindings = tuple(bindings)
     try:
         source_data = source_exe.read_bytes()
@@ -641,7 +695,7 @@ def validate_binding_request(
         vehicle_config,
         modifications_config,
         catalog=catalog,
-        required_base_schema_sha256=required_base_schema_sha256,
+        allow_unverified_schema=allow_unverified_schema,
     )
     patch_result = patch_family_initializer(source_data, bindings, catalog=catalog)
     rows = []
@@ -652,6 +706,8 @@ def validate_binding_request(
             "current_family": row.binding.carrier_type,
             "physics_family": row.binding.physics_family,
             "base_groups": row.base_group_counts,
+            "config_schema": row.config_schema.to_dict(),
+            "schema_override_used": row.schema_override_used,
             "player1_overlay_fields": row.player1_overlay_count,
             "family_string_length": row.family_string_length,
             "pointer_source": row.pointer_source,
@@ -679,6 +735,7 @@ def validate_binding_request(
             "size": modifications_config.file_size,
         },
         "bindings": rows,
+        "experimental_schema_override": any(row.schema_override_used for row in validated),
         "planned_pe_section": (
             {
                 "name": BOUND_SECTION_NAME.decode("ascii"),
@@ -730,7 +787,7 @@ def apply_binding_copy(
     *,
     expected_exe_sha256: str = RETAIL_EXE_SHA256,
     catalog: tuple[FamilyCatalogEntry, ...] = RETAIL_FAMILY_CATALOG,
-    required_base_schema_sha256: str = RETAIL_REQUIRED_BASE_SCHEMA_SHA256,
+    allow_unverified_schema: bool = False,
 ) -> dict[str, Any]:
     """Write a bound executable copy plus verified original backup/manifest."""
     bindings = tuple(bindings)
@@ -747,7 +804,7 @@ def apply_binding_copy(
         vehicle_config,
         modifications_config,
         catalog=catalog,
-        required_base_schema_sha256=required_base_schema_sha256,
+        allow_unverified_schema=allow_unverified_schema,
     )
     patch = patch_family_initializer(source_data, bindings, catalog=catalog)
     backup_path, manifest_path = _manifest_paths(output_path)
@@ -788,6 +845,7 @@ def apply_binding_copy(
         "patched_sha256": patch.patched_sha256,
         "bindings": binding_rows,
         "validated_families": [asdict(row) for row in validated],
+        "experimental_schema_override": any(row.schema_override_used for row in validated),
         "patches": [asdict(row) for row in patch.patches],
         "added_section": patch.added_section,
         "section_rva": patch.section_rva,

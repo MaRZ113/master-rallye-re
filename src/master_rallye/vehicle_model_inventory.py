@@ -9,15 +9,10 @@ from .vehicle_config_analysis import VehicleConfigDocument
 from .vehicle_family_broker import (
     FAMILY_BY_TYPE_ID,
     PLAYER_MODIFICATION_FIELDS,
-    analyze_family_identity,
 )
+from .vehicle_config_schema import FIXED_BASE_GROUP_COUNTS, analyze_vehicle_base_schema
+from .vehicle_physics_binding import RETAIL_FAMILY_CATALOG
 from .vehicle_packaging import normalize_sma_member_name
-from .vehicle_physics_binding import (
-    EXPECTED_BASE_GROUP_COUNTS,
-    RETAIL_FAMILY_CATALOG,
-    RETAIL_REQUIRED_BASE_SCHEMA_SHA256,
-    family_schema_sha256,
-)
 
 
 MODEL_RESOURCES = ("car.dx", "complete.dx", "wheel.dx")
@@ -202,32 +197,14 @@ def build_vehicle_family_inventory(
     for name in sorted(display_names, key=lambda item: (item.casefold(), item)):
         key = name.casefold()
         config_values = vehicle_config.families.get(name)
-        audit = analyze_family_identity(vehicle_config, modifications_config, name)
-        group_counts = {group: 0 for group in EXPECTED_BASE_GROUP_COUNTS}
-        if config_values is not None:
-            for relative_path in config_values:
-                group = relative_path.split("/", 1)[0]
-                if group in group_counts:
-                    group_counts[group] += 1
-        schema_matches = (
-            config_values is not None
-            and family_schema_sha256(config_values) == RETAIL_REQUIRED_BASE_SCHEMA_SHA256
-        )
-        base_complete = (
-            config_values is not None
-            and group_counts == EXPECTED_BASE_GROUP_COUNTS
-            and schema_matches
-        )
+        schema_audit = analyze_vehicle_base_schema(config_values or {})
+        group_counts = schema_audit.group_counts
         if config_variant_counts.get(key, 0) > 1:
             base_status = "AMBIGUOUS_CASE_COLLISION"
         elif config_values is None:
             base_status = "MISSING"
-        elif base_complete:
-            base_status = "COMPLETE"
-        elif any(group_counts[group] < expected for group, expected in EXPECTED_BASE_GROUP_COUNTS.items()):
-            base_status = "INCOMPLETE"
         else:
-            base_status = "SCHEMA_MISMATCH"
+            base_status = schema_audit.compatibility_class
 
         overlay = _player1_overlay_status(modifications_config, name)
         if config_values is None and overlay["field_count"] == 0:
@@ -258,11 +235,20 @@ def build_vehicle_family_inventory(
             "type_ids": type_ids.get(key, []),
             "base_config": {
                 "status": base_status,
-                "field_count": audit.base_field_count,
-                "expected_field_count": sum(EXPECTED_BASE_GROUP_COUNTS.values()),
+                "compatibility_class": base_status,
+                "field_count": len(config_values) if config_values is not None else 0,
                 "group_counts": group_counts,
-                "missing_groups": list(audit.missing_base_groups),
-                "schema_sha256": family_schema_sha256(config_values) if config_values is not None else None,
+                "fixed_fields_expected": (
+                    schema_audit.fixed_fields_expected if config_values is not None
+                    else sum(FIXED_BASE_GROUP_COUNTS.values())
+                ),
+                "fixed_fields_present": schema_audit.fixed_fields_present if config_values is not None else 0,
+                "missing_groups": sorted({
+                    path.split("/", 1)[0]
+                    for path in schema_audit.missing_paths
+                    if path.split("/", 1)[0] in FIXED_BASE_GROUP_COUNTS
+                }),
+                "schema_audit": schema_audit.to_dict() if config_values is not None else None,
             },
             "player1_modifications": overlay,
             "model": package,

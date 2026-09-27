@@ -35,7 +35,10 @@ from master_rallye.vehicle_packaging import (
     normalize_sma_member_name,
     read_sma_member,
 )
-from master_rallye.vehicle_physics_binding import RETAIL_REQUIRED_BASE_SCHEMA_SHA256
+from master_rallye.vehicle_config_schema import (
+    RETAIL_REQUIRED_FIXED_SCHEMA,
+    analyze_vehicle_base_schema,
+)
 from tools.physics_bind import build_parser
 
 
@@ -56,14 +59,27 @@ def _family_row(
     model_status: str = "COMPLETE",
     provenance: str = "DATA_SMA",
 ) -> dict:
+    fields = {
+        path: {"type": value_type, "value": "1"}
+        for path, value_type in RETAIL_REQUIRED_FIXED_SCHEMA.items()
+    }
+    fields["Engine/Gears"]["value"] = "7"
+    fields["Engine/TorqueEntries"]["value"] = "6"
+    for prefix in ("Gear", "ChangeUpRevs", "ChangeDownRevs"):
+        for index in range(7):
+            fields[f"Engine/{prefix}{index}"] = {"type": "Float", "value": "1"}
+    for index in range(6):
+        fields[f"Engine/TorqueEntry{index}"] = {"type": "Vector2", "value": "0,0"}
+    schema_audit = analyze_vehicle_base_schema(fields).to_dict()
     return {
         "family": family,
         "identity_kind": "CONFIG_ONLY" if model_status == "MISSING" else "CONFIG_AND_MODEL",
         "type_ids": [],
         "base_config": {
-            "status": "COMPLETE", "field_count": 147,
-            "expected_field_count": 147, "group_counts": {}, "missing_groups": [],
-            "schema_sha256": RETAIL_REQUIRED_BASE_SCHEMA_SHA256,
+            "status": "COMPATIBLE", "field_count": len(fields),
+            "group_counts": schema_audit["group_counts"], "missing_groups": [],
+            "fixed_fields_expected": 120, "fixed_fields_present": 120,
+            "compatibility_class": "COMPATIBLE", "schema_audit": schema_audit,
         },
         "player1_modifications": {
             "status": "COMPLETE", "field_count": 13,
@@ -508,13 +524,14 @@ class RPhys31RetailCorpusTests(unittest.TestCase):
 
     def test_trooper_required_config_is_complete_but_retail_model_is_config_only(self):
         trooper = self.rows["trooper"]
-        self.assertEqual(trooper["base_config"]["status"], "COMPLETE")
+        self.assertEqual(trooper["base_config"]["status"], "COMPATIBLE")
         self.assertEqual(trooper["base_config"]["field_count"], 147)
         self.assertEqual(trooper["player1_modifications"]["status"], "COMPLETE")
         self.assertEqual(trooper["player1_modifications"]["field_count"], 13)
         self.assertEqual(trooper["identity_kind"], "CONFIG_ONLY")
         self.assertEqual(trooper["model"]["status"], "MISSING")
-        self.assertEqual(trooper["base_config"]["schema_sha256"], RETAIL_REQUIRED_BASE_SCHEMA_SHA256)
+        self.assertEqual(trooper["base_config"]["schema_audit"]["gears_count"], 7)
+        self.assertEqual(trooper["base_config"]["schema_audit"]["torque_entries_count"], 6)
 
     def test_retail_forklift_is_model_only_and_ufo_is_wheel_less(self):
         forklift = self.rows["forklift"]
@@ -528,7 +545,7 @@ class RPhys31RetailCorpusTests(unittest.TestCase):
     def test_retail_inventory_keeps_release_and_config_only_identity_separate(self):
         self.assertEqual(self.rows["navara"]["type_ids"], [7])
         self.assertEqual(self.rows["trooper"]["type_ids"], [])
-        self.assertTrue(self.rows["trooper"]["base_config"]["status"] == "COMPLETE")
+        self.assertTrue(self.rows["trooper"]["base_config"]["status"] == "COMPATIBLE")
 
 
 if __name__ == "__main__":

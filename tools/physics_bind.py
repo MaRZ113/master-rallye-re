@@ -48,6 +48,11 @@ def _add_inputs(parser: argparse.ArgumentParser) -> None:
                         help="default: <install-root>/DataGame/vehicles.xml")
     parser.add_argument("--modifications-xml", type=Path,
                         help="default: <install-root>/DataGame/Modifications.xml")
+    parser.add_argument(
+        "--allow-unverified-schema",
+        action="store_true",
+        help="explicitly permit an unexplained schema variant (experimental only)",
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -67,6 +72,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     validate = commands.add_parser("validate", help="read-only binding validation")
     _add_inputs(validate)
+    validate.add_argument(
+        "--text", action="store_true",
+        help="print a concise semantic schema summary instead of the default JSON",
+    )
 
     apply = commands.add_parser("apply", help="write a bound executable copy and verified backup")
     _add_inputs(apply)
@@ -91,6 +100,49 @@ def _config_paths(args: argparse.Namespace) -> tuple[Path, Path]:
     return vehicles, modifications
 
 
+def _print_validation_summary(report: dict) -> None:
+    print(f"Validation: {report['status']}")
+    for binding in report["bindings"]:
+        schema = binding["config_schema"]
+        print(f"\nFamily: {binding['physics_family']}")
+        print(f"  Schema: {schema['compatibility_class']}")
+        print(
+            f"  Fixed fields: {schema['fixed_fields_present']}/"
+            f"{schema['fixed_fields_expected']}"
+        )
+        print("  Engine dynamic schema:")
+        print(f"    Gears = {schema['gears_count']}")
+        for name, label in (
+            ("Gear", "Gear entries"),
+            ("ChangeUpRevs", "ChangeUpRevs"),
+            ("ChangeDownRevs", "ChangeDownRevs"),
+        ):
+            present = schema["gear_fields_present"].get(name, 0)
+            expected = schema["gear_fields_expected"]
+            expected_text = str(expected) if expected is not None else "unknown"
+            print(f"    {label}: {present}/{expected_text}")
+        print(f"    TorqueEntries = {schema['torque_entries_count']}")
+        expected = schema["torque_fields_expected"]
+        expected_text = str(expected) if expected is not None else "unknown"
+        print(f"    Torque entries: {schema['torque_fields_present']}/{expected_text}")
+        print(f"  Total fields: {schema['total_fields']}")
+        print(f"  Player1 fields: {binding['player1_overlay_fields']}")
+        if binding["schema_override_used"]:
+            print("  WARNING: unverified-schema experimental override was used")
+        for label, paths in (
+            ("Missing", schema["missing_paths"]),
+            ("Unexpected", schema["unexpected_paths"]),
+        ):
+            if paths:
+                print(f"  {label}: " + ", ".join(paths))
+        if schema["type_mismatches"]:
+            print("  Type mismatches:")
+            for path, expected_type, actual_type in schema["type_mismatches"]:
+                print(f"    {path}: expected {expected_type}, got {actual_type}")
+        if schema["count_errors"]:
+            print("  Count errors: " + "; ".join(schema["count_errors"]))
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
@@ -108,8 +160,15 @@ def main(argv: list[str] | None = None) -> int:
             bindings = load_binding_config(args.config)
             if args.command == "validate":
                 result = validate_binding_request(
-                    source_exe, bindings, vehicles_xml, modifications_xml
+                    source_exe,
+                    bindings,
+                    vehicles_xml,
+                    modifications_xml,
+                    allow_unverified_schema=args.allow_unverified_schema,
                 )
+                if args.text:
+                    _print_validation_summary(result)
+                    return 0
             else:
                 result = apply_binding_copy(
                     source_exe,
@@ -117,6 +176,7 @@ def main(argv: list[str] | None = None) -> int:
                     bindings,
                     vehicles_xml,
                     modifications_xml,
+                    allow_unverified_schema=args.allow_unverified_schema,
                 )
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0

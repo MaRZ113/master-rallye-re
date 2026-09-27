@@ -27,13 +27,14 @@ from .vehicle_physics_binding import (
     PhysicsBinding,
     apply_binding_copy,
     restore_binding_copy,
-    validate_binding_families,
+    validate_vehicle_family_config,
     validate_binding_request,
 )
 
 
 USER_FACING_NAME = "Master Rallye Vehicle Family Binder"
 MISSING_MODEL_OVERRIDE = "ALLOW MISSING MODEL"
+UNVERIFIED_SCHEMA_OVERRIDE = "ALLOW UNVERIFIED SCHEMA"
 MANIFEST_SUFFIX = ".physics-bind.json"
 
 
@@ -193,19 +194,28 @@ def _model_provenance_label(model: dict[str, Any]) -> str:
 
 def _family_table(rows: list[dict[str, Any]]) -> list[str]:
     lines = [
-        " #  Family               Base config       Player1 mods   Model status / source",
-        " -- -------------------- ----------------- -------------- ----------------------------",
+        " #  Family               Config              Fields  Gears  Torque  Player1    Model / source",
+        " -- -------------------- ------------------ ------ ------ ------- ---------- ----------------------------",
     ]
     for index, row in enumerate(rows, 1):
         base = row["base_config"]
         overlay = row["player1_modifications"]
         model = row["model"]
-        base_label = f"{base['status']} {base['field_count']}/{base['expected_field_count']}"
-        overlay_label = f"{overlay['status']} {overlay['field_count']}/{overlay['expected_field_count']}"
+        schema = base.get("schema_audit") or {}
+        gears = schema.get("gears_count")
+        torque = schema.get("torque_entries_count")
+        base_label = base["status"]
+        field_label = str(base["field_count"]) if base["field_count"] else "-"
+        gears_label = str(gears) if gears is not None else "-"
+        torque_label = str(torque) if torque is not None else "-"
+        overlay_label = (
+            f"{overlay['status']} {overlay['field_count']}/{overlay['expected_field_count']}"
+        )
         model_label = f"{model['status']} / {_model_provenance_label(model)}"
         lines.append(
-            f" {index:>2}  {row['family']:<20.20} {base_label:<17} "
-            f"{overlay_label:<14} {model_label}"
+            f" {index:>2}  {row['family']:<20.20} {base_label:<18.18} "
+            f"{field_label:>6} {gears_label:>6} {torque_label:>7} "
+            f"{overlay_label:<10.10} {model_label}"
         )
     return lines
 
@@ -277,16 +287,66 @@ def _choose_output_path(root: Path, carrier: str, family: str) -> Path:
     return candidate
 
 
-def _validate_selected_family(inventory: InstallInventory, family: str) -> None:
-    # The established validator checks exact base schema and the typed Player1
-    # overlay. A known initialized carrier is used only to enter that validator;
-    # the user has not selected a carrier yet.
+def _validate_selected_family(
+    inventory: InstallInventory,
+    family: str,
+    *,
+    allow_unverified_schema: bool = False,
+) -> Any:
+    """Call the same semantic schema and overlay validator used by apply."""
     named_vehicle_path(family)
-    validate_binding_families(
-        (PhysicsBinding(RETAIL_FAMILY_CATALOG[0].family, family),),
+    return validate_vehicle_family_config(
+        family,
         inventory.vehicle_config,
         inventory.modifications_config,
+        allow_unverified_schema=allow_unverified_schema,
     )
+
+
+def _show_schema_detail(
+    family_row: dict[str, Any], output_fn: Callable[[str], Any]
+) -> None:
+    base = family_row["base_config"]
+    audit = base.get("schema_audit")
+    output_fn("")
+    output_fn(f"Config detail: {family_row['family']}")
+    output_fn(f"  Schema:       {base['status']}")
+    if audit is None:
+        output_fn("  No base vehicle config fields are present.")
+        return
+    output_fn(
+        f"  Fixed fields: {audit['fixed_fields_present']}/"
+        f"{audit['fixed_fields_expected']} ({'OK' if audit['fixed_schema_ok'] else 'check required'})"
+    )
+    output_fn(f"  Total fields: {audit['total_fields']}")
+    output_fn("  Engine:")
+    gear_total = audit["gear_fields_expected"]
+    gear_total_text = str(gear_total) if gear_total is not None else "unknown"
+    for name, label in (
+        ("Gear", "Gear entries"),
+        ("ChangeUpRevs", "ChangeUpRevs"),
+        ("ChangeDownRevs", "ChangeDownRevs"),
+    ):
+        present = audit["gear_fields_present"].get(name, 0)
+        output_fn(f"    {label}: {present}/{gear_total_text}")
+    torque_total = audit["torque_fields_expected"]
+    torque_total_text = str(torque_total) if torque_total is not None else "unknown"
+    output_fn(f"    Gears = {audit['gears_count']}")
+    output_fn(f"    TorqueEntries = {audit['torque_entries_count']}")
+    output_fn(
+        f"    Torque entries: {audit['torque_fields_present']}/{torque_total_text}"
+    )
+    if audit["missing_paths"]:
+        output_fn("  Missing required paths: " + ", ".join(audit["missing_paths"]))
+    if audit["unexpected_paths"]:
+        output_fn("  Unexplained paths: " + ", ".join(audit["unexpected_paths"]))
+    if audit["type_mismatches"]:
+        output_fn("  Type mismatches: " + "; ".join(
+            f"{path} expected {expected}, got {actual}"
+            for path, expected, actual in audit["type_mismatches"]
+        ))
+    if audit["count_errors"]:
+        output_fn("  Count errors: " + "; ".join(audit["count_errors"]))
 
 
 def _show_family_preview(
@@ -355,16 +415,30 @@ def run_interactive_wizard(
             output_fn=output_fn,
         )
         family = family_row["family"]
-        if family_row["base_config"]["status"] != "COMPLETE":
-            raise ValueError(
-                f"{family} has no complete base vehicle config "
-                f"({family_row['base_config']['status']}); it cannot be bound."
+        _show_schema_detail(family_row, output_fn)
+        allow_unverified_schema = False
+        schema_status = family_row["base_config"]["status"]
+        if schema_status == "UNVERIFIED_SCHEMA":
+            output_fn(
+                "This family differs from the understood retail reader schema. "
+                "Its runtime compatibility is UNVERIFIED."
             )
-        if family_row["player1_modifications"]["status"] != "COMPLETE":
-            overlay = family_row["player1_modifications"]
-            details = ", ".join(overlay["missing_fields"][:4]) or overlay["status"]
-            raise ValueError(f"{family}/Player1 modifications are incomplete: {details}")
-        _validate_selected_family(inventory, family)
+            phrase = input_fn(
+                f"Type {UNVERIFIED_SCHEMA_OVERRIDE} to continue experimentally, or press Enter to stop: "
+            ).strip()
+            if phrase != UNVERIFIED_SCHEMA_OVERRIDE:
+                return 2
+            allow_unverified_schema = True
+        elif schema_status != "COMPATIBLE":
+            _validate_selected_family(inventory, family)
+            raise ValueError(
+                f"{family} config schema is {schema_status}; it cannot be bound."
+            )
+        family_validation = _validate_selected_family(
+            inventory,
+            family,
+            allow_unverified_schema=allow_unverified_schema,
+        )
 
         model = family_row["model"]
         if model["status"] not in {"COMPLETE", "COMPLETE_WHEELLESS"}:
@@ -403,12 +477,18 @@ def run_interactive_wizard(
         binding = PhysicsBinding(carrier.family, family)
         output_path = _choose_output_path(root, carrier.family, family)
         _show_family_preview(inventory, family_row, carrier, output_path, output_fn)
+        if family_validation.schema_override_used:
+            output_fn(
+                "WARNING: this family uses an unverified schema; the advanced "
+                "schema override will be recorded in the validation manifest."
+            )
         with _materialized_config_paths(inventory) as (vehicles_xml, modifications_xml):
             report = validate_binding_request(
                 inventory.executable,
                 (binding,),
                 vehicles_xml,
                 modifications_xml,
+                allow_unverified_schema=allow_unverified_schema,
             )
             output_fn("")
             output_fn(
@@ -432,6 +512,7 @@ def run_interactive_wizard(
                 (binding,),
                 vehicles_xml,
                 modifications_xml,
+                allow_unverified_schema=allow_unverified_schema,
             )
 
         output_fn(f"Binding copy ready: {result['output_exe']}")

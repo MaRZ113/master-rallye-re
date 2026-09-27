@@ -13,7 +13,6 @@ from master_rallye.vehicle_physics_binding import (
     PhysicsBinding,
     RETAIL_FAMILY_CATALOG,
     apply_binding_copy,
-    family_schema_sha256,
     load_binding_config,
     parse_binding_config_text,
     parse_pe32_layout,
@@ -23,6 +22,7 @@ from master_rallye.vehicle_physics_binding import (
     validate_binding_request,
 )
 from master_rallye.vehicle_config_analysis import parse_vehicle_config
+from master_rallye.vehicle_config_schema import RETAIL_REQUIRED_FIXED_SCHEMA
 
 
 TEST_CATALOG = (
@@ -84,14 +84,24 @@ def make_configs(root: Path, *, target: str = "LongTargetFamily", include_overla
                  missing_base_group: str | None = None) -> tuple[Path, Path]:
     vehicle_path = root / "vehicles.xml"
     mods_path = root / "Modifications.xml"
-    value_rows = []
-    for group, count in BASE_GROUPS.items():
-        if group == missing_base_group:
-            count -= 1
-        for index in range(count):
-            value_rows.append(
-                f'<Value Name="Vehicles/{target}/{group}/Field{index}" Type="Float" Value="1" />'
-            )
+    fields = {
+        path: {"type": value_type, "value": "1"}
+        for path, value_type in RETAIL_REQUIRED_FIXED_SCHEMA.items()
+    }
+    fields["Engine/Gears"]["value"] = "7"
+    fields["Engine/TorqueEntries"]["value"] = "6"
+    for prefix in ("Gear", "ChangeUpRevs", "ChangeDownRevs"):
+        for index in range(7):
+            fields[f"Engine/{prefix}{index}"] = {"type": "Float", "value": "1"}
+    for index in range(6):
+        fields[f"Engine/TorqueEntry{index}"] = {"type": "Vector2", "value": "0,0"}
+    if missing_base_group is not None:
+        missing_path = next(path for path in fields if path.startswith(missing_base_group + "/"))
+        del fields[missing_path]
+    value_rows = [
+        f'<Value Name="Vehicles/{target}/{path}" Type="{row["type"]}" Value="{row["value"]}" />'
+        for path, row in sorted(fields.items())
+    ]
     vehicle_path.write_text(
         "<Config><Values>" + "".join(value_rows) + "</Values></Config>", encoding="utf-8"
     )
@@ -106,11 +116,6 @@ def make_configs(root: Path, *, target: str = "LongTargetFamily", include_overla
         "<Config><Values>" + "".join(overlay_rows) + "</Values></Config>", encoding="utf-8"
     )
     return vehicle_path, mods_path
-
-
-def schema_hash(path: Path, target: str = "LongTargetFamily") -> str:
-    document = parse_vehicle_config(path, build="synthetic")
-    return family_schema_sha256(document.families[target])
 
 
 class RPhys3BindingConfigTests(unittest.TestCase):
@@ -148,7 +153,6 @@ class RPhys3BindingConfigTests(unittest.TestCase):
             result = validate_binding_families(
                 (PhysicsBinding("Carrier", "LongTargetFamily"),), vehicle, mods,
                 catalog=TEST_CATALOG,
-                required_base_schema_sha256=schema_hash(vehicle_path),
             )
         self.assertEqual(result[0].type_id, 0)
         self.assertEqual(result[0].base_group_counts, BASE_GROUPS)
@@ -166,13 +170,11 @@ class RPhys3BindingConfigTests(unittest.TestCase):
                 validate_binding_families(
                     (PhysicsBinding("Hidden", "LongTargetFamily"),), vehicle, mods,
                     catalog=TEST_CATALOG,
-                    required_base_schema_sha256=schema_hash(vehicle_path),
                 )
             with self.assertRaisesRegex(ValueError, "absent from vehicles.xml"):
                 validate_binding_families(
                     (PhysicsBinding("Carrier", "Missing"),), vehicle, mods,
                     catalog=TEST_CATALOG,
-                    required_base_schema_sha256=schema_hash(vehicle_path),
                 )
 
     def test_config_validation_fails_for_incomplete_reader_groups_or_overlay(self):
@@ -181,11 +183,10 @@ class RPhys3BindingConfigTests(unittest.TestCase):
             vehicle_path, mods_path = make_configs(root, missing_base_group="Engine")
             vehicle = parse_vehicle_config(vehicle_path, build="synthetic")
             mods = parse_vehicle_config(mods_path, build="synthetic")
-            with self.assertRaisesRegex(ValueError, "base groups are incomplete"):
+            with self.assertRaisesRegex(ValueError, "config schema is INCOMPLETE"):
                 validate_binding_families(
                     (PhysicsBinding("Carrier", "LongTargetFamily"),), vehicle, mods,
                     catalog=TEST_CATALOG,
-                    required_base_schema_sha256=schema_hash(vehicle_path),
                 )
             vehicle_path, mods_path = make_configs(root, include_overlay=False)
             vehicle = parse_vehicle_config(vehicle_path, build="synthetic")
@@ -194,24 +195,21 @@ class RPhys3BindingConfigTests(unittest.TestCase):
                 validate_binding_families(
                     (PhysicsBinding("Carrier", "LongTargetFamily"),), vehicle, mods,
                     catalog=TEST_CATALOG,
-                    required_base_schema_sha256=schema_hash(vehicle_path),
                 )
 
     def test_config_validation_rejects_changed_base_path_type_schema(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             vehicle_path, mods_path = make_configs(root)
-            expected_schema = schema_hash(vehicle_path)
             source_text = vehicle_path.read_text(encoding="utf-8")
-            vehicle_path.write_text(source_text.replace("/Dimensions/Field0\"", "/Dimensions/Renamed\""),
+            vehicle_path.write_text(source_text.replace("/Dimensions/Length\"", "/Dimensions/Renamed\""),
                                     encoding="utf-8")
             vehicle = parse_vehicle_config(vehicle_path, build="synthetic")
             mods = parse_vehicle_config(mods_path, build="synthetic")
-            with self.assertRaisesRegex(ValueError, "path/type schema differs"):
+            with self.assertRaisesRegex(ValueError, "config schema is INCOMPLETE"):
                 validate_binding_families(
                     (PhysicsBinding("Carrier", "LongTargetFamily"),), vehicle, mods,
                     catalog=TEST_CATALOG,
-                    required_base_schema_sha256=expected_schema,
                 )
 
     def test_config_validation_rejects_non_float_player1_overlay(self):
@@ -223,11 +221,10 @@ class RPhys3BindingConfigTests(unittest.TestCase):
                                  encoding="utf-8")
             vehicle = parse_vehicle_config(vehicle_path, build="synthetic")
             mods = parse_vehicle_config(mods_path, build="synthetic")
-            with self.assertRaisesRegex(ValueError, "unexpected type"):
+            with self.assertRaisesRegex(ValueError, "non-Float fields"):
                 validate_binding_families(
                     (PhysicsBinding("Carrier", "LongTargetFamily"),), vehicle, mods,
                     catalog=TEST_CATALOG,
-                    required_base_schema_sha256=schema_hash(vehicle_path),
                 )
 
 
@@ -308,7 +305,6 @@ class RPhys3CopyLifecycleTests(unittest.TestCase):
                 mods,
                 expected_exe_sha256=original_sha,
                 catalog=TEST_CATALOG,
-                required_base_schema_sha256=schema_hash(vehicle),
             )
             self.assertEqual(report["status"], "VALID")
             self.assertEqual(report["mode"], "DRY_RUN_NO_FILES_WRITTEN")
@@ -329,7 +325,6 @@ class RPhys3CopyLifecycleTests(unittest.TestCase):
                 apply_binding_copy(
                     source, output, (PhysicsBinding("Carrier", "LongTargetFamily"),),
                     vehicle, mods, catalog=TEST_CATALOG,
-                    required_base_schema_sha256=schema_hash(vehicle),
                 )
             self.assertFalse(output.exists())
             self.assertFalse(source.with_name(output.name + ".original").exists())
@@ -348,7 +343,6 @@ class RPhys3CopyLifecycleTests(unittest.TestCase):
             first = apply_binding_copy(
                 source, output, bindings, vehicle, mods,
                 expected_exe_sha256=original_sha, catalog=TEST_CATALOG,
-                required_base_schema_sha256=schema_hash(vehicle),
             )
             self.assertEqual(first["status"], "APPLIED_TO_COPY")
             self.assertNotEqual(output.read_bytes(), original)
@@ -366,7 +360,6 @@ class RPhys3CopyLifecycleTests(unittest.TestCase):
             second = apply_binding_copy(
                 source, output, bindings, vehicle, mods,
                 expected_exe_sha256=original_sha, catalog=TEST_CATALOG,
-                required_base_schema_sha256=schema_hash(vehicle),
             )
             self.assertEqual(second["status"], "ALREADY_APPLIED")
             self.assertEqual(restore_binding_copy(
@@ -391,13 +384,11 @@ class RPhys3CopyLifecycleTests(unittest.TestCase):
                 apply_binding_copy(
                     source, source, binding, vehicle, mods,
                     expected_exe_sha256=original_sha, catalog=TEST_CATALOG,
-                    required_base_schema_sha256=schema_hash(vehicle),
                 )
             output = root / "MRallye_bound.exe"
             apply_binding_copy(
                 source, output, binding, vehicle, mods,
                 expected_exe_sha256=original_sha, catalog=TEST_CATALOG,
-                required_base_schema_sha256=schema_hash(vehicle),
             )
             with self.assertRaisesRegex(ValueError, "expected retail executable build"):
                 restore_binding_copy(output)

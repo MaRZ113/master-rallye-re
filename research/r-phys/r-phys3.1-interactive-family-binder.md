@@ -48,11 +48,14 @@ as `forklift` remains visible, but cannot pass the config broker checks.
 Every named family from `vehicles.xml` is shown, including release families,
 cut/config-only families, and families that fail the strict broker schema.
 Model-only packages are included as supplemental rows. Base completeness
-means the exact retail 147-field path/type schema. Player1 completeness means
-the exact 13 expected float setup fields. The final family validation and PE
-patch still run through `validate_binding_request` and `apply_binding_copy` in
-`vehicle_physics_binding.py`; the interactive workflow has no patching logic of
-its own.
+uses the retail reader-aware schema: 120 fixed path/type requirements, including
+the `Gears` and `TorqueEntries` count headers, plus the indexed Engine fields
+required by those counts. Total field count varies by family. The status view
+reports that total as diagnostic information, not as a compatibility gate.
+Player1 completeness means the exact 13 expected float setup fields. The final
+family validation and PE patch still run through `validate_binding_request`
+and `apply_binding_copy` in `vehicle_physics_binding.py`; the interactive
+workflow has no patching logic of its own.
 
 The carrier menu comes only from the 25 initialized retail type records. A
 config-only family can be selected as the new family, but never appears as a
@@ -124,8 +127,9 @@ At P3.1 implementation time, the supported local executable hash matched the
 expected retail build. The current installation `Data.sma` index contained a
 complete Trooper model package (`car.dx`, `complete.dx`, and `wheel.dx`), while
 the loose runtime `DataGx\Vehicles` root had no Trooper override. Trooper's
-base config was complete at 147/147 and its Player1 overlay was complete at
-13/13. The archive itself is an installation input; this inventory does not
+base config was `COMPATIBLE`: 120 fixed fields, `Gears = 7`, and
+`TorqueEntries = 6` produce 147 total fields. Its Player1 overlay was complete
+at 13/13. The archive itself is an installation input; this inventory does not
 claim that its contents are byte-identical to a pristine distribution.
 
 The same inventory showed 35 named config families. The merged view had 37
