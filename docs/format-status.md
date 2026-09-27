@@ -21,6 +21,19 @@ rev131 draw layout and reports local/global-index validation errors on these
 rev135 demo outputs; those parser diagnostics are preserved rather than
 treated as proof of runtime rejection. A 131-to-135 upgrader remains unproven.
 
+### R-COOKER1.1 Trooper prototype follow-up
+
+The initial R-COOKER1 `UNKNOWN` prefix mapping was refined in a research-only
+prototype. The candidate rev135 prefix formula matches **47/47** paired Trooper
+draw records. Three candidates generated from rev131 alone parse without
+canonical parser or collision warnings/errors, have the official rev135 sizes,
+and differ from official rev135 only inside their local uint16 index arrays.
+The rev131 trailing global index tables remain byte-identical to the official
+tables; the candidates retain a locally consistent index order and table.
+Retail runtime compatibility is **PENDING**. See
+[`research/r-cooker1_1/findings.md`](../research/r-cooker1_1/findings.md) and
+[`runtime-test-plan.md`](../research/r-cooker1_1/runtime-test-plan.md).
+
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
 | `.dx` | Compiled 3D model data: vertex arrays, local `uint16` triangle indices, variable draw records, a stored global `uint32` index table, and resource-dependent trailing data. | **HIGH** vehicle grammar | All 78 vehicle DX files parse and reconstruct their stored global indices exactly. Course DX remains untested. |

@@ -35,9 +35,11 @@ See the [Vehicle Composer guide](docs/vehicle-composer.md) for use. R-COOKER1
 has begun with a controlled Trooper comparison: supplied 9.3.1 and 9.10.0
 outputs share byte-identical `car`, `complete`, and `wheel` GXM sources. Render
 attribute arrays match byte-for-byte, while per-draw triangle order and draw
-record prefixes differ. The initial results and limits are in
-[`research/r-cooker1/findings.md`](research/r-cooker1/findings.md). A usable
-131-to-135 upgrader has not been established.
+record prefixes differ. A narrow R-COOKER1.1 prototype now reserializes the
+verified Trooper draw prefix while preserving rev131 local index order. Its
+retail test is pending; no usable general 131-to-135 upgrader has been
+established. See the [initial comparison](research/r-cooker1/findings.md) and
+[prototype findings](research/r-cooker1_1/findings.md).
 
 Vehicle Composer v0.1.0 has been published. Its MIT license covers
 this project's original code and documentation; Master Rallye and its game
