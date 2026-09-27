@@ -39,13 +39,24 @@ record prefixes differ. A narrow R-COOKER1.1 prototype now reserializes the
 verified Trooper draw prefix while preserving rev131 local index order. The
 three Trooper candidates passed retail runtime testing, showing that the
 official 9.10.0 triangle reorder was unnecessary for those tested resources.
-This is not yet a general 131-to-135 upgrader. The same-source Subaru
-Forester comparison matches the draw-prefix formula in all 35 records, and
-all three prototype candidates parse cleanly; its retail runtime test is
-pending. See the
+The same-source Subaru Forester comparison matches the draw-prefix formula
+in all 35 records, and its three prototype candidates also passed retail
+runtime testing without the official triangle reorder. Trooper and Forester
+therefore support a format-level vehicle transition; arbitrary DX resource
+types are not yet covered. See the
 [initial comparison](research/r-cooker1/findings.md),
 [Trooper closeout](research/r-cooker1_1/findings.md), and
 [Forester check](research/r-cooker1_2/findings.md).
+
+R-COOKER2 promotes that transition into a standalone revision-131 vehicle DX
+upgrader. The current scan accepts 38/38 vehicle files across seven families;
+10 same-GXM paired roles confirm the draw-prefix rule in 135/135 records.
+Trooper and Forester candidate hashes match their runtime-tested files, while
+the other five family packages remain static candidates. The converter
+preserves local index order, does not copy or convert DXT, and rejects DX
+grammars outside its supported vehicle layout. See the
+[DX 131-to-135 guide](docs/dx-131-to-135-upgrader.md) and
+[corpus coverage](research/r-cooker2/corpus-coverage.md).
 
 Vehicle Composer v0.1.0 has been published. Its MIT license covers
 this project's original code and documentation; Master Rallye and its game

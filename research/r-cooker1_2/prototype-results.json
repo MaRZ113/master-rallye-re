@@ -1,6 +1,6 @@
 {
   "phase": "R-COOKER1.2",
-  "status": "READY_FOR_RUNTIME",
+  "status": "PASS",
   "r_cooker1_1_closeout": {
     "status": "PASS",
     "runtime_evidence": "CONFIRMED_BY_RUNTIME",
@@ -22,7 +22,21 @@
     }
   },
   "forester": {
-    "status": "STATIC_PASS_RUNTIME_PENDING",
+    "status": "PASS",
+    "runtime_evidence": "CONFIRMED_BY_RUNTIME",
+    "runtime_observations": {
+      "frontend_complete_model": "works",
+      "race_model": "works",
+      "wheel_model": "works",
+      "textures_and_material_appearance": "correct",
+      "visible_model_problems": "none reported",
+      "official_9_10_0_triangle_reorder_reproduced": false,
+      "retail_accepted_minimal_conversion": true,
+      "wheel_placement": "not separately reported",
+      "collision": "not separately reported",
+      "damage": "not separately reported",
+      "crash_behavior": "not separately reported"
+    },
     "source_corpus": "Demo 9.3.1 read-only corpus",
     "source_files": {
       "car": {
@@ -424,7 +438,8 @@
       "formula": "rev131 A B C + u32 X + u32 slot_count -> rev135 u32 1 + u32 0 + float32 1.0 + A 00 B C + preserved u32 X + preserved u32 slot_count"
     },
     "candidate_generation": "GENERATED_FROM_REV131_INPUTS",
-    "runtime_status": "PENDING",
+    "runtime_status": "PASS",
+    "runtime_evidence": "CONFIRMED_BY_RUNTIME",
     "source_identity_status": "CONFIRMED_BY_BYTES",
     "source_identity_by_role": {
       "car": {
@@ -472,7 +487,7 @@
     },
     "candidate_package": {
       "path": ".research-output/r-cooker1_2/forester-runtime-candidate",
-      "runtime_status": "PENDING",
+      "runtime_status": "PASS",
       "files": [
         "car.dx",
         "complete.dx",
@@ -490,5 +505,5 @@
       "byte_identical": true
     }
   },
-  "generalization_status": "TWO_VEHICLE_STATIC_SUPPORT_PENDING_RUNTIME"
+  "generalization_status": "TWO_VEHICLE_RUNTIME_CONFIRMED"
 }

@@ -100,10 +100,24 @@ all 15 car draws, all 15 complete draws, and all 5 wheel draws. The exact
 changed-value counts and ranges are machine-recorded in
 [`prototype-results.json`](prototype-results.json).
 
-## Runtime handoff state
+## Retail runtime closeout — `PASS / CONFIRMED_BY_RUNTIME`
+
+The operator reports that the unchanged generic prototype candidates were
+tested in retail and passed:
+
+- Forester frontend complete model works.
+- Race model works.
+- Wheel model works.
+- Textures and materials appear correct.
+- No visible model problems were reported.
+
+The official 9.10.0 triangle reorder was not reproduced; retail accepted
+these minimal conversions. Collision and damage behavior, wheel placement,
+and crash behavior were not separately reported. This supports the format
+transition for these tested Forester resources alongside the Trooper result;
+it does not guarantee every revision-131 resource type or asset combination.
 
 The ignored package
-`.research-output/r-cooker1_2/forester-runtime-candidate/` contains
-`car.dx`, `complete.dx`, and `wheel.dx`. See
-[`runtime-test-plan.md`](runtime-test-plan.md). Runtime status remains
-`PENDING` until the operator tests the candidates in retail.
+`.research-output/r-cooker1_2/forester-runtime-candidate/` contains the three
+tested candidates. The reported observations are also recorded in
+[`runtime-test-plan.md`](runtime-test-plan.md).

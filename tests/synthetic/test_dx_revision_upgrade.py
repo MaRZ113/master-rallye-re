@@ -5,7 +5,11 @@ import unittest
 
 from master_rallye.demo_dx import inspect_demo_dx
 from master_rallye.dx import parse_dx_bytes
-from master_rallye.dx_revision_upgrade import upgrade_dx_131_to_135
+from master_rallye.dx_revision_upgrade import (
+    DxRevisionUpgradeError,
+    upgrade_dx_131_to_135,
+    upgrade_dx_131_to_135_with_report,
+)
 from master_rallye.errors import BoundsError, FormatError
 
 
@@ -127,6 +131,52 @@ class DxRevisionUpgradeTests(unittest.TestCase):
 
     def test_output_is_deterministic(self):
         self.assertEqual(self.candidate, upgrade_dx_131_to_135(self.source))
+
+    def test_structured_report_proves_preservation_and_scopes_runtime_evidence(self):
+        candidate, report = upgrade_dx_131_to_135_with_report(self.source, "fixture/car.dx")
+        self.assertEqual(candidate, self.candidate)
+        self.assertEqual(report["status"], "PASS")
+        self.assertEqual(report["source_revision"], 131)
+        self.assertEqual(report["output_revision"], 135)
+        self.assertEqual(report["draw_records_transformed"], 2)
+        self.assertEqual(report["draw_record_size_growth_bytes"], 26)
+        self.assertTrue(all(report["preservation_checks"].values()))
+        self.assertEqual(report["evidence_profile"], "STATICALLY_SUPPORTED")
+        self.assertEqual(
+            report["runtime_evidence"]["individual_output_runtime_status"],
+            "NOT_ASSESSED_BY_CONVERTER",
+        )
+
+    def test_already_135_input_is_rejected_explicitly(self):
+        source = bytearray(self.source)
+        struct.pack_into("<I", source, 4, 135)
+        with self.assertRaises(DxRevisionUpgradeError) as caught:
+            upgrade_dx_131_to_135(bytes(source))
+        self.assertEqual(caught.exception.code, "already_revision_135")
+
+    def test_unsupported_revision_is_rejected_explicitly(self):
+        source = bytearray(self.source)
+        struct.pack_into("<I", source, 4, 129)
+        with self.assertRaises(DxRevisionUpgradeError) as caught:
+            upgrade_dx_131_to_135(bytes(source))
+        self.assertEqual(caught.exception.code, "unsupported_revision")
+
+    def test_unsupported_draw_variant_fails_closed(self):
+        view = inspect_demo_dx(self.source)
+        source = bytearray(self.source)
+        struct.pack_into("<I", source, view.draw_offset + 8, 7)
+        with self.assertRaises(DxRevisionUpgradeError) as caught:
+            upgrade_dx_131_to_135(bytes(source))
+        self.assertEqual(caught.exception.code, "unsupported_draw_record")
+
+    def test_impossible_texture_slot_count_fails_closed(self):
+        view = inspect_demo_dx(self.source)
+        source = bytearray(self.source)
+        # envelope + 20-byte core + 3 flag bytes + u32 X
+        struct.pack_into("<I", source, view.draw_offset + 8 + 20 + 7, 33)
+        with self.assertRaises(DxRevisionUpgradeError) as caught:
+            upgrade_dx_131_to_135(bytes(source))
+        self.assertEqual(caught.exception.code, "invalid_texture_slot_count")
 
     def test_non_131_input_is_rejected(self):
         source = bytearray(self.source)

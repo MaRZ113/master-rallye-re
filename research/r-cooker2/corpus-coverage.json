@@ -1,0 +1,4927 @@
+{
+  "schema_version": 1,
+  "phase": "R-COOKER2",
+  "scope": "vehicle DX only; non-vehicle revision-131 assets are excluded",
+  "evidence": "CONFIRMED_BY_BYTES",
+  "scan_roots": [
+    "inputs/9.3.1_*",
+    "../corpora/demo-9.3.1/DataGx/Vehicles"
+  ],
+  "summary": {
+    "vehicle_family_count": 7,
+    "vehicle_families": [
+      "Forester",
+      "Jump",
+      "NewRav",
+      "Rav4",
+      "Tata",
+      "Trooper",
+      "Wildcat"
+    ],
+    "rev131_vehicle_dx_candidates": 38,
+    "input_rev131_dx_files": 21,
+    "read_only_demo_corpus_rev131_dx_files": 17,
+    "accepted_by_production_upgrader": 38,
+    "rejected_or_unsupported": 0,
+    "draw_records_in_scanned_candidates": 624,
+    "distinct_material_count_available": false
+  },
+  "paired_rev131_rev135_oracle": {
+    "potential_pairs": 12,
+    "compared_same_gxm_pairs": 10,
+    "blocked_gxm_mismatch_pairs": 2,
+    "families_with_output_pairs": [
+      "Forester",
+      "Jump",
+      "Trooper",
+      "Wildcat"
+    ],
+    "draw_records_checked": 135,
+    "draw_prefix_formula_matches": 135,
+    "draw_prefix_formula_mismatches": 0,
+    "full_gxi_inventories_byte_identical": 6,
+    "note": "Eligibility uses exact GXM SHA256; GXI sidecar inventories are reported separately and may differ."
+  },
+  "paired_outputs": [
+    {
+      "family": "Forester",
+      "role": "car",
+      "rev131_path": "inputs/9.3.1_dxForester/car.dx",
+      "rev131_size": 128327,
+      "rev131_sha256": "eb2909b1d623f9e053a11114fe1d6d17283495bf7cab902755f87d2ee299e7de",
+      "rev135_path": "inputs/9.10.0_dxForester/car.dx",
+      "rev135_size": 128522,
+      "rev135_sha256": "fbe8d15af205a3cbe95773d5241372352729f7fbcef21e61386123209a80a423",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_dxForester/car.gxm",
+        "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+        "size": 219728
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_dxForester/car.gxm",
+        "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+        "size": 219728
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 1,
+        "count_9_10_0": 1,
+        "same_name_set": true,
+        "byte_identical_inventory": true,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 15,
+      "prefix_formula_matches": 15,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 15,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          101
+        ],
+        "tag_ids_9_10_0": [
+          101
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "11433415ebeb4f4864a78e64ae2de9e0462b14fcf16b1b63e56313015e1a1086",
+        "size": 128522,
+        "draw_count": 15,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 7134,
+        "changed_byte_range_count": 3764,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          88548,
+          99732
+        ],
+        "changed_uint16_values": 5449,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_dxForester",
+        "9.10.0": "9.10.0_dxForester"
+      }
+    },
+    {
+      "family": "Forester",
+      "role": "complete",
+      "rev131_path": "inputs/9.3.1_dxForester/complete.dx",
+      "rev131_size": 138492,
+      "rev131_sha256": "d42ce558a6455a3c8e75b661b962ab472cf9a6ebeceeda9658a70ac1d163e219",
+      "rev135_path": "inputs/9.10.0_dxForester/complete.dx",
+      "rev135_size": 138687,
+      "rev135_sha256": "72a3b98f616d55e66e43bf0bbc2702bdb5ff464406ae7e14338cc3c4a5a4ee15",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_dxForester/complete.gxm",
+        "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+        "size": 257541
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_dxForester/complete.gxm",
+        "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+        "size": 257541
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 1,
+        "count_9_10_0": 1,
+        "same_name_set": true,
+        "byte_identical_inventory": true,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 15,
+      "prefix_formula_matches": 15,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 15,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          102
+        ],
+        "tag_ids_9_10_0": [
+          102
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "852d2188d8ee3913ea366a684ca818b1e51bed61e4c4b685308dee3939153aa7",
+        "size": 138687,
+        "draw_count": 15,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 8221,
+        "changed_byte_range_count": 5068,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          95388,
+          109356
+        ],
+        "changed_uint16_values": 6644,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_dxForester",
+        "9.10.0": "9.10.0_dxForester"
+      }
+    },
+    {
+      "family": "Forester",
+      "role": "wheel",
+      "rev131_path": "inputs/9.3.1_dxForester/wheel.dx",
+      "rev131_size": 12937,
+      "rev131_sha256": "1e2fefdf5fdaa4eba94490a3287de2fbc14863b6812c5902ba8f4d3a089d3dd7",
+      "rev135_path": "inputs/9.10.0_dxForester/wheel.dx",
+      "rev135_size": 13002,
+      "rev135_sha256": "191009bd708ed20fd0d46c00572e8d8ba833ff5cff5c5f8f92b6772bd1d9a328",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_dxForester/wheel.gxm",
+        "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+        "size": 27272
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_dxForester/wheel.gxm",
+        "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+        "size": 27272
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 1,
+        "count_9_10_0": 1,
+        "same_name_set": true,
+        "byte_identical_inventory": true,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 5,
+      "prefix_formula_matches": 5,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 5,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          102
+        ],
+        "tag_ids_9_10_0": [
+          102
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+        "size": 13002,
+        "draw_count": 5,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 675,
+        "changed_byte_range_count": 675,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          7944,
+          9456
+        ],
+        "changed_uint16_values": 675,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_dxForester",
+        "9.10.0": "9.10.0_dxForester"
+      }
+    },
+    {
+      "family": "Jump",
+      "role": "car",
+      "rev131_path": "inputs/9.3.1_Jump/car.dx",
+      "rev131_size": 124150,
+      "rev131_sha256": "80cc521ed292f706ed0f81772d49e86ffb2d6d26b4413e6916691e60cf65ffb4",
+      "rev135_path": "inputs/9.10.0_Jump/car.dx",
+      "rev135_size": 124436,
+      "rev135_sha256": "85d3c88089018a962178f59ceb1748c8a69cbcb4bbca61914e0b333deaf8e25e",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_Jump/car.gxm",
+        "sha256": "55bd09e1f8c9c647c82381dba463bb555dfcc51c6b2d63b9e8e39c55231da17e",
+        "size": 217594
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_Jump/car.gxm",
+        "sha256": "55bd09e1f8c9c647c82381dba463bb555dfcc51c6b2d63b9e8e39c55231da17e",
+        "size": 217594
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 26,
+        "count_9_10_0": 26,
+        "same_name_set": true,
+        "byte_identical_inventory": false,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": [
+          "Jumpside128-tga.gxi"
+        ]
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 22,
+      "prefix_formula_matches": 22,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 22,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          101
+        ],
+        "tag_ids_9_10_0": [
+          101
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "ad77a9bd249460d72438a943f654c314939dbb05d44a759fc7306bfc4b96e865",
+        "size": 124436,
+        "draw_count": 22,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 5794,
+        "changed_byte_range_count": 4211,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          85020,
+          95868
+        ],
+        "changed_uint16_values": 5002,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_Jump",
+        "9.10.0": "9.10.0_Jump"
+      }
+    },
+    {
+      "family": "Jump",
+      "role": "complete",
+      "rev131_path": "inputs/9.3.1_Jump/complete.dx",
+      "rev131_size": 134249,
+      "rev131_sha256": "be4c0903dd1e05536ccd7833e94421d7a6f34bb7a6fafe077aa588b652878190",
+      "rev135_path": "inputs/9.10.0_Jump/complete.dx",
+      "rev135_size": 134496,
+      "rev135_sha256": "828eb349e74cfc8b8ba68cc82f39dd4af221dae6e540487d3556fe0b8541d46d",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_Jump/complete.gxm",
+        "sha256": "71979cfb0217e8cbc7edaed5e8dd69d88f4b6482bee79029701c9075f11e5bb1",
+        "size": 255282
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_Jump/complete.gxm",
+        "sha256": "e001670f5dc825a359cc6e035a55035fa0a67f60f820c4d6f1d34cf6310dca0d",
+        "size": 255282
+      },
+      "gxm_byte_identical": false,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 26,
+        "count_9_10_0": 26,
+        "same_name_set": true,
+        "byte_identical_inventory": false,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": [
+          "Jumpside128-tga.gxi"
+        ]
+      },
+      "comparison_status": "SOURCE_MISMATCH_COMPARISON_BLOCKED",
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_Jump",
+        "9.10.0": "9.10.0_Jump"
+      }
+    },
+    {
+      "family": "Jump",
+      "role": "wheel",
+      "rev131_path": "inputs/9.3.1_Jump/wheel.dx",
+      "rev131_size": 12932,
+      "rev131_sha256": "cd2a2cf5a03d85f9954a2ce10cea3b0c933a82705379b39af0826212b49decf7",
+      "rev135_path": "inputs/9.10.0_Jump/wheel.dx",
+      "rev135_size": 12997,
+      "rev135_sha256": "48894213e1d9320a6af2de841dc9e86f73251af7d293313a10c7d7e6e488d03f",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_Jump/wheel.gxm",
+        "sha256": "68c084024eb7df133e133b47739991a0f25440452c6e9259facc51250d963245",
+        "size": 27227
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_Jump/wheel.gxm",
+        "sha256": "68c084024eb7df133e133b47739991a0f25440452c6e9259facc51250d963245",
+        "size": 27227
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 26,
+        "count_9_10_0": 26,
+        "same_name_set": true,
+        "byte_identical_inventory": false,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": [
+          "Jumpside128-tga.gxi"
+        ]
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 5,
+      "prefix_formula_matches": 5,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 5,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          102
+        ],
+        "tag_ids_9_10_0": [
+          102
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "81c6a980df7c32ae16702afda6a42dfb6f9b5917c9cd6d7ddb4e3a84c0bf0ab0",
+        "size": 12997,
+        "draw_count": 5,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 675,
+        "changed_byte_range_count": 675,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          7944,
+          9456
+        ],
+        "changed_uint16_values": 675,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_Jump",
+        "9.10.0": "9.10.0_Jump"
+      }
+    },
+    {
+      "family": "Trooper",
+      "role": "car",
+      "rev131_path": "inputs/9.3.1_dxTrooper/car.dx",
+      "rev131_size": 124568,
+      "rev131_sha256": "8238078c40f7b419b2f3cc3a14f4511f1cdb6a8bce00f3589a39fbfcde32d5b1",
+      "rev135_path": "inputs/9.10.0_dxTrooper/car.dx",
+      "rev135_size": 124854,
+      "rev135_sha256": "c2f44f09e116dad7d9ad16d026b13109c1631360151e4aa2be5b62a333ebcc40",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_dxTrooper/car.gxm",
+        "sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+        "size": 222754
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_dxTrooper/car.gxm",
+        "sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+        "size": 222754
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 1,
+        "count_9_10_0": 1,
+        "same_name_set": true,
+        "byte_identical_inventory": true,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 22,
+      "prefix_formula_matches": 22,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 22,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          101
+        ],
+        "tag_ids_9_10_0": [
+          101
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "04a9aa09b813a0893953e6813b2d8ec4ac63a5545b987e12a29e692773de06e1",
+        "size": 124854,
+        "draw_count": 22,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 6367,
+        "changed_byte_range_count": 4738,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          83184,
+          94650
+        ],
+        "changed_uint16_values": 5552,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_dxTrooper",
+        "9.10.0": "9.10.0_dxTrooper"
+      }
+    },
+    {
+      "family": "Trooper",
+      "role": "complete",
+      "rev131_path": "inputs/9.3.1_dxTrooper/complete.dx",
+      "rev131_size": 134349,
+      "rev131_sha256": "27b429e271fc7afb3b71f45bf14c197c779473b087227dbf468fd48ad97a911f",
+      "rev135_path": "inputs/9.10.0_dxTrooper/complete.dx",
+      "rev135_size": 134609,
+      "rev135_sha256": "85c3f74ca062acb994bd23722dfe1c774845d3db33a85cc5aadd7ab3f3fa242e",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_dxTrooper/complete.gxm",
+        "sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+        "size": 260220
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_dxTrooper/complete.gxm",
+        "sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+        "size": 260220
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 1,
+        "count_9_10_0": 1,
+        "same_name_set": true,
+        "byte_identical_inventory": true,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 20,
+      "prefix_formula_matches": 20,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 20,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          102
+        ],
+        "tag_ids_9_10_0": [
+          102
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "a8ceffebf7f6fc8b8af489e1e4c7f62ca5ef3b537db4af3f8048e687997629bc",
+        "size": 134609,
+        "draw_count": 20,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 7413,
+        "changed_byte_range_count": 6054,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          90024,
+          104274
+        ],
+        "changed_uint16_values": 6730,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_dxTrooper",
+        "9.10.0": "9.10.0_dxTrooper"
+      }
+    },
+    {
+      "family": "Trooper",
+      "role": "wheel",
+      "rev131_path": "inputs/9.3.1_dxTrooper/wheel.dx",
+      "rev131_size": 12924,
+      "rev131_sha256": "9e7da7b3ea525fb5f29b61be763894ae98cd54fd0430c1b46b9f64d76e48d0ed",
+      "rev135_path": "inputs/9.10.0_dxTrooper/wheel.dx",
+      "rev135_size": 12989,
+      "rev135_sha256": "236853cb1d8f1cf068f3639b90e8b372fdab1b9c3b40b3d8793bc959931e7b5c",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_dxTrooper/wheel.gxm",
+        "sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+        "size": 27234
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_dxTrooper/wheel.gxm",
+        "sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+        "size": 27234
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 1,
+        "count_9_10_0": 1,
+        "same_name_set": true,
+        "byte_identical_inventory": true,
+        "names_only_9_3_1": [],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 5,
+      "prefix_formula_matches": 5,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 5,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          102
+        ],
+        "tag_ids_9_10_0": [
+          102
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "1a1aa4605e0319dd0d3fc68691845ed34559d1635c320986b23f9fe5750406ab",
+        "size": 12989,
+        "draw_count": 5,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 675,
+        "changed_byte_range_count": 675,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          7944,
+          9456
+        ],
+        "changed_uint16_values": 675,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_dxTrooper",
+        "9.10.0": "9.10.0_dxTrooper"
+      }
+    },
+    {
+      "family": "Wildcat",
+      "role": "car",
+      "rev131_path": "inputs/9.3.1_Wildcat/car.dx",
+      "rev131_size": 137032,
+      "rev131_sha256": "60034193d9f54a9634cd0fca1cca946f61ac2dc0c286c786ee29ee4ba4b31ad6",
+      "rev135_path": "inputs/9.10.0_Wildcat/car.dx",
+      "rev135_size": 137305,
+      "rev135_sha256": "7ff5dc9e3b4103b7e4701a297002ce8fb5d61491231d413cd9fd89c1e2774c08",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_Wildcat/car.gxm",
+        "sha256": "4b739b19f8ec4f1ff859832939d9a1d7b906037e1ba1e2ba19f30d291daba74a",
+        "size": 227711
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_Wildcat/car.gxm",
+        "sha256": "4b739b19f8ec4f1ff859832939d9a1d7b906037e1ba1e2ba19f30d291daba74a",
+        "size": 227711
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 34,
+        "count_9_10_0": 28,
+        "same_name_set": false,
+        "byte_identical_inventory": false,
+        "names_only_9_3_1": [
+          "Cata128-tga.gxi",
+          "Catflag16-tga.gxi",
+          "Catlight64-tga.gxi",
+          "Cattread-tga.gxi",
+          "Catwheel643-tga.gxi",
+          "Cdoor128-tga.gxi"
+        ],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 21,
+      "prefix_formula_matches": 21,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 21,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          101
+        ],
+        "tag_ids_9_10_0": [
+          101
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "ed6be9f58a588dbd13b96e6f66e0dace2e0d36ae6583fa20ae5389940ac4bf45",
+        "size": 137305,
+        "draw_count": 21,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 7869,
+        "changed_byte_range_count": 3593,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          96756,
+          108552
+        ],
+        "changed_uint16_values": 5730,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_Wildcat",
+        "9.10.0": "9.10.0_Wildcat"
+      }
+    },
+    {
+      "family": "Wildcat",
+      "role": "complete",
+      "rev131_path": "inputs/9.3.1_Wildcat/complete.dx",
+      "rev131_size": 148939,
+      "rev131_sha256": "01056f8d80aa5e2320c0e4fa923942c7ef2c2f2835a257bb17badc5668c63c3d",
+      "rev135_path": "inputs/9.10.0_Wildcat/complete.dx",
+      "rev135_size": 149212,
+      "rev135_sha256": "783e037ca9b932a8072581ba966950d642f10a0f16931cf53f3254435fb9f2a4",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_Wildcat/complete.gxm",
+        "sha256": "97502eb8fa8c86d329d53bd1d016579cfec7cfcc14f33e05451b484afd8ffb4b",
+        "size": 268108
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_Wildcat/complete.gxm",
+        "sha256": "5b47f57ca9c31102ff5fafef687dce420cda2ff1affb199bac9bb0fa4db709c2",
+        "size": 268149
+      },
+      "gxm_byte_identical": false,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 34,
+        "count_9_10_0": 28,
+        "same_name_set": false,
+        "byte_identical_inventory": false,
+        "names_only_9_3_1": [
+          "Cata128-tga.gxi",
+          "Catflag16-tga.gxi",
+          "Catlight64-tga.gxi",
+          "Cattread-tga.gxi",
+          "Catwheel643-tga.gxi",
+          "Cdoor128-tga.gxi"
+        ],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "SOURCE_MISMATCH_COMPARISON_BLOCKED",
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_Wildcat",
+        "9.10.0": "9.10.0_Wildcat"
+      }
+    },
+    {
+      "family": "Wildcat",
+      "role": "wheel",
+      "rev131_path": "inputs/9.3.1_Wildcat/wheel.dx",
+      "rev131_size": 12917,
+      "rev131_sha256": "d1623566456b21c6b8717e797ba6f5d79159b23805801f74d4bfd4018b21330c",
+      "rev135_path": "inputs/9.10.0_Wildcat/wheel.dx",
+      "rev135_size": 12982,
+      "rev135_sha256": "2f5f41198514ab62d1714f0ff048817cb509d08c74ef0c7e73dbc04b0b9bbb90",
+      "source_gxm_9_3_1": {
+        "path": "inputs/9.3.1_Wildcat/wheel.gxm",
+        "sha256": "8eae7e35a61afd39db14b86299d0f18d4a032bfc7dc5a3b000225bdcbe4cb6b4",
+        "size": 27222
+      },
+      "source_gxm_9_10_0": {
+        "path": "inputs/9.10.0_Wildcat/wheel.gxm",
+        "sha256": "8eae7e35a61afd39db14b86299d0f18d4a032bfc7dc5a3b000225bdcbe4cb6b4",
+        "size": 27222
+      },
+      "gxm_byte_identical": true,
+      "gxi_sidecar_comparison": {
+        "count_9_3_1": 34,
+        "count_9_10_0": 28,
+        "same_name_set": false,
+        "byte_identical_inventory": false,
+        "names_only_9_3_1": [
+          "Cata128-tga.gxi",
+          "Catflag16-tga.gxi",
+          "Catlight64-tga.gxi",
+          "Cattread-tga.gxi",
+          "Catwheel643-tga.gxi",
+          "Cdoor128-tga.gxi"
+        ],
+        "names_only_9_10_0": [],
+        "same_name_hash_mismatches": []
+      },
+      "comparison_status": "COMPARED",
+      "draw_records_checked": 5,
+      "prefix_formula_matches": 5,
+      "prefix_formula_mismatches": [],
+      "geometry": {
+        "classification": "EQUIVALENT_AFTER_REMAP",
+        "positions_exact": true,
+        "normals_exact": true,
+        "colors_exact": true,
+        "uv_exact": true,
+        "oriented_triangle_multisets_equal": true,
+        "official_triangle_order_preserved": false
+      },
+      "materials_and_draws": {
+        "draw_count": 5,
+        "draw_prefix_records_expand_13_bytes": true,
+        "texture_references_equal": true,
+        "normalized_byte_accounting_complete": true
+      },
+      "collision": {
+        "raw_tail_equal_after_relocation": true,
+        "tag_ids_9_3_1": [
+          102
+        ],
+        "tag_ids_9_10_0": [
+          102
+        ]
+      },
+      "global_index_section_equal_after_relocation": true,
+      "minimal_candidate": {
+        "sha256": "a627f60b382f7f00ba577c532377ff078b59ab8a488f89daa53c34ca3cdb2af4",
+        "size": 12982,
+        "draw_count": 5,
+        "parser_validation": "PASS"
+      },
+      "candidate_vs_official": {
+        "same_size": true,
+        "changed_byte_count": 675,
+        "changed_byte_range_count": 675,
+        "all_different_bytes_inside_local_uint16_index_array": true,
+        "local_uint16_index_array_range": [
+          7944,
+          9456
+        ],
+        "changed_uint16_values": 675,
+        "draw_region_equal": true,
+        "global_index_section_equal": true,
+        "collision_and_tail_equal": true,
+        "position_normal_color_uv_equal": true,
+        "oriented_triangle_multisets_equal_per_draw": true,
+        "comparison_verdict": "STRUCTURALLY_DIFFERENT"
+      },
+      "gxi_inventory_refs": {
+        "9.3.1": "9.3.1_Wildcat",
+        "9.10.0": "9.10.0_Wildcat"
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "source_class": "INPUTS",
+      "family": "Forester",
+      "role": "car",
+      "path": "inputs/9.3.1_dxForester/car.dx",
+      "sha256": "eb2909b1d623f9e053a11114fe1d6d17283495bf7cab902755f87d2ee299e7de",
+      "size": 128327,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_dxForester/car.gxm",
+        "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+        "size": 219728
+      },
+      "parse_status": "PASS",
+      "draw_count": 15,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 45,
+      "vertex_count": 2459,
+      "triangle_count": 1864,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Forester/car.dx",
+        "sha256": "11433415ebeb4f4864a78e64ae2de9e0462b14fcf16b1b63e56313015e1a1086",
+        "size": 128522,
+        "revision": 135,
+        "draw_count": 15,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Forester",
+      "role": "complete",
+      "path": "inputs/9.3.1_dxForester/complete.dx",
+      "sha256": "d42ce558a6455a3c8e75b661b962ab472cf9a6ebeceeda9658a70ac1d163e219",
+      "size": 138492,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_dxForester/complete.gxm",
+        "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+        "size": 257541
+      },
+      "parse_status": "PASS",
+      "draw_count": 15,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 45,
+      "vertex_count": 2649,
+      "triangle_count": 2328,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Forester/complete.dx",
+        "sha256": "852d2188d8ee3913ea366a684ca818b1e51bed61e4c4b685308dee3939153aa7",
+        "size": 138687,
+        "revision": 135,
+        "draw_count": 15,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Forester",
+      "role": "wheel",
+      "path": "inputs/9.3.1_dxForester/wheel.dx",
+      "sha256": "1e2fefdf5fdaa4eba94490a3287de2fbc14863b6812c5902ba8f4d3a089d3dd7",
+      "size": 12937,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_dxForester/wheel.gxm",
+        "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+        "size": 27272
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Forester/wheel.dx",
+        "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+        "size": 13002,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Trooper",
+      "role": "car",
+      "path": "inputs/9.3.1_dxTrooper/car.dx",
+      "sha256": "8238078c40f7b419b2f3cc3a14f4511f1cdb6a8bce00f3589a39fbfcde32d5b1",
+      "size": 124568,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_dxTrooper/car.gxm",
+        "sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+        "size": 222754
+      },
+      "parse_status": "PASS",
+      "draw_count": 22,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 66,
+      "vertex_count": 2310,
+      "triangle_count": 1911,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Trooper/car.dx",
+        "sha256": "04a9aa09b813a0893953e6813b2d8ec4ac63a5545b987e12a29e692773de06e1",
+        "size": 124854,
+        "revision": 135,
+        "draw_count": 22,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Trooper",
+      "role": "complete",
+      "path": "inputs/9.3.1_dxTrooper/complete.dx",
+      "sha256": "27b429e271fc7afb3b71f45bf14c197c779473b087227dbf468fd48ad97a911f",
+      "size": 134349,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_dxTrooper/complete.gxm",
+        "sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+        "size": 260220
+      },
+      "parse_status": "PASS",
+      "draw_count": 20,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 60,
+      "vertex_count": 2500,
+      "triangle_count": 2375,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Trooper/complete.dx",
+        "sha256": "a8ceffebf7f6fc8b8af489e1e4c7f62ca5ef3b537db4af3f8048e687997629bc",
+        "size": 134609,
+        "revision": 135,
+        "draw_count": 20,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Trooper",
+      "role": "wheel",
+      "path": "inputs/9.3.1_dxTrooper/wheel.dx",
+      "sha256": "9e7da7b3ea525fb5f29b61be763894ae98cd54fd0430c1b46b9f64d76e48d0ed",
+      "size": 12924,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_dxTrooper/wheel.gxm",
+        "sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+        "size": 27234
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Trooper/wheel.dx",
+        "sha256": "1a1aa4605e0319dd0d3fc68691845ed34559d1635c320986b23f9fe5750406ab",
+        "size": 12989,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Jump",
+      "role": "car",
+      "path": "inputs/9.3.1_Jump/car.dx",
+      "sha256": "80cc521ed292f706ed0f81772d49e86ffb2d6d26b4413e6916691e60cf65ffb4",
+      "size": 124150,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Jump/car.gxm",
+        "sha256": "55bd09e1f8c9c647c82381dba463bb555dfcc51c6b2d63b9e8e39c55231da17e",
+        "size": 217594
+      },
+      "parse_status": "PASS",
+      "draw_count": 22,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 66,
+      "vertex_count": 2361,
+      "triangle_count": 1808,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Jump/car.dx",
+        "sha256": "ad77a9bd249460d72438a943f654c314939dbb05d44a759fc7306bfc4b96e865",
+        "size": 124436,
+        "revision": 135,
+        "draw_count": 22,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Jump",
+      "role": "complete",
+      "path": "inputs/9.3.1_Jump/complete.dx",
+      "sha256": "be4c0903dd1e05536ccd7833e94421d7a6f34bb7a6fafe077aa588b652878190",
+      "size": 134249,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Jump/complete.gxm",
+        "sha256": "71979cfb0217e8cbc7edaed5e8dd69d88f4b6482bee79029701c9075f11e5bb1",
+        "size": 255282
+      },
+      "parse_status": "PASS",
+      "draw_count": 19,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 57,
+      "vertex_count": 2551,
+      "triangle_count": 2272,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Jump/complete.dx",
+        "sha256": "78ca2956dc15984a24dec35bca76049119ae2285379484383bc435903e33660c",
+        "size": 134496,
+        "revision": 135,
+        "draw_count": 19,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Jump",
+      "role": "wheel",
+      "path": "inputs/9.3.1_Jump/wheel.dx",
+      "sha256": "cd2a2cf5a03d85f9954a2ce10cea3b0c933a82705379b39af0826212b49decf7",
+      "size": 12932,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Jump/wheel.gxm",
+        "sha256": "68c084024eb7df133e133b47739991a0f25440452c6e9259facc51250d963245",
+        "size": 27227
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Jump/wheel.dx",
+        "sha256": "81c6a980df7c32ae16702afda6a42dfb6f9b5917c9cd6d7ddb4e3a84c0bf0ab0",
+        "size": 12997,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "NewRav",
+      "role": "car",
+      "path": "inputs/9.3.1_NewRav/car.dx",
+      "sha256": "959641244de3cddc83d062b32a5700ba33b1f80f1ca8168899b75456864cb67c",
+      "size": 136377,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_NewRav/car.gxm",
+        "sha256": "fc8208f7e23db49b6d3452eaad95475edbb933ba2774ec02e721fd178464ca0a",
+        "size": 242376
+      },
+      "parse_status": "PASS",
+      "draw_count": 23,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 69,
+      "vertex_count": 2587,
+      "triangle_count": 2029,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/NewRav/car.dx",
+        "sha256": "a746a792c8f581a0a558577bf167da4882caf83a58bb26bb19d1aa6df95d281f",
+        "size": 136676,
+        "revision": 135,
+        "draw_count": 23,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "NewRav",
+      "role": "complete",
+      "path": "inputs/9.3.1_NewRav/complete.dx",
+      "sha256": "b2efb647c5b6aebb2879db87c85ab241212df78f0329725a3bce86110cb471fc",
+      "size": 146688,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_NewRav/complete.gxm",
+        "sha256": "96190b2a438e8f287dd54b16c63d5dfa49d691920b7a08ef074345083b2a42e7",
+        "size": 279619
+      },
+      "parse_status": "PASS",
+      "draw_count": 24,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 72,
+      "vertex_count": 2777,
+      "triangle_count": 2493,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/NewRav/complete.dx",
+        "sha256": "b2bb8221064333cea5ae75bd4725bd8c816eb3ea88d1451ce154f134cc4e6b22",
+        "size": 147000,
+        "revision": 135,
+        "draw_count": 24,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "NewRav",
+      "role": "wheel",
+      "path": "inputs/9.3.1_NewRav/wheel.dx",
+      "sha256": "23c44082a3e79a5284289f38695b2930ccaab777364cd6130bbbb7d917ed2402",
+      "size": 12911,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_NewRav/wheel.gxm",
+        "sha256": "522f958046d73892564994ae77a204e1f436c858fe5a629bba32c25a56c21e02",
+        "size": 27226
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/NewRav/wheel.dx",
+        "sha256": "f3f220485ef73a207b359b49a01ab92996675e3a257ffb392edec92e87887a53",
+        "size": 12976,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Rav4",
+      "role": "car",
+      "path": "inputs/9.3.1_Rav4/car.dx",
+      "sha256": "f58ef3b108ef745112f7ef20f1725050786bbc7b6dbbfaaac5c89b81d26a18a1",
+      "size": 128495,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Rav4/car.gxm",
+        "sha256": "45686e0ffeb0867a42dc9dbfa99bb6588171a29abbb81b112144b58e3c5c63e1",
+        "size": 223433
+      },
+      "parse_status": "PASS",
+      "draw_count": 25,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 75,
+      "vertex_count": 2418,
+      "triangle_count": 1902,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Rav4/car.dx",
+        "sha256": "7d47fc7d0b5433939a765fda4968b88e730e95ea35e28d0eb2b12e4d69f891c9",
+        "size": 128820,
+        "revision": 135,
+        "draw_count": 25,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Rav4",
+      "role": "complete",
+      "path": "inputs/9.3.1_Rav4/complete.dx",
+      "sha256": "a4e1a8019634d713c71d77754daee3e69486384c67dc94c3df805cb074431904",
+      "size": 138416,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Rav4/complete.gxm",
+        "sha256": "10918c43191de673d1333a51d9a3aa611ed1f37d55f59c286c34b24805e6a6ff",
+        "size": 261179
+      },
+      "parse_status": "PASS",
+      "draw_count": 25,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 75,
+      "vertex_count": 2608,
+      "triangle_count": 2366,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Rav4/complete.dx",
+        "sha256": "3ec0707dc85c9d96cc0f91bcd56d5897d78fb2595b6ebf651e2106466be891bb",
+        "size": 138741,
+        "revision": 135,
+        "draw_count": 25,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Rav4",
+      "role": "wheel",
+      "path": "inputs/9.3.1_Rav4/wheel.dx",
+      "sha256": "23c44082a3e79a5284289f38695b2930ccaab777364cd6130bbbb7d917ed2402",
+      "size": 12911,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Rav4/wheel.gxm",
+        "sha256": "76d49405f13f54db66ef9d6bff8c123d994dbe75f41ff34cfc0ce9f4e6a6f155",
+        "size": 27201
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Rav4/wheel.dx",
+        "sha256": "f3f220485ef73a207b359b49a01ab92996675e3a257ffb392edec92e87887a53",
+        "size": 12976,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Tata",
+      "role": "car",
+      "path": "inputs/9.3.1_Tata/car.dx",
+      "sha256": "73e5e0d7f1c0bfc02e547982e81dad9a6063be92cc76b0efae6eb2d8226d8836",
+      "size": 120296,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Tata/car.gxm",
+        "sha256": "5db78fe87243ffae696a2b55fbd825f0f16182e32c8dce46942adabfce32dd0d",
+        "size": 262481
+      },
+      "parse_status": "PASS",
+      "draw_count": 31,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 93,
+      "vertex_count": 2190,
+      "triangle_count": 1973,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Tata/car.dx",
+        "sha256": "530b734b34510f839e4031f638beb8d8c10366be182ecbbba5d5b69eddc2fe29",
+        "size": 120699,
+        "revision": 135,
+        "draw_count": 31,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Tata",
+      "role": "complete",
+      "path": "inputs/9.3.1_Tata/complete.dx",
+      "sha256": "314aeb5d74ca0d8744d8f0ebc8b172016ab75ae4714b729fa9fb4fe4ab95bc64",
+      "size": 136435,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Tata/complete.gxm",
+        "sha256": "96498bd4a262c21237081888162e3335df77fc918be4016c39805bf1b868d728",
+        "size": 309448
+      },
+      "parse_status": "PASS",
+      "draw_count": 30,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 90,
+      "vertex_count": 2489,
+      "triangle_count": 2471,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Tata/complete.dx",
+        "sha256": "e8a52de52d693bebc2206d1eeddca869918af4b94ea16643203644c10a5c2637",
+        "size": 136825,
+        "revision": 135,
+        "draw_count": 30,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Tata",
+      "role": "wheel",
+      "path": "inputs/9.3.1_Tata/wheel.dx",
+      "sha256": "efa98cda436410a2c73fcb6a437fe740f1d74c3207235dfb51597195a619f2b2",
+      "size": 12853,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Tata/wheel.gxm",
+        "sha256": "aa2bdc80cf7760b32067f851e028a7efc78dafa73249274fd1a26c1354ae1dd1",
+        "size": 27011
+      },
+      "parse_status": "PASS",
+      "draw_count": 4,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 12,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Tata/wheel.dx",
+        "sha256": "b4a2df59e96c7bba7e2470264929768d4b6e7e9c5b8014d440abd43b4c5587bb",
+        "size": 12905,
+        "revision": 135,
+        "draw_count": 4,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Wildcat",
+      "role": "car",
+      "path": "inputs/9.3.1_Wildcat/car.dx",
+      "sha256": "60034193d9f54a9634cd0fca1cca946f61ac2dc0c286c786ee29ee4ba4b31ad6",
+      "size": 137032,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Wildcat/car.gxm",
+        "sha256": "4b739b19f8ec4f1ff859832939d9a1d7b906037e1ba1e2ba19f30d291daba74a",
+        "size": 227711
+      },
+      "parse_status": "PASS",
+      "draw_count": 21,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 63,
+      "vertex_count": 2687,
+      "triangle_count": 1966,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Wildcat/car.dx",
+        "sha256": "ed6be9f58a588dbd13b96e6f66e0dace2e0d36ae6583fa20ae5389940ac4bf45",
+        "size": 137305,
+        "revision": 135,
+        "draw_count": 21,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Wildcat",
+      "role": "complete",
+      "path": "inputs/9.3.1_Wildcat/complete.dx",
+      "sha256": "01056f8d80aa5e2320c0e4fa923942c7ef2c2f2835a257bb17badc5668c63c3d",
+      "size": 148939,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Wildcat/complete.gxm",
+        "sha256": "97502eb8fa8c86d329d53bd1d016579cfec7cfcc14f33e05451b484afd8ffb4b",
+        "size": 268108
+      },
+      "parse_status": "PASS",
+      "draw_count": 21,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 63,
+      "vertex_count": 2877,
+      "triangle_count": 2430,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Wildcat/complete.dx",
+        "sha256": "a2191e79b059225f8a0c4a2212a8c5fa99e952734bc69551e1ebd832d4a51213",
+        "size": 149212,
+        "revision": 135,
+        "draw_count": 21,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "INPUTS",
+      "family": "Wildcat",
+      "role": "wheel",
+      "path": "inputs/9.3.1_Wildcat/wheel.dx",
+      "sha256": "d1623566456b21c6b8717e797ba6f5d79159b23805801f74d4bfd4018b21330c",
+      "size": 12917,
+      "revision": 131,
+      "source_gxm": {
+        "path": "inputs/9.3.1_Wildcat/wheel.gxm",
+        "sha256": "8eae7e35a61afd39db14b86299d0f18d4a032bfc7dc5a3b000225bdcbe4cb6b4",
+        "size": 27222
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": ".research-output/r-cooker2/runtime-candidates/Wildcat/wheel.dx",
+        "sha256": "a627f60b382f7f00ba577c532377ff078b59ab8a488f89daa53c34ca3cdb2af4",
+        "size": 12982,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": true,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Forester",
+      "role": "car",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Forester/car.dx",
+      "sha256": "eb2909b1d623f9e053a11114fe1d6d17283495bf7cab902755f87d2ee299e7de",
+      "size": 128327,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Forester/car.gxm",
+        "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+        "size": 219728
+      },
+      "parse_status": "PASS",
+      "draw_count": 15,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 45,
+      "vertex_count": 2459,
+      "triangle_count": 1864,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "11433415ebeb4f4864a78e64ae2de9e0462b14fcf16b1b63e56313015e1a1086",
+        "size": 128522,
+        "revision": 135,
+        "draw_count": 15,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Forester",
+      "role": "wheel",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Forester/wheel.dx",
+      "sha256": "1e2fefdf5fdaa4eba94490a3287de2fbc14863b6812c5902ba8f4d3a089d3dd7",
+      "size": 12937,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Forester/wheel.gxm",
+        "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+        "size": 27272
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+        "size": 13002,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Jump",
+      "role": "car",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Jump/car.dx",
+      "sha256": "e92b9b093cfd62cb1dc2a9401b300e86b372ec5ea2df15a1d760c2faed5a771b",
+      "size": 124150,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Jump/car.gxm",
+        "sha256": "55bd09e1f8c9c647c82381dba463bb555dfcc51c6b2d63b9e8e39c55231da17e",
+        "size": 217594
+      },
+      "parse_status": "PASS",
+      "draw_count": 22,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 66,
+      "vertex_count": 2361,
+      "triangle_count": 1808,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "919850a2b44f7607553452fc0101390c792de988a6f12e299ec4afb448787e20",
+        "size": 124436,
+        "revision": 135,
+        "draw_count": 22,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Jump",
+      "role": "complete",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Jump/complete.dx",
+      "sha256": "1ed72a856abdbc18bd2faa5964ec22816baef28aff3883b49f6bc84549e80724",
+      "size": 134249,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Jump/complete.gxm",
+        "sha256": "71979cfb0217e8cbc7edaed5e8dd69d88f4b6482bee79029701c9075f11e5bb1",
+        "size": 255282
+      },
+      "parse_status": "PASS",
+      "draw_count": 19,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 57,
+      "vertex_count": 2551,
+      "triangle_count": 2272,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "6489843d4a5739ba15abefb4a34717f330f8ef350a0a41349e7155924301e971",
+        "size": 134496,
+        "revision": 135,
+        "draw_count": 19,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Jump",
+      "role": "wheel",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Jump/wheel.dx",
+      "sha256": "c366f0430b77efbdc9e3395fb0965b2fcef8fc4a4b45c1a90c6984cf5ff72fea",
+      "size": 12932,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Jump/wheel.gxm",
+        "sha256": "68c084024eb7df133e133b47739991a0f25440452c6e9259facc51250d963245",
+        "size": 27227
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "bcb8d13bb3eb2be88b976220aef8d35f4f22318eb694498e0bedeb3b375ac133",
+        "size": 12997,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "NewRav",
+      "role": "car",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/NewRav/car.dx",
+      "sha256": "959641244de3cddc83d062b32a5700ba33b1f80f1ca8168899b75456864cb67c",
+      "size": 136377,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/NewRav/car.gxm",
+        "sha256": "fc8208f7e23db49b6d3452eaad95475edbb933ba2774ec02e721fd178464ca0a",
+        "size": 242376
+      },
+      "parse_status": "PASS",
+      "draw_count": 23,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 69,
+      "vertex_count": 2587,
+      "triangle_count": 2029,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "a746a792c8f581a0a558577bf167da4882caf83a58bb26bb19d1aa6df95d281f",
+        "size": 136676,
+        "revision": 135,
+        "draw_count": 23,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "NewRav",
+      "role": "complete",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/NewRav/complete.dx",
+      "sha256": "b2efb647c5b6aebb2879db87c85ab241212df78f0329725a3bce86110cb471fc",
+      "size": 146688,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/NewRav/complete.gxm",
+        "sha256": "96190b2a438e8f287dd54b16c63d5dfa49d691920b7a08ef074345083b2a42e7",
+        "size": 279619
+      },
+      "parse_status": "PASS",
+      "draw_count": 24,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 72,
+      "vertex_count": 2777,
+      "triangle_count": 2493,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "b2bb8221064333cea5ae75bd4725bd8c816eb3ea88d1451ce154f134cc4e6b22",
+        "size": 147000,
+        "revision": 135,
+        "draw_count": 24,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "NewRav",
+      "role": "wheel",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/NewRav/wheel.dx",
+      "sha256": "23c44082a3e79a5284289f38695b2930ccaab777364cd6130bbbb7d917ed2402",
+      "size": 12911,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/NewRav/wheel.gxm",
+        "sha256": "522f958046d73892564994ae77a204e1f436c858fe5a629bba32c25a56c21e02",
+        "size": 27226
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "f3f220485ef73a207b359b49a01ab92996675e3a257ffb392edec92e87887a53",
+        "size": 12976,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Tata",
+      "role": "car",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Tata/car.dx",
+      "sha256": "4cb609296e496db671c6e8ccaafa95119e16f4fff2fca78c08e2d71e0cfaa120",
+      "size": 120296,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Tata/car.gxm",
+        "sha256": "5db78fe87243ffae696a2b55fbd825f0f16182e32c8dce46942adabfce32dd0d",
+        "size": 262481
+      },
+      "parse_status": "PASS",
+      "draw_count": 31,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 93,
+      "vertex_count": 2190,
+      "triangle_count": 1973,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "85e8810c41a32601934cc22387473d4dceab88c3ea0d32647467d8199d648c0b",
+        "size": 120699,
+        "revision": 135,
+        "draw_count": 31,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Tata",
+      "role": "complete",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Tata/complete.dx",
+      "sha256": "17cb2db538e3397fc55d5967dec291b33b62f29ed213c0186ee9198a1f3007e0",
+      "size": 136435,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Tata/complete.gxm",
+        "sha256": "96498bd4a262c21237081888162e3335df77fc918be4016c39805bf1b868d728",
+        "size": 309448
+      },
+      "parse_status": "PASS",
+      "draw_count": 30,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 90,
+      "vertex_count": 2489,
+      "triangle_count": 2471,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "e8079c1aca4ceb4239ff47415cffff7af40e3a815f84f83a30df081210ad53e2",
+        "size": 136825,
+        "revision": 135,
+        "draw_count": 30,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Tata",
+      "role": "wheel",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Tata/wheel.dx",
+      "sha256": "8ffc7ea59fe922b9d253be42dac6578ce2cf60f5ae738e2b8c644037f0458a19",
+      "size": 12853,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Tata/wheel.gxm",
+        "sha256": "aa2bdc80cf7760b32067f851e028a7efc78dafa73249274fd1a26c1354ae1dd1",
+        "size": 27011
+      },
+      "parse_status": "PASS",
+      "draw_count": 4,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 12,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "457df7f9a19e2a623147fe2665fc1f87dd9ec3528cd33b8bae3a9835a671c858",
+        "size": 12905,
+        "revision": 135,
+        "draw_count": 4,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Trooper",
+      "role": "car",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/car.dx",
+      "sha256": "bf644c0530b3908789676564b4761cd670cc2bb187b084983d414bba458fa041",
+      "size": 124568,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/car.gxm",
+        "sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+        "size": 222754
+      },
+      "parse_status": "PASS",
+      "draw_count": 22,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 66,
+      "vertex_count": 2310,
+      "triangle_count": 1911,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "dec87c309e8ce60020a115d8eb280ce5d31d9cac21bd915c67907fa034580256",
+        "size": 124854,
+        "revision": 135,
+        "draw_count": 22,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Trooper",
+      "role": "complete",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/complete.dx",
+      "sha256": "fe4dfa6639c0ac2c9baf4e07428abe4ea3a528bb86b411a3034d74d4ce83a3a9",
+      "size": 134349,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/complete.gxm",
+        "sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+        "size": 260220
+      },
+      "parse_status": "PASS",
+      "draw_count": 20,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 60,
+      "vertex_count": 2500,
+      "triangle_count": 2375,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "b720021b2a4cbe7e1c43b386a383b9a5a67e3d394fbb2913b2ee6828bf18796d",
+        "size": 134609,
+        "revision": 135,
+        "draw_count": 20,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Trooper",
+      "role": "wheel",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/wheel.dx",
+      "sha256": "4611a14326b0413cab8bffc7a61e0c6ee710f69bb986f0cab83921193bf8505f",
+      "size": 12924,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/wheel.gxm",
+        "sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+        "size": 27234
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "25874038303a6842b2c5bfcb1cde913b1d7a4413e2f7a92f69c322d6c387a9a3",
+        "size": 12989,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Wildcat",
+      "role": "car",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Wildcat/car.dx",
+      "sha256": "3f4f8f483cff1c431db47fae9ad63df9a2704448f11dd1891790b2a0ec04a214",
+      "size": 137032,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Wildcat/car.gxm",
+        "sha256": "4b739b19f8ec4f1ff859832939d9a1d7b906037e1ba1e2ba19f30d291daba74a",
+        "size": 227711
+      },
+      "parse_status": "PASS",
+      "draw_count": 21,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 63,
+      "vertex_count": 2687,
+      "triangle_count": 1966,
+      "collision_tags": [
+        101
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "1712e697e1b6e3efbe5664f5e368877907ae2d1d88dcda4620b3f85e47c21f65",
+        "size": 137305,
+        "revision": 135,
+        "draw_count": 21,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Wildcat",
+      "role": "complete",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Wildcat/complete.dx",
+      "sha256": "234c5132ed97a64bc3eb6b98cab772bf085d8758848fd96ea9417aecd970ee0a",
+      "size": 148939,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Wildcat/complete.gxm",
+        "sha256": "97502eb8fa8c86d329d53bd1d016579cfec7cfcc14f33e05451b484afd8ffb4b",
+        "size": 268108
+      },
+      "parse_status": "PASS",
+      "draw_count": 21,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 63,
+      "vertex_count": 2877,
+      "triangle_count": 2430,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "e7bba0a7202a2972e3ea5942d0649e750f576ae013aa3552f1e5d13cd4182c43",
+        "size": 149212,
+        "revision": 135,
+        "draw_count": 21,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    },
+    {
+      "source_class": "DEMO_9_3_1_CORPUS",
+      "family": "Wildcat",
+      "role": "wheel",
+      "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Wildcat/wheel.dx",
+      "sha256": "44c9652b1fa03f825c37e4357a082ba6cde07e7178cbbda8adb61474447fcd6e",
+      "size": 12917,
+      "revision": 131,
+      "source_gxm": {
+        "path": "../corpora/demo-9.3.1/DataGx/Vehicles/Wildcat/wheel.gxm",
+        "sha256": "8eae7e35a61afd39db14b86299d0f18d4a032bfc7dc5a3b000225bdcbe4cb6b4",
+        "size": 27222
+      },
+      "parse_status": "PASS",
+      "draw_count": 5,
+      "material_count": null,
+      "material_count_note": "canonical parser does not expose a distinct material-record count",
+      "texture_slot_reference_count": 15,
+      "vertex_count": 220,
+      "triangle_count": 252,
+      "collision_tags": [
+        102
+      ],
+      "collision_status": "PASS",
+      "parser_errors": [],
+      "parser_warnings": [],
+      "collision_errors": [],
+      "collision_warnings": [],
+      "global_index_reconstruction_match": true,
+      "upgrader_acceptance": "ACCEPT",
+      "candidate_output": {
+        "path": null,
+        "sha256": "ce4a380ebef839d764e6b1645d79d0615545c299f10f51fbe037b4abd25b915a",
+        "size": 12982,
+        "revision": 135,
+        "draw_count": 5,
+        "parser_validation": "PASS",
+        "materialized": false,
+        "preservation_checks": {
+          "header_except_revision_preserved": true,
+          "all_pre_draw_bytes_except_revision_preserved": true,
+          "draw_prefix_formula_verified": true,
+          "draw_cores_and_texture_suffixes_preserved": true,
+          "positions_preserved": true,
+          "normals_preserved": true,
+          "colors_preserved": true,
+          "uv_sets_preserved": true,
+          "local_index_order_preserved": true,
+          "global_index_bytes_preserved": true,
+          "collision_bytes_preserved": true,
+          "collision_tags_preserved": true,
+          "output_size_matches_prefix_growth": true,
+          "global_table_reconstructs": true
+        },
+        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER"
+      }
+    }
+  ],
+  "runtime_evidence": {
+    "CONFIRMED_BY_RUNTIME": [
+      "Trooper",
+      "Forester"
+    ],
+    "identical_candidate_hashes_verified": true,
+    "scope": "Only exact matching car/complete/wheel hashes for Trooper and Forester are runtime-confirmed. The other five family packages are static candidates."
+  },
+  "runtime_candidate_packages": [
+    {
+      "family": "Forester",
+      "source_path": "inputs/9.3.1_dxForester",
+      "candidate_directory": ".research-output/r-cooker2/runtime-candidates/Forester",
+      "package_runtime_status": "CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256",
+      "runtime_confirmation_source": "research/r-cooker1_2/prototype-results.json",
+      "files": [
+        {
+          "role": "car",
+          "source_sha256": "eb2909b1d623f9e053a11114fe1d6d17283495bf7cab902755f87d2ee299e7de",
+          "candidate_sha256": "11433415ebeb4f4864a78e64ae2de9e0462b14fcf16b1b63e56313015e1a1086",
+          "candidate_size": 128522,
+          "revision": 135,
+          "draw_records_transformed": 15,
+          "runtime_evidence_status": "CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256"
+        },
+        {
+          "role": "complete",
+          "source_sha256": "d42ce558a6455a3c8e75b661b962ab472cf9a6ebeceeda9658a70ac1d163e219",
+          "candidate_sha256": "852d2188d8ee3913ea366a684ca818b1e51bed61e4c4b685308dee3939153aa7",
+          "candidate_size": 138687,
+          "revision": 135,
+          "draw_records_transformed": 15,
+          "runtime_evidence_status": "CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256"
+        },
+        {
+          "role": "wheel",
+          "source_sha256": "1e2fefdf5fdaa4eba94490a3287de2fbc14863b6812c5902ba8f4d3a089d3dd7",
+          "candidate_sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+          "candidate_size": 13002,
+          "revision": 135,
+          "draw_records_transformed": 5,
+          "runtime_evidence_status": "CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256"
+        }
+      ],
+      "dxt_policy": "not copied"
+    },
+    {
+      "family": "Jump",
+      "source_path": "inputs/9.3.1_Jump",
+      "candidate_directory": ".research-output/r-cooker2/runtime-candidates/Jump",
+      "package_runtime_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING",
+      "runtime_confirmation_source": null,
+      "files": [
+        {
+          "role": "car",
+          "source_sha256": "80cc521ed292f706ed0f81772d49e86ffb2d6d26b4413e6916691e60cf65ffb4",
+          "candidate_sha256": "ad77a9bd249460d72438a943f654c314939dbb05d44a759fc7306bfc4b96e865",
+          "candidate_size": 124436,
+          "revision": 135,
+          "draw_records_transformed": 22,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "complete",
+          "source_sha256": "be4c0903dd1e05536ccd7833e94421d7a6f34bb7a6fafe077aa588b652878190",
+          "candidate_sha256": "78ca2956dc15984a24dec35bca76049119ae2285379484383bc435903e33660c",
+          "candidate_size": 134496,
+          "revision": 135,
+          "draw_records_transformed": 19,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "wheel",
+          "source_sha256": "cd2a2cf5a03d85f9954a2ce10cea3b0c933a82705379b39af0826212b49decf7",
+          "candidate_sha256": "81c6a980df7c32ae16702afda6a42dfb6f9b5917c9cd6d7ddb4e3a84c0bf0ab0",
+          "candidate_size": 12997,
+          "revision": 135,
+          "draw_records_transformed": 5,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        }
+      ],
+      "dxt_policy": "not copied"
+    },
+    {
+      "family": "NewRav",
+      "source_path": "inputs/9.3.1_NewRav",
+      "candidate_directory": ".research-output/r-cooker2/runtime-candidates/NewRav",
+      "package_runtime_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING",
+      "runtime_confirmation_source": null,
+      "files": [
+        {
+          "role": "car",
+          "source_sha256": "959641244de3cddc83d062b32a5700ba33b1f80f1ca8168899b75456864cb67c",
+          "candidate_sha256": "a746a792c8f581a0a558577bf167da4882caf83a58bb26bb19d1aa6df95d281f",
+          "candidate_size": 136676,
+          "revision": 135,
+          "draw_records_transformed": 23,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "complete",
+          "source_sha256": "b2efb647c5b6aebb2879db87c85ab241212df78f0329725a3bce86110cb471fc",
+          "candidate_sha256": "b2bb8221064333cea5ae75bd4725bd8c816eb3ea88d1451ce154f134cc4e6b22",
+          "candidate_size": 147000,
+          "revision": 135,
+          "draw_records_transformed": 24,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "wheel",
+          "source_sha256": "23c44082a3e79a5284289f38695b2930ccaab777364cd6130bbbb7d917ed2402",
+          "candidate_sha256": "f3f220485ef73a207b359b49a01ab92996675e3a257ffb392edec92e87887a53",
+          "candidate_size": 12976,
+          "revision": 135,
+          "draw_records_transformed": 5,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        }
+      ],
+      "dxt_policy": "not copied"
+    },
+    {
+      "family": "Rav4",
+      "source_path": "inputs/9.3.1_Rav4",
+      "candidate_directory": ".research-output/r-cooker2/runtime-candidates/Rav4",
+      "package_runtime_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING",
+      "runtime_confirmation_source": null,
+      "files": [
+        {
+          "role": "car",
+          "source_sha256": "f58ef3b108ef745112f7ef20f1725050786bbc7b6dbbfaaac5c89b81d26a18a1",
+          "candidate_sha256": "7d47fc7d0b5433939a765fda4968b88e730e95ea35e28d0eb2b12e4d69f891c9",
+          "candidate_size": 128820,
+          "revision": 135,
+          "draw_records_transformed": 25,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "complete",
+          "source_sha256": "a4e1a8019634d713c71d77754daee3e69486384c67dc94c3df805cb074431904",
+          "candidate_sha256": "3ec0707dc85c9d96cc0f91bcd56d5897d78fb2595b6ebf651e2106466be891bb",
+          "candidate_size": 138741,
+          "revision": 135,
+          "draw_records_transformed": 25,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "wheel",
+          "source_sha256": "23c44082a3e79a5284289f38695b2930ccaab777364cd6130bbbb7d917ed2402",
+          "candidate_sha256": "f3f220485ef73a207b359b49a01ab92996675e3a257ffb392edec92e87887a53",
+          "candidate_size": 12976,
+          "revision": 135,
+          "draw_records_transformed": 5,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        }
+      ],
+      "dxt_policy": "not copied"
+    },
+    {
+      "family": "Tata",
+      "source_path": "inputs/9.3.1_Tata",
+      "candidate_directory": ".research-output/r-cooker2/runtime-candidates/Tata",
+      "package_runtime_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING",
+      "runtime_confirmation_source": null,
+      "files": [
+        {
+          "role": "car",
+          "source_sha256": "73e5e0d7f1c0bfc02e547982e81dad9a6063be92cc76b0efae6eb2d8226d8836",
+          "candidate_sha256": "530b734b34510f839e4031f638beb8d8c10366be182ecbbba5d5b69eddc2fe29",
+          "candidate_size": 120699,
+          "revision": 135,
+          "draw_records_transformed": 31,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "complete",
+          "source_sha256": "314aeb5d74ca0d8744d8f0ebc8b172016ab75ae4714b729fa9fb4fe4ab95bc64",
+          "candidate_sha256": "e8a52de52d693bebc2206d1eeddca869918af4b94ea16643203644c10a5c2637",
+          "candidate_size": 136825,
+          "revision": 135,
+          "draw_records_transformed": 30,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "wheel",
+          "source_sha256": "efa98cda436410a2c73fcb6a437fe740f1d74c3207235dfb51597195a619f2b2",
+          "candidate_sha256": "b4a2df59e96c7bba7e2470264929768d4b6e7e9c5b8014d440abd43b4c5587bb",
+          "candidate_size": 12905,
+          "revision": 135,
+          "draw_records_transformed": 4,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        }
+      ],
+      "dxt_policy": "not copied"
+    },
+    {
+      "family": "Trooper",
+      "source_path": "inputs/9.3.1_dxTrooper",
+      "candidate_directory": ".research-output/r-cooker2/runtime-candidates/Trooper",
+      "package_runtime_status": "CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256",
+      "runtime_confirmation_source": "research/r-cooker1_1/prototype-results.json",
+      "files": [
+        {
+          "role": "car",
+          "source_sha256": "8238078c40f7b419b2f3cc3a14f4511f1cdb6a8bce00f3589a39fbfcde32d5b1",
+          "candidate_sha256": "04a9aa09b813a0893953e6813b2d8ec4ac63a5545b987e12a29e692773de06e1",
+          "candidate_size": 124854,
+          "revision": 135,
+          "draw_records_transformed": 22,
+          "runtime_evidence_status": "CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256"
+        },
+        {
+          "role": "complete",
+          "source_sha256": "27b429e271fc7afb3b71f45bf14c197c779473b087227dbf468fd48ad97a911f",
+          "candidate_sha256": "a8ceffebf7f6fc8b8af489e1e4c7f62ca5ef3b537db4af3f8048e687997629bc",
+          "candidate_size": 134609,
+          "revision": 135,
+          "draw_records_transformed": 20,
+          "runtime_evidence_status": "CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256"
+        },
+        {
+          "role": "wheel",
+          "source_sha256": "9e7da7b3ea525fb5f29b61be763894ae98cd54fd0430c1b46b9f64d76e48d0ed",
+          "candidate_sha256": "1a1aa4605e0319dd0d3fc68691845ed34559d1635c320986b23f9fe5750406ab",
+          "candidate_size": 12989,
+          "revision": 135,
+          "draw_records_transformed": 5,
+          "runtime_evidence_status": "CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256"
+        }
+      ],
+      "dxt_policy": "not copied"
+    },
+    {
+      "family": "Wildcat",
+      "source_path": "inputs/9.3.1_Wildcat",
+      "candidate_directory": ".research-output/r-cooker2/runtime-candidates/Wildcat",
+      "package_runtime_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING",
+      "runtime_confirmation_source": null,
+      "files": [
+        {
+          "role": "car",
+          "source_sha256": "60034193d9f54a9634cd0fca1cca946f61ac2dc0c286c786ee29ee4ba4b31ad6",
+          "candidate_sha256": "ed6be9f58a588dbd13b96e6f66e0dace2e0d36ae6583fa20ae5389940ac4bf45",
+          "candidate_size": 137305,
+          "revision": 135,
+          "draw_records_transformed": 21,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "complete",
+          "source_sha256": "01056f8d80aa5e2320c0e4fa923942c7ef2c2f2835a257bb17badc5668c63c3d",
+          "candidate_sha256": "a2191e79b059225f8a0c4a2212a8c5fa99e952734bc69551e1ebd832d4a51213",
+          "candidate_size": 149212,
+          "revision": 135,
+          "draw_records_transformed": 21,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        },
+        {
+          "role": "wheel",
+          "source_sha256": "d1623566456b21c6b8717e797ba6f5d79159b23805801f74d4bfd4018b21330c",
+          "candidate_sha256": "a627f60b382f7f00ba577c532377ff078b59ab8a488f89daa53c34ca3cdb2af4",
+          "candidate_size": 12982,
+          "revision": 135,
+          "draw_records_transformed": 5,
+          "runtime_evidence_status": "STATICALLY_SUPPORTED_RUNTIME_PENDING"
+        }
+      ],
+      "dxt_policy": "not copied"
+    }
+  ],
+  "source_gxi_inventories": [
+    {
+      "generation_folder": "9.10.0_dxForester",
+      "path": "inputs/9.10.0_dxForester",
+      "sidecar_count": 1,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.10.0_dxTrooper",
+      "path": "inputs/9.10.0_dxTrooper",
+      "sidecar_count": 1,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.10.0_Jump",
+      "path": "inputs/9.10.0_Jump",
+      "sidecar_count": 26,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "042f849a094f08514cbe766ac258052381072311603fa08ac0e62eab4e413aa8"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Jchrome16-tga.gxi",
+          "size": 1032,
+          "sha256": "e229649852f9ba81f1c17288f73f1ca6dea76eab5621a77293f3d3b86423736f"
+        },
+        {
+          "name": "Jhelmet32-tga.gxi",
+          "size": 4104,
+          "sha256": "f1a6df7299a761236ddb53cc7080a533ff1d1456be04222bb3eb2638d566547b"
+        },
+        {
+          "name": "Jumpfront128-tga.gxi",
+          "size": 65544,
+          "sha256": "624bcc54957b9a3223675eb1db67b0716cc0285d583f5628b8cc0f06567d3399"
+        },
+        {
+          "name": "Jumphlight32-tga.gxi",
+          "size": 4104,
+          "sha256": "df265ad7265ed7cdd6c58b2bca3b7eaa2642f2f5b7bf0505c97de0d3f1f12540"
+        },
+        {
+          "name": "Jumplights32-tga.gxi",
+          "size": 4104,
+          "sha256": "47ca9a5076ecddd9f6bba8409c9cfed32755311bff9a621b0496f942e2b3a8e8"
+        },
+        {
+          "name": "Jumpside128-tga.gxi",
+          "size": 65544,
+          "sha256": "a88799ea6ccb16df76b3daadbf66ebd197ed202371ebcd71b7a6fd9a9b8955c9"
+        },
+        {
+          "name": "Jumptread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Jumpwheel64-tga.gxi",
+          "size": 16392,
+          "sha256": "03671ce44fc80512b23da204cddf63c3936bc51031f6a9980e9818ab60fd897e"
+        },
+        {
+          "name": "Jumpwheel643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Jumpwheelrim-tga.gxi",
+          "size": 1032,
+          "sha256": "f554e7432ad759282a991f2386a8d00a4cc9e7074236a2b723e69a2d1672ce7a"
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "size": 4104,
+          "sha256": "711ecd241f52d32dcdb14a2e71b80105e0bbc4e985be10ea515d511452ae5620"
+        },
+        {
+          "name": "Mastersticker202-tga.gxi",
+          "size": 4104,
+          "sha256": "4ee330ec67404f8f9bdbcaeebbe6237e69ab25d6219c11972ab60af00268b55e"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Sus32a-tga.gxi",
+          "size": 4104,
+          "sha256": "41324f99298461f71c896a62f21afbda901ddc56701a941a24f7e9ac54c68ba2"
+        },
+        {
+          "name": "Sus32b-tga.gxi",
+          "size": 4104,
+          "sha256": "03177b52cb95b898979a6b5cba50750af79d6fe1e415ff82f5c8cceead797b89"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "size": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "size": 4104,
+          "sha256": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.10.0_Simmbugghini",
+      "path": "inputs/9.10.0_Simmbugghini",
+      "sidecar_count": 27,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "size": 4104,
+          "sha256": "f0403e07d6d88bba69824e961ace64b0ed991f7ded6718c7f33c0b8930969f08"
+        },
+        {
+          "name": "Mnet1-tga.gxi",
+          "size": 16392,
+          "sha256": "7a25cd4e240871ee4d9ebce765c5c656b8062e19d764c40644172dc13e501396"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Sgrate32-tga.gxi",
+          "size": 4104,
+          "sha256": "20e777ffb8de4fb4e4d63166426e112100f25cc5873c293ad0bdf6f81df68f02"
+        },
+        {
+          "name": "Simmblight32-tga.gxi",
+          "size": 4104,
+          "sha256": "e5bc104a5167018eab3c865bb6e33876ce33ac8cb88984c000dbe0b3d7565c12"
+        },
+        {
+          "name": "Simmhelmet32-tga.gxi",
+          "size": 4104,
+          "sha256": "27e6d3364d311b5d808eb686af2ab6af3671c3c6536ea516b935294b6513d4db"
+        },
+        {
+          "name": "Simmlight32-tga.gxi",
+          "size": 4104,
+          "sha256": "a3e1b431b4ca8d490e35017fce86db91922a5760c5ea340fdb6f409696d0b391"
+        },
+        {
+          "name": "Simms128-tga.gxi",
+          "size": 65544,
+          "sha256": "fdf072a8698d61c72bab9035593c0671ea9357c960d241e10e87f35e586de1e5"
+        },
+        {
+          "name": "Simmwheel64-tga.gxi",
+          "size": 16392,
+          "sha256": "997ab94fd9abb2dede7126050540b82b7ef0d9d6d94c6e77df20743adf001085"
+        },
+        {
+          "name": "Simmwheel643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Simmwheelrim-tga.gxi",
+          "size": 1032,
+          "sha256": "7610977538b628211049cf7cebc3156917c74812a4ceb86f4a2012a7639f656e"
+        },
+        {
+          "name": "Slogo128-tga.gxi",
+          "size": 65544,
+          "sha256": "e259a71094570af75d05e39db35db6f22cc6a772c1f6c07dd8419b6c266d2039"
+        },
+        {
+          "name": "Sus32a-tga.gxi",
+          "size": 4104,
+          "sha256": "41324f99298461f71c896a62f21afbda901ddc56701a941a24f7e9ac54c68ba2"
+        },
+        {
+          "name": "Sus32b-tga.gxi",
+          "size": 4104,
+          "sha256": "03177b52cb95b898979a6b5cba50750af79d6fe1e415ff82f5c8cceead797b89"
+        },
+        {
+          "name": "Swshade16-tga.gxi",
+          "size": 1032,
+          "sha256": "39eb5c507c222f8cc5186ff5639321bc1bd0b1d470145d0b37fdeeb26a041d84"
+        },
+        {
+          "name": "Tread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "size": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "size": 4104,
+          "sha256": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.10.0_Wildcat",
+      "path": "inputs/9.10.0_Wildcat",
+      "sidecar_count": 28,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "Catblights-tga.gxi",
+          "size": 4104,
+          "sha256": "db1fc542bd6acca2ea5f3df0016340c0aba62cab74c588e78d9dd72f50a3c339"
+        },
+        {
+          "name": "Catcbar16-tga.gxi",
+          "size": 1032,
+          "sha256": "beedd1d760eadc38133d0db009aed8f85ea32cf5607da988ad0545f83272f3d2"
+        },
+        {
+          "name": "Catgrate32-tga.gxi",
+          "size": 4104,
+          "sha256": "93ebb87d44803da108669066109bed1f915d89a746a1840fbe3efb659ad60daf"
+        },
+        {
+          "name": "Catgrill64-tga.gxi",
+          "size": 16392,
+          "sha256": "5915cd73cda5dee5dae4f28c1c31e02e05acc669683f871107fe54de833bca72"
+        },
+        {
+          "name": "Catmplate64-tga.gxi",
+          "size": 16392,
+          "sha256": "4829672e503ab4f6e84edc9cb8c10aa8e0907662cc2700fcb440cf2216eeee63"
+        },
+        {
+          "name": "Catwheel64-tga.gxi",
+          "size": 16392,
+          "sha256": "d8863b3e54e54e66f5206d39995dabc1e7e2c4abb7164854c4b8ab9134c58369"
+        },
+        {
+          "name": "Catwrim-tga.gxi",
+          "size": 1032,
+          "sha256": "debca865bb1fdd9df98c921d599fc4636bedc85c8fdd262c0e90b7c2c740955a"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chelmet32-tga.gxi",
+          "size": 4104,
+          "sha256": "c4e90a92c10c18b37fa63b6bca3ede4f2846578358ac83c4682ae8bab95f0fe3"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "size": 4104,
+          "sha256": "edd6a350bc851fe74127f6d8441ad108b320dcfc61d981ef234186be340059fd"
+        },
+        {
+          "name": "Mastersticker346-tga.gxi",
+          "size": 4104,
+          "sha256": "edd6a350bc851fe74127f6d8441ad108b320dcfc61d981ef234186be340059fd"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Stripes128-tga.gxi",
+          "size": 65544,
+          "sha256": "b19bf62bc8b9ce019c458a13532cb7ea977fff14690e62e90d8b6aa6fa2a9ef2"
+        },
+        {
+          "name": "Stripes2128-tga.gxi",
+          "size": 65544,
+          "sha256": "c2e580caec9ae3137d7e0cfda838b254452e95b2073d2bc3c8ca0cec105d3dbe"
+        },
+        {
+          "name": "Sus32a-tga.gxi",
+          "size": 4104,
+          "sha256": "41324f99298461f71c896a62f21afbda901ddc56701a941a24f7e9ac54c68ba2"
+        },
+        {
+          "name": "Sus32b-tga.gxi",
+          "size": 4104,
+          "sha256": "03177b52cb95b898979a6b5cba50750af79d6fe1e415ff82f5c8cceead797b89"
+        },
+        {
+          "name": "Tread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+        },
+        {
+          "name": "Wheel643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "size": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "size": 4104,
+          "sha256": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.3.1_dxForester",
+      "path": "inputs/9.3.1_dxForester",
+      "sidecar_count": 1,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.3.1_dxTrooper",
+      "path": "inputs/9.3.1_dxTrooper",
+      "sidecar_count": 1,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.3.1_Jump",
+      "path": "inputs/9.3.1_Jump",
+      "sidecar_count": 26,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "042f849a094f08514cbe766ac258052381072311603fa08ac0e62eab4e413aa8"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Jchrome16-tga.gxi",
+          "size": 1032,
+          "sha256": "e229649852f9ba81f1c17288f73f1ca6dea76eab5621a77293f3d3b86423736f"
+        },
+        {
+          "name": "Jhelmet32-tga.gxi",
+          "size": 4104,
+          "sha256": "f1a6df7299a761236ddb53cc7080a533ff1d1456be04222bb3eb2638d566547b"
+        },
+        {
+          "name": "Jumpfront128-tga.gxi",
+          "size": 65544,
+          "sha256": "624bcc54957b9a3223675eb1db67b0716cc0285d583f5628b8cc0f06567d3399"
+        },
+        {
+          "name": "Jumphlight32-tga.gxi",
+          "size": 4104,
+          "sha256": "df265ad7265ed7cdd6c58b2bca3b7eaa2642f2f5b7bf0505c97de0d3f1f12540"
+        },
+        {
+          "name": "Jumplights32-tga.gxi",
+          "size": 4104,
+          "sha256": "47ca9a5076ecddd9f6bba8409c9cfed32755311bff9a621b0496f942e2b3a8e8"
+        },
+        {
+          "name": "Jumpside128-tga.gxi",
+          "size": 65544,
+          "sha256": "c07b1b96d2b9d8b7e371d5e57a266a105ba02ecc74d9fce037529355004188a4"
+        },
+        {
+          "name": "Jumptread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Jumpwheel64-tga.gxi",
+          "size": 16392,
+          "sha256": "03671ce44fc80512b23da204cddf63c3936bc51031f6a9980e9818ab60fd897e"
+        },
+        {
+          "name": "Jumpwheel643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Jumpwheelrim-tga.gxi",
+          "size": 1032,
+          "sha256": "f554e7432ad759282a991f2386a8d00a4cc9e7074236a2b723e69a2d1672ce7a"
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "size": 4104,
+          "sha256": "711ecd241f52d32dcdb14a2e71b80105e0bbc4e985be10ea515d511452ae5620"
+        },
+        {
+          "name": "Mastersticker202-tga.gxi",
+          "size": 4104,
+          "sha256": "4ee330ec67404f8f9bdbcaeebbe6237e69ab25d6219c11972ab60af00268b55e"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Sus32a-tga.gxi",
+          "size": 4104,
+          "sha256": "41324f99298461f71c896a62f21afbda901ddc56701a941a24f7e9ac54c68ba2"
+        },
+        {
+          "name": "Sus32b-tga.gxi",
+          "size": 4104,
+          "sha256": "03177b52cb95b898979a6b5cba50750af79d6fe1e415ff82f5c8cceead797b89"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "size": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "size": 4104,
+          "sha256": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.3.1_NewRav",
+      "path": "inputs/9.3.1_NewRav",
+      "sidecar_count": 27,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Doorbit16-tga.gxi",
+          "size": 1032,
+          "sha256": "0a41a7554d9c80837d611f1ff00813173ca507f56a000d8890e9f21a6df339e9"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "size": 16392,
+          "sha256": "e043913d32c2fc080ea09fe337e57cffb99acc43f6337855e545c7d136fe6737"
+        },
+        {
+          "name": "Nravb32-tga.gxi",
+          "size": 4104,
+          "sha256": "fc619e1873d7f969a16d7d6809c7d866dfbc5e2e2d0d12b6d1da96fcf213528f"
+        },
+        {
+          "name": "Nrback128-tga.gxi",
+          "size": 65544,
+          "sha256": "73fecdb87c182daca50af018d6d860a1ebda8886bfe62925afde774118c93922"
+        },
+        {
+          "name": "Nrbackb64-tga.gxi",
+          "size": 16392,
+          "sha256": "82bc5d18a2c29fe29fa6360f04c70d35f5bcb2b066aeda6cab529679cea21fdc"
+        },
+        {
+          "name": "Nrhelmet32-tga.gxi",
+          "size": 4104,
+          "sha256": "8919fa749297ff422d8b558cb303142ad9ae6357cc2849efea00c145676f673a"
+        },
+        {
+          "name": "Nrlights64-tga.gxi",
+          "size": 16392,
+          "sha256": "5be4e0e32c895ad4250e58a5ebcc42a07dfdfdcb942d419a5b6b085cee89c6e6"
+        },
+        {
+          "name": "Nrmetal32-tga.gxi",
+          "size": 4104,
+          "sha256": "62173738ebf35c78ee569edea5657d517ccc3a65318c19df381a88a8962ea9af"
+        },
+        {
+          "name": "Nrside128-tga.gxi",
+          "size": 65544,
+          "sha256": "84f1b1a4d566729996f728f8441ddb2d0fd24b411ab0912f63314936d152ab0a"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Ravnwheelrim-tga.gxi",
+          "size": 1032,
+          "sha256": "31d78b00343e1629c479e30db41845f9232253ea7ddc68a228cb0308495405a4"
+        },
+        {
+          "name": "Ravwheelrim-tga.gxi",
+          "size": 1032,
+          "sha256": "f554e7432ad759282a991f2386a8d00a4cc9e7074236a2b723e69a2d1672ce7a"
+        },
+        {
+          "name": "Reds16-tga.gxi",
+          "size": 1032,
+          "sha256": "f53e14b8b07f81b41ba9f270833cfb93c649385002be8b3629478554e2b1d349"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Rvtread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Rvw64-tga.gxi",
+          "size": 16392,
+          "sha256": "358836f3c076d9de9d27df09719a47482dec71a8a8bc934a6621ace9542d41ec"
+        },
+        {
+          "name": "Rvw643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "6f3d214c9c57fa73a02fcebcc803b583da7e34b049c5ca204861bccbe666e33d"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "size": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "size": 4104,
+          "sha256": "564a69f427fe4d61df65bd0898385d710c7a0e86107d7fceb4aacc1eb8e56c47"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.3.1_Rav4",
+      "path": "inputs/9.3.1_Rav4",
+      "sidecar_count": 27,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Doorbit16-tga.gxi",
+          "size": 1032,
+          "sha256": "0a41a7554d9c80837d611f1ff00813173ca507f56a000d8890e9f21a6df339e9"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Greys16-tga.gxi",
+          "size": 1032,
+          "sha256": "4558449db9765a200f525917df68155b1519c7d7945a581d4886b127cba5f23e"
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "size": 4104,
+          "sha256": "c84d5963880cb25459e8d983eb1ff7b894b78bdf725e68af66f5e17e324b3961"
+        },
+        {
+          "name": "Mich64-tga.gxi",
+          "size": 16392,
+          "sha256": "0358e73785f553e4a8ac5bee774bf0ac6fc845b4039218dd9fe5b73a44e9ad99"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Ravback1-tga.gxi",
+          "size": 16392,
+          "sha256": "eb87a4d9c8e571867fa6c649b17a9a4c44ef32da1d3b5a83fe2097b6b49324a8"
+        },
+        {
+          "name": "Ravback2-tga.gxi",
+          "size": 16392,
+          "sha256": "f65741fa0eab654e4a23fceb4801db891454499e5fef5b9a2cb3e4e009f264cc"
+        },
+        {
+          "name": "Ravbump32-tga.gxi",
+          "size": 4104,
+          "sha256": "fc619e1873d7f969a16d7d6809c7d866dfbc5e2e2d0d12b6d1da96fcf213528f"
+        },
+        {
+          "name": "Ravlights64-tga.gxi",
+          "size": 4104,
+          "sha256": "52ead119f9f51acfcc804187f60e5fcb1039796a5c1f7a1b29f3bfcdb5957bfd"
+        },
+        {
+          "name": "Ravside2128-tga.gxi",
+          "size": 65544,
+          "sha256": "eccd00727a8494ae1d2685e389128fff937b2f2c52499ce7bd5d36d6ee7ae414"
+        },
+        {
+          "name": "Ravsideb128-tga.gxi",
+          "size": 65544,
+          "sha256": "260fda58ebdc4733eb956b396a24bdc0b406381e6f9f1062206227965caae2d3"
+        },
+        {
+          "name": "Ravwheelrim-tga.gxi",
+          "size": 1032,
+          "sha256": "f554e7432ad759282a991f2386a8d00a4cc9e7074236a2b723e69a2d1672ce7a"
+        },
+        {
+          "name": "Rhelmet32-tga.gxi",
+          "size": 4104,
+          "sha256": "99eb2496f4334eeb5ee9377cb1db294608404c9d39d562e6221e0e49a4bf989d"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Rvtread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Rvw64-tga.gxi",
+          "size": 16392,
+          "sha256": "358836f3c076d9de9d27df09719a47482dec71a8a8bc934a6621ace9542d41ec"
+        },
+        {
+          "name": "Rvw643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "6f3d214c9c57fa73a02fcebcc803b583da7e34b049c5ca204861bccbe666e33d"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "size": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "size": 4104,
+          "sha256": "564a69f427fe4d61df65bd0898385d710c7a0e86107d7fceb4aacc1eb8e56c47"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.3.1_Tata",
+      "path": "inputs/9.3.1_Tata",
+      "sidecar_count": 81,
+      "files": [
+        {
+          "name": "Arch-tga.gxi",
+          "size": 16392,
+          "sha256": "08d840d19d4d27d9475e58e064cf25506d21ffac7a2da670a3ae3314a786a774"
+        },
+        {
+          "name": "Back-tga.gxi",
+          "size": 16392,
+          "sha256": "f5087a06e0ff4fa3cdf758679207c389fe0024e89de450d9d29e098afbb30ffb"
+        },
+        {
+          "name": "Backdoor-tga.gxi",
+          "size": 16392,
+          "sha256": "4c28c096a998b6f81ce789a4791cccf94e4c59fb50e839691d0e6a3459dfbef3"
+        },
+        {
+          "name": "Backlightbot-tga.gxi",
+          "size": 4104,
+          "sha256": "f32085427c21154c5b06af30545ae74465c576489419ab7144e4ebfac6c39e13"
+        },
+        {
+          "name": "Backlightjeep-tga.gxi",
+          "size": 4104,
+          "sha256": "08c277d5f9ad3c17ff9741fbf71c10d6ed80da8ef71946b537773981779be3b9"
+        },
+        {
+          "name": "Backwin-tga.gxi",
+          "size": 16392,
+          "sha256": "5fd27f4b805a4c19f67522dc4c71baf5a9bc3d57236d219f3a1797540c1595c3"
+        },
+        {
+          "name": "Bckwin-tga.gxi",
+          "size": 16392,
+          "sha256": "4346b2f7e1d06a68d6e1e54cd80bbd2257750a3ace3c53203e93746827d4f4a4"
+        },
+        {
+          "name": "Bl-tga.gxi",
+          "size": 4104,
+          "sha256": "fde3bec6cbae082affe37d7ef50569fc1b2ac12d7a67af3ffe74ccbf2aff3df2"
+        },
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "e941fe139101ee4daf549d63b8428d6db04d37b30421d8a31493a9b47afda246"
+        },
+        {
+          "name": "Blackplastic-tga.gxi",
+          "size": 264,
+          "sha256": "ef3fc228080ac9c1ba2baff1f9ea690a6bfe4febb32a960649b6d3af0aae3894"
+        },
+        {
+          "name": "Bon-tga.gxi",
+          "size": 16392,
+          "sha256": "14ec52fcaf43df7335a38dcf1a487848d415108879746c97fd2378b3302f1001"
+        },
+        {
+          "name": "Bon2-tga.gxi",
+          "size": 65544,
+          "sha256": "755112de66e854e638ba932e471d433cc200f5323102df12734d290e6a6c9b88"
+        },
+        {
+          "name": "Bonfront-tga.gxi",
+          "size": 1032,
+          "sha256": "10b0a2c1ca1540588f46e258135dac97480a4090623c5c6b8ca31aa8392aa63b"
+        },
+        {
+          "name": "Bullbar-tga.gxi",
+          "size": 1032,
+          "sha256": "d197a1ff268a037b1b90471b78879aad115a82548b54b707e0676d1e3c861853"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chevwheel64-tga.gxi",
+          "size": 16392,
+          "sha256": "3b1fb599f59f18364fbd7f27eb969db4220c41c98960db02eb9cb2b6d569fc05"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "Colour-tga.gxi",
+          "size": 264,
+          "sha256": "46f357468c52b083cbcbc659e16bf62e80139e967576feeeb9e50a1ff2eef6a2"
+        },
+        {
+          "name": "Colour5-tga.gxi",
+          "size": 1032,
+          "sha256": "cec9d9de3e45305b6714385f12b89d587c99379760c38614e2ec455b35def5b7"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Fb-tga.gxi",
+          "size": 16392,
+          "sha256": "12478073c383e9cc13226a287a0eac5b6f1104683f353fd36929673d3632f33f"
+        },
+        {
+          "name": "Flightsterrano32-tga.gxi",
+          "size": 4104,
+          "sha256": "1e58f6aad93c6c0ca9476ef595c8a4c2517e9c3fbb6f504a9c4288645c3c7ec8"
+        },
+        {
+          "name": "Frontbumpjeep-tga.gxi",
+          "size": 4104,
+          "sha256": "2ba969a15603804697b142fbcf8ca107b1bfcc89a6dfe3e6f0914ddb34f10cf4"
+        },
+        {
+          "name": "Frontbumpjeep2-tga.gxi",
+          "size": 4104,
+          "sha256": "50a161c91954c0715a86655e259422252fff78d4f412b6603a7f5be0d90807d3"
+        },
+        {
+          "name": "Frontlightjeep-tga.gxi",
+          "size": 4104,
+          "sha256": "df024f065841937343ae927a1b370eff78ba6ecbf46011f9d2e9a1f2b2140452"
+        },
+        {
+          "name": "Frontwa-tga.gxi",
+          "size": 16392,
+          "sha256": "328f27e6197bf1ffc70e85db3943ba607a9eae36b68c1baadf9ba4cf112ca780"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Grey-tga.gxi",
+          "size": 264,
+          "sha256": "a8870146221dc855cf0baa30f7a0301b19d28900ff949d247a65cada9beb3182"
+        },
+        {
+          "name": "Grille2-tga.gxi",
+          "size": 16392,
+          "sha256": "298f0513a6b06f4631db4bbb874d8709ad4aece0370c988500e9b5464a9e8b98"
+        },
+        {
+          "name": "Inlights-tga.gxi",
+          "size": 1032,
+          "sha256": "b639448cf9c494610aebedfe923527acb7d53499d0052a4ce0a7f5f62e91caf3"
+        },
+        {
+          "name": "Jeepbon-tga.gxi",
+          "size": 65544,
+          "sha256": "2039633832a9fd4befabc21048470cd7e0cf3d630085a38ddc7c74fdfc5998f2"
+        },
+        {
+          "name": "Jeepdoor-tga.gxi",
+          "size": 65544,
+          "sha256": "072249581b9e984deaa45d4d254b026d379d397a7d6534a7dc6fe52bb2b001b3"
+        },
+        {
+          "name": "Jeepgrille-tga.gxi",
+          "size": 16392,
+          "sha256": "d296851c838f78eb35a3a94cbd9f4a698d8ca7105a3011d626f9655f3ce48596"
+        },
+        {
+          "name": "Lights-tga.gxi",
+          "size": 16392,
+          "sha256": "1926a9879e7297c68ff5211fb3fcfe21b8d5f11238f4c51ff4f90021a4c25049"
+        },
+        {
+          "name": "Mastersticker10-tga.gxi",
+          "size": 4104,
+          "sha256": "4ebe068830d2b0436f0e2d0d102077f237eb67ca08d5d03b3762086fc0c1841e"
+        },
+        {
+          "name": "Mastersticker27-tga.gxi",
+          "size": 4104,
+          "sha256": "1cc0056f4805e0b7ee206313e6703a1077a8b373f4f17698d9584ee31386eefb"
+        },
+        {
+          "name": "Mastersticker48-tga.gxi",
+          "size": 4104,
+          "sha256": "934d3ed8c5e739289331377a70a608b3487f1fd44701d474eeee4e6cb5a5e1d5"
+        },
+        {
+          "name": "Merctread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Mercwheel643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Mercwheelrim-tga.gxi",
+          "size": 1032,
+          "sha256": "dd006bfb53df42802d4a4dab0e26ec1bf4c82b2e2ac4994212ecc3d3ee7adfc1"
+        },
+        {
+          "name": "Mich-tga.gxi",
+          "size": 16392,
+          "sha256": "13b46ef9f535390d50b7732609ff8aeef142e23866cdabba37407afdf975bffb"
+        },
+        {
+          "name": "Nissan_logo3-tga.gxi",
+          "size": 16392,
+          "sha256": "2f66d7100297a40538b263862e2d219518720a0af1667f253bb5e3a2f63ae848"
+        },
+        {
+          "name": "Paintjeep-tga.gxi",
+          "size": 1032,
+          "sha256": "8cafbff0e200a19174eb6c7b5e39cf0654b61d28eceb566343facb5838ba68e1"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Pipe-tga.gxi",
+          "size": 4104,
+          "sha256": "2ea44e1d1eb373b452c511a1631fe2ef1aadbfc52586cbe97d1d95df68eb7fd2"
+        },
+        {
+          "name": "Plasticbump-tga.gxi",
+          "size": 4104,
+          "sha256": "2fe6c3d04487242b4327e9687e7f69b480c872a527eb22dac0c4674c8f461ef8"
+        },
+        {
+          "name": "Plasticbump2-tga.gxi",
+          "size": 4104,
+          "sha256": "41647696f81d0766a4925eaceb9b1ba16fafc3e81f25d6c14831692215dd9f6e"
+        },
+        {
+          "name": "Rabet-tga.gxi",
+          "size": 16392,
+          "sha256": "ec63901d145a836943ae8a5587f4ad42838e1d6e1a53e851d69e842f7706f38e"
+        },
+        {
+          "name": "Rabet2-tga.gxi",
+          "size": 4104,
+          "sha256": "65b4d9bed8eebe9a818c44ba846314fd075aca1e820dabf1a36223afeeb0246d"
+        },
+        {
+          "name": "Reg-tga.gxi",
+          "size": 4104,
+          "sha256": "b68cadaad2c0f0db03eb68a388a86d0e83d9d00ce0787b68cbecabb90a56bb18"
+        },
+        {
+          "name": "Roofback-tga.gxi",
+          "size": 16392,
+          "sha256": "2ae7549f532aea3c4253c8656dec23800da96c8d344637679d77c76af4088018"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Side-tga.gxi",
+          "size": 65544,
+          "sha256": "3354c467d69ec6110ab07eb8fd616b3ada39ffc85a2806aebf19ba095cacfeef"
+        },
+        {
+          "name": "Side2-tga.gxi",
+          "size": 65544,
+          "sha256": "fa5c9ebee05538b21c78abc685b2fbc9b90770c97e35016a5636fff27dc2eddb"
+        },
+        {
+          "name": "Sidebottom-tga.gxi",
+          "size": 16392,
+          "sha256": "a5933e1a9a2c5df74dc60ad6d92567e0b0df2cd641d56e29c3ad93760859b734"
+        },
+        {
+          "name": "Sidetrim3-tga.gxi",
+          "size": 16392,
+          "sha256": "1a26eeac5713ae38c4e9000003391a7df6b82475d84bab099d8e776579266a63"
+        },
+        {
+          "name": "Silverpaint-tga.gxi",
+          "size": 4104,
+          "sha256": "3ac674f0462bad45e5b14439b8446dc010530cc395323621df255fe535486539"
+        },
+        {
+          "name": "Spotlight-tga.gxi",
+          "size": 1032,
+          "sha256": "08e7411e735af08bb60db78dffcf5d4f7cc9db80c7b7dbcf905e0f8e27e688ff"
+        },
+        {
+          "name": "T3-tga.gxi",
+          "size": 4104,
+          "sha256": "c685c8f0bd84145c4644812314759e6b619823a6ed39735c846fcda7884ad7d0"
+        },
+        {
+          "name": "Tatagrille-tga.gxi",
+          "size": 4104,
+          "sha256": "3a142c39128e09b3baada891cdb03d431e821b144cea0ece8ab011c9d71326fa"
+        },
+        {
+          "name": "Tatalights-tga.gxi",
+          "size": 4104,
+          "sha256": "ff57745e5471986205fe028bb7bb90b1b562d887eb61bb215c0b5e0fe36304ee"
+        },
+        {
+          "name": "Tatalogo-tga.gxi",
+          "size": 16392,
+          "sha256": "fd625189bb156b940dad1441fa8ea0368746d4ba306d182956e9ad3aad21e5fa"
+        },
+        {
+          "name": "Tataside2-tga.gxi",
+          "size": 16392,
+          "sha256": "5a10eccc1ce3558eba4ecd494746521e96f7236e46e241be50dd6c2b5cc147f1"
+        },
+        {
+          "name": "Tataside3-tga.gxi",
+          "size": 16392,
+          "sha256": "bad9d2bf03f7bad43586d356da64b9991cc5406edfc9041d8be53d10b9aa2d51"
+        },
+        {
+          "name": "Tatawheel-tga.gxi",
+          "size": 16392,
+          "sha256": "00469ac7106fe1b74e31676cb27fa6dd355d844729b92ac522c317ae694a32f9"
+        },
+        {
+          "name": "Tatawheelcover-tga.gxi",
+          "size": 16392,
+          "sha256": "ffd0b1611d532f7508c537ea20949eec5b23450fef1a4e12d12c0a25cc36c4bd"
+        },
+        {
+          "name": "Tatawheelcoverside-tga.gxi",
+          "size": 1032,
+          "sha256": "1e49bc6c4f4f0ba33bc43ee6eb666dace15115ae0dd5a7f543a73778f9179c69"
+        },
+        {
+          "name": "Terbl-tga.gxi",
+          "size": 16392,
+          "sha256": "d4c926742430dd430d3b30b86b66d7956b5ad9b789b66d17f7f31fa2007bd044"
+        },
+        {
+          "name": "Terwheelcover-tga.gxi",
+          "size": 16392,
+          "sha256": "f0c3e62d95716c7d459c84bc37c61cc2407cfbf2a61c93ae3e9fd48a99ecb579"
+        },
+        {
+          "name": "Tgrille-tga.gxi",
+          "size": 16392,
+          "sha256": "c715721daf0be756c6a0b7ed4c4eababa0cf1309867a0d95a5ed4df02cdb83e3"
+        },
+        {
+          "name": "Ttbacklights-tga.gxi",
+          "size": 4104,
+          "sha256": "393b000f9b292cb5a023d5ffc15821a270c46da817d165fe8b14f8751a003b01"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "size": 4104,
+          "sha256": "b569f7e11efc748680d176ebc5082bd7b43f2dc4fcc1b20dbd712046486ac21b"
+        },
+        {
+          "name": "Windscreen32chevy-tga.gxi",
+          "size": 4104,
+          "sha256": "f41713cd08b90037d68ee4a2ab81a0bec912716cd60abb4c2fc85bbb47da85fb"
+        },
+        {
+          "name": "Windscreenjj-tga.gxi",
+          "size": 1032,
+          "sha256": "04018ce4c6a5645a246c8b9699c5beb391f22e93a91097d1c8b18a540400687b"
+        },
+        {
+          "name": "Windscreenjw-tga.gxi",
+          "size": 1032,
+          "sha256": "04018ce4c6a5645a246c8b9699c5beb391f22e93a91097d1c8b18a540400687b"
+        },
+        {
+          "name": "X-back4-tga.gxi",
+          "size": 65544,
+          "sha256": "8a08a5e02c4d7a75dd96a640270b77aadcf243cf144eb707c7863a35fc35c568"
+        },
+        {
+          "name": "Xhelmet32-tga.gxi",
+          "size": 1032,
+          "sha256": "1e5c02a8097af464785972f34660cce8a5f20407452b03a3d7459964d3a57748"
+        },
+        {
+          "name": "Zebrastripes-tga.gxi",
+          "size": 65544,
+          "sha256": "1f8d3434d0ea9272c582b854cdc3bc1275a5b09611ef53c0ad71ac5f6aeab5cd"
+        }
+      ]
+    },
+    {
+      "generation_folder": "9.3.1_Wildcat",
+      "path": "inputs/9.3.1_Wildcat",
+      "sidecar_count": 34,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "size": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "Cata128-tga.gxi",
+          "size": 65544,
+          "sha256": "880498f806661c3a8c2726d4bc4f63430b481ef52560d83564de7b62a278cb68"
+        },
+        {
+          "name": "Catblights-tga.gxi",
+          "size": 4104,
+          "sha256": "db1fc542bd6acca2ea5f3df0016340c0aba62cab74c588e78d9dd72f50a3c339"
+        },
+        {
+          "name": "Catcbar16-tga.gxi",
+          "size": 1032,
+          "sha256": "beedd1d760eadc38133d0db009aed8f85ea32cf5607da988ad0545f83272f3d2"
+        },
+        {
+          "name": "Catflag16-tga.gxi",
+          "size": 1032,
+          "sha256": "4acd9b0a55f060cb2bc79f48b8424f715bb451695bd075a388fbfa55e142e7b0"
+        },
+        {
+          "name": "Catgrate32-tga.gxi",
+          "size": 4104,
+          "sha256": "93ebb87d44803da108669066109bed1f915d89a746a1840fbe3efb659ad60daf"
+        },
+        {
+          "name": "Catgrill64-tga.gxi",
+          "size": 16392,
+          "sha256": "5915cd73cda5dee5dae4f28c1c31e02e05acc669683f871107fe54de833bca72"
+        },
+        {
+          "name": "Catlight64-tga.gxi",
+          "size": 16392,
+          "sha256": "ce10c2ab3c34d86f60134c8b40960abbd430e4ba6cfccc0c1a6581d6424cd6f6"
+        },
+        {
+          "name": "Catmplate64-tga.gxi",
+          "size": 16392,
+          "sha256": "4829672e503ab4f6e84edc9cb8c10aa8e0907662cc2700fcb440cf2216eeee63"
+        },
+        {
+          "name": "Cattread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Catwheel64-tga.gxi",
+          "size": 16392,
+          "sha256": "d8863b3e54e54e66f5206d39995dabc1e7e2c4abb7164854c4b8ab9134c58369"
+        },
+        {
+          "name": "Catwheel643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Catwrim-tga.gxi",
+          "size": 1032,
+          "sha256": "debca865bb1fdd9df98c921d599fc4636bedc85c8fdd262c0e90b7c2c740955a"
+        },
+        {
+          "name": "Cdoor128-tga.gxi",
+          "size": 65544,
+          "sha256": "29f0c46ca058821a5b924ba7d2a9b05fdde8aa5f06d82762741333cd516ffa92"
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "size": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "Chelmet32-tga.gxi",
+          "size": 4104,
+          "sha256": "c4e90a92c10c18b37fa63b6bca3ede4f2846578358ac83c4682ae8bab95f0fe3"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "size": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "size": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "size": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "size": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "size": 4104,
+          "sha256": "edd6a350bc851fe74127f6d8441ad108b320dcfc61d981ef234186be340059fd"
+        },
+        {
+          "name": "Mastersticker346-tga.gxi",
+          "size": 4104,
+          "sha256": "edd6a350bc851fe74127f6d8441ad108b320dcfc61d981ef234186be340059fd"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "size": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "size": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "Stripes128-tga.gxi",
+          "size": 65544,
+          "sha256": "b19bf62bc8b9ce019c458a13532cb7ea977fff14690e62e90d8b6aa6fa2a9ef2"
+        },
+        {
+          "name": "Stripes2128-tga.gxi",
+          "size": 65544,
+          "sha256": "c2e580caec9ae3137d7e0cfda838b254452e95b2073d2bc3c8ca0cec105d3dbe"
+        },
+        {
+          "name": "Sus32a-tga.gxi",
+          "size": 4104,
+          "sha256": "41324f99298461f71c896a62f21afbda901ddc56701a941a24f7e9ac54c68ba2"
+        },
+        {
+          "name": "Sus32b-tga.gxi",
+          "size": 4104,
+          "sha256": "03177b52cb95b898979a6b5cba50750af79d6fe1e415ff82f5c8cceead797b89"
+        },
+        {
+          "name": "Tread-tga.gxi",
+          "size": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "size": 65544,
+          "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+        },
+        {
+          "name": "Wheel643-tga.gxi",
+          "size": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "size": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "size": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "size": 4104,
+          "sha256": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"
+        }
+      ]
+    }
+  ]
+}

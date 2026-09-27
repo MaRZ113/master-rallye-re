@@ -34,9 +34,11 @@ All three candidates passed retail runtime testing: frontend complete, race
 car and wheel models loaded; reported geometry and materials were correct and
 the vehicle remained operational. Thus the official triangle reorder was not
 required for these tested Trooper resources (**CONFIRMED_BY_RUNTIME**), not a
-universal format claim. A same-source Subaru Forester check now matches the
-formula in 35/35 draw records, with clean rev135 prototype candidates; its
-retail runtime result is pending. See
+universal format claim. A same-source Subaru Forester check matches the
+formula in 35/35 draw records, and the clean rev135 prototype candidates also
+passed retail runtime testing without the official reorder. This supports the
+format-level transition for the tested Trooper and Forester assets; it does
+not cover arbitrary DX resource types. See
 [`research/r-cooker1_1/findings.md`](../research/r-cooker1_1/findings.md) and
 [`research/r-cooker1_2/findings.md`](../research/r-cooker1_2/findings.md).
 
@@ -256,3 +258,16 @@ The tested 8.4.1 Trooper Black GXI regenerates a DXT byte-identical to the shipp
 ## Development demo pipeline note (R-DEMO2.1)
 
 Demo 9.3.1 `.dx` begins with magic `0xD00D` and version word `131` in the tested Trooper file. Its observed loader reads those first two DWORDs as a separate 8-byte probe and the EXE compares each against those values (**CONFIRMED_BY_RUNTIME_TRACE + CONFIRMED_BY_EXE**). This header validation is distinct from the retail vehicle DX parser and does not promote the demo draw/trailer grammar to retail-confirmed status. The tested generated DX is a valid source-build artifact in its development runtime; retail still requires its own compiled-resource semantics.
+
+## R-COOKER2 revision-131 vehicle upgrader
+
+The standalone DX 131-to-135 converter supports the observed flat tag-2
+vehicle grammar. It passed the current 38-file, seven-family rev131 vehicle
+scan, with 10 same-GXM output pairs matching the draw-prefix formula in
+135/135 records. Candidate outputs preserve rev131 local index order and pass
+canonical rev135 parsing. Trooper and Forester candidate hashes match
+runtime-tested outputs (**CONFIRMED_BY_RUNTIME**); the other five staged
+families remain static candidates. Non-vehicle DX formats are out of scope,
+and the official triangle optimizer is not reproduced. See
+[`docs/dx-131-to-135-upgrader.md`](dx-131-to-135-upgrader.md) and
+[`research/r-cooker2/findings.md`](../research/r-cooker2/findings.md).

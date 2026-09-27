@@ -8,6 +8,8 @@ from __future__ import annotations
 from importlib import import_module
 from importlib.util import find_spec
 
+__version__ = "0.1.0"
+
 _EXPORTS = {
     "BoundsError": "errors", "ExportError": "errors", "DxWriteError": "errors",
     "CollisionWriteError": "errors", "FormatError": "errors",
