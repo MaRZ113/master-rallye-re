@@ -12,9 +12,6 @@ from master_rallye.vehicle_family_redirect import (
     FAMILY_CATALOG_ENTRY_SIZE,
     FAMILY_CATALOG_NAME_FIELD_BASE_OFFSET,
     FAMILY_CATALOG_POINTER_READ_BREAKPOINT,
-    HUMAN_NAVARA_BROKER_OBSERVATION,
-    HUMAN_RUNTIME_EVIDENCE_STATUS,
-    HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION,
     NAVARA_BROKER_RUNTIME_OBSERVATION,
     TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION,
     RUNTIME_EVIDENCE_STATUS,
@@ -39,14 +36,6 @@ RETAIL_BROKER_INPUTS_AVAILABLE = (
 
 
 class RPhys22RedirectPlanTests(unittest.TestCase):
-    def test_legacy_human_named_imports_remain_compatibility_aliases(self):
-        self.assertIs(HUMAN_NAVARA_BROKER_OBSERVATION, NAVARA_BROKER_RUNTIME_OBSERVATION)
-        self.assertIs(
-            HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION,
-            TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION,
-        )
-        self.assertEqual(HUMAN_RUNTIME_EVIDENCE_STATUS, "CONFIRMED_BY_RUNTIME")
-
     def test_runtime_observation_records_only_observed_claims(self):
         evidence = NAVARA_BROKER_RUNTIME_OBSERVATION
         self.assertEqual(evidence.executable_sha256,

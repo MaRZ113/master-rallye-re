@@ -122,6 +122,15 @@ Because carrier and physics family were both Navara, no EXE family mapping
 change was required. This also confirms forklift can serve as a model donor
 without a same-named normal physics family.
 
+**Additional runtime result — `CONFIRMED_BY_RUNTIME`:** collision and damage
+behavior were absent in this composition. The current retail
+`forklift/car.dx` has a tag-101 block, but the parser rejects its hull because
+nine coordinate components are non-finite; it therefore contains no usable
+collision hull. This structural finding is consistent with the runtime result,
+but does not prove the exact cause of the absent collision or damage behavior.
+See [the tag-101 corpus report](../r4b/tag101-corpus.md). A future forklift
+model package with valid collision data could behave differently.
+
 Restore:
 
 ```powershell
@@ -132,5 +141,6 @@ python tools/vehicle_composer.py restore --manifest "D:\Game\Master Rallye\.rese
 
 The demonstrated cases establish full-family replacement, independent model
 and physics selection, and a model-only donor swap without an EXE family
-patch. The observations do not establish that every arbitrary pairing works,
-or make unreported claims about collision, damage, or rollback behavior.
+patch. The tested forklift package has no runtime collision or damage
+behavior; this asset-specific result does not establish that every arbitrary
+pairing works or make unreported rollback claims.

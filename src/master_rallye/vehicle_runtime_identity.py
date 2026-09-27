@@ -50,9 +50,6 @@ USER_SUPPLIED_CONTEXT: tuple[dict[str, str], ...] = (
         "source": "user-supplied project context; not inferred by the corpus scanner",
     },
 )
-# Historical symbol retained for callers of the R-PHYS2 research helper.
-HUMAN_CONTEXT = USER_SUPPLIED_CONTEXT
-
 
 def _build_roots(corpora_root: Path, build: str) -> list[tuple[str, Path]]:
     root = corpora_root / ("retail" if build == "retail" else f"demo-{build}")

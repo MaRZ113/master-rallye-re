@@ -17,7 +17,6 @@ from master_rallye.bridge2_analysis import (
     wheel_dimension_properties,
 )
 from master_rallye.errors import FormatError
-from tools.scanner.r_bridge2 import TRANSFER_CLAIMS
 
 
 def _node(name: str, start: int, count: int, *, node_type: int = 1) -> bytes:
@@ -176,12 +175,6 @@ class Bridge2EvidenceRecordTests(unittest.TestCase):
         }
         status = validate_transfer_provenance(record)
         self.assertFalse(status["target_slot_identified"])
-
-    def test_transfer_reader_accepts_legacy_status_without_emitting_it(self):
-        record = {"evidence": "HUMAN_RUNTIME_CONFIRMED"}
-        self.assertTrue(validate_transfer_provenance(record)["valid"])
-        self.assertEqual(TRANSFER_CLAIMS[0]["evidence"], "CONFIRMED_BY_RUNTIME")
-
 
 CORPORA = Path(r"D:\Game\Master Rallye\corpora")
 DEMO_841 = CORPORA / "demo-8.4.1" / "DataGx" / "Vehicles"

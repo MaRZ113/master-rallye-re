@@ -97,7 +97,12 @@ Model donor: forklift
 
 The forklift model appeared in a race while Navara physics remained active.
 Because carrier and physics family are both Navara, this composition needs no
-EXE family mapping change.
+EXE family mapping change. Collision and damage behavior were absent at
+runtime. The current package has no usable collision hull: its parsed
+`car.dx` tag-101 block fails validation because nine coordinate components
+are non-finite ([corpus evidence](../research/r4b/tag101-corpus.md)). This is
+an asset limitation, not a composition failure; a future forklift package
+with valid collision data could behave differently.
 
 These tests establish the listed composition classes, not every possible
 model/physics pairing.

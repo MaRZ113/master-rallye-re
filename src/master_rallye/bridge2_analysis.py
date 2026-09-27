@@ -280,9 +280,7 @@ def validate_compatibility_matrix(matrix: dict[str, dict[str, str]],
 
 def validate_transfer_provenance(record: dict[str, Any]) -> dict[str, Any]:
     """Validate supplied hashes while preserving explicitly unknown provenance."""
-    # Accept the historical serialized label when reading old research reports,
-    # but current tools emit the canonical status.
-    if record.get("evidence") not in {"CONFIRMED_BY_RUNTIME", "HUMAN_RUNTIME_CONFIRMED"}:
+    if record.get("evidence") != "CONFIRMED_BY_RUNTIME":
         raise ValueError("transfer record must have CONFIRMED_BY_RUNTIME evidence")
     for field in ("source_hashes", "generated_hashes"):
         values = record.get(field)

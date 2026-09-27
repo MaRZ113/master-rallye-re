@@ -19,8 +19,6 @@ from .vehicle_family_broker import (
 
 
 RUNTIME_EVIDENCE_STATUS = "CONFIRMED_BY_RUNTIME"
-# Historical import name retained for callers of the research helper.
-HUMAN_RUNTIME_EVIDENCE_STATUS = RUNTIME_EVIDENCE_STATUS
 RUNTIME_EXPERIMENT_STATUS = RUNTIME_EVIDENCE_STATUS
 REDIRECT_PLAN_STATUS = "PLAN_ONLY"
 
@@ -99,13 +97,6 @@ TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION = WholeFamilyRedirectObservation(
     handling_changed_from_carrier=True,
     evidence_status=RUNTIME_EVIDENCE_STATUS,
 )
-
-# Historical import names retained for research notebooks and callers.
-HumanBrokerRuntimeObservation = BrokerRuntimeObservation
-HumanWholeFamilyRedirectObservation = WholeFamilyRedirectObservation
-HUMAN_NAVARA_BROKER_OBSERVATION = NAVARA_BROKER_RUNTIME_OBSERVATION
-HUMAN_TROOPER_WHOLE_FAMILY_OBSERVATION = TROOPER_WHOLE_FAMILY_RUNTIME_OBSERVATION
-
 
 # The object supplied to FUN_00493E30 is 16 bytes at this fixed-build call
 # site. The first dword is not named here because the inspected helpers do not
