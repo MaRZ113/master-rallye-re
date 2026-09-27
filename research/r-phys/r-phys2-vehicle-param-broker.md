@@ -109,3 +109,9 @@ python tools/scanner/r_phys2.py `
 ```
 
 The output retains hit paths, offsets, snippets, source hashes, typed scene assignments, Ghidra string xrefs, the layered identity map, and field-by-field Trooper/control deltas. It writes only to ignored research output; the external corpora and executables are read-only.
+
+## R-PHYS2.1 follow-up
+
+The STATE C result above records the R-PHYS2 stopping point. The focused follow-up subsequently established the named-family-to-runtime-CarN broker statically: the ordinary local race loop passes participant index `N` into `FUN_0044ED50`, which derives a family name from the participant's numeric `_CarClass`, calls `FUN_00493E30` to read `Vehicles/<family>`, optionally applies a separately derived `Player1`/`Player2` modifications subtree, then calls `FUN_004938C0(N, ...)` to write `Vehicles/CarN`.
+
+The selected Navara's live `_CarClass` and actual string at the broker call have not yet been observed. The full evidence boundary, Trooper/forklift config checks, and one read-only x32dbg procedure are in [R-PHYS2.1 named-family resolution](r-phys2.1-named-family-resolution.md). This follow-up does not establish downstream physical-contact construction or authorize a runtime mutation.
