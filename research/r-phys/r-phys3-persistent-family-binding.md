@@ -1,8 +1,11 @@
 # R-PHYS3 — Persistent Vehicle Physics Family Binding
 
-**Status:** copy-only binding tool implemented and dry-run verified. No patched
-executable has been written or launched. The no-debugger runtime and rollback
-gates remain **PENDING HUMAN TEST**.
+**Status:** persistent Navara-to-Trooper family binding is
+**HUMAN_RUNTIME_CONFIRMED**. The user reported that the same patched executable
+loaded the rebuilt Trooper model after the package was made available at
+`DataGx\Vehicles\Trooper`. The runtime binding resolves both model resources
+and the vehicle config/physics family. Generic carrier tests and restore
+runtime observations remain separate gates.
 
 ## Purpose and confirmed starting point
 
@@ -15,22 +18,26 @@ did not modify the on-disk executable. The exact evidence is recorded in
 [R-PHYS2.2](r-phys2.2-trooper-whole-family-binding.md).
 
 R-PHYS3 replaces that process-local edit with a version-locked executable-copy
-workflow. The tool changes the family identity supplied to the existing native
-broker. It does not edit vehicle XML, copy the 147 base values, or change the
-model/resource package.
+workflow. The persistent type-to-family value controls the identity used by
+both model/resource lookup and the native vehicle-config broker. The tool does
+not edit vehicle XML or copy the 147 base values; the selected family's model
+package must already be available to the game.
 
 ```text
 carrier type in race data
     -> static retail type/family initializer
-    -> Vehicles/<physics family> base package
-    -> <physics family>/Player1 modification overlay
-    -> native VehicleParams package
-    -> Vehicles/CarN
-    -> ordinary vehicle runtime
+    -> persistent vehicle family
+         ├── DataGx\Vehicles\<family> model resources
+         └── Vehicles/<family> base config
+                + <family>/Player1 modification overlay
+                -> native VehicleParams package
+                -> Vehicles/CarN
+                -> ordinary vehicle runtime
 ```
 
-Model package and physics family remain separate inputs. The tool does not
-install, rename, or validate model resources.
+The JSON field is still named `physics_family` for compatibility, but its value
+is the persistent vehicle family used by both branches. The executable patcher
+does not install, rename, or rewrite model assets.
 
 ## Runtime catalog and persistent source
 
@@ -108,8 +115,9 @@ family:
 }
 ```
 
-Example files are provided for Trooper, Newrav, and Forester. No model package
-field is accepted; model resources remain independently managed.
+Example files are provided for Trooper, Newrav, and Forester. No model-package
+field is accepted: runtime resource availability is resolved from the selected
+family name and checked by the interactive binder before apply.
 
 Validation checks the exact supported retail EXE hash, carrier identity in the
 25-entry catalog, the target family root in retail `vehicles.xml`, all six
@@ -145,7 +153,8 @@ SHA-256 `ca2301742aade178d93424a9b3bdffc74618608b1f9fe026e59f4875bedf43d7`
 and size 3,129,344 bytes; the stored PE checksum matched an independent
 recalculation. The source remained byte-identical after the in-memory
 operation. These are file-layout values for the hash-locked build, not runtime
-addresses. No candidate executable was emitted to disk.
+addresses. At the time of this static patch-layout audit no candidate had been
+emitted; the later user-confirmed persistent runtime copy is documented below.
 
 The Navara/Trooper byte-diff ranges were: `0x11E+1`, `0x139+1`, `0x169+1`,
 `0x170+3`, `0x2B0+7`, `0x2B8+1`, `0x2BD+2`, `0x2C1+1`, `0x2C5+2`,
@@ -194,7 +203,7 @@ binding JSON.
 
 | Carrier type | Model/resource package | Physics family | Evidence / status | Race starts? | Wheels | Distinct handling | Engine / suspension / damage | Rollback |
 |---|---|---|---|---|---|---|---|---|
-| Navara | imported demo Trooper package | Trooper | P2.2 debugger runtime confirmed; no-debugger pending | pending | pending in P3 | pending in P3 | pending | pending |
+| Navara | rebuilt Trooper package at `DataGx\Vehicles\Trooper` | Trooper | **HUMAN_RUNTIME_CONFIRMED**: the same patched executable loaded the model after the package was present | not reported for persistent test | P2.2 debugger evidence only | P2.2 debugger evidence only | P2.2 debugger evidence only | not reported |
 | Jump | demo 9.3.1 `NewRav` package | Newrav | case-only folder/config spelling; schema complete; pending runtime | pending | pending | pending | pending | pending |
 | Jump | retail `Forester` package | Forester | exact retail folder/config match; control; pending runtime | pending | pending | pending | pending | pending |
 
@@ -203,39 +212,30 @@ physics config); it does not infer an alias with `Rav4`. Forester is an exact
 model/config control, not a cut-content claim. Test the two Jump mappings
 separately. Mercedes is excluded because required Engine fields are missing.
 
-### First no-debugger Trooper test
+### Persistent Trooper runtime result
 
-1. Preserve the current imported Trooper model package in the existing Navara
-   carrier; keep the retail `MRallye.exe` and source assets backed up/read-only.
-2. Run the Trooper `validate` command and confirm the expected EXE hash and
-   `VALID` status.
-3. Run `apply` to create `MRallye_physicsbound.exe` and retain its generated
-   manifest/backup.
-4. Launch that output executable normally from the game directory. Select the
-   existing Navara carrier and enter a race. Record whether the race starts,
-   wheels align, and handling is Trooper-specific.
-5. Exit and run `restore`. Confirm the output SHA-256 is the exact retail hash.
-6. Restore the original Navara model resources, launch the restored output
-   normally, and verify Navara wheel placement and handling return.
-7. Send the apply/restore JSON outputs and observations. Keep the generated EXE
-   and backup local; do not add them to Git.
+The user confirmed that a persistent type 7 `Navara -> Trooper` executable
+binding resolved both `DataGx\Vehicles\Trooper` model resources and
+`Vehicles/Trooper` configuration, including the normal physics path. The first
+attempt had no visible model because the Trooper model package was absent at
+the runtime resource path. After the rebuilt package was supplied there, the
+same patched executable loaded the model. This confirms a whole-family
+binding; it does not by itself document a post-restore runtime check or the
+Newrav/Forester controls.
 
-If the patched copy fails before race setup, preserve the output and manifest
-for diagnosis and use `restore`; do not edit the source executable. A successful
-tool apply is only file-level evidence. R-PHYS3's no-debugger and rollback
-claims require this human runtime observation.
+The tool continues to create only a copy and leaves `MRallye.exe` unchanged.
+The tested patched executable, `.original` backup, and manifest are local
+installation files and must not be added to the repository.
 
 ## Status and gate
 
 **Confirmed:** the ordinary broker accepted Trooper base and Player1 families
 under the debugger experiment; the persistent type mapping is initialized
-from static executable arguments; three candidate dry-runs pass; copy-only PE
+from static executable arguments; the same persistent binding loaded the
+rebuilt Trooper model and resolves its config/physics family; copy-only PE
 patching, backup, manifest, and restore are covered by synthetic tests.
 
-**Not yet runtime confirmed:** Windows loader accepts the patched image;
-Trooper works without x32dbg; restore recovers Navara runtime behavior; the
-Newrav and Forester candidate races; genericity across additional bindings.
-
-The R-PHYS3 success gate is still open. R-COOKER1 may start only after the
-no-debugger Trooper result, successful apply/restore behavior, and both
-additional candidate/control mappings have human runtime evidence.
+**Still pending:** human observation of the restore workflow's runtime result,
+Newrav and Forester controls, and additional generic bindings. The current
+R-PHYS3.1 wizard dry-run is not an apply or runtime test. No cooker research is
+started by this documentation update.

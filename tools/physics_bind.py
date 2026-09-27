@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate, apply, and restore a version-locked vehicle physics-family binding."""
+"""Master Rallye Vehicle Family Binder command-line interface."""
 from __future__ import annotations
 
 import argparse
@@ -12,6 +12,13 @@ SOURCE_ROOT = REPOSITORY_ROOT / "src"
 if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
+from master_rallye.errors import FormatError  # noqa: E402
+from master_rallye.vehicle_family_binder import (  # noqa: E402
+    USER_FACING_NAME,
+    run_interactive_wizard,
+    run_restore_menu,
+    run_status_view,
+)
 from master_rallye.vehicle_physics_binding import (  # noqa: E402
     apply_binding_copy,
     load_binding_config,
@@ -36,7 +43,7 @@ def _add_inputs(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--install-root", type=Path, required=True,
                         help="retail game directory containing MRallye.exe")
     parser.add_argument("--config", type=Path, required=True,
-                        help="JSON carrier_type -> physics_family binding config")
+                        help="JSON carrier_type -> family binding config")
     parser.add_argument("--vehicles-xml", type=Path,
                         help="default: <install-root>/DataGame/vehicles.xml")
     parser.add_argument("--modifications-xml", type=Path,
@@ -45,18 +52,36 @@ def _add_inputs(parser: argparse.ArgumentParser) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="physics-bind",
-        description="Build a reversible bound copy of the exact supported retail executable.",
+        prog="python tools/physics_bind.py",
+        description=(
+            f"{USER_FACING_NAME}. With no subcommand, start the family-first "
+            "interactive wizard. Explicit validate/apply/restore commands remain "
+            "available for scripts and research reproduction."
+        ),
     )
-    commands = parser.add_subparsers(dest="command", required=True)
-    validate = commands.add_parser("validate", help="read-only binding dry run")
+    parser.add_argument("--install-root", dest="wizard_install_root", type=Path,
+                        help=argparse.SUPPRESS)
+    parser.add_argument("--dry-run", action="store_true",
+                        help="preview the interactive binding without writing files")
+    commands = parser.add_subparsers(dest="command")
+
+    validate = commands.add_parser("validate", help="read-only binding validation")
     _add_inputs(validate)
-    apply = commands.add_parser("apply", help="write a bound executable copy and original backup")
+
+    apply = commands.add_parser("apply", help="write a bound executable copy and verified backup")
     _add_inputs(apply)
     apply.add_argument("--output-exe", type=Path, required=True,
                        help="new executable path; must not be MRallye.exe")
-    restore = commands.add_parser("restore", help="restore the tool-owned copy from its verified backup")
-    restore.add_argument("--output-exe", type=Path, required=True)
+
+    restore = commands.add_parser("restore", help="restore a copy or open the restore menu")
+    restore.add_argument("--output-exe", type=Path,
+                         help="explicit tool-owned executable copy to restore")
+    restore.add_argument("--install-root", type=Path,
+                         help="root used to discover known manifests when no --output-exe is given")
+
+    status = commands.add_parser("status", help="show bindings, model resources, and manifests")
+    status.add_argument("--install-root", type=Path,
+                        help="game root; auto-detected from the current directory when omitted")
     return parser
 
 
@@ -69,7 +94,13 @@ def _config_paths(args: argparse.Namespace) -> tuple[Path, Path]:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
+        if args.command is None:
+            return run_interactive_wizard(args.wizard_install_root, dry_run=args.dry_run)
+        if args.command == "status":
+            return run_status_view(args.install_root)
         if args.command == "restore":
+            if args.output_exe is None:
+                return run_restore_menu(args.install_root)
             result = restore_binding_copy(args.output_exe)
         else:
             source_exe = args.install_root / "MRallye.exe"
@@ -89,8 +120,8 @@ def main(argv: list[str] | None = None) -> int:
                 )
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
-    except (OSError, ValueError) as exc:
-        print(f"physics-bind: {exc}", file=sys.stderr)
+    except (FormatError, OSError, ValueError) as exc:
+        print(f"{USER_FACING_NAME}: {exc}", file=sys.stderr)
         return 2
 
 

@@ -79,6 +79,32 @@ def parse_vehicle_config(path: Path, *, build: str) -> VehicleConfigDocument:
     if not build:
         raise ValueError("build identity is required")
     raw, root = _read_xml(path)
+    return _parse_vehicle_config_root(raw, root, build=build, source=str(path))
+
+
+def parse_vehicle_config_bytes(
+    raw: bytes,
+    *,
+    build: str,
+    source: str = "<memory>",
+) -> VehicleConfigDocument:
+    """Parse a vehicles XML payload read from an archive without extracting it."""
+    if not build:
+        raise ValueError("build identity is required")
+    try:
+        root = ET.fromstring(raw)
+    except ET.ParseError as exc:
+        raise FormatError(f"cannot parse vehicle config {source}: {exc}") from exc
+    return _parse_vehicle_config_root(raw, root, build=build, source=source)
+
+
+def _parse_vehicle_config_root(
+    raw: bytes,
+    root: ET.Element,
+    *,
+    build: str,
+    source: str,
+) -> VehicleConfigDocument:
     families: dict[str, dict[str, dict[str, str]]] = {}
     excluded: dict[str, dict[str, dict[str, str]]] = {}
     seen_names: set[str] = set()
@@ -88,14 +114,14 @@ def parse_vehicle_config(path: Path, *, build: str) -> VehicleConfigDocument:
             continue
         parts = name.split("/")
         if len(parts) < 3 or any(not part for part in parts[1:]):
-            raise FormatError(f"invalid vehicle config path {name!r} in {path}")
+            raise FormatError(f"invalid vehicle config path {name!r} in {source}")
         if name in seen_names:
-            raise FormatError(f"duplicate vehicle config path {name!r} in {path}")
+            raise FormatError(f"duplicate vehicle config path {name!r} in {source}")
         seen_names.add(name)
         value_type = node.get("Type")
         value = node.get("Value")
         if value_type is None or value is None:
-            raise FormatError(f"vehicle config value {name!r} lacks Type or Value in {path}")
+            raise FormatError(f"vehicle config value {name!r} lacks Type or Value in {source}")
         family = parts[1]
         relative_path = "/".join(parts[2:])
         record = {"type": value_type, "value": value}
@@ -106,7 +132,7 @@ def parse_vehicle_config(path: Path, *, build: str) -> VehicleConfigDocument:
         target.setdefault(family, {})[relative_path] = record
     return VehicleConfigDocument(
         build=build,
-        source=str(path),
+        source=source,
         sha256=hashlib.sha256(raw).hexdigest(),
         file_size=len(raw),
         families=families,

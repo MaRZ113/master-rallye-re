@@ -5,12 +5,144 @@ import hashlib
 import json
 import shutil
 import zipfile
+from contextlib import contextmanager
+from pathlib import PurePosixPath
 from pathlib import Path
+from typing import Iterator
 
 from .assets import AssetResolver
 from .dx import parse_dx
 
 RESOURCE_NAMES=("car.dx","complete.dx","wheel.dx")
+SMA_ALLOWED_ROOTS=frozenset({"DataGx","DataGame","DataScene"})
+
+
+class _SmaZipCompatibilityView:
+    """Read-only file view translating the retail SMA EOCD marker for zipfile."""
+    def __init__(self, source: Path):
+        self._file=Path(source).open("rb")
+        self.name=str(source)
+        self.mode="rb"
+        try:
+            self._eocd_offset=self._find_custom_eocd()
+        except Exception:
+            self._file.close()
+            raise
+
+    def _find_custom_eocd(self) -> int:
+        self._file.seek(0,2)
+        size=self._file.tell()
+        tail_size=min(size,22+65535)
+        self._file.seek(size-tail_size)
+        tail=self._file.read(tail_size)
+        signature=b"SM\x05\x06"
+        offset=tail.rfind(signature)
+        if offset < 0 or offset+22 > len(tail):
+            raise ValueError(f"not a recognized ZIP-compatible Data.sma: {self.name}")
+        comment_length=int.from_bytes(tail[offset+20:offset+22],"little")
+        if offset+22+comment_length != len(tail):
+            raise ValueError(f"invalid retail SMA end-of-central-directory record: {self.name}")
+        return size-tail_size+offset
+
+    def seek(self, offset: int, whence: int = 0) -> int:
+        return self._file.seek(offset,whence)
+
+    def tell(self) -> int:
+        return self._file.tell()
+
+    def read(self, size: int = -1) -> bytes:
+        start=self._file.tell()
+        data=self._file.read(size)
+        if start <= self._eocd_offset < start+len(data):
+            mutable=bytearray(data)
+            position=self._eocd_offset-start
+            mutable[position:position+2]=b"PK"
+            return bytes(mutable)
+        return data
+
+    def seekable(self) -> bool:
+        return True
+
+    def readable(self) -> bool:
+        return True
+
+    def close(self) -> None:
+        self._file.close()
+
+
+@contextmanager
+def _open_sma_archive(source: Path) -> Iterator[zipfile.ZipFile]:
+    """Open standard generated SMA ZIPs and retail archives with the `SM` EOCD."""
+    source=Path(source)
+    compatibility_view=None
+    try:
+        try:
+            archive=zipfile.ZipFile(source)
+        except zipfile.BadZipFile:
+            compatibility_view=_SmaZipCompatibilityView(source)
+            archive=zipfile.ZipFile(compatibility_view)
+        with archive as opened:
+            yield opened
+    except zipfile.BadZipFile as exc:
+        raise ValueError(f"not a ZIP-compatible Data.sma archive: {source}") from exc
+    finally:
+        if compatibility_view is not None:
+            compatibility_view.close()
+
+
+def normalize_sma_member_name(name: str) -> tuple[str, bool]:
+    """Validate one ZIP-style SMA path and return its slash form and dir flag."""
+    if not isinstance(name, str) or not name or "\\" in name or "\x00" in name:
+        raise ValueError(f"unsafe SMA archive entry: {name!r}")
+    is_directory=name.endswith("/")
+    raw=name[:-1] if is_directory else name
+    parts=raw.split("/")
+    if (
+        not parts
+        or any(part in {"", ".", ".."} or ":" in part for part in parts)
+        or PurePosixPath(raw).is_absolute()
+        or parts[0].casefold() not in {root.casefold() for root in SMA_ALLOWED_ROOTS}
+    ):
+        raise ValueError(f"unsafe or extra-root archive entry: {name}")
+    return "/".join(parts),is_directory
+
+
+def index_sma_members(source: Path) -> tuple[str, ...]:
+    """List safe file members in a ZIP-compatible Data.sma without extraction."""
+    source=Path(source)
+    with _open_sma_archive(source) as archive:
+        result=[]
+        seen=set()
+        for info in archive.infolist():
+            name,is_directory=normalize_sma_member_name(info.filename)
+            if name in seen:
+                raise ValueError(f"duplicate SMA archive member name: {name}")
+            seen.add(name)
+            if not is_directory:
+                result.append(name)
+        return tuple(result)
+
+
+def read_sma_member(source: Path, requested_name: str) -> bytes:
+    """Read one safe SMA member by case-insensitive Windows path."""
+    requested,_=normalize_sma_member_name(requested_name)
+    folded=requested.casefold()
+    with _open_sma_archive(Path(source)) as archive:
+        matches=[]
+        seen=set()
+        for info in archive.infolist():
+            name,is_directory=normalize_sma_member_name(info.filename)
+            if name in seen:
+                raise ValueError(f"duplicate SMA archive member name: {name}")
+            seen.add(name)
+            if not is_directory and name.casefold()==folded:
+                matches.append(info)
+        if not matches:
+            raise FileNotFoundError(f"SMA member not found: {requested}")
+        if len(matches)>1:
+            raise ValueError(f"ambiguous case-insensitive SMA member: {requested}")
+        with archive.open(matches[0]) as handle:
+            return handle.read()
 
 
 def sha256(path: Path):
@@ -186,16 +318,15 @@ def unpack_sma(source: Path, output: Path):
         raise ValueError("unpack output must be empty")
     if output==source:
         raise ValueError("refusing to overwrite source archive")
-    with zipfile.ZipFile(source) as archive:
+    with _open_sma_archive(source) as archive:
         names=archive.namelist()
         if archive.testzip() is not None:
             raise ValueError("corrupt SMA archive")
-        if len(names)!=len(set(names)):
-            raise ValueError("duplicate SMA archive member names")
+        seen=set()
         for info in archive.infolist():
-            name=info.filename
-            parts=Path(name).parts
-            if not parts or parts[0] not in {"DataGx","DataGame","DataScene"} or ".." in parts or any(":" in part for part in parts) or Path(name).is_absolute() or "\\" in name:
-                raise ValueError(f"unsafe or extra-root archive entry: {name}")
+            name,_=normalize_sma_member_name(info.filename)
+            if name in seen:
+                raise ValueError("duplicate SMA archive member names")
+            seen.add(name)
         archive.extractall(output)
     return {"source_sha256":sha256(source),"output":str(output),"member_count":len(names),"status":"STRUCTURALLY_VALID"}
