@@ -1,0 +1,382 @@
+{
+  "schema_version": 1,
+  "phase": "R-COOKER1",
+  "input_root": "inputs/",
+  "evidence": "CONFIRMED_BY_BYTES",
+  "inputs": [
+    {
+      "path": "9.10.0_dxTrooper/black-tga.dxt",
+      "size": 1044,
+      "sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+      "extension": ".dxt",
+      "apparent_role": "COOKED_DXT",
+      "cooker_generation": "9.10.0",
+      "dxt": {
+        "header_hex": "edfe000001000000f6e53f6b1000000010000000",
+        "header_words": [
+          65261,
+          1,
+          1799349750,
+          16,
+          16
+        ],
+        "width": 16,
+        "height": 16,
+        "payload_size": 1024,
+        "payload_sha256": "9503245a0161a939de15c2414db2d336e761822fa6cff8136e4148f58f1f782e",
+        "payload_crc32": "6b3fe5f6"
+      }
+    },
+    {
+      "path": "9.10.0_dxTrooper/Black-tga.gxi",
+      "size": 1032,
+      "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+      "extension": ".gxi",
+      "apparent_role": "SOURCE_GXI",
+      "cooker_generation": "9.10.0"
+    },
+    {
+      "path": "9.10.0_dxTrooper/car.dx",
+      "size": 124854,
+      "sha256": "c2f44f09e116dad7d9ad16d026b13109c1631360151e4aa2be5b62a333ebcc40",
+      "extension": ".dx",
+      "apparent_role": "COOKED_DX",
+      "cooker_generation": "9.10.0",
+      "dx_revision": 135,
+      "dx_vertex_count": 2310,
+      "dx_tag_ids": [
+        101
+      ]
+    },
+    {
+      "path": "9.10.0_dxTrooper/car.gxm",
+      "size": 222754,
+      "sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+      "extension": ".gxm",
+      "apparent_role": "SOURCE_GXM",
+      "cooker_generation": "9.10.0"
+    },
+    {
+      "path": "9.10.0_dxTrooper/complete.dx",
+      "size": 134609,
+      "sha256": "85c3f74ca062acb994bd23722dfe1c774845d3db33a85cc5aadd7ab3f3fa242e",
+      "extension": ".dx",
+      "apparent_role": "COOKED_DX",
+      "cooker_generation": "9.10.0",
+      "dx_revision": 135,
+      "dx_vertex_count": 2500,
+      "dx_tag_ids": [
+        102
+      ]
+    },
+    {
+      "path": "9.10.0_dxTrooper/complete.gxm",
+      "size": 260220,
+      "sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+      "extension": ".gxm",
+      "apparent_role": "SOURCE_GXM",
+      "cooker_generation": "9.10.0"
+    },
+    {
+      "path": "9.10.0_dxTrooper/wheel.dx",
+      "size": 12989,
+      "sha256": "236853cb1d8f1cf068f3639b90e8b372fdab1b9c3b40b3d8793bc959931e7b5c",
+      "extension": ".dx",
+      "apparent_role": "COOKED_DX",
+      "cooker_generation": "9.10.0",
+      "dx_revision": 135,
+      "dx_vertex_count": 220,
+      "dx_tag_ids": [
+        102
+      ]
+    },
+    {
+      "path": "9.10.0_dxTrooper/wheel.gxm",
+      "size": 27234,
+      "sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+      "extension": ".gxm",
+      "apparent_role": "SOURCE_GXM",
+      "cooker_generation": "9.10.0"
+    },
+    {
+      "path": "9.3.1_dxTrooper/black-tga.dxt",
+      "size": 1044,
+      "sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+      "extension": ".dxt",
+      "apparent_role": "COOKED_DXT",
+      "cooker_generation": "9.3.1",
+      "dxt": {
+        "header_hex": "edfe000001000000f6e53f6b1000000010000000",
+        "header_words": [
+          65261,
+          1,
+          1799349750,
+          16,
+          16
+        ],
+        "width": 16,
+        "height": 16,
+        "payload_size": 1024,
+        "payload_sha256": "9503245a0161a939de15c2414db2d336e761822fa6cff8136e4148f58f1f782e",
+        "payload_crc32": "6b3fe5f6"
+      }
+    },
+    {
+      "path": "9.3.1_dxTrooper/Black-tga.gxi",
+      "size": 1032,
+      "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+      "extension": ".gxi",
+      "apparent_role": "SOURCE_GXI",
+      "cooker_generation": "9.3.1"
+    },
+    {
+      "path": "9.3.1_dxTrooper/car.dx",
+      "size": 124568,
+      "sha256": "8238078c40f7b419b2f3cc3a14f4511f1cdb6a8bce00f3589a39fbfcde32d5b1",
+      "extension": ".dx",
+      "apparent_role": "COOKED_DX",
+      "cooker_generation": "9.3.1",
+      "dx_revision": 131,
+      "dx_vertex_count": 2310,
+      "dx_tag_ids": [
+        101
+      ]
+    },
+    {
+      "path": "9.3.1_dxTrooper/car.gxm",
+      "size": 222754,
+      "sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+      "extension": ".gxm",
+      "apparent_role": "SOURCE_GXM",
+      "cooker_generation": "9.3.1"
+    },
+    {
+      "path": "9.3.1_dxTrooper/complete.dx",
+      "size": 134349,
+      "sha256": "27b429e271fc7afb3b71f45bf14c197c779473b087227dbf468fd48ad97a911f",
+      "extension": ".dx",
+      "apparent_role": "COOKED_DX",
+      "cooker_generation": "9.3.1",
+      "dx_revision": 131,
+      "dx_vertex_count": 2500,
+      "dx_tag_ids": [
+        102
+      ]
+    },
+    {
+      "path": "9.3.1_dxTrooper/complete.gxm",
+      "size": 260220,
+      "sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+      "extension": ".gxm",
+      "apparent_role": "SOURCE_GXM",
+      "cooker_generation": "9.3.1"
+    },
+    {
+      "path": "9.3.1_dxTrooper/wheel.dx",
+      "size": 12924,
+      "sha256": "9e7da7b3ea525fb5f29b61be763894ae98cd54fd0430c1b46b9f64d76e48d0ed",
+      "extension": ".dx",
+      "apparent_role": "COOKED_DX",
+      "cooker_generation": "9.3.1",
+      "dx_revision": 131,
+      "dx_vertex_count": 220,
+      "dx_tag_ids": [
+        102
+      ]
+    },
+    {
+      "path": "9.3.1_dxTrooper/wheel.gxm",
+      "size": 27234,
+      "sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+      "extension": ".gxm",
+      "apparent_role": "SOURCE_GXM",
+      "cooker_generation": "9.3.1"
+    }
+  ],
+  "source_assets": [
+    {
+      "asset": "car",
+      "extension": ".gxm",
+      "rev131_input": "inputs/9.3.1_dxTrooper/car.gxm",
+      "rev131_sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+      "rev135_input": "inputs/9.10.0_dxTrooper/car.gxm",
+      "rev135_sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+      "input_copies_byte_identical": true,
+      "demo_9_3_1_authoritative_path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/car.gxm",
+      "demo_9_3_1_sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+      "both_inputs_match_demo_9_3_1": true,
+      "demo_9_10_0_trooper_source_path": "../corpora/demo-9.10.0/DataGx/Vehicles/Trooper/car.gxm",
+      "demo_9_10_0_trooper_source_present": false
+    },
+    {
+      "asset": "complete",
+      "extension": ".gxm",
+      "rev131_input": "inputs/9.3.1_dxTrooper/complete.gxm",
+      "rev131_sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+      "rev135_input": "inputs/9.10.0_dxTrooper/complete.gxm",
+      "rev135_sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+      "input_copies_byte_identical": true,
+      "demo_9_3_1_authoritative_path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/complete.gxm",
+      "demo_9_3_1_sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+      "both_inputs_match_demo_9_3_1": true,
+      "demo_9_10_0_trooper_source_path": "../corpora/demo-9.10.0/DataGx/Vehicles/Trooper/complete.gxm",
+      "demo_9_10_0_trooper_source_present": false
+    },
+    {
+      "asset": "wheel",
+      "extension": ".gxm",
+      "rev131_input": "inputs/9.3.1_dxTrooper/wheel.gxm",
+      "rev131_sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+      "rev135_input": "inputs/9.10.0_dxTrooper/wheel.gxm",
+      "rev135_sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+      "input_copies_byte_identical": true,
+      "demo_9_3_1_authoritative_path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/wheel.gxm",
+      "demo_9_3_1_sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+      "both_inputs_match_demo_9_3_1": true,
+      "demo_9_10_0_trooper_source_path": "../corpora/demo-9.10.0/DataGx/Vehicles/Trooper/wheel.gxm",
+      "demo_9_10_0_trooper_source_present": false
+    },
+    {
+      "asset": "Black-tga",
+      "extension": ".gxi",
+      "rev131_input": "inputs/9.3.1_dxTrooper/Black-tga.gxi",
+      "rev131_sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+      "rev135_input": "inputs/9.10.0_dxTrooper/Black-tga.gxi",
+      "rev135_sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+      "input_copies_byte_identical": true,
+      "demo_9_3_1_authoritative_path": "../corpora/demo-9.3.1/DataGx/Vehicles/Trooper/Black-tga.gxi",
+      "demo_9_3_1_sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+      "both_inputs_match_demo_9_3_1": true,
+      "demo_9_10_0_trooper_source_path": "../corpora/demo-9.10.0/DataGx/Vehicles/Trooper/Black-tga.gxi",
+      "demo_9_10_0_trooper_source_present": false
+    }
+  ],
+  "paired_dx_outputs": [
+    {
+      "asset": "car",
+      "source_gxm_sha256_9_3_1": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+      "source_gxm_sha256_9_10_0": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+      "same_source_content": true,
+      "rev131_output": {
+        "path": "inputs/9.3.1_dxTrooper/car.dx",
+        "size": 124568,
+        "sha256": "8238078c40f7b419b2f3cc3a14f4511f1cdb6a8bce00f3589a39fbfcde32d5b1",
+        "revision": 131
+      },
+      "rev135_output": {
+        "path": "inputs/9.10.0_dxTrooper/car.dx",
+        "size": 124854,
+        "sha256": "c2f44f09e116dad7d9ad16d026b13109c1631360151e4aa2be5b62a333ebcc40",
+        "revision": 135
+      }
+    },
+    {
+      "asset": "complete",
+      "source_gxm_sha256_9_3_1": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+      "source_gxm_sha256_9_10_0": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+      "same_source_content": true,
+      "rev131_output": {
+        "path": "inputs/9.3.1_dxTrooper/complete.dx",
+        "size": 134349,
+        "sha256": "27b429e271fc7afb3b71f45bf14c197c779473b087227dbf468fd48ad97a911f",
+        "revision": 131
+      },
+      "rev135_output": {
+        "path": "inputs/9.10.0_dxTrooper/complete.dx",
+        "size": 134609,
+        "sha256": "85c3f74ca062acb994bd23722dfe1c774845d3db33a85cc5aadd7ab3f3fa242e",
+        "revision": 135
+      }
+    },
+    {
+      "asset": "wheel",
+      "source_gxm_sha256_9_3_1": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+      "source_gxm_sha256_9_10_0": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+      "same_source_content": true,
+      "rev131_output": {
+        "path": "inputs/9.3.1_dxTrooper/wheel.dx",
+        "size": 12924,
+        "sha256": "9e7da7b3ea525fb5f29b61be763894ae98cd54fd0430c1b46b9f64d76e48d0ed",
+        "revision": 131
+      },
+      "rev135_output": {
+        "path": "inputs/9.10.0_dxTrooper/wheel.dx",
+        "size": 12989,
+        "sha256": "236853cb1d8f1cf068f3639b90e8b372fdab1b9c3b40b3d8793bc959931e7b5c",
+        "revision": 135
+      }
+    }
+  ],
+  "paired_dxt_outputs": [
+    {
+      "asset": "black-tga",
+      "source_gxi_hashes_equal": true,
+      "rev131": {
+        "path": "9.3.1_dxTrooper/black-tga.dxt",
+        "size": 1044,
+        "sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+        "extension": ".dxt",
+        "apparent_role": "COOKED_DXT",
+        "cooker_generation": "9.3.1",
+        "dxt": {
+          "header_hex": "edfe000001000000f6e53f6b1000000010000000",
+          "header_words": [
+            65261,
+            1,
+            1799349750,
+            16,
+            16
+          ],
+          "width": 16,
+          "height": 16,
+          "payload_size": 1024,
+          "payload_sha256": "9503245a0161a939de15c2414db2d336e761822fa6cff8136e4148f58f1f782e",
+          "payload_crc32": "6b3fe5f6"
+        }
+      },
+      "rev135": {
+        "path": "9.10.0_dxTrooper/black-tga.dxt",
+        "size": 1044,
+        "sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+        "extension": ".dxt",
+        "apparent_role": "COOKED_DXT",
+        "cooker_generation": "9.10.0",
+        "dxt": {
+          "header_hex": "edfe000001000000f6e53f6b1000000010000000",
+          "header_words": [
+            65261,
+            1,
+            1799349750,
+            16,
+            16
+          ],
+          "width": 16,
+          "height": 16,
+          "payload_size": 1024,
+          "payload_sha256": "9503245a0161a939de15c2414db2d336e761822fa6cff8136e4148f58f1f782e",
+          "payload_crc32": "6b3fe5f6"
+        }
+      }
+    }
+  ],
+  "cooker_executables": [
+    {
+      "generation": "9.3.1",
+      "path": "../corpora/demo-9.3.1/MRallye.exe",
+      "size": 2637886,
+      "sha256": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680"
+    },
+    {
+      "generation": "9.10.0",
+      "path": "../corpora/demo-9.10.0/MRallye.exe",
+      "size": 2883646,
+      "sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78"
+    }
+  ],
+  "provenance_notes": [
+    "Supplied source snapshots in the generation-labeled input folders are byte-identical across both generations.",
+    "All three GXM source snapshots match the exact read-only demo 9.3.1 Trooper corpus files.",
+    "The demo 9.10.0 corpus does not contain a Trooper source folder; the 9.10.0 generation input snapshot records the source bytes supplied for that run.",
+    "No per-run ProcMon log or cooker invocation log was supplied; run-to-folder association follows the phase input layout."
+  ]
+}

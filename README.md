@@ -31,11 +31,15 @@ older demo model source -> original DEMO 9.10.0 cooker -> retail-compatible mode
 retail carrier + physics family + model donor -> Vehicle Composer -> retail runtime
 ```
 
-See the [Vehicle Composer guide](docs/vehicle-composer.md) for use. R-COOKER1,
-including controlled same-source comparisons between cooker versions, remains
-future work and has not started.
+See the [Vehicle Composer guide](docs/vehicle-composer.md) for use. R-COOKER1
+has begun with a controlled Trooper comparison: supplied 9.3.1 and 9.10.0
+outputs share byte-identical `car`, `complete`, and `wheel` GXM sources. Render
+attribute arrays match byte-for-byte, while per-draw triangle order and draw
+record prefixes differ. The initial results and limits are in
+[`research/r-cooker1/findings.md`](research/r-cooker1/findings.md). A usable
+131-to-135 upgrader has not been established.
 
-The first curated Vehicle Composer candidate is v0.1.0. Its MIT license covers
+Vehicle Composer v0.1.0 has been published. Its MIT license covers
 this project's original code and documentation; Master Rallye and its game
 assets remain the property of their respective rights holders. The release
 archive contains no game files.

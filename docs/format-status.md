@@ -2,6 +2,25 @@
 
 R4F runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
+## R-COOKER1 same-source comparison (initial Trooper set)
+
+The supplied DEMO 9.3.1 and 9.10.0 `car`, `complete`, and `wheel` DX pairs
+were generated from byte-identical GXM snapshots (and the available paired
+GXI snapshots match). Output revisions are 131 and 135. Vertex positions,
+normals, colors, and UV arrays are byte-identical; each mapped draw retains the
+same oriented triangle multiset, although local-index ordering changes. Every
+draw record grows by 13 bytes: its 11-byte legacy prefix is replaced by a
+24-byte prefix parsed by the current reader. The legacy prefix and several new
+fields remain semantically unresolved. Tag 101/102 payloads and marker-1339
+bytes are unchanged after relocation. See
+[`research/r-cooker1/findings.md`](../research/r-cooker1/findings.md).
+
+These three Trooper pairs are controlled evidence, not a corpus-wide format
+claim. In particular, the project's current retail-layout parser rejects the
+rev131 draw layout and reports local/global-index validation errors on these
+rev135 demo outputs; those parser diagnostics are preserved rather than
+treated as proof of runtime rejection. A 131-to-135 upgrader remains unproven.
+
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
 | `.dx` | Compiled 3D model data: vertex arrays, local `uint16` triangle indices, variable draw records, a stored global `uint32` index table, and resource-dependent trailing data. | **HIGH** vehicle grammar | All 78 vehicle DX files parse and reconstruct their stored global indices exactly. Course DX remains untested. |
