@@ -28,6 +28,8 @@ def _active(context):
     obj = context.active_object
     if obj is None or "mr_source_path" not in obj:
         raise ValueError("select an imported Master Rallye resource")
+    if obj.get("mr_resource_kind", "vehicle") == "course":
+        raise ValueError("vehicle tools cannot operate on read-only course resources")
     return obj
 
 
@@ -115,7 +117,9 @@ class OBJECT_OT_master_rallye_collision_preview(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return context.active_object is not None and "mr_source_path" in context.active_object
+        obj = context.active_object
+        return (obj is not None and "mr_source_path" in obj
+                and obj.get("mr_resource_kind", "vehicle") != "course")
 
     def execute(self, context):
         obj = _active(context)

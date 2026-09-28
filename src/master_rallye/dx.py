@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import math
 import struct
+from dataclasses import dataclass
 from pathlib import Path
 
 from .collision import parse_collision_sections
@@ -30,6 +31,22 @@ MAX_PHYSICAL_DRAWS = 200_000
 MAX_TEXTURE_SLOTS = 32
 MAX_STRING_BYTES = 4096
 MAX_RECORD_DEPTH = 32
+
+
+@dataclass(frozen=True)
+class DxCommonPrefix:
+    """DX sections shared by the known vehicle and course interpretations."""
+
+    magic: int
+    word_0x04: int
+    word_0x08: int
+    vertices: VertexData
+    uv_count_offset: int
+    uv_sets: tuple[UVSet, ...]
+    local_index_count_offset: int
+    local_index_offset: int
+    local_indices: tuple[int, ...]
+    draw_table_offset: int
 
 
 class Reader:
@@ -353,7 +370,15 @@ def _validate(
     return diagnostics, exact, compared
 
 
-def parse_dx_bytes(data: bytes, source: str = "<bytes>", source_path: Path | None = None) -> DxModel:
+def parse_dx_common_prefix(
+    data: bytes,
+    source: str = "<bytes>",
+) -> DxCommonPrefix:
+    """Parse the bounded header, vertex arrays, UV arrays, and local indices.
+
+    The returned offset marks the beginning of a build/resource-specific draw
+    grammar. This function intentionally does not inspect that grammar.
+    """
     reader = Reader(data, source)
     reader.require(0, 16, "DX header")
     magic, word_0x04, word_0x08, vertex_count = reader.unpack("<4I", 0, "DX header")
@@ -365,11 +390,17 @@ def parse_dx_bytes(data: bytes, source: str = "<bytes>", source_path: Path | Non
     offset = 16
     position_offset = offset
     reader.require(offset, vertex_count * 12, "position section")
-    positions = tuple(reader.unpack("<3f", offset + index * 12, f"position {index}") for index in range(vertex_count))
+    positions = tuple(
+        reader.unpack("<3f", offset + index * 12, f"position {index}")
+        for index in range(vertex_count)
+    )
     offset += vertex_count * 12
     normal_offset = offset
     reader.require(offset, vertex_count * 12, "normal section")
-    normals = tuple(reader.unpack("<3f", offset + index * 12, f"normal {index}") for index in range(vertex_count))
+    normals = tuple(
+        reader.unpack("<3f", offset + index * 12, f"normal {index}")
+        for index in range(vertex_count)
+    )
     offset += vertex_count * 12
     color_offset = offset
     colors = reader.blob(offset, vertex_count * 4, "color section")
@@ -384,7 +415,10 @@ def parse_dx_bytes(data: bytes, source: str = "<bytes>", source_path: Path | Non
     for uv_index in range(uv_count):
         uv_offset = offset
         reader.require(offset, vertex_count * 8, f"UV set {uv_index}")
-        values = tuple(reader.unpack("<2f", offset + index * 8, f"UV set {uv_index} entry {index}") for index in range(vertex_count))
+        values = tuple(
+            reader.unpack("<2f", offset + index * 8, f"UV set {uv_index} entry {index}")
+            for index in range(vertex_count)
+        )
         uv_sets.append(UVSet(uv_offset, values))
         offset += vertex_count * 8
 
@@ -395,9 +429,40 @@ def parse_dx_bytes(data: bytes, source: str = "<bytes>", source_path: Path | Non
         raise FormatError(f"unreasonable local index count {local_count} at 0x{local_count_offset:X}")
     local_offset = offset
     reader.require(offset, local_count * 2, "local index array")
-    local_indices = tuple(reader.unpack(f"<{local_count}H", offset, "local index array")) if local_count else ()
+    local_indices = (
+        tuple(reader.unpack(f"<{local_count}H", offset, "local index array"))
+        if local_count else ()
+    )
     offset += local_count * 2
 
+    return DxCommonPrefix(
+        magic=magic,
+        word_0x04=word_0x04,
+        word_0x08=word_0x08,
+        vertices=VertexData(position_offset, normal_offset, color_offset, positions, normals, colors),
+        uv_count_offset=uv_count_offset,
+        uv_sets=tuple(uv_sets),
+        local_index_count_offset=local_count_offset,
+        local_index_offset=local_offset,
+        local_indices=local_indices,
+        draw_table_offset=offset,
+    )
+
+
+def parse_dx_bytes(data: bytes, source: str = "<bytes>", source_path: Path | None = None) -> DxModel:
+    prefix = parse_dx_common_prefix(data, source)
+    reader = Reader(data, source)
+    magic = prefix.magic
+    word_0x04 = prefix.word_0x04
+    word_0x08 = prefix.word_0x08
+    vertex_count = len(prefix.vertices.positions)
+    vertices = prefix.vertices
+    uv_count_offset = prefix.uv_count_offset
+    uv_sets = list(prefix.uv_sets)
+    local_count_offset = prefix.local_index_count_offset
+    local_offset = prefix.local_index_offset
+    local_indices = prefix.local_indices
+    offset = prefix.draw_table_offset
     draw_table_offset = offset
     reader.require(offset, 8, "draw table envelope")
     draw_preamble = reader.u32(offset, "draw table preamble")
@@ -492,14 +557,13 @@ def parse_dx_bytes(data: bytes, source: str = "<bytes>", source_path: Path | Non
             compared_count,
         )
 
-    trailing = _classify_trailing(data, offset, positions)
+    trailing = _classify_trailing(data, offset, vertices.positions)
     collision = parse_collision_sections(
         trailing.data, base_offset=offset, source=source, strict=False
     )
     if trailing.layout_family == "footer56-unmatched":
         diagnostics.warnings.append("56-byte trailing structure does not match the position bounds")
 
-    vertices = VertexData(position_offset, normal_offset, color_offset, positions, normals, colors)
     return DxModel(
         source=source,
         source_path=source_path,

@@ -196,7 +196,8 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        return context.object is not None and "mr_metadata_json" in context.object
+        return (context.object is not None and "mr_metadata_json" in context.object
+                and context.object.get("mr_resource_kind", "vehicle") != "course")
 
     def draw(self, context):
         obj = context.object
@@ -370,6 +371,59 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         )
 
 
+class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
+    bl_label = "Master Rallye Course"
+    bl_idname = "VIEW3D_PT_master_rallye_course"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "Master Rallye"
+
+    @classmethod
+    def poll(cls, context):
+        obj = context.object
+        return (obj is not None and obj.get("mr_resource_kind") == "course"
+                and "mr_metadata_json" in obj)
+
+    def draw(self, context):
+        obj = context.object
+        layout = self.layout
+        try:
+            metadata = json.loads(obj["mr_metadata_json"])
+            course = metadata.get("course", {})
+            render = course.get("render_validation", {})
+            draws = metadata.get("draws", [])
+            loaded_textures = sum(
+                1 for material in obj.data.materials
+                if material and material.get("mr_dxt_source")
+            )
+        except (KeyError, TypeError, ValueError):
+            metadata, course, render, draws, loaded_textures = {}, {}, {}, [], 0
+        layout.label(text=obj.get("mr_course_identity", obj.name), icon="MESH_DATA")
+        layout.label(text="Read-only course render resource")
+        layout.label(text=Path(obj.get("mr_source_path", "")).name or "DX source unavailable")
+        grid = layout.grid_flow(columns=2, even_columns=True, align=True)
+        grid.label(text="DX revision")
+        grid.label(text=str(course.get("dx_revision", "unknown")))
+        grid.label(text="Render validation")
+        grid.label(text="passed" if render.get("passed") else "partial")
+        grid.label(text="Vertices / triangles")
+        grid.label(text=f"{len(obj.data.vertices)} / {len(obj.data.polygons)}")
+        grid.label(text="Draw groups")
+        grid.label(text=str(len(draws)))
+        grid.label(text="Texture previews")
+        grid.label(text=f"{loaded_textures} materials")
+        box = layout.box()
+        box.label(text="Geometry only", icon="INFO")
+        box.label(text="BSP / collision, route, and surface data are not decoded.")
+        box.label(text="No course writer is available in R5T-A.")
+        warnings = metadata.get("blender", {}).get("import_warnings", [])
+        if warnings:
+            warning_box = layout.box()
+            warning_box.label(text=f"Import warnings: {len(warnings)}", icon="ERROR")
+            for warning in warnings[:4]:
+                warning_box.label(text=str(warning)[:96])
+
+
 CLASSES = (
     OBJECT_OT_master_rallye_export_texture,
     OBJECT_OT_master_rallye_replace_texture,
@@ -380,4 +434,5 @@ CLASSES = (
     OBJECT_OT_master_rallye_reload_textures,
     OBJECT_OT_master_rallye_collision_visibility,
     VIEW3D_PT_master_rallye_resource,
+    VIEW3D_PT_master_rallye_course,
 )

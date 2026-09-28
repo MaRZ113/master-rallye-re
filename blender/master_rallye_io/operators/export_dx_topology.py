@@ -20,7 +20,8 @@ class OBJECT_OT_master_rallye_assign_draw(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         obj = context.active_object
-        return obj is not None and obj.type == "MESH" and "mr_metadata_json" in obj
+        return (obj is not None and obj.type == "MESH" and "mr_metadata_json" in obj
+                and obj.get("mr_resource_kind", "vehicle") != "course")
 
     def execute(self, context):
         obj = context.active_object
@@ -96,7 +97,8 @@ class EXPORT_SCENE_OT_master_rallye_dx_topology(bpy.types.Operator, ExportHelper
     @classmethod
     def poll(cls, context):
         obj = context.active_object
-        return obj is not None and obj.type == "MESH" and "mr_metadata_json" in obj
+        return (obj is not None and obj.type == "MESH" and "mr_metadata_json" in obj
+                and obj.get("mr_resource_kind", "vehicle") != "course")
 
     def invoke(self, context, event):
         try:

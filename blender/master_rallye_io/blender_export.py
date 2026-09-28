@@ -31,6 +31,8 @@ def _object_transform_is_identity(obj) -> bool:
 
 
 def export_dx_positions(obj, output_path: Path) -> BlenderExportResult:
+    if obj.get("mr_resource_kind", "vehicle") == "course":
+        raise ValueError("course DX resources are read-only in R5T-A")
     validation = authoring_validation(obj)
     if not validation.exportable:
         details = "; ".join(validation.errors) or validation.status
@@ -78,6 +80,8 @@ def export_dx_positions(obj, output_path: Path) -> BlenderExportResult:
 
 def export_dx_attributes(obj, output_path: Path) -> BlenderExportResult:
     """Export supported Blender attributes through the source-byte patcher."""
+    if obj.get("mr_resource_kind", "vehicle") == "course":
+        raise ValueError("course DX resources are read-only in R5T-A")
     import hashlib
     from .library import (
         aggregate_corners, parse_dx, transform_blender_positions_to_source,

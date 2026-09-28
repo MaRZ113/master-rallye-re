@@ -53,6 +53,7 @@ class DrawRecord:
     raw_index_max: int | None = None
     global_vertex_min: int | None = None
     global_vertex_max: int | None = None
+    opaque_prefix: bytes | None = None
 
     @property
     def triangle_count(self) -> int:

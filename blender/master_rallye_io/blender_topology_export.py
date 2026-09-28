@@ -112,6 +112,8 @@ def _faces_from_blender(obj, model):
 
 
 def preview_topology(obj):
+    if obj.get("mr_resource_kind", "vehicle") == "course":
+        raise ValueError("course DX resources are read-only in R5T-A")
     source_path, source, model = _source_and_model(obj)
     faces, material_draws = _faces_from_blender(obj, model)
     geometry, compilation = compile_faces(model, faces, material_draws)
@@ -132,6 +134,8 @@ def preview_topology(obj):
 
 
 def export_topology(obj, destination: Path):
+    if obj.get("mr_resource_kind", "vehicle") == "course":
+        raise ValueError("course DX resources are read-only in R5T-A")
     source_path, rebuilt, compilation = preview_topology(obj)
     destination = Path(destination).resolve()
     if destination == source_path or destination.exists():

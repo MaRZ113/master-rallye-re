@@ -30,6 +30,8 @@ try:
         validate_authoring_state,
     )
     from master_rallye.dx import parse_dx
+    from master_rallye.dx_course import parse_course_dx
+    from master_rallye.course_metadata import mark_course_metadata
     from master_rallye.dx_writer import write_dx_positions
     from master_rallye.r4e_writer import aggregate_corners, classify_edit, write_dx_attributes
     from master_rallye.texture_authoring import decode_rgba_png, replace_texture
@@ -75,6 +77,8 @@ except ModuleNotFoundError:
         validate_authoring_state,
     )
     from .vendor.master_rallye.dx import parse_dx
+    from .vendor.master_rallye.dx_course import parse_course_dx
+    from .vendor.master_rallye.course_metadata import mark_course_metadata
     from .vendor.master_rallye.dx_writer import write_dx_positions
     from .vendor.master_rallye.r4e_writer import aggregate_corners, classify_edit, write_dx_attributes
     from .vendor.master_rallye.texture_authoring import decode_rgba_png, replace_texture

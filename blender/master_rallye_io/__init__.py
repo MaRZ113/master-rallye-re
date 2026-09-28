@@ -1,13 +1,13 @@
-"""Master Rallye vehicle DX importer for Blender."""
+"""Master Rallye vehicle and read-only course import for Blender."""
 from __future__ import annotations
 
 bl_info = {
-    "name": "Master Rallye Vehicle IO",
+    "name": "Master Rallye IO",
     "author": "master-rallye-re clean-room project",
-    "version": (4, 2, 0),
+    "version": (4, 3, 0),
     "blender": (4, 3, 0),
     "location": "File > Import; 3D View > Sidebar > Master Rallye",
-    "description": "Import vehicles; safe same-topology and experimental topology DX export",
+    "description": "Import vehicles and read-only course render geometry",
     "category": "Import-Export",
 }
 
@@ -21,6 +21,7 @@ CLASSES = OPERATOR_CLASSES + UI_CLASSES
 
 def _menu_import(self, context):
     self.layout.operator("import_scene.master_rallye_dx", text="Master Rallye DX (.dx)")
+    self.layout.operator("import_scene.master_rallye_course", text="Master Rallye Course (.dx)")
     self.layout.operator(
         "import_scene.master_rallye_vehicle",
         text="Master Rallye Vehicle Folder",

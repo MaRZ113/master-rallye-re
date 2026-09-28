@@ -4,11 +4,12 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
-| `.dx` | Compiled 3D model data: vertex arrays, local `uint16` triangle indices, variable draw records, a stored global `uint32` index table, and resource-dependent trailing data. | **HIGH** vehicle grammar | All 78 vehicle DX files parse and reconstruct their stored global indices exactly. Course DX remains untested. |
+| `.dx` | Shared header/vertex/normal/color/UV/local-index prefix, followed by resource/build-specific draw and tail grammars. | **HIGH** vehicle grammar; **CONFIRMED_BY_CORPUS** retail course render grammar | All 78 vehicle DX files reconstruct stored global indices exactly. The revision-135 course reader validates render geometry in all 36 retail files and both Demo 9.10.0 targets; tag100 tails remain opaque. See `docs/formats/dx-common.md` and `docs/formats/dx-course.md`. |
 | `.dxt` | Custom 20-byte wrapper around one uncompressed 32-bit BGRA pixel plane. It is not DDS or DXT1/3/5 block compression. | **CONFIRMED** structure / **HIGH** BGRA | All 6,960 files satisfy `20 + W*H*4`; synthetic channel tests and directional Astero body textures support the interpretation. |
 | `.dxb` | Compiled 2D/font/sprite-batch-like resource. | **LOW** | All 113 begin `0x0000F001, 125`; record layout is not mapped. |
-| `.hnt` | Plain-text dependency manifest for scene/frontend resources. | **CONFIRMED** | 54 readable files name models/textures used by adjacent scene XML. |
-| `.sfl` | 20-byte header plus a single `W*H` byte raster plane. Semantic meaning is unresolved. | **HIGH** structural / **UNKNOWN** semantic | Exact size invariant in all 36 files. |
+| `.hnt` | Plain-text dependency manifest, including course model/texture declarations. | **CONFIRMED** as a text/resource list; runtime necessity is unresolved | Retail course graph: 36 manifests, 2,842 exact resolutions, one unresolved reference, no ambiguous paths. |
+| `.sfl` | 20-byte header plus a single `W*H` byte raster plane. Semantic meaning is unresolved. | **HIGH** structural / **UNKNOWN** semantic | Exact size invariant in all 36 retail files, 2 Demo 9.3.1 matches, and 30 Demo 9.10.0 ICont files. |
+| `.fl` / `.sf` | Historical 20-byte-header fields with four payload bytes per cell in scanned Demo 8.4.1 candidates. | **CONFIRMED** structure / **UNKNOWN** semantic | Ten candidates satisfy `20 + W*H*4`; direct semantic equivalence to SFL is not established. |
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
 
@@ -201,7 +202,7 @@ N1 human testing confirmed that rotating all 192 Astero draw-11 normals changed 
 
 ## R4F experimental topology rebuild
 
-The same-topology SDK v1 remains frozen and runtime-confirmed. R4F maps the topology-dependent vehicle DX render fields and adds a separate experimental rebuild path. Across the protected 78-resource corpus, vertex/index draw ranges are contiguous and disjoint, and a zero-edit rebuild is byte-identical in 78/78 files. The writer retains draw/material identity, collision and bounds footer bytes; Blender compiles existing-draw triangle corners with deterministic UV/normal/color splitting. One Astero +3-vertex/+1-triangle F1 candidate has zero unexplained external differences and matched the Blender export SHA-256. **The F1 topology edit is CONFIRMED_BY_RUNTIME.** Course DX and new materials/draws remain unsupported. R4G subsequently confirmed the bounded out-of-donor-bounds path and limited collision scale in the B1/C1 human tests. See research/r4f/ and docs/dx-render-rebuilder.md.
+The same-topology SDK v1 remains frozen and runtime-confirmed. R4F maps the topology-dependent vehicle DX render fields and adds a separate experimental rebuild path. Across the protected 78-resource corpus, vertex/index draw ranges are contiguous and disjoint, and a zero-edit rebuild is byte-identical in 78/78 files. The writer retains draw/material identity, collision and bounds footer bytes; Blender compiles existing-draw triangle corners with deterministic UV/normal/color splitting. One Astero +3-vertex/+1-triangle F1 candidate has zero unexplained external differences and matched the Blender export SHA-256. **The F1 topology edit is CONFIRMED_BY_RUNTIME.** Course DX writing and new materials/draws remain unsupported. R4G subsequently confirmed the bounded out-of-donor-bounds path and limited collision scale in the B1/C1 human tests. See research/r4f/ and docs/dx-render-rebuilder.md.
 
 ## R4G marker-1339 and vehicle SDK status
 
@@ -210,6 +211,10 @@ The final 44-byte marker-1339 block is typed as center, radius/scalar, min and m
 ## R5V-B dormant vehicle slot audit
 
 Retail record 25 has a vtable, empty owned-name pointer and four float32 1.0 defaults, while ID/class/stat integers are left unwritten. The frontend class-2 count is compiled as 11, and its `VehicleList` vector contains class labels. The retail unlock switch has case 25, but this does not establish a playable record. R5V-B verdict: **MORE RESEARCH NEEDED; no executable/data patch or runtime candidate.** See `research/r5v_b/findings.md`.
+
+## R5T-A course archaeology and Blender import
+
+The frozen Vehicle SDK v1 remains unchanged. The course corpus has 36 retail folders and four build snapshots of France1/Italy1. The common DX prefix is shared; revision-135 course draw batches are parsed by an additive read-only course interpretation. All 36 retail course DX files pass complete, disjoint index/vertex validation and reach tag100 at the render tail. The user-reported retail-in-9.10 success and 9.3/8.4 empty-world failure are **CONFIRMED_BY_RUNTIME**, but the compatibility cause is still unknown. A course importer is integrated into the existing Blender add-on; Blender execution and visual validation remain pending. No course writer or EXE patch exists. See `docs/course-assets.md`, `docs/course-importer.md`, and `research/r5t_a/findings.md`.
 
 ## R5V-C ID25 experimental runtime status
 

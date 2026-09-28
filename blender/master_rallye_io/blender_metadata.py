@@ -15,7 +15,7 @@ from .library import (
     validate_authoring_state,
 )
 
-IMPORTER_VERSION = "4.2.0"
+IMPORTER_VERSION = "4.3.0"
 FORMAT_STATUS = "R4E_SAME_TOPOLOGY_ATTRIBUTE_AUTHORING"
 REQUIRED_POINT_ATTRIBUTES = {
     "mr_source_vertex",
@@ -240,6 +240,7 @@ def apply_object_metadata(obj, metadata):
     obj["mr_source_sha256"] = source["sha256"]
     obj["mr_source_byte_size"] = source["byte_size"]
     obj["mr_resource_name"] = source["name"]
+    obj["mr_resource_kind"] = metadata.get("resource_kind", "vehicle")
     obj["mr_vertex_count"] = geometry["vertex_count"]
     obj["mr_triangle_count"] = geometry["triangle_count"]
     obj["mr_uv_set_count"] = geometry["uv_set_count"]
@@ -256,7 +257,9 @@ def apply_object_metadata(obj, metadata):
         ensure_ascii=False,
         separators=(",", ":"),
     )
-    obj["mr_authoring_status"] = "SOURCE_IDENTICAL"
+    obj["mr_authoring_status"] = (
+        "READ_ONLY" if metadata.get("resource_kind") == "course" else "SOURCE_IDENTICAL"
+    )
     obj["mr_staging_directory"] = ""
 
 
@@ -285,6 +288,8 @@ def _attribute_values(mesh, name, member):
 def authoring_validation(obj):
     if obj is None or obj.type != "MESH" or "mr_metadata_json" not in obj:
         return AuthoringValidation("INVALID_PROVENANCE", ("not an imported Master Rallye mesh",), ())
+    if obj.get("mr_resource_kind", "vehicle") == "course":
+        return AuthoringValidation("READ_ONLY", ("course DX authoring is outside R5T-A",), ())
     mesh = obj.data
     attribute_names = set(mesh.attributes.keys())
     if not REQUIRED_POINT_ATTRIBUTES.issubset(attribute_names):

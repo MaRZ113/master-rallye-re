@@ -13,6 +13,7 @@ from .library import (
     expand_corner_normals,
     float32_signed_bits,
     parse_dx,
+    mark_course_metadata,
     prepare_display_normals,
     resolve_sidecar,
     transform_blender_normals,
@@ -194,10 +195,22 @@ def import_dx_resource(
     strict: bool = True,
     material_cache: PreviewMaterialCache | None = None,
     show_collision: bool = True,
+    parsed_model=None,
+    resource_kind: str = "vehicle",
 ):
     source = dx_path.resolve()
-    model = parse_dx(source)
-    if strict and not model.diagnostics.validated:
+    if resource_kind not in {"vehicle", "course"}:
+        raise ValueError(f"unsupported Master Rallye resource kind {resource_kind!r}")
+    model = parsed_model if parsed_model is not None else parse_dx(source)
+    model_source = getattr(model, "source_path", None)
+    if model_source is not None and model_source.resolve() != source:
+        raise ValueError(f"parsed model source {model_source} differs from requested DX {source}")
+    validation_passed = (
+        model.course_render_validated
+        if resource_kind == "course" and hasattr(model, "course_render_validated")
+        else model.diagnostics.validated
+    )
+    if strict and not validation_passed:
         raise ValueError(
             "DX geometry validation did not pass: "
             + "; ".join(model.diagnostics.errors)
@@ -257,15 +270,19 @@ def import_dx_resource(
     )
 
     obj = bpy.data.objects.new(object_name or source.stem, mesh)
-    obj["mr_target_draw_id"] = 0
-    obj["mr_resource_role"] = {
-        "car.dx": "RACE BODY", "complete.dx": "PRESENTATION", "wheel.dx": "WHEEL TEMPLATE"
-    }.get(source.name.casefold(), "AUXILIARY")
-    obj["mr_vehicle_source_dir"] = str(source.parent.resolve())
-    obj["mr_vehicle_project_path"] = ""
-    obj["mr_collision_scale"] = [1.0, 1.0, 1.0]
-    obj["mr_collision_translation"] = [0.0, 0.0, 0.0]
-    obj["mr_collision_validation_status"] = "SOURCE"
+    obj["mr_resource_kind"] = resource_kind
+    if resource_kind == "vehicle":
+        obj["mr_target_draw_id"] = 0
+        obj["mr_resource_role"] = {
+            "car.dx": "RACE BODY", "complete.dx": "PRESENTATION", "wheel.dx": "WHEEL TEMPLATE"
+        }.get(source.name.casefold(), "AUXILIARY")
+        obj["mr_vehicle_source_dir"] = str(source.parent.resolve())
+        obj["mr_vehicle_project_path"] = ""
+        obj["mr_collision_scale"] = [1.0, 1.0, 1.0]
+        obj["mr_collision_translation"] = [0.0, 0.0, 0.0]
+        obj["mr_collision_validation_status"] = "SOURCE"
+    else:
+        obj["mr_resource_role"] = "COURSE RENDER"
     for draw_id, slot in draw_material_slots.items():
         obj[f"mr_draw_material_slot_{draw_id}"] = slot
     collection.objects.link(obj)
@@ -284,6 +301,8 @@ def import_dx_resource(
         normal_diagnostics=normal_diagnostics,
         display_normal_strategy=normal_strategy,
     )
+    if resource_kind == "course":
+        metadata = mark_course_metadata(metadata, model)
     if sidecar_resolution is not None:
         metadata["sidecar_resolution"] = {
             "selected_path": (

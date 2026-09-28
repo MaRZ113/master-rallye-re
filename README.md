@@ -17,8 +17,8 @@ same-topology **positions-only** DX export. All 78 vehicle resources produce a
 byte-identical zero-edit result and pass an in-memory single-position patch.
 On 2026-09-22, human testing in the original game runtime confirmed visible,
 artifact-free same-topology position edits in `complete.dx` (presentation/menu)
-and `car.dx` (race). Course resources and general DX serialization remain
-out of scope; targeted executable material tracing is documented below.
+and `car.dx` (race). General DX serialization remains out of scope; R5T-A adds
+a separate read-only course research and import path, summarized below.
 
 **FIRST CONFIRMED WRITABLE MASTER RALLYE VEHICLE GEOMETRY — 2026-09-22.**
 That R3 milestone confirmed position writing. Subsequent E1, E3 and E4 human tests confirmed same-topology UV, vertex-color, and alpha-flag edits. The stronger R4E.1 normal test confirmed normal writing; topology writing remains outside the same-topology baseline.
@@ -53,6 +53,20 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 `docs/vehicle-packaging.md`.
 
 Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
+
+## Course resources (R5T-A)
+
+The Vehicle SDK v1 baseline is frozen. R5T-A maps the supplied course corpus
+and adds a read-only revision-135 course render parser and import path to the
+same Blender add-on. All 36 retail course DX files and both Demo 9.10.0 target
+tracks pass complete index/vertex coverage validation; Italy1 and France1 are
+the primary Blender targets. The importer is integrated, but Blender runtime
+and visual confirmation remain pending because Blender is unavailable in this
+environment. Course writing, BSP/route/surface authoring, custom layouts, and
+EXE changes remain outside this phase. See
+[`docs/course-assets.md`](docs/course-assets.md),
+[`docs/course-importer.md`](docs/course-importer.md), and
+[`research/r5t_a/findings.md`](research/r5t_a/findings.md).
 
 ## Blender add-on
 
