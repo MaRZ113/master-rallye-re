@@ -203,9 +203,27 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         obj = context.object
         layout = self.layout
         status = refresh_authoring_status(obj)
+        try:
+            metadata = json.loads(obj["mr_metadata_json"])
+            validation = metadata.get("validation", {})
+            writer_profile = bool(validation.get("exact_generated_valid"))
+            structural_profile = bool(validation.get("structural_import_valid"))
+            dx_revision = metadata.get("source", {}).get("dx_revision", "unknown")
+            validation_profile = validation.get("validation_profile", "UNKNOWN")
+        except (AttributeError, KeyError, TypeError, ValueError):
+            metadata = {}
+            writer_profile = False
+            structural_profile = False
+            dx_revision = "unknown"
+            validation_profile = "UNKNOWN"
         layout.label(text=obj.get("mr_resource_name", obj.name), icon="MESH_DATA")
         layout.label(text=f"Role: {obj.get('mr_resource_role', 'AUXILIARY')}")
         layout.label(text=f"Position/topology: {status}")
+        layout.label(text=f"DX revision: {dx_revision}; import profile: {validation_profile}")
+        layout.label(text=(
+            "DX authoring: exact profile"
+            if writer_profile else "DX authoring: read-only import profile"
+        ))
         source = Path(obj.get("mr_source_path", ""))
         layout.label(text=f"Source: {source.name or 'unknown'}")
         grid = layout.grid_flow(columns=2, even_columns=True, align=True)
@@ -217,13 +235,14 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         grid.label(text=str(obj.get("mr_draw_count", 0)))
         collision = {}
         try:
-            metadata = json.loads(obj["mr_metadata_json"])
             group_count = len(metadata.get("groups", []))
             texture_count = sum(
                 len(draw.get("texture_slots", [])) for draw in metadata.get("draws", [])
             )
             validation_status = (
-                "VALIDATED" if metadata.get("validation", {}).get("validated") else "PARTIAL"
+                "EXACT WRITER PROFILE" if writer_profile
+                else "STRUCTURAL IMPORT ONLY" if structural_profile
+                else "INVALID"
             )
             collision = metadata.get("collision", {})
         except (AttributeError, ValueError, TypeError):
@@ -259,6 +278,7 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         if collision.get("tag101_present") and obj.get("mr_resource_name", "").casefold() == "car.dx":
             edit_box = layout.box()
             edit_box.label(text="Collision authoring: source XYZ", icon="MESH_CUBE")
+            edit_box.enabled = writer_profile
             edit_box.prop(obj, '["mr_collision_translation"]', text="Translate")
             edit_box.prop(obj, '["mr_collision_scale"]', text="Per-axis scale")
             buttons = edit_box.row(align=True)
@@ -291,10 +311,6 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
             box.label(text=f"Slot 1 helper: {slots[1] if len(slots)>1 else 'unknown'}")
             flags=str(material.get("mr_serialized_flags_0x20_hex",""))
             box.label(text=f"Raw flags: {flags}")
-            box.label(text=f"Alpha: {'test (experimental)' if material.get('mr_runtime_alpha_test') else 'blend' if material.get('mr_runtime_alpha_enabled') else 'opaque'}")
-            box.label(text=f"Env: {'enabled' if int(material.get('mr_serialized_texture_mask',0)) & 4 else 'disabled'}")
-            box.label(text="Alpha: executable + M2/M4 runtime")
-            box.label(text="Env: executable + M1/M3 runtime")
             if material.get("mr_dxt_source"):
                 row=box.row(align=True)
                 row.operator("object.master_rallye_export_texture",text="Export PNG")
@@ -308,13 +324,23 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
                 if draw_ids:
                     box.label(text=f"Draw IDs: {', '.join(map(str,draw_ids[:8]))}")
                     draw_id=draw_ids[0]
+                    legacy_material_fields = bool(material.get("mr_legacy_material_fields"))
+                    if legacy_material_fields:
+                        box.label(text="Legacy material flags: UNKNOWN (raw bytes preserved)")
+                    else:
+                        box.label(text=f"Alpha: {'test (experimental)' if material.get('mr_runtime_alpha_test') else 'blend' if material.get('mr_runtime_alpha_enabled') else 'opaque'}")
+                        box.label(text=f"Env: {'enabled' if int(material.get('mr_serialized_texture_mask',0)) & 4 else 'disabled'}")
+                        box.label(text="Alpha: executable + M2/M4 runtime")
+                        box.label(text="Env: executable + M1/M3 runtime")
                     buttons=box.row(align=True)
+                    buttons.enabled = writer_profile and not legacy_material_fields
                     off=buttons.operator("object.master_rallye_material_state",text="Alpha Off")
                     off.draw_id=draw_id; off.field="alpha"; off.enabled=False
                     on=buttons.operator("object.master_rallye_material_state",text="Alpha On")
                     on.draw_id=draw_id; on.field="alpha"; on.enabled=True
                     if len(slots)>1 and slots[1].casefold()!="null":
                         buttons=box.row(align=True)
+                        buttons.enabled = writer_profile and not legacy_material_fields
                         off=buttons.operator("object.master_rallye_material_state",text="Env Off")
                         off.draw_id=draw_id; off.field="env"; off.enabled=False
                         on=buttons.operator("object.master_rallye_material_state",text="Env On")
@@ -348,7 +374,9 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
                 draw_list.label(text=f"{draw['draw_id']}: {slots[0] if slots else 'Null'} / {slots[1] if len(slots)>1 else 'Null'}")
         except Exception:
             topology.label(text="Draw list unavailable")
-        topology.operator("export_scene.master_rallye_dx_topology", text="Export DX - Topology Changing (Experimental)", icon="EXPORT")
+        row = topology.row()
+        row.enabled = writer_profile
+        row.operator("export_scene.master_rallye_dx_topology", text="Export DX - Topology Changing (Experimental)", icon="EXPORT")
         bounds_row = layout.row(align=True)
         show_bounds = bounds_row.operator("object.master_rallye_bounds_visibility", text="Show Bounds")
         show_bounds.visible = True
@@ -358,13 +386,21 @@ class VIEW3D_PT_master_rallye_resource(bpy.types.Panel):
         project_box.label(text="Vehicle project", icon="OUTLINER_COLLECTION")
         project_box.operator("import_scene.master_rallye_vehicle", text="Import Vehicle Folder")
         project_box.operator("export_scene.master_rallye_vehicle_project", text="Save Vehicle Project")
-        project_box.operator("object.master_rallye_validate_vehicle", text="Validate Vehicle")
-        project_box.operator("export_scene.master_rallye_build_vehicle", text="Build Vehicle Mod")
+        row = project_box.row()
+        row.enabled = writer_profile
+        row.operator("object.master_rallye_validate_vehicle", text="Validate Vehicle")
+        row = project_box.row()
+        row.enabled = writer_profile
+        row.operator("export_scene.master_rallye_build_vehicle", text="Build Vehicle Mod")
         project_box.label(text=f"Project: {Path(obj.get('mr_vehicle_project_path', '')).name or 'unsaved'}")
         project_box.label(text=f"Validation: {obj.get('mr_vehicle_validation_status', 'not run')}")
         layout.separator()
-        layout.operator("export_scene.master_rallye_dx_attributes", text="Export DX - Safe Attributes", icon="EXPORT")
-        layout.operator(
+        row = layout.row()
+        row.enabled = writer_profile
+        row.operator("export_scene.master_rallye_dx_attributes", text="Export DX - Safe Attributes", icon="EXPORT")
+        row = layout.row()
+        row.enabled = writer_profile
+        row.operator(
             "export_scene.master_rallye_dx_positions",
             text="Export DX — Positions Only",
             icon="EXPORT",

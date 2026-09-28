@@ -1,0 +1,1540 @@
+{
+  "status": "PASS",
+  "blender_version": "5.2.2 LTS",
+  "addon_version": [
+    4,
+    4,
+    0
+  ],
+  "single_imports": [
+    {
+      "source": "car.dx",
+      "revision": 127,
+      "role": "RACE BODY",
+      "vertices": 2310,
+      "triangles": 1911,
+      "draws": 22,
+      "uv_sets": 1,
+      "texture_references": 38,
+      "resolved_texture_references": 38,
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "validation_profile": "EXACT",
+      "warnings": [
+        "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+      ]
+    },
+    {
+      "source": "car.dx",
+      "revision": 131,
+      "role": "RACE BODY",
+      "vertices": 2310,
+      "triangles": 1911,
+      "draws": 22,
+      "uv_sets": 1,
+      "texture_references": 38,
+      "resolved_texture_references": 37,
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "validation_profile": "EXACT",
+      "warnings": [
+        "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+        "draw 2: missing texture 'whitesuit32-tga'"
+      ]
+    },
+    {
+      "source": "car.dx",
+      "revision": 135,
+      "role": "RACE BODY",
+      "vertices": 2459,
+      "triangles": 1864,
+      "draws": 15,
+      "uv_sets": 1,
+      "texture_references": 23,
+      "resolved_texture_references": 1,
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+      "warnings": [
+        "stored global indices differ at 5449 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+        "draw 0: missing texture 'underdash-tga'",
+        "draw 1: missing texture 'lights64-tga'",
+        "draw 2: missing texture 'chair2-tga'",
+        "draw 3: missing texture 'whitesuit-tga'",
+        "draw 4: missing texture 'dcambell-tga'",
+        "draw 6: missing texture 'fhelmet32-tga'",
+        "draw 7: missing texture 'drichard-tga'",
+        "draw 8: missing texture 'mastersticker216-tga'",
+        "draw 9: missing texture 'lights64-tga'",
+        "draw 10: missing texture 'rear128-tga'",
+        "draw 11: missing texture 'forestside128-tga'",
+        "draw 12: missing texture 'forestgrill64-tga'",
+        "draw 13: missing texture 'shade16-tga'",
+        "draw 14: missing texture 'windscreen32-tga'"
+      ]
+    },
+    {
+      "source": "car.dx",
+      "revision": 135,
+      "role": "RACE BODY",
+      "vertices": 2543,
+      "triangles": 2021,
+      "draws": 32,
+      "uv_sets": 1,
+      "texture_references": 56,
+      "resolved_texture_references": 56,
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "validation_profile": "EXACT",
+      "warnings": []
+    }
+  ],
+  "demo_folder_imports": [
+    {
+      "folder": "!other_research/9.10.0_dxForester",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 3,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2459,
+          "triangles": 1864,
+          "draws": 15,
+          "uv_sets": 1,
+          "texture_references": 23,
+          "resolved_texture_references": 1,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 5449 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'lights64-tga'",
+            "draw 2: missing texture 'chair2-tga'",
+            "draw 3: missing texture 'whitesuit-tga'",
+            "draw 4: missing texture 'dcambell-tga'",
+            "draw 6: missing texture 'fhelmet32-tga'",
+            "draw 7: missing texture 'drichard-tga'",
+            "draw 8: missing texture 'mastersticker216-tga'",
+            "draw 9: missing texture 'lights64-tga'",
+            "draw 10: missing texture 'rear128-tga'",
+            "draw 11: missing texture 'forestside128-tga'",
+            "draw 12: missing texture 'forestgrill64-tga'",
+            "draw 13: missing texture 'shade16-tga'",
+            "draw 14: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2649,
+          "triangles": 2328,
+          "draws": 15,
+          "uv_sets": 1,
+          "texture_references": 27,
+          "resolved_texture_references": 0,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 6644 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'lights64-tga'",
+            "draw 2: missing texture 'chair2-tga'",
+            "draw 3: missing texture 'mastersticker216-tga'",
+            "draw 4: missing texture 'lights64-tga'",
+            "draw 5: missing texture 'rear128-tga'",
+            "draw 6: missing texture 'forestside128-tga'",
+            "draw 7: missing texture 'forestgrill64-tga'",
+            "draw 8: missing texture 'shade16-tga'",
+            "draw 9: missing texture 'forestwheel64-tga'",
+            "draw 10: missing texture 'foresttread-tga'",
+            "draw 11: missing texture 'forestwheel643-tga'",
+            "draw 12: missing texture 'forestwheel64-tga'",
+            "draw 13: missing texture 'fwheelrim-tga'",
+            "draw 14: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 0,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 675 covered positions; first 0x3; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'forestwheel64-tga'",
+            "draw 1: missing texture 'foresttread-tga'",
+            "draw 2: missing texture 'forestwheel643-tga'",
+            "draw 3: missing texture 'forestwheel64-tga'",
+            "draw 4: missing texture 'fwheelrim-tga'"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "!other_research/9.10.0_dxTrooper",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 3,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2310,
+          "triangles": 1911,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 1,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 5552 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'chair2-tga'",
+            "draw 2: missing texture 'whitesuit32-tga'",
+            "draw 3: missing texture 'dcambell-tga'",
+            "draw 5: missing texture 'trhelmet32-tga'",
+            "draw 6: missing texture 'drichard-tga'",
+            "draw 7: missing texture 'giraffe64-tga'",
+            "draw 8: missing texture 'giraffepanels128-tga'",
+            "draw 9: missing texture 'rearsticker-tga'",
+            "draw 10: missing texture 'topdoorl1-tga'",
+            "draw 11: missing texture 'rearsticker-tga'",
+            "draw 12: missing texture 'bumpbit64b-tga'",
+            "draw 13: missing texture 'mastersticker231-tga'",
+            "draw 14: missing texture 'tlight64-tga'",
+            "draw 15: missing texture 'troopwheel64-tga'",
+            "draw 16: missing texture 'tread-tga'",
+            "draw 17: missing texture 'wheel643-tga'",
+            "draw 18: missing texture 'troopwheel64-tga'",
+            "draw 19: missing texture 'trwheelrim-tga'",
+            "draw 20: missing texture 'tlight64-tga'",
+            "draw 21: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2500,
+          "triangles": 2375,
+          "draws": 20,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 0,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 6730 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'chair2-tga'",
+            "draw 2: missing texture 'giraffe64-tga'",
+            "draw 3: missing texture 'giraffepanels128-tga'",
+            "draw 4: missing texture 'rearsticker-tga'",
+            "draw 5: missing texture 'topdoorl1-tga'",
+            "draw 6: missing texture 'rearsticker-tga'",
+            "draw 7: missing texture 'bumpbit64b-tga'",
+            "draw 8: missing texture 'mastersticker231-tga'",
+            "draw 9: missing texture 'tlight64-tga'",
+            "draw 10: missing texture 'troopwheel64-tga'",
+            "draw 11: missing texture 'tread-tga'",
+            "draw 12: missing texture 'wheel643-tga'",
+            "draw 13: missing texture 'troopwheel64-tga'",
+            "draw 14: missing texture 'trwheelrim-tga'",
+            "draw 15: missing texture 'tlight64-tga'",
+            "draw 16: missing texture 'tread-tga'",
+            "draw 17: missing texture 'wheel643-tga'",
+            "draw 18: missing texture 'troopwheel64-tga'",
+            "draw 19: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 0,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 675 covered positions; first 0x3; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'troopwheel64-tga'",
+            "draw 1: missing texture 'tread-tga'",
+            "draw 2: missing texture 'wheel643-tga'",
+            "draw 3: missing texture 'troopwheel64-tga'",
+            "draw 4: missing texture 'trwheelrim-tga'"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "!other_research/9.3.1_dxForester",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2459,
+          "triangles": 1864,
+          "draws": 15,
+          "uv_sets": 1,
+          "texture_references": 23,
+          "resolved_texture_references": 1,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'lights64-tga'",
+            "draw 2: missing texture 'chair2-tga'",
+            "draw 3: missing texture 'whitesuit-tga'",
+            "draw 4: missing texture 'dcambell-tga'",
+            "draw 6: missing texture 'fhelmet32-tga'",
+            "draw 7: missing texture 'drichard-tga'",
+            "draw 8: missing texture 'mastersticker216-tga'",
+            "draw 9: missing texture 'lights64-tga'",
+            "draw 10: missing texture 'rear128-tga'",
+            "draw 11: missing texture 'forestside128-tga'",
+            "draw 12: missing texture 'forestgrill64-tga'",
+            "draw 13: missing texture 'shade16-tga'",
+            "draw 14: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2649,
+          "triangles": 2328,
+          "draws": 15,
+          "uv_sets": 1,
+          "texture_references": 27,
+          "resolved_texture_references": 0,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'lights64-tga'",
+            "draw 2: missing texture 'chair2-tga'",
+            "draw 3: missing texture 'mastersticker216-tga'",
+            "draw 4: missing texture 'lights64-tga'",
+            "draw 5: missing texture 'rear128-tga'",
+            "draw 6: missing texture 'forestside128-tga'",
+            "draw 7: missing texture 'forestgrill64-tga'",
+            "draw 8: missing texture 'shade16-tga'",
+            "draw 9: missing texture 'forestwheel64-tga'",
+            "draw 10: missing texture 'foresttread-tga'",
+            "draw 11: missing texture 'forestwheel643-tga'",
+            "draw 12: missing texture 'forestwheel64-tga'",
+            "draw 13: missing texture 'fwheelrim-tga'",
+            "draw 14: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 0,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+            "draw 0: missing texture 'forestwheel64-tga'",
+            "draw 1: missing texture 'foresttread-tga'",
+            "draw 2: missing texture 'forestwheel643-tga'",
+            "draw 3: missing texture 'forestwheel64-tga'",
+            "draw 4: missing texture 'fwheelrim-tga'"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "!other_research/9.3.1_dxTrooper",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2310,
+          "triangles": 1911,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 1,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'chair2-tga'",
+            "draw 2: missing texture 'whitesuit32-tga'",
+            "draw 3: missing texture 'dcambell-tga'",
+            "draw 5: missing texture 'trhelmet32-tga'",
+            "draw 6: missing texture 'drichard-tga'",
+            "draw 7: missing texture 'giraffe64-tga'",
+            "draw 8: missing texture 'giraffepanels128-tga'",
+            "draw 9: missing texture 'rearsticker-tga'",
+            "draw 10: missing texture 'topdoorl1-tga'",
+            "draw 11: missing texture 'rearsticker-tga'",
+            "draw 12: missing texture 'bumpbit64b-tga'",
+            "draw 13: missing texture 'mastersticker231-tga'",
+            "draw 14: missing texture 'tlight64-tga'",
+            "draw 15: missing texture 'troopwheel64-tga'",
+            "draw 16: missing texture 'tread-tga'",
+            "draw 17: missing texture 'wheel643-tga'",
+            "draw 18: missing texture 'troopwheel64-tga'",
+            "draw 19: missing texture 'trwheelrim-tga'",
+            "draw 20: missing texture 'tlight64-tga'",
+            "draw 21: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2500,
+          "triangles": 2375,
+          "draws": 20,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 0,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'chair2-tga'",
+            "draw 2: missing texture 'giraffe64-tga'",
+            "draw 3: missing texture 'giraffepanels128-tga'",
+            "draw 4: missing texture 'rearsticker-tga'",
+            "draw 5: missing texture 'topdoorl1-tga'",
+            "draw 6: missing texture 'rearsticker-tga'",
+            "draw 7: missing texture 'bumpbit64b-tga'",
+            "draw 8: missing texture 'mastersticker231-tga'",
+            "draw 9: missing texture 'tlight64-tga'",
+            "draw 10: missing texture 'troopwheel64-tga'",
+            "draw 11: missing texture 'tread-tga'",
+            "draw 12: missing texture 'wheel643-tga'",
+            "draw 13: missing texture 'troopwheel64-tga'",
+            "draw 14: missing texture 'trwheelrim-tga'",
+            "draw 15: missing texture 'tlight64-tga'",
+            "draw 16: missing texture 'tread-tga'",
+            "draw 17: missing texture 'wheel643-tga'",
+            "draw 18: missing texture 'troopwheel64-tga'",
+            "draw 19: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 0,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+            "draw 0: missing texture 'troopwheel64-tga'",
+            "draw 1: missing texture 'tread-tga'",
+            "draw 2: missing texture 'wheel643-tga'",
+            "draw 3: missing texture 'troopwheel64-tga'",
+            "draw 4: missing texture 'trwheelrim-tga'"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "8.4.1_Jump",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 127,
+          "role": "RACE BODY",
+          "vertices": 2361,
+          "triangles": 1808,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 36,
+          "resolved_texture_references": 36,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 127,
+          "role": "PRESENTATION",
+          "vertices": 2551,
+          "triangles": 2272,
+          "draws": 19,
+          "uv_sets": 1,
+          "texture_references": 34,
+          "resolved_texture_references": 34,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 127,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "8.4.1_Mercedes",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 127,
+          "role": "RACE BODY",
+          "vertices": 2115,
+          "triangles": 1632,
+          "draws": 17,
+          "uv_sets": 1,
+          "texture_references": 27,
+          "resolved_texture_references": 27,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 127,
+          "role": "PRESENTATION",
+          "vertices": 2305,
+          "triangles": 2096,
+          "draws": 18,
+          "uv_sets": 1,
+          "texture_references": 32,
+          "resolved_texture_references": 32,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 127,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "8.4.1_Trooper",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 127,
+          "role": "RACE BODY",
+          "vertices": 2310,
+          "triangles": 1911,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 38,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 127,
+          "role": "PRESENTATION",
+          "vertices": 2500,
+          "triangles": 2375,
+          "draws": 20,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 38,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 127,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.10.0_Jump",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2361,
+          "triangles": 1808,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 36,
+          "resolved_texture_references": 36,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2551,
+          "triangles": 2272,
+          "draws": 19,
+          "uv_sets": 1,
+          "texture_references": 34,
+          "resolved_texture_references": 34,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "folder": "9.10.0_Simmbugghini",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 3,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2460,
+          "triangles": 1916,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 34,
+          "resolved_texture_references": 34,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 5585 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2650,
+          "triangles": 2380,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 37,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 6795 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 10: missing texture 'mastersticker133-tga'"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 675 covered positions; first 0x3; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.10.0_Wildcat",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 3,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2687,
+          "triangles": 1966,
+          "draws": 21,
+          "uv_sets": 1,
+          "texture_references": 31,
+          "resolved_texture_references": 31,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 5730 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2877,
+          "triangles": 2430,
+          "draws": 21,
+          "uv_sets": 1,
+          "texture_references": 35,
+          "resolved_texture_references": 35,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 6926 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 675 covered positions; first 0x3; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.3.1_Forester",
+      "status": "PASS",
+      "resource_count": 2,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2459,
+          "triangles": 1864,
+          "draws": 15,
+          "uv_sets": 1,
+          "texture_references": 23,
+          "resolved_texture_references": 23,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.3.1_Jump",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2361,
+          "triangles": 1808,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 36,
+          "resolved_texture_references": 36,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2551,
+          "triangles": 2272,
+          "draws": 19,
+          "uv_sets": 1,
+          "texture_references": 34,
+          "resolved_texture_references": 34,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.3.1_NewRav",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2587,
+          "triangles": 2029,
+          "draws": 23,
+          "uv_sets": 1,
+          "texture_references": 39,
+          "resolved_texture_references": 39,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2777,
+          "triangles": 2493,
+          "draws": 24,
+          "uv_sets": 1,
+          "texture_references": 44,
+          "resolved_texture_references": 44,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.3.1_Rav4",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2418,
+          "triangles": 1902,
+          "draws": 25,
+          "uv_sets": 1,
+          "texture_references": 44,
+          "resolved_texture_references": 44,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2608,
+          "triangles": 2366,
+          "draws": 25,
+          "uv_sets": 1,
+          "texture_references": 48,
+          "resolved_texture_references": 48,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.3.1_Tata",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2190,
+          "triangles": 1973,
+          "draws": 31,
+          "uv_sets": 1,
+          "texture_references": 53,
+          "resolved_texture_references": 53,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2489,
+          "triangles": 2471,
+          "draws": 30,
+          "uv_sets": 1,
+          "texture_references": 55,
+          "resolved_texture_references": 55,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 4,
+          "uv_sets": 1,
+          "texture_references": 8,
+          "resolved_texture_references": 8,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.3.1_Trooper",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2310,
+          "triangles": 1911,
+          "draws": 22,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 37,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+            "draw 2: missing texture 'whitesuit32-tga'"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2500,
+          "triangles": 2375,
+          "draws": 20,
+          "uv_sets": 1,
+          "texture_references": 38,
+          "resolved_texture_references": 38,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.3.1_Wildcat",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2687,
+          "triangles": 1966,
+          "draws": 21,
+          "uv_sets": 1,
+          "texture_references": 31,
+          "resolved_texture_references": 31,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2877,
+          "triangles": 2430,
+          "draws": 21,
+          "uv_sets": 1,
+          "texture_references": 35,
+          "resolved_texture_references": 35,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    }
+  ],
+  "retail_folder_imports": [
+    {
+      "folder": "Astero",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2543,
+          "triangles": 2021,
+          "draws": 32,
+          "uv_sets": 1,
+          "texture_references": 56,
+          "resolved_texture_references": 56,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2657,
+          "triangles": 2423,
+          "draws": 24,
+          "uv_sets": 1,
+          "texture_references": 43,
+          "resolved_texture_references": 43,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "folder": "Pajero",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2852,
+          "triangles": 2193,
+          "draws": 33,
+          "uv_sets": 1,
+          "texture_references": 59,
+          "resolved_texture_references": 59,
+          "collision_tags": [
+            101
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "declared top-level count 28 differs from reconstructed root count 29"
+          ]
+        },
+        {
+          "source": "complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2980,
+          "triangles": 2607,
+          "draws": 25,
+          "uv_sets": 1,
+          "texture_references": 46,
+          "resolved_texture_references": 46,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "folder": "Terrano",
+      "status": "PASS",
+      "resource_count": 3,
+      "ordering_warning_count": 0,
+      "resources": [
+        {
+          "source": "car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2800,
+          "triangles": 2169,
+          "draws": 33,
+          "uv_sets": 1,
+          "texture_references": 59,
+          "resolved_texture_references": 59,
+          "collision_tags": [
+            101,
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2934,
+          "triangles": 2591,
+          "draws": 20,
+          "uv_sets": 1,
+          "texture_references": 37,
+          "resolved_texture_references": 37,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "draws": 5,
+          "uv_sets": 1,
+          "texture_references": 10,
+          "resolved_texture_references": 10,
+          "collision_tags": [
+            102
+          ],
+          "collision_validated": true,
+          "validation_profile": "EXACT",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "unsupported_demo_inputs": [
+    {
+      "source": "8.4.1_Mercedes/lpha/car.dx",
+      "revision": 125
+    },
+    {
+      "source": "8.4.1_Mercedes/lpha/wheel.dx",
+      "revision": 125
+    }
+  ],
+  "normal_policy": "Blender-calculated fallback; native custom-normal setters remain unused",
+  "uv_policy": "one direct-v Blender UV policy; DXT PNG rows flipped vertically",
+  "total_demo_resources": 50,
+  "total_retail_resources": 9
+}

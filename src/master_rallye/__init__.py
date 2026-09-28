@@ -1,5 +1,5 @@
 """Master Rallye clean-room asset extraction research library."""
-from .dx import parse_dx, parse_dx_bytes
+from .dx import analyze_global_index_consistency, parse_dx, parse_dx_bytes
 from .dxt import (
     decode_rgba_pixels,
     encode_dxt_pixels,
@@ -48,6 +48,7 @@ __all__ = [
     "build_vehicle_mod",
     "parse_dx",
     "parse_dx_bytes",
+    "analyze_global_index_consistency",
     "patch_dx_positions",
     "write_dx_positions",
     "audit_binary_diff",

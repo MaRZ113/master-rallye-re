@@ -38,11 +38,11 @@ class DrawRecord:
     local_vertex_max: int
     index_start: int
     index_count: int
-    unknown_0x14: int
-    unknown_0x18: int
-    unknown_0x1c_float: float
+    unknown_0x14: int | None
+    unknown_0x18: int | None
+    unknown_0x1c_float: float | None
     flags_0x20: bytes
-    unknown_0x24: int
+    unknown_0x24: int | None
     texture_slots: list[TextureSlot]
     terminal_offset: int
     children: list["DrawRecord"] = field(default_factory=list)
@@ -54,6 +54,8 @@ class DrawRecord:
     global_vertex_min: int | None = None
     global_vertex_max: int | None = None
     opaque_prefix: bytes | None = None
+    raw_revision_prefix: bytes | None = None
+    material_semantics: str = "REV135_CONFIRMED"
 
     @property
     def triangle_count(self) -> int:
@@ -153,10 +155,31 @@ class ValidationDiagnostics:
     unused_vertex_count: int = 0
     shared_vertex_count: int = 0
     reconstructed_global_match: bool = False
+    index_sequence_equal: bool = False
+    oriented_triangle_sets_equal_per_draw: bool = False
+    mismatch_position_count: int = 0
+    first_mismatch_position: int | None = None
+    compared_index_count: int = 0
+    per_draw_topology_equal: list[bool] = field(default_factory=list)
+    import_validated: bool = False
+    validation_profile: str = "INVALID"
+    writer_revision_supported: bool = True
+
+    @property
+    def exact_generated_valid(self) -> bool:
+        """True only when import structure, exact order, and writer revision all pass."""
+        return (
+            self.import_validated
+            and self.index_sequence_equal
+            and self.writer_revision_supported
+        )
 
     @property
     def validated(self) -> bool:
-        return not self.errors and self.reconstructed_global_match
+        # Compatibility alias retained for writers and existing callers. This
+        # remains the strict generated/exact profile, never the broader import
+        # profile.
+        return self.exact_generated_valid
 
 
 @dataclass
@@ -185,6 +208,10 @@ class DxModel:
     @property
     def vertex_count(self) -> int:
         return len(self.vertices.positions)
+
+    @property
+    def dx_revision(self) -> int:
+        return self.word_0x04
 
     @property
     def triangle_count(self) -> int:
@@ -222,6 +249,7 @@ class DxModel:
         return {
             "source": self.source,
             "byte_size": self.byte_size,
+            "dx_revision": self.dx_revision,
             "vertex_count": self.vertex_count,
             "uv_set_count": len(self.uv_sets),
             "local_index_count": len(self.local_indices),
@@ -250,6 +278,15 @@ class DxModel:
             },
             "diagnostics": {
                 "validated": self.diagnostics.validated,
+                "exact_generated_valid": self.diagnostics.exact_generated_valid,
+                "structural_import_valid": self.diagnostics.import_validated,
+                "writer_revision_supported": self.diagnostics.writer_revision_supported,
+                "validation_profile": self.diagnostics.validation_profile,
+                "index_sequence_equal": self.diagnostics.index_sequence_equal,
+                "oriented_triangle_sets_equal_per_draw": self.diagnostics.oriented_triangle_sets_equal_per_draw,
+                "mismatch_position_count": self.diagnostics.mismatch_position_count,
+                "first_mismatch_position": self.diagnostics.first_mismatch_position,
+                "compared_index_count": self.diagnostics.compared_index_count,
                 "index_coverage": self.diagnostics.index_coverage,
                 "vertex_coverage": self.diagnostics.vertex_coverage,
                 "uncovered_index_count": self.diagnostics.uncovered_index_count,

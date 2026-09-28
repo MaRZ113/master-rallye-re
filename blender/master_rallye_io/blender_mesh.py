@@ -208,12 +208,16 @@ def import_dx_resource(
     validation_passed = (
         model.course_render_validated
         if resource_kind == "course" and hasattr(model, "course_render_validated")
-        else model.diagnostics.validated
+        else model.diagnostics.import_validated
     )
     if strict and not validation_passed:
+        details = model.diagnostics.errors or model.diagnostics.warnings
+        detail_text = "; ".join(details) if details else "no structural validation profile passed"
+        if resource_kind == "course":
+            raise ValueError("DX geometry validation did not pass: " + detail_text)
         raise ValueError(
-            "DX geometry validation did not pass: "
-            + "; ".join(model.diagnostics.errors)
+            f"DX revision {model.dx_revision} structural import validation did not pass: "
+            + detail_text
         )
 
     sidecar_resolution = resolve_sidecar(model, source.parent) if import_sidecar else None
@@ -265,6 +269,7 @@ def import_dx_resource(
     warnings = tuple(
         list(model.diagnostics.warnings)
         + list(model.collision.errors)
+        + list(model.collision.warnings)
         + normal_warnings
         + resource_material_warnings
     )
@@ -272,6 +277,9 @@ def import_dx_resource(
     obj = bpy.data.objects.new(object_name or source.stem, mesh)
     obj["mr_resource_kind"] = resource_kind
     if resource_kind == "vehicle":
+        obj["mr_dx_revision"] = model.dx_revision
+        obj["mr_source_filename"] = source.name
+        obj["mr_validation_profile"] = model.diagnostics.validation_profile
         obj["mr_target_draw_id"] = 0
         obj["mr_resource_role"] = {
             "car.dx": "RACE BODY", "complete.dx": "PRESENTATION", "wheel.dx": "WHEEL TEMPLATE"

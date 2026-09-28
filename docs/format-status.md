@@ -1,4 +1,9 @@
-# Format status (Phase R4D.1 vehicle-material hardening)
+# Format status (R5V-D multi-revision vehicle import)
+
+R5V-D enables structural vehicle import for revisions 127 and 131 alongside
+the existing revision-135 reader. See the multi-revision entry near the end
+of this document and `docs/vehicle-multirevision.md`. Writer and authoring
+support remains the strict exact revision-135 profile.
 
 R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
@@ -223,3 +228,16 @@ Two forced France1 cooks in an isolated Demo 9.10.0 clone used identical 8.4.1 s
 ## R5V-C ID25 experimental runtime status
 
 The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE-copy candidate. Static patch validation passes; **RUNTIME VALIDATION: WAITING FOR HUMAN P0**. There is no confirmed 26th playable vehicle yet, and P1 race testing must wait for a human P0 menu/preview pass. See research/r5v_c/validation.md.
+
+## R5V-D multi-revision vehicle import
+
+The canonical vehicle reader and Blender add-on accept the observed revision
+127, 131, and 135 grammars. The supplied 52-file demo set has 9 revision-127,
+26 revision-131, 15 revision-135, and two unsupported revision-125 resources;
+the retail corpus adds 78 revision-135 resources. The legacy flat tag-2 prefix
+is retained raw, with preview material semantics left unknown. For revision
+135, exact global-index sequence comparison is separate from per-draw oriented
+triangle equivalence: 12 demo resources have safe ordering divergence and the
+78 retail resources remain exact. Structural import does not broaden any
+writer gate, which still requires the exact revision-135 profile. See
+`docs/vehicle-multirevision.md` and `research/r5v_d/`.

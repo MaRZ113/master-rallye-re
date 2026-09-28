@@ -1,0 +1,1039 @@
+{
+  "blender_version": "5.2.2 LTS",
+  "status": "PASS",
+  "folder_results": {
+    "Astero": {
+      "status": "PASS",
+      "resource_count": 3,
+      "warning_count": 0
+    },
+    "Pajero": {
+      "status": "PASS",
+      "resource_count": 3,
+      "warning_count": 1
+    },
+    "Forester": {
+      "status": "PASS",
+      "resource_count": 3,
+      "warning_count": 0
+    },
+    "Bruno": {
+      "status": "PASS",
+      "resource_count": 3,
+      "warning_count": 0
+    },
+    "SeatBuggy": {
+      "status": "PASS",
+      "resource_count": 3,
+      "warning_count": 1
+    },
+    "Ufo": {
+      "status": "PASS",
+      "resource_count": 2,
+      "warning_count": 0
+    },
+    "megane": {
+      "status": "PASS",
+      "resource_count": 4,
+      "warning_count": 0
+    }
+  },
+  "validated_resource_count": 22,
+  "required_sample_count": 14,
+  "save_reload": "PASS",
+  "preview_image_count": 207,
+  "required_samples": [
+    {
+      "resource": "Astero/complete.dx",
+      "vertices": 2657,
+      "triangles": 2423,
+      "draws": 24,
+      "groups": 24,
+      "uv_sets": 1,
+      "materials": 22,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2657,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999284428347,
+      "normal_max_magnitude": 1.0000000738963215,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Astero/car.dx",
+      "vertices": 2543,
+      "triangles": 2021,
+      "draws": 32,
+      "groups": 27,
+      "uv_sets": 1,
+      "materials": 27,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2543,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999284428347,
+      "normal_max_magnitude": 1.0000000738963215,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Astero/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999654530013,
+      "normal_max_magnitude": 1.0000000360302235,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Pajero/car.dx",
+      "vertices": 2852,
+      "triangles": 2193,
+      "draws": 33,
+      "groups": 29,
+      "uv_sets": 1,
+      "materials": 27,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [
+        "declared top-level count 28 differs from reconstructed root count 29"
+      ],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2852,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999332243821,
+      "normal_max_magnitude": 1.0000000749107774,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Pajero/complete.dx",
+      "vertices": 2980,
+      "triangles": 2607,
+      "draws": 25,
+      "groups": 25,
+      "uv_sets": 1,
+      "materials": 20,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2980,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999332243821,
+      "normal_max_magnitude": 1.0000000680035244,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Pajero/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999654530013,
+      "normal_max_magnitude": 1.0000000360302235,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Forester/complete.dx",
+      "vertices": 2713,
+      "triangles": 2271,
+      "draws": 17,
+      "groups": 17,
+      "uv_sets": 1,
+      "materials": 17,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2713,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999288357554,
+      "normal_max_magnitude": 1.000000073771202,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Bruno/car.dx",
+      "vertices": 2455,
+      "triangles": 2014,
+      "draws": 21,
+      "groups": 19,
+      "uv_sets": 1,
+      "materials": 20,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2455,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999312255609,
+      "normal_max_magnitude": 1.0000000716114306,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Bruno/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999459908658,
+      "normal_max_magnitude": 1.000000048879236,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "ChevyBlazer/car.dx",
+      "vertices": 2713,
+      "triangles": 2156,
+      "draws": 36,
+      "groups": 32,
+      "uv_sets": 1,
+      "materials": 30,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [
+        "declared top-level count 31 differs from reconstructed root count 32"
+      ],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2713,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999267456283,
+      "normal_max_magnitude": 1.0000000709804688,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101,
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "SeatBuggy/car.dx",
+      "vertices": 2419,
+      "triangles": 1879,
+      "draws": 33,
+      "groups": 29,
+      "uv_sets": 1,
+      "materials": 25,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [
+        "declared top-level count 28 differs from reconstructed root count 29"
+      ],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2419,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999242588226,
+      "normal_max_magnitude": 1.0000000744216369,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "SeatBuggy/complete.dx",
+      "vertices": 2566,
+      "triangles": 2302,
+      "draws": 25,
+      "groups": 25,
+      "uv_sets": 1,
+      "materials": 23,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2566,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999242588226,
+      "normal_max_magnitude": 1.0000000744216369,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101,
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Ufo/complete.dx",
+      "vertices": 837,
+      "triangles": 670,
+      "draws": 6,
+      "groups": 6,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 837,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999487977369,
+      "normal_max_magnitude": 1.000000072543187,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "megane/sus.dx",
+      "vertices": 48,
+      "triangles": 48,
+      "draws": 1,
+      "groups": 1,
+      "uv_sets": 1,
+      "materials": 1,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 48,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999478450854,
+      "normal_max_magnitude": 1.0000000593404548,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    }
+  ],
+  "r3_zero_edit_exports": [
+    "Astero/complete.dx",
+    "Astero/car.dx",
+    "Astero/wheel.dx",
+    "Pajero/car.dx",
+    "Pajero/complete.dx",
+    "Pajero/wheel.dx",
+    "Forester/complete.dx",
+    "Bruno/car.dx",
+    "Bruno/wheel.dx",
+    "ChevyBlazer/car.dx",
+    "SeatBuggy/car.dx",
+    "SeatBuggy/complete.dx",
+    "Ufo/complete.dx",
+    "megane/sus.dx"
+  ],
+  "all_resources": [
+    {
+      "resource": "Astero/car.dx",
+      "vertices": 2543,
+      "triangles": 2021,
+      "draws": 32,
+      "groups": 27,
+      "uv_sets": 1,
+      "materials": 27,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2543,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999284428347,
+      "normal_max_magnitude": 1.0000000738963215,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Astero/complete.dx",
+      "vertices": 2657,
+      "triangles": 2423,
+      "draws": 24,
+      "groups": 24,
+      "uv_sets": 1,
+      "materials": 22,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2657,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999284428347,
+      "normal_max_magnitude": 1.0000000738963215,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Astero/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999654530013,
+      "normal_max_magnitude": 1.0000000360302235,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Bruno/car.dx",
+      "vertices": 2455,
+      "triangles": 2014,
+      "draws": 21,
+      "groups": 19,
+      "uv_sets": 1,
+      "materials": 20,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2455,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999312255609,
+      "normal_max_magnitude": 1.0000000716114306,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Bruno/complete.dx",
+      "vertices": 2593,
+      "triangles": 2434,
+      "draws": 16,
+      "groups": 16,
+      "uv_sets": 1,
+      "materials": 16,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2593,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999334914463,
+      "normal_max_magnitude": 1.0000000732871248,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Bruno/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999459908658,
+      "normal_max_magnitude": 1.000000048879236,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "ChevyBlazer/car.dx",
+      "vertices": 2713,
+      "triangles": 2156,
+      "draws": 36,
+      "groups": 32,
+      "uv_sets": 1,
+      "materials": 30,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [
+        "declared top-level count 31 differs from reconstructed root count 32"
+      ],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2713,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999267456283,
+      "normal_max_magnitude": 1.0000000709804688,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101,
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Forester/car.dx",
+      "vertices": 2573,
+      "triangles": 1845,
+      "draws": 27,
+      "groups": 21,
+      "uv_sets": 1,
+      "materials": 20,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2573,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999288357554,
+      "normal_max_magnitude": 1.000000073771202,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Forester/complete.dx",
+      "vertices": 2713,
+      "triangles": 2271,
+      "draws": 17,
+      "groups": 17,
+      "uv_sets": 1,
+      "materials": 17,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2713,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999288357554,
+      "normal_max_magnitude": 1.000000073771202,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Forester/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999654530013,
+      "normal_max_magnitude": 1.0000000360302235,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Pajero/car.dx",
+      "vertices": 2852,
+      "triangles": 2193,
+      "draws": 33,
+      "groups": 29,
+      "uv_sets": 1,
+      "materials": 27,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [
+        "declared top-level count 28 differs from reconstructed root count 29"
+      ],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2852,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999332243821,
+      "normal_max_magnitude": 1.0000000749107774,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Pajero/complete.dx",
+      "vertices": 2980,
+      "triangles": 2607,
+      "draws": 25,
+      "groups": 25,
+      "uv_sets": 1,
+      "materials": 20,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2980,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999332243821,
+      "normal_max_magnitude": 1.0000000680035244,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Pajero/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999654530013,
+      "normal_max_magnitude": 1.0000000360302235,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "SeatBuggy/car.dx",
+      "vertices": 2419,
+      "triangles": 1879,
+      "draws": 33,
+      "groups": 29,
+      "uv_sets": 1,
+      "materials": 25,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [
+        "declared top-level count 28 differs from reconstructed root count 29"
+      ],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2419,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999242588226,
+      "normal_max_magnitude": 1.0000000744216369,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "SeatBuggy/complete.dx",
+      "vertices": 2566,
+      "triangles": 2302,
+      "draws": 25,
+      "groups": 25,
+      "uv_sets": 1,
+      "materials": 23,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2566,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999242588226,
+      "normal_max_magnitude": 1.0000000744216369,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101,
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "SeatBuggy/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999654530013,
+      "normal_max_magnitude": 1.0000000360302235,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "Ufo/car.dx",
+      "vertices": 1537,
+      "triangles": 1246,
+      "draws": 12,
+      "groups": 9,
+      "uv_sets": 1,
+      "materials": 9,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 1537,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999341203618,
+      "normal_max_magnitude": 1.0000000779927296,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "Ufo/complete.dx",
+      "vertices": 837,
+      "triangles": 670,
+      "draws": 6,
+      "groups": 6,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 837,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999487977369,
+      "normal_max_magnitude": 1.000000072543187,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "megane/car.dx",
+      "vertices": 2944,
+      "triangles": 2072,
+      "draws": 33,
+      "groups": 28,
+      "uv_sets": 1,
+      "materials": 28,
+      "record_tags": [
+        2,
+        7,
+        8
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 2944,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999330794296,
+      "normal_max_magnitude": 1.0000000692727633,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "megane/complete.dx",
+      "vertices": 3064,
+      "triangles": 2477,
+      "draws": 26,
+      "groups": 26,
+      "uv_sets": 1,
+      "materials": 26,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 3064,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999309779349,
+      "normal_max_magnitude": 1.0000000692727633,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    },
+    {
+      "resource": "megane/sus.dx",
+      "vertices": 48,
+      "triangles": 48,
+      "draws": 1,
+      "groups": 1,
+      "uv_sets": 1,
+      "materials": 1,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "opaque",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 48,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999478450854,
+      "normal_max_magnitude": 1.0000000593404548,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        101
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 3
+    },
+    {
+      "resource": "megane/wheel.dx",
+      "vertices": 220,
+      "triangles": 252,
+      "draws": 5,
+      "groups": 5,
+      "uv_sets": 1,
+      "materials": 5,
+      "record_tags": [
+        2
+      ],
+      "trailing_layout": "footer56-bounds",
+      "warnings": [],
+      "source_status": "SOURCE_IDENTICAL",
+      "normal_count": 220,
+      "normal_non_finite": 0,
+      "normal_near_zero": 0,
+      "normal_min_magnitude": 0.9999999654530013,
+      "normal_max_magnitude": 1.0000000343148259,
+      "display_normal_strategy": "blender-calculated-fallback",
+      "collision_tags": [
+        102
+      ],
+      "collision_validated": true,
+      "collision_overlay_count": 0
+    }
+  ]
+}

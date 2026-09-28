@@ -13,13 +13,17 @@ from ..blender_mesh import create_collection, import_dx_resource
 class IMPORT_SCENE_OT_master_rallye_vehicle(bpy.types.Operator):
     bl_idname = "import_scene.master_rallye_vehicle"
     bl_label = "Import Master Rallye Vehicle Folder"
-    bl_description = "Discover and import every DX resource directly in a vehicle folder"
+    bl_description = "Import car.dx, complete.dx, wheel.dx, and other vehicle DX resources from one folder"
     bl_options = {"REGISTER", "UNDO"}
 
     directory: StringProperty(name="Vehicle folder", subtype="DIR_PATH")
     import_sidecar: BoolProperty(name="Import TXT sidecar metadata", default=True)
     load_textures: BoolProperty(name="Load DXT preview textures", default=True)
-    strict_validation: BoolProperty(name="Require validated geometry", default=True)
+    strict_validation: BoolProperty(
+        name="Require structurally validated geometry",
+        description="Reject invalid draw, index, and topology structure; accept proven ordering divergence",
+        default=True,
+    )
     show_collision: BoolProperty(name="Show collision overlays", default=True)
 
     def invoke(self, context, event):
@@ -40,6 +44,8 @@ class IMPORT_SCENE_OT_master_rallye_vehicle(bpy.types.Operator):
         cache = PreviewMaterialCache(folder, load_textures=self.load_textures)
         imported = []
         warnings = []
+        warning_resources = 0
+        ordering_warning_resources = 0
         for source in resources:
             resource_collection = create_collection(source.stem, parent=parent)
             try:
@@ -59,6 +65,10 @@ class IMPORT_SCENE_OT_master_rallye_vehicle(bpy.types.Operator):
                     "wheel.dx": "WHEEL TEMPLATE"
                 }.get(source.name.casefold(), "AUXILIARY")
                 warnings.extend(result.warnings)
+                if result.warnings:
+                    warning_resources += 1
+                if result.model.diagnostics.validation_profile == "VALID_WITH_INDEX_ORDERING_DIVERGENCE":
+                    ordering_warning_resources += 1
                 for warning in result.warnings:
                     print(f"[Master Rallye] {source.name}: {warning}")
             except Exception as error:
@@ -75,6 +85,7 @@ class IMPORT_SCENE_OT_master_rallye_vehicle(bpy.types.Operator):
         self.report(
             {"WARNING"} if warnings else {"INFO"},
             f"Imported {len(imported)}/{len(resources)} resources from {folder.name}; "
-            f"{len(warnings)} warnings",
+            f"0 fatal errors; {len(warnings)} warnings across {warning_resources} resources "
+            f"({ordering_warning_resources} ordering warnings)",
         )
         return {"FINISHED"}

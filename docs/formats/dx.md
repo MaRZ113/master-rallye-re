@@ -1,4 +1,11 @@
-# `.dx` vehicle format notes (through Phase R4B)
+# `.dx` vehicle format notes (R5V-D multi-revision import)
+
+R5V-D extends the canonical **vehicle** reader and Blender importer to the
+observed revisions 127, 131, and 135. The format details below describe the
+revision-135 recursive draw grammar unless a section says otherwise. Observed
+revision-127 and revision-131 flat records and their confidence limits are
+documented in `docs/vehicle-multirevision.md`. Course DX files use a separate
+parser.
 
 Status: **HIGH** for the vehicle geometry/draw grammar. The corpus result covers
 all 78 files under `DataGx/Vehicles`; it does not claim compatibility with

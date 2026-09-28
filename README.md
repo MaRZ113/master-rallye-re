@@ -73,6 +73,15 @@ EXE change exists. See
 
 ## Blender add-on
 
+R5V-D adds vehicle-folder and single-resource import for observed DX revisions
+127, 131, and 135. Revision-135 index-order divergences are accepted for
+import only after per-draw oriented topology checks; all existing writers
+remain exact-sequence and revision-135 gated. Demo legacy material prefixes
+are preserved raw with conservative preview behavior. See
+[`docs/vehicle-importer.md`](docs/vehicle-importer.md),
+[`docs/vehicle-multirevision.md`](docs/vehicle-multirevision.md), and
+[`research/r5v_d/findings.md`](research/r5v_d/findings.md).
+
 Build the installable local ZIP with:
 
 ```powershell
