@@ -5,6 +5,17 @@ the existing revision-135 reader. See the multi-revision entry near the end
 of this document and `docs/vehicle-multirevision.md`. Writer and authoring
 support remains the strict exact revision-135 profile.
 
+**R5V-D: PASS — VEHICLE BLENDER BASELINE FROZEN.** Project-owner manual
+validation reports Demo 8.4.1 and 9.3.1 vehicle-folder imports passed, as did
+Demo 9.10.0 cooked vehicle import including the index-ordering-divergence
+case; no Blender crashes were observed. **LEGACY MATERIAL SEMANTICS PARTIAL:**
+revision-127/revision-131 geometry import is supported; texture lookup and UV
+are supported where proven, while alpha, alpha-test, and environment semantics
+are not fully decoded. Do not claim visual Direct3D 8 material parity for
+legacy demo DX. Revision 125 remains unsupported and uninvestigated. This
+vehicle-only freeze does not make the project-level SDK ready for public
+release while course/track support remains incomplete.
+
 R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
 | Family | Current interpretation | Confidence | Evidence / limit |

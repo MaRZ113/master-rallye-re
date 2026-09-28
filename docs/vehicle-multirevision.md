@@ -78,3 +78,21 @@ resources pass structural checks: 81 have exact index order and 12 demo
 resources have a structurally equivalent order divergence. The retail 78/78
 remain exact. See `research/r5v_d/findings.md` and its generated matrix for
 per-resource provenance labels and diagnostics.
+
+## Manual Blender validation and freeze
+
+The project owner reports these Blender UI results on 2026-09-29: Demo 8.4.1
+vehicle-folder import **PASS**; Demo 9.3.1 vehicle-folder import **PASS**; and
+Demo 9.10.0 cooked vehicle import, including the previously rejected
+index-ordering-divergence case, **PASS**. No Blender crashes were observed.
+
+**LEGACY MATERIAL SEMANTICS PARTIAL.** Revision-127/revision-131 geometry
+import is supported. Texture lookup and UV import are supported where proven.
+Alpha, alpha-test, and environment semantics are not fully decoded. Do not
+claim visual Direct3D 8 material parity for legacy demo DX; visible
+alpha/transparency, including vehicle glass, remains incomplete. Revision 125
+remains a documented unsupported legacy outlier and was not investigated.
+
+**R5V-D: PASS — VEHICLE BLENDER BASELINE FROZEN.** Course/track support remains
+outside this phase, so this does not declare the project-level SDK ready for
+public release.

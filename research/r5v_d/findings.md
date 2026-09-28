@@ -108,3 +108,25 @@ setters remain unused. Existing DXT PNG vertical-row handling is unchanged.
 - Legacy material, alpha, reflection and blend semantics are not inferred.
 - Structural import does not prove original-game runtime acceptance.
 - No game source, EXE, course resource, or vehicle asset is modified.
+
+## Blender UI validation and R5V-D verdict
+
+The project owner reports these manual Blender results on 2026-09-29:
+
+- Demo 8.4.1 vehicle-folder import: **PASS**.
+- Demo 9.3.1 vehicle-folder import: **PASS**.
+- Demo 9.10.0 cooked vehicle import, including the previously rejected
+  index-ordering-divergence case: **PASS**.
+- No Blender crashes were observed.
+
+**LEGACY MATERIAL SEMANTICS PARTIAL.** Revision-127/revision-131 geometry
+import is supported; texture lookup and UV import are supported where proven.
+Alpha, alpha-test, and environment semantics are not fully decoded. Do not
+claim visual Direct3D 8 material parity for legacy demo DX. Visible
+alpha/transparency, including vehicle glass, remains incomplete. Revision 125
+is a documented unsupported outlier and is deliberately not investigated in
+this phase.
+
+**R5V-D: PASS.** The multi-revision vehicle Blender baseline is frozen. This
+phase does not make the project-level SDK ready for public release while
+course/track support remains incomplete.

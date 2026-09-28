@@ -64,3 +64,25 @@ Machine-readable reports are `blender-validation.json`,
 `blender-retail-regression.json`. Blender and Python results validate parsing,
 import, and tooling behavior only; no new original-game runtime test was
 performed in this phase.
+
+## Manual Blender validation and freeze
+
+The project owner reports completing the following Blender UI checks on
+2026-09-29:
+
+- Demo 8.4.1 vehicle-folder import: **PASS**.
+- Demo 9.3.1 vehicle-folder import: **PASS**.
+- Demo 9.10.0 cooked vehicle import, including the previously rejected
+  index-ordering-divergence resource: **PASS**.
+- No Blender crashes were observed.
+
+**LEGACY MATERIAL SEMANTICS PARTIAL.** Revision-127/revision-131 geometry
+import is supported. Texture lookup and UV import are supported where proven.
+Alpha, alpha-test, and environment semantics are not fully decoded. Direct
+legacy demo DX import does not establish visual Direct3D 8 material parity;
+visible alpha/transparency, including vehicle glass, remains incomplete.
+Revision 125 remains an unsupported legacy outlier and was not investigated.
+
+**R5V-D STATUS: PASS — VEHICLE BLENDER BASELINE FROZEN.** This closes the
+multi-revision vehicle import phase only. It does not close course/track
+support or declare the project-level SDK ready for public release.
