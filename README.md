@@ -54,23 +54,22 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 
 Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
-## Course resources (R5T-A)
+## Course resources (R5T-B)
 
-The Vehicle SDK v1 baseline is frozen. R5T-A maps the supplied course corpus
-and adds a read-only revision-135 course render parser and import path to the
-same Blender add-on. All 36 retail course DX files and both Demo 9.10.0 target
-tracks pass complete index/vertex coverage validation; Italy1 and France1 are
-the primary Blender targets. The importer passed headless smoke validation in
-Blender 5.2.2 on both tracks, including DXT loading and metadata checks; manual
-viewport review and game-render parity remain unassessed. The project owner
-reports that the original Demo 9.10.0 course cooker converts 8.4.1 course
-source into revision-135 DX that loads with working AI in the 9.10.0 runtime.
-The supplied output DX files parse, while the exact cooker trigger and logs
-remain unpreserved. Course writing, BSP/route/surface authoring, custom layouts,
-and EXE changes remain outside this phase. See
+The Vehicle SDK v1 baseline is frozen. R5T-A's read-only revision-135 course
+DX parser and Italy1/France1 Blender import remain validated. R5T-B reproduced
+the Demo 9.10 cooker trigger in an isolated clone: launch the runtime and
+select France1 after clearing its DX/DXT cache. Two identical-source rebuilds
+produce different validated DX render prefixes, while all 172 non-DX files and
+the raw tag100 payload hash match. The old 8.4.1 France1/Italy1 GXM node tables
+now parse exactly against TXT sidecars, and RaceTest XML markers can be added
+to the existing Blender course scene as a read-only overlay. Source geometry
+transforms, controlled source edits, SFL registration, BSP semantics, and
+foliage runtime fixes remain unresolved. No course writer, custom layout, or
+EXE change exists. See
 [`docs/course-assets.md`](docs/course-assets.md),
 [`docs/course-importer.md`](docs/course-importer.md), and
-[`research/r5t_a/findings.md`](research/r5t_a/findings.md).
+[`research/r5t_b/findings.md`](research/r5t_b/findings.md).
 
 ## Blender add-on
 

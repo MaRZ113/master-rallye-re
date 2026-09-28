@@ -21,3 +21,19 @@ After the parsed render records, the existing collision-section boundary parser 
 France1 and Italy1 details, per-resource divergence offsets, draw counts, and validation status are in [`research/r5t_a/dx-course-probe.md`](../../research/r5t_a/dx-course-probe.md) and [`research/r5t_a/tag100-inventory.md`](../../research/r5t_a/tag100-inventory.md).
 
 This is a render read model only. It does not implement or imply a course DX writer, a BSP decoder/writer, or full accounting of bytes after tag 100.
+
+## R5T-B cooked-source variation
+
+The 9.10.0 runtime recooked 8.4.1 France1 source into revision 135. That output
+is structurally different from native 9.10.0 France1 despite the shared DX
+revision: the owner-supplied cooked file has 84,250 vertices, 74,812 triangles,
+and 4,620 draws, while native 9.10.0 has 64,961 vertices, 64,569 triangles,
+and 977 draws. Both parse through the same render parser. Therefore revision
+135 is not by itself a complete course graph/layout signature.
+
+Two forced France1 recooks from identical source produced different render DX
+prefixes (the output hashes, vertex counts, triangle counts, and draw counts
+differ). Their raw tag100 payloads were byte-identical at 10,118,248 bytes.
+The render section is validated; tag100's internal length/semantics remain
+unresolved. Cooker render-sort BSP generation is a separate observed pipeline
+and is not identified with tag100.

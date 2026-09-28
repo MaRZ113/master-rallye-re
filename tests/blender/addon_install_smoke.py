@@ -9,10 +9,11 @@ import bpy
 
 
 values = sys.argv[sys.argv.index("--") + 1:]
-if len(values) not in (1, 2):
-    raise SystemExit("usage after --: <addon.zip> [synthetic.dx]")
+if len(values) not in (1, 2, 3):
+    raise SystemExit("usage after --: <addon.zip> [synthetic.dx] or <addon.zip> <course.dx> <RaceTest.xml>")
 archive = Path(values[0]).resolve()
 fixture = Path(values[1]).resolve() if len(values) == 2 else None
+course_pair = (Path(values[1]).resolve(), Path(values[2]).resolve()) if len(values) == 3 else None
 result = bpy.ops.preferences.addon_install(filepath=str(archive), overwrite=True)
 if result != {"FINISHED"}:
     raise AssertionError(f"add-on install failed: {result}")
@@ -23,6 +24,8 @@ if not hasattr(bpy.ops.import_scene, "master_rallye_dx"):
     raise AssertionError("single DX operator missing after ZIP install")
 if not hasattr(bpy.ops.import_scene, "master_rallye_vehicle"):
     raise AssertionError("vehicle folder operator missing after ZIP install")
+if not hasattr(bpy.ops.import_scene, "master_rallye_course_xml_markers"):
+    raise AssertionError("RaceTest XML marker operator missing after ZIP install")
 if not hasattr(bpy.ops.export_scene, "master_rallye_dx_attributes"):
     raise AssertionError("R4E attribute DX operator missing after ZIP install")
 if not hasattr(bpy.ops.export_scene, "master_rallye_dx_positions"):
@@ -33,6 +36,7 @@ payload = {
     "archive": archive.name,
     "install": "PASS",
     "vendored_import": "NOT_RUN",
+    "vendored_course_import": "NOT_RUN",
 }
 if fixture is not None:
     result = bpy.ops.import_scene.master_rallye_dx(
@@ -74,5 +78,28 @@ if fixture is not None:
     if zero_output.read_bytes() != fixture.read_bytes():
         raise AssertionError("packaged zero-edit export was not byte-identical")
     payload["positions_only_export"] = "PASS"
+
+if course_pair is not None:
+    course_dx, xml_path = course_pair
+    result = bpy.ops.import_scene.master_rallye_course(
+        filepath=str(course_dx), load_textures=False
+    )
+    if result != {"FINISHED"}:
+        raise AssertionError(f"packaged course DX import failed: {result}")
+    from master_rallye_io.library import parse_course_xml
+    document = parse_course_xml(xml_path)
+    expected = sum(marker.position is not None for marker in document.markers)
+    result = bpy.ops.import_scene.master_rallye_course_xml_markers(filepath=str(xml_path))
+    if result != {"FINISHED"}:
+        raise AssertionError(f"packaged XML marker import failed: {result}")
+    overlays = [
+        collection for collection in bpy.data.collections
+        if collection.get("mr_xml_source") == str(xml_path)
+    ]
+    if len(overlays) != 1 or len(overlays[0].objects) != expected:
+        raise AssertionError("packaged XML marker count or collection mismatch")
+    payload["vendored_course_import"] = "PASS"
+    payload["course_xml_overlay"] = "PASS"
+    payload["course_xml_marker_count"] = expected
 
 print("R3_ADDON_INSTALL_PASS", json.dumps(payload, sort_keys=True))

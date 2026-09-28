@@ -49,3 +49,11 @@ remain **UNKNOWN**.
 The full counts, paths, hashes, TGA pairings, payload distributions, and
 flip/reverse comparisons are in
 [`research/r5t_a/sfl-analysis.md`](../../research/r5t_a/sfl-analysis.md).
+
+## R5T-B spatial registration status
+
+R5T-B did not spatially register SFL against course geometry. The supplied
+R5T-B `inputs/` corpus contains no raw SFL files, and the established header
+fields do not yet provide a proven world-space origin, spacing, or orientation.
+The existing structural parser and R5T-A counts remain valid; an SFL overlay
+must wait until a coordinate mapping is independently established.

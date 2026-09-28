@@ -38,6 +38,7 @@ class IMPORT_SCENE_OT_master_rallye_course(bpy.types.Operator, ImportHelper):
         root_name = self.collection_name.strip() or f"Master Rallye Course - {source.parent.name}"
         root = create_collection(root_name)
         root["mr_resource_kind"] = "course"
+        root["mr_course_identity"] = source.parent.name
         root["mr_read_only"] = True
         root["mr_source_dx"] = str(source.resolve())
         render = create_collection("Render Geometry", root)

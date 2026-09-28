@@ -414,8 +414,14 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
         grid.label(text=f"{loaded_textures} materials")
         box = layout.box()
         box.label(text="Geometry only", icon="INFO")
-        box.label(text="BSP / collision, route, and surface data are not decoded.")
-        box.label(text="No course writer is available in R5T-A.")
+        box.label(text="BSP / collision, source route, and surface data remain undecoded.")
+        box.operator(
+            "import_scene.master_rallye_course_xml_markers",
+            text="Import RaceTest XML Markers",
+            icon="EMPTY_AXIS",
+        )
+        box.label(text="XML marker records are shown as a separate read-only overlay.")
+        box.label(text="No course writer is available.")
         warnings = metadata.get("blender", {}).get("import_warnings", [])
         if warnings:
             warning_box = layout.box()

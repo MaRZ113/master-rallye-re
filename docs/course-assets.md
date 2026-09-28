@@ -27,7 +27,7 @@ France1 and Italy1 are present in all four corpus snapshots. Their DX revisions 
 
 Both tracks have 20-byte-header SFL resources from Demo 9.3.1 onward. France1 and Italy1 SFL dimensions/header bytes are unchanged between 9.3.1, 9.10.0, and retail, while payload hashes change from 9.3.1 to 9.10.0 and then match retail exactly. Demo 8.4.1 has historical FL/SF files; each scanned candidate has a 20-byte header and four bytes per cell. A direct semantic FL/SF-to-SFL identity is not established.
 
-The two available Demo 8.4.1 course GXM files have 32-byte headers. Their post-header bodies are not parsed. Header counts correlate with same-build TXT material and mesh-span counts; this does not decode source hierarchy or geometry.
+The two available Demo 8.4.1 course GXM files have 32-byte headers and a bounded opaque 16-byte-stride bank. Their trailing node tables are now parsed against paired TXT: France1 has 2,322 nodes and Italy1 1,117; all names, classes, unknown-node child counts, and mesh spans match. Source transforms and geometry arrays remain undecoded. See [`docs/formats/gxm-course.md`](formats/gxm-course.md).
 
 ## Runtime compatibility observation
 
@@ -40,8 +40,12 @@ cooker can rebuild old 8.4.1 France1/Italy1 source into revision-135 courses
 that load and run in the 9.10.0 runtime, with AI working. The recooked courses
 retain old start/grid behavior; visual issues remain. This is
 `CONFIRMED_BY_RUNTIME` owner evidence and is distinct from swapping retail
-resources into older demos. The supplied recooked DX files parse locally;
-exact structures, hashes, and limits on reproducing the cooker workflow are in
-[`research/r5t_a/runtime-closeout.md`](../research/r5t_a/runtime-closeout.md).
+resources into older demos. The trigger is now reproduced: launch the 9.10.0
+runtime and select France1 after removing the cached DX and DXT files in an
+isolated course copy. Two forced rebuilds produced validated rev135 DX; DX
+render prefixes vary, while all 172 non-DX resource hashes and the raw tag100
+payload hash match across runs. The documented trigger, logs, output hashes,
+and limitations are in [`docs/course-cooker.md`](course-cooker.md) and
+[`research/r5t_b/cooker-baseline.json`](../research/r5t_b/cooker-baseline.json).
 
 See [`docs/course-importer.md`](course-importer.md), [`docs/formats/dx-course.md`](formats/dx-course.md), and the machine-readable reports under [`research/r5t_a`](../research/r5t_a/).

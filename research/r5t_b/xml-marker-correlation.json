@@ -1,0 +1,258 @@
+{
+  "evidence_label": "CONFIRMED_BY_BINARY for XML positions and DX bounds; coordinate-frame relationship is a HIGH_CONFIDENCE_INFERENCE from all marker positions lying inside each matching course DX AABB",
+  "courses": {
+    "France1": {
+      "xml": {
+        "path": ".research-output/r5t_b/cooker-lab/DataScene/RaceTest/France1.xml",
+        "bytes": 334577,
+        "sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df"
+      },
+      "dx": {
+        "path": "inputs/9.10.0_France1/france1.dx",
+        "bytes": 13475793,
+        "sha256": "f33ce88ee0c18107fef55122ca0bddba6e972df2746e2d7b114696ed5572c2cc",
+        "revision": 135,
+        "vertex_count": 64961,
+        "triangle_count": 64569,
+        "physical_draw_count": 977,
+        "declared_top_level_record_count": 1,
+        "batch_count": 48,
+        "render_validated": true,
+        "draw_table_offset": 3245722,
+        "tag100": {
+          "offset": 3331416,
+          "bytes": 10144377,
+          "sha256": "211103071585dadc46e7e56009984fb49da6ce5a9d1a1038a51708420fa99d2b",
+          "status": "raw-length-unresolved"
+        }
+      },
+      "marker_count": 583,
+      "positioned_marker_count": 583,
+      "marker_records_with_issues": 0,
+      "marker_type_counts": {
+        "markers\\green_marker": 132,
+        "markers\\red_marker": 448,
+        "markers\\yellow_marker": 3
+      },
+      "marker_position_bounds_xyz": [
+        [
+          -3346.13,
+          -923.97
+        ],
+        [
+          -18.37,
+          85.74
+        ],
+        [
+          -361.99,
+          1216.76
+        ]
+      ],
+      "dx_position_bounds_xyz": [
+        [
+          -3651.0869140625,
+          -316.90234375
+        ],
+        [
+          -45.38961410522461,
+          126.64813232421875
+        ],
+        [
+          -554.8106689453125,
+          1533.0980224609375
+        ]
+      ],
+      "markers_outside_dx_aabb": 0,
+      "split_time_records": [
+        {
+          "attributes": {},
+          "values": [
+            {
+              "name": "Split Time ID",
+              "type": "Int",
+              "value": "0"
+            },
+            {
+              "name": "Radius",
+              "type": "Float",
+              "value": "21.00000"
+            },
+            {
+              "name": "ExtraTime",
+              "type": "Float",
+              "value": "90.00000"
+            }
+          ]
+        },
+        {
+          "attributes": {},
+          "values": [
+            {
+              "name": "Split Time ID",
+              "type": "Int",
+              "value": "1"
+            },
+            {
+              "name": "Radius",
+              "type": "Float",
+              "value": "13.00000"
+            },
+            {
+              "name": "ExtraTime",
+              "type": "Float",
+              "value": "95.00000"
+            }
+          ]
+        },
+        {
+          "attributes": {},
+          "values": [
+            {
+              "name": "Split Time ID",
+              "type": "Int",
+              "value": "2"
+            },
+            {
+              "name": "Radius",
+              "type": "Float",
+              "value": "12.00000"
+            },
+            {
+              "name": "ExtraTime",
+              "type": "Float",
+              "value": "80.00000"
+            }
+          ]
+        }
+      ],
+      "limit_builder_record_count": 0
+    },
+    "Italy1": {
+      "xml": {
+        "path": ".research-output/r5t_b/cooker-lab/DataScene/RaceTest/Italy1.xml",
+        "bytes": 187803,
+        "sha256": "c7e591a7b723f174bc7683a91129293841360b62bcfa5a9bc51259ea6d4b9a88"
+      },
+      "dx": {
+        "path": "inputs/9.10.0_Italy1/track01.dx",
+        "bytes": 10264956,
+        "sha256": "341f9a0c5aa1691a798ac32fcaadea66c37017205d6e26308f885d40c2ae5625",
+        "revision": 135,
+        "vertex_count": 54529,
+        "triangle_count": 41711,
+        "physical_draw_count": 794,
+        "declared_top_level_record_count": 1,
+        "batch_count": 76,
+        "render_validated": true,
+        "draw_table_offset": 2649566,
+        "tag100": {
+          "offset": 2719221,
+          "bytes": 7545735,
+          "sha256": "54d7ae7c7cb369dd5f970658e4814c2ee2e4caa72d3df729bfcee100ca454880",
+          "status": "raw-length-unresolved"
+        }
+      },
+      "marker_count": 277,
+      "positioned_marker_count": 277,
+      "marker_records_with_issues": 0,
+      "marker_type_counts": {
+        "markers\\green_marker": 4,
+        "markers\\purplemarker": 56,
+        "markers\\red_marker": 4,
+        "markers\\yellow_marker": 213
+      },
+      "marker_position_bounds_xyz": [
+        [
+          -2587.74,
+          -1352.49
+        ],
+        [
+          -19.6,
+          168.236
+        ],
+        [
+          -1120.85,
+          231.14
+        ]
+      ],
+      "dx_position_bounds_xyz": [
+        [
+          -3132.748291015625,
+          -1200.091796875
+        ],
+        [
+          -20.236501693725586,
+          250.03135681152344
+        ],
+        [
+          -1330.93701171875,
+          803.2486572265625
+        ]
+      ],
+      "markers_outside_dx_aabb": 0,
+      "split_time_records": [
+        {
+          "attributes": {},
+          "values": [
+            {
+              "name": "Split Time ID",
+              "type": "Int",
+              "value": "0"
+            },
+            {
+              "name": "Radius",
+              "type": "Float",
+              "value": "12.00000"
+            },
+            {
+              "name": "ExtraTime",
+              "type": "Float",
+              "value": "85.00000"
+            }
+          ]
+        },
+        {
+          "attributes": {},
+          "values": [
+            {
+              "name": "Split Time ID",
+              "type": "Int",
+              "value": "1"
+            },
+            {
+              "name": "Radius",
+              "type": "Float",
+              "value": "16.00000"
+            },
+            {
+              "name": "ExtraTime",
+              "type": "Float",
+              "value": "65.00000"
+            }
+          ]
+        },
+        {
+          "attributes": {},
+          "values": [
+            {
+              "name": "Split Time ID",
+              "type": "Int",
+              "value": "2"
+            },
+            {
+              "name": "Radius",
+              "type": "Float",
+              "value": "22.00000"
+            },
+            {
+              "name": "ExtraTime",
+              "type": "Float",
+              "value": "55.00000"
+            }
+          ]
+        }
+      ],
+      "limit_builder_record_count": 0
+    }
+  }
+}

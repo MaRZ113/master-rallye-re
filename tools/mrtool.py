@@ -13,6 +13,7 @@ if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
 from master_rallye.audit import audit_texture_tree
+from master_rallye.course_diff import diff_course_trees, render_course_diff_markdown
 from master_rallye.coverage import write_coverage_reports
 from master_rallye.collision_analysis import write_collision_corpus_reports
 from master_rallye.dx import parse_dx
@@ -206,9 +207,38 @@ def collision_corpus_command(args) -> int:
     return 0
 
 
+def diff_course_command(args) -> int:
+    report = diff_course_trees(args.base, args.modified)
+    if args.json:
+        args.json.parent.mkdir(parents=True, exist_ok=True)
+        args.json.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    if args.markdown:
+        args.markdown.parent.mkdir(parents=True, exist_ok=True)
+        args.markdown.write_text(render_course_diff_markdown(report), encoding="utf-8")
+    if not args.json and not args.markdown:
+        print(json.dumps(report, indent=2, ensure_ascii=False))
+    summary = report["summary"]
+    print(
+        f"course diff: {summary['identical_file_count']} identical, "
+        f"{summary['changed_file_count']} changed, {summary['added_file_count']} added, "
+        f"{summary['removed_file_count']} removed",
+        file=sys.stderr,
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mrtool", description="Master Rallye clean-room research CLI")
     commands = parser.add_subparsers(dest="command", required=True)
+
+    course_diff = commands.add_parser(
+        "diff-course", help="read-only semantic comparison of two course resource trees"
+    )
+    course_diff.add_argument("base", type=Path)
+    course_diff.add_argument("modified", type=Path)
+    course_diff.add_argument("--json", type=Path, help="write machine-readable diff")
+    course_diff.add_argument("--markdown", type=Path, help="write concise Markdown report")
+    course_diff.set_defaults(function=diff_course_command)
 
     inspect = commands.add_parser("inspect", help="inspect one vehicle DX")
     inspect.add_argument("input", type=Path)

@@ -12,6 +12,7 @@ try:
         float32_signed_bits,
         geometry_fingerprint,
         prepare_display_normals,
+        position_to_blender,
         transform_blender_normals,
         transform_blender_positions,
         transform_blender_positions_to_source,
@@ -31,6 +32,7 @@ try:
     )
     from master_rallye.dx import parse_dx
     from master_rallye.dx_course import parse_course_dx
+    from master_rallye.course_xml import parse_course_xml
     from master_rallye.course_metadata import mark_course_metadata
     from master_rallye.dx_writer import write_dx_positions
     from master_rallye.r4e_writer import aggregate_corners, classify_edit, write_dx_attributes
@@ -59,6 +61,7 @@ except ModuleNotFoundError:
         float32_signed_bits,
         geometry_fingerprint,
         prepare_display_normals,
+        position_to_blender,
         transform_blender_normals,
         transform_blender_positions,
         transform_blender_positions_to_source,
@@ -78,6 +81,7 @@ except ModuleNotFoundError:
     )
     from .vendor.master_rallye.dx import parse_dx
     from .vendor.master_rallye.dx_course import parse_course_dx
+    from .vendor.master_rallye.course_xml import parse_course_xml
     from .vendor.master_rallye.course_metadata import mark_course_metadata
     from .vendor.master_rallye.dx_writer import write_dx_positions
     from .vendor.master_rallye.r4e_writer import aggregate_corners, classify_edit, write_dx_attributes

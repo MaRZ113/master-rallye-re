@@ -1,0 +1,330 @@
+{
+  "schema": "r5t-b-cooker-baseline-v1",
+  "evidence_labels": [
+    "CONFIRMED_BY_RUNTIME",
+    "CONFIRMED_BY_BINARY",
+    "CONFIRMED_BY_CORPUS"
+  ],
+  "runtime": {
+    "build": "Demo 9.10.0",
+    "launch_method": "human launched MRallye 9.10 runtime and selected France1; no CLI cooker invocation was observed",
+    "original_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+    "scratch_root": ".research-output/r5t_b/cooker-lab",
+    "log_evidence": "User supplied screenshot series under inputs/9.10.0_France1_log-screens; readable log messages are transcribed in cooker-workflow.md."
+  },
+  "input_source": {
+    "course": "France1",
+    "build": "Demo 8.4.1 source resources, cooked by Demo 9.10.0 runtime",
+    "folder": "inputs/8.4.1_France1_fresh-cooked",
+    "file_count": 172,
+    "extension_counts": {
+      ".dxt": 66,
+      ".gxi": 104,
+      ".gxm": 1,
+      ".txt": 1
+    },
+    "gxm": {
+      "path": "inputs/8.4.1_France1/France1.gxm",
+      "bytes": 11489135,
+      "sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2"
+    },
+    "txt": {
+      "path": "inputs/8.4.1_France1/France1.txt",
+      "bytes": 158889,
+      "sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43"
+    }
+  },
+  "forced_rebuild": {
+    "course_files_present_before_first_observation": {
+      "file_count": 106,
+      "extension_counts": {
+        ".gxi": 104,
+        ".gxm": 1,
+        ".txt": 1
+      }
+    },
+    "removed_before_first_observation": [
+      "France1/france1.dx",
+      "all 66 France1/*.dxt"
+    ],
+    "removed_before_second_observation": [
+      "France1/france1.dx",
+      "all 66 France1/*.dxt"
+    ],
+    "source_hashes_unchanged_across_observations": true,
+    "other_runtime_resources_untouched": true,
+    "scratch_only": true
+  },
+  "runs": [
+    {
+      "run": 1,
+      "path": ".research-output/r5t_b/runs/run-01/france1.dx",
+      "bytes": 14816086,
+      "sha256": "c41beb604e8748ab74cb926ac029b21348981b30befe6830515a994b2075caff",
+      "revision": 135,
+      "vertex_count": 85212,
+      "triangle_count": 75456,
+      "physical_draw_count": 4621,
+      "declared_top_level_record_count": 665,
+      "batch_count": 105,
+      "render_validated": true,
+      "draw_table_offset": 4202088,
+      "tag100": {
+        "offset": 4697838,
+        "bytes": 10118248,
+        "sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+        "status": "raw-length-unresolved"
+      }
+    },
+    {
+      "run": 2,
+      "path": ".research-output/r5t_b/runs/run-02/france1.dx",
+      "bytes": 14795748,
+      "sha256": "9f7b5b50b2f631e1db10bafc1d62f6c82eb13cf2127e6967278b14aa329cf02e",
+      "revision": 135,
+      "vertex_count": 84738,
+      "triangle_count": 75246,
+      "physical_draw_count": 4638,
+      "declared_top_level_record_count": 665,
+      "batch_count": 105,
+      "render_validated": true,
+      "draw_table_offset": 4179972,
+      "tag100": {
+        "offset": 4677500,
+        "bytes": 10118248,
+        "sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+        "status": "raw-length-unresolved"
+      }
+    }
+  ],
+  "repeated_output_comparison": {
+    "non_dx_file_count": 172,
+    "non_dx_byte_identical_count": 172,
+    "non_dx_changed_names": [],
+    "source_tree_non_dx_count": 172,
+    "source_tree_non_dx_matching_first_output_count": 172,
+    "source_tree_non_dx_matching_second_output_count": 172,
+    "classification": {
+      "france1.dx": "VARIABLE across two forced rebuilds; cause not identified",
+      "france1 tag100 raw payload": "IDENTICAL across two forced rebuilds (same byte size and SHA-256)",
+      "66 DXT plus 104 GXI plus GXM/TXT": "BYTE-IDENTICAL across the two forced rebuilds and source hashes in this corpus"
+    }
+  },
+  "old_8_4_source_tables": {
+    "France1": {
+      "gxm": {
+        "path": "inputs/8.4.1_France1/France1.gxm",
+        "bytes": 11489135,
+        "sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2"
+      },
+      "txt": {
+        "path": "inputs/8.4.1_France1/France1.txt",
+        "bytes": 158889,
+        "sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43"
+      },
+      "header_words_u32": [
+        853762,
+        0,
+        262505,
+        121,
+        185751,
+        97824,
+        61917,
+        49278
+      ],
+      "object_table": {
+        "offset": 11429739,
+        "bytes": 59396,
+        "node_count": 2322,
+        "class_counts": {
+          "moMesh": 2283,
+          "moModel": 1,
+          "moUnknown": 38
+        },
+        "txt_crosscheck": "exact names, node classes, hierarchy child counts, and mesh spans match paired TXT"
+      },
+      "helper_nodes": [
+        {
+          "ordinal": 1,
+          "class_name": "moMesh",
+          "name": "startpoint",
+          "parent_id": 0,
+          "mesh_index": 0,
+          "mesh_size": 12,
+          "record_control_u16": 0,
+          "child_count": 0,
+          "record_offset": 11429746
+        },
+        {
+          "ordinal": 10,
+          "class_name": "moUnknown",
+          "name": "$bsp",
+          "parent_id": 9,
+          "mesh_index": null,
+          "mesh_size": null,
+          "record_control_u16": 2,
+          "child_count": 2,
+          "record_offset": 11429876
+        },
+        {
+          "ordinal": 11,
+          "class_name": "moUnknown",
+          "name": "$draw $landdb",
+          "parent_id": 10,
+          "mesh_index": null,
+          "mesh_size": null,
+          "record_control_u16": 1,
+          "child_count": 1,
+          "record_offset": 11429886
+        },
+        {
+          "ordinal": 13,
+          "class_name": "moUnknown",
+          "name": "$nodraw",
+          "parent_id": 10,
+          "mesh_index": null,
+          "mesh_size": null,
+          "record_control_u16": 10,
+          "child_count": 10,
+          "record_offset": 11429926
+        },
+        {
+          "ordinal": 1654,
+          "class_name": "moMesh",
+          "name": "_raceline",
+          "parent_id": 0,
+          "mesh_index": 59293,
+          "mesh_size": 954,
+          "record_control_u16": 0,
+          "child_count": 0,
+          "record_offset": 11473512
+        },
+        {
+          "ordinal": 1655,
+          "class_name": "moMesh",
+          "name": "$boinds",
+          "parent_id": 0,
+          "mesh_index": 60247,
+          "mesh_size": 251,
+          "record_control_u16": 0,
+          "child_count": 0,
+          "record_offset": 11473535
+        },
+        {
+          "ordinal": 1656,
+          "class_name": "moMesh",
+          "name": "$ps2cells",
+          "parent_id": 0,
+          "mesh_index": 60498,
+          "mesh_size": 91,
+          "record_control_u16": 0,
+          "child_count": 0,
+          "record_offset": 11473556
+        }
+      ],
+      "unparsed_txt_node_lines": 0
+    },
+    "Italy1": {
+      "gxm": {
+        "path": "inputs/8.4.1_Italy1/track01.gxm",
+        "bytes": 8728347,
+        "sha256": "c9ca6831569ef5f23b7203cba0c95e08ad604d9f8f4d2ff557bf193c186054ba"
+      },
+      "txt": {
+        "path": "inputs/8.4.1_Italy1/track01.txt",
+        "bytes": 80331,
+        "sha256": "7e7406a6c2772b4e6d30ef390230136d2eb46247f49d431bdbfb178ef3ce346d"
+      },
+      "header_words_u32": [
+        984834,
+        0,
+        189937,
+        66,
+        142131,
+        89485,
+        47377,
+        34048
+      ],
+      "object_table": {
+        "offset": 8700224,
+        "bytes": 28123,
+        "node_count": 1117,
+        "class_counts": {
+          "moMesh": 1082,
+          "moModel": 1,
+          "moUnknown": 34
+        },
+        "txt_crosscheck": "exact names, node classes, hierarchy child counts, and mesh spans match paired TXT"
+      },
+      "helper_nodes": [
+        {
+          "ordinal": 783,
+          "class_name": "moUnknown",
+          "name": "$bsp",
+          "parent_id": 1,
+          "mesh_index": null,
+          "mesh_size": null,
+          "record_control_u16": 2,
+          "child_count": 2,
+          "record_offset": 8718863
+        },
+        {
+          "ordinal": 784,
+          "class_name": "moUnknown",
+          "name": "$nodraw",
+          "parent_id": 783,
+          "mesh_index": null,
+          "mesh_size": null,
+          "record_control_u16": 3,
+          "child_count": 3,
+          "record_offset": 8718873
+        },
+        {
+          "ordinal": 1110,
+          "class_name": "moMesh",
+          "name": "_boinds",
+          "parent_id": 0,
+          "mesh_index": 45667,
+          "mesh_size": 348,
+          "record_control_u16": 0,
+          "child_count": 0,
+          "record_offset": 8728214
+        },
+        {
+          "ordinal": 1112,
+          "class_name": "moMesh",
+          "name": "_limits",
+          "parent_id": 0,
+          "mesh_index": 46015,
+          "mesh_size": 564,
+          "record_control_u16": 0,
+          "child_count": 0,
+          "record_offset": 8728247
+        },
+        {
+          "ordinal": 1115,
+          "class_name": "moMesh",
+          "name": "raceline",
+          "parent_id": 0,
+          "mesh_index": 46579,
+          "mesh_size": 690,
+          "record_control_u16": 0,
+          "child_count": 0,
+          "record_offset": 8728302
+        },
+        {
+          "ordinal": 1116,
+          "class_name": "moMesh",
+          "name": "$ps2cells",
+          "parent_id": 0,
+          "mesh_index": 47269,
+          "mesh_size": 108,
+          "record_control_u16": 0,
+          "child_count": 0,
+          "record_offset": 8728324
+        }
+      ],
+      "unparsed_txt_node_lines": 0
+    }
+  }
+}
