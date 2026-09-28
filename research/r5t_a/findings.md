@@ -34,13 +34,13 @@ Per-layer sizes and hashes are in `france1-evolution.md` and `italy1-evolution.m
 
 Every retail SFL satisfies `20 + width × height` bytes. The first header float is 3.0; the remaining fields and cell semantics remain unknown. Ten Demo 8.4.1 FL/SF candidates satisfy 20-byte-header plus four bytes per cell. Header dimensions differ from later SFL; only a broad historical relation is plausible. Flip pairs with equal dimensions/header can still have different payload hashes.
 
-## Source and compiler boundary — UNKNOWN / PARTIAL
+## Source and compiler boundary — PARTIAL
 
-The existing vehicle GXM parser is not reused for course bodies. A bounded probe records the 32-byte Demo 8.4.1 headers and same-build TXT count relations. Source objects, hierarchy, render correspondence, `$bsp` compilation, `$grnd*` storage, and cooker transformations are not decoded. No standalone Demo 9.10 cooker was identified; a course cooker bridge was not tested.
+The existing vehicle GXM parser is not reused for course bodies. A bounded probe records the 32-byte Demo 8.4.1 headers and same-build TXT count relations. Source objects, hierarchy, render correspondence, `$bsp` compilation, `$grnd*` storage, and cooker transformations are not decoded. New owner-provided runtime evidence reports a working 8.4.1-source → Demo 9.10.0-runtime-cooker → Demo 9.10.0-runtime bridge. The supplied output DX files parse, but this phase did not independently invoke the cooker and has no preserved trigger or debug log. Exact binary results and evidence separation are in `runtime-closeout.md`.
 
-## Blender — PARTIAL
+## Blender — HEADLESS IMPORT PASS
 
-The existing add-on now imports revision-135 course render geometry, reuses the vehicle coordinate transform and material/DXT preview path, preserves source identifiers and opaque metadata, and blocks all vehicle exporters for course objects. Italy1 and France1 have complete parser-side counts. Blender itself is unavailable in this environment, so headless import and visual confirmation remain outstanding.
+The existing add-on imports revision-135 course render geometry, reuses the vehicle coordinate transform and material/DXT preview path, preserves source identifiers and opaque metadata, and blocks all vehicle exporters for course objects. Blender 5.2.2 headless smoke imports passed for Italy1 and France1, including material image loading and collection/metadata checks. Manual viewport review and game-render parity remain unassessed; see `blender-validation.md`.
 
 ## Evidence-driven next phase
 

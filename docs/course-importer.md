@@ -18,6 +18,13 @@ Retail Italy1 parses as revision 135 with 54,612 vertices, two UV sets, 125,166 
 
 All 36 retail DX files pass the same parser and range validation. The existing source coordinate conversion is reused; no course-specific evidence currently requires another coordinate convention.
 
-## Verification limit
+## Verification
 
-`tests/blender/r5t_a_course_smoke.py` imports Italy1 and France1 in headless Blender and checks mesh counts, metadata, collection placement, texture loading, and exporter rejection. No Blender executable is installed in the current environment, so that runtime smoke script could not be run here. The importer is therefore integrated and statically/parser-validated, but Blender execution and visual review remain pending.
+`tests/blender/r5t_a_course_smoke.py` passed headless in Blender 5.2.2 for
+retail Italy1 and France1. It checks mesh counts, source identity attributes,
+per-course collection placement, loaded DXT images, read-only metadata, and
+rejection by vehicle exporters. Italy1 imports 54,612 vertices, 41,722
+triangles and 75 textured material slots; France1 imports 65,206 vertices,
+64,577 triangles and 97 textured material slots. No manual viewport review or
+game-render parity claim is included. Exact results are in
+[`research/r5t_a/blender-validation.md`](../research/r5t_a/blender-validation.md).

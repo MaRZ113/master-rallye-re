@@ -33,4 +33,15 @@ The two available Demo 8.4.1 course GXM files have 32-byte headers. Their post-h
 
 The project owner manually observed retail course packages loading in Demo 9.10.0 when required files were supplied or selected. The same newer retail packages produced an empty/void world in Demo 9.3.1 and Demo 8.4.1. This is `CONFIRMED_BY_RUNTIME` project-owner evidence. The responsible resource or combination remains unknown; the compatibility test plan is in [`research/r5t_a/compatibility-test-plan.md`](../research/r5t_a/compatibility-test-plan.md).
 
+## 8.4.1 source recooked by Demo 9.10.0
+
+The project owner separately reports that the original Demo 9.10.0 runtime
+cooker can rebuild old 8.4.1 France1/Italy1 source into revision-135 courses
+that load and run in the 9.10.0 runtime, with AI working. The recooked courses
+retain old start/grid behavior; visual issues remain. This is
+`CONFIRMED_BY_RUNTIME` owner evidence and is distinct from swapping retail
+resources into older demos. The supplied recooked DX files parse locally;
+exact structures, hashes, and limits on reproducing the cooker workflow are in
+[`research/r5t_a/runtime-closeout.md`](../research/r5t_a/runtime-closeout.md).
+
 See [`docs/course-importer.md`](course-importer.md), [`docs/formats/dx-course.md`](formats/dx-course.md), and the machine-readable reports under [`research/r5t_a`](../research/r5t_a/).

@@ -18,7 +18,14 @@ No source GXM hierarchy or source render vertices are parsed, so the following r
 - whether `$grnd*` and `$landdb` data compile into tag100, SFL, another DX section, or multiple resources;
 - how the cooker welds/splits vertices or groups materials into DX draw records.
 
-The exact Demo 9.10.0 cooker bridge is **NOT TESTED**. No separate course cooker executable/tool was identified in the supplied Demo 8.4.1 resources; the game executable is not treated as a cooker oracle.
+The project owner reports a successful Demo 9.10.0 runtime-cooker bridge from
+old 8.4.1 France1/Italy1 source, including playable output and working AI in
+the 9.10.0 runtime (`CONFIRMED_BY_RUNTIME`, owner-provided). The supplied
+`inputs/8.4.1_*_cooked-in-9.10.0/` DX files independently parse as revision
+135 (`CONFIRMED_BY_CORPUS`). This phase did not invoke the runtime cooker
+itself: the local inputs do not preserve the exact trigger or a process/debug
+log, so workflow reproducibility and determinism remain unknown. See
+[`runtime-closeout.md`](runtime-closeout.md).
 
 ## Small developer oracles inventoried
 

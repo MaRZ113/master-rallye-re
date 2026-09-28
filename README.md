@@ -60,10 +60,14 @@ The Vehicle SDK v1 baseline is frozen. R5T-A maps the supplied course corpus
 and adds a read-only revision-135 course render parser and import path to the
 same Blender add-on. All 36 retail course DX files and both Demo 9.10.0 target
 tracks pass complete index/vertex coverage validation; Italy1 and France1 are
-the primary Blender targets. The importer is integrated, but Blender runtime
-and visual confirmation remain pending because Blender is unavailable in this
-environment. Course writing, BSP/route/surface authoring, custom layouts, and
-EXE changes remain outside this phase. See
+the primary Blender targets. The importer passed headless smoke validation in
+Blender 5.2.2 on both tracks, including DXT loading and metadata checks; manual
+viewport review and game-render parity remain unassessed. The project owner
+reports that the original Demo 9.10.0 course cooker converts 8.4.1 course
+source into revision-135 DX that loads with working AI in the 9.10.0 runtime.
+The supplied output DX files parse, while the exact cooker trigger and logs
+remain unpreserved. Course writing, BSP/route/surface authoring, custom layouts,
+and EXE changes remain outside this phase. See
 [`docs/course-assets.md`](docs/course-assets.md),
 [`docs/course-importer.md`](docs/course-importer.md), and
 [`research/r5t_a/findings.md`](research/r5t_a/findings.md).
