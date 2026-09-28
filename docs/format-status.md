@@ -1,5 +1,40 @@
 # Format status (Phase R4D.1 vehicle-material hardening)
 
+## R-COOKER2.1 corpus and rev135 validation policy
+
+The reproducible scanner reads only the ignored inputs/ directory. The
+current scan contains 36 DX file instances and 35 unique payloads across
+eight families: 21 rev131 instances (20 unique payloads) and 15 rev135
+instances (15 unique payloads). All 20 unique rev131 payloads convert and
+pass strict generated-output validation. All 15 unique existing rev135
+payloads pass external-input validation with the observed local/global
+ordering divergence.
+
+The contracts are separate. Generated output must have exact local/global
+index sequence agreement and pass the converter's preservation checks.
+Existing official rev135 input may have local triangle ordering different
+from its trailing/global table; it is accepted only when geometry and draw
+ranges are valid and each draw's oriented triangle multiset matches. Other
+parser, collision, tail, or topology failures remain fatal. Directory mode
+copies an accepted rev135 DX byte-for-byte with status
+already_rev135_copied; single-file conversion still rejects revision 135.
+
+There are 10 same-source role pairs, verified from matching GXM SHA256; their
+135 draw records all match the deterministic prefix mapping. Two additional
+same-family/role output pairs have different GXM hashes and are explicitly
+unverified. The generated minimal candidate differs from official rev135
+only in local uint16 index ordering for all 10 verified pairs. Trooper and
+Forester candidate hashes remain the only runtime-confirmed outputs; other
+accepted rev131 payloads are structurally supported only.
+
+Regenerate the reports from the repository root with:
+
+~~~powershell
+python tools/scan_dx_131_135_corpus.py inputs --json research/r-cooker2/corpus-coverage.json --markdown research/r-cooker2/corpus-coverage.md
+~~~
+
+See research/r-cooker2/findings.md and the machine-readable corpus-coverage.json.
+
 R4F runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
 ## R-COOKER1 same-source comparison (initial Trooper set)
@@ -16,10 +51,12 @@ bytes are unchanged after relocation. See
 [`research/r-cooker1/findings.md`](../research/r-cooker1/findings.md).
 
 These three Trooper pairs are controlled evidence, not a corpus-wide format
-claim. In particular, the project's current retail-layout parser rejects the
-rev131 draw layout and reports local/global-index validation errors on these
-rev135 demo outputs; those parser diagnostics are preserved rather than
-treated as proof of runtime rejection. A 131-to-135 upgrader remains unproven.
+claim. At the time of the initial comparison, the project's retail-layout
+parser rejected the rev131 draw layout and reported local/global-index
+validation errors on these rev135 demo outputs; those parser diagnostics
+were preserved rather than treated as proof of runtime rejection. Later
+R-COOKER1.1 and R-COOKER2.1 work supersedes the then-unproven upgrader status
+and defines the safe policy for existing rev135 files.
 
 ### R-COOKER1.1 Trooper prototype follow-up
 
@@ -261,13 +298,17 @@ Demo 9.3.1 `.dx` begins with magic `0xD00D` and version word `131` in the tested
 
 ## R-COOKER2 revision-131 vehicle upgrader
 
-The standalone DX 131-to-135 converter supports the observed flat tag-2
-vehicle grammar. It passed the current 38-file, seven-family rev131 vehicle
-scan, with 10 same-GXM output pairs matching the draw-prefix formula in
-135/135 records. Candidate outputs preserve rev131 local index order and pass
-canonical rev135 parsing. Trooper and Forester candidate hashes match
-runtime-tested outputs (**CONFIRMED_BY_RUNTIME**); the other five staged
-families remain static candidates. Non-vehicle DX formats are out of scope,
-and the official triangle optimizer is not reproduced. See
-[`docs/dx-131-to-135-upgrader.md`](dx-131-to-135-upgrader.md) and
-[`research/r-cooker2/findings.md`](../research/r-cooker2/findings.md).
+R-COOKER2.1 supersedes the earlier corpus totals with a reproducible scan of
+the current ignored inputs/ set: 36 DX instances / 35 unique payloads, across
+eight families; 20/20 unique rev131 payloads convert and pass strict generated
+validation. Ten source-hash-verified output pairs match the draw-prefix rule
+in 135/135 records, and all ten generated candidates differ from official
+rev135 only in local index ordering. Trooper and Forester candidate hashes
+are **CONFIRMED_BY_RUNTIME**; the other 14 unique rev131 payloads are
+structurally supported only. Existing rev135 inputs use a separate validator
+that permits only the known local/global ordering divergence and directory
+mode copies accepted files byte-for-byte. Non-vehicle DX formats remain out
+of scope, and the official triangle optimizer is not reproduced. See
+[`docs/dx-131-to-135-upgrader.md`](dx-131-to-135-upgrader.md),
+[`research/r-cooker2/findings.md`](../research/r-cooker2/findings.md), and the
+[regenerable corpus report](../research/r-cooker2/corpus-coverage.md).

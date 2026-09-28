@@ -48,15 +48,20 @@ types are not yet covered. See the
 [Trooper closeout](research/r-cooker1_1/findings.md), and
 [Forester check](research/r-cooker1_2/findings.md).
 
-R-COOKER2 promotes that transition into a standalone revision-131 vehicle DX
-upgrader. The current scan accepts 38/38 vehicle files across seven families;
-10 same-GXM paired roles confirm the draw-prefix rule in 135/135 records.
-Trooper and Forester candidate hashes match their runtime-tested files, while
-the other five family packages remain static candidates. The converter
-preserves local index order, does not copy or convert DXT, and rejects DX
+R-COOKER2 provides a standalone revision-131 vehicle DX upgrader. R-COOKER2.1
+regenerated coverage from the current ignored inputs/ set: 36 file instances,
+35 unique DX payloads, eight families, and 20/20 unique rev131 payloads
+converted with strict generated-output validation. Fifteen existing rev135
+payloads also pass the external-input policy, including the known official
+local/global index-order divergence. Ten byte-identical GXM pairs confirm the
+draw-prefix rule in 135/135 records; the generated candidates differ from
+official rev135 only in local index order for all ten pairs. Two additional
+filename-matched complete roles have different GXM hashes and remain
+unverified. Only the exact Trooper and Forester output hashes are
+runtime-confirmed. The converter does not copy or convert DXT and rejects DX
 grammars outside its supported vehicle layout. See the
 [DX 131-to-135 guide](docs/dx-131-to-135-upgrader.md) and
-[corpus coverage](research/r-cooker2/corpus-coverage.md).
+[regenerable corpus coverage](research/r-cooker2/corpus-coverage.md).
 
 Vehicle Composer v0.1.0 has been published. Its MIT license covers
 this project's original code and documentation; Master Rallye and its game

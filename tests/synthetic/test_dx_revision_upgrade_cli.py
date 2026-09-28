@@ -1,17 +1,23 @@
 from __future__ import annotations
 
+import argparse
 import importlib.util
 import hashlib
 import json
 import re
 from pathlib import Path
+import struct
 import subprocess
 import sys
 import tempfile
 import unittest
 from unittest import mock
 
-from test_dx_revision_upgrade import _rev131_fixture
+from test_dx_revision_upgrade import (
+    _rev131_fixture,
+    _rev135_reordered_fixture,
+    _index_array_range,
+)
 from master_rallye.dx_revision_upgrade import upgrade_dx_131_to_135
 
 
@@ -128,7 +134,7 @@ class DxRevisionUpgradeCliTests(unittest.TestCase):
         self.assertEqual(manifest["converted_or_copied_dx_count"], 3)
         by_role = {entry["role"]: entry for entry in manifest["dx_files"]}
         self.assertEqual(by_role["car"]["status"], "PASS")
-        self.assertEqual(by_role["complete"]["status"], "COPIED_UNCHANGED")
+        self.assertEqual(by_role["complete"]["status"], "already_rev135_copied")
         self.assertEqual(by_role["complete"]["source_sha256"], source_hashes["complete.dx"])
         self.assertEqual(
             manifest["runtime_evidence_profile"]["this_package_runtime_status"],
@@ -138,6 +144,71 @@ class DxRevisionUpgradeCliTests(unittest.TestCase):
         self.assertEqual(source_hashes,
                          {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                           for p in source_dir.iterdir() if p.is_file()})
+
+    def test_directory_mode_copies_existing_rev135_order_divergence_unchanged(self):
+        source_dir = self.root / "source"
+        output_dir = self.root / "output"
+        source_dir.mkdir()
+        original = _rev135_reordered_fixture()
+        (source_dir / "car.dx").write_bytes(original)
+
+        result = self.run_cli("--vehicle-dir", str(source_dir), "--output-dir", str(output_dir))
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual((output_dir / "car.dx").read_bytes(), original)
+        manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+        entry = manifest["dx_files"][0]
+        self.assertEqual(entry["status"], "already_rev135_copied")
+        self.assertEqual(
+            entry["existing_rev135_validation"]["status"],
+            "VALID_WITH_ORDERING_DIVERGENCE",
+        )
+
+    def test_directory_mode_refuses_invalid_existing_rev135(self):
+        source_dir = self.root / "source"
+        output_dir = self.root / "output"
+        source_dir.mkdir()
+        data = bytearray(_rev135_reordered_fixture())
+        index_offset, _ = _index_array_range(data)
+        struct.pack_into("<H", data, index_offset, 4)
+        (source_dir / "car.dx").write_bytes(data)
+
+        result = self.run_cli("--vehicle-dir", str(source_dir), "--output-dir", str(output_dir))
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(output_dir.exists())
+        self.assertEqual(list(self.root.glob(".output.staging-*")), [])
+
+    def test_force_report_failure_never_leaves_stale_sidecar(self):
+        source = self.root / "input.dx"
+        output = self.root / "output.dx"
+        report = self.root / "output.dx.report.json"
+        source.write_bytes(self.fixture)
+        output.write_bytes(b"old output")
+        report.write_text('{"status":"OLD"}', encoding="utf-8")
+        args = argparse.Namespace(
+            input_dx=source,
+            output=output,
+            vehicle_dir=None,
+            output_dir=None,
+            report=None,
+            force=True,
+        )
+        parser = argparse.ArgumentParser()
+        original_install = CLI_MODULE._install_temp
+
+        def fail_report(temp_path, target_path, *, overwrite):
+            if target_path == report:
+                raise OSError("synthetic report install failure")
+            return original_install(temp_path, target_path, overwrite=overwrite)
+
+        with mock.patch.object(CLI_MODULE, "_install_temp", side_effect=fail_report):
+            with self.assertRaisesRegex(OSError, "previous report was removed"):
+                CLI_MODULE._single_file(args, parser)
+
+        self.assertFalse(report.exists())
+        self.assertEqual(output.read_bytes(), upgrade_dx_131_to_135(self.fixture))
+        self.assertEqual(list(self.root.glob(".*.tmp")), [])
 
     def test_directory_conversion_failure_leaves_no_final_or_staging_package(self):
         source_dir = self.root / "source"

@@ -9,6 +9,8 @@ from master_rallye.dx_revision_upgrade import (
     DxRevisionUpgradeError,
     upgrade_dx_131_to_135,
     upgrade_dx_131_to_135_with_report,
+    validate_existing_rev135,
+    validate_generated_rev135,
 )
 from master_rallye.errors import BoundsError, FormatError
 
@@ -53,6 +55,48 @@ def _rev131_fixture() -> bytes:
     data += struct.pack("<2I", 1, len(local_indices))
     data += struct.pack("<6I", 1, 0, 2, 4, 3, 5)
     return bytes(data)
+
+
+def _rev131_two_triangle_fixture() -> bytes:
+    positions = ((0.0, 0.0, 0.0), (1.0, 0.0, 0.0),
+                 (0.0, 1.0, 0.0), (1.0, 1.0, 0.0))
+    indices = (0, 1, 2, 1, 3, 2)
+    data = bytearray(struct.pack("<4I", 0xD00D, 131, 1337, 4))
+    for point in positions:
+        data += struct.pack("<3f", *point)
+    for _ in positions:
+        data += struct.pack("<3f", 0.0, 0.0, 1.0)
+    data += bytes((1, 2, 3, 255)) * 4
+    data += struct.pack("<I", 1)
+    for uv in ((0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 1.0)):
+        data += struct.pack("<2f", *uv)
+    data += struct.pack("<I6H", len(indices), *indices)
+    data += struct.pack("<II5I", 1, 1, 2, 0, 3, 0, len(indices))
+    data += bytes((0x11, 0x22, 0x33)) + struct.pack("<II", 7, 1)
+    data += _strings((b"body",))
+    global_indices = (1, 0, 2, 3, 1, 2)
+    data += struct.pack("<2I6I", 1, len(indices), *global_indices)
+    return bytes(data)
+
+
+def _index_array_range(data: bytes) -> tuple[int, int]:
+    vertex_count = struct.unpack_from("<I", data, 12)[0]
+    offset = 16 + vertex_count * 12 * 2 + vertex_count * 4
+    uv_count = struct.unpack_from("<I", data, offset)[0]
+    offset += 4 + uv_count * vertex_count * 8
+    index_count = struct.unpack_from("<I", data, offset)[0]
+    return offset + 4, index_count
+
+
+def _rev135_reordered_fixture() -> bytes:
+    source = _rev131_two_triangle_fixture()
+    converted = bytearray(upgrade_dx_131_to_135(source, "two-triangle.dx"))
+    index_offset, index_count = _index_array_range(converted)
+    assert index_count == 6
+    values = struct.unpack_from("<6H", converted, index_offset)
+    reordered = values[3:6] + values[0:3]
+    struct.pack_into("<6H", converted, index_offset, *reordered)
+    return bytes(converted)
 
 
 class DxRevisionUpgradeTests(unittest.TestCase):
@@ -187,6 +231,54 @@ class DxRevisionUpgradeTests(unittest.TestCase):
     def test_truncated_source_is_rejected(self):
         with self.assertRaises((BoundsError, FormatError)):
             upgrade_dx_131_to_135(self.source[:-1])
+
+    def test_generated_rev135_requires_exact_global_index_order(self):
+        generated = upgrade_dx_131_to_135(_rev131_two_triangle_fixture())
+        report = validate_generated_rev135(generated, "generated.dx")
+        self.assertEqual(report["status"], "PASS")
+        self.assertTrue(report["global_index_validation"]["sequence_equal"])
+
+        reordered = _rev135_reordered_fixture()
+        with self.assertRaises(DxRevisionUpgradeError) as caught:
+            validate_generated_rev135(reordered, "edited-generated.dx")
+        self.assertEqual(caught.exception.code, "generated_global_index_mismatch")
+
+    def test_existing_rev135_accepts_known_triangle_order_divergence(self):
+        reordered = _rev135_reordered_fixture()
+        report = validate_existing_rev135(reordered, "official-style.dx")
+        self.assertEqual(report["status"], "VALID_WITH_ORDERING_DIVERGENCE")
+        self.assertTrue(report["global_index_validation"]["oriented_triangle_sets_equal_per_draw"])
+        self.assertFalse(report["global_index_validation"]["sequence_equal"])
+
+    def test_existing_rev135_rejects_out_of_range_local_index(self):
+        data = bytearray(_rev135_reordered_fixture())
+        index_offset, _ = _index_array_range(data)
+        struct.pack_into("<H", data, index_offset, 4)
+        with self.assertRaises(DxRevisionUpgradeError) as caught:
+            validate_existing_rev135(bytes(data), "bad-index.dx")
+        self.assertIn(caught.exception.code, {"draw_local_index_out_of_range", "unexpected_parser_errors"})
+
+    def test_existing_rev135_rejects_changed_triangle_topology(self):
+        data = bytearray(_rev135_reordered_fixture())
+        index_offset, _ = _index_array_range(data)
+        # Keep the value in range while changing the oriented triangle set.
+        struct.pack_into("<H", data, index_offset, 0)
+        with self.assertRaises(DxRevisionUpgradeError) as caught:
+            validate_existing_rev135(bytes(data), "changed-topology.dx")
+        self.assertEqual(caught.exception.code, "global_index_topology_mismatch")
+
+    def test_existing_rev135_rejects_truncation_and_malformed_draw_table(self):
+        valid = _rev135_reordered_fixture()
+        with self.assertRaises(DxRevisionUpgradeError):
+            validate_existing_rev135(valid[:-1], "truncated.dx")
+
+        source_view = inspect_demo_dx(_rev131_two_triangle_fixture())
+        generated = bytearray(upgrade_dx_131_to_135(_rev131_two_triangle_fixture()))
+        # A declared root count mismatch is a parser warning and is not accepted.
+        struct.pack_into("<I", generated, source_view.draw_offset + 4, 2)
+        with self.assertRaises(DxRevisionUpgradeError) as caught:
+            validate_existing_rev135(bytes(generated), "bad-draw-table.dx")
+        self.assertIn(caught.exception.code, {"empty_draw_table", "parser_warnings"})
 
 
 if __name__ == "__main__":

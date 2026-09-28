@@ -1,73 +1,82 @@
-# R-COOKER2 — Revision-131 vehicle corpus coverage
+# R-COOKER2.1 DX Corpus Coverage
 
-**Evidence: `CONFIRMED_BY_BYTES`.** The report covers vehicle DX grammar
-only. It does not cover course, sky, marker, or arbitrary DX resources.
+Generated deterministically from the ignored DX/GXM corpus. Paths are relative to the scan root.
 
-## Revision-131 scan
+Regenerate with:
 
-- 38 DX files were checked: 21 supplied under `inputs/` and 17 in the
-  read-only Demo 9.3.1 vehicle corpus.
-- Seven families are represented: Forester, Jump, NewRav, Rav4, Tata,
-  Trooper, and Wildcat.
-- The production converter accepted 38/38 with no parser or collision
-  warnings/errors. No unsupported vehicle draw variants were found.
-- The 38 file copies contain 624 draw-record instances. The canonical parser
-  does not expose a distinct material-record count; it remains unavailable.
-- All 21 input-folder DX files were converted and staged under ignored
-  `.research-output/r-cooker2/runtime-candidates/<family>/`. The 17 external
-  corpus outputs were analyzed in memory and were not materialized. DXT and
-  all other non-DX files were not copied.
+~~~powershell
+python tools/scan_dx_131_135_corpus.py inputs --json research/r-cooker2/corpus-coverage.json --markdown research/r-cooker2/corpus-coverage.md
+~~~
 
-## Paired generation outputs
+## Inventory
 
-The input folders provide 12 paired rev131/rev135 roles across Forester,
-Jump, Trooper, and Wildcat. Ten pairs have byte-identical GXM source and were
-compared; two `complete` pairs were blocked because their source GXM differs.
-Across the 10 compared pairs, all 135 draw records match the rev135 prefix
-formula. Six pairs have byte-identical complete GXI sidecar inventories; the
-other four still have exact GXM matches, but GXI sidecar differences are kept
-explicit in the machine report.
-The JSON also records per-file name, size, and SHA256 for all 280 GXI
-sidecars across the 12 supplied generation folders.
+| Measure | Count |
+|---|---:|
+| Vehicle families | 8 |
+| DX file instances | 36 |
+| Unique DX payloads | 35 |
+| rev131 file instances | 21 |
+| Unique rev131 payloads | 20 |
+| rev135 file instances | 15 |
+| Unique rev135 payloads | 15 |
+| rev131 draw-record instances | 347 |
+| Draw records across unique rev131 payloads | 342 |
 
-| Family | Role | Draws checked | Prefix matches | GXI inventory | Candidate vs official rev135 byte delta |
-|---|---|---:|---:|---|---|
-| Forester | car | 15 | 15/15 | identical | 7,134 bytes, local indices only |
-| Forester | complete | 15 | 15/15 | identical | 8,221 bytes, local indices only |
-| Forester | wheel | 5 | 5/5 | identical | 675 bytes, local indices only |
-| Jump | car | 22 | 22/22 | differs | 5,794 bytes, local indices only |
-| Jump | complete | — | blocked | differs | not compared: source GXM differs |
-| Jump | wheel | 5 | 5/5 | differs | 675 bytes, local indices only |
-| Trooper | car | 22 | 22/22 | identical | 6,367 bytes, local indices only |
-| Trooper | complete | 20 | 20/20 | identical | 7,413 bytes, local indices only |
-| Trooper | wheel | 5 | 5/5 | identical | 675 bytes, local indices only |
-| Wildcat | car | 21 | 21/21 | differs | 7,869 bytes, local indices only |
-| Wildcat | complete | — | blocked | differs | not compared: source GXM differs |
-| Wildcat | wheel | 5 | 5/5 | differs | 675 bytes, local indices only |
+Families: Forester, Jump, NewRav, Rav4, Simmbugghini, Tata, Trooper, Wildcat
 
-In each of the 10 eligible pairs, positions, normals, colors, UVs, texture
-references, collision/tail bytes, and global-index sections were accounted
-for. The official 9.10.0 local triangle order differs from the minimally
-upgraded output, while per-draw oriented triangle multisets match. The
-candidate-to-official changed bytes are confined to the local uint16 index
-array. These findings do not assign runtime semantics to any sidecar
-difference.
+## Source-verified pairs
 
-The two blocked source identities are:
+Verified same-GXM pairs: 10; unverified filename pairs: 2; unpaired outputs: 12.
 
-| Family / role | Demo 9.3.1 GXM SHA256 | Demo 9.10.0 GXM SHA256 |
-|---|---|---|
-| Jump / complete | `71979cfb0217e8cbc7edaed5e8dd69d88f4b6482bee79029701c9075f11e5bb1` | `e001670f5dc825a359cc6e035a55035fa0a67f60f820c4d6f1d34cf6310dca0d` |
-| Wildcat / complete | `97502eb8fa8c86d329d53bd1d016579cfec7cfcc14f33e05451b484afd8ffb4b` | `5b47f57ca9c31102ff5fafef687dce420cda2ff1affb199bac9bb0fa4db709c2` |
+Direct paired draw records: 135; formula matches: 135; mismatches: 0.
 
-## Runtime scope of staged packages
+| Family | Role | rev131 source SHA256 | rev135 source SHA256 | Pair status | Direct records | Formula | Minimal candidate vs official |
+|---|---|---|---|---|---:|---|---|
+| Forester | car | 3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535 | 3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535 | VERIFIED_SAME_SOURCE | 15 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Forester | complete | 3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f | 3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f | VERIFIED_SAME_SOURCE | 15 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Forester | wheel | 2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d | 2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d | VERIFIED_SAME_SOURCE | 5 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Jump | car | 55bd09e1f8c9c647c82381dba463bb555dfcc51c6b2d63b9e8e39c55231da17e | 55bd09e1f8c9c647c82381dba463bb555dfcc51c6b2d63b9e8e39c55231da17e | VERIFIED_SAME_SOURCE | 22 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Jump | complete | 71979cfb0217e8cbc7edaed5e8dd69d88f4b6482bee79029701c9075f11e5bb1 | e001670f5dc825a359cc6e035a55035fa0a67f60f820c4d6f1d34cf6310dca0d | UNVERIFIED_SOURCE_PAIR | 0 | — | — |
+| Jump | wheel | 68c084024eb7df133e133b47739991a0f25440452c6e9259facc51250d963245 | 68c084024eb7df133e133b47739991a0f25440452c6e9259facc51250d963245 | VERIFIED_SAME_SOURCE | 5 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Trooper | car | 5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642 | 5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642 | VERIFIED_SAME_SOURCE | 22 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Trooper | complete | 122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34 | 122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34 | VERIFIED_SAME_SOURCE | 20 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Trooper | wheel | ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65 | ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65 | VERIFIED_SAME_SOURCE | 5 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Wildcat | car | 4b739b19f8ec4f1ff859832939d9a1d7b906037e1ba1e2ba19f30d291daba74a | 4b739b19f8ec4f1ff859832939d9a1d7b906037e1ba1e2ba19f30d291daba74a | VERIFIED_SAME_SOURCE | 21 | PASS | ONLY_LOCAL_INDEX_ORDER |
+| Wildcat | complete | 97502eb8fa8c86d329d53bd1d016579cfec7cfcc14f33e05451b484afd8ffb4b | 5b47f57ca9c31102ff5fafef687dce420cda2ff1affb199bac9bb0fa4db709c2 | UNVERIFIED_SOURCE_PAIR | 0 | — | — |
+| Wildcat | wheel | 8eae7e35a61afd39db14b86299d0f18d4a032bfc7dc5a3b000225bdcbe4cb6b4 | 8eae7e35a61afd39db14b86299d0f18d4a032bfc7dc5a3b000225bdcbe4cb6b4 | VERIFIED_SAME_SOURCE | 5 | PASS | ONLY_LOCAL_INDEX_ORDER |
 
-The staged Trooper and Forester `car`, `complete`, and `wheel` files have
-SHA256 values identical to their previously runtime-tested candidates and are
-therefore recorded as `CONFIRMED_BY_RUNTIME_IDENTICAL_SHA256`. Jump, NewRav,
-Rav4, Tata, and Wildcat packages are `STATICALLY_SUPPORTED_RUNTIME_PENDING`.
-No runtime claim is inferred from parser acceptance.
+## Draw-prefix pattern coverage
 
-Per-file source/output hashes, counts, preservation checks, pair comparison
-details, and runtime package hashes are in
-[`corpus-coverage.json`](corpus-coverage.json).
+Unique ABC: 3; unique X values: 3; unique slot counts: 1; unique full tuples: 4.
+
+| A,B,C | X | Slots | File instances | Unique payloads | Direct oracle occurrences | Evidence |
+|---|---:|---:|---:|---:|---:|---|
+| 0,0,1 | 5 | 3 | 34 | 29 | 20 | DIRECTLY_ORACLED |
+| 0,1,1 | 3 | 3 | 81 | 81 | 37 | DIRECTLY_ORACLED |
+| 0,1,1 | 7 | 3 | 208 | 208 | 70 | DIRECTLY_ORACLED |
+| 1,1,1 | 7 | 3 | 24 | 24 | 8 | DIRECTLY_ORACLED |
+
+## Conversion regression
+
+Unique rev131 payloads attempted: 20; converted: 20; rejected: 0.
+
+Every successful unique payload was generated with the production converter and its strict generated-rev135 checks. Runtime confirmation is limited to generated hashes matching the Trooper or Forester runtime candidates.
+
+## Existing rev135 policy
+
+Unique rev135 payloads checked: 15; accepted: 15; valid ordering divergences: 15; rejected: 0.
+
+The existing-input contract permits only the known local/global ordering divergence when each draw retains the same oriented triangle multiset. Generated output remains subject to exact local/global sequence agreement.
+
+## Minimal candidate vs official rev135
+
+Verified pairs compared: 10; only local index order differs: 10; byte-identical: 0; additional/unresolved differences: 0.
+
+## Evidence scope
+
+- Trooper and Forester candidate hashes are runtime-confirmed.
+- Same-source draw-prefix mappings require byte-identical GXM source hashes.
+- Other accepted rev131 payloads are structurally supported only.
+- DXT is not converted by this tool.
+
+The JSON companion contains per-file hashes, source provenance, per-payload preservation checks, and pairwise comparison details.

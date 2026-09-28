@@ -8,13 +8,15 @@ payloads. It does not reproduce the 9.10.0 triangle optimizer.
 from __future__ import annotations
 
 import hashlib
+import math
 import struct
+from collections import Counter
 from typing import Any
 
 from . import __version__
 from .demo_dx import DemoDxView, inspect_demo_dx
 from .dx import MAX_STRING_BYTES, MAX_TEXTURE_SLOTS, parse_dx_bytes
-from .errors import BoundsError, FormatError
+from .errors import BoundsError, FormatError, MasterRallyeError
 
 REVISION_131 = 131
 REVISION_135 = 135
@@ -202,37 +204,270 @@ def _upgrade_draw_region(draw_raw: bytes, view: DemoDxView) -> tuple[bytes, list
     return bytes(out), records
 
 
-def _parser_result(result: bytes, source: str):
-    try:
-        parsed = parse_dx_bytes(result, source)
-    except (BoundsError, FormatError) as exc:
+def _parse_revision135(data: bytes, source: str):
+    if len(data) < 8:
+        raise DxRevisionUpgradeError("truncated_header", f"DX header is truncated in {source}")
+    magic, revision = struct.unpack_from("<2I", data)
+    if magic != 0xD00D:
         raise DxRevisionUpgradeError(
-            "canonical_parser_rejected_output",
-            f"canonical parser rejected generated rev135 DX: {exc}",
+            "invalid_magic", f"unsupported DX magic 0x{magic:08X} in {source}"
+        )
+    if revision != REVISION_135:
+        raise DxRevisionUpgradeError(
+            "unsupported_revision", f"expected revision 135, got {revision} in {source}"
+        )
+    try:
+        return parse_dx_bytes(data, source)
+    except (MasterRallyeError, struct.error, ValueError, OverflowError) as exc:
+        raise DxRevisionUpgradeError(
+            "canonical_parser_rejected_rev135",
+            f"canonical parser rejected rev135 DX: {exc}",
         ) from exc
+
+
+def _validate_rev135_structure(parsed, source: str) -> dict[str, Any]:
+    """Validate the shared rev135 structure without imposing index order."""
     if parsed.word_0x04 != REVISION_135:
         raise DxRevisionUpgradeError(
             "output_revision_mismatch",
             f"canonical parser read revision {parsed.word_0x04}, expected 135",
         )
-    if parsed.diagnostics.errors or parsed.diagnostics.warnings:
-        details = parsed.diagnostics.errors + parsed.diagnostics.warnings
+    if parsed.draw_table_preamble != 1:
         raise DxRevisionUpgradeError(
-            "output_parser_diagnostics",
-            "generated rev135 DX has parser diagnostics: " + "; ".join(details),
+            "invalid_draw_preamble",
+            f"rev135 draw table preamble is {parsed.draw_table_preamble}, expected 1 in {source}",
         )
-    if parsed.collision.errors or parsed.collision.warnings:
-        details = list(parsed.collision.errors) + list(parsed.collision.warnings)
+    if not parsed.physical_draws:
+        raise DxRevisionUpgradeError("empty_draw_table", f"rev135 DX has no physical draws in {source}")
+    if parsed.global_index_table is None:
+        raise DxRevisionUpgradeError("missing_global_index_table", f"rev135 DX has no global index table in {source}")
+    if parsed.global_index_table.preamble != 1:
         raise DxRevisionUpgradeError(
-            "output_collision_diagnostics",
-            "generated rev135 DX has collision diagnostics: " + "; ".join(details),
+            "invalid_global_index_preamble",
+            f"rev135 global-index preamble is {parsed.global_index_table.preamble}, expected 1 in {source}",
         )
-    if parsed.global_index_table is None or not parsed.diagnostics.reconstructed_global_match:
+    if parsed.global_index_table.count != len(parsed.local_indices):
         raise DxRevisionUpgradeError(
-            "output_global_index_validation_failed",
-            "generated rev135 DX has no validated matching global index table",
+            "global_index_count_mismatch",
+            f"rev135 global-index count {parsed.global_index_table.count} does not match local index count "
+            f"{len(parsed.local_indices)} in {source}",
         )
-    return parsed
+    if len(parsed.local_indices) % 3:
+        raise DxRevisionUpgradeError("invalid_index_count", f"rev135 local index count is not triangular in {source}")
+
+    finite_arrays = [
+        ("position", parsed.vertices.positions),
+        ("normal", parsed.vertices.normals),
+        ("UV", tuple(value for uv_set in parsed.uv_sets for value in uv_set.values)),
+    ]
+    for label, rows in finite_arrays:
+        if any(not math.isfinite(value) for row in rows for value in row):
+            raise DxRevisionUpgradeError("nonfinite_geometry", f"rev135 {label} data contain a non-finite value in {source}")
+
+    collision = parsed.collision
+    if collision.errors or collision.warnings:
+        details = list(collision.errors) + list(collision.warnings)
+        raise DxRevisionUpgradeError(
+            "collision_parser_diagnostics",
+            "rev135 DX has collision diagnostics: " + "; ".join(details),
+        )
+    if collision.bsp is not None:
+        raise DxRevisionUpgradeError(
+            "unresolved_bsp_tail",
+            f"rev135 DX contains raw tag-100 BSP bytes whose remaining tail boundary is unresolved in {source}",
+        )
+    if collision.unparsed_data:
+        bounds = collision.spatial_bounds_1339
+        if bounds is None or bounds.raw != collision.unparsed_data:
+            raise DxRevisionUpgradeError(
+                "unresolved_collision_tail",
+                f"rev135 DX has trailing collision bytes that are not a validated marker-1339 block in {source}",
+            )
+
+    if parsed.diagnostics.warnings:
+        raise DxRevisionUpgradeError(
+            "parser_warnings",
+            "rev135 DX has structural parser warnings: " + "; ".join(parsed.diagnostics.warnings),
+        )
+
+    return {
+        "revision": parsed.word_0x04,
+        "draw_count": len(parsed.physical_draws),
+        "vertex_count": parsed.vertex_count,
+        "triangle_count": parsed.triangle_count,
+        "collision_tags": list(collision.tag_ids),
+        "collision_tail": (
+            "marker-1339-validated" if collision.unparsed_data else "none"
+        ),
+        "parser_warnings": [],
+        "collision_errors": [],
+        "collision_warnings": [],
+    }
+
+
+def _oriented_triangle_key(triangle: tuple[int, int, int]) -> tuple[int, int, int]:
+    """Canonicalize cyclic corner rotation while retaining triangle winding."""
+    a, b, c = triangle
+    return min((a, b, c), (b, c, a), (c, a, b))
+
+
+def _analyze_global_index_order(parsed, source: str) -> dict[str, Any]:
+    table = parsed.global_index_table
+    if table is None:  # Defensive; common structural validation checks this first.
+        raise DxRevisionUpgradeError("missing_global_index_table", f"rev135 DX has no global table in {source}")
+    index_count = len(parsed.local_indices)
+    owners = [0] * index_count
+    expected_positions: list[int | None] = [None] * index_count
+    per_draw: list[dict[str, Any]] = []
+    for draw in parsed.physical_draws:
+        start, count = draw.index_start, draw.index_count
+        if count % 3:
+            raise DxRevisionUpgradeError(
+                "invalid_draw_index_count", f"draw {draw.record_path} count {count} is not divisible by 3 in {source}"
+            )
+        if start > index_count or count > index_count - start:
+            raise DxRevisionUpgradeError(
+                "draw_index_range_out_of_bounds", f"draw {draw.record_path} index range exceeds local array in {source}"
+            )
+        if draw.vertex_base >= parsed.vertex_count or draw.vertex_base + draw.local_vertex_max >= parsed.vertex_count:
+            raise DxRevisionUpgradeError(
+                "draw_vertex_range_out_of_bounds", f"draw {draw.record_path} vertex range exceeds geometry in {source}"
+            )
+        local = parsed.local_indices[start:start + count]
+        if local and max(local) > draw.local_vertex_max:
+            raise DxRevisionUpgradeError(
+                "draw_local_index_out_of_range", f"draw {draw.record_path} local index exceeds its vertex range in {source}"
+            )
+        expected = parsed.draw_global_indices(draw)
+        if len(expected) != count:
+            raise DxRevisionUpgradeError(
+                "invalid_reconstructed_draw_count", f"draw {draw.record_path} reconstruction is incomplete in {source}"
+            )
+        for relative, value in enumerate(expected):
+            position = start + relative
+            owners[position] += 1
+            if expected_positions[position] is None:
+                expected_positions[position] = value
+            elif expected_positions[position] != value:
+                raise DxRevisionUpgradeError(
+                    "conflicting_draw_ownership", f"overlapping draws disagree at global index {position} in {source}"
+                )
+
+        actual = table.indices[start:start + count]
+        expected_triangles = [tuple(expected[i:i + 3]) for i in range(0, count, 3)]
+        actual_triangles = [tuple(actual[i:i + 3]) for i in range(0, len(actual), 3)]
+        if len(actual) != count:
+            raise DxRevisionUpgradeError(
+                "truncated_global_index_range", f"draw {draw.record_path} global-index range is truncated in {source}"
+            )
+        topology_equal = Counter(map(_oriented_triangle_key, expected_triangles)) == Counter(
+            map(_oriented_triangle_key, actual_triangles)
+        )
+        per_draw.append({
+            "draw_index": draw.draw_index,
+            "index_start": start,
+            "index_count": count,
+            "triangle_count": count // 3,
+            "oriented_triangle_multiset_equal": topology_equal,
+        })
+        if not topology_equal:
+            raise DxRevisionUpgradeError(
+                "global_index_topology_mismatch",
+                f"rev135 draw {draw.record_path} local/global oriented triangle sets differ in {source}",
+            )
+
+    if any(owner != 1 for owner in owners):
+        raise DxRevisionUpgradeError(
+            "draw_index_coverage_invalid",
+            f"rev135 draws do not cover every local index exactly once in {source}",
+        )
+    if any(value is None for value in expected_positions):
+        raise DxRevisionUpgradeError("draw_index_coverage_invalid", f"rev135 draw coverage has gaps in {source}")
+
+    expected_indices = tuple(int(value) for value in expected_positions)
+    mismatches = [
+        index for index, (expected, stored) in enumerate(zip(expected_indices, table.indices))
+        if expected != stored
+    ]
+    sequence_equal = not mismatches
+    expected_parser_error = None
+    if mismatches:
+        expected_parser_error = (
+            f"stored global indices differ at {len(mismatches)} covered positions; first 0x{mismatches[0]:X}"
+        )
+    if bool(parsed.diagnostics.reconstructed_global_match) != sequence_equal:
+        raise DxRevisionUpgradeError(
+            "parser_global_validation_disagreement",
+            f"canonical parser and independent global-index check disagree in {source}",
+        )
+    return {
+        "sequence_equal": sequence_equal,
+        "ordering_divergence": not sequence_equal,
+        "oriented_triangle_sets_equal_per_draw": True,
+        "mismatched_index_positions": len(mismatches),
+        "first_mismatch_position": mismatches[0] if mismatches else None,
+        "expected_parser_order_error": expected_parser_error,
+        "per_draw": per_draw,
+    }
+
+
+def _validate_generated_model(parsed, source: str) -> dict[str, Any]:
+    structure = _validate_rev135_structure(parsed, source)
+    index_analysis = _analyze_global_index_order(parsed, source)
+    if parsed.diagnostics.errors or not parsed.diagnostics.reconstructed_global_match:
+        raise DxRevisionUpgradeError(
+            "generated_global_index_mismatch",
+            "generated rev135 output must have exact local/global index ordering consistency",
+        )
+    return {
+        "status": "PASS",
+        "policy": "GENERATED_REV135_STRICT",
+        **structure,
+        "global_index_validation": index_analysis,
+        "parser_errors": [],
+    }
+
+
+def validate_generated_rev135(data: bytes, source: str = "<bytes>") -> dict[str, Any]:
+    """Apply strict validation to output freshly generated by this upgrader.
+
+    Generated bytes must retain the exact rev131 local/global sequence. The
+    stricter rule is guaranteed by the converter's own preservation contract.
+    """
+    parsed = _parse_revision135(data, source)
+    return _validate_generated_model(parsed, source)
+
+
+def validate_existing_rev135(data: bytes, source: str = "<bytes>") -> dict[str, Any]:
+    """Validate external rev135 input, allowing only proven order divergence.
+
+    An official 9.10.0 vehicle may reorder local triangles while retaining the
+    prior global-index order. That is accepted only when each draw's oriented
+    triangle multiset still matches and all other parser/geometry/collision
+    checks are clean.
+    """
+    parsed = _parse_revision135(data, source)
+    structure = _validate_rev135_structure(parsed, source)
+    index_analysis = _analyze_global_index_order(parsed, source)
+    errors = parsed.diagnostics.errors
+    if index_analysis["sequence_equal"]:
+        if errors:
+            raise DxRevisionUpgradeError(
+                "unexpected_parser_errors", "rev135 DX has parser errors: " + "; ".join(errors)
+            )
+    elif errors != [index_analysis["expected_parser_order_error"]]:
+        raise DxRevisionUpgradeError(
+            "unexpected_parser_errors",
+            "rev135 DX has parser errors beyond the recognized local/global ordering divergence: "
+            + "; ".join(errors),
+        )
+    return {
+        "status": "VALID_WITH_ORDERING_DIVERGENCE" if index_analysis["ordering_divergence"] else "VALID",
+        "policy": "EXISTING_REV135_STRUCTURAL",
+        **structure,
+        "global_index_validation": index_analysis,
+        "parser_errors": list(errors),
+    }
 
 
 def _verify_preservation(source_view: DemoDxView, output_view: DemoDxView,
@@ -311,7 +546,9 @@ def upgrade_dx_131_to_135_with_report(
     output += data[source_view.global_offset:]
     result = bytes(output)
 
-    parsed = _parser_result(result, f"{source} [rev131-to-135]")
+    output_source = f"{source} [rev131-to-135]"
+    parsed = _parse_revision135(result, output_source)
+    output_validation = _validate_generated_model(parsed, output_source)
     try:
         output_view = inspect_demo_dx(result, f"{source} [rev131-to-135]")
     except (BoundsError, FormatError) as exc:
@@ -359,17 +596,8 @@ def upgrade_dx_131_to_135_with_report(
         ),
         "preservation_checks": checks,
         "parser_validation": {
-            "status": "PASS",
-            "revision": parsed.word_0x04,
-            "draw_count": len(parsed.physical_draws),
-            "vertex_count": parsed.vertex_count,
-            "triangle_count": parsed.triangle_count,
-            "collision_tags": list(parsed.collision.tag_ids),
+            **output_validation,
             "global_index_reconstruction_match": parsed.diagnostics.reconstructed_global_match,
-            "errors": list(parsed.diagnostics.errors),
-            "warnings": list(parsed.diagnostics.warnings),
-            "collision_errors": list(parsed.collision.errors),
-            "collision_warnings": list(parsed.collision.warnings),
         },
         "evidence_profile": "STATICALLY_SUPPORTED",
         "runtime_evidence": {
@@ -386,41 +614,3 @@ def upgrade_dx_131_to_135(data: bytes, source: str = "<bytes>") -> bytes:
     """Compatibility API returning only converted bytes."""
     result, _report = upgrade_dx_131_to_135_with_report(data, source)
     return result
-
-
-def validate_revision_135(data: bytes, source: str = "<bytes>") -> dict[str, Any]:
-    """Validate a revision-135 file for unchanged directory-mode copying."""
-    if len(data) < 8:
-        raise DxRevisionUpgradeError("truncated_header", f"DX header is truncated in {source}")
-    magic, revision = struct.unpack_from("<2I", data)
-    if magic != 0xD00D:
-        raise DxRevisionUpgradeError("invalid_magic", f"unsupported DX magic in {source}")
-    if revision != REVISION_135:
-        raise DxRevisionUpgradeError(
-            "unsupported_revision", f"expected revision 135 for unchanged copy, got {revision} in {source}"
-        )
-    parsed = _parser_result(data, source)
-    return {
-        "status": "COPIED_UNCHANGED",
-        "source_revision": REVISION_135,
-        "output_revision": REVISION_135,
-        "draw_records_transformed": 0,
-        "source_sha256": _sha256(data),
-        "output_sha256": _sha256(data),
-        "source_size": len(data),
-        "output_size": len(data),
-        "parser_validation": {
-            "status": "PASS",
-            "revision": parsed.word_0x04,
-            "draw_count": len(parsed.physical_draws),
-            "vertex_count": parsed.vertex_count,
-            "triangle_count": parsed.triangle_count,
-            "collision_tags": list(parsed.collision.tag_ids),
-            "global_index_reconstruction_match": parsed.diagnostics.reconstructed_global_match,
-            "errors": list(parsed.diagnostics.errors),
-            "warnings": list(parsed.diagnostics.warnings),
-            "collision_errors": list(parsed.collision.errors),
-            "collision_warnings": list(parsed.collision.warnings),
-        },
-        "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER",
-    }

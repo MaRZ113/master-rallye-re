@@ -1,10 +1,11 @@
-# R-COOKER2 — DX revision 131 to 135 upgrader
+# R-COOKER2.1 — DX revision 131 to 135 upgrader hardening
 
-**Status: `PRODUCTION_READY_FOR_SUPPORTED_VEHICLE_DX` (scope-limited).**
-The converter passed the currently available supported vehicle corpus and the
-minimal transition has runtime evidence for two families. It is not a general
-converter for all Master Rallye DX files, and it does not reproduce the
-official 9.10.0 triangle optimizer.
+**Status: A — PRODUCTION_READY_FOR_SUPPORTED_VEHICLE_DX (scope-limited).**
+The current ignored inputs/ corpus passes conversion and validation. Runtime
+compatibility remains confirmed only for the exact tested Trooper and
+Forester candidate hashes. The tool is not a general converter for every
+Master Rallye DX grammar and does not reproduce the official 9.10.0 triangle
+optimizer.
 
 ## R-COOKER1.2 closeout
 
@@ -46,23 +47,58 @@ including DXT, are neither copied nor changed. A validated rev135 role is
 copied byte-for-byte in directory mode; single-file mode rejects it as
 already converted.
 
-## Corpus and pair evidence
+## R-COOKER2.1 hardening and regenerated corpus evidence
 
-The current corpus scan covered 38 rev131 vehicle DX files: 21 from `inputs/`
-and 17 from the read-only Demo 9.3.1 `DataGx/Vehicles` tree. Seven source
-families are represented. All 38 pass the promoted converter and canonical
-rev135 parser without diagnostics; no unknown vehicle draw variant was
-observed. The parser does not expose a separate material-record count.
+The committed coverage report is reproducible from the current ignored
+inputs/ directory:
 
-Among paired outputs in `inputs/`, 10 roles have byte-identical GXM source and
-were compared. Two `complete.gxm` pairs differ in source hash and were blocked
-from same-source conclusions. All 135 paired draw records match the prefix
-formula. Six of the 10 same-GXM pairs also have identical GXI sidecar
-inventories; sidecar differences in the remaining pairs are kept separate
-from the GXM identity result. In all eligible comparisons, geometry attribute
-arrays and collision/tail/global sections are accounted for; candidate vs
-official rev135 byte changes are confined to local uint16 index ordering.
-The JSON report preserves per-file hashes and exact pair findings.
+~~~powershell
+python tools/scan_dx_131_135_corpus.py inputs --json research/r-cooker2/corpus-coverage.json --markdown research/r-cooker2/corpus-coverage.md
+~~~
+
+The scan contains 36 DX file instances and 35 unique payloads across eight
+vehicle families. It finds 21 rev131 instances (20 unique payloads) and 15
+rev135 instances (15 unique payloads). The rev131 inputs contain 347 draw
+record instances across repeated files and 342 draw records across unique
+payloads. All 20 unique rev131 payloads convert and pass strict generated
+rev135 validation; all 15 unique existing rev135 payloads pass the
+external-input validation policy.
+
+The two validation contracts are intentionally distinct:
+
+- Generated rev135 output must have exact local/global index sequence
+  consistency, clean canonical/collision parsing, valid ranges, and every
+  converter preservation invariant.
+- Existing rev135 input may have different local and trailing/global index
+  order only when each draw retains the same oriented triangle multiset.
+  Out-of-range indices, changed topology, parser errors beyond the known
+  ordering diagnostic, malformed tails, and collision diagnostics still fail.
+- Directory mode copies a structurally valid existing rev135 DX byte-for-byte
+  and records status already_rev135_copied. It never sends that file through
+  rev131 conversion.
+
+There are 12 filename/family/role pair candidates. Ten have matching source
+GXM SHA256 and are verified same-source pairs; two complete roles have source
+hash mismatches and remain unverified. All 135 draw records in verified pairs
+match the deterministic prefix formula. The corpus has four unique
+(A,B,C,X,texture-slot-count) prefix tuples, all directly oracled; there are
+three unique ABC patterns, three X values, and one slot-count value.
+
+The 20 unique rev131 payloads were converted once each. All preservation
+checks pass, including geometry attributes, local index order, collision,
+global table, and trailing bytes. Six generated hashes match the runtime-tested
+Trooper and Forester candidates; the other 14 are structurally supported
+only.
+
+For each verified same-source pair, the generated minimal rev135 candidate
+was compared with official rev135. All ten have equal size and differ only
+inside the local uint16 index array; per-draw oriented triangle multisets,
+draw serialization, geometry, global index data, and collision/tail bytes
+match. The official local triangle reorder is not reproduced.
+
+DXT remains outside this converter. Existing R-COOKER1.1/R-COOKER1.2 paired
+black-tga.dxt controls remain byte-identical; no new DXT serialization work
+was performed in R-COOKER2.1.
 
 ## Runtime boundary
 
@@ -74,13 +110,14 @@ infer a runtime test.
 
 ## Readiness decision
 
-**A — `PRODUCTION_READY_FOR_SUPPORTED_VEHICLE_DX`.** This decision applies to
-the observed flat tag-2 vehicle revision-131 grammar represented by the 38
-scanned files. It does not extend to non-vehicle revision-131 files, unknown
-future layouts, every retail asset pairing, or every executable build. The
-exact official triangle reorder remains intentionally omitted. The two
-different-source `complete.gxm` pairs remain excluded from same-source
-comparison; they do not constitute a rejected rev131 grammar variant.
+**A — PRODUCTION_READY_FOR_SUPPORTED_VEHICLE_DX.** This decision applies to
+the observed flat tag-2 vehicle revision-131 grammar represented by the 20
+unique rev131 payloads in the 36-file input set. It does not extend to
+non-vehicle revision-131 files, unknown future layouts, every retail asset
+pairing, or every executable build. The exact official triangle reorder
+remains intentionally omitted. The two different-source complete roles remain
+excluded from same-source comparison; they do not constitute a rejected
+rev131 grammar variant.
 
 No production upgrader integration into Vehicle Composer, release, or cooker
 executable analysis is part of this phase. The operator may choose optional

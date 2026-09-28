@@ -29,7 +29,7 @@ from master_rallye.dx_revision_upgrade import (
     REVISION_131,
     REVISION_135,
     upgrade_dx_131_to_135_with_report,
-    validate_revision_135,
+    validate_existing_rev135,
 )
 
 
@@ -41,14 +41,11 @@ def _json_bytes(value: dict[str, Any]) -> bytes:
     return (json.dumps(value, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
 
 
-def _write_atomic(path: Path, data: bytes, *, overwrite: bool) -> None:
-    """Write a complete sibling temp file, then install it atomically."""
+def _write_temp(path: Path, data: bytes) -> Path:
+    """Stage complete bytes in a sibling temporary file without replacing output."""
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists() and path.is_dir():
         raise IsADirectoryError(f"output path is a directory: {path}")
-    if path.exists() and not overwrite:
-        raise FileExistsError(f"output already exists: {path}")
-
     fd, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
     temporary = Path(temporary_name)
     try:
@@ -56,13 +53,32 @@ def _write_atomic(path: Path, data: bytes, *, overwrite: bool) -> None:
             stream.write(data)
             stream.flush()
             os.fsync(stream.fileno())
-        if overwrite:
-            os.replace(temporary, path)
-        else:
-            # A same-directory hard link installs the completed bytes without
-            # replacing a file that appeared after the initial existence check.
-            os.link(temporary, path)
+    except Exception:
+        try:
             temporary.unlink()
+        except FileNotFoundError:
+            pass
+        raise
+    return temporary
+
+
+def _install_temp(temporary: Path, path: Path, *, overwrite: bool) -> None:
+    if overwrite:
+        os.replace(temporary, path)
+    else:
+        # A same-directory hard link installs completed bytes without replacing
+        # a file that appeared after the initial existence check.
+        os.link(temporary, path)
+        temporary.unlink()
+
+
+def _write_atomic(path: Path, data: bytes, *, overwrite: bool) -> None:
+    """Write a complete sibling temp file, then install it atomically."""
+    if path.exists() and not overwrite:
+        raise FileExistsError(f"output already exists: {path}")
+    temporary = _write_temp(path, data)
+    try:
+        _install_temp(temporary, path, overwrite=overwrite)
     finally:
         try:
             temporary.unlink()
@@ -84,7 +100,20 @@ def _upgrade_or_copy(data: bytes, source_path: Path) -> tuple[bytes, dict[str, A
     if revision == REVISION_131:
         return upgrade_dx_131_to_135_with_report(data, str(source_path))
     if revision == REVISION_135:
-        return data, validate_revision_135(data, str(source_path))
+        validation = validate_existing_rev135(data, str(source_path))
+        report = {
+            "status": "already_rev135_copied",
+            "source_revision": REVISION_135,
+            "output_revision": REVISION_135,
+            "draw_records_transformed": 0,
+            "source_sha256": hashlib.sha256(data).hexdigest(),
+            "output_sha256": hashlib.sha256(data).hexdigest(),
+            "source_size": len(data),
+            "output_size": len(data),
+            "existing_rev135_validation": validation,
+            "individual_output_runtime_status": "NOT_ASSESSED_BY_CONVERTER",
+        }
+        return data, report
     # Route all other revisions through the public converter for one canonical,
     # structured unsupported-revision diagnostic.
     return upgrade_dx_131_to_135_with_report(data, str(source_path))
@@ -126,20 +155,41 @@ def _single_file(args: argparse.Namespace, parser: argparse.ArgumentParser) -> i
     report["output_path"] = str(output)
     report["report_path"] = str(report_path)
     report_bytes = _json_bytes(report)
-
-    _write_atomic(output, candidate, overwrite=args.force)
+    output_temp = None
+    report_temp = None
     try:
-        _write_atomic(report_path, report_bytes, overwrite=args.force)
-    except OSError:
-        # The DX itself is already complete and parser-validated. Remove a new
-        # output if its requested report could not be installed.
-        if not args.force:
-            try:
-                if output.is_file() and hashlib.sha256(output.read_bytes()).hexdigest() == report["output_sha256"]:
-                    output.unlink()
-            except OSError:
-                pass
-        raise
+        # Finish and fsync both files before making either visible.
+        output_temp = _write_temp(output, candidate)
+        report_temp = _write_temp(report_path, report_bytes)
+
+        if args.force and report_path.exists():
+            # A previous sidecar must never survive beside a newly converted
+            # DX if installing the replacement report later fails.
+            report_path.unlink()
+        _install_temp(output_temp, output, overwrite=args.force)
+        output_temp = None
+        try:
+            _install_temp(report_temp, report_path, overwrite=args.force)
+            report_temp = None
+        except OSError as exc:
+            if not args.force:
+                try:
+                    if output.is_file() and hashlib.sha256(output.read_bytes()).hexdigest() == report["output_sha256"]:
+                        output.unlink()
+                except OSError:
+                    pass
+                raise
+            raise OSError(
+                f"DX was installed at {output}, but its JSON report could not be installed; "
+                f"the previous report was removed to prevent stale metadata: {exc}"
+            ) from exc
+    finally:
+        for temporary in (output_temp, report_temp):
+            if temporary is not None:
+                try:
+                    temporary.unlink()
+                except FileNotFoundError:
+                    pass
 
     print(f"{_TOOL_NAME}: PASS")
     print(f"Input:    revision 131  SHA256 {report['source_sha256']}  {source}")
@@ -287,6 +337,9 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     except OSError as exc:
         print(f"error: {exc}", file=sys.stderr)
+        return 1
+    except (ValueError, struct.error) as exc:
+        print(f"error: invalid input or path: {exc}", file=sys.stderr)
         return 1
 
 
