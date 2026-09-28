@@ -1,4 +1,4 @@
-# Master Rallye DX 131 to 135 Upgrader
+# Master Rallye DX Upgrader
 
 This tool converts supported revision-131 **vehicle DX** files to revision
 135. It uses the observed deterministic draw-prefix transition and validates

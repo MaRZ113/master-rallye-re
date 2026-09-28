@@ -31,19 +31,13 @@ older demo model source -> original DEMO 9.10.0 cooker -> retail-compatible mode
 retail carrier + physics family + model donor -> Vehicle Composer -> retail runtime
 ```
 
-See the [Vehicle Composer guide](docs/vehicle-composer.md) for use. R-COOKER1
-has begun with a controlled Trooper comparison: supplied 9.3.1 and 9.10.0
-outputs share byte-identical `car`, `complete`, and `wheel` GXM sources. Render
-attribute arrays match byte-for-byte, while per-draw triangle order and draw
-record prefixes differ. A narrow R-COOKER1.1 prototype now reserializes the
-verified Trooper draw prefix while preserving rev131 local index order. The
-three Trooper candidates passed retail runtime testing, showing that the
-official 9.10.0 triangle reorder was unnecessary for those tested resources.
-The same-source Subaru Forester comparison matches the draw-prefix formula
-in all 35 records, and its three prototype candidates also passed retail
-runtime testing without the official triangle reorder. Trooper and Forester
-therefore support a format-level vehicle transition; arbitrary DX resource
-types are not yet covered. See the
+See the [Vehicle Composer guide](docs/vehicle-composer.md) for composition.
+The R-COOKER research progression is complete: controlled Trooper and
+Forester comparisons identified a deterministic revision-131 draw-prefix
+conversion, and all six runtime-tested resource candidates loaded without the
+official 9.10.0 local triangle reorder. This establishes the compatibility
+path for the supported flat vehicle DX grammar; it does not claim coverage of
+arbitrary DX resource types. Phase history remains in the
 [initial comparison](research/r-cooker1/findings.md),
 [Trooper closeout](research/r-cooker1_1/findings.md), and
 [Forester check](research/r-cooker1_2/findings.md).
@@ -62,6 +56,15 @@ runtime-confirmed. The converter does not copy or convert DXT and rejects DX
 grammars outside its supported vehicle layout. See the
 [DX 131-to-135 guide](docs/dx-131-to-135-upgrader.md) and
 [regenerable corpus coverage](research/r-cooker2/corpus-coverage.md).
+
+**The practical cooker compatibility problem is closed** for supported
+revision-131 vehicle DX. The standalone [Master Rallye DX Upgrader v0.1.0](https://github.com/MaRZ113/master-rallye-re/releases/tag/dx-upgrader-v0.1.0)
+converts those files without game assets. See the
+[demo vehicle restoration walkthrough](docs/restoring-demo-vehicles.md) and
+[final cooker closeout](research/r-cooker-closeout/final.md). Full GXM/GXI
+format reconstruction and broad cooker reverse engineering remain
+non-blocking future/out-of-scope work. The next major research direction is
+R5V vehicle roster capacity expansion; this phase does not begin that work.
 
 Vehicle Composer v0.1.0 has been published. Its MIT license covers
 this project's original code and documentation; Master Rallye and its game

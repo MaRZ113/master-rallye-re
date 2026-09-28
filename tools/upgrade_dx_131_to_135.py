@@ -34,7 +34,7 @@ from master_rallye.dx_revision_upgrade import (
 
 
 _ROLES = ("car.dx", "complete.dx", "wheel.dx")
-_TOOL_NAME = "Master Rallye DX 131 to 135 Upgrader"
+_TOOL_NAME = "Master Rallye DX Upgrader"
 
 
 def _json_bytes(value: dict[str, Any]) -> bytes:

@@ -53,7 +53,7 @@ class DxRevisionUpgradeCliTests(unittest.TestCase):
         self.assertEqual(help_result.returncode, 0, help_result.stderr)
         self.assertIn("--vehicle-dir", help_result.stdout)
         self.assertEqual(version_result.returncode, 0, version_result.stderr)
-        self.assertIn("Upgrader 0.1.0", version_result.stdout)
+        self.assertEqual(version_result.stdout.strip(), "Master Rallye DX Upgrader 0.1.0")
         project = (REPOSITORY_ROOT / "pyproject.toml").read_text(encoding="utf-8")
         project_section = re.search(r"(?ms)^\[project\]\s*(.*?)(?=^\[|\Z)", project)
         self.assertIsNotNone(project_section)
