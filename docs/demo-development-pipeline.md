@@ -28,8 +28,16 @@ The later PC Gamer DEMO 9.10.0 contains source/cache vehicle assets and is the p
 
 ## Evidence boundary and remaining unknowns
 
-Corpus, executable, byte-comparison, controlled trace, and runtime evidence are labeled separately in the linked findings. Still unresolved are universal GXM hierarchy controls, the exact `$cylinder` formula, the 8.4.1 `$chull` runtime tolerance and endpoint-object graph, the exact meaning of the bounded static file-time helper, and the untested cache states listed above. The 8.4.1 visual loader matrix did not receive a per-resource ProcMon file-access matrix; 9.3.1 cache traces must not be generalized to it. The 9.10.0 original cooker is now the confirmed practical import path; the standalone retail writer remains a separate research goal.
+Corpus, executable, byte-comparison, controlled trace, and runtime evidence are labeled separately in the linked findings. Still unresolved are universal GXM hierarchy controls, the exact `$cylinder` formula, the 8.4.1 `$chull` runtime tolerance and endpoint-object graph, the exact meaning of the bounded static file-time helper, and the untested cache states listed above. The 8.4.1 visual loader matrix did not receive a per-resource ProcMon file-access matrix; 9.3.1 cache traces must not be generalized to it. That earlier source-side research remains historical; the later DX Upgrader closes the supported revision-131 vehicle path into retail-compatible revision 135, while the 9.10.0 cooker remains useful when starting from GXM/GXI source assets.
 
 ## Roadmap
 
 R-DEMO2.1 closed its trace/oracle scope, R-DEMO2.2 its bounded collision analysis, and R-DEMO2.4 mapped the Trooper hierarchy. R-DEMO2.5 establishes Path B for the pinned 9.3.1 offline pair; it does not replace the exact 8.4.1 path. R-DEMO2.6 identifies the exact NULL producer and fault. R-DEMO2.7 replays the first 8.4.1 plane-equivalence divergence and maps it to captured candidate face 37, while preserving uncertainty about the live tolerance and endpoint graph. One bounded capture is specified in `research/r-demo2/r-demo2.7-runtime-followup.md`. Course/track work remains unstarted; R4G is frozen.
+
+The practical cooker compatibility task is now closed for supported vehicle
+DX revision 131: use the standalone DX Upgrader to produce retail-compatible
+revision-135 DX. The original 9.10.0 cooker remains useful for source-only
+GXM/GXI assets, but full source-format reconstruction is not a blocker for
+this workflow. See `research/r-cooker-closeout/final.md`. The next major
+research direction is R5V vehicle roster capacity expansion; this document
+does not begin that work.

@@ -1,5 +1,19 @@
 # Format status (Phase R4D.1 vehicle-material hardening)
 
+## Final R-COOKER asset-pipeline status
+
+| Area | Current status | Evidence and practical boundary |
+|---|---|---|
+| Supported vehicle DX revision 131 → 135 | **SOLVED FOR SUPPORTED VEHICLE DX** | `CONFIRMED_BY_BYTES`, `CONFIRMED_BY_CORPUS`, `CONFIRMED_BY_RUNTIME` for the observed vehicle grammar and tested Trooper/Forester resources. |
+| DXT | **SUFFICIENTLY CHARACTERIZED FOR RESTORATION; NO CONVERSION REQUIRED BY CURRENT EVIDENCE** | The DX Upgrader leaves DXT untouched. Retain matching package textures unchanged; this is not a claim that all historical DXT variants are fully reverse-engineered. |
+| GXI | **SUFFICIENTLY CHARACTERIZED; NON-BLOCKING** | Inspected header/pixel and conversion relationships support the current workflow. Full format reconstruction is not needed when supported cooked DX is available. |
+| GXM | **PARTIALLY CHARACTERIZED; FULL RE NOT REQUIRED FOR CURRENT RESTORATION GOALS** | Development-side geometry, material, texture-reference, hierarchy, `$chull`, and `$cylinder` data have varying evidence levels. Demo 9.10.0 remains a source-side bridge for GXM/GXI inputs. |
+| Original cooker executables | **NOT REQUIRED** for supported rev131 DX conversion; **STILL USEFUL** for GXM/GXI source-side processing and historical research. | Broad cooker executable reverse engineering is frozen for the current restoration roadmap. |
+
+The supported practical path is `rev131 vehicle DX → Master Rallye DX
+Upgrader → retail-compatible rev135 DX`. The final evidence and frozen
+decisions are in [`research/r-cooker-closeout/final.md`](../research/r-cooker-closeout/final.md).
+
 ## R-COOKER2.1 corpus and rev135 validation policy
 
 The reproducible scanner reads only the ignored inputs/ directory. The
