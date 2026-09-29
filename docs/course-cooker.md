@@ -60,12 +60,18 @@ ignored local directories.
 ## 8.4.1 source to 9.10.0 runtime
 
 The user reports that 8.4.1 France1 and Italy1 source recooked by the 9.10.0
-runtime load and run in that runtime, with AI working; older start/grid
-behavior survives and some visual problems remain. This is `CONFIRMED_BY_RUNTIME`
-owner evidence. The isolated France1 reload also reached the logged successful
-load after each forced rebuild. The bridge proves that DX revision 135 can
-contain a substantially different course graph from native 9.10.0 or retail;
-revision alone is not a complete compatibility signature.
+runtime load and run in that runtime, with AI working; some visual problems
+remain. An earlier observation of an older starting order in a 9.10 runtime
+was treated as possible source-authored behavior. That interpretation is
+withdrawn: later cross-runtime controls observed the player at the front in
+8.4.1, second in 9.3.1, and in the normal retail order in Retail. Both old-source
+cook outputs placed in Retail also showed the normal retail order. This supports
+runtime/version-dependent participant-to-slot assignment but does not show
+whether physical slots are course-authored. The isolated France1 reload also
+reached the logged successful load after each forced rebuild. The bridge proves
+that DX revision 135 can contain a substantially different course graph from
+native 9.10.0 or retail; revision alone is not a complete compatibility
+signature.
 
 No course writer is provided. All cooker outputs are temporary research data.
 
@@ -92,17 +98,14 @@ the R5T-B.1 closeout and R5T-C differential analysis.
 
 ## R5T-C whole-volume startpoint candidate
 
-An ignored source copy now translates all eight France1 startpoint-candidate
-points by +3.0 source X units. The patch preserves the box dimensions and
-changes no paired TXT or other source file. Baseline and modified runtime
-clones are staged for two cold-cache cooks each; they use the same Demo 9.10
-executable and byte-identical RaceTest XML, with generated France1 DX/DXT
-removed before the first run.
-
-The `validate --experiment france1-startpoint-whole-x3` command currently
-reports `PASS_STAGED`. Cooking remains pending: the paired runtime snapshots
-and `compare --minimum-runs 2` report are required before claiming a compiled
-whole-volume effect. A separate human observation is required before claiming
-spawn, trigger, collision or race-start semantics. The exact run steps and
-candidate locations are in
-[`research/r5t_c/startpoint-whole-translation-plan.md`](../research/r5t_c/startpoint-whole-translation-plan.md).
+An ignored source copy translated all eight France1 startpoint-candidate
+points by +3.0 source X units. The patch preserved box dimensions and changed
+no paired TXT or other source file. Two baseline and two modified cold-cache
+cooks used the same Demo 9.10 executable and byte-identical RaceTest XML. Each
+cohort's 10,118,248-byte tag100 suffix repeated byte-for-byte; the cohorts
+differed by 263 bytes in 142 ranges. The render prefixes varied naturally.
+The owner observed no change to player/AI positions, ordering, countdown, or
+race start within this Demo 9.10 comparison. This does not identify the
+candidate's physical meaning, and the +3 boxes still overlap. Full closeout and
+cross-runtime interpretation are in
+[`research/r5t_c/whole-x3-closeout.md`](../research/r5t_c/whole-x3-closeout.md).

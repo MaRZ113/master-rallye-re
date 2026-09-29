@@ -37,15 +37,20 @@ The project owner manually observed retail course packages loading in Demo 9.10.
 
 The project owner separately reports that the original Demo 9.10.0 runtime
 cooker can rebuild old 8.4.1 France1/Italy1 source into revision-135 courses
-that load and run in the 9.10.0 runtime, with AI working. The recooked courses
-retain old start/grid behavior; visual issues remain. This is
-`CONFIRMED_BY_RUNTIME` owner evidence and is distinct from swapping retail
-resources into older demos. The trigger is now reproduced: launch the 9.10.0
-runtime and select France1 after removing the cached DX and DXT files in an
-isolated course copy. Two forced rebuilds produced validated rev135 DX; DX
-render prefixes vary, while all 172 non-DX resource hashes and the raw tag100
-payload hash match across runs. The documented trigger, logs, output hashes,
-and limitations are in [`docs/course-cooker.md`](course-cooker.md) and
+that load and run in the 9.10.0 runtime, with AI working. An earlier
+interpretation treated the observed starting order as old source behavior.
+Later controls show that order varies across runtimes: 8.4.1 places the player
+at the front, 9.3.1 places the player second, and Retail shows its normal order.
+Both old-source cook outputs also showed the normal Retail order when copied
+into the Retail runtime. The old-order observation therefore does not establish
+source-authored participant ordering. Physical slot positions or a start-region
+structure may still be course-authored; their source remains unknown. The
+cooker trigger is reproduced: launch the 9.10.0 runtime and select France1
+after removing cached DX and DXT files in an isolated course copy. Two forced
+rebuilds produced validated rev135 DX; DX render prefixes vary, while all 172
+non-DX resource hashes and the raw tag100 payload hash match across runs. The
+trigger, logs, output hashes, and limitations are in
+[`docs/course-cooker.md`](course-cooker.md) and
 [`research/r5t_b/cooker-baseline.json`](../research/r5t_b/cooker-baseline.json).
 
 See [`docs/course-importer.md`](course-importer.md), [`docs/formats/dx-course.md`](formats/dx-course.md), and the machine-readable reports under [`research/r5t_a`](../research/r5t_a/).

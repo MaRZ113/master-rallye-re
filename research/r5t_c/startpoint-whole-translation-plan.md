@@ -1,16 +1,15 @@
-# France1 whole-startpoint translation candidate
+# France1 whole-startpoint translation closeout
 
-Status: **staged; cooker and runtime results pending**.
+Status: **2+2 cook PASS; source-to-tag100 effect CONFIRMED; direct grid anchor NOT SUPPORTED**.
 
 ## Question
 
-Does translating the eight-point France1 startpoint candidate as one rigid
-volume produce a repeatable compiled tag100 change and an observable race/start
-behavior change?
+Does translating the eight-point France1 candidate as one rigid volume produce
+a repeatable tag100 change or an observable race/start behavior change?
 
-The candidate is deliberately limited to +3.0 source X units. It preserves the
-10-unit box and retains substantial overlap with its original location. The
-first-eight-point association with the literal `startpoint` node is still a
+The experiment translated the candidate by +3.0 source X units. It preserved
+the 10-unit box but retained substantial overlap with its original location.
+The first-eight-point association with the literal `startpoint` node remains a
 `HIGH_CONFIDENCE_INFERENCE`; no runtime meaning is assumed.
 
 ## Source edit
@@ -34,8 +33,9 @@ staging validator from the repository root:
 python tools\r5t_b1_course_cook.py validate --experiment france1-startpoint-whole-x3
 ```
 
-The current result is `PASS_STAGED`. It does not mean the course has been
-cooked or runtime-tested.
+The saved pre-cook result is `PASS_STAGED`. The experiment is now cooked and
+runtime-tested; see [`whole-x3-closeout.md`](whole-x3-closeout.md) and
+[`whole-x3-closeout.json`](whole-x3-closeout.json) for the verified results.
 
 ## Cook protocol
 
@@ -56,27 +56,34 @@ After all four snapshots, run:
 python tools\r5t_b1_course_cook.py compare --experiment france1-startpoint-whole-x3 --minimum-runs 2
 ```
 
-The variance-aware report is expected at
+The variance-aware report is at
 `.research-output/r5t_b1/experiments/france1-startpoint-whole-x3/variance-aware-report.md`.
-It will compare render geometry, tag100, and captured non-DX course resources.
-No compiled effect is asserted before that report exists and validates.
+The compare command completed with two baseline and two modified runs. It
+isolates a deterministic 263-byte tag100 change from naturally variable render
+prefixes. The generated DX/DXT caches are now present, so the pre-cook staging
+validator should not be rerun without resetting a clone.
 
 ## Runtime observations
 
-Use the first baseline and first modified run to enter the same France1 race
-state. Observe and record:
+The owner reports that the course loaded and ran normally. Within the Demo
+9.10 baseline/modified comparison there was no observed change in player
+position/orientation, AI positions/order, countdown, or race start. No obvious
+delayed trigger or physical boundary appeared during roughly half a lap. The
++3 boxes still overlap, so a containment or other spatial-helper role remains
+possible.
 
-1. player initial position and heading;
-2. AI starting positions and formation;
-3. countdown and whether the race begins normally;
-4. start-line or trigger behavior that is directly visible.
+New cross-runtime controls show the player at the front in 8.4.1, second in
+9.3.1, and in the normal Retail order in Retail. Both completed outputs derived
+from the old 8.4.1 source also produced the normal Retail order when copied
+into Retail. Therefore the earlier old-grid observation is not evidence that
+participant order is authored by France1 source. Runtime/version-dependent
+participant-to-slot assignment is a strong inference; the physical slot
+positions or start-region source remain unknown.
 
-The per-experiment `RUNTIME_TEST_INSTRUCTIONS.txt` contains the same protocol.
-The extra second run per cohort verifies cooker repeatability; gameplay need
-not be repeated unless the first observation is inconsistent or ambiguous.
-
-Keep the baseline and modified runs on this matching Demo 9.10 build. Record
-what happens, including an unchanged result; do not infer spawn, trigger,
-collision or start semantics from a successful course load alone. The course
-box and RaceTest Marker 0 are close in the measured source/DX frame, but their
-relationship remains spatial correlation rather than a parsed reference.
+The next controlled source probe is a Retail XML-only change in a fixed Retail
+runtime. Translate all four Retail France1 `MarkerLists/StartArea` positions by
++3.0 in X while holding the course output, runtime, and opponents fixed. Record
+car positions/order separately from green marker visuals. If this does not
+clarify physical slots, the GXM +12 non-overlap test remains available for the
+separate containment question. Exact Retail marker values and cohort evidence
+are in [`whole-x3-closeout.md`](whole-x3-closeout.md).

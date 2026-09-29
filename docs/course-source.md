@@ -81,17 +81,25 @@ The first-eight France1 candidate points were copied to an isolated source
 folder and translated together by +3.0 source X units. All eight target
 float32 fields receive the same delta; the 10-unit box dimensions are preserved
 with zero measured pairwise-distance change. `France1.gxm` is the only changed
-source file. The original input remains untouched. Exact point spans and hashes
-are recorded in the ignored
-`.research-output/r5t_b1/experiments/france1-startpoint-whole-x3/source-patch.json`.
+source file. Two baseline and two modified Demo 9.10 cold-cache cooks confirm
+that this edit changes the 10,118,248-byte tag100 suffix reproducibly (263
+bytes, 142 ranges), while render prefixes vary naturally. The owner observed
+no change to player or AI starting positions/order, countdown, or race start in
+that same-runtime comparison. Since the boxes overlap, a containment/helper
+role remains possible. The candidate point-to-node binding remains a
+`HIGH_CONFIDENCE_INFERENCE`; runtime meaning remains unknown.
 
-Two isolated Demo 9.10 runtime clones are staged for two baseline and two
-modified cooks. A validator checks the source manifests, matching runtime
-executable and RaceTest XML hashes, and absence of generated DX/DXT before
-cooking. Current status is `PASS_STAGED`; no compiled effect or gameplay result
-is claimed. The candidate point-to-node binding remains a
-`HIGH_CONFIDENCE_INFERENCE`. See
-[`research/r5t_c/startpoint-whole-translation-plan.md`](../research/r5t_c/startpoint-whole-translation-plan.md).
+The owner also reports cross-runtime France1 controls: player order is front in
+8.4.1, second in 9.3.1, and the ordinary Retail order in Retail. Both old-source
+cook outputs placed into Retail show the ordinary Retail order. This revises
+the earlier interpretation that the old participant order was preserved by
+course source. Runtime/version-dependent participant-slot assignment is a
+strong inference; the source of physical slots or start-region geometry remains
+unknown. The next controlled probe is to move the four Retail France1
+RaceTest `StartArea` marker positions by +3 in X in a fixed Retail runtime,
+recording car positions separately from marker visuals. Exact source spans,
+hashes, runtime notes, and the revised probe plan are in
+[`research/r5t_c/whole-x3-closeout.md`](../research/r5t_c/whole-x3-closeout.md).
 
 The read-only tag100 differential reports 452 changed bytes across 253 ranges
 for the earlier one-corner tracer. Eleven float4 windows have unit-length

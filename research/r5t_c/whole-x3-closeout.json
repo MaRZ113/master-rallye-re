@@ -1,0 +1,2252 @@
+{
+  "schema": "r5t-c-whole-x3-closeout-v1",
+  "experiment": "france1-startpoint-whole-x3",
+  "evidence_labels": {
+    "source_edit_to_tag100": "CONFIRMED_BY_SOURCE_COMPILED_PAIR",
+    "direct_start_grid_anchor": "NOT_SUPPORTED_BY_THIS_RUNTIME_EXPERIMENT",
+    "containment_or_spatial_helper": "POSSIBLE",
+    "tag100_physical_meaning": "UNKNOWN",
+    "source_bsp_to_tag100": "UNKNOWN",
+    "actual_start_grid_source": "UNKNOWN_NOT_LOCALIZED"
+  },
+  "reproduction_commands": [
+    "python tools\\r5t_b1_course_cook.py compare --experiment france1-startpoint-whole-x3 --minimum-runs 2",
+    "python -m unittest discover -s tests\\synthetic -v",
+    "Blender 5.2.2 background: tests\\blender\\r5t_a_course_smoke.py and tests\\blender\\r5t_b1_gxm_helper_smoke.py"
+  ],
+  "saved_staging_validation": {
+    "schema": "r5t-c-startpoint-stage-validation-v1",
+    "experiment": "france1-startpoint-whole-x3",
+    "status": "PASS_STAGED",
+    "compile_status": "PENDING_TWO_BASELINE_TWO_MODIFIED_COOKS",
+    "runtime_status": "PENDING_HUMAN_OBSERVATION",
+    "source_patch": {
+      "gxm_name": "France1.gxm",
+      "point_count": 8,
+      "translation_vector_source": {
+        "x": 3.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "old_aabb_source": {
+        "x": [
+          -987.0555419921875,
+          -977.0555419921875
+        ],
+        "y": [
+          -473.6667175292969,
+          -463.6667175292969
+        ],
+        "z": [
+          48.5390510559082,
+          58.5390510559082
+        ]
+      },
+      "new_aabb_source": {
+        "x": [
+          -984.0555419921875,
+          -974.0555419921875
+        ],
+        "y": [
+          -473.6667175292969,
+          -463.6667175292969
+        ],
+        "z": [
+          48.5390510559082,
+          58.5390510559082
+        ]
+      },
+      "max_pairwise_distance_delta": 0.0,
+      "changed_byte_count": 12,
+      "source_hash_before": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+      "source_hash_after": "333ed57f9f9f4cbb56c30780face7ba38888fcca0002420197169948da6da56f"
+    },
+    "cohorts": {
+      "run_count_each": 2,
+      "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+      "course_target": "DataGx/Course/France1",
+      "only_source_manifest_difference": "france1.gxm",
+      "racetest_xml_path": "DataScene/RaceTest/France1.xml",
+      "racetest_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+      "generated_dx_dxt_absent_before_cooking": true
+    },
+    "semantic_diff_report": "variance-aware-report.json (created by compare after all snapshots)"
+  },
+  "source_isolation": {
+    "status": "PASS",
+    "source_manifest_comparison": {
+      "source_manifest": {
+        "baseline_entries": 106,
+        "modified_entries": 106,
+        "changed_paths": [
+          "france1.gxm"
+        ]
+      },
+      "staged_source_manifest": {
+        "baseline_entries": 160,
+        "modified_entries": 160,
+        "changed_paths": [
+          "france1.gxm"
+        ]
+      }
+    },
+    "only_cross_cohort_input_change": "france1.gxm",
+    "race_test_xml_same_baseline_modified": true,
+    "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+    "runtime_executable_sha256_baseline": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+    "runtime_executable_sha256_modified": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78"
+  },
+  "source_edit": {
+    "source_path": "inputs/8.4.1_France1/France1.gxm",
+    "source_bytes": 11489135,
+    "before_sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+    "after_sha256": "333ed57f9f9f4cbb56c30780face7ba38888fcca0002420197169948da6da56f",
+    "changed_byte_count": 12,
+    "changed_offset_min": 10838404,
+    "changed_offset_max": 10838489,
+    "changed_float_count": 8,
+    "translation_source_xyz": [
+      3.0,
+      0.0,
+      0.0
+    ],
+    "candidate_node": {
+      "ordinal": 1,
+      "name": "startpoint",
+      "parent_id": 0,
+      "mesh_index": 0,
+      "mesh_size": 12
+    },
+    "float3_pool_offset": 10838403,
+    "point_edits": [
+      {
+        "point_index": 0,
+        "x_byte_offset": 10838403,
+        "before": -987.0555419921875,
+        "after": -984.0555419921875,
+        "delta": 3.0
+      },
+      {
+        "point_index": 1,
+        "x_byte_offset": 10838415,
+        "before": -977.0555419921875,
+        "after": -974.0555419921875,
+        "delta": 3.0
+      },
+      {
+        "point_index": 2,
+        "x_byte_offset": 10838427,
+        "before": -987.0555419921875,
+        "after": -984.0555419921875,
+        "delta": 3.0
+      },
+      {
+        "point_index": 3,
+        "x_byte_offset": 10838439,
+        "before": -977.0555419921875,
+        "after": -974.0555419921875,
+        "delta": 3.0
+      },
+      {
+        "point_index": 4,
+        "x_byte_offset": 10838451,
+        "before": -987.0555419921875,
+        "after": -984.0555419921875,
+        "delta": 3.0
+      },
+      {
+        "point_index": 5,
+        "x_byte_offset": 10838463,
+        "before": -977.0555419921875,
+        "after": -974.0555419921875,
+        "delta": 3.0
+      },
+      {
+        "point_index": 6,
+        "x_byte_offset": 10838475,
+        "before": -987.0555419921875,
+        "after": -984.0555419921875,
+        "delta": 3.0
+      },
+      {
+        "point_index": 7,
+        "x_byte_offset": 10838487,
+        "before": -977.0555419921875,
+        "after": -974.0555419921875,
+        "delta": 3.0
+      }
+    ],
+    "old_aabb_source_xyz": {
+      "min": [
+        -987.0555419921875,
+        -473.6667175292969,
+        48.5390510559082
+      ],
+      "max": [
+        -977.0555419921875,
+        -463.6667175292969,
+        58.5390510559082
+      ]
+    },
+    "modified_aabb_source_xyz": {
+      "min": [
+        -984.0555419921875,
+        -473.6667175292969,
+        48.5390510559082
+      ],
+      "max": [
+        -974.0555419921875,
+        -463.6667175292969,
+        58.5390510559082
+      ]
+    },
+    "shape_change": "none; rigid translation",
+    "target_float32_field_start_offsets": [
+      10838403,
+      10838415,
+      10838427,
+      10838439,
+      10838451,
+      10838463,
+      10838475,
+      10838487
+    ],
+    "changed_byte_offsets": [
+      10838404,
+      10838416,
+      10838417,
+      10838428,
+      10838440,
+      10838441,
+      10838452,
+      10838464,
+      10838465,
+      10838476,
+      10838488,
+      10838489
+    ],
+    "changed_byte_offset_hex": [
+      "0xA56184",
+      "0xA56190",
+      "0xA56191",
+      "0xA5619C",
+      "0xA561A8",
+      "0xA561A9",
+      "0xA561B4",
+      "0xA561C0",
+      "0xA561C1",
+      "0xA561CC",
+      "0xA561D8",
+      "0xA561D9"
+    ],
+    "all_changed_bytes_within_target_float32_fields": true
+  },
+  "runtime_cooks": {
+    "baseline_count": 2,
+    "modified_count": 2,
+    "all_four_snapshots_present": true,
+    "all_render_prefixes_validated": true,
+    "runs": [
+      {
+        "cohort": "baseline",
+        "run_id": "baseline-01",
+        "dx_path": ".research-output/r5t_b1/experiments/france1-startpoint-whole-x3/baseline/runs/baseline-01/course/france1.dx",
+        "dx_bytes": 14828157,
+        "dx_sha256": "37def5987b6eb6d52d0a9747ae2085caefc05bf3013cf4e342fcb991b74c2a84",
+        "tag100_offset_in_dx": 4709909,
+        "tag100_bytes": 10118248,
+        "tag100_sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+        "render_prefix_bytes": 4709909,
+        "render_prefix_sha256": "3d930db04a16860c74b7303b650287a10aac2fa89da5c20060357d3d1243abc9",
+        "render_validated": true
+      },
+      {
+        "cohort": "baseline",
+        "run_id": "baseline-02",
+        "dx_path": ".research-output/r5t_b1/experiments/france1-startpoint-whole-x3/baseline/runs/baseline-02/course/france1.dx",
+        "dx_bytes": 14802266,
+        "dx_sha256": "f1e48b6e8ac5ade0217d903deb9def24e60bed7fbae892173325868d36d0ab2e",
+        "tag100_offset_in_dx": 4684018,
+        "tag100_bytes": 10118248,
+        "tag100_sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+        "render_prefix_bytes": 4684018,
+        "render_prefix_sha256": "dd49e39fd79c52b1a5b1ccb550524aac49ba7c319202bb8c9352f53b82369562",
+        "render_validated": true
+      },
+      {
+        "cohort": "modified",
+        "run_id": "modified-01",
+        "dx_path": ".research-output/r5t_b1/experiments/france1-startpoint-whole-x3/modified/runs/modified-01/course/france1.dx",
+        "dx_bytes": 14797526,
+        "dx_sha256": "56bf08adcdd7b30d60e79117089fe90319799980117ac625408b009cb518ebc6",
+        "tag100_offset_in_dx": 4679278,
+        "tag100_bytes": 10118248,
+        "tag100_sha256": "e4129f5019491e26973064c72c13776b9aa5bd2379d8190270c3a70215291e06",
+        "render_prefix_bytes": 4679278,
+        "render_prefix_sha256": "1f4766299b0443be488c885a8d2689c817de14e9f8ae0a1c71f1b999f870038b",
+        "render_validated": true
+      },
+      {
+        "cohort": "modified",
+        "run_id": "modified-02",
+        "dx_path": ".research-output/r5t_b1/experiments/france1-startpoint-whole-x3/modified/runs/modified-02/course/france1.dx",
+        "dx_bytes": 14771934,
+        "dx_sha256": "44bf1ba8fe2629755dc765fcf11d0a7e210d33e00db33fab15da9d01835e71d7",
+        "tag100_offset_in_dx": 4653686,
+        "tag100_bytes": 10118248,
+        "tag100_sha256": "e4129f5019491e26973064c72c13776b9aa5bd2379d8190270c3a70215291e06",
+        "render_prefix_bytes": 4653686,
+        "render_prefix_sha256": "dd2524893cdbdfb333c8c35393d5dcf12f393bab12787a8ae4ae3b6f5c8ba7f7",
+        "render_validated": true
+      }
+    ],
+    "baseline_render_prefix_hashes_distinct": true,
+    "modified_render_prefix_hashes_distinct": true,
+    "within_cohort_non_dx_course_files_identical": true,
+    "within_cohort_non_dx_course_files_identical_count": 226,
+    "within_cohort_non_dx_course_files_identical_independently_recomputed": true
+  },
+  "tag100": {
+    "size_bytes": 10118248,
+    "baseline_sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+    "modified_sha256": "e4129f5019491e26973064c72c13776b9aa5bd2379d8190270c3a70215291e06",
+    "baseline_repeatable": true,
+    "modified_repeatable": true,
+    "different_across_cohorts": true,
+    "whole_x3_diff_summary": {
+      "same_size": true,
+      "changed_byte_count": 263,
+      "unchanged_byte_count": 10117985,
+      "changed_range_count": 142,
+      "changed_percent": 0.0025992642204460694,
+      "changed_aligned_finite_float32_count": 152,
+      "changed_aligned_non_finite_float32_count": 3,
+      "unit_normal_like_changed_float4_window_count": 6,
+      "normal_tolerance": 0.01
+    },
+    "whole_x3_changed_ranges": [
+      {
+        "start": 6071061,
+        "end_exclusive": 6071063,
+        "length": 2
+      },
+      {
+        "start": 6071065,
+        "end_exclusive": 6071067,
+        "length": 2
+      },
+      {
+        "start": 6071069,
+        "end_exclusive": 6071071,
+        "length": 2
+      },
+      {
+        "start": 6071073,
+        "end_exclusive": 6071075,
+        "length": 2
+      },
+      {
+        "start": 6071521,
+        "end_exclusive": 6071523,
+        "length": 2
+      },
+      {
+        "start": 6071525,
+        "end_exclusive": 6071527,
+        "length": 2
+      },
+      {
+        "start": 6071529,
+        "end_exclusive": 6071531,
+        "length": 2
+      },
+      {
+        "start": 6071533,
+        "end_exclusive": 6071535,
+        "length": 2
+      },
+      {
+        "start": 6071567,
+        "end_exclusive": 6071569,
+        "length": 2
+      },
+      {
+        "start": 6071571,
+        "end_exclusive": 6071572,
+        "length": 1
+      },
+      {
+        "start": 6071575,
+        "end_exclusive": 6071577,
+        "length": 2
+      },
+      {
+        "start": 6071579,
+        "end_exclusive": 6071581,
+        "length": 2
+      },
+      {
+        "start": 6071691,
+        "end_exclusive": 6071693,
+        "length": 2
+      },
+      {
+        "start": 6071695,
+        "end_exclusive": 6071697,
+        "length": 2
+      },
+      {
+        "start": 6071699,
+        "end_exclusive": 6071701,
+        "length": 2
+      },
+      {
+        "start": 6071703,
+        "end_exclusive": 6071705,
+        "length": 2
+      },
+      {
+        "start": 6225989,
+        "end_exclusive": 6225991,
+        "length": 2
+      },
+      {
+        "start": 6225993,
+        "end_exclusive": 6225995,
+        "length": 2
+      },
+      {
+        "start": 6225997,
+        "end_exclusive": 6225999,
+        "length": 2
+      },
+      {
+        "start": 6226001,
+        "end_exclusive": 6226003,
+        "length": 2
+      },
+      {
+        "start": 6228013,
+        "end_exclusive": 6228015,
+        "length": 2
+      },
+      {
+        "start": 6228017,
+        "end_exclusive": 6228019,
+        "length": 2
+      },
+      {
+        "start": 6228021,
+        "end_exclusive": 6228023,
+        "length": 2
+      },
+      {
+        "start": 6228025,
+        "end_exclusive": 6228027,
+        "length": 2
+      },
+      {
+        "start": 6228197,
+        "end_exclusive": 6228199,
+        "length": 2
+      },
+      {
+        "start": 6228201,
+        "end_exclusive": 6228203,
+        "length": 2
+      },
+      {
+        "start": 6228205,
+        "end_exclusive": 6228207,
+        "length": 2
+      },
+      {
+        "start": 6228209,
+        "end_exclusive": 6228211,
+        "length": 2
+      },
+      {
+        "start": 6228289,
+        "end_exclusive": 6228291,
+        "length": 2
+      },
+      {
+        "start": 6228293,
+        "end_exclusive": 6228295,
+        "length": 2
+      },
+      {
+        "start": 6228297,
+        "end_exclusive": 6228299,
+        "length": 2
+      },
+      {
+        "start": 6228301,
+        "end_exclusive": 6228303,
+        "length": 2
+      },
+      {
+        "start": 6238041,
+        "end_exclusive": 6238043,
+        "length": 2
+      },
+      {
+        "start": 6238045,
+        "end_exclusive": 6238047,
+        "length": 2
+      },
+      {
+        "start": 6238049,
+        "end_exclusive": 6238051,
+        "length": 2
+      },
+      {
+        "start": 6238053,
+        "end_exclusive": 6238055,
+        "length": 2
+      },
+      {
+        "start": 6238087,
+        "end_exclusive": 6238089,
+        "length": 2
+      },
+      {
+        "start": 6238091,
+        "end_exclusive": 6238093,
+        "length": 2
+      },
+      {
+        "start": 6238095,
+        "end_exclusive": 6238097,
+        "length": 2
+      },
+      {
+        "start": 6238099,
+        "end_exclusive": 6238101,
+        "length": 2
+      },
+      {
+        "start": 6238133,
+        "end_exclusive": 6238135,
+        "length": 2
+      },
+      {
+        "start": 6238137,
+        "end_exclusive": 6238139,
+        "length": 2
+      },
+      {
+        "start": 6238141,
+        "end_exclusive": 6238143,
+        "length": 2
+      },
+      {
+        "start": 6238145,
+        "end_exclusive": 6238147,
+        "length": 2
+      },
+      {
+        "start": 6238303,
+        "end_exclusive": 6238304,
+        "length": 1
+      },
+      {
+        "start": 6238307,
+        "end_exclusive": 6238308,
+        "length": 1
+      },
+      {
+        "start": 6238311,
+        "end_exclusive": 6238313,
+        "length": 2
+      },
+      {
+        "start": 6238315,
+        "end_exclusive": 6238317,
+        "length": 2
+      },
+      {
+        "start": 6238749,
+        "end_exclusive": 6238751,
+        "length": 2
+      },
+      {
+        "start": 6238753,
+        "end_exclusive": 6238754,
+        "length": 1
+      },
+      {
+        "start": 6238757,
+        "end_exclusive": 6238759,
+        "length": 2
+      },
+      {
+        "start": 6238761,
+        "end_exclusive": 6238763,
+        "length": 2
+      },
+      {
+        "start": 6238795,
+        "end_exclusive": 6238797,
+        "length": 2
+      },
+      {
+        "start": 6238799,
+        "end_exclusive": 6238800,
+        "length": 1
+      },
+      {
+        "start": 6238803,
+        "end_exclusive": 6238805,
+        "length": 2
+      },
+      {
+        "start": 6238807,
+        "end_exclusive": 6238809,
+        "length": 2
+      },
+      {
+        "start": 6240079,
+        "end_exclusive": 6240081,
+        "length": 2
+      },
+      {
+        "start": 6240083,
+        "end_exclusive": 6240085,
+        "length": 2
+      },
+      {
+        "start": 6240087,
+        "end_exclusive": 6240089,
+        "length": 2
+      },
+      {
+        "start": 6240091,
+        "end_exclusive": 6240093,
+        "length": 2
+      },
+      {
+        "start": 6248243,
+        "end_exclusive": 6248245,
+        "length": 2
+      },
+      {
+        "start": 6248247,
+        "end_exclusive": 6248249,
+        "length": 2
+      },
+      {
+        "start": 6248251,
+        "end_exclusive": 6248253,
+        "length": 2
+      },
+      {
+        "start": 6248255,
+        "end_exclusive": 6248257,
+        "length": 2
+      },
+      {
+        "start": 6248289,
+        "end_exclusive": 6248291,
+        "length": 2
+      },
+      {
+        "start": 6248293,
+        "end_exclusive": 6248294,
+        "length": 1
+      },
+      {
+        "start": 6248297,
+        "end_exclusive": 6248299,
+        "length": 2
+      },
+      {
+        "start": 6248301,
+        "end_exclusive": 6248303,
+        "length": 2
+      },
+      {
+        "start": 6248441,
+        "end_exclusive": 6248443,
+        "length": 2
+      },
+      {
+        "start": 6248445,
+        "end_exclusive": 6248447,
+        "length": 2
+      },
+      {
+        "start": 6248449,
+        "end_exclusive": 6248451,
+        "length": 2
+      },
+      {
+        "start": 6248453,
+        "end_exclusive": 6248455,
+        "length": 2
+      },
+      {
+        "start": 6248487,
+        "end_exclusive": 6248489,
+        "length": 2
+      },
+      {
+        "start": 6248491,
+        "end_exclusive": 6248493,
+        "length": 2
+      },
+      {
+        "start": 6248495,
+        "end_exclusive": 6248497,
+        "length": 2
+      },
+      {
+        "start": 6248499,
+        "end_exclusive": 6248501,
+        "length": 2
+      },
+      {
+        "start": 6248611,
+        "end_exclusive": 6248613,
+        "length": 2
+      },
+      {
+        "start": 6248615,
+        "end_exclusive": 6248617,
+        "length": 2
+      },
+      {
+        "start": 6248619,
+        "end_exclusive": 6248621,
+        "length": 2
+      },
+      {
+        "start": 6248623,
+        "end_exclusive": 6248625,
+        "length": 2
+      },
+      {
+        "start": 6250511,
+        "end_exclusive": 6250513,
+        "length": 2
+      },
+      {
+        "start": 6250515,
+        "end_exclusive": 6250517,
+        "length": 2
+      },
+      {
+        "start": 6250519,
+        "end_exclusive": 6250521,
+        "length": 2
+      },
+      {
+        "start": 6250523,
+        "end_exclusive": 6250525,
+        "length": 2
+      },
+      {
+        "start": 6250893,
+        "end_exclusive": 6250895,
+        "length": 2
+      },
+      {
+        "start": 6250897,
+        "end_exclusive": 6250898,
+        "length": 1
+      },
+      {
+        "start": 6250901,
+        "end_exclusive": 6250903,
+        "length": 2
+      },
+      {
+        "start": 6250905,
+        "end_exclusive": 6250907,
+        "length": 2
+      },
+      {
+        "start": 6251077,
+        "end_exclusive": 6251079,
+        "length": 2
+      },
+      {
+        "start": 6251081,
+        "end_exclusive": 6251083,
+        "length": 2
+      },
+      {
+        "start": 6251085,
+        "end_exclusive": 6251087,
+        "length": 2
+      },
+      {
+        "start": 6251089,
+        "end_exclusive": 6251091,
+        "length": 2
+      },
+      {
+        "start": 6251123,
+        "end_exclusive": 6251125,
+        "length": 2
+      },
+      {
+        "start": 6251127,
+        "end_exclusive": 6251129,
+        "length": 2
+      },
+      {
+        "start": 6251131,
+        "end_exclusive": 6251133,
+        "length": 2
+      },
+      {
+        "start": 6251135,
+        "end_exclusive": 6251137,
+        "length": 2
+      },
+      {
+        "start": 6251169,
+        "end_exclusive": 6251171,
+        "length": 2
+      },
+      {
+        "start": 6251173,
+        "end_exclusive": 6251174,
+        "length": 1
+      },
+      {
+        "start": 6251177,
+        "end_exclusive": 6251179,
+        "length": 2
+      },
+      {
+        "start": 6251181,
+        "end_exclusive": 6251183,
+        "length": 2
+      },
+      {
+        "start": 6251229,
+        "end_exclusive": 6251231,
+        "length": 2
+      },
+      {
+        "start": 6251233,
+        "end_exclusive": 6251234,
+        "length": 1
+      },
+      {
+        "start": 6251237,
+        "end_exclusive": 6251239,
+        "length": 2
+      },
+      {
+        "start": 6251241,
+        "end_exclusive": 6251243,
+        "length": 2
+      },
+      {
+        "start": 6251459,
+        "end_exclusive": 6251461,
+        "length": 2
+      },
+      {
+        "start": 6251463,
+        "end_exclusive": 6251464,
+        "length": 1
+      },
+      {
+        "start": 6251467,
+        "end_exclusive": 6251469,
+        "length": 2
+      },
+      {
+        "start": 6251471,
+        "end_exclusive": 6251473,
+        "length": 2
+      },
+      {
+        "start": 6251735,
+        "end_exclusive": 6251737,
+        "length": 2
+      },
+      {
+        "start": 6251739,
+        "end_exclusive": 6251740,
+        "length": 1
+      },
+      {
+        "start": 6251743,
+        "end_exclusive": 6251745,
+        "length": 2
+      },
+      {
+        "start": 6251747,
+        "end_exclusive": 6251749,
+        "length": 2
+      },
+      {
+        "start": 8826972,
+        "end_exclusive": 8826973,
+        "length": 1
+      },
+      {
+        "start": 8826992,
+        "end_exclusive": 8826994,
+        "length": 2
+      },
+      {
+        "start": 8826996,
+        "end_exclusive": 8826998,
+        "length": 2
+      },
+      {
+        "start": 8827000,
+        "end_exclusive": 8827002,
+        "length": 2
+      },
+      {
+        "start": 8827004,
+        "end_exclusive": 8827006,
+        "length": 2
+      },
+      {
+        "start": 8827308,
+        "end_exclusive": 8827309,
+        "length": 1
+      },
+      {
+        "start": 8827328,
+        "end_exclusive": 8827330,
+        "length": 2
+      },
+      {
+        "start": 8827332,
+        "end_exclusive": 8827333,
+        "length": 1
+      },
+      {
+        "start": 8827336,
+        "end_exclusive": 8827338,
+        "length": 2
+      },
+      {
+        "start": 8827340,
+        "end_exclusive": 8827342,
+        "length": 2
+      },
+      {
+        "start": 8827376,
+        "end_exclusive": 8827377,
+        "length": 1
+      },
+      {
+        "start": 8827384,
+        "end_exclusive": 8827386,
+        "length": 2
+      },
+      {
+        "start": 8827388,
+        "end_exclusive": 8827389,
+        "length": 1
+      },
+      {
+        "start": 8827392,
+        "end_exclusive": 8827394,
+        "length": 2
+      },
+      {
+        "start": 8827396,
+        "end_exclusive": 8827398,
+        "length": 2
+      },
+      {
+        "start": 8838552,
+        "end_exclusive": 8838553,
+        "length": 1
+      },
+      {
+        "start": 8838584,
+        "end_exclusive": 8838586,
+        "length": 2
+      },
+      {
+        "start": 8838588,
+        "end_exclusive": 8838590,
+        "length": 2
+      },
+      {
+        "start": 8838592,
+        "end_exclusive": 8838594,
+        "length": 2
+      },
+      {
+        "start": 8838596,
+        "end_exclusive": 8838598,
+        "length": 2
+      },
+      {
+        "start": 8847972,
+        "end_exclusive": 8847973,
+        "length": 1
+      },
+      {
+        "start": 8847992,
+        "end_exclusive": 8847993,
+        "length": 1
+      },
+      {
+        "start": 8847996,
+        "end_exclusive": 8847997,
+        "length": 1
+      },
+      {
+        "start": 8848000,
+        "end_exclusive": 8848002,
+        "length": 2
+      },
+      {
+        "start": 8848004,
+        "end_exclusive": 8848006,
+        "length": 2
+      },
+      {
+        "start": 8848040,
+        "end_exclusive": 8848041,
+        "length": 1
+      },
+      {
+        "start": 8848048,
+        "end_exclusive": 8848050,
+        "length": 2
+      },
+      {
+        "start": 8848052,
+        "end_exclusive": 8848054,
+        "length": 2
+      },
+      {
+        "start": 8848056,
+        "end_exclusive": 8848058,
+        "length": 2
+      },
+      {
+        "start": 8848060,
+        "end_exclusive": 8848062,
+        "length": 2
+      }
+    ],
+    "changed_regions_64k_clusters": [
+      {
+        "start": 6071061,
+        "end_exclusive": 6071705,
+        "range_count": 16,
+        "changed_byte_count": 31,
+        "maximum_join_gap": 65536
+      },
+      {
+        "start": 6225989,
+        "end_exclusive": 6251749,
+        "range_count": 96,
+        "changed_byte_count": 182,
+        "maximum_join_gap": 65536
+      },
+      {
+        "start": 8826972,
+        "end_exclusive": 8848062,
+        "range_count": 30,
+        "changed_byte_count": 50,
+        "maximum_join_gap": 65536
+      }
+    ],
+    "byte_offset_alignment_histogram": {
+      "4": {
+        "0": 76,
+        "1": 80,
+        "2": 55,
+        "3": 52
+      },
+      "16": {
+        "0": 18,
+        "1": 21,
+        "2": 12,
+        "3": 13,
+        "4": 18,
+        "5": 20,
+        "6": 13,
+        "7": 13,
+        "8": 20,
+        "9": 20,
+        "10": 15,
+        "11": 13,
+        "12": 20,
+        "13": 19,
+        "14": 15,
+        "15": 13
+      }
+    },
+    "render_prefix_variance_isolated_from_tag100": true
+  },
+  "comparison_to_one_point_plus1": {
+    "one_point_baseline_tag100_sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+    "one_point_modified_tag100_sha256": "c89654dbf502de96df366d05ecdd87051b0051e8308851550c0e0b6d37c23086",
+    "baseline_tag100s_byte_identical": true,
+    "whole_changed_byte_count": 263,
+    "one_point_changed_byte_count": 452,
+    "changed_offset_intersection": 263,
+    "whole_offsets_not_in_one_point": 0,
+    "one_point_offsets_not_in_whole": 189,
+    "whole_change_set_is_subset_of_one_point": true,
+    "modified_byte_values_identical_at_all_whole_offsets": true,
+    "one_point_only_changed_ranges": [
+      {
+        "start": 6235161,
+        "end_exclusive": 6235163,
+        "length": 2
+      },
+      {
+        "start": 6235169,
+        "end_exclusive": 6235170,
+        "length": 1
+      },
+      {
+        "start": 6235173,
+        "end_exclusive": 6235175,
+        "length": 2
+      },
+      {
+        "start": 6235529,
+        "end_exclusive": 6235531,
+        "length": 2
+      },
+      {
+        "start": 6235537,
+        "end_exclusive": 6235538,
+        "length": 1
+      },
+      {
+        "start": 6235541,
+        "end_exclusive": 6235543,
+        "length": 2
+      },
+      {
+        "start": 6235621,
+        "end_exclusive": 6235623,
+        "length": 2
+      },
+      {
+        "start": 6235625,
+        "end_exclusive": 6235627,
+        "length": 2
+      },
+      {
+        "start": 6235629,
+        "end_exclusive": 6235631,
+        "length": 2
+      },
+      {
+        "start": 6235633,
+        "end_exclusive": 6235634,
+        "length": 1
+      },
+      {
+        "start": 6235667,
+        "end_exclusive": 6235669,
+        "length": 2
+      },
+      {
+        "start": 6235671,
+        "end_exclusive": 6235673,
+        "length": 2
+      },
+      {
+        "start": 6235675,
+        "end_exclusive": 6235677,
+        "length": 2
+      },
+      {
+        "start": 6235679,
+        "end_exclusive": 6235681,
+        "length": 2
+      },
+      {
+        "start": 6236039,
+        "end_exclusive": 6236041,
+        "length": 2
+      },
+      {
+        "start": 6236043,
+        "end_exclusive": 6236045,
+        "length": 2
+      },
+      {
+        "start": 6236047,
+        "end_exclusive": 6236049,
+        "length": 2
+      },
+      {
+        "start": 6236051,
+        "end_exclusive": 6236053,
+        "length": 2
+      },
+      {
+        "start": 6239291,
+        "end_exclusive": 6239294,
+        "length": 3
+      },
+      {
+        "start": 6239295,
+        "end_exclusive": 6239296,
+        "length": 1
+      },
+      {
+        "start": 6239299,
+        "end_exclusive": 6239300,
+        "length": 1
+      },
+      {
+        "start": 6239319,
+        "end_exclusive": 6239321,
+        "length": 2
+      },
+      {
+        "start": 6239323,
+        "end_exclusive": 6239325,
+        "length": 2
+      },
+      {
+        "start": 6239327,
+        "end_exclusive": 6239329,
+        "length": 2
+      },
+      {
+        "start": 6239331,
+        "end_exclusive": 6239333,
+        "length": 2
+      },
+      {
+        "start": 6239411,
+        "end_exclusive": 6239413,
+        "length": 2
+      },
+      {
+        "start": 6239415,
+        "end_exclusive": 6239417,
+        "length": 2
+      },
+      {
+        "start": 6239419,
+        "end_exclusive": 6239421,
+        "length": 2
+      },
+      {
+        "start": 6239423,
+        "end_exclusive": 6239424,
+        "length": 1
+      },
+      {
+        "start": 6240387,
+        "end_exclusive": 6240389,
+        "length": 2
+      },
+      {
+        "start": 6240391,
+        "end_exclusive": 6240393,
+        "length": 2
+      },
+      {
+        "start": 6240395,
+        "end_exclusive": 6240397,
+        "length": 2
+      },
+      {
+        "start": 6240399,
+        "end_exclusive": 6240400,
+        "length": 1
+      },
+      {
+        "start": 6240631,
+        "end_exclusive": 6240633,
+        "length": 2
+      },
+      {
+        "start": 6240635,
+        "end_exclusive": 6240636,
+        "length": 1
+      },
+      {
+        "start": 6240639,
+        "end_exclusive": 6240641,
+        "length": 2
+      },
+      {
+        "start": 6240643,
+        "end_exclusive": 6240645,
+        "length": 2
+      },
+      {
+        "start": 6242181,
+        "end_exclusive": 6242183,
+        "length": 2
+      },
+      {
+        "start": 6242185,
+        "end_exclusive": 6242186,
+        "length": 1
+      },
+      {
+        "start": 6242189,
+        "end_exclusive": 6242191,
+        "length": 2
+      },
+      {
+        "start": 6242193,
+        "end_exclusive": 6242195,
+        "length": 2
+      },
+      {
+        "start": 6242425,
+        "end_exclusive": 6242427,
+        "length": 2
+      },
+      {
+        "start": 6242429,
+        "end_exclusive": 6242430,
+        "length": 1
+      },
+      {
+        "start": 6242433,
+        "end_exclusive": 6242435,
+        "length": 2
+      },
+      {
+        "start": 6242437,
+        "end_exclusive": 6242439,
+        "length": 2
+      },
+      {
+        "start": 6242609,
+        "end_exclusive": 6242611,
+        "length": 2
+      },
+      {
+        "start": 6242617,
+        "end_exclusive": 6242618,
+        "length": 1
+      },
+      {
+        "start": 6242621,
+        "end_exclusive": 6242623,
+        "length": 2
+      },
+      {
+        "start": 6242655,
+        "end_exclusive": 6242657,
+        "length": 2
+      },
+      {
+        "start": 6242659,
+        "end_exclusive": 6242660,
+        "length": 1
+      },
+      {
+        "start": 6242663,
+        "end_exclusive": 6242665,
+        "length": 2
+      },
+      {
+        "start": 6242667,
+        "end_exclusive": 6242669,
+        "length": 2
+      },
+      {
+        "start": 6242701,
+        "end_exclusive": 6242703,
+        "length": 2
+      },
+      {
+        "start": 6242705,
+        "end_exclusive": 6242707,
+        "length": 2
+      },
+      {
+        "start": 6242709,
+        "end_exclusive": 6242711,
+        "length": 2
+      },
+      {
+        "start": 6242713,
+        "end_exclusive": 6242714,
+        "length": 1
+      },
+      {
+        "start": 6242747,
+        "end_exclusive": 6242749,
+        "length": 2
+      },
+      {
+        "start": 6242755,
+        "end_exclusive": 6242756,
+        "length": 1
+      },
+      {
+        "start": 6242759,
+        "end_exclusive": 6242761,
+        "length": 2
+      },
+      {
+        "start": 6242793,
+        "end_exclusive": 6242795,
+        "length": 2
+      },
+      {
+        "start": 6242797,
+        "end_exclusive": 6242799,
+        "length": 2
+      },
+      {
+        "start": 6242801,
+        "end_exclusive": 6242803,
+        "length": 2
+      },
+      {
+        "start": 6242805,
+        "end_exclusive": 6242807,
+        "length": 2
+      },
+      {
+        "start": 6243083,
+        "end_exclusive": 6243085,
+        "length": 2
+      },
+      {
+        "start": 6243087,
+        "end_exclusive": 6243088,
+        "length": 1
+      },
+      {
+        "start": 6243091,
+        "end_exclusive": 6243093,
+        "length": 2
+      },
+      {
+        "start": 6243095,
+        "end_exclusive": 6243097,
+        "length": 2
+      },
+      {
+        "start": 6243833,
+        "end_exclusive": 6243835,
+        "length": 2
+      },
+      {
+        "start": 6243837,
+        "end_exclusive": 6243839,
+        "length": 2
+      },
+      {
+        "start": 6243841,
+        "end_exclusive": 6243843,
+        "length": 2
+      },
+      {
+        "start": 6243845,
+        "end_exclusive": 6243846,
+        "length": 1
+      },
+      {
+        "start": 6243925,
+        "end_exclusive": 6243927,
+        "length": 2
+      },
+      {
+        "start": 6243933,
+        "end_exclusive": 6243934,
+        "length": 1
+      },
+      {
+        "start": 6243937,
+        "end_exclusive": 6243939,
+        "length": 2
+      },
+      {
+        "start": 6244095,
+        "end_exclusive": 6244097,
+        "length": 2
+      },
+      {
+        "start": 6244099,
+        "end_exclusive": 6244100,
+        "length": 1
+      },
+      {
+        "start": 6244103,
+        "end_exclusive": 6244105,
+        "length": 2
+      },
+      {
+        "start": 6244107,
+        "end_exclusive": 6244109,
+        "length": 2
+      },
+      {
+        "start": 6247835,
+        "end_exclusive": 6247837,
+        "length": 2
+      },
+      {
+        "start": 6247839,
+        "end_exclusive": 6247840,
+        "length": 1
+      },
+      {
+        "start": 6247843,
+        "end_exclusive": 6247845,
+        "length": 2
+      },
+      {
+        "start": 6247847,
+        "end_exclusive": 6247849,
+        "length": 2
+      },
+      {
+        "start": 8827204,
+        "end_exclusive": 8827205,
+        "length": 1
+      },
+      {
+        "start": 8827208,
+        "end_exclusive": 8827209,
+        "length": 1
+      },
+      {
+        "start": 8827216,
+        "end_exclusive": 8827218,
+        "length": 2
+      },
+      {
+        "start": 8827220,
+        "end_exclusive": 8827222,
+        "length": 2
+      },
+      {
+        "start": 8827224,
+        "end_exclusive": 8827226,
+        "length": 2
+      },
+      {
+        "start": 8827228,
+        "end_exclusive": 8827230,
+        "length": 2
+      },
+      {
+        "start": 8827248,
+        "end_exclusive": 8827249,
+        "length": 1
+      },
+      {
+        "start": 8827252,
+        "end_exclusive": 8827253,
+        "length": 1
+      },
+      {
+        "start": 8827272,
+        "end_exclusive": 8827274,
+        "length": 2
+      },
+      {
+        "start": 8827276,
+        "end_exclusive": 8827277,
+        "length": 1
+      },
+      {
+        "start": 8827280,
+        "end_exclusive": 8827281,
+        "length": 1
+      },
+      {
+        "start": 8827284,
+        "end_exclusive": 8827286,
+        "length": 2
+      },
+      {
+        "start": 8836500,
+        "end_exclusive": 8836501,
+        "length": 1
+      },
+      {
+        "start": 8836504,
+        "end_exclusive": 8836505,
+        "length": 1
+      },
+      {
+        "start": 8836512,
+        "end_exclusive": 8836514,
+        "length": 2
+      },
+      {
+        "start": 8836516,
+        "end_exclusive": 8836517,
+        "length": 1
+      },
+      {
+        "start": 8836520,
+        "end_exclusive": 8836522,
+        "length": 2
+      },
+      {
+        "start": 8836524,
+        "end_exclusive": 8836526,
+        "length": 2
+      },
+      {
+        "start": 8865148,
+        "end_exclusive": 8865149,
+        "length": 1
+      },
+      {
+        "start": 8865152,
+        "end_exclusive": 8865153,
+        "length": 1
+      },
+      {
+        "start": 8865184,
+        "end_exclusive": 8865186,
+        "length": 2
+      },
+      {
+        "start": 8865188,
+        "end_exclusive": 8865190,
+        "length": 2
+      },
+      {
+        "start": 8865192,
+        "end_exclusive": 8865194,
+        "length": 2
+      },
+      {
+        "start": 8865196,
+        "end_exclusive": 8865197,
+        "length": 1
+      },
+      {
+        "start": 8873784,
+        "end_exclusive": 8873785,
+        "length": 1
+      },
+      {
+        "start": 8873788,
+        "end_exclusive": 8873789,
+        "length": 1
+      },
+      {
+        "start": 8873808,
+        "end_exclusive": 8873810,
+        "length": 2
+      },
+      {
+        "start": 8873816,
+        "end_exclusive": 8873817,
+        "length": 1
+      },
+      {
+        "start": 8873820,
+        "end_exclusive": 8873822,
+        "length": 2
+      }
+    ],
+    "interpretation": "same changed tag100 byte offsets and output values for all whole-x3 changes; the one-point deformation adds further offsets. This is structural correlation only."
+  },
+  "semantic_record_probes": {
+    "finite_aligned_float32_windows": 152,
+    "nonfinite_aligned_float32_windows": 3,
+    "byte_aligned_float_delta_plus_or_minus_3_count": 0,
+    "byte_aligned_float_delta_plus_or_minus_3_candidates": [],
+    "fixed_stride_record_grammar": "NOT_ESTABLISHED; changed-byte residues and six sparse normal-like windows do not establish a stride",
+    "aabb_sphere_matrix_index_or_parent_bounds": "UNKNOWN; no record grammar has been established to test these object relationships",
+    "unit_normal_like_float4_candidates": [
+      {
+        "tag100_offset": 8826992,
+        "alignment_mod_16": 0,
+        "normal_before": [
+          0.036713607609272,
+          -0.9534285068511963,
+          -0.2993764281272888
+        ],
+        "normal_after": [
+          0.036712437868118286,
+          -0.9534330368041992,
+          -0.2993621826171875
+        ],
+        "d_before": 196.071044921875,
+        "d_after": 196.06472778320312,
+        "actual_d_delta": -0.006317138671875,
+        "normal_delta_length": 1.4994109730898143e-05,
+        "expected_d_plus_d_zero": 195.96090409904718,
+        "error_plus_d_zero": 0.10382368415594101,
+        "expected_d_equals": 196.18118574470282,
+        "error_equals": -0.11645796149969101
+      },
+      {
+        "tag100_offset": 8827328,
+        "alignment_mod_16": 0,
+        "normal_before": [
+          -0.19328059256076813,
+          -0.9387059211730957,
+          -0.28543609380722046
+        ],
+        "normal_after": [
+          -0.19329531490802765,
+          -0.9387087821960449,
+          -0.2854165732860565
+        ],
+        "d_before": -51.50892639160156,
+        "d_after": -51.531494140625,
+        "actual_d_delta": -0.0225677490234375,
+        "normal_delta_length": 2.4616736332376443e-05,
+        "expected_d_plus_d_zero": -50.92908461391926,
+        "error_plus_d_zero": -0.6024095267057419,
+        "expected_d_equals": -52.08876816928387,
+        "error_equals": 0.5572740286588669
+      },
+      {
+        "tag100_offset": 8848048,
+        "alignment_mod_16": 0,
+        "normal_before": [
+          0.0625295415520668,
+          -0.9272966384887695,
+          -0.36906754970550537
+        ],
+        "normal_after": [
+          0.06253860145807266,
+          -0.9272918105125427,
+          -0.3690783679485321
+        ],
+        "d_before": 247.3043212890625,
+        "d_after": 247.31741333007812,
+        "actual_d_delta": 0.013092041015625,
+        "normal_delta_length": 1.4913940910003722e-05,
+        "expected_d_plus_d_zero": 247.1167326644063,
+        "error_plus_d_zero": 0.2006806656718254,
+        "expected_d_equals": 247.4919099137187,
+        "error_equals": -0.1744965836405754
+      },
+      {
+        "tag100_offset": 8827384,
+        "alignment_mod_16": 8,
+        "normal_before": [
+          -0.20551787316799164,
+          -0.950317919254303,
+          -0.2337912619113922
+        ],
+        "normal_after": [
+          -0.205527663230896,
+          -0.9503175616264343,
+          -0.2337840348482132
+        ],
+        "d_before": -82.62205505371094,
+        "d_after": -82.63510131835938,
+        "actual_d_delta": -0.0130462646484375,
+        "normal_delta_length": 1.2173893032108183e-05,
+        "expected_d_plus_d_zero": -82.00550143420696,
+        "error_plus_d_zero": -0.6295998841524124,
+        "expected_d_equals": -83.23860867321491,
+        "error_equals": 0.6035073548555374
+      },
+      {
+        "tag100_offset": 8838584,
+        "alignment_mod_16": 8,
+        "normal_before": [
+          -0.11897694319486618,
+          -0.904939591884613,
+          -0.40856918692588806
+        ],
+        "normal_after": [
+          -0.11897354573011398,
+          -0.9049339890480042,
+          -0.4085828363895416
+        ],
+        "d_before": 69.79771423339844,
+        "d_after": 69.80580139160156,
+        "actual_d_delta": 0.008087158203125,
+        "normal_delta_length": 1.5140753047265552e-05,
+        "expected_d_plus_d_zero": 70.15464506298304,
+        "error_plus_d_zero": -0.34884367138147354,
+        "expected_d_equals": 69.44078340381384,
+        "error_equals": 0.36501798778772354
+      },
+      {
+        "tag100_offset": 8847992,
+        "alignment_mod_16": 8,
+        "normal_before": [
+          -0.06693999469280243,
+          -0.9761977195739746,
+          -0.20629377663135529
+        ],
+        "normal_after": [
+          -0.06693879514932632,
+          -0.9761995077133179,
+          -0.2062854915857315
+        ],
+        "d_before": 54.318939208984375,
+        "d_after": 54.31719207763672,
+        "actual_d_delta": -0.00174713134765625,
+        "normal_delta_length": 8.560276155013363e-06,
+        "expected_d_plus_d_zero": 54.51975919306278,
+        "error_plus_d_zero": -0.20256711542606354,
+        "expected_d_equals": 54.11811922490597,
+        "error_equals": 0.19907285273075104
+      }
+    ],
+    "plane_translation_test": {
+      "compiled_translation_xyz": [
+        3.0,
+        0.0,
+        0.0
+      ],
+      "conventions_tested": [
+        "n dot x + d = 0",
+        "n dot x = d"
+      ],
+      "candidate_count": 6,
+      "max_normal_delta_length": 2.4616736332376443e-05,
+      "plus_d_zero_error_abs_min_max": [
+        0.10382368415594101,
+        0.6295998841524124
+      ],
+      "equals_error_abs_min_max": [
+        0.11645796149969101,
+        0.6035073548555374
+      ],
+      "candidates_passing_both_normal_and_d_law_at_0_01": 0,
+      "result": "NOT_SUPPORTED; normals stay nearly fixed but d deltas match neither translation convention"
+    }
+  },
+  "runtime_observation": {
+    "evidence": "CONFIRMED_BY_RUNTIME; owner-reported direct baseline/modified comparison in Demo 9.10",
+    "course_loaded_and_ran_normally": true,
+    "player_start_position_changed": false,
+    "player_orientation_changed": false,
+    "ai_start_positions_changed": false,
+    "countdown_or_start_changed": false,
+    "obvious_delayed_trigger_seen": false,
+    "visible_or_physical_boundary_seen_while_driving_half_course": false,
+    "scope": "Demo 9.10 baseline-versus-modified whole-x3 comparison only",
+    "starting_formation_changed_within_demo_9_10": false,
+    "interpretation_limit": "The unchanged layout within Demo 9.10 does not establish that participant order is authored by the old source course."
+  },
+  "start_grid_source_candidates": {
+    "old_france1_txt": {
+      "source": "Demo 8.4.1",
+      "startpoint_node": {
+        "ordinal": 1,
+        "parent_id": 0,
+        "index": 0,
+        "size": 12,
+        "first_eight_points_form_box_inference": "HIGH_CONFIDENCE_INFERENCE"
+      }
+    },
+    "late_txt_presence": {
+      "9.3.1_startpoint_present": true,
+      "9.10.0_startpoint_present": false,
+      "retail_startpoint_present": false
+    },
+    "race_test_xml_by_build": {
+      "demo-8.4.1": {
+        "path": "demo-8.4.1/DataScene/RaceTest/France1.xml",
+        "bytes": 245196,
+        "sha256": "89304e2f0e0e5e76ad34f8e9e7ab033544f9712b73ab334240dbb1a098b462e3",
+        "marker_list_names": [
+          "RaceLine",
+          "StartArea",
+          "FinishArea"
+        ],
+        "start_area": [
+          {
+            "no": "0",
+            "type": "markers\\green_marker",
+            "pos": "-1650.84 52.02 171.79",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "1",
+            "type": "markers\\green_marker",
+            "pos": "-1656.52 52.30 163.09",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "2",
+            "type": "markers\\green_marker",
+            "pos": "-1678.49 54.75 171.13",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "3",
+            "type": "markers\\green_marker",
+            "pos": "-1671.25 54.93 184.87",
+            "dir": "1.00 0.00 0.00"
+          }
+        ],
+        "cameras_marker0": null
+      },
+      "demo-9.3.1": {
+        "path": "demo-9.3.1/DataScene/RaceTest/France1.xml",
+        "bytes": 336617,
+        "sha256": "42d3735f76c5f104c82568a1b91a3dba5b16c7bce08fb9d5573cb3219b799b9e",
+        "marker_list_names": [
+          "Cameras",
+          "RaceLine",
+          "StartArea",
+          "FinishArea"
+        ],
+        "start_area": [
+          {
+            "no": "0",
+            "type": "markers\\green_marker",
+            "pos": "-1650.84 52.02 171.79",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "1",
+            "type": "markers\\green_marker",
+            "pos": "-1656.52 52.30 163.09",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "2",
+            "type": "markers\\green_marker",
+            "pos": "-1678.49 54.75 171.13",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "3",
+            "type": "markers\\green_marker",
+            "pos": "-1671.25 54.93 184.87",
+            "dir": "1.00 0.00 0.00"
+          }
+        ],
+        "cameras_marker0": {
+          "no": "0",
+          "type": "markers\\green_marker",
+          "pos": "-982.10 52.20 467.87",
+          "dir": "1.00 0.00 0.00"
+        }
+      },
+      "demo-9.10.0": {
+        "path": "demo-9.10.0/DataScene/RaceTest/France1.xml",
+        "bytes": 334577,
+        "sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+        "marker_list_names": [
+          "Cameras",
+          "RaceLine",
+          "StartArea",
+          "FinishArea"
+        ],
+        "start_area": [
+          {
+            "no": "0",
+            "type": "markers\\green_marker",
+            "pos": "-1650.84 52.02 171.79",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "1",
+            "type": "markers\\green_marker",
+            "pos": "-1656.52 52.30 163.09",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "2",
+            "type": "markers\\green_marker",
+            "pos": "-1678.49 54.75 171.13",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "3",
+            "type": "markers\\green_marker",
+            "pos": "-1671.25 54.93 184.87",
+            "dir": "1.00 0.00 0.00"
+          }
+        ],
+        "cameras_marker0": {
+          "no": "0",
+          "type": "markers\\green_marker",
+          "pos": "-982.10 52.20 467.87",
+          "dir": "1.00 0.00 0.00"
+        }
+      },
+      "retail": {
+        "path": "retail/Data.sma_unpacked/DataScene/RaceTest/France1.xml",
+        "bytes": 474787,
+        "sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+        "marker_list_names": [
+          "Cameras",
+          "RaceLine",
+          "StartArea",
+          "FinishArea",
+          "LeftInnerLimit",
+          "LeftOuterLimit",
+          "RightInnerLimit",
+          "RightOuterLimit"
+        ],
+        "start_area": [
+          {
+            "no": "0",
+            "type": "markers\\green_marker",
+            "pos": "-1649.71 52.42 174.33",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "1",
+            "type": "markers\\green_marker",
+            "pos": "-1658.30 53.26 160.72",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "2",
+            "type": "markers\\green_marker",
+            "pos": "-1678.49 55.13 171.13",
+            "dir": "1.00 0.00 0.00"
+          },
+          {
+            "no": "3",
+            "type": "markers\\green_marker",
+            "pos": "-1671.25 54.64 184.87",
+            "dir": "1.00 0.00 0.00"
+          }
+        ],
+        "cameras_marker0": {
+          "no": "0",
+          "type": "markers\\yellow_marker",
+          "pos": "-982.09 52.20 467.87",
+          "dir": "1.00 0.00 0.00"
+        }
+      }
+    },
+    "candidate_center_source_xyz": [
+      -982.0555419921875,
+      -468.6667175292969,
+      53.5390510559082
+    ],
+    "candidate_center_dx_xyz": [
+      -982.0555419921875,
+      53.5390510559082,
+      468.6667175292969
+    ],
+    "candidate_center_to_demo_9_10_cameras_marker0_distance": 1.558779,
+    "start_area_positions_same_demo_8_4_through_9_10": true,
+    "assessment": "RaceTest MarkerLists/StartArea is a candidate for physical start-region geometry, but has no proven runtime binding to car slot positions. The GXM startpoint candidate correlates with Cameras Marker 0 and tag100, not with observed car placement. Participant order varies by runtime in human controls; exact physical slot source remains UNKNOWN.",
+    "physical_slot_geometry": "UNKNOWN / NOT LOCALIZED",
+    "participant_order": "HIGH_CONFIDENCE_INFERENCE: runtime/version-specific assignment contributes to observed order; details unknown"
+  },
+  "stronger_startpoint_volume_probe": {
+    "justified": true,
+    "source_edit": "translate all eight candidate point X values by +12.0 source units",
+    "new_aabb_source_xyz": {
+      "min": [
+        -975.0555419921875,
+        -473.6667175292969,
+        48.5390510559082
+      ],
+      "max": [
+        -965.0555419921875,
+        -463.6667175292969,
+        58.5390510559082
+      ]
+    },
+    "old_new_x_gap": 2.0,
+    "cameras_marker0_dx_xyz": [
+      -982.1,
+      52.2,
+      467.87
+    ],
+    "cameras_marker0_outside_new_aabb_by_x": 7.044458007812523,
+    "other_pool_point_count_in_new_aabb": 0,
+    "nearest_other_pool_point": {
+      "index": 22590,
+      "source_xyz": [
+        -967.324462890625,
+        -465.3193359375,
+        47.23867416381836
+      ],
+      "distance_to_aabb": 1.3003768920898438
+    },
+    "other_pool_points_within_3_units": 33,
+    "direction_choice_note": "-12.0 puts one non-candidate pool point inside the translated AABB; +12.0 puts none. +12 is the cleaner geometric isolation, though nearby points remain."
+  },
+  "bsp_status": {
+    "source_bsp_to_tag100": "UNKNOWN",
+    "clean_small_bsp_source_cooked_pair_available": false,
+    "complete_course_pairs_with_bsp": [
+      "Demo 8.4.1 France1",
+      "Demo 8.4.1 Italy1"
+    ],
+    "small_developer_pair_without_bsp": "Demo 8.4.1 boinds/track01",
+    "tag100_physical_collision_semantics": "UNKNOWN"
+  },
+  "next_controlled_probe": {
+    "priority": "Retail RaceTest StartArea XML-only translation in fixed Retail runtime; target physical slot geometry separately from participant order",
+    "target": "fresh isolated Retail runtime with an old-source France1 cook output already confirmed to load",
+    "only_edit": "active Retail DataScene/RaceTest/France1.xml: add +3.0 to X for all four MarkerLists/StartArea/Marker Pos fields; preserve all other XML and course/runtime inputs",
+    "expected_interpretation": [
+      "car slot positions move by +3 in X: StartArea influences physical placement",
+      "only green marker visuals move: StartArea is not a direct vehicle-slot anchor",
+      "no observable change: relation remains unknown; then consider GXM +12 as a separate containment test"
+    ],
+    "not_performed": true,
+    "marker_positions": [
+      {
+        "marker_no": 0,
+        "before": [
+          -1649.71,
+          52.42,
+          174.33
+        ],
+        "after": [
+          -1646.71,
+          52.42,
+          174.33
+        ]
+      },
+      {
+        "marker_no": 1,
+        "before": [
+          -1658.3,
+          53.26,
+          160.72
+        ],
+        "after": [
+          -1655.3,
+          53.26,
+          160.72
+        ]
+      },
+      {
+        "marker_no": 2,
+        "before": [
+          -1678.49,
+          55.13,
+          171.13
+        ],
+        "after": [
+          -1675.49,
+          55.13,
+          171.13
+        ]
+      },
+      {
+        "marker_no": 3,
+        "before": [
+          -1671.25,
+          54.64,
+          184.87
+        ],
+        "after": [
+          -1668.25,
+          54.64,
+          184.87
+        ]
+      }
+    ],
+    "record_separately": [
+      "physical car positions",
+      "participant order",
+      "green marker visuals"
+    ]
+  },
+  "validation": {
+    "synthetic_suite": {
+      "command": "python -m unittest discover -s tests\\synthetic -v",
+      "result": "PASS",
+      "tests": 137
+    },
+    "blender_version": "5.2.2 LTS",
+    "blender_course_import": {
+      "script": "tests/blender/r5t_a_course_smoke.py",
+      "result": "PASS",
+      "courses": [
+        {
+          "course": "retail_Italy1",
+          "vertices": 54612,
+          "triangles": 41722,
+          "draws": 837,
+          "material_slots": 75,
+          "dxt_loaded": 75
+        },
+        {
+          "course": "retail_France1",
+          "vertices": 65206,
+          "triangles": 64577,
+          "draws": 995,
+          "material_slots": 97,
+          "dxt_loaded": 97
+        }
+      ],
+      "command": "& 'D:\\Game\\Master Rallye\\_reverse-tools\\blender-5.2.2-windows-x64\\blender.exe' -b --factory-startup --python tests\\blender\\r5t_a_course_smoke.py -- inputs\\retail_Italy1\\track01.dx inputs\\retail_France1\\france1.dx .research-output\\r5t_c\\r5t_a_course_smoke.json",
+      "startup_mode": "--factory-startup (avoids auto-loaded user add-on registration conflict)"
+    },
+    "blender_racetest_xml": {
+      "script": "tests/blender/r5t_b_xml_smoke.py",
+      "result": "PASS",
+      "build": "Demo 9.10.0",
+      "markers": 583,
+      "markers_with_issues": 0,
+      "command": "& 'D:\\Game\\Master Rallye\\_reverse-tools\\blender-5.2.2-windows-x64\\blender.exe' -b --factory-startup --python tests\\blender\\r5t_b_xml_smoke.py -- inputs\\9.10.0_France1\\france1.dx 'D:\\Game\\Master Rallye\\corpora\\demo-9.10.0\\DataScene\\RaceTest\\France1.xml' .research-output\\r5t_c\\r5t_b_xml_smoke.json",
+      "startup_mode": "--factory-startup (avoids auto-loaded user add-on registration conflict)"
+    },
+    "blender_gxm_helper": {
+      "script": "tests/blender/r5t_b1_gxm_helper_smoke.py",
+      "result": "PASS",
+      "candidate_points": 8,
+      "point_only": true,
+      "command": "& 'D:\\Game\\Master Rallye\\_reverse-tools\\blender-5.2.2-windows-x64\\blender.exe' -b --factory-startup --python tests\\blender\\r5t_b1_gxm_helper_smoke.py -- inputs\\8.4.1_France1\\France1.gxm .research-output\\r5t_c\\r5t_b1_gxm_helper_smoke.json",
+      "startup_mode": "--factory-startup (avoids auto-loaded user add-on registration conflict)"
+    },
+    "tool_compare": {
+      "command": "python tools\\r5t_b1_course_cook.py compare --experiment france1-startpoint-whole-x3 --minimum-runs 2",
+      "result": "PASS",
+      "baseline_runs": 2,
+      "modified_runs": 2,
+      "changed_fields": 27,
+      "unchanged_fields": 3532,
+      "baseline_variable_fields": 0,
+      "stable_modified_fields": 5,
+      "variable_modified_fields": 22,
+      "compiled_stable_effect_fields": 2
+    },
+    "tool_validate_after_cook": {
+      "command": "python tools\\r5t_b1_course_cook.py validate --experiment france1-startpoint-whole-x3",
+      "result": "NOT_APPLICABLE_AFTER_COOK",
+      "reason": "generated DX/DXT caches are present; validator checks the pre-cook cache-cleared state; saved validation.json records PASS_STAGED"
+    }
+  },
+  "cross_runtime_start_order_control": {
+    "evidence": "CONFIRMED_BY_RUNTIME; owner-reported cross-runtime comparison with three opponents",
+    "observations": [
+      {
+        "runtime": "Demo 8.4.1",
+        "player_order": "consistently front / old 8.4-style order"
+      },
+      {
+        "runtime": "Demo 9.3.1",
+        "player_order": "consistently second"
+      },
+      {
+        "runtime": "Retail",
+        "player_order": "normal Retail France1 order"
+      }
+    ],
+    "retail_portability_control": {
+      "inputs": "Both completed R5T-C course output sets derived from old 8.4.1 France1 source were copied into Retail.",
+      "baseline_output_order": "normal Retail France1 order",
+      "modified_output_order": "normal Retail France1 order",
+      "copied_file_list": "not specified in the runtime report"
+    },
+    "assessment": {
+      "participant_to_slot_assignment": "HIGH_CONFIDENCE_INFERENCE: runtime/version affects at least part of the visible player/AI order; exact assignment logic unknown",
+      "physical_slot_geometry": "UNKNOWN; this control does not prove the slots are runtime-only",
+      "course_authored_start_data": "not excluded"
+    },
+    "supersedes": "Do not use the old 8.4-style participant order observed in a 9.10 run as proof that participant order is authored by France1 source."
+  }
+}
