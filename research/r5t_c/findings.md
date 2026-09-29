@@ -6,6 +6,13 @@ rigid source edit deterministically changes tag100 but does not move the player
 or AI starting arrangement. The actual grid source remains unlocalized. No
 course writer, executable patch, or custom layout was added.
 
+> Later R5T-D.0 evidence supersedes the grid-source status above: controlled
+> Retail RaceTest XML edits confirm that the four `MarkerLists/StartArea`
+> positions drive the physical grid frame and headings. The R5T-C GXM result
+> remains unchanged: its rigid +3 edit changed tag100 but did not move the grid.
+> Per-car interpolation and participant assignment remain unresolved. See
+> `research/r5t_d0/findings.md`.
+
 ## Baseline
 
 - Branch: `research/r5t-course-archaeology`.

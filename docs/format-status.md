@@ -12,7 +12,8 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.fl` / `.sf` | Historical 20-byte-header fields with four payload bytes per cell in scanned Demo 8.4.1 candidates. | **CONFIRMED** structure / **UNKNOWN** semantic | Ten candidates satisfy `20 + W*H*4`; direct semantic equivalence to SFL is not established. |
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
-| Course `.gxm` | Demo 8.4.1 source header, counted bank, and exact trailing node table cross-validated against paired TXT; a bounded float3 bank correlates spatially with cooked DX. | **CONFIRMED_BY_SOURCE_COMPILED_PAIR** for measured positions and controlled tag100 responses; node-to-point links and runtime role **UNKNOWN** | France1 one-point +1 and whole-box +3 edits both changed tag100 reproducibly. The whole-box edit did not move cars in the tested Demo 9.10 comparison. Later controls show participant order varies by runtime; physical slot geometry remains unresolved. See `docs/course-source.md` and `research/r5t_c/`. |
+| Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; runtime meanings are field-specific | All 41 retail RaceTest XML files parse. Runtime edits confirm StartArea grid geometry, FinishArea completion-region contribution, split Radius extent, and separate split visual/trigger positions. The gameplay trigger center remains unknown. See `docs/course-importer.md` and `research/r5t_d0/`. |
+| Course `.gxm` | Demo 8.4.1 source header, counted bank, and exact trailing node table cross-validated against paired TXT; a bounded float3 bank correlates spatially with cooked DX. | **CONFIRMED_BY_SOURCE_COMPILED_PAIR** for measured positions and controlled tag100 responses; node-to-point links and runtime role **UNKNOWN** | France1 one-point +1 and whole-box +3 edits both changed tag100 reproducibly. Moving the whole GXM candidate did not move cars. R5T-D.0 separately confirmed RaceTest StartArea as the physical grid frame. See `docs/course-source.md` and `research/r5t_c/`. |
 
 ## Course status (R5T-C evidence closeout)
 
@@ -45,9 +46,41 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
   the normal retail order. This supports version-dependent participant-slot
   assignment; it does not locate physical start slots or prove they are
   runtime-only.
-- **UNKNOWN:** physical slot/start-region source, `$bsp -> tag100`, and tag100
-  physical meaning. The next controlled probe is an XML-only +3 X translation
-  of retail France1 `StartArea` marker positions in a fixed Retail runtime.
+- **UNKNOWN:** exact per-car slot interpolation, `$bsp -> tag100`, and tag100
+  physical meaning. R5T-D.0 later confirmed the France1 RaceTest StartArea
+  geometry controls grid placement and heading; see the current race-logic
+  status below.
+
+## Course race-logic status (R5T-D.0)
+
+- **CONFIRMED_BY_RUNTIME_EDIT:** translating, rotating, or scaling the four
+  France1 `MarkerLists/StartArea` positions moves, rotates, or expands the
+  physical starting grid; headings follow its orientation. This does not prove
+  a one-marker-to-one-car mapping or exact interpolation math.
+- **CONFIRMED_BY_RUNTIME_EDIT:** expanding `MarkerLists/FinishArea` advances
+  race completion. The list contributes to the completion region; exclusivity
+  is not established.
+- **CONFIRMED_BY_RUNTIME_EDIT:** `gaRaceSplitTimeAI/Radius` changes the extent
+  at which the optional split event fires. `ExtraTime` semantics remain
+  **UNKNOWN**.
+- **CONFIRMED_BY_RUNTIME_EDIT:** a SplitTime Egg `en3d Matrix` Row3 edit moves
+  the yellow visual sign but does not move the gameplay trigger. Row3 as the
+  trigger center is **REJECTED / NOT SUPPORTED**; the actual trigger center
+  remains **UNKNOWN**.
+- **HIGH_CONFIDENCE_INFERENCE candidate:** the repeated four-Egg group
+  `SplitTimes/SplitTimeN-0…3` is the strongest static trigger-position
+  candidate. Its centroid is close to the visual Egg and its corner distance
+  closely matches Radius across IDs 0–2. This is not runtime-confirmed.
+- The nearest RaceLine marker indices 112, 224, and 336 are a separate
+  **PLAUSIBLE** correlation only. No edit or XML reference binds them to the
+  trigger.
+- **Prepared, not run:** one source-isolated edit shifts only SplitTime0's four
+  sibling Egg Row3 XYZ triplets by `(806.07, -30.75, 283.39)` toward StartArea.
+  The visual sign, Radius/ID/ExtraTime, RaceLine, StartArea, and other splits
+  remain fixed. See `research/r5t_d0/split-trigger-localization.md`.
+- The runtime-dependent player-to-slot ordering across 8.4.1, 9.3.1, and
+  Retail is separate from this physical geometry question and was not analyzed
+  here.
 - The small complete developer Boinds pair has no `$bsp` node and uses revision
   125, unsupported by the current course parser. Other local small `$bsp`
   sources lack matching TXT/DX, so no isolated `$bsp` edit is prepared.
@@ -268,7 +301,7 @@ Across three Demo 8.4.1 GXM/TXT/DX pairs (France1, Italy1, developer Boinds), th
 
 ## R5T-C France1 whole-volume source probe
 
-Two baseline and two modified Demo 9.10 cooks verified a rigid +3 source-X translation of the eight-point France1 candidate. The 10,118,248-byte tag100 suffix is byte-identical within each cohort and different across cohorts; the edit changes 263 bytes in 142 ranges. Render prefixes vary between repeat cooks. The owner observed no change to player/AI positions, formation, countdown or race start, so a direct grid-anchor role is not supported by this movement. The source of the old formation remains unlocalized. The strongest direct candidate found so far is the RaceTest `MarkerLists/StartArea`; no runtime binding is proven. A non-overlap `X += 12` GXM test is geometrically justified for containment but has not been run. `$bsp -> tag100` and tag100 physical meaning remain **UNKNOWN**. See `research/r5t_c/whole-x3-closeout.md` and `research/r5t_c/findings.md`.
+Two baseline and two modified Demo 9.10 cooks verified a rigid +3 source-X translation of the eight-point France1 candidate. The 10,118,248-byte tag100 suffix is byte-identical within each cohort and different across cohorts; the edit changes 263 bytes in 142 ranges. Render prefixes vary between repeat cooks. The owner observed no change to player/AI positions, formation, countdown or race start, so a direct grid-anchor role is not supported by this movement. At the R5T-C checkpoint the grid source was still open; later R5T-D.0 Retail edits confirmed that RaceTest `MarkerLists/StartArea` drives the physical grid frame and headings, while exact per-car interpolation remains unknown. A non-overlap `X += 12` GXM test could test the remaining containment/helper possibility but is not the current grid-placement test. `$bsp -> tag100` and tag100 physical meaning remain **UNKNOWN**. See `research/r5t_c/whole-x3-closeout.md`, `research/r5t_c/findings.md`, and `research/r5t_d0/findings.md`.
 
 ## R5V-C ID25 experimental runtime status
 

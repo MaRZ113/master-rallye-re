@@ -101,12 +101,30 @@ if course_pair is not None:
     overlays = [
         collection for collection in bpy.data.collections
         if collection.get("mr_xml_source") == str(xml_path)
+        and collection.get("mr_xml_collection_kind") == "race_logic_root"
     ]
-    if len(overlays) != 1 or len(overlays[0].objects) != expected:
+    if len(overlays) != 1:
+        raise AssertionError("packaged XML race-logic hierarchy was not created exactly once")
+    descendants = []
+    def walk(collection):
+        descendants.append(collection)
+        for child in collection.children:
+            walk(child)
+    walk(overlays[0])
+    marker_count = sum(
+        1 for collection in descendants for obj in collection.objects
+        if obj.get("mr_course_helper_kind") == "RaceTest XML Marker"
+    )
+    split_count = sum(
+        1 for collection in descendants for obj in collection.objects
+        if obj.get("mr_course_helper_kind") == "RaceTest split-time visual sign icon"
+    )
+    if marker_count != expected or split_count != len(document.split_time_eggs):
         raise AssertionError("packaged XML marker count or collection mismatch")
     payload["vendored_course_import"] = "PASS"
     payload["course_xml_overlay"] = "PASS"
-    payload["course_xml_marker_count"] = expected
+    payload["course_xml_marker_count"] = marker_count
+    payload["course_xml_split_visual_count"] = split_count
     if gxm_source is not None:
         result = bpy.ops.import_scene.master_rallye_course_gxm_startpoint(filepath=str(gxm_source))
         if result != {"FINISHED"}:

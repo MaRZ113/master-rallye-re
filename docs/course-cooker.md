@@ -66,9 +66,11 @@ was treated as possible source-authored behavior. That interpretation is
 withdrawn: later cross-runtime controls observed the player at the front in
 8.4.1, second in 9.3.1, and in the normal retail order in Retail. Both old-source
 cook outputs placed in Retail also showed the normal retail order. This supports
-runtime/version-dependent participant-to-slot assignment but does not show
-whether physical slots are course-authored. The isolated France1 reload also
-reached the logged successful load after each forced rebuild. The bridge proves
+runtime/version-dependent participant-to-slot assignment but does not identify
+the physical slot interpolation. Later R5T-D.0 Retail edits confirmed that the
+four RaceTest `StartArea` points drive the physical grid frame and headings.
+The isolated France1 reload also reached the logged successful load after each
+forced rebuild. The bridge proves
 that DX revision 135 can contain a substantially different course graph from
 native 9.10.0 or retail; revision alone is not a complete compatibility
 signature.

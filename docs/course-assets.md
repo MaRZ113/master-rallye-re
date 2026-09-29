@@ -43,8 +43,10 @@ Later controls show that order varies across runtimes: 8.4.1 places the player
 at the front, 9.3.1 places the player second, and Retail shows its normal order.
 Both old-source cook outputs also showed the normal Retail order when copied
 into the Retail runtime. The old-order observation therefore does not establish
-source-authored participant ordering. Physical slot positions or a start-region
-structure may still be course-authored; their source remains unknown. The
+source-authored participant ordering. Later R5T-D.0 runtime edits confirm that
+the four RaceTest `StartArea` markers drive the physical grid frame and vehicle
+headings. Exact per-car slot interpolation and participant assignment remain
+unknown. The
 cooker trigger is reproduced: launch the 9.10.0 runtime and select France1
 after removing cached DX and DXT files in an isolated course copy. Two forced
 rebuilds produced validated rev135 DX; DX render prefixes vary, while all 172

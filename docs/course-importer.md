@@ -1,6 +1,6 @@
-# Course DX import in Blender
+# Course and RaceTest import in Blender
 
-R5T-A adds a read-only course path to the existing Master Rallye Blender add-on. It uses the shared DX arrays, sidecar parser, coordinate conversion, DXT decoder, preview material code, and mesh metadata representation. R5T-B adds a separate RaceTest XML marker overlay to that same add-on. Neither path writes course resources.
+R5T-A adds a read-only course path to the existing Master Rallye Blender add-on. It uses the shared DX arrays, sidecar parser, coordinate conversion, DXT decoder, preview material code, and mesh metadata representation. R5T-D.0 extends the RaceTest XML path in that same add-on with a hierarchy-preserving parser and typed race-logic helpers. Neither path writes course resources.
 
 ## Import
 
@@ -12,21 +12,43 @@ Source positions use the established Master Rallye to Blender conversion `(X, Y,
 
 Course objects are marked `READ_ONLY`. The vehicle position, attribute, and topology exporters reject them. R5T-A implements no DX, BSP, route, checkpoint, surface, or SFL writer.
 
-## RaceTest XML marker overlay (R5T-B)
+## RaceTest XML markers (R5T-B; hierarchy update in R5T-D.0)
 
-With a course mesh active, use **Import RaceTest XML Markers** in the course
-panel and select its `DataScene/RaceTest/<course>.xml`. The operator extracts
-literal `Marker Pos` and `Marker Dir` Vector3 values, places one neutral sphere
-Empty for each marker with a valid position, and retains the raw XML record,
-marker number/type, source path, and source coordinates as custom metadata. It
-applies the same `(X, Y, Z) → (X, -Z, Y)` coordinate conversion as course DX.
-Direction is preserved as metadata and does not orient the display object.
+With a course mesh active, use **Import RaceTest XML Race Logic** in the course
+panel and select its `DataScene/RaceTest/<course>.xml`. The parser retains the
+complete XML element tree and exposes ordered `MarkerLists`, `EggLists`, Egg
+matrices, AI objects, and direct Egg/AI/component values. Source attributes and
+unknown named values remain available on the typed objects and on split-helper
+metadata. Each marker keeps its parent list,
+source index, `No`, `Marker Type`, exact Pos/Dir strings, parsed vectors, XML
+path, and the original named values/attributes.
 
-The overlay uses an `XML Markers - <course>` child collection and does not
-change the render mesh. France1's 583/583 and Italy1's 277/277 Demo 9.10 XML
-marker positions lie inside their matching course DX bounds. This supports
-visual coordinate correlation; it does not identify marker gameplay behavior.
-Headless validation is in `tests/blender/r5t_b_xml_smoke.py`.
+The helper collections live under `Course Helpers/MR_RaceLogic`. StartArea and
+FinishArea have four ordered point helpers and a source-order outline; no filled
+face or car-slot interpolation is invented. Other markers remain grouped by
+their source list. Positions use the established `(X, Y, Z) → (X, -Z, Y)`
+conversion. Directions stay as source metadata.
+
+Split visual Eggs get a small original procedural yellow arrow icon at the
+serialized `en3d Matrix` transform. The visual object stores the raw matrix,
+Split Time ID, Radius, and ExtraTime. The four sibling `SplitTimeN-0…3` Egg
+positions appear in a separate neutral `UNKNOWN` candidate collection. No
+Radius sphere and no gameplay-trigger object is drawn: the trigger position is
+still unknown and the sign transform is proven independent from it. These
+helpers do not contain copied game models or textures.
+
+Runtime evidence labels are attached to StartArea and FinishArea helpers. The
+current France1 inventory contains 1,080 markers in eight lists, 76 Eggs, and
+three split visual Eggs. Headless validation is in
+`tests/blender/r5t_b_xml_smoke.py`; the R5T-D.0 corpus/spatial report is
+`research/r5t_d0/france1-race-logic.md`.
+
+Blender 5.2.2 headless validation passes for both Retail France1 and Italy1.
+The built add-on ZIP was also imported directly from the archive in Blender
+and passed the France1 hierarchy/helper check without installing into the
+user profile. The standard preferences-based installer smoke requires writing
+to Blender's user add-on directory, which is outside this workspace's allowed
+write roots.
 
 ## GXM source point candidate (R5T-B.1)
 

@@ -94,11 +94,12 @@ The owner also reports cross-runtime France1 controls: player order is front in
 cook outputs placed into Retail show the ordinary Retail order. This revises
 the earlier interpretation that the old participant order was preserved by
 course source. Runtime/version-dependent participant-slot assignment is a
-strong inference; the source of physical slots or start-region geometry remains
-unknown. The next controlled probe is to move the four Retail France1
-RaceTest `StartArea` marker positions by +3 in X in a fixed Retail runtime,
-recording car positions separately from marker visuals. Exact source spans,
-hashes, runtime notes, and the revised probe plan are in
+strong inference. Later R5T-D.0 Retail edits confirm that the four RaceTest
+`StartArea` positions drive the physical grid frame, including translation,
+orientation, spacing, and heading; per-car interpolation and participant
+assignment remain unresolved. This supersedes the earlier proposal to probe
+whether StartArea moves the grid. Exact source spans, hashes, runtime notes,
+and the split-trigger probe are in
 [`research/r5t_c/whole-x3-closeout.md`](../research/r5t_c/whole-x3-closeout.md).
 
 The read-only tag100 differential reports 452 changed bytes across 253 ranges
@@ -120,3 +121,38 @@ validation pair, not a substitute for missing isolated oracles.
 
 The current parser can inventory and compare source hierarchy metadata with
 `mrtool diff-course`. It is not a GXM writer and does not modify game assets.
+
+## R5T-D.0 RaceTest split-source correlation
+
+The retail RaceTest hierarchy now provides a stronger course-side baseline for
+race logic. The complete France1 XML has 1,080 ordered Marker records in eight
+MarkerLists and 76 Eggs. France1 and Italy1's 8.4.1 GXM/TXT pairs were searched
+through the canonical node table: France1 exposes literal `FINISHLINE` and
+`COLLIDE_finishline*` names; Italy1 exposes `STARTLINE`, `FINISHLINE`,
+`COLLIDE_finishline*`, and `_bsplitX`. These names do not spatially bind to the
+retail XML areas or split triggers. No `$splittime0/1/2` node was found in
+either paired France1 or Italy1 source.
+
+The 8,325,199-byte Demo 8.4.1 `RussiaTurkey1.gxm` contains source strings for
+`$splittime0` at `0x7F07AE`, `$splittime1` at `0x7F07C7`, and `$splittime2` at
+`0x7F07E0`. The supplied corpus has no matching TXT, cooked DX, or
+same-identity RaceTest XML for that file. It therefore remains a source-name
+observation, not a source-to-XML/runtime correlation.
+
+Retail France1's RaceTest XML contains one `gaRaceSplitTimeAI` Egg for each ID
+0–2. Each has four sibling Eggs named `SplitTimeN-0` through `SplitTimeN-3`.
+Their four matrix Row3 positions form compact repeated point groups. Group
+centroids are within 0.253, 2.426, and 1.033 units of the corresponding visual
+SplitTime Egg. The group-to-corner distances closely match Radius values 21,
+13, and 12. This is a **HIGH_CONFIDENCE_INFERENCE candidate** for gameplay
+trigger placement, not a decoded link. The nearer RaceLine samples at indices
+112/224/336 are a separate **PLAUSIBLE** correlation only. The visual Egg
+Row3 is confirmed as the yellow-sign position, but a runtime edit rejected it
+as the trigger center. The actual trigger center is **UNKNOWN**.
+
+The single prepared next test moves only the four `SplitTime0-0…3` matrix
+Row3 XYZ triplets by `(806.07, -30.75, 283.39)` to the StartArea centroid. It
+leaves the visual SplitTime0 Egg, its ID/Radius/ExtraTime, RaceLine, StartArea,
+and SplitTime1/2 unchanged. It was prepared as an ignored copy, not loaded in
+the game. See `research/r5t_d0/split-trigger-localization.md` and the ignored
+`.research-output/r5t_d0/split0-companion-group-shift/probe-manifest.json`.

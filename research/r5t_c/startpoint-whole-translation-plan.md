@@ -2,6 +2,12 @@
 
 Status: **2+2 cook PASS; source-to-tag100 effect CONFIRMED; direct grid anchor NOT SUPPORTED**.
 
+> This older plan's proposed Retail `StartArea` movement test is superseded:
+> R5T-D.0 has since confirmed that StartArea controls grid translation,
+> orientation, spacing, and heading. The optional GXM non-overlap test would
+> address only the remaining containment/helper possibility, not grid placement.
+> See `research/r5t_d0/findings.md`.
+
 ## Question
 
 Does translating the eight-point France1 candidate as one rigid volume produce

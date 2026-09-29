@@ -5,6 +5,12 @@ source edit and output comparisons are read-only research. No course writer or
 EXE patch was added. The full machine-readable record is
 [`whole-x3-closeout.json`](whole-x3-closeout.json).
 
+> Later R5T-D.0 evidence supersedes this report's open grid-source question:
+> Retail XML edits confirm `MarkerLists/StartArea` drives the physical grid
+> frame and headings. This does not change the controlled R5T-C result that
+> moving the GXM candidate changed tag100 without moving the grid. Exact
+> per-car interpolation remains unknown. See `research/r5t_d0/findings.md`.
+
 ## Source isolation and repeated cooks
 
 The source was Demo 8.4.1 `France1.gxm`, 11,489,135 bytes. Its SHA-256 changed

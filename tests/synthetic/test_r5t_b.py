@@ -208,6 +208,103 @@ class R5TCourseXmlTests(unittest.TestCase):
         with self.assertRaises(FormatError):
             parse_course_xml_bytes(b"<Scene>")
 
+    def test_preserves_marker_list_hierarchy_order_and_start_finish_groups(self):
+        data = (
+            b'<Scene><MarkerLists>'
+            b'<List Name="StartArea"><Marker No="4">'
+            b'<Value Name="Marker Pos" Type="Vector3" Value="1 2 3" Extra="kept" />'
+            b'<Value Name="Marker Dir" Type="Vector3" Value="0 0 1" />'
+            b'</Marker><Marker No="5"><Value Name="Marker Pos" Type="Vector3" Value="4 5 6" />'
+            b'</Marker></List>'
+            b'<List Name="FinishArea"><Marker No="0"><Value Name="Marker Pos" Type="Vector3" Value="7 8 9" />'
+            b'</Marker></List></MarkerLists></Scene>'
+        )
+        document = parse_course_xml_bytes(data, "hierarchy.xml")
+        self.assertEqual([item.name for item in document.marker_lists], ["StartArea", "FinishArea"])
+        start = document.marker_list("StartArea")
+        finish = document.marker_list("FinishArea")
+        self.assertEqual([item.marker_no for item in start.markers], ["4", "5"])
+        self.assertEqual([item.index_in_list for item in start.markers], [0, 1])
+        self.assertEqual([item.marker_list_ordinal for item in start.markers], [0, 0])
+        self.assertEqual(start.markers[0].position, (1.0, 2.0, 3.0))
+        self.assertEqual(start.markers[0].direction, (0.0, 0.0, 1.0))
+        self.assertEqual(dict(start.markers[0].record.value("Marker Pos").attributes)["Extra"], "kept")
+        self.assertEqual(finish.markers[0].position, (7.0, 8.0, 9.0))
+        self.assertTrue(start.markers[0].record.xml_path.endswith("Marker[@No='4']"))
+        self.assertEqual(document.root.tag, "Scene")
+        self.assertEqual(document.root.children[0].children[0].attribute("Name"), "StartArea")
+
+    def test_duplicate_marker_list_names_keep_distinct_ordinals_and_local_indices(self):
+        data = (
+            b'<Scene><MarkerLists><List Name="Repeated">'
+            b'<Marker No="a"><Value Name="Marker Pos" Type="Vector3" Value="1 2 3" /></Marker>'
+            b'</List><List Name="Repeated">'
+            b'<Marker No="b"><Value Name="Marker Pos" Type="Vector3" Value="4 5 6" /></Marker>'
+            b'</List></MarkerLists></Scene>'
+        )
+        document = parse_course_xml_bytes(data, "duplicate-lists.xml")
+        self.assertEqual([item.name for item in document.marker_lists], ["Repeated", "Repeated"])
+        self.assertEqual([item.ordinal for item in document.marker_lists], [0, 1])
+        self.assertEqual([len(item.markers) for item in document.marker_lists], [1, 1])
+        self.assertEqual([item.markers[0].marker_list_ordinal for item in document.marker_lists], [0, 1])
+        self.assertEqual([item.markers[0].index_in_list for item in document.marker_lists], [0, 0])
+
+    def test_extracts_split_egg_matrix_ai_fields_and_source_order(self):
+        data = (
+            b'<Scene><EggLists_Version4><List Name="SplitTimes">'
+            b'<Egg Name="SplitTime0"><Value Name="en3d Model Name" Type="String" Value="test\\arrow" />'
+            b'<Value Name="Egg Custom Field" Type="String" Value="keep-egg" Extra="egg-meta" />'
+            b'<Value Name="en3d Matrix" Type="Matrix" Row0="1 0 0 0" Row1="0 1 0 0" '
+            b'Row2="0 0 1 0" Row3="10 20 30 1" />'
+            b'<AI_List><AI No="0" Extra="ai-meta"><Value Name="AI Name" Type="String" Value="gaRaceSplitTimeAI" />'
+            b'<Value Name="AI Custom Field" Type="String" Value="keep-ai" />'
+            b'<gaRaceSplitTimeAI><Value Name="Split Time ID" Type="Int" Value="0" />'
+            b'<Value Name="Radius" Type="Float" Value="21.00000" />'
+            b'<Value Name="ExtraTime" Type="Float" Value="77.50000" />'
+            b'<Value Name="Component Custom Field" Type="String" Value="keep-component" Extra="component-meta" />'
+            b'</gaRaceSplitTimeAI></AI></AI_List></Egg>'
+            b'<Egg Name="SplitTime1"><AI_List><AI No="0"><Value Name="AI Name" Type="String" Value="gaRaceSplitTimeAI" />'
+            b'<gaRaceSplitTimeAI><Value Name="Split Time ID" Type="Int" Value="1" /></gaRaceSplitTimeAI>'
+            b'</AI></AI_List></Egg></List></EggLists_Version4></Scene>'
+        )
+        document = parse_course_xml_bytes(data, "split.xml")
+        self.assertEqual([egg.name for egg in document.split_time_eggs], ["SplitTime0", "SplitTime1"])
+        first = document.split_time_eggs[0]
+        self.assertEqual((first.list_name, first.index_in_list), ("SplitTimes", 0))
+        self.assertEqual(first.model_name, "test\\arrow")
+        self.assertEqual(first.matrix().position, (10.0, 20.0, 30.0))
+        self.assertEqual(first.matrix().row(0), (1.0, 0.0, 0.0, 0.0))
+        self.assertEqual(dict(first.matrix().attributes)["Row3"], "10 20 30 1")
+        self.assertEqual(first.values[1].name, "Egg Custom Field")
+        self.assertEqual(dict(first.values[1].attributes)["Extra"], "egg-meta")
+        component = first.split_time_component
+        self.assertEqual(component.value("Split Time ID").value, "0")
+        self.assertEqual(component.value("Radius").value, "21.00000")
+        self.assertEqual(component.value("ExtraTime").value, "77.50000")
+        self.assertEqual(first.ai_objects[0].ai_no, "0")
+        self.assertEqual(first.ai_objects[0].ai_name, "gaRaceSplitTimeAI")
+        self.assertEqual(dict(first.ai_objects[0].attributes)["Extra"], "ai-meta")
+        self.assertEqual(first.ai_objects[0].values[1].value, "keep-ai")
+        self.assertEqual(component.value("Component Custom Field").value, "keep-component")
+        self.assertEqual(dict(component.value("Component Custom Field").attributes)["Extra"], "component-meta")
+        self.assertEqual(document.split_time_eggs[1].split_time_component.value("Split Time ID").value, "1")
+        self.assertEqual(document.split_time_records[0].egg_name, "SplitTime0")
+        self.assertTrue(document.split_time_records[0].xml_path.endswith("gaRaceSplitTimeAI[0]"))
+
+    def test_malformed_optional_matrix_and_absent_optional_fields_are_preserved(self):
+        document = parse_course_xml_bytes(
+            b'<Scene><EggLists_Version4><List Name="SplitTimes"><Egg Name="SplitTime0">'
+            b'<Value Name="en3d Matrix" Type="Matrix" Row3="1 bad 3 1" />'
+            b'<AI_List><AI No="0"><Value Name="AI Name" Type="String" Value="gaRaceSplitTimeAI" />'
+            b'<gaRaceSplitTimeAI><Value Name="Split Time ID" Type="Int" Value="0" /></gaRaceSplitTimeAI>'
+            b'</AI></AI_List></Egg></List></EggLists_Version4></Scene>'
+        )
+        egg = document.split_time_eggs[0]
+        self.assertIsNone(egg.matrix().position)
+        self.assertTrue(egg.matrix().issues)
+        self.assertIsNone(egg.split_time_component.value("Radius"))
+        self.assertEqual(egg.split_time_component.value("Split Time ID").value, "0")
+
 
 class R5TCourseDiffTests(unittest.TestCase):
     def test_semantic_diff_reports_dx_txt_sfl_xml_hnt_and_gxm_changes(self):

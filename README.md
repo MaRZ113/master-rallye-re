@@ -54,34 +54,23 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 
 Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
-## Course resources (R5T-C evidence closeout)
+## Course resources (R5T-D.0 race-logic update)
 
-The Vehicle SDK v1 baseline is frozen. R5T-A's read-only revision-135 course
-DX parser and Italy1/France1 Blender import remain validated. R5T-B reproduced
-the Demo 9.10 cooker trigger in an isolated clone: launch the runtime and
-select France1 after clearing its DX/DXT cache. The old 8.4.1 France1/Italy1
-GXM node tables parse exactly against TXT sidecars, and RaceTest XML markers can
-be added to the existing Blender course scene as a read-only overlay. Source
-positions have a strong global source-to-DX correlation across France1, Italy1,
-and developer Boinds; per-node point membership remains unknown.
+The Vehicle SDK v1 baseline remains frozen. The read-only revision-135 course
+DX parser and Italy1/France1 Blender imports remain validated. R5T-C confirms
+that moving the old GXM `startpoint` candidate changes tag100 deterministically,
+but its +3 translation did not change the visible grid. Cross-runtime controls
+separate runtime participant ordering from physical slot geometry.
 
-Three baseline and three modified France1 cooks confirmed that one isolated
-+1.0 source-X point edit deterministically changes tag100 while render prefixes
-vary naturally. A completed 2+2 rigid +3.0 source-X translation of the eight
-candidate points also changes tag100 deterministically (263 bytes, 142 ranges)
-but did not move the player or AI starting positions in the owner's Demo 9.10
-baseline/modified comparison. Direct grid-anchor behavior is not supported;
-containment semantics remain possible because the volumes still overlap. New
-cross-runtime controls show the player at the front in 8.4.1, second in 9.3.1,
-and in the normal retail order in Retail. Both old-source cook outputs also
-showed the normal retail order when copied into the Retail runtime. This
-supports version-dependent participant-to-slot assignment, but does not
-identify physical slot geometry or its source. The old GXM `startpoint`
-candidate remains correlated with tag100 and RaceTest `Cameras/Marker 0`; the
-physical start region remains unlocalized. The next controlled probe is an
-XML-only translation of retail France1 `StartArea` markers in a fixed Retail
-runtime, observing car positions separately from marker visuals. `$bsp ->
-tag100` and tag100 physical meaning remain unknown.
+R5T-D.0's controlled Retail edits now confirm that France1
+`MarkerLists/StartArea` controls physical grid translation, orientation,
+spacing, and heading; `FinishArea` contributes to race completion. Split
+visual signs and gameplay triggers are separate: `gaRaceSplitTimeAI/Radius`
+changes trigger extent, but moving the sign's Egg Row3 moves only the visual
+sign. The trigger center remains unknown. A repeated four-Egg sibling group
+around each split is the strongest static candidate; one isolated XML edit is
+prepared but has not been run. `$bsp -> tag100` and tag100 physical meaning
+remain unknown. See `research/r5t_d0/` and `docs/course-importer.md`.
 
 No course writer, custom layout, or EXE change exists. See
 [`docs/course-assets.md`](docs/course-assets.md),

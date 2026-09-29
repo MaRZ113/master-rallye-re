@@ -417,7 +417,7 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
         box.label(text="BSP / collision, source route, and surface data remain undecoded.")
         box.operator(
             "import_scene.master_rallye_course_xml_markers",
-            text="Import RaceTest XML Markers",
+            text="Import RaceTest XML Race Logic",
             icon="EMPTY_AXIS",
         )
         box.operator(
@@ -425,7 +425,8 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
             text="Import GXM Startpoint Point Candidate",
             icon="EMPTY_SPHERE",
         )
-        box.label(text="XML marker records are shown as a separate read-only overlay.")
+        box.label(text="XML lists retain their hierarchy; Start/Finish areas and split signs get typed helpers.")
+        box.label(text="Split trigger centers remain unknown and are not drawn at the visual signs.")
         box.label(text="GXM startpoint overlay shows points only; connectivity is unknown.")
         box.label(text="No course writer is available.")
         warnings = metadata.get("blender", {}).get("import_warnings", [])
