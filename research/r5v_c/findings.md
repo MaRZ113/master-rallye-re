@@ -1,6 +1,6 @@
 # R5V-C: duplicate-Astero retail slot25 candidate
 
-**Automated candidate READY for human P0; runtime validation WAITING FOR HUMAN.** The experimental copy is under ignored .research-output/r5v_c/runtime-test/. Original retail MRallye.exe, Data.sma, XML, DX/DXT, localization, and IDs 0–24 initializer instructions were not replaced. This is not a gameplay success claim.
+**Owner-reported runtime confirmation: P0 FULL PASS and P1 FULL PASS.** The experimental copy remains under ignored `.research-output/r5v_c/runtime-test/`. The original retail `MRallye.exe`, `Data.sma`, XML, DX/DXT, localization, and IDs 0–24 initializer instructions were not replaced. See [runtime-results.md](runtime-results.md) for the provenance and scope of the human result.
 
 The supported source is SHA-256 bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4; candidate SHA-256 is 672d1945681900f3de5921e7a9032ea6d6e57d5e3fe1b49270e04994520222c2. The patcher is tools/patch_vehicle_slot25.py, with exact operations in patch-plan.json.
 
@@ -10,4 +10,4 @@ The class-2 navigation capacity changes 11→12. ID25's unlock case alone is for
 
 The R5V-B.2 race actor chooses Race/CarN/CarType only on the Frontend/Active branch; a different branch can use a scene Car Name. That uncertainty is deliberately left for P1 after a P0 pass. A wrong/fallback visual with working ID25 physics would be a partial result, not full slot confirmation. The twelfth scene marker is absent, so P0 may pass with a misplaced/invisible selector marker if ID25, stats and Astero preview are demonstrably reachable and navigation is stable.
 
-**Next gate:** owner tests P0 only and reports FULL PASS, UI-PARTIAL PASS or FAIL. P1 must not begin on an automated result alone. Forklift and tracks remain out of scope.
+**Result:** ID25 is confirmed as a selectable duplicate-Astero slot through a complete Quick Race and return to menu, while the original Astero remains usable. This confirms the retail slot pathway, not Trooper assets or an independent vehicle payload. Forklift and tracks remain out of scope.

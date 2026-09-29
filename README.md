@@ -8,7 +8,7 @@ read-only.
 
 ## Current scope
 
-Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
+R5V-A mapped the final EXE registry and two PC demos. R5V-C later initialized allocated retail ID25 and received owner-reported P0/P1 runtime confirmation as a duplicate Astero, demonstrating a 26th playable slot without replacing IDs 0-24. This does not yet prove an independent vehicle payload. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md`, `research/r5v_a/vehicle-slot-feasibility.md`, and `research/r5v_c/runtime-results.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
@@ -177,4 +177,4 @@ Targeted Ghidra analysis found that retail record 25 is allocated but its ID, cl
 
 ## R5V-C duplicate-Astero ID25 runtime proof
 
-A hash-locked patcher now creates an ignored retail EXE copy that initializes the allocated ID25 through the original owned-string initializer, raises class-2 navigation capacity to 12 and overrides only ID25's locked flag for testing. Automated PE, instruction, byte-diff and synthetic checks pass. **RUNTIME VALIDATION: WAITING FOR HUMAN P0** (menu/preview only); P1 Quick Race is gated on the owner's P0 report. No game assets or original EXE were changed. See research/r5v_c/findings.md and research/r5v_c/runtime-test-plan.md.
+A hash-locked patcher creates an ignored retail EXE copy that initializes the allocated ID25 through the original owned-string initializer, raises class-2 navigation capacity to 12 and overrides only ID25's locked flag for testing. Automated PE, instruction, byte-diff and synthetic checks pass. The owner reported P0 FULL PASS and P1 FULL PASS for the duplicate-Astero candidate, including race completion, results, return to menu, and continued operation of original Astero. The report states that retail debug output showed Astero resources loading from ID25; raw logs and screenshots are not stored in the repository. See research/r5v_c/runtime-results.md and research/r5v_c/runtime-test-plan.md.

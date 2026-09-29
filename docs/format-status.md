@@ -211,6 +211,6 @@ The final 44-byte marker-1339 block is typed as center, radius/scalar, min and m
 
 Retail record 25 has a vtable, empty owned-name pointer and four float32 1.0 defaults, while ID/class/stat integers are left unwritten. The frontend class-2 count is compiled as 11, and its `VehicleList` vector contains class labels. The retail unlock switch has case 25, but this does not establish a playable record. R5V-B verdict: **MORE RESEARCH NEEDED; no executable/data patch or runtime candidate.** See `research/r5v_b/findings.md`.
 
-## R5V-C ID25 experimental runtime status
+## R5V-C ID25 runtime status
 
-The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE-copy candidate. Static patch validation passes; **RUNTIME VALIDATION: WAITING FOR HUMAN P0**. There is no confirmed 26th playable vehicle yet, and P1 race testing must wait for a human P0 menu/preview pass. See research/r5v_c/validation.md.
+The allocated retail ID25 is initialized by an automated, hash-locked duplicate-Astero EXE-copy candidate. The owner reports P0 FULL PASS and P1 FULL PASS, including frontend preview, Quick Race behavior, stage completion, results, return to menu, and continued use of the original Astero. The report says retail debug output showed Astero resources loading from ID25. Raw logs and screenshots were not added to the repository; see `research/r5v_c/runtime-results.md`. This proves the slot path with a duplicate payload and does not establish independent vehicle payload support.

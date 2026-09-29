@@ -8,4 +8,4 @@
 - objdump parses the candidate as PE32, reports .text VirtualSize 0x28D300, and disassembles the hook to 0x68E2A0, the stub's calls to 0x4D11D0, 0x45A0B0, 0x4598D0, and the ID25-only unlock return.
 - Synthetic patcher tests cover hash rejection, expected bytes, PE translation, non-overlap, deterministic output, source preservation, dry-run, exact manifest ranges and tamper detection. The full repository test result and commit are recorded with this phase.
 
-**RUNTIME VALIDATION: WAITING FOR HUMAN P0.** Static checks cannot prove frontend rendering, gameplay resource selection or physics behavior.
+**RUNTIME VALIDATION: OWNER-REPORTED P0 FULL PASS / P1 FULL PASS.** The project owner reported frontend selection, Astero preview, complete Quick Race behavior, stage completion, results, return to menu, and continued operation of the original Astero. See [runtime-results.md](runtime-results.md). The report states that retail debug output showed Astero resources loading from ID25; raw logs/screenshots were not included in this repository. Static checks alone cannot prove runtime behavior.

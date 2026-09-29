@@ -15,4 +15,4 @@ Classify:
 
 The owner must explicitly report P0 FULL PASS or UI-PARTIAL PASS before P1. Use the same candidate. Select ID25, start a simple Quick Race, check Astero body and wheels, steering/acceleration/braking/suspension, collision, visual damage/glass where practical, exit/finish, return to menu, then check original Astero ID16. A resource fallback with working physics is RESOURCE-PARTIAL, not full success. Do not intentionally save campaign/progress with ID25 selected. Stop after P1; Forklift is a different phase.
 
-No human P0 or P1 observation exists as of this report.
+Owner-reported P0 FULL PASS and P1 FULL PASS are recorded in [runtime-results.md](runtime-results.md). The report arrived with the R5V-E0 prompt; raw debug output and screenshots were not added to the repository.
