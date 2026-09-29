@@ -54,7 +54,7 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 
 Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
-## Course resources (R5T-B.1 closeout; R5T-C in progress)
+## Course resources (R5T-C in progress)
 
 The Vehicle SDK v1 baseline is frozen. R5T-A's read-only revision-135 course
 DX parser and Italy1/France1 Blender import remain validated. R5T-B reproduced
@@ -69,9 +69,14 @@ Three baseline and three modified France1 cooks now show that one isolated
 +1.0 source-X point edit deterministically changes the 10,118,248-byte tag100
 region, while render prefixes vary naturally. The owner observed no obvious
 starting-grid/gameplay difference from this one-corner tracer; whole-volume
-startpoint semantics remain untested. SFL registration, tag100 structure,
-physical BSP semantics, and foliage runtime fixes remain unresolved. No course
-writer, custom layout, or EXE change exists. See [`docs/course-assets.md`](docs/course-assets.md), [`docs/course-importer.md`](docs/course-importer.md), [`research/r5t_b1/findings.md`](research/r5t_b1/findings.md), and [`research/r5t_b1/startpoint.md`](research/r5t_b1/startpoint.md).
+startpoint semantics remain untested. A read-only tag100 differential reports
+452 changed bytes in 253 ranges; 11 float4 windows look plane-like but do not
+fit the candidate startpoint box under either tested plane equation. A +3.0
+source-X translation of all eight candidate points is staged in paired Demo
+9.10 runtime clones for two baseline and two modified cooks. The source edit
+and stages validate, but compiled and gameplay results are pending. Physical
+BSP semantics remain unknown. No course writer, custom layout, or EXE change
+exists. See [`docs/course-assets.md`](docs/course-assets.md), [`docs/course-importer.md`](docs/course-importer.md), [`research/r5t_b1/findings.md`](research/r5t_b1/findings.md), [`research/r5t_c/findings.md`](research/r5t_c/findings.md), and [`research/r5t_c/startpoint-whole-translation-plan.md`](research/r5t_c/startpoint-whole-translation-plan.md).
 
 ## Blender add-on
 

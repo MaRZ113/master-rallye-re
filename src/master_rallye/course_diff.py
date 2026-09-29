@@ -632,12 +632,14 @@ def compare_course_cook_sets(
 ) -> dict[str, Any]:
     """Compare repeated cooker output trees without confusing natural DX variance.
 
-    At least three independent runs per cohort are mandatory.  Values are
-    compared per resource and parser-derived field; raw file size and SHA-256
-    remain explicit fields so unsupported output is never silently ignored.
+    Three runs are the default. Two may be requested explicitly only for a
+    follow-up that already established repeatability of the target compiled
+    field; broader render-prefix variability may remain under-sampled.
+    Values are compared per resource and parser-derived field; raw file size
+    and SHA-256 remain explicit fields so unsupported output is never hidden.
     """
-    if minimum_runs < 3:
-        raise ValueError("minimum_runs cannot be below the required three cooks per cohort")
+    if minimum_runs < 2:
+        raise ValueError("minimum_runs cannot be below two cooks per cohort")
     if len(baseline_runs) < minimum_runs or len(modified_runs) < minimum_runs:
         raise ValueError(
             f"need at least {minimum_runs} runs in each cohort; got "

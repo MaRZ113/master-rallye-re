@@ -75,6 +75,33 @@ moved, spawning or trigger semantics remain unknown. See
 [`research/r5t_b1/startpoint.md`](../research/r5t_b1/startpoint.md) and
 [`research/r5t_b1/multi-cook-method.md`](../research/r5t_b1/multi-cook-method.md).
 
+## R5T-C whole-volume startpoint candidate
+
+The first-eight France1 candidate points were copied to an isolated source
+folder and translated together by +3.0 source X units. All eight target
+float32 fields receive the same delta; the 10-unit box dimensions are preserved
+with zero measured pairwise-distance change. `France1.gxm` is the only changed
+source file. The original input remains untouched. Exact point spans and hashes
+are recorded in the ignored
+`.research-output/r5t_b1/experiments/france1-startpoint-whole-x3/source-patch.json`.
+
+Two isolated Demo 9.10 runtime clones are staged for two baseline and two
+modified cooks. A validator checks the source manifests, matching runtime
+executable and RaceTest XML hashes, and absence of generated DX/DXT before
+cooking. Current status is `PASS_STAGED`; no compiled effect or gameplay result
+is claimed. The candidate point-to-node binding remains a
+`HIGH_CONFIDENCE_INFERENCE`. See
+[`research/r5t_c/startpoint-whole-translation-plan.md`](../research/r5t_c/startpoint-whole-translation-plan.md).
+
+The read-only tag100 differential reports 452 changed bytes across 253 ranges
+for the earlier one-corner tracer. Eleven float4 windows have unit-length
+first-three-component candidates, but none fits the eight startpoint-box
+corners under either tested plane convention. These are not decoded tag100
+records or proven physical planes. `$bsp` remains unmapped; the small complete
+developer pair has `$boinds`/`$landdb`, not `$bsp`, and the other small `$bsp`
+sources lack matching TXT/DX in the supplied corpus. See
+[`research/r5t_c/findings.md`](../research/r5t_c/findings.md).
+
 ## Remaining source grammar limits
 
 The float3 pool is not yet associated per node. No raceline ordering, limits

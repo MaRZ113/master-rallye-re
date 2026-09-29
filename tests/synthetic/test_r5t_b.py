@@ -315,6 +315,22 @@ class R5TCourseCookSetTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "at least 3 runs"):
                 compare_course_cook_sets(two, two)
 
+    def test_two_run_followup_can_be_requested_explicitly(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            baseline = [
+                self._write_run(root / "baseline" / f"run-{index}", 0.0)
+                for index in range(1, 3)
+            ]
+            modified = [
+                self._write_run(root / "modified" / f"run-{index}", 0.5)
+                for index in range(1, 3)
+            ]
+            report = compare_course_cook_sets(baseline, modified, minimum_runs=2)
+            self.assertEqual(report["minimum_runs_per_cohort"], 2)
+            self.assertEqual(report["summary"]["baseline_run_count"], 2)
+            self.assertEqual(report["summary"]["modified_run_count"], 2)
+
     def test_source_input_difference_is_not_counted_as_compiled_effect(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

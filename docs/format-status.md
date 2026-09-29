@@ -27,6 +27,17 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
   Demo 9.10 with no obvious starting-grid or gameplay difference. The edit
   changed one corner, not the whole candidate volume, so no spawn/trigger
   conclusion follows.
+- **HIGH_CONFIDENCE_INFERENCE:** a read-only diff of the controlled one-point
+  tag100 change finds 11 unit-normal-like float4 windows in three broad changed
+  neighborhoods. None satisfies either tested plane equation on the eight
+  startpoint-box corners under the current global coordinate hypothesis.
+- **PASS_STAGED:** a +3 source-X translation of all eight startpoint-candidate
+  points preserves the box and is staged in matching Demo 9.10 runtime clones
+  for two baseline and two modified cooks. Compiled and runtime observations
+  remain pending.
+- The small complete developer Boinds pair has no `$bsp` node and uses revision
+  125, unsupported by the current course parser. Other local small `$bsp`
+  sources lack matching TXT/DX, so no isolated `$bsp` edit is prepared.
 - The tag100 payload remains structurally opaque. Physical collision, helper
   ownership, and gameplay semantics remain unknown. Course parsing/diagnostics
   are read-only; no course writer exists.

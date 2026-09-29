@@ -89,3 +89,20 @@ owner reports the modified course loaded and showed no obvious starting-grid
 or other gameplay change. Since only one corner moved, whole-volume startpoint
 behavior remains untested. Exact hashes and byte-level changes are recorded in
 the R5T-B.1 closeout and R5T-C differential analysis.
+
+## R5T-C whole-volume startpoint candidate
+
+An ignored source copy now translates all eight France1 startpoint-candidate
+points by +3.0 source X units. The patch preserves the box dimensions and
+changes no paired TXT or other source file. Baseline and modified runtime
+clones are staged for two cold-cache cooks each; they use the same Demo 9.10
+executable and byte-identical RaceTest XML, with generated France1 DX/DXT
+removed before the first run.
+
+The `validate --experiment france1-startpoint-whole-x3` command currently
+reports `PASS_STAGED`. Cooking remains pending: the paired runtime snapshots
+and `compare --minimum-runs 2` report are required before claiming a compiled
+whole-volume effect. A separate human observation is required before claiming
+spawn, trigger, collision or race-start semantics. The exact run steps and
+candidate locations are in
+[`research/r5t_c/startpoint-whole-translation-plan.md`](../research/r5t_c/startpoint-whole-translation-plan.md).

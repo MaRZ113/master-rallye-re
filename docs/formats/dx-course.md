@@ -53,3 +53,24 @@ the three modified regions share SHA-256
 single source edit. It does not identify the inner tag100 grammar, physical
 collision, or gameplay semantics. The owner's no-obvious-gameplay-change
 observation followed a one-corner tracer and is not a whole-volume test.
+
+## R5T-C tag100 byte differential
+
+`master_rallye.tag100_diff` extracts the exact suffix beginning at the
+validated render boundary; it does not scan for tag values or guess the
+tag100's internal length. All 36 current retail course DX files pass the
+existing render parser and structurally reach tag100. Their opaque suffix
+sizes vary from 5,634,127 to 10,975,471 bytes. Retail France1 has 10,145,749
+bytes; retail Italy1 has 7,517,509 bytes.
+
+For the earlier controlled one-point France1 source tracer, the equal-sized
+10,118,248-byte cooked tag100 regions differ at 452 bytes in 253 ranges. Eleven
+overlapping float4 windows have first-three-component lengths within 0.01 of
+one. They remain candidate plane-like coefficients, not a decoded record
+layout. Against the eight startpoint-box corners, the closest residual is at
+least 15.631578 for `n·x + d = 0` and at least 50.202269 for `n·x = d` under the
+tested global source-to-DX transform. No candidate is thereby linked to the
+startpoint box, physical collision, or a runtime trigger. Full offsets, values,
+neighbor windows and residual evidence are in
+[`research/r5t_c/findings.md`](../../research/r5t_c/findings.md) and
+[`research/r5t_c/tag100-diff-france1-one-point.md`](../../research/r5t_c/tag100-diff-france1-one-point.md).

@@ -24,11 +24,12 @@ class R5TB1CookToolTests(unittest.TestCase):
         txt = b"moModel(Name [Model])\n  moMesh(Name [startpoint] Index 0 Size 12)\n"
         table = struct.pack("<H", 5) + b"Model" + struct.pack("<BBHIIH", 1, 1, 0, 0, 12, 10) + b"startpoint"
         points = struct.pack(
-            "<24f",
+            "<27f",
             0, 0, 0, 10, 0, 0, 0, 10, 0, 10, 10, 0,
             0, 0, 10, 10, 0, 10, 0, 10, 10, 10, 10, 10,
+            100, 100, 100,
         )
-        header = struct.pack("<8I", 1, 0, 1, 1, 36, 0, 12, 8)
+        header = struct.pack("<8I", 1, 0, 1, 1, 36, 0, 12, 9)
         gxm = header + bytes(16) + bytes(36 * 4) + points + table
         (folder / "Model.gxm").write_bytes(gxm)
         (folder / "Model.txt").write_bytes(txt)
@@ -152,6 +153,104 @@ class R5TB1CookToolTests(unittest.TestCase):
                 self.assertTrue(set(changed).issubset(set(patch_bytes)))
                 self.assertEqual(struct.unpack_from("<f", modified_data, result["patch"]["byte_offset"])[0], 1.0)
                 self.assertEqual((Path(result["modified_source_course"]) / "Model.txt").read_bytes(), (source / "Model.txt").read_bytes())
+
+    def test_startpoint_volume_translation_changes_only_eight_points_and_preserves_box(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / "source"
+            self._write_startpoint_source(source)
+            original = (source / "Model.gxm").read_bytes()
+            args = Namespace(
+                experiment="whole-box",
+                source_course=source,
+                axis="x",
+                delta=3.0,
+            )
+            with patch.object(cook_tool, "WORK_ROOT", root / "output"):
+                result = cook_tool.patch_startpoint_volume(args)
+            modified_course = Path(result["modified_source_course"])
+            modified = (modified_course / "Model.gxm").read_bytes()
+            record = json.loads(Path(result["patch_record"]).read_text(encoding="utf-8"))
+            self.assertEqual((source / "Model.gxm").read_bytes(), original)
+            self.assertEqual(record["translation_vector_source"], {"x": 3.0, "y": 0.0, "z": 0.0})
+            self.assertEqual(record["old_aabb_source"]["x"], [0.0, 10.0])
+            self.assertEqual(record["new_aabb_source"]["x"], [3.0, 13.0])
+            self.assertEqual(record["old_center_source"], [5.0, 5.0, 5.0])
+            self.assertEqual(record["new_center_source"], [8.0, 5.0, 5.0])
+            self.assertEqual(len(record["point_edits"]), 8)
+            self.assertLess(record["max_pairwise_distance_delta"], 1e-3)
+            changed_offsets = {i for i, (a, b) in enumerate(zip(original, modified)) if a != b}
+            allowed = {
+                offset
+                for edit in record["point_edits"]
+                for offset in range(edit["byte_offset"], edit["byte_offset"] + 4)
+            }
+            self.assertEqual(record["changed_byte_count"], len(changed_offsets))
+            self.assertTrue(changed_offsets)
+            self.assertTrue(changed_offsets.issubset(allowed))
+            self.assertEqual(record["changed_source_files"], ["model.gxm"])
+            self.assertTrue(record["all_other_source_files_copied_unchanged"])
+            self.assertEqual((modified_course / "Model.txt").read_bytes(), (source / "Model.txt").read_bytes())
+
+    def test_startpoint_volume_translation_rejects_unsafe_delta_before_copy(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / "source"
+            self._write_startpoint_source(source)
+            args = Namespace(experiment="unsafe-box", source_course=source, axis="x", delta=8.0)
+            with patch.object(cook_tool, "WORK_ROOT", root / "output"):
+                with self.assertRaisesRegex(ValueError, "between 0.25 and 5.0"):
+                    cook_tool.patch_startpoint_volume(args)
+            self.assertFalse((root / "output" / "experiments" / "unsafe-box").exists())
+
+    def test_validate_staged_experiment_records_static_pass_and_rejects_later_input_change(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            output_root = root / "output"
+            runtime_source = root / "runtime-source"
+            source = root / "source"
+            self._write_startpoint_source(source)
+            exe = runtime_source / "MRallye.exe"
+            exe.parent.mkdir(parents=True)
+            exe.write_bytes(b"synthetic-runtime")
+            target = runtime_source / "DataGx" / "Course" / "France1"
+            target.mkdir(parents=True)
+            (target / "stale.dx").write_bytes(b"stale")
+            xml = runtime_source / "DataScene" / "RaceTest" / "France1.xml"
+            xml.parent.mkdir(parents=True)
+            xml.write_bytes(b"<RaceTest />")
+
+            with patch.object(cook_tool, "WORK_ROOT", output_root):
+                patch_result = cook_tool.patch_startpoint_volume(Namespace(
+                    experiment="stage-validation",
+                    source_course=source,
+                    axis="x",
+                    delta=3.0,
+                ))
+                for cohort, course_source in (
+                    ("baseline", source),
+                    ("modified", Path(patch_result["modified_source_course"])),
+                ):
+                    cook_tool.prepare(Namespace(
+                        experiment="stage-validation",
+                        cohort=cohort,
+                        runtime_source=runtime_source,
+                        source_course=course_source,
+                        course_target="DataGx/Course/France1",
+                        run_count=2,
+                    ))
+                result = cook_tool.validate_staged_experiment(Namespace(experiment="stage-validation"))
+                validation = json.loads(Path(result["validation_json"]).read_text(encoding="utf-8"))
+                self.assertEqual(result["status"], "PASS_STAGED")
+                self.assertEqual(validation["compile_status"], "PENDING_TWO_BASELINE_TWO_MODIFIED_COOKS")
+                self.assertEqual(validation["runtime_status"], "PENDING_HUMAN_OBSERVATION")
+                self.assertEqual(validation["cohorts"]["only_source_manifest_difference"], "model.gxm")
+                self.assertTrue(Path(result["runtime_test_instructions"]).is_file())
+
+                staged_txt = output_root / "experiments" / "stage-validation" / "baseline" / "runtime" / "DataGx" / "Course" / "France1" / "Model.txt"
+                staged_txt.write_bytes(b"tampered")
+                with self.assertRaisesRegex(ValueError, "staged source files changed"):
+                    cook_tool.validate_staged_experiment(Namespace(experiment="stage-validation"))
 
     def test_recorded_patch_input_validation_allows_only_the_expected_gxm_change(self):
         with tempfile.TemporaryDirectory() as temp:

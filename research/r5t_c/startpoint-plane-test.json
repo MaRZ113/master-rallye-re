@@ -1,0 +1,164 @@
+{
+  "schema": "r5t-c-startpoint-plane-candidate-test-v1",
+  "candidate_semantics": "UNKNOWN; unit-normal-like float4 windows only",
+  "source": {
+    "gxm": "inputs/8.4.1_France1/France1.gxm",
+    "gxm_sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+    "txt": "inputs/8.4.1_France1/France1.txt",
+    "txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43",
+    "node": {
+      "name": "startpoint",
+      "ordinal": 1,
+      "class": "moMesh",
+      "mesh_index": 0,
+      "mesh_size": 12
+    },
+    "candidate_points": {
+      "pool_first_index": 0,
+      "count": 8,
+      "selected_by": "prior measured eight-corner box candidate; node-to-point binding remains HIGH_CONFIDENCE_INFERENCE"
+    }
+  },
+  "source_to_dx_transform": {
+    "value": "(x, z, -y)",
+    "evidence": "HIGH_CONFIDENCE_INFERENCE; corpus-wide best among 48 signed axis transforms"
+  },
+  "candidate_diff_report": "tag100-diff-france1-one-point.json",
+  "plane_conventions_tested": [
+    "dot(n,x)+d=0",
+    "dot(n,x)=d"
+  ],
+  "residual_tolerance": 0.001,
+  "summary": {
+    "candidate_count": 11,
+    "dot_plus_d_zero_minimum_of_candidate_minima": 15.631577798481885,
+    "dot_plus_d_zero_maximum_of_candidate_minima": 46.13027745535942,
+    "dot_equals_d_minimum_of_candidate_minima": 50.20226904854826,
+    "dot_equals_d_maximum_of_candidate_minima": 709.0535795974174,
+    "candidate_corners_within_tolerance": 0,
+    "rigid_translation_law_tested": false
+  },
+  "candidates": [
+    {
+      "tag100_relative_offset": 8826992,
+      "alignment_mod_16": 0,
+      "normal_length_baseline": 1.000000026189221,
+      "normal_length_modified": 1.0000000375726115,
+      "d_delta": -0.006317138671875,
+      "min_abs_residual_dot_plus_d_zero": 24.88958956692477,
+      "max_abs_residual_dot_plus_d_zero": 37.78477499280234,
+      "min_abs_residual_dot_equals_d": 417.03167941067477,
+      "max_abs_residual_dot_equals_d": 429.92686483655234
+    },
+    {
+      "tag100_relative_offset": 8827216,
+      "alignment_mod_16": 0,
+      "normal_length_baseline": 0.9999999350628938,
+      "normal_length_modified": 0.9999999859806787,
+      "d_delta": 0.022705078125,
+      "min_abs_residual_dot_plus_d_zero": 16.20360401147991,
+      "max_abs_residual_dot_plus_d_zero": 30.629850594941672,
+      "min_abs_residual_dot_equals_d": 709.0535795974174,
+      "max_abs_residual_dot_equals_d": 723.4798261808792
+    },
+    {
+      "tag100_relative_offset": 8827328,
+      "alignment_mod_16": 0,
+      "normal_length_baseline": 0.9999999787769979,
+      "normal_length_modified": 0.9999999384218632,
+      "d_delta": -0.0225677490234375,
+      "min_abs_residual_dot_plus_d_zero": 38.64135765924402,
+      "max_abs_residual_dot_plus_d_zero": 52.815583734654865,
+      "min_abs_residual_dot_equals_d": 50.20226904854826,
+      "max_abs_residual_dot_equals_d": 64.3764951239591
+    },
+    {
+      "tag100_relative_offset": 8836512,
+      "alignment_mod_16": 0,
+      "normal_length_baseline": 1.0000000186396578,
+      "normal_length_modified": 1.0000000212701854,
+      "d_delta": -0.0097198486328125,
+      "min_abs_residual_dot_plus_d_zero": 22.327852437622596,
+      "max_abs_residual_dot_plus_d_zero": 34.66605153156047,
+      "min_abs_residual_dot_equals_d": 291.1555196739507,
+      "max_abs_residual_dot_equals_d": 303.4937187678886
+    },
+    {
+      "tag100_relative_offset": 8848048,
+      "alignment_mod_16": 0,
+      "normal_length_baseline": 0.999999927782452,
+      "normal_length_modified": 1.0000000101017565,
+      "d_delta": 0.013092041015625,
+      "min_abs_residual_dot_plus_d_zero": 29.92495202072587,
+      "max_abs_residual_dot_plus_d_zero": 43.513889318189285,
+      "min_abs_residual_dot_equals_d": 524.5335945988509,
+      "max_abs_residual_dot_equals_d": 538.1225318963143
+    },
+    {
+      "tag100_relative_offset": 8865184,
+      "alignment_mod_16": 0,
+      "normal_length_baseline": 1.0000000418881703,
+      "normal_length_modified": 0.9999999424163973,
+      "d_delta": 0.000762939453125,
+      "min_abs_residual_dot_plus_d_zero": 30.595814313087658,
+      "max_abs_residual_dot_plus_d_zero": 43.9933966913261,
+      "min_abs_residual_dot_equals_d": 473.3048597232439,
+      "max_abs_residual_dot_equals_d": 486.70244210148235
+    },
+    {
+      "tag100_relative_offset": 8873808,
+      "alignment_mod_16": 0,
+      "normal_length_baseline": 1.0000000295291764,
+      "normal_length_modified": 1.000000000281137,
+      "d_delta": -0.0089569091796875,
+      "min_abs_residual_dot_plus_d_zero": 29.189524872585935,
+      "max_abs_residual_dot_plus_d_zero": 42.15255096404235,
+      "min_abs_residual_dot_equals_d": 324.03290866164843,
+      "max_abs_residual_dot_equals_d": 336.99593475310485
+    },
+    {
+      "tag100_relative_offset": 8827272,
+      "alignment_mod_16": 8,
+      "normal_length_baseline": 1.0000000464499936,
+      "normal_length_modified": 0.9999999954622237,
+      "d_delta": 0.01263427734375,
+      "min_abs_residual_dot_plus_d_zero": 15.631577798481885,
+      "max_abs_residual_dot_plus_d_zero": 29.953611173983518,
+      "min_abs_residual_dot_equals_d": 691.1830914703569,
+      "max_abs_residual_dot_equals_d": 705.5051248458585
+    },
+    {
+      "tag100_relative_offset": 8827384,
+      "alignment_mod_16": 8,
+      "normal_length_baseline": 1.0000000489967207,
+      "normal_length_modified": 1.000000031619337,
+      "d_delta": -0.0130462646484375,
+      "min_abs_residual_dot_plus_d_zero": 34.29325636431372,
+      "max_abs_residual_dot_plus_d_zero": 48.18952690765059,
+      "min_abs_residual_dot_equals_d": 117.05458319977129,
+      "max_abs_residual_dot_equals_d": 130.95085374310815
+    },
+    {
+      "tag100_relative_offset": 8838584,
+      "alignment_mod_16": 8,
+      "normal_length_baseline": 0.9999999792387826,
+      "normal_length_modified": 1.0000000816550225,
+      "d_delta": 0.008087158203125,
+      "min_abs_residual_dot_plus_d_zero": 46.13027745535942,
+      "max_abs_residual_dot_plus_d_zero": 60.45513467541309,
+      "min_abs_residual_dot_equals_d": 185.7257059221563,
+      "max_abs_residual_dot_equals_d": 200.05056314220997
+    },
+    {
+      "tag100_relative_offset": 8847992,
+      "alignment_mod_16": 8,
+      "normal_length_baseline": 1.0000000364338635,
+      "normal_length_modified": 0.9999999925972672,
+      "d_delta": -0.00174713134765625,
+      "min_abs_residual_dot_plus_d_zero": 22.642837257002157,
+      "max_abs_residual_dot_plus_d_zero": 35.13715216598348,
+      "min_abs_residual_dot_equals_d": 131.2807156749709,
+      "max_abs_residual_dot_equals_d": 143.77503058395223
+    }
+  ]
+}
