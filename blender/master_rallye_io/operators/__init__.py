@@ -1,6 +1,7 @@
 from .import_dx import IMPORT_SCENE_OT_master_rallye_dx
 from .import_course import IMPORT_SCENE_OT_master_rallye_course
 from .import_course_xml import IMPORT_SCENE_OT_master_rallye_course_xml_markers
+from .import_course_gxm_startpoint import IMPORT_SCENE_OT_master_rallye_course_gxm_startpoint
 from .import_vehicle import IMPORT_SCENE_OT_master_rallye_vehicle
 from .export_dx_positions import EXPORT_SCENE_OT_master_rallye_dx_positions
 
@@ -13,6 +14,7 @@ CLASSES = (
     IMPORT_SCENE_OT_master_rallye_dx,
     IMPORT_SCENE_OT_master_rallye_course,
     IMPORT_SCENE_OT_master_rallye_course_xml_markers,
+    IMPORT_SCENE_OT_master_rallye_course_gxm_startpoint,
     IMPORT_SCENE_OT_master_rallye_vehicle,
     EXPORT_SCENE_OT_master_rallye_dx_positions,
 ) + TOPOLOGY_CLASSES + VEHICLE_PROJECT_CLASSES

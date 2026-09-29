@@ -420,7 +420,13 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
             text="Import RaceTest XML Markers",
             icon="EMPTY_AXIS",
         )
+        box.operator(
+            "import_scene.master_rallye_course_gxm_startpoint",
+            text="Import GXM Startpoint Point Candidate",
+            icon="EMPTY_SPHERE",
+        )
         box.label(text="XML marker records are shown as a separate read-only overlay.")
+        box.label(text="GXM startpoint overlay shows points only; connectivity is unknown.")
         box.label(text="No course writer is available.")
         warnings = metadata.get("blender", {}).get("import_warnings", [])
         if warnings:

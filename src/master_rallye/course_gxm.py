@@ -5,6 +5,7 @@ Its value semantics and the remaining post-bank grammar are not established.
 """
 from __future__ import annotations
 
+import math
 import struct
 from dataclasses import dataclass
 from pathlib import Path
@@ -55,6 +56,18 @@ class CourseGxmObjectTable:
     nodes: tuple[CourseGxmNode, ...]
     root_name: str
     txt_crosscheck: str
+
+
+@dataclass(frozen=True)
+class CourseGxmFloat3Pool:
+    """Header-bounded float3 bank; its point semantics remain corpus inference."""
+
+    source: str
+    offset: int
+    count: int
+    byte_size: int
+    raw: bytes
+    points: tuple[tuple[float, float, float], ...]
 
 
 def parse_course_gxm_bytes(data: bytes, source: str = "<bytes>") -> CourseGxmPrefix:
@@ -258,3 +271,39 @@ def parse_course_gxm_object_table_bytes(
         root_name,
         "exact names, node classes, hierarchy child counts, and mesh spans match paired TXT",
     )
+
+
+def parse_course_gxm_float3_pool_bytes(
+    data: bytes,
+    object_table: CourseGxmObjectTable,
+    source: str = "<bytes>",
+) -> CourseGxmFloat3Pool:
+    """Read the final header-counted float3 bank before an exact node table.
+
+    The current France1, Italy1, and Boinds source/cooked comparisons support
+    interpreting this bank as course points. This parser preserves the raw
+    values and does not associate them with individual node mesh spans.
+    """
+    header = parse_course_gxm_bytes(data, source)
+    if object_table.table_offset < header.record_end:
+        raise BoundsError(f"course GXM object table in {source} overlaps the header bank")
+    if object_table.table_offset + object_table.table_size != len(data):
+        raise FormatError(f"course GXM object table boundary does not match {source} length")
+    count = header.header_words[7]
+    byte_size = count * 12
+    offset = object_table.table_offset - byte_size
+    if offset < header.record_end:
+        raise BoundsError(
+            f"course GXM float3 pool in {source}: count {count} at 0x{offset:X} overlaps "
+            f"the bounded header bank ending at 0x{header.record_end:X}"
+        )
+    raw = data[offset:object_table.table_offset]
+    if len(raw) != byte_size:
+        raise BoundsError(
+            f"course GXM float3 pool in {source}: expected {byte_size} bytes, got {len(raw)}"
+        )
+    points = tuple(struct.iter_unpack("<3f", raw))
+    for index, point in enumerate(points):
+        if not all(math.isfinite(value) for value in point):
+            raise FormatError(f"course GXM float3 pool in {source} has non-finite point at index {index}")
+    return CourseGxmFloat3Pool(source, offset, count, byte_size, raw, points)

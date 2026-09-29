@@ -12,6 +12,19 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.fl` / `.sf` | Historical 20-byte-header fields with four payload bytes per cell in scanned Demo 8.4.1 candidates. | **CONFIRMED** structure / **UNKNOWN** semantic | Ten candidates satisfy `20 + W*H*4`; direct semantic equivalence to SFL is not established. |
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
+| Course `.gxm` | Demo 8.4.1 source header, counted bank, and exact trailing node table cross-validated against paired TXT; a bounded float3 bank correlates spatially with cooked DX. | **CONFIRMED_BY_SOURCE_COMPILED_PAIR** for measured positions; node-to-point links **UNKNOWN** | Three measured pairs (France1, Italy1, developer Boinds); one source startpoint point edit is staged, with six controlled runtime cooks still pending. See `docs/course-source.md` and `research/r5t_b1/`. |
+
+## Course status (R5T-B.1)
+
+- **HIGH_CONFIDENCE_INFERENCE:** the measured Demo 8.4.1 course source point
+  bank maps to DX positions by `(x, z, -y)`; the established DX-to-Blender
+  transform composes to identity. This is not a per-node geometry mapping.
+- **PENDING:** one-France1-float source edit has been prepared in ignored
+  scratch copies. Three identical-source baseline and three modified runtime
+  cooks are required to separate the known natural render variation from a
+  repeatable compiled effect. No effect or runtime behavior is claimed yet.
+- Course DX render import and the GXM point overlay are read-only. BSP, route,
+  limits, surface, and SFL semantics remain outside the current claim.
 
 ## R1 vehicle-corpus evidence
 
@@ -216,9 +229,13 @@ Retail record 25 has a vtable, empty owned-name pointer and four float32 1.0 def
 
 The frozen Vehicle SDK v1 remains unchanged. The course corpus has 36 retail folders and four build snapshots of France1/Italy1. The common DX prefix is shared; revision-135 course draw batches are parsed by an additive read-only course interpretation. All 36 retail course DX files pass complete, disjoint index/vertex validation and reach tag100 at the render tail. The existing Blender add-on passed a headless Blender 5.2.2 import smoke test for Italy1 and France1; no manual viewport/game-render parity claim is made. The project owner reports that the Demo 9.10.0 runtime cooker converts 8.4.1 course source to revision-135 output that loads with working AI in the 9.10.0 runtime. R5T-B reproduced the exact UI trigger and retained the user's log screenshots as local ignored inputs. The separate retail-package compatibility observation (retail works in 9.10.0, fails to load the course in 9.3.1/8.4.1) remains **CONFIRMED_BY_RUNTIME** with its cause unknown. No course writer or EXE patch exists. See `docs/course-assets.md`, `docs/course-importer.md`, and `research/r5t_a/runtime-closeout.md`.
 
-## R5T-B course cooker and source semantics
+## R5T-B historical course cooker and source semantics
 
-Two forced France1 cooks in an isolated Demo 9.10.0 clone used identical 8.4.1 source. Both output revision-135 DX that passes render validation, but DX render counts and hashes vary across runs. All 172 non-DX files match byte-for-byte across runs; the 10,118,248-byte raw tag100 payload hash also matches. The course cooker is the runtime UI path: launch the game and select France1. Paired GXM/TXT node-table parsing now validates all 2,322 France1 and 1,117 Italy1 records; positions/transforms and source geometry arrays remain unknown. The existing Blender addon can overlay RaceTest XML markers with the shared coordinate conversion. No controlled source edit was made; source-to-compiled helper mapping, SFL spatial registration, and foliage runtime correction remain open. R5T-B verdict: **MORE WORK NEEDED**. See `docs/course-cooker.md`, `docs/course-source.md`, and `research/r5t_b/findings.md`.
+Two forced France1 cooks in an isolated Demo 9.10.0 clone used identical 8.4.1 source. Both output revision-135 DX that passes render validation, but DX render counts and hashes vary across runs. All 172 non-DX files match byte-for-byte across runs; the raw tag100 region hash also matches. The course cooker is the runtime UI path: launch the game and select France1. Paired GXM/TXT node-table parsing validates all 2,322 France1 and 1,117 Italy1 records. At the R5T-B checkpoint, source coordinates and transforms had not yet been correlated. R5T-B's two-run result remains the natural-variance baseline. See `docs/course-cooker.md`, `docs/course-source.md`, and `research/r5t_b/findings.md`.
+
+## R5T-B.1 GXM geometry and controlled cooker proof
+
+Across three Demo 8.4.1 GXM/TXT/DX pairs (France1, Italy1, developer Boinds), the bounded float3 bank has a strongest global source-to-DX match of `(x, z, -y)` among all 48 signed axis transforms. Composed with the existing DX-to-Blender `(x, -z, y)`, this gives source-to-Blender identity as a **HIGH_CONFIDENCE_INFERENCE**; per-node point/index association remains unknown. The existing add-on now displays France1's eight startpoint candidate points with no inferred connectivity. One +1.0 source-X float edit is staged in ignored copies. Three baseline and three modified Demo 9.10 cooks remain pending, so R5T-B.1 has no controlled compiled/runtime effect claim and remains **MORE WORK NEEDED**. See `research/r5t_b1/findings.md`, `research/r5t_b1/multi-cook-method.md`, and `research/r5t_b1/blender-validation.md`.
 
 ## R5V-C ID25 experimental runtime status
 

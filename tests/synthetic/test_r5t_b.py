@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import struct
+import json
 import sys
 import tempfile
 import unittest
@@ -11,9 +12,14 @@ for path in (ROOT, ROOT / "src"):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from master_rallye.course_diff import diff_course_trees
+from master_rallye.course_diff import (
+    _classify_cook_field,
+    compare_course_cook_sets,
+    diff_course_trees,
+)
 from master_rallye.course_gxm import (
     parse_course_gxm_bytes,
+    parse_course_gxm_float3_pool_bytes,
     parse_course_gxm_object_table_bytes,
 )
 from master_rallye.course_source import parse_course_txt_bytes
@@ -85,7 +91,7 @@ def _synthetic_course_gxm(txt_data: bytes, bank_byte: int = 0) -> bytes:
             table += struct.pack("<II", node.mesh_index, node.mesh_size)
         encoded_name = node.name.encode("latin-1")
         table += struct.pack("<H", len(encoded_name)) + encoded_name
-    header = struct.pack("<8I", 0x000F0302, 0, 1, 1, 3, 1, 1, 1)
+    header = struct.pack("<8I", 0x000F0302, 0, 1, 1, 3, 1, 1, 0)
     return header + bytes([bank_byte]) * 16 + bytes(table)
 
 
@@ -125,6 +131,28 @@ class R5TCourseGxmPrefixTests(unittest.TestCase):
         self.assertEqual((table.nodes[2].mesh_index, table.nodes[2].mesh_size), (12, 24))
         with self.assertRaises(BoundsError):
             parse_course_gxm_object_table_bytes(_synthetic_course_gxm(txt)[:-1], document)
+
+    def test_bounded_float3_pool_preserves_raw_points_and_rejects_nonfinite_data(self):
+        txt = b"moModel(Name [Model])\n  moMesh(Name [startpoint] Index 0 Size 1)\n"
+        document = parse_course_txt_bytes(txt, "synthetic.txt")
+        base = _synthetic_course_gxm(txt)
+        table_bytes = base[48:]
+        points = struct.pack("<9f", 1.0, 2.0, 3.0, -4.0, 5.5, 6.0, 7.0, 8.0, 9.0)
+        header = struct.pack("<8I", 0x000F0302, 0, 1, 1, 3, 1, 1, 3)
+        data = header + bytes(16) + points + table_bytes
+        table = parse_course_gxm_object_table_bytes(data, document)
+        pool = parse_course_gxm_float3_pool_bytes(data, table)
+        self.assertEqual(pool.offset, 48)
+        self.assertEqual(pool.count, 3)
+        self.assertEqual(pool.points[1], (-4.0, 5.5, 6.0))
+        self.assertEqual(pool.raw, points)
+
+        bad_points = struct.pack("<3f", 1.0, float("nan"), 3.0)
+        bad_header = struct.pack("<8I", 0x000F0302, 0, 1, 1, 3, 1, 1, 1)
+        bad_data = bad_header + bytes(16) + bad_points + table_bytes
+        bad_table = parse_course_gxm_object_table_bytes(bad_data, document)
+        with self.assertRaisesRegex(FormatError, "non-finite"):
+            parse_course_gxm_float3_pool_bytes(bad_data, bad_table)
 
 
 class R5TCourseTxtTreeTests(unittest.TestCase):
@@ -234,6 +262,101 @@ class R5TCourseDiffTests(unittest.TestCase):
             self.assertEqual(len(hnt_diff["added"]), 1)
             gxm_diff = files["datagx/course/france1/france1.gxm"]["semantic_diff"]
             self.assertIn("object_table", gxm_diff["changed_fields"])
+
+
+class R5TCourseCookSetTests(unittest.TestCase):
+    @staticmethod
+    def _write_run(root: Path, position_x: float) -> Path:
+        course = root / "course"
+        course.mkdir(parents=True)
+        dx = bytearray(_synthetic_course_dx())
+        struct.pack_into("<f", dx, 16, position_x)
+        (course / "track.dx").write_bytes(dx)
+        return course
+
+    def test_field_classifier_separates_natural_variance_from_stable_effect(self):
+        self.assertEqual(_classify_cook_field({"0", "1"}, {"1"}), "BASELINE_VARIABLE")
+        self.assertEqual(_classify_cook_field({"0", "1"}, {"2"}), "MODIFICATION_STABLE")
+        self.assertEqual(_classify_cook_field({"0"}, {"1", "2"}), "MODIFICATION_VARIABLE")
+        self.assertEqual(_classify_cook_field({"0"}, {"0"}), "UNCHANGED")
+
+    def test_repeated_cooks_report_variable_and_stable_dx_fields(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            baseline = [
+                self._write_run(root / "baseline" / f"run-{index}", value)
+                for index, value in enumerate((0.0, 0.25, 0.0), start=1)
+            ]
+            modified = [
+                self._write_run(root / "modified" / f"run-{index}", 0.5)
+                for index in range(1, 4)
+            ]
+            report = compare_course_cook_sets(baseline, modified)
+            self.assertEqual(report["summary"]["baseline_run_count"], 3)
+            self.assertEqual(report["summary"]["modified_run_count"], 3)
+            self.assertGreater(report["summary"]["unchanged_field_count"], 0)
+            by_field = {item["field"]: item for item in report["fields"]}
+            position_hash = "semantic[track.dx].render_hashes.positions"
+            self.assertEqual(by_field[position_hash]["classification"], "MODIFICATION_STABLE")
+            tag_hash = "semantic[track.dx].trailing.tag100.sha256"
+            self.assertEqual(by_field[tag_hash]["classification"], "UNCHANGED")
+            self.assertEqual(
+                report["summary"]["modification_stable_field_count"] > 0,
+                True,
+            )
+
+    def test_three_run_minimum_is_enforced(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            two = [
+                self._write_run(root / "run" / f"run-{index}", 0.0)
+                for index in range(1, 3)
+            ]
+            with self.assertRaisesRegex(ValueError, "at least 3 runs"):
+                compare_course_cook_sets(two, two)
+
+    def test_source_input_difference_is_not_counted_as_compiled_effect(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            base_txt = _course_txt(3, False)
+            baseline = []
+            modified = []
+            for index in range(1, 4):
+                base_run = self._write_run(root / "baseline" / f"run-{index}", 0.0)
+                mod_run = self._write_run(root / "modified" / f"run-{index}", 0.0)
+                for run, bank_byte in ((base_run, 0), (mod_run, 1)):
+                    (run / "track.txt").write_bytes(base_txt)
+                    (run / "track.gxm").write_bytes(_synthetic_course_gxm(base_txt, bank_byte))
+                baseline.append(base_run)
+                modified.append(mod_run)
+            report = compare_course_cook_sets(baseline, modified)
+            self.assertEqual(report["summary"]["compiled_stable_effect_field_count"], 0)
+            self.assertGreater(
+                report["summary"]["field_counts_by_resource_role"]["source_input"]["MODIFICATION_STABLE"],
+                0,
+            )
+
+    def test_cohort_rejects_runs_with_different_input_hashes(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            baseline = []
+            modified = []
+            for index, source_hash in enumerate(("a", "a", "b"), start=1):
+                course = self._write_run(root / "baseline" / f"run-{index}", 0.0)
+                (course.parent / "run.json").write_text(
+                    json.dumps({"input_manifest": {"track.gxm": {"sha256": source_hash}}}),
+                    encoding="utf-8",
+                )
+                baseline.append(course)
+            for index in range(1, 4):
+                course = self._write_run(root / "modified" / f"run-{index}", 0.5)
+                (course.parent / "run.json").write_text(
+                    json.dumps({"input_manifest": {"track.gxm": {"sha256": "c"}}}),
+                    encoding="utf-8",
+                )
+                modified.append(course)
+            with self.assertRaisesRegex(ValueError, "baseline cohort source input hashes differ"):
+                compare_course_cook_sets(baseline, modified)
 
 
 if __name__ == "__main__":

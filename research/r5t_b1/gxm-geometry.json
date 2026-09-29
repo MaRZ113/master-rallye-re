@@ -1,0 +1,844 @@
+{
+  "schema": "r5t-b1-gxm-geometry-probe-v1",
+  "evidence_labels": [
+    "CONFIRMED_BY_BINARY",
+    "CONFIRMED_BY_SOURCE_COMPILED_PAIR",
+    "HIGH_CONFIDENCE_INFERENCE",
+    "UNKNOWN"
+  ],
+  "source_compiled_pairs": [
+    {
+      "label": "Demo 8.4.1 France1",
+      "source": {
+        "gxm": {
+          "path": "inputs/8.4.1_France1/France1.gxm",
+          "bytes": 11489135,
+          "sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2"
+        },
+        "txt": {
+          "path": "inputs/8.4.1_France1/France1.txt",
+          "bytes": 158889,
+          "sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43"
+        },
+        "header_words_u32": [
+          853762,
+          0,
+          262505,
+          121,
+          185751,
+          97824,
+          61917,
+          49278
+        ],
+        "node_table": {
+          "offset": 11429739,
+          "bytes": 59396,
+          "node_count": 2322
+        },
+        "float3_pool": {
+          "status": "bounded and finite; per-node association UNKNOWN",
+          "offset": 10838403,
+          "count": 49278,
+          "bytes": 591336,
+          "sha256": "e5524f36e8d3e0e2d1e6865f981e80297f7187e49525d3818aebc52e4347c311",
+          "bounds_xyz": [
+            [
+              -3705.40234375,
+              -240.6068115234375
+            ],
+            [
+              -1557.7083740234375,
+              644.5362548828125
+            ],
+            [
+              -45.38960266113281,
+              565.0958862304688
+            ]
+          ],
+          "finite_point_count": 49278
+        },
+        "header_crosschecks": {
+          "word4_equals_3_times_word6": true,
+          "word6_equals_sum_mesh_size": true
+        },
+        "helper_nodes": [
+          {
+            "ordinal": 1,
+            "name": "startpoint",
+            "class": "moMesh",
+            "parent_id": 0,
+            "mesh_index": 0,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 11429746,
+            "record_size": 24,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown",
+            "first_eight_points": {
+              "count": 8,
+              "unique_count": 8,
+              "bounds_xyz": [
+                [
+                  -987.0555419921875,
+                  -977.0555419921875
+                ],
+                [
+                  -473.6667175292969,
+                  -463.6667175292969
+                ],
+                [
+                  48.5390510559082,
+                  58.5390510559082
+                ]
+              ],
+              "eight_corners_of_axis_aligned_box": true,
+              "candidate_pool_index_range_inclusive": [
+                0,
+                7
+              ],
+              "node_link": "HIGH_CONFIDENCE_INFERENCE; triangle connectivity not decoded"
+            }
+          },
+          {
+            "ordinal": 10,
+            "name": "$bsp",
+            "class": "moUnknown",
+            "parent_id": 9,
+            "mesh_index": null,
+            "mesh_size": null,
+            "child_count": 2,
+            "record_offset": 11429876,
+            "record_size": 10,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown",
+            "subtree_node_count": 797,
+            "subtree_mesh_count": 784,
+            "subtree_mesh_size_sum": 47095,
+            "point_pool_mapping": "UNKNOWN"
+          },
+          {
+            "ordinal": 11,
+            "name": "$draw $landdb",
+            "class": "moUnknown",
+            "parent_id": 10,
+            "mesh_index": null,
+            "mesh_size": null,
+            "child_count": 1,
+            "record_offset": 11429886,
+            "record_size": 19,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 804,
+            "name": "COLLIDE_finishline01",
+            "class": "moMesh",
+            "parent_id": 13,
+            "mesh_index": 47011,
+            "mesh_size": 24,
+            "child_count": 0,
+            "record_offset": 11454007,
+            "record_size": 34,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 805,
+            "name": "COLLIDE_finishline",
+            "class": "moMesh",
+            "parent_id": 13,
+            "mesh_index": 47035,
+            "mesh_size": 24,
+            "child_count": 0,
+            "record_offset": 11454041,
+            "record_size": 32,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 806,
+            "name": "COLLIDE_finishline02",
+            "class": "moMesh",
+            "parent_id": 13,
+            "mesh_index": 47059,
+            "mesh_size": 24,
+            "child_count": 0,
+            "record_offset": 11454073,
+            "record_size": 34,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 807,
+            "name": "COLLIDE_finishline03",
+            "class": "moMesh",
+            "parent_id": 13,
+            "mesh_index": 47083,
+            "mesh_size": 24,
+            "child_count": 0,
+            "record_offset": 11454107,
+            "record_size": 34,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 886,
+            "name": "FINISHLINE",
+            "class": "moUnknown",
+            "parent_id": 882,
+            "mesh_index": null,
+            "mesh_size": null,
+            "child_count": 10,
+            "record_offset": 11455917,
+            "record_size": 16,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 887,
+            "name": "FinishPost02",
+            "class": "moMesh",
+            "parent_id": 886,
+            "mesh_index": 48595,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 11455933,
+            "record_size": 26,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 893,
+            "name": "FinishPost01",
+            "class": "moMesh",
+            "parent_id": 886,
+            "mesh_index": 48827,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 11456063,
+            "record_size": 26,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 897,
+            "name": "FINISHLINE01",
+            "class": "moUnknown",
+            "parent_id": 882,
+            "mesh_index": null,
+            "mesh_size": null,
+            "child_count": 10,
+            "record_offset": 11456149,
+            "record_size": 18,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 898,
+            "name": "FinishPost03",
+            "class": "moMesh",
+            "parent_id": 897,
+            "mesh_index": 49031,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 11456167,
+            "record_size": 26,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 904,
+            "name": "FinishPost04",
+            "class": "moMesh",
+            "parent_id": 897,
+            "mesh_index": 49263,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 11456297,
+            "record_size": 26,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1654,
+            "name": "_raceline",
+            "class": "moMesh",
+            "parent_id": 0,
+            "mesh_index": 59293,
+            "mesh_size": 954,
+            "child_count": 0,
+            "record_offset": 11473512,
+            "record_size": 23,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1655,
+            "name": "$boinds",
+            "class": "moMesh",
+            "parent_id": 0,
+            "mesh_index": 60247,
+            "mesh_size": 251,
+            "child_count": 0,
+            "record_offset": 11473535,
+            "record_size": 21,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          }
+        ]
+      },
+      "compiled_dx": {
+        "path": "../corpora/demo-8.4.1/DataGx/Course/France1/france1.dx",
+        "bytes": 13092323,
+        "sha256": "9dd07341aa8ffe07afdc1a58682101a57496a3248cbd620f03ed7ddc019934bd",
+        "revision": 127,
+        "vertex_count": 64248
+      },
+      "source_to_dx": {
+        "candidate_transform_count": 48,
+        "best": {
+          "transform": "(x, z, -y)",
+          "exact": 6366,
+          "rounded_1": 36081,
+          "rounded_0_1": 34904
+        },
+        "runner_up": {
+          "transform": "(x, -z, -y)",
+          "exact": 0,
+          "rounded_1": 414,
+          "rounded_0_1": 63
+        },
+        "source_point_count": 49278,
+        "dx_vertex_count": 64248,
+        "match_fraction_rounded_0_1": 0.708308,
+        "evidence": "HIGH_CONFIDENCE_INFERENCE"
+      },
+      "source_to_blender": {
+        "transform": "identity (x, y, z)",
+        "evidence": "HIGH_CONFIDENCE_INFERENCE: best source-to-DX transform (x, z, -y) composes with proven DX-to-Blender (x, -z, y)"
+      },
+      "startpoint_xml_spatial_correlation": {
+        "race_test_xml": "../corpora/demo-9.10.0/DataScene/RaceTest/France1.xml",
+        "source_cluster_center_xyz": [
+          -982.0555419921875,
+          -468.6667175292969,
+          53.5390510559082
+        ],
+        "mapped_dx_center_xyz": [
+          -982.0555419921875,
+          53.5390510559082,
+          468.6667175292969
+        ],
+        "nearest_marker": {
+          "ordinal": 0,
+          "marker_no": "0",
+          "marker_type": "markers\\green_marker",
+          "position_xyz": [
+            -982.1,
+            52.2,
+            467.87
+          ],
+          "distance": 1.5587793513760804
+        },
+        "evidence": "HIGH_CONFIDENCE_INFERENCE; spatial proximity only, no XML helper binding is asserted"
+      }
+    },
+    {
+      "label": "Demo 8.4.1 Italy1",
+      "source": {
+        "gxm": {
+          "path": "inputs/8.4.1_Italy1/track01.gxm",
+          "bytes": 8728347,
+          "sha256": "c9ca6831569ef5f23b7203cba0c95e08ad604d9f8f4d2ff557bf193c186054ba"
+        },
+        "txt": {
+          "path": "inputs/8.4.1_Italy1/track01.txt",
+          "bytes": 80331,
+          "sha256": "7e7406a6c2772b4e6d30ef390230136d2eb46247f49d431bdbfb178ef3ce346d"
+        },
+        "header_words_u32": [
+          984834,
+          0,
+          189937,
+          66,
+          142131,
+          89485,
+          47377,
+          34048
+        ],
+        "node_table": {
+          "offset": 8700224,
+          "bytes": 28123,
+          "node_count": 1117
+        },
+        "float3_pool": {
+          "status": "bounded and finite; per-node association UNKNOWN",
+          "offset": 8291648,
+          "count": 34048,
+          "bytes": 408576,
+          "sha256": "c69b354acf26de66cf5d77845f1031ed110073fd716518d790cdce1774a475bd",
+          "bounds_xyz": [
+            [
+              -3267.5400390625,
+              1208.78076171875
+            ],
+            [
+              -1063.6932373046875,
+              1349.630615234375
+            ],
+            [
+              -20.23651123046875,
+              893.7625732421875
+            ]
+          ],
+          "finite_point_count": 34048
+        },
+        "header_crosschecks": {
+          "word4_equals_3_times_word6": true,
+          "word6_equals_sum_mesh_size": true
+        },
+        "helper_nodes": [
+          {
+            "ordinal": 783,
+            "name": "$bsp",
+            "class": "moUnknown",
+            "parent_id": 1,
+            "mesh_index": null,
+            "mesh_size": null,
+            "child_count": 2,
+            "record_offset": 8718863,
+            "record_size": 10,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown",
+            "subtree_node_count": 296,
+            "subtree_mesh_count": 292,
+            "subtree_mesh_size_sum": 32672,
+            "point_pool_mapping": "UNKNOWN"
+          },
+          {
+            "ordinal": 1072,
+            "name": "COLLIDE_finishline",
+            "class": "moMesh",
+            "parent_id": 1014,
+            "mesh_index": 20561,
+            "mesh_size": 24,
+            "child_count": 0,
+            "record_offset": 8727396,
+            "record_size": 32,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1073,
+            "name": "COLLIDE_finishline01",
+            "class": "moMesh",
+            "parent_id": 1014,
+            "mesh_index": 20585,
+            "mesh_size": 24,
+            "child_count": 0,
+            "record_offset": 8727428,
+            "record_size": 34,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1074,
+            "name": "COLLIDE_finishline02",
+            "class": "moMesh",
+            "parent_id": 1014,
+            "mesh_index": 20609,
+            "mesh_size": 24,
+            "child_count": 0,
+            "record_offset": 8727462,
+            "record_size": 34,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1075,
+            "name": "COLLIDE_finishline03",
+            "class": "moMesh",
+            "parent_id": 1014,
+            "mesh_index": 20633,
+            "mesh_size": 24,
+            "child_count": 0,
+            "record_offset": 8727496,
+            "record_size": 34,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1079,
+            "name": "Surface $landdb",
+            "class": "moMesh",
+            "parent_id": 1078,
+            "mesh_index": 21977,
+            "mesh_size": 22818,
+            "child_count": 0,
+            "record_offset": 8727595,
+            "record_size": 29,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1081,
+            "name": "STARTLINE $singleobject ",
+            "class": "moUnknown",
+            "parent_id": 1080,
+            "mesh_index": null,
+            "mesh_size": null,
+            "child_count": 10,
+            "record_offset": 8727642,
+            "record_size": 30,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1082,
+            "name": "FinishPost02",
+            "class": "moMesh",
+            "parent_id": 1081,
+            "mesh_index": 44795,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 8727672,
+            "record_size": 26,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1088,
+            "name": "FinishPost01",
+            "class": "moMesh",
+            "parent_id": 1081,
+            "mesh_index": 45027,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 8727799,
+            "record_size": 26,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1092,
+            "name": "FINISHLINE $singleobject",
+            "class": "moUnknown",
+            "parent_id": 1080,
+            "mesh_index": null,
+            "mesh_size": null,
+            "child_count": 10,
+            "record_offset": 8727885,
+            "record_size": 30,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1093,
+            "name": "FinishPost03",
+            "class": "moMesh",
+            "parent_id": 1092,
+            "mesh_index": 45231,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 8727915,
+            "record_size": 26,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1099,
+            "name": "FinishPost04",
+            "class": "moMesh",
+            "parent_id": 1092,
+            "mesh_index": 45463,
+            "mesh_size": 12,
+            "child_count": 0,
+            "record_offset": 8728044,
+            "record_size": 26,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1110,
+            "name": "_boinds",
+            "class": "moMesh",
+            "parent_id": 0,
+            "mesh_index": 45667,
+            "mesh_size": 348,
+            "child_count": 0,
+            "record_offset": 8728214,
+            "record_size": 21,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1112,
+            "name": "_limits",
+            "class": "moMesh",
+            "parent_id": 0,
+            "mesh_index": 46015,
+            "mesh_size": 564,
+            "child_count": 0,
+            "record_offset": 8728247,
+            "record_size": 21,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1114,
+            "name": "_bsplitX",
+            "class": "moUnknown",
+            "parent_id": 0,
+            "mesh_index": null,
+            "mesh_size": null,
+            "child_count": 0,
+            "record_offset": 8728288,
+            "record_size": 14,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 1115,
+            "name": "raceline",
+            "class": "moMesh",
+            "parent_id": 0,
+            "mesh_index": 46579,
+            "mesh_size": 690,
+            "child_count": 0,
+            "record_offset": 8728302,
+            "record_size": 22,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          }
+        ]
+      },
+      "compiled_dx": {
+        "path": "../corpora/demo-8.4.1/DataGx/Course/Italy1/track01.dx",
+        "bytes": 10053551,
+        "sha256": "c96f11357edb1b12bc70b9f769cf195923c9cf8d94ef15ea6733010f2cb5d0a8",
+        "revision": 127,
+        "vertex_count": 55725
+      },
+      "source_to_dx": {
+        "candidate_transform_count": 48,
+        "best": {
+          "transform": "(x, z, -y)",
+          "exact": 6517,
+          "rounded_1": 28568,
+          "rounded_0_1": 27033
+        },
+        "runner_up": {
+          "transform": "(x, -z, -y)",
+          "exact": 0,
+          "rounded_1": 284,
+          "rounded_0_1": 6
+        },
+        "source_point_count": 34048,
+        "dx_vertex_count": 55725,
+        "match_fraction_rounded_0_1": 0.793967,
+        "evidence": "HIGH_CONFIDENCE_INFERENCE"
+      },
+      "source_to_blender": {
+        "transform": "identity (x, y, z)",
+        "evidence": "HIGH_CONFIDENCE_INFERENCE: best source-to-DX transform (x, z, -y) composes with proven DX-to-Blender (x, -z, y)"
+      },
+      "startpoint_xml_spatial_correlation": null
+    },
+    {
+      "label": "Demo 8.4.1 developer Boinds",
+      "source": {
+        "gxm": {
+          "path": "../corpora/demo-8.4.1/DataGx/Test/boinds/track01.gxm",
+          "bytes": 1629436,
+          "sha256": "5103203af3950bf90d4c2061c47dadbd65b315166053e220bcbf71adff6df86f"
+        },
+        "txt": {
+          "path": "../corpora/demo-8.4.1/DataGx/Test/boinds/track01.txt",
+          "bytes": 11424,
+          "sha256": "cb074b08a7c15eca577fb92baf540ec613a4c4c7e942156bb1d7b456a78deb09"
+        },
+        "header_words_u32": [
+          657154,
+          0,
+          26750,
+          36,
+          28212,
+          25745,
+          9404,
+          4933
+        ],
+        "node_table": {
+          "offset": 1629186,
+          "bytes": 250,
+          "node_count": 17
+        },
+        "float3_pool": {
+          "status": "bounded and finite; per-node association UNKNOWN",
+          "offset": 1569990,
+          "count": 4933,
+          "bytes": 59196,
+          "sha256": "b564e00df3234696e20b2a96eea90a605a0f54d6bea3aba2c716b111db6de494",
+          "bounds_xyz": [
+            [
+              -3144.039306640625,
+              -1655.2254638671875
+            ],
+            [
+              290.8756103515625,
+              1349.630615234375
+            ],
+            [
+              -10.366905212402344,
+              488.0810241699219
+            ]
+          ],
+          "finite_point_count": 4933
+        },
+        "header_crosschecks": {
+          "word4_equals_3_times_word6": true,
+          "word6_equals_sum_mesh_size": true
+        },
+        "helper_nodes": [
+          {
+            "ordinal": 7,
+            "name": "Surface $landdb",
+            "class": "moMesh",
+            "parent_id": 6,
+            "mesh_index": 0,
+            "mesh_size": 9266,
+            "child_count": 0,
+            "record_offset": 1629290,
+            "record_size": 29,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          },
+          {
+            "ordinal": 15,
+            "name": "$boinds",
+            "class": "moMesh",
+            "parent_id": 0,
+            "mesh_index": 9266,
+            "mesh_size": 138,
+            "child_count": 0,
+            "record_offset": 1629403,
+            "record_size": 21,
+            "evidence": "CONFIRMED_BY_BINARY for node name/hierarchy/span; behavior unknown"
+          }
+        ]
+      },
+      "compiled_dx": {
+        "path": "../corpora/demo-8.4.1/DataGx/Test/boinds/track01.dx",
+        "bytes": 1956516,
+        "sha256": "b87ab069cce54dbc0233f4981a19ef10bf0360f18c1a3bf78601cd55b7ca318a",
+        "revision": 125,
+        "vertex_count": 11013
+      },
+      "source_to_dx": {
+        "candidate_transform_count": 48,
+        "best": {
+          "transform": "(x, z, -y)",
+          "exact": 38,
+          "rounded_1": 4749,
+          "rounded_0_1": 4749
+        },
+        "runner_up": {
+          "transform": "(x, -z, -y)",
+          "exact": 0,
+          "rounded_1": 2,
+          "rounded_0_1": 0
+        },
+        "source_point_count": 4933,
+        "dx_vertex_count": 11013,
+        "match_fraction_rounded_0_1": 0.9627,
+        "evidence": "HIGH_CONFIDENCE_INFERENCE"
+      },
+      "source_to_blender": {
+        "transform": "identity (x, y, z)",
+        "evidence": "HIGH_CONFIDENCE_INFERENCE: best source-to-DX transform (x, z, -y) composes with proven DX-to-Blender (x, -z, y)"
+      },
+      "startpoint_xml_spatial_correlation": null
+    }
+  ],
+  "missing_required_pair_files": [],
+  "small_developer_oracles": {
+    "gordonTrack/flatTrack": {
+      ".gxm": {
+        "exists": true,
+        "bytes": 367703
+      },
+      ".txt": {
+        "exists": false,
+        "bytes": null
+      },
+      ".dx": {
+        "exists": false,
+        "bytes": null
+      },
+      "gxi": {
+        "count_in_folder": 1
+      }
+    },
+    "gordonTrack/track": {
+      ".gxm": {
+        "exists": true,
+        "bytes": 699247
+      },
+      ".txt": {
+        "exists": false,
+        "bytes": null
+      },
+      ".dx": {
+        "exists": false,
+        "bytes": null
+      },
+      "gxi": {
+        "count_in_folder": 1
+      }
+    },
+    "RussiaTurkey1/RussiaTurkey1": {
+      ".gxm": {
+        "exists": true,
+        "bytes": 8325199
+      },
+      ".txt": {
+        "exists": false,
+        "bytes": null
+      },
+      ".dx": {
+        "exists": false,
+        "bytes": null
+      },
+      "gxi": {
+        "count_in_folder": 76
+      }
+    },
+    "boinds/track01": {
+      ".gxm": {
+        "exists": true,
+        "bytes": 1629436
+      },
+      ".txt": {
+        "exists": true,
+        "bytes": 11424
+      },
+      ".dx": {
+        "exists": true,
+        "bytes": 1956516
+      },
+      "gxi": {
+        "count_in_folder": 37
+      }
+    },
+    "collisiontests/crack": {
+      ".gxm": {
+        "exists": true,
+        "bytes": 1029199
+      },
+      ".txt": {
+        "exists": false,
+        "bytes": null
+      },
+      ".dx": {
+        "exists": false,
+        "bytes": null
+      },
+      "gxi": {
+        "count_in_folder": 25
+      }
+    },
+    "collisiontests/crack2": {
+      ".gxm": {
+        "exists": true,
+        "bytes": 1029115
+      },
+      ".txt": {
+        "exists": false,
+        "bytes": null
+      },
+      ".dx": {
+        "exists": false,
+        "bytes": null
+      },
+      "gxi": {
+        "count_in_folder": 25
+      }
+    }
+  },
+  "conclusions": {
+    "float3_pool": "Header word 7 bounds a finite trailing float3 bank immediately before the TXT-validated node table. The full pool correlates with old compiled DX vertices in the three measured source/cooked pairs.",
+    "node_mesh_link": "UNKNOWN. TXT/GXM mesh Index/Size spans validate, but their mapping to the float3 pool and raw index streams is not proven.",
+    "startpoint": "HIGH_CONFIDENCE_INFERENCE: France1 has a startpoint node at Index 0 / Size 12 and the first eight pool points are eight corners of a 10-unit axis-aligned box. Face connectivity and exact pool-to-node indices are still unknown.",
+    "startpoint_xml": "The mapped center of that France1 point cluster is within the reported distance of Demo 9.10 France1 XML Marker 0; this is spatial correlation, not a direct XML-to-GXM binding.",
+    "source_to_dx": "HIGH_CONFIDENCE_INFERENCE: (x, z, -y) is the strongest match among all 48 signed axis permutations in France1, Italy1, and Boinds.",
+    "source_to_blender": "HIGH_CONFIDENCE_INFERENCE: identity, composed from source-to-DX (x, z, -y) and the established DX-to-Blender (x, -z, y).",
+    "bsp": "UNKNOWN. France1's $bsp hierarchy and mesh spans are inventoried, but the source point pool has not been mapped to individual BSP meshes."
+  }
+}

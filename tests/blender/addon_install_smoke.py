@@ -9,11 +9,15 @@ import bpy
 
 
 values = sys.argv[sys.argv.index("--") + 1:]
-if len(values) not in (1, 2, 3):
-    raise SystemExit("usage after --: <addon.zip> [synthetic.dx] or <addon.zip> <course.dx> <RaceTest.xml>")
+if len(values) not in (1, 2, 3, 4):
+    raise SystemExit(
+        "usage after --: <addon.zip> [synthetic.dx] or "
+        "<addon.zip> <course.dx> <RaceTest.xml> [source.gxm]"
+    )
 archive = Path(values[0]).resolve()
 fixture = Path(values[1]).resolve() if len(values) == 2 else None
-course_pair = (Path(values[1]).resolve(), Path(values[2]).resolve()) if len(values) == 3 else None
+course_pair = (Path(values[1]).resolve(), Path(values[2]).resolve()) if len(values) in (3, 4) else None
+gxm_source = Path(values[3]).resolve() if len(values) == 4 else None
 result = bpy.ops.preferences.addon_install(filepath=str(archive), overwrite=True)
 if result != {"FINISHED"}:
     raise AssertionError(f"add-on install failed: {result}")
@@ -26,6 +30,8 @@ if not hasattr(bpy.ops.import_scene, "master_rallye_vehicle"):
     raise AssertionError("vehicle folder operator missing after ZIP install")
 if not hasattr(bpy.ops.import_scene, "master_rallye_course_xml_markers"):
     raise AssertionError("RaceTest XML marker operator missing after ZIP install")
+if not hasattr(bpy.ops.import_scene, "master_rallye_course_gxm_startpoint"):
+    raise AssertionError("GXM startpoint point-candidate operator missing after ZIP install")
 if not hasattr(bpy.ops.export_scene, "master_rallye_dx_attributes"):
     raise AssertionError("R4E attribute DX operator missing after ZIP install")
 if not hasattr(bpy.ops.export_scene, "master_rallye_dx_positions"):
@@ -101,5 +107,22 @@ if course_pair is not None:
     payload["vendored_course_import"] = "PASS"
     payload["course_xml_overlay"] = "PASS"
     payload["course_xml_marker_count"] = expected
+    if gxm_source is not None:
+        result = bpy.ops.import_scene.master_rallye_course_gxm_startpoint(filepath=str(gxm_source))
+        if result != {"FINISHED"}:
+            raise AssertionError(f"packaged GXM point-candidate import failed: {result}")
+        point_overlays = [
+            collection for collection in bpy.data.collections
+            if collection.get("mr_gxm_source") == str(gxm_source)
+        ]
+        if len(point_overlays) != 1:
+            raise AssertionError("packaged GXM point overlay collection mismatch")
+        points = list(point_overlays[0].objects)
+        if len(points) != 8 or any(point.type != "EMPTY" for point in points):
+            raise AssertionError("packaged GXM overlay must contain exactly eight point-only empties")
+        if point_overlays[0].get("mr_source_node_name") != "startpoint":
+            raise AssertionError("packaged GXM overlay did not preserve the source node identity")
+        payload["vendored_gxm_startpoint_overlay"] = "PASS"
+        payload["gxm_candidate_point_count"] = len(points)
 
 print("R3_ADDON_INSTALL_PASS", json.dumps(payload, sort_keys=True))

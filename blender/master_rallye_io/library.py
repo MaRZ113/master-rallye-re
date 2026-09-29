@@ -32,6 +32,8 @@ try:
     )
     from master_rallye.dx import parse_dx
     from master_rallye.dx_course import parse_course_dx
+    from master_rallye.course_gxm import parse_course_gxm_float3_pool_bytes, parse_course_gxm_object_table_bytes
+    from master_rallye.course_source import parse_course_txt
     from master_rallye.course_xml import parse_course_xml
     from master_rallye.course_metadata import mark_course_metadata
     from master_rallye.dx_writer import write_dx_positions
@@ -81,6 +83,8 @@ except ModuleNotFoundError:
     )
     from .vendor.master_rallye.dx import parse_dx
     from .vendor.master_rallye.dx_course import parse_course_dx
+    from .vendor.master_rallye.course_gxm import parse_course_gxm_float3_pool_bytes, parse_course_gxm_object_table_bytes
+    from .vendor.master_rallye.course_source import parse_course_txt
     from .vendor.master_rallye.course_xml import parse_course_xml
     from .vendor.master_rallye.course_metadata import mark_course_metadata
     from .vendor.master_rallye.dx_writer import write_dx_positions

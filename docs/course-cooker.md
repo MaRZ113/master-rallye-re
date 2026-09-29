@@ -68,3 +68,27 @@ contain a substantially different course graph from native 9.10.0 or retail;
 revision alone is not a complete compatibility signature.
 
 No course writer is provided. All cooker outputs are temporary research data.
+
+## R5T-B.1 controlled source experiment
+
+The earlier two unchanged-source cooks establish natural DX render variation,
+so they are not enough to attribute a difference to a source edit. R5T-B.1
+adds a variance-aware comparison that requires at least three independent
+cooks per cohort, verifies identical source hashes within each cohort, and
+classifies raw and parser-derived fields against the observed baseline
+variants. It reports structural output changes; it does not label them as
+runtime, collision, or gameplay effects by itself.
+
+An isolated France1 experiment is staged under ignored
+`.research-output/r5t_b1/experiments/france1-startpoint/`. Baseline and
+modified runtimes are clones. Both use the same 8.4.1 GXM/TXT/GXI source set;
+the modified copy differs in one recorded GXM float in the first-eight-point
+startpoint candidate. Each staged France1 folder initially had one DX and 66
+DXT cache files removed. No game or source assets outside this ignored tree
+were edited.
+
+The six new runtime cooks have **not** been performed. See the cohort-specific
+`TEST_INSTRUCTIONS.txt` files in the ignored experiment directory and
+[`research/r5t_b1/runtime-test-plan.md`](../research/r5t_b1/runtime-test-plan.md)
+for the repeat/snapshot/reset sequence. The existing two-cook result remains
+the only cooker output comparison until those snapshots exist.

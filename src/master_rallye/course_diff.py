@@ -5,10 +5,15 @@ import hashlib
 import json
 import xml.etree.ElementTree as ET
 from collections import Counter
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-from .course_gxm import parse_course_gxm_bytes, parse_course_gxm_object_table_bytes
+from .course_gxm import (
+    parse_course_gxm_bytes,
+    parse_course_gxm_float3_pool_bytes,
+    parse_course_gxm_object_table_bytes,
+)
 from .course_source import parse_course_txt_bytes
 from .dx_course import parse_course_dx_bytes
 from .dx import parse_dx_common_prefix
@@ -16,6 +21,10 @@ from .errors import BoundsError, FormatError
 from .hnt import parse_hnt_bytes
 from .sfl import parse_sfl_bytes
 from .sidecar import parse_sidecar
+
+
+SOURCE_INPUT_SUFFIXES = {".gxm", ".txt", ".gxi"}
+COOKED_OUTPUT_SUFFIXES = {".dx", ".dxt"}
 
 
 def _sha(data: bytes) -> str:
@@ -260,6 +269,7 @@ def _semantics(path: Path, data: bytes) -> dict[str, Any]:
         if txt_path.is_file():
             txt = parse_course_txt_bytes(txt_path.read_bytes(), txt_path.name)
             table = parse_course_gxm_object_table_bytes(data, txt, path.name)
+            point_pool = parse_course_gxm_float3_pool_bytes(data, table, path.name)
             class_counts = Counter(node.class_name for node in table.nodes)
             helper_counts = Counter(
                 token for node in txt.nodes for token in node.literal_tokens
@@ -288,6 +298,14 @@ def _semantics(path: Path, data: bytes) -> dict[str, Any]:
                     json.dumps(stable_nodes, sort_keys=True, ensure_ascii=False).encode("utf-8")
                 ),
                 "crosscheck": table.txt_crosscheck,
+                "candidate_float3_pool": {
+                    "status": "bounded; node association unknown",
+                    "offset": point_pool.offset,
+                    "count": point_pool.count,
+                    "byte_size": point_pool.byte_size,
+                    "sha256": _sha(point_pool.raw),
+                    "coordinate_frame": "source pool correlates with old DX under (x, z, -y); GXM-to-Blender identity is inferred",
+                },
             }
         else:
             result["object_table"] = {
@@ -508,6 +526,271 @@ def diff_course_trees(base: Path, modified: Path) -> dict[str, Any]:
         },
         "files": changed_records,
     }
+
+
+_MISSING = {"$state": "missing-file"}
+
+
+def _flatten_signature(value: Any, prefix: str, result: dict[str, Any]) -> None:
+    """Flatten parser output to stable field paths while retaining array order."""
+    if isinstance(value, dict):
+        if not value:
+            result[prefix] = {}
+            return
+        for key in sorted(value):
+            child = f"{prefix}.{key}" if prefix else str(key)
+            _flatten_signature(value[key], child, result)
+        return
+    if isinstance(value, list):
+        result[f"{prefix}.$length"] = len(value)
+        for index, item in enumerate(value):
+            _flatten_signature(item, f"{prefix}[{index}]", result)
+        return
+    result[prefix] = value
+
+
+def _cook_run_signature(root: Path) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    """Return resource field signatures and compact run metadata for one cook."""
+    inventory = _inventory(root.resolve())
+    fields: dict[str, dict[str, Any]] = {}
+    for key, (relative, path, data, digest) in inventory.items():
+        prefix = f"file[{key}]"
+        fields[f"{prefix}.bytes"] = len(data)
+        fields[f"{prefix}.sha256"] = digest
+        try:
+            semantics = _semantics(path, data)
+        except Exception as exc:  # malformed output remains visible as a field
+            semantics = {
+                "status": "parse_failed",
+                "kind": path.suffix.casefold(),
+                "error": f"{type(exc).__name__}: {exc}",
+            }
+        public = {name: value for name, value in semantics.items() if not name.startswith("_")}
+        _flatten_signature(public, f"semantic[{relative}]", fields)
+
+    run_id = root.parent.name if root.parent != root else root.name
+    run_metadata: dict[str, Any] = {
+        "id": run_id,
+        "resource_root": str(root.resolve()),
+        "file_count": len(inventory),
+        "suffix_counts": {
+            suffix: count
+            for suffix, count in sorted(Counter(Path(item[0]).suffix.casefold() for item in inventory.values()).items())
+        },
+    }
+    metadata_path = root.parent / "run.json"
+    if metadata_path.is_file():
+        try:
+            supplied = json.loads(metadata_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            run_metadata["metadata_error"] = f"{type(exc).__name__}: {exc}"
+        else:
+            run_metadata["metadata"] = supplied
+    log_path = root.parent / "cooker.log"
+    if log_path.is_file():
+        log_bytes = log_path.read_bytes()
+        log_text = log_bytes.decode("utf-8", errors="replace")
+        interesting = [
+            line.strip() for line in log_text.splitlines()
+            if any(token in line.casefold() for token in ("warning", "error", "failed", "giving up", "not find"))
+        ]
+        run_metadata["cooker_log"] = {
+            "sha256": _sha(log_bytes),
+            "line_count": len(log_text.splitlines()),
+            "warning_error_line_count": len(interesting),
+            "warning_error_lines": interesting[:100],
+            "truncated": len(interesting) > 100,
+        }
+    else:
+        run_metadata["cooker_log"] = None
+    return fields, run_metadata
+
+
+def _canonical_signature_value(value: Any) -> str:
+    return json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+
+
+def _classify_cook_field(base_values: set[str], modified_values: set[str]) -> str:
+    """Classify a field conservatively against observed baseline variability."""
+    if not base_values or not modified_values:
+        return "MODIFICATION_VARIABLE"
+    if len(modified_values) == 1:
+        modified_value = next(iter(modified_values))
+        if len(base_values) == 1:
+            return "UNCHANGED" if modified_value in base_values else "MODIFICATION_STABLE"
+        return "BASELINE_VARIABLE" if modified_value in base_values else "MODIFICATION_STABLE"
+    if modified_values.issubset(base_values):
+        return "BASELINE_VARIABLE"
+    return "MODIFICATION_VARIABLE"
+
+
+def compare_course_cook_sets(
+    baseline_runs: Sequence[Path],
+    modified_runs: Sequence[Path],
+    *,
+    minimum_runs: int = 3,
+) -> dict[str, Any]:
+    """Compare repeated cooker output trees without confusing natural DX variance.
+
+    At least three independent runs per cohort are mandatory.  Values are
+    compared per resource and parser-derived field; raw file size and SHA-256
+    remain explicit fields so unsupported output is never silently ignored.
+    """
+    if minimum_runs < 3:
+        raise ValueError("minimum_runs cannot be below the required three cooks per cohort")
+    if len(baseline_runs) < minimum_runs or len(modified_runs) < minimum_runs:
+        raise ValueError(
+            f"need at least {minimum_runs} runs in each cohort; got "
+            f"{len(baseline_runs)} baseline and {len(modified_runs)} modified"
+        )
+
+    def prepare(runs: Sequence[Path], label: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        seen_ids: set[str] = set()
+        signatures: list[dict[str, Any]] = []
+        metadata: list[dict[str, Any]] = []
+        for root in runs:
+            resolved = root.resolve()
+            if not resolved.is_dir():
+                raise ValueError(f"{label} cook tree does not exist: {resolved}")
+            fields, run_metadata = _cook_run_signature(resolved)
+            run_id = str(run_metadata["id"])
+            if run_id in seen_ids:
+                raise ValueError(f"duplicate {label} run id {run_id!r}")
+            seen_ids.add(run_id)
+            signatures.append(fields)
+            metadata.append(run_metadata)
+        manifests = [
+            run.get("metadata", {}).get("input_manifest")
+            if isinstance(run.get("metadata"), dict) else None
+            for run in metadata
+        ]
+        present = [manifest is not None for manifest in manifests]
+        if any(present) and not all(present):
+            raise ValueError(f"{label} cohort mixes runs with and without source input manifests")
+        if all(present):
+            canonical = {_canonical_signature_value(manifest) for manifest in manifests}
+            if len(canonical) != 1:
+                raise ValueError(f"{label} cohort source input hashes differ between cooks")
+        return signatures, metadata
+
+    baseline, baseline_meta = prepare(baseline_runs, "baseline")
+    modified, modified_meta = prepare(modified_runs, "modified")
+
+    def manifest_hash(runs: list[dict[str, Any]]) -> str | None:
+        first = runs[0].get("metadata", {})
+        manifest = first.get("input_manifest") if isinstance(first, dict) else None
+        return _sha(_canonical_signature_value(manifest).encode("utf-8")) if manifest is not None else None
+
+    all_fields = sorted(set().union(*(run.keys() for run in (*baseline, *modified))))
+    field_records: list[dict[str, Any]] = []
+    unchanged_count = 0
+    for field in all_fields:
+        values_by_cohort: dict[str, list[tuple[str, Any]]] = {"baseline": [], "modified": []}
+        for label, runs, metadata in (
+            ("baseline", baseline, baseline_meta),
+            ("modified", modified, modified_meta),
+        ):
+            for signature, run in zip(runs, metadata):
+                value = signature.get(field, _MISSING)
+                values_by_cohort[label].append((str(run["id"]), value))
+        base_values = {_canonical_signature_value(value) for _, value in values_by_cohort["baseline"]}
+        modified_values = {_canonical_signature_value(value) for _, value in values_by_cohort["modified"]}
+        classification = _classify_cook_field(base_values, modified_values)
+        if classification == "UNCHANGED":
+            unchanged_count += 1
+        resource_path = field[5:field.index("]")] if field.startswith("file[") else field.split("[", 1)[1].split("]", 1)[0] if field.startswith("semantic[") else ""
+        suffix = Path(resource_path).suffix.casefold()
+        resource_role = "source_input" if suffix in SOURCE_INPUT_SUFFIXES else "cooked_output" if suffix in COOKED_OUTPUT_SUFFIXES else "other"
+
+        def variants(items: list[tuple[str, Any]]) -> list[dict[str, Any]]:
+            grouped: dict[str, dict[str, Any]] = {}
+            for run_id, value in items:
+                encoded = _canonical_signature_value(value)
+                variant = grouped.setdefault(encoded, {"value": value, "count": 0, "runs": []})
+                variant["count"] += 1
+                variant["runs"].append(run_id)
+            return [grouped[key] for key in sorted(grouped)]
+
+        field_records.append({
+            "field": field,
+            "resource_path": resource_path,
+            "resource_role": resource_role,
+            "classification": classification,
+            "baseline_variants": variants(values_by_cohort["baseline"]),
+            "modified_variants": variants(values_by_cohort["modified"]),
+        })
+
+    counts = Counter(item["classification"] for item in field_records)
+    role_counts = {
+        role: {
+            classification: sum(
+                item["resource_role"] == role and item["classification"] == classification
+                for item in field_records
+            )
+            for classification in ("BASELINE_VARIABLE", "MODIFICATION_STABLE", "MODIFICATION_VARIABLE", "UNCHANGED")
+        }
+        for role in ("source_input", "cooked_output", "other")
+    }
+    return {
+        "schema": "mrtool-course-cook-set-v1",
+        "minimum_runs_per_cohort": minimum_runs,
+        "baseline_runs": baseline_meta,
+        "modified_runs": modified_meta,
+        "baseline_input_manifest_sha256": manifest_hash(baseline_meta),
+        "modified_input_manifest_sha256": manifest_hash(modified_meta),
+        "summary": {
+            "baseline_run_count": len(baseline_meta),
+            "modified_run_count": len(modified_meta),
+            "baseline_variable_field_count": counts["BASELINE_VARIABLE"],
+            "modification_stable_field_count": counts["MODIFICATION_STABLE"],
+            "modification_variable_field_count": counts["MODIFICATION_VARIABLE"],
+            "unchanged_field_count": unchanged_count,
+            "changed_field_count": len(field_records) - unchanged_count,
+            "reported_field_count": len(field_records),
+            "field_counts_by_resource_role": role_counts,
+            "compiled_stable_effect_field_count": role_counts["cooked_output"]["MODIFICATION_STABLE"],
+            "compiled_variable_effect_field_count": role_counts["cooked_output"]["MODIFICATION_VARIABLE"],
+        },
+        "fields": field_records,
+        "interpretation": {
+            "BASELINE_VARIABLE": "modified values remain within values already observed in baseline cooks; source effect is not isolated for this field",
+            "MODIFICATION_STABLE": "all modified cooks agree on a value absent from every baseline cook",
+            "MODIFICATION_VARIABLE": "modified cooks vary and introduce at least one value absent from baseline",
+            "UNCHANGED": "all baseline and modified cooks agree on one value",
+        },
+    }
+
+
+def render_course_cook_set_markdown(report: dict[str, Any]) -> str:
+    summary = report["summary"]
+    lines = [
+        "# Repeated course cook comparison",
+        "",
+        f"- Baseline cooks: {summary['baseline_run_count']}",
+        f"- Modified cooks: {summary['modified_run_count']}",
+        f"- Baseline-variable fields: {summary['baseline_variable_field_count']}",
+        f"- Stable modified fields: {summary['modification_stable_field_count']}",
+        f"- Variable modified fields: {summary['modification_variable_field_count']}",
+        f"- Compiled-output stable effect fields: {summary['compiled_stable_effect_field_count']}",
+        "",
+        "| Classification | Role | Field | Baseline variants | Modified variants |",
+        "|---|---|---|---:|---:|",
+    ]
+    for item in report["fields"]:
+        if item["classification"] == "UNCHANGED":
+            continue
+        lines.append(
+            f"| {item['classification']} | {item['resource_role']} | `{item['field']}` | "
+            f"{len(item['baseline_variants'])} | {len(item['modified_variants'])} |"
+        )
+    if summary["changed_field_count"] == 0:
+        lines.append("| UNCHANGED | all compared fields | 1 | 1 |")
+    lines.extend([
+        "",
+        "The JSON report includes unchanged fields. Raw file hashes are reported alongside parser fields. A stable difference is a structural observation, not by itself a gameplay or collision claim.",
+        "",
+    ])
+    return "\n".join(lines)
 
 
 def render_course_diff_markdown(report: dict[str, Any]) -> str:

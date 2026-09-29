@@ -8,16 +8,17 @@ not carried over unless a course source/compiled pair confirms them.
 Demo 8.4.1 is the only supplied build with paired course `.gxm` and `.txt`
 inputs for France1 and Italy1. The TXT inventory preserves the literal node
 names, line text, brace-backed parentage, and `moMesh` `Index`/`Size` spans.
-It does not decode source coordinates or assign behavior to names such as
-`_raceline`, `_limits`, `$boinds`, `$bsp`, or `$ps2cells`.
+It does not decode per-node coordinate/index membership or assign behavior to
+names such as `_raceline`, `_limits`, `$boinds`, `$bsp`, or `$ps2cells`.
 
 The GXM prefix reader bounds the 32-byte header and an observed count-based
 16-byte bank. A second, exact node-table reader requires the paired TXT: the
 TXT node inventory determines the table's start from the file end, and the
 reader then checks every node class, name, unknown-node child count, and mesh
 span. No name search is used by that parser. This cross-check is confirmed for
-the France1 and Italy1 8.4.1 pairs only. Transforms and the GXM geometry arrays
-remain unknown.
+the France1 and Italy1 8.4.1 pairs only. R5T-B.1 bounds a trailing float3 bank
+and compares it to same-build cooked DX positions, but per-node point/index
+membership and node transforms remain unknown.
 
 | Source | GXM object-table offset | Table bytes | Nodes | `moMesh` | `moUnknown` |
 |---|---:|---:|---:|---:|---:|
@@ -31,7 +32,7 @@ coordinates or gameplay semantics.
 
 | Course | Literal node | `Index` | `Size` | Evidence |
 |---|---|---:|---:|---|
-| France1 | `startpoint` | 0 | 12 | `CONFIRMED_BY_SOURCE_COMPILED_PAIR` name/span; position unknown |
+| France1 | `startpoint` | 0 | 12 | `CONFIRMED_BY_SOURCE_COMPILED_PAIR` name/span; first-eight-point association remains inferred |
 | France1 | `_raceline` | 59,293 | 954 | `CONFIRMED_BY_SOURCE_COMPILED_PAIR` name/span; route meaning not independently proven |
 | France1 | `$boinds` | 60,247 | 251 | exact source identifier/span; meaning unknown |
 | France1 | `$ps2cells` | 60,498 | 91 | exact source identifier/span; meaning unknown |
@@ -44,13 +45,37 @@ Course source material/directive text also contains `$grnd`, `$grndu`, `$grndv`,
 `$landdb`, `$draw`, and `$nodraw`. These remain source labels until a controlled
 cook isolates their compiled effects.
 
-## Controlled source edits
+## R5T-B.1 float3 bank and startpoint candidate
 
-No source GXM was edited in R5T-B. The parsed table provides exact node and
-mesh-span boundaries, but source vertex/index arrays and transforms have not
-been mapped. Therefore no safe `startpoint`, raceline, bounds, BSP, or foliage
-candidate was created. Continue from isolated developer GXM/TXT pairs once
-they are available; France1 is not a substitute for those smaller oracles.
+Header word 7 matches the finite float3 count in measured Demo 8.4.1 France1,
+Italy1, and developer Boinds pairs. The corresponding bank ends at the exact
+TXT-validated object-table boundary. Across all 48 signed axis permutations,
+`(x, z, -y)` is the strongest source-to-DX position match in all three pairs.
+Composing that relation with the established DX-to-Blender `(x, -z, y)` gives
+identity as a `HIGH_CONFIDENCE_INFERENCE` for this source corpus. This is a
+global spatial relation, not a decoded node transform.
+
+France1's `startpoint` record is `moMesh`, `Index 0`, `Size 12`. The first
+eight float3 pool entries are the eight corners of a 10-unit axis-aligned
+box. Their center maps within 1.559 units of Demo 9.10 France1 RaceTest Marker
+0. That correlation supports, but does not prove, the startpoint association;
+the span-to-point/index mapping and connectivity remain `UNKNOWN`.
+
+R5T-B.1 created an ignored scratch copy and changed exactly point 0's source X
+from `-987.0555419921875` to `-986.0555419921875` (+1.0). The original GXM is
+unchanged. This edit is an experimental candidate only: no cooker result is
+available yet. Three baseline and three modified cooks are required because
+identical-source France1 cooks already showed render-prefix variability. See
+[`research/r5t_b1/startpoint.md`](../research/r5t_b1/startpoint.md) and
+[`research/r5t_b1/multi-cook-method.md`](../research/r5t_b1/multi-cook-method.md).
+
+## Remaining source grammar limits
+
+The float3 pool is not yet associated per node. No raceline ordering, limits
+or boinds geometry, BSP mesh mapping, foliage material grammar, or source
+transform records are decoded. Small developer pairs are sparse: only
+Boinds currently has GXM, TXT, and cooked DX together. France1 remains a large
+validation pair, not a substitute for missing isolated oracles.
 
 The current parser can inventory and compare source hierarchy metadata with
 `mrtool diff-course`. It is not a GXM writer and does not modify game assets.
