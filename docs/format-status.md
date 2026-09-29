@@ -51,7 +51,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
   geometry controls grid placement and heading; see the current race-logic
   status below.
 
-## Course race-logic status (R5T-D.0)
+## Course race-logic status (R5T-D.0 / D.1)
 
 - **CONFIRMED_BY_RUNTIME_EDIT:** translating, rotating, or scaling the four
   France1 `MarkerLists/StartArea` positions moves, rotates, or expands the
@@ -67,17 +67,22 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
   the yellow visual sign but does not move the gameplay trigger. Row3 as the
   trigger center is **REJECTED / NOT SUPPORTED**; the actual trigger center
   remains **UNKNOWN**.
-- **HIGH_CONFIDENCE_INFERENCE candidate:** the repeated four-Egg group
-  `SplitTimes/SplitTimeN-0…3` is the strongest static trigger-position
-  candidate. Its centroid is close to the visual Egg and its corner distance
-  closely matches Radius across IDs 0–2. This is not runtime-confirmed.
+- **CONFIRMED_BY_RUNTIME_EDIT:** moving the visible `SplitTime0-0..3`
+  checkpoint Eggs moved those objects but left the split event at its old
+  location. Their transforms are **NOT_SUPPORTED** as the direct trigger
+  center; the earlier static candidate is superseded.
+- **CONFIRMED_BY_EXECUTABLE:** Retail `gaRaceSplitTimeAI` reads its center from
+  `P = *(context+0x50)` and XYZ at `P+0x4C/+0x50/+0x54`. Its producer, owner
+  type, and source asset field remain **UNKNOWN**. The method compares 3D
+  Euclidean distance to each car against Radius with strict `<`.
 - The nearest RaceLine marker indices 112, 224, and 336 are a separate
   **PLAUSIBLE** correlation only. No edit or XML reference binds them to the
-  trigger.
-- **Prepared, not run:** one source-isolated edit shifts only SplitTime0's four
-  sibling Egg Row3 XYZ triplets by `(806.07, -30.75, 283.39)` toward StartArea.
-  The visual sign, Radius/ID/ExtraTime, RaceLine, StartArea, and other splits
-  remain fixed. See `research/r5t_d0/split-trigger-localization.md`.
+  trigger. The executable does show the dependency direction from the trigger
+  center to its nearest RaceLine point for the split percentage; it does not
+  derive the center from RaceLine.
+- The earlier sibling-Egg translation was prepared but is superseded; do not
+  run it as the next test. The current read-only debugger capture is documented
+  in `research/r5t_d1/split-center-trace.md`.
 - The runtime-dependent player-to-slot ordering across 8.4.1, 9.3.1, and
   Retail is separate from this physical geometry question and was not analyzed
   here.

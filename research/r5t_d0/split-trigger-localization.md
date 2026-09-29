@@ -1,5 +1,14 @@
 # France1 split-trigger localization
 
+> **Status update (R5T-D.1): superseded.** Subsequent Retail runtime edits
+> moved `SplitTime0-0..3` checkpoint visuals while SplitTime0 remained at its
+> original location. Those four transforms are therefore **NOT_SUPPORTED** as
+> SplitTime0's direct trigger-center source; analogous SplitTime1/2 transforms
+> were not independently tested. The candidate comparison and prepared
+> edit below are retained as the historical D.0 rationale; do not run that
+> prepared edit as the next probe. The trigger's XYZ is read from an unidentified
+> runtime object; see [`split-center-trace.md`](../r5t_d1/split-center-trace.md).
+
 ## Question and confirmed separation
 
 The split Egg has two roles that must stay separate:
@@ -29,11 +38,12 @@ Row3 points form a compact repeated group:
 | 1 | `(-2799.970, -4.473, 563.820)` | 2.426 | 13.005–13.008 | 13 |
 | 2 | `(-1644.960, 39.913, 1009.460)` | 1.033 | 12.011–12.056 | 12 |
 
-This repeated geometry and Radius match make the four transforms the strongest
-static candidate: **HIGH_CONFIDENCE_INFERENCE, not runtime-confirmed**. Names
-and proximity alone do not prove the `gaRaceSplitTimeAI` link. The actual
-trigger might use a center, gate, volume, or another representation derived
-from this group.
+At the time of R5T-D.0, this repeated geometry and Radius match made the four
+transforms the strongest static candidate. The later controlled runtime
+relocation did not relocate SplitTime0, so `SplitTime0-0..3` are
+**NOT_SUPPORTED** as that event's direct trigger center. The corresponding
+SplitTime1/2 groups were not independently tested. The edit does not establish
+that the visual objects have no other role.
 
 ### Candidate 2 — RaceLine samples
 
@@ -50,13 +60,11 @@ The runtime edit moved the sign but left the event at its old location. Direct
 Row3 trigger placement is **REJECTED / NOT SUPPORTED**, even though the static
 group centroid and RaceLine samples are near the sign.
 
-## One prepared controlled test
+## Historical prepared controlled test — superseded, do not run
 
-The four-point sibling group is the best candidate to test because it repeats
-across all three split IDs and its corner distances closely track the known
-Radius values. The prepared experiment moves only the four SplitTime0 sibling
-Egg transforms near StartArea. It leaves the sign Egg and RaceLine where they
-are, separating the candidate group from the other strongest correlation.
+The original D.0 plan treated the four-point sibling group as the best
+candidate. That plan predates the D.1 runtime result and is superseded. The
+prepared file remains only as a record of the old controlled-test design.
 
 The source is the external Retail France1 XML with SHA-256
 `beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1`. The
@@ -100,4 +108,6 @@ the event independently from those objects and from the yellow sign.
 - If neither location fires, first classify an arming/order/cache/runtime
   problem. That outcome alone does not reject the sibling group.
 
-The edit is **PREPARED_NOT_RUNTIME_TESTED**. No runtime result is claimed.
+The edit was **PREPARED_NOT_RUNTIME_TESTED** at the D.0 checkpoint. D.1 later
+tested the checkpoint-object transforms and found no trigger relocation; this
+prepared edit is not a recommended follow-up.

@@ -1,5 +1,12 @@
 # R5T-D.0 findings — RaceTest XML race logic
 
+> **Current-state note (R5T-D.1):** The static sibling-group candidate and
+> prepared edit described below were superseded by a later controlled runtime
+> edit. Moving the `SplitTime0-0..3` visuals did not move SplitTime0. The
+> executable confirms that the trigger center is read from an unidentified
+> runtime object at `[context+0x50]+0x4C..0x54`; the producer/source field is
+> still **UNKNOWN**. See `research/r5t_d1/` for the current trace.
+
 ## Scope and source
 
 This phase inspects RaceTest XML and the existing Blender add-on only. It does
@@ -57,10 +64,13 @@ source-order outline and four points, without a filled face.
 Each split has sibling Eggs `SplitTimeN-0` through `SplitTimeN-3` in the
 `SplitTimes` list. Their en3d Matrix Row3 positions form a compact repeated
 four-point group. Its centroid and corner-distance pattern tracks the visual
-Egg and Radius closely in all three cases. This makes the four-point group a
-**HIGH_CONFIDENCE_INFERENCE candidate** for the runtime trigger's spatial
-structure, but there is no direct XML reference or controlled runtime edit
-proving the link.
+Egg and Radius closely in all three cases. At the time of R5T-D.0, this made
+the group a **HIGH_CONFIDENCE_INFERENCE candidate** for the runtime trigger's
+spatial structure. A later controlled runtime edit moved the four visible
+`SplitTime0-0..3` checkpoint objects without moving SplitTime0, so these four
+transforms are **NOT_SUPPORTED** as SplitTime0's direct trigger center. The
+analogous SplitTime1/2 groups were not independently moved in that test. The
+result does not establish that the visual objects have no other role.
 
 The nearest RaceLine markers to the three visual positions are indices 112,
 224, and 336 at distances 6.181, 4.834, and 0.000. Their repeated 112-index
@@ -124,4 +134,5 @@ RaceTest spatial link is claimed.
   instead.
 - No course DX, XML, route, surface, BSP, or EXE writer was added. No EXE was
   patched. The R5T-C tag100 and `$bsp -> tag100` UNKNOWN findings are unchanged.
-- The split-group runtime candidate is prepared but has not been run.
+- The split-group runtime edit was prepared at the D.0 checkpoint but is
+  superseded by the D.1 relocation result; do not run it as the next probe.

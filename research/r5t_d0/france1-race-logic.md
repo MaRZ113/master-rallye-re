@@ -1,5 +1,13 @@
 # France1 RaceTest XML race-logic inventory
 
+> **Current-state update (R5T-D.1):** Static positions below are not recovered
+> gameplay trigger centers. Retail executable analysis shows
+> `gaRaceSplitTimeAI` reads its center from an unidentified runtime object via
+> `[context+0x50]` and XYZ offsets `+0x4C/+0x50/+0x54`. Moving the four
+> `SplitTime0-0..3` checkpoint visuals did not move SplitTime0, so those four
+> transforms are **NOT_SUPPORTED** as SplitTime0's direct center. The analogous
+> SplitTime1/2 groups were not independently tested. See `research/r5t_d1/`.
+
 Source: `France1.xml` (474,787 bytes, SHA-256 `beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1`).
 
 Parsed 1080 Marker records in 8 source-ordered MarkerLists and 76 Eggs. The XML tree and all marker positions/directions are preserved in the companion JSON.
@@ -37,13 +45,13 @@ Runtime edits confirm StartArea moves/rotates/scales the physical start grid and
 
 The visual Egg's `en3d Matrix` Row3 is **CONFIRMED_BY_RUNTIME_EDIT** as the yellow sign position. Moving it alone moved the sign but left the gameplay trigger at the old location; Row3 as trigger center is therefore **REJECTED / NOT SUPPORTED**. Radius changes the event's trigger extent (**CONFIRMED_BY_RUNTIME_EDIT**), but the trigger center remains **UNKNOWN**.
 
-### Strongest next trigger-position candidate
+### Historical D.0 static candidate comparison — superseded
 
-The strongest static candidate is the repeated four-Egg sibling group `SplitTimes/SplitTimeN-0 … SplitTimeN-3`, considered as a group rather than any single Egg. Across IDs 0, 1, and 2, the four Row3 points form a compact cluster; their centroid is within 0.253, 2.426, and 1.033 units of the corresponding visual Egg, and their centroid-to-corner radii closely track Radius values 21, 13, and 12. This is a **HIGH_CONFIDENCE_INFERENCE candidate only**: no XML reference or runtime edit has yet bound these transforms to `gaRaceSplitTimeAI`.
+Before the D.1 runtime test, the repeated four-Egg sibling groups `SplitTimes/SplitTimeN-0 … SplitTimeN-3` appeared to be strong static candidates: their centroids were within 0.253, 2.426, and 1.033 units of their visual Eggs, and their corner distances tracked Radius values 21, 13, and 12. Moving `SplitTime0-0..3` without moving SplitTime0 makes those four transforms **NOT_SUPPORTED** as SplitTime0's direct trigger center. The analogous SplitTime1/2 transforms were not independently tested; all may still have other visual or spatial roles.
 
-The nearest RaceLine markers are a separate plausible correlate: indices 112, 224, 336, respectively, with visual-position distances 6.181, 4.834, and 0.000. Their regular spacing is not proof of a trigger link. The next test should move only the four SplitTime0 sibling Egg Row3 XYZ values by one common translation to the StartArea centroid, keeping the visual SplitTime0 Egg and RaceLine unchanged.
+The nearest RaceLine markers to the visual signs are indices 112, 224, and 336 at 6.181, 4.834, and 0.000 units. This is still only a visual-position correlation. Executable analysis separately shows that the actual, currently unknown center is mapped to its nearest RaceLine point to initialize split percentage; the concrete runtime indices have not been reproduced.
 
-If the event moves, the four-point group is linked to trigger placement. If the event remains at the original split, that group is not sufficient; the unchanged RaceLine candidate or another structure remains open. The four sibling Eggs may be visible course objects, so the test may also relocate their corresponding objects. Do not interpret that visual movement as the trigger result; judge the split event separately.
+The D.0 prepared translation of the sibling Egg transforms is superseded and is not the next test. The current next step is a read-only breakpoint capture at `MRallye.exe+0x8CC50` to record the runtime center and caller; see `research/r5t_d1/split-center-trace.md`.
 
 ## Retail RaceTest XML corpus
 
@@ -59,5 +67,7 @@ Radius range: [7.0, 30.0]; ExtraTime range: [42.5, 120.0]. These are corpus rang
 - FinishArea contribution to completion region: **CONFIRMED_BY_RUNTIME_EDIT**; not proven exclusive.
 - Split Radius affects trigger extent: **CONFIRMED_BY_RUNTIME_EDIT**.
 - Split visual transform vs gameplay trigger: separate; visual position confirmed, trigger position **UNKNOWN**.
+- Trigger center memory read at `[context+0x50]+0x4C..0x54`: **CONFIRMED_BY_EXECUTABLE**; owner and source producer **UNKNOWN**.
+- Moving visible `SplitTime0-0..3` checkpoint objects does not move the event: **CONFIRMED_BY_RUNTIME_EDIT**.
 - `ExtraTime` semantics: **UNKNOWN**.
 - Runtime version participant-to-slot order: not analyzed in this phase.
