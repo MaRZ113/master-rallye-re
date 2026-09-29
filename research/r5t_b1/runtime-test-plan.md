@@ -46,8 +46,19 @@ baseline-variable, stable modified, modified-variable, or unchanged. A stable
 compiled difference establishes source-to-compiled correlation only; a
 separate runtime observation is needed for an in-game effect.
 
-## Current result
+## R5T-B.1 closeout result
 
-Runtime outcomes are **PENDING HUMAN RUNS**. Do not claim that the edit moves a
-startpoint, changes collision, affects XML markers, or changes gameplay until
-the cook comparison and an isolated runtime observation support that claim.
+The six required cooks were captured and compared. Baseline tag100 is
+10,118,248 bytes with SHA-256
+`9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7` in all
+three runs. Modified tag100 has the same size and SHA-256
+`c89654dbf502de96df366d05ecdd87051b0051e8308851550c0e0b6d37c23086` in all
+three runs. Render prefixes vary naturally. The result confirms a repeatable
+source-to-tag100 compiled effect, not a semantic interpretation.
+
+The owner reports that the modified course loaded in Demo 9.10.0 with no
+obvious starting-grid or other gameplay difference. This was a one-corner
+tracer, not a whole-object translation; it does not establish that the
+startpoint volume is irrelevant to spawning, triggers, collision, or race
+activation. R5T-C should test a validated whole-volume translation before
+making those claims.

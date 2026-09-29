@@ -12,19 +12,24 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.fl` / `.sf` | Historical 20-byte-header fields with four payload bytes per cell in scanned Demo 8.4.1 candidates. | **CONFIRMED** structure / **UNKNOWN** semantic | Ten candidates satisfy `20 + W*H*4`; direct semantic equivalence to SFL is not established. |
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
-| Course `.gxm` | Demo 8.4.1 source header, counted bank, and exact trailing node table cross-validated against paired TXT; a bounded float3 bank correlates spatially with cooked DX. | **CONFIRMED_BY_SOURCE_COMPILED_PAIR** for measured positions; node-to-point links **UNKNOWN** | Three measured pairs (France1, Italy1, developer Boinds); one source startpoint point edit is staged, with six controlled runtime cooks still pending. See `docs/course-source.md` and `research/r5t_b1/`. |
+| Course `.gxm` | Demo 8.4.1 source header, counted bank, and exact trailing node table cross-validated against paired TXT; a bounded float3 bank correlates spatially with cooked DX. | **CONFIRMED_BY_SOURCE_COMPILED_PAIR** for measured positions and the controlled tag100 response; node-to-point links **UNKNOWN** | Three measured pairs (France1, Italy1, developer Boinds); one-point source tracer changed tag100 reproducibly across 3+3 cooks. Whole-volume startpoint semantics remain untested. See `docs/course-source.md` and `research/r5t_b1/`. |
 
-## Course status (R5T-B.1)
+## Course status (R5T-B.1 closeout; R5T-C in progress)
 
-- **HIGH_CONFIDENCE_INFERENCE:** the measured Demo 8.4.1 course source point
-  bank maps to DX positions by `(x, z, -y)`; the established DX-to-Blender
+- **HIGH_CONFIDENCE_INFERENCE:** the measured Demo 8.4.1 course point bank
+  maps to DX positions by `(x, z, -y)`; the established DX-to-Blender
   transform composes to identity. This is not a per-node geometry mapping.
-- **PENDING:** one-France1-float source edit has been prepared in ignored
-  scratch copies. Three identical-source baseline and three modified runtime
-  cooks are required to separate the known natural render variation from a
-  repeatable compiled effect. No effect or runtime behavior is claimed yet.
-- Course DX render import and the GXM point overlay are read-only. BSP, route,
-  limits, surface, and SFL semantics remain outside the current claim.
+- **CONFIRMED_BY_SOURCE_COMPILED_PAIR:** one France1 source float changed by
+  +1.0; three baseline and three modified cooks show stable tag100 within each
+  cohort and distinct tag100 hashes across cohorts. Render prefixes vary
+  naturally.
+- **CONFIRMED_BY_RUNTIME (owner observation):** the edited course loaded in
+  Demo 9.10 with no obvious starting-grid or gameplay difference. The edit
+  changed one corner, not the whole candidate volume, so no spawn/trigger
+  conclusion follows.
+- The tag100 payload remains structurally opaque. Physical collision, helper
+  ownership, and gameplay semantics remain unknown. Course parsing/diagnostics
+  are read-only; no course writer exists.
 
 ## R1 vehicle-corpus evidence
 
@@ -235,7 +240,7 @@ Two forced France1 cooks in an isolated Demo 9.10.0 clone used identical 8.4.1 s
 
 ## R5T-B.1 GXM geometry and controlled cooker proof
 
-Across three Demo 8.4.1 GXM/TXT/DX pairs (France1, Italy1, developer Boinds), the bounded float3 bank has a strongest global source-to-DX match of `(x, z, -y)` among all 48 signed axis transforms. Composed with the existing DX-to-Blender `(x, -z, y)`, this gives source-to-Blender identity as a **HIGH_CONFIDENCE_INFERENCE**; per-node point/index association remains unknown. The existing add-on now displays France1's eight startpoint candidate points with no inferred connectivity. One +1.0 source-X float edit is staged in ignored copies. Three baseline and three modified Demo 9.10 cooks remain pending, so R5T-B.1 has no controlled compiled/runtime effect claim and remains **MORE WORK NEEDED**. See `research/r5t_b1/findings.md`, `research/r5t_b1/multi-cook-method.md`, and `research/r5t_b1/blender-validation.md`.
+Across three Demo 8.4.1 GXM/TXT/DX pairs (France1, Italy1, developer Boinds), the bounded float3 bank has a strongest global source-to-DX match of `(x, z, -y)` among all 48 signed axis transforms. Composed with the existing DX-to-Blender `(x, -z, y)`, this gives source-to-Blender identity as a **HIGH_CONFIDENCE_INFERENCE**; per-node point/index association remains unknown. The existing add-on displays France1's eight startpoint candidate points with no inferred connectivity. A +1.0 source-X edit to one candidate point was cooked in three baseline and three modified runs. The raw tag100 region was stable within each cohort and changed across cohorts, confirming a source-to-tag100 compiled effect. The owner observed no obvious starting-grid/gameplay difference from this one-corner tracer; whole-volume semantics remain untested. See `research/r5t_b1/findings.md`, `research/r5t_b1/multi-cook-method.md`, and `research/r5t_b1/blender-validation.md`.
 
 ## R5V-C ID25 experimental runtime status
 

@@ -37,3 +37,19 @@ differ). Their raw tag100 payloads were byte-identical at 10,118,248 bytes.
 The render section is validated; tag100's internal length/semantics remain
 unresolved. Cooker render-sort BSP generation is a separate observed pipeline
 and is not identified with tag100.
+
+## R5T-B.1 controlled source response
+
+Three baseline and three modified Demo 9.10 France1 cooks used identical
+source inputs within each cohort. The modified source changed one float32 in
+the first-eight startpoint point candidate by +1.0 source X; the only
+cross-cohort source input difference was `France1.gxm`. All six course DX files
+passed revision-135 render validation. Their render prefixes naturally vary.
+Each raw tag100 region is 10,118,248 bytes. The three baseline regions share
+SHA-256 `9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7`;
+the three modified regions share SHA-256
+`c89654dbf502de96df366d05ecdd87051b0051e8308851550c0e0b6d37c23086`. This is
+`CONFIRMED_BY_SOURCE_COMPILED_PAIR` for a deterministic tag100 response to the
+single source edit. It does not identify the inner tag100 grammar, physical
+collision, or gameplay semantics. The owner's no-obvious-gameplay-change
+observation followed a one-corner tracer and is not a whole-volume test.

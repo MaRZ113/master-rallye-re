@@ -61,11 +61,17 @@ box. Their center maps within 1.559 units of Demo 9.10 France1 RaceTest Marker
 0. That correlation supports, but does not prove, the startpoint association;
 the span-to-point/index mapping and connectivity remain `UNKNOWN`.
 
-R5T-B.1 created an ignored scratch copy and changed exactly point 0's source X
-from `-987.0555419921875` to `-986.0555419921875` (+1.0). The original GXM is
-unchanged. This edit is an experimental candidate only: no cooker result is
-available yet. Three baseline and three modified cooks are required because
-identical-source France1 cooks already showed render-prefix variability. See
+R5T-B.1 changed exactly point 0's source X from `-987.0555419921875` to
+`-986.0555419921875` (+1.0) in an ignored source copy; the original GXM is
+unchanged. Three baseline and three modified cold-cache cooks had identical
+source inputs within each cohort and differed across cohorts only in that
+GXM. Their 10,118,248-byte tag100 regions were internally identical within
+each cohort and had different hashes across cohorts, while render prefixes
+varied naturally. This confirms that this source float edit deterministically
+changes tag100 (`CONFIRMED_BY_SOURCE_COMPILED_PAIR`). The owner observed no
+obvious starting-grid or other gameplay difference in the loaded modified
+course (`CONFIRMED_BY_RUNTIME` for that observation). Because only one corner
+moved, spawning or trigger semantics remain unknown. See
 [`research/r5t_b1/startpoint.md`](../research/r5t_b1/startpoint.md) and
 [`research/r5t_b1/multi-cook-method.md`](../research/r5t_b1/multi-cook-method.md).
 

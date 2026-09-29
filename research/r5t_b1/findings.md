@@ -2,14 +2,17 @@
 
 ## Verdict
 
-**MORE WORK NEEDED.** A bounded GXM float3 bank spatially correlates with
+**R5T-B.1 CLOSEOUT: controlled source-to-tag100 effect confirmed; runtime
+semantics remain open.** A bounded GXM float3 bank spatially correlates with
 cooked course DX in three same-build source/compiled pairs, and a candidate
 source-to-Blender identity transform follows from existing coordinate
-conversions. France1's startpoint candidate is visualized in the existing
-Blender add-on as eight points only. A one-float source edit and two isolated
-runtime cohorts are prepared, but the mandatory three baseline plus three
-modified cooks have not been captured. No compiled or runtime effect is
-claimed.
+conversions. France1's startpoint candidate remains visualized as eight points
+only. Three baseline and three modified cold-cache cooks now confirm that one
+source float change reproducibly changes the raw tag100 region while the
+render prefix varies naturally across runs. The owner reports no obvious
+starting-grid or gameplay difference from this one-corner tracer. It was not a
+whole-volume translation, so no conclusion about startpoint spawning or trigger
+semantics follows.
 
 ## Geometry evidence
 
@@ -57,18 +60,34 @@ GXM change.
 
 R5T-B previously captured two forced cooks of identical source. Both render
 prefixes passed validation but varied in vertex/triangle/draw counts, while
-the 10,118,248-byte tag100 region hash and all 172 non-DX files matched.
-This is why R5T-B.1 requires at least three independent cooks in each cohort.
-The new variance-aware comparer rejects non-identical within-cohort inputs and
-labels differences relative to baseline variation. Actual six-run evidence is
-still pending in the current workspace.
+the 10,118,248-byte tag100 region hash and all 172 non-DX files matched. R5T-B.1
+then captured three independent baseline and three modified cooks. Every DX
+passed revision-135 render validation. The raw tag100 region was exactly
+10,118,248 bytes in all six runs; the three baseline hashes were identical
+(`9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7`), and the
+three modified hashes were identical
+(`c89654dbf502de96df366d05ecdd87051b0051e8308851550c0e0b6d37c23086`). The
+cohorts differ in tag100, while each cohort is internally byte-identical there.
+The full-DX vertex/triangle/draw counts vary within and between cohorts, so
+render output remains naturally variable. Snapshot validation says the only
+cross-cohort source input change was the recorded France1 GXM float.
+
+The project owner reports that the edited 8.4.1 France1 course loaded in the
+Demo 9.10 runtime and that no obvious starting-grid or other gameplay change
+was observed. This is `CONFIRMED_BY_RUNTIME` for the load/observation only. The
+edit moved one candidate corner by +1.0 source X; it did not translate the full
+box. It therefore does not test whether the whole candidate volume controls
+spawn, trigger, or other race behavior. A separate tag100 byte-differential
+analysis belongs to R5T-C.
 
 ## Subsystem status
 
 - `$bsp`: source hierarchies/spans and retail tag100 boundaries are inventoried;
   no controlled BSP edit or source-to-tag100 mapping was made.
-- Startpoint: one candidate point edit is staged; compiled destination and
-  runtime effect are unknown pending the six cooks.
+- Startpoint: one candidate point edit deterministically changes tag100 across
+  the controlled 3+3 cook cohorts. The tag100 internal grammar and runtime
+  semantics remain unknown; the owner observed no obvious gameplay change from
+  this one-corner edit.
 - Foliage: source directive and compiled flag differences remain correlation;
   no controlled source material edit was cooked.
 - Raceline and limits/boinds: exact names/spans are inventoried, but point

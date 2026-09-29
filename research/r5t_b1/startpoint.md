@@ -40,8 +40,30 @@ after:  -986.0555419921875  (8e 83 76 c4)
 delta:  +1.0 source unit
 ```
 
-The edit is bounded to the observed first-eight candidate, checks the exact
-float preimage, and leaves all original source files unchanged. The association
-of this point with the startpoint node is still an inference. No compiled
-effect or runtime movement result is available until the required three plus
-three independent cooks are captured and compared.
+The edit was bounded to the observed first-eight candidate, checked the exact
+float preimage, and left all original source files unchanged. The association
+of the first eight points with the `startpoint` node is still an inference.
+
+## Controlled 3+3 cook result (R5T-B.1 closeout)
+
+The variance-aware report validates three identical-source baseline runs and
+three identical-source modified runs. Across cohorts, the only changed source
+input was `France1.gxm`; its recorded change is the single float32 at byte
+offset `10,838,403`, source point 0 X from `-987.0555419921875` to
+`-986.0555419921875` (+1.0).
+
+All six cooked DX files parse as revision 135 and pass render/index validation.
+Render prefix size, vertex count, triangle count, and draw count vary between
+cold cooks. The extracted raw tag100 region is 10,118,248 bytes in each run.
+All three baseline regions have SHA-256
+`9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7`; all three
+modified regions have SHA-256
+`c89654dbf502de96df366d05ecdd87051b0051e8308851550c0e0b6d37c23086`. This is
+`CONFIRMED_BY_SOURCE_COMPILED_PAIR`: the isolated source edit reproducibly
+changes course DX tag100 despite natural render variance.
+
+The owner reports the course loaded in Demo 9.10 and no obvious starting-grid
+or other gameplay difference. This is `CONFIRMED_BY_RUNTIME` for that
+observation. Since only one corner moved, this does not establish whether a
+whole startpoint volume controls spawning or another runtime behavior. The
+startpoint-to-first-eight-point binding remains a `HIGH_CONFIDENCE_INFERENCE`.

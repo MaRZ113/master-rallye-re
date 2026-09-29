@@ -57,8 +57,18 @@ that is not exactly the patched GXM. It reports hashes, sizes, DX render and
 tag100 parser fields, other resource hashes, and optional log summaries. A
 stable compiled field is not by itself proof of a physical or gameplay effect.
 
-## Current state
+## Completed result
 
-Both runtime clones and the one-float source copy are prepared in ignored
-`.research-output/r5t_b1/experiments/france1-startpoint/`. No B1 cook snapshots
-exist yet. This document records the method, not a completed result.
+All six snapshots were captured and the variance-aware report passed input
+validation. Baseline and modified cohorts each contain three cold-cache cooks
+with identical inputs within the cohort. The only cross-cohort input change is
+the recorded point-0 X float in `France1.gxm` (+1.0 source unit).
+
+All six revision-135 DX files pass course render validation. The tag100 region
+is 10,118,248 bytes in every run; baseline hash is
+`9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7` and modified
+hash is `c89654dbf502de96df366d05ecdd87051b0051e8308851550c0e0b6d37c23086`.
+The raw region is byte-identical within each cohort, while render prefixes
+vary naturally. This confirms a deterministic compiled tag100 response to the
+isolated source edit; it does not assign runtime semantics. See
+[`startpoint.md`](startpoint.md) and the R5T-C differential report.

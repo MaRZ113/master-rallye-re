@@ -71,24 +71,21 @@ No course writer is provided. All cooker outputs are temporary research data.
 
 ## R5T-B.1 controlled source experiment
 
-The earlier two unchanged-source cooks establish natural DX render variation,
-so they are not enough to attribute a difference to a source edit. R5T-B.1
-adds a variance-aware comparison that requires at least three independent
-cooks per cohort, verifies identical source hashes within each cohort, and
-classifies raw and parser-derived fields against the observed baseline
-variants. It reports structural output changes; it does not label them as
-runtime, collision, or gameplay effects by itself.
+An isolated France1 experiment under ignored
+`.research-output/r5t_b1/experiments/france1-startpoint/` changed exactly one
+source float: point 0 X in the first-eight startpoint candidate, by +1.0.
+The original source and runtime installations were left untouched. Three
+baseline and three modified cold-cache runs used identical inputs within each
+cohort; the cross-cohort input difference was only `France1.gxm`.
 
-An isolated France1 experiment is staged under ignored
-`.research-output/r5t_b1/experiments/france1-startpoint/`. Baseline and
-modified runtimes are clones. Both use the same 8.4.1 GXM/TXT/GXI source set;
-the modified copy differs in one recorded GXM float in the first-eight-point
-startpoint candidate. Each staged France1 folder initially had one DX and 66
-DXT cache files removed. No game or source assets outside this ignored tree
-were edited.
-
-The six new runtime cooks have **not** been performed. See the cohort-specific
-`TEST_INSTRUCTIONS.txt` files in the ignored experiment directory and
-[`research/r5t_b1/runtime-test-plan.md`](../research/r5t_b1/runtime-test-plan.md)
-for the repeat/snapshot/reset sequence. The existing two-cook result remains
-the only cooker output comparison until those snapshots exist.
+Every output DX passed revision-135 render validation. Prefix counts and
+offsets varied naturally, but the 10,118,248-byte tag100 region was byte-identical
+across the three baseline runs and separately byte-identical across the three
+modified runs. Baseline SHA-256 was
+`9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7`; modified
+SHA-256 was `c89654dbf502de96df366d05ecdd87051b0051e8308851550c0e0b6d37c23086`.
+This confirms a source-to-tag100 compiled effect, not tag100's semantics. The
+owner reports the modified course loaded and showed no obvious starting-grid
+or other gameplay change. Since only one corner moved, whole-volume startpoint
+behavior remains untested. Exact hashes and byte-level changes are recorded in
+the R5T-B.1 closeout and R5T-C differential analysis.
