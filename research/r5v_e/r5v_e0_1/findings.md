@@ -44,7 +44,7 @@ The visible identity is assembled from separate data sources:
    reads participant CarID -> record `+0x1C` -> image selector. The static
    dispatch edge and scene child resource binding are still open; a dedicated
    `0 -> 29` candidate is waiting for human runtime validation. See
-   `research/r5v_e0_1a/`.
+   `research/r5v_e/r5v_e0_1a/`.
 6. **Race Results icon** — the results producer reads the race participant's
    absolute vehicle ID, then reads VehicleRecord[ID] field +0x1C and publishes
    that integer as Frontend/RaceResults/CarN. The scene applies it to the

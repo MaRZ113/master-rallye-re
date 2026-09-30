@@ -50,7 +50,7 @@ The TimeDiffs XML uses `en2d Model Name="Null"`; the executable's
 current export. The exact child resource binding and match to the owner's
 visible “1P” image remain runtime-testable hypotheses. The isolated
 `trooper-smallsheet29` candidate is documented in
-`research/r5v_e0_1a/runtime-diagnostic.md`; it has not been run yet.
+`research/r5v_e/r5v_e0_1a/runtime-diagnostic.md`; it has not been run yet.
 
 ## Evidence classification
 

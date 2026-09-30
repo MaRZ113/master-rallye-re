@@ -12,7 +12,7 @@ The owner supplied the E0 P0/P1 FULL PASS report, including ID25 selection,
 Trooper preview and race model, physics, collision, damage, stage completion,
 results and return to menu. The report also says existing vehicles remain
 available. The exact test executable hash and raw captures were not supplied.
-See research/r5v_e0/findings.md for the attribution limits.
+See research/r5v_e/r5v_e0/findings.md for the attribution limits.
 
 ## Static evidence
 
