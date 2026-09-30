@@ -34,6 +34,7 @@ Selected retail values:
 R-PHYS3/R-VEH1 established runtime-tested filewise loose-over-archive model
 composition and separated model donor from physics family. The earlier
 R-COOKER1.1 Trooper test confirmed the three converted model files and prior
-Trooper operation in retail. Neither result is a runtime test of ID25 bound to
-Trooper; this candidate still needs the P1 test in
+Trooper operation in retail. The owner separately reports that Trooper
+physics worked when bound to ID25 in the R5V-E0 P1 test. The exact tested EXE
+hash and raw capture are unavailable; see
 [runtime-test-plan.md](runtime-test-plan.md).

@@ -1,10 +1,10 @@
 # R5V-E0 — Trooper as retail vehicle ID25
 
-**Status:** Trooper candidate prepared; owner reports the P0 slot and preview
-worked without replacing the original vehicles. P0 is recorded as a limited
-owner-reported pass; texture appearance, repeated-menu stability, stats, and a
-matching candidate hash were not included in the report. The P1 package is
-staged for a human race test. No race was started by this research run.
+**Status:** R5V-E0 P0 and P1 are FULL PASS by owner-reported runtime evidence.
+Trooper is runtime-confirmed as an independent 26th retail vehicle at ID25;
+the original IDs 0–24 remain present. The exact tested executable hash and raw
+logs/screenshots were not supplied, so this is attributed to the owner's
+2026-09-30 report and is not represented as an independently repeated test.
 
 ## Result
 
@@ -32,15 +32,24 @@ and no unresolved texture references. Retail Trooper physics validates as
 modification fields). The authentic Trooper tag101 collision passes the
 structural checks described in [trooper-collision.md](trooper-collision.md).
 
-## Human P0 report
+## Human runtime report
 
-On 2026-09-30 the owner reported: “Слот подтвержден, машина показывается и не
-заменяет другие.” This establishes the reported ID25 visibility/presentation
-and nonreplacement result. The tested executable hash and separate texture,
-menu-stability, stats, and debug-log observations were not supplied, so this
-report is kept distinct from a fully itemized P0 result. The prompt permits P1
-after a P0 pass; P1 instructions are in the ignored candidate directory and
-[runtime-test-plan.md](runtime-test-plan.md).
+The owner reports the following result in the supplied R5V-E0.1 master prompt
+(2026-09-30):
+
+- ID25 is selectable in T3; the Trooper frontend, race, and wheel models load.
+- Trooper physics, collision, and damage work.
+- A full stage was completed; Race Results and return to the menu work.
+- Original vehicles remain available; ID25 presents a vehicle without
+  replacing another vehicle.
+- The observed display label is `STEEL MONKEYS FORKLIFT`; frontend stats show
+  Astero-derived values; the Vehicle Select icon is absent; race 1P, progress,
+  and Race Results icons show Astero.
+
+This records R5V-E0 P0 = FULL PASS and P1 = FULL PASS as owner-reported runtime
+results. The exact tested EXE hash, debug log, and screenshots were not
+included, so the repository does not independently verify the test artifact.
+The separate display, stats, and icon mappings are the subject of R5V-E0.1.
 
 ## Scope and limits
 
@@ -50,8 +59,9 @@ after a P0 pass; P1 instructions are in the ignored candidate directory and
   snapshots already used by R-COOKER1.1. Their converted hashes match the
   three runtime-tested revision-135 candidates.
 - The Trooper DX conversion itself is structurally validated and the same
-  three converted resources have prior retail runtime evidence. The present
-  ID25 + Trooper composition still needs its own human P1 race result.
+  three converted resources have prior retail runtime evidence. The owner
+  reports the ID25 + Trooper composition passed the P1 race checks; the tested
+  candidate identity is not available for independent byte-level matching.
 - No retail executable, `Data.sma`, demo binary, game asset, screenshot, or raw
   analysis project is committed. Nothing was pushed.
 

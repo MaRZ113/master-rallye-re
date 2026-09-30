@@ -1,14 +1,19 @@
 # Trooper ID25 runtime test plan
 
-## Owner-reported P0 result
+## Owner-reported P0/P1 result
 
-On 2026-09-30 the owner reported that the slot is confirmed, the vehicle is
-shown, and original vehicles are not replaced. This is recorded as a limited
-P0 pass for slot reachability and presentation. The exact tested candidate
-hash was not stated. Correct texture appearance, displayed stats, repeat
-navigation/menu stability, and debug output were not separately reported;
-therefore this record does not claim every FULL PASS criterion. The reported
-P0 permits advancing to P1 under the master prompt's gate.
+The supplied R5V-E0.1 master prompt records P0 = FULL PASS and P1 = FULL PASS
+for the Trooper ID25 candidate. The owner reports selection in T3, Trooper
+preview/race/wheel resources, physics, collision and damage, full-stage
+completion, Race Results, return to menu, and no replacement of IDs 0–24.
+The exact tested executable hash, raw debug log, and screenshots were not
+supplied. This is an owner-reported result, not an independently repeated
+runtime test by this research run.
+
+The report also records the independent frontend observations: display label
+`STEEL MONKEYS FORKLIFT`, Astero-derived stats, missing Vehicle Select icon,
+and Astero race 1P/progress/Race Results icons. These identity layers are
+investigated separately in R5V-E0.1.
 
 ## P1 candidate
 
@@ -33,7 +38,7 @@ model members; the new overlay uses the separate `Trooper` runtime folder.
 The candidate bundle does not modify either archive or the original
 executable.
 
-## Human P1 steps
+## P1 test procedure retained for reproducibility
 
 1. Close the game. Keep `MRallye.exe` and `Data.sma` unchanged. Copy the
    candidate executable to the installation root under the distinct name
@@ -54,7 +59,6 @@ executable.
    executable and the newly added Trooper loose folder. Restore any folder
    preserved in step 2.
 
-Report `P1 FULL PASS` only if all target behaviors work, including collision,
-damage, return to menu, and unaffected retail IDs 0–24. Otherwise report the
-first failing or unobserved behavior. No P1 race was launched during automated
-validation.
+The owner reports `P1 FULL PASS` for the listed behaviors. Automated
+validation did not launch the game, and the exact runtime candidate hash was
+not provided. Keep that provenance distinction when reusing this procedure.

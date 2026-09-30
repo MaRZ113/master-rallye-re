@@ -15,7 +15,8 @@ substitute a donor collision.
 
 The tag101 structures contain positions/topology rather than a separate
 collision normal array. Both converted DX model validation and the preserved
-render data report finite vertex normals. Structural validation is PASS;
-R-COOKER1.1 did not separately report Trooper collision or damage behavior,
-so those still require observation in the ID25 P1 test. See
-[runtime-test-plan.md](runtime-test-plan.md).
+render data report finite vertex normals. Structural validation is PASS. The
+owner separately reports that ID25 Trooper collision and damage worked during
+the R5V-E0 P1 runtime test; the exact tested EXE hash and raw capture were not
+supplied. See [runtime-test-plan.md](runtime-test-plan.md) for provenance and
+scope.

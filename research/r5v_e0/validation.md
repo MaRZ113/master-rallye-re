@@ -20,8 +20,9 @@
   against its clean retail source and stored manifest; source SHA-256
   `bf8aef...96b4`, candidate SHA-256 `672d1945...20222c2`.
 - R5V-E0 candidate SHA-256: `3022bdc6eb07d1e388f9c8ef693b83ce1c20c12c2c1a62719aad1cc59a1b1f13`.
-- Retail source executable and `Data.sma` were read only. No game process was
-  started; no P1 race was run.
+- Retail source executable and `Data.sma` were read only during automated
+  validation. The automated run did not launch the game; the owner separately
+  reports a P0/P1 FULL PASS as recorded below.
 
 ## Automated tests
 
@@ -38,7 +39,11 @@ passed: **195 tests, 10.424 seconds**.
 
 ## Runtime status
 
-The owner reports P0 slot reachability, vehicle presentation, and no
-replacement of original vehicles. The tested EXE hash and the remaining P0
-texture/stability/stats details were not supplied. P1 is prepared for the
-human test; automated checks do not claim Trooper ID25 race success.
+The owner reports R5V-E0 P0 = FULL PASS and P1 = FULL PASS: ID25 is selectable
+in T3; Trooper preview/race/wheel assets, physics, collision, and damage work;
+a full stage completes; Race Results and return to menu work; original
+vehicles remain available. The observed frontend identity is
+`STEEL MONKEYS FORKLIFT`, Astero-derived stats, no Vehicle Select icon, and
+Astero icons for race 1P, progress, and Race Results. The exact tested EXE
+hash and raw runtime captures were not supplied. Automated checks do not
+independently reproduce owner-reported gameplay.

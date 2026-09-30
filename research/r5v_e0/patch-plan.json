@@ -75,6 +75,6 @@
     "retail record initialization for IDs 0 through 24 is unchanged",
     "retail source MRallye.exe and Data.sma are read only",
     "registry capacity remains 26; no ID26 is allocated",
-    "R5V-E0 runtime result is owner-reported P0 limited pass; P1 not yet tested"
+    "R5V-E0 P0 and P1 are owner-reported FULL PASS; tested executable hash and raw runtime captures were not supplied"
   ]
 }
