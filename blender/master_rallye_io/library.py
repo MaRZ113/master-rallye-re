@@ -37,7 +37,7 @@ try:
         discover_course_resources,
         load_course_project,
     )
-    from master_rallye.course_gxm import parse_course_gxm_float3_pool_bytes, parse_course_gxm_object_table_bytes
+    from master_rallye.course_gxm import parse_course_gxm_model_v7
     from master_rallye.course_source import parse_course_txt
     from master_rallye.course_xml import parse_course_xml
     from master_rallye.course_metadata import mark_course_metadata
@@ -93,7 +93,7 @@ except ModuleNotFoundError:
         discover_course_resources,
         load_course_project,
     )
-    from .vendor.master_rallye.course_gxm import parse_course_gxm_float3_pool_bytes, parse_course_gxm_object_table_bytes
+    from .vendor.master_rallye.course_gxm import parse_course_gxm_model_v7
     from .vendor.master_rallye.course_source import parse_course_txt
     from .vendor.master_rallye.course_xml import parse_course_xml
     from .vendor.master_rallye.course_metadata import mark_course_metadata

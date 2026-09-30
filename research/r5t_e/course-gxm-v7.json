@@ -1,0 +1,599 @@
+{
+  "schema": "r5t-e1-course-gxm-topology-v1",
+  "evidence": [
+    "CONFIRMED_BY_EXECUTABLE",
+    "CONFIRMED_BY_BINARY_STRUCTURE"
+  ],
+  "scope": "paired version-7 moModel GXM in corpus paths containing Course or Test; vehicle paths excluded",
+  "corpus_root": "D:\\Game\\Master Rallye\\corpora",
+  "loader_executable": {
+    "path": "demo-9.3.1/MRallye.exe",
+    "sha256": "931CFC4E0C520C26581B0C1173D1BEB586FACD17176B885666F455090F646680",
+    "functions": {
+      "recursive_object_header": "0x005BEA30",
+      "model_payload_loader": "0x005BDF40",
+      "version7_triangle_record_loader": "0x005BE940"
+    }
+  },
+  "aggregate": {
+    "files_tested": 4,
+    "files_passed": 4,
+    "files_failed": 0,
+    "unsupported_versions": 0
+  },
+  "samples": [
+    {
+      "identity": "demo-8.4.1/DataGx/Course/France1/France1.gxm",
+      "paired_txt": "demo-8.4.1/DataGx/Course/France1/France1.txt",
+      "gxm_size": 11489135,
+      "gxm_sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+      "txt_size": 158889,
+      "txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43",
+      "object": {
+        "class": 2,
+        "class_name": "moModel",
+        "version": 7,
+        "child_count": 13,
+        "raw_header_words": [
+          853762,
+          0,
+          262505,
+          121,
+          185751,
+          97824,
+          61917,
+          49278
+        ]
+      },
+      "counts": {
+        "word1_reserved_or_unknown": 0,
+        "word2_color_like": 262505,
+        "word3_material": 121,
+        "word4_normal": 185751,
+        "word5_texcoord_like": 97824,
+        "word6_triangle": 61917,
+        "word7_position": 49278
+      },
+      "banks": [
+        {
+          "name": "color-like float4",
+          "offset": 32,
+          "end": 4200112,
+          "count": 262505,
+          "stride": 16,
+          "byte_size": 4200080
+        },
+        {
+          "name": "raw material block",
+          "offset": 4200112,
+          "end": 4215819,
+          "count": 121,
+          "stride": null,
+          "byte_size": 15707
+        },
+        {
+          "name": "normal float3",
+          "offset": 4215819,
+          "end": 6444831,
+          "count": 185751,
+          "stride": 12,
+          "byte_size": 2229012
+        },
+        {
+          "name": "texcoord-like float3",
+          "offset": 6444831,
+          "end": 7618719,
+          "count": 97824,
+          "stride": 12,
+          "byte_size": 1173888
+        },
+        {
+          "name": "triangle records",
+          "offset": 7618719,
+          "end": 10838403,
+          "count": 61917,
+          "stride": 52,
+          "byte_size": 3219684
+        },
+        {
+          "name": "source position float3",
+          "offset": 10838403,
+          "end": 11429739,
+          "count": 49278,
+          "stride": 12,
+          "byte_size": 591336
+        }
+      ],
+      "index_domains": {
+        "color": {
+          "pool_count": 262505,
+          "reference_count": 185751,
+          "valid_reference_count": 131235,
+          "sentinel_count": 54516,
+          "min": 0,
+          "max": 262504,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "material": {
+          "pool_count": 121,
+          "reference_count": 61917,
+          "valid_reference_count": 43403,
+          "sentinel_count": 18514,
+          "min": 0,
+          "max": 120,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "texcoord": {
+          "pool_count": 97824,
+          "reference_count": 185751,
+          "valid_reference_count": 130209,
+          "sentinel_count": 55542,
+          "min": 0,
+          "max": 97823,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "position": {
+          "pool_count": 49278,
+          "reference_count": 185751,
+          "valid_reference_count": 185751,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 49277,
+          "out_of_range_count": 0,
+          "sentinel_allowed": false
+        },
+        "normal": {
+          "pool_count": 185751,
+          "reference_count": 185751,
+          "valid_reference_count": 185751,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 185750,
+          "out_of_range_count": 0,
+          "sentinel_allowed": false
+        }
+      },
+      "mesh_spans": {
+        "mesh_count": 2283,
+        "gaps": [],
+        "overlaps": [],
+        "max_mesh_end": 61917,
+        "covers_triangle_bank": true
+      },
+      "parse_status": "PASS"
+    },
+    {
+      "identity": "demo-8.4.1/DataGx/Course/Italy1/track01.gxm",
+      "paired_txt": "demo-8.4.1/DataGx/Course/Italy1/track01.txt",
+      "gxm_size": 8728347,
+      "gxm_sha256": "c9ca6831569ef5f23b7203cba0c95e08ad604d9f8f4d2ff557bf193c186054ba",
+      "txt_size": 80331,
+      "txt_sha256": "7e7406a6c2772b4e6d30ef390230136d2eb46247f49d431bdbfb178ef3ce346d",
+      "object": {
+        "class": 2,
+        "class_name": "moModel",
+        "version": 7,
+        "child_count": 15,
+        "raw_header_words": [
+          984834,
+          0,
+          189937,
+          66,
+          142131,
+          89485,
+          47377,
+          34048
+        ]
+      },
+      "counts": {
+        "word1_reserved_or_unknown": 0,
+        "word2_color_like": 189937,
+        "word3_material": 66,
+        "word4_normal": 142131,
+        "word5_texcoord_like": 89485,
+        "word6_triangle": 47377,
+        "word7_position": 34048
+      },
+      "banks": [
+        {
+          "name": "color-like float4",
+          "offset": 32,
+          "end": 3039024,
+          "count": 189937,
+          "stride": 16,
+          "byte_size": 3038992
+        },
+        {
+          "name": "raw material block",
+          "offset": 3039024,
+          "end": 3048652,
+          "count": 66,
+          "stride": null,
+          "byte_size": 9628
+        },
+        {
+          "name": "normal float3",
+          "offset": 3048652,
+          "end": 4754224,
+          "count": 142131,
+          "stride": 12,
+          "byte_size": 1705572
+        },
+        {
+          "name": "texcoord-like float3",
+          "offset": 4754224,
+          "end": 5828044,
+          "count": 89485,
+          "stride": 12,
+          "byte_size": 1073820
+        },
+        {
+          "name": "triangle records",
+          "offset": 5828044,
+          "end": 8291648,
+          "count": 47377,
+          "stride": 52,
+          "byte_size": 2463604
+        },
+        {
+          "name": "source position float3",
+          "offset": 8291648,
+          "end": 8700224,
+          "count": 34048,
+          "stride": 12,
+          "byte_size": 408576
+        }
+      ],
+      "index_domains": {
+        "color": {
+          "pool_count": 189937,
+          "reference_count": 142131,
+          "valid_reference_count": 121005,
+          "sentinel_count": 21126,
+          "min": 0,
+          "max": 189936,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "material": {
+          "pool_count": 66,
+          "reference_count": 47377,
+          "valid_reference_count": 39315,
+          "sentinel_count": 8062,
+          "min": 0,
+          "max": 65,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "texcoord": {
+          "pool_count": 89485,
+          "reference_count": 142131,
+          "valid_reference_count": 117945,
+          "sentinel_count": 24186,
+          "min": 1,
+          "max": 89454,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "position": {
+          "pool_count": 34048,
+          "reference_count": 142131,
+          "valid_reference_count": 142131,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 34047,
+          "out_of_range_count": 0,
+          "sentinel_allowed": false
+        },
+        "normal": {
+          "pool_count": 142131,
+          "reference_count": 142131,
+          "valid_reference_count": 142131,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 142130,
+          "out_of_range_count": 0,
+          "sentinel_allowed": false
+        }
+      },
+      "mesh_spans": {
+        "mesh_count": 1082,
+        "gaps": [],
+        "overlaps": [],
+        "max_mesh_end": 47377,
+        "covers_triangle_bank": true
+      },
+      "parse_status": "PASS"
+    },
+    {
+      "identity": "demo-8.4.1/DataGx/Test/boinds/track01.gxm",
+      "paired_txt": "demo-8.4.1/DataGx/Test/boinds/track01.txt",
+      "gxm_size": 1629436,
+      "gxm_sha256": "5103203af3950bf90d4c2061c47dadbd65b315166053e220bcbf71adff6df86f",
+      "txt_size": 11424,
+      "txt_sha256": "cb074b08a7c15eca577fb92baf540ec613a4c4c7e942156bb1d7b456a78deb09",
+      "object": {
+        "class": 2,
+        "class_name": "moModel",
+        "version": 7,
+        "child_count": 10,
+        "raw_header_words": [
+          657154,
+          0,
+          26750,
+          36,
+          28212,
+          25745,
+          9404,
+          4933
+        ]
+      },
+      "counts": {
+        "word1_reserved_or_unknown": 0,
+        "word2_color_like": 26750,
+        "word3_material": 36,
+        "word4_normal": 28212,
+        "word5_texcoord_like": 25745,
+        "word6_triangle": 9404,
+        "word7_position": 4933
+      },
+      "banks": [
+        {
+          "name": "color-like float4",
+          "offset": 32,
+          "end": 428032,
+          "count": 26750,
+          "stride": 16,
+          "byte_size": 428000
+        },
+        {
+          "name": "raw material block",
+          "offset": 428032,
+          "end": 433498,
+          "count": 36,
+          "stride": null,
+          "byte_size": 5466
+        },
+        {
+          "name": "normal float3",
+          "offset": 433498,
+          "end": 772042,
+          "count": 28212,
+          "stride": 12,
+          "byte_size": 338544
+        },
+        {
+          "name": "texcoord-like float3",
+          "offset": 772042,
+          "end": 1080982,
+          "count": 25745,
+          "stride": 12,
+          "byte_size": 308940
+        },
+        {
+          "name": "triangle records",
+          "offset": 1080982,
+          "end": 1569990,
+          "count": 9404,
+          "stride": 52,
+          "byte_size": 489008
+        },
+        {
+          "name": "source position float3",
+          "offset": 1569990,
+          "end": 1629186,
+          "count": 4933,
+          "stride": 12,
+          "byte_size": 59196
+        }
+      ],
+      "index_domains": {
+        "color": {
+          "pool_count": 26750,
+          "reference_count": 28212,
+          "valid_reference_count": 28212,
+          "sentinel_count": 0,
+          "min": 11715,
+          "max": 26669,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "material": {
+          "pool_count": 36,
+          "reference_count": 9404,
+          "valid_reference_count": 9266,
+          "sentinel_count": 138,
+          "min": 0,
+          "max": 34,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "texcoord": {
+          "pool_count": 25745,
+          "reference_count": 28212,
+          "valid_reference_count": 27798,
+          "sentinel_count": 414,
+          "min": 0,
+          "max": 24891,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "position": {
+          "pool_count": 4933,
+          "reference_count": 28212,
+          "valid_reference_count": 28212,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 4932,
+          "out_of_range_count": 0,
+          "sentinel_allowed": false
+        },
+        "normal": {
+          "pool_count": 28212,
+          "reference_count": 28212,
+          "valid_reference_count": 28212,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 28211,
+          "out_of_range_count": 0,
+          "sentinel_allowed": false
+        }
+      },
+      "mesh_spans": {
+        "mesh_count": 2,
+        "gaps": [],
+        "overlaps": [],
+        "max_mesh_end": 9404,
+        "covers_triangle_bank": true
+      },
+      "parse_status": "PASS"
+    },
+    {
+      "identity": "demo-9.10.0/DataGx/Test/AI Track/AI_Track.gxm",
+      "paired_txt": "demo-9.10.0/DataGx/Test/AI Track/AI_Track.txt",
+      "gxm_size": 415188,
+      "gxm_sha256": "d31f7a79a3db57fd0935e6245a01f85f4e3f75bf07256ce76feaa690aa6af070",
+      "txt_size": 10892,
+      "txt_sha256": "50b54130838ed12fe5890458d85b9acb7cab81cec19fb47f64e696392a3f296c",
+      "object": {
+        "class": 2,
+        "class_name": "moModel",
+        "version": 7,
+        "child_count": 1,
+        "raw_header_words": [
+          67330,
+          0,
+          2175,
+          36,
+          10584,
+          3369,
+          3528,
+          2011
+        ]
+      },
+      "counts": {
+        "word1_reserved_or_unknown": 0,
+        "word2_color_like": 2175,
+        "word3_material": 36,
+        "word4_normal": 10584,
+        "word5_texcoord_like": 3369,
+        "word6_triangle": 3528,
+        "word7_position": 2011
+      },
+      "banks": [
+        {
+          "name": "color-like float4",
+          "offset": 32,
+          "end": 34832,
+          "count": 2175,
+          "stride": 16,
+          "byte_size": 34800
+        },
+        {
+          "name": "raw material block",
+          "offset": 34832,
+          "end": 40046,
+          "count": 36,
+          "stride": null,
+          "byte_size": 5214
+        },
+        {
+          "name": "normal float3",
+          "offset": 40046,
+          "end": 167054,
+          "count": 10584,
+          "stride": 12,
+          "byte_size": 127008
+        },
+        {
+          "name": "texcoord-like float3",
+          "offset": 167054,
+          "end": 207482,
+          "count": 3369,
+          "stride": 12,
+          "byte_size": 40428
+        },
+        {
+          "name": "triangle records",
+          "offset": 207482,
+          "end": 390938,
+          "count": 3528,
+          "stride": 52,
+          "byte_size": 183456
+        },
+        {
+          "name": "source position float3",
+          "offset": 390938,
+          "end": 415070,
+          "count": 2011,
+          "stride": 12,
+          "byte_size": 24132
+        }
+      ],
+      "index_domains": {
+        "color": {
+          "pool_count": 2175,
+          "reference_count": 10584,
+          "valid_reference_count": 10584,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 2174,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "material": {
+          "pool_count": 36,
+          "reference_count": 3528,
+          "valid_reference_count": 3528,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 7,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "texcoord": {
+          "pool_count": 3369,
+          "reference_count": 10584,
+          "valid_reference_count": 10584,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 3368,
+          "out_of_range_count": 0,
+          "sentinel_allowed": true
+        },
+        "position": {
+          "pool_count": 2011,
+          "reference_count": 10584,
+          "valid_reference_count": 10584,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 2010,
+          "out_of_range_count": 0,
+          "sentinel_allowed": false
+        },
+        "normal": {
+          "pool_count": 10584,
+          "reference_count": 10584,
+          "valid_reference_count": 10584,
+          "sentinel_count": 0,
+          "min": 0,
+          "max": 10583,
+          "out_of_range_count": 0,
+          "sentinel_allowed": false
+        }
+      },
+      "mesh_spans": {
+        "mesh_count": 2,
+        "gaps": [],
+        "overlaps": [],
+        "max_mesh_end": 3528,
+        "covers_triangle_bank": true
+      },
+      "parse_status": "PASS"
+    }
+  ],
+  "failures": []
+}

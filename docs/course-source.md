@@ -1,24 +1,26 @@
 # Course source resources
 
-Status: **partial, read-only** (R5T-B). Vehicle source-format conclusions are
-not carried over unless a course source/compiled pair confirms them.
+Status: **read-only; version-7 mesh topology decoded** (R5T-E.1 PASS).
+Vehicle source-format conclusions are not carried over unless a course
+source/compiled pair confirms them.
 
 ## Current source coverage
 
 Demo 8.4.1 is the only supplied build with paired course `.gxm` and `.txt`
 inputs for France1 and Italy1. The TXT inventory preserves the literal node
 names, line text, brace-backed parentage, and `moMesh` `Index`/`Size` spans.
-It does not decode per-node coordinate/index membership or assign behavior to
-names such as `_raceline`, `_limits`, `$boinds`, `$bsp`, or `$ps2cells`.
+Paired version-7 GXM resolves those spans into source position references; it
+does not assign behavior to names such as `_raceline`, `_limits`, `$boinds`,
+`$bsp`, or `$ps2cells`.
 
-The GXM prefix reader bounds the 32-byte header and an observed count-based
-16-byte bank. A second, exact node-table reader requires the paired TXT: the
-TXT node inventory determines the table's start from the file end, and the
-reader then checks every node class, name, unknown-node child count, and mesh
-span. No name search is used by that parser. This cross-check is confirmed for
-the France1 and Italy1 8.4.1 pairs only. R5T-B.1 bounds a trailing float3 bank
-and compares it to same-build cooked DX positions, but per-node point/index
-membership and node transforms remain unknown.
+The bounded GXM prefix reader remains available for unknown versions. The
+version-7 model decoder uses the paired TXT to determine the exact node-table
+start from file end, then checks every node class, name, unknown-node child
+count, and mesh span. No name search is used by that parser. Version-7 topology
+and node-table cross-checks pass France1, Italy1, Boinds, and Demo 9.10 AI
+Track. R5T-B.1 compared the trailing float3 bank with same-build cooked DX
+positions; R5T-E.1 now decodes each mesh's source position indices. Source
+node transforms and gameplay meanings remain unknown.
 
 | Source | GXM object-table offset | Table bytes | Nodes | `moMesh` | `moUnknown` |
 |---|---:|---:|---:|---:|---:|
@@ -55,11 +57,11 @@ Composing that relation with the established DX-to-Blender `(x, -z, y)` gives
 identity as a `HIGH_CONFIDENCE_INFERENCE` for this source corpus. This is a
 global spatial relation, not a decoded node transform.
 
-France1's `startpoint` record is `moMesh`, `Index 0`, `Size 12`. The first
-eight float3 pool entries are the eight corners of a 10-unit axis-aligned
-box. Their center maps within 1.559 units of Demo 9.10 France1 RaceTest Marker
-0. That correlation supports, but does not prove, the startpoint association;
-the span-to-point/index mapping and connectivity remain `UNKNOWN`.
+At the R5T-B.1 checkpoint, France1's `startpoint` record was known as
+`moMesh`, `Index 0`, `Size 12`, and the first eight float3 pool entries formed
+the 10-unit point set. The span-to-position mapping and connectivity were
+then `UNKNOWN`; R5T-E.1 below subsequently resolves them. The center's
+proximity to RaceTest Marker 0 remains a correlation, not runtime semantics.
 
 R5T-B.1 changed exactly point 0's source X from `-987.0555419921875` to
 `-986.0555419921875` (+1.0) in an ignored source copy; the original GXM is
@@ -86,8 +88,10 @@ that this edit changes the 10,118,248-byte tag100 suffix reproducibly (263
 bytes, 142 ranges), while render prefixes vary naturally. The owner observed
 no change to player or AI starting positions/order, countdown, or race start in
 that same-runtime comparison. Since the boxes overlap, a containment/helper
-role remains possible. The candidate point-to-node binding remains a
-`HIGH_CONFIDENCE_INFERENCE`; runtime meaning remains unknown.
+role remains possible. At this R5T-C checkpoint the candidate point-to-node
+binding was still a `HIGH_CONFIDENCE_INFERENCE`; R5T-E.1 below later confirmed
+the mesh-to-position mapping. Runtime meaning of that source name remains
+unknown.
 
 The owner also reports cross-runtime France1 controls: player order is front in
 8.4.1, second in 9.3.1, and the ordinary Retail order in Retail. Both old-source
@@ -113,41 +117,60 @@ sources lack matching TXT/DX in the supplied corpus. See
 
 ## Remaining source grammar limits
 
-The float3 pool is not yet associated per node. No raceline ordering, limits
-or boinds geometry, BSP mesh mapping, foliage material grammar, or source
-transform records are decoded. Small developer pairs are sparse: only
-Boinds currently has GXM, TXT, and cooked DX together. France1 remains a large
-validation pair, not a substitute for missing isolated oracles.
+Version-7 `moMesh` triangle spans now resolve through explicit position indices
+into the source float3 bank. No raceline ordering, limits or boinds gameplay
+role, BSP mesh mapping, foliage material grammar, or source transform records
+are decoded. Small developer pairs are sparse: Boinds has GXM, TXT, and cooked
+DX together; late Demo 9.10 AI Track adds a paired version-7 parser sample.
 
-The current parser can inventory and compare source hierarchy metadata with
-`mrtool diff-course`. It is not a GXM writer and does not modify game assets.
+The source readers inventory and compare hierarchy metadata with
+`mrtool diff-course`; they remain read-only. There is no GXM writer and no game
+asset is modified.
 
-## R5T-E GXM topology-bank investigation (partial)
+## R5T-E.1 version-7 source topology (PASS; read-only)
 
-The current Demo 8.4.1 corpus contains course GXM only for France1 and Italy1;
-Demo 9.3.1, Demo 9.10.0, and Retail course folders contain none. Developer
-Boinds provides the third paired GXM/TXT/DX sample. Header word 3 exactly
-matches `Materials(Size N)` in all three pairs. All `moMesh` spans cover
-`[0, header[6])` without gaps, and `header[4] == 3 * header[6]` in all three.
-This raises the triangle/corner model to **HIGH_CONFIDENCE_INFERENCE**, but the
-raw corner bank has not been identified as a common, validated structure.
+The earlier blind-scan result correctly stopped at **MORE WORK NEEDED**: its
+Italy1/Boinds candidate windows were not interpretable as one position-index
+stream. That status records the earlier evidence state and is superseded by
+the loader-guided version-7 decoder; the historical report remains available.
 
-Exploratory offsets in Italy1 and Boinds yield candidate 32-bit and 16-bit
-sequences whose entry counts equal header word 4 and whose early values align
-with mesh spans. Both contain values at or above the respective trailing
-float3-pool count; their referential meaning is unproven. No validated
-intermediate vertex-to-position mapping was found. A
-France1 16-bit diagnostic window was rejected as a proven boundary; it does
-not establish the startpoint's expected box connectivity. These windows are
-research observations only and are not used by `course_gxm.py`.
+The exact Demo 9.3.1 executable (SHA-256
+`931CFC4E0C520C26581B0C1173D1BEB586FACD17176B885666F455090F646680`) was
+checked with `ghidra-bridge`. `0x005BEA30` extracts class from header bits
+0–7, version from bits 8–15, and child count from bits 16–31. For class 2 it
+accepts model versions 2–7 and invokes `0x005BDF40`; the latter reads seven
+32-bit model counts. For version 7 it calls `0x005BE940` on the triangle bank.
+That reader consumes `12 + 4 + 12 + 12 + 12` bytes per item and advances by
+`0x34` (52) bytes. This is **CONFIRMED_BY_EXECUTABLE** for the loader path.
 
-France1 `startpoint` remains a TXT/GXM-confirmed `Index 0`, `Size 12` record;
-the first eight pool points form the previously documented 10-unit box. The
-36 corner entries, position binding, closed topology, and per-triangle
-material relation remain **UNKNOWN**. No source parser or Blender changes were
-made. See [`research/r5t_e/findings.md`](../research/r5t_e/findings.md),
-[`research/r5t_e/gxm-topology.md`](../research/r5t_e/gxm-topology.md), and the
-[machine-readable evidence](../research/r5t_e/topology-candidates.json).
+The read-only parser now decodes only `moModel` version 7. Its verified bank
+order is color-like float4, raw variable-length material block, normal float3,
+texcoord-like float3, 52-byte triangle records, source-position float3, and
+the TXT-validated node table. The 13 little-endian u32 fields are grouped as
+color `[0:3]`, material `[3]`, texcoord `[4:7]`, position `[7:10]`, and normal
+`[10:13]`. References validate against their independent pools; observed
+`0xFFFFFFFF` sentinels are allowed only in color, material, and texcoord
+domains. Word 1 remains unnamed/zero in the tested files. Word 2 and word 5
+remain conservatively named color-like and texcoord-like pools.
+
+Cross-file validation passes France1, Italy1, developer Boinds, and Demo
+9.10.0 AI Track: all references are in range (with observed sentinels), every
+mesh span is in bounds, and each file's spans cover the triangle bank without
+gaps or overlaps. France1 startpoint resolves to the closed 12-triangle,
+8-position 10-unit box described by
+[`startpoint-proof.json`](../research/r5t_e/startpoint-proof.json). Italy1's
+triangle bank begins exactly at `0x58EDCC`; Boinds begins at `0x107E96` (the
+old `0x107E94` candidate was two bytes early); France1's `0x6E956C` diagnostic
+window lies within its texcoord-like bank and is not a topology input.
+
+`CourseProject.source_geometry` and `source_meshes` now expose the decoded
+read-only source topology. Source names such as `COLLIDE_finishline` are kept
+literal and retain `UNKNOWN` gameplay role. The narrow GXM startpoint
+diagnostic now uses this decoder; the standard Retail course importer remains
+unchanged. No writer was added. Detailed counts, hashes, bank offsets, index
+statistics, and the derived startpoint proof are in
+[`course-gxm-v7.json`](../research/r5t_e/course-gxm-v7.json) and
+[`startpoint-proof.json`](../research/r5t_e/startpoint-proof.json).
 
 ## R5T-D.0 / D.1 RaceTest split-source and runtime closeout
 

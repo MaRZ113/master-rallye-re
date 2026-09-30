@@ -13,7 +13,7 @@ from pathlib import Path
 from statistics import mean
 from typing import Iterable
 
-from .course_gxm import CourseGxmPrefix, parse_course_gxm
+from .course_gxm import CourseGxmModelV7, CourseGxmNode, CourseGxmPrefix, parse_course_gxm, parse_course_gxm_model_v7
 from .course_source import CourseTxtDocument, parse_course_txt
 from .course_xml import (
     CourseXmlAiComponent,
@@ -248,6 +248,24 @@ class CourseSpatialField:
 
 
 @dataclass(frozen=True)
+class CourseSourceMesh:
+    """Read-only source moMesh triangle span; name semantics remain unassigned."""
+
+    literal_name: str
+    hierarchy_path: tuple[str, ...]
+    source_ordinal: int
+    source_index: int
+    source_size: int
+    triangle_start: int
+    triangle_count: int
+    position_indices: tuple[int, ...]
+    unique_position_indices: tuple[int, ...]
+    bounds: tuple[tuple[float, float, float], tuple[float, float, float]] | None
+    source_evidence: tuple[str, ...]
+    gameplay_role: str = UNKNOWN
+
+
+@dataclass(frozen=True)
 class CourseResourcePaths:
     identity: str
     search_roots: tuple[Path, ...]
@@ -277,6 +295,8 @@ class CourseProject:
     sfl: CourseSpatialField | None = None
     source_txt: CourseTxtDocument | None = None
     source_gxm: CourseGxmPrefix | None = None
+    source_geometry: CourseGxmModelV7 | None = None
+    source_meshes: tuple[CourseSourceMesh, ...] = ()
     diagnostics: tuple[str, ...] = ()
 
 
@@ -702,6 +722,50 @@ def _data_gx_root(resources: CourseResourcePaths) -> Path:
     return resources.search_roots[0] if resources.search_roots else Path.cwd()
 
 
+def _course_source_meshes(model: CourseGxmModelV7) -> tuple[CourseSourceMesh, ...]:
+    nodes = {node.ordinal: node for node in model.object_table.nodes}
+
+    def path_for(node: CourseGxmNode) -> tuple[str, ...]:
+        path = [node.name]
+        parent_id = node.parent_id
+        visited = {node.ordinal}
+        while parent_id is not None and parent_id in nodes and parent_id not in visited:
+            parent = nodes[parent_id]
+            path.append(parent.name)
+            visited.add(parent_id)
+            parent_id = parent.parent_id
+        return tuple(reversed(path))
+
+    meshes = []
+    for node in model.object_table.nodes:
+        if node.class_name.casefold() != "momesh" or node.mesh_index is None or node.mesh_size is None:
+            continue
+        model.mesh_triangle_indices(node)
+        position_indices = model.mesh_position_indices(node)
+        unique_indices = tuple(sorted(set(position_indices)))
+        points = tuple(model.position(index) for index in unique_indices)
+        bounds = None
+        if points:
+            bounds = (
+                tuple(min(point[axis] for point in points) for axis in range(3)),
+                tuple(max(point[axis] for point in points) for axis in range(3)),
+            )
+        meshes.append(CourseSourceMesh(
+            literal_name=node.name,
+            hierarchy_path=path_for(node),
+            source_ordinal=node.ordinal,
+            source_index=node.mesh_index,
+            source_size=node.mesh_size,
+            triangle_start=node.mesh_index,
+            triangle_count=node.mesh_size,
+            position_indices=position_indices,
+            unique_position_indices=unique_indices,
+            bounds=bounds,
+            source_evidence=("CONFIRMED_BY_BINARY_STRUCTURE", "CONFIRMED_BY_EXECUTABLE"),
+        ))
+    return tuple(meshes)
+
+
 def load_course_project(
     path: Path,
     *,
@@ -715,7 +779,8 @@ def load_course_project(
     """
     resources = discover_course_resources(path, search_roots=search_roots)
     diagnostics = list(resources.diagnostics)
-    render = race_logic = dependencies = spatial_field = source_txt = source_gxm = None
+    render = race_logic = dependencies = spatial_field = source_txt = source_gxm = source_geometry = None
+    source_meshes: tuple[CourseSourceMesh, ...] = ()
 
     if resources.render_dx is not None:
         try:
@@ -761,8 +826,17 @@ def load_course_project(
     if resources.source_gxm is not None:
         try:
             source_gxm = parse_course_gxm(resources.source_gxm)
+            if source_gxm.header_words[0] & 0xFF == 0x02 and (source_gxm.header_words[0] >> 8) & 0xFF == 7:
+                if source_txt is None:
+                    raise ValueError("version-7 source topology requires the paired course TXT")
+                source_geometry = parse_course_gxm_model_v7(resources.source_gxm, source_txt)
+                source_meshes = _course_source_meshes(source_geometry)
+                if source_geometry.validation.mesh_span_gaps:
+                    diagnostics.append(f"course GXM mesh spans have gaps: {source_geometry.validation.mesh_span_gaps[:4]}")
+                if source_geometry.validation.mesh_span_overlaps:
+                    diagnostics.append(f"course GXM mesh spans overlap: {source_geometry.validation.mesh_span_overlaps[:4]}")
         except Exception as error:
-            diagnostics.append(f"course GXM prefix parse failed ({resources.source_gxm}): {error}")
+            diagnostics.append(f"course GXM parse failed ({resources.source_gxm}): {error}")
 
     return CourseProject(
         identity=resources.identity,
@@ -774,5 +848,7 @@ def load_course_project(
         sfl=spatial_field,
         source_txt=source_txt,
         source_gxm=source_gxm,
+        source_geometry=source_geometry,
+        source_meshes=source_meshes,
         diagnostics=tuple(diagnostics),
     )

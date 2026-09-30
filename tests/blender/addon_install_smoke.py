@@ -128,19 +128,21 @@ if course_pair is not None:
     if gxm_source is not None:
         result = bpy.ops.import_scene.master_rallye_course_gxm_startpoint(filepath=str(gxm_source))
         if result != {"FINISHED"}:
-            raise AssertionError(f"packaged GXM point-candidate import failed: {result}")
-        point_overlays = [
-            collection for collection in bpy.data.collections
-            if collection.get("mr_gxm_source") == str(gxm_source)
+            raise AssertionError(f"packaged GXM topology import failed: {result}")
+        gxm_meshes = [
+            obj for obj in bpy.data.objects
+            if obj.get("mr_gxm_source") == str(gxm_source)
         ]
-        if len(point_overlays) != 1:
-            raise AssertionError("packaged GXM point overlay collection mismatch")
-        points = list(point_overlays[0].objects)
-        if len(points) != 8 or any(point.type != "EMPTY" for point in points):
-            raise AssertionError("packaged GXM overlay must contain exactly eight point-only empties")
-        if point_overlays[0].get("mr_source_node_name") != "startpoint":
-            raise AssertionError("packaged GXM overlay did not preserve the source node identity")
-        payload["vendored_gxm_startpoint_overlay"] = "PASS"
-        payload["gxm_candidate_point_count"] = len(points)
+        if len(gxm_meshes) != 1:
+            raise AssertionError("packaged GXM decoded source mesh mismatch")
+        gxm_mesh = gxm_meshes[0]
+        if (gxm_mesh.type != "MESH" or len(gxm_mesh.data.vertices) != 8
+                or len(gxm_mesh.data.polygons) != 12 or len(gxm_mesh.data.edges) != 18):
+            raise AssertionError("packaged GXM startpoint geometry counts mismatch")
+        if gxm_mesh.get("mr_source_node_name") != "startpoint":
+            raise AssertionError("packaged GXM mesh did not preserve literal source node identity")
+        payload["vendored_gxm_startpoint_mesh"] = "PASS"
+        payload["gxm_startpoint_vertices"] = len(gxm_mesh.data.vertices)
+        payload["gxm_startpoint_triangles"] = len(gxm_mesh.data.polygons)
 
 print("R3_ADDON_INSTALL_PASS", json.dumps(payload, sort_keys=True))

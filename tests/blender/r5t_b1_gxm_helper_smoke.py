@@ -1,4 +1,4 @@
-"""Headless smoke import for the read-only GXM startpoint candidate overlay."""
+"""Headless smoke import for decoded read-only GXM startpoint topology."""
 from __future__ import annotations
 
 import json
@@ -18,65 +18,50 @@ def main():
         sys.path.insert(0, str(path))
 
     import master_rallye_io
-    from master_rallye_io.library import (
-        parse_course_gxm_float3_pool_bytes,
-        parse_course_gxm_object_table_bytes,
-        parse_course_txt,
-    )
+    from master_rallye_io.library import parse_course_gxm_model_v7, parse_course_txt
 
-    raw = source.read_bytes()
-    table = parse_course_gxm_object_table_bytes(raw, parse_course_txt(source.with_suffix(".txt")), source.name)
-    pool = parse_course_gxm_float3_pool_bytes(raw, table, source.name)
+    model = parse_course_gxm_model_v7(source, parse_course_txt(source.with_suffix(".txt")))
+    node = model.find_mesh("startpoint")
+    position_indices = tuple(sorted(set(model.mesh_position_indices(node))))
     master_rallye_io.register()
     status = bpy.ops.import_scene.master_rallye_course_gxm_startpoint("EXEC_DEFAULT", filepath=str(source))
     if status != {"FINISHED"}:
-        raise AssertionError(f"GXM helper import failed: {status}")
+        raise AssertionError(f"GXM topology import failed: {status}")
 
-    overlay = next(
-        collection for collection in bpy.data.collections
-        if collection.get("mr_gxm_source") == str(source)
-    )
-    points = sorted(
-        overlay.objects,
-        key=lambda obj: obj.get("mr_source_point_index", -1),
-    )
-    if len(points) != 8:
-        raise AssertionError(f"expected eight startpoint candidate points, got {len(points)}")
-    for point_index, obj in enumerate(points):
-        expected = pool.points[point_index]
-        if obj.type != "EMPTY" or tuple(obj.location) != expected:
-            raise AssertionError(f"point {point_index} is not a point-only identity-coordinate import")
-        if obj.get("mr_source_node_name") != "startpoint":
-            raise AssertionError("source node name was not preserved")
-        if obj.get("mr_source_point_index") != point_index:
-            raise AssertionError("source point identity was not preserved")
-        if obj.get("mr_source_byte_offset") != pool.offset + point_index * 12:
-            raise AssertionError("source byte span was not preserved")
-        if obj.get("mr_source_byte_size") != 12:
-            raise AssertionError("source byte size was not preserved")
-        if obj.get("mr_geometry_status") != "candidate vertex; no edges or faces inferred":
-            raise AssertionError("overlay overstates unknown geometry connectivity")
+    obj = next(item for item in bpy.data.objects if item.get("mr_gxm_source") == str(source))
+    if obj.type != "MESH":
+        raise AssertionError("decoded source topology was not imported as a mesh")
+    if len(obj.data.vertices) != 8 or len(obj.data.polygons) != 12 or len(obj.data.edges) != 18:
+        raise AssertionError("decoded startpoint mesh counts mismatch")
+    if tuple(obj["mr_source_position_indices"]) != position_indices:
+        raise AssertionError("source position indices were not preserved")
+    if tuple(obj["mr_source_triangle_indices"]) != tuple(range(12)):
+        raise AssertionError("source triangle identities were not preserved")
+    if obj.get("mr_source_node_name") != "startpoint":
+        raise AssertionError("literal source node name was not preserved")
+    if obj.get("mr_geometry_status") != "version-7 triangle records resolved to source positions; gameplay role UNKNOWN":
+        raise AssertionError("decoded topology or semantic uncertainty was not recorded")
+    if tuple(obj.data.vertices[0].co) != model.position(position_indices[0]):
+        raise AssertionError("source-to-Blender coordinate mapping changed")
 
     root = bpy.data.collections.get(f"Master Rallye Course - {source.stem}")
     helpers = next((child for child in root.children if child.name.startswith("Course Helpers")), None) if root else None
-    if helpers is None or overlay.name not in helpers.children:
-        raise AssertionError("point overlay is not organized under Course Helpers")
-    if overlay.get("mr_geometry_status") != "eight source positions shown as points; triangle connectivity is UNKNOWN":
-        raise AssertionError("collection does not preserve the undecoded connectivity status")
+    if helpers is None or obj.name not in helpers.objects:
+        raise AssertionError("source mesh is not organized under Course Helpers")
 
     output.parent.mkdir(parents=True, exist_ok=True)
     result = {
         "blender_version": bpy.app.version_string,
         "status": "PASS",
         "course": source.stem,
-        "candidate_point_count": len(points),
-        "point_only": all(obj.type == "EMPTY" for obj in points),
-        "collection": overlay.name,
-        "node_index": overlay["mr_source_node_index"],
-        "parent_id": overlay["mr_source_node_parent_id"],
-        "node_span": [overlay["mr_source_mesh_index"], overlay["mr_source_mesh_size"]],
-        "pool_offset": overlay["mr_point_pool_offset"],
-        "coordinate_claim": overlay["mr_source_to_blender"],
+        "source_mesh": obj.name,
+        "position_count": len(obj.data.vertices),
+        "triangle_count": len(obj.data.polygons),
+        "edge_count": len(obj.data.edges),
+        "node_index": obj["mr_source_node_index"],
+        "mesh_span": [obj["mr_source_mesh_index"], obj["mr_source_mesh_size"]],
+        "gameplay_role": "UNKNOWN",
+        "coordinate_claim": obj["mr_source_to_blender"],
     }
     output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))

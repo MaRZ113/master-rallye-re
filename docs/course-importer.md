@@ -68,22 +68,25 @@ radius, evidence scope, visual companions, StartArea/FinishArea hierarchy and
 the packaged ZIP implementation. The packaged smoke imports the ZIP directly
 without installing into the user profile.
 
-## GXM source point candidate (R5T-B.1)
+## GXM source topology diagnostic (R5T-E.1)
 
-With a course DX object selected, use **Import GXM Startpoint Point Candidate**
-in the same course panel and select a same-stem GXM/TXT pair. The read-only
-overlay places only the first eight candidate float3 positions as Empty
-objects under `Course Helpers`; it invents no edges or faces. It preserves the
-source GXM hash, node ordinal/parent/span, pool offset/count, each point index,
-source byte offset, and exact source coordinates. The source-to-Blender
-identity conversion is a `HIGH_CONFIDENCE_INFERENCE` from the measured global
+With a course DX object selected, use **Import GXM Startpoint Mesh** in the
+same course panel and select a same-stem version-7 GXM/TXT pair. This
+read-only diagnostic resolves the literal `startpoint` `moMesh` triangle
+span through the canonical source position index fields and creates one mesh
+under `Course Helpers`. It preserves the GXM hash, node ordinal/parent/span,
+triangle indices, unique source position indices, and source-to-Blender
+transform note. The transform remains supported by the measured global
 source-to-DX and existing DX-to-Blender transforms.
 
-On France1 these points form an axis-aligned 10-unit box and spatially
-correlate with RaceTest Marker 0. The node-to-point association, box
-connectivity, and gameplay meaning remain unproven. Blender headless smoke
-validation checks eight point-only objects and metadata; this is not a manual
-viewport or runtime validation.
+France1 imports as 8 positions, 12 triangles, and 18 edges. The connectivity
+is now decoded; gameplay meaning of the `startpoint` name remains unknown.
+Headless Blender validation checks the imported counts and source metadata.
+It does not claim manual viewport parity or runtime behavior.
+
+R5T-E.1 headless validation in Blender 5.2.2 passed for this source mesh, the
+existing Retail Italy1/France1 importer path, and the packaged ZIP install
+with France1 DX, RaceTest XML, and the version-7 source GXM.
 
 The headless checks are `tests/blender/r5t_b1_gxm_helper_smoke.py` and the
 course path in `tests/blender/addon_install_smoke.py`, which verifies the same

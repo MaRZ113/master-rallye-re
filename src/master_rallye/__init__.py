@@ -20,6 +20,7 @@ from .bounds import DxSpatialBounds1339, parse_bounds1339, compute_bounds1339
 from .collision_scale import scale_tag101, scale_dx_collision
 from .vehicle_project import VehicleProject, validate_vehicle, build_vehicle_mod
 from .course_sdk import (
+    CourseSourceMesh,
     CourseDependencies,
     CourseDependency,
     CourseFinishArea,
@@ -41,7 +42,16 @@ from .course_sdk import (
 )
 from .dx_course import parse_course_dx, parse_course_dx_bytes
 from .course_xml import parse_course_xml, parse_course_xml_bytes
-from .course_gxm import parse_course_gxm, parse_course_gxm_bytes
+from .course_gxm import (
+    CourseGxmBank,
+    CourseGxmModelV7,
+    CourseGxmTriangleV7,
+    CourseGxmV7Validation,
+    parse_course_gxm,
+    parse_course_gxm_bytes,
+    parse_course_gxm_model_v7,
+    parse_course_gxm_model_v7_bytes,
+)
 from .course_source import parse_course_txt, parse_course_txt_bytes
 from .hnt import parse_hnt, parse_hnt_bytes
 from .sfl import parse_sfl, parse_sfl_bytes
@@ -71,6 +81,7 @@ __all__ = [
     "scale_dx_collision",
     "VehicleProject",
     "CourseProject",
+    "CourseSourceMesh",
     "CourseRaceLogic",
     "CourseStartArea",
     "CourseFinishArea",
@@ -94,6 +105,12 @@ __all__ = [
     "parse_course_xml_bytes",
     "parse_course_gxm",
     "parse_course_gxm_bytes",
+    "parse_course_gxm_model_v7",
+    "parse_course_gxm_model_v7_bytes",
+    "CourseGxmBank",
+    "CourseGxmModelV7",
+    "CourseGxmTriangleV7",
+    "CourseGxmV7Validation",
     "parse_course_txt",
     "parse_course_txt_bytes",
     "parse_hnt",

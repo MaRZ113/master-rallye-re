@@ -94,8 +94,11 @@ are not trigger-center sources.
   result, and ambiguity candidates. `Model`, `Texture`, and `FSTexture` remain
   distinct keywords.
 - `sfl`: dimensions, header, payload statistics and `semantics="UNKNOWN"`.
-- `source_txt` and `source_gxm`: existing parsed hierarchy and bounded GXM
-  prefix probe, without assigning source directive semantics.
+- `source_txt` and `source_gxm`: parsed hierarchy and bounded GXM prefix.
+- `source_geometry` and `source_meshes`: read-only topology for paired version-7
+  `moModel` resources. Meshes preserve literal names, hierarchy, `Index`/`Size`,
+  source position indices, bounds, and evidence while leaving gameplay role
+  `UNKNOWN`.
 - `resources` and `diagnostics`: selected paths, candidate sets, and parse or
   ambiguity information.
 
@@ -127,14 +130,14 @@ Blender 4.3 minimum.
 
 Supported reads include revision-135 course render geometry, RaceTest
 hierarchy and the proven StartArea/FinishArea/SplitTime interpretations, HNT
-dependencies, structural SFL data, TXT hierarchy, GXM prefix metadata, and
-opaque tag100 metadata. The read model does not support course writing,
-physical/collision authoring, arbitrary layouts, full RaceLine or AI semantics,
-surface authoring, or named GXM topology binding.
+dependencies, structural SFL data, TXT hierarchy, version-7 GXM source
+topology, and opaque tag100 metadata. The read model does not support course
+writing, physical/collision authoring, arbitrary layouts, full RaceLine or AI
+semantics, or surface authoring.
 
 Still unknown are ExtraTime's exact meaning, StartArea interpolation, the exact
 FinishArea algorithm, broad RaceLine semantics, SFL meaning, tag100 meaning,
-`$bsp -> tag100`, and the GXM triangle-corner/index-bank binding. The next
-research blocker is the source triangle-corner/index bank and proof that
-`moMesh` triangle spans bind to the source float3 pool. That work is deferred to
-R5T-E and is not part of this SDK foundation.
+`$bsp -> tag100`, and source-node gameplay semantics. R5T-E.1 closes the
+version-7 `moMesh` triangle-to-position binding; it does not infer gameplay
+meaning from names such as `COLLIDE_finishline`, `_raceline`, `$boinds`, or
+`$bsp`.

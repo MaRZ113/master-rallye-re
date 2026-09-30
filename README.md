@@ -91,6 +91,15 @@ No course writer, custom layout, or EXE change exists. See
 [`research/r5t_c/findings.md`](research/r5t_c/findings.md), and
 [`research/r5t_c/whole-x3-closeout.md`](research/r5t_c/whole-x3-closeout.md).
 
+R5T-E.1 closes read-only version-7 GXM topology: the Demo 9.3.1 loader's
+52-byte triangle grammar is implemented and cross-validated on France1,
+Italy1, Boinds, and Demo 9.10 AI Track. France1's source `startpoint` resolves
+to a closed 12-triangle box. The Course SDK now exposes literal source meshes
+and position bounds without assigning gameplay semantics to node names. No
+course writer or standard Blender importer change was added. See
+[`docs/formats/gxm-course.md`](docs/formats/gxm-course.md) and
+[`research/r5t_e/findings.md`](research/r5t_e/findings.md).
+
 ## Blender add-on
 
 Build the installable local ZIP with:

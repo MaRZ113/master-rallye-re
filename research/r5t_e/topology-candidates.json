@@ -1,13 +1,17 @@
 {
   "schema": "r5t-e-gxm-topology-evidence-v1",
-  "status": "MORE_WORK_NEEDED",
+  "status": "SUPERSEDED_HISTORICAL",
   "scope": "Read-only Demo 8.4.1 GXM/TXT evidence. Candidate raw windows are diagnostics, not decoded bank boundaries.",
   "corpus": {
     "demo_8_4_1_course_gxm_count": 2,
     "demo_9_3_1_course_gxm_count": 0,
     "demo_9_10_0_course_gxm_count": 0,
     "retail_course_gxm_count": 0,
-    "paired_gxm_txt_dx_samples": ["France1", "Italy1", "developer Boinds"]
+    "paired_gxm_txt_dx_samples": [
+      "France1",
+      "Italy1",
+      "developer Boinds"
+    ]
   },
   "header_field_status": {
     "word_0": "Raw value retained without a semantic name.",
@@ -31,12 +35,41 @@
         "bytes": 158889,
         "sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43"
       },
-      "header_words_u32": [853762, 0, 262505, 121, 185751, 97824, 61917, 49278],
+      "header_words_u32": [
+        853762,
+        0,
+        262505,
+        121,
+        185751,
+        97824,
+        61917,
+        49278
+      ],
       "txt_material_count": 121,
-      "bounded_16_byte_bank": {"offset": 32, "count": 262505, "stride": 16, "end": 4200112, "semantics": "UNKNOWN"},
-      "float3_pool": {"offset": 10838403, "count": 49278, "stride": 12, "bytes": 591336},
-      "object_table": {"offset": 11429739, "bytes": 59396, "nodes": 2322},
-      "mesh_spans": {"mesh_count": 2283, "sum_size": 61917, "max_index_plus_size": 61917, "gap_free_cover": true},
+      "bounded_16_byte_bank": {
+        "offset": 32,
+        "count": 262505,
+        "stride": 16,
+        "end": 4200112,
+        "semantics": "UNKNOWN"
+      },
+      "float3_pool": {
+        "offset": 10838403,
+        "count": 49278,
+        "stride": 12,
+        "bytes": 591336
+      },
+      "object_table": {
+        "offset": 11429739,
+        "bytes": 59396,
+        "nodes": 2322
+      },
+      "mesh_spans": {
+        "mesh_count": 2283,
+        "sum_size": 61917,
+        "max_index_plus_size": 61917,
+        "gap_free_cover": true
+      },
       "startpoint": {
         "ordinal": 1,
         "parent_id": 0,
@@ -59,12 +92,41 @@
         "bytes": 80331,
         "sha256": "7e7406a6c2772b4e6d30ef390230136d2eb46247f49d431bdbfb178ef3ce346d"
       },
-      "header_words_u32": [984834, 0, 189937, 66, 142131, 89485, 47377, 34048],
+      "header_words_u32": [
+        984834,
+        0,
+        189937,
+        66,
+        142131,
+        89485,
+        47377,
+        34048
+      ],
       "txt_material_count": 66,
-      "bounded_16_byte_bank": {"offset": 32, "count": 189937, "stride": 16, "end": 3039024, "semantics": "UNKNOWN"},
-      "float3_pool": {"offset": 8291648, "count": 34048, "stride": 12, "bytes": 408576},
-      "object_table": {"offset": 8700224, "bytes": 28123, "nodes": 1117},
-      "mesh_spans": {"mesh_count": 1082, "sum_size": 47377, "max_index_plus_size": 47377, "gap_free_cover": true}
+      "bounded_16_byte_bank": {
+        "offset": 32,
+        "count": 189937,
+        "stride": 16,
+        "end": 3039024,
+        "semantics": "UNKNOWN"
+      },
+      "float3_pool": {
+        "offset": 8291648,
+        "count": 34048,
+        "stride": 12,
+        "bytes": 408576
+      },
+      "object_table": {
+        "offset": 8700224,
+        "bytes": 28123,
+        "nodes": 1117
+      },
+      "mesh_spans": {
+        "mesh_count": 1082,
+        "sum_size": 47377,
+        "max_index_plus_size": 47377,
+        "gap_free_cover": true
+      }
     },
     {
       "identity": "Demo 8.4.1 developer Boinds",
@@ -78,12 +140,41 @@
         "bytes": 11424,
         "sha256": "cb074b08a7c15eca577fb92baf540ec613a4c4c7e942156bb1d7b456a78deb09"
       },
-      "header_words_u32": [657154, 0, 26750, 36, 28212, 25745, 9404, 4933],
+      "header_words_u32": [
+        657154,
+        0,
+        26750,
+        36,
+        28212,
+        25745,
+        9404,
+        4933
+      ],
       "txt_material_count": 36,
-      "bounded_16_byte_bank": {"offset": 32, "count": 26750, "stride": 16, "end": 428032, "semantics": "UNKNOWN"},
-      "float3_pool": {"offset": 1569990, "count": 4933, "stride": 12, "bytes": 59196},
-      "object_table": {"offset": 1629186, "bytes": 250, "nodes": 17},
-      "mesh_spans": {"mesh_count": 2, "sum_size": 9404, "max_index_plus_size": 9404, "gap_free_cover": true}
+      "bounded_16_byte_bank": {
+        "offset": 32,
+        "count": 26750,
+        "stride": 16,
+        "end": 428032,
+        "semantics": "UNKNOWN"
+      },
+      "float3_pool": {
+        "offset": 1569990,
+        "count": 4933,
+        "stride": 12,
+        "bytes": 59196
+      },
+      "object_table": {
+        "offset": 1629186,
+        "bytes": 250,
+        "nodes": 17
+      },
+      "mesh_spans": {
+        "mesh_count": 2,
+        "sum_size": 9404,
+        "max_index_plus_size": 9404,
+        "gap_free_cover": true
+      }
     }
   ],
   "exploratory_raw_windows": [
@@ -133,7 +224,11 @@
       "status": "REJECTED AS A PROVEN BANK BOUNDARY; retained only as a negative diagnostic"
     }
   ],
-  "current_verdict": {
+  "historical_snapshot_status": "MORE_WORK_NEEDED",
+  "current_status": "R5T-E PASS; see course-gxm-v7.json and startpoint-proof.json",
+  "superseded_by": "R5T-E.1 loader-guided 52-byte mixed triangle record and position-pool binding",
+  "historical_note": "This file preserves the earlier blind-scan checkpoint. Its candidate windows are not parser inputs; current conclusions are in the R5T-E.1 artifacts.",
+  "verdict_at_historical_checkpoint": {
     "header_word_3_material_count": "CONFIRMED_BY_BINARY_STRUCTURE against TXT Materials(Size N) in all three samples",
     "header_word_4_corner_count": "HIGH_CONFIDENCE_INFERENCE from 3 * word_6; not confirmed by a decoded corner bank",
     "header_word_6_triangle_count": "HIGH_CONFIDENCE_INFERENCE from complete moMesh span coverage; candidate raw streams are not yet validated",
