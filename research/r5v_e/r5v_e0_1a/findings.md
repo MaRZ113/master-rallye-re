@@ -15,12 +15,9 @@ The Race Results path is statically proven by R5V-E0.1. A second HUD helper at
 `0x004AAE70` reads a participant's `Race/CarN/CarID`, indexes the vehicle
 registry, reads the same `+0x1C` field and passes it to an embedded image
 object. Its code and the `TimeDiffs` HUD scene object strongly support the
-reported top-left-icon hypothesis. The remaining static gap is the dispatch
-edge: Ghidra reports no direct caller for `0x004AAE70`, and the visible `1P`
-object is not named explicitly in the scene XML. The generated runtime test
-is intended to settle that edge.
+reported top-left-icon hypothesis. The owner reports the intended runtime result: the top-left `1P` icon and Race Results icon both display Forklift frame 29, the bottom progress marker remains aquamarine, and Trooper gameplay remains normal. This confirms the selector control in both observed icon contexts. The raw dispatch edge remains unnamed in static evidence, but the runtime result closes its practical identity mapping.
 
-**Runtime status: WAITING FOR HUMAN TEST.** No runtime result is claimed.
+**Runtime status: FULL PASS, owner-reported.** The controlled selector diagnostic changed both the top-left `1P` icon and Race Results icon to Forklift frame 29. The progress marker remained aquamarine and Trooper gameplay remained normal.
 
 ## Static identity findings
 
@@ -72,10 +69,6 @@ RGBA to the marker object's color fields; this is a participant-color tint,
 not a per-vehicle art selector. No color diagnostic was made. See
 [progress-marker.md](progress-marker.md).
 
-## Next gate
+## Closeout
 
-Run the instructions in the ignored candidate directory and return exact
-observations for the 1P icon, bottom progress marker and Race Results icon.
-The candidate stays isolated under
-`.research-output/r5v_e0_1a/runtime-test/`. Do not begin R5V-F until that
-runtime result is known.
+The owner-reported E0.1a runtime result is FULL PASS. The selector diagnostic changed the top-left participant icon and Race Results icon to Forklift frame 29; the progress marker remained aquamarine; Trooper gameplay remained normal. The test executable and its original manifest remain unchanged in ignored .research-output.

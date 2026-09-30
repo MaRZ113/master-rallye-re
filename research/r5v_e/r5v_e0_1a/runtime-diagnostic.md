@@ -35,26 +35,20 @@ an input to the existing initializer call; 29 is not embedded as a separate
 hardcoded patch branch. The manifest preserves the legacy `meta` field and
 adds the semantic `smallcarsheet_index` field for this diagnostic profile.
 
-## Expected observations
+## Runtime observations
 
-| Screen/item | Existing Trooper profile | Diagnostic expectation |
-|---|---|---|
-| Vehicle Select preview | Trooper | Trooper, unchanged |
-| Stats/name | existing ID25 values | unchanged |
-| Race 3D model, wheel, physics and collision | Trooper | Trooper, unchanged |
-| Top-left image beside `1P` | owner reports Astero-like | Forklift frame 29 if the TimeDiffs hypothesis is correct |
-| Bottom progress marker | generic hud-template frame 3 | unchanged |
-| Race Results player image | selector 0 / Astero-like frame | Forklift frame 29 |
-| Other vehicles | available in E0 report | unchanged |
+| Item | Owner-reported result |
+|---|---|
+| Top-left image beside `1P` | Forklift frame 29 |
+| Bottom progress marker | Aquamarine, unchanged |
+| Race Results player image | Forklift frame 29 |
+| Trooper gameplay | Normal and unchanged |
 
-The Race Results expectation follows a proven static producer/consumer path.
-The top-left and progress expectations remain hypotheses until the human test
-is performed. Record the exact result using the matrix in `TEST_INSTRUCTIONS.txt`.
+The owner reports **FULL PASS** for the selector diagnostic. This confirms that
+`VehicleRecord[25] + 0x1C` controls the observed top-left participant icon as
+well as the separately proven Race Results icon. The progress marker did not
+follow the SmallCarSheet selector.
 
-## Runtime state
-
-`WAITING FOR HUMAN RUNTIME TEST`. No game was launched in this phase. Keep the
-source retail executable and `Data.sma` untouched. Launch the diagnostic
-candidate against the same working game installation and Trooper data state
-used for the successful R5V-E0 test; use the retail installation directory as
-the process working directory.
+The game was not launched by the analysis tooling. Retail executable and
+`Data.sma` source files remain untouched. The original ignored candidate and
+manifest remain unchanged.

@@ -55,8 +55,11 @@ preservation and JSON parsing also passed. These checks establish patch
 construction and byte identity; they do not establish HUD rendering or
 gameplay behavior.
 
-## Runtime gate
+## Runtime closeout
 
-No runtime candidate has been launched in this phase. The R5V-E0.1a HUD
-identity result remains pending the owner's visual observations. Do not
-upgrade the top-left mapping to runtime-confirmed until those are returned.
+Owner-reported result: FULL PASS. The top-left participant icon and Race
+Results icon both changed to Forklift frame 29; the bottom progress marker
+remained aquamarine; Trooper gameplay remained normal. This confirms the
+diagnostic outcome. The game was not launched by the analysis tooling. The
+retail source executable, `Data.sma`, test executable and generated manifest
+remain unchanged.
