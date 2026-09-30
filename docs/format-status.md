@@ -214,3 +214,7 @@ Retail record 25 has a vtable, empty owned-name pointer and four float32 1.0 def
 ## R5V-C ID25 runtime status
 
 The allocated retail ID25 is initialized by an automated, hash-locked duplicate-Astero EXE-copy candidate. The owner reports P0 FULL PASS and P1 FULL PASS, including frontend preview, Quick Race behavior, stage completion, results, return to menu, and continued use of the original Astero. The report says retail debug output showed Astero resources loading from ID25. Raw logs and screenshots were not added to the repository; see `research/r5v_c/runtime-results.md`. This proves the slot path with a duplicate payload and does not establish independent vehicle payload support.
+
+## R5V-E0 Trooper ID25 candidate
+
+The retail ID25 patcher now has a Trooper profile. Its ignored candidate composes the demo-9.3.1 revision-131 Trooper model converted to revision 135, 24 referenced Trooper DXT dependencies, retail Trooper physics, and authentic Trooper tag101 collision. Automated conversion, composition, physics-schema, and collision-structure checks pass. The owner reports the slot is confirmed, a vehicle is shown, and original vehicles are not replaced; the tested EXE hash and full P0 texture/stability checklist were not reported. A separate human P1 race package is ready. Trooper ID25 gameplay, collision behavior, and damage remain unconfirmed until that test. See `research/r5v_e0/`.

@@ -1,4 +1,5 @@
 """Master Rallye clean-room asset extraction research library."""
+from .version import __version__
 from .dx import parse_dx, parse_dx_bytes
 from .dxt import (
     decode_rgba_pixels,

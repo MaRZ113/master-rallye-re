@@ -178,3 +178,7 @@ Targeted Ghidra analysis found that retail record 25 is allocated but its ID, cl
 ## R5V-C duplicate-Astero ID25 runtime proof
 
 A hash-locked patcher creates an ignored retail EXE copy that initializes the allocated ID25 through the original owned-string initializer, raises class-2 navigation capacity to 12 and overrides only ID25's locked flag for testing. Automated PE, instruction, byte-diff and synthetic checks pass. The owner reported P0 FULL PASS and P1 FULL PASS for the duplicate-Astero candidate, including race completion, results, return to menu, and continued operation of original Astero. The report states that retail debug output showed Astero resources loading from ID25; raw logs and screenshots are not stored in the repository. See research/r5v_c/runtime-results.md and research/r5v_c/runtime-test-plan.md.
+
+## R5V-E0 Trooper ID25 candidate
+
+The Trooper profile uses the same ID25 initializer with retail Trooper physics, the R-COOKER1.1 runtime-tested Trooper DX conversion, 24 referenced DXT files and structurally validated authentic Trooper tag101 collision. The owner reports that ID25 shows a vehicle and does not replace original vehicles; the report does not include a candidate hash or all P0 checks. An ignored P1 package is prepared for human race validation. No R5V-E0 race has been run and no registry expansion beyond ID25 was made. See `research/r5v_e0/`.

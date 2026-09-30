@@ -188,5 +188,68 @@ class Slot25PatcherTests(unittest.TestCase):
                     slot25.verify_existing(source, output, manifest)
 
 
+class Slot25ProfileTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.source = synthetic_retail_layout()
+        cls.digest = hashlib.sha256(cls.source).hexdigest()
+        cls.pe = slot25.parse_pe(cls.source)
+
+    def _candidate(self, profile):
+        return slot25.make_candidate(
+            self.source,
+            expected_sha256=self.digest,
+            profile=profile,
+        )
+
+    def test_astero_profile_retains_original_stub_and_manifest(self):
+        default_bytes, default_manifest = slot25.make_candidate(
+            self.source, expected_sha256=self.digest
+        )
+        profile_bytes, profile_manifest = self._candidate(slot25.ASTERO_PROOF_PROFILE)
+        self.assertEqual(profile_bytes, default_bytes)
+        self.assertEqual(profile_manifest, default_manifest)
+        self.assertNotIn("profile", profile_manifest)
+
+    def test_trooper_name_is_appended_after_return_in_executable_padding(self):
+        patched, manifest = self._candidate(slot25.TROOPER_PROFILE)
+        literal = manifest["injection"]["name_literal"]
+        literal_offset = slot25.va_to_file_offset(
+            self.pe, literal["virtual_address"], literal["size"]
+        )
+        self.assertEqual(literal["storage"], "appended-to-read-only-text-section")
+        self.assertEqual(patched[literal_offset:literal_offset + literal["size"]], b"Trooper\0")
+        self.assertEqual(
+            literal["virtual_address"],
+            slot25.STUB_VA + len(slot25.build_stub(slot25.TROOPER_PROFILE, name_literal_va=0)),
+        )
+        self.assertEqual(manifest["record25"]["name"], "Trooper")
+
+    def test_trooper_profile_keeps_slot_gates_and_original_records(self):
+        patched, manifest = self._candidate(slot25.TROOPER_PROFILE)
+        astero, _ = self._candidate(slot25.ASTERO_PROOF_PROFILE)
+        self.assertNotEqual(patched, astero)
+        self.assertEqual(patched[0x58E70:0x598D0], self.source[0x58E70:0x598D0])
+        self.assertEqual(manifest["record25"]["id"], 25)
+        self.assertEqual(manifest["record25"]["class"], 2)
+        self.assertEqual(manifest["record25"]["stats"], [6, 6, 8, 8])
+        self.assertIn("Astero ID16 cosmetic donor", manifest["profile"]["stats_source"])
+        operations = {item["name"]: item for item in manifest["operations"]}
+        self.assertEqual(bytes.fromhex(operations["class2_capacity"]["replacement_bytes"]), b"\x0c")
+        self.assertEqual(
+            bytes.fromhex(operations["id25_unlock_only"]["replacement_bytes"]),
+            b"\xb0\x01\x5e\xc3",
+        )
+
+    def test_profile_is_confined_to_class2_slot25(self):
+        invalid = slot25.VehicleSlotProfile(
+            profile_id="bad", slot_id=24, vehicle_class=2, internal_name="Trooper",
+            stats=(0, 0, 0, 0), meta=0, float_bits=(0, 0, 0, 0),
+            donor_record_id=None, stats_source="test", floats_source="test",
+        )
+        with self.assertRaisesRegex(slot25.PatchError, "Only allocated retail slot25"):
+            self._candidate(invalid)
+
+
 if __name__ == "__main__":
     unittest.main()

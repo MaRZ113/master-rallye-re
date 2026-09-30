@@ -1,0 +1,80 @@
+{
+  "phase": "R5V-E0",
+  "build": "retail",
+  "profile": {
+    "id": "trooper",
+    "record_id": 25,
+    "vehicle_class": 2,
+    "internal_name": "Trooper",
+    "physics_family": "Trooper",
+    "model_donor": "Trooper",
+    "collision_source": "Trooper car.dx tag101",
+    "stats": [6, 6, 8, 8],
+    "stats_source": "Astero ID16 cosmetic donor",
+    "float_bits": ["3d8b1c04", "3f092d67", "3ef74e40", "3f800000"],
+    "floats_source": "Astero ID16 cosmetic donor",
+    "name_ownership": "temporary string passed to retail initializer; initializer deep-copies it",
+    "name_storage": {
+      "section": ".text",
+      "virtual_address": 6873846,
+      "virtual_address_hex": "0x68E2F6",
+      "size": 8
+    }
+  },
+  "source_executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "candidate_executable_sha256": "3022bdc6eb07d1e388f9c8ef693b83ce1c20c12c2c1a62719aad1cc59a1b1f13",
+  "operations": [
+    {
+      "name": "text_virtual_size",
+      "file_offset": 536,
+      "expected_hex": "94d22800",
+      "replacement_hex": "00d32800",
+      "purpose": "Map zero-padded .text containing the stub and immutable name literal"
+    },
+    {
+      "name": "registry_hook",
+      "file_offset": 363839,
+      "virtual_address": 4558143,
+      "virtual_address_hex": "0x458D3F",
+      "expected_hex": "e88c0b0000",
+      "replacement_hex": "e85c552300",
+      "purpose": "Call the ID25 initializer stub, which preserves the original continuation call"
+    },
+    {
+      "name": "class2_capacity",
+      "file_offset": 526949,
+      "virtual_address": 4721253,
+      "virtual_address_hex": "0x480A65",
+      "expected_hex": "0b",
+      "replacement_hex": "0c",
+      "purpose": "Raise only T3 navigation capacity from 11 to 12"
+    },
+    {
+      "name": "id25_unlock_only",
+      "file_offset": 369282,
+      "virtual_address": 4563586,
+      "virtual_address_hex": "0x45A282",
+      "expected_hex": "6a0fe887",
+      "replacement_hex": "b0015ec3",
+      "purpose": "Make the test ID25 unlock branch return true; other IDs stay on retail code"
+    },
+    {
+      "name": "slot25_stub_and_literal",
+      "file_offset": 2679456,
+      "virtual_address": 6873760,
+      "virtual_address_hex": "0x68E2A0",
+      "size": 94,
+      "stub_size": 86,
+      "literal_hex": "54726f6f70657200",
+      "purpose": "Construct owned Trooper temporary; initialize registry record25; preserve original setup continuation"
+    }
+  ],
+  "invariants": [
+    "record25 is initialized through retail function 0x45A0B0",
+    "no vehicle-record memcpy is used",
+    "retail record initialization for IDs 0 through 24 is unchanged",
+    "retail source MRallye.exe and Data.sma are read only",
+    "registry capacity remains 26; no ID26 is allocated",
+    "R5V-E0 runtime result is owner-reported P0 limited pass; P1 not yet tested"
+  ]
+}
