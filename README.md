@@ -54,7 +54,7 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 
 Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
-## Course resources (R5T-D.0 race-logic update)
+## Course resources (R5T-SDK1 read-only foundation)
 
 The Vehicle SDK v1 baseline remains frozen. The read-only revision-135 course
 DX parser and Italy1/France1 Blender imports remain validated. R5T-C confirms
@@ -74,8 +74,15 @@ position. Per-car one-shot state explains the earlier StartArea false negative:
 all four cars had already activated the moved sphere during race startup.
 `SplitTimeN-0..3` remain separate visual checkpoint objects; ExtraTime's exact
 meaning is unknown. The initializer derives a RaceLine percentage from the
-split center, not the reverse. `$bsp -> tag100` and tag100 physical meaning
-remain unknown. See `research/r5t_d1/` and `docs/course-importer.md`.
+split center, not the reverse. `src/master_rallye/course_sdk.py` now composes
+render DX, semantic RaceTest logic, HNT dependencies, structural SFL, and
+optional TXT/GXM source metadata without replacing the forensic parsers. The
+existing Blender add-on consumes this model and draws the split trigger as a
+read-only wire sphere while keeping the visual sign and checkpoint companions
+separate. Course tag100 is surfaced as a neutral opaque region with unknown
+semantics. `$bsp -> tag100` and tag100 physical meaning remain unknown. See
+[`docs/course-sdk.md`](docs/course-sdk.md), `research/r5t_d1/`, and
+`docs/course-importer.md`.
 
 No course writer, custom layout, or EXE change exists. See
 [`docs/course-assets.md`](docs/course-assets.md),

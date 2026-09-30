@@ -122,6 +122,23 @@ validation pair, not a substitute for missing isolated oracles.
 The current parser can inventory and compare source hierarchy metadata with
 `mrtool diff-course`. It is not a GXM writer and does not modify game assets.
 
+## Deferred source-topology blocker (R5T-E)
+
+Measured France1 and Italy1 source headers and `moMesh` spans support the
+following bounded interpretation, but it is not yet fully proven:
+
+| Course | header[6] / maximum `Index + Size` | header[4] / 3x header[6] | `startpoint` span |
+|---|---:|---:|---|
+| France1 | 61,917 | 185,751 | Index 0, Size 12 |
+| Italy1 | 47,377 | 142,131 | not present in this form |
+
+The working interpretation is header[6] = triangle count, header[4] = corner
+count, and `moMesh` spans select triangle ranges. The missing proof is locating
+the triangle-corner/index bank, binding those corners to the source float3
+pool, then checking whether France1 `startpoint`'s first 12 triangles use its
+candidate eight points. This is documented as the next source-topology
+question only; it was not investigated in R5T-SDK1.
+
 ## R5T-D.0 / D.1 RaceTest split-source and runtime closeout
 
 The retail RaceTest hierarchy now provides a stronger course-side baseline for

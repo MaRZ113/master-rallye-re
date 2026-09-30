@@ -107,7 +107,11 @@ class R5TCourseDxTests(unittest.TestCase):
         self.assertFalse(metadata["round_trip"]["writer_available"])
         self.assertTrue(metadata["round_trip"]["read_only"])
         self.assertEqual(len(metadata["course"]["draw_batches"]), 1)
-        self.assertEqual(metadata["course"]["unknown_physical_and_route_data"]["tag100"]["boundary_status"], "raw-length-unresolved")
+        opaque = metadata["course"]["opaque_course_data"]
+        self.assertEqual(opaque["tag100"]["boundary_status"], "raw-length-unresolved")
+        self.assertEqual(opaque["tag100"]["semantics"], "UNKNOWN")
+        self.assertEqual(opaque["trailing_tag_ids"], [100])
+        self.assertNotIn("collision", opaque)
 
 class R5THntTests(unittest.TestCase):
     def test_parses_exact_records_and_resolves_without_basename_guessing(self):

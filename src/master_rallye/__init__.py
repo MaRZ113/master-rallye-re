@@ -19,6 +19,32 @@ from .collision_writer import (
 from .bounds import DxSpatialBounds1339, parse_bounds1339, compute_bounds1339
 from .collision_scale import scale_tag101, scale_dx_collision
 from .vehicle_project import VehicleProject, validate_vehicle, build_vehicle_mod
+from .course_sdk import (
+    CourseDependencies,
+    CourseDependency,
+    CourseFinishArea,
+    CourseMarkerArea,
+    CourseProject,
+    CourseRaceLogic,
+    CourseRenderDraw,
+    CourseRenderGroup,
+    CourseRenderResource,
+    CourseResourcePaths,
+    CourseSpatialField,
+    CourseSplitTime,
+    CourseStartArea,
+    CourseTag100Region,
+    CourseVisualCheckpoint,
+    build_course_race_logic,
+    discover_course_resources,
+    load_course_project,
+)
+from .dx_course import parse_course_dx, parse_course_dx_bytes
+from .course_xml import parse_course_xml, parse_course_xml_bytes
+from .course_gxm import parse_course_gxm, parse_course_gxm_bytes
+from .course_source import parse_course_txt, parse_course_txt_bytes
+from .hnt import parse_hnt, parse_hnt_bytes
+from .sfl import parse_sfl, parse_sfl_bytes
 from .authoring import (
     INVALID_PROVENANCE,
     POSITIONS_ONLY_CHANGED,
@@ -44,6 +70,36 @@ __all__ = [
     "scale_tag101",
     "scale_dx_collision",
     "VehicleProject",
+    "CourseProject",
+    "CourseRaceLogic",
+    "CourseStartArea",
+    "CourseFinishArea",
+    "CourseMarkerArea",
+    "CourseSplitTime",
+    "CourseVisualCheckpoint",
+    "CourseRenderResource",
+    "CourseRenderDraw",
+    "CourseRenderGroup",
+    "CourseResourcePaths",
+    "CourseTag100Region",
+    "CourseDependencies",
+    "CourseDependency",
+    "CourseSpatialField",
+    "build_course_race_logic",
+    "discover_course_resources",
+    "load_course_project",
+    "parse_course_dx",
+    "parse_course_dx_bytes",
+    "parse_course_xml",
+    "parse_course_xml_bytes",
+    "parse_course_gxm",
+    "parse_course_gxm_bytes",
+    "parse_course_txt",
+    "parse_course_txt_bytes",
+    "parse_hnt",
+    "parse_hnt_bytes",
+    "parse_sfl",
+    "parse_sfl_bytes",
     "validate_vehicle",
     "build_vehicle_mod",
     "parse_dx",

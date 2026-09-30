@@ -100,9 +100,12 @@ the code's direction is **center to RaceLine-derived percentage**, not
 RaceLine point to center. The runtime test moving RaceLine[112] without an
 observed trigger relocation is consistent with this.
 
-The actual nearest indices for France1 are not confirmed by the code alone.
-The reported XML proximity values 112/224/336 refer to the visible signs; the
-runtime center captured by the external chain remains unknown.
+The exact nearest RaceLine indices produced by the initializer were not
+recorded. Earlier static values 112/224/336 were computed from visible-sign
+positions and are not executable results. The France1 SplitTime0 runtime
+center is now confirmed to equal its Egg Row3 by debugger captures and the
+moved-on-road runtime test. SplitTime1/2 share the same XML component structure
+but were not independently relocated in runtime tests.
 
 ## Slot 3 — XML/property loader (`0x0048D340`)
 

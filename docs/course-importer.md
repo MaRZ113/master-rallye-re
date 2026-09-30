@@ -1,18 +1,22 @@
 # Course and RaceTest import in Blender
 
-R5T-A adds a read-only course path to the existing Master Rallye Blender add-on. It uses the shared DX arrays, sidecar parser, coordinate conversion, DXT decoder, preview material code, and mesh metadata representation. R5T-D.0 extends the RaceTest XML path in that same add-on with a hierarchy-preserving parser and typed race-logic helpers. Neither path writes course resources.
+The existing Master Rallye add-on imports course resources read-only. The DX
+importer reuses shared DX arrays, sidecar parsing, coordinate conversion, DXT
+decoding, preview materials, and mesh metadata. R5T-SDK1 adds the core semantic
+Course SDK above those raw parsers and makes RaceTest helpers consume that
+model. It does not write course resources.
 
 ## Import
 
 Use **File → Import → Master Rallye Course (.dx)** and select a course DX such as `DataGx/Course/Italy1/track01.dx`. The importer accepts the observed revision-135 course render grammar, validates all local index and vertex ranges, and imports one mesh into a `Master Rallye Course - <folder>` collection.
 
-The collection has `Render Geometry`, `Course Helpers`, `Future Collision`, and `Future Route Data` children. The latter three remain empty and carry explicit not-decoded status. An imported XML marker overlay is a separate sibling collection. Sidecar material names and DXT textures use the existing local resource resolution and preview path. The current sidecar parser reads all 42 available course TXT files unchanged. Retail Italy1 draw slots reference 77 unique DXT stems and France1 references 95; all resolve in their matching course folders.
+The collection has `Render Geometry`, `Course Helpers`, and `Unknown - Opaque` children. The opaque collection carries neutral tag100 boundary/hash metadata with semantics marked `UNKNOWN`; it does not label the data as collision. The matching RaceTest XML importer adds semantic helpers under `Course Helpers/Race Logic`. Sidecar material names and DXT textures use the existing local resource resolution and preview path. Retail Italy1 draw slots reference 77 unique DXT stems and France1 references 95; all resolve in their matching course folders.
 
 Source positions use the established Master Rallye to Blender conversion `(X, Y, Z) → (X, -Z, Y)` at scale 1.0. One mesh preserves all UV sets, source colors, source normals and float32 bit metadata, plus face attributes for source draw ID, triangle index, and group ID. Object metadata retains DX identity/hash, revision, draw batch/container records, resource kind, render-validation results, sidecar candidates, and the opaque tail hash/boundary.
 
 Course objects are marked `READ_ONLY`. The vehicle position, attribute, and topology exporters reject them. R5T-A implements no DX, BSP, route, checkpoint, surface, or SFL writer.
 
-## RaceTest XML markers (R5T-B; hierarchy update in R5T-D.0)
+## RaceTest XML race logic
 
 With a course mesh active, use **Import RaceTest XML Race Logic** in the course
 panel and select its `DataScene/RaceTest/<course>.xml`. The parser retains the
@@ -23,22 +27,33 @@ metadata. Each marker keeps its parent list,
 source index, `No`, `Marker Type`, exact Pos/Dir strings, parsed vectors, XML
 path, and the original named values/attributes.
 
-The helper collections live under `Course Helpers/MR_RaceLogic`. StartArea and
-FinishArea have four ordered point helpers and a source-order outline; no filled
-face or car-slot interpolation is invented. Other markers remain grouped by
-their source list. Positions use the established `(X, Y, Z) → (X, -Z, Y)`
-conversion. Directions stay as source metadata.
+The forensic XML layer retains the full ordered tree. The semantic
+`CourseRaceLogic` model supplies typed StartArea, FinishArea and SplitTime
+records; Blender does not reparse split IDs, Radius, ExtraTime or Egg Row3.
+Helpers live under `Course Helpers/Race Logic`. StartArea and FinishArea retain
+ordered points and a source-order outline. No filled FinishArea volume or
+per-car start slot interpolation is invented. Other MarkerLists remain
+grouped by source list. Positions use the established
+`(X, Y, Z) → (X, -Z, Y)` conversion. Directions stay as source metadata.
 
 Split visual Eggs get a small original procedural yellow arrow icon at the
-serialized `en3d Matrix` transform. R5T-D.1 runtime/debugger evidence confirms
-for France1 SplitTime0 that this Row3 position also supplies the gameplay
-trigger center. The `gaRaceSplitTimeAI` metadata retains Split Time ID, Radius,
-and ExtraTime; Radius is the strict threshold for a 3D spherical proximity
-test. The current add-on still does not draw a trigger sphere; a future helper
-can use the confirmed Row3 center and Radius. ExtraTime meaning remains
-unknown. The four sibling `SplitTimeN-0…3` Eggs remain separate visual
-checkpoint objects; their positions are not supported as SplitTime0's center.
-No helper includes copied game models or textures.
+serialized `en3d Matrix` transform. For France1 SplitTime0, debugger and
+runtime evidence confirms this Row3 is both the sign position and gameplay
+center. The add-on now draws the read-only trigger as a three-ring wire sphere
+at the semantic center, with the parsed Radius and `Split Time ID`. SplitTime0
+has direct runtime/debugger evidence; other records retain executable/shared
+structure evidence without claiming separate runtime movement tests. Exact
+ExtraTime meaning remains `UNKNOWN`. Exact-name `SplitTimeN-<index>` siblings
+appear in a separate `Visual Checkpoint Objects` collection and are never
+marked as trigger-center sources. No helper includes copied game models or
+textures.
+
+The core `discover_course_resources()` / `load_course_project()` APIs accept a
+course folder or a resource path and can compose matching DX, RaceTest XML,
+HNT, SFL, TXT, and GXM prefix data. Ambiguities are diagnostics, not silent
+selection. Blender currently keeps its compatible two-step DX and RaceTest XML
+operators; package discovery is available to scripts and other tools, while a
+folder-browse operator remains future UI work.
 
 Runtime evidence labels are attached to StartArea and FinishArea helpers. The
 current France1 inventory contains 1,080 markers in eight lists, 76 Eggs, and
@@ -47,12 +62,11 @@ three split visual Eggs. Headless validation is in
 `research/r5t_d1/` and the France1 corpus inventory is in
 `research/r5t_d0/france1-race-logic.md`.
 
-Blender 5.2.2 headless validation passes for both Retail France1 and Italy1.
-The built add-on ZIP was also imported directly from the archive in Blender
-and passed the France1 hierarchy/helper check without installing into the
-user profile. The standard preferences-based installer smoke requires writing
-to Blender's user add-on directory, which is outside this workspace's allowed
-write roots.
+Headless validation covers Retail France1 and Italy1 with Blender 5.2.2. The
+semantic helper smoke checks the canonical coordinate transform, sphere rings,
+radius, evidence scope, visual companions, StartArea/FinishArea hierarchy and
+the packaged ZIP implementation. The packaged smoke imports the ZIP directly
+without installing into the user profile.
 
 ## GXM source point candidate (R5T-B.1)
 

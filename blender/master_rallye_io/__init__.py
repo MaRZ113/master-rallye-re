@@ -4,10 +4,10 @@ from __future__ import annotations
 bl_info = {
     "name": "Master Rallye IO",
     "author": "master-rallye-re clean-room project",
-    "version": (4, 4, 0),
+    "version": (4, 5, 0),
     "blender": (4, 3, 0),
     "location": "File > Import; 3D View > Sidebar > Master Rallye",
-    "description": "Import vehicles and read-only course render geometry",
+    "description": "Import vehicles and read-only course render and race-logic helpers",
     "category": "Import-Export",
 }
 

@@ -8,7 +8,7 @@ from bpy.props import BoolProperty, StringProperty
 from bpy_extras.io_utils import ImportHelper
 
 from ..blender_mesh import create_collection, import_dx_resource
-from ..library import parse_course_dx
+from ..library import load_course_project
 
 
 def _remove_collection_tree(collection):
@@ -25,7 +25,7 @@ def _remove_collection_tree(collection):
 class IMPORT_SCENE_OT_master_rallye_course(bpy.types.Operator, ImportHelper):
     bl_idname = "import_scene.master_rallye_course"
     bl_label = "Import Master Rallye Course"
-    bl_description = "Import validated course render geometry; physical and route data stay undecoded"
+    bl_description = "Import read-only course render geometry; RaceTest logic is available through the XML helper import"
     bl_options = {"REGISTER", "UNDO"}
 
     filename_ext = ".dx"
@@ -42,12 +42,17 @@ class IMPORT_SCENE_OT_master_rallye_course(bpy.types.Operator, ImportHelper):
         root["mr_read_only"] = True
         root["mr_source_dx"] = str(source.resolve())
         render = create_collection("Render Geometry", root)
-        create_collection("Course Helpers", root)["mr_decode_status"] = "not decoded in R5T-A"
-        create_collection("Future Collision", root)["mr_decode_status"] = "not decoded in R5T-A"
-        create_collection("Future Route Data", root)["mr_decode_status"] = "not decoded in R5T-A"
+        create_collection("Course Helpers", root)["mr_decode_status"] = "Import the matching RaceTest XML to add semantic StartArea, FinishArea, and split trigger helpers"
+        opaque = create_collection("Unknown - Opaque", root)
+        opaque["mr_read_only"] = True
+        opaque["mr_semantics_status"] = "tag100 and other unresolved course data are preserved as neutral metadata"
         try:
-            model = parse_course_dx(source)
-            if not model.course_render_validated:
+            project = load_course_project(source)
+            if project.render is None:
+                details = "; ".join(project.diagnostics) or "course render resource was not discovered"
+                raise ValueError(details)
+            model = project.render._parsed_model
+            if not project.render.validation_passed:
                 raise ValueError("course render geometry did not pass index/range validation")
             result = import_dx_resource(
                 source,
@@ -62,6 +67,22 @@ class IMPORT_SCENE_OT_master_rallye_course(bpy.types.Operator, ImportHelper):
             )
             result.object["mr_course_identity"] = source.parent.name
             result.object["mr_course_folder"] = str(source.parent.resolve())
+            result.object["mr_course_sdk_model"] = "master_rallye.course_sdk.CourseProject"
+            result.object["mr_course_sdk_read_only"] = True
+            result.object["mr_course_sdk_diagnostics"] = "; ".join(project.diagnostics)
+            root["mr_course_sdk_identity"] = project.identity
+            root["mr_course_sdk_resource_counts"] = {
+                "render_dx": len(project.resources.candidate_paths("render_dx")),
+                "race_test_xml": len(project.resources.candidate_paths("race_test_xml")),
+                "hnt": len(project.resources.candidate_paths("hnt")),
+                "sfl": len(project.resources.candidate_paths("sfl")),
+            }
+            root["mr_course_tag100_status"] = project.render.tag100.semantics
+            root["mr_course_tag100_present"] = project.render.tag100.present
+            opaque["mr_tag100_byte_size"] = project.render.tag100.byte_size
+            opaque["mr_tag100_sha256"] = project.render.tag100.sha256 or ""
+            opaque["mr_tag100_boundary_status"] = project.render.tag100.boundary_status
+            opaque["mr_tag100_semantics"] = project.render.tag100.semantics
         except Exception as error:
             _remove_collection_tree(root)
             self.report({"ERROR"}, str(error))

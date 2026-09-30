@@ -87,9 +87,10 @@ def main():
             "materials_with_loaded_dxt": len(dxt_materials),
             "warnings": metadata.get("blender", {}).get("import_warnings", []),
             "unsupported_sections": {
-                "route_decoded": metadata["course"]["unknown_physical_and_route_data"]["route_data_decoded"],
-                "surface_decoded": metadata["course"]["unknown_physical_and_route_data"]["surface_data_decoded"],
-                "collision_tags": metadata["course"]["unknown_physical_and_route_data"]["collision_tags_structurally_detected"],
+                "route_decoded": metadata["course"]["opaque_course_data"]["route_data_decoded"],
+                "surface_decoded": metadata["course"]["opaque_course_data"]["surface_data_decoded"],
+                "trailing_tag_ids": metadata["course"]["opaque_course_data"]["trailing_tag_ids"],
+                "tag100_semantics": metadata["course"]["opaque_course_data"]["tag100"]["semantics"],
             },
             "metadata_writer_available": metadata["round_trip"]["writer_available"],
         })

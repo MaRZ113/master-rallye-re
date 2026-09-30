@@ -13,6 +13,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
 | Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; SplitTime0 center **CONFIRMED_BY_RUNTIME_EDIT / DEBUGGER** | All 41 retail RaceTest XML files parse. In France1, `SplitTime0` Egg Row3 drives both the visual sign and gameplay center; `gaRaceSplitTimeAI/Radius` is the 3D sphere radius. SplitTime1/2 have matching structure but were not independently moved in runtime tests. See `docs/course-importer.md` and `research/r5t_d1/`. |
+| Read-only Course SDK | Typed `CourseProject` composition over existing DX, XML, HNT, SFL, TXT, and GXM prefix readers; per-record race-logic evidence; neutral tag100 wrapper. | **IMPLEMENTED; READ_ONLY** | Partial packages and ambiguous candidates are represented explicitly. Blender consumes typed race logic and draws split trigger spheres. Tag100 and SFL semantics remain **UNKNOWN**. See `docs/course-sdk.md`. |
 | Course `.gxm` | Demo 8.4.1 source header, counted bank, and exact trailing node table cross-validated against paired TXT; a bounded float3 bank correlates spatially with cooked DX. | **CONFIRMED_BY_SOURCE_COMPILED_PAIR** for measured positions and controlled tag100 responses; node-to-point links and runtime role **UNKNOWN** | France1 one-point +1 and whole-box +3 edits both changed tag100 reproducibly. Moving the whole GXM candidate did not move cars. R5T-D.0 separately confirmed RaceTest StartArea as the physical grid frame. See `docs/course-source.md` and `research/r5t_c/`. |
 
 ## Course status (R5T-C evidence closeout)
@@ -94,7 +95,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
   object `P`. The direct XML source for SplitTime0 is established; broader
   RaceLine behavior remains outside this result.
 - **R5T-D.1: PASS.** The runtime source field and trigger behavior are closed
-  for France1 SplitTime0. No writer or Blender change was made.
+  for France1 SplitTime0.
 - The runtime-dependent player-to-slot ordering across 8.4.1, 9.3.1, and
   Retail is separate from this physical geometry question and was not analyzed
   here.
@@ -104,6 +105,20 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 - The tag100 payload remains structurally opaque. Physical collision, helper
   ownership, and gameplay semantics remain unknown. Course parsing/diagnostics
   are read-only; no course writer exists.
+
+## Course SDK foundation (R5T-SDK1)
+
+The read-only semantic layer composes the canonical raw readers and leaves
+unknown source structures available. `CourseStartArea`, `CourseFinishArea`,
+and `CourseSplitTime` preserve source references and ordered markers. Split
+centers derive from Egg Row3 only when the serialized matrix is valid; trigger
+shape is the executable-confirmed 3D sphere. France1 SplitTime0 has direct
+runtime/debugger evidence; other records do not inherit that per-record status.
+HNT entries, structural SFL statistics, source TXT/GXM probes, and neutral
+tag100 offsets/hash/status are available from partial `CourseProject` objects.
+The existing Blender add-on consumes the semantic model and draws split sphere
+helpers and separate visual companions. No course writer or exporter was
+introduced. See `docs/course-sdk.md` and `docs/course-importer.md`.
 
 ## R1 vehicle-corpus evidence
 

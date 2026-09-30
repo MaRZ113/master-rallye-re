@@ -1,4 +1,4 @@
-"""Exercise the packaged add-on ZIP directly without installing to user config."""
+"""Verify semantic race helpers using only the packaged add-on ZIP."""
 from __future__ import annotations
 
 import json
@@ -8,43 +8,50 @@ from pathlib import Path
 import bpy
 
 
+def _descendants(collection):
+    yield collection
+    for child in collection.children:
+        yield from _descendants(child)
+
+
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
     if len(args) != 4:
         raise SystemExit("expected addon.zip course.dx RaceTest.xml output.json after --")
     archive, dx_path, xml_path, output = (Path(value).resolve() for value in args)
-    # The install smoke writes to Blender's external user profile. Import the
-    # built ZIP as a Python package instead, keeping the test inside the repo.
     sys.path.insert(0, str(archive))
     import master_rallye_io
-    from master_rallye_io.library import parse_course_xml, position_to_blender
+    from master_rallye_io.library import load_course_project, position_to_blender
 
     master_rallye_io.register()
-    doc = parse_course_xml(xml_path)
-    dx_status = bpy.ops.import_scene.master_rallye_course(
+    project = load_course_project(xml_path, search_roots=(dx_path.parent,))
+    race_logic = project.race_logic
+    if race_logic is None:
+        raise AssertionError("packaged Course SDK did not parse the RaceTest XML")
+    if bpy.ops.import_scene.master_rallye_course(
         "EXEC_DEFAULT", filepath=str(dx_path), load_textures=False
-    )
-    if dx_status != {"FINISHED"}:
-        raise AssertionError(f"packaged course DX import failed: {dx_status}")
-    xml_status = bpy.ops.import_scene.master_rallye_course_xml_markers(
+    ) != {"FINISHED"}:
+        raise AssertionError("packaged course DX import failed")
+    if bpy.ops.import_scene.master_rallye_course_xml_markers(
         "EXEC_DEFAULT", filepath=str(xml_path)
-    )
-    if xml_status != {"FINISHED"}:
-        raise AssertionError(f"packaged RaceTest XML import failed: {xml_status}")
+    ) != {"FINISHED"}:
+        raise AssertionError("packaged RaceTest import failed")
 
     roots = [
-        collection for collection in bpy.data.collections
-        if collection.get("mr_xml_source") == str(xml_path)
-        and collection.get("mr_xml_collection_kind") == "race_logic_root"
+        item for item in bpy.data.collections
+        if item.get("mr_resource_kind") == "course"
+        and str(item.get("mr_course_identity", "")).casefold().endswith(dx_path.parent.name.casefold())
     ]
     if len(roots) != 1:
-        raise AssertionError(f"packaged RaceTest hierarchy count is {len(roots)}")
-    descendants = []
-    def walk(collection):
-        descendants.append(collection)
-        for child in collection.children:
-            walk(child)
-    walk(roots[0])
+        raise AssertionError(f"packaged course root count is {len(roots)}")
+    logic_roots = [
+        item for item in _descendants(roots[0])
+        if item.get("mr_xml_source") == str(xml_path)
+        and item.get("mr_xml_collection_kind") == "race_logic_root"
+    ]
+    if len(logic_roots) != 1:
+        raise AssertionError("packaged Race Logic hierarchy is missing")
+    descendants = tuple(_descendants(logic_roots[0]))
     markers = [
         obj for collection in descendants for obj in collection.objects
         if obj.get("mr_course_helper_kind") == "RaceTest XML Marker"
@@ -53,32 +60,48 @@ def main():
         obj for collection in descendants for obj in collection.objects
         if obj.get("mr_course_helper_kind") == "RaceTest split-time visual sign icon"
     ]
-    candidates = next(
-        (collection for collection in descendants if collection.get("mr_xml_collection_kind") == "split_sibling_candidates"),
-        None,
+    triggers = [
+        obj for collection in descendants for obj in collection.objects
+        if obj.get("mr_course_helper_kind") == "split_trigger"
+    ]
+    companions = [
+        obj for collection in descendants for obj in collection.objects
+        if obj.get("mr_course_helper_kind") == "split_visual_companion"
+    ]
+    if len(markers) != sum(marker.position is not None for marker in race_logic.source_document.markers):
+        raise AssertionError("packaged marker inventory differs from source XML")
+    if len(signs) != len(race_logic.split_times):
+        raise AssertionError("packaged sign count differs from semantic split count")
+    complete_splits = [split for split in race_logic.split_times if split.trigger_complete]
+    if len(triggers) != len(complete_splits):
+        raise AssertionError("packaged trigger count differs from complete semantic split count")
+    expected_companions = sum(
+        companion.position is not None
+        for split in race_logic.split_times for companion in split.companions
     )
-    expected_markers = [marker for marker in doc.markers if marker.position is not None]
-    if len(markers) != len(expected_markers):
-        raise AssertionError("packaged marker count differs from the hierarchy-aware parser")
-    if len(signs) != len(doc.split_time_eggs):
-        raise AssertionError("packaged split visual count differs from parsed split Egg count")
-    if candidates is None or len(candidates.objects) != 12:
-        raise AssertionError("packaged split sibling candidates were not kept as twelve UNKNOWN points")
-    if any(sign.get("mr_trigger_position_status") != "UNKNOWN; deliberately not visualized" for sign in signs):
-        raise AssertionError("packaged split visual helper conflated sign and trigger")
-    for sign in signs:
-        metadata = json.loads(sign["mr_source_egg_metadata_json"])
-        if not any(value["name"] == "en3d Matrix" for value in metadata["egg_values"]):
-            raise AssertionError("packaged split helper omitted raw Egg matrix metadata")
-    start = doc.marker_list("StartArea")
-    area = next((collection for collection in descendants if collection.get("mr_source_list_name") == "StartArea"), None)
-    if start is None or area is None:
+    if len(companions) != expected_companions:
+        raise AssertionError("packaged visual companion count differs from semantic association")
+
+    trigger_by_id = {int(item["mr_split_time_id"]): item for item in triggers}
+    for split in complete_splits:
+        item = trigger_by_id[split.split_id]
+        expected = position_to_blender(split.center)
+        if any(abs(float(item.location[i]) - expected[i]) > 1.0e-4 for i in range(3)):
+            raise AssertionError("packaged trigger center transform differs from canonical conversion")
+        if abs(float(item["mr_split_radius"]) - split.radius) > 1.0e-5:
+            raise AssertionError("packaged trigger radius differs from the semantic model")
+        if item.get("mr_trigger_shape") != "sphere" or len(item.data.splines) != 3:
+            raise AssertionError("packaged trigger is not a three-ring sphere")
+        if item.get("mr_split_extra_time_semantics") != "UNKNOWN":
+            raise AssertionError("packaged ExtraTime semantics were overclaimed")
+    if any(item.get("mr_is_trigger_center_source") is not False for item in companions):
+        raise AssertionError("packaged visual companion was marked as a trigger source")
+    if not any(item.get("mr_source_list_name") == "StartArea" for item in descendants):
         raise AssertionError("packaged StartArea hierarchy is missing")
-    first = next(obj for obj in area.objects if obj.get("mr_marker_index_in_list") == 0)
-    expected_location = position_to_blender(start.markers[0].position)
-    actual = tuple(float(first.location[index]) for index in range(3))
-    if any(abs(actual[index] - expected_location[index]) > 1.0e-4 for index in range(3)):
-        raise AssertionError("packaged StartArea position conversion differs from the canonical transform")
+    if race_logic.finish_area and not any(item.get("mr_source_list_name") == "FinishArea" for item in descendants):
+        raise AssertionError("packaged FinishArea hierarchy is missing")
+    if any(item.name in {"Future Collision", "Future Route Data", "Split Sibling Egg Points - UNKNOWN"} for item in descendants):
+        raise AssertionError("packaged addon retains obsolete unknown placeholder collections")
 
     output.parent.mkdir(parents=True, exist_ok=True)
     result = {
@@ -89,8 +112,9 @@ def main():
         "racetest_xml": xml_path.name,
         "marker_count": len(markers),
         "split_visual_count": len(signs),
-        "split_sibling_candidate_count": len(candidates.objects),
-        "trigger_position": "UNKNOWN; not visualized",
+        "split_trigger_sphere_count": len(triggers),
+        "visual_companion_count": len(companions),
+        "semantic_model": "master_rallye.course_sdk.CourseRaceLogic",
         "user_profile_modified": False,
     }
     output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

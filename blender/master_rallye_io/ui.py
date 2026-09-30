@@ -413,8 +413,8 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
         grid.label(text="Texture previews")
         grid.label(text=f"{loaded_textures} materials")
         box = layout.box()
-        box.label(text="Geometry only", icon="INFO")
-        box.label(text="BSP / collision, source route, and surface data remain undecoded.")
+        box.label(text="Read-only render and RaceTest helpers", icon="INFO")
+        box.label(text="tag100 meaning, full RaceLine, surfaces, and physical collision remain unknown.")
         box.operator(
             "import_scene.master_rallye_course_xml_markers",
             text="Import RaceTest XML Race Logic",
@@ -425,8 +425,8 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
             text="Import GXM Startpoint Point Candidate",
             icon="EMPTY_SPHERE",
         )
-        box.label(text="XML lists retain their hierarchy; Start/Finish areas and split signs get typed helpers.")
-        box.label(text="Split trigger centers remain unknown and are not drawn at the visual signs.")
+        box.label(text="RaceTest XML import adds StartArea, FinishArea, split signs, and split trigger spheres.")
+        box.label(text="Split sign and trigger share Egg Row3; companion checkpoints stay separate visuals.")
         box.label(text="GXM startpoint overlay shows points only; connectivity is unknown.")
         box.label(text="No course writer is available.")
         warnings = metadata.get("blender", {}).get("import_warnings", [])

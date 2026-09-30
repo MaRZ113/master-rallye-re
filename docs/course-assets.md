@@ -21,6 +21,17 @@ Across the 36 retail HNT manifests, the parser finds 36 Model entries and 2,807 
 
 Each retail course folder contains one DX and one TXT sidecar. The existing sidecar parser accepts all 42 available course TXT files across the four builds. The 3,998 retail DXT files are inventoried with hashes; Blender preview reuses the existing DXT and material code.
 
+## Read-only semantic Course SDK (R5T-SDK1)
+
+`master_rallye.course_sdk` composes the existing parsers into partial
+`CourseProject` instances. It retains the forensic XML/source objects and adds
+typed StartArea, FinishArea, and SplitTime views, HNT dependency resolution,
+structural SFL statistics, and neutral course tag100 metadata. Per-record
+runtime evidence is kept distinct from shared executable/structure evidence.
+Resource candidates use exact stems and report ambiguity. The Blender add-on
+uses the semantic RaceTest model for its read-only helpers. See
+[`course-sdk.md`](course-sdk.md) for the API and limitations.
+
 ## Format timeline
 
 France1 and Italy1 are present in all four corpus snapshots. Their DX revisions are 127 in Demo 8.4.1, 131 in Demo 9.3.1, and 135 in Demo 9.10.0 and retail. The late revision-135 course render grammar is validated on both Demo 9.10.0 tracks and all 36 retail courses. The 8.4.1 and 9.3.1 draw grammars remain outside the course importer.

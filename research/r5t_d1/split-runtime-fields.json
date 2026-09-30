@@ -16,12 +16,36 @@
     "instance_size": "0x24",
     "vtable_va": "0x00690CE4",
     "vtable_slots": [
-      {"index": 0, "va": "0x0048CC00", "role": "deleting destructor wrapper"},
-      {"index": 1, "va": "0x0048CBA0", "role": "allocation/factory wrapper"},
-      {"index": 2, "va": "0x0048D260", "role": "property serializer"},
-      {"index": 3, "va": "0x0048D340", "role": "property loader"},
-      {"index": 4, "va": "0x0048CC50", "role": "runtime proximity/update"},
-      {"index": 5, "va": "0x0048CFE0", "role": "initializer and RaceLine correlation"}
+      {
+        "index": 0,
+        "va": "0x0048CC00",
+        "role": "deleting destructor wrapper"
+      },
+      {
+        "index": 1,
+        "va": "0x0048CBA0",
+        "role": "allocation/factory wrapper"
+      },
+      {
+        "index": 2,
+        "va": "0x0048D260",
+        "role": "property serializer"
+      },
+      {
+        "index": 3,
+        "va": "0x0048D340",
+        "role": "property loader"
+      },
+      {
+        "index": 4,
+        "va": "0x0048CC50",
+        "role": "runtime proximity/update"
+      },
+      {
+        "index": 5,
+        "va": "0x0048CFE0",
+        "role": "initializer and RaceLine correlation"
+      }
     ],
     "next_observed_vtable_va": "0x00690CFC",
     "next_class_name": "gaRaceStartCountdownAI",
@@ -38,48 +62,109 @@
     "evidence": "CONFIRMED_BY_EXECUTABLE"
   },
   "fields": {
-    "split_time_id": {"offset": "0x14", "type": "int32", "default": 0, "property": "Split Time ID", "runtime_role": "split event/state identity index", "evidence": "CONFIRMED_BY_EXECUTABLE; ID 0 supported by debugger isolation"},
-    "radius": {"offset": "0x18", "type": "float32", "default": 20.0, "property": "Radius", "runtime_role": "strict distance threshold", "evidence": "CONFIRMED_BY_EXECUTABLE"},
-    "extra_time": {"offset": "0x1C", "type": "float32", "default": 90.0, "property": "ExtraTime", "runtime_dataflow": "read in countdown TimeToAdd branches", "semantic_status": "UNKNOWN", "evidence": "CONFIRMED_BY_EXECUTABLE"},
-    "car_count": {"offset": "0x0C", "type": "int32", "runtime_role": "proximity loop bound", "evidence": "CONFIRMED_BY_EXECUTABLE"},
-    "per_car_state_pointer": {"offset": "0x10", "runtime_role": "one-byte-per-car event guard array", "evidence": "CONFIRMED_BY_EXECUTABLE"}
+    "split_time_id": {
+      "offset": "0x14",
+      "type": "int32",
+      "default": 0,
+      "property": "Split Time ID",
+      "runtime_role": "split event/state identity index",
+      "evidence": "CONFIRMED_BY_EXECUTABLE; ID 0 supported by debugger isolation"
+    },
+    "radius": {
+      "offset": "0x18",
+      "type": "float32",
+      "default": 20.0,
+      "property": "Radius",
+      "runtime_role": "strict distance threshold",
+      "evidence": "CONFIRMED_BY_EXECUTABLE; CONFIRMED_BY_RUNTIME_EDIT"
+    },
+    "extra_time": {
+      "offset": "0x1C",
+      "type": "float32",
+      "default": 90.0,
+      "property": "ExtraTime",
+      "runtime_dataflow": "read in countdown TimeToAdd branches",
+      "semantic_status": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_EXECUTABLE"
+    },
+    "car_count": {
+      "offset": "0x0C",
+      "type": "int32",
+      "runtime_role": "proximity loop bound",
+      "evidence": "CONFIRMED_BY_EXECUTABLE"
+    },
+    "per_car_state_pointer": {
+      "offset": "0x10",
+      "runtime_role": "one-byte-per-car event guard array",
+      "evidence": "CONFIRMED_BY_EXECUTABLE"
+    }
   },
   "runtime_position_chain": {
     "context_argument": "uint32 at [ESP+0x04] at method entry",
     "spatial_object_pointer": "uint32 at [context+0x50]",
-    "xyz_float32_offsets": ["0x4C", "0x50", "0x54"],
+    "xyz_float32_offsets": [
+      "0x4C",
+      "0x50",
+      "0x54"
+    ],
     "proximity_method_va": "0x0048CC50",
     "initializer_va": "0x0048CFE0",
     "owner_type": "UNKNOWN",
-    "producer": "France1 SplitTime0 Egg en3d Matrix Row3 XYZ -> runtime P XYZ",
+    "producer": "France1 SplitTime0 Egg en3d Matrix Row3 XYZ -> runtime P XYZ (debugger and controlled runtime edit)",
     "source_asset_field": "DataScene/RaceTest/France1.xml; Egg Name=SplitTime0; en3d Matrix Row3 XYZ",
-    "source_asset_field_scope": "CONFIRMED for France1 SplitTime0; SplitTime1/2 not independently moved",
+    "source_asset_field_scope": "Source relation confirmed for France1 SplitTime0; SplitTime1/2 not independently moved at runtime",
     "coordinate_transform_before_read": "not present in these methods; prior producer transform is UNKNOWN",
-    "evidence": "CONFIRMED_BY_EXECUTABLE for pointer reads; owner/source UNKNOWN"
+    "evidence": "pointer reads CONFIRMED_BY_EXECUTABLE; France1 SplitTime0 source relation CONFIRMED_BY_DEBUGGER and CONFIRMED_BY_RUNTIME_EDIT; P owner/producer type UNKNOWN",
+    "producer_owner_type": "UNKNOWN",
+    "producer_function_or_class": "UNKNOWN"
   },
   "proximity_algorithm": {
     "car_lookup_key": "Car%d",
     "car_record_pointer_adjustment": "resolved_record+0x08",
-    "car_xyz_float32_offsets": ["0xB0", "0xB4", "0xB8"],
+    "car_xyz_float32_offsets": [
+      "0xB0",
+      "0xB4",
+      "0xB8"
+    ],
     "distance": "sqrt(dx*dx + dy*dy + dz*dz)",
     "dimensionality": "3D",
     "radius_offset": "this+0x18",
     "comparison": "distance < Radius for finite values",
-    "shape": "3D sphere centered on context-derived XYZ with Radius threshold",
-    "method_local_conditions": ["car record resolves"],
+    "shape": "3D sphere centered on the resolved split Egg Row3 position with Radius threshold",
+    "method_local_conditions": [
+      "car record resolves"
+    ],
     "event_recorder_guard": "one byte per car; checked/set in 0x0048CD20",
-    "evidence": "CONFIRMED_BY_EXECUTABLE"
+    "evidence": "CONFIRMED_BY_EXECUTABLE; CONFIRMED_BY_RUNTIME_EDIT"
   },
   "resolved_call_edges": {
-    "factory_to_constructor": {"caller": "0x0048CBA0", "callee": "0x0048CB50", "evidence": "CONFIRMED_BY_EXECUTABLE"},
-    "proximity_callees": ["0x004D8EC0", "0x004D6FB0", "0x0048CD20"],
+    "factory_to_constructor": {
+      "caller": "0x0048CBA0",
+      "callee": "0x0048CB50",
+      "evidence": "CONFIRMED_BY_EXECUTABLE"
+    },
+    "proximity_callees": [
+      "0x004D8EC0",
+      "0x004D6FB0",
+      "0x0048CD20"
+    ],
     "runtime_virtual_callers_for_slots_2_to_5": "UNRESOLVED; live call stack required",
     "owner_type": "UNKNOWN"
   },
   "per_car_one_shot": {
     "guard_pointer_offset": "this+0x10",
     "guard_size": "one byte per car",
-    "observed_split_time_0_startup_acceptances": {"hit_count": 4, "edi_car_indices": [0, 1, 2, 3], "breakpoint_va_approx": "0x0048CD44", "evidence": "CONFIRMED_BY_DEBUGGER"},
+    "observed_split_time_0_startup_acceptances": {
+      "hit_count": 4,
+      "edi_car_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "breakpoint_va_approx": "0x0048CD44",
+      "evidence": "CONFIRMED_BY_DEBUGGER"
+    },
     "guard_addresses_are_run_specific": true
   },
   "raceline_initialization": {
@@ -89,30 +174,158 @@
     "writes": "Race/SplitTime<ID>/Percentage = nearest_index / point_count",
     "dependency_direction": "split center -> nearest RaceLine point/percentage",
     "france1_runtime_indices_112_224_336_reproduced": false,
-    "evidence": "CONFIRMED_BY_EXECUTABLE for algorithm; concrete indices remain UNKNOWN"
+    "evidence": "CONFIRMED_BY_EXECUTABLE for algorithm; concrete indices remain UNKNOWN",
+    "indices_note": "SplitTime0 center is known as Egg Row3, but the exact nearest RaceLine index from its runtime center was not recorded; 112/224/336 are static nearest-to-visual-sign results."
   },
   "france1_runtime_evidence": [
-    {"claim": "Baseline SplitTime0 Egg Row3 equals runtime P XYZ", "position": [-2470.51, 84.36, -110.63], "status": "CONFIRMED_BY_DEBUGGER"},
-    {"claim": "StartArea-relocated SplitTime0 Egg Row3 equals runtime P XYZ", "position_approx": [-1664.44, 53.86, 172.76], "status": "CONFIRMED_BY_DEBUGGER"},
-    {"claim": "Moving SplitTime0 Row3 to a nearby on-road position awards the split there before the ordinary location", "from": [-2470.51, 84.36, -110.63], "to": [-2415.42, 72.10, -124.94], "unchanged": ["Radius=21", "Split Time ID=0", "ExtraTime=77.5", "RaceLine", "StartArea", "FinishArea", "sibling visuals"], "status": "CONFIRMED_BY_RUNTIME_EDIT"},
-    {"claim": "StartArea relocation appeared negative because all four cars activated during startup and one-shot state blocked later reactivation", "status": "CONFIRMED_BY_DEBUGGER"},
-    {"claim": "SplitTime0-0..3 checkpoint visuals move but are not sufficient to move SplitTime0 center", "status": "CONFIRMED_BY_RUNTIME_EDIT"},
-    {"claim": "RaceLine[112] move does not visibly relocate the event", "status": "NOT_SUPPORTED as direct center source"},
-    {"claim": "SplitTime0 acceptance is guarded once per car; four startup hits for EDI 0..3", "status": "CONFIRMED_BY_DEBUGGER", "breakpoint_va_approx": "0x0048CD44", "guard_addresses_run_specific": ["0x1A0961C0", "0x1A0961C1", "0x1A0961C2", "0x1A0961C3"]}
+    {
+      "claim": "Baseline SplitTime0 Egg Row3 equals runtime P XYZ",
+      "position": [
+        -2470.51,
+        84.36,
+        -110.63
+      ],
+      "status": "CONFIRMED_BY_DEBUGGER"
+    },
+    {
+      "claim": "StartArea-relocated SplitTime0 Egg Row3 equals runtime P XYZ",
+      "position_approx": [
+        -1664.44,
+        53.86,
+        172.76
+      ],
+      "status": "CONFIRMED_BY_DEBUGGER"
+    },
+    {
+      "claim": "Moving SplitTime0 Row3 to a nearby on-road position awards the split there before the ordinary location",
+      "from": [
+        -2470.51,
+        84.36,
+        -110.63
+      ],
+      "to": [
+        -2415.42,
+        72.1,
+        -124.94
+      ],
+      "unchanged": [
+        "Radius=21",
+        "Split Time ID=0",
+        "ExtraTime=77.5",
+        "RaceLine",
+        "StartArea",
+        "FinishArea",
+        "sibling visuals"
+      ],
+      "status": "CONFIRMED_BY_RUNTIME_EDIT"
+    },
+    {
+      "claim": "StartArea relocation appeared negative because all four cars activated during startup and one-shot state blocked later reactivation",
+      "status": "CONFIRMED_BY_DEBUGGER"
+    },
+    {
+      "claim": "SplitTime0-0..3 checkpoint visuals move but are not sufficient to move SplitTime0 center",
+      "status": "CONFIRMED_BY_RUNTIME_EDIT"
+    },
+    {
+      "claim": "RaceLine[112] move does not visibly relocate the event",
+      "status": "NOT_SUPPORTED as direct center source"
+    },
+    {
+      "claim": "SplitTime0 acceptance is guarded once per car; four startup hits for EDI 0..3",
+      "status": "CONFIRMED_BY_DEBUGGER",
+      "breakpoint_va_approx": "0x0048CD44",
+      "guard_addresses_run_specific": [
+        "0x1A0961C0",
+        "0x1A0961C1",
+        "0x1A0961C2",
+        "0x1A0961C3"
+      ]
+    },
+    {
+      "claim": "SplitTime0 Egg Row3 is both visual sign position and gameplay trigger center; the earlier visual-only interpretation is superseded",
+      "source_field": "Egg Name=SplitTime0; en3d Matrix Row3 XYZ",
+      "evidence": [
+        "CONFIRMED_BY_DEBUGGER",
+        "CONFIRMED_BY_EXECUTABLE",
+        "CONFIRMED_BY_RUNTIME_EDIT"
+      ]
+    }
   ],
   "france1_runtime_centers": {
-    "split_time_0_baseline": {"xyz": [-2470.51, 84.36, -110.63], "evidence": "CONFIRMED_BY_DEBUGGER"},
-    "split_time_0_startarea_test": {"xyz_approx": [-1664.44, 53.86, 172.76], "evidence": "CONFIRMED_BY_DEBUGGER"},
-    "split_time_0_final_on_road_test": {"egg_row3_xyz": [-2415.42, 72.10, -124.94], "award_followed_moved_position": true, "evidence": "CONFIRMED_BY_RUNTIME_EDIT"},
+    "split_time_0_baseline": {
+      "xyz": [
+        -2470.51,
+        84.36,
+        -110.63
+      ],
+      "evidence": "CONFIRMED_BY_DEBUGGER"
+    },
+    "split_time_0_startarea_test": {
+      "xyz_approx": [
+        -1664.44,
+        53.86,
+        172.76
+      ],
+      "evidence": "CONFIRMED_BY_DEBUGGER"
+    },
+    "split_time_0_final_on_road_test": {
+      "egg_row3_xyz": [
+        -2415.42,
+        72.1,
+        -124.94
+      ],
+      "award_followed_moved_position": true,
+      "evidence": "CONFIRMED_BY_RUNTIME_EDIT"
+    },
     "split_time_1": "NOT_INDEPENDENTLY_TESTED",
     "split_time_2": "NOT_INDEPENDENTLY_TESTED",
     "baseline_p_pointer_run_specific": "0x1A0C3550",
     "p_plus_0x58_observed_float": 1.0
   },
   "france1_static_visual_references": [
-    {"split_id": 0, "sign_xyz": [-2470.51, 84.36, -110.63], "radius": 21.0, "extra_time": 77.5, "nearest_raceline_to_sign": {"index": 112, "distance": 6.181}},
-    {"split_id": 1, "sign_xyz": [-2797.56, -4.64, 563.60], "radius": 13.0, "extra_time": 82.5, "nearest_raceline_to_sign": {"index": 224, "distance": 4.834}},
-    {"split_id": 2, "sign_xyz": [-1644.96, 38.88, 1009.46], "radius": 12.0, "extra_time": 70.0, "nearest_raceline_to_sign": {"index": 336, "distance": 0.0}}
+    {
+      "split_id": 0,
+      "sign_xyz": [
+        -2470.51,
+        84.36,
+        -110.63
+      ],
+      "radius": 21.0,
+      "extra_time": 77.5,
+      "nearest_raceline_to_sign": {
+        "index": 112,
+        "distance": 6.181
+      }
+    },
+    {
+      "split_id": 1,
+      "sign_xyz": [
+        -2797.56,
+        -4.64,
+        563.6
+      ],
+      "radius": 13.0,
+      "extra_time": 82.5,
+      "nearest_raceline_to_sign": {
+        "index": 224,
+        "distance": 4.834
+      }
+    },
+    {
+      "split_id": 2,
+      "sign_xyz": [
+        -1644.96,
+        38.88,
+        1009.46
+      ],
+      "radius": 12.0,
+      "extra_time": 70.0,
+      "nearest_raceline_to_sign": {
+        "index": 336,
+        "distance": 0.0
+      }
+    }
   ],
   "closeout": {
     "status": "PASS",

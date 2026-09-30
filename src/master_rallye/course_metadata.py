@@ -52,15 +52,15 @@ def mark_course_metadata(metadata, model):
             "errors": list(model.diagnostics.errors),
             "warnings": list(model.diagnostics.warnings),
         },
-        "unknown_physical_and_route_data": {
-            "collision_tags_structurally_detected": list(model.collision.tag_ids),
+        "opaque_course_data": {
+            "trailing_tag_ids": list(model.collision.tag_ids),
             "tag100": None if model.collision.bsp is None else {
                 "tag_offset": model.collision.bsp.tag_offset,
                 "end_offset": model.collision.bsp.end_offset,
                 "byte_size": len(model.collision.bsp.raw),
                 "sha256": model.collision.bsp.sha256,
                 "boundary_status": model.collision.bsp.status,
-                "payload_semantics": "UNKNOWN; raw BSP preserved by source path/hash",
+                "semantics": "UNKNOWN",
             },
             "route_data_decoded": False,
             "surface_data_decoded": False,

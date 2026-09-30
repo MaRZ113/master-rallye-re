@@ -137,8 +137,10 @@ runtime split center -> nearest RaceLine sample -> stored split percentage
 It does not support `RaceLine[n] -> gameplay trigger center`. The user's move
 of `RaceLine[112]` without an observed trigger movement is consistent with
 that result. The static France1 indices 112/224/336 were computed from visual
-sign positions; because the actual center is still unknown, those exact runtime
-indices have not been reproduced from the initializer.
+sign positions. SplitTime0's center is known and equals its Egg Row3; the exact
+nearest RaceLine index produced by the initializer for that runtime center was
+not recorded. SplitTime1/2 were not independently moved at runtime, so their
+per-record source relation and resulting nearest indices remain unverified.
 
 ## Runtime evidence kept separate
 

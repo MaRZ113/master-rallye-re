@@ -11,7 +11,7 @@ from bpy_extras.io_utils import ImportHelper
 from mathutils import Matrix
 
 from ..blender_mesh import create_collection
-from ..library import parse_course_xml, position_to_blender
+from ..library import load_course_project, position_to_blender
 
 
 def _walk_collections(collection):
@@ -98,7 +98,7 @@ def _create_marker_point(collection, source, course_name, marker, area_kind=None
     return obj
 
 
-def _create_area_outline(collection, source, course_name, marker_list, evidence):
+def _create_area_outline(collection, source, course_name, marker_list, semantic_role, evidence):
     markers = [item for item in marker_list.markers if item.position is not None]
     if len(markers) < 2:
         return None
@@ -123,6 +123,7 @@ def _create_area_outline(collection, source, course_name, marker_list, evidence)
     obj["mr_xml_source"] = source
     obj["mr_xml_path"] = marker_list.xml_path
     obj["mr_marker_list_name"] = marker_list.name or ""
+    obj["mr_semantics"] = semantic_role
     obj["mr_marker_count"] = len(markers)
     obj["mr_source_marker_order"] = [marker.index_in_list for marker in markers]
     obj["mr_outline_only"] = True
@@ -203,15 +204,12 @@ def _source_egg_metadata(egg):
     }
 
 
-def _create_split_visual(collection, source, course_name, egg):
+def _create_split_visual(collection, source, course_name, split):
+    egg = split.source_egg
     matrix = egg.matrix("en3d Matrix")
-    position = matrix.position if matrix is not None else None
-    component = egg.split_time_component
-    if matrix is None or position is None or component is None:
+    if matrix is None or split.center is None:
         return None
-    values = {item.name: item for item in component.values}
-    split_id = values.get("Split Time ID")
-    label = split_id.value if split_id is not None else (egg.name or str(egg.index_in_list))
+    label = str(split.split_id) if split.split_id is not None else (egg.name or str(egg.index_in_list))
 
     # A small, original arrow-board icon. This is a procedural visualization,
     # not a copied game model or texture.
@@ -226,7 +224,7 @@ def _create_split_visual(collection, source, course_name, egg):
     mesh.materials.append(_split_sign_material())
     obj = bpy.data.objects.new(f"MR_SplitTime{label}_Visual", mesh)
     collection.objects.link(obj)
-    obj.location = position_to_blender(position)
+    obj.location = position_to_blender(split.center)
     rotation = _matrix_rotation(matrix)
     if rotation is not None:
         obj.rotation_euler = rotation
@@ -241,22 +239,113 @@ def _create_split_visual(collection, source, course_name, egg):
     obj["mr_egg_list_name"] = egg.list_name or ""
     obj["mr_egg_index_in_list"] = egg.index_in_list
     obj["mr_egg_name"] = egg.name or ""
-    obj["mr_split_time_id_raw"] = split_id.value if split_id else ""
-    obj["mr_split_visual_position_xyz"] = list(position)
+    obj["mr_split_time_id_raw"] = split.split_id_raw or ""
+    if split.split_id is not None:
+        obj["mr_split_time_id"] = split.split_id
+    obj["mr_split_visual_position_xyz"] = list(split.center)
     obj["mr_split_visual_matrix_json"] = json.dumps(
         {"attributes": dict(matrix.attributes), "rows": [list(row) if row is not None else None for row in matrix.rows]},
         separators=(",", ":"),
     )
-    obj["mr_split_radius_raw"] = values.get("Radius").value if values.get("Radius") else ""
-    obj["mr_split_extra_time_raw"] = values.get("ExtraTime").value if values.get("ExtraTime") else ""
+    obj["mr_split_radius_raw"] = split.radius_raw or ""
+    obj["mr_split_extra_time_raw"] = split.extra_time_raw or ""
+    if split.radius is not None:
+        obj["mr_split_radius"] = split.radius
+    if split.extra_time is not None:
+        obj["mr_split_extra_time"] = split.extra_time
     obj["mr_source_egg_metadata_json"] = json.dumps(
         _source_egg_metadata(egg), ensure_ascii=False, separators=(",", ":")
     )
-    obj["mr_visual_position_evidence"] = "CONFIRMED_BY_RUNTIME_EDIT"
-    obj["mr_trigger_position_status"] = "UNKNOWN; deliberately not visualized"
-    obj["mr_extra_time_status"] = "UNKNOWN"
-    obj["mr_radius_note"] = "Radius affects trigger extent; its center is UNKNOWN and no sphere is drawn around this visual sign"
+    obj["mr_visual_position_evidence"] = "; ".join(split.evidence_center)
+    obj["mr_gameplay_center_source"] = "same en3d Matrix Row3 as visual sign"
+    obj["mr_trigger_position_status"] = "; ".join(split.evidence_center)
+    obj["mr_trigger_shape"] = split.trigger_shape
+    obj["mr_radius_evidence"] = "; ".join(split.evidence_radius)
+    obj["mr_extra_time_semantics"] = split.extra_time_semantics
+    obj["mr_source_component_xml_path"] = split.source_component.xml_path
     obj["mr_icon_status"] = "procedural helper icon; not a game asset or exact render reproduction"
+    return obj
+
+
+def _create_split_trigger(collection, source, course_name, split):
+    if not split.trigger_complete:
+        return None
+    radius = float(split.radius)
+    label = str(split.split_id) if split.split_id is not None else (split.egg_name or "Unknown")
+    curve = bpy.data.curves.new(f"MR split trigger sphere {label}", type="CURVE")
+    curve.dimensions = "3D"
+    curve.resolution_u = 1
+    curve.bevel_depth = max(radius * 0.0025, 0.025)
+    curve.bevel_resolution = 1
+    steps = 40
+    for axis in range(3):
+        spline = curve.splines.new("POLY")
+        spline.points.add(steps - 1)
+        for index, point in enumerate(spline.points):
+            angle = 2.0 * 3.141592653589793 * index / steps
+            cosine = radius * __import__("math").cos(angle)
+            sine = radius * __import__("math").sin(angle)
+            if axis == 0:
+                co = (cosine, sine, 0.0, 1.0)
+            elif axis == 1:
+                co = (cosine, 0.0, sine, 1.0)
+            else:
+                co = (0.0, cosine, sine, 1.0)
+            point.co = co
+        spline.use_cyclic_u = True
+    obj = bpy.data.objects.new(f"MR_SplitTime{label}_TriggerSphere", curve)
+    collection.objects.link(obj)
+    obj.location = position_to_blender(split.center)
+    obj.show_in_front = True
+    obj.color = (0.95, 0.22, 0.08, 1.0)
+    obj["mr_resource_kind"] = "course"
+    obj["mr_read_only"] = True
+    obj["mr_course_helper_kind"] = "split_trigger"
+    obj["mr_course_identity"] = course_name
+    obj["mr_split_time_id_raw"] = split.split_id_raw or ""
+    if split.split_id is not None:
+        obj["mr_split_time_id"] = split.split_id
+    obj["mr_split_radius"] = radius
+    obj["mr_split_radius_raw"] = split.radius_raw or ""
+    obj["mr_split_extra_time_raw"] = split.extra_time_raw or ""
+    obj["mr_split_extra_time_semantics"] = split.extra_time_semantics
+    if split.extra_time is not None:
+        obj["mr_split_extra_time"] = split.extra_time
+    obj["mr_trigger_shape"] = split.trigger_shape
+    obj["mr_trigger_center_source_xyz"] = list(split.center)
+    obj["mr_source_xml_path"] = split.egg_xml_path
+    obj["mr_component_xml_path"] = split.source_component.xml_path
+    obj["mr_center_evidence"] = "; ".join(split.evidence_center)
+    obj["mr_radius_evidence"] = "; ".join(split.evidence_radius)
+    obj["mr_evidence_status"] = "; ".join(dict.fromkeys((*split.evidence_center, *split.evidence_radius)))
+    obj["mr_coordinate_space_note"] = "center converted with canonical course source-to-Blender transform; radius unchanged"
+    return obj
+
+
+def _create_visual_companion(collection, source, course_name, companion):
+    egg = companion.source_egg
+    if companion.position is None:
+        return None
+    obj = bpy.data.objects.new(f"{egg.name or 'Split visual companion'}", None)
+    collection.objects.link(obj)
+    obj.empty_display_type = "SPHERE"
+    obj.empty_display_size = 0.8
+    obj.show_in_front = True
+    obj.location = position_to_blender(companion.position)
+    obj["mr_resource_kind"] = "course"
+    obj["mr_read_only"] = True
+    obj["mr_course_helper_kind"] = "split_visual_companion"
+    obj["mr_course_identity"] = course_name
+    obj["mr_source_xml_path"] = egg.xml_path
+    obj["mr_egg_list_name"] = egg.list_name or ""
+    obj["mr_egg_index_in_list"] = egg.index_in_list
+    obj["mr_egg_name"] = egg.name or ""
+    obj["mr_model_name"] = egg.model_name or ""
+    obj["mr_source_position_xyz"] = list(companion.position)
+    obj["mr_evidence_status"] = "; ".join(companion.evidence)
+    obj["mr_is_trigger_center_source"] = False
+    obj["mr_semantic_role"] = "visual checkpoint object; no trigger-center meaning assigned"
+    obj["mr_source_egg_metadata_json"] = json.dumps(_source_egg_metadata(egg), ensure_ascii=False, separators=(",", ":"))
     return obj
 
 
@@ -272,9 +361,13 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
     def execute(self, context):
         source = Path(self.filepath).resolve()
         try:
-            document = parse_course_xml(source)
+            project = load_course_project(source)
+            race_logic = project.race_logic
+            if race_logic is None:
+                raise ValueError("Course SDK could not parse the selected RaceTest XML")
+            document = race_logic.source_document
             positioned = [marker for marker in document.markers if marker.position is not None]
-            if not positioned and not document.split_time_eggs:
+            if not positioned and not race_logic.split_times:
                 raise ValueError("XML contains no positioned Marker records or split-time visual eggs")
 
             candidates = [
@@ -313,7 +406,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             if helpers is None:
                 helpers = create_collection("Course Helpers", root)
                 helpers["mr_decode_status"] = "read-only RaceTest race-logic visualization"
-            logic = create_collection("MR_RaceLogic", helpers)
+            logic = create_collection("Race Logic", helpers)
             logic["mr_course_helper_kind"] = "RaceTest XML race-logic hierarchy"
             logic["mr_xml_collection_kind"] = "race_logic_root"
             logic["mr_xml_source"] = source_path
@@ -321,13 +414,20 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             logic["mr_course_identity"] = source.stem
             logic["mr_read_only"] = True
             logic["mr_marker_count"] = len(document.markers)
-            logic["mr_split_visual_count"] = len(document.split_time_eggs)
+            logic["mr_split_visual_count"] = len(race_logic.split_times)
+            logic["mr_split_trigger_count"] = sum(item.trigger_complete for item in race_logic.split_times)
             logic["mr_hierarchy_preserved"] = True
-            logic["mr_trigger_position_status"] = "UNKNOWN; no gameplay split trigger helper is created"
+            logic["mr_semantics_source"] = "master_rallye.course_sdk CourseRaceLogic"
+            logic["mr_read_only_semantics"] = True
 
             marker_lists_collection = _get_child_collection(logic, "MarkerLists - Other", "marker_lists_root")
+            semantic_areas = {
+                "StartArea": race_logic.start_area,
+                "FinishArea": race_logic.finish_area,
+            }
             for marker_list in document.marker_lists:
-                if marker_list.name in {"StartArea", "FinishArea"}:
+                semantic_area = semantic_areas.get(marker_list.name or "")
+                if semantic_area is not None:
                     group = create_collection(marker_list.name or f"MarkerList {marker_list.ordinal}", logic)
                     kind = marker_list.name
                 else:
@@ -338,26 +438,26 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 group["mr_xml_path"] = marker_list.xml_path
                 group["mr_source_list_ordinal"] = marker_list.ordinal
                 group["mr_marker_count"] = len(marker_list.markers)
-                if kind == "StartArea":
-                    group["mr_evidence_status"] = "CONFIRMED_BY_RUNTIME_EDIT"
-                    group["mr_semantics"] = "physical start-grid geometric frame and vehicle heading"
-                elif kind == "FinishArea":
-                    group["mr_evidence_status"] = "CONFIRMED_BY_RUNTIME_EDIT"
-                    group["mr_semantics"] = "contributes to race-completion trigger region; not asserted to be exclusive"
+                if semantic_area is not None:
+                    group["mr_evidence_status"] = "; ".join(semantic_area.evidence)
+                    group["mr_semantics"] = semantic_area.semantic_role
+                    group["mr_centroid_xyz"] = list(semantic_area.centroid) if semantic_area.centroid else []
+                    group["mr_local_xz_bounds"] = list(semantic_area.local_xz_bounds) if semantic_area.local_xz_bounds else []
+                    group["mr_source_order_preserved"] = True
                 else:
-                    group["mr_semantics_status"] = "UNKNOWN; source list identity preserved"
+                    group["mr_semantics_status"] = "UNKNOWN; ordered RaceTest markers preserved"
                 for marker in marker_list.markers:
                     if marker.position is None:
                         continue
                     _create_marker_point(group, source_path, source.stem, marker, kind)
                 if kind == "StartArea":
                     _create_area_outline(
-                        group, source_path, source.stem, marker_list,
+                        group, source_path, source.stem, marker_list, semantic_area.semantic_role,
                         "CONFIRMED_BY_RUNTIME_EDIT: rigid translation/rotation/scale of the four points moves, rotates, and expands the physical grid",
                     )
                 elif kind == "FinishArea":
                     _create_area_outline(
-                        group, source_path, source.stem, marker_list,
+                        group, source_path, source.stem, marker_list, semantic_area.semantic_role,
                         "CONFIRMED_BY_RUNTIME_EDIT: uniform expansion advances race completion; sole finish subsystem UNKNOWN",
                     )
 
@@ -366,55 +466,35 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             split_visuals = create_collection("SplitTimes", eggs_root)
             split_visuals["mr_xml_collection_kind"] = "egg_list:SplitTimes"
             split_visuals["mr_xml_path"] = "/Scene/EggLists_Version4/List[@Name='SplitTimes']"
-            split_candidates = create_collection("Split Sibling Egg Points - UNKNOWN", split_visuals)
-            split_candidates["mr_xml_collection_kind"] = "split_sibling_candidates"
-            split_candidates["mr_semantics_status"] = "UNKNOWN; companion Egg transforms are correlation candidates, not decoded gameplay trigger helpers"
-            split_candidates["mr_no_radius_geometry"] = True
 
-            for egg in document.split_time_eggs:
-                component = egg.split_time_component
-                id_value = component.value("Split Time ID") if component else None
-                split_label = id_value.value if id_value is not None else (egg.name or str(egg.index_in_list))
+            for split in race_logic.split_times:
+                egg = split.source_egg
+                split_label = str(split.split_id) if split.split_id is not None else (egg.name or str(egg.index_in_list))
                 split_collection = create_collection(egg.name or f"SplitTime{split_label}", split_visuals)
                 split_collection["mr_xml_collection_kind"] = f"split_egg:{split_label}"
                 split_collection["mr_xml_path"] = egg.xml_path
                 split_collection["mr_split_time_id_raw"] = split_label
-                split_collection["mr_semantics_status"] = "visual Egg identity confirmed; gameplay trigger position UNKNOWN"
-                sign = _create_split_visual(split_collection, source_path, source.stem, egg)
-                if sign is not None:
-                    sign["mr_trigger_candidate_collection"] = split_candidates.name
+                split_collection["mr_semantic_model"] = "master_rallye.course_sdk.CourseSplitTime"
+                split_collection["mr_center_source"] = "en3d Matrix Row3"
+                split_collection["mr_trigger_shape"] = split.trigger_shape
+                split_collection["mr_center_evidence"] = "; ".join(split.evidence_center)
+                split_collection["mr_radius_evidence"] = "; ".join(split.evidence_radius)
+                split_collection["mr_extra_time_semantics"] = split.extra_time_semantics
+                split_collection["mr_sdk_issues_json"] = json.dumps(list(split.issues), ensure_ascii=False)
 
-                # Show sibling transforms as neutral points only. Their runtime
-                # role is not claimed and no gameplay radius/volume is drawn.
-                prefix = f"{egg.name}-" if egg.name else ""
-                if prefix:
-                    for sibling in document.eggs:
-                        if sibling.list_name != egg.list_name or not sibling.name or not sibling.name.startswith(prefix):
-                            continue
-                        matrix = sibling.matrix("en3d Matrix")
-                        if matrix is None or matrix.position is None:
-                            continue
-                        point = bpy.data.objects.new(f"{sibling.name} source point - UNKNOWN", None)
-                        split_candidates.objects.link(point)
-                        point.empty_display_type = "SPHERE"
-                        point.empty_display_size = 0.8
-                        point.show_in_front = True
-                        point.location = position_to_blender(matrix.position)
-                        point["mr_resource_kind"] = "course"
-                        point["mr_read_only"] = True
-                        point["mr_course_helper_kind"] = "RaceTest sibling Egg position candidate"
-                        point["mr_course_identity"] = source.stem
-                        point["mr_xml_source"] = source_path
-                        point["mr_xml_path"] = sibling.xml_path
-                        point["mr_egg_list_name"] = sibling.list_name or ""
-                        point["mr_egg_index_in_list"] = sibling.index_in_list
-                        point["mr_egg_name"] = sibling.name
-                        point["mr_source_position_xyz"] = list(matrix.position)
-                        point["mr_semantics_status"] = "UNKNOWN; not confirmed as gameplay trigger position"
+                _create_split_visual(split_collection, source_path, source.stem, split)
+                _create_split_trigger(split_collection, source_path, source.stem, split)
+
+                companions_collection = create_collection("Visual Checkpoint Objects", split_collection)
+                companions_collection["mr_xml_collection_kind"] = "split_visual_companions"
+                companions_collection["mr_semantic_role"] = "visual checkpoint objects; not trigger-center sources"
+                companions_collection["mr_evidence_status"] = "; ".join(split.evidence_companions)
+                for companion in split.companions:
+                    _create_visual_companion(companions_collection, source_path, source.stem, companion)
 
             self.report(
                 {"INFO"},
-                f"Imported {len(positioned)} hierarchy-grouped XML markers and {len(document.split_time_eggs)} split visual helpers; trigger positions remain separate/UNKNOWN",
+                f"Imported {len(positioned)} hierarchy-grouped markers, {len(race_logic.split_times)} split records, and {logic['mr_split_trigger_count']} trigger spheres (read-only)",
             )
             return {"FINISHED"}
         except Exception as error:
