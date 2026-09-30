@@ -241,10 +241,74 @@ class Slot25ProfileTests(unittest.TestCase):
             b"\xb0\x01\x5e\xc3",
         )
 
+    def test_trooper_smallsheet29_is_deterministic_and_serializes_selector(self):
+        base, base_manifest = self._candidate(slot25.TROOPER_PROFILE)
+        diagnostic, manifest = self._candidate(slot25.TROOPER_SMALLCARSHEET29_PROFILE)
+        rebuilt, rebuilt_manifest = self._candidate(slot25.TROOPER_SMALLCARSHEET29_PROFILE)
+
+        self.assertEqual(slot25.get_profile("trooper").smallcarsheet_index, 0)
+        self.assertEqual(slot25.get_profile("trooper-smallsheet29").smallcarsheet_index, 29)
+        self.assertEqual(diagnostic, rebuilt)
+        self.assertEqual(manifest, rebuilt_manifest)
+        self.assertEqual(manifest["phase"], "R5V-E0.1a")
+        self.assertEqual(manifest["record25"]["smallcarsheet_index"], 29)
+        self.assertEqual(manifest["profile"]["smallcarsheet_index"], 29)
+        self.assertEqual(base_manifest["record25"]["meta"], 0)
+        self.assertNotIn("smallcarsheet_index", base_manifest["record25"])
+
+        byte_differences = [
+            offset for offset, (before, after) in enumerate(zip(base, diagnostic))
+            if before != after
+        ]
+        self.assertEqual(len(byte_differences), 1)
+        base_ops = {item["name"]: item for item in base_manifest["operations"]}
+        diag_ops = {item["name"]: item for item in manifest["operations"]}
+        base_stub = bytes.fromhex(base_ops["slot25_stub"]["replacement_bytes"])
+        diag_stub = bytes.fromhex(diag_ops["slot25_stub"]["replacement_bytes"])
+        stub_differences = [
+            offset for offset, (before, after) in enumerate(zip(base_stub, diag_stub))
+            if before != after
+        ]
+        self.assertEqual(len(stub_differences), 1)
+        self.assertEqual(base_stub[stub_differences[0]], 0)
+        self.assertEqual(diag_stub[stub_differences[0]], 29)
+        self.assertEqual(
+            byte_differences[0],
+            diag_ops["slot25_stub"]["file_offset"] + stub_differences[0],
+        )
+        self.assertEqual(
+            {name for name in base_ops if name != "slot25_stub"},
+            {name for name in diag_ops if name != "slot25_stub"},
+        )
+        for name in base_ops:
+            if name != "slot25_stub":
+                self.assertEqual(base_ops[name], diag_ops[name])
+
+    def test_smallsheet_selector_is_limited_to_existing_retail_frames(self):
+        for value in (-1, 30):
+            invalid = slot25.replace(
+                slot25.TROOPER_PROFILE,
+                profile_id=f"bad-selector-{value}",
+                smallcarsheet_index=value,
+            )
+            with self.subTest(value=value), self.assertRaisesRegex(
+                    slot25.PatchError, "SmallCarSheet index must address a retail frame"):
+                self._candidate(invalid)
+
+    def test_diagnostic_uses_profile_value_in_emitted_stub(self):
+        base_stub = slot25.build_stub(slot25.TROOPER_PROFILE)
+        diagnostic_stub = slot25.build_stub(slot25.TROOPER_SMALLCARSHEET29_PROFILE)
+        changed = [i for i, (a, b) in enumerate(zip(base_stub, diagnostic_stub)) if a != b]
+        self.assertEqual(len(changed), 1)
+        self.assertEqual(base_stub[changed[0]], 0)
+        self.assertEqual(diagnostic_stub[changed[0]], 29)
+        self.assertEqual(base_stub[changed[0] - 1], 0x6A)
+        self.assertEqual(diagnostic_stub[changed[0] - 1], 0x6A)
+
     def test_profile_is_confined_to_class2_slot25(self):
         invalid = slot25.VehicleSlotProfile(
             profile_id="bad", slot_id=24, vehicle_class=2, internal_name="Trooper",
-            stats=(0, 0, 0, 0), meta=0, float_bits=(0, 0, 0, 0),
+            stats=(0, 0, 0, 0), smallcarsheet_index=0, float_bits=(0, 0, 0, 0),
             donor_record_id=None, stats_source="test", floats_source="test",
         )
         with self.assertRaisesRegex(slot25.PatchError, "Only allocated retail slot25"):

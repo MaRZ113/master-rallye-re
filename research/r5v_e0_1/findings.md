@@ -39,10 +39,12 @@ The visible identity is assembled from separate data sources:
    ProgressCar0 through ProgressCar7. The updater selects Race/CarN progress
    and colour, then uses the same generic white-car marker. It does not choose
    art from the vehicle ID or name.
-5. **Race 1P icon** — the exact icon described by the owner as Astero is not
-   identified by the inspected HUD scene/code. ProgressCar0 is a plausible
-   referent, but no screenshot or distinct object mapping proves that the
-   reported 1P icon is this marker. This edge remains UNKNOWN.
+5. **Race 1P icon** — the R5V-E0.1a follow-up identifies `TimeDiffs` /
+   `gaHudTimeDiffsAi` as a strong candidate and finds a raw-code helper that
+   reads participant CarID -> record `+0x1C` -> image selector. The static
+   dispatch edge and scene child resource binding are still open; a dedicated
+   `0 -> 29` candidate is waiting for human runtime validation. See
+   `research/r5v_e0_1a/`.
 6. **Race Results icon** — the results producer reads the race participant's
    absolute vehicle ID, then reads VehicleRecord[ID] field +0x1C and publishes
    that integer as Frontend/RaceResults/CarN. The scene applies it to the
@@ -72,18 +74,20 @@ The six channels are analyzed separately in the linked reports:
 | Display name | STEEL MONKEYS FORKLIFT | STRONGLY_SUPPORTED: raw selector calls are ID-indexed; owner confirms rendered text; EXE contains the Forklift strings |
 | Stats | Astero-derived values | PROVEN data source and values: direct record reads plus E0 initializer profile |
 | Vehicle Select icon | Missing | PROVEN: no T3_Car12 widget/binding; frame 25 asset itself exists |
-| Race 1P icon | Owner reports Astero | UNKNOWN exact graphic source; no distinct source mapping found |
+| Race 1P icon | TimeDiffs image candidate; selector 0 -> 29 pending | STRONGLY_SUPPORTED static data path; dispatch/object match awaits runtime test |
 | Progress icon | Generic hud-template frame 3; owner describes it as Astero | PROVEN generic source; Astero-specific identity is not supported |
 | Race Results icon | Frame 0; owner describes it as Astero | PROVEN numeric field-to-frame path; visual Astero identification is STRONGLY_SUPPORTED |
 
 ## R5V-F gate
 
-R5V-E0.1 is ready for documentation closeout. R5V-F is **BLOCKED** as a
-generic frontend identity-profile phase until the specific in-race 1P icon
-reported by the owner is matched to an object and source. Also, the static
+R5V-E0.1 closed as a read-only research phase. The later R5V-E0.1a candidate
+is waiting for human runtime results. R5V-F remains **BLOCKED** as a generic
+frontend identity-profile phase until the in-race 1P icon is matched to a
+runtime object and source. Also, the static
 Vehicle Select scene has no ID25 widget binding, so a future generalized slot
 profile must account for this scene-level mapping rather than treating all
 icons as one per-vehicle field. The exact unresolved edge is documented in
 [race-hud-icons.md](race-hud-icons.md).
 
-No executable or runtime candidate was produced.
+At the original R5V-E0.1 closeout, no executable or runtime candidate was
+produced. The separate E0.1a diagnostic candidate is ignored and uncommitted.

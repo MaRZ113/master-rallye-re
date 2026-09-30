@@ -30,24 +30,38 @@ every display slot. The owner's “Astero” description is a visual attribution
 the code and art do not support a vehicle-specific Astero mapping.
 Classification: source **PROVEN**; Astero-specific identity **not supported**.
 
-## In-race player 1P icon
+## In-race player 1P icon candidate — R5V-E0.1a
 
-ProgressCar0 is the configured marker for race display slot 0 and is a
-plausible object behind the owner's 1P observation. However, no screenshot was
-provided and the inspected Hud0/Hud1 scenes contain no separate object
-explicitly named for an Astero/1P vehicle image. The raw HUD updater above
-does not select a per-vehicle icon.
+Further retail analysis identifies `TimeDiffs` as the leading scene-object
+candidate. Hud0/Hud1 define an Egg with `AI Name="gaHudTimeDiffsAi"`; the
+corresponding constructor embeds that name and creates three child pointers.
+The object is separate from `ProgressCar0` and has a scene position distinct
+from the progress bar.
 
-Therefore the exact graphic that the owner describes as “the icon next to
-1P” remains **UNKNOWN**. If it is ProgressCar0, it uses the generic frame 3;
-if it is a separate HUD element, its producer and selector are not yet
-identified. Do not carry an Astero-specific race_player_icon into a generic
-profile based on this evidence.
+Raw function `0x004AAE70` reads a participant's `Race/CarN/CarID`, indexes the
+vehicle registry, reads `VehicleRecord[CarID] + 0x1C`, then passes the value to
+an embedded image selector. This strongly supports the same
+`smallcarsheet_index` field driving a per-participant TimeDiffs image.
+
+Two static joins remain open. Ghidra reports no direct caller to
+`0x004AAE70`, and the inspected vtable does not establish a dispatch to it.
+The TimeDiffs XML uses `en2d Model Name="Null"`; the executable's
+`4BFrontend/RaceResults/SmallCarSheet` string has no direct xrefs in the
+current export. The exact child resource binding and match to the owner's
+visible “1P” image remain runtime-testable hypotheses. The isolated
+`trooper-smallsheet29` candidate is documented in
+`research/r5v_e0_1a/runtime-diagnostic.md`; it has not been run yet.
 
 ## Evidence classification
 
 - generic progress marker frame and asset: **PROVEN** by scene and updater.
-- per-vehicle HUD icon selection: **not present in this path**.
-- 1P icon equals ProgressCar0: **UNKNOWN**, plausible but not directly matched.
+- progress marker color: Race/CarN/Colour participant color applied as a UI
+  object tint; **PROVEN** by the updater path.
+- TimeDiffs small-image selector: **STRONGLY SUPPORTED**, with runtime
+  dispatch/resource binding pending.
+- 1P icon equals ProgressCar0: **not supported**; ProgressCar0 remains the
+  separate bottom progress-bar marker.
+- top-left image equals a TimeDiffs child: **STRONGLY SUPPORTED**, awaiting the
+  `0 -> 29` runtime diagnostic.
 - owner runtime visual label “Astero”: retained as owner-reported observation,
   not as a verified sprite identity.

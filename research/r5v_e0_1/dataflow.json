@@ -1,5 +1,5 @@
 {
-  "phase": "R5V-E0.1",
+  "phase": "R5V-E0.1a",
   "build": "retail",
   "slot": {
     "absolute_id": 25,
@@ -17,7 +17,41 @@
     "record_stride": "0x34",
     "record_count": 26,
     "record_internal_name_offset": "0x20",
-    "record_extra_integer_offset": "0x1C"
+    "record_extra_integer_offset": "0x1C",
+    "smallcarsheet_index_offset": "0x1C",
+    "normal_record_smallcarsheet_indices": [
+      9,
+      17,
+      22,
+      15,
+      1,
+      16,
+      20,
+      13,
+      4,
+      7,
+      24,
+      19,
+      14,
+      26,
+      3,
+      25,
+      0,
+      5,
+      11,
+      10,
+      2,
+      27,
+      6,
+      8,
+      28
+    ],
+    "unused_normal_record_smallcarsheet_frames": [
+      12,
+      18,
+      23,
+      29
+    ]
   },
   "channels": {
     "display_name": {
@@ -43,7 +77,12 @@
         "handling": "VehicleRecord +0x14",
         "endurance": "VehicleRecord +0x18"
       },
-      "id25_values": [6, 6, 8, 8],
+      "id25_values": [
+        6,
+        6,
+        8,
+        8
+      ],
       "reason": "E0 profile initialized ID25 stats from Astero values; no Astero record alias in reader"
     },
     "vehicle_select_icon": {
@@ -56,21 +95,35 @@
       "trooper_frame_identity_proven": false
     },
     "race_player_icon": {
-      "confidence": "UNKNOWN",
+      "confidence": "STRONGLY_SUPPORTED_STATIC_CANDIDATE_RUNTIME_REQUIRED",
       "owner_report": "Astero-like",
-      "candidate_object": "ProgressCar0",
+      "candidate_object": "TimeDiffs / gaHudTimeDiffsAi image child",
+      "candidate_function": "0x004AAE70",
+      "data_path": [
+        "participant index",
+        "Race/CarN/CarID",
+        "VehicleRecord[CarID] +0x1C",
+        "embedded image selector"
+      ],
+      "field": "smallcarsheet_index",
+      "candidate_test": "trooper-smallsheet29 changes ID25 selector 0 to 29",
       "candidate_match_proven": false,
-      "missing_edge": "exact in-race 1P graphic to scene object and source selector"
+      "missing_edge": "runtime dispatch and visible 1P object/resource binding"
     },
     "progress_icon": {
       "confidence": "PROVEN",
       "input": "HUD display slot 0..7",
-      "scene": ["DataScene/Hud/Hud0.xml", "DataScene/Hud/Hud1.xml"],
+      "scene": [
+        "DataScene/Hud/Hud0.xml",
+        "DataScene/Hud/Hud1.xml"
+      ],
       "resource": "hud-template image bank index 3",
       "asset": "hud-template_003_000.dxt",
       "asset_hash": "2485192edf007f5dc97a455be87ae8f6b18c01719da4c7b4d60f396c577ade93",
       "vehicle_specific": false,
-      "owner_visual_label": "Astero-like"
+      "owner_visual_label": "Astero-like",
+      "color_source": "Race/CarN/Colour applied as ObjectColour tint",
+      "color_classification": "PARTICIPANT_COLOR"
     },
     "race_results_icon": {
       "confidence": "PROVEN",
@@ -93,13 +146,21 @@
     },
     "demo-9.3.1": "no Trooper-specific UI identity asset found in targeted inventory"
   },
-  "patch_created": false,
+  "patch_created": true,
   "binary_modified": false,
   "next_phase": {
     "name": "R5V-F",
-    "status": "BLOCKED",
+    "status": "BLOCKED_PENDING_E0_1A_RUNTIME_RESULT",
     "unresolved": [
-      "identify whether the owner's in-race 1P icon is ProgressCar0 or a separate HUD object"
+      "verify that the TimeDiffs image child is the owner-reported top-left 1P icon using the isolated 0 -> 29 runtime diagnostic"
     ]
+  },
+  "runtime_candidate": {
+    "profile": "trooper-smallsheet29",
+    "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "baseline_candidate_sha256": "3022bdc6eb07d1e388f9c8ef693b83ce1c20c12c2c1a62719aad1cc59a1b1f13",
+    "candidate_sha256": "e19e80e64fcf2835d9883b115868e0cb8a0b63e05f48c8527580b2e0b531c0df",
+    "binary_difference_from_trooper": "one byte at file offset 0x28E2D5 / VA 0x68E2D5; smallcarsheet_index 0 -> 29",
+    "runtime_status": "WAITING_FOR_HUMAN_TEST"
   }
 }

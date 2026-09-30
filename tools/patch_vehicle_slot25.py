@@ -7,7 +7,7 @@ The output is a separate, local test copy; no game data is changed.
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import hashlib
 import json
 import os
@@ -25,6 +25,7 @@ ORIGINAL_CONTINUATION_CALL_VA = 0x4598D0
 ASTERO_LITERAL_VA = 0x6B3CB4
 TEXT_VIRTUAL_SIZE_OLD = 0x28D294
 TEXT_VIRTUAL_SIZE_NEW = 0x28D300
+SMALLCARSHEET_FRAME_MAX = 29
 
 
 @dataclass(frozen=True)
@@ -36,31 +37,42 @@ class VehicleSlotProfile:
     vehicle_class: int
     internal_name: str
     stats: tuple[int, int, int, int]
-    meta: int
+    smallcarsheet_index: int
     float_bits: tuple[int, int, int, int]
     donor_record_id: int | None
     stats_source: str
     floats_source: str
 
+    @property
+    def meta(self) -> int:
+        """Legacy R5V-C name for the now-identified +0x1C selector."""
+        return self.smallcarsheet_index
+
 
 ASTERO_PROOF_PROFILE = VehicleSlotProfile(
     profile_id="astero-proof", slot_id=25, vehicle_class=2,
-    internal_name="Astero", stats=(6, 6, 8, 8), meta=0,
+    internal_name="Astero", stats=(6, 6, 8, 8), smallcarsheet_index=0,
     float_bits=(0x3D8B1C04, 0x3F092D67, 0x3EF74E40, 0x3F800000),
     donor_record_id=16, stats_source="retail Astero ID16",
     floats_source="retail Astero ID16",
 )
 TROOPER_PROFILE = VehicleSlotProfile(
     profile_id="trooper", slot_id=25, vehicle_class=2,
-    internal_name="Trooper", stats=(6, 6, 8, 8), meta=0,
+    internal_name="Trooper", stats=(6, 6, 8, 8), smallcarsheet_index=0,
     float_bits=(0x3D8B1C04, 0x3F092D67, 0x3EF74E40, 0x3F800000),
     donor_record_id=16,
     stats_source="Astero ID16 cosmetic donor; retail Trooper has no registry record",
     floats_source="Astero ID16 cosmetic donor; physics family remains retail Trooper",
 )
+TROOPER_SMALLCARSHEET29_PROFILE = replace(
+    TROOPER_PROFILE,
+    profile_id="trooper-smallsheet29",
+    smallcarsheet_index=29,
+)
 SLOT25_PROFILES = {
     profile.profile_id: profile
-    for profile in (ASTERO_PROOF_PROFILE, TROOPER_PROFILE)
+    for profile in (ASTERO_PROOF_PROFILE, TROOPER_PROFILE,
+                    TROOPER_SMALLCARSHEET29_PROFILE)
 }
 
 
@@ -155,8 +167,13 @@ def _validate_profile(profile: VehicleSlotProfile) -> VehicleSlotProfile:
         raise PatchError("Internal vehicle name must be one safe path component")
     if len(profile.stats) != 4 or len(profile.float_bits) != 4:
         raise PatchError("Slot25 profile requires four stats and four float bit patterns")
-    if any(not 0 <= value <= 0x7F for value in (*profile.stats, profile.meta)):
+    if any(not 0 <= value <= 0x7F for value in profile.stats):
         raise PatchError("Initializer byte-push arguments must be in range 0..127")
+    if not 0 <= profile.smallcarsheet_index <= SMALLCARSHEET_FRAME_MAX:
+        raise PatchError(
+            "SmallCarSheet index must address a retail frame in range "
+            f"0..{SMALLCARSHEET_FRAME_MAX}"
+        )
     if any(not 0 <= value <= 0xFFFFFFFF for value in profile.float_bits):
         raise PatchError("Float bit patterns must be uint32 values")
     return profile
@@ -191,7 +208,7 @@ def build_stub(
     call(STRING_CONSTRUCTOR_VA)
     # The initializer receives right-to-left stack values. The record-stat
     # tuple retains its R5V-C field order, so reverse it at the push site.
-    for value in (profile.meta, *reversed(profile.stats),
+    for value in (profile.smallcarsheet_index, *reversed(profile.stats),
                   profile.vehicle_class, profile.slot_id):
         emit(b"\x6A" + bytes((value,)))
     emit(b"\x8D\x8E\x18\x05\x00\x00")  # ECX = registry + 0x518 = record25
@@ -337,12 +354,14 @@ def make_candidate(
         if output[start:start + len(raw)] != raw:
             raise PatchError(f"Post-patch byte mismatch: {op['name']}")
     manifest = {
-        "phase": "R5V-C" if profile.profile_id == "astero-proof" else "R5V-E0",
+        "phase": ("R5V-C" if profile.profile_id == "astero-proof" else
+                  "R5V-E0.1a" if profile.profile_id == "trooper-smallsheet29" else
+                  "R5V-E0"),
         "build": "retail", "source_sha256": digest,
         "patched_sha256": sha256(output), "image_base": IMAGE_BASE,
         "record25": {"id": profile.slot_id, "class": profile.vehicle_class,
                      "donor_id": profile.donor_record_id, "name": profile.internal_name,
-                     "stats": list(profile.stats), "meta": profile.meta,
+                     "stats": list(profile.stats), "meta": profile.smallcarsheet_index,
                      "float_bits": [f"{value:08x}" for value in profile.float_bits],
                      "initializer_va": INITIALIZER_VA, "record_offset_from_registry": 0x518,
                      "owned_name": "temporary deep-copied by original initializer"},
@@ -361,6 +380,10 @@ def make_candidate(
             "stats_source": profile.stats_source,
             "floats_source": profile.floats_source,
         }
+        if profile.profile_id != "trooper":
+            # Preserve the existing Trooper manifest shape for reproducibility.
+            manifest["record25"]["smallcarsheet_index"] = profile.smallcarsheet_index
+            manifest["profile"]["smallcarsheet_index"] = profile.smallcarsheet_index
     return output, manifest
 
 
