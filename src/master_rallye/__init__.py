@@ -53,6 +53,18 @@ from .course_gxm import (
     parse_course_gxm_model_v7_bytes,
 )
 from .course_source import parse_course_txt, parse_course_txt_bytes
+from .course_spatial import (
+    acute_xz_angle_degrees,
+    analyze_source_mesh,
+    bounds3,
+    centroid3,
+    gxm_source_to_runtime,
+    pair_to_marker_polygon,
+    point_to_segment_distance_xz,
+    point_to_marker_polygon,
+    runtime_to_blender,
+    source_model_position_owners,
+)
 from .hnt import parse_hnt, parse_hnt_bytes
 from .sfl import parse_sfl, parse_sfl_bytes
 from .authoring import (
@@ -113,6 +125,16 @@ __all__ = [
     "CourseGxmV7Validation",
     "parse_course_txt",
     "parse_course_txt_bytes",
+    "gxm_source_to_runtime",
+    "runtime_to_blender",
+    "centroid3",
+    "bounds3",
+    "point_to_segment_distance_xz",
+    "acute_xz_angle_degrees",
+    "analyze_source_mesh",
+    "pair_to_marker_polygon",
+    "point_to_marker_polygon",
+    "source_model_position_owners",
     "parse_hnt",
     "parse_hnt_bytes",
     "parse_sfl",

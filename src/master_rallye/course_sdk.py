@@ -262,7 +262,26 @@ class CourseSourceMesh:
     unique_position_indices: tuple[int, ...]
     bounds: tuple[tuple[float, float, float], tuple[float, float, float]] | None
     source_evidence: tuple[str, ...]
+    _model: CourseGxmModelV7 = field(repr=False, compare=False)
     gameplay_role: str = UNKNOWN
+
+    @property
+    def triangle_position_triplets(self) -> tuple[tuple[int, int, int], ...]:
+        """Return each source triangle's position indices, decoded on demand."""
+        return tuple(
+            self._model.triangle(index).position_indices
+            for index in range(self.triangle_start, self.triangle_start + self.triangle_count)
+        )
+
+    @property
+    def resolved_positions(self) -> tuple[tuple[float, float, float], ...]:
+        """Return unique positions in unique_position_indices order, on demand."""
+        return tuple(self._model.position(index) for index in self.unique_position_indices)
+
+    @property
+    def unique_positions(self) -> tuple[tuple[float, float, float], ...]:
+        """Alias for the lazily resolved unique source positions."""
+        return self.resolved_positions
 
 
 @dataclass(frozen=True)
@@ -762,6 +781,7 @@ def _course_source_meshes(model: CourseGxmModelV7) -> tuple[CourseSourceMesh, ..
             unique_position_indices=unique_indices,
             bounds=bounds,
             source_evidence=("CONFIRMED_BY_BINARY_STRUCTURE", "CONFIRMED_BY_EXECUTABLE"),
+            _model=model,
         ))
     return tuple(meshes)
 

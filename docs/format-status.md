@@ -138,6 +138,21 @@ gameplay inference from node names was added. See `docs/formats/gxm-course.md`, 
 `research/r5t_e/findings.md`, `research/r5t_e/course-gxm-v7.json`, and
 `research/r5t_e/startpoint-proof.json`.
 
+## R5T-F.0 named source geometry (static complete; cold cooks pending)
+
+The four Demo 8.4.1 France1 `COLLIDE_finishline*` meshes decode to 24
+triangles and 14 unique positions each. The `01`/unnumbered pair is strongly
+spatially correlated with a StartArea edge; the `02`/`03` pair is strongly
+correlated with a FinishArea edge. These are measured spatial relationships,
+not assignments of gameplay, render, or physical meaning. All target positions
+are exclusive to their corresponding mesh spans. A single +20.0 source-X copy
+of `COLLIDE_finishline03` is hash-pinned and byte-audited; original GXM and
+RaceTest XML remain unchanged. The read-only cook stage uses two isolated Demo
+9.10.0 copies with only the target GXM differing, but six manual cold cooks are
+still required before comparing compiled outputs. `tag100` remains a neutral
+name and its physical meaning remains **UNKNOWN**. See
+[`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md).
+
 ## R1 vehicle-corpus evidence
 
 - All **78/78** vehicle DX resources are `PARSED` and `VALIDATED`; all 78 stored

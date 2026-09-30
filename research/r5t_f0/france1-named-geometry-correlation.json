@@ -1,0 +1,1430 @@
+{
+  "schema": "r5t-f0-france1-named-geometry-correlation-v1",
+  "evidence": [
+    "CONFIRMED_BY_BINARY_STRUCTURE",
+    "CONFIRMED_BY_CORPUS",
+    "CONFIRMED_BY_RUNTIME_EDIT"
+  ],
+  "source": {
+    "build": "Demo 8.4.1 source / original cooker input",
+    "gxm": {
+      "path": "D:\\Game\\Master Rallye\\master-rallye-re\\inputs\\8.4.1_France1\\France1.gxm",
+      "size_bytes": 11489135,
+      "sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2"
+    },
+    "txt": {
+      "path": "D:\\Game\\Master Rallye\\master-rallye-re\\inputs\\8.4.1_France1\\France1.txt",
+      "size_bytes": 158889,
+      "sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43"
+    },
+    "object_class": 2,
+    "version": 7,
+    "coordinate_spaces": {
+      "source": "GXM float3 pools in source (x,y,z)",
+      "runtime_xml": "(x,z,-y); canonical source-to-runtime transform",
+      "blender": "source coordinates map approximately by identity; runtime/XML uses (x,-z,y)"
+    }
+  },
+  "racetest_xml": {
+    "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataScene\\RaceTest\\France1.xml",
+    "size_bytes": 474787,
+    "sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+    "status_for_probe": "UNCHANGED",
+    "areas": {
+      "StartArea": {
+        "name": "StartArea",
+        "ordinal": 2,
+        "xml_path": "/Scene/MarkerLists/List[@Name='StartArea']",
+        "evidence": "CONFIRMED_BY_RUNTIME_EDIT",
+        "coordinate_space": "RaceTest runtime/XML coordinates",
+        "markers": [
+          {
+            "ordinal": 575,
+            "index_in_list": 0,
+            "marker_no": "0",
+            "position_runtime_xml": [
+              -1649.71,
+              52.42,
+              174.33
+            ],
+            "direction_runtime_xml": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "xml_path": "/Scene/MarkerLists[0]/List[@Name='StartArea']/Marker[@No='0']"
+          },
+          {
+            "ordinal": 576,
+            "index_in_list": 1,
+            "marker_no": "1",
+            "position_runtime_xml": [
+              -1658.3,
+              53.26,
+              160.72
+            ],
+            "direction_runtime_xml": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "xml_path": "/Scene/MarkerLists[0]/List[@Name='StartArea']/Marker[@No='1']"
+          },
+          {
+            "ordinal": 577,
+            "index_in_list": 2,
+            "marker_no": "2",
+            "position_runtime_xml": [
+              -1678.49,
+              55.13,
+              171.13
+            ],
+            "direction_runtime_xml": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "xml_path": "/Scene/MarkerLists[0]/List[@Name='StartArea']/Marker[@No='2']"
+          },
+          {
+            "ordinal": 578,
+            "index_in_list": 3,
+            "marker_no": "3",
+            "position_runtime_xml": [
+              -1671.25,
+              54.64,
+              184.87
+            ],
+            "direction_runtime_xml": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "xml_path": "/Scene/MarkerLists[0]/List[@Name='StartArea']/Marker[@No='3']"
+          }
+        ],
+        "centroid": [
+          -1664.4375,
+          53.8625,
+          172.7625
+        ]
+      },
+      "FinishArea": {
+        "name": "FinishArea",
+        "ordinal": 3,
+        "xml_path": "/Scene/MarkerLists/List[@Name='FinishArea']",
+        "evidence": "CONFIRMED_BY_RUNTIME_EDIT",
+        "coordinate_space": "RaceTest runtime/XML coordinates",
+        "markers": [
+          {
+            "ordinal": 579,
+            "index_in_list": 0,
+            "marker_no": "0",
+            "position_runtime_xml": [
+              -1473.27,
+              68.3,
+              331.65
+            ],
+            "direction_runtime_xml": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "xml_path": "/Scene/MarkerLists[0]/List[@Name='FinishArea']/Marker[@No='0']"
+          },
+          {
+            "ordinal": 580,
+            "index_in_list": 1,
+            "marker_no": "1",
+            "position_runtime_xml": [
+              -1517.41,
+              67.38,
+              344.6
+            ],
+            "direction_runtime_xml": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "xml_path": "/Scene/MarkerLists[0]/List[@Name='FinishArea']/Marker[@No='1']"
+          },
+          {
+            "ordinal": 581,
+            "index_in_list": 2,
+            "marker_no": "2",
+            "position_runtime_xml": [
+              -1492.47,
+              67.52,
+              402.4
+            ],
+            "direction_runtime_xml": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "xml_path": "/Scene/MarkerLists[0]/List[@Name='FinishArea']/Marker[@No='2']"
+          },
+          {
+            "ordinal": 582,
+            "index_in_list": 3,
+            "marker_no": "3",
+            "position_runtime_xml": [
+              -1468.48,
+              64.17,
+              390.82
+            ],
+            "direction_runtime_xml": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "xml_path": "/Scene/MarkerLists[0]/List[@Name='FinishArea']/Marker[@No='3']"
+          }
+        ],
+        "centroid": [
+          -1487.9075,
+          66.8425,
+          367.3675
+        ]
+      }
+    }
+  },
+  "meshes": {
+    "COLLIDE_finishline01": {
+      "literal_source_name": "COLLIDE_finishline01",
+      "hierarchy_path": [
+        "Model",
+        "$autovsphere_300",
+        "$bsp",
+        "$nodraw",
+        "COLLIDE_finishline01"
+      ],
+      "source_ordinal": 804,
+      "Index": 47011,
+      "Size": 24,
+      "triangle_count": 24,
+      "unique_position_count": 14,
+      "unique_position_indices": [
+        26065,
+        26066,
+        26067,
+        26068,
+        26069,
+        26070,
+        26071,
+        26072,
+        26073,
+        26074,
+        26075,
+        26076,
+        26077,
+        26078
+      ],
+      "source_centroid": [
+        -1643.66455078125,
+        -172.24365234375,
+        57.14131872994559
+      ],
+      "runtime_centroid": [
+        -1643.66455078125,
+        57.14131872994559,
+        172.24365234375
+      ],
+      "blender_centroid_inferred": [
+        -1643.66455078125,
+        -172.24365234375,
+        57.14131872994559
+      ],
+      "source_bounds": {
+        "min": [
+          -1644.1148681640625,
+          -172.76365661621094,
+          52.310001373291016
+        ],
+        "max": [
+          -1643.2142333984375,
+          -171.72364807128906,
+          61.88689041137695
+        ]
+      },
+      "runtime_bounds": {
+        "min": [
+          -1644.1148681640625,
+          52.310001373291016,
+          171.72364807128906
+        ],
+        "max": [
+          -1643.2142333984375,
+          61.88689041137695,
+          172.76365661621094
+        ]
+      },
+      "source_dimensions": [
+        0.900634765625,
+        1.040008544921875,
+        9.576889038085938
+      ],
+      "runtime_dimensions": [
+        0.900634765625,
+        9.576889038085938,
+        1.040008544921875
+      ],
+      "vertical_extent_runtime": 9.576889038085938,
+      "unique_edge_count": 36,
+      "edge_incidence_histogram": {
+        "2": 36
+      },
+      "all_edges_incident_to_two_triangles": true,
+      "gameplay_semantics": "UNKNOWN",
+      "source_name_only": true,
+      "nearest_area_metrics": {
+        "StartArea": {
+          "marker_distances_3d": [
+            7.949286342116527,
+            19.027757940904387,
+            34.90125410159219,
+            30.440733551041465
+          ],
+          "nearest_marker": {
+            "index_in_list": 0,
+            "marker_no": "0",
+            "distance_3d": 7.949286342116527
+          },
+          "polygon_centroid_runtime_xml": [
+            -1664.4375,
+            53.8625,
+            172.7625
+          ],
+          "distance_to_polygon_centroid_3d": 21.036522393185724,
+          "edge_comparisons_xz": [
+            {
+              "edge_index": 0,
+              "from_marker_index": 0,
+              "to_marker_index": 1,
+              "segment_distance_xz": 6.395334455618826,
+              "midpoint_distance_xz": 11.366202971385258
+            },
+            {
+              "edge_index": 1,
+              "from_marker_index": 1,
+              "to_marker_index": 2,
+              "segment_distance_xz": 18.62769274961941,
+              "midpoint_distance_xz": 25.524899333833794
+            },
+            {
+              "edge_index": 2,
+              "from_marker_index": 2,
+              "to_marker_index": 3,
+              "segment_distance_xz": 30.337792664212156,
+              "midpoint_distance_xz": 31.731933431223396
+            },
+            {
+              "edge_index": 3,
+              "from_marker_index": 3,
+              "to_marker_index": 0,
+              "segment_distance_xz": 6.395334455618826,
+              "midpoint_distance_xz": 18.354159835524367
+            }
+          ],
+          "nearest_edge_by_segment_distance": {
+            "edge_index": 0,
+            "from_marker_index": 0,
+            "to_marker_index": 1,
+            "segment_distance_xz": 6.395334455618826,
+            "midpoint_distance_xz": 11.366202971385258
+          }
+        },
+        "FinishArea": {
+          "marker_distances_3d": [
+            233.60051964140808,
+            213.8965936253476,
+            275.5711406829713,
+            280.20465547090794
+          ],
+          "nearest_marker": {
+            "index_in_list": 1,
+            "marker_no": "1",
+            "distance_3d": 213.8965936253476
+          },
+          "polygon_centroid_runtime_xml": [
+            -1487.9075,
+            66.8425,
+            367.3675
+          ],
+          "distance_to_polygon_centroid_3d": 249.85533356381808,
+          "edge_comparisons_xz": [
+            {
+              "edge_index": 0,
+              "from_marker_index": 0,
+              "to_marker_index": 1,
+              "segment_distance_xz": 213.6514033896743,
+              "midpoint_distance_xz": 222.52369281654762
+            },
+            {
+              "edge_index": 1,
+              "from_marker_index": 1,
+              "to_marker_index": 2,
+              "segment_distance_xz": 213.6514033896743,
+              "midpoint_distance_xz": 244.43530526786216
+            },
+            {
+              "edge_index": 2,
+              "from_marker_index": 2,
+              "to_marker_index": 3,
+              "segment_distance_xz": 275.37562810170505,
+              "midpoint_distance_xz": 277.43663681062645
+            },
+            {
+              "edge_index": 3,
+              "from_marker_index": 3,
+              "to_marker_index": 0,
+              "segment_distance_xz": 233.3338522569094,
+              "midpoint_distance_xz": 256.0741266666973
+            }
+          ],
+          "nearest_edge_by_segment_distance": {
+            "edge_index": 0,
+            "from_marker_index": 0,
+            "to_marker_index": 1,
+            "segment_distance_xz": 213.6514033896743,
+            "midpoint_distance_xz": 222.52369281654762
+          }
+        }
+      }
+    },
+    "COLLIDE_finishline": {
+      "literal_source_name": "COLLIDE_finishline",
+      "hierarchy_path": [
+        "Model",
+        "$autovsphere_300",
+        "$bsp",
+        "$nodraw",
+        "COLLIDE_finishline"
+      ],
+      "source_ordinal": 805,
+      "Index": 47035,
+      "Size": 24,
+      "triangle_count": 24,
+      "unique_position_count": 14,
+      "unique_position_indices": [
+        26079,
+        26080,
+        26081,
+        26082,
+        26083,
+        26084,
+        26085,
+        26086,
+        26087,
+        26088,
+        26089,
+        26090,
+        26091,
+        26092
+      ],
+      "source_centroid": [
+        -1652.739990234375,
+        -156.524658203125,
+        57.37615394592285
+      ],
+      "runtime_centroid": [
+        -1652.739990234375,
+        57.37615394592285,
+        156.524658203125
+      ],
+      "blender_centroid_inferred": [
+        -1652.739990234375,
+        -156.524658203125,
+        57.37615394592285
+      ],
+      "source_bounds": {
+        "min": [
+          -1653.2042236328125,
+          -157.06065368652344,
+          52.62812805175781
+        ],
+        "max": [
+          -1652.2757568359375,
+          -155.98866271972656,
+          62.07087707519531
+        ]
+      },
+      "runtime_bounds": {
+        "min": [
+          -1653.2042236328125,
+          52.62812805175781,
+          155.98866271972656
+        ],
+        "max": [
+          -1652.2757568359375,
+          62.07087707519531,
+          157.06065368652344
+        ]
+      },
+      "source_dimensions": [
+        0.928466796875,
+        1.071990966796875,
+        9.4427490234375
+      ],
+      "runtime_dimensions": [
+        0.928466796875,
+        9.4427490234375,
+        1.071990966796875
+      ],
+      "vertical_extent_runtime": 9.4427490234375,
+      "unique_edge_count": 36,
+      "edge_incidence_histogram": {
+        "2": 36
+      },
+      "all_edges_incident_to_two_triangles": true,
+      "gameplay_semantics": "UNKNOWN",
+      "source_name_only": true,
+      "nearest_area_metrics": {
+        "StartArea": {
+          "marker_distances_3d": [
+            18.72897485874864,
+            8.090570109268413,
+            29.688789458011115,
+            33.96417821059404
+          ],
+          "nearest_marker": {
+            "index_in_list": 1,
+            "marker_no": "1",
+            "distance_3d": 8.090570109268413
+          },
+          "polygon_centroid_runtime_xml": [
+            -1664.4375,
+            53.8625,
+            172.7625
+          ],
+          "distance_to_polygon_centroid_3d": 20.318587672102897,
+          "edge_comparisons_xz": [
+            {
+              "edge_index": 0,
+              "from_marker_index": 0,
+              "to_marker_index": 1,
+              "segment_distance_xz": 6.9652423781553505,
+              "midpoint_distance_xz": 11.072839263495254
+            },
+            {
+              "edge_index": 1,
+              "from_marker_index": 1,
+              "to_marker_index": 2,
+              "segment_distance_xz": 6.9652423781553505,
+              "midpoint_distance_xz": 18.260497163546475
+            },
+            {
+              "edge_index": 2,
+              "from_marker_index": 2,
+              "to_marker_index": 3,
+              "segment_distance_xz": 29.603699294738945,
+              "midpoint_distance_xz": 30.837114610794238
+            },
+            {
+              "edge_index": 3,
+              "from_marker_index": 3,
+              "to_marker_index": 0,
+              "segment_distance_xz": 18.061313277941668,
+              "midpoint_distance_xz": 24.33884036297905
+            }
+          ],
+          "nearest_edge_by_segment_distance": {
+            "edge_index": 0,
+            "from_marker_index": 0,
+            "to_marker_index": 1,
+            "segment_distance_xz": 6.9652423781553505,
+            "midpoint_distance_xz": 11.072839263495254
+          }
+        },
+        "FinishArea": {
+          "marker_distances_3d": [
+            250.993412556609,
+            231.9194200249756,
+            293.67337483371824,
+            298.147962483551
+          ],
+          "nearest_marker": {
+            "index_in_list": 1,
+            "marker_no": "1",
+            "distance_3d": 231.9194200249756
+          },
+          "polygon_centroid_runtime_xml": [
+            -1487.9075,
+            66.8425,
+            367.3675
+          ],
+          "distance_to_polygon_centroid_3d": 267.7948197435173,
+          "edge_comparisons_xz": [
+            {
+              "edge_index": 0,
+              "from_marker_index": 0,
+              "to_marker_index": 1,
+              "segment_distance_xz": 231.70356157997955,
+              "midpoint_distance_xz": 240.31945627960116
+            },
+            {
+              "edge_index": 1,
+              "from_marker_index": 1,
+              "to_marker_index": 2,
+              "segment_distance_xz": 231.70356157997955,
+              "midpoint_distance_xz": 262.5321619557346
+            },
+            {
+              "edge_index": 2,
+              "from_marker_index": 2,
+              "to_marker_index": 3,
+              "segment_distance_xz": 293.4981319760941,
+              "midpoint_distance_xz": 295.4931440933472
+            },
+            {
+              "edge_index": 3,
+              "from_marker_index": 3,
+              "to_marker_index": 0,
+              "segment_distance_xz": 250.75558365507825,
+              "midpoint_distance_xz": 273.8269503017238
+            }
+          ],
+          "nearest_edge_by_segment_distance": {
+            "edge_index": 0,
+            "from_marker_index": 0,
+            "to_marker_index": 1,
+            "segment_distance_xz": 231.70356157997955,
+            "midpoint_distance_xz": 240.31945627960116
+          }
+        }
+      }
+    },
+    "COLLIDE_finishline02": {
+      "literal_source_name": "COLLIDE_finishline02",
+      "hierarchy_path": [
+        "Model",
+        "$autovsphere_300",
+        "$bsp",
+        "$nodraw",
+        "COLLIDE_finishline02"
+      ],
+      "source_ordinal": 806,
+      "Index": 47059,
+      "Size": 24,
+      "triangle_count": 24,
+      "unique_position_count": 14,
+      "unique_position_indices": [
+        26093,
+        26094,
+        26095,
+        26096,
+        26097,
+        26098,
+        26099,
+        26100,
+        26101,
+        26102,
+        26103,
+        26104,
+        26105,
+        26106
+      ],
+      "source_centroid": [
+        -1470.025634765625,
+        -370.62158203125,
+        68.454010282244
+      ],
+      "runtime_centroid": [
+        -1470.025634765625,
+        68.454010282244,
+        370.62158203125
+      ],
+      "blender_centroid_inferred": [
+        -1470.025634765625,
+        -370.62158203125,
+        68.454010282244
+      ],
+      "source_bounds": {
+        "min": [
+          -1470.543212890625,
+          -371.0947570800781,
+          63.58824157714844
+        ],
+        "max": [
+          -1469.508056640625,
+          -370.1484069824219,
+          73.19666290283203
+        ]
+      },
+      "runtime_bounds": {
+        "min": [
+          -1470.543212890625,
+          63.58824157714844,
+          370.1484069824219
+        ],
+        "max": [
+          -1469.508056640625,
+          73.19666290283203,
+          371.0947570800781
+        ]
+      },
+      "source_dimensions": [
+        1.03515625,
+        0.94635009765625,
+        9.608421325683594
+      ],
+      "runtime_dimensions": [
+        1.03515625,
+        9.608421325683594,
+        0.94635009765625
+      ],
+      "vertical_extent_runtime": 9.608421325683594,
+      "unique_edge_count": 36,
+      "edge_incidence_histogram": {
+        "2": 36
+      },
+      "all_edges_incident_to_two_triangles": true,
+      "gameplay_semantics": "UNKNOWN",
+      "source_name_only": true,
+      "nearest_area_metrics": {
+        "StartArea": {
+          "marker_distances_3d": [
+            266.5969725479686,
+            282.3769974556804,
+            288.8456545006402,
+            274.2001500203224
+          ],
+          "nearest_marker": {
+            "index_in_list": 0,
+            "marker_no": "0",
+            "distance_3d": 266.5969725479686
+          },
+          "polygon_centroid_runtime_xml": [
+            -1664.4375,
+            53.8625,
+            172.7625
+          ],
+          "distance_to_polygon_centroid_3d": 277.7716721670418,
+          "edge_comparisons_xz": [
+            {
+              "edge_index": 0,
+              "from_marker_index": 0,
+              "to_marker_index": 1,
+              "segment_distance_xz": 266.11436692897894,
+              "midpoint_distance_xz": 274.0376405985496
+            },
+            {
+              "edge_index": 1,
+              "from_marker_index": 1,
+              "to_marker_index": 2,
+              "segment_distance_xz": 281.9679250262845,
+              "midpoint_distance_xz": 285.0457783563284
+            },
+            {
+              "edge_index": 2,
+              "from_marker_index": 2,
+              "to_marker_index": 3,
+              "segment_distance_xz": 273.85195889584094,
+              "midpoint_distance_xz": 281.1837261160317
+            },
+            {
+              "edge_index": 3,
+              "from_marker_index": 3,
+              "to_marker_index": 0,
+              "segment_distance_xz": 266.11436692897894,
+              "midpoint_distance_xz": 269.7445273560713
+            }
+          ],
+          "nearest_edge_by_segment_distance": {
+            "edge_index": 0,
+            "from_marker_index": 0,
+            "to_marker_index": 1,
+            "segment_distance_xz": 266.11436692897894,
+            "midpoint_distance_xz": 274.0376405985496
+          }
+        },
+        "FinishArea": {
+          "marker_distances_3d": [
+            39.10669803191657,
+            54.0699019618132,
+            38.916445811223966,
+            20.705502152022383
+          ],
+          "nearest_marker": {
+            "index_in_list": 3,
+            "marker_no": "3",
+            "distance_3d": 20.705502152022383
+          },
+          "polygon_centroid_runtime_xml": [
+            -1487.9075,
+            66.8425,
+            367.3675
+          ],
+          "distance_to_polygon_centroid_3d": 18.246838617038087,
+          "edge_comparisons_xz": [
+            {
+              "edge_index": 0,
+              "from_marker_index": 0,
+              "to_marker_index": 1,
+              "segment_distance_xz": 38.30875283289811,
+              "midpoint_distance_xz": 41.192777654985846
+            },
+            {
+              "edge_index": 1,
+              "from_marker_index": 1,
+              "to_marker_index": 2,
+              "segment_distance_xz": 33.19778950334463,
+              "midpoint_distance_xz": 35.03281589770027
+            },
+            {
+              "edge_index": 2,
+              "from_marker_index": 2,
+              "to_marker_index": 3,
+              "segment_distance_xz": 20.25746961663848,
+              "midpoint_distance_xz": 28.01048200798786
+            },
+            {
+              "edge_index": 3,
+              "from_marker_index": 3,
+              "to_marker_index": 0,
+              "segment_distance_xz": 0.08919971156081502,
+              "midpoint_distance_xz": 9.42493201730124
+            }
+          ],
+          "nearest_edge_by_segment_distance": {
+            "edge_index": 3,
+            "from_marker_index": 3,
+            "to_marker_index": 0,
+            "segment_distance_xz": 0.08919971156081502,
+            "midpoint_distance_xz": 9.42493201730124
+          }
+        }
+      }
+    },
+    "COLLIDE_finishline03": {
+      "literal_source_name": "COLLIDE_finishline03",
+      "hierarchy_path": [
+        "Model",
+        "$autovsphere_300",
+        "$bsp",
+        "$nodraw",
+        "COLLIDE_finishline03"
+      ],
+      "source_ordinal": 807,
+      "Index": 47083,
+      "Size": 24,
+      "triangle_count": 24,
+      "unique_position_count": 14,
+      "unique_position_indices": [
+        26107,
+        26108,
+        26109,
+        26110,
+        26111,
+        26112,
+        26113,
+        26114,
+        26115,
+        26116,
+        26117,
+        26118,
+        26119,
+        26120
+      ],
+      "source_centroid": [
+        -1471.7652587890625,
+        -352.55419921875,
+        68.4258199419294
+      ],
+      "runtime_centroid": [
+        -1471.7652587890625,
+        68.4258199419294,
+        352.55419921875
+      ],
+      "blender_centroid_inferred": [
+        -1471.7652587890625,
+        -352.55419921875,
+        68.4258199419294
+      ],
+      "source_bounds": {
+        "min": [
+          -1472.298828125,
+          -353.04193115234375,
+          63.67451858520508
+        ],
+        "max": [
+          -1471.231689453125,
+          -352.06646728515625,
+          73.11727142333984
+        ]
+      },
+      "runtime_bounds": {
+        "min": [
+          -1472.298828125,
+          63.67451858520508,
+          352.06646728515625
+        ],
+        "max": [
+          -1471.231689453125,
+          73.11727142333984,
+          353.04193115234375
+        ]
+      },
+      "source_dimensions": [
+        1.067138671875,
+        0.9754638671875,
+        9.442752838134766
+      ],
+      "runtime_dimensions": [
+        1.067138671875,
+        9.442752838134766,
+        0.9754638671875
+      ],
+      "vertical_extent_runtime": 9.442752838134766,
+      "unique_edge_count": 36,
+      "edge_incidence_histogram": {
+        "2": 36
+      },
+      "all_edges_incident_to_two_triangles": true,
+      "gameplay_semantics": "UNKNOWN",
+      "source_name_only": true,
+      "nearest_area_metrics": {
+        "StartArea": {
+          "marker_distances_3d": [
+            252.3576477616751,
+            268.00293237769154,
+            275.36636962204005,
+            260.9639850153646
+          ],
+          "nearest_marker": {
+            "index_in_list": 0,
+            "marker_no": "0",
+            "distance_3d": 252.3576477616751
+          },
+          "polygon_centroid_runtime_xml": [
+            -1664.4375,
+            53.8625,
+            172.7625
+          ],
+          "distance_to_polygon_centroid_3d": 263.93131289966743,
+          "edge_comparisons_xz": [
+            {
+              "edge_index": 0,
+              "from_marker_index": 0,
+              "to_marker_index": 1,
+              "segment_distance_xz": 251.84955054911694,
+              "midpoint_distance_xz": 259.7058486830079
+            },
+            {
+              "edge_index": 1,
+              "from_marker_index": 1,
+              "to_marker_index": 2,
+              "segment_distance_xz": 267.57348461409714,
+              "midpoint_distance_xz": 271.0972392513655
+            },
+            {
+              "edge_index": 2,
+              "from_marker_index": 2,
+              "to_marker_index": 3,
+              "segment_distance_xz": 260.59960215554463,
+              "midpoint_distance_xz": 267.80721492756857
+            },
+            {
+              "edge_index": 3,
+              "from_marker_index": 3,
+              "to_marker_index": 0,
+              "segment_distance_xz": 251.84955054911694,
+              "midpoint_distance_xz": 255.98126606787102
+            }
+          ],
+          "nearest_edge_by_segment_distance": {
+            "edge_index": 0,
+            "from_marker_index": 0,
+            "to_marker_index": 1,
+            "segment_distance_xz": 251.84955054911694,
+            "midpoint_distance_xz": 259.7058486830079
+          }
+        },
+        "FinishArea": {
+          "marker_distances_3d": [
+            20.95866459836766,
+            46.34442172231695,
+            53.98250340529932,
+            38.64164124515869
+          ],
+          "nearest_marker": {
+            "index_in_list": 0,
+            "marker_no": "0",
+            "distance_3d": 20.95866459836766
+          },
+          "polygon_centroid_runtime_xml": [
+            -1487.9075,
+            66.8425,
+            367.3675
+          ],
+          "distance_to_polygon_centroid_3d": 21.966172479209554,
+          "edge_comparisons_xz": [
+            {
+              "edge_index": 0,
+              "from_marker_index": 0,
+              "to_marker_index": 1,
+              "segment_distance_xz": 20.482356072600872,
+              "midpoint_distance_xz": 27.640011093649317
+            },
+            {
+              "edge_index": 1,
+              "from_marker_index": 1,
+              "to_marker_index": 2,
+              "segment_distance_xz": 38.75845712579735,
+              "midpoint_distance_xz": 39.23378677594723
+            },
+            {
+              "edge_index": 2,
+              "from_marker_index": 2,
+              "to_marker_index": 3,
+              "segment_distance_xz": 38.40656759906338,
+              "midpoint_distance_xz": 44.90849779761833
+            },
+            {
+              "edge_index": 3,
+              "from_marker_index": 3,
+              "to_marker_index": 0,
+              "segment_distance_xz": 0.18690886522274308,
+              "midpoint_distance_xz": 8.72633158407666
+            }
+          ],
+          "nearest_edge_by_segment_distance": {
+            "edge_index": 3,
+            "from_marker_index": 3,
+            "to_marker_index": 0,
+            "segment_distance_xz": 0.18690886522274308,
+            "midpoint_distance_xz": 8.72633158407666
+          }
+        }
+      }
+    }
+  },
+  "optional_named_mesh_inventory": {
+    "_raceline": {
+      "literal_source_name": "_raceline",
+      "Index": 59293,
+      "Size": 954,
+      "triangle_count": 954,
+      "unique_position_count": 954,
+      "source_centroid": [
+        -2079.4215412899634,
+        -417.53896440868607,
+        210.79260892088308
+      ],
+      "runtime_centroid": [
+        -2079.4215412899634,
+        210.79260892088308,
+        417.53896440868607
+      ],
+      "source_bounds": {
+        "min": [
+          -3346.9453125,
+          -1217.592529296875,
+          210.7918701171875
+        ],
+        "max": [
+          -923.1390991210938,
+          358.92620849609375,
+          210.79299926757812
+        ]
+      },
+      "runtime_bounds": {
+        "min": [
+          -3346.9453125,
+          210.7918701171875,
+          -358.92620849609375
+        ],
+        "max": [
+          -923.1390991210938,
+          210.79299926757812,
+          1217.592529296875
+        ]
+      },
+      "gameplay_semantics": "UNKNOWN"
+    },
+    "$boinds": {
+      "literal_source_name": "$boinds",
+      "Index": 60247,
+      "Size": 251,
+      "triangle_count": 251,
+      "unique_position_count": 233,
+      "source_centroid": [
+        -1922.4644539632511,
+        -324.0384273938355,
+        424.1974988945564
+      ],
+      "runtime_centroid": [
+        -1922.4644539632511,
+        424.1974988945564,
+        324.0384273938355
+      ],
+      "source_bounds": {
+        "min": [
+          -3695.591064453125,
+          -1557.7083740234375,
+          424.1775817871094
+        ],
+        "max": [
+          -240.6068115234375,
+          644.5362548828125,
+          424.2117004394531
+        ]
+      },
+      "runtime_bounds": {
+        "min": [
+          -3695.591064453125,
+          424.1775817871094,
+          -644.5362548828125
+        ],
+        "max": [
+          -240.6068115234375,
+          424.2117004394531,
+          1557.7083740234375
+        ]
+      },
+      "gameplay_semantics": "UNKNOWN"
+    },
+    "_limits": {
+      "status": "NOT_PRESENT_AS_UNIQUE_moMesh",
+      "gameplay_semantics": "UNKNOWN"
+    }
+  },
+  "ownership": {
+    "COLLIDE_finishline01": {
+      "unique_position_indices": [
+        26065,
+        26066,
+        26067,
+        26068,
+        26069,
+        26070,
+        26071,
+        26072,
+        26073,
+        26074,
+        26075,
+        26076,
+        26077,
+        26078
+      ],
+      "exclusive_position_indices": [
+        26065,
+        26066,
+        26067,
+        26068,
+        26069,
+        26070,
+        26071,
+        26072,
+        26073,
+        26074,
+        26075,
+        26076,
+        26077,
+        26078
+      ],
+      "shared_position_references": [],
+      "all_positions_exclusive": true
+    },
+    "COLLIDE_finishline": {
+      "unique_position_indices": [
+        26079,
+        26080,
+        26081,
+        26082,
+        26083,
+        26084,
+        26085,
+        26086,
+        26087,
+        26088,
+        26089,
+        26090,
+        26091,
+        26092
+      ],
+      "exclusive_position_indices": [
+        26079,
+        26080,
+        26081,
+        26082,
+        26083,
+        26084,
+        26085,
+        26086,
+        26087,
+        26088,
+        26089,
+        26090,
+        26091,
+        26092
+      ],
+      "shared_position_references": [],
+      "all_positions_exclusive": true
+    },
+    "COLLIDE_finishline02": {
+      "unique_position_indices": [
+        26093,
+        26094,
+        26095,
+        26096,
+        26097,
+        26098,
+        26099,
+        26100,
+        26101,
+        26102,
+        26103,
+        26104,
+        26105,
+        26106
+      ],
+      "exclusive_position_indices": [
+        26093,
+        26094,
+        26095,
+        26096,
+        26097,
+        26098,
+        26099,
+        26100,
+        26101,
+        26102,
+        26103,
+        26104,
+        26105,
+        26106
+      ],
+      "shared_position_references": [],
+      "all_positions_exclusive": true
+    },
+    "COLLIDE_finishline03": {
+      "unique_position_indices": [
+        26107,
+        26108,
+        26109,
+        26110,
+        26111,
+        26112,
+        26113,
+        26114,
+        26115,
+        26116,
+        26117,
+        26118,
+        26119,
+        26120
+      ],
+      "exclusive_position_indices": [
+        26107,
+        26108,
+        26109,
+        26110,
+        26111,
+        26112,
+        26113,
+        26114,
+        26115,
+        26116,
+        26117,
+        26118,
+        26119,
+        26120
+      ],
+      "shared_position_references": [],
+      "all_positions_exclusive": true
+    }
+  },
+  "pairs": {
+    "start_pair": {
+      "members": [
+        "COLLIDE_finishline01",
+        "COLLIDE_finishline"
+      ],
+      "area_compared": "StartArea",
+      "pair_separation_3d": 18.152287063590748,
+      "pair_midpoint_runtime_xml": [
+        -1648.2022705078125,
+        57.258736337934224,
+        164.3841552734375
+      ],
+      "pair_direction_xz": [
+        -9.075439453125,
+        -15.718994140625
+      ],
+      "all_area_edges": [
+        {
+          "edge_index": 0,
+          "from_marker_index": 0,
+          "to_marker_index": 1,
+          "angle_difference_acute_degrees": 2.2580159363448717,
+          "pair_midpoint_distance_to_edge_midpoint_xz": 6.598225151954074,
+          "pair_midpoint_distance_to_edge_segment_xz": 6.583466916079375
+        },
+        {
+          "edge_index": 1,
+          "from_marker_index": 1,
+          "to_marker_index": 2,
+          "angle_difference_acute_degrees": 87.27551035462649,
+          "pair_midpoint_distance_to_edge_midpoint_xz": 20.251432710206792,
+          "pair_midpoint_distance_to_edge_segment_xz": 10.741981882560227
+        },
+        {
+          "edge_index": 2,
+          "from_marker_index": 2,
+          "to_marker_index": 3,
+          "angle_difference_acute_degrees": 2.214170046924838,
+          "pair_midpoint_distance_to_edge_midpoint_xz": 29.942595476784255,
+          "pair_midpoint_distance_to_edge_segment_xz": 29.94010919427305
+        },
+        {
+          "edge_index": 3,
+          "from_marker_index": 3,
+          "to_marker_index": 0,
+          "angle_difference_acute_degrees": 86.07332695931748,
+          "pair_midpoint_distance_to_edge_midpoint_xz": 19.551587460515623,
+          "pair_midpoint_distance_to_edge_segment_xz": 10.059476902230227
+        }
+      ],
+      "smallest_angular_difference_edge": {
+        "edge_index": 2,
+        "start_marker_index": 2,
+        "end_marker_index": 3,
+        "midpoint": [
+          -1674.87,
+          54.885000000000005,
+          178.0
+        ],
+        "angle_to_pair_degrees": 2.214170046924838,
+        "pair_midpoint_distance_xz": 29.942595476784255,
+        "pair_midpoint_segment_distance_xz": 29.94010919427305
+      },
+      "nearest_segment_among_edges_within_3_degrees": {
+        "edge_index": 0,
+        "start_marker_index": 0,
+        "end_marker_index": 1,
+        "midpoint": [
+          -1654.005,
+          52.84,
+          167.525
+        ],
+        "angle_to_pair_degrees": 2.2580159363448717,
+        "pair_midpoint_distance_xz": 6.598225151954074,
+        "pair_midpoint_segment_distance_xz": 6.583466916079375
+      },
+      "nearest_edge_segment_to_midpoint": {
+        "edge_index": 0,
+        "start_marker_index": 0,
+        "end_marker_index": 1,
+        "midpoint": [
+          -1654.005,
+          52.84,
+          167.525
+        ],
+        "angle_to_pair_degrees": 2.2580159363448717,
+        "pair_midpoint_distance_xz": 6.598225151954074,
+        "pair_midpoint_segment_distance_xz": 6.583466916079375
+      },
+      "spatial_correlation_status": "STRONG_SPATIAL_CORRELATION",
+      "gameplay_or_physical_semantics": "UNKNOWN"
+    },
+    "finish_pair": {
+      "members": [
+        "COLLIDE_finishline02",
+        "COLLIDE_finishline03"
+      ],
+      "area_compared": "FinishArea",
+      "pair_separation_3d": 18.150961631043913,
+      "pair_midpoint_runtime_xml": [
+        -1470.8954467773438,
+        68.43991511208671,
+        361.587890625
+      ],
+      "pair_direction_xz": [
+        -1.7396240234375,
+        -18.0673828125
+      ],
+      "all_area_edges": [
+        {
+          "edge_index": 0,
+          "from_marker_index": 0,
+          "to_marker_index": 1,
+          "angle_difference_acute_degrees": 79.14890861345724,
+          "pair_midpoint_distance_to_edge_midpoint_xz": 33.882789417873994,
+          "pair_midpoint_distance_to_edge_segment_xz": 29.395554452749465
+        },
+        {
+          "edge_index": 1,
+          "from_marker_index": 1,
+          "to_marker_index": 2,
+          "angle_difference_acute_degrees": 17.83982349927117,
+          "pair_midpoint_distance_to_edge_midpoint_xz": 36.068406589316375,
+          "pair_midpoint_distance_to_edge_segment_xz": 35.978123314570986
+        },
+        {
+          "edge_index": 2,
+          "from_marker_index": 2,
+          "to_marker_index": 3,
+          "angle_difference_acute_degrees": 69.73313329338282,
+          "pair_midpoint_distance_to_edge_midpoint_xz": 36.30862135939846,
+          "pair_midpoint_distance_to_edge_segment_xz": 29.33173369656391
+        },
+        {
+          "edge_index": 3,
+          "from_marker_index": 3,
+          "to_marker_index": 0,
+          "angle_difference_acute_degrees": 0.8716059082350108,
+          "pair_midpoint_distance_to_edge_midpoint_xz": 0.35348248035316526,
+          "pair_midpoint_distance_to_edge_segment_xz": 0.04885457683107734
+        }
+      ],
+      "smallest_angular_difference_edge": {
+        "edge_index": 3,
+        "start_marker_index": 3,
+        "end_marker_index": 0,
+        "midpoint": [
+          -1470.875,
+          66.235,
+          361.235
+        ],
+        "angle_to_pair_degrees": 0.8716059082350108,
+        "pair_midpoint_distance_xz": 0.35348248035316526,
+        "pair_midpoint_segment_distance_xz": 0.04885457683107734
+      },
+      "nearest_segment_among_edges_within_3_degrees": {
+        "edge_index": 3,
+        "start_marker_index": 3,
+        "end_marker_index": 0,
+        "midpoint": [
+          -1470.875,
+          66.235,
+          361.235
+        ],
+        "angle_to_pair_degrees": 0.8716059082350108,
+        "pair_midpoint_distance_xz": 0.35348248035316526,
+        "pair_midpoint_segment_distance_xz": 0.04885457683107734
+      },
+      "nearest_edge_segment_to_midpoint": {
+        "edge_index": 3,
+        "start_marker_index": 3,
+        "end_marker_index": 0,
+        "midpoint": [
+          -1470.875,
+          66.235,
+          361.235
+        ],
+        "angle_to_pair_degrees": 0.8716059082350108,
+        "pair_midpoint_distance_xz": 0.35348248035316526,
+        "pair_midpoint_segment_distance_xz": 0.04885457683107734
+      },
+      "spatial_correlation_status": "STRONG_SPATIAL_CORRELATION",
+      "gameplay_or_physical_semantics": "UNKNOWN"
+    }
+  },
+  "interpretation": {
+    "literal_mesh_names": "source identity only",
+    "spatial_relationship": "quantified geometry; source/runtime semantic linkage not proven",
+    "physical_collision_role": "NOT_PROVEN",
+    "RaceTest_trigger_role": "NOT_PROVEN"
+  }
+}

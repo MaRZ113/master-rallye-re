@@ -179,9 +179,11 @@ race logic. The complete France1 XML has 1,080 ordered Marker records in eight
 MarkerLists and 76 Eggs. France1 and Italy1's 8.4.1 GXM/TXT pairs were searched
 through the canonical node table: France1 exposes literal `FINISHLINE` and
 `COLLIDE_finishline*` names; Italy1 exposes `STARTLINE`, `FINISHLINE`,
-`COLLIDE_finishline*`, and `_bsplitX`. These names do not spatially bind to the
-retail XML areas or split triggers. No `$splittime0/1/2` node was found in
-either paired France1 or Italy1 source.
+`COLLIDE_finishline*`, and `_bsplitX`. Their gameplay roles remain `UNKNOWN`.
+Direct semantic equivalence to RaceTest areas or split triggers is not proven;
+their spatial correlation with the retail areas is measured in the R5T-F.0
+report. No `$splittime0/1/2` node was found in either paired France1 or Italy1
+source.
 
 The 8,325,199-byte Demo 8.4.1 `RussiaTurkey1.gxm` contains source strings for
 `$splittime0` at `0x7F07AE`, `$splittime1` at `0x7F07C7`, and `$splittime2` at
@@ -220,3 +222,36 @@ centers; moving RaceLine[112] is **NOT_SUPPORTED** as the direct SplitTime0
 center. Radius is a 3D spherical threshold (`distance < Radius`); ExtraTime's
 semantics remain **UNKNOWN**. See `research/r5t_d1/` for debugger details and
 the canonical evidence ledger.
+
+## R5T-F.0 France1 named-mesh spatial correlation
+
+The decoded Demo 8.4.1 France1 version-7 GXM contains four literal
+`COLLIDE_finishline*` `moMesh` nodes. Each resolves to 24 triangles and 14
+unique position records beneath the literal hierarchy
+`Model/$autovsphere_300/$bsp/$nodraw`. Every undirected edge in each mesh is
+referenced by two triangles. These structural facts do not establish a
+gameplay, visual, or physical role.
+
+In RaceTest runtime/XML coordinates, the centroids of `COLLIDE_finishline01`
+and `COLLIDE_finishline` form a pair 18.1523 units apart; their midpoint is
+6.5835 X/Z units from StartArea edge 0 and the pair direction is 2.2580 degrees
+from that edge. `COLLIDE_finishline02` and `COLLIDE_finishline03` form a pair
+18.1510 units apart; their midpoint is 0.0489 X/Z units from FinishArea edge 3
+and the pair direction is 0.8716 degrees from it. All four edge comparisons
+are retained in the machine report. The 3-degree / 10-unit reporting threshold
+is descriptive; it is not a semantic classifier.
+
+The spatial relationships are **STRONG_SPATIAL_CORRELATION**. The literal
+source names remain identity only. Direct equivalence to the RaceTest areas,
+physical collision meaning, and any `moMesh -> tag100` relationship remain
+**UNKNOWN / NOT PROVEN**. See
+[`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md) and the
+[machine-readable correlation report](../research/r5t_f0/france1-named-geometry-correlation.json).
+
+Position ownership is exclusive for all 14 positions in each mesh. One
+hash-pinned research copy moves only `COLLIDE_finishline03` by source X +20.0;
+its source topology, non-target positions, node table, and attribute banks are
+unchanged. The mutation is prepared but has not yet been cooked or runtime
+tested. It is not a general GXM writer. The one-probe boundary and exact
+human-observation checklist are in
+[`research/r5t_f0/runtime-probe-handoff.md`](../research/r5t_f0/runtime-probe-handoff.md).

@@ -1,0 +1,436 @@
+{
+  "schema": "r5t-f0-probe-manifest-v1",
+  "status": "SOURCE_COPY_PREPARED_NOT_COOKED_NOT_RUNTIME_TESTED",
+  "baseline": {
+    "path": "D:\\Game\\Master Rallye\\master-rallye-re\\inputs\\8.4.1_France1\\France1.gxm",
+    "sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+    "size_bytes": 11489135,
+    "txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43"
+  },
+  "modified": {
+    "path": "D:\\Game\\Master Rallye\\master-rallye-re\\research-output\\r5t_f0\\modified-source\\France1.gxm",
+    "sha256": "2e93f6291f9b5e4b0606b218e42f7926a7d4f0d37a1eb76f359d9ccbff4dc2a2",
+    "size_bytes": 11489135
+  },
+  "race_test_xml": {
+    "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataScene\\RaceTest\\France1.xml",
+    "sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+    "status": "UNCHANGED; no XML bytes are written by this tool",
+    "FinishArea": "UNCHANGED"
+  },
+  "target": {
+    "literal_name": "COLLIDE_finishline03",
+    "hierarchy_path": [
+      "Model",
+      "$autovsphere_300",
+      "$bsp",
+      "$nodraw",
+      "COLLIDE_finishline03"
+    ],
+    "source_ordinal": 807,
+    "Index": 47083,
+    "Size": 24,
+    "triangle_span_half_open": [
+      47083,
+      47107
+    ],
+    "triangle_count": 24,
+    "unique_position_indices": [
+      26107,
+      26108,
+      26109,
+      26110,
+      26111,
+      26112,
+      26113,
+      26114,
+      26115,
+      26116,
+      26117,
+      26118,
+      26119,
+      26120
+    ],
+    "position_ownership": {
+      "unique_position_indices": [
+        26107,
+        26108,
+        26109,
+        26110,
+        26111,
+        26112,
+        26113,
+        26114,
+        26115,
+        26116,
+        26117,
+        26118,
+        26119,
+        26120
+      ],
+      "exclusive_position_indices": [
+        26107,
+        26108,
+        26109,
+        26110,
+        26111,
+        26112,
+        26113,
+        26114,
+        26115,
+        26116,
+        26117,
+        26118,
+        26119,
+        26120
+      ],
+      "shared_position_references": [],
+      "all_positions_exclusive": true
+    },
+    "all_target_positions_exclusive": true
+  },
+  "positions": [
+    {
+      "position_index": 26107,
+      "before": [
+        -1471.7652587890625,
+        -352.55419921875,
+        63.75840759277344
+      ],
+      "after": [
+        -1451.7652587890625,
+        -352.55419921875,
+        63.75840759277344
+      ]
+    },
+    {
+      "position_index": 26108,
+      "before": [
+        -1471.231689453125,
+        -352.5028381347656,
+        63.71132278442383
+      ],
+      "after": [
+        -1451.231689453125,
+        -352.5028381347656,
+        63.71132278442383
+      ]
+    },
+    {
+      "position_index": 26109,
+      "before": [
+        -1471.54296875,
+        -352.06646728515625,
+        63.75840759277344
+      ],
+      "after": [
+        -1451.54296875,
+        -352.06646728515625,
+        63.75840759277344
+      ]
+    },
+    {
+      "position_index": 26110,
+      "before": [
+        -1472.0765380859375,
+        -352.1178283691406,
+        63.75840759277344
+      ],
+      "after": [
+        -1452.0765380859375,
+        -352.1178283691406,
+        63.75840759277344
+      ]
+    },
+    {
+      "position_index": 26111,
+      "before": [
+        -1472.298828125,
+        -352.6055603027344,
+        63.75840759277344
+      ],
+      "after": [
+        -1452.298828125,
+        -352.6055603027344,
+        63.75840759277344
+      ]
+    },
+    {
+      "position_index": 26112,
+      "before": [
+        -1471.987548828125,
+        -353.04193115234375,
+        63.721107482910156
+      ],
+      "after": [
+        -1451.987548828125,
+        -353.04193115234375,
+        63.721107482910156
+      ]
+    },
+    {
+      "position_index": 26113,
+      "before": [
+        -1471.4539794921875,
+        -352.9905700683594,
+        63.67451858520508
+      ],
+      "after": [
+        -1451.4539794921875,
+        -352.9905700683594,
+        63.67451858520508
+      ]
+    },
+    {
+      "position_index": 26114,
+      "before": [
+        -1471.231689453125,
+        -352.5028381347656,
+        73.11727142333984
+      ],
+      "after": [
+        -1451.231689453125,
+        -352.5028381347656,
+        73.11727142333984
+      ]
+    },
+    {
+      "position_index": 26115,
+      "before": [
+        -1471.54296875,
+        -352.06646728515625,
+        73.11727142333984
+      ],
+      "after": [
+        -1451.54296875,
+        -352.06646728515625,
+        73.11727142333984
+      ]
+    },
+    {
+      "position_index": 26116,
+      "before": [
+        -1472.0765380859375,
+        -352.1178283691406,
+        73.11727142333984
+      ],
+      "after": [
+        -1452.0765380859375,
+        -352.1178283691406,
+        73.11727142333984
+      ]
+    },
+    {
+      "position_index": 26117,
+      "before": [
+        -1472.298828125,
+        -352.6055603027344,
+        73.11727142333984
+      ],
+      "after": [
+        -1452.298828125,
+        -352.6055603027344,
+        73.11727142333984
+      ]
+    },
+    {
+      "position_index": 26118,
+      "before": [
+        -1471.987548828125,
+        -353.04193115234375,
+        73.11727142333984
+      ],
+      "after": [
+        -1451.987548828125,
+        -353.04193115234375,
+        73.11727142333984
+      ]
+    },
+    {
+      "position_index": 26119,
+      "before": [
+        -1471.4539794921875,
+        -352.9905700683594,
+        73.11727142333984
+      ],
+      "after": [
+        -1451.4539794921875,
+        -352.9905700683594,
+        73.11727142333984
+      ]
+    },
+    {
+      "position_index": 26120,
+      "before": [
+        -1471.7652587890625,
+        -352.55419921875,
+        73.11727142333984
+      ],
+      "after": [
+        -1451.7652587890625,
+        -352.55419921875,
+        73.11727142333984
+      ]
+    }
+  ],
+  "translation": {
+    "source_delta": [
+      20.0,
+      0.0,
+      0.0
+    ],
+    "expected_runtime_delta": [
+      20.0,
+      0.0,
+      -0.0
+    ],
+    "old_runtime_centroid": [
+      -1471.7652587890625,
+      68.4258199419294,
+      352.55419921875
+    ],
+    "new_runtime_centroid": [
+      -1451.7652587890625,
+      68.4258199419294,
+      352.55419921875
+    ],
+    "old_runtime_bounds": {
+      "min": [
+        -1472.298828125,
+        63.67451858520508,
+        352.06646728515625
+      ],
+      "max": [
+        -1471.231689453125,
+        73.11727142333984,
+        353.04193115234375
+      ]
+    },
+    "new_runtime_bounds": {
+      "min": [
+        -1452.298828125,
+        63.67451858520508,
+        352.06646728515625
+      ],
+      "max": [
+        -1451.231689453125,
+        73.11727142333984,
+        353.04193115234375
+      ]
+    }
+  },
+  "diff": {
+    "changed_byte_count": 28,
+    "changed_byte_offsets": [
+      11151688,
+      11151689,
+      11151700,
+      11151701,
+      11151712,
+      11151713,
+      11151724,
+      11151725,
+      11151736,
+      11151737,
+      11151748,
+      11151749,
+      11151760,
+      11151761,
+      11151772,
+      11151773,
+      11151784,
+      11151785,
+      11151796,
+      11151797,
+      11151808,
+      11151809,
+      11151820,
+      11151821,
+      11151832,
+      11151833,
+      11151844,
+      11151845
+    ],
+    "changed_ranges": [
+      {
+        "offset": 11151688,
+        "length": 2
+      },
+      {
+        "offset": 11151700,
+        "length": 2
+      },
+      {
+        "offset": 11151712,
+        "length": 2
+      },
+      {
+        "offset": 11151724,
+        "length": 2
+      },
+      {
+        "offset": 11151736,
+        "length": 2
+      },
+      {
+        "offset": 11151748,
+        "length": 2
+      },
+      {
+        "offset": 11151760,
+        "length": 2
+      },
+      {
+        "offset": 11151772,
+        "length": 2
+      },
+      {
+        "offset": 11151784,
+        "length": 2
+      },
+      {
+        "offset": 11151796,
+        "length": 2
+      },
+      {
+        "offset": 11151808,
+        "length": 2
+      },
+      {
+        "offset": 11151820,
+        "length": 2
+      },
+      {
+        "offset": 11151832,
+        "length": 2
+      },
+      {
+        "offset": 11151844,
+        "length": 2
+      }
+    ],
+    "only_target_source_x_fields_changed": true,
+    "all_other_position_records_unchanged": true,
+    "triangle_bank_identical": true,
+    "node_tree_identical": true,
+    "attribute_banks_identical": true,
+    "target_position_indices_and_topology_unchanged": true,
+    "file_size_unchanged": true,
+    "position_bank_changed_byte_count": 28
+  },
+  "cooking": {
+    "status": "PENDING",
+    "baseline_runs": 0,
+    "modified_runs": 0
+  },
+  "evidence": [
+    "CONFIRMED_BY_BINARY_STRUCTURE",
+    "CONTROLLED_SOURCE_COPY_DIFF"
+  ],
+  "interpretation": {
+    "source_name": "literal identity only",
+    "gameplay_semantics": "UNKNOWN",
+    "physical_role": "NOT_PROVEN",
+    "RaceTest_trigger_role": "NOT_PROVEN"
+  }
+}

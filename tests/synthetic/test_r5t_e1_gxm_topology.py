@@ -199,6 +199,9 @@ class R5TE1CourseGxmTopologyTests(unittest.TestCase):
         self.assertEqual(mesh.hierarchy_path, ("Model", "startpoint"))
         self.assertEqual(mesh.triangle_count, 12)
         self.assertEqual(len(mesh.unique_position_indices), 8)
+        self.assertEqual(mesh.triangle_position_triplets[0], (0, 2, 3))
+        self.assertEqual(mesh.resolved_positions, tuple(self.model.position(index) for index in range(8)))
+        self.assertEqual(mesh.unique_positions, mesh.resolved_positions)
         self.assertEqual(mesh.gameplay_role, "UNKNOWN")
 
 
