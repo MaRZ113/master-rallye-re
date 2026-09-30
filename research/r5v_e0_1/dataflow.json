@@ -1,0 +1,105 @@
+{
+  "phase": "R5V-E0.1",
+  "build": "retail",
+  "slot": {
+    "absolute_id": 25,
+    "class": 2,
+    "class_label": "T3",
+    "local_index": 11,
+    "runtime_family": "Trooper",
+    "owner_runtime_report": "FULL PASS",
+    "tested_executable_hash_supplied": false
+  },
+  "registry_layout": {
+    "accessor": "0x0045A3C0",
+    "accessor_returns": "registry object base",
+    "first_record_offset": "0x04",
+    "record_stride": "0x34",
+    "record_count": 26,
+    "record_internal_name_offset": "0x20",
+    "record_extra_integer_offset": "0x1C"
+  },
+  "channels": {
+    "display_name": {
+      "confidence": "STRONGLY_SUPPORTED",
+      "input": "absolute vehicle ID",
+      "path": [
+        "class2 local11",
+        "0x00481E20 adds 14",
+        "absolute ID25",
+        "0x004819B0 queries localization group 0x33 and 0x34 by ID"
+      ],
+      "id25_result": "STEEL MONKEYS FORKLIFT",
+      "uses_vehicle_record_name": false,
+      "trooper_display_asset_found": false
+    },
+    "frontend_stats": {
+      "confidence": "PROVEN",
+      "input": "absolute vehicle ID",
+      "reader": "0x004819B0",
+      "fields": {
+        "speed": "VehicleRecord +0x0C",
+        "acceleration": "VehicleRecord +0x10",
+        "handling": "VehicleRecord +0x14",
+        "endurance": "VehicleRecord +0x18"
+      },
+      "id25_values": [6, 6, 8, 8],
+      "reason": "E0 profile initialized ID25 stats from Astero values; no Astero record alias in reader"
+    },
+    "vehicle_select_icon": {
+      "confidence": "PROVEN",
+      "input": "static class-local scene widget",
+      "scene": "DataScene/FrontendScreens/VehicleSelect.xml",
+      "mapping": "T3_CarN widget to carsheet bank index",
+      "id25_result": "MAPPING_MISSING",
+      "carsheet_frame_25_exists": true,
+      "trooper_frame_identity_proven": false
+    },
+    "race_player_icon": {
+      "confidence": "UNKNOWN",
+      "owner_report": "Astero-like",
+      "candidate_object": "ProgressCar0",
+      "candidate_match_proven": false,
+      "missing_edge": "exact in-race 1P graphic to scene object and source selector"
+    },
+    "progress_icon": {
+      "confidence": "PROVEN",
+      "input": "HUD display slot 0..7",
+      "scene": ["DataScene/Hud/Hud0.xml", "DataScene/Hud/Hud1.xml"],
+      "resource": "hud-template image bank index 3",
+      "asset": "hud-template_003_000.dxt",
+      "asset_hash": "2485192edf007f5dc97a455be87ae8f6b18c01719da4c7b4d60f396c577ade93",
+      "vehicle_specific": false,
+      "owner_visual_label": "Astero-like"
+    },
+    "race_results_icon": {
+      "confidence": "PROVEN",
+      "input": "race participant absolute vehicle ID",
+      "producer": "0x0047C840",
+      "field": "VehicleRecord +0x1C",
+      "property": "Frontend/RaceResults/CarN",
+      "consumer": "0x00530300 -> 0x004E23E0 / 0x004E1FF0",
+      "id25_value": 0,
+      "asset": "DataGx/Frontend/RaceResults/smallcarsheet_000_000.dxt",
+      "visual_identity": "Astero-like, STRONGLY_SUPPORTED"
+    }
+  },
+  "trooper_frontend_assets": {
+    "retail": "no Trooper-specific frontend/HUD identity asset found in targeted inventory",
+    "demo-8.4.1": {
+      "path": "DataScene/FrontendScreens/Demo2MainMenu.hnt",
+      "kind": "3D menu model reference, not an icon",
+      "sha256": "bedf597823c52715bcbdbe69475d4c9fc7974a4f4f7a8fa59b32d7fdc1e3c93"
+    },
+    "demo-9.3.1": "no Trooper-specific UI identity asset found in targeted inventory"
+  },
+  "patch_created": false,
+  "binary_modified": false,
+  "next_phase": {
+    "name": "R5V-F",
+    "status": "BLOCKED",
+    "unresolved": [
+      "identify whether the owner's in-race 1P icon is ProgressCar0 or a separate HUD object"
+    ]
+  }
+}
