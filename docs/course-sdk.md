@@ -72,11 +72,16 @@ companions. Its trigger shape is `sphere`. A missing/invalid ID, center, or
 nonnegative Radius keeps `trigger_complete` false; no values are fabricated.
 `ExtraTime` semantics remain `UNKNOWN`.
 
-Evidence is scoped per record. France1 SplitTime0 carries direct runtime and
-debugger evidence. SplitTime1/2 and records from other courses carry executable
-and shared-structure evidence without a claim that they were independently
-moved at runtime. SplitTimeN-index companions are retained separately and are
-not trigger-center sources.
+Evidence fields distinguish semantic-rule evidence from record-specific
+evidence. The generic XML parser reports the executable/shared-structure basis
+for interpreting split centers and radii; it leaves `record_evidence` empty
+rather than treating a filename such as `France1.xml` as proof that the loaded
+file is the runtime-tested original. StartArea/FinishArea runtime findings are
+likewise rule evidence, not proof that every list instance was directly tested.
+The specific France1 SplitTime0 debugger and moved-on-road results remain in
+[`research/r5t_d1`](../research/r5t_d1/), separate from generic parsed-record
+provenance. SplitTimeN-index companions remain separate visual objects and
+are not trigger-center sources.
 
 ## Package resources
 
@@ -109,13 +114,14 @@ It creates source-ordered StartArea and FinishArea point/outline collections,
 the procedural split sign, a separate three-ring wire sphere for each complete
 split, and a `Visual Checkpoint Objects` collection for associated sibling
 Eggs. Center and radius use the established course-to-Blender transform and
-scale. The sphere stores ID, radius, source XML paths, evidence, raw
-ExtraTime, and `ExtraTime` semantic status. No gameplay data is edited.
+scale. The sphere stores ID, radius, source XML paths, semantic-rule evidence,
+record-evidence metadata, raw ExtraTime, and `ExtraTime` semantic status. No
+gameplay data is edited.
 
 RaceLine remains an ordered marker list. The executable-supported direction is
 split center to nearest RaceLine sample/percentage; no marker is relabeled as a
-special trigger center. The add-on version is 4.5.0 and retains its Blender
-4.3 minimum.
+special trigger center. The add-on package version is 4.5.1 and retains its
+Blender 4.3 minimum.
 
 ## Read-only boundary and open questions
 

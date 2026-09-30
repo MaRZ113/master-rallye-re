@@ -83,8 +83,10 @@ def main():
         raise AssertionError("packaged visual companion count differs from semantic association")
 
     trigger_by_id = {int(item["mr_split_time_id"]): item for item in triggers}
+    sign_by_id = {int(item["mr_split_time_id"]): item for item in signs}
     for split in complete_splits:
         item = trigger_by_id[split.split_id]
+        sign = sign_by_id[split.split_id]
         expected = position_to_blender(split.center)
         if any(abs(float(item.location[i]) - expected[i]) > 1.0e-4 for i in range(3)):
             raise AssertionError("packaged trigger center transform differs from canonical conversion")
@@ -94,6 +96,18 @@ def main():
             raise AssertionError("packaged trigger is not a three-ring sphere")
         if item.get("mr_split_extra_time_semantics") != "UNKNOWN":
             raise AssertionError("packaged ExtraTime semantics were overclaimed")
+        if item.get("mr_center_rule_evidence") != "; ".join(split.center_rule_evidence):
+            raise AssertionError("packaged center rule evidence differs from the SDK model")
+        if item.get("mr_radius_rule_evidence") != "; ".join(split.radius_rule_evidence):
+            raise AssertionError("packaged radius rule evidence differs from the SDK model")
+        if sign.get("mr_center_rule_evidence") != "; ".join(split.center_rule_evidence):
+            raise AssertionError("packaged sign rule evidence differs from the SDK model")
+        if json.loads(item.get("mr_record_evidence_json", "[]")) != list(split.record_evidence):
+            raise AssertionError("packaged trigger inherited unsupported record evidence")
+        if json.loads(sign.get("mr_record_evidence_json", "[]")) != list(split.record_evidence):
+            raise AssertionError("packaged sign inherited unsupported record evidence")
+    if any("mr_center_evidence" in item or "mr_evidence_status" in item for item in triggers + signs):
+        raise AssertionError("packaged add-on retains ambiguous legacy evidence properties")
     if any(item.get("mr_is_trigger_center_source") is not False for item in companions):
         raise AssertionError("packaged visual companion was marked as a trigger source")
     if not any(item.get("mr_source_list_name") == "StartArea" for item in descendants):

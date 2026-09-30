@@ -112,8 +112,10 @@ The read-only semantic layer composes the canonical raw readers and leaves
 unknown source structures available. `CourseStartArea`, `CourseFinishArea`,
 and `CourseSplitTime` preserve source references and ordered markers. Split
 centers derive from Egg Row3 only when the serialized matrix is valid; trigger
-shape is the executable-confirmed 3D sphere. France1 SplitTime0 has direct
-runtime/debugger evidence; other records do not inherit that per-record status.
+shape is the executable-confirmed 3D sphere. France1 SplitTime0's direct
+runtime/debugger result is recorded in R5T-D.1; the generic parser no longer
+assigns that record-specific evidence by filename. It separates semantic-rule
+evidence from record-specific evidence.
 HNT entries, structural SFL statistics, source TXT/GXM probes, and neutral
 tag100 offsets/hash/status are available from partial `CourseProject` objects.
 The existing Blender add-on consumes the semantic model and draws split sphere

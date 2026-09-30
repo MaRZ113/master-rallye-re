@@ -127,10 +127,18 @@ def main():
         sign = sign_by_id[split.split_id]
         if sign.get("mr_gameplay_center_source") != "same en3d Matrix Row3 as visual sign":
             raise AssertionError("split sign helper does not preserve the confirmed center relation")
-        if sign.get("mr_trigger_position_status", "UNKNOWN").startswith("UNKNOWN"):
-            raise AssertionError("stale UNKNOWN split-center metadata remains")
-        if trigger.get("mr_center_evidence") != "; ".join(split.evidence_center):
-            raise AssertionError("trigger evidence scope differs from the semantic model")
+        if sign.get("mr_center_rule_evidence") != "; ".join(split.center_rule_evidence):
+            raise AssertionError("sign semantic-rule evidence differs from the Course SDK model")
+        if trigger.get("mr_center_rule_evidence") != "; ".join(split.center_rule_evidence):
+            raise AssertionError("trigger semantic-rule evidence differs from the Course SDK model")
+        if trigger.get("mr_radius_rule_evidence") != "; ".join(split.radius_rule_evidence):
+            raise AssertionError("radius semantic-rule evidence differs from the Course SDK model")
+        if json.loads(sign.get("mr_record_evidence_json", "[]")) != list(split.record_evidence):
+            raise AssertionError("sign record-specific evidence differs from the Course SDK model")
+        if json.loads(trigger.get("mr_record_evidence_json", "[]")) != list(split.record_evidence):
+            raise AssertionError("trigger record-specific evidence differs from the Course SDK model")
+        if "mr_trigger_position_status" in sign or "mr_center_evidence" in trigger:
+            raise AssertionError("ambiguous legacy evidence metadata remains")
     if not all(companion.get("mr_is_trigger_center_source") is False for companion in companions):
         raise AssertionError("visual checkpoint companion was marked as a trigger center source")
 

@@ -12,9 +12,9 @@ for path in (ROOT, ROOT / "src"):
         sys.path.insert(0, str(path))
 
 from master_rallye.course_sdk import (  # noqa: E402
-    CONFIRMED_BY_DEBUGGER,
     CONFIRMED_BY_EXECUTABLE,
     CONFIRMED_BY_RUNTIME_EDIT,
+    SUPPORTED_BY_SHARED_STRUCTURE,
     CourseTag100Region,
     build_course_race_logic,
     discover_course_resources,
@@ -71,13 +71,14 @@ def race_xml(companion_count: int = 2, *, malformed: bool = False, include_areas
 class CourseSdkRaceLogicTests(unittest.TestCase):
     def test_areas_preserve_source_order_positions_and_known_roles(self):
         document = parse_course_xml_bytes(race_xml(), "France1.xml")
-        model = build_course_race_logic(document, course_identity="France1")
+        model = build_course_race_logic(document)
         self.assertEqual(model.start_area.source_list_name, "StartArea")
         self.assertEqual([item.index_in_list for item in model.start_area.markers], [0, 1, 2, 3])
         self.assertEqual(model.start_area.positions[0], (0.0, 1.0, 2.0))
         self.assertEqual(model.start_area.centroid, (1.0, 1.0, 3.0))
         self.assertEqual(model.start_area.local_xz_bounds, (0.0, 2.0, 2.0, 4.0))
-        self.assertIn(CONFIRMED_BY_RUNTIME_EDIT, model.start_area.evidence)
+        self.assertIn(CONFIRMED_BY_RUNTIME_EDIT, model.start_area.semantic_rule_evidence)
+        self.assertEqual(model.start_area.record_evidence, ())
         self.assertEqual(model.finish_area.source_list_name, "FinishArea")
         self.assertEqual(model.finish_area.markers[3].index_in_list, 3)
         self.assertIn("not asserted exclusive", model.finish_area.semantic_role)
@@ -85,7 +86,7 @@ class CourseSdkRaceLogicTests(unittest.TestCase):
 
     def test_split_model_interprets_confirmed_fields_and_exact_companion_siblings(self):
         document = parse_course_xml_bytes(race_xml(), "France1.xml")
-        split = build_course_race_logic(document, course_identity="France1").split_times[0]
+        split = build_course_race_logic(document).split_times[0]
         self.assertEqual(split.split_id, 0)
         self.assertEqual(split.center, (10.0, 20.0, 30.0))
         self.assertEqual(split.radius, 21.0)
@@ -95,21 +96,25 @@ class CourseSdkRaceLogicTests(unittest.TestCase):
         self.assertTrue(split.trigger_complete)
         self.assertEqual([item.name for item in split.companions], ["SplitTime0-0", "SplitTime0-1"])
         self.assertEqual(split.companions[0].model_name, "checkpoint-0")
-        self.assertIn(CONFIRMED_BY_RUNTIME_EDIT, split.evidence_center)
-        self.assertIn(CONFIRMED_BY_DEBUGGER, split.evidence_center)
-        self.assertIn(CONFIRMED_BY_EXECUTABLE, split.evidence_radius)
+        self.assertIn(CONFIRMED_BY_EXECUTABLE, split.center_rule_evidence)
+        self.assertIn(SUPPORTED_BY_SHARED_STRUCTURE, split.center_rule_evidence)
+        self.assertIn(CONFIRMED_BY_EXECUTABLE, split.radius_rule_evidence)
+        self.assertEqual(split.record_evidence, ())
+        self.assertEqual(split.companions[0].record_evidence, ())
+        self.assertIn(SUPPORTED_BY_SHARED_STRUCTURE, split.companions[0].semantic_rule_evidence)
         self.assertEqual(split.source_component.xml_path, document.split_time_eggs[0].split_time_component.xml_path)
 
-    def test_shared_split_records_do_not_inherit_france1_runtime_edit_evidence(self):
-        document = parse_course_xml_bytes(race_xml(companion_count=5), "Italy1.xml")
-        split = build_course_race_logic(document, course_identity="Italy1").split_times[0]
-        self.assertNotIn(CONFIRMED_BY_RUNTIME_EDIT, split.evidence_center)
-        self.assertIn("INFERRED_FROM_SHARED_COMPONENT_STRUCTURE", split.evidence_center)
+    def test_synthetic_france1_name_does_not_inherit_record_specific_evidence(self):
+        document = parse_course_xml_bytes(race_xml(companion_count=5), "France1.xml")
+        split = build_course_race_logic(document).split_times[0]
+        self.assertNotIn(CONFIRMED_BY_RUNTIME_EDIT, split.record_evidence)
+        self.assertNotIn(CONFIRMED_BY_RUNTIME_EDIT, split.center_rule_evidence)
+        self.assertIn(SUPPORTED_BY_SHARED_STRUCTURE, split.center_rule_evidence)
         self.assertEqual(len(split.companions), 5)
 
     def test_split_with_zero_visual_companions_is_valid(self):
         document = parse_course_xml_bytes(race_xml(companion_count=0), "France1.xml")
-        split = build_course_race_logic(document, course_identity="France1").split_times[0]
+        split = build_course_race_logic(document).split_times[0]
         self.assertEqual(split.companions, ())
         self.assertTrue(split.trigger_complete)
 
@@ -155,6 +160,8 @@ class CourseSdkCompositionTests(unittest.TestCase):
         self.assertTrue(render.tag100.present)
         self.assertEqual(render.tag100.byte_size, len(b"\x64\x00\x00\x00synthetic BSP bytes"))
         self.assertEqual(render.tag100.semantics, "UNKNOWN")
+        self.assertTrue(any("trailing course/tag100" in item for item in render.validation_warnings))
+        self.assertFalse(any("BSP" in item for item in render.validation_warnings))
         self.assertFalse(hasattr(render, "collision"))
         self.assertFalse(hasattr(render, "bsp"))
 

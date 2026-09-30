@@ -234,7 +234,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -481,7 +481,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -747,7 +747,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -978,7 +978,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -1226,7 +1226,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -1449,7 +1449,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -1673,7 +1673,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -1919,7 +1919,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -2178,7 +2178,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -2396,7 +2396,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -2671,7 +2671,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -2946,7 +2946,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -3214,7 +3214,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -3454,7 +3454,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -3739,7 +3739,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -3989,7 +3989,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -4239,7 +4239,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -4492,7 +4492,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -4756,7 +4756,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -5008,7 +5008,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -5194,7 +5194,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -5400,7 +5400,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -5608,7 +5608,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -5815,7 +5815,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -6022,7 +6022,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -6216,7 +6216,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -6417,7 +6417,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -6618,7 +6618,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -7043,7 +7043,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -7444,7 +7444,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -7840,7 +7840,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -8291,7 +8291,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -8706,7 +8706,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -9119,7 +9119,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -9532,7 +9532,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }
@@ -9948,7 +9948,7 @@
           "vertex_coverage": "complete-disjoint",
           "errors": [],
           "warnings": [
-            "course draw batches parsed; trailing course/BSP payload remains separately classified"
+            "course draw batches parsed; trailing course/tag100 payload remains separately classified"
           ]
         }
       }

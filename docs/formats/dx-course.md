@@ -8,7 +8,7 @@ After the shared prefix described in [`dx-common.md`](dx-common.md), the common 
 
 Existing tag-2, tag-7, and tag-8 render records reuse the proven common DX draw parser. Course-only container tags 1, 4, 5, and 6 are traversed using their observed child counts and retained raw prefix bytes. Their remaining control/prefix values are not assigned semantic names. No heuristic byte scanning is used.
 
-After the parsed render records, the existing collision-section boundary parser recognizes tag 100 in all 36 retail course DX files. The offset is the exact end of the validated render batches. The tag-100 payload boundary/length is unresolved and its bytes are not decoded or rendered as collision.
+After the parsed render records, the shared optional-section boundary parser recognizes tag 100 in all 36 retail course DX files. The offset is the exact end of the validated render batches. The tag-100 payload boundary/length is unresolved and its bytes are not decoded or rendered. Its physical meaning remains unknown.
 
 ## Corpus validation
 

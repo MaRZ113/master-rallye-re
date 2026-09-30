@@ -29,11 +29,8 @@ from .sfl import SflField, parse_sfl
 
 
 CONFIRMED_BY_RUNTIME_EDIT = "CONFIRMED_BY_RUNTIME_EDIT"
-CONFIRMED_BY_DEBUGGER = "CONFIRMED_BY_DEBUGGER"
 CONFIRMED_BY_EXECUTABLE = "CONFIRMED_BY_EXECUTABLE"
-CONFIRMED_BY_CORPUS = "CONFIRMED_BY_CORPUS"
 SUPPORTED_BY_SHARED_STRUCTURE = "SUPPORTED_BY_SHARED_STRUCTURE"
-INFERRED_FROM_SHARED_COMPONENT_STRUCTURE = "INFERRED_FROM_SHARED_COMPONENT_STRUCTURE"
 UNKNOWN = "UNKNOWN"
 
 
@@ -44,7 +41,8 @@ class CourseMarkerArea:
     source_list: CourseXmlMarkerList
     markers: tuple[CourseXmlMarker, ...]
     semantic_role: str
-    evidence: tuple[str, ...]
+    semantic_rule_evidence: tuple[str, ...]
+    record_evidence: tuple[str, ...] = ()
 
     @property
     def source_list_name(self) -> str | None:
@@ -95,7 +93,8 @@ class CourseFinishArea(CourseMarkerArea):
 class CourseVisualCheckpoint:
     source_egg: CourseXmlEgg
     position: tuple[float, float, float] | None
-    evidence: tuple[str, ...]
+    semantic_rule_evidence: tuple[str, ...]
+    record_evidence: tuple[str, ...] = ()
 
     @property
     def name(self) -> str | None:
@@ -124,9 +123,10 @@ class CourseSplitTime:
     source_egg: CourseXmlEgg
     source_component: CourseXmlAiComponent
     companions: tuple[CourseVisualCheckpoint, ...]
-    evidence_center: tuple[str, ...]
-    evidence_radius: tuple[str, ...]
-    evidence_companions: tuple[str, ...]
+    center_rule_evidence: tuple[str, ...]
+    radius_rule_evidence: tuple[str, ...]
+    companions_rule_evidence: tuple[str, ...]
+    record_evidence: tuple[str, ...] = ()
     issues: tuple[str, ...] = ()
 
     @property
@@ -539,8 +539,6 @@ def _matrix_position(egg: CourseXmlEgg, issues: list[str]) -> tuple[float, float
 def _exact_visual_companions(
     document: CourseXmlDocument,
     egg: CourseXmlEgg,
-    *,
-    directly_tested: bool,
 ) -> tuple[CourseVisualCheckpoint, ...]:
     if not egg.name:
         return ()
@@ -555,15 +553,13 @@ def _exact_visual_companions(
         companions.append(CourseVisualCheckpoint(
             source_egg=candidate,
             position=position.position if position is not None else None,
-            evidence=(CONFIRMED_BY_RUNTIME_EDIT,) if directly_tested else (SUPPORTED_BY_SHARED_STRUCTURE,),
+            semantic_rule_evidence=(SUPPORTED_BY_SHARED_STRUCTURE,),
         ))
     return tuple(companions)
 
 
 def build_course_race_logic(
     document: CourseXmlDocument,
-    *,
-    course_identity: str | None = None,
 ) -> CourseRaceLogic:
     """Interpret proven RaceTest fields while preserving their raw XML nodes."""
     diagnostics: list[str] = []
@@ -590,7 +586,6 @@ def build_course_race_logic(
     )
 
     splits: list[CourseSplitTime] = []
-    identity_is_france = (course_identity or "").casefold().removesuffix(".xml") == "france1"
     for egg in document.split_time_eggs:
         component = egg.split_time_component
         if component is None:
@@ -604,16 +599,7 @@ def build_course_race_logic(
         radius = _number(radius_raw, "Radius", issues)
         extra_time = _number(extra_time_raw, "ExtraTime", issues)
         center = _matrix_position(egg, issues)
-        center_evidence = [CONFIRMED_BY_EXECUTABLE]
-        radius_evidence = [CONFIRMED_BY_EXECUTABLE]
-        if split_id is not None:
-            center_evidence.append(INFERRED_FROM_SHARED_COMPONENT_STRUCTURE)
-        if identity_is_france and split_id == 0:
-            center_evidence.extend((CONFIRMED_BY_RUNTIME_EDIT, CONFIRMED_BY_DEBUGGER))
-            radius_evidence.append(CONFIRMED_BY_RUNTIME_EDIT)
-        companions = _exact_visual_companions(
-            document, egg, directly_tested=identity_is_france and split_id == 0
-        )
+        companions = _exact_visual_companions(document, egg)
         splits.append(CourseSplitTime(
             split_id=split_id,
             split_id_raw=split_id_raw,
@@ -627,9 +613,10 @@ def build_course_race_logic(
             source_egg=egg,
             source_component=component,
             companions=companions,
-            evidence_center=tuple(dict.fromkeys(center_evidence)),
-            evidence_radius=tuple(dict.fromkeys(radius_evidence)),
-            evidence_companions=(CONFIRMED_BY_RUNTIME_EDIT,) if identity_is_france and split_id == 0 else (SUPPORTED_BY_SHARED_STRUCTURE,),
+            center_rule_evidence=(CONFIRMED_BY_EXECUTABLE, SUPPORTED_BY_SHARED_STRUCTURE),
+            radius_rule_evidence=(CONFIRMED_BY_EXECUTABLE, SUPPORTED_BY_SHARED_STRUCTURE),
+            companions_rule_evidence=(SUPPORTED_BY_SHARED_STRUCTURE,),
+            record_evidence=(),
             issues=tuple(issues),
         ))
 
@@ -738,7 +725,7 @@ def load_course_project(
     if resources.race_test_xml is not None:
         try:
             document = parse_course_xml(resources.race_test_xml)
-            race_logic = build_course_race_logic(document, course_identity=resources.identity)
+            race_logic = build_course_race_logic(document)
             diagnostics.extend(race_logic.diagnostics)
         except Exception as error:
             diagnostics.append(f"RaceTest XML parse failed ({resources.race_test_xml}): {error}")

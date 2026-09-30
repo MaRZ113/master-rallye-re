@@ -41,6 +41,11 @@ def _source_vector(value):
     return None if value is None else list(value)
 
 
+def _set_evidence_metadata(obj, semantic_rule_evidence, record_evidence=()):
+    obj["mr_semantic_rule_evidence"] = "; ".join(semantic_rule_evidence)
+    obj["mr_record_evidence_json"] = json.dumps(list(record_evidence), ensure_ascii=False)
+
+
 def _set_marker_metadata(obj, source, course_name, marker):
     obj["mr_resource_kind"] = "course"
     obj["mr_read_only"] = True
@@ -79,7 +84,10 @@ def _set_marker_metadata(obj, source, course_name, marker):
     )
 
 
-def _create_marker_point(collection, source, course_name, marker, area_kind=None):
+def _create_marker_point(
+    collection, source, course_name, marker, area_kind=None,
+    semantic_rule_evidence=(), record_evidence=(),
+):
     label = marker.marker_type or "unknown"
     list_name = marker.marker_list_name or "Unlisted"
     obj = bpy.data.objects.new(
@@ -91,14 +99,14 @@ def _create_marker_point(collection, source, course_name, marker, area_kind=None
     obj.show_in_front = True
     obj.location = position_to_blender(marker.position)
     _set_marker_metadata(obj, source, course_name, marker)
-    if area_kind == "StartArea":
-        obj["mr_evidence_status"] = "CONFIRMED_BY_RUNTIME_EDIT: StartArea geometry moves, rotates, and scales the physical grid and headings"
-    elif area_kind == "FinishArea":
-        obj["mr_evidence_status"] = "CONFIRMED_BY_RUNTIME_EDIT: FinishArea contributes to the race-completion trigger region"
+    _set_evidence_metadata(obj, semantic_rule_evidence, record_evidence)
     return obj
 
 
-def _create_area_outline(collection, source, course_name, marker_list, semantic_role, evidence):
+def _create_area_outline(
+    collection, source, course_name, marker_list, semantic_role,
+    semantic_rule_evidence, record_evidence,
+):
     markers = [item for item in marker_list.markers if item.position is not None]
     if len(markers) < 2:
         return None
@@ -128,7 +136,7 @@ def _create_area_outline(collection, source, course_name, marker_list, semantic_
     obj["mr_source_marker_order"] = [marker.index_in_list for marker in markers]
     obj["mr_outline_only"] = True
     obj["mr_filled_area_created"] = False
-    obj["mr_evidence_status"] = evidence
+    _set_evidence_metadata(obj, semantic_rule_evidence, record_evidence)
     obj["mr_semantics_limit"] = "Source-order outline only; no per-car interpolation or sole-subsystem claim"
     return obj
 
@@ -256,11 +264,12 @@ def _create_split_visual(collection, source, course_name, split):
     obj["mr_source_egg_metadata_json"] = json.dumps(
         _source_egg_metadata(egg), ensure_ascii=False, separators=(",", ":")
     )
-    obj["mr_visual_position_evidence"] = "; ".join(split.evidence_center)
+    obj["mr_visual_position_rule_evidence"] = "; ".join(split.center_rule_evidence)
     obj["mr_gameplay_center_source"] = "same en3d Matrix Row3 as visual sign"
-    obj["mr_trigger_position_status"] = "; ".join(split.evidence_center)
+    obj["mr_center_rule_evidence"] = "; ".join(split.center_rule_evidence)
     obj["mr_trigger_shape"] = split.trigger_shape
-    obj["mr_radius_evidence"] = "; ".join(split.evidence_radius)
+    obj["mr_radius_rule_evidence"] = "; ".join(split.radius_rule_evidence)
+    _set_evidence_metadata(obj, split.center_rule_evidence, split.record_evidence)
     obj["mr_extra_time_semantics"] = split.extra_time_semantics
     obj["mr_source_component_xml_path"] = split.source_component.xml_path
     obj["mr_icon_status"] = "procedural helper icon; not a game asset or exact render reproduction"
@@ -315,9 +324,9 @@ def _create_split_trigger(collection, source, course_name, split):
     obj["mr_trigger_center_source_xyz"] = list(split.center)
     obj["mr_source_xml_path"] = split.egg_xml_path
     obj["mr_component_xml_path"] = split.source_component.xml_path
-    obj["mr_center_evidence"] = "; ".join(split.evidence_center)
-    obj["mr_radius_evidence"] = "; ".join(split.evidence_radius)
-    obj["mr_evidence_status"] = "; ".join(dict.fromkeys((*split.evidence_center, *split.evidence_radius)))
+    obj["mr_center_rule_evidence"] = "; ".join(split.center_rule_evidence)
+    obj["mr_radius_rule_evidence"] = "; ".join(split.radius_rule_evidence)
+    _set_evidence_metadata(obj, split.center_rule_evidence, split.record_evidence)
     obj["mr_coordinate_space_note"] = "center converted with canonical course source-to-Blender transform; radius unchanged"
     return obj
 
@@ -342,7 +351,7 @@ def _create_visual_companion(collection, source, course_name, companion):
     obj["mr_egg_name"] = egg.name or ""
     obj["mr_model_name"] = egg.model_name or ""
     obj["mr_source_position_xyz"] = list(companion.position)
-    obj["mr_evidence_status"] = "; ".join(companion.evidence)
+    _set_evidence_metadata(obj, companion.semantic_rule_evidence, companion.record_evidence)
     obj["mr_is_trigger_center_source"] = False
     obj["mr_semantic_role"] = "visual checkpoint object; no trigger-center meaning assigned"
     obj["mr_source_egg_metadata_json"] = json.dumps(_source_egg_metadata(egg), ensure_ascii=False, separators=(",", ":"))
@@ -439,7 +448,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 group["mr_source_list_ordinal"] = marker_list.ordinal
                 group["mr_marker_count"] = len(marker_list.markers)
                 if semantic_area is not None:
-                    group["mr_evidence_status"] = "; ".join(semantic_area.evidence)
+                    _set_evidence_metadata(group, semantic_area.semantic_rule_evidence, semantic_area.record_evidence)
                     group["mr_semantics"] = semantic_area.semantic_role
                     group["mr_centroid_xyz"] = list(semantic_area.centroid) if semantic_area.centroid else []
                     group["mr_local_xz_bounds"] = list(semantic_area.local_xz_bounds) if semantic_area.local_xz_bounds else []
@@ -449,16 +458,24 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 for marker in marker_list.markers:
                     if marker.position is None:
                         continue
-                    _create_marker_point(group, source_path, source.stem, marker, kind)
+                    _create_marker_point(
+                        group,
+                        source_path,
+                        source.stem,
+                        marker,
+                        kind,
+                        semantic_area.semantic_rule_evidence if semantic_area is not None else (),
+                        semantic_area.record_evidence if semantic_area is not None else (),
+                    )
                 if kind == "StartArea":
                     _create_area_outline(
                         group, source_path, source.stem, marker_list, semantic_area.semantic_role,
-                        "CONFIRMED_BY_RUNTIME_EDIT: rigid translation/rotation/scale of the four points moves, rotates, and expands the physical grid",
+                        semantic_area.semantic_rule_evidence, semantic_area.record_evidence,
                     )
                 elif kind == "FinishArea":
                     _create_area_outline(
                         group, source_path, source.stem, marker_list, semantic_area.semantic_role,
-                        "CONFIRMED_BY_RUNTIME_EDIT: uniform expansion advances race completion; sole finish subsystem UNKNOWN",
+                        semantic_area.semantic_rule_evidence, semantic_area.record_evidence,
                     )
 
             eggs_root = create_collection("EggLists_Version4", logic)
@@ -477,8 +494,10 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 split_collection["mr_semantic_model"] = "master_rallye.course_sdk.CourseSplitTime"
                 split_collection["mr_center_source"] = "en3d Matrix Row3"
                 split_collection["mr_trigger_shape"] = split.trigger_shape
-                split_collection["mr_center_evidence"] = "; ".join(split.evidence_center)
-                split_collection["mr_radius_evidence"] = "; ".join(split.evidence_radius)
+                split_collection["mr_center_rule_evidence"] = "; ".join(split.center_rule_evidence)
+                split_collection["mr_radius_rule_evidence"] = "; ".join(split.radius_rule_evidence)
+                split_collection["mr_companions_rule_evidence"] = "; ".join(split.companions_rule_evidence)
+                _set_evidence_metadata(split_collection, split.center_rule_evidence, split.record_evidence)
                 split_collection["mr_extra_time_semantics"] = split.extra_time_semantics
                 split_collection["mr_sdk_issues_json"] = json.dumps(list(split.issues), ensure_ascii=False)
 
@@ -488,7 +507,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 companions_collection = create_collection("Visual Checkpoint Objects", split_collection)
                 companions_collection["mr_xml_collection_kind"] = "split_visual_companions"
                 companions_collection["mr_semantic_role"] = "visual checkpoint objects; not trigger-center sources"
-                companions_collection["mr_evidence_status"] = "; ".join(split.evidence_companions)
+                _set_evidence_metadata(companions_collection, split.companions_rule_evidence)
                 for companion in split.companions:
                     _create_visual_companion(companions_collection, source_path, source.stem, companion)
 

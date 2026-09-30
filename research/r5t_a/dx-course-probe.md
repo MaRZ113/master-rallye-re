@@ -6,7 +6,7 @@ The current vehicle parser was run unchanged against every retail `DataGx/Course
 - Shared common-prefix success: **36**
 - Current vehicle-parser status: **{'unsupported': 36}**
 - Course-parser status: **{'parsed': 36}**
-- Every course parse requires complete, disjoint local-index and vertex-range coverage; course tails are handed to the existing collision-section boundary reader.
+- Every course parse requires complete, disjoint local-index and vertex-range coverage; course tails are handed to the shared optional-section boundary reader.
 
 | Resource | Revision | Vertices | Local triangles | Vehicle parser | First divergence | Course parser | Draws |
 |---|---:|---:|---:|---|---|---|---:|

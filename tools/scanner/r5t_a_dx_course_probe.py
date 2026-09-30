@@ -185,7 +185,7 @@ def markdown_report(report: dict[str, Any]) -> str:
         f"- Shared common-prefix success: **{sum(item['common_prefix']['status'] == 'parsed' for item in records)}**",
         f"- Current vehicle-parser status: **{dict(vehicle_status)}**",
         f"- Course-parser status: **{dict(course_status)}**",
-        "- Every course parse requires complete, disjoint local-index and vertex-range coverage; course tails are handed to the existing collision-section boundary reader.",
+        "- Every course parse requires complete, disjoint local-index and vertex-range coverage; course tails are handed to the shared optional-section boundary reader.",
         "",
         "| Resource | Revision | Vertices | Local triangles | Vehicle parser | First divergence | Course parser | Draws |",
         "|---|---:|---:|---:|---|---|---|---:|",

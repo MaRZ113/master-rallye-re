@@ -262,7 +262,7 @@ def parse_course_dx_bytes(
         if warning != "stored global index table is absent"
     ]
     diagnostics.warnings.append(
-        "course draw batches parsed; trailing course/BSP payload remains separately classified"
+        "course draw batches parsed; trailing course/tag100 payload remains separately classified"
     )
 
     trailing = _classify_trailing(data, offset, prefix.vertices.positions)
