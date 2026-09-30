@@ -1,10 +1,11 @@
 # R5T-F.0 — France1 named source geometry
 
-**Status: STATIC_COMPLETE / MANUAL_COOKER_RUNS_REQUIRED.** The source topology,
-spatial measurements, exclusive ownership, and one controlled source-copy
-mutation are validated. The original Demo 9.10.0 runtime is available only as
-a manually selected cook path; no course cook or gameplay result is claimed in
-this closeout.
+**Status: STATIC_COMPLETE / SIX COLD COOKS VALIDATED; GAMEPLAY OBSERVATION
+PENDING.** The source topology, spatial measurements, exclusive ownership, one
+controlled source-copy mutation, and its repeated compiled response are
+validated. The original Demo 9.10.0 runtime cooked the isolated baseline and
+modified copies three times each. No in-game visual or physical response to
+the mesh mutation is claimed yet.
 
 ## Inputs and coordinate spaces
 
@@ -93,18 +94,38 @@ distinct from the Retail XML used for the spatial report. The cook script
 removes generated DX/DXT caches only inside these two new clones.
 
 Staging removed 67 generated files per clone (one course DX and 66 DXT files);
-both course folders now begin with zero DX/DXT outputs. The unchanged seed
-runtime remains separate.
+the six captured cold cooks are under ignored `research-output/`. The stage
+manifest inventories 106 source inputs per cohort and shows exactly one
+input-hash difference: `France1.gxm`. The runtime executable, course TXT, and
+RaceTest XML hashes match. The unchanged seed runtime remains separate.
 
-No snapshots exist yet. Revision-135 DX parse coverage, repeated tag100
-stability, stable baseline/modified tag100 differences, and decoded render
-response are **PENDING**. Do not treat the stage as cooked. Follow
-[`runtime-probe-handoff.md`](runtime-probe-handoff.md) and
-`research-output/r5t_f0/cooker-lab/COOK-INSTRUCTIONS.md` to make three cold
-cooks per cohort with the original runtime. After the final `compare` passes,
-the last cooked runtime in each cohort is kept for the separate human
-observation. No mesh semantics, tag100 semantics, or physical role are
-confirmed by this static phase.
+`python tools\\r5t_f0_cooker_runs.py compare` now validates all six revision-135
+DX snapshots. `tag100` is byte-identical within each three-run cohort:
+
+| Cohort | Tag size | SHA-256 | Repeatability |
+|---|---:|---|---|
+| Baseline | 10,118,248 | `9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7` | 3/3 identical |
+| Modified | 10,114,844 | `e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07` | 3/3 identical |
+
+The baseline and modified `tag100` payloads differ. Their common prefix is
+10,114,844 bytes, with 3,294,483 byte positions changed across 412,277
+same-offset ranges; the baseline has a further 3,404-byte tail. The longest
+same-offset range is 327 bytes. Since the sizes differ, a whole-payload
+`changed_bytes` total is undefined. These are offset-wise byte statistics, not
+record alignment or semantic decoding. The stable 3+3 cohort result supports
+**CONFIRMED_BY_SOURCE_COMPILED_PAIR** for this GXM mutation changing trailing
+`tag100`; the structure's physical meaning remains **UNKNOWN**.
+
+Full DX outputs are not byte-identical within either cohort, so render-prefix
+variation remains present and is not attributed to the source edit. The
+run-01 decoded-render proximity check found 184 vertices in the old expanded
+target bounds for both baseline and modified output, and none in the moved
+bounds (nearest modified vertex: 11.7855 units from the moved bounds center).
+This is a bounded spatial observation, not proof that the source mesh is or is
+not rendered or physical. The separate in-game comparison remains pending;
+use the retained run-03 runtime copies and the focused checklist in
+[`runtime-probe-handoff.md`](runtime-probe-handoff.md). Do not infer mesh
+semantics or tag100 physical role from the stable byte change alone.
 
 ## Blender diagnostic
 
@@ -131,21 +152,28 @@ developer diagnostic, not add-on UI work.
   exist in their respective local source files.
 - **CONFIRMED_BY_RUNTIME_EDIT:** StartArea and FinishArea roles from earlier
   controlled RaceTest edits; no runtime claim about these source meshes follows.
+- **CONFIRMED_BY_SOURCE_COMPILED_PAIR:** the isolated +20 source-X mutation
+  for `COLLIDE_finishline03` changes trailing `tag100` reproducibly across
+  three baseline and three modified cooks.
 - **STRONG_SPATIAL_CORRELATION:** the two quantitative mesh-pair comparisons.
 - **UNKNOWN / NOT PROVEN:** visual rendering, physical interaction, race logic,
-  collision role, and any relationship to trailing DX `tag100`.
+  the semantic interpretation of the changed `tag100` bytes, and any collision
+  or physical role for either the source mesh or `tag100`.
 
 ## Validation
 
-- `python -m unittest discover -s tests\synthetic -p "test_*.py" -v` — 180
+- `python -m unittest discover -s tests\synthetic -p "test_*.py" -v` — 184
   passed, 0 failed, 0 skipped.
 - `python -m compileall -q src tools tests\synthetic tests\blender` — passed.
 - `git diff --check` — passed.
+- `python tools\r5t_f0_cooker_runs.py compare` — six revision-135 DX
+  snapshots validated; 3+3 tag100 repeatability and stable cohort difference
+  confirmed. Differential report: `cook-differential.json`.
 - Blender 5.2.2 named-source overlay smoke — passed; 4 mesh objects and both
   four-marker areas present.
 - Blender add-on install smoke — passed. Blender emitted a non-fatal denied
   attempt to write its global extension compatibility cache; installation and
   operator registration completed from the isolated profile.
 - Retail Italy1/France1 course import smoke — passed with the counts above.
-- Correlation report, source-probe manifest, cooker-stage manifest, and
-  Blender smoke reports all parse as JSON.
+- Correlation report, source-probe manifest, cooker-stage manifest, six cook
+  snapshots, differential report, and Blender smoke reports parse as JSON.

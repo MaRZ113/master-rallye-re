@@ -251,7 +251,13 @@ physical collision meaning, and any `moMesh -> tag100` relationship remain
 Position ownership is exclusive for all 14 positions in each mesh. One
 hash-pinned research copy moves only `COLLIDE_finishline03` by source X +20.0;
 its source topology, non-target positions, node table, and attribute banks are
-unchanged. The mutation is prepared but has not yet been cooked or runtime
-tested. It is not a general GXM writer. The one-probe boundary and exact
-human-observation checklist are in
+unchanged. Three cold cooks per cohort validate a stable change to trailing
+`tag100` when only this source GXM differs. The tag100 payload has unequal
+lengths (10,118,248 baseline; 10,114,844 modified); 3,294,483 same-offset bytes
+differ in their common prefix, with a further 3,404-byte baseline tail.
+Render-prefix bytes vary within cohorts. The in-game visual/physical response
+remains untested, and neither the mesh role nor tag100 physical semantics is
+assigned. The experiment is not a general GXM writer. See
+[`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md) and the focused
+human-observation checklist in
 [`research/r5t_f0/runtime-probe-handoff.md`](../research/r5t_f0/runtime-probe-handoff.md).

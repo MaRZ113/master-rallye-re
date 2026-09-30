@@ -1,0 +1,2596 @@
+{
+  "schema": "r5t-f0-cook-differential-v1",
+  "status": "COOKS_VALIDATED_STABLE_TAG100_DIFFERENCE",
+  "stage": "D:\\Game\\Master Rallye\\master-rallye-re\\research-output\\r5t_f0\\cooker-lab",
+  "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+  "race_test_xml_sha256_unchanged": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+  "run_count_per_cohort": 3,
+  "cohorts": {
+    "baseline": [
+      {
+        "schema": "r5t-f0-cook-snapshot-v1",
+        "run_id": "baseline-01",
+        "cohort": "baseline",
+        "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+        "input_gxm_sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+        "input_txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43",
+        "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+        "generated_files": [
+          {
+            "path": "2dtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "be244ff752b4d411e6a41c0c8992c87a156c167eded5841d57c256597b8a834d"
+          },
+          {
+            "path": "2dtree2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "98cea7ad087535feb2fec3419a80019f1ee300ebdb4d8f8df488ebfc0a57666c"
+          },
+          {
+            "path": "2dtree3-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e74334bdb65d82a177a8b3e5feb7b05d9ae313665e6d8f2567a18b2f11042d2f"
+          },
+          {
+            "path": "bark-tga.dxt",
+            "size_bytes": 16404,
+            "sha256": "e8e39e96864eedb0963f88c20c0f23a53a89018707dcd1a38ce77744243bdd8c"
+          },
+          {
+            "path": "bush01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "62ba4bcfe6170779112d6731ed64ca11724e9f35272ca24c429f79ebfa007f44"
+          },
+          {
+            "path": "ctyre-tga.dxt",
+            "size_bytes": 4116,
+            "sha256": "004bafc0eee9a10f87535bbb03e8b8abb886893ccd0cc3800d0ae41a3386c53b"
+          },
+          {
+            "path": "darkgreen-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "30e94e5486bc54efd9bea605fa17ce197bb4c6bce21e802a316c20365393c12e"
+          },
+          {
+            "path": "dinghy-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526"
+          },
+          {
+            "path": "dirt_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "81366c6570e6f8d20e013b6a812f51dc584a87af5e6f3fde4bc8d34e3774ab9a"
+          },
+          {
+            "path": "dirt_left_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "6c13e6542e515277fc9aca0f8342f683e9d3035f61e11ca6ff8bfa087b649fd7"
+          },
+          {
+            "path": "dirt_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "31a9a469750a597144b530f506b07b7a0793bf4cfb6ea3828b72853c1521e977"
+          },
+          {
+            "path": "dirt_right_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1ab86587197c6b024f0883e88b7f1621858d7d47e6a6c6e23884d8d3a210c0bc"
+          },
+          {
+            "path": "f_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "efb629de7daa44dd89d0d49a7bfab2a4eb5be1a1e2950c2a7e2aafbb2e77765d"
+          },
+          {
+            "path": "f_farmfences-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "15787e8a2000fd89470dc52dc841cce1a4bfdb7d2943cfe1146351402dc2729b"
+          },
+          {
+            "path": "f_grass_2_gravel_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ef5f7587cea56e477629c8bee896e1a11dbbde75eb245b2ac339899a319ca99b"
+          },
+          {
+            "path": "f_grass_2_gravel_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7a043620605c2d2fa6c9ddcc008b71d4db02491124394870e22416151eff324c"
+          },
+          {
+            "path": "f_railmisc1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d78b798cd35454e8f96623ea145266659ecd39b34c0284fdab2f0b3d512a00db"
+          },
+          {
+            "path": "f_retain_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "79f4852c3c9b3197f61cc77c29aad1d5c11118e1a7a617099787935e390a0852"
+          },
+          {
+            "path": "f_roadfill-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a5216109a5f3fea9cf62bd6a4edd34d287fbaf5ef05b7dceebb5cbf56649e7a6"
+          },
+          {
+            "path": "f_wall_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "912bb57ae9f311f3e4fddffe46d0964bfaa1ac81fe0e17c97e7e70d5daa76dc2"
+          },
+          {
+            "path": "fencegate-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "11a7eca38dab50a2616f1e8caedc8234b73ca02541a286028ae49c4c62742d9a"
+          },
+          {
+            "path": "fields-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0d2db602b6d88355f24feed3245e20370a9e2f33eb7d0430a0fa93b43ac6ffb6"
+          },
+          {
+            "path": "france1.dx",
+            "size_bytes": 14782543,
+            "sha256": "f90126c70e4c816c08f30135b6830f261f9e4e1efd11872102abe74964ec68e1"
+          },
+          {
+            "path": "gate01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "321b159a4e620fbd1eddde2dfe5acf278fbb6da06f06642f1665ee8acfc44e7a"
+          },
+          {
+            "path": "grass-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "33f752387342c4ea877fd02d3f5a8de60e8dfa804dd0553e7dbe884c28cc6cac"
+          },
+          {
+            "path": "grass-treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "54520620b801db35dedf8aef21f61adb2d29131d3d77831b5e2c2678986ce134"
+          },
+          {
+            "path": "grass_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5cbac5aa61bae6245e7a3aa92f0b2f935c45cc3860616ea281117f8c75f68695"
+          },
+          {
+            "path": "grass_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "286186602d8bac397fc2a65518476e965de651a7121131c3017e8314fcee5ee2"
+          },
+          {
+            "path": "grass_rock_lft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a7c04eae5b6061b804b257308f19233f83eaa34d3fe956521990589e2d85de66"
+          },
+          {
+            "path": "grass_rock_rht-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "2f4f8b41f5e4cae4a97dc153cc97c183eba71973084e38adf7a41c3bf0efc67d"
+          },
+          {
+            "path": "hedge-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9c57246fe0d1b42bdd60e0cbddfda832641b00c09ccdd120bcd163cc2cb6b9a3"
+          },
+          {
+            "path": "i2a_planks2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "261e661ea7d1a278a1a80b7a89555d57adb9072bac9f4310f51993903d3848a0"
+          },
+          {
+            "path": "log-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7e2247c1d64abaa3f253f2579648b900284c15a8d79e788757d969081bd001d2"
+          },
+          {
+            "path": "logs-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1dc35d4f29b90819daae71fff42c3237c6d45c791c86fcbcbf63195030a0fbd6"
+          },
+          {
+            "path": "marina_alphas-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "997dccd244685f23c402dccdaab9deb57fcb3bf5e49a0417cfae9de4fefabfd6"
+          },
+          {
+            "path": "marina_roof-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3baab2f13dc450c466d000b10bfa5154d1666aeb4e2e1c245a3513f2d8eff4a8"
+          },
+          {
+            "path": "marina_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d576b54180e6ea83dbc0fc3c496d52125abb927263d6c63edba9635c49fe4537"
+          },
+          {
+            "path": "masterlogo-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a2f541443a8230d5a4a81136bb3b558e64ed000336c0c523874a120a330e1161"
+          },
+          {
+            "path": "noise-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c607949316ec3aee8828df8e2ffe91befda9ff7e33b19aad97c4c879851bee91"
+          },
+          {
+            "path": "pavement-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "feb65443efab432ff9bb5e058a66693e6589fe280fd6817d1135d797f45d6a06"
+          },
+          {
+            "path": "pinerowleft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "eb29d6cb4b32ffcff3417c74c02700d20927e2f73eeded82fb418704e3411a92"
+          },
+          {
+            "path": "pinerowright-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e368b4888af7e4da2649a278ac3becb353fd11a84713af6443a4df295834f6bc"
+          },
+          {
+            "path": "pinetree-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "056518a7d4716dd34619f23f0478cc53eb0e4a8a02dbb37265ff19b811db55fb"
+          },
+          {
+            "path": "plane01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "13e25f21cee0d0cf21f3578745fc9596feac711eb117d864c0339cabc965f33b"
+          },
+          {
+            "path": "raillings-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "906294c827a542a5dde96295d853d9c256020732a8fcf72dea71c995ec9bf685"
+          },
+          {
+            "path": "railpylon-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0fb84910d12bc35df720c4004917acc17db29afedb056cfab8bbde367b6799df"
+          },
+          {
+            "path": "road-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8af1d9937af3ea361f8e1bd4e2226dcb4ca6faa6a8c9efc173b4f7d3d373ec4c"
+          },
+          {
+            "path": "road_dirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8b226f652eb3fa1f497a36fefada5c4d7720a70206640367029ea296cd771261"
+          },
+          {
+            "path": "road_dirt_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d167932c73b118e47d3a30b3691009093e7901fe2f6aa9a1c909bc7b0a3b0211"
+          },
+          {
+            "path": "rock-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3e2fcb02a1e8daf6764f6780e2869a16e6ccc94f09d8a08a9d3283116c645bf6"
+          },
+          {
+            "path": "sign01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "4c82dfa34af46ab03fd99b6fb139d63380c4c36cba68343b2ed283069f56f522"
+          },
+          {
+            "path": "singtree01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d022e07af87c4009bbee93e8d12ffbed116f2d30487909e27d76b4bda8d5f147"
+          },
+          {
+            "path": "singtree02-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "aa4a291a04d0a983e98b4b18a36e7ba3a9056a3727564211c3d97d362374f443"
+          },
+          {
+            "path": "sliproad-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5d98c8becc2677fa4cba5009656b3cd8267738d05c09020b7e8d49d56a004f35"
+          },
+          {
+            "path": "sliproadblend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d7aa75350196610ec22f8e59ba9c6a5aea0cb63d8539ca3e2f8fda99b0ea23f5"
+          },
+          {
+            "path": "solidtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "43409b20f416ccd8e1d8ce892dd0ba6bb1e2ea758569c91c9f73f31a98b8ba6c"
+          },
+          {
+            "path": "stublend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ad45889a2b8354cdd78125fb118d497eefe47032aed18011cc877b1f9a661d09"
+          },
+          {
+            "path": "stublend_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8ee31f0fd34f99206ced577559d794e28fe5895340c2a929ea0f39f2a4846e13"
+          },
+          {
+            "path": "stublend_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a33218752feccd7a70bc99a7992f1c708e8b298fce93e0e055595bf816aadb59"
+          },
+          {
+            "path": "tgv_laposte-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a261284c0b58f4663cf705ed855a31db6a498592855475a3def67580a3bcb1a6"
+          },
+          {
+            "path": "traintrack-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "139cefbfee616cc239559304b704be671b5730bb35a6a76f1e4d249c51dc5d13"
+          },
+          {
+            "path": "treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9824e3070456853e61406d2b5e3b41f72a72b97695f27f94148cf2f1693ef785"
+          },
+          {
+            "path": "treerow-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "87beac4219a7d8bfb9d0f9a6b727a313a707d6ec893a1ee94d72440b64737650"
+          },
+          {
+            "path": "treewall1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "745e89fdba00d4873b1404cf6177e5db383117b2331ecaa273762a839a21af86"
+          },
+          {
+            "path": "treewallend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "f583415c41d5e1b36d611b69c9d589788185343cd7fce2917b92d2bcb982401d"
+          },
+          {
+            "path": "wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "08545bdfa9066517b077866706259336b35826fd59901fbfb38ee8d97cc5ccda"
+          },
+          {
+            "path": "water-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "cb444cd4918b75d5c21ed2df73a3ff294d72e10af4eee1148c3ac371b5f52427"
+          }
+        ],
+        "dx": {
+          "file": "france1.dx",
+          "size_bytes": 14782543,
+          "sha256": "f90126c70e4c816c08f30135b6830f261f9e4e1efd11872102abe74964ec68e1",
+          "revision": 135,
+          "vertex_count": 84534,
+          "triangle_count": 75022,
+          "draw_count": 4611,
+          "render_validated": true,
+          "render_prefix_end": 4664295,
+          "tag100": {
+            "offset": 4664295,
+            "end_offset": 14782543,
+            "size_bytes": 10118248,
+            "sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+            "semantics": "UNKNOWN"
+          }
+        },
+        "revalidated": true
+      },
+      {
+        "schema": "r5t-f0-cook-snapshot-v1",
+        "run_id": "baseline-02",
+        "cohort": "baseline",
+        "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+        "input_gxm_sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+        "input_txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43",
+        "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+        "generated_files": [
+          {
+            "path": "2dtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "be244ff752b4d411e6a41c0c8992c87a156c167eded5841d57c256597b8a834d"
+          },
+          {
+            "path": "2dtree2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "98cea7ad087535feb2fec3419a80019f1ee300ebdb4d8f8df488ebfc0a57666c"
+          },
+          {
+            "path": "2dtree3-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e74334bdb65d82a177a8b3e5feb7b05d9ae313665e6d8f2567a18b2f11042d2f"
+          },
+          {
+            "path": "bark-tga.dxt",
+            "size_bytes": 16404,
+            "sha256": "e8e39e96864eedb0963f88c20c0f23a53a89018707dcd1a38ce77744243bdd8c"
+          },
+          {
+            "path": "bush01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "62ba4bcfe6170779112d6731ed64ca11724e9f35272ca24c429f79ebfa007f44"
+          },
+          {
+            "path": "ctyre-tga.dxt",
+            "size_bytes": 4116,
+            "sha256": "004bafc0eee9a10f87535bbb03e8b8abb886893ccd0cc3800d0ae41a3386c53b"
+          },
+          {
+            "path": "darkgreen-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "30e94e5486bc54efd9bea605fa17ce197bb4c6bce21e802a316c20365393c12e"
+          },
+          {
+            "path": "dinghy-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526"
+          },
+          {
+            "path": "dirt_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "81366c6570e6f8d20e013b6a812f51dc584a87af5e6f3fde4bc8d34e3774ab9a"
+          },
+          {
+            "path": "dirt_left_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "6c13e6542e515277fc9aca0f8342f683e9d3035f61e11ca6ff8bfa087b649fd7"
+          },
+          {
+            "path": "dirt_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "31a9a469750a597144b530f506b07b7a0793bf4cfb6ea3828b72853c1521e977"
+          },
+          {
+            "path": "dirt_right_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1ab86587197c6b024f0883e88b7f1621858d7d47e6a6c6e23884d8d3a210c0bc"
+          },
+          {
+            "path": "f_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "efb629de7daa44dd89d0d49a7bfab2a4eb5be1a1e2950c2a7e2aafbb2e77765d"
+          },
+          {
+            "path": "f_farmfences-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "15787e8a2000fd89470dc52dc841cce1a4bfdb7d2943cfe1146351402dc2729b"
+          },
+          {
+            "path": "f_grass_2_gravel_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ef5f7587cea56e477629c8bee896e1a11dbbde75eb245b2ac339899a319ca99b"
+          },
+          {
+            "path": "f_grass_2_gravel_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7a043620605c2d2fa6c9ddcc008b71d4db02491124394870e22416151eff324c"
+          },
+          {
+            "path": "f_railmisc1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d78b798cd35454e8f96623ea145266659ecd39b34c0284fdab2f0b3d512a00db"
+          },
+          {
+            "path": "f_retain_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "79f4852c3c9b3197f61cc77c29aad1d5c11118e1a7a617099787935e390a0852"
+          },
+          {
+            "path": "f_roadfill-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a5216109a5f3fea9cf62bd6a4edd34d287fbaf5ef05b7dceebb5cbf56649e7a6"
+          },
+          {
+            "path": "f_wall_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "912bb57ae9f311f3e4fddffe46d0964bfaa1ac81fe0e17c97e7e70d5daa76dc2"
+          },
+          {
+            "path": "fencegate-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "11a7eca38dab50a2616f1e8caedc8234b73ca02541a286028ae49c4c62742d9a"
+          },
+          {
+            "path": "fields-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0d2db602b6d88355f24feed3245e20370a9e2f33eb7d0430a0fa93b43ac6ffb6"
+          },
+          {
+            "path": "france1.dx",
+            "size_bytes": 14784656,
+            "sha256": "1eea6ed609ca6dc45068ed4214ea05b00bf29618f6a95565111b59a965773081"
+          },
+          {
+            "path": "gate01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "321b159a4e620fbd1eddde2dfe5acf278fbb6da06f06642f1665ee8acfc44e7a"
+          },
+          {
+            "path": "grass-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "33f752387342c4ea877fd02d3f5a8de60e8dfa804dd0553e7dbe884c28cc6cac"
+          },
+          {
+            "path": "grass-treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "54520620b801db35dedf8aef21f61adb2d29131d3d77831b5e2c2678986ce134"
+          },
+          {
+            "path": "grass_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5cbac5aa61bae6245e7a3aa92f0b2f935c45cc3860616ea281117f8c75f68695"
+          },
+          {
+            "path": "grass_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "286186602d8bac397fc2a65518476e965de651a7121131c3017e8314fcee5ee2"
+          },
+          {
+            "path": "grass_rock_lft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a7c04eae5b6061b804b257308f19233f83eaa34d3fe956521990589e2d85de66"
+          },
+          {
+            "path": "grass_rock_rht-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "2f4f8b41f5e4cae4a97dc153cc97c183eba71973084e38adf7a41c3bf0efc67d"
+          },
+          {
+            "path": "hedge-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9c57246fe0d1b42bdd60e0cbddfda832641b00c09ccdd120bcd163cc2cb6b9a3"
+          },
+          {
+            "path": "i2a_planks2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "261e661ea7d1a278a1a80b7a89555d57adb9072bac9f4310f51993903d3848a0"
+          },
+          {
+            "path": "log-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7e2247c1d64abaa3f253f2579648b900284c15a8d79e788757d969081bd001d2"
+          },
+          {
+            "path": "logs-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1dc35d4f29b90819daae71fff42c3237c6d45c791c86fcbcbf63195030a0fbd6"
+          },
+          {
+            "path": "marina_alphas-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "997dccd244685f23c402dccdaab9deb57fcb3bf5e49a0417cfae9de4fefabfd6"
+          },
+          {
+            "path": "marina_roof-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3baab2f13dc450c466d000b10bfa5154d1666aeb4e2e1c245a3513f2d8eff4a8"
+          },
+          {
+            "path": "marina_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d576b54180e6ea83dbc0fc3c496d52125abb927263d6c63edba9635c49fe4537"
+          },
+          {
+            "path": "masterlogo-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a2f541443a8230d5a4a81136bb3b558e64ed000336c0c523874a120a330e1161"
+          },
+          {
+            "path": "noise-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c607949316ec3aee8828df8e2ffe91befda9ff7e33b19aad97c4c879851bee91"
+          },
+          {
+            "path": "pavement-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "feb65443efab432ff9bb5e058a66693e6589fe280fd6817d1135d797f45d6a06"
+          },
+          {
+            "path": "pinerowleft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "eb29d6cb4b32ffcff3417c74c02700d20927e2f73eeded82fb418704e3411a92"
+          },
+          {
+            "path": "pinerowright-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e368b4888af7e4da2649a278ac3becb353fd11a84713af6443a4df295834f6bc"
+          },
+          {
+            "path": "pinetree-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "056518a7d4716dd34619f23f0478cc53eb0e4a8a02dbb37265ff19b811db55fb"
+          },
+          {
+            "path": "plane01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "13e25f21cee0d0cf21f3578745fc9596feac711eb117d864c0339cabc965f33b"
+          },
+          {
+            "path": "raillings-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "906294c827a542a5dde96295d853d9c256020732a8fcf72dea71c995ec9bf685"
+          },
+          {
+            "path": "railpylon-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0fb84910d12bc35df720c4004917acc17db29afedb056cfab8bbde367b6799df"
+          },
+          {
+            "path": "road-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8af1d9937af3ea361f8e1bd4e2226dcb4ca6faa6a8c9efc173b4f7d3d373ec4c"
+          },
+          {
+            "path": "road_dirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8b226f652eb3fa1f497a36fefada5c4d7720a70206640367029ea296cd771261"
+          },
+          {
+            "path": "road_dirt_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d167932c73b118e47d3a30b3691009093e7901fe2f6aa9a1c909bc7b0a3b0211"
+          },
+          {
+            "path": "rock-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3e2fcb02a1e8daf6764f6780e2869a16e6ccc94f09d8a08a9d3283116c645bf6"
+          },
+          {
+            "path": "sign01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "4c82dfa34af46ab03fd99b6fb139d63380c4c36cba68343b2ed283069f56f522"
+          },
+          {
+            "path": "singtree01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d022e07af87c4009bbee93e8d12ffbed116f2d30487909e27d76b4bda8d5f147"
+          },
+          {
+            "path": "singtree02-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "aa4a291a04d0a983e98b4b18a36e7ba3a9056a3727564211c3d97d362374f443"
+          },
+          {
+            "path": "sliproad-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5d98c8becc2677fa4cba5009656b3cd8267738d05c09020b7e8d49d56a004f35"
+          },
+          {
+            "path": "sliproadblend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d7aa75350196610ec22f8e59ba9c6a5aea0cb63d8539ca3e2f8fda99b0ea23f5"
+          },
+          {
+            "path": "solidtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "43409b20f416ccd8e1d8ce892dd0ba6bb1e2ea758569c91c9f73f31a98b8ba6c"
+          },
+          {
+            "path": "stublend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ad45889a2b8354cdd78125fb118d497eefe47032aed18011cc877b1f9a661d09"
+          },
+          {
+            "path": "stublend_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8ee31f0fd34f99206ced577559d794e28fe5895340c2a929ea0f39f2a4846e13"
+          },
+          {
+            "path": "stublend_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a33218752feccd7a70bc99a7992f1c708e8b298fce93e0e055595bf816aadb59"
+          },
+          {
+            "path": "tgv_laposte-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a261284c0b58f4663cf705ed855a31db6a498592855475a3def67580a3bcb1a6"
+          },
+          {
+            "path": "traintrack-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "139cefbfee616cc239559304b704be671b5730bb35a6a76f1e4d249c51dc5d13"
+          },
+          {
+            "path": "treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9824e3070456853e61406d2b5e3b41f72a72b97695f27f94148cf2f1693ef785"
+          },
+          {
+            "path": "treerow-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "87beac4219a7d8bfb9d0f9a6b727a313a707d6ec893a1ee94d72440b64737650"
+          },
+          {
+            "path": "treewall1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "745e89fdba00d4873b1404cf6177e5db383117b2331ecaa273762a839a21af86"
+          },
+          {
+            "path": "treewallend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "f583415c41d5e1b36d611b69c9d589788185343cd7fce2917b92d2bcb982401d"
+          },
+          {
+            "path": "wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "08545bdfa9066517b077866706259336b35826fd59901fbfb38ee8d97cc5ccda"
+          },
+          {
+            "path": "water-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "cb444cd4918b75d5c21ed2df73a3ff294d72e10af4eee1148c3ac371b5f52427"
+          }
+        ],
+        "dx": {
+          "file": "france1.dx",
+          "size_bytes": 14784656,
+          "sha256": "1eea6ed609ca6dc45068ed4214ea05b00bf29618f6a95565111b59a965773081",
+          "revision": 135,
+          "vertex_count": 84513,
+          "triangle_count": 75003,
+          "draw_count": 4639,
+          "render_validated": true,
+          "render_prefix_end": 4666408,
+          "tag100": {
+            "offset": 4666408,
+            "end_offset": 14784656,
+            "size_bytes": 10118248,
+            "sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+            "semantics": "UNKNOWN"
+          }
+        },
+        "revalidated": true
+      },
+      {
+        "schema": "r5t-f0-cook-snapshot-v1",
+        "run_id": "baseline-03",
+        "cohort": "baseline",
+        "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+        "input_gxm_sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+        "input_txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43",
+        "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+        "generated_files": [
+          {
+            "path": "2dtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "be244ff752b4d411e6a41c0c8992c87a156c167eded5841d57c256597b8a834d"
+          },
+          {
+            "path": "2dtree2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "98cea7ad087535feb2fec3419a80019f1ee300ebdb4d8f8df488ebfc0a57666c"
+          },
+          {
+            "path": "2dtree3-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e74334bdb65d82a177a8b3e5feb7b05d9ae313665e6d8f2567a18b2f11042d2f"
+          },
+          {
+            "path": "bark-tga.dxt",
+            "size_bytes": 16404,
+            "sha256": "e8e39e96864eedb0963f88c20c0f23a53a89018707dcd1a38ce77744243bdd8c"
+          },
+          {
+            "path": "bush01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "62ba4bcfe6170779112d6731ed64ca11724e9f35272ca24c429f79ebfa007f44"
+          },
+          {
+            "path": "ctyre-tga.dxt",
+            "size_bytes": 4116,
+            "sha256": "004bafc0eee9a10f87535bbb03e8b8abb886893ccd0cc3800d0ae41a3386c53b"
+          },
+          {
+            "path": "darkgreen-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "30e94e5486bc54efd9bea605fa17ce197bb4c6bce21e802a316c20365393c12e"
+          },
+          {
+            "path": "dinghy-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526"
+          },
+          {
+            "path": "dirt_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "81366c6570e6f8d20e013b6a812f51dc584a87af5e6f3fde4bc8d34e3774ab9a"
+          },
+          {
+            "path": "dirt_left_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "6c13e6542e515277fc9aca0f8342f683e9d3035f61e11ca6ff8bfa087b649fd7"
+          },
+          {
+            "path": "dirt_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "31a9a469750a597144b530f506b07b7a0793bf4cfb6ea3828b72853c1521e977"
+          },
+          {
+            "path": "dirt_right_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1ab86587197c6b024f0883e88b7f1621858d7d47e6a6c6e23884d8d3a210c0bc"
+          },
+          {
+            "path": "f_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "efb629de7daa44dd89d0d49a7bfab2a4eb5be1a1e2950c2a7e2aafbb2e77765d"
+          },
+          {
+            "path": "f_farmfences-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "15787e8a2000fd89470dc52dc841cce1a4bfdb7d2943cfe1146351402dc2729b"
+          },
+          {
+            "path": "f_grass_2_gravel_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ef5f7587cea56e477629c8bee896e1a11dbbde75eb245b2ac339899a319ca99b"
+          },
+          {
+            "path": "f_grass_2_gravel_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7a043620605c2d2fa6c9ddcc008b71d4db02491124394870e22416151eff324c"
+          },
+          {
+            "path": "f_railmisc1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d78b798cd35454e8f96623ea145266659ecd39b34c0284fdab2f0b3d512a00db"
+          },
+          {
+            "path": "f_retain_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "79f4852c3c9b3197f61cc77c29aad1d5c11118e1a7a617099787935e390a0852"
+          },
+          {
+            "path": "f_roadfill-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a5216109a5f3fea9cf62bd6a4edd34d287fbaf5ef05b7dceebb5cbf56649e7a6"
+          },
+          {
+            "path": "f_wall_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "912bb57ae9f311f3e4fddffe46d0964bfaa1ac81fe0e17c97e7e70d5daa76dc2"
+          },
+          {
+            "path": "fencegate-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "11a7eca38dab50a2616f1e8caedc8234b73ca02541a286028ae49c4c62742d9a"
+          },
+          {
+            "path": "fields-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0d2db602b6d88355f24feed3245e20370a9e2f33eb7d0430a0fa93b43ac6ffb6"
+          },
+          {
+            "path": "france1.dx",
+            "size_bytes": 14795948,
+            "sha256": "b7820fe13c5ef7eb53593bcee4e54943cf97780244b47f6fe7cb549d5c5ee7f2"
+          },
+          {
+            "path": "gate01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "321b159a4e620fbd1eddde2dfe5acf278fbb6da06f06642f1665ee8acfc44e7a"
+          },
+          {
+            "path": "grass-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "33f752387342c4ea877fd02d3f5a8de60e8dfa804dd0553e7dbe884c28cc6cac"
+          },
+          {
+            "path": "grass-treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "54520620b801db35dedf8aef21f61adb2d29131d3d77831b5e2c2678986ce134"
+          },
+          {
+            "path": "grass_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5cbac5aa61bae6245e7a3aa92f0b2f935c45cc3860616ea281117f8c75f68695"
+          },
+          {
+            "path": "grass_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "286186602d8bac397fc2a65518476e965de651a7121131c3017e8314fcee5ee2"
+          },
+          {
+            "path": "grass_rock_lft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a7c04eae5b6061b804b257308f19233f83eaa34d3fe956521990589e2d85de66"
+          },
+          {
+            "path": "grass_rock_rht-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "2f4f8b41f5e4cae4a97dc153cc97c183eba71973084e38adf7a41c3bf0efc67d"
+          },
+          {
+            "path": "hedge-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9c57246fe0d1b42bdd60e0cbddfda832641b00c09ccdd120bcd163cc2cb6b9a3"
+          },
+          {
+            "path": "i2a_planks2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "261e661ea7d1a278a1a80b7a89555d57adb9072bac9f4310f51993903d3848a0"
+          },
+          {
+            "path": "log-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7e2247c1d64abaa3f253f2579648b900284c15a8d79e788757d969081bd001d2"
+          },
+          {
+            "path": "logs-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1dc35d4f29b90819daae71fff42c3237c6d45c791c86fcbcbf63195030a0fbd6"
+          },
+          {
+            "path": "marina_alphas-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "997dccd244685f23c402dccdaab9deb57fcb3bf5e49a0417cfae9de4fefabfd6"
+          },
+          {
+            "path": "marina_roof-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3baab2f13dc450c466d000b10bfa5154d1666aeb4e2e1c245a3513f2d8eff4a8"
+          },
+          {
+            "path": "marina_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d576b54180e6ea83dbc0fc3c496d52125abb927263d6c63edba9635c49fe4537"
+          },
+          {
+            "path": "masterlogo-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a2f541443a8230d5a4a81136bb3b558e64ed000336c0c523874a120a330e1161"
+          },
+          {
+            "path": "noise-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c607949316ec3aee8828df8e2ffe91befda9ff7e33b19aad97c4c879851bee91"
+          },
+          {
+            "path": "pavement-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "feb65443efab432ff9bb5e058a66693e6589fe280fd6817d1135d797f45d6a06"
+          },
+          {
+            "path": "pinerowleft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "eb29d6cb4b32ffcff3417c74c02700d20927e2f73eeded82fb418704e3411a92"
+          },
+          {
+            "path": "pinerowright-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e368b4888af7e4da2649a278ac3becb353fd11a84713af6443a4df295834f6bc"
+          },
+          {
+            "path": "pinetree-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "056518a7d4716dd34619f23f0478cc53eb0e4a8a02dbb37265ff19b811db55fb"
+          },
+          {
+            "path": "plane01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "13e25f21cee0d0cf21f3578745fc9596feac711eb117d864c0339cabc965f33b"
+          },
+          {
+            "path": "raillings-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "906294c827a542a5dde96295d853d9c256020732a8fcf72dea71c995ec9bf685"
+          },
+          {
+            "path": "railpylon-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0fb84910d12bc35df720c4004917acc17db29afedb056cfab8bbde367b6799df"
+          },
+          {
+            "path": "road-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8af1d9937af3ea361f8e1bd4e2226dcb4ca6faa6a8c9efc173b4f7d3d373ec4c"
+          },
+          {
+            "path": "road_dirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8b226f652eb3fa1f497a36fefada5c4d7720a70206640367029ea296cd771261"
+          },
+          {
+            "path": "road_dirt_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d167932c73b118e47d3a30b3691009093e7901fe2f6aa9a1c909bc7b0a3b0211"
+          },
+          {
+            "path": "rock-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3e2fcb02a1e8daf6764f6780e2869a16e6ccc94f09d8a08a9d3283116c645bf6"
+          },
+          {
+            "path": "sign01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "4c82dfa34af46ab03fd99b6fb139d63380c4c36cba68343b2ed283069f56f522"
+          },
+          {
+            "path": "singtree01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d022e07af87c4009bbee93e8d12ffbed116f2d30487909e27d76b4bda8d5f147"
+          },
+          {
+            "path": "singtree02-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "aa4a291a04d0a983e98b4b18a36e7ba3a9056a3727564211c3d97d362374f443"
+          },
+          {
+            "path": "sliproad-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5d98c8becc2677fa4cba5009656b3cd8267738d05c09020b7e8d49d56a004f35"
+          },
+          {
+            "path": "sliproadblend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d7aa75350196610ec22f8e59ba9c6a5aea0cb63d8539ca3e2f8fda99b0ea23f5"
+          },
+          {
+            "path": "solidtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "43409b20f416ccd8e1d8ce892dd0ba6bb1e2ea758569c91c9f73f31a98b8ba6c"
+          },
+          {
+            "path": "stublend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ad45889a2b8354cdd78125fb118d497eefe47032aed18011cc877b1f9a661d09"
+          },
+          {
+            "path": "stublend_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8ee31f0fd34f99206ced577559d794e28fe5895340c2a929ea0f39f2a4846e13"
+          },
+          {
+            "path": "stublend_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a33218752feccd7a70bc99a7992f1c708e8b298fce93e0e055595bf816aadb59"
+          },
+          {
+            "path": "tgv_laposte-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a261284c0b58f4663cf705ed855a31db6a498592855475a3def67580a3bcb1a6"
+          },
+          {
+            "path": "traintrack-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "139cefbfee616cc239559304b704be671b5730bb35a6a76f1e4d249c51dc5d13"
+          },
+          {
+            "path": "treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9824e3070456853e61406d2b5e3b41f72a72b97695f27f94148cf2f1693ef785"
+          },
+          {
+            "path": "treerow-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "87beac4219a7d8bfb9d0f9a6b727a313a707d6ec893a1ee94d72440b64737650"
+          },
+          {
+            "path": "treewall1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "745e89fdba00d4873b1404cf6177e5db383117b2331ecaa273762a839a21af86"
+          },
+          {
+            "path": "treewallend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "f583415c41d5e1b36d611b69c9d589788185343cd7fce2917b92d2bcb982401d"
+          },
+          {
+            "path": "wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "08545bdfa9066517b077866706259336b35826fd59901fbfb38ee8d97cc5ccda"
+          },
+          {
+            "path": "water-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "cb444cd4918b75d5c21ed2df73a3ff294d72e10af4eee1148c3ac371b5f52427"
+          }
+        ],
+        "dx": {
+          "file": "france1.dx",
+          "size_bytes": 14795948,
+          "sha256": "b7820fe13c5ef7eb53593bcee4e54943cf97780244b47f6fe7cb549d5c5ee7f2",
+          "revision": 135,
+          "vertex_count": 84774,
+          "triangle_count": 75138,
+          "draw_count": 4629,
+          "render_validated": true,
+          "render_prefix_end": 4677700,
+          "tag100": {
+            "offset": 4677700,
+            "end_offset": 14795948,
+            "size_bytes": 10118248,
+            "sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+            "semantics": "UNKNOWN"
+          }
+        },
+        "revalidated": true
+      }
+    ],
+    "modified": [
+      {
+        "schema": "r5t-f0-cook-snapshot-v1",
+        "run_id": "modified-01",
+        "cohort": "modified",
+        "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+        "input_gxm_sha256": "2e93f6291f9b5e4b0606b218e42f7926a7d4f0d37a1eb76f359d9ccbff4dc2a2",
+        "input_txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43",
+        "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+        "generated_files": [
+          {
+            "path": "2dtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "be244ff752b4d411e6a41c0c8992c87a156c167eded5841d57c256597b8a834d"
+          },
+          {
+            "path": "2dtree2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "98cea7ad087535feb2fec3419a80019f1ee300ebdb4d8f8df488ebfc0a57666c"
+          },
+          {
+            "path": "2dtree3-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e74334bdb65d82a177a8b3e5feb7b05d9ae313665e6d8f2567a18b2f11042d2f"
+          },
+          {
+            "path": "bark-tga.dxt",
+            "size_bytes": 16404,
+            "sha256": "e8e39e96864eedb0963f88c20c0f23a53a89018707dcd1a38ce77744243bdd8c"
+          },
+          {
+            "path": "bush01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "62ba4bcfe6170779112d6731ed64ca11724e9f35272ca24c429f79ebfa007f44"
+          },
+          {
+            "path": "ctyre-tga.dxt",
+            "size_bytes": 4116,
+            "sha256": "004bafc0eee9a10f87535bbb03e8b8abb886893ccd0cc3800d0ae41a3386c53b"
+          },
+          {
+            "path": "darkgreen-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "30e94e5486bc54efd9bea605fa17ce197bb4c6bce21e802a316c20365393c12e"
+          },
+          {
+            "path": "dinghy-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526"
+          },
+          {
+            "path": "dirt_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "81366c6570e6f8d20e013b6a812f51dc584a87af5e6f3fde4bc8d34e3774ab9a"
+          },
+          {
+            "path": "dirt_left_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "6c13e6542e515277fc9aca0f8342f683e9d3035f61e11ca6ff8bfa087b649fd7"
+          },
+          {
+            "path": "dirt_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "31a9a469750a597144b530f506b07b7a0793bf4cfb6ea3828b72853c1521e977"
+          },
+          {
+            "path": "dirt_right_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1ab86587197c6b024f0883e88b7f1621858d7d47e6a6c6e23884d8d3a210c0bc"
+          },
+          {
+            "path": "f_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "efb629de7daa44dd89d0d49a7bfab2a4eb5be1a1e2950c2a7e2aafbb2e77765d"
+          },
+          {
+            "path": "f_farmfences-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "15787e8a2000fd89470dc52dc841cce1a4bfdb7d2943cfe1146351402dc2729b"
+          },
+          {
+            "path": "f_grass_2_gravel_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ef5f7587cea56e477629c8bee896e1a11dbbde75eb245b2ac339899a319ca99b"
+          },
+          {
+            "path": "f_grass_2_gravel_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7a043620605c2d2fa6c9ddcc008b71d4db02491124394870e22416151eff324c"
+          },
+          {
+            "path": "f_railmisc1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d78b798cd35454e8f96623ea145266659ecd39b34c0284fdab2f0b3d512a00db"
+          },
+          {
+            "path": "f_retain_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "79f4852c3c9b3197f61cc77c29aad1d5c11118e1a7a617099787935e390a0852"
+          },
+          {
+            "path": "f_roadfill-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a5216109a5f3fea9cf62bd6a4edd34d287fbaf5ef05b7dceebb5cbf56649e7a6"
+          },
+          {
+            "path": "f_wall_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "912bb57ae9f311f3e4fddffe46d0964bfaa1ac81fe0e17c97e7e70d5daa76dc2"
+          },
+          {
+            "path": "fencegate-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "11a7eca38dab50a2616f1e8caedc8234b73ca02541a286028ae49c4c62742d9a"
+          },
+          {
+            "path": "fields-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0d2db602b6d88355f24feed3245e20370a9e2f33eb7d0430a0fa93b43ac6ffb6"
+          },
+          {
+            "path": "france1.dx",
+            "size_bytes": 14793902,
+            "sha256": "6e882b0d1d0fe74fe50765217dd822143139b8f32a2ff27d00641ece09f33c60"
+          },
+          {
+            "path": "gate01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "321b159a4e620fbd1eddde2dfe5acf278fbb6da06f06642f1665ee8acfc44e7a"
+          },
+          {
+            "path": "grass-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "33f752387342c4ea877fd02d3f5a8de60e8dfa804dd0553e7dbe884c28cc6cac"
+          },
+          {
+            "path": "grass-treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "54520620b801db35dedf8aef21f61adb2d29131d3d77831b5e2c2678986ce134"
+          },
+          {
+            "path": "grass_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5cbac5aa61bae6245e7a3aa92f0b2f935c45cc3860616ea281117f8c75f68695"
+          },
+          {
+            "path": "grass_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "286186602d8bac397fc2a65518476e965de651a7121131c3017e8314fcee5ee2"
+          },
+          {
+            "path": "grass_rock_lft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a7c04eae5b6061b804b257308f19233f83eaa34d3fe956521990589e2d85de66"
+          },
+          {
+            "path": "grass_rock_rht-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "2f4f8b41f5e4cae4a97dc153cc97c183eba71973084e38adf7a41c3bf0efc67d"
+          },
+          {
+            "path": "hedge-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9c57246fe0d1b42bdd60e0cbddfda832641b00c09ccdd120bcd163cc2cb6b9a3"
+          },
+          {
+            "path": "i2a_planks2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "261e661ea7d1a278a1a80b7a89555d57adb9072bac9f4310f51993903d3848a0"
+          },
+          {
+            "path": "log-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7e2247c1d64abaa3f253f2579648b900284c15a8d79e788757d969081bd001d2"
+          },
+          {
+            "path": "logs-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1dc35d4f29b90819daae71fff42c3237c6d45c791c86fcbcbf63195030a0fbd6"
+          },
+          {
+            "path": "marina_alphas-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "997dccd244685f23c402dccdaab9deb57fcb3bf5e49a0417cfae9de4fefabfd6"
+          },
+          {
+            "path": "marina_roof-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3baab2f13dc450c466d000b10bfa5154d1666aeb4e2e1c245a3513f2d8eff4a8"
+          },
+          {
+            "path": "marina_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d576b54180e6ea83dbc0fc3c496d52125abb927263d6c63edba9635c49fe4537"
+          },
+          {
+            "path": "masterlogo-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a2f541443a8230d5a4a81136bb3b558e64ed000336c0c523874a120a330e1161"
+          },
+          {
+            "path": "noise-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c607949316ec3aee8828df8e2ffe91befda9ff7e33b19aad97c4c879851bee91"
+          },
+          {
+            "path": "pavement-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "feb65443efab432ff9bb5e058a66693e6589fe280fd6817d1135d797f45d6a06"
+          },
+          {
+            "path": "pinerowleft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "eb29d6cb4b32ffcff3417c74c02700d20927e2f73eeded82fb418704e3411a92"
+          },
+          {
+            "path": "pinerowright-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e368b4888af7e4da2649a278ac3becb353fd11a84713af6443a4df295834f6bc"
+          },
+          {
+            "path": "pinetree-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "056518a7d4716dd34619f23f0478cc53eb0e4a8a02dbb37265ff19b811db55fb"
+          },
+          {
+            "path": "plane01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "13e25f21cee0d0cf21f3578745fc9596feac711eb117d864c0339cabc965f33b"
+          },
+          {
+            "path": "raillings-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "906294c827a542a5dde96295d853d9c256020732a8fcf72dea71c995ec9bf685"
+          },
+          {
+            "path": "railpylon-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0fb84910d12bc35df720c4004917acc17db29afedb056cfab8bbde367b6799df"
+          },
+          {
+            "path": "road-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8af1d9937af3ea361f8e1bd4e2226dcb4ca6faa6a8c9efc173b4f7d3d373ec4c"
+          },
+          {
+            "path": "road_dirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8b226f652eb3fa1f497a36fefada5c4d7720a70206640367029ea296cd771261"
+          },
+          {
+            "path": "road_dirt_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d167932c73b118e47d3a30b3691009093e7901fe2f6aa9a1c909bc7b0a3b0211"
+          },
+          {
+            "path": "rock-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3e2fcb02a1e8daf6764f6780e2869a16e6ccc94f09d8a08a9d3283116c645bf6"
+          },
+          {
+            "path": "sign01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "4c82dfa34af46ab03fd99b6fb139d63380c4c36cba68343b2ed283069f56f522"
+          },
+          {
+            "path": "singtree01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d022e07af87c4009bbee93e8d12ffbed116f2d30487909e27d76b4bda8d5f147"
+          },
+          {
+            "path": "singtree02-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "aa4a291a04d0a983e98b4b18a36e7ba3a9056a3727564211c3d97d362374f443"
+          },
+          {
+            "path": "sliproad-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5d98c8becc2677fa4cba5009656b3cd8267738d05c09020b7e8d49d56a004f35"
+          },
+          {
+            "path": "sliproadblend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d7aa75350196610ec22f8e59ba9c6a5aea0cb63d8539ca3e2f8fda99b0ea23f5"
+          },
+          {
+            "path": "solidtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "43409b20f416ccd8e1d8ce892dd0ba6bb1e2ea758569c91c9f73f31a98b8ba6c"
+          },
+          {
+            "path": "stublend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ad45889a2b8354cdd78125fb118d497eefe47032aed18011cc877b1f9a661d09"
+          },
+          {
+            "path": "stublend_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8ee31f0fd34f99206ced577559d794e28fe5895340c2a929ea0f39f2a4846e13"
+          },
+          {
+            "path": "stublend_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a33218752feccd7a70bc99a7992f1c708e8b298fce93e0e055595bf816aadb59"
+          },
+          {
+            "path": "tgv_laposte-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a261284c0b58f4663cf705ed855a31db6a498592855475a3def67580a3bcb1a6"
+          },
+          {
+            "path": "traintrack-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "139cefbfee616cc239559304b704be671b5730bb35a6a76f1e4d249c51dc5d13"
+          },
+          {
+            "path": "treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9824e3070456853e61406d2b5e3b41f72a72b97695f27f94148cf2f1693ef785"
+          },
+          {
+            "path": "treerow-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "87beac4219a7d8bfb9d0f9a6b727a313a707d6ec893a1ee94d72440b64737650"
+          },
+          {
+            "path": "treewall1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "745e89fdba00d4873b1404cf6177e5db383117b2331ecaa273762a839a21af86"
+          },
+          {
+            "path": "treewallend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "f583415c41d5e1b36d611b69c9d589788185343cd7fce2917b92d2bcb982401d"
+          },
+          {
+            "path": "wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "08545bdfa9066517b077866706259336b35826fd59901fbfb38ee8d97cc5ccda"
+          },
+          {
+            "path": "water-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "cb444cd4918b75d5c21ed2df73a3ff294d72e10af4eee1148c3ac371b5f52427"
+          }
+        ],
+        "dx": {
+          "file": "france1.dx",
+          "size_bytes": 14793902,
+          "sha256": "6e882b0d1d0fe74fe50765217dd822143139b8f32a2ff27d00641ece09f33c60",
+          "revision": 135,
+          "vertex_count": 84853,
+          "triangle_count": 75217,
+          "draw_count": 4608,
+          "render_validated": true,
+          "render_prefix_end": 4679058,
+          "tag100": {
+            "offset": 4679058,
+            "end_offset": 14793902,
+            "size_bytes": 10114844,
+            "sha256": "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07",
+            "semantics": "UNKNOWN"
+          }
+        },
+        "revalidated": true
+      },
+      {
+        "schema": "r5t-f0-cook-snapshot-v1",
+        "run_id": "modified-02",
+        "cohort": "modified",
+        "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+        "input_gxm_sha256": "2e93f6291f9b5e4b0606b218e42f7926a7d4f0d37a1eb76f359d9ccbff4dc2a2",
+        "input_txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43",
+        "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+        "generated_files": [
+          {
+            "path": "2dtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "be244ff752b4d411e6a41c0c8992c87a156c167eded5841d57c256597b8a834d"
+          },
+          {
+            "path": "2dtree2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "98cea7ad087535feb2fec3419a80019f1ee300ebdb4d8f8df488ebfc0a57666c"
+          },
+          {
+            "path": "2dtree3-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e74334bdb65d82a177a8b3e5feb7b05d9ae313665e6d8f2567a18b2f11042d2f"
+          },
+          {
+            "path": "bark-tga.dxt",
+            "size_bytes": 16404,
+            "sha256": "e8e39e96864eedb0963f88c20c0f23a53a89018707dcd1a38ce77744243bdd8c"
+          },
+          {
+            "path": "bush01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "62ba4bcfe6170779112d6731ed64ca11724e9f35272ca24c429f79ebfa007f44"
+          },
+          {
+            "path": "ctyre-tga.dxt",
+            "size_bytes": 4116,
+            "sha256": "004bafc0eee9a10f87535bbb03e8b8abb886893ccd0cc3800d0ae41a3386c53b"
+          },
+          {
+            "path": "darkgreen-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "30e94e5486bc54efd9bea605fa17ce197bb4c6bce21e802a316c20365393c12e"
+          },
+          {
+            "path": "dinghy-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526"
+          },
+          {
+            "path": "dirt_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "81366c6570e6f8d20e013b6a812f51dc584a87af5e6f3fde4bc8d34e3774ab9a"
+          },
+          {
+            "path": "dirt_left_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "6c13e6542e515277fc9aca0f8342f683e9d3035f61e11ca6ff8bfa087b649fd7"
+          },
+          {
+            "path": "dirt_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "31a9a469750a597144b530f506b07b7a0793bf4cfb6ea3828b72853c1521e977"
+          },
+          {
+            "path": "dirt_right_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1ab86587197c6b024f0883e88b7f1621858d7d47e6a6c6e23884d8d3a210c0bc"
+          },
+          {
+            "path": "f_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "efb629de7daa44dd89d0d49a7bfab2a4eb5be1a1e2950c2a7e2aafbb2e77765d"
+          },
+          {
+            "path": "f_farmfences-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "15787e8a2000fd89470dc52dc841cce1a4bfdb7d2943cfe1146351402dc2729b"
+          },
+          {
+            "path": "f_grass_2_gravel_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ef5f7587cea56e477629c8bee896e1a11dbbde75eb245b2ac339899a319ca99b"
+          },
+          {
+            "path": "f_grass_2_gravel_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7a043620605c2d2fa6c9ddcc008b71d4db02491124394870e22416151eff324c"
+          },
+          {
+            "path": "f_railmisc1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d78b798cd35454e8f96623ea145266659ecd39b34c0284fdab2f0b3d512a00db"
+          },
+          {
+            "path": "f_retain_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "79f4852c3c9b3197f61cc77c29aad1d5c11118e1a7a617099787935e390a0852"
+          },
+          {
+            "path": "f_roadfill-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a5216109a5f3fea9cf62bd6a4edd34d287fbaf5ef05b7dceebb5cbf56649e7a6"
+          },
+          {
+            "path": "f_wall_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "912bb57ae9f311f3e4fddffe46d0964bfaa1ac81fe0e17c97e7e70d5daa76dc2"
+          },
+          {
+            "path": "fencegate-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "11a7eca38dab50a2616f1e8caedc8234b73ca02541a286028ae49c4c62742d9a"
+          },
+          {
+            "path": "fields-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0d2db602b6d88355f24feed3245e20370a9e2f33eb7d0430a0fa93b43ac6ffb6"
+          },
+          {
+            "path": "france1.dx",
+            "size_bytes": 14800949,
+            "sha256": "c2a122029f2a4715dedaf38930acd07c0ea9bfd3087241cb71b58cd5a52aa9a1"
+          },
+          {
+            "path": "gate01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "321b159a4e620fbd1eddde2dfe5acf278fbb6da06f06642f1665ee8acfc44e7a"
+          },
+          {
+            "path": "grass-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "33f752387342c4ea877fd02d3f5a8de60e8dfa804dd0553e7dbe884c28cc6cac"
+          },
+          {
+            "path": "grass-treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "54520620b801db35dedf8aef21f61adb2d29131d3d77831b5e2c2678986ce134"
+          },
+          {
+            "path": "grass_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5cbac5aa61bae6245e7a3aa92f0b2f935c45cc3860616ea281117f8c75f68695"
+          },
+          {
+            "path": "grass_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "286186602d8bac397fc2a65518476e965de651a7121131c3017e8314fcee5ee2"
+          },
+          {
+            "path": "grass_rock_lft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a7c04eae5b6061b804b257308f19233f83eaa34d3fe956521990589e2d85de66"
+          },
+          {
+            "path": "grass_rock_rht-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "2f4f8b41f5e4cae4a97dc153cc97c183eba71973084e38adf7a41c3bf0efc67d"
+          },
+          {
+            "path": "hedge-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9c57246fe0d1b42bdd60e0cbddfda832641b00c09ccdd120bcd163cc2cb6b9a3"
+          },
+          {
+            "path": "i2a_planks2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "261e661ea7d1a278a1a80b7a89555d57adb9072bac9f4310f51993903d3848a0"
+          },
+          {
+            "path": "log-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7e2247c1d64abaa3f253f2579648b900284c15a8d79e788757d969081bd001d2"
+          },
+          {
+            "path": "logs-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1dc35d4f29b90819daae71fff42c3237c6d45c791c86fcbcbf63195030a0fbd6"
+          },
+          {
+            "path": "marina_alphas-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "997dccd244685f23c402dccdaab9deb57fcb3bf5e49a0417cfae9de4fefabfd6"
+          },
+          {
+            "path": "marina_roof-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3baab2f13dc450c466d000b10bfa5154d1666aeb4e2e1c245a3513f2d8eff4a8"
+          },
+          {
+            "path": "marina_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d576b54180e6ea83dbc0fc3c496d52125abb927263d6c63edba9635c49fe4537"
+          },
+          {
+            "path": "masterlogo-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a2f541443a8230d5a4a81136bb3b558e64ed000336c0c523874a120a330e1161"
+          },
+          {
+            "path": "noise-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c607949316ec3aee8828df8e2ffe91befda9ff7e33b19aad97c4c879851bee91"
+          },
+          {
+            "path": "pavement-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "feb65443efab432ff9bb5e058a66693e6589fe280fd6817d1135d797f45d6a06"
+          },
+          {
+            "path": "pinerowleft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "eb29d6cb4b32ffcff3417c74c02700d20927e2f73eeded82fb418704e3411a92"
+          },
+          {
+            "path": "pinerowright-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e368b4888af7e4da2649a278ac3becb353fd11a84713af6443a4df295834f6bc"
+          },
+          {
+            "path": "pinetree-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "056518a7d4716dd34619f23f0478cc53eb0e4a8a02dbb37265ff19b811db55fb"
+          },
+          {
+            "path": "plane01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "13e25f21cee0d0cf21f3578745fc9596feac711eb117d864c0339cabc965f33b"
+          },
+          {
+            "path": "raillings-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "906294c827a542a5dde96295d853d9c256020732a8fcf72dea71c995ec9bf685"
+          },
+          {
+            "path": "railpylon-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0fb84910d12bc35df720c4004917acc17db29afedb056cfab8bbde367b6799df"
+          },
+          {
+            "path": "road-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8af1d9937af3ea361f8e1bd4e2226dcb4ca6faa6a8c9efc173b4f7d3d373ec4c"
+          },
+          {
+            "path": "road_dirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8b226f652eb3fa1f497a36fefada5c4d7720a70206640367029ea296cd771261"
+          },
+          {
+            "path": "road_dirt_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d167932c73b118e47d3a30b3691009093e7901fe2f6aa9a1c909bc7b0a3b0211"
+          },
+          {
+            "path": "rock-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3e2fcb02a1e8daf6764f6780e2869a16e6ccc94f09d8a08a9d3283116c645bf6"
+          },
+          {
+            "path": "sign01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "4c82dfa34af46ab03fd99b6fb139d63380c4c36cba68343b2ed283069f56f522"
+          },
+          {
+            "path": "singtree01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d022e07af87c4009bbee93e8d12ffbed116f2d30487909e27d76b4bda8d5f147"
+          },
+          {
+            "path": "singtree02-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "aa4a291a04d0a983e98b4b18a36e7ba3a9056a3727564211c3d97d362374f443"
+          },
+          {
+            "path": "sliproad-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5d98c8becc2677fa4cba5009656b3cd8267738d05c09020b7e8d49d56a004f35"
+          },
+          {
+            "path": "sliproadblend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d7aa75350196610ec22f8e59ba9c6a5aea0cb63d8539ca3e2f8fda99b0ea23f5"
+          },
+          {
+            "path": "solidtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "43409b20f416ccd8e1d8ce892dd0ba6bb1e2ea758569c91c9f73f31a98b8ba6c"
+          },
+          {
+            "path": "stublend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ad45889a2b8354cdd78125fb118d497eefe47032aed18011cc877b1f9a661d09"
+          },
+          {
+            "path": "stublend_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8ee31f0fd34f99206ced577559d794e28fe5895340c2a929ea0f39f2a4846e13"
+          },
+          {
+            "path": "stublend_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a33218752feccd7a70bc99a7992f1c708e8b298fce93e0e055595bf816aadb59"
+          },
+          {
+            "path": "tgv_laposte-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a261284c0b58f4663cf705ed855a31db6a498592855475a3def67580a3bcb1a6"
+          },
+          {
+            "path": "traintrack-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "139cefbfee616cc239559304b704be671b5730bb35a6a76f1e4d249c51dc5d13"
+          },
+          {
+            "path": "treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9824e3070456853e61406d2b5e3b41f72a72b97695f27f94148cf2f1693ef785"
+          },
+          {
+            "path": "treerow-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "87beac4219a7d8bfb9d0f9a6b727a313a707d6ec893a1ee94d72440b64737650"
+          },
+          {
+            "path": "treewall1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "745e89fdba00d4873b1404cf6177e5db383117b2331ecaa273762a839a21af86"
+          },
+          {
+            "path": "treewallend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "f583415c41d5e1b36d611b69c9d589788185343cd7fce2917b92d2bcb982401d"
+          },
+          {
+            "path": "wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "08545bdfa9066517b077866706259336b35826fd59901fbfb38ee8d97cc5ccda"
+          },
+          {
+            "path": "water-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "cb444cd4918b75d5c21ed2df73a3ff294d72e10af4eee1148c3ac371b5f52427"
+          }
+        ],
+        "dx": {
+          "file": "france1.dx",
+          "size_bytes": 14800949,
+          "sha256": "c2a122029f2a4715dedaf38930acd07c0ea9bfd3087241cb71b58cd5a52aa9a1",
+          "revision": 135,
+          "vertex_count": 84896,
+          "triangle_count": 75266,
+          "draw_count": 4650,
+          "render_validated": true,
+          "render_prefix_end": 4686105,
+          "tag100": {
+            "offset": 4686105,
+            "end_offset": 14800949,
+            "size_bytes": 10114844,
+            "sha256": "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07",
+            "semantics": "UNKNOWN"
+          }
+        },
+        "revalidated": true
+      },
+      {
+        "schema": "r5t-f0-cook-snapshot-v1",
+        "run_id": "modified-03",
+        "cohort": "modified",
+        "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+        "input_gxm_sha256": "2e93f6291f9b5e4b0606b218e42f7926a7d4f0d37a1eb76f359d9ccbff4dc2a2",
+        "input_txt_sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43",
+        "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+        "generated_files": [
+          {
+            "path": "2dtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "be244ff752b4d411e6a41c0c8992c87a156c167eded5841d57c256597b8a834d"
+          },
+          {
+            "path": "2dtree2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "98cea7ad087535feb2fec3419a80019f1ee300ebdb4d8f8df488ebfc0a57666c"
+          },
+          {
+            "path": "2dtree3-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e74334bdb65d82a177a8b3e5feb7b05d9ae313665e6d8f2567a18b2f11042d2f"
+          },
+          {
+            "path": "bark-tga.dxt",
+            "size_bytes": 16404,
+            "sha256": "e8e39e96864eedb0963f88c20c0f23a53a89018707dcd1a38ce77744243bdd8c"
+          },
+          {
+            "path": "bush01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "62ba4bcfe6170779112d6731ed64ca11724e9f35272ca24c429f79ebfa007f44"
+          },
+          {
+            "path": "ctyre-tga.dxt",
+            "size_bytes": 4116,
+            "sha256": "004bafc0eee9a10f87535bbb03e8b8abb886893ccd0cc3800d0ae41a3386c53b"
+          },
+          {
+            "path": "darkgreen-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "30e94e5486bc54efd9bea605fa17ce197bb4c6bce21e802a316c20365393c12e"
+          },
+          {
+            "path": "dinghy-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526"
+          },
+          {
+            "path": "dirt_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "81366c6570e6f8d20e013b6a812f51dc584a87af5e6f3fde4bc8d34e3774ab9a"
+          },
+          {
+            "path": "dirt_left_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "6c13e6542e515277fc9aca0f8342f683e9d3035f61e11ca6ff8bfa087b649fd7"
+          },
+          {
+            "path": "dirt_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "31a9a469750a597144b530f506b07b7a0793bf4cfb6ea3828b72853c1521e977"
+          },
+          {
+            "path": "dirt_right_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1ab86587197c6b024f0883e88b7f1621858d7d47e6a6c6e23884d8d3a210c0bc"
+          },
+          {
+            "path": "f_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "efb629de7daa44dd89d0d49a7bfab2a4eb5be1a1e2950c2a7e2aafbb2e77765d"
+          },
+          {
+            "path": "f_farmfences-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "15787e8a2000fd89470dc52dc841cce1a4bfdb7d2943cfe1146351402dc2729b"
+          },
+          {
+            "path": "f_grass_2_gravel_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ef5f7587cea56e477629c8bee896e1a11dbbde75eb245b2ac339899a319ca99b"
+          },
+          {
+            "path": "f_grass_2_gravel_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7a043620605c2d2fa6c9ddcc008b71d4db02491124394870e22416151eff324c"
+          },
+          {
+            "path": "f_railmisc1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d78b798cd35454e8f96623ea145266659ecd39b34c0284fdab2f0b3d512a00db"
+          },
+          {
+            "path": "f_retain_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "79f4852c3c9b3197f61cc77c29aad1d5c11118e1a7a617099787935e390a0852"
+          },
+          {
+            "path": "f_roadfill-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a5216109a5f3fea9cf62bd6a4edd34d287fbaf5ef05b7dceebb5cbf56649e7a6"
+          },
+          {
+            "path": "f_wall_conc-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "912bb57ae9f311f3e4fddffe46d0964bfaa1ac81fe0e17c97e7e70d5daa76dc2"
+          },
+          {
+            "path": "fencegate-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "11a7eca38dab50a2616f1e8caedc8234b73ca02541a286028ae49c4c62742d9a"
+          },
+          {
+            "path": "fields-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0d2db602b6d88355f24feed3245e20370a9e2f33eb7d0430a0fa93b43ac6ffb6"
+          },
+          {
+            "path": "france1.dx",
+            "size_bytes": 14803389,
+            "sha256": "01289e705750fa257037b65f55f7b469db795b4c649f74b45777da0a8d08bac2"
+          },
+          {
+            "path": "gate01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "321b159a4e620fbd1eddde2dfe5acf278fbb6da06f06642f1665ee8acfc44e7a"
+          },
+          {
+            "path": "grass-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "33f752387342c4ea877fd02d3f5a8de60e8dfa804dd0553e7dbe884c28cc6cac"
+          },
+          {
+            "path": "grass-treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "54520620b801db35dedf8aef21f61adb2d29131d3d77831b5e2c2678986ce134"
+          },
+          {
+            "path": "grass_left-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5cbac5aa61bae6245e7a3aa92f0b2f935c45cc3860616ea281117f8c75f68695"
+          },
+          {
+            "path": "grass_right-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "286186602d8bac397fc2a65518476e965de651a7121131c3017e8314fcee5ee2"
+          },
+          {
+            "path": "grass_rock_lft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a7c04eae5b6061b804b257308f19233f83eaa34d3fe956521990589e2d85de66"
+          },
+          {
+            "path": "grass_rock_rht-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "2f4f8b41f5e4cae4a97dc153cc97c183eba71973084e38adf7a41c3bf0efc67d"
+          },
+          {
+            "path": "hedge-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9c57246fe0d1b42bdd60e0cbddfda832641b00c09ccdd120bcd163cc2cb6b9a3"
+          },
+          {
+            "path": "i2a_planks2-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "261e661ea7d1a278a1a80b7a89555d57adb9072bac9f4310f51993903d3848a0"
+          },
+          {
+            "path": "log-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "7e2247c1d64abaa3f253f2579648b900284c15a8d79e788757d969081bd001d2"
+          },
+          {
+            "path": "logs-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "1dc35d4f29b90819daae71fff42c3237c6d45c791c86fcbcbf63195030a0fbd6"
+          },
+          {
+            "path": "marina_alphas-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "997dccd244685f23c402dccdaab9deb57fcb3bf5e49a0417cfae9de4fefabfd6"
+          },
+          {
+            "path": "marina_roof-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3baab2f13dc450c466d000b10bfa5154d1666aeb4e2e1c245a3513f2d8eff4a8"
+          },
+          {
+            "path": "marina_wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d576b54180e6ea83dbc0fc3c496d52125abb927263d6c63edba9635c49fe4537"
+          },
+          {
+            "path": "masterlogo-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a2f541443a8230d5a4a81136bb3b558e64ed000336c0c523874a120a330e1161"
+          },
+          {
+            "path": "noise-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "c607949316ec3aee8828df8e2ffe91befda9ff7e33b19aad97c4c879851bee91"
+          },
+          {
+            "path": "pavement-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "feb65443efab432ff9bb5e058a66693e6589fe280fd6817d1135d797f45d6a06"
+          },
+          {
+            "path": "pinerowleft-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "eb29d6cb4b32ffcff3417c74c02700d20927e2f73eeded82fb418704e3411a92"
+          },
+          {
+            "path": "pinerowright-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "e368b4888af7e4da2649a278ac3becb353fd11a84713af6443a4df295834f6bc"
+          },
+          {
+            "path": "pinetree-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "056518a7d4716dd34619f23f0478cc53eb0e4a8a02dbb37265ff19b811db55fb"
+          },
+          {
+            "path": "plane01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "13e25f21cee0d0cf21f3578745fc9596feac711eb117d864c0339cabc965f33b"
+          },
+          {
+            "path": "raillings-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "906294c827a542a5dde96295d853d9c256020732a8fcf72dea71c995ec9bf685"
+          },
+          {
+            "path": "railpylon-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "0fb84910d12bc35df720c4004917acc17db29afedb056cfab8bbde367b6799df"
+          },
+          {
+            "path": "road-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8af1d9937af3ea361f8e1bd4e2226dcb4ca6faa6a8c9efc173b4f7d3d373ec4c"
+          },
+          {
+            "path": "road_dirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8b226f652eb3fa1f497a36fefada5c4d7720a70206640367029ea296cd771261"
+          },
+          {
+            "path": "road_dirt_blend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d167932c73b118e47d3a30b3691009093e7901fe2f6aa9a1c909bc7b0a3b0211"
+          },
+          {
+            "path": "rock-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "3e2fcb02a1e8daf6764f6780e2869a16e6ccc94f09d8a08a9d3283116c645bf6"
+          },
+          {
+            "path": "sign01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "4c82dfa34af46ab03fd99b6fb139d63380c4c36cba68343b2ed283069f56f522"
+          },
+          {
+            "path": "singtree01-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d022e07af87c4009bbee93e8d12ffbed116f2d30487909e27d76b4bda8d5f147"
+          },
+          {
+            "path": "singtree02-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "aa4a291a04d0a983e98b4b18a36e7ba3a9056a3727564211c3d97d362374f443"
+          },
+          {
+            "path": "sliproad-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "5d98c8becc2677fa4cba5009656b3cd8267738d05c09020b7e8d49d56a004f35"
+          },
+          {
+            "path": "sliproadblend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "d7aa75350196610ec22f8e59ba9c6a5aea0cb63d8539ca3e2f8fda99b0ea23f5"
+          },
+          {
+            "path": "solidtree1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "43409b20f416ccd8e1d8ce892dd0ba6bb1e2ea758569c91c9f73f31a98b8ba6c"
+          },
+          {
+            "path": "stublend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "ad45889a2b8354cdd78125fb118d497eefe47032aed18011cc877b1f9a661d09"
+          },
+          {
+            "path": "stublend_l-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "8ee31f0fd34f99206ced577559d794e28fe5895340c2a929ea0f39f2a4846e13"
+          },
+          {
+            "path": "stublend_r-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a33218752feccd7a70bc99a7992f1c708e8b298fce93e0e055595bf816aadb59"
+          },
+          {
+            "path": "tgv_laposte-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "a261284c0b58f4663cf705ed855a31db6a498592855475a3def67580a3bcb1a6"
+          },
+          {
+            "path": "traintrack-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "139cefbfee616cc239559304b704be671b5730bb35a6a76f1e4d249c51dc5d13"
+          },
+          {
+            "path": "treedirt-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "9824e3070456853e61406d2b5e3b41f72a72b97695f27f94148cf2f1693ef785"
+          },
+          {
+            "path": "treerow-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "87beac4219a7d8bfb9d0f9a6b727a313a707d6ec893a1ee94d72440b64737650"
+          },
+          {
+            "path": "treewall1-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "745e89fdba00d4873b1404cf6177e5db383117b2331ecaa273762a839a21af86"
+          },
+          {
+            "path": "treewallend-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "f583415c41d5e1b36d611b69c9d589788185343cd7fce2917b92d2bcb982401d"
+          },
+          {
+            "path": "wall-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "08545bdfa9066517b077866706259336b35826fd59901fbfb38ee8d97cc5ccda"
+          },
+          {
+            "path": "water-tga.dxt",
+            "size_bytes": 65556,
+            "sha256": "cb444cd4918b75d5c21ed2df73a3ff294d72e10af4eee1148c3ac371b5f52427"
+          }
+        ],
+        "dx": {
+          "file": "france1.dx",
+          "size_bytes": 14803389,
+          "sha256": "01289e705750fa257037b65f55f7b469db795b4c649f74b45777da0a8d08bac2",
+          "revision": 135,
+          "vertex_count": 84946,
+          "triangle_count": 75311,
+          "draw_count": 4647,
+          "render_validated": true,
+          "render_prefix_end": 4688545,
+          "tag100": {
+            "offset": 4688545,
+            "end_offset": 14803389,
+            "size_bytes": 10114844,
+            "sha256": "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07",
+            "semantics": "UNKNOWN"
+          }
+        },
+        "revalidated": true
+      }
+    ]
+  },
+  "tag100_stability": {
+    "baseline": {
+      "all_present": true,
+      "byte_identical_within_cohort": true,
+      "hashes": [
+        "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+        "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+        "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7"
+      ]
+    },
+    "modified": {
+      "all_present": true,
+      "byte_identical_within_cohort": true,
+      "hashes": [
+        "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07",
+        "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07",
+        "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07"
+      ]
+    }
+  },
+  "tag100_baseline_vs_modified_first_run": {
+    "baseline_sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+    "modified_sha256": "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07",
+    "byte_diff": {
+      "same_size": false,
+      "first_size_bytes": 10118248,
+      "second_size_bytes": 10114844,
+      "common_prefix_bytes_compared": 10114844,
+      "changed_bytes_in_common_prefix": 3294483,
+      "changed_range_count_in_common_prefix": 412277,
+      "changed_ranges_complete": false,
+      "changed_ranges_in_common_prefix": null,
+      "changed_range_samples": {
+        "first": [
+          {
+            "offset": 4,
+            "length": 2
+          },
+          {
+            "offset": 8,
+            "length": 2
+          },
+          {
+            "offset": 12,
+            "length": 2
+          },
+          {
+            "offset": 16,
+            "length": 2
+          },
+          {
+            "offset": 5669739,
+            "length": 7
+          },
+          {
+            "offset": 5669747,
+            "length": 9
+          },
+          {
+            "offset": 5669771,
+            "length": 7
+          },
+          {
+            "offset": 5669779,
+            "length": 9
+          },
+          {
+            "offset": 5669803,
+            "length": 7
+          },
+          {
+            "offset": 5669811,
+            "length": 3
+          },
+          {
+            "offset": 5669815,
+            "length": 3
+          },
+          {
+            "offset": 5669819,
+            "length": 1
+          },
+          {
+            "offset": 5669835,
+            "length": 7
+          },
+          {
+            "offset": 5669843,
+            "length": 10
+          },
+          {
+            "offset": 5669867,
+            "length": 3
+          },
+          {
+            "offset": 5669871,
+            "length": 3
+          }
+        ],
+        "last": [
+          {
+            "offset": 10114680,
+            "length": 4
+          },
+          {
+            "offset": 10114688,
+            "length": 4
+          },
+          {
+            "offset": 10114696,
+            "length": 7
+          },
+          {
+            "offset": 10114708,
+            "length": 4
+          },
+          {
+            "offset": 10114716,
+            "length": 4
+          },
+          {
+            "offset": 10114728,
+            "length": 5
+          },
+          {
+            "offset": 10114736,
+            "length": 5
+          },
+          {
+            "offset": 10114744,
+            "length": 4
+          },
+          {
+            "offset": 10114750,
+            "length": 27
+          },
+          {
+            "offset": 10114780,
+            "length": 17
+          },
+          {
+            "offset": 10114798,
+            "length": 6
+          },
+          {
+            "offset": 10114808,
+            "length": 17
+          },
+          {
+            "offset": 10114826,
+            "length": 3
+          },
+          {
+            "offset": 10114832,
+            "length": 1
+          },
+          {
+            "offset": 10114836,
+            "length": 1
+          },
+          {
+            "offset": 10114840,
+            "length": 4
+          }
+        ],
+        "largest": [
+          {
+            "offset": 7389540,
+            "length": 327
+          }
+        ]
+      },
+      "changed_range_length_histogram": {
+        "1": 43800,
+        "2": 125103,
+        "3": 95724,
+        "4": 6883,
+        "5": 10277,
+        "6": 6699,
+        "7": 25488,
+        "8": 3543,
+        "9": 3226,
+        "10": 4820,
+        "11": 7285,
+        "12": 2250,
+        "13": 1297,
+        "14": 1326,
+        "15": 1187,
+        "16": 673,
+        "17": 1344,
+        "18": 6276,
+        "19": 9350,
+        "20": 1847,
+        "21": 4446,
+        "22": 613,
+        "23": 4243,
+        "24": 948,
+        "25": 3779,
+        "26": 698,
+        "27": 1185,
+        "28": 4829,
+        "29": 933,
+        "30": 338,
+        "31": 3569,
+        "32": 1441,
+        "33": 2310,
+        "34": 1070,
+        "35": 13260,
+        "36": 78,
+        "37": 468,
+        "38": 224,
+        "39": 2980,
+        "40": 132,
+        "41": 82,
+        "42": 215,
+        "43": 1958,
+        "44": 84,
+        "45": 244,
+        "46": 28,
+        "47": 36,
+        "48": 17,
+        "49": 44,
+        "50": 38,
+        "51": 907,
+        "52": 14,
+        "53": 438,
+        "54": 25,
+        "55": 44,
+        "56": 40,
+        "57": 408,
+        "58": 18,
+        "59": 21,
+        "60": 16,
+        "61": 31,
+        "62": 8,
+        "63": 29,
+        "64": 28,
+        "65": 412,
+        "66": 7,
+        "67": 27,
+        "68": 3,
+        "69": 77,
+        "70": 5,
+        "71": 109,
+        "72": 8,
+        "73": 11,
+        "74": 8,
+        "75": 29,
+        "76": 13,
+        "77": 25,
+        "78": 9,
+        "79": 4,
+        "80": 4,
+        "81": 5,
+        "82": 15,
+        "83": 198,
+        "84": 3,
+        "85": 148,
+        "86": 4,
+        "87": 9,
+        "88": 8,
+        "89": 43,
+        "90": 4,
+        "91": 4,
+        "92": 3,
+        "93": 6,
+        "94": 1,
+        "95": 3,
+        "96": 12,
+        "97": 77,
+        "98": 1,
+        "99": 10,
+        "100": 3,
+        "101": 12,
+        "102": 2,
+        "103": 18,
+        "104": 1,
+        "105": 3,
+        "106": 1,
+        "107": 3,
+        "108": 1,
+        "109": 6,
+        "110": 1,
+        "111": 4,
+        "113": 1,
+        "114": 2,
+        "115": 44,
+        "117": 30,
+        "118": 2,
+        "119": 1,
+        "120": 2,
+        "121": 4,
+        "122": 1,
+        "123": 3,
+        "125": 1,
+        "127": 1,
+        "128": 1,
+        "129": 27,
+        "131": 5,
+        "133": 4,
+        "134": 1,
+        "135": 5,
+        "136": 1,
+        "139": 1,
+        "140": 1,
+        "141": 1,
+        "143": 1,
+        "146": 2,
+        "147": 6,
+        "148": 1,
+        "149": 5,
+        "153": 3,
+        "155": 2,
+        "157": 1,
+        "160": 1,
+        "161": 5,
+        "163": 2,
+        "165": 1,
+        "166": 1,
+        "167": 1,
+        "168": 1,
+        "171": 3,
+        "173": 2,
+        "175": 2,
+        "179": 4,
+        "181": 4,
+        "187": 1,
+        "188": 1,
+        "193": 1,
+        "205": 2,
+        "211": 2,
+        "218": 1,
+        "223": 2,
+        "225": 1,
+        "245": 1,
+        "259": 1,
+        "267": 1,
+        "327": 1
+      },
+      "largest_changed_range_bytes": 327,
+      "added_tail_bytes": 0,
+      "removed_tail_bytes": 3404,
+      "first_length_divergence_offset": 10114844,
+      "changed_bytes": null,
+      "changed_ranges": null
+    },
+    "stable_causal_difference_supported": true,
+    "semantics": "UNKNOWN"
+  },
+  "render_region": {
+    "coordinate_space": "compiled DX / runtime (x,y,z)",
+    "baseline": {
+      "aabb_expansion": 0.5,
+      "vertex_count_inside_expanded_aabb": 184,
+      "nearest_compiled_vertex": [
+        -1471.803955078125,
+        69.10803985595703,
+        352.67095947265625
+      ],
+      "nearest_compiled_vertex_distance_to_center": 0.7226898708715234
+    },
+    "modified_near_old": {
+      "aabb_expansion": 0.5,
+      "vertex_count_inside_expanded_aabb": 184,
+      "nearest_compiled_vertex": [
+        -1471.803955078125,
+        69.10803985595703,
+        352.67095947265625
+      ],
+      "nearest_compiled_vertex_distance_to_center": 0.7226898708715234
+    },
+    "modified_near_new": {
+      "aabb_expansion": 0.5,
+      "vertex_count_inside_expanded_aabb": 0,
+      "nearest_compiled_vertex": [
+        -1461.8521728515625,
+        62.62297821044922,
+        350.5981750488281
+      ],
+      "nearest_compiled_vertex_distance_to_center": 11.785517984627797
+    },
+    "interpretation": "spatial decoded-render proximity only; not gameplay or physical-role proof"
+  },
+  "full_dx_byte_identity_within_cohorts": {
+    "baseline": false,
+    "modified": false
+  },
+  "interpretation": {
+    "tag100_name": "trailing tag100 structure",
+    "tag100_physical_semantics": "UNKNOWN",
+    "source_geometry_gameplay_semantics": "UNKNOWN"
+  }
+}

@@ -1,40 +1,34 @@
 # R5T-F.0 controlled cook and runtime handoff
 
-## Current gate
+## Cook validation complete
 
-The source-only mutation is prepared and audited. The isolated baseline and
-modified Demo 9.10.0 runtime copies are staged, but neither has been cooked
-for this probe. Runtime testing must wait until six cold cooks have been
-captured and `compare` validates revision-135 DX in all six snapshots.
+Three cold cooks per cohort have been captured and validated by
+`python tools\r5t_f0_cooker_runs.py compare`. All six DX files parse as
+revision 135 with validated course render sections. The input manifest
+confirms the only source-input hash difference is `France1.gxm`; the runtime,
+TXT, and RaceTest XML are unchanged.
 
-Use the manual sequence in
-`research-output/r5t_f0/cooker-lab/COOK-INSTRUCTIONS.md`. It runs the original
-Demo 9.10.0 runtime only from isolated copies. Do not launch the seed cooker
-lab or Retail installation. For each cohort, perform runs 01, 02, and 03,
-capturing each run before resetting caches. After run 03, leave the cooked
-runtime intact. The baseline and modified run-03 runtimes are then available
-for the human comparison.
+`tag100` repeats byte-identically within both cohorts, but differs between
+baseline and modified. Sizes are 10,118,248 bytes (baseline) and 10,114,844
+bytes (modified); SHA-256 values are respectively
+`9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7` and
+`e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07`.
+The payloads differ at 3,294,483 positions in their 10,114,844-byte common
+prefix, with 412,277 same-offset ranges, and the baseline has a 3,404-byte
+tail. These offsets are not semantic record alignment. Full DX files still
+vary within each cohort, so render-prefix differences remain subject to
+cooker nondeterminism. None of these results establishes tag100's physical
+meaning.
 
-From the repository root, the capture/reset commands are:
+The final cooked runtime copies are retained at:
 
-```powershell
-python tools\r5t_f0_cooker_runs.py capture --cohort baseline --run-id baseline-01
-python tools\r5t_f0_cooker_runs.py reset --cohort baseline
-```
+- Baseline: `research-output/r5t_f0/cooker-lab/baseline/runtime`
+- Modified: `research-output/r5t_f0/cooker-lab/modified/runtime`
 
-Use the matching cohort/run ID for each capture. Reset after runs 01 and 02
-only; do not reset after run 03. After all six captures:
-
-```powershell
-python tools\r5t_f0_cooker_runs.py compare
-```
-
-The output report is `research/r5t_f0/cook-differential.json`. It must show
-three validated rev135 outputs per cohort, stable tag100 bytes within each
-cohort, and a baseline/modified tag100 difference before attributing any
-compiled response to the source edit. Render-prefix differences are compared
-across repeated cooks and must not be called causal unless they exceed natural
-variance. A changed tag100 still does not prove collision or physical meaning.
+The exact run-03 DX identities are baseline
+`b7820fe13c5ef7eb53593bcee4e54943cf97780244b47f6fe7cb549d5c5ee7f2` and
+modified `01289e705750fa257037b65f55f7b469db795b4c649f74b45777da0a8d08bac2`.
+The separate in-game visual/physical comparison is still pending.
 
 ## Probe identity
 
@@ -50,8 +44,9 @@ variance. A changed tag100 still does not prove collision or physical meaning.
 The same Demo 9.10 RaceTest XML is used by both clones (SHA-256
 `6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df`). The
 baseline and modified course source inputs differ only by `France1.gxm`.
-FinishArea and every XML field are unchanged. Exact DX and DXT output hashes
-remain **PENDING** until the six captures are validated.
+FinishArea and every XML field are unchanged. Exact output hashes for all six
+DX files and generated DXT files are recorded in
+`research/r5t_f0/cook-differential.json`.
 
 ## Human observations after cook validation
 

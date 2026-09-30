@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter, deque
 import hashlib
 import json
 import math
@@ -28,6 +29,8 @@ COURSE_RELATIVE = Path("DataGx") / "Course" / "France1"
 GENERATED_SUFFIXES = {".dx", ".dxt"}
 EXPECTED_RUNS = tuple(f"{cohort}-{i:02d}" for cohort in ("baseline", "modified") for i in range(1, 4))
 OUTPUT_REPORT = ROOT / "research" / "r5t_f0" / "cook-differential.json"
+MAX_EXACT_CHANGED_RANGES = 2048
+CHANGED_RANGE_SAMPLE_COUNT = 16
 
 
 def sha256(path: Path) -> str:
@@ -277,25 +280,103 @@ def reset(cohort: str) -> dict[str, Any]:
 
 
 def _diff_bytes(first: bytes, second: bytes) -> dict[str, Any]:
-    if len(first) != len(second):
-        return {"same_size": False, "changed_bytes": None, "changed_ranges": None}
-    offsets = [index for index, (a, b) in enumerate(zip(first, second)) if a != b]
-    ranges = []
-    if offsets:
-        start = previous = offsets[0]
-        for current in offsets[1:]:
-            if current != previous + 1:
-                ranges.append({"offset": start, "length": previous - start + 1})
-                start = current
-            previous = current
-        ranges.append({"offset": start, "length": previous - start + 1})
-    return {"same_size": True, "changed_bytes": len(offsets), "changed_ranges": ranges}
+    common_length = min(len(first), len(second))
+    changed_bytes = 0
+    range_count = 0
+    current_start = None
+    exact_ranges: list[dict[str, int]] | None = []
+    first_ranges: list[dict[str, int]] = []
+    last_ranges: deque[dict[str, int]] = deque(maxlen=CHANGED_RANGE_SAMPLE_COUNT)
+    largest_ranges: list[dict[str, int]] = []
+    length_histogram: Counter[int] = Counter()
+    max_range_length = 0
+
+    def finish_range(end: int) -> None:
+        nonlocal range_count, exact_ranges, max_range_length
+        assert current_start is not None
+        item = {"offset": current_start, "length": end - current_start}
+        range_count += 1
+        if len(first_ranges) < CHANGED_RANGE_SAMPLE_COUNT:
+            first_ranges.append(item)
+        last_ranges.append(item)
+        length_histogram[item["length"]] += 1
+        if item["length"] > max_range_length:
+            max_range_length = item["length"]
+            largest_ranges.clear()
+        if item["length"] == max_range_length and len(largest_ranges) < CHANGED_RANGE_SAMPLE_COUNT:
+            largest_ranges.append(item)
+        if exact_ranges is not None:
+            if range_count <= MAX_EXACT_CHANGED_RANGES:
+                exact_ranges.append(item)
+            else:
+                exact_ranges = None
+
+    first_view = memoryview(first)[:common_length]
+    second_view = memoryview(second)[:common_length]
+    for offset, (first_byte, second_byte) in enumerate(zip(first_view, second_view)):
+        if first_byte != second_byte:
+            changed_bytes += 1
+            if current_start is None:
+                current_start = offset
+        elif current_start is not None:
+            finish_range(offset)
+            current_start = None
+    if current_start is not None:
+        finish_range(common_length)
+
+    same_size = len(first) == len(second)
+    return {
+        "same_size": same_size,
+        "first_size_bytes": len(first),
+        "second_size_bytes": len(second),
+        "common_prefix_bytes_compared": common_length,
+        "changed_bytes_in_common_prefix": changed_bytes,
+        "changed_range_count_in_common_prefix": range_count,
+        "changed_ranges_complete": exact_ranges is not None,
+        "changed_ranges_in_common_prefix": exact_ranges,
+        "changed_range_samples": {
+            "first": first_ranges,
+            "last": list(last_ranges),
+            "largest": largest_ranges,
+        },
+        "changed_range_length_histogram": {
+            str(length): count for length, count in sorted(length_histogram.items())
+        },
+        "largest_changed_range_bytes": max_range_length,
+        "added_tail_bytes": max(0, len(second) - len(first)),
+        "removed_tail_bytes": max(0, len(first) - len(second)),
+        "first_length_divergence_offset": common_length if not same_size else None,
+        # Preserve the old equal-size fields. A single changed-byte total is
+        # intentionally undefined when the streams have different lengths.
+        "changed_bytes": changed_bytes if same_size else None,
+        "changed_ranges": exact_ranges if same_size else None,
+    }
+
+
+def _stable_tag_effect(
+    baseline_tags: tuple[bytes | None, ...],
+    modified_tags: tuple[bytes | None, ...],
+) -> bool:
+    """True when each cohort repeats exactly and the cohort payloads differ."""
+    return bool(
+        baseline_tags
+        and modified_tags
+        and all(tag is not None for tag in baseline_tags + modified_tags)
+        and all(tag == baseline_tags[0] for tag in baseline_tags[1:])
+        and all(tag == modified_tags[0] for tag in modified_tags[1:])
+        and baseline_tags[0] != modified_tags[0]
+    )
 
 
 def _load_run(cohort: str, run_id: str) -> tuple[dict[str, Any], Path, Any]:
     run_dir = OUTPUT_ROOT / cohort / "snapshots" / run_id
     record = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))
-    dx_path = run_dir / "DataGx" / "Course" / "France1" / record["dx"]["file"]
+    filename = record["dx"]["file"]
+    if Path(filename).name != filename:
+        raise ValueError(f"snapshot DX path must be a filename only: {filename!r}")
+    dx_path = run_dir / "DataGx" / "Course" / "France1" / filename
+    if dx_path.stat().st_size != record["dx"]["size_bytes"] or sha256(dx_path) != record["dx"]["sha256"]:
+        raise ValueError(f"snapshot DX hash/size no longer matches run manifest: {run_id}")
     model = parse_course_dx(dx_path)
     return record, dx_path, model
 
@@ -329,9 +410,26 @@ def compare(minimum_runs: int = 3) -> dict[str, Any]:
         cohort_models = []
         for run_id in ids:
             record, path, model = _load_run(cohort, run_id)
+            expected_inputs = stage_record["cohorts"][cohort]
+            if record["run_id"] != run_id or record["cohort"] != cohort:
+                raise ValueError(f"snapshot identity mismatch for {run_id}")
+            if record["runtime_executable_sha256"] != stage_record["runtime_executable_sha256"]:
+                raise ValueError(f"runtime executable changed for {run_id}")
+            if record["input_gxm_sha256"] != expected_inputs["course_input_gxm_sha256"]:
+                raise ValueError(f"source GXM identity changed for {run_id}")
+            if record["input_txt_sha256"] != expected_inputs["course_txt_sha256"]:
+                raise ValueError(f"source TXT identity changed for {run_id}")
+            if record["race_test_xml_sha256"] != stage_record["race_test_xml_sha256"]:
+                raise ValueError(f"RaceTest XML identity changed for {run_id}")
             if not model.course_render_validated or model.word_0x04 != 135:
                 raise ValueError(f"invalid cooked output {run_id}")
             bsp = model.collision.bsp
+            recorded_tag = record["dx"].get("tag100")
+            if bsp is None or recorded_tag is None:
+                raise ValueError(f"trailing tag100 structure is missing for {run_id}")
+            if (len(bsp.raw) != recorded_tag["size_bytes"]
+                    or bsp.sha256 != recorded_tag["sha256"]):
+                raise ValueError(f"tag100 boundary/hash no longer matches run manifest: {run_id}")
             record["revalidated"] = True
             records.append(record)
             cohort_models.append(model)
@@ -355,6 +453,10 @@ def compare(minimum_runs: int = 3) -> dict[str, Any]:
     base_tag = tag_bytes[first_baseline["run_id"]]
     modified_tag = tag_bytes[first_modified["run_id"]]
     tag_diff = _diff_bytes(base_tag, modified_tag) if base_tag is not None and modified_tag is not None else None
+    stable_tag_effect = _stable_tag_effect(
+        tuple(tag_bytes[item["run_id"]] for item in cohort_runs["baseline"]),
+        tuple(tag_bytes[item["run_id"]] for item in cohort_runs["modified"]),
+    )
 
     # Runtime position mapping for the probe is (+20,0,0). Report local decoded
     # render vertices only as correspondence clues, never as semantic proof.
@@ -373,7 +475,7 @@ def compare(minimum_runs: int = 3) -> dict[str, Any]:
     modified_tag_stable = tag_stability["modified"]["byte_identical_within_cohort"]
     report = {
         "schema": "r5t-f0-cook-differential-v1",
-        "status": "COOKS_VALIDATED_TAG100_CAUSALITY_PENDING_STABILITY",
+        "status": "COOKS_VALIDATED_STABLE_TAG100_DIFFERENCE" if stable_tag_effect else "COOKS_VALIDATED_TAG100_EFFECT_INCONCLUSIVE",
         "stage": str(OUTPUT_ROOT),
         "runtime_executable_sha256": stage_record["runtime_executable_sha256"],
         "race_test_xml_sha256_unchanged": stage_record["race_test_xml_sha256"],
@@ -384,7 +486,7 @@ def compare(minimum_runs: int = 3) -> dict[str, Any]:
             "baseline_sha256": first_baseline["dx"]["tag100"]["sha256"] if first_baseline["dx"]["tag100"] else None,
             "modified_sha256": first_modified["dx"]["tag100"]["sha256"] if first_modified["dx"]["tag100"] else None,
             "byte_diff": tag_diff,
-            "stable_causal_difference_supported": bool(baseline_tag_stable and modified_tag_stable and tag_diff and tag_diff.get("changed_bytes", 0) > 0),
+            "stable_causal_difference_supported": stable_tag_effect,
             "semantics": "UNKNOWN",
         },
         "render_region": render_check,
@@ -404,6 +506,38 @@ def compare(minimum_runs: int = 3) -> dict[str, Any]:
     OUTPUT_REPORT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_REPORT.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return report
+
+
+def _compare_console_summary(report: dict[str, Any]) -> dict[str, Any]:
+    diff = report["tag100_baseline_vs_modified_first_run"]["byte_diff"]
+    return {
+        "status": report["status"],
+        "report": str(OUTPUT_REPORT),
+        "runs_per_cohort": report["run_count_per_cohort"],
+        "tag100_stability": {
+            cohort: item["byte_identical_within_cohort"]
+            for cohort, item in report["tag100_stability"].items()
+        },
+        "tag100_size_bytes": {
+            "baseline": diff["first_size_bytes"] if diff else None,
+            "modified": diff["second_size_bytes"] if diff else None,
+        },
+        "tag100_diff": None if diff is None else {
+            "same_size": diff["same_size"],
+            "changed_bytes": diff["changed_bytes"],
+            "changed_bytes_in_common_prefix": diff["changed_bytes_in_common_prefix"],
+            "changed_range_count_in_common_prefix": diff["changed_range_count_in_common_prefix"],
+            "changed_ranges_complete": diff["changed_ranges_complete"],
+            "added_tail_bytes": diff["added_tail_bytes"],
+            "removed_tail_bytes": diff["removed_tail_bytes"],
+        },
+        "stable_source_to_tag100_difference": report[
+            "tag100_baseline_vs_modified_first_run"
+        ]["stable_causal_difference_supported"],
+        "full_dx_byte_identity_within_cohorts": report[
+            "full_dx_byte_identity_within_cohorts"
+        ],
+    }
 
 
 def main() -> int:
@@ -428,6 +562,7 @@ def main() -> int:
         if args.minimum_runs != 3:
             raise ValueError("R5T-F.0 requires exactly three baseline and three modified cold cooks")
         result = compare(args.minimum_runs)
+        result = _compare_console_summary(result)
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0
 
