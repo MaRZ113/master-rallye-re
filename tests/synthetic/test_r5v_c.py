@@ -284,6 +284,81 @@ class Slot25ProfileTests(unittest.TestCase):
             if name != "slot25_stub":
                 self.assertEqual(base_ops[name], diag_ops[name])
 
+    def test_trooper_frontend_stats_diagnostic_changes_only_four_stat_pushes(self):
+        base, base_manifest = self._candidate(
+            slot25.TROOPER_SMALLCARSHEET29_PROFILE
+        )
+        diagnostic, manifest = self._candidate(
+            slot25.TROOPER_STATS_DIAGNOSTIC_PROFILE
+        )
+        rebuilt, rebuilt_manifest = self._candidate(
+            slot25.TROOPER_STATS_DIAGNOSTIC_PROFILE
+        )
+
+        profile = slot25.get_profile("trooper-stats-diag")
+        self.assertEqual(
+            (profile.frontend_speed, profile.frontend_acceleration,
+             profile.frontend_handling, profile.frontend_endurance),
+            (3, 4, 6, 10),
+        )
+        self.assertEqual(diagnostic, rebuilt)
+        self.assertEqual(manifest, rebuilt_manifest)
+        self.assertEqual(manifest["phase"], "R5V-E0.1b")
+        expected_stats = {
+            "speed": 3,
+            "acceleration": 4,
+            "handling": 6,
+            "endurance": 10,
+        }
+        self.assertEqual(manifest["record25"]["frontend_stats"], expected_stats)
+        self.assertEqual(manifest["profile"]["frontend_stats"], expected_stats)
+        self.assertEqual(manifest["record25"]["smallcarsheet_index"], 29)
+        self.assertEqual(manifest["record25"]["name"], "Trooper")
+        self.assertEqual(manifest["record25"]["stats"], [3, 4, 6, 10])
+        self.assertEqual(base_manifest["record25"]["smallcarsheet_index"], 29)
+        self.assertEqual(base_manifest["record25"]["stats"], [6, 6, 8, 8])
+
+        operations = {item["name"]: item for item in manifest["operations"]}
+        base_operations = {item["name"]: item for item in base_manifest["operations"]}
+        self.assertEqual(set(operations), set(base_operations))
+        for name in operations:
+            if name != "slot25_stub":
+                self.assertEqual(operations[name], base_operations[name])
+
+        base_stub = bytes.fromhex(base_operations["slot25_stub"]["replacement_bytes"])
+        diagnostic_stub = bytes.fromhex(operations["slot25_stub"]["replacement_bytes"])
+        marker = b"\x6a\x00\x8b\xcc\x68"
+        marker_offset = base_stub.index(marker)
+        stat_push_immediates = tuple(range(marker_offset + 17, marker_offset + 25, 2))
+        self.assertEqual(
+            [base_stub[offset] for offset in stat_push_immediates], [8, 8, 6, 6]
+        )
+        self.assertEqual(
+            [diagnostic_stub[offset] for offset in stat_push_immediates],
+            [10, 6, 4, 3],
+        )
+        self.assertTrue(all(base_stub[offset - 1] == 0x6A
+                            for offset in stat_push_immediates))
+
+        changed = [
+            offset for offset, (before, after) in enumerate(zip(base, diagnostic))
+            if before != after
+        ]
+        stub_offset = operations["slot25_stub"]["file_offset"]
+        self.assertEqual(changed, [stub_offset + offset for offset in stat_push_immediates])
+
+    def test_frontend_stat_diagnostic_stays_inside_existing_gradient_frame_range(self):
+        self.assertEqual(slot25.FRONTEND_STAT_FRAME_MAX, 10)
+        for value in (-1, 11):
+            invalid = slot25.replace(
+                slot25.TROOPER_PROFILE,
+                profile_id=f"bad-stat-{value}",
+                stats=(value, 4, 6, 10),
+            )
+            with self.subTest(value=value), self.assertRaisesRegex(
+                    slot25.PatchError, "Frontend stat values must address a retail gradient frame"):
+                self._candidate(invalid)
+
     def test_smallsheet_selector_is_limited_to_existing_retail_frames(self):
         for value in (-1, 30):
             invalid = slot25.replace(

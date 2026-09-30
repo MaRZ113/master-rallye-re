@@ -18,7 +18,10 @@ writes those components into the marker render object at `+0x14..+0x20`.
 The ghost path has an explicit white/half-alpha override. The scene's
 `ObjectColour` default is white with alpha `0.50`.
 
-Classification: **PARTICIPANT_COLOR**, applied as a UI object tint. The art
-frame is shared; the ordinary marker tint is obtained from the race
-participant color property. No color patch or second diagnostic candidate
-was created.
+The R5V-E0.1b xref audit confirms the consumer but does not find the producer
+of `Race/CarN/Colour`. The ordinary-path property is a four-component float
+value, but its upstream writer and semantics remain unresolved. The earlier
+runtime report that the marker stayed aquamarine after changing ID25's
+SmallCarSheet selector proves independence from that selector only; it does
+not identify the color source. Classification: **UNKNOWN** upstream. No
+participant or vehicle-color semantics should be inferred yet.

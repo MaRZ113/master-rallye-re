@@ -122,8 +122,9 @@
       "asset_hash": "2485192edf007f5dc97a455be87ae8f6b18c01719da4c7b4d60f396c577ade93",
       "vehicle_specific": false,
       "owner_visual_label": "Astero-like",
-      "color_source": "Race/CarN/Colour applied as ObjectColour tint",
-      "color_classification": "PARTICIPANT_COLOR"
+      "color_source": "Race/CarN/Colour is consumed as four float components and copied to the marker render tint; producer not found",
+      "color_classification": "UNKNOWN",
+      "color_runtime_note": "Owner reported aquamarine remained unchanged when ID25 SmallCarSheet selector changed 0 to 29; this only establishes independence from that selector"
     },
     "race_results_icon": {
       "confidence": "PROVEN",

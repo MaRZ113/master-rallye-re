@@ -215,6 +215,18 @@ Retail record 25 has a vtable, empty owned-name pointer and four float32 1.0 def
 
 The allocated retail ID25 is initialized by an automated, hash-locked duplicate-Astero EXE-copy candidate. The owner reports P0 FULL PASS and P1 FULL PASS, including frontend preview, Quick Race behavior, stage completion, results, return to menu, and continued use of the original Astero. The report says retail debug output showed Astero resources loading from ID25. Raw logs and screenshots were not added to the repository; see `research/r5v_c/runtime-results.md`. This proves the slot path with a duplicate payload and does not establish independent vehicle payload support.
 
+## R5V-E0.1b frontend diagnostics
+
+The Vehicle Select updater reads Speed, Acceleration, Handling and Endurance
+directly from the selected VehicleRecord fields `+0x0C..+0x18`, and the scene
+binds four independent bars to those properties. A hash-locked, ignored
+ID25/Trooper stats-only candidate with values `(3,4,6,10)` changes exactly four
+immediate bytes versus the Trooper baseline. Human menu inspection is pending.
+The progress-marker updater consumes `Race/CarN/Colour` as a four-float tint,
+but the producer and the meaning of Car0 remain unknown; no color candidate
+was created. R5V-F is blocked on the upstream color semantics and stats runtime
+observation. See `research/r5v_e/r5v_e0_1b/`.
+
 ## R5V-E0 Trooper ID25 candidate
 
 The retail ID25 patcher has a Trooper profile. Its candidate composes the demo-9.3.1 revision-131 Trooper model converted to revision 135, 24 referenced Trooper DXT dependencies, retail Trooper physics, and authentic Trooper tag101 collision. Automated conversion, composition, physics-schema, and collision-structure checks pass. The owner reports R5V-E0 P0/P1 FULL PASS: Trooper preview/race/wheel resources, physics, collision and damage work; a full stage, Race Results and return to menu work; original vehicles remain available. The reported frontend identity is `STEEL MONKEYS FORKLIFT`, Astero-derived stats, and a missing Vehicle Select icon. E0.1a selector diagnostics were owner-confirmed: the top-left participant and Race Results icons display Forklift frame 29; the progress marker remains aquamarine. The tested EXE hash and raw captures were not supplied. See `research/r5v_e/r5v_e0/` and `research/r5v_e/r5v_e0_1/`.

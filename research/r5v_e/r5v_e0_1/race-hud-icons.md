@@ -47,21 +47,22 @@ Two static joins remain open. Ghidra reports no direct caller to
 `0x004AAE70`, and the inspected vtable does not establish a dispatch to it.
 The TimeDiffs XML uses `en2d Model Name="Null"`; the executable's
 `4BFrontend/RaceResults/SmallCarSheet` string has no direct xrefs in the
-current export. The exact child resource binding and match to the owner's
-visible “1P” image remain runtime-testable hypotheses. The isolated
-`trooper-smallsheet29` candidate is documented in
-`research/r5v_e/r5v_e0_1a/runtime-diagnostic.md`; it has not been run yet.
+current export. The isolated `trooper-smallsheet29` candidate is documented in
+`research/r5v_e/r5v_e0_1a/runtime-diagnostic.md`. The owner reported FULL PASS:
+the top-left 1P icon and Race Results show Forklift frame 29; the separate
+progress marker remains aquamarine and Trooper gameplay remains normal.
 
 ## Evidence classification
 
 - generic progress marker frame and asset: **PROVEN** by scene and updater.
-- progress marker color: Race/CarN/Colour participant color applied as a UI
-  object tint; **PROVEN** by the updater path.
-- TimeDiffs small-image selector: **STRONGLY SUPPORTED**, with runtime
-  dispatch/resource binding pending.
+- progress marker tint consumer: `Race/CarN/Colour` Vector4-like value copied
+  to the render object; **PROVEN** by the updater path. The property producer
+  and semantic identity remain **UNKNOWN** (R5V-E0.1b).
+- TimeDiffs small-image selector: **RUNTIME_CONFIRMED** by the isolated
+  selector test for the owner-observed top-left 1P icon and Race Results.
 - 1P icon equals ProgressCar0: **not supported**; ProgressCar0 remains the
   separate bottom progress-bar marker.
-- top-left image equals a TimeDiffs child: **STRONGLY SUPPORTED**, awaiting the
-  `0 -> 29` runtime diagnostic.
+- top-left image equals a TimeDiffs child: **RUNTIME_CONFIRMED** by owner
+  observation of the `0 -> 29` diagnostic.
 - owner runtime visual label “Astero”: retained as owner-reported observation,
   not as a verified sprite identity.

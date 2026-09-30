@@ -26,6 +26,7 @@ ASTERO_LITERAL_VA = 0x6B3CB4
 TEXT_VIRTUAL_SIZE_OLD = 0x28D294
 TEXT_VIRTUAL_SIZE_NEW = 0x28D300
 SMALLCARSHEET_FRAME_MAX = 29
+FRONTEND_STAT_FRAME_MAX = 10
 
 
 @dataclass(frozen=True)
@@ -48,6 +49,22 @@ class VehicleSlotProfile:
         """Legacy R5V-C name for the now-identified +0x1C selector."""
         return self.smallcarsheet_index
 
+    @property
+    def frontend_speed(self) -> int:
+        return self.stats[0]
+
+    @property
+    def frontend_acceleration(self) -> int:
+        return self.stats[1]
+
+    @property
+    def frontend_handling(self) -> int:
+        return self.stats[2]
+
+    @property
+    def frontend_endurance(self) -> int:
+        return self.stats[3]
+
 
 ASTERO_PROOF_PROFILE = VehicleSlotProfile(
     profile_id="astero-proof", slot_id=25, vehicle_class=2,
@@ -69,10 +86,17 @@ TROOPER_SMALLCARSHEET29_PROFILE = replace(
     profile_id="trooper-smallsheet29",
     smallcarsheet_index=29,
 )
+TROOPER_STATS_DIAGNOSTIC_PROFILE = replace(
+    TROOPER_SMALLCARSHEET29_PROFILE,
+    profile_id="trooper-stats-diag",
+    stats=(3, 4, 6, 10),
+    stats_source="R5V-E0.1b frontend-only diagnostic values",
+)
 SLOT25_PROFILES = {
     profile.profile_id: profile
     for profile in (ASTERO_PROOF_PROFILE, TROOPER_PROFILE,
-                    TROOPER_SMALLCARSHEET29_PROFILE)
+                    TROOPER_SMALLCARSHEET29_PROFILE,
+                    TROOPER_STATS_DIAGNOSTIC_PROFILE)
 }
 
 
@@ -167,8 +191,11 @@ def _validate_profile(profile: VehicleSlotProfile) -> VehicleSlotProfile:
         raise PatchError("Internal vehicle name must be one safe path component")
     if len(profile.stats) != 4 or len(profile.float_bits) != 4:
         raise PatchError("Slot25 profile requires four stats and four float bit patterns")
-    if any(not 0 <= value <= 0x7F for value in profile.stats):
-        raise PatchError("Initializer byte-push arguments must be in range 0..127")
+    if any(not 0 <= value <= FRONTEND_STAT_FRAME_MAX for value in profile.stats):
+        raise PatchError(
+            "Frontend stat values must address a retail gradient frame in range "
+            f"0..{FRONTEND_STAT_FRAME_MAX}"
+        )
     if not 0 <= profile.smallcarsheet_index <= SMALLCARSHEET_FRAME_MAX:
         raise PatchError(
             "SmallCarSheet index must address a retail frame in range "
@@ -355,6 +382,7 @@ def make_candidate(
             raise PatchError(f"Post-patch byte mismatch: {op['name']}")
     manifest = {
         "phase": ("R5V-C" if profile.profile_id == "astero-proof" else
+                  "R5V-E0.1b" if profile.profile_id == "trooper-stats-diag" else
                   "R5V-E0.1a" if profile.profile_id == "trooper-smallsheet29" else
                   "R5V-E0"),
         "build": "retail", "source_sha256": digest,
@@ -384,6 +412,15 @@ def make_candidate(
             # Preserve the existing Trooper manifest shape for reproducibility.
             manifest["record25"]["smallcarsheet_index"] = profile.smallcarsheet_index
             manifest["profile"]["smallcarsheet_index"] = profile.smallcarsheet_index
+        if profile.profile_id == "trooper-stats-diag":
+            frontend_stats = {
+                "speed": profile.frontend_speed,
+                "acceleration": profile.frontend_acceleration,
+                "handling": profile.frontend_handling,
+                "endurance": profile.frontend_endurance,
+            }
+            manifest["record25"]["frontend_stats"] = frontend_stats
+            manifest["profile"]["frontend_stats"] = frontend_stats
     return output, manifest
 
 
