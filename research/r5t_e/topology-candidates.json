@@ -1,0 +1,147 @@
+{
+  "schema": "r5t-e-gxm-topology-evidence-v1",
+  "status": "MORE_WORK_NEEDED",
+  "scope": "Read-only Demo 8.4.1 GXM/TXT evidence. Candidate raw windows are diagnostics, not decoded bank boundaries.",
+  "corpus": {
+    "demo_8_4_1_course_gxm_count": 2,
+    "demo_9_3_1_course_gxm_count": 0,
+    "demo_9_10_0_course_gxm_count": 0,
+    "retail_course_gxm_count": 0,
+    "paired_gxm_txt_dx_samples": ["France1", "Italy1", "developer Boinds"]
+  },
+  "header_field_status": {
+    "word_0": "Raw value retained without a semantic name.",
+    "word_2": "Count bounds a 16-byte bank after the 32-byte header; bank semantics UNKNOWN.",
+    "word_3": "Material count; independently matches TXT Materials(Size N) for all three samples.",
+    "word_4": "Equals 3 * word_6 in all three samples; corner-count interpretation remains unproven without a decoded bank.",
+    "word_5": "UNKNOWN; not named as a vertex count.",
+    "word_6": "Equals the sum and maximum end of all TXT/GXM moMesh spans in all three samples; triangle-count interpretation is HIGH_CONFIDENCE_INFERENCE only.",
+    "word_7": "Bounds the finite trailing float3 pool immediately before the TXT-validated node table; pool correlates with cooked DX positions in the three measured source/cooked pairs."
+  },
+  "samples": [
+    {
+      "identity": "Demo 8.4.1 France1",
+      "gxm": {
+        "path": "demo-8.4.1/DataGx/Course/France1/France1.gxm",
+        "bytes": 11489135,
+        "sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2"
+      },
+      "txt": {
+        "path": "demo-8.4.1/DataGx/Course/France1/France1.txt",
+        "bytes": 158889,
+        "sha256": "71ea372203bcc6e84bfee87e7d2f410e22c1fdcdc5f653c87274100df38c0d43"
+      },
+      "header_words_u32": [853762, 0, 262505, 121, 185751, 97824, 61917, 49278],
+      "txt_material_count": 121,
+      "bounded_16_byte_bank": {"offset": 32, "count": 262505, "stride": 16, "end": 4200112, "semantics": "UNKNOWN"},
+      "float3_pool": {"offset": 10838403, "count": 49278, "stride": 12, "bytes": 591336},
+      "object_table": {"offset": 11429739, "bytes": 59396, "nodes": 2322},
+      "mesh_spans": {"mesh_count": 2283, "sum_size": 61917, "max_index_plus_size": 61917, "gap_free_cover": true},
+      "startpoint": {
+        "ordinal": 1,
+        "parent_id": 0,
+        "index": 0,
+        "size": 12,
+        "first_eight_pool_points_form_axis_aligned_10_unit_box": "CONFIRMED_BY_BINARY for point coordinates; node-to-point association and face connectivity remain UNKNOWN",
+        "triangle_triplets": "UNKNOWN",
+        "closed_mesh": "UNKNOWN"
+      }
+    },
+    {
+      "identity": "Demo 8.4.1 Italy1",
+      "gxm": {
+        "path": "demo-8.4.1/DataGx/Course/Italy1/track01.gxm",
+        "bytes": 8728347,
+        "sha256": "c9ca6831569ef5f23b7203cba0c95e08ad604d9f8f4d2ff557bf193c186054ba"
+      },
+      "txt": {
+        "path": "demo-8.4.1/DataGx/Course/Italy1/track01.txt",
+        "bytes": 80331,
+        "sha256": "7e7406a6c2772b4e6d30ef390230136d2eb46247f49d431bdbfb178ef3ce346d"
+      },
+      "header_words_u32": [984834, 0, 189937, 66, 142131, 89485, 47377, 34048],
+      "txt_material_count": 66,
+      "bounded_16_byte_bank": {"offset": 32, "count": 189937, "stride": 16, "end": 3039024, "semantics": "UNKNOWN"},
+      "float3_pool": {"offset": 8291648, "count": 34048, "stride": 12, "bytes": 408576},
+      "object_table": {"offset": 8700224, "bytes": 28123, "nodes": 1117},
+      "mesh_spans": {"mesh_count": 1082, "sum_size": 47377, "max_index_plus_size": 47377, "gap_free_cover": true}
+    },
+    {
+      "identity": "Demo 8.4.1 developer Boinds",
+      "gxm": {
+        "path": "demo-8.4.1/DataGx/Test/boinds/track01.gxm",
+        "bytes": 1629436,
+        "sha256": "5103203af3950bf90d4c2061c47dadbd65b315166053e220bcbf71adff6df86f"
+      },
+      "txt": {
+        "path": "demo-8.4.1/DataGx/Test/boinds/track01.txt",
+        "bytes": 11424,
+        "sha256": "cb074b08a7c15eca577fb92baf540ec613a4c4c7e942156bb1d7b456a78deb09"
+      },
+      "header_words_u32": [657154, 0, 26750, 36, 28212, 25745, 9404, 4933],
+      "txt_material_count": 36,
+      "bounded_16_byte_bank": {"offset": 32, "count": 26750, "stride": 16, "end": 428032, "semantics": "UNKNOWN"},
+      "float3_pool": {"offset": 1569990, "count": 4933, "stride": 12, "bytes": 59196},
+      "object_table": {"offset": 1629186, "bytes": 250, "nodes": 17},
+      "mesh_spans": {"mesh_count": 2, "sum_size": 9404, "max_index_plus_size": 9404, "gap_free_cover": true}
+    }
+  ],
+  "exploratory_raw_windows": [
+    {
+      "sample": "Italy1",
+      "offset": "0x58EDCC",
+      "width_bytes": 4,
+      "entry_count": 142131,
+      "end_exclusive": "0x619A98",
+      "values_min": 0,
+      "values_max": 69900,
+      "unique_values": 63653,
+      "entries_below_float3_count": 94177,
+      "entries_at_or_above_float3_count": 47954,
+      "entries_below_header_word_5": 142131,
+      "mesh_zero_slice_observation": "Index 0 / Size 14 gives 42 values; direct lookup of those early values in the float3 pool yields a compact plausible cluster. This does not establish the bank boundary or explain later values above the pool count.",
+      "status": "PLAUSIBLE_CANDIDATE_ONLY; not used by a parser"
+    },
+    {
+      "sample": "Boinds",
+      "offset": "0x107E94",
+      "width_bytes": 2,
+      "entry_count": 28212,
+      "end_exclusive": "0x115AFC",
+      "values_min": 0,
+      "values_max": 24662,
+      "unique_values": 4840,
+      "entries_below_float3_count": 23894,
+      "entries_at_or_above_float3_count": 4318,
+      "entries_below_header_word_5": 28212,
+      "status": "PLAUSIBLE_CANDIDATE_ONLY; not used by a parser"
+    },
+    {
+      "sample": "France1",
+      "offset": "0x6E956C",
+      "width_bytes": 2,
+      "entry_count": 185751,
+      "end_exclusive": "0x74409A",
+      "values_min": 0,
+      "values_max": 65535,
+      "unique_values": 600,
+      "entries_below_float3_count": 177662,
+      "entries_at_or_above_float3_count": 8089,
+      "entries_equal_0xFFFF": 801,
+      "selection_method": "Diagnostic window search minimizing values at or above the float3-pool count in the inter-bank region; heuristic only.",
+      "startpoint_connectivity_under_direct_pool_lookup": "not demonstrated; indirect mapping remains UNKNOWN",
+      "status": "REJECTED AS A PROVEN BANK BOUNDARY; retained only as a negative diagnostic"
+    }
+  ],
+  "current_verdict": {
+    "header_word_3_material_count": "CONFIRMED_BY_BINARY_STRUCTURE against TXT Materials(Size N) in all three samples",
+    "header_word_4_corner_count": "HIGH_CONFIDENCE_INFERENCE from 3 * word_6; not confirmed by a decoded corner bank",
+    "header_word_6_triangle_count": "HIGH_CONFIDENCE_INFERENCE from complete moMesh span coverage; candidate raw streams are not yet validated",
+    "mesh_index_size_units": "HIGH_CONFIDENCE_INFERENCE: triangle spans; binary corner slicing not yet proven corpus-wide",
+    "corner_to_intermediate_vertex": "UNKNOWN",
+    "intermediate_vertex_to_float3_position": "UNKNOWN",
+    "France1_startpoint_12_triangle_box": "NOT PROVEN; pool point-set box is established, connectivity is UNKNOWN",
+    "material_per_triangle_relation": "UNKNOWN",
+    "writer_implemented": false
+  }
+}

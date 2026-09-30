@@ -14,7 +14,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
 | Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; SplitTime0 center **CONFIRMED_BY_RUNTIME_EDIT / DEBUGGER** | All 41 retail RaceTest XML files parse. In France1, `SplitTime0` Egg Row3 drives both the visual sign and gameplay center; `gaRaceSplitTimeAI/Radius` is the 3D sphere radius. SplitTime1/2 have matching structure but were not independently moved in runtime tests. See `docs/course-importer.md` and `research/r5t_d1/`. |
 | Read-only Course SDK | Typed `CourseProject` composition over existing DX, XML, HNT, SFL, TXT, and GXM prefix readers; per-record race-logic evidence; neutral tag100 wrapper. | **IMPLEMENTED; READ_ONLY** | Partial packages and ambiguous candidates are represented explicitly. Blender consumes typed race logic and draws split trigger spheres. Tag100 and SFL semantics remain **UNKNOWN**. See `docs/course-sdk.md`. |
-| Course `.gxm` | Demo 8.4.1 source header, counted bank, and exact trailing node table cross-validated against paired TXT; a bounded float3 bank correlates spatially with cooked DX. | **CONFIRMED_BY_SOURCE_COMPILED_PAIR** for measured positions and controlled tag100 responses; node-to-point links and runtime role **UNKNOWN** | France1 one-point +1 and whole-box +3 edits both changed tag100 reproducibly. Moving the whole GXM candidate did not move cars. R5T-D.0 separately confirmed RaceTest StartArea as the physical grid frame. See `docs/course-source.md` and `research/r5t_c/`. |
+| Course `.gxm` | Demo 8.4.1 source header, counted bank, trailing float3 pool, and TXT-cross-validated node table; candidate topology banks remain undecoded. | **CONFIRMED_BY_BINARY_STRUCTURE** for measured boundaries and TXT cross-checks; source/DX position relation and controlled tag100 response **CONFIRMED_BY_SOURCE_COMPILED_PAIR**; corner-to-position links **UNKNOWN** | Three paired France1, Italy1, and Boinds samples share exact material-count and mesh-span relationships. Exploratory index windows contain unresolved values at or above the float3-pool count and are not parser boundaries. See `docs/course-source.md` and `research/r5t_e/`. |
 
 ## Course status (R5T-C evidence closeout)
 
@@ -121,6 +121,24 @@ tag100 offsets/hash/status are available from partial `CourseProject` objects.
 The existing Blender add-on consumes the semantic model and draws split sphere
 helpers and separate visual companions. No course writer or exporter was
 introduced. See `docs/course-sdk.md` and `docs/course-importer.md`.
+
+## R5T-E GXM source-topology investigation (partial)
+
+The three available Demo 8.4.1 GXM/TXT/DX pairs (France1, Italy1, and
+developer Boinds) confirm the TXT material-count match, complete `moMesh`
+span coverage through header word 6, and the exact `header[4] == 3 *
+header[6]` relation. These jointly support a triangle/corner interpretation
+as **HIGH_CONFIDENCE_INFERENCE**, not a decoded index grammar. Italy1 and
+Boinds have exploratory word-4-sized raw windows, but both contain values at
+or above their float3-pool counts whose meaning is unresolved. The France1
+diagnostic window is rejected as a proven bank boundary. No common
+corner-to-position mapping is established, so
+France1 `startpoint` connectivity and per-triangle material assignment remain
+**UNKNOWN**. No parser or Blender changes were made; R5T-E remains
+**MORE WORK NEEDED**. Details, hashes, offsets, and candidate-window metrics:
+[`research/r5t_e/findings.md`](../research/r5t_e/findings.md),
+[`research/r5t_e/gxm-topology.md`](../research/r5t_e/gxm-topology.md), and
+[`research/r5t_e/topology-candidates.json`](../research/r5t_e/topology-candidates.json).
 
 ## R1 vehicle-corpus evidence
 

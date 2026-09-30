@@ -122,22 +122,32 @@ validation pair, not a substitute for missing isolated oracles.
 The current parser can inventory and compare source hierarchy metadata with
 `mrtool diff-course`. It is not a GXM writer and does not modify game assets.
 
-## Deferred source-topology blocker (R5T-E)
+## R5T-E GXM topology-bank investigation (partial)
 
-Measured France1 and Italy1 source headers and `moMesh` spans support the
-following bounded interpretation, but it is not yet fully proven:
+The current Demo 8.4.1 corpus contains course GXM only for France1 and Italy1;
+Demo 9.3.1, Demo 9.10.0, and Retail course folders contain none. Developer
+Boinds provides the third paired GXM/TXT/DX sample. Header word 3 exactly
+matches `Materials(Size N)` in all three pairs. All `moMesh` spans cover
+`[0, header[6])` without gaps, and `header[4] == 3 * header[6]` in all three.
+This raises the triangle/corner model to **HIGH_CONFIDENCE_INFERENCE**, but the
+raw corner bank has not been identified as a common, validated structure.
 
-| Course | header[6] / maximum `Index + Size` | header[4] / 3x header[6] | `startpoint` span |
-|---|---:|---:|---|
-| France1 | 61,917 | 185,751 | Index 0, Size 12 |
-| Italy1 | 47,377 | 142,131 | not present in this form |
+Exploratory offsets in Italy1 and Boinds yield candidate 32-bit and 16-bit
+sequences whose entry counts equal header word 4 and whose early values align
+with mesh spans. Both contain values at or above the respective trailing
+float3-pool count; their referential meaning is unproven. No validated
+intermediate vertex-to-position mapping was found. A
+France1 16-bit diagnostic window was rejected as a proven boundary; it does
+not establish the startpoint's expected box connectivity. These windows are
+research observations only and are not used by `course_gxm.py`.
 
-The working interpretation is header[6] = triangle count, header[4] = corner
-count, and `moMesh` spans select triangle ranges. The missing proof is locating
-the triangle-corner/index bank, binding those corners to the source float3
-pool, then checking whether France1 `startpoint`'s first 12 triangles use its
-candidate eight points. This is documented as the next source-topology
-question only; it was not investigated in R5T-SDK1.
+France1 `startpoint` remains a TXT/GXM-confirmed `Index 0`, `Size 12` record;
+the first eight pool points form the previously documented 10-unit box. The
+36 corner entries, position binding, closed topology, and per-triangle
+material relation remain **UNKNOWN**. No source parser or Blender changes were
+made. See [`research/r5t_e/findings.md`](../research/r5t_e/findings.md),
+[`research/r5t_e/gxm-topology.md`](../research/r5t_e/gxm-topology.md), and the
+[machine-readable evidence](../research/r5t_e/topology-candidates.json).
 
 ## R5T-D.0 / D.1 RaceTest split-source and runtime closeout
 
