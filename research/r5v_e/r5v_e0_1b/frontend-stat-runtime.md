@@ -20,8 +20,8 @@ The stats integers present in the retail registry fall within 2..10 for these fi
 Candidate:
 
 ```text
-.research-output/r5v_e0_1b/runtime-test/stats/MRallye_slot25_trooper_stats_test.exe
-SHA-256 feb1b072a22bd77312b8f36f39c80dca85893d8b41645a6ee563831014b70976
+research-output/r5v_e0_1b/runtime-test/stats/MRallye_slot25_trooper_stats_test.exe
+SHA-256 `feb1b072a22bd77312b8f36f39c80dca85893d8b41645a6ee563831014b70976`
 ```
 
 The source is the unmodified retail executable, SHA-256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`. The comparison baseline is the runtime-confirmed Trooper + SmallCarSheet 29 candidate, regenerated from the same source and matching SHA-256 `e19e80e64fcf2835d9883b115868e0cb8a0b63e05f48c8527580b2e0b531c0df`. This preserves the known Forklift participant and Results icons during the independent stats test.
@@ -37,6 +37,6 @@ Relative to that Trooper + frame-29 baseline, executable length is unchanged and
 
 These are the four independent integer arguments passed to the original record initializer in reverse stack order. All other patch operations, including slot, class, Trooper name, SmallCarSheet selector 29, four tail floats, unlock test override, class-2 capacity, registry hook, and stub structure, match the baseline. Patcher `--verify-existing` rebuilt the file in memory and verified both the candidate and manifest.
 
-## Human check
+## Owner-reported runtime result
 
-Inspect T3 Vehicle Select ID25 using the stats candidate. Record the four bar lengths independently and compare with `(3,4,6,10)`. The candidate retains SmallCarSheet selector 29, so the previously confirmed Forklift frame-29 top-left and Results icons should remain. Vehicle Setup may be opened as a crash check; a race is not required. The candidate does not change Trooper physics or assets. Runtime result remains **WAITING FOR HUMAN**.
+The owner reports **FULL PASS**: in T3 Vehicle Select at ID25, the four bars visibly followed `(3,4,6,10)` in Speed, Acceleration, Handling and Endurance order. Trooper identity/configuration remained active, and the candidate retained SmallCarSheet selector 29. This confirms `VehicleRecord[25] +0x0C..+0x18` as independent frontend presentation controls for the tested retail build. The change did not replace Trooper model, physics or collision configuration. This test did not measure physical driving response.

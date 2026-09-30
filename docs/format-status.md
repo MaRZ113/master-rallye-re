@@ -221,7 +221,10 @@ The Vehicle Select updater reads Speed, Acceleration, Handling and Endurance
 directly from the selected VehicleRecord fields `+0x0C..+0x18`, and the scene
 binds four independent bars to those properties. A hash-locked, ignored
 ID25/Trooper stats-only candidate with values `(3,4,6,10)` changes exactly four
-immediate bytes versus the Trooper baseline. Human menu inspection is pending.
+immediate bytes versus the Trooper + SmallCarSheet29 baseline. The owner reports
+FULL PASS: all four Vehicle Select bars followed those values while Trooper
+configuration remained active. This confirms the fields as frontend presentation
+controls for the tested build.
 The progress-marker updater consumes `Race/CarN/Colour` as a four-float tint,
 but the producer and the meaning of Car0 remain unknown; no color candidate
 was created. R5V-F is blocked on the upstream color semantics and stats runtime

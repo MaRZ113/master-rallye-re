@@ -8,6 +8,7 @@
 - Patcher `--verify-existing`: PASS; output and manifest reproduce exactly.
 - Baseline-to-diagnostic comparison: same file length; exactly four changed bytes, at the four stat initializer immediates listed in `frontend-stat-runtime.md`.
 - Original retail EXE hash checked again after generation: unchanged.
+- Owner-reported runtime test: FULL PASS; the four Vehicle Select bars followed `(3,4,6,10)` in order with Trooper configuration retained.
 - No color candidate was generated because no producer/input with a proven Player1-only scope was found.
 
 ## Tests
@@ -16,6 +17,6 @@
 
 ## Runtime status
 
-- Stats: **WAITING FOR HUMAN** Vehicle Select inspection.
+- Stats: **FULL PASS**, owner-reported Vehicle Select inspection.
 - Progress tint: **BLOCKED** pending the producer and safe Player1-only control point.
 - No game launch was performed by the research tooling.
