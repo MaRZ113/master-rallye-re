@@ -225,10 +225,22 @@ immediate bytes versus the Trooper + SmallCarSheet29 baseline. The owner reports
 FULL PASS: all four Vehicle Select bars followed those values while Trooper
 configuration remained active. This confirms the fields as frontend presentation
 controls for the tested build.
-The progress-marker updater consumes `Race/CarN/Colour` as a four-float tint,
-but the producer and the meaning of Car0 remain unknown; no color candidate
-was created. R5V-F is blocked on the upstream color semantics and stats runtime
-observation. See `research/r5v_e/r5v_e0_1b/`.
+R5V-E0.1b stats are **FULL PASS**: the owner observed `(3,4,6,10)` on the four
+Vehicle Select bars while Trooper configuration remained active. These values
+are frontend presentation controls; physical Trooper behavior was not part of
+that test. See `research/r5v_e/r5v_e0_1b/`.
+
+### R5V-E0.1c race progress-marker tint
+
+`FUN_004A74A0` reads `Race/CarN/Colour` as four components and applies them to
+the generic progress-marker render object. `FUN_004A72A0` loads per-widget
+`ObjectColour` from HUD configuration, and Hud0/Hud1 contain a static palette,
+but no evidence links that config field to the race-property writer. Dynamic
+debugger setup did not capture a consumer hit, numeric Car0/Car1+ values, the
+property storage, or the writer. No tint candidate was created. The semantic
+source and the relationship of Car0 to Player1, participant order, or vehicle
+identity remain **UNKNOWN**; R5V-F remains **BLOCKED** on this edge. See
+`research/r5v_e/r5v_e0_1c/`.
 
 ## R5V-E0 Trooper ID25 candidate
 

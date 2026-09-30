@@ -9,7 +9,9 @@ the source used by another.
 | Frontend stats | absolute selected ID25 | Four integer fields in record25 at +0x0C..+0x18 | Owner-confirmed bars follow diagnostic [3,4,6,10]; Trooper configuration retained | Yes | Yes | No | RUNTIME_CONFIRMED presentation control |
 | Vehicle Select icon | class2 local position and static scene widget | T3_CarN XML widget to carsheet bank index | No T3_Car12 binding; icon absent | Indirectly by static widget order | No | No | PROVEN |
 | Race 1P icon | Race participant ID | TimeDiffs/gaHudTimeDiffsAi -> CarID -> record +0x1C -> embedded image selector | Forklift frame 29, owner-confirmed with selector diagnostic | Yes | Yes, field +0x1C | No | RUNTIME_CONFIRMED |
-| Progress marker artwork/tint | HUD display slot 0..7 | Generic hud-template frame 3; updater consumes Race/CarN/Colour Vector4-like value | Generic marker; ID25 selector diagnostic left its aquamarine appearance unchanged | No vehicle-record read in this consumer | No | No | Artwork and tint consumer PROVEN; upstream color producer/semantics UNKNOWN |
+| Progress marker artwork | HUD display slot 0..7 | Generic hud-template frame 3 | Generic marker artwork shared across vehicles | No vehicle-record read in this consumer | No | No | PROVEN |
+| Progress marker tint | HUD display slot from `this+0x18` | `FUN_004A74A0` consumes `Race/CarN/Colour` as four components and copies them to the render object | Owner reports aquamarine appearance; ID25 SmallCarSheet selector change leaves it unchanged | No VehicleRecord read in this consumer; upstream writer not traced | No in consumer | No in consumer | Consumer PROVEN; source, numeric values, and semantic owner UNKNOWN |
+| HUD progress widget colour config | Per-widget `ProgressCarN` | `Hud0/Hud1.xml` `ObjectColour` loaded by `FUN_004A72A0` | Static palette exists; relationship to `Race/CarN/Colour` is unproven | No | No | No | CONFIG INPUT PROVEN; race-property producer link UNKNOWN |
 | Race Results icon | Race participant absolute vehicle ID | participant ID -> record +0x1C -> Frontend/RaceResults/CarN -> smallcarsheet index | Forklift frame 29, owner-confirmed with selector diagnostic | Yes | Yes, field +0x1C | No | RUNTIME_CONFIRMED |
 
 ## Future profile status
@@ -25,7 +27,7 @@ Only fields backed by a demonstrated source are listed as controllable:
 | vehicle_select_icon | ASSET_MISSING | No Trooper-specific art/mapping found; frame 25 exists but its identity and slot binding are unproven |
 | race_player_icon | RUNTIME_CONFIRMED | Owner observed frame 29 in the top-left participant icon with the +0x1C diagnostic |
 | progress_icon | PROVEN_READ_ONLY | Static generic frame 3 is shared by progress markers |
-| progress_marker_colour | UNKNOWN / NOT IN VEHICLE PROFILE | `Race/CarN/Colour` consumer is proven; producer and player/participant/vehicle semantics are unresolved |
+| progress_marker_colour | UNKNOWN / NOT IN VEHICLE PROFILE | Consumer is proven; the producer, numeric Car0 value, and player/participant/vehicle semantics remain unresolved. Do not model as a vehicle field unless vehicle dependence is proven. |
 | results_icon | PROVEN_CONTROLLABLE | Record +0x1C drives the numeric smallcarsheet selector for results |
 
 This matrix is a research model, not a schema implementation.

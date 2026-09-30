@@ -1,5 +1,7 @@
 # R5V-E0.1b findings
 
+**R5V-E0.1b STATS = FULL PASS** (runtime closeout commit `ab3da88`). The owner reported that the four Vehicle Select bars displayed `(3,4,6,10)` while ID25 retained its Trooper runtime configuration. These are frontend presentation controls; the test did not change Trooper simulation physics. E0.1c investigated the separate race progress-marker tint path and did not change this result.
+
 ## Scope and E0.1a closeout
 
 R5V-E0.1a is closed by commit `ccfd29d` (`research: record R5V-E0.1a HUD icon runtime proof`). The owner reported FULL PASS: ID25 with SmallCarSheet selector 29 displays Forklift frame 29 in the top-left 1P icon and Race Results; the bottom progress marker remains aquamarine and Trooper gameplay is unchanged.
