@@ -1,113 +1,65 @@
-# France1 split-trigger localization
+# France1 split-trigger localization — final status
 
-> **Status update (R5T-D.1): superseded.** Subsequent Retail runtime edits
-> moved `SplitTime0-0..3` checkpoint visuals while SplitTime0 remained at its
-> original location. Those four transforms are therefore **NOT_SUPPORTED** as
-> SplitTime0's direct trigger-center source; analogous SplitTime1/2 transforms
-> were not independently tested. The candidate comparison and prepared
-> edit below are retained as the historical D.0 rationale; do not run that
-> prepared edit as the next probe. The trigger's XYZ is read from an unidentified
-> runtime object; see [`split-center-trace.md`](../r5t_d1/split-center-trace.md).
+## Canonical result
 
-## Question and confirmed separation
+For France1 `SplitTime0`, the main Egg's `en3d Matrix` Row3 XYZ supplies both
+the yellow sign position and the gameplay trigger center. The runtime
+`gaRaceSplitTimeAI` sphere is centered on that position and uses its `Radius`.
+This is **CONFIRMED_BY_DEBUGGER**, **CONFIRMED_BY_EXECUTABLE**, and
+**CONFIRMED_BY_RUNTIME_EDIT**. The full evidence and addresses are in
+[`R5T-D.1 findings`](../r5t_d1/findings.md) and
+[`split center trace`](../r5t_d1/split-center-trace.md).
 
-The split Egg has two roles that must stay separate:
-
-| Role | Current representation | Evidence |
+| Record | Proven role | Evidence / limit |
 |---|---|---|
-| Visual split marker | `Egg Name="SplitTimeN"`, `en3d Matrix` Row3 | **CONFIRMED_BY_RUNTIME_EDIT**: moving Row3 moves the yellow sign |
-| Split event settings | `gaRaceSplitTimeAI`: Split Time ID, Radius, ExtraTime | ID and Radius are stored; Radius changing the trigger extent is **CONFIRMED_BY_RUNTIME_EDIT**; ExtraTime meaning is **UNKNOWN** |
-| Gameplay trigger spatial center/shape | Not yet localized | **UNKNOWN** |
+| Main `SplitTimeN` Egg Row3 | visual sign position; SplitTime0 gameplay sphere center | SplitTime0 confirmed by debugger and controlled runtime edit. SplitTime1/2 were not independently moved. |
+| `gaRaceSplitTimeAI/Radius` | radius of 3D Euclidean proximity sphere | Executable path and Radius runtime edit confirm. |
+| `Split Time ID` | split event identity/index | Executable field mapping; ID 0 isolated in debugger. |
+| `ExtraTime` | field loaded at `this+0x1C` | Exact gameplay semantics **UNKNOWN**. |
+| `SplitTimeN-0..3` sibling Eggs | movable visual checkpoint objects | Their direct role as SplitTime0 gameplay center is **NOT_SUPPORTED** by the runtime edit. SplitTime1/2 equivalents were not independently tested. |
 
-Moving only the SplitTime0 visual Egg moved the sign to StartArea. Driving near
-that moved sign did not trigger the split; driving near its old location still
-did. Therefore `SplitTime0/en3d Matrix Row3` as the trigger center is
-**REJECTED / NOT SUPPORTED**.
+## Evidence progression and superseded interpretation
 
-## Candidate comparison from the Retail France1 XML
+The D.0 runtime probe moved only the main SplitTime0 Egg Row3 to StartArea.
+The sign moved, and later driving near it appeared not to trigger the split.
+That was initially interpreted as evidence that Row3 was visual-only. This
+interpretation is **SUPERSEDED**. Debugger captures showed the runtime sphere
+center matched the relocated Row3, while the one-shot acceptance path had
+already accepted all four cars during startup because the sphere overlapped
+StartArea. The later on-road edit moved Row3 from `(-2470.51, 84.36, -110.63)`
+to `(-2415.42, 72.10, -124.94)` with Radius, ID, ExtraTime, RaceLine,
+StartArea, FinishArea, and sibling visuals unchanged; SplitTime0 was awarded at
+the new location before its ordinary location. This is causal runtime proof.
 
-### Candidate 1 — four sibling Egg transforms
+The earlier static hypothesis that the four sibling Egg transforms defined
+the trigger is also superseded: moving those visible objects did not relocate
+the gameplay event. The main Egg transform is the demonstrated center source
+for SplitTime0. No independent runtime relocation result is claimed for
+SplitTime1 or SplitTime2.
 
-For every split ID 0–2, the `SplitTimes` list contains four sibling eggs named
-`SplitTimeN-0` through `SplitTimeN-3`, each with its own `en3d Matrix`. Their
-Row3 points form a compact repeated group:
+## RaceLine relation
 
-| ID | Group center (XYZ) | Center to visual Egg | Corner distances | Radius |
-|---:|---|---:|---|---:|
-| 0 | `(-2470.510, 84.613, -110.630)` | 0.253 | 20.997–21.052 | 21 |
-| 1 | `(-2799.970, -4.473, 563.820)` | 2.426 | 13.005–13.008 | 13 |
-| 2 | `(-1644.960, 39.913, 1009.460)` | 1.033 | 12.011–12.056 | 12 |
+The nearest RaceLine markers to the visual signs are indices 112, 224, and 336;
+this proximity alone is not a trigger reference. The executable initializer
+uses the already existing split center to find a nearby RaceLine point and
+derive a percentage. The supported direction is **split center -> RaceLine
+correlation**, not RaceLine point -> split center. `RaceLine[112]` as direct
+SplitTime0 center is **NOT_SUPPORTED** by the controlled edit.
 
-At the time of R5T-D.0, this repeated geometry and Radius match made the four
-transforms the strongest static candidate. The later controlled runtime
-relocation did not relocate SplitTime0, so `SplitTime0-0..3` are
-**NOT_SUPPORTED** as that event's direct trigger center. The corresponding
-SplitTime1/2 groups were not independently tested. The edit does not establish
-that the visual objects have no other role.
+## Historical D.0 artifacts
 
-### Candidate 2 — RaceLine samples
+The sibling-group translation design and its prepared XML are retained as
+historical D.0 material only. They are not a pending probe and must not be
+presented as the next runtime test. Do not infer trigger geometry from the
+sibling group merely because its dimensions happened to track Radius.
 
-The nearest RaceLine samples to visual split positions are index 112, 224, and
-336 at 6.181, 4.834, and 0.000 units. The +112 progression repeats across the
-three splits, so this is **PLAUSIBLE** spatial/index correlation. There is no
-XML reference or controlled edit proving that these RaceLine points drive the
-split events. Nearby Cameras markers are farther away (nearest distances
-18.546, 17.447, and 24.566); area/limit list markers are farther still.
+## Other D.0 runtime findings retained
 
-### Rejected direct visual-transform candidate
+- `MarkerLists/StartArea` controls the physical grid frame: translation,
+  orientation/heading, and spacing were runtime-confirmed; exact interpolation
+  remains unknown.
+- `MarkerLists/FinishArea` affects the race-completion region; exclusivity is
+  not established.
+- `tag100` physical meaning and `$bsp -> tag100` remain **UNKNOWN**.
 
-The runtime edit moved the sign but left the event at its old location. Direct
-Row3 trigger placement is **REJECTED / NOT SUPPORTED**, even though the static
-group centroid and RaceLine samples are near the sign.
-
-## Historical prepared controlled test — superseded, do not run
-
-The original D.0 plan treated the four-point sibling group as the best
-candidate. That plan predates the D.1 runtime result and is superseded. The
-prepared file remains only as a record of the old controlled-test design.
-
-The source is the external Retail France1 XML with SHA-256
-`beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1`. The
-prepared copy and manifest are ignored local artifacts:
-
-- `.research-output/r5t_d0/split0-companion-group-shift/DataScene/RaceTest/France1.xml`
-- `.research-output/r5t_d0/split0-companion-group-shift/DataScene/RaceTest/probe-manifest.json`
-
-Only these fields change:
-
-| Egg | Baseline Row3 | Prepared Row3 |
-|---|---|---|
-| `SplitTime0-0` | `-2490.23 84.51 -117.84 1.00` | `-1684.16 53.76 165.55 1.00` |
-| `SplitTime0-1` | `-2463.30 85.53 -130.35 1.00` | `-1657.23 54.78 153.04 1.00` |
-| `SplitTime0-2` | `-2450.79 83.09 -103.42 1.00` | `-1644.72 52.34 179.97 1.00` |
-| `SplitTime0-3` | `-2477.72 85.32 -90.91 1.00` | `-1671.65 54.57 192.48 1.00` |
-
-All four XYZ positions receive the same translation `(806.07, -30.75, 283.39)`;
-Row3 W and each Egg's other matrix rows remain unchanged. The group center moves
-from `(-2470.51, 84.6125, -110.63)` to `(-1664.44, 53.8625, 172.76)`, within
-0.004 units of the StartArea centroid.
-
-The byte-isolation tool reverses these four Row3 replacements and verifies an
-exact restoration of the source XML. It also reparses the edited XML and checks
-that the visual SplitTime0 matrix, IDs/radii/ExtraTime, SplitTime1/2 matrices,
-RaceLine, and StartArea are unchanged. Source asset bytes were not overwritten.
-
-### Runtime observation plan
-
-Use the prepared France1 XML in a separate Retail test copy. Keep SplitTime0
-visual Egg Row3 at `-2470.51 84.36 -110.63 1.00`, ID `0`, Radius `21.00000`,
-ExtraTime `77.50000`, SplitTime1/2, RaceLine, StartArea, and FinishArea at
-baseline. Confirm the four sibling checkpoint objects may move visually; judge
-the event independently from those objects and from the yellow sign.
-
-- If Split Time 0 fires near the moved four-point group and no longer fires at
-  the old location, the group is linked to trigger placement. This would not
-  yet identify the exact center/shape or which point/derived field is consumed.
-- If it remains at the old location, the sibling group is not sufficient; the
-  unchanged RaceLine samples or another structure remain candidates.
-- If neither location fires, first classify an arming/order/cache/runtime
-  problem. That outcome alone does not reject the sibling group.
-
-The edit was **PREPARED_NOT_RUNTIME_TESTED** at the D.0 checkpoint. D.1 later
-tested the checkpoint-object transforms and found no trigger relocation; this
-prepared edit is not a recommended follow-up.
+R5T-D.1 status: **PASS**. No follow-up probe is pending in this closeout.

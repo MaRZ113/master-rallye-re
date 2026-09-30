@@ -1,12 +1,13 @@
-# R5T-D.1 split center — source boundary and next capture
+# R5T-D.1 split center — final runtime closeout
 
 ## Source-to-runtime trace
 
-The static trace currently reaches these steps:
+The validated France1 SplitTime0 path is:
 
 ```text
 France1 RaceTest XML
-  -> EggLists_Version4 / SplitTimes records
+  -> EggLists_Version4 / SplitTimes / Egg Name="SplitTime0"
+  -> en3d Matrix Row3 XYZ
   -> XML Egg parsing and AI_List factory path
   -> gaRaceSplitTimeAI instance
        Split Time ID at +0x14
@@ -14,94 +15,90 @@ France1 RaceTest XML
        ExtraTime at +0x1C
   -> runtime callback argument `context`
   -> [context + 0x50] = P
-  -> float3 at [P + 0x4C, +0x50, +0x54]
-  -> 3D proximity test against car XYZ
+  -> float3 at [P + 0x4C, +0x50, +0x54] == Egg Row3 XYZ
+  -> 3D spherical proximity test against car XYZ
 ```
+
+**R5T-D.1: PASS.** The source-to-runtime relation is confirmed for France1
+SplitTime0 by baseline and relocated debugger captures and a final moved-on-road
+runtime edit. The runtime type of `P` remains unknown. SplitTime1/2 share the
+same XML component structure but were not independently moved in runtime tests.
 
 The Retail XML parser dispatches `EggLists_Version4` through `0x0052ECD0` and
 the list/Egg parsing path (`0x0053AD60` / `0x0053AE50`). The Egg parser reads
 the `en3d Matrix` and its `AI_List`; the AI factory registry is queried by
-component name. The `gaRaceSplitTimeAI` property loader at `0x0048D340` only
-maps ID, Radius, and ExtraTime. This establishes how the component's named
-settings are loaded, but it does not prove which parsed Egg or object supplies
-the context later passed to slots 4 and 5.
+component name. The `gaRaceSplitTimeAI` property loader at `0x0048D340` maps ID,
+Radius, and ExtraTime; it has no position property. The source-to-center
+relationship for France1 SplitTime0 is established by matching baseline and
+relocated debugger values plus a separate moved-on-road runtime test. The
+runtime type of `P` remains unknown.
 
-The runtime edits reject three direct XML-position assignments as the source
-of the actual trigger center:
+The evidence progression corrected the original negative interpretation:
 
-1. The main `SplitTime0` Egg transform moves the yellow GPS/sign object, but
-   the split event stays at its old location.
-2. The `SplitTime0-0..3` checkpoint visuals move, but the split event stays at
-   its old location.
-3. Moving RaceLine[112] does not visibly move the event.
+1. Baseline debugger: SplitTime0 Row3 exactly matched runtime P XYZ.
+2. StartArea-relocated debugger: SplitTime0 Row3 and P XYZ again matched. The
+   sphere overlapped the grid, and all four cars were accepted during startup;
+   per-car one-shot guards made later driving appear not to trigger it.
+3. Final nearby on-road Row3 edit: SplitTime0 was awarded at the moved location
+   before the normal split. This is the decisive causal runtime confirmation.
+4. Moving `SplitTime0-0..3` moved those visual objects but did not define the
+   gameplay center; moving `RaceLine[112]` did not visibly move the event.
 
-These results do not establish that those objects have no other role. They
-only fail to support their edited positions as the gameplay center. The
-candidate transform group described in the earlier D.0 report is therefore
-**NOT_SUPPORTED** as a direct trigger-position source and is no longer the
-next probe.
+The main Egg transform is therefore the source; the sibling objects and
+RaceLine direct-position hypothesis remain separate and unsupported for
+SplitTime0.
 
-## France1 static comparison values
+## France1 SplitTime0 debugger and runtime observations
 
-The existing France1 XML report provides reference coordinates, not recovered
-gameplay-center coordinates:
+| State | Egg Row3 XYZ | Runtime center / result | Evidence |
+|---|---|---|---|
+| Baseline Retail XML | `(-2470.51, 84.36, -110.63)` | `P+0x4C/+0x50/+0x54` = `(-2470.51, 84.36, -110.63)` | **CONFIRMED_BY_DEBUGGER** |
+| StartArea-relocated XML | approximately `(-1664.44, 53.86, 172.76)` | P center matched `(-1664.44, 53.86, 172.76)` | **CONFIRMED_BY_DEBUGGER** |
+| Final nearby on-road edit | `(-2415.42, 72.10, -124.94)` | SplitTime0 was awarded at this moved position before its ordinary location | **CONFIRMED_BY_RUNTIME_EDIT** |
 
-| Split | Visual sign Row3 XYZ | Radius | ExtraTime | nearest RaceLine to visual sign |
-|---:|---|---:|---:|---|
-| 0 | `(-2470.51, 84.36, -110.63)` | 21 | 77.5 | index 112, distance 6.181 |
-| 1 | `(-2797.56, -4.64, 563.60)` | 13 | 82.5 | index 224, distance 4.834 |
-| 2 | `(-1644.96, 38.88, 1009.46)` | 12 | 70 | index 336, distance 0.000 |
+In the baseline capture, `P = 0x1A0C3550` for that run and `P+0x58` contained
+`1.0`. Heap and guard addresses vary between runs; only the field offsets and
+observed values above are relevant. The final on-road edit held Radius `21`,
+Split Time ID `0`, ExtraTime `77.5`, RaceLine, StartArea, FinishArea, and the
+sibling visuals at baseline.
 
-The old D.0 sibling group centroids were close to the visual signs and their
-corner distances resembled Radius. Moving `SplitTime0-0..3` did not relocate
-SplitTime0, so those four transforms do not identify SplitTime0's direct
-center. The analogous SplitTime1/2 groups were not independently tested.
-Until runtime values from `P` are captured, comparison to StartArea,
-FinishArea, signs, checkpoints, or RaceLine cannot promote any candidate to
-the owner/source.
+### Why the StartArea probe first appeared negative
 
-## One read-only runtime debugger capture
+At the one-shot acceptance path near `0x0048CD44`, the debugger stopped exactly
+four times during loading/startup for SplitTime0. `EDI` identified cars 0, 1,
+2, and 3. Each had a separate guard byte at the following run-specific
+addresses:
 
-Use the exact Retail executable identified in
-[`findings.md`](findings.md). Load Retail France1 and start the race. Set one
-breakpoint at the proximity method:
+| Car | Guard byte address in observed run |
+|---:|---:|
+| 0 | `0x1A0961C0` |
+| 1 | `0x1A0961C1` |
+| 2 | `0x1A0961C2` |
+| 3 | `0x1A0961C3` |
 
-```text
-Module-relative: MRallye.exe + 0x8CC50
-Preferred VA:    0x0048CC50 (preferred image base 0x00400000)
-Condition:       *(int32_t *)(ECX + 0x14) == 0
-```
+The relocated sphere overlapped StartArea, so all four cars had already
+activated SplitTime0 during startup. Their per-car one-shot guards prevented a
+second activation when the tester later drove around the moved sign. This
+supersedes the earlier interpretation that the sign moved while the gameplay
+center stayed at the original location.
 
-At the first hit, before executing the prologue, record:
+## Canonical read model and boundaries
 
-| Value | Read at method entry | Purpose |
-|---|---|---|
-| `ECX` | register | `gaRaceSplitTimeAI this` |
-| `*(int32_t *)(ECX+0x14)` | memory | should be Split Time ID `0` |
-| `*(float *)(ECX+0x18)` | memory | France1 baseline Radius should be about `21.0` |
-| `*(float *)(ECX+0x1C)` | memory | France1 baseline ExtraTime should be about `77.5` |
-| `ctx = *(uint32_t *)(ESP+0x04)` | stack | actual context argument to the callback |
-| `P = *(uint32_t *)(ctx+0x50)` | memory | runtime spatial-data object pointer |
-| `*(uint32_t *)P` | memory | possible vtable/type clue for the owner object |
-| `float[P+0x4C], float[P+0x50], float[P+0x54]` | memory | actual center used by the distance check |
-| `*(uint32_t *)(ESP)` and call stack | stack/debugger | return address and virtual-dispatch path |
+- SplitTime0 Egg Row3 XYZ is both the yellow sign position and gameplay center:
+  **CONFIRMED_BY_DEBUGGER**, **CONFIRMED_BY_RUNTIME_EDIT**, and
+  **CONFIRMED_BY_EXECUTABLE**.
+- Radius is the 3D spherical proximity threshold, with strict `distance <
+  Radius` for finite values: **CONFIRMED_BY_RUNTIME_EDIT** and
+  **CONFIRMED_BY_EXECUTABLE**.
+- Split Time ID at `this+0x14` identifies/selects split event state:
+  **CONFIRMED_BY_EXECUTABLE**, **SUPPORTED_BY_DEBUGGER**.
+- `SplitTime0-0..3` are separate visual checkpoint objects; their transforms
+  are **NOT_SUPPORTED** as SplitTime0's direct center. SplitTime1/2 sibling
+  transforms were not independently tested.
+- RaceLine[112] is **NOT_SUPPORTED** as the direct center. The initializer
+  derives nearest RaceLine percentage from the already-existing split center.
+- ExtraTime semantics remain **UNKNOWN**.
+- Runtime type of `P` remains **UNKNOWN** even though its SplitTime0 XYZ source
+  is confirmed.
 
-Disable the breakpoint after the first valid hit so the per-frame callback
-does not repeatedly stop execution. Do not edit registers or memory. Coordinates
-should be finite; do not assume in advance that they equal the visual sign or
-checkpoint centroid. The return address/call stack and `P`'s vtable pointer
-are the needed clues for the owner/caller follow-up.
-
-This capture is needed because static analysis found many generic virtual-call
-sites but did not resolve the unique caller for this method. It can confirm the
-live center and reveal the runtime owner shape. It does not itself prove which
-XML element originally populated that object; that requires following the
-captured object/call stack in the same exact executable.
-
-## Controlled data edit
-
-**None prepared.** No XML/data source field has been identified that supplies
-`P+0x4C..+0x54`. Editing the visual sign, checkpoint group, or RaceLine again
-would repeat rejected/not-supported candidates. Select one data edit only
-after the runtime capture and owner/source trace establish a specific source
-field.
+No further runtime test or data edit is pending for R5T-D.1.

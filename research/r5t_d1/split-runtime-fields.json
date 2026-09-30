@@ -1,6 +1,6 @@
 {
   "schema": "master-rallye-r5t-d1-split-runtime-fields-v1",
-  "status": "MORE_WORK_NEEDED",
+  "status": "PASS",
   "executable": {
     "path_used_by_ghidra_program": "D:\\Game\\Master Rallye\\MRallye.exe",
     "sha256": "BF8AEF32407EB6552C05045B8ABEF149F32983CEDD9503B865069B444C5F96B4",
@@ -38,7 +38,7 @@
     "evidence": "CONFIRMED_BY_EXECUTABLE"
   },
   "fields": {
-    "split_time_id": {"offset": "0x14", "type": "int32", "default": 0, "property": "Split Time ID", "evidence": "CONFIRMED_BY_EXECUTABLE"},
+    "split_time_id": {"offset": "0x14", "type": "int32", "default": 0, "property": "Split Time ID", "runtime_role": "split event/state identity index", "evidence": "CONFIRMED_BY_EXECUTABLE; ID 0 supported by debugger isolation"},
     "radius": {"offset": "0x18", "type": "float32", "default": 20.0, "property": "Radius", "runtime_role": "strict distance threshold", "evidence": "CONFIRMED_BY_EXECUTABLE"},
     "extra_time": {"offset": "0x1C", "type": "float32", "default": 90.0, "property": "ExtraTime", "runtime_dataflow": "read in countdown TimeToAdd branches", "semantic_status": "UNKNOWN", "evidence": "CONFIRMED_BY_EXECUTABLE"},
     "car_count": {"offset": "0x0C", "type": "int32", "runtime_role": "proximity loop bound", "evidence": "CONFIRMED_BY_EXECUTABLE"},
@@ -51,8 +51,9 @@
     "proximity_method_va": "0x0048CC50",
     "initializer_va": "0x0048CFE0",
     "owner_type": "UNKNOWN",
-    "producer": "UNKNOWN",
-    "source_asset_field": "UNKNOWN",
+    "producer": "France1 SplitTime0 Egg en3d Matrix Row3 XYZ -> runtime P XYZ",
+    "source_asset_field": "DataScene/RaceTest/France1.xml; Egg Name=SplitTime0; en3d Matrix Row3 XYZ",
+    "source_asset_field_scope": "CONFIRMED for France1 SplitTime0; SplitTime1/2 not independently moved",
     "coordinate_transform_before_read": "not present in these methods; prior producer transform is UNKNOWN",
     "evidence": "CONFIRMED_BY_EXECUTABLE for pointer reads; owner/source UNKNOWN"
   },
@@ -64,8 +65,9 @@
     "dimensionality": "3D",
     "radius_offset": "this+0x18",
     "comparison": "distance < Radius for finite values",
+    "shape": "3D sphere centered on context-derived XYZ with Radius threshold",
     "method_local_conditions": ["car record resolves"],
-    "event_recorder_guard": "per-car split byte is still clear; checked by 0x0048CD20",
+    "event_recorder_guard": "one byte per car; checked/set in 0x0048CD20",
     "evidence": "CONFIRMED_BY_EXECUTABLE"
   },
   "resolved_call_edges": {
@@ -73,6 +75,12 @@
     "proximity_callees": ["0x004D8EC0", "0x004D6FB0", "0x0048CD20"],
     "runtime_virtual_callers_for_slots_2_to_5": "UNRESOLVED; live call stack required",
     "owner_type": "UNKNOWN"
+  },
+  "per_car_one_shot": {
+    "guard_pointer_offset": "this+0x10",
+    "guard_size": "one byte per car",
+    "observed_split_time_0_startup_acceptances": {"hit_count": 4, "edi_car_indices": [0, 1, 2, 3], "breakpoint_va_approx": "0x0048CD44", "evidence": "CONFIRMED_BY_DEBUGGER"},
+    "guard_addresses_are_run_specific": true
   },
   "raceline_initialization": {
     "record_stride": "0x48",
@@ -84,22 +92,36 @@
     "evidence": "CONFIRMED_BY_EXECUTABLE for algorithm; concrete indices remain UNKNOWN"
   },
   "france1_runtime_evidence": [
-    {"claim": "Radius 21 to 100 makes SplitTime0 trigger earlier", "status": "CONFIRMED_BY_RUNTIME_EDIT"},
-    {"claim": "main SplitTime0 Egg Row3 moves yellow sign only; gameplay event stays", "status": "CONFIRMED_BY_RUNTIME_EDIT"},
-    {"claim": "SplitTime0-0..3 checkpoint visuals move; gameplay event stays", "status": "CONFIRMED_BY_RUNTIME_EDIT"},
-    {"claim": "RaceLine[112] move does not visibly relocate the event", "status": "NOT_SUPPORTED as direct center source"}
+    {"claim": "Baseline SplitTime0 Egg Row3 equals runtime P XYZ", "position": [-2470.51, 84.36, -110.63], "status": "CONFIRMED_BY_DEBUGGER"},
+    {"claim": "StartArea-relocated SplitTime0 Egg Row3 equals runtime P XYZ", "position_approx": [-1664.44, 53.86, 172.76], "status": "CONFIRMED_BY_DEBUGGER"},
+    {"claim": "Moving SplitTime0 Row3 to a nearby on-road position awards the split there before the ordinary location", "from": [-2470.51, 84.36, -110.63], "to": [-2415.42, 72.10, -124.94], "unchanged": ["Radius=21", "Split Time ID=0", "ExtraTime=77.5", "RaceLine", "StartArea", "FinishArea", "sibling visuals"], "status": "CONFIRMED_BY_RUNTIME_EDIT"},
+    {"claim": "StartArea relocation appeared negative because all four cars activated during startup and one-shot state blocked later reactivation", "status": "CONFIRMED_BY_DEBUGGER"},
+    {"claim": "SplitTime0-0..3 checkpoint visuals move but are not sufficient to move SplitTime0 center", "status": "CONFIRMED_BY_RUNTIME_EDIT"},
+    {"claim": "RaceLine[112] move does not visibly relocate the event", "status": "NOT_SUPPORTED as direct center source"},
+    {"claim": "SplitTime0 acceptance is guarded once per car; four startup hits for EDI 0..3", "status": "CONFIRMED_BY_DEBUGGER", "breakpoint_va_approx": "0x0048CD44", "guard_addresses_run_specific": ["0x1A0961C0", "0x1A0961C1", "0x1A0961C2", "0x1A0961C3"]}
   ],
+  "france1_runtime_centers": {
+    "split_time_0_baseline": {"xyz": [-2470.51, 84.36, -110.63], "evidence": "CONFIRMED_BY_DEBUGGER"},
+    "split_time_0_startarea_test": {"xyz_approx": [-1664.44, 53.86, 172.76], "evidence": "CONFIRMED_BY_DEBUGGER"},
+    "split_time_0_final_on_road_test": {"egg_row3_xyz": [-2415.42, 72.10, -124.94], "award_followed_moved_position": true, "evidence": "CONFIRMED_BY_RUNTIME_EDIT"},
+    "split_time_1": "NOT_INDEPENDENTLY_TESTED",
+    "split_time_2": "NOT_INDEPENDENTLY_TESTED",
+    "baseline_p_pointer_run_specific": "0x1A0C3550",
+    "p_plus_0x58_observed_float": 1.0
+  },
   "france1_static_visual_references": [
     {"split_id": 0, "sign_xyz": [-2470.51, 84.36, -110.63], "radius": 21.0, "extra_time": 77.5, "nearest_raceline_to_sign": {"index": 112, "distance": 6.181}},
     {"split_id": 1, "sign_xyz": [-2797.56, -4.64, 563.60], "radius": 13.0, "extra_time": 82.5, "nearest_raceline_to_sign": {"index": 224, "distance": 4.834}},
     {"split_id": 2, "sign_xyz": [-1644.96, 38.88, 1009.46], "radius": 12.0, "extra_time": 70.0, "nearest_raceline_to_sign": {"index": 336, "distance": 0.0}}
   ],
-  "next_runtime_debug_capture": {
-    "module_relative_breakpoint": "MRallye.exe+0x8CC50",
-    "preferred_va": "0x0048CC50",
-    "condition": "*(int32_t *)(ECX+0x14) == 0",
-    "capture": ["ECX", "[ESP] return address", "[ESP+0x04] context", "[context+0x50] P", "[P] vtable candidate", "float32[P+0x4C]", "float32[P+0x50]", "float32[P+0x54]", "call stack"],
-    "memory_writes": false,
-    "controlled_xml_edit": "NONE until a source field is identified"
+  "closeout": {
+    "status": "PASS",
+    "next_runtime_debug_capture": "NOT_REQUIRED_FOR_R5T-D.1_CLOSEOUT",
+    "next_controlled_data_edit": "NONE",
+    "blender_code_changed": false,
+    "course_writer_added": false,
+    "exe_patched": false,
+    "tag100_physical_meaning": "UNKNOWN",
+    "bsp_to_tag100": "UNKNOWN"
   }
 }

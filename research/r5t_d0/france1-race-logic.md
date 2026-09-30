@@ -1,12 +1,12 @@
 # France1 RaceTest XML race-logic inventory
 
-> **Current-state update (R5T-D.1):** Static positions below are not recovered
-> gameplay trigger centers. Retail executable analysis shows
-> `gaRaceSplitTimeAI` reads its center from an unidentified runtime object via
-> `[context+0x50]` and XYZ offsets `+0x4C/+0x50/+0x54`. Moving the four
-> `SplitTime0-0..3` checkpoint visuals did not move SplitTime0, so those four
-> transforms are **NOT_SUPPORTED** as SplitTime0's direct center. The analogous
-> SplitTime1/2 groups were not independently tested. See `research/r5t_d1/`.
+> **Current-state update (R5T-D.1 closeout):** For France1 SplitTime0, the
+> main Egg `en3d Matrix` Row3 is both the yellow-sign position and gameplay
+> center. Baseline and StartArea-relocated debugger captures matched Row3 to
+> runtime `P+0x4C/+0x50/+0x54`; a separate on-road edit triggered at its moved
+> position. The earlier StartArea negative was caused by per-car one-shot
+> activation during startup. SplitTime1/2 were not independently moved in
+> runtime tests. See `research/r5t_d1/`.
 
 Source: `France1.xml` (474,787 bytes, SHA-256 `beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1`).
 
@@ -43,15 +43,41 @@ Runtime edits confirm StartArea moves/rotates/scales the physical start grid and
 | 1 | (-2797.560, -4.640, 563.600) | 13.00000 | 82.50000 | 224 (4.834) | 2.426 | 13.005 … 13.008 |
 | 2 | (-1644.960, 38.880, 1009.460) | 12.00000 | 70.00000 | 336 (0.000) | 1.032 | 12.011 … 12.056 |
 
-The visual Egg's `en3d Matrix` Row3 is **CONFIRMED_BY_RUNTIME_EDIT** as the yellow sign position. Moving it alone moved the sign but left the gameplay trigger at the old location; Row3 as trigger center is therefore **REJECTED / NOT SUPPORTED**. Radius changes the event's trigger extent (**CONFIRMED_BY_RUNTIME_EDIT**), but the trigger center remains **UNKNOWN**.
+For SplitTime0, Row3 is **CONFIRMED_BY_RUNTIME_EDIT** and
+**CONFIRMED_BY_DEBUGGER** as both the yellow-sign position and gameplay center.
+Its baseline center `(-2470.51, 84.36, -110.63)` matched the debugger's runtime
+XYZ exactly. The StartArea-relocated center also matched the moved Row3. The
+final nearby on-road edit from `(-2470.51, 84.36, -110.63)` to
+`(-2415.42, 72.10, -124.94)` caused the split to be awarded at the new position
+before its normal location. SplitTime1/2 were not independently moved.
+
+`gaRaceSplitTimeAI/Radius` is the threshold for a 3D spherical proximity test,
+`distance < Radius` for finite values: **CONFIRMED_BY_RUNTIME_EDIT** and
+**CONFIRMED_BY_EXECUTABLE**. Split Time ID is stored at `this+0x14` and selects
+the split event/state identity. `ExtraTime` semantics remain **UNKNOWN**.
 
 ### Historical D.0 static candidate comparison — superseded
 
-Before the D.1 runtime test, the repeated four-Egg sibling groups `SplitTimes/SplitTimeN-0 … SplitTimeN-3` appeared to be strong static candidates: their centroids were within 0.253, 2.426, and 1.033 units of their visual Eggs, and their corner distances tracked Radius values 21, 13, and 12. Moving `SplitTime0-0..3` without moving SplitTime0 makes those four transforms **NOT_SUPPORTED** as SplitTime0's direct trigger center. The analogous SplitTime1/2 transforms were not independently tested; all may still have other visual or spatial roles.
+Before runtime validation, the repeated four-Egg sibling groups appeared to be
+strong static candidates because their centroids and corner distances tracked
+the visual Egg/Radius values. They were a correlation only. Moving the four
+`SplitTime0-0..3` visuals did not relocate SplitTime0, so those four transforms
+are **NOT_SUPPORTED** as its direct center. SplitTime1/2 sibling transforms
+were not independently tested.
 
-The nearest RaceLine markers to the visual signs are indices 112, 224, and 336 at 6.181, 4.834, and 0.000 units. This is still only a visual-position correlation. Executable analysis separately shows that the actual, currently unknown center is mapped to its nearest RaceLine point to initialize split percentage; the concrete runtime indices have not been reproduced.
+The nearest RaceLine markers to the visual signs are indices 112, 224, and 336
+at 6.181, 4.834, and 0.000 units. This is only a visual-position correlation;
+the runtime indices from the actual SplitTime1/2 centers have not been
+reproduced. The executable initializer maps the already-existing center to its
+nearest RaceLine point for a split percentage; the direction is not reversed.
 
-The D.0 prepared translation of the sibling Egg transforms is superseded and is not the next test. The current next step is a read-only breakpoint capture at `MRallye.exe+0x8CC50` to record the runtime center and caller; see `research/r5t_d1/split-center-trace.md`.
+The D.0 prepared sibling-Egg translation and pending breakpoint capture are
+historical and superseded. Final status: for SplitTime0, Egg Row3 is both the
+sign position and gameplay center; the trigger is a 3D sphere with the
+component Radius. SplitTime1/2 share the parsed structure but their Egg
+transforms were not independently relocated at runtime. See
+`research/r5t_d1/split-center-trace.md` for the final center and moved-position
+tests.
 
 ## Retail RaceTest XML corpus
 
@@ -65,9 +91,11 @@ Radius range: [7.0, 30.0]; ExtraTime range: [42.5, 120.0]. These are corpus rang
 
 - StartArea grid translation/orientation/scale and heading: **CONFIRMED_BY_RUNTIME_EDIT**.
 - FinishArea contribution to completion region: **CONFIRMED_BY_RUNTIME_EDIT**; not proven exclusive.
-- Split Radius affects trigger extent: **CONFIRMED_BY_RUNTIME_EDIT**.
-- Split visual transform vs gameplay trigger: separate; visual position confirmed, trigger position **UNKNOWN**.
-- Trigger center memory read at `[context+0x50]+0x4C..0x54`: **CONFIRMED_BY_EXECUTABLE**; owner and source producer **UNKNOWN**.
-- Moving visible `SplitTime0-0..3` checkpoint objects does not move the event: **CONFIRMED_BY_RUNTIME_EDIT**.
+- SplitTime0 Egg Row3 is both sign and trigger center: **CONFIRMED_BY_DEBUGGER** and **CONFIRMED_BY_RUNTIME_EDIT**.
+- Trigger read path `[context+0x50]+0x4C..0x54`: **CONFIRMED_BY_EXECUTABLE**; runtime type of `P` remains **UNKNOWN**.
+- SplitTime0 Radius is a 3D spherical threshold: **CONFIRMED_BY_EXECUTABLE** and **CONFIRMED_BY_RUNTIME_EDIT**.
+- SplitTime0 sibling checkpoint objects are visual; their direct-center role is **NOT_SUPPORTED**.
+- Per-car one-shot activation and the StartArea false-negative explanation: **CONFIRMED_BY_DEBUGGER**.
+- R5T-D.1 status: **PASS** for France1 SplitTime0.
 - `ExtraTime` semantics: **UNKNOWN**.
 - Runtime version participant-to-slot order: not analyzed in this phase.

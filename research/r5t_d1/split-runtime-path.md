@@ -57,6 +57,11 @@ the record exists, it follows record `+0x08` and reads the car XYZ at
 condition-bit test, calls `0x0048CD20` for a finite distance strictly less
 than Radius.
 
+This is a 3D spherical proximity region centered on the context-derived XYZ.
+For France1 SplitTime0, the main Egg `en3d Matrix` Row3 is now confirmed as
+that center by baseline/relocated debugger captures and the final moved
+on-road runtime edit.
+
 This method contains no explicit coordinate transform, axis selection, gate
 plane test, direction check, or distance-squared shortcut. It performs a
 point-distance test every time the update callback runs. Other gating outside
@@ -121,7 +126,9 @@ center pointer reads, XYZ offsets, 3D square-root distance, Radius comparison,
 car-position offsets, per-car one-shot state, and center-to-RaceLine
 percentage initialization.
 
-**UNKNOWN:** runtime type of context and P, the producer of P's XYZ, whether
-those coordinates originate in a RaceTest marker, another scene object, a
-runtime-generated structure, or a different subsystem, and any transform that
-produced the stored values before these methods read them.
+For France1 SplitTime0, the source-to-runtime relation is
+**CONFIRMED_BY_DEBUGGER** and **CONFIRMED_BY_RUNTIME_EDIT**: the main Egg's
+`en3d Matrix` Row3 XYZ matches this center in baseline and relocated debugger
+captures, and the final on-road Row3 edit moved the award location. The runtime
+type of `context` and `P` remains **UNKNOWN**. SplitTime1/2 use the same
+component structure but were not independently moved in these tests.

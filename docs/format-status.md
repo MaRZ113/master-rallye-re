@@ -12,7 +12,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.fl` / `.sf` | Historical 20-byte-header fields with four payload bytes per cell in scanned Demo 8.4.1 candidates. | **CONFIRMED** structure / **UNKNOWN** semantic | Ten candidates satisfy `20 + W*H*4`; direct semantic equivalence to SFL is not established. |
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
-| Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; runtime meanings are field-specific | All 41 retail RaceTest XML files parse. Runtime edits confirm StartArea grid geometry, FinishArea completion-region contribution, split Radius extent, and separate split visual/trigger positions. The gameplay trigger center remains unknown. See `docs/course-importer.md` and `research/r5t_d0/`. |
+| Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; SplitTime0 center **CONFIRMED_BY_RUNTIME_EDIT / DEBUGGER** | All 41 retail RaceTest XML files parse. In France1, `SplitTime0` Egg Row3 drives both the visual sign and gameplay center; `gaRaceSplitTimeAI/Radius` is the 3D sphere radius. SplitTime1/2 have matching structure but were not independently moved in runtime tests. See `docs/course-importer.md` and `research/r5t_d1/`. |
 | Course `.gxm` | Demo 8.4.1 source header, counted bank, and exact trailing node table cross-validated against paired TXT; a bounded float3 bank correlates spatially with cooked DX. | **CONFIRMED_BY_SOURCE_COMPILED_PAIR** for measured positions and controlled tag100 responses; node-to-point links and runtime role **UNKNOWN** | France1 one-point +1 and whole-box +3 edits both changed tag100 reproducibly. Moving the whole GXM candidate did not move cars. R5T-D.0 separately confirmed RaceTest StartArea as the physical grid frame. See `docs/course-source.md` and `research/r5t_c/`. |
 
 ## Course status (R5T-C evidence closeout)
@@ -51,7 +51,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
   geometry controls grid placement and heading; see the current race-logic
   status below.
 
-## Course race-logic status (R5T-D.0 / D.1)
+## Course race-logic status (R5T-D.0 / D.1 closeout)
 
 - **CONFIRMED_BY_RUNTIME_EDIT:** translating, rotating, or scaling the four
   France1 `MarkerLists/StartArea` positions moves, rotates, or expands the
@@ -60,29 +60,41 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 - **CONFIRMED_BY_RUNTIME_EDIT:** expanding `MarkerLists/FinishArea` advances
   race completion. The list contributes to the completion region; exclusivity
   is not established.
-- **CONFIRMED_BY_RUNTIME_EDIT:** `gaRaceSplitTimeAI/Radius` changes the extent
-  at which the optional split event fires. `ExtraTime` semantics remain
-  **UNKNOWN**.
-- **CONFIRMED_BY_RUNTIME_EDIT:** a SplitTime Egg `en3d Matrix` Row3 edit moves
-  the yellow visual sign but does not move the gameplay trigger. Row3 as the
-  trigger center is **REJECTED / NOT SUPPORTED**; the actual trigger center
-  remains **UNKNOWN**.
+- **CONFIRMED_BY_RUNTIME_EDIT / CONFIRMED_BY_DEBUGGER:** France1 SplitTime0's
+  main Egg `en3d Matrix` Row3 drives the yellow sign position and gameplay
+  trigger center. Baseline and StartArea-relocated debugger captures showed the
+  runtime XYZ at `P+0x4C/+0x50/+0x54` matching Row3, and a separate nearby
+  on-road edit triggered the split earlier at the moved location. SplitTime1/2
+  were not separately moved in runtime tests.
+- **CONFIRMED_BY_EXECUTABLE / CONFIRMED_BY_RUNTIME_EDIT:**
+  `gaRaceSplitTimeAI/Radius` is the threshold for a 3D spherical proximity
+  test, `distance < Radius` for finite values. The update reads the center from
+  `P = *(context+0x50)` and XYZ at `P+0x4C/+0x50/+0x54`; SplitTime0's `P`
+  values matched Egg Row3 in two debugger captures.
+- **CONFIRMED_BY_EXECUTABLE / SUPPORTED_BY_DEBUGGER:** Split Time ID is loaded
+  at `this+0x14` and selects the split event/state identity. Debugger condition
+  ID `0` isolated France1 SplitTime0. Broader race-order semantics are not
+  claimed.
+- **CONFIRMED_BY_DEBUGGER:** each car has its own one-shot state byte. The
+  SplitTime0 acceptance path was reached for cars 0–3 during startup when the
+  relocated sphere overlapped StartArea.
+- The earlier apparent failure after moving Egg Row3 to StartArea is
+  **SUPERSEDED_BY_LATER_DEBUGGER_AND_RUNTIME_EVIDENCE**: the sphere had already
+  accepted all four cars during startup, so later driving could not activate
+  their one-shot events again.
 - **CONFIRMED_BY_RUNTIME_EDIT:** moving the visible `SplitTime0-0..3`
-  checkpoint Eggs moved those objects but left the split event at its old
-  location. Their transforms are **NOT_SUPPORTED** as the direct trigger
-  center; the earlier static candidate is superseded.
-- **CONFIRMED_BY_EXECUTABLE:** Retail `gaRaceSplitTimeAI` reads its center from
-  `P = *(context+0x50)` and XYZ at `P+0x4C/+0x50/+0x54`. Its producer, owner
-  type, and source asset field remain **UNKNOWN**. The method compares 3D
-  Euclidean distance to each car against Radius with strict `<`.
-- The nearest RaceLine marker indices 112, 224, and 336 are a separate
-  **PLAUSIBLE** correlation only. No edit or XML reference binds them to the
-  trigger. The executable does show the dependency direction from the trigger
-  center to its nearest RaceLine point for the split percentage; it does not
-  derive the center from RaceLine.
-- The earlier sibling-Egg translation was prepared but is superseded; do not
-  run it as the next test. The current read-only debugger capture is documented
-  in `research/r5t_d1/split-center-trace.md`.
+  checkpoint Eggs moved those objects but did not relocate SplitTime0's
+  gameplay center. Their transforms are **NOT_SUPPORTED** as SplitTime0's
+  direct center source. The analogous SplitTime1/2 transforms were not tested.
+- **NOT_SUPPORTED:** RaceLine[112] as the direct SplitTime0 center. The
+  initializer instead maps the already-existing split center to its nearest
+  RaceLine point and stores a percentage; exact runtime indices for France1
+  remain unmeasured.
+- **UNKNOWN:** exact `ExtraTime` semantics and the runtime type of spatial
+  object `P`. The direct XML source for SplitTime0 is established; broader
+  RaceLine behavior remains outside this result.
+- **R5T-D.1: PASS.** The runtime source field and trigger behavior are closed
+  for France1 SplitTime0. No writer or Blender change was made.
 - The runtime-dependent player-to-slot ordering across 8.4.1, 9.3.1, and
   Retail is separate from this physical geometry question and was not analyzed
   here.

@@ -62,15 +62,20 @@ that moving the old GXM `startpoint` candidate changes tag100 deterministically,
 but its +3 translation did not change the visible grid. Cross-runtime controls
 separate runtime participant ordering from physical slot geometry.
 
-R5T-D.0's controlled Retail edits now confirm that France1
-`MarkerLists/StartArea` controls physical grid translation, orientation,
-spacing, and heading; `FinishArea` contributes to race completion. Split
-visual signs and gameplay triggers are separate: `gaRaceSplitTimeAI/Radius`
-changes trigger extent, but moving the sign's Egg Row3 moves only the visual
-sign. The trigger center remains unknown. A repeated four-Egg sibling group
-around each split is the strongest static candidate; one isolated XML edit is
-prepared but has not been run. `$bsp -> tag100` and tag100 physical meaning
-remain unknown. See `research/r5t_d0/` and `docs/course-importer.md`.
+R5T-D.0 runtime edits confirm that France1 `MarkerLists/StartArea` controls
+physical grid translation, orientation, spacing, and heading; `FinishArea`
+contributes to race completion. R5T-D.1 closes the France1 SplitTime0 center:
+its main Egg `en3d Matrix` Row3 drives both the yellow sign and gameplay
+trigger center, while `gaRaceSplitTimeAI/Radius` defines a 3D spherical
+proximity test. The executable reads center XYZ through
+`[context+0x50]+0x4C/+0x50/+0x54`; baseline and moved-position debugger captures
+match the Egg Row3, and a separate on-road edit triggered early at its new
+position. Per-car one-shot state explains the earlier StartArea false negative:
+all four cars had already activated the moved sphere during race startup.
+`SplitTimeN-0..3` remain separate visual checkpoint objects; ExtraTime's exact
+meaning is unknown. The initializer derives a RaceLine percentage from the
+split center, not the reverse. `$bsp -> tag100` and tag100 physical meaning
+remain unknown. See `research/r5t_d1/` and `docs/course-importer.md`.
 
 No course writer, custom layout, or EXE change exists. See
 [`docs/course-assets.md`](docs/course-assets.md),

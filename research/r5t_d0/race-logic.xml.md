@@ -51,4 +51,5 @@ These ranges do not assign gameplay meaning to ExtraTime or identify a
 universal split count.
 
 See `france1-race-logic.md` for geometry and the user-provided runtime
-evidence, and `split-trigger-localization.md` for the candidate spatial test.
+evidence. `split-trigger-localization.md` records the final D.1 trigger-center
+result and marks the earlier sibling-group probe as historical/superseded.

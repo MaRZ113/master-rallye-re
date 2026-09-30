@@ -65,12 +65,37 @@ P = [context + 0x50]          opaque spatial-data object
 center = float3(P + 0x4C)      XYZ offsets +0x4C, +0x50, +0x54
 ```
 
-The class itself has no position field in its constructor or XML/property
-loader. The executable confirms the context-to-XYZ chain, but does not identify
-the runtime type of `context` or `P`, the producer of `P`'s coordinates, or the
-source asset field that populates them. `0x0048CFE0` also clears bit 0 in an
-unidentified field at `P+0x70`; that is a structural clue only, not an
-assigned semantic.
+The component has no position property in its named AI/property loader. The
+runtime type of `context` and `P` remains unknown, but debugger captures and
+controlled runtime edits now identify the source for France1 SplitTime0:
+`Egg Name="SplitTime0"` `en3d Matrix` Row3 XYZ populates the center read at
+`P+0x4C/+0x50/+0x54`. The object type and broader construction path remain
+unidentified. `0x0048CFE0` also clears bit 0 in an unidentified field at
+`P+0x70`; no semantic is assigned to that write.
+
+### France1 SplitTime0 source correlation
+
+| State | SplitTime0 Egg Row3 XYZ | Debugger center at P+0x4C/+0x50/+0x54 | Result |
+|---|---|---|---|
+| Baseline Retail XML | `(-2470.51, 84.36, -110.63)` | `(-2470.51, 84.36, -110.63)` | Exact match; **CONFIRMED_BY_DEBUGGER** |
+| Earlier StartArea-relocated XML | approximately `(-1664.44, 53.86, 172.76)` | `(-1664.44, 53.86, 172.76)` | Exact reported match; **CONFIRMED_BY_DEBUGGER** |
+| Final nearby on-road edit | `(-2415.42, 72.10, -124.94)` | Runtime split activation followed the moved center | Split was awarded there before its normal location; **CONFIRMED_BY_RUNTIME_EDIT** |
+
+The baseline debugger run observed `P = 0x1A0C3550`; `P+0x58` contained
+`1.0`. Both values are run-specific observations, not stable addresses or
+independently assigned fields. The final on-road edit kept Radius `21`, ID `0`,
+ExtraTime `77.5`, RaceLine, StartArea, FinishArea, and sibling visuals at
+baseline. Together these observations confirm the dataflow:
+
+```text
+France1 SplitTime0 Egg Row3 XYZ
+  -> runtime spatial object P XYZ
+  -> gaRaceSplitTimeAI 3D proximity center
+```
+
+The source-to-center relation is directly tested for SplitTime0. SplitTime1/2
+share the same XML component structure, but were not independently moved in
+these runtime tests.
 
 ### Proximity calculation
 
@@ -85,7 +110,8 @@ sqrt((center.x-car.x)^2 + (center.y-car.y)^2 + (center.z-car.z)^2)
 
 and calls `0x0048CD20` when that result is less than the float at `this+0x18`.
 The normal finite-float comparison is strict `<`, in 3D, with an explicit
-square root. There is no transform or crossing/heading test in this method;
+square root. The accepted region is a 3D sphere centered on Egg Row3 with
+`Radius` as its threshold. There is no transform or crossing/heading test in this method;
 the compared values are read directly and must already be in a common
 coordinate space. Additional scheduling conditions outside this method are
 not characterized here. A missing `Car%d` record skips that car. The event
@@ -116,40 +142,48 @@ indices have not been reproduced from the initializer.
 
 ## Runtime evidence kept separate
 
-- Main `SplitTime0` Egg `en3d Matrix Row3` moves the yellow visual sign but not
-  the gameplay event: sign role **CONFIRMED_BY_RUNTIME_EDIT**; Row3 as trigger
-  center **REJECTED / NOT_SUPPORTED**.
+- Main `SplitTime0` Egg `en3d Matrix Row3` controls both the yellow sign and
+  gameplay center: **CONFIRMED_BY_RUNTIME_EDIT** and
+  **CONFIRMED_BY_DEBUGGER**. Baseline and StartArea-relocated captures matched
+  the Row3 XYZ; the final nearby on-road move caused SplitTime0 to be awarded
+  at the moved center.
 - The `SplitTime0-0..3` visible checkpoint objects move when their transforms
-  are edited, but the event stays at its old location: visual role
-  **CONFIRMED_BY_RUNTIME_EDIT**; their transforms as trigger center
-  **NOT_SUPPORTED**.
+  are edited, but do not move SplitTime0's center: visual role
+  **CONFIRMED_BY_RUNTIME_EDIT**; their transforms as SplitTime0's direct center
+  **NOT_SUPPORTED**. SplitTime1/2 sibling transforms were not separately tested.
 - Moving `RaceLine[112]` did not visibly move the event:
   **NOT_SUPPORTED** as the direct trigger-position source.
-- Radius affects the event extent: **CONFIRMED_BY_RUNTIME_EDIT**.
-- The gameplay center's runtime storage chain is
-  **CONFIRMED_BY_EXECUTABLE**; its owner type and producer/source field remain
-  **UNKNOWN**.
+- Radius defines the 3D spherical trigger threshold:
+  **CONFIRMED_BY_RUNTIME_EDIT** and **CONFIRMED_BY_EXECUTABLE**.
+- The runtime center read path is **CONFIRMED_BY_EXECUTABLE**; its France1
+  SplitTime0 XML source is **CONFIRMED_BY_DEBUGGER** and
+  **CONFIRMED_BY_RUNTIME_EDIT**. The runtime type of `P` remains **UNKNOWN**.
+- Split Time ID at `this+0x14` selects the split event/state identity:
+  **CONFIRMED_BY_EXECUTABLE**, **SUPPORTED_BY_DEBUGGER** (ID 0 isolated
+  SplitTime0).
+- Per-car one-shot acceptance is **CONFIRMED_BY_DEBUGGER**: the path around
+  `0x0048CD44` was hit exactly four times during startup with `EDI` 0, 1, 2,
+  and 3, each using a distinct run-specific guard byte.
 - `ExtraTime` is read by the event path and contributes to writes to
   `Race/Countdown/.../TimeToAdd` in particular state/difficulty branches.
   Its gameplay meaning remains **UNKNOWN**; this dataflow alone does not assign
   a time-bonus or penalty interpretation.
 
-The earlier R5T-D.0 four-sibling transform candidate is superseded for
-SplitTime0 by the runtime result above; SplitTime1/2 sibling positions were not
-independently tested. The four edited SplitTime0 transforms are not supported
-as that event's direct trigger-position source.
-The earlier prepared transform edit is historical preparation, not the next
-recommended experiment. See `split-center-trace.md` for the single debugger
-handoff and the unresolved source boundary.
+The earlier apparent negative from moving the main Egg Row3 to StartArea is
+**SUPERSEDED_BY_LATER_DEBUGGER_AND_RUNTIME_EVIDENCE**. The moved sphere
+overlapped the start grid, so all four cars were accepted during loading/startup;
+their one-shot bytes prevented later drive observations from activating the
+same events again. The final on-road edit removed this confound and triggered
+SplitTime0 at the moved position. The older sibling-group translation remains
+historical and is not the source of SplitTime0's center.
 
 ## Status
 
-**R5T-D.1: MORE WORK NEEDED.** The executable's proximity algorithm and the
-runtime XYZ pointer chain are established. No supported XML/data field has yet
-been found to move those XYZ values, so no controlled data edit is prepared.
-The next useful action is one read-only debugger capture at the proximity
-method to record the SplitTime0 center, context/object pointers, and virtual
-caller's stack.
+**R5T-D.1: PASS.** For France1 SplitTime0, the XML source, runtime center,
+3D spherical proximity test, Radius, Split Time ID use, and per-car one-shot
+guard are documented with executable, debugger, and controlled runtime
+evidence. Exact ExtraTime semantics, the runtime type of `P`, and direct runtime
+movement of SplitTime1/2 remain outside this closeout.
 
 No Blender code, course data, XML, executable, or Ghidra original project was
 modified. No writer was added.
@@ -162,8 +196,11 @@ Commands run:
   matched the executable hash above.
 - `python -m unittest discover -s tests\synthetic -v` — **144 tests passed**.
 - `python -m json.tool research/r5t_d1/split-runtime-fields.json` — valid JSON.
+- `python -m json.tool research/r5t_d0/france1-race-logic.json` — valid JSON.
 - `git diff --check` and `git diff --cached --check` — clean.
 
-No XML or executable bytes were edited, so this phase has no source-data
-byte-diff count. Reported binary addresses are preferred VAs for the exact
-executable hash above; structure offsets are in-memory offsets.
+The game XML and executable were not modified by this documentation closeout.
+The earlier controlled test copies were used only in the owner-reported runtime
+experiments; no proprietary XML or binary was added to the repository.
+Reported binary addresses are preferred VAs for the exact executable hash
+above; structure offsets are in-memory offsets.

@@ -122,7 +122,7 @@ validation pair, not a substitute for missing isolated oracles.
 The current parser can inventory and compare source hierarchy metadata with
 `mrtool diff-course`. It is not a GXM writer and does not modify game assets.
 
-## R5T-D.0 RaceTest split-source correlation
+## R5T-D.0 / D.1 RaceTest split-source and runtime closeout
 
 The retail RaceTest hierarchy now provides a stronger course-side baseline for
 race logic. The complete France1 XML has 1,080 ordered Marker records in eight
@@ -141,18 +141,32 @@ observation, not a source-to-XML/runtime correlation.
 
 Retail France1's RaceTest XML contains one `gaRaceSplitTimeAI` Egg for each ID
 0–2. Each has four sibling Eggs named `SplitTimeN-0` through `SplitTimeN-3`.
-Their four matrix Row3 positions form compact repeated point groups. Group
-centroids are within 0.253, 2.426, and 1.033 units of the corresponding visual
-SplitTime Egg. The group-to-corner distances closely match Radius values 21,
-13, and 12. This is a **HIGH_CONFIDENCE_INFERENCE candidate** for gameplay
-trigger placement, not a decoded link. The nearer RaceLine samples at indices
-112/224/336 are a separate **PLAUSIBLE** correlation only. The visual Egg
-Row3 is confirmed as the yellow-sign position, but a runtime edit rejected it
-as the trigger center. The actual trigger center is **UNKNOWN**.
+Their Row3 positions form repeated point groups, but moving the four
+`SplitTime0-0..3` checkpoint objects did not move SplitTime0's gameplay center.
+Those sibling transforms are **NOT_SUPPORTED** as the direct center for
+SplitTime0; SplitTime1/2 equivalents were not independently tested.
 
-The single prepared next test moves only the four `SplitTime0-0…3` matrix
-Row3 XYZ triplets by `(806.07, -30.75, 283.39)` to the StartArea centroid. It
-leaves the visual SplitTime0 Egg, its ID/Radius/ExtraTime, RaceLine, StartArea,
-and SplitTime1/2 unchanged. It was prepared as an ignored copy, not loaded in
-the game. See `research/r5t_d0/split-trigger-localization.md` and the ignored
-`.research-output/r5t_d0/split0-companion-group-shift/probe-manifest.json`.
+For France1 SplitTime0, the main Egg `en3d Matrix` Row3 is now confirmed as
+both the yellow-sign position and the gameplay trigger center. Baseline and
+StartArea-relocated debugger captures showed runtime `P+0x4C/+0x50/+0x54`
+matching the Egg Row3. A final source-isolated on-road edit moved only that
+Row3 from `(-2470.51, 84.36, -110.63)` to `(-2415.42, 72.10, -124.94)`; the
+split was awarded at the moved location before its ordinary location. Evidence
+is **CONFIRMED_BY_RUNTIME_EDIT**, **CONFIRMED_BY_DEBUGGER**, and
+**CONFIRMED_BY_EXECUTABLE**. SplitTime1/2 were not independently moved in
+runtime tests.
+
+The earlier StartArea test appeared negative because its relocated sphere
+overlapped the starting grid. Debugger observation at the one-shot acceptance
+path showed all four cars accepted during startup, one byte per car, so later
+driving could not activate those split events again. This corrects, rather than
+erases, the earlier observation.
+
+The executable's `0x0048CFE0` initializer maps the existing split center to its
+nearest RaceLine point and stores a split percentage. The dependency is
+**split center → nearest RaceLine sample**, not RaceLine → center. Static
+visual-sign neighbors 112/224/336 have not been reproduced from the runtime
+centers; moving RaceLine[112] is **NOT_SUPPORTED** as the direct SplitTime0
+center. Radius is a 3D spherical threshold (`distance < Radius`); ExtraTime's
+semantics remain **UNKNOWN**. See `research/r5t_d1/` for debugger details and
+the canonical evidence ledger.

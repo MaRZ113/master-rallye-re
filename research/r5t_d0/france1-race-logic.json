@@ -1,5 +1,5 @@
 {
- "report": "R5T-D.0 France1 RaceTest XML structure and spatial correlation",
+ "report": "R5T-D.0 France1 RaceTest structure; split status reconciled with R5T-D.1",
  "evidence_scope": "Static XML structure plus user-provided runtime-edit observations; static spatial correlation does not prove trigger linkage.",
  "source": {
   "file": "France1.xml",
@@ -23193,8 +23193,12 @@
    "radius": 21.0,
    "extra_time_raw": "77.50000",
    "extra_time": "77.50000",
-   "gameplay_trigger_position": null,
-   "gameplay_trigger_position_status": "UNKNOWN",
+   "gameplay_trigger_position": [
+    -2470.51,
+    84.36,
+    -110.63
+   ],
+   "gameplay_trigger_position_status": "CONFIRMED_BY_DEBUGGER and CONFIRMED_BY_RUNTIME_EDIT",
    "marker_proximity": {
     "threshold_counts_3d": {
      "5": {
@@ -26989,9 +26993,10 @@
    ],
    "evidence": {
     "visual_en3d_row3_is_marker_position": "CONFIRMED_BY_RUNTIME_EDIT",
-    "visual_en3d_row3_is_gameplay_trigger_center": "REJECTED / NOT SUPPORTED by controlled edit",
-    "radius_affects_split_trigger_extent": "CONFIRMED_BY_RUNTIME_EDIT",
-    "trigger_center": "UNKNOWN"
+    "visual_en3d_row3_is_gameplay_trigger_center": "CONFIRMED_BY_DEBUGGER and CONFIRMED_BY_RUNTIME_EDIT",
+    "radius_affects_split_trigger_extent": "CONFIRMED_BY_RUNTIME_EDIT; executable confirms 3D spherical distance threshold",
+    "trigger_center": "main SplitTime0 Egg en3d Matrix Row3 XYZ",
+    "ExtraTime_semantics": "UNKNOWN"
    }
   },
   {
@@ -27499,7 +27504,7 @@
    "extra_time_raw": "82.50000",
    "extra_time": "82.50000",
    "gameplay_trigger_position": null,
-   "gameplay_trigger_position_status": "UNKNOWN",
+   "gameplay_trigger_position_status": "UNKNOWN; same source relationship not independently runtime-tested for this split",
    "marker_proximity": {
     "threshold_counts_3d": {
      "5": {
@@ -31296,9 +31301,10 @@
    ],
    "evidence": {
     "visual_en3d_row3_is_marker_position": "CONFIRMED_BY_RUNTIME_EDIT",
-    "visual_en3d_row3_is_gameplay_trigger_center": "REJECTED / NOT SUPPORTED by controlled edit",
-    "radius_affects_split_trigger_extent": "CONFIRMED_BY_RUNTIME_EDIT",
-    "trigger_center": "UNKNOWN"
+    "visual_en3d_row3_is_gameplay_trigger_center": "NOT_INDEPENDENTLY_TESTED",
+    "radius_affects_split_trigger_extent": "CONFIRMED_BY_RUNTIME_EDIT; executable confirms 3D spherical distance threshold",
+    "trigger_center": "UNKNOWN for this individual split; class/runtime path establishes generic consumer",
+    "ExtraTime_semantics": "UNKNOWN"
    }
   },
   {
@@ -31806,7 +31812,7 @@
    "extra_time_raw": "70.00000",
    "extra_time": "70.00000",
    "gameplay_trigger_position": null,
-   "gameplay_trigger_position_status": "UNKNOWN",
+   "gameplay_trigger_position_status": "UNKNOWN; same source relationship not independently runtime-tested for this split",
    "marker_proximity": {
     "threshold_counts_3d": {
      "5": {
@@ -35602,36 +35608,37 @@
    ],
    "evidence": {
     "visual_en3d_row3_is_marker_position": "CONFIRMED_BY_RUNTIME_EDIT",
-    "visual_en3d_row3_is_gameplay_trigger_center": "REJECTED / NOT SUPPORTED by controlled edit",
-    "radius_affects_split_trigger_extent": "CONFIRMED_BY_RUNTIME_EDIT",
-    "trigger_center": "UNKNOWN"
+    "visual_en3d_row3_is_gameplay_trigger_center": "NOT_INDEPENDENTLY_TESTED",
+    "radius_affects_split_trigger_extent": "CONFIRMED_BY_RUNTIME_EDIT; executable confirms 3D spherical distance threshold",
+    "trigger_center": "UNKNOWN for this individual split; class/runtime path establishes generic consumer",
+    "ExtraTime_semantics": "UNKNOWN"
    }
   }
  ],
  "correlation_findings": {
   "split_companion_group_candidate": {
-   "status": "HIGH_CONFIDENCE_INFERENCE; NOT RUNTIME CONFIRMED",
+   "status": "NOT_SUPPORTED as direct SplitTime0 gameplay-center source",
    "basis": [
-    "each of SplitTime0/1/2 has four sibling eggs named SplitTimeN-0 through SplitTimeN-3 in the SplitTimes list",
-    "the four Row3 positions form a compact repeated group whose centroid is within 2.426 source units of its main SplitTimeN visual egg",
-    "their centroid-to-corner distances closely track the corresponding Radius values for all three splits",
-    "the main visual egg was moved alone; its yellow visual marker moved but its gameplay trigger stayed at the old course location"
+    "the sibling Eggs are independently movable visual checkpoint objects",
+    "a controlled runtime edit moved them without moving the actual SplitTime0 event"
    ],
-   "interpretation_limit": "This supports the four sibling transforms as a gameplay-trigger spatial candidate. It does not prove that they are read by gaRaceSplitTimeAI or define a gate/volume."
+   "interpretation_limit": "SplitTime1/2 sibling transforms were not independently tested; other visual roles remain possible."
   },
   "raceline_candidate": {
-   "status": "PLAUSIBLE SPATIAL CORRELATION; NOT RUNTIME CONFIRMED",
-   "basis": "The nearest RaceLine marker to SplitTime0/1/2 visual positions is respectively index 112/224/336 at distances approximately 6.181/4.834/0.000; the repeated 112-index spacing is a structural correlation only.",
-   "interpretation_limit": "No controlled RaceLine edit or XML reference binds these markers to split triggers."
+   "status": "CONFIRMED_BY_EXECUTABLE as downstream correlation; NOT_SUPPORTED as direct center source",
+   "basis": "The initializer uses the existing split center to find a nearby RaceLine point and derive a percentage. Indices 112/224/336 are nearest to visual sign positions in this static report.",
+   "interpretation_limit": "Do not reverse the dependency or treat nearest visual-position indices as the trigger center."
   },
   "runtime_evidence": {
    "StartArea_translation_rotation_scale_and_heading": "CONFIRMED_BY_RUNTIME_EDIT",
    "FinishArea_controls_or_contributes_to_race_completion_region": "CONFIRMED_BY_RUNTIME_EDIT; not proven sole finish subsystem",
    "split_radius_changes_trigger_extent": "CONFIRMED_BY_RUNTIME_EDIT",
    "split_egg_row3_is_visual_position": "CONFIRMED_BY_RUNTIME_EDIT",
-   "split_egg_row3_is_gameplay_trigger_center": "REJECTED / NOT SUPPORTED",
-   "split_trigger_center": "UNKNOWN",
-   "ExtraTime_semantics": "UNKNOWN"
+   "split_egg_row3_is_gameplay_trigger_center": "CONFIRMED_BY_DEBUGGER and CONFIRMED_BY_RUNTIME_EDIT for SplitTime0",
+   "split_trigger_center": "SplitTime0 = main Egg en3d Matrix Row3 XYZ; SplitTime1/2 not independently relocated at runtime",
+   "ExtraTime_semantics": "UNKNOWN",
+   "split_radius_is_3d_sphere_radius": "CONFIRMED_BY_EXECUTABLE and CONFIRMED_BY_RUNTIME_EDIT",
+   "per_car_one_shot_activation": "CONFIRMED_BY_DEBUGGER; four cars accepted at startup when relocated sphere overlapped StartArea"
   }
  },
  "retail_corpus_summary": {

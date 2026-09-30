@@ -30,17 +30,21 @@ their source list. Positions use the established `(X, Y, Z) → (X, -Z, Y)`
 conversion. Directions stay as source metadata.
 
 Split visual Eggs get a small original procedural yellow arrow icon at the
-serialized `en3d Matrix` transform. The visual object stores the raw matrix,
-Split Time ID, Radius, and ExtraTime. The four sibling `SplitTimeN-0…3` Egg
-positions appear in a separate neutral `UNKNOWN` candidate collection. No
-Radius sphere and no gameplay-trigger object is drawn: the trigger position is
-still unknown and the sign transform is proven independent from it. These
-helpers do not contain copied game models or textures.
+serialized `en3d Matrix` transform. R5T-D.1 runtime/debugger evidence confirms
+for France1 SplitTime0 that this Row3 position also supplies the gameplay
+trigger center. The `gaRaceSplitTimeAI` metadata retains Split Time ID, Radius,
+and ExtraTime; Radius is the strict threshold for a 3D spherical proximity
+test. The current add-on still does not draw a trigger sphere; a future helper
+can use the confirmed Row3 center and Radius. ExtraTime meaning remains
+unknown. The four sibling `SplitTimeN-0…3` Eggs remain separate visual
+checkpoint objects; their positions are not supported as SplitTime0's center.
+No helper includes copied game models or textures.
 
 Runtime evidence labels are attached to StartArea and FinishArea helpers. The
 current France1 inventory contains 1,080 markers in eight lists, 76 Eggs, and
 three split visual Eggs. Headless validation is in
-`tests/blender/r5t_b_xml_smoke.py`; the R5T-D.0 corpus/spatial report is
+`tests/blender/r5t_b_xml_smoke.py`; the final SplitTime0 evidence is in
+`research/r5t_d1/` and the France1 corpus inventory is in
 `research/r5t_d0/france1-race-logic.md`.
 
 Blender 5.2.2 headless validation passes for both Retail France1 and Italy1.

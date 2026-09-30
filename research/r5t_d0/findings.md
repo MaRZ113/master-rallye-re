@@ -1,11 +1,12 @@
 # R5T-D.0 findings — RaceTest XML race logic
 
-> **Current-state note (R5T-D.1):** The static sibling-group candidate and
-> prepared edit described below were superseded by a later controlled runtime
-> edit. Moving the `SplitTime0-0..3` visuals did not move SplitTime0. The
-> executable confirms that the trigger center is read from an unidentified
-> runtime object at `[context+0x50]+0x4C..0x54`; the producer/source field is
-> still **UNKNOWN**. See `research/r5t_d1/` for the current trace.
+> **Current-state note (R5T-D.1 closeout):** France1 SplitTime0's main Egg
+> `en3d Matrix` Row3 supplies both the yellow-sign position and gameplay
+> center. Debugger captures match Row3 at runtime `P+0x4C/+0x50/+0x54`; a
+> separate moved on-road edit triggered at its new position. The earlier
+> apparent StartArea negative was caused by all four cars consuming their
+> per-car one-shot state during startup. See `research/r5t_d1/` for the final
+> evidence. SplitTime1/2 were not independently moved in runtime tests.
 
 ## Scope and source
 
@@ -27,9 +28,11 @@ The file is external to the Git repository. Derived reports are
   completion subsystem is unknown.
 - `gaRaceSplitTimeAI/Radius` changes the distance/extent at which that optional
   split event fires. Split events may be missed without preventing a finish.
-- Moving only a SplitTime Egg's `en3d Matrix` Row3 moved its yellow visual sign;
-  the gameplay trigger stayed at the old location. Row3 as trigger center is
-  **REJECTED / NOT SUPPORTED**.
+- The first drive-after-relocation observation appeared to show the yellow
+  sign move while the event remained at its old location. This interpretation
+  is **SUPERSEDED_BY_LATER_DEBUGGER_AND_RUNTIME_EVIDENCE**: the moved sphere
+  overlapped StartArea, and all four cars activated during startup before the
+  later drive observation.
 - `ExtraTime` has no assigned meaning.
 
 ## Static France1 XML inventory
@@ -53,9 +56,9 @@ is `(-1487.9075, 66.8425, 367.3675)`. Both source-order XZ polygons pass a
 simple consistent-turn convexity check. The Blender add-on draws only the
 source-order outline and four points, without a filled face.
 
-## Split visual objects and candidate trigger structures
+## D.0 split visual objects and static candidate structures
 
-| ID | Visual Row3 | Radius | ExtraTime | Companion center to visual | Group corner distance |
+| ID | Visual Row3 | Radius | ExtraTime | Sibling-group centroid to visual | Group corner distance |
 |---:|---|---:|---:|---:|---:|
 | 0 | `(-2470.51, 84.36, -110.63)` | 21 | 77.5 | 0.253 | 20.997–21.052 |
 | 1 | `(-2797.56, -4.64, 563.60)` | 13 | 82.5 | 2.426 | 13.005–13.008 |
@@ -64,21 +67,24 @@ source-order outline and four points, without a filled face.
 Each split has sibling Eggs `SplitTimeN-0` through `SplitTimeN-3` in the
 `SplitTimes` list. Their en3d Matrix Row3 positions form a compact repeated
 four-point group. Its centroid and corner-distance pattern tracks the visual
-Egg and Radius closely in all three cases. At the time of R5T-D.0, this made
-the group a **HIGH_CONFIDENCE_INFERENCE candidate** for the runtime trigger's
-spatial structure. A later controlled runtime edit moved the four visible
-`SplitTime0-0..3` checkpoint objects without moving SplitTime0, so these four
-transforms are **NOT_SUPPORTED** as SplitTime0's direct trigger center. The
-analogous SplitTime1/2 groups were not independently moved in that test. The
-result does not establish that the visual objects have no other role.
+Egg and Radius closely in all three cases. At the time of R5T-D.0, this was a
+**HIGH_CONFIDENCE_INFERENCE static candidate**. Subsequent evidence establishes
+the main Egg Row3 as SplitTime0's center. Moving the four visible
+`SplitTime0-0..3` checkpoint objects did not move SplitTime0, so these four
+transforms are **NOT_SUPPORTED** as its direct center. SplitTime1/2 groups
+were not independently moved. The geometry similarity alone did not establish
+the runtime relationship.
 
 The nearest RaceLine markers to the three visual positions are indices 112,
-224, and 336 at distances 6.181, 4.834, and 0.000. Their repeated 112-index
-spacing is a separate **PLAUSIBLE** correlation. No edit or reference proves
-that the RaceLine markers define the trigger.
+224, and 336 at distances 6.181, 4.834, and 0.000. The static visual-neighbor
+relationship remains unverified against the actual SplitTime1/2 centers. The
+executable independently confirms that a split center is mapped to its
+nearest RaceLine point to store a percentage; the dependency does not run in
+reverse.
 
 See [`split-trigger-localization.md`](split-trigger-localization.md) for the
-candidate comparison and the exact next probe.
+superseded D.0 candidate and [`../r5t_d1/split-center-trace.md`](../r5t_d1/split-center-trace.md)
+for the final debugger/runtime closeout.
 
 ## Retail corpus
 
@@ -101,12 +107,15 @@ The existing add-on now creates a hierarchy under
 - StartArea and FinishArea get four point helpers plus a source-order outline.
 - Split signs get procedural yellow helper icons at their serialized matrix
   transforms with source matrix, Split Time ID, Radius, and ExtraTime metadata.
-- Sibling split Eggs are shown only as neutral points in an explicit UNKNOWN
-  candidate collection. No gameplay trigger object or Radius sphere is drawn.
+- Sibling split Eggs remain neutral visual points; their legacy collection
+  label is not evidence that they define gameplay triggers. No trigger sphere
+  is drawn. R5T-D.1 confirms the SplitTime0 Row3/Radius read model, but this
+  phase did not modify the Blender add-on.
 
 The France1 Blender 5.2.2 headless smoke imported 1,080 markers, both
-four-point area lists, three split visual icons, and 12 sibling candidate
-points. Italy1 passed the same hierarchy-aware smoke with 1,202 markers. A
+four-point area lists, three split visual icons, and 12 sibling visual
+objects (their direct-trigger interpretation is not supported). Italy1 passed
+the same hierarchy-aware smoke with 1,202 markers. A
 direct import of the built add-on ZIP passed the France1 helper check without
 installing to Blender's external user profile. These are automated
 scene-structure checks, not manual viewport/runtime parity claims.
@@ -134,5 +143,6 @@ RaceTest spatial link is claimed.
   instead.
 - No course DX, XML, route, surface, BSP, or EXE writer was added. No EXE was
   patched. The R5T-C tag100 and `$bsp -> tag100` UNKNOWN findings are unchanged.
-- The split-group runtime edit was prepared at the D.0 checkpoint but is
-  superseded by the D.1 relocation result; do not run it as the next probe.
+- The split-group runtime edit was prepared at the D.0 checkpoint and is
+  historical only. D.1's direct center capture and moved on-road test supersede
+  that candidate.
