@@ -32,24 +32,27 @@ The visible identity is assembled from separate data sources:
    profile deliberately initialized those four fields with Astero's values;
    there is no separate ID25-to-Astero stats alias in this reader.
 3. **Vehicle Select icon** — T3 icons are assigned by static XML widgets and
-   image-bank indices. The retail scene has T3_Car1 through T3_Car11, but no
-   widget for local index 11 / absolute ID25. The carsheet frame 25 file exists;
-   the binding is absent.
+   carsheet frame indices. The retail scene has T3_Car1 through T3_Car11, but
+   no widget for local index 11 / absolute ID25. E0.2 prepared a generic
+   scene-only T3_Car12 candidate using the existing Astero frame5 as a
+   diagnostic donor; runtime visibility is pending. Frame25 exists but is a
+   red-and-white SUV, not proven Trooper art. See
+   [R5V-E0.2](../../r5v_e0_2/findings.md).
 4. **Race progress marker** — Hud0/Hud1 use the fixed hud-template frame 3 for
    ProgressCar0 through ProgressCar7. The updater selects Race/CarN progress
    and colour, then uses the same generic white-car marker. It does not choose
    art from the vehicle ID or name.
-5. **Race 1P icon** — the R5V-E0.1a follow-up identifies `TimeDiffs` /
-   `gaHudTimeDiffsAi` as a strong candidate and finds a raw-code helper that
-   reads participant CarID -> record `+0x1C` -> image selector. The static
-   dispatch edge and scene child resource binding are still open; a dedicated
-   `0 -> 29` candidate is waiting for human runtime validation. See
-   `research/r5v_e/r5v_e0_1a/`.
+5. **Race 1P icon** — the R5V-E0.1a follow-up traces the `TimeDiffs` /
+   `gaHudTimeDiffsAi` path from participant CarID to record `+0x1C` and an
+   embedded image selector. The exact scene child resource binding remains
+   unnamed statically, but the owner reports that the `0 -> 29` diagnostic
+   changed the top-left 1P icon to the Forklift image while Trooper gameplay
+   remained normal.
 6. **Race Results icon** — the results producer reads the race participant's
    absolute vehicle ID, then reads VehicleRecord[ID] field +0x1C and publishes
    that integer as Frontend/RaceResults/CarN. The scene applies it to the
-   smallcarsheet image selector. E0 supplied the Astero-equivalent value 0,
-   which selects frame 0.
+   smallcarsheet image selector. E0 initially supplied value 0; the owner later
+   reported frame29 after the E0.1a selector diagnostic.
 
 The registry accessor returns the registry object base, while records begin at
 object offset +4 and have stride 0x34. This distinction resolves the Race
@@ -73,21 +76,20 @@ The six channels are analyzed separately in the linked reports:
 |---|---|---|
 | Display name | STEEL MONKEYS FORKLIFT | STRONGLY_SUPPORTED: raw selector calls are ID-indexed; owner confirms rendered text; EXE contains the Forklift strings |
 | Stats | Astero-derived values | PROVEN data source and values: direct record reads plus E0 initializer profile |
-| Vehicle Select icon | Missing | PROVEN: no T3_Car12 widget/binding; frame 25 asset itself exists |
-| Race 1P icon | TimeDiffs image candidate; selector 0 -> 29 pending | STRONGLY_SUPPORTED static data path; dispatch/object match awaits runtime test |
+| Vehicle Select icon | Diagnostic Astero donor staged; no authentic Trooper icon identified | Static scene mapping proven; R5V-E0.2 runtime P0 pending |
+| Race 1P icon | Forklift frame 29 after the E0.1a selector diagnostic | Static CarID-to-record path plus owner-reported runtime result; exact embedded resource binding remains unnamed |
 | Progress icon | Generic hud-template frame 3; owner describes it as Astero | PROVEN generic source; Astero-specific identity is not supported |
-| Race Results icon | Frame 0; owner describes it as Astero | PROVEN numeric field-to-frame path; visual Astero identification is STRONGLY_SUPPORTED |
+| Race Results icon | Forklift frame 29 after the E0.1a selector diagnostic | Static numeric field-to-frame path plus owner-reported runtime result |
 
 ## R5V-F gate
 
-R5V-E0.1 closed as a read-only research phase. The later R5V-E0.1a candidate
-is waiting for human runtime results. R5V-F remains **BLOCKED** as a generic
-frontend identity-profile phase until the in-race 1P icon is matched to a
-runtime object and source. Also, the static
-Vehicle Select scene has no ID25 widget binding, so a future generalized slot
-profile must account for this scene-level mapping rather than treating all
-icons as one per-vehicle field. The exact unresolved edge is documented in
-[race-hud-icons.md](race-hud-icons.md).
+R5V-E0.1a's SmallCarSheet selector result was later reported FULL PASS by the
+owner; the race participant and results icons are separate from the Vehicle
+Select carsheet mapping. R5V-E0.1d.2 also closed the progress-marker colour
+producer. R5V-F remains **BLOCKED pending the R5V-E0.2 human P0**: verify that
+the staged `T3_Car12` scene object is visible at ID25 and that navigation and
+existing icons remain stable. The current limitation is scene-object display,
+not the SmallCarSheet selector or race-marker colour.
 
 At the original R5V-E0.1 closeout, no executable or runtime candidate was
 produced. The separate E0.1a diagnostic candidate is ignored and uncommitted.

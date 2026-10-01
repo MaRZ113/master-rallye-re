@@ -10,6 +10,12 @@ read-only.
 
 R5V-A mapped the final EXE registry and two PC demos. R5V-C later initialized allocated retail ID25 and received owner-reported P0/P1 runtime confirmation as a duplicate Astero, demonstrating a 26th playable slot without replacing IDs 0-24. This does not yet prove an independent vehicle payload. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md`, `research/r5v_a/vehicle-slot-feasibility.md`, and `research/r5v_c/runtime-results.md`.
 
+R5V-E0.2 adds a manifest-driven Vehicle Select scene overlay generator and a
+staged retail archive candidate for the missing `T3_Car12` icon widget. The
+candidate uses an Astero donor frame for a Vehicle Select-only diagnostic;
+human runtime confirmation is pending, and no registry or executable limits
+were changed. See `research/r5v_e0_2/findings.md`.
+
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed

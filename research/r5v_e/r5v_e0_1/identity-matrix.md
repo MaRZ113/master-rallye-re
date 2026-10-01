@@ -7,7 +7,7 @@ the source used by another.
 |---|---|---|---|---|---|---|---|
 | Display name | class-local converted to absolute ID25 | Localization groups 0x33 and 0x34, indexed by absolute ID | STEEL MONKEYS FORKLIFT | Yes | No | No | STRONGLY_SUPPORTED |
 | Frontend stats | absolute selected ID25 | Four integer fields in record25 at +0x0C..+0x18 | Owner-confirmed bars follow diagnostic [3,4,6,10]; Trooper configuration retained | Yes | Yes | No | RUNTIME_CONFIRMED presentation control |
-| Vehicle Select icon | class2 local position and static scene widget | T3_CarN XML widget to carsheet bank index | No T3_Car12 binding; icon absent | Indirectly by static widget order | No | No | PROVEN |
+| Vehicle Select icon | T3 local index and static `List Name="cars"` widget | `gaFrontendXYButtonAI` X/Y IDs select the widget; its XML holds the carsheet frame | `T3_Car12` overlay prepared for local11 / ID25 with diagnostic frame5 (Astero donor); runtime P0 pending; authentic Trooper icon not found | Local index and class row, then existing class-to-ID path | No | No | STATIC MAPPING PROVEN; CANDIDATE NOT RUNTIME-TESTED |
 | Race 1P icon | Race participant ID | TimeDiffs/gaHudTimeDiffsAi -> CarID -> record +0x1C -> embedded image selector | Forklift frame 29, owner-confirmed with selector diagnostic | Yes | Yes, field +0x1C | No | RUNTIME_CONFIRMED |
 | Progress marker artwork | HUD display slot 0..7 | Generic hud-template frame 3 | Generic marker artwork shared across vehicles | No vehicle-record read in this consumer | No | No | PROVEN |
 | Progress marker tint | HUD display slot from `this+0x18` | Race setup reads `VehicleRecord[CarID]+0x24..+0x30` into `Race/CarN/Colour`; `FUN_004A74A0` copies the property over the loaded tint | User reports ID25-only red-tail change recoloured Trooper's marker red; Astero marker and opponents stayed unchanged | Participant CarID selects source record | Yes, upstream source +0x24..+0x30 | No in HUD consumer | STATICALLY TRACED; runtime A/B FULL PASS by user report |
@@ -24,7 +24,7 @@ Only fields backed by a demonstrated source are listed as controllable:
 | runtime/model/physics/collision family | PROVEN_CONTROLLABLE | E0 initialized the owned Trooper name and combined it with Trooper model, physics and collision sources; outside frontend identity |
 | display_name | PROVEN_READ_ONLY | Localization selector is ID-indexed; no profile-driven language override was implemented |
 | stats.speed/acceleration/handling/endurance | RUNTIME_CONFIRMED | Original initializer populates fields read by the front end; E0.1b owner test confirms four independently changed bars |
-| vehicle_select_icon | ASSET_MISSING | No Trooper-specific art/mapping found; frame 25 exists but its identity and slot binding are unproven |
+| vehicle_select_icon | DIAGNOSTIC_CANDIDATE_READY / TROOPER_ART_UNKNOWN | E0.2 adds the generic `image_bank` + `frame_index` scene binding using retail frame5; no Trooper-specific art was identified and runtime P0 is pending |
 | race_player_icon | RUNTIME_CONFIRMED | Owner observed frame 29 in the top-left participant icon with the +0x1C diagnostic |
 | progress_icon | PROVEN_READ_ONLY | Static generic frame 3 is shared by progress markers |
 | progress_marker_colour | RUNTIME_CONFIRMED | VehicleRecord +0x24..+0x30 supplies the per-vehicle race marker RGBA; ID25 RGB-only diagnostic passed by user report. |
