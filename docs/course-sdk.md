@@ -131,13 +131,19 @@ Blender 4.3 minimum.
 Supported reads include revision-135 course render geometry, RaceTest
 hierarchy and the proven StartArea/FinishArea/SplitTime interpretations, HNT
 dependencies, structural SFL data, TXT hierarchy, version-7 GXM source
-topology, and opaque tag100 metadata. The read model does not support course
-writing, physical/collision authoring, arbitrary layouts, full RaceLine or AI
-semantics, or surface authoring.
+topology, and raw tag100 metadata. A standalone read-only tag100 parser now
+decodes the loader-confirmed recursive wire shape; a separate probe correlates
+some optional float4/code records with the tested source planes. The higher-level
+`CourseProject` physical API remains unimplemented.
+The read model does not support course writing, physical/collision authoring,
+arbitrary layouts, full RaceLine or AI semantics, or surface authoring.
 
 Still unknown are ExtraTime's exact meaning, StartArea interpolation, the exact
-FinishArea algorithm, broad RaceLine semantics, SFL meaning, tag100 meaning,
-`$bsp -> tag100`, and source-node gameplay semantics. R5T-E.1 closes the
+FinishArea algorithm, broad RaceLine semantics, SFL meaning, most tag100
+semantics, `$bsp -> tag100`, and source-node gameplay semantics. For the one
+tested France1 source mesh, face-plane records in the tag100 tree correlate
+with the moved physical state, but F.1 swapped the complete tag100-starting
+suffix and did not isolate later tag1400 bytes at runtime. R5T-E.1 closes the
 version-7 `moMesh` triangle-to-position binding; it does not infer gameplay
 meaning from names such as `COLLIDE_finishline`, `_raceline`, `$boinds`, or
 `$bsp`.

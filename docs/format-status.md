@@ -4,7 +4,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
-| `.dx` | Shared header/vertex/normal/color/UV/local-index prefix, followed by resource/build-specific draw and tail grammars. | **HIGH** vehicle grammar; **CONFIRMED_BY_CORPUS** retail course render grammar | All 78 vehicle DX files reconstruct stored global indices exactly. The revision-135 course reader validates render geometry in all 36 retail files and both Demo 9.10.0 targets; tag100 tails remain opaque. See `docs/formats/dx-common.md` and `docs/formats/dx-course.md`. |
+| `.dx` | Shared header/vertex/normal/color/UV/local-index prefix, followed by resource/build-specific draw and tail grammars. | **HIGH** vehicle grammar; **CONFIRMED_BY_CORPUS** retail course render grammar; **PARTIAL** tag100 wire grammar | All 78 vehicle DX files reconstruct stored global indices exactly. The revision-135 course reader validates render geometry in all 36 retail files; the standalone F.2 reader parses each tag100 tree, while later regions and most semantics remain unresolved. See `docs/formats/dx-common.md`, `docs/formats/dx-course.md`, and `research/r5t_f2/`. |
 | `.dxt` | Custom 20-byte wrapper around one uncompressed 32-bit BGRA pixel plane. It is not DDS or DXT1/3/5 block compression. | **CONFIRMED** structure / **HIGH** BGRA | All 6,960 files satisfy `20 + W*H*4`; synthetic channel tests and directional Astero body textures support the interpretation. |
 | `.dxb` | Compiled 2D/font/sprite-batch-like resource. | **LOW** | All 113 begin `0x0000F001, 125`; record layout is not mapped. |
 | `.hnt` | Plain-text dependency manifest, including course model/texture declarations. | **CONFIRMED** as a text/resource list; runtime necessity is unresolved | Retail course graph: 36 manifests, 2,842 exact resolutions, one unresolved reference, no ambiguous paths. |
@@ -13,7 +13,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
 | Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; SplitTime0 center **CONFIRMED_BY_RUNTIME_EDIT / DEBUGGER** | All 41 retail RaceTest XML files parse. In France1, `SplitTime0` Egg Row3 drives both the visual sign and gameplay center; `gaRaceSplitTimeAI/Radius` is the 3D sphere radius. SplitTime1/2 have matching structure but were not independently moved in runtime tests. See `docs/course-importer.md` and `research/r5t_d1/`. |
-| Read-only Course SDK | Typed `CourseProject` composition over DX, XML, HNT, SFL, TXT, and version-7 GXM topology; per-record race-logic evidence; neutral tag100 wrapper. | **IMPLEMENTED; READ_ONLY** | `source_geometry` and `source_meshes` expose literal names, hierarchy, validated triangle slices, position indices, and bounds. Gameplay roles remain **UNKNOWN** unless independently established. Tag100 and SFL semantics remain **UNKNOWN**. See `docs/course-sdk.md`. |
+| Read-only Course SDK | Typed `CourseProject` composition over DX, XML, HNT, SFL, TXT, and version-7 GXM topology; per-record race-logic evidence; raw tag100 wrapper plus standalone structural parser. | **IMPLEMENTED; READ_ONLY** | `source_geometry` and `source_meshes` expose literal names, hierarchy, validated triangle slices, position indices, and bounds. The standalone parser decodes the Retail tag100 recursive wire grammar; tested France1 source planes correlate with records inside its tree. Broader physical semantics remain **PARTIAL/UNKNOWN**. See `docs/course-sdk.md` and `research/r5t_f2/`. |
 | Course `.gxm` | Demo 8.4.1 / 9.10.0 paired version-7 source models, fixed attribute/triangle/position banks, and TXT-cross-validated node table. | Triangle grammar and `moMesh` spans **CONFIRMED_BY_EXECUTABLE / BINARY_STRUCTURE**; color-like / texcoord-like semantics conservative. | France1, Italy1, Boinds, and Demo 9.10 AI Track pass all five independent reference-domain checks and complete mesh-span coverage. France1 `startpoint` resolves to a closed 12-triangle box. Gameplay meaning of node names remains **UNKNOWN**. See `docs/formats/gxm-course.md` and `research/r5t_e/`. |
 
 ## Course status (R5T-C evidence closeout)
@@ -102,9 +102,11 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 - The small complete developer Boinds pair has no `$bsp` node and uses revision
   125, unsupported by the current course parser. Other local small `$bsp`
   sources lack matching TXT/DX, so no isolated `$bsp` edit is prepared.
-- The tag100 payload remains structurally opaque. Physical collision, helper
-  ownership, and gameplay semantics remain unknown. Course parsing/diagnostics
-  are read-only; no course writer exists.
+- The tag100-starting suffix has a loader-guided read-only structural parser
+  from R5T-F.2. The tested source collider's plane records are inside the
+  parsed tree, but runtime swaps included later tag1339/tag1400 data. `$bsp ->
+  tag100`, broader physical semantics, and helper ownership remain unresolved.
+  Course parsing/diagnostics are read-only; no course writer exists.
 
 ## Course SDK foundation (R5T-SDK1)
 
@@ -138,7 +140,7 @@ gameplay inference from node names was added. See `docs/formats/gxm-course.md`, 
 `research/r5t_e/findings.md`, `research/r5t_e/course-gxm-v7.json`, and
 `research/r5t_e/startpoint-proof.json`.
 
-## R5T-F.0 named source geometry (source physical effect confirmed; tag100 carrier pending)
+## R5T-F.0 named source geometry (historical checkpoint; tag100 carrier later confirmed in F.1)
 
 The four Demo 8.4.1 France1 `COLLIDE_finishline*` meshes decode to 24
 triangles and 14 unique positions each. The `01`/unnumbered pair is strongly
@@ -154,21 +156,47 @@ common prefix, plus a 3,404-byte baseline-only tail. Full DX render prefixes
 vary within both cohorts. A human runtime test confirmed that the source edit
 moved physical collision about +20 runtime X while visible support geometry
 stayed at its old location; the unchanged RaceTest FinishArea still completed
-the race. R5T-F.1 is isolating the compiled carrier with reciprocal region
-swaps. Whether `tag100` carries the tested physical state remains **UNKNOWN**
-until those hybrids are tested. See
+the race. At the F.0 checkpoint the compiled carrier was still under test; the
+later reciprocal F.1 result is recorded below. See
 [`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md).
 
-## R5T-F.1 reciprocal tag100 swap (static ready; runtime test pending)
+## R5T-F.1 reciprocal tag100-starting suffix swap (PASS)
 
 Baseline-03 and modified-03 France1 DX files were split at their parser-derived
-tag100 offsets and reciprocally combined. Both hybrids parse as validated
-revision-135 courses, retain byte-exact prefix/tag100 donor provenance, and
+tag100 offsets and reciprocally combined through end-of-file. Both hybrids
+parse as validated revision-135 courses, retain byte-exact prefix/suffix donor provenance, and
 were installed into runtime clones whose only difference is `france1.dx`.
-Static status is **READY_FOR_RUNTIME_SWAP_TEST**. Runtime observations are
-required before assigning physical sufficiency to tag100. See
+The human runtime result was reciprocal: Hybrid A (baseline prefix, modified
+tag100) lost the old support collision and gained collision at the translated
+location; Hybrid B (modified prefix, baseline suffix) retained the old
+collision and had no translated collision. Visible finish geometry and
+FinishArea completion stayed at their original locations in both. This is
+**CONFIRMED_BY_SOURCE_RUNTIME_EDIT**, **CONFIRMED_BY_COOKER_DIFFERENTIAL**,
+**CONFIRMED_BY_RECIPROCAL_REGION_SWAP**, and **CONFIRMED_BY_RUNTIME_TEST** for
+the tested `COLLIDE_finishline03` state only. The runtime test did not isolate
+the tag100 tree from following tag1339/tag1400 records. Do not generalize this
+to all tag100 data, all `COLLIDE_*` objects, or a complete tag100 grammar. See
 [`research/r5t_f1/findings.md`](../research/r5t_f1/findings.md) and the
 [runtime handoff](../research/r5t_f1/runtime-handoff.md).
+
+## R5T-F.2 tag100 physical grammar archaeology (PASS, bounded)
+
+Retail executable SHA256
+`bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4` dispatches
+tag 100 to a recursive reader at `0x0057E2D0` / `0x0057E550`. The read-only
+parser validates its 24-byte header, variable-length child/sibling records,
+20-byte float4/code records, and optional 20-byte list items. In the France1
+baseline/modified source pair, 12 unique planes from the 24-triangle
+`COLLIDE_finishline03` mesh match records in the tree; under the `+20 X` source
+translation, matched plane `d` values follow `d' = d - 20*n.x` within
+`4.15e-05` maximum residual. Repeated records prevent one-to-one triangle
+mapping. This geometry binding is **HIGH_CONFIDENCE_INFERENCE**; the F.1
+runtime result remains suffix-level because a later tag1400 region also differs
+in 64 byte positions. `$bsp -> tag100`, complete tree semantics, and tag1400
+meaning remain **UNKNOWN**. The parser is read-only and has no writer API. See
+[`research/r5t_f2/tag100-physical-grammar.md`](../research/r5t_f2/tag100-physical-grammar.md),
+[`research/r5t_f2/tag100-layout.json`](../research/r5t_f2/tag100-layout.json),
+and [`research/r5t_f2/collide-finishline03-binding.json`](../research/r5t_f2/collide-finishline03-binding.json).
 
 ## R1 vehicle-corpus evidence
 

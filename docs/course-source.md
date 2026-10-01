@@ -262,10 +262,13 @@ Render-prefix bytes vary within cohorts. The in-game visual/physical response
 was then tested: the visible banner/right support stayed at its old location,
 the old support became pass-through, and physical collision was encountered
 at the expected +20 runtime-X location. Race completion remained at the
-unchanged RaceTest FinishArea. This confirms the tested source geometry's
-physical effect, but does not isolate tag100 as its carrier; that is the
-R5T-F.1 reciprocal-swap question. Exact primitive shape and broader tag100
-semantics remain unknown. The experiment is not a general GXM writer. See
+unchanged RaceTest FinishArea. At the R5T-F.0 checkpoint this confirmed the
+tested source geometry's physical effect but had not isolated its compiled
+carrier. R5T-F.1 later showed that the physical state follows the reciprocal
+tag100-starting suffix swap; R5T-F.2 correlated its source face planes with
+records inside the parsed tag100 tree. The F.1 runtime test did not isolate
+that tree from following tag1400 bytes. Exact primitive ownership and broader
+tag100 semantics remain unknown. The experiment is not a general GXM writer. See
 [`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md) and the focused
 region-swap handoff in
 [`research/r5t_f1/runtime-handoff.md`](../research/r5t_f1/runtime-handoff.md).
