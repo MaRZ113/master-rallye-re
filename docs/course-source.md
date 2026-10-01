@@ -241,10 +241,13 @@ and the pair direction is 0.8716 degrees from it. All four edge comparisons
 are retained in the machine report. The 3-degree / 10-unit reporting threshold
 is descriptive; it is not a semantic classifier.
 
-The spatial relationships are **STRONG_SPATIAL_CORRELATION**. The literal
-source names remain identity only. Direct equivalence to the RaceTest areas,
-physical collision meaning, and any `moMesh -> tag100` relationship remain
-**UNKNOWN / NOT PROVEN**. See
+The measured pair relationships are **STRONG_SPATIAL_CORRELATION**; they do not
+establish direct equivalence to the RaceTest areas. A later controlled edit
+specifically confirms that translating `COLLIDE_finishline03` moves runtime
+physical collision and changes trailing `tag100` reproducibly. The remaining
+unknown is whether tag100 independently carries that tested physical state
+and how the changed bytes represent the source mesh. No role is generalized to
+the other named meshes. See
 [`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md) and the
 [machine-readable correlation report](../research/r5t_f0/france1-named-geometry-correlation.json).
 
@@ -256,8 +259,13 @@ unchanged. Three cold cooks per cohort validate a stable change to trailing
 lengths (10,118,248 baseline; 10,114,844 modified); 3,294,483 same-offset bytes
 differ in their common prefix, with a further 3,404-byte baseline tail.
 Render-prefix bytes vary within cohorts. The in-game visual/physical response
-remains untested, and neither the mesh role nor tag100 physical semantics is
-assigned. The experiment is not a general GXM writer. See
+was then tested: the visible banner/right support stayed at its old location,
+the old support became pass-through, and physical collision was encountered
+at the expected +20 runtime-X location. Race completion remained at the
+unchanged RaceTest FinishArea. This confirms the tested source geometry's
+physical effect, but does not isolate tag100 as its carrier; that is the
+R5T-F.1 reciprocal-swap question. Exact primitive shape and broader tag100
+semantics remain unknown. The experiment is not a general GXM writer. See
 [`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md) and the focused
-human-observation checklist in
-[`research/r5t_f0/runtime-probe-handoff.md`](../research/r5t_f0/runtime-probe-handoff.md).
+region-swap handoff in
+[`research/r5t_f1/runtime-handoff.md`](../research/r5t_f1/runtime-handoff.md).

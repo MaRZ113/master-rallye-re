@@ -1,11 +1,11 @@
 # R5T-F.0 — France1 named source geometry
 
-**Status: STATIC_COMPLETE / SIX COLD COOKS VALIDATED; GAMEPLAY OBSERVATION
-PENDING.** The source topology, spatial measurements, exclusive ownership, one
-controlled source-copy mutation, and its repeated compiled response are
-validated. The original Demo 9.10.0 runtime cooked the isolated baseline and
-modified copies three times each. No in-game visual or physical response to
-the mesh mutation is claimed yet.
+**Status: SOURCE PHYSICAL EFFECT RUNTIME-CONFIRMED / TAG100 CARRIER ISOLATION
+PENDING.** Source topology, spatial measurements, exclusive ownership, the
+controlled source-copy mutation, its repeated compiled response, and the
+human-observed physical effect are recorded below. R5T-F.1 isolates which DX
+region carries the tested physical state; tag100's broader meaning remains
+unknown.
 
 ## Inputs and coordinate spaces
 
@@ -121,11 +121,36 @@ variation remains present and is not attributed to the source edit. The
 run-01 decoded-render proximity check found 184 vertices in the old expanded
 target bounds for both baseline and modified output, and none in the moved
 bounds (nearest modified vertex: 11.7855 units from the moved bounds center).
-This is a bounded spatial observation, not proof that the source mesh is or is
-not rendered or physical. The separate in-game comparison remains pending;
-use the retained run-03 runtime copies and the focused checklist in
-[`runtime-probe-handoff.md`](runtime-probe-handoff.md). Do not infer mesh
-semantics or tag100 physical role from the stable byte change alone.
+This is a bounded render-space observation, not proof of physical behavior or
+of the source mesh's rendered appearance. The separate human runtime result
+is recorded below.
+
+## R5T-F.0 human runtime validation
+
+The human comparison used the retained baseline-03 and modified-03 cooked
+France1 builds. RaceTest XML was unchanged.
+
+- Baseline: both visible finish-banner supports had physical collision,
+  including the right support at the original `COLLIDE_finishline03` location.
+- Modified: the banner and visible right support remained at the original
+  render location, but the vehicle passed through the old right-support
+  location.
+- Modified: physical collision was encountered at the predicted runtime
+  location approximately +20 X, in empty/non-rendered space. Because only X
+  moved in the source, the collider's vertical position did not match local
+  road height.
+- Modified: `RACE COMPLETE` still triggered in the original unchanged
+  FinishArea after passing through the old support and reaching the ordinary
+  finish region.
+
+These observations are **CONFIRMED_BY_RUNTIME_EDIT** for the tested source
+mutation: `COLLIDE_finishline03` source geometry affects runtime physical
+collision, and its translation moves that collision. The visible support
+render and RaceTest FinishArea completion are separable from this tested
+physical mesh. Exact primitive shape is not established. Although the same
+source edit reproducibly changes trailing `tag100`, the runtime observation
+alone does not prove that `tag100` is the physical carrier. The reciprocal
+region swap is staged in R5T-F.1; its human runtime result is still pending.
 
 ## Blender diagnostic
 
@@ -151,14 +176,16 @@ developer diagnostic, not add-on UI work.
 - **CONFIRMED_BY_CORPUS:** the named France1 nodes and selected RaceTest lists
   exist in their respective local source files.
 - **CONFIRMED_BY_RUNTIME_EDIT:** StartArea and FinishArea roles from earlier
-  controlled RaceTest edits; no runtime claim about these source meshes follows.
+  controlled RaceTest edits, plus the tested `COLLIDE_finishline03` physical
+  translation and its separation from the visible support / FinishArea.
 - **CONFIRMED_BY_SOURCE_COMPILED_PAIR:** the isolated +20 source-X mutation
   for `COLLIDE_finishline03` changes trailing `tag100` reproducibly across
   three baseline and three modified cooks.
 - **STRONG_SPATIAL_CORRELATION:** the two quantitative mesh-pair comparisons.
-- **UNKNOWN / NOT PROVEN:** visual rendering, physical interaction, race logic,
-  the semantic interpretation of the changed `tag100` bytes, and any collision
-  or physical role for either the source mesh or `tag100`.
+- **UNKNOWN / NOT PROVEN:** exact visible-render correspondence and primitive
+  shape for the tested source mesh, the semantic interpretation of changed
+  `tag100` bytes, whether tag100 independently carries the tested physical
+  state, and physical roles of the other named meshes.
 
 ## Validation
 

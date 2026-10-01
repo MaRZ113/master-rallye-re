@@ -1,0 +1,213 @@
+{
+  "schema": "r5t-f1-tag100-reciprocal-swap-v1",
+  "phase": "R5T-F.1",
+  "status": "READY_FOR_RUNTIME_SWAP_TEST",
+  "research_only": true,
+  "course_writing": "NOT_IMPLEMENTED",
+  "source_probe": {
+    "source_node": "Model/$autovsphere_300/$bsp/$nodraw/COLLIDE_finishline03",
+    "source_index": 47083,
+    "source_triangle_count": 24,
+    "unique_source_positions": 14,
+    "source_translation": {
+      "axis": "X",
+      "delta": 20.0,
+      "coordinate_space": "GXM"
+    },
+    "expected_runtime_translation": {
+      "axis": "X",
+      "delta": 20.0
+    },
+    "race_test_xml_unchanged_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df"
+  },
+  "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+  "accepted_cooker_differential": {
+    "path": "research/r5t_f0/cook-differential.json",
+    "status": "COOKS_VALIDATED_STABLE_TAG100_DIFFERENCE",
+    "run_count_per_cohort": 3
+  },
+  "donors": {
+    "baseline": {
+      "snapshot_path": "research-output/r5t_f0/cooker-lab/baseline/snapshots/baseline-03/DataGx/Course/France1/france1.dx",
+      "runtime_copy_path": "research-output/r5t_f0/cooker-lab/baseline/runtime/DataGx/Course/France1/france1.dx",
+      "dx_sha256": "b7820fe13c5ef7eb53593bcee4e54943cf97780244b47f6fe7cb549d5c5ee7f2",
+      "dx_size_bytes": 14795948,
+      "revision": 135,
+      "render_validated": true,
+      "prefix": {
+        "offset": 0,
+        "end_offset": 4677700,
+        "size_bytes": 4677700,
+        "sha256": "4c9aef8897b9f368d34fcb88c6b3f628f5c308475ae38de697afbef657472316"
+      },
+      "tag100": {
+        "offset": 4677700,
+        "end_offset": 14795948,
+        "size_bytes": 10118248,
+        "sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7"
+      }
+    },
+    "modified": {
+      "snapshot_path": "research-output/r5t_f0/cooker-lab/modified/snapshots/modified-03/DataGx/Course/France1/france1.dx",
+      "runtime_copy_path": "research-output/r5t_f0/cooker-lab/modified/runtime/DataGx/Course/France1/france1.dx",
+      "dx_sha256": "01289e705750fa257037b65f55f7b469db795b4c649f74b45777da0a8d08bac2",
+      "dx_size_bytes": 14803389,
+      "revision": 135,
+      "render_validated": true,
+      "prefix": {
+        "offset": 0,
+        "end_offset": 4688545,
+        "size_bytes": 4688545,
+        "sha256": "133ba62271dded14b2075546028290be3eca595f6b3ede492730be53bbd10b36"
+      },
+      "tag100": {
+        "offset": 4688545,
+        "end_offset": 14803389,
+        "size_bytes": 10114844,
+        "sha256": "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07"
+      }
+    }
+  },
+  "hybrids": {
+    "hybrid-a": {
+      "prefix_donor": "baseline",
+      "tag100_donor": "modified",
+      "full_size_bytes": 14792544,
+      "full_sha256": "d6c05253ffdf7587dd8b8fa3b58897b2b030565aca9be256b01554111246aff4",
+      "prefix_size_bytes": 4677700,
+      "prefix_sha256": "4c9aef8897b9f368d34fcb88c6b3f628f5c308475ae38de697afbef657472316",
+      "tag100_size_bytes": 10114844,
+      "tag100_sha256": "e31f79ae9ac83db3141a631363e7f982e0fbd9d4ba281bbb5f4a4f21bdf19d07",
+      "parser_validation": {
+        "revision": 135,
+        "render_validated": true,
+        "tag100_offset": 4677700,
+        "tag100_end_offset": 14792544,
+        "collision_errors": [],
+        "unparsed_bytes": 0
+      },
+      "provenance_validation": {
+        "prefix_byte_identical_to_donor": true,
+        "tag100_byte_identical_to_donor": true,
+        "total_size_matches_regions": true
+      },
+      "staged_runtime_dx_path": "research-output/r5t_f1/runtime/hybrid-a/runtime/DataGx/Course/France1/france1.dx",
+      "runtime_non_dx_files_byte_identical_to_shared_template": true
+    },
+    "hybrid-b": {
+      "prefix_donor": "modified",
+      "tag100_donor": "baseline",
+      "full_size_bytes": 14806793,
+      "full_sha256": "3f3b347d4550b979e0c82f6f82bf267f1b00ca8bdd4758d8ebf027f4292731bc",
+      "prefix_size_bytes": 4688545,
+      "prefix_sha256": "133ba62271dded14b2075546028290be3eca595f6b3ede492730be53bbd10b36",
+      "tag100_size_bytes": 10118248,
+      "tag100_sha256": "9a3ea51096fc24ab82689ac929951cf8ba3291f3dc9d688fb95365383ef5a7d7",
+      "parser_validation": {
+        "revision": 135,
+        "render_validated": true,
+        "tag100_offset": 4688545,
+        "tag100_end_offset": 14806793,
+        "collision_errors": [],
+        "unparsed_bytes": 0
+      },
+      "provenance_validation": {
+        "prefix_byte_identical_to_donor": true,
+        "tag100_byte_identical_to_donor": true,
+        "total_size_matches_regions": true
+      },
+      "staged_runtime_dx_path": "research-output/r5t_f1/runtime/hybrid-b/runtime/DataGx/Course/France1/france1.dx",
+      "runtime_non_dx_files_byte_identical_to_shared_template": true
+    }
+  },
+  "render_diagnostic": {
+    "hybrid-a": {
+      "prefix_donor": "baseline",
+      "matches_prefix_donor": true,
+      "coordinate_space": "compiled DX / runtime (x,y,z)",
+      "old_location": {
+        "aabb_expansion": 0.5,
+        "vertex_count_inside_expanded_aabb": 184,
+        "nearest_compiled_vertex": [
+          -1471.803955078125,
+          69.10803985595703,
+          352.67095947265625
+        ],
+        "nearest_compiled_vertex_distance_to_center": 0.7226898708715234
+      },
+      "new_location": {
+        "aabb_expansion": 0.5,
+        "vertex_count_inside_expanded_aabb": 0,
+        "nearest_compiled_vertex": [
+          -1461.8521728515625,
+          62.62297821044922,
+          350.5981750488281
+        ],
+        "nearest_compiled_vertex_distance_to_center": 11.785517984627797
+      },
+      "vertex_count": 84774,
+      "triangle_count": 75138,
+      "draw_count": 4629,
+      "interpretation": "render-parser proximity check only; physical behavior is not inferred"
+    },
+    "hybrid-b": {
+      "prefix_donor": "modified",
+      "matches_prefix_donor": true,
+      "coordinate_space": "compiled DX / runtime (x,y,z)",
+      "old_location": {
+        "aabb_expansion": 0.5,
+        "vertex_count_inside_expanded_aabb": 184,
+        "nearest_compiled_vertex": [
+          -1471.803955078125,
+          69.10803985595703,
+          352.67095947265625
+        ],
+        "nearest_compiled_vertex_distance_to_center": 0.7226898708715234
+      },
+      "new_location": {
+        "aabb_expansion": 0.5,
+        "vertex_count_inside_expanded_aabb": 0,
+        "nearest_compiled_vertex": [
+          -1461.8521728515625,
+          62.62297821044922,
+          350.5981750488281
+        ],
+        "nearest_compiled_vertex_distance_to_center": 11.785517984627797
+      },
+      "vertex_count": 84946,
+      "triangle_count": 75311,
+      "draw_count": 4647,
+      "interpretation": "render-parser proximity check only; physical behavior is not inferred"
+    }
+  },
+  "runtime_clones": {
+    "hybrid-a": {
+      "source_runtime": "research-output/r5t_f0/cooker-lab/baseline/runtime",
+      "source_course_gxm_sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+      "staged_runtime": "research-output/r5t_f1/runtime/hybrid-a/runtime",
+      "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+      "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+      "replaced_course_dx_sha256": "d6c05253ffdf7587dd8b8fa3b58897b2b030565aca9be256b01554111246aff4",
+      "non_dx_file_count": 2862,
+      "non_dx_tree_hash_sha256": "1be3d848d13ffb85fc1fb1f474625f36a07f274f4c5d6ae55d1ceba71a4b2978",
+      "non_dx_files_byte_identical_to_shared_template": true
+    },
+    "hybrid-b": {
+      "source_runtime": "research-output/r5t_f0/cooker-lab/baseline/runtime",
+      "source_course_gxm_sha256": "56ebbf03fe681d730e796a40d455562b5f9976d794c710e73d5c9be32e4e86b2",
+      "staged_runtime": "research-output/r5t_f1/runtime/hybrid-b/runtime",
+      "runtime_executable_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+      "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df",
+      "replaced_course_dx_sha256": "3f3b347d4550b979e0c82f6f82bf267f1b00ca8bdd4758d8ebf027f4292731bc",
+      "non_dx_file_count": 2862,
+      "non_dx_tree_hash_sha256": "1be3d848d13ffb85fc1fb1f474625f36a07f274f4c5d6ae55d1ceba71a4b2978",
+      "non_dx_files_byte_identical_to_shared_template": true
+    }
+  },
+  "interpretation": {
+    "tag100_physical_carrier": "UNKNOWN until reciprocal runtime observations",
+    "tag100_semantics": "UNKNOWN",
+    "tag100_name": "trailing tag100 structure",
+    "literal_region_swap": "both hybrids parsed as rev135 with validated render sections"
+  }
+}

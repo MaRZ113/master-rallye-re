@@ -28,7 +28,9 @@ The final cooked runtime copies are retained at:
 The exact run-03 DX identities are baseline
 `b7820fe13c5ef7eb53593bcee4e54943cf97780244b47f6fe7cb549d5c5ee7f2` and
 modified `01289e705750fa257037b65f55f7b469db795b4c649f74b45777da0a8d08bac2`.
-The separate in-game visual/physical comparison is still pending.
+The in-game visual/physical comparison has been completed and is recorded in
+[`findings.md`](findings.md). R5T-F.1 now isolates whether the tested physical
+state follows the render prefix or trailing tag100.
 
 ## Probe identity
 
@@ -63,8 +65,9 @@ comparable driving approach. Observe only:
 4. Is there obvious rendering corruption, a loading failure, disappearing
    objects/cars, or an AI/route anomaly?
 
-Do not infer internal semantics from the object name. Record observations in
-terms of what moved or what the car contacted. Interpretations remain open:
+Do not infer internal semantics from the object name. The following matrix was
+the pre-test interpretation guide; the completed observations are recorded
+after it:
 
 | Observation | Bounded interpretation |
 |---|---|
@@ -74,6 +77,13 @@ terms of what moved or what the car contacted. Interpretations remain open:
 | FinishArea completion moves or changes | Unexpected coupling; preserve as a single-probe result for focused review. |
 | Nothing observable changes | The mesh may feed another system, be unused, or the test location may be insufficient. No forced conclusion. |
 
-No runtime observation has been made for this mutation yet. Do not perform a
-second mesh mutation or assign `COLLIDE_finishline*` a collision/trigger role
-until the cook and human observations are reviewed.
+## Completed human observation
+
+Baseline collision was present at both visible finish supports. In the
+modified course the visible banner/right support stayed at its original render
+location, but the right support became pass-through; collision was encountered
+at the predicted +20 runtime-X position in empty/non-rendered space. Race
+completion remained at the unchanged RaceTest FinishArea. This is
+**CONFIRMED_BY_RUNTIME_EDIT** for the tested `COLLIDE_finishline03` physical
+effect and translation. The result does not identify tag100 as its carrier;
+see the reciprocal swap test in `research/r5t_f1/`.

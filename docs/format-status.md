@@ -138,7 +138,7 @@ gameplay inference from node names was added. See `docs/formats/gxm-course.md`, 
 `research/r5t_e/findings.md`, `research/r5t_e/course-gxm-v7.json`, and
 `research/r5t_e/startpoint-proof.json`.
 
-## R5T-F.0 named source geometry (six cold cooks validated; runtime observation pending)
+## R5T-F.0 named source geometry (source physical effect confirmed; tag100 carrier pending)
 
 The four Demo 8.4.1 France1 `COLLIDE_finishline*` meshes decode to 24
 triangles and 14 unique positions each. The `01`/unnumbered pair is strongly
@@ -151,10 +151,24 @@ RaceTest XML remain unchanged. Six manual cold cooks from two isolated Demo
 9.10.0 copies validate revision-135 DX outputs and a byte-stable trailing
 `tag100` difference: 3,294,483 changed byte positions in the 10,114,844-byte
 common prefix, plus a 3,404-byte baseline-only tail. Full DX render prefixes
-vary within both cohorts. The source mutation therefore changes trailing
-`tag100`, while its physical meaning remains **UNKNOWN**. In-game visual and
-physical observations are still pending. See
+vary within both cohorts. A human runtime test confirmed that the source edit
+moved physical collision about +20 runtime X while visible support geometry
+stayed at its old location; the unchanged RaceTest FinishArea still completed
+the race. R5T-F.1 is isolating the compiled carrier with reciprocal region
+swaps. Whether `tag100` carries the tested physical state remains **UNKNOWN**
+until those hybrids are tested. See
 [`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md).
+
+## R5T-F.1 reciprocal tag100 swap (static ready; runtime test pending)
+
+Baseline-03 and modified-03 France1 DX files were split at their parser-derived
+tag100 offsets and reciprocally combined. Both hybrids parse as validated
+revision-135 courses, retain byte-exact prefix/tag100 donor provenance, and
+were installed into runtime clones whose only difference is `france1.dx`.
+Static status is **READY_FOR_RUNTIME_SWAP_TEST**. Runtime observations are
+required before assigning physical sufficiency to tag100. See
+[`research/r5t_f1/findings.md`](../research/r5t_f1/findings.md) and the
+[runtime handoff](../research/r5t_f1/runtime-handoff.md).
 
 ## R1 vehicle-corpus evidence
 
