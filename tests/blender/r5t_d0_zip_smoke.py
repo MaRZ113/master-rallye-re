@@ -21,13 +21,16 @@ def main():
     archive, dx_path, xml_path, output = (Path(value).resolve() for value in args)
     sys.path.insert(0, str(archive))
     import master_rallye_io
-    from master_rallye_io.library import load_course_project, position_to_blender
+    from master_rallye_io.library import load_course_project, position_to_blender, load_course_race_logic_authoring
 
     master_rallye_io.register()
     project = load_course_project(xml_path, search_roots=(dx_path.parent,))
     race_logic = project.race_logic
     if race_logic is None:
         raise AssertionError("packaged Course SDK did not parse the RaceTest XML")
+    authoring = load_course_race_logic_authoring(xml_path)
+    if not all(item.supported for item in authoring.area_status) or not all(item.supported for item in authoring.split_status):
+        raise AssertionError("packaged France1 Course SDK did not expose supported race-logic authoring")
     if bpy.ops.import_scene.master_rallye_course(
         "EXEC_DEFAULT", filepath=str(dx_path), load_textures=False
     ) != {"FINISHED"}:
@@ -88,12 +91,18 @@ def main():
         item = trigger_by_id[split.split_id]
         sign = sign_by_id[split.split_id]
         expected = position_to_blender(split.center)
-        if any(abs(float(item.location[i]) - expected[i]) > 1.0e-4 for i in range(3)):
+        if any(abs(float(item.matrix_world.translation[i]) - expected[i]) > 1.0e-4 for i in range(3)):
             raise AssertionError("packaged trigger center transform differs from canonical conversion")
         if abs(float(item["mr_split_radius"]) - split.radius) > 1.0e-5:
             raise AssertionError("packaged trigger radius differs from the semantic model")
         if item.get("mr_trigger_shape") != "sphere" or len(item.data.splines) != 3:
             raise AssertionError("packaged trigger is not a three-ring sphere")
+        if not item.parent or item.parent.get("mr_race_logic_object_type") != "split_center":
+            raise AssertionError("packaged trigger is not attached to the authorable split center")
+        if len(item.animation_data.drivers) != 3:
+            raise AssertionError("packaged trigger sphere radius is not driven by the Radius field")
+        if not sign.get("mr_race_logic_editable") or sign.get("mr_read_only"):
+            raise AssertionError("packaged SplitTime center is not editable")
         if item.get("mr_split_extra_time_semantics") != "UNKNOWN":
             raise AssertionError("packaged ExtraTime semantics were overclaimed")
         if item.get("mr_center_rule_evidence") != "; ".join(split.center_rule_evidence):

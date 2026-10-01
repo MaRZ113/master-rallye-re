@@ -1,10 +1,11 @@
 # Course and RaceTest import in Blender
 
-The existing Master Rallye add-on imports course resources read-only. The DX
-importer reuses shared DX arrays, sidecar parsing, coordinate conversion, DXT
-decoding, preview materials, and mesh metadata. R5T-SDK1 adds the core semantic
-Course SDK above those raw parsers and makes RaceTest helpers consume that
-model. It does not write course resources.
+The existing Master Rallye add-on imports compiled course resources
+read-only. The DX importer reuses shared DX arrays, sidecar parsing, coordinate
+conversion, DXT decoding, preview materials, and mesh metadata. R5T-SDK1 adds
+the core semantic Course SDK above those raw parsers. G0 adds a bounded
+RaceTest XML authoring path; compiled DX and other course resources remain
+read-only.
 
 ## Import
 
@@ -14,11 +15,13 @@ The collection has `Render Geometry`, `Course Helpers`, and `Unknown - Opaque` c
 
 Source positions use the established Master Rallye to Blender conversion `(X, Y, Z) → (X, -Z, Y)` at scale 1.0. One mesh preserves all UV sets, source colors, source normals and float32 bit metadata, plus face attributes for source draw ID, triangle index, and group ID. Object metadata retains DX identity/hash, revision, draw batch/container records, resource kind, render-validation results, sidecar candidates, and the opaque tail hash/boundary.
 
-Course objects are marked `READ_ONLY`. The vehicle position, attribute, and topology exporters reject them. R5T-A implements no DX, BSP, route, checkpoint, surface, or SFL writer.
+Course render objects are marked `READ_ONLY`. The vehicle position, attribute,
+and topology exporters reject them. There is no DX, GXM, tag100, tag1400,
+route, surface, or SFL writer.
 
 ## RaceTest XML race logic
 
-With a course mesh active, use **Import RaceTest XML Race Logic** in the course
+With a course mesh active, use **Load Course Race Logic** in the course
 panel and select its `DataScene/RaceTest/<course>.xml`. The parser retains the
 complete XML element tree and exposes ordered `MarkerLists`, `EggLists`, Egg
 matrices, AI objects, and direct Egg/AI/component values. Source attributes and
@@ -31,9 +34,9 @@ The forensic XML layer retains the full ordered tree. The semantic
 `CourseRaceLogic` model supplies typed StartArea, FinishArea and SplitTime
 records; Blender does not reparse split IDs, Radius, ExtraTime or Egg Row3.
 Helpers live under `Course Helpers/Race Logic`. StartArea and FinishArea retain
-ordered points and a source-order outline. No filled FinishArea volume or
-per-car start slot interpolation is invented. Other MarkerLists remain
-grouped by source list. Positions use the established
+four ordered, individually transformable points; there is no filled area or
+invented per-car start slot interpolation. Other MarkerLists remain grouped by
+source list. Positions use the established
 `(X, Y, Z) → (X, -Z, Y)` conversion. Directions stay as source metadata.
 
 Split visual Eggs get a small original procedural yellow arrow icon at the
@@ -47,6 +50,36 @@ ExtraTime meaning remains `UNKNOWN`. Exact-name `SplitTimeN-<index>` siblings
 appear in a separate `Visual Checkpoint Objects` collection and are never
 marked as trigger-center sources. No helper includes copied game models or
 textures.
+
+## G0 editing and export
+
+Supported StartArea and FinishArea marker empties can be moved independently
+or transformed together. Export reads each marker's final world-space point,
+so group translation, rotation, and scale are represented by the four edited
+positions. It never writes a Blender parent transform. Two current Retail
+FinishArea lists have five markers; their helpers remain read-only, and an
+attempted move is refused at export.
+
+The main SplitTime sign helper is also the trigger center and can be moved.
+Its Radius and Split Time ID are editable in the Course Race Logic panel. The
+wire sphere follows the Radius custom property. Rotation/scale do not author
+XML and are ignored with an export warning; the helper locks them by default.
+ExtraTime remains informational with meaning marked `UNKNOWN`. The separate
+`SplitTimeN-0..3` visual checkpoint objects remain read-only and are not used as
+the trigger center.
+
+Use **Export Race Logic XML** in the Course Race Logic panel and choose a new
+output path. The operator checks that the source XML hash still matches the
+imported helpers. The core writer refuses the original path and existing
+outputs, returns byte-identical source on no-op, and blocks any semantic XML
+change outside its allowlist. A `<output>.mr-race-edit.json` manifest records
+source/output hashes, changed paths and values, and warnings. The export does
+not edit `Data.sma`, compiled resources, or the source XML.
+
+Retail checks establish structural/export safety, not runtime behavior for a
+new G0-generated file. See [`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md)
+and [`research/g0/runtime-handoff.md`](../research/g0/runtime-handoff.md) for
+workflow and the optional human runtime checks.
 
 The core `discover_course_resources()` / `load_course_project()` APIs accept a
 course folder or a resource path and can compose matching DX, RaceTest XML,
@@ -65,7 +98,8 @@ three split visual Eggs. Headless validation is in
 Headless validation covers Retail France1 and Italy1 with Blender 5.2.2. The
 semantic helper smoke checks the canonical coordinate transform, sphere rings,
 radius, evidence scope, visual companions, StartArea/FinishArea hierarchy and
-the packaged ZIP implementation. The packaged smoke imports the ZIP directly
+the packaged ZIP implementation. G0 tests both no-op and edited export through
+workspace sources and the built ZIP. The packaged smoke imports the ZIP directly
 without installing into the user profile.
 
 ## GXM source topology diagnostic (R5T-E.1)

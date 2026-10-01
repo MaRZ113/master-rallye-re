@@ -54,7 +54,7 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 
 Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
-## Course resources (R5T-SDK1 read-only foundation)
+## Course resources and RaceTest authoring (G0)
 
 The Vehicle SDK v1 baseline remains frozen. The read-only revision-135 course
 DX parser and Italy1/France1 Blender imports remain validated. R5T-C confirms
@@ -84,7 +84,17 @@ semantics. `$bsp -> tag100` and tag100 physical meaning remain unknown. See
 [`docs/course-sdk.md`](docs/course-sdk.md), `research/r5t_d1/`, and
 `docs/course-importer.md`.
 
-No course writer, custom layout, or EXE change exists. See
+G0 adds the first bounded course authoring workflow: Blender can edit
+runtime-confirmed StartArea and FinishArea marker positions and main SplitTime
+center, Radius, and ID, then export a new RaceTest XML copy through the core
+allowlist writer. No DX/GXM/tag100/tag1400 or physical course writer, custom
+layout, or EXE change exists. The 36-project Retail no-op corpus is byte-
+identical; France1 static edit checks and Blender 5.2.2 source/ZIP smoke tests
+pass. **G0: PASS — READY_FOR_RUNTIME_AUTHORING_TEST**; no G0-generated file has
+yet been runtime-tested. See [`docs/course-race-logic-authoring.md`](docs/course-race-logic-authoring.md)
+and `research/g0/`.
+
+See
 [`docs/course-assets.md`](docs/course-assets.md),
 [`docs/course-importer.md`](docs/course-importer.md),
 [`research/r5t_b1/findings.md`](research/r5t_b1/findings.md),

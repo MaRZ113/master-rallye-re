@@ -1,6 +1,7 @@
 # Course source resources
 
-Status: **read-only; version-7 mesh topology decoded** (R5T-E.1 PASS).
+Status: **GXM/source topology read-only; bounded RaceTest XML authoring v0**
+(R5T-E.1 and G0 PASS).
 Vehicle source-format conclusions are not carried over unless a course
 source/compiled pair confirms them.
 
@@ -222,6 +223,23 @@ centers; moving RaceLine[112] is **NOT_SUPPORTED** as the direct SplitTime0
 center. Radius is a 3D spherical threshold (`distance < Radius`); ExtraTime's
 semantics remain **UNKNOWN**. See `research/r5t_d1/` for debugger details and
 the canonical evidence ledger.
+
+## G0 RaceTest authoring v0
+
+The core `CourseRaceLogicAuthoring` transaction and Blender export path support
+only four-marker StartArea/FinishArea positions plus main SplitTime Row3 XYZ,
+Radius, and Split Time ID. No generic XML setter or geometry exporter exists.
+The guarded writer preserves original bytes outside modified attributes and
+rejects non-allowlisted semantic changes. Retail principal-project no-op export
+is byte-identical in 36/36 files. StartArea authoring is supported in 36/36,
+FinishArea in 34/36, and all 110 split records are supported. Two five-marker
+FinishAreas are explicitly refused without dropping their extra marker.
+
+Programmatic France1 cases validate a StartArea +3 runtime-X translation,
+FinishArea X/Z scale 2 around its centroid, SplitTime0 center move, and Radius
+edit. These are static allowlist/diff checks only; generated XML was not placed
+in a game runtime. G0 is **PASS — READY_FOR_RUNTIME_AUTHORING_TEST**. See
+[`research/g0/findings.md`](../research/g0/findings.md).
 
 ## R5T-F.0 France1 named-mesh spatial correlation
 

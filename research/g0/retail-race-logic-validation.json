@@ -1,0 +1,837 @@
+{
+  "schema": "course-race-logic-authoring-corpus-validation-v1",
+  "evidence": "CONFIRMED_BY_CORPUS",
+  "corpus_root": "corpora/retail/Data.sma_unpacked",
+  "course_folder_count": 36,
+  "parsed_principal_xml_count": 36,
+  "no_op_byte_identical_count": 36,
+  "authoring_supported": {
+    "StartArea_courses": 36,
+    "FinishArea_courses": 34,
+    "SplitTime_records": 110
+  },
+  "split_count_distribution": {
+    "3": 34,
+    "4": 2
+  },
+  "split_radius_min": 7.0,
+  "split_radius_max": 30.0,
+  "safely_refused": [
+    {
+      "course_identity": "Italy_S4",
+      "area": "FinishArea",
+      "marker_count": 5,
+      "issues": [
+        "authoring requires exactly four ordered markers; found 5"
+      ]
+    },
+    {
+      "course_identity": "Turkey_s1",
+      "area": "FinishArea",
+      "marker_count": 5,
+      "issues": [
+        "authoring requires exactly four ordered markers; found 5"
+      ]
+    }
+  ],
+  "errors": [],
+  "courses": [
+    {
+      "course_identity": "France1",
+      "race_test_xml": "DataScene/RaceTest/France1.xml",
+      "source_sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "France2",
+      "race_test_xml": "DataScene/RaceTest/France2.xml",
+      "source_sha256": "f7acc4cfcdc4f7d33f3ffecf84e9642440838ea269473693ae5217ac43cdfc4c",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "France_M",
+      "race_test_xml": "DataScene/RaceTest/FranceM.xml",
+      "source_sha256": "016ce125fa72cb1294769e19062f6f7a32c8a250da2b2c463319daa087728a35",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "France_S1",
+      "race_test_xml": "DataScene/RaceTest/FranceS1.xml",
+      "source_sha256": "8251fc03fb9e8e98745004b18527be9d7b1df168f36c142ec50ac9b481ac369e",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "France_S2",
+      "race_test_xml": "DataScene/RaceTest/FranceS2.xml",
+      "source_sha256": "8bc149747d07b4da7dfecaaa7e6f9c1d32328f67bc69a6a3b82aa87633d20dc0",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "France_W",
+      "race_test_xml": "DataScene/RaceTest/FranceW.xml",
+      "source_sha256": "8bb17a1c62957fa3bcf72f9b818ce1d750e7982354b11e4f2c97b347e140c200",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "France_W_flip",
+      "race_test_xml": "DataScene/RaceTest/FranceWFlip.xml",
+      "source_sha256": "0329f91b035114cfdd7b2723e4f2fad1992ec7d3ab3ffe5dd85c19e568f012a4",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy1",
+      "race_test_xml": "DataScene/RaceTest/Italy1.xml",
+      "source_sha256": "216c0b7c332058cd82ac0883e5e94482559db0570a2ef711e8d7e665dda02bc4",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy2",
+      "race_test_xml": "DataScene/RaceTest/Italy2.xml",
+      "source_sha256": "3373926815b05480887968518c0eec3a4d1fa82d09c5d91dd739846af6ddd1d0",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy3",
+      "race_test_xml": "DataScene/RaceTest/Italy3.xml",
+      "source_sha256": "19158249bd8ab37ab12a5ec5fe54c91eac467a369f8a43d9964f3f298695ad52",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_M1",
+      "race_test_xml": "DataScene/RaceTest/ItalyM1.xml",
+      "source_sha256": "e8407781de37fc546f566247e3f850d6015f55b2e0956d135246594581de4d94",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_M1_flip",
+      "race_test_xml": "DataScene/RaceTest/ItalyM1Flip.xml",
+      "source_sha256": "da0908ea5dce8d1edb45c21349eb8c34121f71471f40bb4550d0b56daf1325ed",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_M2",
+      "race_test_xml": "DataScene/RaceTest/ItalyM2.xml",
+      "source_sha256": "bd7cfd5d92e7310d72bafd62883802a7962cc881cefd35b48dad49675f1c2c47",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_S1",
+      "race_test_xml": "DataScene/RaceTest/ItalyS1.xml",
+      "source_sha256": "009cec2b253e012fbd4c948b79dc6d8837943736e1ba6747b00a215611115e66",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_S2",
+      "race_test_xml": "DataScene/RaceTest/ItalyS2.xml",
+      "source_sha256": "603269076c3d065f9e105bd1eb61c6639b60846f7d3f7be7887bcb5e75773afc",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_S3",
+      "race_test_xml": "DataScene/RaceTest/ItalyS3.xml",
+      "source_sha256": "2a2254c599bb7f37099fc09f0e25975d0cb6037781dddc191df647233eb3e888",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_S3_flip",
+      "race_test_xml": "DataScene/RaceTest/ItalyS3Flip.xml",
+      "source_sha256": "5221e4dd0bca21d26d0fe8f59e6a9afe916d7524a4d10abe0d8e0d2aa548000f",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_S4",
+      "race_test_xml": "DataScene/RaceTest/ItalyS4.xml",
+      "source_sha256": "ad3519dd7600eeef584b5ec557207aaecfcd556ef0f27549bbfd1b6f77dc4db0",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 5,
+        "authoring_supported": false,
+        "issues": [
+          "authoring requires exactly four ordered markers; found 5"
+        ]
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_W1",
+      "race_test_xml": "DataScene/RaceTest/ItalyW1.xml",
+      "source_sha256": "cd5b35097fb17f81947633a0eafd3603c8365adab80573979625893988696c4f",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Italy_W2",
+      "race_test_xml": "DataScene/RaceTest/ItalyW2.xml",
+      "source_sha256": "0b60d81eba3e23f3fc44ef4ebecf46b4f735f29f8b81f061c404773b8bae6b9f",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Spain1",
+      "race_test_xml": "DataScene/RaceTest/Spain1.xml",
+      "source_sha256": "ae116c3633c469cef836697ade4dfbeefd9e66b415cf2e187c28e5a1094ce173",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Spain2",
+      "race_test_xml": "DataScene/RaceTest/Spain2.xml",
+      "source_sha256": "bbde61e4ca25e6d61051d91656a8c554c5483ea0858c09410e53be07ecc6ff62",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Spain_M",
+      "race_test_xml": "DataScene/RaceTest/SpainM.xml",
+      "source_sha256": "2821ec4c16e16cc5946fe14d07d485920e342222afb386de3d2c9b78c14b3a6b",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Spain_S1",
+      "race_test_xml": "DataScene/RaceTest/SpainS1.xml",
+      "source_sha256": "47396c2f1e593e3d5dbf8d3bbf194a40e39aa9a4bfc7c3bee1eec38dd33547f3",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Spain_S1_flip",
+      "race_test_xml": "DataScene/RaceTest/SpainS1Flip.xml",
+      "source_sha256": "7d7536df6b3959245d42d90d4c5548fbd6e6c8e20bb3a2e3692528247bef8b8d",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Spain_S2",
+      "race_test_xml": "DataScene/RaceTest/SpainS2.xml",
+      "source_sha256": "5dfe27bbab86353b2095a238cbb28bbabf9a2bfd6e6617ca07da757c716cafd6",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Spain_W",
+      "race_test_xml": "DataScene/RaceTest/SpainW.xml",
+      "source_sha256": "701ee0818edbf13c1d120d4bda8ff06292fe61bdee0a29321ade34d4a7b2e1ed",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Spain_W_flip",
+      "race_test_xml": "DataScene/RaceTest/SpainWFlip.xml",
+      "source_sha256": "edeeb559631dcb07cfe0251abe06dd08e5a52bb2160c4af2e69acc2865125cdd",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Turkey1",
+      "race_test_xml": "DataScene/RaceTest/Turkey1.xml",
+      "source_sha256": "8cca8bfe54672f8fa070c2ebfa097cfe0e842a57af675c7bae892c203ad30277",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Turkey2",
+      "race_test_xml": "DataScene/RaceTest/Turkey2.xml",
+      "source_sha256": "da1c7362d7c7793f12cf69f60c9c7e597083f82a6f853fbeb87d98257464ad05",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Turkey3",
+      "race_test_xml": "DataScene/RaceTest/Turkey3.xml",
+      "source_sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 4,
+      "supported_split_count": 4,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Turkey_m",
+      "race_test_xml": "DataScene/RaceTest/TurkeyM.xml",
+      "source_sha256": "ddcf92c5dd43992529162fe2aac11b149185e3b310bb2ed3df58d800552dba38",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Turkey_s1",
+      "race_test_xml": "DataScene/RaceTest/TurkeyS1.xml",
+      "source_sha256": "a378feeeccf7f8225b49f873268e03b312d550f4004fcadbc0112de1119c4f6f",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 5,
+        "authoring_supported": false,
+        "issues": [
+          "authoring requires exactly four ordered markers; found 5"
+        ]
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Turkey_s2",
+      "race_test_xml": "DataScene/RaceTest/TurkeyS2.xml",
+      "source_sha256": "45e5e24b2e15f5b429da67439c458365d10f44a4da4e5798c8f1e06e3a183856",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Turkey_s2_flip",
+      "race_test_xml": "DataScene/RaceTest/TurkeyS2Flip.xml",
+      "source_sha256": "44201c3da6182727f6f6a5ecbfe97fd000e47c21eac3a84049910c9024ee74f2",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 4,
+      "supported_split_count": 4,
+      "unsupported_splits": []
+    },
+    {
+      "course_identity": "Turkey_w",
+      "race_test_xml": "DataScene/RaceTest/TurkeyW.xml",
+      "source_sha256": "af2595e48d36c2f18fb41bea4f7d123e0347e8eae3c1e6c1fddf6a9b7287229b",
+      "parse_status": "PASS",
+      "no_op_export": "BYTE_IDENTICAL",
+      "start_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "finish_area": {
+        "present": true,
+        "marker_count": 4,
+        "authoring_supported": true,
+        "issues": []
+      },
+      "split_count": 3,
+      "supported_split_count": 3,
+      "unsupported_splits": []
+    }
+  ],
+  "status": "PASS"
+}

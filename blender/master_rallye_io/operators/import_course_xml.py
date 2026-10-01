@@ -1,4 +1,4 @@
-"""Read-only RaceTest XML race-logic helpers for imported course scenes."""
+"""RaceTest XML race-logic helpers with bounded, allowlist-only authoring."""
 from __future__ import annotations
 
 import hashlib
@@ -11,7 +11,7 @@ from bpy_extras.io_utils import ImportHelper
 from mathutils import Matrix
 
 from ..blender_mesh import create_collection
-from ..library import load_course_project, position_to_blender
+from ..library import load_course_project, load_course_race_logic_authoring, position_to_blender
 
 
 def _walk_collections(collection):
@@ -86,7 +86,7 @@ def _set_marker_metadata(obj, source, course_name, marker):
 
 def _create_marker_point(
     collection, source, course_name, marker, area_kind=None,
-    semantic_rule_evidence=(), record_evidence=(),
+    semantic_rule_evidence=(), record_evidence=(), area_supported=False, source_sha256="",
 ):
     label = marker.marker_type or "unknown"
     list_name = marker.marker_list_name or "Unlisted"
@@ -100,6 +100,16 @@ def _create_marker_point(
     obj.location = position_to_blender(marker.position)
     _set_marker_metadata(obj, source, course_name, marker)
     _set_evidence_metadata(obj, semantic_rule_evidence, record_evidence)
+    if area_kind in {"StartArea", "FinishArea"}:
+        obj["mr_race_logic_editable"] = bool(area_supported)
+        obj["mr_race_logic_object_type"] = "area_marker"
+        obj["mr_race_logic_area"] = area_kind
+        obj["mr_source_xml_sha256"] = source_sha256
+        obj["mr_initial_blender_position_json"] = json.dumps([float(value) for value in obj.location])
+        obj["mr_initial_blender_rotation_json"] = json.dumps([float(value) for value in obj.rotation_euler])
+        obj["mr_initial_blender_scale_json"] = json.dumps([float(value) for value in obj.scale])
+        obj["mr_semantics_status"] = "CONFIRMED_BY_RUNTIME_EDIT" if area_supported else "read-only: ambiguous or incomplete source area"
+        obj["mr_read_only"] = not area_supported
     return obj
 
 
@@ -212,7 +222,7 @@ def _source_egg_metadata(egg):
     }
 
 
-def _create_split_visual(collection, source, course_name, split):
+def _create_split_visual(collection, source, course_name, split, split_status, source_sha256):
     egg = split.source_egg
     matrix = egg.matrix("en3d Matrix")
     if matrix is None or split.center is None:
@@ -239,7 +249,7 @@ def _create_split_visual(collection, source, course_name, split):
     obj.show_in_front = True
     obj.color = (1.0, 0.72, 0.05, 1.0)
     obj["mr_resource_kind"] = "course"
-    obj["mr_read_only"] = True
+    obj["mr_read_only"] = not split_status.supported
     obj["mr_course_helper_kind"] = "RaceTest split-time visual sign icon"
     obj["mr_course_identity"] = course_name
     obj["mr_xml_source"] = source
@@ -250,6 +260,7 @@ def _create_split_visual(collection, source, course_name, split):
     obj["mr_split_time_id_raw"] = split.split_id_raw or ""
     if split.split_id is not None:
         obj["mr_split_time_id"] = split.split_id
+        obj["mr_source_split_time_id"] = split.split_id
     obj["mr_split_visual_position_xyz"] = list(split.center)
     obj["mr_split_visual_matrix_json"] = json.dumps(
         {"attributes": dict(matrix.attributes), "rows": [list(row) if row is not None else None for row in matrix.rows]},
@@ -259,6 +270,7 @@ def _create_split_visual(collection, source, course_name, split):
     obj["mr_split_extra_time_raw"] = split.extra_time_raw or ""
     if split.radius is not None:
         obj["mr_split_radius"] = split.radius
+        obj["mr_source_split_radius"] = split.radius
     if split.extra_time is not None:
         obj["mr_split_extra_time"] = split.extra_time
     obj["mr_source_egg_metadata_json"] = json.dumps(
@@ -273,10 +285,20 @@ def _create_split_visual(collection, source, course_name, split):
     obj["mr_extra_time_semantics"] = split.extra_time_semantics
     obj["mr_source_component_xml_path"] = split.source_component.xml_path
     obj["mr_icon_status"] = "procedural helper icon; not a game asset or exact render reproduction"
+    obj["mr_race_logic_editable"] = bool(split_status.supported)
+    obj["mr_race_logic_object_type"] = "split_center"
+    obj["mr_split_source_identity"] = split_status.identity
+    obj["mr_source_xml_sha256"] = source_sha256
+    obj["mr_initial_blender_position_json"] = json.dumps([float(value) for value in obj.location])
+    obj["mr_initial_blender_rotation_json"] = json.dumps([float(value) for value in obj.rotation_euler])
+    obj["mr_initial_blender_scale_json"] = json.dumps([float(value) for value in obj.scale])
+    obj["mr_semantics_status"] = "CONFIRMED_BY_EXECUTABLE; runtime edit confirmed for France1 SplitTime0" if split_status.supported else "read-only: ambiguous or incomplete split source"
+    obj.lock_rotation = (True, True, True)
+    obj.lock_scale = (True, True, True)
     return obj
 
 
-def _create_split_trigger(collection, source, course_name, split):
+def _create_split_trigger(collection, source, course_name, split, center_object):
     if not split.trigger_complete:
         return None
     radius = float(split.radius)
@@ -284,7 +306,7 @@ def _create_split_trigger(collection, source, course_name, split):
     curve = bpy.data.curves.new(f"MR split trigger sphere {label}", type="CURVE")
     curve.dimensions = "3D"
     curve.resolution_u = 1
-    curve.bevel_depth = max(radius * 0.0025, 0.025)
+    curve.bevel_depth = 0.025 / radius
     curve.bevel_resolution = 1
     steps = 40
     for axis in range(3):
@@ -292,8 +314,8 @@ def _create_split_trigger(collection, source, course_name, split):
         spline.points.add(steps - 1)
         for index, point in enumerate(spline.points):
             angle = 2.0 * 3.141592653589793 * index / steps
-            cosine = radius * __import__("math").cos(angle)
-            sine = radius * __import__("math").sin(angle)
+            cosine = __import__("math").cos(angle)
+            sine = __import__("math").sin(angle)
             if axis == 0:
                 co = (cosine, sine, 0.0, 1.0)
             elif axis == 1:
@@ -304,7 +326,13 @@ def _create_split_trigger(collection, source, course_name, split):
         spline.use_cyclic_u = True
     obj = bpy.data.objects.new(f"MR_SplitTime{label}_TriggerSphere", curve)
     collection.objects.link(obj)
-    obj.location = position_to_blender(split.center)
+    obj.parent = center_object
+    obj.location = (0.0, 0.0, 0.0)
+    obj.rotation_euler = (0.0, 0.0, 0.0)
+    obj.scale = (radius, radius, radius)
+    obj.lock_location = (True, True, True)
+    obj.lock_rotation = (True, True, True)
+    obj.lock_scale = (True, True, True)
     obj.show_in_front = True
     obj.color = (0.95, 0.22, 0.08, 1.0)
     obj["mr_resource_kind"] = "course"
@@ -328,6 +356,16 @@ def _create_split_trigger(collection, source, course_name, split):
     obj["mr_radius_rule_evidence"] = "; ".join(split.radius_rule_evidence)
     _set_evidence_metadata(obj, split.center_rule_evidence, split.record_evidence)
     obj["mr_coordinate_space_note"] = "center converted with canonical course source-to-Blender transform; radius unchanged"
+    obj["mr_radius_visual_driver"] = "unit wire sphere scaled by its parent SplitTime Radius custom property"
+    for axis in range(3):
+        driver = obj.driver_add("scale", axis).driver
+        driver.type = "SCRIPTED"
+        driver.expression = "radius"
+        variable = driver.variables.new()
+        variable.name = "radius"
+        variable.type = "SINGLE_PROP"
+        variable.targets[0].id = center_object
+        variable.targets[0].data_path = '["mr_split_radius"]'
     return obj
 
 
@@ -360,8 +398,8 @@ def _create_visual_companion(collection, source, course_name, companion):
 
 class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, ImportHelper):
     bl_idname = "import_scene.master_rallye_course_xml_markers"
-    bl_label = "Import RaceTest XML Race Logic"
-    bl_description = "Add hierarchy-aware, read-only RaceTest marker and split visual helpers"
+    bl_label = "Load Course Race Logic"
+    bl_description = "Load RaceTest helpers and enable only runtime-confirmed StartArea, FinishArea, and SplitTime edits"
     bl_options = {"REGISTER", "UNDO"}
 
     filename_ext = ".xml"
@@ -375,6 +413,8 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             if race_logic is None:
                 raise ValueError("Course SDK could not parse the selected RaceTest XML")
             document = race_logic.source_document
+            authoring = load_course_race_logic_authoring(source)
+            area_status = {item.name: item for item in authoring.area_status}
             positioned = [marker for marker in document.markers if marker.position is not None]
             if not positioned and not race_logic.split_times:
                 raise ValueError("XML contains no positioned Marker records or split-time visual eggs")
@@ -402,7 +442,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 root["mr_resource_kind"] = "course"
                 root["mr_course_identity"] = source.stem
                 root["mr_read_only"] = True
-                root["mr_import_note"] = "Created for read-only RaceTest XML diagnostics; course render DX not imported"
+                root["mr_import_note"] = "Created for RaceTest race-logic authoring; course render DX not imported"
             elif root.get("mr_resource_kind") != "course":
                 raise ValueError(f"collection {root_name!r} exists but is not marked as a course")
 
@@ -420,6 +460,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             logic["mr_xml_collection_kind"] = "race_logic_root"
             logic["mr_xml_source"] = source_path
             logic["mr_xml_sha256"] = hashlib.sha256(payload).hexdigest()
+            logic["mr_authoring_schema"] = "master-rallye-race-logic-edit-v1"
             logic["mr_course_identity"] = source.stem
             logic["mr_read_only"] = True
             logic["mr_marker_count"] = len(document.markers)
@@ -427,7 +468,8 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             logic["mr_split_trigger_count"] = sum(item.trigger_complete for item in race_logic.split_times)
             logic["mr_hierarchy_preserved"] = True
             logic["mr_semantics_source"] = "master_rallye.course_sdk CourseRaceLogic"
-            logic["mr_read_only_semantics"] = True
+            logic["mr_read_only_semantics"] = False
+            logic["mr_race_logic_authoring"] = True
 
             marker_lists_collection = _get_child_collection(logic, "MarkerLists - Other", "marker_lists_root")
             semantic_areas = {
@@ -453,6 +495,10 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                     group["mr_centroid_xyz"] = list(semantic_area.centroid) if semantic_area.centroid else []
                     group["mr_local_xz_bounds"] = list(semantic_area.local_xz_bounds) if semantic_area.local_xz_bounds else []
                     group["mr_source_order_preserved"] = True
+                    status = area_status[kind]
+                    group["mr_authoring_supported"] = status.supported
+                    group["mr_authoring_issues_json"] = json.dumps(list(status.issues), ensure_ascii=False)
+                    group["mr_authoring_evidence"] = "CONFIRMED_BY_RUNTIME_EDIT"
                 else:
                     group["mr_semantics_status"] = "UNKNOWN; ordered RaceTest markers preserved"
                 for marker in marker_list.markers:
@@ -466,16 +512,8 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                         kind,
                         semantic_area.semantic_rule_evidence if semantic_area is not None else (),
                         semantic_area.record_evidence if semantic_area is not None else (),
-                    )
-                if kind == "StartArea":
-                    _create_area_outline(
-                        group, source_path, source.stem, marker_list, semantic_area.semantic_role,
-                        semantic_area.semantic_rule_evidence, semantic_area.record_evidence,
-                    )
-                elif kind == "FinishArea":
-                    _create_area_outline(
-                        group, source_path, source.stem, marker_list, semantic_area.semantic_role,
-                        semantic_area.semantic_rule_evidence, semantic_area.record_evidence,
+                        area_status[kind].supported if semantic_area is not None else False,
+                        authoring.source_sha256,
                     )
 
             eggs_root = create_collection("EggLists_Version4", logic)
@@ -484,8 +522,12 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             split_visuals["mr_xml_collection_kind"] = "egg_list:SplitTimes"
             split_visuals["mr_xml_path"] = "/Scene/EggLists_Version4/List[@Name='SplitTimes']"
 
-            for split in race_logic.split_times:
+            if len(race_logic.split_times) != len(authoring.split_status):
+                raise ValueError("Course SDK and Race Logic authoring split inventories disagree")
+            for split, split_edit_status in zip(race_logic.split_times, authoring.split_status):
                 egg = split.source_egg
+                if split_edit_status.source_xml_path != split.egg_xml_path or split_edit_status.egg_name != split.egg_name:
+                    raise ValueError(f"Course SDK and authoring source order disagree at {split.egg_xml_path}")
                 split_label = str(split.split_id) if split.split_id is not None else (egg.name or str(egg.index_in_list))
                 split_collection = create_collection(egg.name or f"SplitTime{split_label}", split_visuals)
                 split_collection["mr_xml_collection_kind"] = f"split_egg:{split_label}"
@@ -501,8 +543,9 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 split_collection["mr_extra_time_semantics"] = split.extra_time_semantics
                 split_collection["mr_sdk_issues_json"] = json.dumps(list(split.issues), ensure_ascii=False)
 
-                _create_split_visual(split_collection, source_path, source.stem, split)
-                _create_split_trigger(split_collection, source_path, source.stem, split)
+                center = _create_split_visual(split_collection, source_path, source.stem, split, split_edit_status, authoring.source_sha256)
+                if center is not None:
+                    _create_split_trigger(split_collection, source_path, source.stem, split, center)
 
                 companions_collection = create_collection("Visual Checkpoint Objects", split_collection)
                 companions_collection["mr_xml_collection_kind"] = "split_visual_companions"
@@ -513,7 +556,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
 
             self.report(
                 {"INFO"},
-                f"Imported {len(positioned)} hierarchy-grouped markers, {len(race_logic.split_times)} split records, and {logic['mr_split_trigger_count']} trigger spheres (read-only)",
+                f"Loaded {len(positioned)} markers, {len(race_logic.split_times)} split records; runtime-confirmed fields are editable",
             )
             return {"FINISHED"}
         except Exception as error:

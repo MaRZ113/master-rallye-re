@@ -13,6 +13,7 @@ try:
         geometry_fingerprint,
         prepare_display_normals,
         position_to_blender,
+        blender_position_to_source,
         transform_blender_normals,
         transform_blender_positions,
         transform_blender_positions_to_source,
@@ -37,6 +38,7 @@ try:
         discover_course_resources,
         load_course_project,
     )
+    from master_rallye.course_race_authoring import load_course_race_logic_authoring
     from master_rallye.course_gxm import parse_course_gxm_model_v7
     from master_rallye.course_source import parse_course_txt
     from master_rallye.course_xml import parse_course_xml
@@ -69,6 +71,7 @@ except ModuleNotFoundError:
         geometry_fingerprint,
         prepare_display_normals,
         position_to_blender,
+        blender_position_to_source,
         transform_blender_normals,
         transform_blender_positions,
         transform_blender_positions_to_source,
@@ -93,6 +96,7 @@ except ModuleNotFoundError:
         discover_course_resources,
         load_course_project,
     )
+    from .vendor.master_rallye.course_race_authoring import load_course_race_logic_authoring
     from .vendor.master_rallye.course_gxm import parse_course_gxm_model_v7
     from .vendor.master_rallye.course_source import parse_course_txt
     from .vendor.master_rallye.course_xml import parse_course_xml

@@ -13,7 +13,7 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
 | Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; SplitTime0 center **CONFIRMED_BY_RUNTIME_EDIT / DEBUGGER** | All 41 retail RaceTest XML files parse. In France1, `SplitTime0` Egg Row3 drives both the visual sign and gameplay center; `gaRaceSplitTimeAI/Radius` is the 3D sphere radius. SplitTime1/2 have matching structure but were not independently moved in runtime tests. See `docs/course-importer.md` and `research/r5t_d1/`. |
-| Read-only Course SDK | Typed `CourseProject` composition over DX, XML, HNT, SFL, TXT, and version-7 GXM topology; per-record race-logic evidence; raw tag100 wrapper plus standalone structural parser. | **IMPLEMENTED; READ_ONLY** | `source_geometry` and `source_meshes` expose literal names, hierarchy, validated triangle slices, position indices, and bounds. The standalone parser decodes the Retail tag100 recursive wire grammar; tested France1 source planes correlate with records inside its tree. Broader physical semantics remain **PARTIAL/UNKNOWN**. See `docs/course-sdk.md` and `research/r5t_f2/`. |
+| Course SDK | Typed `CourseProject` composition, read-only compiled/source geometry, and G0 allowlist-constrained RaceTest XML authoring. | **IMPLEMENTED; BOUNDED AUTHORING** | Only StartArea/FinishArea marker positions and main SplitTime Row3 XYZ, Radius, and Split Time ID can be exported. No geometry/physical writer exists. The standalone tag100 parser remains structural, with broader physical semantics **PARTIAL/UNKNOWN**. See `docs/course-sdk.md`, `docs/course-race-logic-authoring.md`, and `research/g0/`. |
 | Course `.gxm` | Demo 8.4.1 / 9.10.0 paired version-7 source models, fixed attribute/triangle/position banks, and TXT-cross-validated node table. | Triangle grammar and `moMesh` spans **CONFIRMED_BY_EXECUTABLE / BINARY_STRUCTURE**; color-like / texcoord-like semantics conservative. | France1, Italy1, Boinds, and Demo 9.10 AI Track pass all five independent reference-domain checks and complete mesh-span coverage. France1 `startpoint` resolves to a closed 12-triangle box. Gameplay meaning of node names remains **UNKNOWN**. See `docs/formats/gxm-course.md` and `research/r5t_e/`. |
 
 ## Course status (R5T-C evidence closeout)
@@ -106,7 +106,8 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
   from R5T-F.2. The tested source collider's plane records are inside the
   parsed tree, but runtime swaps included later tag1339/tag1400 data. `$bsp ->
   tag100`, broader physical semantics, and helper ownership remain unresolved.
-  Course parsing/diagnostics are read-only; no course writer exists.
+  Compiled course parsing and diagnostics remain read-only; G0 later adds a
+  bounded RaceTest XML writer without changing this geometry boundary.
 
 ## Course SDK foundation (R5T-SDK1)
 
@@ -121,8 +122,29 @@ evidence from record-specific evidence.
 HNT entries, structural SFL statistics, source TXT/GXM probes, and neutral
 tag100 offsets/hash/status are available from partial `CourseProject` objects.
 The existing Blender add-on consumes the semantic model and draws split sphere
-helpers and separate visual companions. No course writer or exporter was
-introduced. See `docs/course-sdk.md` and `docs/course-importer.md`.
+helpers and separate visual companions. G0 adds a bounded RaceTest XML
+exporter; it does not write compiled or source geometry. See `docs/course-sdk.md`
+and `docs/course-importer.md`.
+
+## Course SDK G0 — RaceTest authoring v0
+
+**PASS — READY_FOR_RUNTIME_AUTHORING_TEST.** `CourseRaceLogicAuthoring`
+provides allowlist setters for four StartArea/FinishArea marker positions and
+main SplitTime Row3 XYZ, Radius, and Split Time ID. The source-span writer
+returns original bytes on no-op, preserves bytes outside the edited attributes,
+and applies a parsed-tree semantic diff guard. Export is to a new XML path with
+a source/output hash manifest; no course archive or compiled resource is
+modified.
+
+The curated Retail corpus passes 36/36 principal XML no-op exports byte for
+byte. StartArea: 36/36 supported; FinishArea: 34/36; SplitTime: 110 records.
+ItalyS4 and TurkeyS1 have five-marker FinishAreas and are safely refused.
+France1 static scenarios for StartArea translation, FinishArea expansion,
+SplitTime center and Radius pass. Blender 5.2.2 source and built-ZIP tests cover
+no-op and edited export. No G0 export has been runtime-tested yet. See
+[`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md),
+[`research/g0/findings.md`](../research/g0/findings.md), and the optional
+[`research/g0/runtime-handoff.md`](../research/g0/runtime-handoff.md).
 
 ## R5T-E.1 GXM source topology closeout
 
