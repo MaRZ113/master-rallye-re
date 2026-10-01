@@ -82,11 +82,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2054453,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2046429,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 11435057,
             "first_tag": 1400,
-            "sha256": "f222c2c8718f97729526c3e187833348149ca9ff1468944182651cc2ee90f98e"
+            "sha256": "fa7557cb1f1823788085ba68914061425f7ce9e0fbd7348c96e56eb90d8e231c",
+            "combined_remainder_byte_size": 2054453,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2046429,
+              "sha256": "fa7557cb1f1823788085ba68914061425f7ce9e0fbd7348c96e56eb90d8e231c"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 8024,
+              "sha256": "f766eb247bd20c486f81fbf02960c77aeba3c2bd712c79e324be00421fdb74ba"
+            }
           },
           "sha256": "849276cb45d3cb608681c2be8269df3fa1d0e61e8e403f6bc4a1ab7baab2ccc7"
         },
@@ -132,11 +143,11 @@
           "byte_size": 10145749,
           "consumed_size": 8091252,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             74401,
@@ -159,7 +170,18 @@
           "source": "france1.dx",
           "terminal_nodes": 175897,
           "trailing_size": 2054497,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8091252,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -191,11 +213,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1541858,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1531766,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 12375225,
             "first_tag": 1400,
-            "sha256": "3fe81e4ec4c9a5e0bcabc0256ff4263d7a41d799ed18181d7ff894ee0bb43312"
+            "sha256": "2599e4f98a15ab19f85cc0c2602025ce94a1031831616dbfd2d8fa7781abb00b",
+            "combined_remainder_byte_size": 1541858,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1531766,
+              "sha256": "2599e4f98a15ab19f85cc0c2602025ce94a1031831616dbfd2d8fa7781abb00b"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 10092,
+              "sha256": "2cf9bc37bd41825db3c19d2616ebbf556db4e005b427c23e360857da0e86616e"
+            }
           },
           "sha256": "e67154f60bde44f4c3e5c9a3f2fe6d09d7c30b8b6690f534905fcd2932f0930d"
         },
@@ -242,11 +275,11 @@
           "byte_size": 9722486,
           "consumed_size": 8180584,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             69127,
@@ -269,7 +302,18 @@
           "source": "france2.dx",
           "terminal_nodes": 177839,
           "trailing_size": 1541902,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8180584,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -301,11 +345,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2136794,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2124230,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 13138528,
             "first_tag": 1400,
-            "sha256": "ada4a5a34b1593506e4e406c6e15963bbeac6ff9a52fa4f871044fd8f8a95498"
+            "sha256": "dd6b922638896188b5ca8adb17ed6be190f8dd0de36b613fbfb7c24bb4a6ad11",
+            "combined_remainder_byte_size": 2136794,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2124230,
+              "sha256": "dd6b922638896188b5ca8adb17ed6be190f8dd0de36b613fbfb7c24bb4a6ad11"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 12564,
+              "sha256": "a38eb3d8b6d8f645d46c5ec15b08640eb8f9c2d6282adb4aefcc0af2b3e438a1"
+            }
           },
           "sha256": "1b27ec4515a37838c83d2a1c87b361719c073425a9c0b3fc761d714054ce806e"
         },
@@ -354,11 +409,11 @@
           "byte_size": 10857646,
           "consumed_size": 8720808,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             78550,
@@ -381,7 +436,18 @@
           "source": "francem.dx",
           "terminal_nodes": 189583,
           "trailing_size": 2136838,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8720808,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -413,11 +479,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1762834,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1752946,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 12569368,
             "first_tag": 1400,
-            "sha256": "2e35e864345da0ad0aa1acafe8c45cf59024aa199be5dce3c73f2aec9ae2b654"
+            "sha256": "221b5883cf877f7b07864322394d00146a0fdec84e7e1a9df66eb27223e609cb",
+            "combined_remainder_byte_size": 1762834,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1752946,
+              "sha256": "221b5883cf877f7b07864322394d00146a0fdec84e7e1a9df66eb27223e609cb"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 9888,
+              "sha256": "bbbc8df35b0b8e30cb4011522dc5eb8983b708b0ae593d2b76a6d8c7c2a6a6ec"
+            }
           },
           "sha256": "c0a8b429aa6f58cdd4b16b7c0b4de61b44858b7fd807eccb13f8c59eacba1172"
         },
@@ -466,11 +543,11 @@
           "byte_size": 10590360,
           "consumed_size": 8827482,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             73151,
@@ -493,7 +570,18 @@
           "source": "frances1.dx",
           "terminal_nodes": 191902,
           "trailing_size": 1762878,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8827482,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -525,11 +613,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2156461,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2146341,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 12292704,
             "first_tag": 1400,
-            "sha256": "f17179a7ec1cb35579efab38fe601da2fbafbaf0a0e07f75c90a5ad6eef1ecfe"
+            "sha256": "93747c016a6a7e81a758c712b5702977f9dc2c7690fdfbc6d5458355d1014abc",
+            "combined_remainder_byte_size": 2156461,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2146341,
+              "sha256": "93747c016a6a7e81a758c712b5702977f9dc2c7690fdfbc6d5458355d1014abc"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 10120,
+              "sha256": "909df1b2688b154b25407e36eec960e1115fc172b1ef945aed184234d312d4f9"
+            }
           },
           "sha256": "6e63bf2c2a8a0fd5dc506a268712dd7396255682dfa4bcc497f1f870049e9172"
         },
@@ -578,11 +677,11 @@
           "byte_size": 10106675,
           "consumed_size": 7950170,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             74526,
@@ -605,7 +704,18 @@
           "source": "frances2.dx",
           "terminal_nodes": 172830,
           "trailing_size": 2156505,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 7950170,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -637,11 +747,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2078209,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2069561,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 13002791,
             "first_tag": 1400,
-            "sha256": "912d18dca348a91974f0601bc0f210e6779af42d4938f889a4372430d16fe7a2"
+            "sha256": "48992c44afbc1733db1e6937686eebe704d565b94b842eb5083ee39e3f642a2b",
+            "combined_remainder_byte_size": 2078209,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2069561,
+              "sha256": "48992c44afbc1733db1e6937686eebe704d565b94b842eb5083ee39e3f642a2b"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 8648,
+              "sha256": "f4f9c0ab5a2d64de369d9a60b78fa3464b56e41e8ff885d02e02c4a5246e79f9"
+            }
           },
           "sha256": "05c4830be32afac45419d527e10429f28396817df4cea62a59ed2f2433cc1cc7"
         },
@@ -691,11 +812,11 @@
           "byte_size": 10975471,
           "consumed_size": 8897218,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             77303,
@@ -718,7 +839,18 @@
           "source": "francew.dx",
           "terminal_nodes": 193418,
           "trailing_size": 2078253,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8897218,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -750,11 +882,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2078209,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2069561,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 13000376,
             "first_tag": 1400,
-            "sha256": "33ff438c4ac3246abf1487cf16db3474abcdfe86ec9d280d71bccd614e1cdd6f"
+            "sha256": "cd0be367e460ed0a001ba89c4060534563f5d7253029b1724e1a906308b2a445",
+            "combined_remainder_byte_size": 2078209,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2069561,
+              "sha256": "cd0be367e460ed0a001ba89c4060534563f5d7253029b1724e1a906308b2a445"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 8648,
+              "sha256": "f4f9c0ab5a2d64de369d9a60b78fa3464b56e41e8ff885d02e02c4a5246e79f9"
+            }
           },
           "sha256": "eac17b941a9198f51c0c792f26bc2e3c3c4abbc19519c44d87be7b8a0d43b730"
         },
@@ -804,11 +947,11 @@
           "byte_size": 10972159,
           "consumed_size": 8893906,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             77285,
@@ -831,7 +974,18 @@
           "source": "FranceW_flip.dx",
           "terminal_nodes": 193346,
           "trailing_size": 2078253,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8893906,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -863,11 +1017,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1654775,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1642411,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8589085,
             "first_tag": 1400,
-            "sha256": "e56cc6b2099499167bf79ce3bbc4845a06e78238c12e8a491ae5b5f450c0ec21"
+            "sha256": "c1b96e8d83639da43b1719cd497f6f3f07cb3705af21dd2dc15cd45ccc00e8c4",
+            "combined_remainder_byte_size": 1654775,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1642411,
+              "sha256": "c1b96e8d83639da43b1719cd497f6f3f07cb3705af21dd2dc15cd45ccc00e8c4"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 12364,
+              "sha256": "ecd660b3529bd4bd453c818a8d0fc01dd16f32648216baf7c7a871c212a81c8a"
+            }
           },
           "sha256": "34976de68710b8df810a9217c4b28eebb1158aa38925dd243fdc922b71676134"
         },
@@ -918,11 +1083,11 @@
           "byte_size": 7517509,
           "consumed_size": 5862690,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             60221,
@@ -945,7 +1110,18 @@
           "source": "track01.dx",
           "terminal_nodes": 127450,
           "trailing_size": 1654819,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5862690,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -977,11 +1153,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1653852,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1637764,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8278578,
             "first_tag": 1400,
-            "sha256": "199d4fe90ffd41011b15aaefc497b373ea347c6baa1d4f638ed5e8b1eb9089ca"
+            "sha256": "9905cb4207786604505c056097c075fe89a920d3e1bbf00d943410cc350b0d55",
+            "combined_remainder_byte_size": 1653852,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1637764,
+              "sha256": "9905cb4207786604505c056097c075fe89a920d3e1bbf00d943410cc350b0d55"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 16088,
+              "sha256": "77e5619c4054d2ea2220f23e4b25e953b35bb0fc464a64c7c6476cf659ca6706"
+            }
           },
           "sha256": "af97400035facf6fafa9fda60d5ff25062c3f51ffecee5e2f94ef7ac656f53e9"
         },
@@ -1030,11 +1217,11 @@
           "byte_size": 6551920,
           "consumed_size": 4898024,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             50855,
@@ -1057,7 +1244,18 @@
           "source": "italy2.dx",
           "terminal_nodes": 106479,
           "trailing_size": 1653896,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 4898024,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1089,11 +1287,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1801996,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1793248,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 11027012,
             "first_tag": 1400,
-            "sha256": "3bf290d8b6d277941027abe6836b9b33a6dd563c98be9c2149a0b4f4047fe575"
+            "sha256": "4c1af1901dcd6510e35dd083b9977e96d31427e9c1406aff84f3fdbe3af245bd",
+            "combined_remainder_byte_size": 1801996,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1793248,
+              "sha256": "4c1af1901dcd6510e35dd083b9977e96d31427e9c1406aff84f3fdbe3af245bd"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 8748,
+              "sha256": "c610e5c3a4c7336d6f5719a1a796da1c015745d7a5659f8203d2ed5704914679"
+            }
           },
           "sha256": "ebf4a3e5e7d22a0b1b5cd948e64d58bdb93021fcb8577cfd5ad638caf64bc09a"
         },
@@ -1144,11 +1353,11 @@
           "byte_size": 9773416,
           "consumed_size": 7971376,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             55821,
@@ -1171,7 +1380,18 @@
           "source": "italy3.dx",
           "terminal_nodes": 173291,
           "trailing_size": 1802040,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 7971376,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1203,11 +1423,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1905210,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1887734,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 10024601,
             "first_tag": 1400,
-            "sha256": "d7d3a90add2b06934a3c6fb1cd80abe61b35adebc50b344b984820006a39234b"
+            "sha256": "4b418e9e8ab9c5ea482d21560751b6ed7a452e7a3dd27646817c9358ae824aec",
+            "combined_remainder_byte_size": 1905210,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1887734,
+              "sha256": "4b418e9e8ab9c5ea482d21560751b6ed7a452e7a3dd27646817c9358ae824aec"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 17476,
+              "sha256": "1e3109aa88cb9e6abaaaea9daa053305c65016507607a212b1e9e5c2a8739b0e"
+            }
           },
           "sha256": "903afd2abdfc3d3afb2adff540d95d1403d412de2e575b3f5f241a2cb5cc0a2c"
         },
@@ -1257,11 +1488,11 @@
           "byte_size": 8440648,
           "consumed_size": 6535394,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             66214,
@@ -1284,7 +1515,18 @@
           "source": "italy_m1.dx",
           "terminal_nodes": 142074,
           "trailing_size": 1905254,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 6535394,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1316,11 +1558,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1905210,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1887734,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 10024580,
             "first_tag": 1400,
-            "sha256": "2e40b6b538e42ceffd7013a2c82605241a678cf270ff73f6f14d32de64fc56b0"
+            "sha256": "43f99a7058452796603016bf461e451ae23550812d91e923d6fc874d1187c0f9",
+            "combined_remainder_byte_size": 1905210,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1887734,
+              "sha256": "43f99a7058452796603016bf461e451ae23550812d91e923d6fc874d1187c0f9"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 17476,
+              "sha256": "1e3109aa88cb9e6abaaaea9daa053305c65016507607a212b1e9e5c2a8739b0e"
+            }
           },
           "sha256": "ec8f66680a38f35d5e1203a7fc4c20359b9f79baf4658e43cb706c880d07dbb7"
         },
@@ -1370,11 +1623,11 @@
           "byte_size": 8440648,
           "consumed_size": 6535394,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             66214,
@@ -1397,7 +1650,18 @@
           "source": "italy_m1_flip.dx",
           "terminal_nodes": 142074,
           "trailing_size": 1905254,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 6535394,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1429,11 +1693,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2141420,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2123852,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 11833223,
             "first_tag": 1400,
-            "sha256": "2a284baddc9307a50f0f405dad00d0ecd73402892d5baa250bbfccb5884a1143"
+            "sha256": "e8ec9b1a11638f78b887948a11640a16fc7dee73f6b67b3d7a5f21aa87ac53ed",
+            "combined_remainder_byte_size": 2141420,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2123852,
+              "sha256": "e8ec9b1a11638f78b887948a11640a16fc7dee73f6b67b3d7a5f21aa87ac53ed"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 17568,
+              "sha256": "edd9cbeb3462bdd05b2b0ff65f02d5aebb3d2e00b468c7a2120447f8f23055a8"
+            }
           },
           "sha256": "c1ec7fd8de19f944b506676c393d2242341993ffcc17b15068530d01fe33f702"
         },
@@ -1484,11 +1759,11 @@
           "byte_size": 10142510,
           "consumed_size": 8001046,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             66621,
@@ -1511,7 +1786,18 @@
           "source": "italy_m2.dx",
           "terminal_nodes": 173936,
           "trailing_size": 2141464,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8001046,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1543,11 +1829,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1683932,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1670808,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8734599,
             "first_tag": 1400,
-            "sha256": "e5a5fd350a249f688635ff99f94961baa134b834e8f23503d56cf3848a79b766"
+            "sha256": "728280c79e09898668bde1cbb05761bbe1ac8f501080190dd96c568a77b5305c",
+            "combined_remainder_byte_size": 1683932,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1670808,
+              "sha256": "728280c79e09898668bde1cbb05761bbe1ac8f501080190dd96c568a77b5305c"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 13124,
+              "sha256": "7c3fdc6e88ddf40b0de3e599850576e17163f50aaa28d2d8844c91617a1e7abe"
+            }
           },
           "sha256": "7a5671fb505babf5454e8e53756e0792c8b31e381e1af08ecadb357e3202d3ac"
         },
@@ -1598,11 +1895,11 @@
           "byte_size": 7360274,
           "consumed_size": 5676298,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             55489,
@@ -1625,7 +1922,18 @@
           "source": "italy_s1.dx",
           "terminal_nodes": 123398,
           "trailing_size": 1683976,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5676298,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1657,11 +1965,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2117406,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2097194,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 10001851,
             "first_tag": 1400,
-            "sha256": "2a00fb28bf49069795694d98bb5d63f1da674800cb44a84d573d29cbe0295a97"
+            "sha256": "86f8a6d0cba358b710a3af86409e4e1521722193cb4c1400970b5e618937aba0",
+            "combined_remainder_byte_size": 2117406,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2097194,
+              "sha256": "86f8a6d0cba358b710a3af86409e4e1521722193cb4c1400970b5e618937aba0"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 20212,
+              "sha256": "211186910eb8773c9a2d0774221bf077cb2c44b1acb3bb2722bd1ce0461ededc"
+            }
           },
           "sha256": "f5adaf409e0eeb48dc597cdfc816acfcd6d580ab71ce16da3695631b3deb414f"
         },
@@ -1711,11 +2030,11 @@
           "byte_size": 8647876,
           "consumed_size": 6530426,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             69262,
@@ -1738,7 +2057,18 @@
           "source": "italy_s2.dx",
           "terminal_nodes": 141966,
           "trailing_size": 2117450,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 6530426,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1770,11 +2100,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1905065,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1890261,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 10996427,
             "first_tag": 1400,
-            "sha256": "627f023f76a33f9f2956c1080e21c0453a90e7379166f14efe5420cf31300010"
+            "sha256": "6a14647a87a054358520b874c6251dceddfa401105e30fc412f29757fce41b4e",
+            "combined_remainder_byte_size": 1905065,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1890261,
+              "sha256": "6a14647a87a054358520b874c6251dceddfa401105e30fc412f29757fce41b4e"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 14804,
+              "sha256": "64123be0be040d139c44e80dcc30cacf3bbe633ce7c84c80e185fb2a4f7563c4"
+            }
           },
           "sha256": "4891dca1042444477d4f668e662df857db5fb25c37663f669f9b94cf1946bcb2"
         },
@@ -1825,11 +2166,11 @@
           "byte_size": 9421269,
           "consumed_size": 7516160,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             59253,
@@ -1852,7 +2193,18 @@
           "source": "italy_s3.dx",
           "terminal_nodes": 163395,
           "trailing_size": 1905109,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 7516160,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1884,11 +2236,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1905065,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1890261,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 11038750,
             "first_tag": 1400,
-            "sha256": "6c3fa4944405e4343986930bface6e477fa7d101523bf7643082652e28499538"
+            "sha256": "7478324d5f1168f03c15a63bfcb5d49099387b57f2aa75b29f082579375ab641",
+            "combined_remainder_byte_size": 1905065,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1890261,
+              "sha256": "7478324d5f1168f03c15a63bfcb5d49099387b57f2aa75b29f082579375ab641"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 14804,
+              "sha256": "64123be0be040d139c44e80dcc30cacf3bbe633ce7c84c80e185fb2a4f7563c4"
+            }
           },
           "sha256": "ee29da6057165c292577c7c43bbfc0a0334fe9d0897b77e9cc6ad823c57f4062"
         },
@@ -1939,11 +2302,11 @@
           "byte_size": 9445741,
           "consumed_size": 7540632,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             59463,
@@ -1966,7 +2329,18 @@
           "source": "Italy_S3_flip.dx",
           "terminal_nodes": 163927,
           "trailing_size": 1905109,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 7540632,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -1998,11 +2372,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2201176,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2185120,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 12663518,
             "first_tag": 1400,
-            "sha256": "6a59a0f19ec0dbf73babdc1aee92472f3c285a15b18958e8cac2d49affdac7a5"
+            "sha256": "b1dc559c59ad4abd5909d4c6802d31d4afdeb289429273035ad1ee3e2533ac52",
+            "combined_remainder_byte_size": 2201176,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2185120,
+              "sha256": "b1dc559c59ad4abd5909d4c6802d31d4afdeb289429273035ad1ee3e2533ac52"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 16056,
+              "sha256": "2288acdc36a292a78ad4cf7f9c1829a687c8906e85be58632fe2faa3ac793248"
+            }
           },
           "sha256": "ab2e3650e8f71278c35f79e2970bb1ff56897025176722fc7f5d8da452a6f491"
         },
@@ -2049,11 +2434,11 @@
           "byte_size": 10935874,
           "consumed_size": 8734654,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             67354,
@@ -2076,7 +2461,18 @@
           "source": "italy_s4.dx",
           "terminal_nodes": 189884,
           "trailing_size": 2201220,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8734654,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -2108,11 +2504,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2014576,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1997360,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 9741818,
             "first_tag": 1400,
-            "sha256": "45237e51dd2ee05030da2692c3275d16ae0ebed57460367b3fa6f43735d5aac8"
+            "sha256": "144c2cd38e845533f88ca2b53371957069799f517392469f12d4add9118f6efe",
+            "combined_remainder_byte_size": 2014576,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1997360,
+              "sha256": "144c2cd38e845533f88ca2b53371957069799f517392469f12d4add9118f6efe"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 17216,
+              "sha256": "05ddbb7c020d0be4f86e35c9edd899fc94bb451ff5867af20e92c30c169c5764"
+            }
           },
           "sha256": "6a80dca26b936709d1fd51326a82db3217031dd988a9a07434b11e916a5d011c"
         },
@@ -2163,11 +2570,11 @@
           "byte_size": 8505716,
           "consumed_size": 6491096,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             65701,
@@ -2190,7 +2597,18 @@
           "source": "italy_w1.dx",
           "terminal_nodes": 141111,
           "trailing_size": 2014620,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 6491096,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -2222,11 +2640,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2306377,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2290209,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 12640215,
             "first_tag": 1400,
-            "sha256": "37df59c88a329bed5a5e78d3757f9c385bcb74df8c25059f2d91bf414e4dad15"
+            "sha256": "178d3ff5cc956cc16d88c95374a036819cad09d3404e96ddaa36d2cc8aa3de40",
+            "combined_remainder_byte_size": 2306377,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2290209,
+              "sha256": "178d3ff5cc956cc16d88c95374a036819cad09d3404e96ddaa36d2cc8aa3de40"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 16168,
+              "sha256": "2516c3d830adb2ce1e76e26b117a7644389a78dcd28aaea25934eb253e7b991a"
+            }
           },
           "sha256": "2305fa8d0514e47c4a8b00e1ea9129268fa069a178a069e2c9afb146120c1ece"
         },
@@ -2277,11 +2706,11 @@
           "byte_size": 10931457,
           "consumed_size": 8625036,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             69387,
@@ -2304,7 +2733,18 @@
           "source": "italy_w2.dx",
           "terminal_nodes": 187501,
           "trailing_size": 2306421,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 8625036,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -2336,11 +2776,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1619213,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1613277,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 5908307,
             "first_tag": 1400,
-            "sha256": "c01d2633ebe40e9bc3f73fa0ac33d1fb8c01761e3f184e62122099a7ad8dbf1f"
+            "sha256": "d254a59e9807d354de59317635d93193243e17c79c47dc5045382f52bb75bc26",
+            "combined_remainder_byte_size": 1619213,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1613277,
+              "sha256": "d254a59e9807d354de59317635d93193243e17c79c47dc5045382f52bb75bc26"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 5936,
+              "sha256": "2c25bf3ea4cec8fc6ebb404a37314912eb62a1d3494b3c245f276130150982eb"
+            }
           },
           "sha256": "15de47541ae5082e4d691fcbe86e0089207c0f93337ca52c65b101fe858e4e90"
         },
@@ -2394,11 +2845,11 @@
           "byte_size": 5634127,
           "consumed_size": 4014870,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             41717,
@@ -2421,7 +2872,18 @@
           "source": "spain1.dx",
           "terminal_nodes": 87280,
           "trailing_size": 1619257,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 4014870,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -2453,11 +2915,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1619113,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1610813,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8845728,
             "first_tag": 1400,
-            "sha256": "8676414b3afefb1b9d82e427eb633e47d725d0de9bd64734172d935c77e918ee"
+            "sha256": "81cf951de8089d93582f1db0d12f7440d9846cf38b9f2ac9c17a8278265c3e1e",
+            "combined_remainder_byte_size": 1619113,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1610813,
+              "sha256": "81cf951de8089d93582f1db0d12f7440d9846cf38b9f2ac9c17a8278265c3e1e"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 8300,
+              "sha256": "8dcc6bfef7077570ae641c1490113131766b37f88d008935f2c88ed110870e08"
+            }
           },
           "sha256": "10fe2a7efdb41f115df0699a22294bea42e6106efb20c78b12d33aabc907aebf"
         },
@@ -2512,11 +2985,11 @@
           "byte_size": 6653801,
           "consumed_size": 5034644,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             47742,
@@ -2539,7 +3012,18 @@
           "source": "spain2.dx",
           "terminal_nodes": 109449,
           "trailing_size": 1619157,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5034644,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -2571,11 +3055,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1829797,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1820237,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8205401,
             "first_tag": 1400,
-            "sha256": "44db0525a9a917dcccf0ad998206a3a04d0694056711750bc2b9e41825fefa69"
+            "sha256": "50d63841c68ed79070aa56414656f0ae987fe015f30ffb8c194362f01b3b71a4",
+            "combined_remainder_byte_size": 1829797,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1820237,
+              "sha256": "50d63841c68ed79070aa56414656f0ae987fe015f30ffb8c194362f01b3b71a4"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 9560,
+              "sha256": "fb73d4353cb96a16bf6c08ce6be36566a3cc5db11193c021688921f00715d2ec"
+            }
           },
           "sha256": "5fbef4d2be8ed565024d3708a2b8b42a590842cd1d4fbaf384b6cdb816cdac16"
         },
@@ -2630,11 +3125,11 @@
           "byte_size": 6661901,
           "consumed_size": 4832060,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             50477,
@@ -2657,7 +3152,18 @@
           "source": "spain_m.dx",
           "terminal_nodes": 105045,
           "trailing_size": 1829841,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 4832060,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -2689,11 +3195,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2001362,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1991350,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8771548,
             "first_tag": 1400,
-            "sha256": "3b4ca791be2a3b7d3afa39e9407744d8f53ce7c53d2e4b5f7670cb000115af5f"
+            "sha256": "6c530a2ac6da54e03765b031ac00db840f7960fc0310ac23b0b9b485baf6e8d0",
+            "combined_remainder_byte_size": 2001362,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1991350,
+              "sha256": "6c530a2ac6da54e03765b031ac00db840f7960fc0310ac23b0b9b485baf6e8d0"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 10012,
+              "sha256": "563b9d730c9795eab0005fdd1bc86bb1cb759c7ffa5aef60d3cd7886bcc23294"
+            }
           },
           "sha256": "c4fa88ab03b3d880fad5cb44dbe16fd65bac28a7a0a711225143ce6a8ba12109"
         },
@@ -2750,11 +3267,11 @@
           "byte_size": 7449176,
           "consumed_size": 5447770,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             57058,
@@ -2777,7 +3294,18 @@
           "source": "spain_s1.dx",
           "terminal_nodes": 118430,
           "trailing_size": 2001406,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5447770,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -2809,11 +3337,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2001362,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1991350,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8770141,
             "first_tag": 1400,
-            "sha256": "f386e3f2d7a126bf0172a18299cf9543a193e525e56ce0ccf1bed27b35c201c9"
+            "sha256": "e99c411021fa8e0af1298883e1cc44e495727e93e8b658dd501e3537d9738f7b",
+            "combined_remainder_byte_size": 2001362,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1991350,
+              "sha256": "e99c411021fa8e0af1298883e1cc44e495727e93e8b658dd501e3537d9738f7b"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 10012,
+              "sha256": "4a97311ac4442f12f399c45c1973aac00fd47e0554488a7bcfc2aeccc22d0ee0"
+            }
           },
           "sha256": "02271bd63b1e1351fa118921d6acb2537ef9187171b8a040780674a2d2f3bbad"
         },
@@ -2870,11 +3409,11 @@
           "byte_size": 7447750,
           "consumed_size": 5446344,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             57038,
@@ -2897,7 +3436,18 @@
           "source": "Spain_S1_flip.dx",
           "terminal_nodes": 118399,
           "trailing_size": 2001406,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5446344,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -2929,11 +3479,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1968105,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1961269,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8561653,
             "first_tag": 1400,
-            "sha256": "a054eb7d8d9678af4ae4ed23edb7937b3d2c5661efedde29a095765a68c35d67"
+            "sha256": "8ca5c1a34f2c26baa1053fad332a445397518a38db166766e879e98d65750153",
+            "combined_remainder_byte_size": 1968105,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1961269,
+              "sha256": "8ca5c1a34f2c26baa1053fad332a445397518a38db166766e879e98d65750153"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 6836,
+              "sha256": "b5e66573309509365e8286fc99a0f4f2525af0d7f9d0a4a0f47976ddb290984c"
+            }
           },
           "sha256": "989b103e1f771064376649c7021281e367d381a3b21f28776607f55db13ea414"
         },
@@ -2988,11 +3549,11 @@
           "byte_size": 7017513,
           "consumed_size": 5049364,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             51530,
@@ -3015,7 +3576,18 @@
           "source": "spain_s2.dx",
           "terminal_nodes": 109769,
           "trailing_size": 1968149,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5049364,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3047,11 +3619,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2163186,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2154746,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 9325020,
             "first_tag": 1400,
-            "sha256": "d3ea619cbf92e4f6536f56a81629234a6fa7848078c5188643afca5c44dcd717"
+            "sha256": "1aabc8011fcbec9e6313590b3defdb9918e93618db9370c5b33a62320ffe44c9",
+            "combined_remainder_byte_size": 2163186,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2154746,
+              "sha256": "1aabc8011fcbec9e6313590b3defdb9918e93618db9370c5b33a62320ffe44c9"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 8440,
+              "sha256": "5bd51c58fa8504e2f37f8caf523ef6aec0eee1ec0ed0758b1d423a12f15c7eef"
+            }
           },
           "sha256": "9efb676a7d0e0979f094c1bd972c035f421a6e5341dbd186b3017f7e71cc5675"
         },
@@ -3110,11 +3693,11 @@
           "byte_size": 7789526,
           "consumed_size": 5626296,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             56671,
@@ -3137,7 +3720,18 @@
           "source": "spain_w.dx",
           "terminal_nodes": 122311,
           "trailing_size": 2163230,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5626296,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3169,11 +3763,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2163186,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2154746,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 9325032,
             "first_tag": 1400,
-            "sha256": "5a55b081c30855b48425e343b695dde8fac0cb5d4e855dc479da900d94322edb"
+            "sha256": "a624352ecf14791a063508ef73e3bf44b2cb688cfa5c1513ba4d3af733f23075",
+            "combined_remainder_byte_size": 2163186,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2154746,
+              "sha256": "a624352ecf14791a063508ef73e3bf44b2cb688cfa5c1513ba4d3af733f23075"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 8440,
+              "sha256": "5bd51c58fa8504e2f37f8caf523ef6aec0eee1ec0ed0758b1d423a12f15c7eef"
+            }
           },
           "sha256": "99d0e934b5adbc7766e5a27c357dcc1195b04eb9cdeb73eefbbf8a741f5f4c20"
         },
@@ -3232,11 +3837,11 @@
           "byte_size": 7789526,
           "consumed_size": 5626296,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             56671,
@@ -3259,7 +3864,18 @@
           "source": "Spain_W_flip.dx",
           "terminal_nodes": 122311,
           "trailing_size": 2163230,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5626296,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3291,11 +3907,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1963543,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1930591,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8861914,
             "first_tag": 1400,
-            "sha256": "565c25507285d3d8290b751789da744b16cb4ca33fa60c55b3f12671acfc2dfa"
+            "sha256": "0473bdb1786bacbc0af7d498d24893eef7812a15695c75ac5d47ba530a0cdee6",
+            "combined_remainder_byte_size": 1963543,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1930591,
+              "sha256": "0473bdb1786bacbc0af7d498d24893eef7812a15695c75ac5d47ba530a0cdee6"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 32952,
+              "sha256": "76bb95c420a6725828d01f1b40ad8b375f7d87f46ffbe321a190e77a3adeace0"
+            }
           },
           "sha256": "ced3a4e7b5f6b4dd137c68e55348349d9eaf30fd432ed70f14ba71aa8c1e5105"
         },
@@ -3348,11 +3975,11 @@
           "byte_size": 7843389,
           "consumed_size": 5879802,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             61827,
@@ -3375,7 +4002,18 @@
           "source": "turkey1.dx",
           "terminal_nodes": 127822,
           "trailing_size": 1963587,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5879802,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3407,11 +4045,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1655256,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1622512,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 9158685,
             "first_tag": 1400,
-            "sha256": "335eca88337511e8453575d463b2946727eb137d6d55b74107d30d1033824ab1"
+            "sha256": "e0d126b31c6c270995e6eedc1565e3b4e7d4b844e640cc238656321218b15521",
+            "combined_remainder_byte_size": 1655256,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1622512,
+              "sha256": "e0d126b31c6c270995e6eedc1565e3b4e7d4b844e640cc238656321218b15521"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 32744,
+              "sha256": "5b86c832dcdb90331595ef2427001b90413102dfa062dc1df2e061532532abfc"
+            }
           },
           "sha256": "b13ce1b63c62b70b1a12c86b1b7d3b094216ce88c9ab9d31c1c1e518082aace0"
         },
@@ -3463,11 +4112,11 @@
           "byte_size": 7520842,
           "consumed_size": 5865542,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             55633,
@@ -3490,7 +4139,18 @@
           "source": "turkey2.dx",
           "terminal_nodes": 127512,
           "trailing_size": 1655300,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5865542,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3522,11 +4182,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1909634,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1877370,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8145973,
             "first_tag": 1400,
-            "sha256": "0c86fdbb4ae004ea51c0253c08c455f381cb1e05666784443a542db0fa0ef5b3"
+            "sha256": "10bf29054cc09113a75c75f8867e0ce498511ce5a20c32dd3afea17f8838a176",
+            "combined_remainder_byte_size": 1909634,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1877370,
+              "sha256": "10bf29054cc09113a75c75f8867e0ce498511ce5a20c32dd3afea17f8838a176"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 32264,
+              "sha256": "0f2bf25c455925bd1f9263a493c3a3c22bb6374a82ceb7f26cabc8cbdbd02fdd"
+            }
           },
           "sha256": "dcda263c28e9ae5cc44a8ebb2925c77b139fd0516abce32fd7e04bdce8c7f703"
         },
@@ -3579,11 +4250,11 @@
           "byte_size": 7316738,
           "consumed_size": 5407060,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             56366,
@@ -3606,7 +4277,18 @@
           "source": "turkey3.dx",
           "terminal_nodes": 117545,
           "trailing_size": 1909678,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5407060,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3638,11 +4320,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2517354,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2484158,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 12302754,
             "first_tag": 1400,
-            "sha256": "58ffcd40e291349e2b0ee7c1502835c22c42599c03bd672144381ebf11be873e"
+            "sha256": "2283e5065b09241c07bd0b920ea914a17dca31bddab6156f7adb3d171bd6a7ea",
+            "combined_remainder_byte_size": 2517354,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2484158,
+              "sha256": "2283e5065b09241c07bd0b920ea914a17dca31bddab6156f7adb3d171bd6a7ea"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 33196,
+              "sha256": "5ccc3f7ab641bd49d18884aaf2c57416d7035ddc2141b7db577a5f342a86581d"
+            }
           },
           "sha256": "97f289f27aa060354f75f03fc1db93eea64f3198cb55dc8bd0aecb90d8eb4e2e"
         },
@@ -3696,11 +4389,11 @@
           "byte_size": 10514120,
           "consumed_size": 7996722,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             80908,
@@ -3723,7 +4416,18 @@
           "source": "turkey_m.dx",
           "terminal_nodes": 173842,
           "trailing_size": 2517398,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 7996722,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3755,11 +4459,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2365609,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2333013,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 11160465,
             "first_tag": 1400,
-            "sha256": "606b04dc364dd90030e92d8d0ae55ecc33e1bbce8f26b080dfa92d756c98e88d"
+            "sha256": "5ec8e67dbbad081054d01cdbf312bdee4fd54cc745ec5a76980c18f72da932dc",
+            "combined_remainder_byte_size": 2365609,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2333013,
+              "sha256": "5ec8e67dbbad081054d01cdbf312bdee4fd54cc745ec5a76980c18f72da932dc"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 32596,
+              "sha256": "3d969fe14028d4eb305d52f3cb5254ed759bfe96f46944b02898de31cfa90312"
+            }
           },
           "sha256": "6253d78ebecce65e2c3a5ce2914715dcfd8301d256e08422bd70d45efcbef363"
         },
@@ -3810,11 +4525,11 @@
           "byte_size": 9403689,
           "consumed_size": 7038036,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             70269,
@@ -3837,7 +4552,18 @@
           "source": "turkey_s1.dx",
           "terminal_nodes": 153001,
           "trailing_size": 2365653,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 7038036,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3869,11 +4595,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2196705,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2164017,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 10771578,
             "first_tag": 1400,
-            "sha256": "8e4081e9b35869c30970604b9b67eb4e913e3294c1a6d9b9069a5dd0a186c8f7"
+            "sha256": "27cae79b2af1d5c08b55074670759826eb550d402a90069ea41e23aace5dc64a",
+            "combined_remainder_byte_size": 2196705,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2164017,
+              "sha256": "27cae79b2af1d5c08b55074670759826eb550d402a90069ea41e23aace5dc64a"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 32688,
+              "sha256": "5e2a65fa27fb26770fc64f0cefb351909d7dab02c73674236500996941349016"
+            }
           },
           "sha256": "c33ccb364bdaf688c1352f4f91d0575adf610bcbc1369ccf99330aa28eb0ce8a"
         },
@@ -3926,11 +4663,11 @@
           "byte_size": 9218455,
           "consumed_size": 7021706,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             70757,
@@ -3953,7 +4690,18 @@
           "source": "turkey_s2.dx",
           "terminal_nodes": 152646,
           "trailing_size": 2196749,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 7021706,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -3985,11 +4733,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 2196705,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 2164017,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 10769195,
             "first_tag": 1400,
-            "sha256": "082084007230e3293356d5040fb4f9daf5280399c8b6f79c41a087b88e5a4d0d"
+            "sha256": "8bd2677b0e069a1286b14d56f49f4bc4d78b6324e244bd0b0394022bc81a0f52",
+            "combined_remainder_byte_size": 2196705,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 2164017,
+              "sha256": "8bd2677b0e069a1286b14d56f49f4bc4d78b6324e244bd0b0394022bc81a0f52"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 32688,
+              "sha256": "5e2a65fa27fb26770fc64f0cefb351909d7dab02c73674236500996941349016"
+            }
           },
           "sha256": "4fd16ab600058dfc89c6852fd25707407ef876c0dcda3264a9201b7529aad876"
         },
@@ -4042,11 +4801,11 @@
           "byte_size": 9215925,
           "consumed_size": 7019176,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             70726,
@@ -4069,7 +4828,18 @@
           "source": "turkey_s2_flip.dx",
           "terminal_nodes": 152591,
           "trailing_size": 2196749,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 7019176,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       },
       {
@@ -4101,11 +4871,22 @@
           },
           "first_tag": 1339,
           "following_region": {
-            "byte_size": 1830456,
-            "course_semantics": "UNKNOWN; not parsed by this probe",
+            "byte_size": 1797492,
+            "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
             "file_offset": 8828647,
             "first_tag": 1400,
-            "sha256": "de19a807afdceffa410b9135a1371d6275729fc5efb5fc8fad686e2e5d6d9687"
+            "sha256": "fb11982fd6996fee44dee04279e9f3674748955b6cd641667cb6be864d3a0aa6",
+            "combined_remainder_byte_size": 1830456,
+            "tag1400_wire_section": {
+              "first_tag": 1400,
+              "byte_size": 1797492,
+              "sha256": "fb11982fd6996fee44dee04279e9f3674748955b6cd641667cb6be864d3a0aa6"
+            },
+            "later_region": {
+              "tag": 1500,
+              "size_bytes": 32964,
+              "sha256": "40b6b79a53fd9ccb17b38f152d54a6b2c8eec47a36e879b944e215385034edc4"
+            }
           },
           "sha256": "28d25f577a4c1038c57cfa6efad3a6659ec9b7b7453c28926660280e65644365"
         },
@@ -4156,11 +4937,11 @@
           "byte_size": 7602892,
           "consumed_size": 5772392,
           "header_count_interpretation_by_loader": {
-            "word_0": "pool8_child allocation count",
-            "word_1": "pool8_sibling allocation count",
-            "word_2": "pool36 allocation count (the root is separately allocated)",
-            "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-            "word_4": "node-list item count emitted by the executable traversal"
+            "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+            "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+            "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+            "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+            "word_4": "total item count over optional lists"
           },
           "header_words": [
             56412,
@@ -4183,7 +4964,18 @@
           "source": "turkey_w.dx",
           "terminal_nodes": 125487,
           "trailing_size": 1830500,
-          "tree_offset": 24
+          "tree_offset": 24,
+          "list_block_count": 0,
+          "expected_wire_size": 5772392,
+          "count_invariants": {
+            "word0_plus_word1_eq_word2_plus_one": true,
+            "word2_eq_word3": true,
+            "node_count_eq_word0_plus_word1_plus_word2": true,
+            "plane_bearing_count_eq_word2": true,
+            "terminal_count_eq_plane_count_plus_one": true,
+            "node_count_eq_twice_plane_count_plus_one": true,
+            "wire_size_formula_matches_consumed_size": true
+          }
         }
       }
     ],
@@ -4246,11 +5038,26 @@
         },
         "first_tag": 1339,
         "following_region": {
-          "byte_size": 1824828,
-          "course_semantics": "UNKNOWN; not parsed by this probe",
+          "byte_size": 1809324,
+          "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
           "file_offset": 12971120,
           "first_tag": 1400,
-          "sha256": "59fd940f2bdf732b59fd38689dfbccde9741d361b1accdbef73549d0b87e5a21"
+          "sha256": "c0fbfeea9cc247f6f5024ce41a2f8b29befeabe899dd650dbf944d9d3e9b6e63",
+          "combined_remainder_byte_size": 1824828,
+          "combined_remainder_sha256": "59fd940f2bdf732b59fd38689dfbccde9741d361b1accdbef73549d0b87e5a21",
+          "tag1400_wire_section": {
+            "first_tag": 1400,
+            "file_offset": 12971120,
+            "byte_size": 1809324,
+            "sha256": "c0fbfeea9cc247f6f5024ce41a2f8b29befeabe899dd650dbf944d9d3e9b6e63"
+          },
+          "later_region": {
+            "first_tag": 1500,
+            "file_offset": 14780444,
+            "byte_size": 15504,
+            "sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680",
+            "course_semantics": "UNKNOWN"
+          }
         },
         "sha256": "836554ba0620c0159190833509a45444c17dad1938ebcfc6de4d056e9cbd9ed3"
       },
@@ -4295,11 +5102,11 @@
         "byte_size": 10118248,
         "consumed_size": 8293376,
         "header_count_interpretation_by_loader": {
-          "word_0": "pool8_child allocation count",
-          "word_1": "pool8_sibling allocation count",
-          "word_2": "pool36 allocation count (the root is separately allocated)",
-          "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-          "word_4": "node-list item count emitted by the executable traversal"
+          "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+          "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+          "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+          "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+          "word_4": "total item count over optional lists"
         },
         "header_words": [
           75556,
@@ -4322,7 +5129,18 @@
         "source": "france1.dx",
         "terminal_nodes": 180291,
         "trailing_size": 1824872,
-        "tree_offset": 24
+        "tree_offset": 24,
+        "list_block_count": 0,
+        "expected_wire_size": 8293376,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        }
       }
     },
     "comparison": {
@@ -4389,11 +5207,26 @@
         },
         "first_tag": 1339,
         "following_region": {
-          "byte_size": 1824828,
-          "course_semantics": "UNKNOWN; not parsed by this probe",
+          "byte_size": 1809324,
+          "course_semantics": "tag1400 wire section followed by a separate tag1500 region; runtime meanings UNKNOWN",
           "file_offset": 12978561,
           "first_tag": 1400,
-          "sha256": "4783ce7c189150335d92e4c567c028c600131a3a6a986d9d70e1120d9598ddda"
+          "sha256": "a01be211ab6a14a04930d4fdcda431b45cb5b780bcdb59fc9808fdae3af334ba",
+          "combined_remainder_byte_size": 1824828,
+          "combined_remainder_sha256": "4783ce7c189150335d92e4c567c028c600131a3a6a986d9d70e1120d9598ddda",
+          "tag1400_wire_section": {
+            "first_tag": 1400,
+            "file_offset": 12978561,
+            "byte_size": 1809324,
+            "sha256": "a01be211ab6a14a04930d4fdcda431b45cb5b780bcdb59fc9808fdae3af334ba"
+          },
+          "later_region": {
+            "first_tag": 1500,
+            "file_offset": 14787885,
+            "byte_size": 15504,
+            "sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680",
+            "course_semantics": "UNKNOWN"
+          }
         },
         "sha256": "daaf2b60d56c98eb6c46134e9048e1e3b083173385d8286805baae48667297df"
       },
@@ -4438,11 +5271,11 @@
         "byte_size": 10114844,
         "consumed_size": 8289972,
         "header_count_interpretation_by_loader": {
-          "word_0": "pool8_child allocation count",
-          "word_1": "pool8_sibling allocation count",
-          "word_2": "pool36 allocation count (the root is separately allocated)",
-          "word_3": "duplicate count emitted by the executable traversal; purpose unknown",
-          "word_4": "node-list item count emitted by the executable traversal"
+          "word_0": "count for one optional-record-less subtype selected when the recursive discriminator is -1; subtype semantics UNKNOWN",
+          "word_1": "count for the second optional-record-less subtype selected when the recursive discriminator is not -1; subtype semantics UNKNOWN",
+          "word_2": "count incremented for optional-record nodes; sizes the 36-byte runtime allocation pool",
+          "word_3": "second count incremented for every optional-record node; equal to word_2 in all current Retail files",
+          "word_4": "total item count over optional lists"
         },
         "header_words": [
           75515,
@@ -4465,7 +5298,18 @@
         "source": "france1.dx",
         "terminal_nodes": 180217,
         "trailing_size": 1824872,
-        "tree_offset": 24
+        "tree_offset": 24,
+        "list_block_count": 0,
+        "expected_wire_size": 8289972,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        }
       }
     }
   },
@@ -4539,7 +5383,13 @@
     "Meaning of the two leading uint32 node fields and the trailing uint32 code.",
     "Which serialized links encode spatial partition sides versus other hierarchy relationships.",
     "Target-specific compiled AABB/bounds record was not identified in this pass.",
-    "The distinct tag1400 region after the tag100 tree is not decoded; F.1 swapped that region together with the tag100 tree.",
+    "The tag1400 wire section is structurally parsed by R5T-F.2.1; its runtime role and the later tag1500 semantics remain UNKNOWN. F.1 swapped the full suffix through EOF.",
     "No conclusion about all tag100 records, all collision-source classes, or source $bsp semantics."
-  ]
+  ],
+  "r5t_f21_count_invariant_update": {
+    "status": "reproduced from all current Retail DX files",
+    "course_count": 36,
+    "all_invariants_pass": true,
+    "tag1400_boundary": "U tag1400 ends before R tag1500; R remains opaque and byte-identical in the controlled France1 pair"
+  }
 }

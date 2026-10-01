@@ -43,9 +43,9 @@ Modified runtime AABB: `{"min":[-1452.298828125,63.67451858520508,352.0664672851
 
 ## F.1 boundary clarification
 
-The F.1 donor region begins with tag 100 and extends to EOF. This loader-guided parse ends the tag100 tree before a 44-byte tag1339 record and a separate tag1400 region. Baseline tag100 starts at `0x00476044`, tree ends/tag1339 begins at `0x00C5EC44`, and tag1400 begins at `0x00C5EC70`. Modified tag100 starts at `0x00478AA1`, tree ends/tag1339 begins at `0x00C60955`, and tag1400 begins at `0x00C60981`. The tag1339 record is byte-identical in baseline/modified files. The later tag1400 region has the same size and 64 changed byte positions in 47 ranges. Therefore the reciprocal runtime result proves that the tested physical state follows the selected tag100-starting suffix donor; the run did not isolate the tag100 tree bytes from the following tag1400 region. The geometry-bound plane records themselves are inside the parsed tag100 tree.
+The F.1 donor region begins with tag 100 and extends to EOF. This loader-guided parse ends the tag100 tree before a 44-byte tag1339 record and tag1400 section U followed by a separate tag1500 section R. Baseline tag100 starts at `0x00476044`, tree ends/tag1339 begins at `0x00C5EC44`, and tag1400 begins at `0x00C5EC70`. Modified tag100 starts at `0x00478AA1`, tree ends/tag1339 begins at `0x00C60955`, and tag1400 begins at `0x00C60981`. The tag1339 record is byte-identical in baseline/modified files. Tag1400 U is 1,809,324 bytes and has 64 changed byte positions in 47 ranges; later tag1500 R is 15,504 bytes and byte-identical. Therefore the reciprocal runtime result proves that the tested physical state follows the selected tag100-starting suffix donor; the run did not isolate the tag100 tree bytes from the following tag1400 region. The geometry-bound plane records themselves are inside the parsed tag100 tree.
 
-The tree shrinks by 3,404 bytes while the loader-pool memory estimate changes by 3,256 bytes. The remaining 148-byte difference is not assigned a cause; the serializer is variable-length and the node topology is rebuilt.
+For current Retail data, `T = 24 + 12N + 20P + 4Q + 20L + (N−1)`, where Q is the number of present list blocks and L is the list-item count. Q=L=0 in all 36 Retail courses, so `T = 23 + 13N + 20P`. On the controlled pair, `12*(-148) + 20*(-74) + (-148 link-selector bytes) = -3,404` exactly. Equivalently, `13*(-148) + 20*(-74) = -3,404`; the selector-byte delta is already included in the 13-byte per-node term. The prior 148-byte residual is not additional to that equation.
 
 ## Retail corpus
 
@@ -58,4 +58,9 @@ Full per-course hashes, header words, node counts, depth, pool roles, trailing b
 - `tag100` is not globally renamed to collision data or BSP.
 - `$bsp -> tag100` remains unknown.
 - No AABB/triangle writer, source writer, Blender overlay, or course authoring was added.
-- The tag1400 region and any target-specific runtime node/leaf selection remain unresolved.
+- Tag1400 U's runtime role, tag1500 R semantics, and target-specific runtime node/leaf selection remain unresolved.
+
+
+## R5T-F.2.1 static tree/tag1400 preparation
+
+The 36/36 Retail count invariants and exact T-size equation were reproduced from DX bytes; see [`research/r5t_f21/findings.md`](../r5t_f21/findings.md). The F.1 runtime result remains a full tag100-through-EOF suffix result. F.2.1 separates T (tag100 tree), S (tag1339), U (tag1400), and R (tag1500) and stages two mismatched hybrids. Runtime isolation is pending. The optional `code` field has a HIGH_CONFIDENCE numeric source-triangle ordinal correlation at offset 12 for the four static France1 finishline meshes, but its semantics remain UNKNOWN.

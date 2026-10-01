@@ -1,0 +1,1856 @@
+{
+  "schema": "r5t-f21-tag100-code-source-ordinal-v1",
+  "source": "Demo 8.4.1 France1 GXM/TXT; modified GXM used for COLLIDE_finishline03 modified cohort",
+  "startpoint": {
+    "name": "startpoint",
+    "mesh_index": 0,
+    "mesh_size": 12,
+    "triangle_span_half_open": [
+      0,
+      12
+    ]
+  },
+  "candidate_test": "for every source coplanar plane group, compare matched optional-record code values to each source triangle ordinal minus 12",
+  "meshes": [
+    {
+      "mesh": "COLLIDE_finishline03",
+      "cohorts": [
+        {
+          "cohort": "baseline",
+          "source_mesh": {
+            "mesh_index": 47083,
+            "mesh_size": 24,
+            "triangle_count": 24
+          },
+          "source_plane_group_count": 12,
+          "groups_with_at_least_one_code_equal_to_source_ordinal_minus_12": 12,
+          "all_groups_have_expected_code": true,
+          "candidate_record_count_total": 41,
+          "candidate_duplicate_excess": 29,
+          "groups": [
+            {
+              "plane_group_index": 0,
+              "source_triangle_ordinals": [
+                47083
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47071
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47071
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47071
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47083,
+                  "candidate_code": 47071,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 1,
+              "source_triangle_ordinals": [
+                47084,
+                47085
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47072,
+                47073
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47072
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47072
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47084,
+                  "candidate_code": 47072,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 2,
+              "source_triangle_ordinals": [
+                47086
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47074
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47074
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47074
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47086,
+                  "candidate_code": 47074,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 3,
+              "source_triangle_ordinals": [
+                47087
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47075
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47075
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47075
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47087,
+                  "candidate_code": 47075,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 4,
+              "source_triangle_ordinals": [
+                47088
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47076
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47076
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47076
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47088,
+                  "candidate_code": 47076,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 5,
+              "source_triangle_ordinals": [
+                47089,
+                47090
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47077,
+                47078
+              ],
+              "candidate_record_count": 6,
+              "candidate_code_values": [
+                47077,
+                47078
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47077,
+                47078
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47089,
+                  "candidate_code": 47077,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47090,
+                  "candidate_code": 47078,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 5
+            },
+            {
+              "plane_group_index": 6,
+              "source_triangle_ordinals": [
+                47091,
+                47092
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47079,
+                47080
+              ],
+              "candidate_record_count": 8,
+              "candidate_code_values": [
+                47079,
+                47080
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47079,
+                47080
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47091,
+                  "candidate_code": 47079,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47092,
+                  "candidate_code": 47080,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 7
+            },
+            {
+              "plane_group_index": 7,
+              "source_triangle_ordinals": [
+                47093,
+                47094
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47081,
+                47082
+              ],
+              "candidate_record_count": 7,
+              "candidate_code_values": [
+                47081
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47081
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47093,
+                  "candidate_code": 47081,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 6
+            },
+            {
+              "plane_group_index": 8,
+              "source_triangle_ordinals": [
+                47095,
+                47096
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47083,
+                47084
+              ],
+              "candidate_record_count": 5,
+              "candidate_code_values": [
+                47083
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47083
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47095,
+                  "candidate_code": 47083,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 4
+            },
+            {
+              "plane_group_index": 9,
+              "source_triangle_ordinals": [
+                47097,
+                47098
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47085,
+                47086
+              ],
+              "candidate_record_count": 4,
+              "candidate_code_values": [
+                47085
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47085
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47097,
+                  "candidate_code": 47085,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 3
+            },
+            {
+              "plane_group_index": 10,
+              "source_triangle_ordinals": [
+                47099,
+                47100
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47087,
+                47088
+              ],
+              "candidate_record_count": 5,
+              "candidate_code_values": [
+                47087,
+                47088
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47087,
+                47088
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47099,
+                  "candidate_code": 47087,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47100,
+                  "candidate_code": 47088,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 4
+            },
+            {
+              "plane_group_index": 11,
+              "source_triangle_ordinals": [
+                47101,
+                47102,
+                47103,
+                47104,
+                47105,
+                47106
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47089,
+                47090,
+                47091,
+                47092,
+                47093,
+                47094
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47089
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47089
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47101,
+                  "candidate_code": 47089,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            }
+          ]
+        },
+        {
+          "cohort": "modified",
+          "source_mesh": {
+            "mesh_index": 47083,
+            "mesh_size": 24,
+            "triangle_count": 24
+          },
+          "source_plane_group_count": 12,
+          "groups_with_at_least_one_code_equal_to_source_ordinal_minus_12": 12,
+          "all_groups_have_expected_code": true,
+          "candidate_record_count_total": 45,
+          "candidate_duplicate_excess": 33,
+          "groups": [
+            {
+              "plane_group_index": 0,
+              "source_triangle_ordinals": [
+                47083
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47071
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47071
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47071
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47083,
+                  "candidate_code": 47071,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 1,
+              "source_triangle_ordinals": [
+                47084,
+                47085
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47072,
+                47073
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47072
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47072
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47084,
+                  "candidate_code": 47072,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 2,
+              "source_triangle_ordinals": [
+                47086
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47074
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47074
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47074
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47086,
+                  "candidate_code": 47074,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 3,
+              "source_triangle_ordinals": [
+                47087
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47075
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47075
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47075
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47087,
+                  "candidate_code": 47075,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 4,
+              "source_triangle_ordinals": [
+                47088
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47076
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47076
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47076
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47088,
+                  "candidate_code": 47076,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 5,
+              "source_triangle_ordinals": [
+                47089,
+                47090
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47077,
+                47078
+              ],
+              "candidate_record_count": 5,
+              "candidate_code_values": [
+                47077
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47077
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47089,
+                  "candidate_code": 47077,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 4
+            },
+            {
+              "plane_group_index": 6,
+              "source_triangle_ordinals": [
+                47091,
+                47092
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47079,
+                47080
+              ],
+              "candidate_record_count": 7,
+              "candidate_code_values": [
+                47079,
+                47080
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47079,
+                47080
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47091,
+                  "candidate_code": 47079,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47092,
+                  "candidate_code": 47080,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 6
+            },
+            {
+              "plane_group_index": 7,
+              "source_triangle_ordinals": [
+                47093,
+                47094
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47081,
+                47082
+              ],
+              "candidate_record_count": 7,
+              "candidate_code_values": [
+                47081
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47081
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47093,
+                  "candidate_code": 47081,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 6
+            },
+            {
+              "plane_group_index": 8,
+              "source_triangle_ordinals": [
+                47095,
+                47096
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47083,
+                47084
+              ],
+              "candidate_record_count": 6,
+              "candidate_code_values": [
+                47083
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47083
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47095,
+                  "candidate_code": 47083,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 5
+            },
+            {
+              "plane_group_index": 9,
+              "source_triangle_ordinals": [
+                47097,
+                47098
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47085,
+                47086
+              ],
+              "candidate_record_count": 8,
+              "candidate_code_values": [
+                47085,
+                47086
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47085,
+                47086
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47097,
+                  "candidate_code": 47085,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47098,
+                  "candidate_code": 47086,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 7
+            },
+            {
+              "plane_group_index": 10,
+              "source_triangle_ordinals": [
+                47099,
+                47100
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47087,
+                47088
+              ],
+              "candidate_record_count": 6,
+              "candidate_code_values": [
+                47087
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47087
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47099,
+                  "candidate_code": 47087,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 5
+            },
+            {
+              "plane_group_index": 11,
+              "source_triangle_ordinals": [
+                47101,
+                47102,
+                47103,
+                47104,
+                47105,
+                47106
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47089,
+                47090,
+                47091,
+                47092,
+                47093,
+                47094
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47089
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47089
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47101,
+                  "candidate_code": 47089,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mesh": "COLLIDE_finishline02",
+      "cohorts": [
+        {
+          "cohort": "baseline",
+          "source_mesh": {
+            "mesh_index": 47059,
+            "mesh_size": 24,
+            "triangle_count": 24
+          },
+          "source_plane_group_count": 13,
+          "groups_with_at_least_one_code_equal_to_source_ordinal_minus_12": 13,
+          "all_groups_have_expected_code": true,
+          "candidate_record_count_total": 54,
+          "candidate_duplicate_excess": 41,
+          "groups": [
+            {
+              "plane_group_index": 0,
+              "source_triangle_ordinals": [
+                47059
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47047
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47047
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47047
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47059,
+                  "candidate_code": 47047,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 1,
+              "source_triangle_ordinals": [
+                47060
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47048
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47048
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47048
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47060,
+                  "candidate_code": 47048,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 2,
+              "source_triangle_ordinals": [
+                47061
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47049
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47049
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47049
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47061,
+                  "candidate_code": 47049,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 3,
+              "source_triangle_ordinals": [
+                47062
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47050
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47050
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47050
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47062,
+                  "candidate_code": 47050,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 4,
+              "source_triangle_ordinals": [
+                47063
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47051
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47051
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47051
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47063,
+                  "candidate_code": 47051,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 5,
+              "source_triangle_ordinals": [
+                47064
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47052
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47052
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47052
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47064,
+                  "candidate_code": 47052,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 6,
+              "source_triangle_ordinals": [
+                47065,
+                47066
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47053,
+                47054
+              ],
+              "candidate_record_count": 6,
+              "candidate_code_values": [
+                47053,
+                47054
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47053,
+                47054
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47065,
+                  "candidate_code": 47053,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47066,
+                  "candidate_code": 47054,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 5
+            },
+            {
+              "plane_group_index": 7,
+              "source_triangle_ordinals": [
+                47067,
+                47068
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47055,
+                47056
+              ],
+              "candidate_record_count": 8,
+              "candidate_code_values": [
+                47055,
+                47056
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47055,
+                47056
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47067,
+                  "candidate_code": 47055,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47068,
+                  "candidate_code": 47056,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 7
+            },
+            {
+              "plane_group_index": 8,
+              "source_triangle_ordinals": [
+                47069,
+                47070
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47057,
+                47058
+              ],
+              "candidate_record_count": 7,
+              "candidate_code_values": [
+                47057,
+                47058
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47057,
+                47058
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47069,
+                  "candidate_code": 47057,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47070,
+                  "candidate_code": 47058,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 6
+            },
+            {
+              "plane_group_index": 9,
+              "source_triangle_ordinals": [
+                47071,
+                47072
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47059,
+                47060
+              ],
+              "candidate_record_count": 5,
+              "candidate_code_values": [
+                47059,
+                47060
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47059,
+                47060
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47071,
+                  "candidate_code": 47059,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47072,
+                  "candidate_code": 47060,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 4
+            },
+            {
+              "plane_group_index": 10,
+              "source_triangle_ordinals": [
+                47073,
+                47074
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47061,
+                47062
+              ],
+              "candidate_record_count": 6,
+              "candidate_code_values": [
+                47061,
+                47062
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47061,
+                47062
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47073,
+                  "candidate_code": 47061,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47074,
+                  "candidate_code": 47062,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 5
+            },
+            {
+              "plane_group_index": 11,
+              "source_triangle_ordinals": [
+                47075,
+                47076
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47063,
+                47064
+              ],
+              "candidate_record_count": 9,
+              "candidate_code_values": [
+                47063,
+                47064
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47063,
+                47064
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47075,
+                  "candidate_code": 47063,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47076,
+                  "candidate_code": 47064,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 8
+            },
+            {
+              "plane_group_index": 12,
+              "source_triangle_ordinals": [
+                47077,
+                47078,
+                47079,
+                47080,
+                47081,
+                47082
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47065,
+                47066,
+                47067,
+                47068,
+                47069,
+                47070
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47065,
+                47066
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47065,
+                47066
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47077,
+                  "candidate_code": 47065,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47078,
+                  "candidate_code": 47066,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mesh": "COLLIDE_finishline01",
+      "cohorts": [
+        {
+          "cohort": "baseline",
+          "source_mesh": {
+            "mesh_index": 47011,
+            "mesh_size": 24,
+            "triangle_count": 24
+          },
+          "source_plane_group_count": 13,
+          "groups_with_at_least_one_code_equal_to_source_ordinal_minus_12": 13,
+          "all_groups_have_expected_code": true,
+          "candidate_record_count_total": 56,
+          "candidate_duplicate_excess": 43,
+          "groups": [
+            {
+              "plane_group_index": 0,
+              "source_triangle_ordinals": [
+                47011
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                46999
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                46999
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                46999
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47011,
+                  "candidate_code": 46999,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 1,
+              "source_triangle_ordinals": [
+                47012
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47000
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47000
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47000
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47012,
+                  "candidate_code": 47000,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 2,
+              "source_triangle_ordinals": [
+                47013
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47001
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47001
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47001
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47013,
+                  "candidate_code": 47001,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 3,
+              "source_triangle_ordinals": [
+                47014
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47002
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47002
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47002
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47014,
+                  "candidate_code": 47002,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 4,
+              "source_triangle_ordinals": [
+                47015
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47003
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47003
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47003
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47015,
+                  "candidate_code": 47003,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 5,
+              "source_triangle_ordinals": [
+                47016
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47004
+              ],
+              "candidate_record_count": 2,
+              "candidate_code_values": [
+                47004
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47004
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47016,
+                  "candidate_code": 47004,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 1
+            },
+            {
+              "plane_group_index": 6,
+              "source_triangle_ordinals": [
+                47017,
+                47018
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47005,
+                47006
+              ],
+              "candidate_record_count": 5,
+              "candidate_code_values": [
+                47005
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47005
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47017,
+                  "candidate_code": 47005,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 4
+            },
+            {
+              "plane_group_index": 7,
+              "source_triangle_ordinals": [
+                47019,
+                47020
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47007,
+                47008
+              ],
+              "candidate_record_count": 7,
+              "candidate_code_values": [
+                47007,
+                47008
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47007,
+                47008
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47019,
+                  "candidate_code": 47007,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47020,
+                  "candidate_code": 47008,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 6
+            },
+            {
+              "plane_group_index": 8,
+              "source_triangle_ordinals": [
+                47021,
+                47022
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47009,
+                47010
+              ],
+              "candidate_record_count": 7,
+              "candidate_code_values": [
+                47009,
+                47010
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47009,
+                47010
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47021,
+                  "candidate_code": 47009,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47022,
+                  "candidate_code": 47010,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 6
+            },
+            {
+              "plane_group_index": 9,
+              "source_triangle_ordinals": [
+                47023,
+                47024
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47011,
+                47012
+              ],
+              "candidate_record_count": 7,
+              "candidate_code_values": [
+                47011,
+                47012
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47011,
+                47012
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47023,
+                  "candidate_code": 47011,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47024,
+                  "candidate_code": 47012,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 6
+            },
+            {
+              "plane_group_index": 10,
+              "source_triangle_ordinals": [
+                47025,
+                47026
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47013,
+                47014
+              ],
+              "candidate_record_count": 9,
+              "candidate_code_values": [
+                47013,
+                47014
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47013,
+                47014
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47025,
+                  "candidate_code": 47013,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47026,
+                  "candidate_code": 47014,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 8
+            },
+            {
+              "plane_group_index": 11,
+              "source_triangle_ordinals": [
+                47027,
+                47028
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47015,
+                47016
+              ],
+              "candidate_record_count": 10,
+              "candidate_code_values": [
+                47015,
+                47016
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47015,
+                47016
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47027,
+                  "candidate_code": 47015,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47028,
+                  "candidate_code": 47016,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 9
+            },
+            {
+              "plane_group_index": 12,
+              "source_triangle_ordinals": [
+                47029,
+                47030,
+                47031,
+                47032,
+                47033,
+                47034
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47017,
+                47018,
+                47019,
+                47020,
+                47021,
+                47022
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47017
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47017
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47029,
+                  "candidate_code": 47017,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mesh": "COLLIDE_finishline",
+      "cohorts": [
+        {
+          "cohort": "baseline",
+          "source_mesh": {
+            "mesh_index": 47035,
+            "mesh_size": 24,
+            "triangle_count": 24
+          },
+          "source_plane_group_count": 12,
+          "groups_with_at_least_one_code_equal_to_source_ordinal_minus_12": 12,
+          "all_groups_have_expected_code": true,
+          "candidate_record_count_total": 65,
+          "candidate_duplicate_excess": 53,
+          "groups": [
+            {
+              "plane_group_index": 0,
+              "source_triangle_ordinals": [
+                47035
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47023
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47023
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47023
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47035,
+                  "candidate_code": 47023,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 1,
+              "source_triangle_ordinals": [
+                47036,
+                47037
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47024,
+                47025
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47024
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47024
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47036,
+                  "candidate_code": 47024,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 2,
+              "source_triangle_ordinals": [
+                47038
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47026
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47026
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47026
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47038,
+                  "candidate_code": 47026,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 3,
+              "source_triangle_ordinals": [
+                47039
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47027
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47027
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47027
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47039,
+                  "candidate_code": 47027,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 4,
+              "source_triangle_ordinals": [
+                47040
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47028
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47028
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47028
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47040,
+                  "candidate_code": 47028,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            },
+            {
+              "plane_group_index": 5,
+              "source_triangle_ordinals": [
+                47041,
+                47042
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47029,
+                47030
+              ],
+              "candidate_record_count": 9,
+              "candidate_code_values": [
+                47029
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47029
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47041,
+                  "candidate_code": 47029,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 8
+            },
+            {
+              "plane_group_index": 6,
+              "source_triangle_ordinals": [
+                47043,
+                47044
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47031,
+                47032
+              ],
+              "candidate_record_count": 10,
+              "candidate_code_values": [
+                47031,
+                47032
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47031,
+                47032
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47043,
+                  "candidate_code": 47031,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47044,
+                  "candidate_code": 47032,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 9
+            },
+            {
+              "plane_group_index": 7,
+              "source_triangle_ordinals": [
+                47045,
+                47046
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47033,
+                47034
+              ],
+              "candidate_record_count": 10,
+              "candidate_code_values": [
+                47033
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47033
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47045,
+                  "candidate_code": 47033,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 9
+            },
+            {
+              "plane_group_index": 8,
+              "source_triangle_ordinals": [
+                47047,
+                47048
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47035,
+                47036
+              ],
+              "candidate_record_count": 8,
+              "candidate_code_values": [
+                47035
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47035
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47047,
+                  "candidate_code": 47035,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 7
+            },
+            {
+              "plane_group_index": 9,
+              "source_triangle_ordinals": [
+                47049,
+                47050
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47037,
+                47038
+              ],
+              "candidate_record_count": 11,
+              "candidate_code_values": [
+                47037,
+                47038
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47037,
+                47038
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47049,
+                  "candidate_code": 47037,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47050,
+                  "candidate_code": 47038,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 10
+            },
+            {
+              "plane_group_index": 10,
+              "source_triangle_ordinals": [
+                47051,
+                47052
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47039,
+                47040
+              ],
+              "candidate_record_count": 11,
+              "candidate_code_values": [
+                47039,
+                47040
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47039,
+                47040
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47051,
+                  "candidate_code": 47039,
+                  "ordinal_minus_code": 12
+                },
+                {
+                  "source_triangle_ordinal": 47052,
+                  "candidate_code": 47040,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 10
+            },
+            {
+              "plane_group_index": 11,
+              "source_triangle_ordinals": [
+                47053,
+                47054,
+                47055,
+                47056,
+                47057,
+                47058
+              ],
+              "expected_code_values_ordinal_minus_12": [
+                47041,
+                47042,
+                47043,
+                47044,
+                47045,
+                47046
+              ],
+              "candidate_record_count": 1,
+              "candidate_code_values": [
+                47041
+              ],
+              "candidate_codes_matching_ordinal_minus_12": [
+                47041
+              ],
+              "source_code_pairs_with_constant_12": [
+                {
+                  "source_triangle_ordinal": 47053,
+                  "candidate_code": 47041,
+                  "ordinal_minus_code": 12
+                }
+              ],
+              "ambiguous_candidate_count": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conclusion": "numeric ordinal correspondence is HIGH_CONFIDENCE only where plane candidates match; code field semantics and source ownership remain UNKNOWN"
+}

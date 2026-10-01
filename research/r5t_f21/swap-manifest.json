@@ -1,0 +1,101 @@
+{
+  "schema": "r5t-f21-swap-manifest-v1",
+  "status": "READY_FOR_TREE_TAG1400_RUNTIME_TEST",
+  "fixed_donors": {
+    "P": "baseline",
+    "S": "baseline (identical to modified)",
+    "R": "baseline (identical to modified)"
+  },
+  "hybrids": {
+    "hybrid-t": {
+      "full_sha256": "51db114245db76de54a27c21cd8cb5ec1041850b4b91c35b1c381e36dcb919da",
+      "full_size_bytes": 14792544,
+      "revision": 135,
+      "render_validation": true,
+      "tag100_tree_size_bytes": 8289972,
+      "tag100_node_count": 360433,
+      "tag1400_consumed_size_bytes": 1809324,
+      "later_first_tag": 1500,
+      "region_provenance": {
+        "P": {
+          "size_bytes": 4677700,
+          "sha256": "4c9aef8897b9f368d34fcb88c6b3f628f5c308475ae38de697afbef657472316",
+          "matches_donor_byte_exact": true
+        },
+        "R": {
+          "size_bytes": 15504,
+          "sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680",
+          "matches_donor_byte_exact": true
+        },
+        "S": {
+          "size_bytes": 44,
+          "sha256": "6d1b2294af455aa0f8dbfa5501cf8750fade73caee96a4a1d14eb74bbb374c84",
+          "matches_donor_byte_exact": true
+        },
+        "T": {
+          "size_bytes": 8289972,
+          "sha256": "eec48f80aa462c30c103b4d0d4fcd7f561d272b9ba1e15064f2d32dc2d520d70",
+          "matches_donor_byte_exact": true
+        },
+        "U": {
+          "size_bytes": 1809324,
+          "sha256": "c0fbfeea9cc247f6f5024ce41a2f8b29befeabe899dd650dbf944d9d3e9b6e63",
+          "matches_donor_byte_exact": true
+        }
+      },
+      "dx_path": "research-output\\r5t_f21\\hybrids\\dx\\hybrid-t.dx",
+      "runtime_directory": "research-output\\r5t_f21\\runtime\\hybrid-t\\runtime",
+      "runtime_exe_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+      "runtime_course_dx_sha256": "51db114245db76de54a27c21cd8cb5ec1041850b4b91c35b1c381e36dcb919da",
+      "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df"
+    },
+    "hybrid-u": {
+      "full_sha256": "de656fdab5fed3c6186e11ef13d00e1da127852ce3572f1b0d861a56985b3561",
+      "full_size_bytes": 14795948,
+      "revision": 135,
+      "render_validation": true,
+      "tag100_tree_size_bytes": 8293376,
+      "tag100_node_count": 360581,
+      "tag1400_consumed_size_bytes": 1809324,
+      "later_first_tag": 1500,
+      "region_provenance": {
+        "P": {
+          "size_bytes": 4677700,
+          "sha256": "4c9aef8897b9f368d34fcb88c6b3f628f5c308475ae38de697afbef657472316",
+          "matches_donor_byte_exact": true
+        },
+        "R": {
+          "size_bytes": 15504,
+          "sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680",
+          "matches_donor_byte_exact": true
+        },
+        "S": {
+          "size_bytes": 44,
+          "sha256": "6d1b2294af455aa0f8dbfa5501cf8750fade73caee96a4a1d14eb74bbb374c84",
+          "matches_donor_byte_exact": true
+        },
+        "T": {
+          "size_bytes": 8293376,
+          "sha256": "61137e87426d4b31ebafe1724d79d4e074b4eb813b1a9d746bb9bf14fae10ec9",
+          "matches_donor_byte_exact": true
+        },
+        "U": {
+          "size_bytes": 1809324,
+          "sha256": "a01be211ab6a14a04930d4fdcda431b45cb5b780bcdb59fc9808fdae3af334ba",
+          "matches_donor_byte_exact": true
+        }
+      },
+      "dx_path": "research-output\\r5t_f21\\hybrids\\dx\\hybrid-u.dx",
+      "runtime_directory": "research-output\\r5t_f21\\runtime\\hybrid-u\\runtime",
+      "runtime_exe_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+      "runtime_course_dx_sha256": "de656fdab5fed3c6186e11ef13d00e1da127852ce3572f1b0d861a56985b3561",
+      "race_test_xml_sha256": "6048ed26c78118f3f82d9ddbcaf4f75c6655b24d805189d3cf3bd772202dc0df"
+    },
+    "runtime_clone_verification": {
+      "non_target_file_count": 2862,
+      "non_target_files_byte_identical": true,
+      "target_relative_path": "DataGx/Course/France1/france1.dx",
+      "only_intended_file_difference": "DataGx/Course/France1/france1.dx"
+    }
+  }
+}

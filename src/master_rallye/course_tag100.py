@@ -70,6 +70,48 @@ class CourseTag100:
     def complete(self) -> bool:
         return self.trailing_size == 0
 
+    @property
+    def optional_record_count(self) -> int:
+        return sum(node.optional_record is not None for node in self.nodes)
+
+    @property
+    def list_block_count(self) -> int:
+        return sum(node.list_offset is not None for node in self.nodes)
+
+    def expected_wire_size(self) -> int:
+        """Compute serialized bytes from parsed record counts.
+
+        A present list also has a uint32 item count, so the general expression
+        includes four bytes per list block. Retail rev135 files in the current
+        corpus have no list blocks, reducing to 23 + 13*N + 20*P.
+        """
+        node_count = len(self.nodes)
+        selector_count = max(0, node_count - 1)
+        return (
+            TAG100_HEADER_SIZE
+            + 12 * node_count
+            + 20 * self.optional_record_count
+            + 4 * self.list_block_count
+            + 20 * self.list_item_count
+            + selector_count
+        )
+
+    def count_invariants(self) -> dict[str, bool]:
+        """Return observed Retail hierarchy/count relationships without naming semantics."""
+        word_0, word_1, word_2, word_3, _word_4 = self.header_words
+        node_count = len(self.nodes)
+        plane_bearing = self.optional_record_count
+        terminal_like = node_count - plane_bearing
+        return {
+            "word0_plus_word1_eq_word2_plus_one": word_0 + word_1 == word_2 + 1,
+            "word2_eq_word3": word_2 == word_3,
+            "node_count_eq_word0_plus_word1_plus_word2": node_count == word_0 + word_1 + word_2,
+            "plane_bearing_count_eq_word2": plane_bearing == word_2,
+            "terminal_count_eq_plane_count_plus_one": terminal_like == plane_bearing + 1,
+            "node_count_eq_twice_plane_count_plus_one": node_count == 2 * plane_bearing + 1,
+            "wire_size_formula_matches_consumed_size": self.expected_wire_size() == self.consumed_size,
+        }
+
     def structural_summary(self) -> dict:
         roles = dict(self.allocation_role_counts)
         return {
@@ -80,9 +122,12 @@ class CourseTag100:
             "node_count": len(self.nodes),
             "allocation_role_counts": roles,
             "list_item_count": self.list_item_count,
+            "list_block_count": self.list_block_count,
             "max_depth": max((node.depth for node in self.nodes), default=0),
-            "optional_record_count": sum(node.optional_record is not None for node in self.nodes),
+            "optional_record_count": self.optional_record_count,
             "consumed_size": self.consumed_size,
+            "expected_wire_size": self.expected_wire_size(),
+            "count_invariants": self.count_invariants(),
             "trailing_size": self.trailing_size,
         }
 

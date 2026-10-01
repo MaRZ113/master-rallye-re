@@ -6345,5 +6345,33 @@
         0.0
       ]
     }
+  },
+  "r5t_f21_section_decomposition": {
+    "status": "STATIC_BOUNDARIES_CONFIRMED; TREE_VS_TAG1400_RUNTIME_TEST_PENDING",
+    "baseline": {
+      "tag100_tree_bytes": 8293376,
+      "tag100_tree_sha256": "61137e87426d4b31ebafe1724d79d4e074b4eb813b1a9d746bb9bf14fae10ec9",
+      "tag1339_bytes": 44,
+      "tag1339_sha256": "6d1b2294af455aa0f8dbfa5501cf8750fade73caee96a4a1d14eb74bbb374c84",
+      "tag1400_bytes": 1809324,
+      "tag1400_sha256": "c0fbfeea9cc247f6f5024ce41a2f8b29befeabe899dd650dbf944d9d3e9b6e63",
+      "tag1500_bytes": 15504,
+      "tag1500_sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680"
+    },
+    "modified": {
+      "tag100_tree_bytes": 8289972,
+      "tag100_tree_sha256": "eec48f80aa462c30c103b4d0d4fcd7f561d272b9ba1e15064f2d32dc2d520d70",
+      "tag1339_bytes": 44,
+      "tag1339_sha256": "6d1b2294af455aa0f8dbfa5501cf8750fade73caee96a4a1d14eb74bbb374c84",
+      "tag1400_bytes": 1809324,
+      "tag1400_sha256": "a01be211ab6a14a04930d4fdcda431b45cb5b780bcdb59fc9808fdae3af334ba",
+      "tag1500_bytes": 15504,
+      "tag1500_sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680"
+    },
+    "post_tag1339_remainder_bytes_each": 1824828,
+    "tag1400_changed_byte_positions": 64,
+    "tag1400_changed_ranges": 47,
+    "tag1500_identical_between_donors": true,
+    "runtime_hybrids": "see research/r5t_f21/swap-manifest.json; no result recorded until human runtime test"
   }
 }

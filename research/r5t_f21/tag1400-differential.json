@@ -1,0 +1,891 @@
+{
+  "schema": "r5t-f21-tag1400-typed-differential-v1",
+  "baseline_tag1400_size": 1809324,
+  "modified_tag1400_size": 1809324,
+  "raw_changed_byte_positions": 64,
+  "raw_changed_ranges": 47,
+  "raw_changed_ranges_detail": [
+    {
+      "start": 593860,
+      "end_exclusive": 593861,
+      "length": 1
+    },
+    {
+      "start": 593864,
+      "end_exclusive": 593865,
+      "length": 1
+    },
+    {
+      "start": 593884,
+      "end_exclusive": 593886,
+      "length": 2
+    },
+    {
+      "start": 593888,
+      "end_exclusive": 593889,
+      "length": 1
+    },
+    {
+      "start": 593892,
+      "end_exclusive": 593893,
+      "length": 1
+    },
+    {
+      "start": 593896,
+      "end_exclusive": 593898,
+      "length": 2
+    },
+    {
+      "start": 593928,
+      "end_exclusive": 593929,
+      "length": 1
+    },
+    {
+      "start": 593932,
+      "end_exclusive": 593933,
+      "length": 1
+    },
+    {
+      "start": 593940,
+      "end_exclusive": 593942,
+      "length": 2
+    },
+    {
+      "start": 593944,
+      "end_exclusive": 593945,
+      "length": 1
+    },
+    {
+      "start": 593948,
+      "end_exclusive": 593949,
+      "length": 1
+    },
+    {
+      "start": 593952,
+      "end_exclusive": 593954,
+      "length": 2
+    },
+    {
+      "start": 594488,
+      "end_exclusive": 594489,
+      "length": 1
+    },
+    {
+      "start": 594492,
+      "end_exclusive": 594493,
+      "length": 1
+    },
+    {
+      "start": 594500,
+      "end_exclusive": 594502,
+      "length": 2
+    },
+    {
+      "start": 594504,
+      "end_exclusive": 594505,
+      "length": 1
+    },
+    {
+      "start": 594508,
+      "end_exclusive": 594510,
+      "length": 2
+    },
+    {
+      "start": 594512,
+      "end_exclusive": 594514,
+      "length": 2
+    },
+    {
+      "start": 614288,
+      "end_exclusive": 614289,
+      "length": 1
+    },
+    {
+      "start": 614292,
+      "end_exclusive": 614293,
+      "length": 1
+    },
+    {
+      "start": 614324,
+      "end_exclusive": 614325,
+      "length": 1
+    },
+    {
+      "start": 614328,
+      "end_exclusive": 614329,
+      "length": 1
+    },
+    {
+      "start": 614332,
+      "end_exclusive": 614334,
+      "length": 2
+    },
+    {
+      "start": 614336,
+      "end_exclusive": 614337,
+      "length": 1
+    },
+    {
+      "start": 614480,
+      "end_exclusive": 614481,
+      "length": 1
+    },
+    {
+      "start": 614484,
+      "end_exclusive": 614485,
+      "length": 1
+    },
+    {
+      "start": 614492,
+      "end_exclusive": 614494,
+      "length": 2
+    },
+    {
+      "start": 614496,
+      "end_exclusive": 614497,
+      "length": 1
+    },
+    {
+      "start": 614500,
+      "end_exclusive": 614502,
+      "length": 2
+    },
+    {
+      "start": 614504,
+      "end_exclusive": 614506,
+      "length": 2
+    },
+    {
+      "start": 615532,
+      "end_exclusive": 615533,
+      "length": 1
+    },
+    {
+      "start": 615536,
+      "end_exclusive": 615537,
+      "length": 1
+    },
+    {
+      "start": 615556,
+      "end_exclusive": 615557,
+      "length": 1
+    },
+    {
+      "start": 615560,
+      "end_exclusive": 615561,
+      "length": 1
+    },
+    {
+      "start": 615564,
+      "end_exclusive": 615566,
+      "length": 2
+    },
+    {
+      "start": 615568,
+      "end_exclusive": 615570,
+      "length": 2
+    },
+    {
+      "start": 615576,
+      "end_exclusive": 615577,
+      "length": 1
+    },
+    {
+      "start": 615580,
+      "end_exclusive": 615581,
+      "length": 1
+    },
+    {
+      "start": 615612,
+      "end_exclusive": 615613,
+      "length": 1
+    },
+    {
+      "start": 615620,
+      "end_exclusive": 615621,
+      "length": 1
+    },
+    {
+      "start": 615624,
+      "end_exclusive": 615625,
+      "length": 1
+    },
+    {
+      "start": 615688,
+      "end_exclusive": 615689,
+      "length": 1
+    },
+    {
+      "start": 615692,
+      "end_exclusive": 615693,
+      "length": 1
+    },
+    {
+      "start": 615724,
+      "end_exclusive": 615726,
+      "length": 2
+    },
+    {
+      "start": 615728,
+      "end_exclusive": 615729,
+      "length": 1
+    },
+    {
+      "start": 615732,
+      "end_exclusive": 615735,
+      "length": 3
+    },
+    {
+      "start": 615736,
+      "end_exclusive": 615738,
+      "length": 2
+    }
+  ],
+  "typed_changed_field_count": 47,
+  "typed_changed_fields": [
+    {
+      "path": "record56[2410].float_prefix[4]",
+      "type": "float32",
+      "baseline_wire_offset": 593860,
+      "modified_wire_offset": 593860,
+      "baseline_file_offset": 13564980,
+      "modified_file_offset": 13572421,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 48.908775329589844,
+      "modified_value": 48.90877914428711,
+      "delta": 3.814697265625e-06
+    },
+    {
+      "path": "record56[2410].float_prefix[5]",
+      "type": "float32",
+      "baseline_wire_offset": 593864,
+      "modified_wire_offset": 593864,
+      "baseline_file_offset": 13564984,
+      "modified_file_offset": 13572425,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 1022.130615234375,
+      "modified_value": 1022.1304931640625,
+      "delta": -0.0001220703125
+    },
+    {
+      "path": "record56[2410].float_suffix[0]",
+      "type": "float32",
+      "baseline_wire_offset": 593884,
+      "modified_wire_offset": 593884,
+      "baseline_file_offset": 13565004,
+      "modified_file_offset": 13572445,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.005773607641458511,
+      "modified_value": 0.005769773852080107,
+      "delta": -3.833789378404617e-06
+    },
+    {
+      "path": "record56[2410].float_suffix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 593888,
+      "modified_wire_offset": 593888,
+      "baseline_file_offset": 13565008,
+      "modified_file_offset": 13572449,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.9839383363723755,
+      "modified_value": -0.9839386940002441,
+      "delta": -3.5762786865234375e-07
+    },
+    {
+      "path": "record56[2410].float_suffix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 593892,
+      "modified_wire_offset": 593892,
+      "baseline_file_offset": 13565012,
+      "modified_file_offset": 13572453,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.17841525375843048,
+      "modified_value": 0.17841394245624542,
+      "delta": -1.3113021850585938e-06
+    },
+    {
+      "path": "record56[2410].float_suffix[3]",
+      "type": "float32",
+      "baseline_wire_offset": 593896,
+      "modified_wire_offset": 593896,
+      "baseline_file_offset": 13565016,
+      "modified_file_offset": 13572457,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -126.07609558105469,
+      "modified_value": -126.08012390136719,
+      "delta": -0.0040283203125
+    },
+    {
+      "path": "record56[2411].float_prefix[7]",
+      "type": "float32",
+      "baseline_wire_offset": 593928,
+      "modified_wire_offset": 593928,
+      "baseline_file_offset": 13565048,
+      "modified_file_offset": 13572489,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 48.908775329589844,
+      "modified_value": 48.90877914428711,
+      "delta": 3.814697265625e-06
+    },
+    {
+      "path": "record56[2411].float_prefix[8]",
+      "type": "float32",
+      "baseline_wire_offset": 593932,
+      "modified_wire_offset": 593932,
+      "baseline_file_offset": 13565052,
+      "modified_file_offset": 13572493,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 1022.130615234375,
+      "modified_value": 1022.1304931640625,
+      "delta": -0.0001220703125
+    },
+    {
+      "path": "record56[2411].float_suffix[0]",
+      "type": "float32",
+      "baseline_wire_offset": 593940,
+      "modified_wire_offset": 593940,
+      "baseline_file_offset": 13565060,
+      "modified_file_offset": 13572501,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.07759741693735123,
+      "modified_value": 0.07760010659694672,
+      "delta": 2.689659595489502e-06
+    },
+    {
+      "path": "record56[2411].float_suffix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 593944,
+      "modified_wire_offset": 593944,
+      "baseline_file_offset": 13565064,
+      "modified_file_offset": 13572505,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.978664755821228,
+      "modified_value": -0.9786645770072937,
+      "delta": 1.7881393432617188e-07
+    },
+    {
+      "path": "record56[2411].float_suffix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 593948,
+      "modified_wire_offset": 593948,
+      "baseline_file_offset": 13565068,
+      "modified_file_offset": 13572509,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.19024714827537537,
+      "modified_value": 0.19024689495563507,
+      "delta": -2.5331974029541016e-07
+    },
+    {
+      "path": "record56[2411].float_suffix[3]",
+      "type": "float32",
+      "baseline_wire_offset": 593952,
+      "modified_wire_offset": 593952,
+      "baseline_file_offset": 13565072,
+      "modified_file_offset": 13572513,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -36.86259460449219,
+      "modified_value": -36.858497619628906,
+      "delta": 0.00409698486328125
+    },
+    {
+      "path": "record56[2421].float_prefix[7]",
+      "type": "float32",
+      "baseline_wire_offset": 594488,
+      "modified_wire_offset": 594488,
+      "baseline_file_offset": 13565608,
+      "modified_file_offset": 13573049,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 41.98830795288086,
+      "modified_value": 41.98831558227539,
+      "delta": 7.62939453125e-06
+    },
+    {
+      "path": "record56[2421].float_prefix[8]",
+      "type": "float32",
+      "baseline_wire_offset": 594492,
+      "modified_wire_offset": 594492,
+      "baseline_file_offset": 13565612,
+      "modified_file_offset": 13573053,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 993.5904541015625,
+      "modified_value": 993.591064453125,
+      "delta": 0.0006103515625
+    },
+    {
+      "path": "record56[2421].float_suffix[0]",
+      "type": "float32",
+      "baseline_wire_offset": 594500,
+      "modified_wire_offset": 594500,
+      "baseline_file_offset": 13565620,
+      "modified_file_offset": 13573061,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.2951566278934479,
+      "modified_value": 0.295159250497818,
+      "delta": 2.6226043701171875e-06
+    },
+    {
+      "path": "record56[2421].float_suffix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 594504,
+      "modified_wire_offset": 594504,
+      "baseline_file_offset": 13565624,
+      "modified_file_offset": 13573065,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.9554279446601868,
+      "modified_value": -0.9554270505905151,
+      "delta": 8.940696716308594e-07
+    },
+    {
+      "path": "record56[2421].float_suffix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 594508,
+      "modified_wire_offset": 594508,
+      "baseline_file_offset": 13565628,
+      "modified_file_offset": 13573069,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.006326733622699976,
+      "modified_value": -0.006328222341835499,
+      "delta": -1.4887191355228424e-06
+    },
+    {
+      "path": "record56[2421].float_suffix[3]",
+      "type": "float32",
+      "baseline_wire_offset": 594512,
+      "modified_wire_offset": 594512,
+      "baseline_file_offset": 13565632,
+      "modified_file_offset": 13573073,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 474.1518249511719,
+      "modified_value": 474.1571044921875,
+      "delta": 0.005279541015625
+    },
+    {
+      "path": "record56[2775].float_prefix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 614288,
+      "modified_wire_offset": 614288,
+      "baseline_file_offset": 13585408,
+      "modified_file_offset": 13592849,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 41.98830795288086,
+      "modified_value": 41.98831558227539,
+      "delta": 7.62939453125e-06
+    },
+    {
+      "path": "record56[2775].float_prefix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 614292,
+      "modified_wire_offset": 614292,
+      "baseline_file_offset": 13585412,
+      "modified_file_offset": 13592853,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 993.5904541015625,
+      "modified_value": 993.591064453125,
+      "delta": 0.0006103515625
+    },
+    {
+      "path": "record56[2775].float_suffix[0]",
+      "type": "float32",
+      "baseline_wire_offset": 614324,
+      "modified_wire_offset": 614324,
+      "baseline_file_offset": 13585444,
+      "modified_file_offset": 13592885,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.28395411372184753,
+      "modified_value": 0.28395387530326843,
+      "delta": -2.384185791015625e-07
+    },
+    {
+      "path": "record56[2775].float_suffix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 614328,
+      "modified_wire_offset": 614328,
+      "baseline_file_offset": 13585448,
+      "modified_file_offset": 13592889,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.9588228464126587,
+      "modified_value": -0.9588229656219482,
+      "delta": -1.1920928955078125e-07
+    },
+    {
+      "path": "record56[2775].float_suffix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 614332,
+      "modified_wire_offset": 614332,
+      "baseline_file_offset": 13585452,
+      "modified_file_offset": 13592893,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.005360991228371859,
+      "modified_value": 0.005361674819141626,
+      "delta": 6.835907697677612e-07
+    },
+    {
+      "path": "record56[2775].float_suffix[3]",
+      "type": "float32",
+      "baseline_wire_offset": 614336,
+      "modified_wire_offset": 614336,
+      "baseline_file_offset": 13585456,
+      "modified_file_offset": 13592897,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 446.44659423828125,
+      "modified_value": 446.445556640625,
+      "delta": -0.00103759765625
+    },
+    {
+      "path": "record56[2778].float_prefix[7]",
+      "type": "float32",
+      "baseline_wire_offset": 614480,
+      "modified_wire_offset": 614480,
+      "baseline_file_offset": 13585600,
+      "modified_file_offset": 13593041,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 41.98830795288086,
+      "modified_value": 41.98831558227539,
+      "delta": 7.62939453125e-06
+    },
+    {
+      "path": "record56[2778].float_prefix[8]",
+      "type": "float32",
+      "baseline_wire_offset": 614484,
+      "modified_wire_offset": 614484,
+      "baseline_file_offset": 13585604,
+      "modified_file_offset": 13593045,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 993.5904541015625,
+      "modified_value": 993.591064453125,
+      "delta": 0.0006103515625
+    },
+    {
+      "path": "record56[2778].float_suffix[0]",
+      "type": "float32",
+      "baseline_wire_offset": 614492,
+      "modified_wire_offset": 614492,
+      "baseline_file_offset": 13585612,
+      "modified_file_offset": 13593053,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.27575957775115967,
+      "modified_value": 0.2757566571235657,
+      "delta": -2.9206275939941406e-06
+    },
+    {
+      "path": "record56[2778].float_suffix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 614496,
+      "modified_wire_offset": 614496,
+      "baseline_file_offset": 13585616,
+      "modified_file_offset": 13593057,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.961211085319519,
+      "modified_value": -0.9612119197845459,
+      "delta": -8.344650268554688e-07
+    },
+    {
+      "path": "record56[2778].float_suffix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 614500,
+      "modified_wire_offset": 614500,
+      "baseline_file_offset": 13585620,
+      "modified_file_offset": 13593061,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.005467299371957779,
+      "modified_value": -0.005468491930514574,
+      "delta": -1.1925585567951202e-06
+    },
+    {
+      "path": "record56[2778].float_suffix[3]",
+      "type": "float32",
+      "baseline_wire_offset": 614504,
+      "modified_wire_offset": 614504,
+      "baseline_file_offset": 13585624,
+      "modified_file_offset": 13593065,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 445.4300231933594,
+      "modified_value": 445.4270324707031,
+      "delta": -0.00299072265625
+    },
+    {
+      "path": "record56[2797].float_prefix[4]",
+      "type": "float32",
+      "baseline_wire_offset": 615532,
+      "modified_wire_offset": 615532,
+      "baseline_file_offset": 13586652,
+      "modified_file_offset": 13594093,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 48.908775329589844,
+      "modified_value": 48.90877914428711,
+      "delta": 3.814697265625e-06
+    },
+    {
+      "path": "record56[2797].float_prefix[5]",
+      "type": "float32",
+      "baseline_wire_offset": 615536,
+      "modified_wire_offset": 615536,
+      "baseline_file_offset": 13586656,
+      "modified_file_offset": 13594097,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 1022.130615234375,
+      "modified_value": 1022.1304931640625,
+      "delta": -0.0001220703125
+    },
+    {
+      "path": "record56[2797].float_suffix[0]",
+      "type": "float32",
+      "baseline_wire_offset": 615556,
+      "modified_wire_offset": 615556,
+      "baseline_file_offset": 13586676,
+      "modified_file_offset": 13594117,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.05450821667909622,
+      "modified_value": 0.05450907349586487,
+      "delta": 8.568167686462402e-07
+    },
+    {
+      "path": "record56[2797].float_suffix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 615560,
+      "modified_wire_offset": 615560,
+      "baseline_file_offset": 13586680,
+      "modified_file_offset": 13594121,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.9980176687240601,
+      "modified_value": -0.9980177283287048,
+      "delta": -5.960464477539063e-08
+    },
+    {
+      "path": "record56[2797].float_suffix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 615564,
+      "modified_wire_offset": 615564,
+      "baseline_file_offset": 13586684,
+      "modified_file_offset": 13594125,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.03145499527454376,
+      "modified_value": 0.031455427408218384,
+      "delta": 4.3213367462158203e-07
+    },
+    {
+      "path": "record56[2797].float_suffix[3]",
+      "type": "float32",
+      "baseline_wire_offset": 615568,
+      "modified_wire_offset": 615568,
+      "baseline_file_offset": 13586688,
+      "modified_file_offset": 13594129,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 93.7401123046875,
+      "modified_value": 93.74089050292969,
+      "delta": 0.0007781982421875
+    },
+    {
+      "path": "record56[2798].float_prefix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 615576,
+      "modified_wire_offset": 615576,
+      "baseline_file_offset": 13586696,
+      "modified_file_offset": 13594137,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 48.908775329589844,
+      "modified_value": 48.90877914428711,
+      "delta": 3.814697265625e-06
+    },
+    {
+      "path": "record56[2798].float_prefix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 615580,
+      "modified_wire_offset": 615580,
+      "baseline_file_offset": 13586700,
+      "modified_file_offset": 13594141,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 1022.130615234375,
+      "modified_value": 1022.1304931640625,
+      "delta": -0.0001220703125
+    },
+    {
+      "path": "record56[2798].float_suffix[0]",
+      "type": "float32",
+      "baseline_wire_offset": 615612,
+      "modified_wire_offset": 615612,
+      "baseline_file_offset": 13586732,
+      "modified_file_offset": 13594173,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.24573463201522827,
+      "modified_value": -0.24573437869548798,
+      "delta": 2.5331974029541016e-07
+    },
+    {
+      "path": "record56[2798].float_suffix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 615620,
+      "modified_wire_offset": 615620,
+      "baseline_file_offset": 13586740,
+      "modified_file_offset": 13594181,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.06738673895597458,
+      "modified_value": 0.06738755106925964,
+      "delta": 8.121132850646973e-07
+    },
+    {
+      "path": "record56[2798].float_suffix[3]",
+      "type": "float32",
+      "baseline_wire_offset": 615624,
+      "modified_wire_offset": 615624,
+      "baseline_file_offset": 13586744,
+      "modified_file_offset": 13594185,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -369.073974609375,
+      "modified_value": -369.074462890625,
+      "delta": -0.00048828125
+    },
+    {
+      "path": "record56[2800].float_prefix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 615688,
+      "modified_wire_offset": 615688,
+      "baseline_file_offset": 13586808,
+      "modified_file_offset": 13594249,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 48.908775329589844,
+      "modified_value": 48.90877914428711,
+      "delta": 3.814697265625e-06
+    },
+    {
+      "path": "record56[2800].float_prefix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 615692,
+      "modified_wire_offset": 615692,
+      "baseline_file_offset": 13586812,
+      "modified_file_offset": 13594253,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 1022.130615234375,
+      "modified_value": 1022.1304931640625,
+      "delta": -0.0001220703125
+    },
+    {
+      "path": "record56[2800].float_suffix[0]",
+      "type": "float32",
+      "baseline_wire_offset": 615724,
+      "modified_wire_offset": 615724,
+      "baseline_file_offset": 13586844,
+      "modified_file_offset": 13594285,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.01293417252600193,
+      "modified_value": -0.01293651107698679,
+      "delta": -2.3385509848594666e-06
+    },
+    {
+      "path": "record56[2800].float_suffix[1]",
+      "type": "float32",
+      "baseline_wire_offset": 615728,
+      "modified_wire_offset": 615728,
+      "baseline_file_offset": 13586848,
+      "modified_file_offset": 13594289,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -0.9898393750190735,
+      "modified_value": -0.9898391366004944,
+      "delta": 2.384185791015625e-07
+    },
+    {
+      "path": "record56[2800].float_suffix[2]",
+      "type": "float32",
+      "baseline_wire_offset": 615732,
+      "modified_wire_offset": 615732,
+      "baseline_file_offset": 13586852,
+      "modified_file_offset": 13594293,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": 0.14160116016864777,
+      "modified_value": 0.14160171151161194,
+      "delta": 5.513429641723633e-07
+    },
+    {
+      "path": "record56[2800].float_suffix[3]",
+      "type": "float32",
+      "baseline_wire_offset": 615736,
+      "modified_wire_offset": 615736,
+      "baseline_file_offset": 13586856,
+      "modified_file_offset": 13594297,
+      "interpretation": "UNKNOWN; typed wire field only",
+      "baseline_value": -114.61309814453125,
+      "modified_value": -114.61697387695312,
+      "delta": -0.003875732421875
+    }
+  ],
+  "changed_byte_ownership_counts": {
+    "record56[2410].float_prefix[4]": 1,
+    "record56[2410].float_prefix[5]": 1,
+    "record56[2410].float_suffix[0]": 2,
+    "record56[2410].float_suffix[1]": 1,
+    "record56[2410].float_suffix[2]": 1,
+    "record56[2410].float_suffix[3]": 2,
+    "record56[2411].float_prefix[7]": 1,
+    "record56[2411].float_prefix[8]": 1,
+    "record56[2411].float_suffix[0]": 2,
+    "record56[2411].float_suffix[1]": 1,
+    "record56[2411].float_suffix[2]": 1,
+    "record56[2411].float_suffix[3]": 2,
+    "record56[2421].float_prefix[7]": 1,
+    "record56[2421].float_prefix[8]": 1,
+    "record56[2421].float_suffix[0]": 2,
+    "record56[2421].float_suffix[1]": 1,
+    "record56[2421].float_suffix[2]": 2,
+    "record56[2421].float_suffix[3]": 2,
+    "record56[2775].float_prefix[1]": 1,
+    "record56[2775].float_prefix[2]": 1,
+    "record56[2775].float_suffix[0]": 1,
+    "record56[2775].float_suffix[1]": 1,
+    "record56[2775].float_suffix[2]": 2,
+    "record56[2775].float_suffix[3]": 1,
+    "record56[2778].float_prefix[7]": 1,
+    "record56[2778].float_prefix[8]": 1,
+    "record56[2778].float_suffix[0]": 2,
+    "record56[2778].float_suffix[1]": 1,
+    "record56[2778].float_suffix[2]": 2,
+    "record56[2778].float_suffix[3]": 2,
+    "record56[2797].float_prefix[4]": 1,
+    "record56[2797].float_prefix[5]": 1,
+    "record56[2797].float_suffix[0]": 1,
+    "record56[2797].float_suffix[1]": 1,
+    "record56[2797].float_suffix[2]": 2,
+    "record56[2797].float_suffix[3]": 2,
+    "record56[2798].float_prefix[1]": 1,
+    "record56[2798].float_prefix[2]": 1,
+    "record56[2798].float_suffix[0]": 1,
+    "record56[2798].float_suffix[2]": 1,
+    "record56[2798].float_suffix[3]": 1,
+    "record56[2800].float_prefix[1]": 1,
+    "record56[2800].float_prefix[2]": 1,
+    "record56[2800].float_suffix[0]": 2,
+    "record56[2800].float_suffix[1]": 1,
+    "record56[2800].float_suffix[2]": 3,
+    "record56[2800].float_suffix[3]": 2
+  },
+  "unclassified_changed_byte_offsets": [],
+  "all_changed_bytes_typed": true,
+  "family_change_counts": {
+    "record56": 47
+  },
+  "cell_lists_identical": true,
+  "string_table_identical": true,
+  "record_count_equal": true,
+  "string_reference_indices_changed": 0,
+  "tree_count_reference_values_checked": {
+    "baseline_word0": 75556,
+    "modified_word0": 75515,
+    "baseline_word1": 104735,
+    "modified_word1": 104702,
+    "baseline_word2": 180290,
+    "modified_word2": 180216,
+    "baseline_node_count": 360581,
+    "modified_node_count": 360433,
+    "baseline_tree_size": 8293376,
+    "modified_tree_size": 8289972,
+    "delta_word0": -41,
+    "delta_word1": -33,
+    "delta_word2": -74,
+    "delta_node_count": -148,
+    "delta_tree_size": -3404
+  },
+  "exact_changed_typed_values_matching_tree_counts_or_deltas": [],
+  "changed_float_fields_with_exact_pm20_delta": [],
+  "aabb_coordinate_matches": [],
+  "tag1400_header_equal": true,
+  "semantic_status": "changed float fields are located in record56 family; meaning UNKNOWN"
+}

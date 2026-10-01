@@ -1,0 +1,2737 @@
+{
+  "course_folder_count": 36,
+  "tag100_and_tag1400_parse_success_count": 36,
+  "failure_count": 0,
+  "failures": [],
+  "tag100_invariant_violation_count": 0,
+  "tag100_invariant_violations": [],
+  "all_tag100_count_invariants_pass": true,
+  "tag1400_presence_count": 36,
+  "tag1400_parser_success_count": 36,
+  "tag1400_dimension_0_range": [
+    86,
+    263
+  ],
+  "tag1400_dimension_1_range": [
+    76,
+    147
+  ],
+  "tag1400_cell_count_range": [
+    8514,
+    36068
+  ],
+  "tag1400_record_count_range": [
+    21615,
+    35714
+  ],
+  "later_region_variants": [
+    {
+      "first_tag": 1500,
+      "size_bytes": 5936,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 6836,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 8024,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 8300,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 8440,
+      "course_count": 2
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 8648,
+      "course_count": 2
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 8748,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 9560,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 9888,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 10012,
+      "course_count": 2
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 10092,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 10120,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 12364,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 12564,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 13124,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 14804,
+      "course_count": 2
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 16056,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 16088,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 16168,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 17216,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 17476,
+      "course_count": 2
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 17568,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 20212,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 32264,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 32596,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 32688,
+      "course_count": 2
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 32744,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 32952,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 32964,
+      "course_count": 1
+    },
+    {
+      "first_tag": 1500,
+      "size_bytes": 33196,
+      "course_count": 1
+    }
+  ],
+  "courses": [
+    {
+      "course": "France1",
+      "file": "france1.dx",
+      "dx_size_bytes": 13489510,
+      "dx_sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+      "revision": 135,
+      "tag100_offset": 3343761,
+      "tag100_tree_size": 8091252,
+      "tag100_tree_sha256": "a7fc1126920d1b2933dabfeb5e355383b4c99bfd9a9acdc2c05881e89be9839b",
+      "tag100": {
+        "header_words": [
+          74401,
+          101496,
+          175896,
+          175896,
+          0
+        ],
+        "node_count": 351793,
+        "plane_bearing_count": 175896,
+        "terminal_like_count": 175897,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8091252,
+        "expected_wire_size_bytes": 8091252,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 74401,
+          "pool8_sibling": 101496,
+          "pool36": 175895
+        },
+        "max_depth": 29
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "155b3ca6caacd37d8b7a6c317f0801aaf93b1655d9818d440867793fe8d6e10c",
+      "tag1400_offset": 11435057,
+      "tag1400_size": 2046429,
+      "tag1400_sha256": "fa7557cb1f1823788085ba68914061425f7ce9e0fbd7348c96e56eb90d8e231c",
+      "tag1400": {
+        "source": "france1.dx",
+        "tag_offset": 11435057,
+        "byte_size": 2054453,
+        "consumed_size": 2046429,
+        "trailing_size": 8024,
+        "scalar": 20.0,
+        "dimension_0": 167,
+        "dimension_1": 105,
+        "cell_count": 17535,
+        "cell_entry_count": 105713,
+        "max_cell_entry_count": 137,
+        "string_count": 17,
+        "string_byte_count": 1057,
+        "record_count": 27719,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 8024,
+        "sha256": "f766eb247bd20c486f81fbf02960c77aeba3c2bd712c79e324be00421fdb74ba"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "France2",
+      "file": "france2.dx",
+      "dx_size_bytes": 13917083,
+      "dx_sha256": "fe9085d681994329c0fbdb3570f5153cc2240028a5644acd3fe12dcddb9e2d4e",
+      "revision": 135,
+      "tag100_offset": 4194597,
+      "tag100_tree_size": 8180584,
+      "tag100_tree_sha256": "947648fe6c04fe3593a4f88d46c8dec35af681a4ff8230abd27c090f480eeb82",
+      "tag100": {
+        "header_words": [
+          69127,
+          108712,
+          177838,
+          177838,
+          0
+        ],
+        "node_count": 355677,
+        "plane_bearing_count": 177838,
+        "terminal_like_count": 177839,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8180584,
+        "expected_wire_size_bytes": 8180584,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 69127,
+          "pool8_sibling": 108712,
+          "pool36": 177837
+        },
+        "max_depth": 29
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "41dd0eaeaeda933522202207f70b32e2d7f8ea9d3745ca19ec8d589a74702272",
+      "tag1400_offset": 12375225,
+      "tag1400_size": 1531766,
+      "tag1400_sha256": "2599e4f98a15ab19f85cc0c2602025ce94a1031831616dbfd2d8fa7781abb00b",
+      "tag1400": {
+        "source": "france2.dx",
+        "tag_offset": 12375225,
+        "byte_size": 1541858,
+        "consumed_size": 1531766,
+        "trailing_size": 10092,
+        "scalar": 20.0,
+        "dimension_0": 126,
+        "dimension_1": 90,
+        "cell_count": 11340,
+        "cell_entry_count": 68730,
+        "max_cell_entry_count": 170,
+        "string_count": 15,
+        "string_byte_count": 938,
+        "record_count": 21615,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 10092,
+        "sha256": "2cf9bc37bd41825db3c19d2616ebbf556db4e005b427c23e360857da0e86616e"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "France_M",
+      "file": "francem.dx",
+      "dx_size_bytes": 15275322,
+      "dx_sha256": "50e76cf51d279531f9e5188145657aaa12bed30d8f88d27e7614eec0a97b56ce",
+      "revision": 135,
+      "tag100_offset": 4417676,
+      "tag100_tree_size": 8720808,
+      "tag100_tree_sha256": "d8513a362ef6bfb8ae8ec775e55fe0f0d1230aa4510fc497e22b96ea1c074bab",
+      "tag100": {
+        "header_words": [
+          78550,
+          111033,
+          189582,
+          189582,
+          0
+        ],
+        "node_count": 379165,
+        "plane_bearing_count": 189582,
+        "terminal_like_count": 189583,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8720808,
+        "expected_wire_size_bytes": 8720808,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 78550,
+          "pool8_sibling": 111033,
+          "pool36": 189581
+        },
+        "max_depth": 28
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "4505804e0f977294f4b98e9220fd3938e1115e17f5f3cd0127e1bc884eec4603",
+      "tag1400_offset": 13138528,
+      "tag1400_size": 2124230,
+      "tag1400_sha256": "dd6b922638896188b5ca8adb17ed6be190f8dd0de36b613fbfb7c24bb4a6ad11",
+      "tag1400": {
+        "source": "francem.dx",
+        "tag_offset": 13138528,
+        "byte_size": 2136794,
+        "consumed_size": 2124230,
+        "trailing_size": 12564,
+        "scalar": 20.0,
+        "dimension_0": 263,
+        "dimension_1": 76,
+        "cell_count": 19988,
+        "cell_entry_count": 99827,
+        "max_cell_entry_count": 142,
+        "string_count": 17,
+        "string_byte_count": 1030,
+        "record_count": 29354,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 12564,
+        "sha256": "a38eb3d8b6d8f645d46c5ec15b08640eb8f9c2d6282adb4aefcc0af2b3e438a1"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "France_S1",
+      "file": "frances1.dx",
+      "dx_size_bytes": 14332202,
+      "dx_sha256": "19d1c7073f610fe050f281c07188f52b263a430332c5a3519013a1ee1568b2d4",
+      "revision": 135,
+      "tag100_offset": 3741842,
+      "tag100_tree_size": 8827482,
+      "tag100_tree_sha256": "c541f3f2de32d69dc05dfdb1c75d95bcae1ecba24c565b6354654b1def71731a",
+      "tag100": {
+        "header_words": [
+          73151,
+          118751,
+          191901,
+          191901,
+          0
+        ],
+        "node_count": 383803,
+        "plane_bearing_count": 191901,
+        "terminal_like_count": 191902,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8827482,
+        "expected_wire_size_bytes": 8827482,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 73151,
+          "pool8_sibling": 118751,
+          "pool36": 191900
+        },
+        "max_depth": 28
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "7b33647d3bc56e2fbff58d30c25e03a4ff50cbbc3ddf69329a6589ed46e23dd5",
+      "tag1400_offset": 12569368,
+      "tag1400_size": 1752946,
+      "tag1400_sha256": "221b5883cf877f7b07864322394d00146a0fdec84e7e1a9df66eb27223e609cb",
+      "tag1400": {
+        "source": "frances1.dx",
+        "tag_offset": 12569368,
+        "byte_size": 1762834,
+        "consumed_size": 1752946,
+        "trailing_size": 9888,
+        "scalar": 20.0,
+        "dimension_0": 216,
+        "dimension_1": 89,
+        "cell_count": 19224,
+        "cell_entry_count": 82852,
+        "max_cell_entry_count": 141,
+        "string_count": 17,
+        "string_byte_count": 1030,
+        "record_count": 23991,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 9888,
+        "sha256": "bbbc8df35b0b8e30cb4011522dc5eb8983b708b0ae593d2b76a6d8c7c2a6a6ec"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "France_S2",
+      "file": "frances2.dx",
+      "dx_size_bytes": 14449165,
+      "dx_sha256": "26664bd12844fd179ac0ef61379f65a301f2da7b0c234d671b670407ee396809",
+      "revision": 135,
+      "tag100_offset": 4342490,
+      "tag100_tree_size": 7950170,
+      "tag100_tree_sha256": "b15d14be52e802e5504dee9afc9ec4ffb1c916a8b2e9865daa0426697536f3c2",
+      "tag100": {
+        "header_words": [
+          74526,
+          98304,
+          172829,
+          172829,
+          0
+        ],
+        "node_count": 345659,
+        "plane_bearing_count": 172829,
+        "terminal_like_count": 172830,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 7950170,
+        "expected_wire_size_bytes": 7950170,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 74526,
+          "pool8_sibling": 98304,
+          "pool36": 172828
+        },
+        "max_depth": 28
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "2887a75bd4a7b49653d9cbfbc9c48f95529b8d10c80f721980fabef6be4c09f1",
+      "tag1400_offset": 12292704,
+      "tag1400_size": 2146341,
+      "tag1400_sha256": "93747c016a6a7e81a758c712b5702977f9dc2c7690fdfbc6d5458355d1014abc",
+      "tag1400": {
+        "source": "frances2.dx",
+        "tag_offset": 12292704,
+        "byte_size": 2156461,
+        "consumed_size": 2146341,
+        "trailing_size": 10120,
+        "scalar": 20.0,
+        "dimension_0": 263,
+        "dimension_1": 106,
+        "cell_count": 27878,
+        "cell_entry_count": 105129,
+        "max_cell_entry_count": 158,
+        "string_count": 17,
+        "string_byte_count": 1061,
+        "record_count": 28806,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 10120,
+        "sha256": "909df1b2688b154b25407e36eec960e1115fc172b1ef945aed184234d312d4f9"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "France_W",
+      "file": "francew.dx",
+      "dx_size_bytes": 15081000,
+      "dx_sha256": "8c5392b7583760828ae1a4d5780aa67f3612fd7a13dfaba9fe540a2300f46f88",
+      "revision": 135,
+      "tag100_offset": 4105529,
+      "tag100_tree_size": 8897218,
+      "tag100_tree_sha256": "c2593492373f90b05cd9bdd3e983ca622e7ddf10efe3d5a52e35bda91ad99bdf",
+      "tag100": {
+        "header_words": [
+          77303,
+          116115,
+          193417,
+          193417,
+          0
+        ],
+        "node_count": 386835,
+        "plane_bearing_count": 193417,
+        "terminal_like_count": 193418,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8897218,
+        "expected_wire_size_bytes": 8897218,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 77303,
+          "pool8_sibling": 116115,
+          "pool36": 193416
+        },
+        "max_depth": 28
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "e35bc8a1abd4cb621d7f6f5765a6f93332a00dfac42bd6b94c16b09632d5c90e",
+      "tag1400_offset": 13002791,
+      "tag1400_size": 2069561,
+      "tag1400_sha256": "48992c44afbc1733db1e6937686eebe704d565b94b842eb5083ee39e3f642a2b",
+      "tag1400": {
+        "source": "francew.dx",
+        "tag_offset": 13002791,
+        "byte_size": 2078209,
+        "consumed_size": 2069561,
+        "trailing_size": 8648,
+        "scalar": 20.0,
+        "dimension_0": 256,
+        "dimension_1": 90,
+        "cell_count": 23040,
+        "cell_entry_count": 105458,
+        "max_cell_entry_count": 127,
+        "string_count": 17,
+        "string_byte_count": 1061,
+        "record_count": 27757,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 8648,
+        "sha256": "f4f9c0ab5a2d64de369d9a60b78fa3464b56e41e8ff885d02e02c4a5246e79f9"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "France_W_flip",
+      "file": "FranceW_flip.dx",
+      "dx_size_bytes": 15078585,
+      "dx_sha256": "9ed7bfdf16eef35ce3e46aeb38ed87b980005dab11639c6dd116421997368779",
+      "revision": 135,
+      "tag100_offset": 4106426,
+      "tag100_tree_size": 8893906,
+      "tag100_tree_sha256": "8d84859f3e24c699973e4b33cac9d2ad3c394b12825df3e87a37ac7c3cc27bf9",
+      "tag100": {
+        "header_words": [
+          77285,
+          116061,
+          193345,
+          193345,
+          0
+        ],
+        "node_count": 386691,
+        "plane_bearing_count": 193345,
+        "terminal_like_count": 193346,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8893906,
+        "expected_wire_size_bytes": 8893906,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 77285,
+          "pool8_sibling": 116061,
+          "pool36": 193344
+        },
+        "max_depth": 28
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "e35bc8a1abd4cb621d7f6f5765a6f93332a00dfac42bd6b94c16b09632d5c90e",
+      "tag1400_offset": 13000376,
+      "tag1400_size": 2069561,
+      "tag1400_sha256": "cd0be367e460ed0a001ba89c4060534563f5d7253029b1724e1a906308b2a445",
+      "tag1400": {
+        "source": "FranceW_flip.dx",
+        "tag_offset": 13000376,
+        "byte_size": 2078209,
+        "consumed_size": 2069561,
+        "trailing_size": 8648,
+        "scalar": 20.0,
+        "dimension_0": 256,
+        "dimension_1": 90,
+        "cell_count": 23040,
+        "cell_entry_count": 105458,
+        "max_cell_entry_count": 127,
+        "string_count": 17,
+        "string_byte_count": 1061,
+        "record_count": 27757,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 8648,
+        "sha256": "f4f9c0ab5a2d64de369d9a60b78fa3464b56e41e8ff885d02e02c4a5246e79f9"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy1",
+      "file": "track01.dx",
+      "dx_size_bytes": 10243860,
+      "dx_sha256": "971b44ab0f1543e457245731789dad2439259b37d206b6ca588f0130d84911e2",
+      "revision": 135,
+      "tag100_offset": 2726351,
+      "tag100_tree_size": 5862690,
+      "tag100_tree_sha256": "cd45368d340c70253d05ec7b5529b9b70825ea41e093573207eedbf8676c166c",
+      "tag100": {
+        "header_words": [
+          60221,
+          67229,
+          127449,
+          127449,
+          0
+        ],
+        "node_count": 254899,
+        "plane_bearing_count": 127449,
+        "terminal_like_count": 127450,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5862690,
+        "expected_wire_size_bytes": 5862690,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 60221,
+          "pool8_sibling": 67229,
+          "pool36": 127448
+        },
+        "max_depth": 27
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "b2ec37d436c54be197e908a016435e0792f5a418b32b6728acadbaeb54de1574",
+      "tag1400_offset": 8589085,
+      "tag1400_size": 1642411,
+      "tag1400_sha256": "c1b96e8d83639da43b1719cd497f6f3f07cb3705af21dd2dc15cd45ccc00e8c4",
+      "tag1400": {
+        "source": "track01.dx",
+        "tag_offset": 8589085,
+        "byte_size": 1654775,
+        "consumed_size": 1642411,
+        "trailing_size": 12364,
+        "scalar": 20.0,
+        "dimension_0": 97,
+        "dimension_1": 107,
+        "cell_count": 10379,
+        "cell_entry_count": 79046,
+        "max_cell_entry_count": 112,
+        "string_count": 21,
+        "string_byte_count": 1675,
+        "record_count": 22909,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 12364,
+        "sha256": "ecd660b3529bd4bd453c818a8d0fc01dd16f32648216baf7c7a871c212a81c8a"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy2",
+      "file": "italy2.dx",
+      "dx_size_bytes": 9932430,
+      "dx_sha256": "0614f6c933f751d07be0fb7ea5b97d1099ebf6873120b93c506922efc38f8a31",
+      "revision": 135,
+      "tag100_offset": 3380510,
+      "tag100_tree_size": 4898024,
+      "tag100_tree_sha256": "540f0a0ca15a448cfe1635048693c1e5a6992abfd8cf8ff8d5b42c00ca241525",
+      "tag100": {
+        "header_words": [
+          50855,
+          55624,
+          106478,
+          106478,
+          0
+        ],
+        "node_count": 212957,
+        "plane_bearing_count": 106478,
+        "terminal_like_count": 106479,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 4898024,
+        "expected_wire_size_bytes": 4898024,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 50855,
+          "pool8_sibling": 55624,
+          "pool36": 106477
+        },
+        "max_depth": 28
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "3c82c2cee9624e4a6f0315931641290923b9e166778449d01a7340b82ae5e4f4",
+      "tag1400_offset": 8278578,
+      "tag1400_size": 1637764,
+      "tag1400_sha256": "9905cb4207786604505c056097c075fe89a920d3e1bbf00d943410cc350b0d55",
+      "tag1400": {
+        "source": "italy2.dx",
+        "tag_offset": 8278578,
+        "byte_size": 1653852,
+        "consumed_size": 1637764,
+        "trailing_size": 16088,
+        "scalar": 20.0,
+        "dimension_0": 128,
+        "dimension_1": 108,
+        "cell_count": 13824,
+        "cell_entry_count": 85447,
+        "max_cell_entry_count": 182,
+        "string_count": 19,
+        "string_byte_count": 1500,
+        "record_count": 22126,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 16088,
+        "sha256": "77e5619c4054d2ea2220f23e4b25e953b35bb0fc464a64c7c6476cf659ca6706"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy3",
+      "file": "italy3.dx",
+      "dx_size_bytes": 12829008,
+      "dx_sha256": "4c97fc6faf743adb2c356da8c04851cd25fe91e5951be536b673c589819d3daa",
+      "revision": 135,
+      "tag100_offset": 3055592,
+      "tag100_tree_size": 7971376,
+      "tag100_tree_sha256": "96a29fa2e76331310bf08b13ec2dcd2d21689b61efccb24a843854b5cc5f9543",
+      "tag100": {
+        "header_words": [
+          55821,
+          117470,
+          173290,
+          173290,
+          0
+        ],
+        "node_count": 346581,
+        "plane_bearing_count": 173290,
+        "terminal_like_count": 173291,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 7971376,
+        "expected_wire_size_bytes": 7971376,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 55821,
+          "pool8_sibling": 117470,
+          "pool36": 173289
+        },
+        "max_depth": 31
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "379ee1e34f87594daf9ed4134c4504565079e7e3419954b98413e2eeda38c1ce",
+      "tag1400_offset": 11027012,
+      "tag1400_size": 1793248,
+      "tag1400_sha256": "4c1af1901dcd6510e35dd083b9977e96d31427e9c1406aff84f3fdbe3af245bd",
+      "tag1400": {
+        "source": "italy3.dx",
+        "tag_offset": 11027012,
+        "byte_size": 1801996,
+        "consumed_size": 1793248,
+        "trailing_size": 8748,
+        "scalar": 20.0,
+        "dimension_0": 137,
+        "dimension_1": 138,
+        "cell_count": 18906,
+        "cell_entry_count": 91153,
+        "max_cell_entry_count": 84,
+        "string_count": 26,
+        "string_byte_count": 2084,
+        "record_count": 24121,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 8748,
+        "sha256": "c610e5c3a4c7336d6f5719a1a796da1c015745d7a5659f8203d2ed5704914679"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_M1",
+      "file": "italy_m1.dx",
+      "dx_size_bytes": 11929811,
+      "dx_sha256": "7e7c3bef5f1beb44b9840ce9688a496166a368e2884d09e1c262098a9d723d9f",
+      "revision": 135,
+      "tag100_offset": 3489163,
+      "tag100_tree_size": 6535394,
+      "tag100_tree_sha256": "6aa0be8d9e2daaa0fd59a8b154000786e8f8ac2e785174717ab85b73aa16a7b3",
+      "tag100": {
+        "header_words": [
+          66214,
+          75860,
+          142073,
+          142073,
+          0
+        ],
+        "node_count": 284147,
+        "plane_bearing_count": 142073,
+        "terminal_like_count": 142074,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 6535394,
+        "expected_wire_size_bytes": 6535394,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 66214,
+          "pool8_sibling": 75860,
+          "pool36": 142072
+        },
+        "max_depth": 30
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "c6017e9015d8ce6b0d8646e99e963f1075b931007a38ec175f890e75185ae2af",
+      "tag1400_offset": 10024601,
+      "tag1400_size": 1887734,
+      "tag1400_sha256": "4b418e9e8ab9c5ea482d21560751b6ed7a452e7a3dd27646817c9358ae824aec",
+      "tag1400": {
+        "source": "italy_m1.dx",
+        "tag_offset": 10024601,
+        "byte_size": 1905210,
+        "consumed_size": 1887734,
+        "trailing_size": 17476,
+        "scalar": 20.0,
+        "dimension_0": 209,
+        "dimension_1": 111,
+        "cell_count": 23199,
+        "cell_entry_count": 93860,
+        "max_cell_entry_count": 113,
+        "string_count": 25,
+        "string_byte_count": 1934,
+        "record_count": 25311,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 17476,
+        "sha256": "1e3109aa88cb9e6abaaaea9daa053305c65016507607a212b1e9e5c2a8739b0e"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_M1_flip",
+      "file": "italy_m1_flip.dx",
+      "dx_size_bytes": 11929790,
+      "dx_sha256": "d1cd24612c31fa39a0de79313257cb4017605ac4b4cc3c484e661c2b65db8935",
+      "revision": 135,
+      "tag100_offset": 3489142,
+      "tag100_tree_size": 6535394,
+      "tag100_tree_sha256": "6aa0be8d9e2daaa0fd59a8b154000786e8f8ac2e785174717ab85b73aa16a7b3",
+      "tag100": {
+        "header_words": [
+          66214,
+          75860,
+          142073,
+          142073,
+          0
+        ],
+        "node_count": 284147,
+        "plane_bearing_count": 142073,
+        "terminal_like_count": 142074,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 6535394,
+        "expected_wire_size_bytes": 6535394,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 66214,
+          "pool8_sibling": 75860,
+          "pool36": 142072
+        },
+        "max_depth": 30
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "c6017e9015d8ce6b0d8646e99e963f1075b931007a38ec175f890e75185ae2af",
+      "tag1400_offset": 10024580,
+      "tag1400_size": 1887734,
+      "tag1400_sha256": "43f99a7058452796603016bf461e451ae23550812d91e923d6fc874d1187c0f9",
+      "tag1400": {
+        "source": "italy_m1_flip.dx",
+        "tag_offset": 10024580,
+        "byte_size": 1905210,
+        "consumed_size": 1887734,
+        "trailing_size": 17476,
+        "scalar": 20.0,
+        "dimension_0": 209,
+        "dimension_1": 111,
+        "cell_count": 23199,
+        "cell_entry_count": 93860,
+        "max_cell_entry_count": 113,
+        "string_count": 25,
+        "string_byte_count": 1934,
+        "record_count": 25311,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 17476,
+        "sha256": "1e3109aa88cb9e6abaaaea9daa053305c65016507607a212b1e9e5c2a8739b0e"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_M2",
+      "file": "italy_m2.dx",
+      "dx_size_bytes": 13974643,
+      "dx_sha256": "f2ce72188a183c3a5a267c5bfbc7eebb3a8992b357d09eca51b9047a60893291",
+      "revision": 135,
+      "tag100_offset": 3832133,
+      "tag100_tree_size": 8001046,
+      "tag100_tree_sha256": "d7bf43ec2e1e5554c15a60dc38f2bd84faea462b89b3a4c0633d5f9be1cb493a",
+      "tag100": {
+        "header_words": [
+          66621,
+          107315,
+          173935,
+          173935,
+          0
+        ],
+        "node_count": 347871,
+        "plane_bearing_count": 173935,
+        "terminal_like_count": 173936,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8001046,
+        "expected_wire_size_bytes": 8001046,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 66621,
+          "pool8_sibling": 107315,
+          "pool36": 173934
+        },
+        "max_depth": 30
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "504c6a99c66a70473f955a44965e34be9dbc0f520ea6336a8c4f4b3085fa8d53",
+      "tag1400_offset": 11833223,
+      "tag1400_size": 2123852,
+      "tag1400_sha256": "e8ec9b1a11638f78b887948a11640a16fc7dee73f6b67b3d7a5f21aa87ac53ed",
+      "tag1400": {
+        "source": "italy_m2.dx",
+        "tag_offset": 11833223,
+        "byte_size": 2141420,
+        "consumed_size": 2123852,
+        "trailing_size": 17568,
+        "scalar": 20.0,
+        "dimension_0": 254,
+        "dimension_1": 108,
+        "cell_count": 27432,
+        "cell_entry_count": 107775,
+        "max_cell_entry_count": 86,
+        "string_count": 26,
+        "string_byte_count": 2048,
+        "record_count": 28229,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 17568,
+        "sha256": "edd9cbeb3462bdd05b2b0ff65f02d5aebb3d2e00b468c7a2120447f8f23055a8"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_S1",
+      "file": "italy_s1.dx",
+      "dx_size_bytes": 10418531,
+      "dx_sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+      "revision": 135,
+      "tag100_offset": 3058257,
+      "tag100_tree_size": 5676298,
+      "tag100_tree_sha256": "e4535985221bbea91b32c35a174c6b930b4ed2baafb0ca3094fb4f11fbd8ada1",
+      "tag100": {
+        "header_words": [
+          55489,
+          67909,
+          123397,
+          123397,
+          0
+        ],
+        "node_count": 246795,
+        "plane_bearing_count": 123397,
+        "terminal_like_count": 123398,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5676298,
+        "expected_wire_size_bytes": 5676298,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 55489,
+          "pool8_sibling": 67909,
+          "pool36": 123396
+        },
+        "max_depth": 30
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "22eacfbaf21665f5e58ec31433c0b7295c6e707e647608e29755a2cf74bcf2be",
+      "tag1400_offset": 8734599,
+      "tag1400_size": 1670808,
+      "tag1400_sha256": "728280c79e09898668bde1cbb05761bbe1ac8f501080190dd96c568a77b5305c",
+      "tag1400": {
+        "source": "italy_s1.dx",
+        "tag_offset": 8734599,
+        "byte_size": 1683932,
+        "consumed_size": 1670808,
+        "trailing_size": 13124,
+        "scalar": 20.0,
+        "dimension_0": 188,
+        "dimension_1": 128,
+        "cell_count": 24064,
+        "cell_entry_count": 77676,
+        "max_cell_entry_count": 174,
+        "string_count": 26,
+        "string_byte_count": 2016,
+        "record_count": 22530,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 13124,
+        "sha256": "7c3fdc6e88ddf40b0de3e599850576e17163f50aaa28d2d8844c91617a1e7abe"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_S2",
+      "file": "italy_s2.dx",
+      "dx_size_bytes": 12119257,
+      "dx_sha256": "c3f3d6b7fc579d17852afae66dcb915562741657cfbf0d84a78cdf15c525b4cf",
+      "revision": 135,
+      "tag100_offset": 3471381,
+      "tag100_tree_size": 6530426,
+      "tag100_tree_sha256": "983538628b6542998d73d64b2ec9eff13a430a0c13f4c24360925b7004536dcd",
+      "tag100": {
+        "header_words": [
+          69262,
+          72704,
+          141965,
+          141965,
+          0
+        ],
+        "node_count": 283931,
+        "plane_bearing_count": 141965,
+        "terminal_like_count": 141966,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 6530426,
+        "expected_wire_size_bytes": 6530426,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 69262,
+          "pool8_sibling": 72704,
+          "pool36": 141964
+        },
+        "max_depth": 29
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "8fc492b209cc72385688a4ddbfb3be108cfe4fb8b778d23ea0838fc463bbfaca",
+      "tag1400_offset": 10001851,
+      "tag1400_size": 2097194,
+      "tag1400_sha256": "86f8a6d0cba358b710a3af86409e4e1521722193cb4c1400970b5e618937aba0",
+      "tag1400": {
+        "source": "italy_s2.dx",
+        "tag_offset": 10001851,
+        "byte_size": 2117406,
+        "consumed_size": 2097194,
+        "trailing_size": 20212,
+        "scalar": 20.0,
+        "dimension_0": 216,
+        "dimension_1": 105,
+        "cell_count": 22680,
+        "cell_entry_count": 107536,
+        "max_cell_entry_count": 94,
+        "string_count": 21,
+        "string_byte_count": 1646,
+        "record_count": 28117,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 20212,
+        "sha256": "211186910eb8773c9a2d0774221bf077cb2c44b1acb3bb2722bd1ce0461ededc"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_S3",
+      "file": "italy_s3.dx",
+      "dx_size_bytes": 12901492,
+      "dx_sha256": "fccd6344d5c9c4bd1d3b25c2d1d4da6375e049e7d5a188e0c9f7c6cf194940df",
+      "revision": 135,
+      "tag100_offset": 3480223,
+      "tag100_tree_size": 7516160,
+      "tag100_tree_sha256": "97221b3910f0bb7994731c44ab3b38231ce66320b5c24b036b8d1402de1fd7ce",
+      "tag100": {
+        "header_words": [
+          59253,
+          104142,
+          163394,
+          163394,
+          0
+        ],
+        "node_count": 326789,
+        "plane_bearing_count": 163394,
+        "terminal_like_count": 163395,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 7516160,
+        "expected_wire_size_bytes": 7516160,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 59253,
+          "pool8_sibling": 104142,
+          "pool36": 163393
+        },
+        "max_depth": 30
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "e4005622b5e6bb62920507941e360d7d13114a850b582930597d098384908be0",
+      "tag1400_offset": 10996427,
+      "tag1400_size": 1890261,
+      "tag1400_sha256": "6a14647a87a054358520b874c6251dceddfa401105e30fc412f29757fce41b4e",
+      "tag1400": {
+        "source": "italy_s3.dx",
+        "tag_offset": 10996427,
+        "byte_size": 1905065,
+        "consumed_size": 1890261,
+        "trailing_size": 14804,
+        "scalar": 20.0,
+        "dimension_0": 214,
+        "dimension_1": 147,
+        "cell_count": 31458,
+        "cell_entry_count": 101107,
+        "max_cell_entry_count": 81,
+        "string_count": 25,
+        "string_byte_count": 1965,
+        "record_count": 24248,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 14804,
+        "sha256": "64123be0be040d139c44e80dcc30cacf3bbe633ce7c84c80e185fb2a4f7563c4"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_S3_flip",
+      "file": "Italy_S3_flip.dx",
+      "dx_size_bytes": 12943815,
+      "dx_sha256": "f6c534feae3498b2943663573001a87f5096af060bd7cda4c9e2a3a14bf7644a",
+      "revision": 135,
+      "tag100_offset": 3498074,
+      "tag100_tree_size": 7540632,
+      "tag100_tree_sha256": "bdf543189304c29796f1b0547931870b53b30b87b0824efbaa74408314e5d3d6",
+      "tag100": {
+        "header_words": [
+          59463,
+          104464,
+          163926,
+          163926,
+          0
+        ],
+        "node_count": 327853,
+        "plane_bearing_count": 163926,
+        "terminal_like_count": 163927,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 7540632,
+        "expected_wire_size_bytes": 7540632,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 59463,
+          "pool8_sibling": 104464,
+          "pool36": 163925
+        },
+        "max_depth": 30
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "e4005622b5e6bb62920507941e360d7d13114a850b582930597d098384908be0",
+      "tag1400_offset": 11038750,
+      "tag1400_size": 1890261,
+      "tag1400_sha256": "7478324d5f1168f03c15a63bfcb5d49099387b57f2aa75b29f082579375ab641",
+      "tag1400": {
+        "source": "Italy_S3_flip.dx",
+        "tag_offset": 11038750,
+        "byte_size": 1905065,
+        "consumed_size": 1890261,
+        "trailing_size": 14804,
+        "scalar": 20.0,
+        "dimension_0": 214,
+        "dimension_1": 147,
+        "cell_count": 31458,
+        "cell_entry_count": 101107,
+        "max_cell_entry_count": 81,
+        "string_count": 25,
+        "string_byte_count": 1965,
+        "record_count": 24248,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 14804,
+        "sha256": "64123be0be040d139c44e80dcc30cacf3bbe633ce7c84c80e185fb2a4f7563c4"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_S4",
+      "file": "italy_s4.dx",
+      "dx_size_bytes": 14864694,
+      "dx_sha256": "bde1528ff5cdd7c4d831f6b31b4065170b98de06ab06db26f29ccfd38920aba9",
+      "revision": 135,
+      "tag100_offset": 3928820,
+      "tag100_tree_size": 8734654,
+      "tag100_tree_sha256": "b48d3831aa838aff6cb081dea78b40556ca685ebe10cff4e59b0dd91d5084cb6",
+      "tag100": {
+        "header_words": [
+          67354,
+          122530,
+          189883,
+          189883,
+          0
+        ],
+        "node_count": 379767,
+        "plane_bearing_count": 189883,
+        "terminal_like_count": 189884,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8734654,
+        "expected_wire_size_bytes": 8734654,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 67354,
+          "pool8_sibling": 122530,
+          "pool36": 189882
+        },
+        "max_depth": 29
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "7eb8441124c209cf8cd6766a85b8321b418f10558097327600a01347a95ecccd",
+      "tag1400_offset": 12663518,
+      "tag1400_size": 2185120,
+      "tag1400_sha256": "b1dc559c59ad4abd5909d4c6802d31d4afdeb289429273035ad1ee3e2533ac52",
+      "tag1400": {
+        "source": "italy_s4.dx",
+        "tag_offset": 12663518,
+        "byte_size": 2201176,
+        "consumed_size": 2185120,
+        "trailing_size": 16056,
+        "scalar": 20.0,
+        "dimension_0": 254,
+        "dimension_1": 103,
+        "cell_count": 26162,
+        "cell_entry_count": 107985,
+        "max_cell_entry_count": 184,
+        "string_count": 27,
+        "string_byte_count": 2088,
+        "record_count": 29398,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 16056,
+        "sha256": "2288acdc36a292a78ad4cf7f9c1829a687c8906e85be58632fe2faa3ac793248"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_W1",
+      "file": "italy_w1.dx",
+      "dx_size_bytes": 11756394,
+      "dx_sha256": "fcad9da53b7d436d79e9d9322276e98aa5039376e091a487b85d30ac1b3ae7d2",
+      "revision": 135,
+      "tag100_offset": 3250678,
+      "tag100_tree_size": 6491096,
+      "tag100_tree_sha256": "e9b1bce91a9d05c0f19b3781183b000052eadff2506422af27781238b95aa32b",
+      "tag100": {
+        "header_words": [
+          65701,
+          75410,
+          141110,
+          141110,
+          0
+        ],
+        "node_count": 282221,
+        "plane_bearing_count": 141110,
+        "terminal_like_count": 141111,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 6491096,
+        "expected_wire_size_bytes": 6491096,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 65701,
+          "pool8_sibling": 75410,
+          "pool36": 141109
+        },
+        "max_depth": 33
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "e416ec29153728de2014480f4361b135eff3abf9839b48e2ec011245e23fa2f3",
+      "tag1400_offset": 9741818,
+      "tag1400_size": 1997360,
+      "tag1400_sha256": "144c2cd38e845533f88ca2b53371957069799f517392469f12d4add9118f6efe",
+      "tag1400": {
+        "source": "italy_w1.dx",
+        "tag_offset": 9741818,
+        "byte_size": 2014576,
+        "consumed_size": 1997360,
+        "trailing_size": 17216,
+        "scalar": 20.0,
+        "dimension_0": 214,
+        "dimension_1": 123,
+        "cell_count": 26322,
+        "cell_entry_count": 97800,
+        "max_cell_entry_count": 163,
+        "string_count": 22,
+        "string_byte_count": 1728,
+        "record_count": 26768,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 17216,
+        "sha256": "05ddbb7c020d0be4f86e35c9edd899fc94bb451ff5867af20e92c30c169c5764"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Italy_W2",
+      "file": "italy_w2.dx",
+      "dx_size_bytes": 14946592,
+      "dx_sha256": "c66e8f0cff376b0f535c0cdc4fcd0bf53ad46d157b5aab4ca2648cf9cb9998d7",
+      "revision": 135,
+      "tag100_offset": 4015135,
+      "tag100_tree_size": 8625036,
+      "tag100_tree_sha256": "198c64551e6293819ded671640ff41c86d377a79c6703aa7df7b4d7caa34ec6e",
+      "tag100": {
+        "header_words": [
+          69387,
+          118114,
+          187500,
+          187500,
+          0
+        ],
+        "node_count": 375001,
+        "plane_bearing_count": 187500,
+        "terminal_like_count": 187501,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 8625036,
+        "expected_wire_size_bytes": 8625036,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 69387,
+          "pool8_sibling": 118114,
+          "pool36": 187499
+        },
+        "max_depth": 31
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "d8ed7071ea7d4ad637b9ecb119688c513c61fe18d02722ac19115259d0ac3583",
+      "tag1400_offset": 12640215,
+      "tag1400_size": 2290209,
+      "tag1400_sha256": "178d3ff5cc956cc16d88c95374a036819cad09d3404e96ddaa36d2cc8aa3de40",
+      "tag1400": {
+        "source": "italy_w2.dx",
+        "tag_offset": 12640215,
+        "byte_size": 2306377,
+        "consumed_size": 2290209,
+        "trailing_size": 16168,
+        "scalar": 20.0,
+        "dimension_0": 254,
+        "dimension_1": 142,
+        "cell_count": 36068,
+        "cell_entry_count": 117373,
+        "max_cell_entry_count": 184,
+        "string_count": 26,
+        "string_byte_count": 2005,
+        "record_count": 29898,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 16168,
+        "sha256": "2516c3d830adb2ce1e76e26b117a7644389a78dcd28aaea25934eb253e7b991a"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Spain1",
+      "file": "spain1.dx",
+      "dx_size_bytes": 7527520,
+      "dx_sha256": "847c4074e9d1af1d89d484e7332a69b5601920a0ab3b14c082d69060b24db4aa",
+      "revision": 135,
+      "tag100_offset": 1893393,
+      "tag100_tree_size": 4014870,
+      "tag100_tree_sha256": "4bc09f350d2f13a5af98516db844d6d9b82fd583d669694f7c8805ebc7cb3431",
+      "tag100": {
+        "header_words": [
+          41717,
+          45563,
+          87279,
+          87279,
+          0
+        ],
+        "node_count": 174559,
+        "plane_bearing_count": 87279,
+        "terminal_like_count": 87280,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 4014870,
+        "expected_wire_size_bytes": 4014870,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 41717,
+          "pool8_sibling": 45563,
+          "pool36": 87278
+        },
+        "max_depth": 31
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "e9107f63dc797b20a456fa462a53341a574757cc4d6006249405006de5f316de",
+      "tag1400_offset": 5908307,
+      "tag1400_size": 1613277,
+      "tag1400_sha256": "d254a59e9807d354de59317635d93193243e17c79c47dc5045382f52bb75bc26",
+      "tag1400": {
+        "source": "spain1.dx",
+        "tag_offset": 5908307,
+        "byte_size": 1619213,
+        "consumed_size": 1613277,
+        "trailing_size": 5936,
+        "scalar": 20.0,
+        "dimension_0": 90,
+        "dimension_1": 99,
+        "cell_count": 8910,
+        "cell_entry_count": 68851,
+        "max_cell_entry_count": 179,
+        "string_count": 10,
+        "string_byte_count": 649,
+        "record_count": 23241,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 5936,
+        "sha256": "2c25bf3ea4cec8fc6ebb404a37314912eb62a1d3494b3c245f276130150982eb"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Spain2",
+      "file": "spain2.dx",
+      "dx_size_bytes": 10464841,
+      "dx_sha256": "a427351031cdb8936033176c7793982860cd5214f60e7bd2a99bf0d49d0d1f9c",
+      "revision": 135,
+      "tag100_offset": 3811040,
+      "tag100_tree_size": 5034644,
+      "tag100_tree_sha256": "4ef3ccdbddb4a0517ed4f5b2675cb7c1bfc4c75de35fdedfc8f2bdd69b575112",
+      "tag100": {
+        "header_words": [
+          47742,
+          61707,
+          109448,
+          109448,
+          0
+        ],
+        "node_count": 218897,
+        "plane_bearing_count": 109448,
+        "terminal_like_count": 109449,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5034644,
+        "expected_wire_size_bytes": 5034644,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 47742,
+          "pool8_sibling": 61707,
+          "pool36": 109447
+        },
+        "max_depth": 30
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "16be3f2337ea69cc3067ed5c85beb027d9a34746396aba446d5c29720add886a",
+      "tag1400_offset": 8845728,
+      "tag1400_size": 1610813,
+      "tag1400_sha256": "81cf951de8089d93582f1db0d12f7440d9846cf38b9f2ac9c17a8278265c3e1e",
+      "tag1400": {
+        "source": "spain2.dx",
+        "tag_offset": 8845728,
+        "byte_size": 1619113,
+        "consumed_size": 1610813,
+        "trailing_size": 8300,
+        "scalar": 20.0,
+        "dimension_0": 97,
+        "dimension_1": 99,
+        "cell_count": 9603,
+        "cell_entry_count": 73966,
+        "max_cell_entry_count": 95,
+        "string_count": 11,
+        "string_byte_count": 709,
+        "record_count": 22781,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 8300,
+        "sha256": "8dcc6bfef7077570ae641c1490113131766b37f88d008935f2c88ed110870e08"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Spain_M",
+      "file": "spain_m.dx",
+      "dx_size_bytes": 10035198,
+      "dx_sha256": "77b5124f2bdc777252c93412e06c0728f05483df6898feb7420e668feb591b1f",
+      "revision": 135,
+      "tag100_offset": 3373297,
+      "tag100_tree_size": 4832060,
+      "tag100_tree_sha256": "0ad1d33db7c2e445a10557fb33b97e09c6004acf0396b75093523e06da2016bd",
+      "tag100": {
+        "header_words": [
+          50477,
+          54568,
+          105044,
+          105044,
+          0
+        ],
+        "node_count": 210089,
+        "plane_bearing_count": 105044,
+        "terminal_like_count": 105045,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 4832060,
+        "expected_wire_size_bytes": 4832060,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 50477,
+          "pool8_sibling": 54568,
+          "pool36": 105043
+        },
+        "max_depth": 40
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "124dae8154f8b392b74ef8db67d3dc89354b7a811e1a7b326b08179caa6b2bdb",
+      "tag1400_offset": 8205401,
+      "tag1400_size": 1820237,
+      "tag1400_sha256": "50d63841c68ed79070aa56414656f0ae987fe015f30ffb8c194362f01b3b71a4",
+      "tag1400": {
+        "source": "spain_m.dx",
+        "tag_offset": 8205401,
+        "byte_size": 1829797,
+        "consumed_size": 1820237,
+        "trailing_size": 9560,
+        "scalar": 20.0,
+        "dimension_0": 130,
+        "dimension_1": 103,
+        "cell_count": 13390,
+        "cell_entry_count": 78465,
+        "max_cell_entry_count": 176,
+        "string_count": 10,
+        "string_byte_count": 649,
+        "record_count": 25930,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 9560,
+        "sha256": "fb73d4353cb96a16bf6c08ce6be36566a3cc5db11193c021688921f00715d2ec"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Spain_S1",
+      "file": "spain_s1.dx",
+      "dx_size_bytes": 10772910,
+      "dx_sha256": "8e547d6732b57e75a6eb2ab45a3cb471bd9683796ceef60b4c1870aef029095a",
+      "revision": 135,
+      "tag100_offset": 3323734,
+      "tag100_tree_size": 5447770,
+      "tag100_tree_sha256": "b4010307cd5102071d6a0001a4604876af386c34a05841cc4f6c8e1dca7791ce",
+      "tag100": {
+        "header_words": [
+          57058,
+          61372,
+          118429,
+          118429,
+          0
+        ],
+        "node_count": 236859,
+        "plane_bearing_count": 118429,
+        "terminal_like_count": 118430,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5447770,
+        "expected_wire_size_bytes": 5447770,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 57058,
+          "pool8_sibling": 61372,
+          "pool36": 118428
+        },
+        "max_depth": 38
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "c84a4577c145eaebfe8fea89b6f38fae67926e6369766cbdbb9d02925cc7daa7",
+      "tag1400_offset": 8771548,
+      "tag1400_size": 1991350,
+      "tag1400_sha256": "6c530a2ac6da54e03765b031ac00db840f7960fc0310ac23b0b9b485baf6e8d0",
+      "tag1400": {
+        "source": "spain_s1.dx",
+        "tag_offset": 8771548,
+        "byte_size": 2001362,
+        "consumed_size": 1991350,
+        "trailing_size": 10012,
+        "scalar": 20.0,
+        "dimension_0": 167,
+        "dimension_1": 103,
+        "cell_count": 17201,
+        "cell_entry_count": 88629,
+        "max_cell_entry_count": 175,
+        "string_count": 9,
+        "string_byte_count": 618,
+        "record_count": 27988,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 10012,
+        "sha256": "563b9d730c9795eab0005fdd1bc86bb1cb759c7ffa5aef60d3cd7886bcc23294"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Spain_S1_flip",
+      "file": "Spain_S1_flip.dx",
+      "dx_size_bytes": 10771503,
+      "dx_sha256": "199cf8d8bc05ffd68ed04c58435cceb2dc2712dfc4ecda4ab564a7eb974c7136",
+      "revision": 135,
+      "tag100_offset": 3323753,
+      "tag100_tree_size": 5446344,
+      "tag100_tree_sha256": "09ff8bb3d189761e9e7adb37cdb18f5153833b97cda69bf2fb60f58aba18bfb3",
+      "tag100": {
+        "header_words": [
+          57038,
+          61361,
+          118398,
+          118398,
+          0
+        ],
+        "node_count": 236797,
+        "plane_bearing_count": 118398,
+        "terminal_like_count": 118399,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5446344,
+        "expected_wire_size_bytes": 5446344,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 57038,
+          "pool8_sibling": 61361,
+          "pool36": 118397
+        },
+        "max_depth": 38
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "c84a4577c145eaebfe8fea89b6f38fae67926e6369766cbdbb9d02925cc7daa7",
+      "tag1400_offset": 8770141,
+      "tag1400_size": 1991350,
+      "tag1400_sha256": "e99c411021fa8e0af1298883e1cc44e495727e93e8b658dd501e3537d9738f7b",
+      "tag1400": {
+        "source": "Spain_S1_flip.dx",
+        "tag_offset": 8770141,
+        "byte_size": 2001362,
+        "consumed_size": 1991350,
+        "trailing_size": 10012,
+        "scalar": 20.0,
+        "dimension_0": 167,
+        "dimension_1": 103,
+        "cell_count": 17201,
+        "cell_entry_count": 88629,
+        "max_cell_entry_count": 175,
+        "string_count": 9,
+        "string_byte_count": 618,
+        "record_count": 27988,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 10012,
+        "sha256": "4a97311ac4442f12f399c45c1973aac00fd47e0554488a7bcfc2aeccc22d0ee0"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Spain_S2",
+      "file": "spain_s2.dx",
+      "dx_size_bytes": 10529758,
+      "dx_sha256": "37a8be02cd18c1ad2a3f72043924103ed8279d4b2d3237f54a23f8143301986b",
+      "revision": 135,
+      "tag100_offset": 3512245,
+      "tag100_tree_size": 5049364,
+      "tag100_tree_sha256": "a7d97e3b3d495a03d3ea49d7dc408d0e3be457b7b9da14998b9c69502bd57d13",
+      "tag100": {
+        "header_words": [
+          51530,
+          58239,
+          109768,
+          109768,
+          0
+        ],
+        "node_count": 219537,
+        "plane_bearing_count": 109768,
+        "terminal_like_count": 109769,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5049364,
+        "expected_wire_size_bytes": 5049364,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 51530,
+          "pool8_sibling": 58239,
+          "pool36": 109767
+        },
+        "max_depth": 29
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "c9d0ac610981e64c16bcdf8ff88350d2859688d9de71a66e6009b93158924040",
+      "tag1400_offset": 8561653,
+      "tag1400_size": 1961269,
+      "tag1400_sha256": "8ca5c1a34f2c26baa1053fad332a445397518a38db166766e879e98d65750153",
+      "tag1400": {
+        "source": "spain_s2.dx",
+        "tag_offset": 8561653,
+        "byte_size": 1968105,
+        "consumed_size": 1961269,
+        "trailing_size": 6836,
+        "scalar": 20.0,
+        "dimension_0": 167,
+        "dimension_1": 96,
+        "cell_count": 16032,
+        "cell_entry_count": 87323,
+        "max_cell_entry_count": 179,
+        "string_count": 14,
+        "string_byte_count": 857,
+        "record_count": 27623,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 6836,
+        "sha256": "b5e66573309509365e8286fc99a0f4f2525af0d7f9d0a4a0f47976ddb290984c"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Spain_W",
+      "file": "spain_w.dx",
+      "dx_size_bytes": 11488206,
+      "dx_sha256": "109644f89549d35dcdac92d63881815010266e2a2d1dc6e89d112e02cdb63424",
+      "revision": 135,
+      "tag100_offset": 3698680,
+      "tag100_tree_size": 5626296,
+      "tag100_tree_sha256": "885a04197faabb90991651f981a3cda4de07e3fb4c3bed70709bdee4b9ad3e4c",
+      "tag100": {
+        "header_words": [
+          56671,
+          65640,
+          122310,
+          122310,
+          0
+        ],
+        "node_count": 244621,
+        "plane_bearing_count": 122310,
+        "terminal_like_count": 122311,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5626296,
+        "expected_wire_size_bytes": 5626296,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 56671,
+          "pool8_sibling": 65640,
+          "pool36": 122309
+        },
+        "max_depth": 33
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "32b17fa129f55ff68ad128073f09e8333c87fe238c3b547552ed6ba45feca5d1",
+      "tag1400_offset": 9325020,
+      "tag1400_size": 2154746,
+      "tag1400_sha256": "1aabc8011fcbec9e6313590b3defdb9918e93618db9370c5b33a62320ffe44c9",
+      "tag1400": {
+        "source": "spain_w.dx",
+        "tag_offset": 9325020,
+        "byte_size": 2163186,
+        "consumed_size": 2154746,
+        "trailing_size": 8440,
+        "scalar": 20.0,
+        "dimension_0": 167,
+        "dimension_1": 99,
+        "cell_count": 16533,
+        "cell_entry_count": 98086,
+        "max_cell_entry_count": 179,
+        "string_count": 13,
+        "string_byte_count": 826,
+        "record_count": 30274,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 8440,
+        "sha256": "5bd51c58fa8504e2f37f8caf523ef6aec0eee1ec0ed0758b1d423a12f15c7eef"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Spain_W_flip",
+      "file": "Spain_W_flip.dx",
+      "dx_size_bytes": 11488218,
+      "dx_sha256": "74132a218e36a09543fee55993a99575155461fb249a9dd4795d5d3764fe1729",
+      "revision": 135,
+      "tag100_offset": 3698692,
+      "tag100_tree_size": 5626296,
+      "tag100_tree_sha256": "885a04197faabb90991651f981a3cda4de07e3fb4c3bed70709bdee4b9ad3e4c",
+      "tag100": {
+        "header_words": [
+          56671,
+          65640,
+          122310,
+          122310,
+          0
+        ],
+        "node_count": 244621,
+        "plane_bearing_count": 122310,
+        "terminal_like_count": 122311,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5626296,
+        "expected_wire_size_bytes": 5626296,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 56671,
+          "pool8_sibling": 65640,
+          "pool36": 122309
+        },
+        "max_depth": 33
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "32b17fa129f55ff68ad128073f09e8333c87fe238c3b547552ed6ba45feca5d1",
+      "tag1400_offset": 9325032,
+      "tag1400_size": 2154746,
+      "tag1400_sha256": "a624352ecf14791a063508ef73e3bf44b2cb688cfa5c1513ba4d3af733f23075",
+      "tag1400": {
+        "source": "Spain_W_flip.dx",
+        "tag_offset": 9325032,
+        "byte_size": 2163186,
+        "consumed_size": 2154746,
+        "trailing_size": 8440,
+        "scalar": 20.0,
+        "dimension_0": 167,
+        "dimension_1": 99,
+        "cell_count": 16533,
+        "cell_entry_count": 98086,
+        "max_cell_entry_count": 179,
+        "string_count": 13,
+        "string_byte_count": 826,
+        "record_count": 30274,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 8440,
+        "sha256": "5bd51c58fa8504e2f37f8caf523ef6aec0eee1ec0ed0758b1d423a12f15c7eef"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Turkey1",
+      "file": "turkey1.dx",
+      "dx_size_bytes": 10825457,
+      "dx_sha256": "653da3a7b2191ff3f3aaaff8dac4d38286e4c281d2cb4ae34f3e47258a81fecb",
+      "revision": 135,
+      "tag100_offset": 2982068,
+      "tag100_tree_size": 5879802,
+      "tag100_tree_sha256": "1fea7a143ddee6a338fc459a76e5fd68d4f62148e3550226f777e9da2927269c",
+      "tag100": {
+        "header_words": [
+          61827,
+          65995,
+          127821,
+          127821,
+          0
+        ],
+        "node_count": 255643,
+        "plane_bearing_count": 127821,
+        "terminal_like_count": 127822,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5879802,
+        "expected_wire_size_bytes": 5879802,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 61827,
+          "pool8_sibling": 65995,
+          "pool36": 127820
+        },
+        "max_depth": 46
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "3080d0a5a697b58cfa514d949576d73a6e14cd5bc9830397c3ec42137c9d34ed",
+      "tag1400_offset": 8861914,
+      "tag1400_size": 1930591,
+      "tag1400_sha256": "0473bdb1786bacbc0af7d498d24893eef7812a15695c75ac5d47ba530a0cdee6",
+      "tag1400": {
+        "source": "turkey1.dx",
+        "tag_offset": 8861914,
+        "byte_size": 1963543,
+        "consumed_size": 1930591,
+        "trailing_size": 32952,
+        "scalar": 20.0,
+        "dimension_0": 86,
+        "dimension_1": 99,
+        "cell_count": 8514,
+        "cell_entry_count": 77724,
+        "max_cell_entry_count": 168,
+        "string_count": 36,
+        "string_byte_count": 2607,
+        "record_count": 28265,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 32952,
+        "sha256": "76bb95c420a6725828d01f1b40ad8b375f7d87f46ffbe321a190e77a3adeace0"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Turkey2",
+      "file": "turkey2.dx",
+      "dx_size_bytes": 10813941,
+      "dx_sha256": "0c238c152543a37f4b9c2a5f9e4573b70b868d263762679612031216d19e1194",
+      "revision": 135,
+      "tag100_offset": 3293099,
+      "tag100_tree_size": 5865542,
+      "tag100_tree_sha256": "34ab5c8df943584b18d27b17c9beb761aad3eca58e75af2ef0918c2e492d8a76",
+      "tag100": {
+        "header_words": [
+          55633,
+          71879,
+          127511,
+          127511,
+          0
+        ],
+        "node_count": 255023,
+        "plane_bearing_count": 127511,
+        "terminal_like_count": 127512,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5865542,
+        "expected_wire_size_bytes": 5865542,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 55633,
+          "pool8_sibling": 71879,
+          "pool36": 127510
+        },
+        "max_depth": 31
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "1709f6f5054275aa6b95355fe2f9b21056c606d59a2b8dce2dd7c2e8851c9305",
+      "tag1400_offset": 9158685,
+      "tag1400_size": 1622512,
+      "tag1400_sha256": "e0d126b31c6c270995e6eedc1565e3b4e7d4b844e640cc238656321218b15521",
+      "tag1400": {
+        "source": "turkey2.dx",
+        "tag_offset": 9158685,
+        "byte_size": 1655256,
+        "consumed_size": 1622512,
+        "trailing_size": 32744,
+        "scalar": 20.0,
+        "dimension_0": 102,
+        "dimension_1": 87,
+        "cell_count": 8874,
+        "cell_entry_count": 78246,
+        "max_cell_entry_count": 88,
+        "string_count": 27,
+        "string_byte_count": 2004,
+        "record_count": 22712,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 32744,
+        "sha256": "5b86c832dcdb90331595ef2427001b90413102dfa062dc1df2e061532532abfc"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Turkey3",
+      "file": "turkey3.dx",
+      "dx_size_bytes": 10055607,
+      "dx_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+      "revision": 135,
+      "tag100_offset": 2738869,
+      "tag100_tree_size": 5407060,
+      "tag100_tree_sha256": "a8c8cac601fe037628f459d5f26cacf761d7ee8b46ddda99b56a1b8b8b0ae4bf",
+      "tag100": {
+        "header_words": [
+          56366,
+          61179,
+          117544,
+          117544,
+          0
+        ],
+        "node_count": 235089,
+        "plane_bearing_count": 117544,
+        "terminal_like_count": 117545,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5407060,
+        "expected_wire_size_bytes": 5407060,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 56366,
+          "pool8_sibling": 61179,
+          "pool36": 117543
+        },
+        "max_depth": 33
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "4d9211938879bfa9cd5f47d259a4ac502fa223a7494320d734b9af23da68bda0",
+      "tag1400_offset": 8145973,
+      "tag1400_size": 1877370,
+      "tag1400_sha256": "10bf29054cc09113a75c75f8867e0ce498511ce5a20c32dd3afea17f8838a176",
+      "tag1400": {
+        "source": "turkey3.dx",
+        "tag_offset": 8145973,
+        "byte_size": 1909634,
+        "consumed_size": 1877370,
+        "trailing_size": 32264,
+        "scalar": 20.0,
+        "dimension_0": 103,
+        "dimension_1": 99,
+        "cell_count": 10197,
+        "cell_entry_count": 83909,
+        "max_cell_entry_count": 90,
+        "string_count": 25,
+        "string_byte_count": 1846,
+        "record_count": 26767,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 32264,
+        "sha256": "0f2bf25c455925bd1f9263a493c3a3c22bb6374a82ceb7f26cabc8cbdbd02fdd"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Turkey_m",
+      "file": "turkey_m.dx",
+      "dx_size_bytes": 14820108,
+      "dx_sha256": "f304938bbf4f93b45333fa7fa0661d05217a51f43e26403bf981aa2721b0a2f9",
+      "revision": 135,
+      "tag100_offset": 4305988,
+      "tag100_tree_size": 7996722,
+      "tag100_tree_sha256": "e82e41858fdf30db14ad77270584911123979947cf10a452707095af5d7c34fd",
+      "tag100": {
+        "header_words": [
+          80908,
+          92934,
+          173841,
+          173841,
+          0
+        ],
+        "node_count": 347683,
+        "plane_bearing_count": 173841,
+        "terminal_like_count": 173842,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 7996722,
+        "expected_wire_size_bytes": 7996722,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 80908,
+          "pool8_sibling": 92934,
+          "pool36": 173840
+        },
+        "max_depth": 44
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "6a300f9047827f196a9a8af6e730edecf95cd63836a4e9e9f00791cbd95a5795",
+      "tag1400_offset": 12302754,
+      "tag1400_size": 2484158,
+      "tag1400_sha256": "2283e5065b09241c07bd0b920ea914a17dca31bddab6156f7adb3d171bd6a7ea",
+      "tag1400": {
+        "source": "turkey_m.dx",
+        "tag_offset": 12302754,
+        "byte_size": 2517354,
+        "consumed_size": 2484158,
+        "trailing_size": 33196,
+        "scalar": 20.0,
+        "dimension_0": 169,
+        "dimension_1": 120,
+        "cell_count": 20280,
+        "cell_entry_count": 99733,
+        "max_cell_entry_count": 168,
+        "string_count": 53,
+        "string_byte_count": 3862,
+        "record_count": 35714,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 33196,
+        "sha256": "5ccc3f7ab641bd49d18884aaf2c57416d7035ddc2141b7db577a5f342a86581d"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Turkey_s1",
+      "file": "turkey_s1.dx",
+      "dx_size_bytes": 13526074,
+      "dx_sha256": "fbf4e3c2358b5ed41c55be9d0f781793388d67783d9ca44e152337ac621065c0",
+      "revision": 135,
+      "tag100_offset": 4122385,
+      "tag100_tree_size": 7038036,
+      "tag100_tree_sha256": "eed00cddbe134743af980031714f553c9beaae3c3ea16524754161953b15caf1",
+      "tag100": {
+        "header_words": [
+          70269,
+          82732,
+          153000,
+          153000,
+          0
+        ],
+        "node_count": 306001,
+        "plane_bearing_count": 153000,
+        "terminal_like_count": 153001,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 7038036,
+        "expected_wire_size_bytes": 7038036,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 70269,
+          "pool8_sibling": 82732,
+          "pool36": 152999
+        },
+        "max_depth": 31
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "9cd170fe5ce9b189b0b626cc0b6c4251d1f9a7cbf7c7d380661235fb26f589a5",
+      "tag1400_offset": 11160465,
+      "tag1400_size": 2333013,
+      "tag1400_sha256": "5ec8e67dbbad081054d01cdbf312bdee4fd54cc745ec5a76980c18f72da932dc",
+      "tag1400": {
+        "source": "turkey_s1.dx",
+        "tag_offset": 11160465,
+        "byte_size": 2365609,
+        "consumed_size": 2333013,
+        "trailing_size": 32596,
+        "scalar": 20.0,
+        "dimension_0": 199,
+        "dimension_1": 116,
+        "cell_count": 23084,
+        "cell_entry_count": 109537,
+        "max_cell_entry_count": 104,
+        "string_count": 36,
+        "string_byte_count": 2665,
+        "record_count": 32137,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 32596,
+        "sha256": "3d969fe14028d4eb305d52f3cb5254ed759bfe96f46944b02898de31cfa90312"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Turkey_s2",
+      "file": "turkey_s2.dx",
+      "dx_size_bytes": 12968283,
+      "dx_sha256": "de286e3fde3378133c9f43117c3564480dd12cce5f369ed6dd17ee9b595cbde5",
+      "revision": 135,
+      "tag100_offset": 3749828,
+      "tag100_tree_size": 7021706,
+      "tag100_tree_sha256": "30b70eece826958f9e089f4eba1e3eeac03095116f0ebf6e11c24afbe04bd755",
+      "tag100": {
+        "header_words": [
+          70757,
+          81889,
+          152645,
+          152645,
+          0
+        ],
+        "node_count": 305291,
+        "plane_bearing_count": 152645,
+        "terminal_like_count": 152646,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 7021706,
+        "expected_wire_size_bytes": 7021706,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 70757,
+          "pool8_sibling": 81889,
+          "pool36": 152644
+        },
+        "max_depth": 28
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "515d051ac27a8f2276e4f344087a34aebf5a96c3169e99da05397a97a890bfe0",
+      "tag1400_offset": 10771578,
+      "tag1400_size": 2164017,
+      "tag1400_sha256": "27cae79b2af1d5c08b55074670759826eb550d402a90069ea41e23aace5dc64a",
+      "tag1400": {
+        "source": "turkey_s2.dx",
+        "tag_offset": 10771578,
+        "byte_size": 2196705,
+        "consumed_size": 2164017,
+        "trailing_size": 32688,
+        "scalar": 20.0,
+        "dimension_0": 198,
+        "dimension_1": 86,
+        "cell_count": 17028,
+        "cell_entry_count": 94352,
+        "max_cell_entry_count": 103,
+        "string_count": 36,
+        "string_byte_count": 2689,
+        "record_count": 30636,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 32688,
+        "sha256": "5e2a65fa27fb26770fc64f0cefb351909d7dab02c73674236500996941349016"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Turkey_s2_flip",
+      "file": "turkey_s2_flip.dx",
+      "dx_size_bytes": 12965900,
+      "dx_sha256": "d4ac39f98215d38df18a976f27f9ddc4dc233c89d95e1940348ae3b5ff5f3ddd",
+      "revision": 135,
+      "tag100_offset": 3749975,
+      "tag100_tree_size": 7019176,
+      "tag100_tree_sha256": "0ba0e9ed7ccc8b582366244a1e2c4db99e8efc72d86c43e03c6f2d090fae9348",
+      "tag100": {
+        "header_words": [
+          70726,
+          81865,
+          152590,
+          152590,
+          0
+        ],
+        "node_count": 305181,
+        "plane_bearing_count": 152590,
+        "terminal_like_count": 152591,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 7019176,
+        "expected_wire_size_bytes": 7019176,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 70726,
+          "pool8_sibling": 81865,
+          "pool36": 152589
+        },
+        "max_depth": 28
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "515d051ac27a8f2276e4f344087a34aebf5a96c3169e99da05397a97a890bfe0",
+      "tag1400_offset": 10769195,
+      "tag1400_size": 2164017,
+      "tag1400_sha256": "8bd2677b0e069a1286b14d56f49f4bc4d78b6324e244bd0b0394022bc81a0f52",
+      "tag1400": {
+        "source": "turkey_s2_flip.dx",
+        "tag_offset": 10769195,
+        "byte_size": 2196705,
+        "consumed_size": 2164017,
+        "trailing_size": 32688,
+        "scalar": 20.0,
+        "dimension_0": 198,
+        "dimension_1": 86,
+        "cell_count": 17028,
+        "cell_entry_count": 94352,
+        "max_cell_entry_count": 103,
+        "string_count": 36,
+        "string_byte_count": 2689,
+        "record_count": 30636,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 32688,
+        "sha256": "5e2a65fa27fb26770fc64f0cefb351909d7dab02c73674236500996941349016"
+      },
+      "count_invariants_pass": true
+    },
+    {
+      "course": "Turkey_w",
+      "file": "turkey_w.dx",
+      "dx_size_bytes": 10659103,
+      "dx_sha256": "d180cb0e0ea801438a39e54a5d683472d3ded30ff09db0a6ffd987d06d5f2a00",
+      "revision": 135,
+      "tag100_offset": 3056211,
+      "tag100_tree_size": 5772392,
+      "tag100_tree_sha256": "431f2d9227d116941df0b725be77eef2e49a3c101a5c128d2afe34b1984ea74d",
+      "tag100": {
+        "header_words": [
+          56412,
+          69075,
+          125486,
+          125486,
+          0
+        ],
+        "node_count": 250973,
+        "plane_bearing_count": 125486,
+        "terminal_like_count": 125487,
+        "list_item_count": 0,
+        "list_block_count": 0,
+        "tree_size_bytes": 5772392,
+        "expected_wire_size_bytes": 5772392,
+        "wire_size_formula_matches": true,
+        "count_invariants": {
+          "word0_plus_word1_eq_word2_plus_one": true,
+          "word2_eq_word3": true,
+          "node_count_eq_word0_plus_word1_plus_word2": true,
+          "plane_bearing_count_eq_word2": true,
+          "terminal_count_eq_plane_count_plus_one": true,
+          "node_count_eq_twice_plane_count_plus_one": true,
+          "wire_size_formula_matches_consumed_size": true
+        },
+        "allocation_role_counts": {
+          "root": 1,
+          "pool8_child": 56412,
+          "pool8_sibling": 69075,
+          "pool36": 125485
+        },
+        "max_depth": 32
+      },
+      "tag1339_size": 44,
+      "tag1339_sha256": "d500eae96659ab98ccc611f580a032c8a58e5443fb9870a3d3384978c68dd61b",
+      "tag1400_offset": 8828647,
+      "tag1400_size": 1797492,
+      "tag1400_sha256": "fb11982fd6996fee44dee04279e9f3674748955b6cd641667cb6be864d3a0aa6",
+      "tag1400": {
+        "source": "turkey_w.dx",
+        "tag_offset": 8828647,
+        "byte_size": 1830456,
+        "consumed_size": 1797492,
+        "trailing_size": 32964,
+        "scalar": 20.0,
+        "dimension_0": 160,
+        "dimension_1": 122,
+        "cell_count": 19520,
+        "cell_entry_count": 85377,
+        "max_cell_entry_count": 128,
+        "string_count": 35,
+        "string_byte_count": 2580,
+        "record_count": 24556,
+        "record_stride": 56
+      },
+      "later_region": {
+        "tag": 1500,
+        "size_bytes": 32964,
+        "sha256": "40b6b79a53fd9ccb17b38f152d54a6b2c8eec47a36e879b944e215385034edc4"
+      },
+      "count_invariants_pass": true
+    }
+  ]
+}

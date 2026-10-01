@@ -58,8 +58,7 @@ terminal meaning, and runtime query traversal remain **UNKNOWN**.
 F.1 reciprocally swapped every byte from the tag100 marker through EOF. The
 loader-guided parse finds a tag100 tree of 8,293,376 baseline bytes and
 8,289,972 modified bytes. It is followed by a 44-byte tag1339 record that is
-identical in the pair, then a 1,824,828-byte tag1400 region with 64 changed
-byte positions in 47 ranges. The physical collision followed the selected
+identical in the pair, then a 1,824,828-byte post-tag1339 remainder, now separated as tag1400 U (1,809,324 bytes) plus tag1500 R (15,504 bytes). The 64 changed byte positions are in U; R is byte-identical. The physical collision followed the selected
 suffix donor in both runtime hybrids, with visible finish geometry and
 FinishArea completion unchanged. Thus the runtime result is **CONFIRMED** for
 the complete tag100-starting suffix and the tested source state. The F.1 test
@@ -112,3 +111,8 @@ the corpus probe is [`r5t_f2_tag100_probe.py`](../../tools/r5t_f2_tag100_probe.p
 - Meaning of the record code and leading node fields.
 - Exact `$bsp -> tag100` relationship and behavior of other source collision classes.
 - Any write or rebuild grammar. No writer was implemented.
+
+
+## R5T-F.2.1 static updates
+
+The prior 148-byte size residual is resolved by the exact link-selector count; the general formula includes one 4-byte length for each present optional-list block. All 36 current Retail tag100 trees satisfy the stated header/node invariants. The complete post-tag1339 remainder of 1,824,828 bytes splits into tag1400 U (1,809,324 bytes) and later tag1500 R (15,504 bytes) for the controlled France1 pair. Tag1400’s 64 changed bytes/47 ranges are typed into its 56-byte record family; all other parsed families remain equal. The two runtime hybrids are staged, and causal ownership remains pending human runtime results. See [`research/r5t_f21/findings.md`](../r5t_f21/findings.md).

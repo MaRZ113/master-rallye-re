@@ -23,7 +23,9 @@ France1 and Italy1 details, per-resource divergence offsets, draw counts, and va
 The course DX render model remains separate from the loader-guided,
 read-only tag100 parser in `master_rallye.course_tag100`. It does not implement
 a course DX writer or a tag100 writer. The F.2 parser stops at the end of the
-tag100 tree and leaves following sections for separate handling.
+tag100 tree; F.2.1 separately parses tag1400 U and records the later tag1500 R
+region as opaque. Neither parser provides a writer or assigns those later
+regions a complete runtime meaning.
 
 ## R5T-F.1 tested physical state follows the tag100-starting suffix
 
@@ -37,13 +39,7 @@ declared globally to be collision data or a fully decoded spatial tree. Cooker
 render-sort BSP generation remains a separate pipeline from this trailing
 tag100 region.
 
-The runtime test swapped bytes from the tag100 marker through EOF. F.2 found a
-44-byte tag1339 record followed by a separate tag1400 region after the parsed
-tree. The tag1339 bytes are identical in the source pair; the 1,824,828-byte
-tag1400 regions have 64 different byte positions. Runtime isolation therefore
-applies to the complete suffix. The source-matching plane records themselves
-are inside the parsed tag100 tree, a **HIGH_CONFIDENCE_INFERENCE** geometric
-binding; the independent runtime contribution of tag1400 remains unknown.
+The runtime test swapped bytes from the tag100 marker through EOF. F.2 found a 44-byte tag1339 record after the parsed tree. F.2.1 then separated the following bytes into tag1400 U (1,809,324 bytes) and tag1500 R (15,504 bytes) in the controlled France1 pair. The earlier 1,824,828-byte ‘tag1400 region’ label referred to the combined U+R remainder; 64 changed byte positions are all in U, while R is byte-identical. Runtime isolation therefore still applies to the complete suffix. The source-matching plane records themselves are inside the parsed tag100 tree, a **HIGH_CONFIDENCE_INFERENCE** geometric binding; the independent runtime contribution of U remains unknown pending the staged hybrids.
 
 Loader entry points, wire grammar, plane matching, corpus coverage, and
 remaining unknowns are recorded in
@@ -102,3 +98,8 @@ startpoint box, physical collision, or a runtime trigger. Full offsets, values,
 neighbor windows and residual evidence are in
 [`research/r5t_c/findings.md`](../../research/r5t_c/findings.md) and
 [`research/r5t_c/tag100-diff-france1-one-point.md`](../../research/r5t_c/tag100-diff-france1-one-point.md).
+
+
+## R5T-F.2.1 section isolation (runtime pending)
+
+The 36/36 Retail corpus satisfies the parser-derived tag100 count invariants and exact size equation. A bounded tag1400 parser reaches its separately parsed tag1500 tail; the France1 64 changed byte positions in 47 ranges all belong to typed fields in the tag1400 56-byte record family. This does not identify their runtime meaning. The old source-triangle ordinal −12 correlation for the optional-record `code` remains numeric/high-confidence only. See [`research/r5t_f21/findings.md`](../../research/r5t_f21/findings.md).

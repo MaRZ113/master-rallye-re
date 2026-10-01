@@ -416,3 +416,8 @@ Two baseline and two modified Demo 9.10 cooks verified a rigid +3 source-X trans
 ## R5V-C ID25 experimental runtime status
 
 The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE-copy candidate. Static patch validation passes; **RUNTIME VALIDATION: WAITING FOR HUMAN P0**. There is no confirmed 26th playable vehicle yet, and P1 race testing must wait for a human P0 menu/preview pass. See research/r5v_c/validation.md.
+
+
+## R5T-F.2.1 tree/tag1400 causal isolation (awaiting runtime)
+
+The tag100 tree size equation now closes exactly, including one selector byte per non-root serialized record; the 148-byte France1 residual is accounted for. All 36 Retail trees satisfy the header/node count invariants. A read-only parser divides tag1400 U (1,809,324 bytes in the controlled pair) from tag1500 R (15,504 bytes, identical between donors) and maps all 64 changed U byte positions across 47 ranges to its typed record family. Two provenance-verified mismatched hybrids (T-only modified and U-only modified) parse as revision 135 and are staged in ignored `research-output/r5t_f21/`. F.1 remains suffix-level until the human tests them. No carrier conclusion is preselected. See `research/r5t_f21/findings.md`.

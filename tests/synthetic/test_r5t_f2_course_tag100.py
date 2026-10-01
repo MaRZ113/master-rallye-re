@@ -119,6 +119,38 @@ class R5TF2CourseTag100Tests(unittest.TestCase):
         self.assertFalse(hasattr(CourseTag100, "edit"))
         self.assertFalse(hasattr(CourseTag100, "rebuild"))
 
+    def test_exact_wire_size_accounting_includes_selector_and_list_count_bytes(self):
+        sibling = _node(5, 6)
+        child = _node(3, 4, sibling=(0, sibling))
+        root = _node(
+            1,
+            2,
+            optional=(0.0, 1.0, 0.0, -3.0, 9),
+            items=((1.0, 2.0, 3.0, 4.0, 7),),
+            child=(1, child),
+        )
+        parsed = parse_course_tag100_bytes(_tag100((1, 0, 1, 1, 1), root))
+        self.assertEqual(parsed.expected_wire_size(), parsed.consumed_size)
+        self.assertEqual(parsed.list_block_count, 1)
+        self.assertEqual(parsed.optional_record_count, 1)
+
+    def test_retail_count_invariants_and_terminal_plane_cardinality(self):
+        sibling = _node(5, 6)
+        child = _node(3, 4, sibling=(0, sibling))
+        root = _node(1, 2, optional=(0.0, 1.0, 0.0, -3.0, 9), child=(1, child))
+        parsed = parse_course_tag100_bytes(_tag100((1, 1, 1, 1, 0), root))
+        self.assertEqual(len(parsed.nodes), 3)
+        self.assertEqual(parsed.optional_record_count, 1)
+        self.assertEqual(parsed.count_invariants(), {
+            "word0_plus_word1_eq_word2_plus_one": True,
+            "word2_eq_word3": True,
+            "node_count_eq_word0_plus_word1_plus_word2": True,
+            "plane_bearing_count_eq_word2": True,
+            "terminal_count_eq_plane_count_plus_one": True,
+            "node_count_eq_twice_plane_count_plus_one": True,
+            "wire_size_formula_matches_consumed_size": True,
+        })
+
 
 if __name__ == "__main__":
     unittest.main()

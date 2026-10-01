@@ -65,3 +65,8 @@ python tools\r5t_f1_tag100_swap.py verify
 ```
 
 If it fails because a runtime rewrote either DX, preserve the changed file and report its hash; do not silently rebuild or restore the hybrid before review.
+
+
+## F.2.1 boundary refinement
+
+The ‘1,824,828-byte tag1400 region’ wording in this historical handoff referred to U+R together. The parser-bounded split is U=1,809,324-byte tag1400 and R=15,504-byte tag1500, with all 64 changed byte positions in U and R identical. F.1's completed runtime test remains whole-suffix evidence; the newer T-only and U-only runtime result is pending.

@@ -153,3 +153,8 @@ document.
   parse as JSON and the two F1 manifests are equal.
 - Blender smoke was not run: this phase changed no Blender/add-on files.
 - `git diff --check` — passed before commit.
+
+
+## F.2.1 boundary refinement
+
+The earlier F.2 phrase ‘tag1400 region’ used the entire 1,824,828-byte remainder after tag1339. F.2.1 separates that controlled-pair remainder into tag1400 U (1,809,324 bytes; 64 changed byte positions in 47 ranges) and tag1500 R (15,504 bytes; byte-identical between donors). The original F.1 reciprocal runtime result still applies to the complete tag100-starting suffix. The staged T-only/U-only hybrids are the first runtime isolation test; their result is pending.
