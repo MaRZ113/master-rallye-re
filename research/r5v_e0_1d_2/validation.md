@@ -13,7 +13,7 @@
 - Red-tail candidate SHA-256: `9d56c1ef0682224d3254db0e5e49cb4ecb11076467321f073f15d60526f60e46`.
 - Whole-file comparison reports exactly twelve changed bytes, all within the three RGB immediate dwords listed in [runtime-diagnostic.md](runtime-diagnostic.md); the alpha word is identical. The input candidate was read-only and not overwritten.
 - Candidate output and generated package files are ignored under `research-output/`.
-- Human runtime result: **pending**. No gameplay success is claimed.
+- Human runtime result: **FULL PASS by user report**. Only the ID25 race marker changed to red; Trooper model/physics/collision, Astero's marker, and opponent colours remained unchanged. This is reported evidence, not an independent launch in this session.
 
 ## Tests
 

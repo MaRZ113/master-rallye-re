@@ -2,7 +2,7 @@
 
 ## Status
 
-**Static source-to-property path: confirmed in retail Ghidra assembly/P-code. Corpus pattern: 25/25 plausible normalized RGBA vectors. Runtime red-tail A/B: prepared, waiting for the user's test.** The runtime role of the vector as `Race/CarN/Colour` is clear from the static writer; the specific claim that changing only ID25's vector changes only the Player1 marker still needs the isolated runtime comparison.
+**FULL PASS by user-reported runtime result.** The static source-to-property path is confirmed in retail Ghidra assembly/P-code; the corpus contains 25/25 plausible normalized RGBA vectors. The isolated red-tail A/B changed ID25's marker to red while Trooper model/physics/collision, Astero's marker, and opponent colours remained unchanged. This phase's runtime result is user-reported, not independently reproduced in this workspace.
 
 The best eventual semantic name is `race_colour_rgba`: the same four floats feed the `Race/CarN/Colour` property through multiple race setup paths, and the progress-marker HUD reads that property. The authoring/profile API remains unchanged until the red-tail diagnostic is reported.
 
@@ -30,12 +30,12 @@ With the bypass, all player-selected cars used the same XML fallback, while oppo
 
 ## ID25 red-tail diagnostic
 
-Prepared candidate: `research-output/r5v_e0_1d_2/runtime-test/MRallye_slot25_trooper_redrecordcolour_test.exe`, SHA-256 `9d56c1ef0682224d3254db0e5e49cb4ecb11076467321f073f15d60526f60e46`.
+Tested candidate: `research-output/r5v_e0_1d_2/runtime-test/MRallye_slot25_trooper_redrecordcolour_test.exe`, SHA-256 `9d56c1ef0682224d3254db0e5e49cb4ecb11076467321f073f15d60526f60e46`.
 
-It is derived from the P0 Trooper / SmallCarSheet29 candidate, SHA-256 `e19e80e64fcf2835d9883b115868e0cb8a0b63e05f48c8527580b2e0b531c0df`. Exactly three 4-byte RGB immediate words in the existing ID25 initializer stub change. Alpha stays `1.0`. HUD XML, the bypass, class capacity, name, stats, Trooper family, and SmallCarSheet29 index are untouched. The candidate has not been run yet.
+It was derived from the P0 Trooper / SmallCarSheet29 candidate, SHA-256 `e19e80e64fcf2835d9883b115868e0cb8a0b63e05f48c8527580b2e0b531c0df`. Exactly three 4-byte RGB immediate words in the existing ID25 initializer stub changed. Alpha stayed `1.0`. HUD XML, the bypass, class capacity, name, stats, Trooper family, and SmallCarSheet29 index were untouched. The user reports that the candidate produced the predicted red ID25 marker; the original Astero marker and opponent colours stayed normal, and Trooper model/physics/collision were unchanged.
 
 See [race-colour-dataflow.md](race-colour-dataflow.md), [vehicle-record-colour.md](vehicle-record-colour.md), and [runtime-diagnostic.md](runtime-diagnostic.md).
 
 ## Gate
 
-Static mapping is sufficient to describe the field as the source vector for `Race/CarN/Colour`. Keep the shipped profile field names generic until the isolated red-tail test confirms the visible ID25 result and checks that other runtime identity roles remain unchanged. R5V-F is not started here.
+Static mapping plus the isolated user-reported runtime A/B establish this vector as the per-vehicle race-marker colour source. E0.1d.2 is closed. No executable or runtime candidate was changed by this documentation closeout. R5V-F remains gated on the separate Vehicle Select icon issue and other stated readiness criteria.

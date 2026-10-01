@@ -2,7 +2,7 @@
 
 ## Verdict
 
-**Historical E0.1d status: producer unknown at that phase. Current follow-up: runtime precedence passed by user report; VehicleRecord-tail-to-Race/CarN/Colour path confirmed statically in R5V-E0.1d.2; isolated red-tail runtime result pending.** The old slot-0 bypass crashed during race loading and is invalid because its helper violated the stack ABI. That crash is not colour-precedence evidence.
+**Historical E0.1d status: producer unknown at that phase. Follow-ups: runtime precedence passed by user report; VehicleRecord-tail-to-Race/CarN/Colour path confirmed statically in R5V-E0.1d.2; isolated ID25 red-tail A/B is FULL PASS by user report.** The old slot-0 bypass crashed during race loading and is invalid because its helper violated the stack ABI. That crash is not colour-precedence evidence.
 
 The prior R5V-E0.1c commit remains an accurate record of its then-current blocked state. This phase adds evidence and candidates without replacing that history. E0.1c closeout commit: `685cf1f`.
 
@@ -26,12 +26,12 @@ The XML archive and old executable remain under ignored `research-output/r5v_e0_
 
 ## Remaining evidence gate
 
-The XML-only and ABI-safe bypass runtime reports are complete. R5V-E0.1d.2 traces the source vector from VehicleRecord tail into the shared `Race/CarN/Colour` property. Its isolated ID25 red-tail candidate still awaits the human runtime test. If that result is unexpected, use [R5V-E0.1d.2 MANUAL_X32DBG.txt](../../r5v_e0_1d_2/MANUAL_X32DBG.txt) with the clean baseline.
+The XML-only, ABI-safe bypass, and ID25 red-tail runtime reports are complete. R5V-E0.1d.2 traces the source vector from VehicleRecord tail into the shared `Race/CarN/Colour` property. The user reports that the ID25 red-tail candidate changed only its marker to red while Astero, opponents, and Trooper gameplay stayed unchanged. The result was not independently reproduced in this workspace.
 
 - `Race/Car0/Colour` runtime precedence is **CONFIRMED BY USER REPORT**.
 - Colour producer is **statically traced from VehicleRecord tail through Race/CarN/Colour**.
-- The isolated ID25 marker change is **PENDING**; profile fields remain unchanged.
-- R5V-E0.1d.2 is **WAIT FOR HUMAN RED-TAIL TEST**; R5V-F is not started.
+- The isolated ID25 marker change is **FULL PASS by user report**; the static and reported runtime semantics are closed.
+- R5V-E0.1d.2 is **CLOSED**; R5V-F remains gated on the separate Vehicle Select icon issue.
 
 ## Success criteria status
 
@@ -40,9 +40,9 @@ The XML-only and ABI-safe bypass runtime reports are complete. R5V-E0.1d.2 trace
 | XML `ObjectColour` final visible effect | User reports red XML left marker aquamarine/cyan-like |
 | `Race/Car0/Colour` runtime override behavior proven | User reports normal override and XML fallback with ABI-safe bypass |
 | Producer identified | Static producer reads VehicleRecord tail and writes `/Colour` |
-| Semantic owner identified | VehicleRecord tail is the static race-property source; runtime A/B pending |
-| Player1 colour source explained | Static path resolves participant CarID; isolated red-tail visible test pending |
-| Clean semantic control changes Player1 marker | Not implemented; ID25 red-tail A/B pending |
-| Unrelated HUD and vehicle behavior unchanged | Bypass report says opponents unchanged; red-tail A/B pending |
+| Semantic owner identified | VehicleRecord tail is the static race-property source; user reports matching isolated runtime A/B |
+| Player1 colour source explained | Static path resolves participant CarID; user reports ID25 red-tail marker changes to red |
+| Clean semantic control changes Player1 marker | ID25 red-tail candidate changed only its RGB values; user reports expected red marker |
+| Unrelated HUD and vehicle behavior unchanged | User reports original Astero marker, opponent colours, and Trooper model/physics/collision unchanged |
 
 See [producer.md](producer.md), [override-precedence.md](override-precedence.md), and [validation.md](validation.md).

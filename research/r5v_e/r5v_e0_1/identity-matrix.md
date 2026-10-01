@@ -10,8 +10,8 @@ the source used by another.
 | Vehicle Select icon | class2 local position and static scene widget | T3_CarN XML widget to carsheet bank index | No T3_Car12 binding; icon absent | Indirectly by static widget order | No | No | PROVEN |
 | Race 1P icon | Race participant ID | TimeDiffs/gaHudTimeDiffsAi -> CarID -> record +0x1C -> embedded image selector | Forklift frame 29, owner-confirmed with selector diagnostic | Yes | Yes, field +0x1C | No | RUNTIME_CONFIRMED |
 | Progress marker artwork | HUD display slot 0..7 | Generic hud-template frame 3 | Generic marker artwork shared across vehicles | No vehicle-record read in this consumer | No | No | PROVEN |
-| Progress marker tint | HUD display slot from `this+0x18` | `FUN_004A74A0` conditionally copies `Race/CarN/Colour` over the widget's loaded tint | Owner reports aquamarine appearance; ID25 SmallCarSheet selector change leaves it unchanged; E0.1d XML/bypass candidates await runtime | No VehicleRecord read in this consumer; upstream writer not traced | No in consumer | No in consumer | Static consumer PROVEN; XML/property precedence, source, numeric values, and semantic owner UNKNOWN |
-| HUD progress widget colour config | Per-widget `ProgressCarN` | `Hud0/Hud1.xml` `ObjectColour` loaded by `FUN_004A72A0`; tested one-player RaceTest loaders use Hud0 | Static palette exists; the XML-only and slot-0 bypass tests are prepared but not run | No | No | No | CONFIG INPUT PROVEN; runtime precedence and race-property producer UNKNOWN |
+| Progress marker tint | HUD display slot from `this+0x18` | Race setup reads `VehicleRecord[CarID]+0x24..+0x30` into `Race/CarN/Colour`; `FUN_004A74A0` copies the property over the loaded tint | User reports ID25-only red-tail change recoloured Trooper's marker red; Astero marker and opponents stayed unchanged | Participant CarID selects source record | Yes, upstream source +0x24..+0x30 | No in HUD consumer | STATICALLY TRACED; runtime A/B FULL PASS by user report |
+| HUD progress widget colour config | Per-widget `ProgressCarN` | `Hud0/Hud1.xml` `ObjectColour` loaded by `FUN_004A72A0`; tested one-player RaceTest loaders use Hud0 | User reports red XML is fallback when the normal `/Colour` override is bypassed | No | No | No | CONFIG INPUT PROVEN; fallback precedence passed by user report |
 | Race Results icon | Race participant absolute vehicle ID | participant ID -> record +0x1C -> Frontend/RaceResults/CarN -> smallcarsheet index | Forklift frame 29, owner-confirmed with selector diagnostic | Yes | Yes, field +0x1C | No | RUNTIME_CONFIRMED |
 
 ## Future profile status
@@ -27,7 +27,7 @@ Only fields backed by a demonstrated source are listed as controllable:
 | vehicle_select_icon | ASSET_MISSING | No Trooper-specific art/mapping found; frame 25 exists but its identity and slot binding are unproven |
 | race_player_icon | RUNTIME_CONFIRMED | Owner observed frame 29 in the top-left participant icon with the +0x1C diagnostic |
 | progress_icon | PROVEN_READ_ONLY | Static generic frame 3 is shared by progress markers |
-| progress_marker_colour | UNKNOWN / NOT IN VEHICLE PROFILE | E0.1d still has no writer, source owner, runtime float values, or tested precedence. Do not model as a vehicle field unless vehicle dependence is proven. |
+| progress_marker_colour | RUNTIME_CONFIRMED | VehicleRecord +0x24..+0x30 supplies the per-vehicle race marker RGBA; ID25 RGB-only diagnostic passed by user report. |
 | results_icon | PROVEN_CONTROLLABLE | Record +0x1C drives the numeric smallcarsheet selector for results |
 
 This matrix is a research model, not a schema implementation.

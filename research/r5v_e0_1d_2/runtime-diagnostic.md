@@ -29,4 +29,4 @@ Use a disposable copy of the same retail installation/data used for the P0 runti
 
 Expected result if the direct vector is the visible source: only the Player1 bottom progress marker changes from aquamarine to red. Verify Trooper preview/race model, physics and collision behavior, SmallCarSheet29 Forklift icons, frontend stats, and opponent marker colours remain the same. Do not use campaign saves.
 
-The candidate is **prepared but not runtime-tested**. Return observations, including any unexpected changes or crash, before changing profile field names.
+The candidate is **FULL PASS by user-reported runtime result**. The ID25 marker changed from aquamarine to red; Trooper model, physics, and collision remained unchanged; Astero kept its normal marker; and opponents remained independent. This report was supplied by the user and was not independently reproduced in this workspace.

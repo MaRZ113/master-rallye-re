@@ -2,7 +2,7 @@
 
 ## Status
 
-**Static ABI closure: PASS. Runtime precedence: PASS by user report. Producer: statically traced in R5V-E0.1d.2; red record-tail A/B pending.** The previous candidate crashed during race loading because its helper did not preserve the original stack contract. That invalid candidate remains historical evidence only.
+**Static ABI closure: PASS. Runtime precedence: PASS by user report. Producer: statically traced in R5V-E0.1d.2; ID25 red record-tail A/B: FULL PASS by user report.** The previous candidate crashed during race loading because its helper did not preserve the original stack contract. That invalid candidate remains historical evidence only.
 
 The corrected candidate is `research-output/r5v_e0_1d_1/override-bypass/MRallye_slot25_trooper_smallsheet29_xmlred_colour-bypass-abi-safe.exe`, SHA-256 `ce17e26a87f0d1f6aed4b96e77d2d57a4b3b7f9772c5f19f677af3c35d0a71fb`. It was run by the user in an isolated game copy with the existing XML-red archive, SHA-256 `10f69fde8c9110abb69bb0c004904697af4e2ca024d4e38a24f97bbd04861072`.
 
@@ -56,4 +56,4 @@ The legacy E0.1d generator now refuses to emit its invalid helper. Its old outpu
 
 No runtime backing pointer or Car0..Car3 numeric vectors have been captured. R5V-E0.1d.2 traces VehicleRecord tail values through the shared `Race/CarN/Colour` writer to the HUD consumer. If the red-tail test fails or remains ambiguous, use [../r5v_e0_1d_2/MANUAL_X32DBG.txt](../r5v_e0_1d_2/MANUAL_X32DBG.txt) with the clean E0 baseline. Do not use the bypass candidate for that trace: its slot-0 branch skips the value getter at `004A7684`.
 
-Static evidence now supports vehicle-dependent production. The isolated ID25 red-tail A/B remains necessary before exposing a semantic profile field. R5V-F is not started.
+Static evidence and the user-reported isolated ID25 red-tail runtime A/B establish vehicle-dependent production. E0.1d.2 records the colour vector as the race-marker source. R5V-F remains gated on the Vehicle Select icon and other remaining frontend identity work.
