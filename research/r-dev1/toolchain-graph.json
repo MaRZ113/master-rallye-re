@@ -1,0 +1,43 @@
+{
+  "schema_version":1,
+  "nodes":[
+    {"id":"loose","label":"loose files","kind":"input"},{"id":"archive","label":"Data.sma","kind":"input"},
+    {"id":"resource","label":"resource lookup/open","addresses":["0054A360","0064D530"],"kind":"engine"},
+    {"id":"xml","label":"XML parser","addresses":["0052D830","005FDD40","0052EEB0"],"kind":"engine"},
+    {"id":"broker","label":"typed parameter broker, 0x1c entry stride","kind":"state"},
+    {"id":"configqueue","label":"XmlFilename dependent queue","addresses":["00522B10","00522BD0","00522B60","005FC950"],"kind":"engine"},
+    {"id":"gate","label":"Menues/Enabled and capability checks","address":"005AFB20","kind":"gate"},
+    {"id":"menu","label":"Game → Reset / Exit","address":"005B1320","kind":"UI"},
+    {"id":"dispatch","label":"WM_COMMAND dispatch","addresses":["005B0880","005B0990"],"kind":"UI"},
+    {"id":"sink","label":"global logger sink","address":"0064E4C0","kind":"tool"},
+    {"id":"debug","label":"owner-drawn Debug window","addresses":["0064E5C0","0064EC50"],"kind":"tool"},
+    {"id":"owners","label":"editor owner constructors","address":"005AF5C0","kind":"tool"},
+    {"id":"builddata","label":"recursive BuildData","addresses":["005B2F80","005B2DA0"],"kind":"tool"},
+    {"id":"model","label":"GXM loader/build","addresses":["0053C3F0","0054D6E0"],"kind":"loader"},
+    {"id":"texture","label":"GXI texture/cache","addresses":["0053DCC0","0054A9B0","0054ACD0"],"kind":"loader"},
+    {"id":"bank","label":"GXB/GXP image bank","addresses":["0054B430","00572810","005729E0"],"kind":"loader"},
+    {"id":"cache","label":"DX/DXT cache outputs","kind":"output"},
+    {"id":"flow","label":"Flow Builder","addresses":["00662D90","00662E00"],"kind":"tool"},
+    {"id":"sf","label":"SpeedFunction .sf","kind":"input"},{"id":"fl","label":"Flow .fl","kind":"input"},
+    {"id":"flsfl","label":"FL-to-SFL converter","address":"006635B0","kind":"tool"},
+    {"id":"flowout","label":".sf/.fl/.sfl outputs","kind":"output"},
+    {"id":"xmlsave","label":"Game/Scene XML save","addresses":["005B16C0","005B2480","005FE460"],"kind":"tool"},
+    {"id":"writer","label":"deferred XML writer","addresses":["005FC9C0","0054A4B0","0064D530"],"kind":"writer"}
+  ],
+  "edges":[
+    {"from":"loose","to":"resource","label":"loose path first"},{"from":"archive","to":"resource","label":"fallback"},
+    {"from":"resource","to":"xml","label":"DataGame payload"},{"from":"xml","to":"broker","label":"parse typed entries"},
+    {"from":"broker","to":"configqueue","label":"XmlFilename values"},{"from":"configqueue","to":"resource","label":"dependent XML reads"},
+    {"from":"broker","to":"gate","label":"Menues/Enabled"},{"from":"gate","to":"menu","label":"capability-gated menu"},
+    {"from":"menu","to":"dispatch","label":"Reset/Exit IDs"},{"from":"dispatch","to":"owners","label":"mapped IDs; UI route unconfirmed"},
+    {"from":"sink","to":"debug","label":"virtual logger + GDI paint"},{"from":"gate","to":"debug","label":"second capability path"},
+    {"from":"dispatch","to":"builddata","label":"ID 0x58"},{"from":"builddata","to":"model","label":".gxm"},
+    {"from":"builddata","to":"texture","label":".gxi"},{"from":"builddata","to":"bank","label":".gxb/.gxp"},
+    {"from":"model","to":"cache","label":"conditional cache write"},{"from":"texture","to":"cache","label":"conditional cache write"},
+    {"from":"dispatch","to":"flow","label":"ID 0x30"},{"from":"sf","to":"flow","label":"Speed Matrix read"},
+    {"from":"fl","to":"flsfl","label":"conversion input"},{"from":"flow","to":"flowout","label":"build modes"},
+    {"from":"flsfl","to":"flowout","label":"sibling .sfl CREATE_ALWAYS"},{"from":"broker","to":"xmlsave","label":"in-memory edits"},
+    {"from":"xmlsave","to":"writer","label":"serialize/defer"},{"from":"writer","to":"loose","label":"output path"}
+  ],
+  "caveats":["No hidden tool command was runtime-invoked.","Image-bank indirect writes UNKNOWN.","The mapped retail menu omits editor/tool IDs."]
+}

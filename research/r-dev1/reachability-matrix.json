@@ -1,0 +1,19 @@
+{
+  "schema_version":1,
+  "menu_builder":"005B1320",
+  "terms":["CODE_EXISTS","COMMAND_MAPPED","MENU_REGISTERED","ORDINARY_UI_CONFIRMED","RUNTIME_CONFIRMED"],
+  "features":[
+    {"name":"Game menu","code":"CONFIRMED_BY_EXE","command":"0x32/0x2F","menu":true,"ordinary_ui":"builder evidence; not separately runtime-captured","risk":"reset/exit"},
+    {"name":"Debug window","code":"CONFIRMED_BY_EXE","command":"startup capability","menu":false,"ordinary_ui":"prior combined-flags human observation","risk":"no game-data writer found","gate":"independent flag UNKNOWN"},
+    {"name":"Broker Editor","code":"CONFIRMED_BY_EXE","command":"0x27","menu":false,"ordinary_ui":"not confirmed","risk":"shared broker memory; save separate"},
+    {"name":"Egg Editor","code":"CONFIRMED_BY_EXE","command":"0x2E","menu":false,"ordinary_ui":"not confirmed","risk":"UNKNOWN"},
+    {"name":"Particle Editor","code":"CONFIRMED_BY_EXE","command":"0x4A","menu":false,"ordinary_ui":"not confirmed","risk":"UNKNOWN"},
+    {"name":"Marker Editor","code":"CONFIRMED_BY_EXE","command":"0x3B","menu":false,"ordinary_ui":"not confirmed","risk":"UNKNOWN"},
+    {"name":"Generic tree editor","code":"CONFIRMED_BY_EXE","command":"0x3F/index family","menu":false,"ordinary_ui":"not confirmed","risk":"UNKNOWN"},
+    {"name":"Flow Builder","code":"CONFIRMED_BY_EXE","command":"0x30","menu":false,"ordinary_ui":"not confirmed","risk":"build/converter may overwrite"},
+    {"name":"BuildData","code":"CONFIRMED_BY_EXE","command":"0x58 → 00692F88 +4","menu":false,"ordinary_ui":"not confirmed","risk":"high; recursive DX/DXT cache writes"},
+    {"name":"Game/Scene Save","code":"CONFIRMED_BY_EXE","command":"0x33–0x37 / 0x51–0x54","menu":false,"ordinary_ui":"not confirmed","risk":"CREATE_ALWAYS"},
+    {"name":"FL-to-SFL","code":"CONFIRMED_BY_EXE","command":"Flow Builder local 10","menu":"internal tool menu","ordinary_ui":"parent window not confirmed","risk":"sibling .sfl CREATE_ALWAYS"}
+  ],
+  "runtime_actions_performed":[]
+}

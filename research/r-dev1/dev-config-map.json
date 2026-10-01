@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "bootstrap": {
+    "entry": "005AFB20",
+    "game_xml_queue": "00522D80",
+    "data_game_config_loader": "00403A40",
+    "xml_callback": "0052D830",
+    "xml_completion": "00522B10",
+    "referenced_xml_enumerator": "00522BD0",
+    "broker_entry_stride": "0x1c",
+    "xml_filename_type": 11,
+    "path_builder": "00522B60",
+    "async_resource_queue": "005FC950",
+    "path_precedence": ["loose requested path", "Data.sma fallback"],
+    "key_predicate": {"address": "005D1660", "exact_semantics": "not promoted"}
+  },
+  "keys": [
+    {"name":"Menues/Enabled","type":"Bool","default":true,"corpus":{"8.4.1":true,"9.3.1":true,"9.10.0":true,"retail":false},"consumers":[{"build":"retail","address":"005AFB20","role":"application/menu and separate capability-checked Debug-window path"}],"confidence":"CONFIRMED_BY_EXE"},
+    {"name":"DebugWindow/Enabled","type":"Bool","default":true,"corpus":{"8.4.1":true,"9.3.1":true,"9.10.0":true,"retail":false},"consumer_xrefs":[],"default_registration":"004D7BD0","confidence":"STRONG_HYPOTHESIS","notes":["No consumer string xref in the four examined EXEs; stale/redundant/indirect access remains possible."]},
+    {"name":"ModelCaching/CachingDisabled","type":"Bool","default":"UNKNOWN","corpus":{"8.4.1":true,"9.3.1":false,"9.10.0":false,"retail":false},"consumers":["model and texture cache families, all builds","retail examples 0053BE70, 0053C3F0, 0053DCC0"],"confidence":"CONFIRMED_BY_EXE","notes":["False permits normal cache lookup/generation; BuildData force-rebuild behavior not proven."]},
+    {"name":"Camera0/SwitchTarget","type":"Bool","default":"UNKNOWN","corpus":{"8.4.1":false,"9.3.1":false,"9.10.0":true,"retail":false},"consumer":"camera/development family; exact effect UNKNOWN","confidence":"CONFIRMED_BY_CORPUS"},
+    {"name":"Camera0/SwitchType","type":"Bool","default":"UNKNOWN","corpus":{"8.4.1":false,"9.3.1":false,"9.10.0":true,"retail":false},"consumer":"camera/development family; exact effect UNKNOWN","confidence":"CONFIRMED_BY_CORPUS"},
+    {"name":"Editing/EditorsOpen","type":"UNKNOWN","default":"UNKNOWN","corpus":{"8.4.1":null,"9.3.1":null,"9.10.0":null,"retail":null},"retail_consumers":["00522060","005274A0","0052A420","0066C180","0066C380"],"confidence":"CONFIRMED_BY_EXE","notes":["Absent from inventoried config XML; do not infer representation."]},
+    {"name":"Scene/HatchEggsOnLoad","type":"Bool","default":true,"corpus":{"8.4.1":true,"9.3.1":true,"9.10.0":true,"retail":true},"consumer":"005B2260","confidence":"CONFIRMED_BY_EXE"},
+    {"name":"Scene/ResetSceneOnLoad","type":"Bool","default":true,"corpus":{"8.4.1":true,"9.3.1":true,"9.10.0":true,"retail":true},"consumer":"005B2260","confidence":"CONFIRMED_BY_EXE"},
+    {"name":"Scene/StartScene","type":"String","default":"UNKNOWN","corpus":{"8.4.1":null,"9.3.1":null,"9.10.0":"frontend","retail":"frontend"},"consumer":"not fully reconstructed","confidence":"CONFIRMED_BY_CORPUS"},
+    {"name":"Load/Dev","type":"XmlFilename","corpus":{"8.4.1":"Dev","9.3.1":"Dev","9.10.0":"Dev","retail":"Dev"},"consumer":"00522BD0","confidence":"CONFIRMED_BY_CORPUS"},
+    {"name":"Load/Editors","type":"XmlFilename","corpus":{"8.4.1":"Editors","9.3.1":"Editors","9.10.0":"Editors","retail":"Editors"},"consumer":"00522BD0","confidence":"CONFIRMED_BY_CORPUS"}
+  ],
+  "missing_file": {"parse_error_log":"Error parsing XML file","failure_branch":"00522B10 records Default and does not enumerate nested XML","startup_fallback":"UNKNOWN"},
+  "human_runtime_evidence":"Prior combined true/true flags showed a Debug window; the individual gate was not isolated."
+}

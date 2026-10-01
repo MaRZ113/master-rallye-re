@@ -1,0 +1,34 @@
+build,address,old_name,proposed_name,confidence,evidence
+retail,005AF5C0,FUN_005af5c0,ConstructEmbeddedToolOwners,HIGH,allocates recurring editor/tool objects
+retail,005AFB20,FUN_005afb20,InitializeApplicationAndDevGate,HIGH,Menues lookup and window/capability paths
+retail,005B0830,FUN_005b0830,RebuildMainMenu,HIGH,native menu creation path
+retail,005B0880,FUN_005b0880,MainWindow_WndProc,HIGH,WM_COMMAND and paint dispatch
+retail,005B0990,FUN_005b0990,DispatchMainWindowCommand,HIGH,command switch includes 0x58 and 0x30
+retail,005B1320,FUN_005b1320,BuildMainMenu,HIGH,Game/Reset/Exit menu API calls
+retail,005B1370,FUN_005b1370,DispatchGameCommands,HIGH,Game open/reset/save modes
+retail,005B1F80,FUN_005b1f80,DispatchSceneCommands,HIGH,Scene open/reset/save/toggle commands
+retail,005B2960,FUN_005b2960,ConstructBuildDataCommand,HIGH,installs vtable 00692F88
+retail,005B29C0,FUN_005b29c0,BuildData_LoadGxm,HIGH,suffix classification and model loader call
+retail,005B2AD0,FUN_005b2ad0,BuildData_LoadGxi,HIGH,suffix classification and texture/cache calls
+retail,005B2C40,FUN_005b2c40,BuildData_LoadImageBank,HIGH,gxb/gxp classification and bank loader call
+retail,005B2DA0,FUN_005b2da0,WalkBuildDataTree,HIGH,recursive enumeration and DataGx path filter
+retail,005B2F80,FUN_005b2f80,ExecuteBuildDataCommand,HIGH,vtable slot +4 target
+retail,006018E0,FUN_006018e0,RegisterAndExecuteCommandObject,HIGH,grows pointer array then calls virtual +4
+retail,0064E4C0,FUN_0064e4c0,ConstructDebugLogSink,HIGH,buffer-backed message sink
+retail,0064E5C0,FUN_0064e5c0,CreateDebugWindow,HIGH,CreateWindow title Debug
+retail,0064EC50,FUN_0064ec50,PaintDebugWindow,HIGH,BeginPaint/TextOutA owner-drawn paint
+retail,0064EF10,FUN_0064ef10,CreateApplicationWindow,HIGH,native main window creation
+retail,0064EFE0,FUN_0064efe0,ApplicationWindow_WndProc,HIGH,main native window procedure
+retail,00662D90,FUN_00662d90,OpenFlowBuilderWindow,HIGH,window title and duplicate-window guard
+retail,00662E00,FUN_00662e00,FlowBuilder_WndProc,HIGH,local WM_COMMAND route
+retail,00662FB0,FUN_00662fb0,BuildFlowBuilderMenu,HIGH,local menu labels/enabled states
+retail,006635B0,FUN_006635b0,FlowBuilder_ConvertFlToSfl,HIGH,FL picker/read/suffix/write path
+retail,006636B0,FUN_006636b0,FlowBuilder_SelectOrClearSpeedFunction,HIGH,clear or load .sf selection
+retail,006637C0,FUN_006637c0,FlowBuilder_BuildOutputs,MEDIUM,mode-driven generators and output writes
+retail,00522BD0,FUN_00522bd0,QueueReferencedXmlConfigs,HIGH,filters XmlFilename entries and queues XML
+retail,00522B10,FUN_00522b10,XmlConfigLoadComplete,HIGH,success branch queues dependent XML
+retail,0052D830,FUN_0052d830,ParseXmlAndQueueConfigs,HIGH,parse callback into broker/completion
+retail,0052D700,FUN_0052d700,SerializeGameXml,HIGH,broker serialization by mode
+retail,005FE460,FUN_005fe460,SelectBrokerEntriesForSave,HIGH,0x1/0x2/0x4 save-flag filtering
+retail,0064D530,FUN_0064d530,CreateAlwaysResourceWriter,HIGH,CreateFileA CREATE_ALWAYS
+retail,0064D830,FUN_0064d830,WriteResourceBytes,HIGH,WriteFile-backed generic output

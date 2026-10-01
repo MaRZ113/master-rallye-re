@@ -1,0 +1,25 @@
+{
+  "schema_version":1,
+  "dispatch":{"window_proc":"005B0880","dispatcher":"005B0990","id":"0x58","constructor":"005B2960","vtable":"00692F88","destructor":"+0 → 005B29A0","execute":"+4 → 005B2F80","manager":"006018E0","cleanup":"UNKNOWN"},
+  "nodes":[
+    {"address":"005B2F80","role":"get starting path, normalize, clear counters, recurse"},
+    {"address":"005B2DA0","role":"recursive *.* enumeration and DataGx path filter"},
+    {"address":"005B29C0","role":".gxm callback"},
+    {"address":"005B2AD0","role":".gxi callback"},
+    {"address":"005B2C40","role":".gxb/.gxp callback"},
+    {"address":"0054B320","role":"ordinary GXM loader"},
+    {"address":"0054A9B0","role":"ordinary texture loader"},
+    {"address":"0054ACD0","role":"texture conversion/cache path"},
+    {"address":"0054B430","role":"image-bank loader"},
+    {"address":"0054D6E0","role":"model build pipeline"},
+    {"address":"0064D530","role":"generic CREATE_ALWAYS writer"}
+  ],
+  "edges":[
+    ["0x58","005B0990"],["005B0990","005B2960"],["005B2960","00692F88"],["00692F88 +4","005B2F80"],["005B2F80","005B2DA0"],
+    ["005B2DA0","005B29C0 for DataGx .gxm"],["005B2DA0","005B2AD0 for DataGx .gxi"],["005B2DA0","005B2C40 for DataGx .gxb/.gxp"],
+    ["005B29C0","0054B320"],["0054B320","0054D6E0 on source build path"],["005B2AD0","0054A9B0"],["005B2AD0","0054ACD0"],["005B2C40","0054B430"],
+    ["model/texture cache paths","0064D530 when cache write occurs"]
+  ],
+  "counters":{"files":"006FE020","directories":"006FE024","models":"006FE028","textures":"006FE02C","image_banks":"006FE030","file_failures":"006FE034","model_failures":"006FE038","texture_failures":"006FE03C","image_bank_failures":"006FE040"},
+  "safety":"recursive read with possible DX/DXT cache writes; indirect image-bank write risk UNKNOWN"
+}

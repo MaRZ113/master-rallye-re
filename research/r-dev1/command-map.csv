@@ -1,0 +1,28 @@
+build,address,command_id,behavior_label,dispatch_target,main_menu_registered,reachability,safety,evidence,confidence
+retail,005B0990,0x27,Broker Editor,0065E990,false,command mapped; menu route not found,mutates shared in-memory broker,dispatcher switch and opener xref,high
+retail,005B0990,0x2E,Egg Editor,00657FD0,false,command mapped; menu route not found,editor write behavior unknown,dispatcher switch and opener xref,high
+retail,005B0990,0x2F,Exit,0064F240/0064F130,true,menu item,closes app,menu registration and dispatch,high
+retail,005B0990,0x30,Flow Builder,00662D90,false,command mapped; menu route not found,window has write-capable actions,dispatcher switch and window title,high
+retail,005B0990,0x31,Open Game XML,005B14D0,false,command mapped; menu route not found,reads DataGame XML,subdispatcher and dialog,high
+retail,005B0990,0x32,Reset Game,005B1370,true,menu item,reset after confirmation,menu registration and handler,high
+retail,005B0990,0x33,Save Game XML,005B16C0,false,command mapped; menu route not found,CREATE_ALWAYS XML output,serializer path,high
+retail,005B0990,0x34,Save Game As mode 1,005B18A0,false,command mapped; menu route not found,CREATE_ALWAYS XML output,mode argument,high
+retail,005B0990,0x35,Save Options mode 2,005B18A0,false,command mapped; menu route not found,CREATE_ALWAYS XML output,mode and save bit 0x4,high
+retail,005B0990,0x36,Save Player State mode 3,005B18A0,false,command mapped; menu route not found,CREATE_ALWAYS XML output,mode and save bit 0x2,high
+retail,005B0990,0x37,Save PS2 variant mode 4,005B18A0,false,command mapped; menu route not found,CREATE_ALWAYS XML output,mode and filter,high
+retail,005B0990,0x38-0x3A,debug/hit-test command family,005B33B0(parameter),false,labels incomplete,unknown,dispatcher creates parameterized object,medium
+retail,005B0990,0x3B,Marker Editor,0065B870,false,command mapped; menu route not found,editor write behavior unknown,dispatcher switch and opener xref,high
+retail,005B0990,0x3C,view-model command object,005B30F0,false,command mapped; label inferred,unknown,switch only,low
+retail,005B0990,0x3D,debug/model command object,005B35D0(parameter 2),false,command mapped; label inferred,unknown,switch only,low
+retail,005B0990,0x3E,view/model command object,005B38A0(parameter 4),false,command mapped; label inferred,unknown,switch only,low
+retail,005B0990,0x3F,generic tree/object editor,005B0720,false,command mapped; menu route not found,editor write behavior unknown,switch and owner object,medium
+retail,005B0990,0x40-0x49,indexed tree/editor route,00665220/00664F90/006656C0(index),false,labels incomplete,unknown,dispatcher index range 0..9,medium
+retail,005B0990,0x4A,Particle Editor,006557C0,false,command mapped; menu route not found,editor write behavior unknown,dispatcher switch and opener xref,high
+retail,005B0990,0x4F,Open Scene XML,005B2260,false,command mapped; menu route not found,reads DataScene XML,subdispatcher and dialog,high
+retail,005B0990,0x50,Reset Scene,005B1F80,false,command mapped; menu route not found,reset after confirmation,scene handler,high
+retail,005B0990,0x51,Save Scene XML,005B2480,false,command mapped; menu route not found,CREATE_ALWAYS XML output,serializer path,high
+retail,005B0990,0x52,Save Scene As,005B2620,false,command mapped; menu route not found,CREATE_ALWAYS XML output,serializer path,high
+retail,005B0990,0x53-0x54,alternate Scene actions,005B2480/00522310,false,exact labels unknown,may write XML,scene switch only,medium
+retail,005B0990,0x55,Toggle Scene/HatchEggsOnLoad,005B1F80,false,command mapped; menu route not found,in-memory broker change,key read/write path,high
+retail,005B0990,0x56,Toggle Scene/ResetSceneOnLoad,005B1F80,false,command mapped; menu route not found,in-memory broker change,key read/write path,high
+retail,005B0990,0x58,BuildData,005B2960 -> 00692F88 +4 -> 005B2F80,false,command mapped; menu route not found,recursive scan; possible DX/DXT overwrite,dispatcher/vtable/execute path,high

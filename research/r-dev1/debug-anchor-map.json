@@ -1,0 +1,24 @@
+{
+  "schema_version":1,
+  "config":[
+    {"key":"Menues/Enabled","retail_string":"006E7888","consumer_xref":"005AFB65","role":"application/menu and capability-checked Debug path"},
+    {"key":"DebugWindow/Enabled","retail_string":"006E78F0","consumer_xref":null,"default_registration":"004D7BD8","role":"no consumer found"}
+  ],
+  "messages":[
+    {"text":"Loaded cached DX texture:","subsystem":"texture cache","builds":"all four"},
+    {"text":"Reading GXM:","subsystem":"model loader","retail":"0053C3F0","builds":"all four"},
+    {"text":"Making dx model for moModel named :","subsystem":"model construction","retail":"0053C3F0","builds":"all four"},
+    {"text":"Inserting moSortPlane nodes -","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Vertex welder -","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Building convex hull -","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Building BSP tree -","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Building cylinder -","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Parsing 2d geometry -","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Inserting object nodes -","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Building land database for model:","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Optimising model -","subsystem":"model build stage","retail":"0054D6E0","builds":"all four"},
+    {"text":"Shader [%s], entry %d selected","subsystem":"shader selection","retail":"00586B70","builds":"all four"}
+  ],
+  "help_files":["DataEditors/ParticleEditorHelpInfo.txt","DataEditors/EggEditorHelpInfo.txt","DataEditors/MarkerEditorHelpInfo.txt","DataEditors/BrokerEditorHelpInfo.txt"],
+  "evidence_note":"Prior human runtime observation enabled both dev values; it does not isolate their gate."
+}

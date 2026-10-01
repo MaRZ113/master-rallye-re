@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "debug_sink": {"formatter":"004D0620","retail_constructor":"0064E4C0","window":"0064E5C0","paint_handler":"0064EC50","title":"Debug","paint_apis":["BeginPaint","TextOutA"],"owner_drawn":true,"edit_child":false},
+  "build_entries": {
+    "gxm_loader":{"8.4.1":"00520BB0","9.3.1":"0051F140","9.10.0":"00552700","retail":"0053C3F0"},
+    "model_builder":{"8.4.1":"0052A930","9.3.1":"005430C0","9.10.0":"0056A910","retail":"0054D6E0"},
+    "shader_selection":{"8.4.1":"005236F0","9.3.1":"0054FFD0","9.10.0":"0055EFB0","retail":"00586B70"}
+  },
+  "messages": [
+    {"text":"Loaded cached DX texture:","producer_family":"texture cache","build_presence":"all four","confidence":"CONFIRMED_BY_EXE"},
+    {"text":"Cached model out of date, missing or invalid format.","retail_address":"006E8CA0","producer":"0053C3F0","xref":"0053C51C","build_presence":"all four"},
+    {"text":"Reading GXM: [%s]","retail_address":"006E8C78","producer":"0053C3F0","xref":"0053C535","build_presence":"all four"},
+    {"text":"Making dx model for moModel named : [%s]","retail_address":"006E8C4C","producer":"0053C3F0","xref":"0053C54A","build_presence":"all four"},
+    {"text":"Inserting moSortPlane nodes - ","retail_address":"006E9278","producer":"0054D6E0","xref":"0054D721","stage_callees":["00616F80","00616830"],"build_presence":"all four"},
+    {"text":"Vertex welder - ","retail_address":"006E9248","producer":"0054D6E0","xref":"0054D88D","stage_callee":"006166C0","build_presence":"all four"},
+    {"text":"Building convex hull - ","retail_address":"006E9230","producer":"0054D6E0","xref":"0054D8E6","stage_callee":"006215A0","build_presence":"all four"},
+    {"text":"Building BSP tree - ","retail_address":"006E9208","producer":"0054D6E0","xref":"0054D92A","stage_callee":"00622450","build_presence":"all four"},
+    {"text":"Building cylinder - ","retail_address":"006E91E8","producer":"0054D6E0","xref":"0054D998","stage_callee":"00623940","build_presence":"all four"},
+    {"text":"Parsing 2d geometry - ","retail_address":"006E91D0","producer":"0054D6E0","xref":"0054D9F7","stage_callee":"00615600","build_presence":"all four"},
+    {"text":"Inserting object nodes - ","retail_address":"006E9164","producer":"0054D6E0","xref":"0054DA89","stage_callee":"0054EA70","build_presence":"all four"},
+    {"text":"Building land database for model: [%s]","retail_address":"006E90F8","producer":"0054D6E0","xref":"0054DEA6","stage_callee":"006054D0","build_presence":"all four"},
+    {"text":"Optimising model - ","retail_address":"006E9068","producer":"0054D6E0","xref":"0054E0D2","stage_callee":"0060C9E0","build_presence":"all four"},
+    {"text":"Shader [%s], entry %d selected","retail_address":"006EA384","producer":"00586B70","build_presence":"all four"}
+  ],
+  "note":"Human observation said mSortPlane; executable literal is moSortPlane."
+}

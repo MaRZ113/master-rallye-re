@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "main_menu": {"build":"retail","builder":"005B1320","root":{"label":"Game","children":[{"label":"Reset…","id":"0x32"},{"type":"separator"},{"label":"Exit","id":"0x2F"}]},"evidence":"CONFIRMED_BY_EXE"},
+  "dispatch":{"window_proc":"005B0880","message":"WM_COMMAND","id":"LOWORD(wParam)","dispatcher":"005B0990","game_subdispatcher":"005B1370","scene_subdispatcher":"005B1F80"},
+  "commands":[
+    {"id":"0x2F","label":"Exit","target":"0064F240/0064F130","menu":true},
+    {"id":"0x32","label":"Reset Game","target":"005B1370","menu":true},
+    {"id":"0x31","label":"Open Game XML","target":"005B14D0","menu":false},
+    {"id":"0x33","label":"Save Game XML","target":"005B16C0","menu":false},
+    {"id":"0x34","label":"Save Game As mode 1","target":"005B18A0","menu":false},
+    {"id":"0x35","label":"Save Options mode 2","target":"005B18A0","menu":false},
+    {"id":"0x36","label":"Save Player State mode 3","target":"005B18A0","menu":false},
+    {"id":"0x37","label":"Save PS2 variant mode 4","target":"005B18A0","menu":false},
+    {"id":"0x27","label":"Broker Editor","target":"0065E990","menu":false},
+    {"id":"0x2E","label":"Egg Editor","target":"00657FD0","menu":false},
+    {"id":"0x30","label":"Flow Builder","target":"00662D90","menu":false},
+    {"id":"0x3B","label":"Marker Editor","target":"0065B870","menu":false},
+    {"id":"0x3F","label":"Generic tree/object editor","target":"005B0720","menu":false},
+    {"id":"0x4A","label":"Particle Editor","target":"006557C0","menu":false},
+    {"id":"0x4F","label":"Open Scene","target":"005B2260","menu":false},
+    {"id":"0x50","label":"Reset Scene","target":"005B1F80","menu":false},
+    {"id":"0x51","label":"Save Scene","target":"005B2480","menu":false},
+    {"id":"0x52","label":"Save Scene As","target":"005B2620","menu":false},
+    {"id":"0x55","label":"Toggle Scene/HatchEggsOnLoad","target":"005B1F80","menu":false},
+    {"id":"0x56","label":"Toggle Scene/ResetSceneOnLoad","target":"005B1F80","menu":false},
+    {"id":"0x58","label":"BuildData","target":"005B2960 → 00692F88 +4 → 005B2F80","menu":false}
+  ],
+  "note":"A switch case proves dispatch code, not a registered native menu item or normal retail UI route."
+}

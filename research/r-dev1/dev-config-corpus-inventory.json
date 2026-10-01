@@ -1,0 +1,691 @@
+{
+  "schema_version": 2,
+  "builds": {
+    "8.4.1": {
+      "corpus_directory": "demo-8.4.1",
+      "data_root_prefix": "",
+      "configs": {
+        "Game": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "Load/Dev",
+              "type": "XmlFilename",
+              "value": "Dev",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Load/Editors",
+              "type": "XmlFilename",
+              "value": "Editors",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/Game.xml"
+        },
+        "dev": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "DebugWindow/Enabled",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Menues/Enabled",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Camera0/SwitchTarget",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Camera0/SwitchType",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "ModelCaching/CachingDisabled",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/dev.xml"
+        },
+        "Editors": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "Scene/HatchEggsOnLoad",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Scene/ResetSceneOnLoad",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/Editors.xml"
+        }
+      },
+      "game_xml_load_order": [
+        {
+          "key": "Load/Dev",
+          "value": "Dev",
+          "file": "DataGame/Dev.xml",
+          "exists": true
+        },
+        {
+          "key": "Load/Editors",
+          "value": "Editors",
+          "file": "DataGame/Editors.xml",
+          "exists": true
+        }
+      ],
+      "development_values": [
+        {
+          "file": "DataGame/dev.xml",
+          "name": "DebugWindow/Enabled",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Menues/Enabled",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Camera0/SwitchTarget",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Camera0/SwitchType",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "ModelCaching/CachingDisabled",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/Editors.xml",
+          "name": "Scene/HatchEggsOnLoad",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/Editors.xml",
+          "name": "Scene/ResetSceneOnLoad",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        }
+      ],
+      "dataeditors_directory_present": false,
+      "dataeditors_files": []
+    },
+    "9.3.1": {
+      "corpus_directory": "demo-9.3.1",
+      "data_root_prefix": "",
+      "configs": {
+        "Game": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "Load/Dev",
+              "type": "XmlFilename",
+              "value": "Dev",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Load/Editors",
+              "type": "XmlFilename",
+              "value": "Editors",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/Game.xml"
+        },
+        "dev": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "DebugWindow/Enabled",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Menues/Enabled",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Camera0/SwitchTarget",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Camera0/SwitchType",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "ModelCaching/CachingDisabled",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/dev.xml"
+        },
+        "Editors": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "Scene/HatchEggsOnLoad",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Scene/ResetSceneOnLoad",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/Editors.xml"
+        }
+      },
+      "game_xml_load_order": [
+        {
+          "key": "Load/Dev",
+          "value": "Dev",
+          "file": "DataGame/Dev.xml",
+          "exists": true
+        },
+        {
+          "key": "Load/Editors",
+          "value": "Editors",
+          "file": "DataGame/Editors.xml",
+          "exists": true
+        }
+      ],
+      "development_values": [
+        {
+          "file": "DataGame/dev.xml",
+          "name": "DebugWindow/Enabled",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Menues/Enabled",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Camera0/SwitchTarget",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Camera0/SwitchType",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "ModelCaching/CachingDisabled",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/Editors.xml",
+          "name": "Scene/HatchEggsOnLoad",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/Editors.xml",
+          "name": "Scene/ResetSceneOnLoad",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        }
+      ],
+      "dataeditors_directory_present": false,
+      "dataeditors_files": []
+    },
+    "9.10.0": {
+      "corpus_directory": "demo-9.10.0",
+      "data_root_prefix": "",
+      "configs": {
+        "Game": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "Load/Dev",
+              "type": "XmlFilename",
+              "value": "Dev",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Load/Editors",
+              "type": "XmlFilename",
+              "value": "Editors",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/Game.xml"
+        },
+        "dev": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "DebugWindow/Enabled",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Menues/Enabled",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Camera0/SwitchTarget",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Camera0/SwitchType",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "ModelCaching/CachingDisabled",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/dev.xml"
+        },
+        "Editors": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "Scene/HatchEggsOnLoad",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Scene/ResetSceneOnLoad",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Scene/StartScene",
+              "type": "String",
+              "value": "frontend",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "DataGame/Editors.xml"
+        }
+      },
+      "game_xml_load_order": [
+        {
+          "key": "Load/Dev",
+          "value": "Dev",
+          "file": "DataGame/Dev.xml",
+          "exists": true
+        },
+        {
+          "key": "Load/Editors",
+          "value": "Editors",
+          "file": "DataGame/Editors.xml",
+          "exists": true
+        }
+      ],
+      "development_values": [
+        {
+          "file": "DataGame/dev.xml",
+          "name": "DebugWindow/Enabled",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Menues/Enabled",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Camera0/SwitchTarget",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "Camera0/SwitchType",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/dev.xml",
+          "name": "ModelCaching/CachingDisabled",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/Editors.xml",
+          "name": "Scene/HatchEggsOnLoad",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/Editors.xml",
+          "name": "Scene/ResetSceneOnLoad",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "DataGame/Editors.xml",
+          "name": "Scene/StartScene",
+          "type": "String",
+          "value": "frontend",
+          "save_options": "False",
+          "save_player_state": "False"
+        }
+      ],
+      "dataeditors_directory_present": false,
+      "dataeditors_files": []
+    },
+    "retail": {
+      "corpus_directory": "retail",
+      "data_root_prefix": "Data.sma_unpacked",
+      "configs": {
+        "Game": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "Load/Dev",
+              "type": "XmlFilename",
+              "value": "Dev",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Load/Editors",
+              "type": "XmlFilename",
+              "value": "Editors",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "Data.sma_unpacked/DataGame/Game.xml"
+        },
+        "dev": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "DebugWindow/Enabled",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Menues/Enabled",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Camera0/SwitchTarget",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Camera0/SwitchType",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "ModelCaching/CachingDisabled",
+              "type": "Bool",
+              "value": "False",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "Data.sma_unpacked/DataGame/dev.xml"
+        },
+        "Editors": {
+          "status": "parsed",
+          "root_tag": "Game",
+          "values": [
+            {
+              "name": "Scene/HatchEggsOnLoad",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Scene/ResetSceneOnLoad",
+              "type": "Bool",
+              "value": "True",
+              "save_options": "False",
+              "save_player_state": "False"
+            },
+            {
+              "name": "Scene/StartScene",
+              "type": "String",
+              "value": "frontend",
+              "save_options": "False",
+              "save_player_state": "False"
+            }
+          ],
+          "path": "Data.sma_unpacked/DataGame/Editors.xml"
+        }
+      },
+      "game_xml_load_order": [
+        {
+          "key": "Load/Dev",
+          "value": "Dev",
+          "file": "DataGame/Dev.xml",
+          "exists": true
+        },
+        {
+          "key": "Load/Editors",
+          "value": "Editors",
+          "file": "DataGame/Editors.xml",
+          "exists": true
+        }
+      ],
+      "development_values": [
+        {
+          "file": "Data.sma_unpacked/DataGame/dev.xml",
+          "name": "DebugWindow/Enabled",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "Data.sma_unpacked/DataGame/dev.xml",
+          "name": "Menues/Enabled",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "Data.sma_unpacked/DataGame/dev.xml",
+          "name": "Camera0/SwitchTarget",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "Data.sma_unpacked/DataGame/dev.xml",
+          "name": "Camera0/SwitchType",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "Data.sma_unpacked/DataGame/dev.xml",
+          "name": "ModelCaching/CachingDisabled",
+          "type": "Bool",
+          "value": "False",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "Data.sma_unpacked/DataGame/Editors.xml",
+          "name": "Scene/HatchEggsOnLoad",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "Data.sma_unpacked/DataGame/Editors.xml",
+          "name": "Scene/ResetSceneOnLoad",
+          "type": "Bool",
+          "value": "True",
+          "save_options": "False",
+          "save_player_state": "False"
+        },
+        {
+          "file": "Data.sma_unpacked/DataGame/Editors.xml",
+          "name": "Scene/StartScene",
+          "type": "String",
+          "value": "frontend",
+          "save_options": "False",
+          "save_player_state": "False"
+        }
+      ],
+      "dataeditors_directory_present": false,
+      "dataeditors_files": []
+    }
+  }
+}

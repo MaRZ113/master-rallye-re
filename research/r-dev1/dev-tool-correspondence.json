@@ -1,0 +1,17 @@
+{
+  "schema_version":1,
+  "matching_evidence":["semantic strings","caller/callee neighborhood","window/menu shape","file filters and suffixes","matching behavior"],
+  "subsystems":[
+    {"name":"Flow Builder opener","status":"all four","entries":{"8.4.1":"00547A00","9.3.1":"0061D8D0","9.10.0":"0064F490","retail":"00662D90"},"confidence":"HIGH"},
+    {"name":"Flow Builder menu","status":"stable; converter item changes","entries":{"8.4.1":"00547C00","9.3.1":"0061DAF0","9.10.0":"0064F6B0","retail":"00662FB0"},"converter_id_10":{"8.4.1":false,"9.3.1":true,"9.10.0":true,"retail":true},"confidence":"HIGH"},
+    {"name":"Flow Builder UI helper","entries":{"8.4.1":"00547D70","9.3.1":"0061DC90","9.10.0":"0064F850","retail":"00663150"},"confidence":"MEDIUM"},
+    {"name":"Broker Editor opener","entries":{"8.4.1":"00543670","9.3.1":"00619480","9.10.0":"0064B010","retail":"0065E990"},"confidence":"HIGH"},
+    {"name":"Broker Editor menu/event","entries":{"8.4.1":"00543920","9.3.1":"00619730","9.10.0":"0064B2C0","retail":"0065EC40"},"confidence":"HIGH"},
+    {"name":"GXM loader","entries":{"8.4.1":"00520BB0","9.3.1":"0051F140","9.10.0":"00552700","retail":"0053C3F0"},"confidence":"HIGH"},
+    {"name":"GXM model builder","entries":{"8.4.1":"0052A930","9.3.1":"005430C0","9.10.0":"0056A910","retail":"0054D6E0"},"confidence":"HIGH"},
+    {"name":"Shader selection messages","entries":{"8.4.1":"005236F0","9.3.1":"0054FFD0","9.10.0":"0055EFB0","retail":"00586B70"},"confidence":"HIGH"},
+    {"name":"BuildData recursive command","entries":{"8.4.1":null,"9.3.1":null,"9.10.0":null,"retail":"005B2F80"},"status":"retail confirmed; no earlier equivalent identified","confidence":"MEDIUM"},
+    {"name":"Menues/Enabled direct consumer","entries":{"8.4.1":null,"9.3.1":null,"9.10.0":"consumer xref found","retail":"005AFB20"},"status":"string-xref difference; not proof of earlier absence","confidence":"MEDIUM"}
+  ],
+  "caveat":"Addresses move substantially; matching is selective, not a whole-program correspondence."
+}

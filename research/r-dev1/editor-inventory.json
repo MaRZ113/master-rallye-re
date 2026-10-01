@@ -1,0 +1,16 @@
+{
+  "schema_version":1,
+  "note":"Owner construction or switch presence is not proof of an open window or ordinary retail UI route.",
+  "owner_constructor":"005AF5C0",
+  "objects":[
+    {"name":"Flow Builder","size":"0x2c","constructor":"00662B20","open":"00662D90","id":"0x30"},
+    {"name":"large tree/editor object; identity unknown","size":"0x848","constructor":"00660B30","id":"0x3F/index family"},
+    {"name":"Broker Editor","size":"0x20","constructor":"0065E650","open":"0065E990","id":"0x27"},
+    {"name":"Debug log sink","size":"0x34","constructor":"0064E4C0","open":"0064E5C0","gate":"startup capability"},
+    {"name":"Egg Editor","size":"0x8c","constructor":"0065AAD0","open":"00657FD0","id":"0x2E"},
+    {"name":"Particle Editor","size":"0xcc","constructor":"00656CD0","open":"006557C0","id":"0x4A"},
+    {"name":"Marker Editor","size":"0x68","constructor":"00654F50","open":"0065B870","id":"0x3B"}
+  ],
+  "help_paths":["DataEditors/ParticleEditorHelpInfo.txt","DataEditors/EggEditorHelpInfo.txt","DataEditors/MarkerEditorHelpInfo.txt","DataEditors/BrokerEditorHelpInfo.txt"],
+  "corpus_presence":"No DataEditors directory found in supplied loose/extracted views."
+}
