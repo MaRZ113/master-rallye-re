@@ -71,9 +71,7 @@ same offsets are stored in the machine-readable reports.
 The source-plane records reside inside the parsed tag100 tree. Their binding
 to the tested moving physical state is **HIGH_CONFIDENCE_INFERENCE**, supported
 by the unique plane groups, repeated-cook differential, exact translation
-relation, loader path, and reciprocal suffix result. Do not upgrade this to
-tree-only runtime proof. The meaning and runtime contribution of tag1400 remain
-**UNKNOWN**.
+relation, loader path, and reciprocal suffix result. At the F.2 checkpoint, tree-only runtime proof had not yet been obtained. F.2.1 below supersedes that boundary: the tested state follows the tag100 tree donor. The broader runtime contribution of tag1400 remains **UNKNOWN**.
 
 ## Retail structural validation
 
@@ -107,12 +105,11 @@ the corpus probe is [`r5t_f2_tag100_probe.py`](../../tools/r5t_f2_tag100_probe.p
 
 - Complete spatial-tree and primitive semantics.
 - Unique node/leaf ownership for the tested source mesh.
-- Runtime isolation of the parsed tree from the following tag1400 region.
+- Runtime isolation of the parsed tree from tag1400 was unresolved at F.2 and is resolved for the tested translation by F.2.1.
 - Meaning of the record code and leading node fields.
 - Exact `$bsp -> tag100` relationship and behavior of other source collision classes.
 - Any write or rebuild grammar. No writer was implemented.
 
+## R5T-F.2.1 closeout
 
-## R5T-F.2.1 static updates
-
-The prior 148-byte size residual is resolved by the exact link-selector count; the general formula includes one 4-byte length for each present optional-list block. All 36 current Retail tag100 trees satisfy the stated header/node invariants. The complete post-tag1339 remainder of 1,824,828 bytes splits into tag1400 U (1,809,324 bytes) and later tag1500 R (15,504 bytes) for the controlled France1 pair. Tag1400’s 64 changed bytes/47 ranges are typed into its 56-byte record family; all other parsed families remain equal. The two runtime hybrids are staged, and causal ownership remains pending human runtime results. See [`research/r5t_f21/findings.md`](../r5t_f21/findings.md).
+**R5T-F.2.1: PASS — TREE_CARRIER_CONFIRMED.** Hybrid T (modified tree / baseline tag1400) had OLD collision absent and NEW collision present. Hybrid U (baseline tree / modified tag1400) had OLD collision present and NEW collision absent. The visible support stayed at the original render location, and FinishArea completion remained at its original region in both builds. Thus the tested physical location follows the tree donor. Modified tag1400 was neither sufficient nor required for this tested translation; no broader tag1400 meaning is claimed. See [`../r5t_f21/runtime-results.md`](../r5t_f21/runtime-results.md).

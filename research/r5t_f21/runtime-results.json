@@ -1,0 +1,98 @@
+{
+  "schema": "r5t-f21-runtime-results-v1",
+  "evidence_source": "human-reported runtime observations",
+  "runtime": "Demo 9.10.0",
+  "course": "France1",
+  "source_mesh": {
+    "name": "COLLIDE_finishline03",
+    "index": 47083,
+    "triangle_count": 24,
+    "unique_position_count": 14,
+    "unique_coplanar_plane_group_count": 12,
+    "controlled_edit": "translate all unique source positions by +20.0 on GXM X"
+  },
+  "runtime_positions": {
+    "old": [-1471.7653, 68.4258, 352.5542],
+    "new": [-1451.7653, 68.4258, 352.5542],
+    "expected_delta": [20.0, 0.0, 0.0]
+  },
+  "hybrids": {
+    "T": {
+      "description": "baseline prefix, modified tag100 tree, baseline tag1339, baseline tag1400, fixed later region",
+      "tree_donor": "modified",
+      "tag1339_donor": "baseline",
+      "tag1400_donor": "baseline",
+      "later_region_donor": "baseline",
+      "old_collision": "absent",
+      "new_collision": "present",
+      "finish_support_render_position": "original",
+      "finish_area_race_complete": "normal at original unchanged region",
+      "finish_line_visual_anomaly": "none observed",
+      "texture_anomaly": "none observed",
+      "runtime_stability": "normal in tested scenario"
+    },
+    "U": {
+      "description": "baseline prefix, baseline tag100 tree, baseline tag1339, modified tag1400, fixed later region",
+      "tree_donor": "baseline",
+      "tag1339_donor": "baseline",
+      "tag1400_donor": "modified",
+      "later_region_donor": "baseline",
+      "old_collision": "present",
+      "new_collision": "absent",
+      "finish_support_render_position": "original",
+      "finish_area_race_complete": "normal at original unchanged region",
+      "finish_line_visual_anomaly": "none observed",
+      "texture_anomaly": "none observed",
+      "runtime_stability": "normal in tested scenario"
+    }
+  },
+  "conclusion": {
+    "status": "PASS — TREE_CARRIER_CONFIRMED",
+    "tested_physical_state_carrier": "tag100 tree",
+    "tag100_tree_sufficient_for_tested_translation": true,
+    "modified_tag1400_sufficient_for_tested_translation": false,
+    "modified_tag1400_required_for_tested_translation": false,
+    "bounded_scope": "Only the tested COLLIDE_finishline03 physical collision translation in this controlled baseline/modified pairing",
+    "tag100_full_semantics": "UNKNOWN",
+    "tag100_bsp_semantics": "UNKNOWN",
+    "tag1400_broader_runtime_role": "UNKNOWN",
+    "source_bsp_to_tag100_relation": "UNKNOWN",
+    "other_collision_source_classes": "UNKNOWN"
+  },
+  "evidence": [
+    "CONFIRMED_BY_SOURCE_RUNTIME_EDIT",
+    "CONFIRMED_BY_COOKER_DIFFERENTIAL",
+    "CONFIRMED_BY_FULL_SUFFIX_REGION_SWAP",
+    "CONFIRMED_BY_TREE_ONLY_REGION_SWAP",
+    "CONFIRMED_BY_RUNTIME_TEST"
+  ],
+  "post_test_snapshot_note": {
+    "staging_time_non_target_files": 2862,
+    "staging_time_non_target_files_byte_identical": true,
+    "post_test_non_target_differences": [
+      {
+        "relative_path": "DataGame/playerstate.xml#",
+        "hybrid_t": {
+          "size_bytes": 30907,
+          "sha256": "350f93b4787874396f7bb67c51f9c1b9bdd0088eea5a15595d91c5157914a9e5"
+        },
+        "hybrid_u": {
+          "size_bytes": 30906,
+          "sha256": "5fd9eb80bcb15b376c1be5870ffd76c7ea41442abab06bfb8f5bec990a660851"
+        }
+      },
+      {
+        "relative_path": "resources.hnt",
+        "hybrid_t": {
+          "size_bytes": 30819,
+          "sha256": "988b774e22d879b9ac785cddb4026fb7aab92079e67b8ae19ef16a8f719deccf"
+        },
+        "hybrid_u": {
+          "size_bytes": 31176,
+          "sha256": "d4fbb2588ad8a430817c4d645251932d36a67a3f4e9478d5f01f9efa096aea00"
+        }
+      }
+    ],
+    "origin": "UNKNOWN; recorded from post-test folder snapshots and not attributed to the runtime or course data"
+  }
+}

@@ -272,3 +272,7 @@ tag100 semantics remain unknown. The experiment is not a general GXM writer. See
 [`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md) and the focused
 region-swap handoff in
 [`research/r5t_f1/runtime-handoff.md`](../research/r5t_f1/runtime-handoff.md).
+
+## R5T-F.2.1 tag100 tree carrier closeout
+
+The reciprocal T/U runtime hybrids confirm that the tested `COLLIDE_finishline03` physical location follows the tag100 tree donor. The modified tree with baseline tag1400 produced the NEW collision; baseline tree with modified tag1400 retained OLD. This closes the tree-versus-tag1400 question for this controlled translation only. Broader tag100 semantics, BSP identity, exact source-object mapping, and tag1400's runtime role remain unknown. See `research/r5t_f21/runtime-results.md`.

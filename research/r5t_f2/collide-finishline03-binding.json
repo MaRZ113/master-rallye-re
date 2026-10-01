@@ -36,12 +36,17 @@
     "CONFIRMED_BY_EXECUTABLE",
     "CONFIRMED_BY_BINARY_STRUCTURE",
     "CONFIRMED_BY_SOURCE_COMPILED_PAIR",
-    "CONFIRMED_BY_RECIPROCAL_SUFFIX_RUNTIME_SWAP"
+    "CONFIRMED_BY_RECIPROCAL_SUFFIX_RUNTIME_SWAP",
+    "CONFIRMED_BY_SOURCE_RUNTIME_EDIT",
+    "CONFIRMED_BY_COOKER_DIFFERENTIAL",
+    "CONFIRMED_BY_FULL_SUFFIX_REGION_SWAP",
+    "CONFIRMED_BY_TREE_ONLY_REGION_SWAP",
+    "CONFIRMED_BY_RUNTIME_TEST"
   ],
   "physical_binding_assessment": {
     "ambiguity": "plane equation family is distinctive; repeated serialized copies prevent unique node-offset identity for each source triangle.",
-    "component_isolation_limit": "F.1 swapped from the tag100 marker through EOF. The adjacent 1339 record is byte-identical, but the later tag1400 region differs in 64 bytes; F.1 did not independently swap the parsed tag100 tree while holding tag1400 fixed.",
-    "physical_role_evidence": "the reciprocal F.1 runtime swap showed collision follows the tag100-starting suffix; the tree itself is loaded by the confirmed tag100 handler",
+    "component_isolation_limit": "F.1 swapped the full tag100-through-EOF suffix. F.2.1 then held P/S/R fixed and independently swapped T and U; the tested physical state followed T, not U.",
+    "physical_role_evidence": "F.1 reciprocal suffix swap plus F.2.1 tree-only region swap confirms that the tag100 tree determines the tested COLLIDE_finishline03 physical translation.",
     "tag100_tree_plane_geometry_binding": "HIGH_CONFIDENCE_INFERENCE supported by unique source-plane matches and the exact rigid-translation relation",
     "tested_source_mesh": "COLLIDE_finishline03",
     "triangle_preservation": "no one-to-one 24-triangle record mapping. The source has 12 unique plane equations; matching plane records repeat at multiple tree offsets."
@@ -6347,7 +6352,7 @@
     }
   },
   "r5t_f21_section_decomposition": {
-    "status": "STATIC_BOUNDARIES_CONFIRMED; TREE_VS_TAG1400_RUNTIME_TEST_PENDING",
+    "status": "TREE_CARRIER_CONFIRMED; BOUNDED_TO_TESTED_COLLIDE_FINISHLINE03",
     "baseline": {
       "tag100_tree_bytes": 8293376,
       "tag100_tree_sha256": "61137e87426d4b31ebafe1724d79d4e074b4eb813b1a9d746bb9bf14fae10ec9",
@@ -6372,6 +6377,52 @@
     "tag1400_changed_byte_positions": 64,
     "tag1400_changed_ranges": 47,
     "tag1500_identical_between_donors": true,
-    "runtime_hybrids": "see research/r5t_f21/swap-manifest.json; no result recorded until human runtime test"
+    "runtime_hybrids": "see research/r5t_f21/swap-manifest.json",
+    "runtime_results": {
+      "T": {
+        "description": "baseline prefix, modified tag100 tree, baseline tag1339, baseline tag1400, fixed later region",
+        "tree_donor": "modified",
+        "tag1339_donor": "baseline",
+        "tag1400_donor": "baseline",
+        "later_region_donor": "baseline",
+        "old_collision": "absent",
+        "new_collision": "present",
+        "finish_support_render_position": "original",
+        "finish_area_race_complete": "normal at original unchanged region",
+        "finish_line_visual_anomaly": "none observed",
+        "texture_anomaly": "none observed",
+        "runtime_stability": "normal in tested scenario"
+      },
+      "U": {
+        "description": "baseline prefix, baseline tag100 tree, baseline tag1339, modified tag1400, fixed later region",
+        "tree_donor": "baseline",
+        "tag1339_donor": "baseline",
+        "tag1400_donor": "modified",
+        "later_region_donor": "baseline",
+        "old_collision": "present",
+        "new_collision": "absent",
+        "finish_support_render_position": "original",
+        "finish_area_race_complete": "normal at original unchanged region",
+        "finish_line_visual_anomaly": "none observed",
+        "texture_anomaly": "none observed",
+        "runtime_stability": "normal in tested scenario"
+      }
+    },
+    "conclusion": {
+      "status": "PASS — TREE_CARRIER_CONFIRMED",
+      "tested_physical_state_carrier": "tag100 tree",
+      "tag100_tree_sufficient_for_tested_translation": true,
+      "modified_tag1400_sufficient_for_tested_translation": false,
+      "modified_tag1400_required_for_tested_translation": false,
+      "bounded_scope": "Only the tested COLLIDE_finishline03 physical collision translation in this controlled baseline/modified pairing",
+      "tag100_full_semantics": "UNKNOWN",
+      "tag100_bsp_semantics": "UNKNOWN",
+      "tag1400_broader_runtime_role": "UNKNOWN",
+      "source_bsp_to_tag100_relation": "UNKNOWN",
+      "other_collision_source_classes": "UNKNOWN"
+    }
+  },
+  "interpretation": {
+    "tag100_physical_carrier": "For tested COLLIDE_finishline03, tag100 tree-only runtime swap confirms the moved physical state follows the T donor; this does not generalize to all tag100 records or source classes."
   }
 }

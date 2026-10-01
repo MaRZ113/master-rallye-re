@@ -1,5 +1,7 @@
 # R5T-F.1 reciprocal tag100 swap — completed runtime handoff
 
+**Historical F.1 test handoff:** F.1 was completed; the F.2.1 T-only/U-only runtime test is also complete. Any pre-test launch or decision instructions retained below are superseded by the final outcomes in `../r5t_f21/runtime-results.md`.
+
 **Status: COMPLETED.** The user ran both hybrids. The visible finish geometry
 stayed at its original location in both. Hybrid A (baseline prefix + modified
 tag100) had no collision at the old support and collision at the new translated
@@ -66,7 +68,6 @@ python tools\r5t_f1_tag100_swap.py verify
 
 If it fails because a runtime rewrote either DX, preserve the changed file and report its hash; do not silently rebuild or restore the hybrid before review.
 
+## F.2.1 final result
 
-## F.2.1 boundary refinement
-
-The ‘1,824,828-byte tag1400 region’ wording in this historical handoff referred to U+R together. The parser-bounded split is U=1,809,324-byte tag1400 and R=15,504-byte tag1500, with all 64 changed byte positions in U and R identical. F.1's completed runtime test remains whole-suffix evidence; the newer T-only and U-only runtime result is pending.
+The ‘1,824,828-byte tag1400 region’ wording in this historical handoff referred to U+R together. The parser-bounded split is U=1,809,324-byte tag1400 and R=15,504-byte tag1500, with all 64 changed byte positions in U and R identical. The completed T-only/U-only runtime hybrids show the tested collision follows the tag100 tree. See [`../r5t_f21/runtime-results.md`](../r5t_f21/runtime-results.md).

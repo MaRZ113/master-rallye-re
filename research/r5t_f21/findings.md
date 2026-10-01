@@ -2,7 +2,7 @@
 
 ## Status
 
-**R5T-F.2.1 static preparation: PASS. Runtime decision is pending.** R5T-F.1 remains a full tag100-through-EOF suffix result; no tree-only causal claim is made before the human tests the two mismatched hybrids.
+**R5T-F.2.1: PASS — TREE_CARRIER_CONFIRMED.** The human-tested mismatched hybrids show the tested `COLLIDE_finishline03` physical state follows T (tag100 tree), not U (tag1400). The finding is bounded to this collider and controlled pairing.
 
 ## F.1/F.2 boundary and exact section split
 
@@ -26,7 +26,7 @@ The Retail tag100 loader at `0x0057E2D0` reads five header words and allocates i
 
 ## Optional-record code values
 
-Re-analysis grouped source triangles by runtime-space plane for four France1 `COLLIDE_finishline*` meshes. For `COLLIDE_finishline03`, all 24/24 plane groups across baseline and modified cohorts contain a candidate code equal to a source triangle ordinal minus 12. Static baseline results for the other three finishline meshes are in [`tag100-code-ordinal.json`](tag100-code-ordinal.json). The source `startpoint` span is triangles [0,12), a plausible numeric reason for the constant. This is a HIGH_CONFIDENCE_NUMERIC_CORRELATION, not proof that `code` is a source triangle index or source-object owner. Only finishline03 has direct runtime physical proof.
+The 24 source triangles of `COLLIDE_finishline03` form 12 unique coplanar plane groups. Match counts by cohort: baseline 12/12, modified 12/12; matching candidate records have a code equal to at least one source triangle ordinal minus 12. Static baseline results for the other three meshes are in [`tag100-code-ordinal.json`](tag100-code-ordinal.json). This is a HIGH_CONFIDENCE_NUMERIC_CORRELATION, not proof that `code` is a triangle index or source-object owner. The possible link to startpoint Index 0 / Size 12 remains a hypothesis.
 
 ## Tag1339, tag1400, and typed differential
 
@@ -38,8 +38,8 @@ France1 U is 1,809,324 bytes; 64 byte positions differ over 47 ranges. The typed
 
 The current Retail corpus contains 36 course folders. Tag100 and tag1400 parse in 36/36; tag100 count invariants pass in all successful courses. Tag1400 dimensions span `[86, 263]` × `[76, 147]`; cell counts span `[8514, 36068]` and 56-byte record counts span `[21615, 35714]`. This is structural coverage only, not runtime semantic validation across courses.
 
-## Runtime isolation still required
+## Tree-only runtime result
 
-F.1 suffix runtime result remains `CONFIRMED_BY_RUNTIME_TEST`. F.2 plane-to-source relation remains `HIGH_CONFIDENCE_INFERENCE`. The two hybrids independently substitute only T or U while fixing P, S, and R. The remaining runtime result will distinguish tree carrier, tag1400 carrier, or cross-section dependency; no outcome is preselected.
+F.1 established that the tested physical state followed the complete suffix. F.2 bound the source face planes to records inside T with HIGH_CONFIDENCE_GEOMETRIC_BINDING. F.2.1 held P/S/R fixed: modified T + baseline U moved the collision to NEW; baseline T + modified U retained collision at OLD. Thus T determines the tested physical location in this pairing. Modified U was neither sufficient nor required for this translation; its broader runtime role remains UNKNOWN. See [`runtime-results.md`](runtime-results.md).
 
 No physical writer, arbitrary tag100 mutation, new source mesh edit, or EXE patch was added.

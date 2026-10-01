@@ -1,6 +1,6 @@
 # Course DX render grammar (R5T-A)
 
-Status: **CONFIRMED_BY_CORPUS** for the parsed revision-135 course render regions. For the tested France1 `COLLIDE_finishline03` state, the physical state follows the selected tag100-starting suffix (**CONFIRMED_BY_RECIPROCAL_REGION_SWAP**); F.2 structurally parsed its tag100 tree and correlated plane records to source geometry. The full tag100 grammar and broader physical, route, and surface meanings remain **UNKNOWN**.
+Status: **CONFIRMED_BY_CORPUS** for the parsed revision-135 course render regions. The tested France1 `COLLIDE_finishline03` state follows the tag100 tree donor (**CONFIRMED_BY_TREE_ONLY_REGION_SWAP**), refining F.1's whole-suffix result. F.2 structurally parsed the tree and correlated its plane records to source geometry. The full tag100 grammar and broader physical, route, and surface meanings remain **UNKNOWN**.
 
 ## Observed structure
 
@@ -99,7 +99,6 @@ neighbor windows and residual evidence are in
 [`research/r5t_c/findings.md`](../../research/r5t_c/findings.md) and
 [`research/r5t_c/tag100-diff-france1-one-point.md`](../../research/r5t_c/tag100-diff-france1-one-point.md).
 
+## R5T-F.2.1 tree-only runtime closeout
 
-## R5T-F.2.1 section isolation (runtime pending)
-
-The 36/36 Retail corpus satisfies the parser-derived tag100 count invariants and exact size equation. A bounded tag1400 parser reaches its separately parsed tag1500 tail; the France1 64 changed byte positions in 47 ranges all belong to typed fields in the tag1400 56-byte record family. This does not identify their runtime meaning. The old source-triangle ordinal −12 correlation for the optional-record `code` remains numeric/high-confidence only. See [`research/r5t_f21/findings.md`](../../research/r5t_f21/findings.md).
+The controlled Demo 9.10.0 France1 hybrids establish that the tested `COLLIDE_finishline03` translation follows the tag100 tree donor. Modified tree + baseline tag1400 moved the tested collision from OLD to NEW; baseline tree + modified tag1400 retained OLD and lacked NEW. Visible finish geometry and RaceTest FinishArea completion stayed unchanged. This conclusion is specific to the tested collider and baseline/modified pairing. Modified tag1400 is neither sufficient nor required for this translation; its broader role remains UNKNOWN. Tag100 is not thereby identified as a BSP or globally as collision data. See [`../../research/r5t_f21/runtime-results.md`](../../research/r5t_f21/runtime-results.md).

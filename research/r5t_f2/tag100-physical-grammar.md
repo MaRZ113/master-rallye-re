@@ -2,7 +2,7 @@
 
 ## Status
 
-**R5T-F.2 status: PASS, bounded.** The tag100 recursive wire structure and its plane-bearing record family are parsed read-only. The France1 source mesh's 12 distinct face planes match records inside the parsed tree in both source/cooked cohorts, and the `+20 X` translation follows the expected plane-distance equation. Runtime evidence remains bounded to the F.1 reciprocal suffix swap; the adjacent tag1400 block was not isolated by that test.
+**R5T-F.2 status: PASS, bounded; R5T-F.2.1: PASS — TREE_CARRIER_CONFIRMED.** The tag100 recursive wire structure is parsed read-only. F.2 found a high-confidence source-plane match; F.2.1 then isolated the tree in runtime hybrids and confirmed that it carries the tested `COLLIDE_finishline03` physical translation. This does not assign global collision or BSP semantics to tag100.
 
 ## Loader and wire layout
 
@@ -60,7 +60,10 @@ Full per-course hashes, header words, node counts, depth, pool roles, trailing b
 - No AABB/triangle writer, source writer, Blender overlay, or course authoring was added.
 - Tag1400 U's runtime role, tag1500 R semantics, and target-specific runtime node/leaf selection remain unresolved.
 
+## R5T-F.2.1 closeout — PASS, TREE_CARRIER_CONFIRMED
 
-## R5T-F.2.1 static tree/tag1400 preparation
+F.1's reciprocal whole-suffix swap established that the tested physical state followed the tag100-through-EOF donor. F.2 parsed the tag100 tree and matched the tested source mesh's 12 unique coplanar plane groups, but had not isolated tree-only runtime causality. F.2.1's mismatched hybrids resolve that boundary: modified tree + baseline tag1400 produced only the NEW collision; baseline tree + modified tag1400 produced only the OLD collision. Therefore the tag100 tree determines the tested `COLLIDE_finishline03` physical location in this controlled pairing. Modified tag1400 was neither sufficient nor required for this translation; its broader runtime role remains UNKNOWN.
 
-The 36/36 Retail count invariants and exact T-size equation were reproduced from DX bytes; see [`research/r5t_f21/findings.md`](../r5t_f21/findings.md). The F.1 runtime result remains a full tag100-through-EOF suffix result. F.2.1 separates T (tag100 tree), S (tag1339), U (tag1400), and R (tag1500) and stages two mismatched hybrids. Runtime isolation is pending. The optional `code` field has a HIGH_CONFIDENCE numeric source-triangle ordinal correlation at offset 12 for the four static France1 finishline meshes, but its semantics remain UNKNOWN.
+The 24 source triangles form 12 unique coplanar plane groups; 12/12 groups matched in both baseline and modified cohorts. The optional `code = source_triangle_ordinal − 12` relationship is a HIGH_CONFIDENCE_NUMERIC_CORRELATION; code semantics and the possible link to startpoint Index 0 / Size 12 remain UNKNOWN.
+
+The general T-size equation remains `24 + 12N + 20P + 4Q + 20L + (N−1)`. For Retail Q=L=0, it reduces to `23 + 13N + 20P`. France1 changes N=360,581 to 360,433 and P=180,290 to 180,216; `13*(−148)+20*(−74)=−3,404`, with no unexplained 148-byte residual. All 36/36 Retail courses satisfy the recorded count invariants. These are structural invariants, not proof of BSP semantics. See [`../r5t_f21/runtime-results.md`](../r5t_f21/runtime-results.md).

@@ -5391,5 +5391,47 @@
     "course_count": 36,
     "all_invariants_pass": true,
     "tag1400_boundary": "U tag1400 ends before R tag1500; R remains opaque and byte-identical in the controlled France1 pair"
+  },
+  "r5t_f21_tree_carrier_runtime_result": {
+    "status": "PASS — TREE_CARRIER_CONFIRMED",
+    "source_mesh": "COLLIDE_finishline03",
+    "tested_scope": "Only the tested COLLIDE_finishline03 physical collision translation in this controlled baseline/modified pairing",
+    "tree_only_hybrid": {
+      "description": "baseline prefix, modified tag100 tree, baseline tag1339, baseline tag1400, fixed later region",
+      "tree_donor": "modified",
+      "tag1339_donor": "baseline",
+      "tag1400_donor": "baseline",
+      "later_region_donor": "baseline",
+      "old_collision": "absent",
+      "new_collision": "present",
+      "finish_support_render_position": "original",
+      "finish_area_race_complete": "normal at original unchanged region",
+      "finish_line_visual_anomaly": "none observed",
+      "texture_anomaly": "none observed",
+      "runtime_stability": "normal in tested scenario"
+    },
+    "tag1400_only_hybrid": {
+      "description": "baseline prefix, baseline tag100 tree, baseline tag1339, modified tag1400, fixed later region",
+      "tree_donor": "baseline",
+      "tag1339_donor": "baseline",
+      "tag1400_donor": "modified",
+      "later_region_donor": "baseline",
+      "old_collision": "present",
+      "new_collision": "absent",
+      "finish_support_render_position": "original",
+      "finish_area_race_complete": "normal at original unchanged region",
+      "finish_line_visual_anomaly": "none observed",
+      "texture_anomaly": "none observed",
+      "runtime_stability": "normal in tested scenario"
+    },
+    "tag1400_sufficient_for_tested_translation": false,
+    "tag1400_required_for_tested_translation": false,
+    "evidence": [
+      "CONFIRMED_BY_SOURCE_RUNTIME_EDIT",
+      "CONFIRMED_BY_COOKER_DIFFERENTIAL",
+      "CONFIRMED_BY_FULL_SUFFIX_REGION_SWAP",
+      "CONFIRMED_BY_TREE_ONLY_REGION_SWAP",
+      "CONFIRMED_BY_RUNTIME_TEST"
+    ]
   }
 }
