@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "evidence_vocabulary": ["CONFIRMED_BY_RUNTIME", "CONFIRMED_BY_CORPUS", "CONFIRMED_BY_EXE", "SOURCE_EVIDENCE", "STRONG_HYPOTHESIS", "HYPOTHESIS", "UNKNOWN"],
+  "hypotheses": [
+    {
+      "id": "H-RESOURCE-001",
+      "statement": "For a direct resource request, the retail opener prefers a loose file at the requested path and falls back to Data.sma when the loose CreateFileA open fails; virtual-root registration order may affect ambiguous archive matches.",
+      "subsystem": "filesystem/resource manager",
+      "evidence_for": ["Retail 0064D530 calls CreateFileA before archive fallback.", "Fallback normalizes separators and matches DataAudio/DataGx/DataGame/DataScene/DataVideo roots."],
+      "evidence_against": ["Per-root search precedence and duplicate archive-name resolution were not reconstructed."],
+      "builds_examined": ["retail"],
+      "confidence": "HIGH",
+      "confidence_detail": "Direct loose-first/fallback order is confirmed; multi-root and duplicate-entry precedence remain only medium confidence.",
+      "cheapest_falsification_test": "Inspect a breakpoint trace at 0064D530 for one resource existing both loose and packaged in a disposable retail install.",
+      "static_follow_up": "Trace 0064D530 branches, archive index lookup, root matching and duplicate-name selection; compare exact same paths in 9.10.0.",
+      "runtime_follow_up": "Use cloned Data.sma and cloned game root with distinct sentinel payloads at one existing test path; record which payload is read, then restore the clone from hash-verified baseline.",
+      "status": "OPEN"
+    },
+    {
+      "id": "H-BROKER-001",
+      "statement": "DataGame/DataScene Value elements are loaded into the common 0x1c-byte broker-entry representation, with Type and save flags controlling typed access and persistence participation.",
+      "subsystem": "XML/parameter broker",
+      "evidence_for": ["Retail XML corpus uses Value Name/Type/Value and SaveOptions/SavePlayerState attributes.", "Retail broker diagnostic dumps 0x1c entries, type, revision, scope, and save-flag bits.", "Runtime wrappers use shared typed broker read/write helpers."],
+      "evidence_against": ["Exact XML-to-entry parser calls and merge order for all config families were not followed in this pass."],
+      "builds_examined": ["8.4.1", "9.3.1", "9.10.0", "retail"],
+      "confidence": "MEDIUM",
+      "confidence_detail": "The entry/access correlation is strong; the exact generic XML parser-to-entry merge path is not yet followed end-to-end.",
+      "cheapest_falsification_test": "Use the existing static parser path and one Value record to trace XML attributes into broker entry fields.",
+      "static_follow_up": "Decompile the generic XML node visitor and compare Type dispatch with the entry dump/type accessors; add cross-build map for parser core.",
+      "runtime_follow_up": "On a disposable profile, change one non-critical broker-backed option and observe the parsed value and matching broker entry in debugger.",
+      "status": "OPEN"
+    },
+    {
+      "id": "H-SAVE-001",
+      "statement": "SavePlayerState flags select broker values for player-state serialization, while SaveOptions selects settings serialization.",
+      "subsystem": "save/progress",
+      "evidence_for": ["Progress.xml records are SavePlayerState=True and SaveOptions=False.", "Broker dump prints save-related flag bits.", "Progress wrappers set/get keys used by unlock and best-time systems."],
+      "evidence_against": ["The actual player save writer, file name/container, and serialization policy were not identified; flag names may be consumed by more than one persistence path."],
+      "builds_examined": ["retail"],
+      "confidence": "MEDIUM",
+      "cheapest_falsification_test": "Trace every retail reader of broker flag bit 0x1/0x2 and identify writer call sites before a runtime save diff.",
+      "static_follow_up": "Xref the diagnostic flag reads and broker serialization/dirty-state routines; identify a single SavePlayerState entry end-to-end.",
+      "runtime_follow_up": "With the game closed and profile backed up, change one known progress field through normal play and compare only generated save files; restore the full profile copy.",
+      "status": "OPEN"
+    },
+    {
+      "id": "H-BUILDDATA-001",
+      "statement": "The retail BuildData wrapper is registered as an editor/development command and may be reachable through an in-game editor surface without executable patching.",
+      "subsystem": "development tools/cooker",
+      "evidence_for": ["Retail-only BuildData strings, wrapper, recursive walker and callback-like method-pointer table reference exist.", "Neighboring editor and XML open/save functionality survives in retail."],
+      "evidence_against": ["The table owner and UI/dispatcher call chain have not been identified; data-pointer references do not prove menu visibility."],
+      "builds_examined": ["retail", "8.4.1", "9.3.1", "9.10.0"],
+      "confidence": "LOW-MEDIUM",
+      "cheapest_falsification_test": "Trace the data table at 00692F8C to its owning class and list/command dispatch without running the command.",
+      "static_follow_up": "Resolve all reads of 00692F8C, its adjacent vtable/callback table, constructors, and editor menu population.",
+      "runtime_follow_up": "On a disposable retail installation, check editor menus; invoke only if an ordinary UI command exists, and direct it at a copied test folder with output hashes recorded.",
+      "status": "OPEN"
+    },
+    {
+      "id": "H-GHOST-001",
+      "statement": "Race/RecordReplay and Race/CarN/RecordSpline feed a recording path structurally related to the implemented GhostPlayback/GhostCar consumer.",
+      "subsystem": "replay/ghost",
+      "evidence_for": ["RecordReplay and RecordSpline broker paths survive in all builds.", "Retail GhostPlayback reads a start position and constructs a GhostCar."],
+      "evidence_against": ["No producer-to-file path, extension, or shared data structure was mapped; names alone may represent separate systems."],
+      "builds_examined": ["8.4.1", "9.3.1", "9.10.0", "retail"],
+      "confidence": "LOW",
+      "cheapest_falsification_test": "Trace the string xrefs/callers for RecordReplay and RecordSpline, then compare their data references with GhostCar playback.",
+      "static_follow_up": "Map recording enable path, file APIs, record structure, and ghost playback parser; identify runtime file extension.",
+      "runtime_follow_up": "On a cloned profile, run one short race with recording enabled through an existing UI/config route; inventory only newly created files and restore the clone.",
+      "status": "OPEN"
+    },
+    {
+      "id": "H-ROUTE-001",
+      "statement": "LastMarker, SplitPoint, WrongWay, and pace-note owner/current-note broker keys participate in per-car route state, but their exact producers and transitions may be distributed across AI and race managers.",
+      "subsystem": "route/checkpoint/AI",
+      "evidence_for": ["Formatted Race/Car%d/... keys exist across later builds.", "RaceLine, split-time and pace-note component factories/configuration exist.", "Existing R5T-D1 confirms a per-car SplitTime0 activation path, but not these other fields."],
+      "evidence_against": ["Several formatted strings have no direct xref; no marker progression or WrongWay detector was decompiled."],
+      "builds_examined": ["9.3.1", "9.10.0", "retail"],
+      "confidence": "LOW-MEDIUM",
+      "cheapest_falsification_test": "Search broker path construction at runtime/static call sites and identify whether these values are read or written in active race code.",
+      "static_follow_up": "Trace RaceLine/marker update call graph, string-construction helpers, and all broker read/write calls around the route classes.",
+      "runtime_follow_up": "Watch broker access for Race/Car0/LastMarker and WrongWay in a cloned retail profile across one marker, reverse travel and a deliberate route departure; no course data edits in the active R5T experiment.",
+      "status": "OPEN"
+    },
+    {
+      "id": "H-NETWORK-001",
+      "statement": "The UDP listener on port 22222 serves a race synchronization or peer-discovery role, with network car slots potentially represented by indices 0 through 7.",
+      "subsystem": "networking",
+      "evidence_for": ["All four builds bind configured port 0x56CE when the listener is enabled.", "Network/SyncState and Network/CarN/IpAddress keys exist; race network-sync enforcer path is present."],
+      "evidence_against": ["Protocol and slot capacity are unknown; visible path suffixes do not establish an active maximum."],
+      "builds_examined": ["8.4.1", "9.3.1", "9.10.0", "retail"],
+      "confidence": "MEDIUM",
+      "confidence_detail": "Sync relation is plausible from keys and enforcer; eight-slot capacity is low confidence and unproven.",
+      "cheapest_falsification_test": "Trace all reads/writes of Network/SyncState and UDP send/receive call sites before any network experiment.",
+      "static_follow_up": "Map socket bind/recv/send call graph and inspect loop bounds on indexed network car records.",
+      "runtime_follow_up": "Only on two isolated local copies, observe loopback socket state and broker changes; keep the listener offline from external peers and stop immediately if it attempts external endpoints.",
+      "status": "OPEN"
+    },
+    {
+      "id": "H-MATERIAL-001",
+      "statement": "The explicit alpha-test shader families added by 9.10.0 distinguish binary/cutout alpha materials from blended alpha materials, while environment families add a separate stage/state path.",
+      "subsystem": "graphics/material",
+      "evidence_for": ["New alpha-test shader family names appear with the 9.3-to-9.10 registry rewrite.", "Existing R4D.1 material findings distinguish alpha and environment states."],
+      "evidence_against": ["No per-material runtime selector branch was traced from a retail DX material value to an exact D3D render-state combination in this phase."],
+      "builds_examined": ["9.3.1", "9.10.0", "retail"],
+      "confidence": "MEDIUM",
+      "cheapest_falsification_test": "Trace one material with fractional alpha and one cutout material through retail selector 00580360 and inspect assembly/render-state calls.",
+      "static_follow_up": "Pair selector and render-state functions with corresponding registry entries; inspect the values loaded at the D3D8 call boundary.",
+      "runtime_follow_up": "Render two existing assets that differ only in known alpha semantics in an isolated retail install and capture device-state breakpoints; do not modify shared preview semantics from this result alone.",
+      "status": "OPEN"
+    }
+  ]
+}

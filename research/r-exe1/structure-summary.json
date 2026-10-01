@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "structures": [
+    {
+      "name": "BrokerEntry_Partial_0x1C",
+      "builds": ["retail"],
+      "size": 28,
+      "confidence": "PARTIAL",
+      "evidence_functions": ["00601D00", "004D6520", "004D6650", "004D6760", "004D7AA0", "004D7ED0", "004D8000"],
+      "fields": [
+        {"offset": 0, "size": 4, "name": "key_index_candidate", "type": "uint32", "confidence": "MEDIUM", "reason": "Getter/setter resolves requested key/index through word 0; exact interning relation unknown."},
+        {"offset": 4, "size": 4, "name": "value_storage_pointer_candidate", "type": "uint32_pointer_candidate", "confidence": "HIGH", "reason": "Diagnostic dereferences for scalar values and uses typed helpers for non-scalars."},
+        {"offset": 8, "size": 4, "name": "type_tag", "type": "uint32_enum_candidate", "confidence": "HIGH", "reason": "Diagnostic and accessors compare Bool=0, Float=1, Int=2, Matrix=3, String=4 and additional categories."},
+        {"offset": 12, "size": 4, "name": "save_flags", "type": "uint32_flags_candidate", "confidence": "MEDIUM", "reason": "Diagnostic checks bits 0x1, 0x2, 0x4 and formats S/O/PS labels; exact flag-to-label mapping needs verification."},
+        {"offset": 16, "size": 4, "name": "revision", "type": "int32", "confidence": "HIGH", "reason": "Printed as Rev %d."},
+        {"offset": 20, "size": 4, "name": "scope_tag", "type": "int32_enum_candidate", "confidence": "HIGH", "reason": "0 prints GLOBAL, 1 prints SCENE, other values use formatted category."},
+        {"offset": 24, "size": 4, "name": "unknown_18", "type": "uint32", "confidence": "UNKNOWN", "reason": "No stable interpretation assigned."}
+      ],
+      "application": "Added as an unreferenced datatype to isolated retail Ghidra project only; no guessed binary address was typed."
+    }
+  ]
+}

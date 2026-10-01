@@ -1,0 +1,3937 @@
+{
+  "schema_version": 1,
+  "builds": [
+    {
+      "build": "8.4.1",
+      "source_relative_path": "demo-8.4.1/MRallye.exe",
+      "size_bytes": 2084926,
+      "sha256": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
+      "expected_sha256": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
+      "expected_hash_match": true,
+      "pe": {
+        "kind": "PE32",
+        "machine": "i386",
+        "machine_value": "0x014C",
+        "timestamp_unix": 1000233924,
+        "timestamp_utc": "2001-09-11T18:45:24+00:00",
+        "characteristics": "0x010F",
+        "image_base": "0x00400000",
+        "entry_point_rva": "0x000D10F2",
+        "entry_point_va": "0x004D10F2",
+        "section_alignment": 4096,
+        "file_alignment": 4096,
+        "size_of_image": 2158592,
+        "size_of_headers": 4096,
+        "subsystem": "Windows GUI",
+        "dll_characteristics": "0x0000",
+        "linker_version": "6.0",
+        "sections": [
+          {
+            "name": ".text",
+            "virtual_address": "0x00001000",
+            "virtual_size": 1889812,
+            "raw_offset": "0x00001000",
+            "raw_size": 1892352,
+            "characteristics": "0x60000020",
+            "flags": [
+              "CODE",
+              "EXECUTE",
+              "READ"
+            ]
+          },
+          {
+            "name": ".rdata",
+            "virtual_address": "0x001CF000",
+            "virtual_size": 82744,
+            "raw_offset": "0x001CF000",
+            "raw_size": 86016,
+            "characteristics": "0x40000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ"
+            ]
+          },
+          {
+            "name": ".data",
+            "virtual_address": "0x001E4000",
+            "virtual_size": 158392,
+            "raw_offset": "0x001E4000",
+            "raw_size": 86016,
+            "characteristics": "0xC0000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ",
+              "WRITE"
+            ]
+          },
+          {
+            "name": ".rsrc",
+            "virtual_address": "0x0020B000",
+            "virtual_size": 14984,
+            "raw_offset": "0x001F9000",
+            "raw_size": 16384,
+            "characteristics": "0x40000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ"
+            ]
+          }
+        ]
+      },
+      "imports": [
+        {
+          "dll": "kernel32.dll",
+          "symbols": [
+            {
+              "name": "SetLastError"
+            },
+            {
+              "name": "TlsFree"
+            },
+            {
+              "name": "GetLastError"
+            },
+            {
+              "name": "GetCurrentThread"
+            },
+            {
+              "name": "SetConsoleCtrlHandler"
+            },
+            {
+              "name": "TlsAlloc"
+            },
+            {
+              "name": "TlsGetValue"
+            },
+            {
+              "name": "EnterCriticalSection"
+            },
+            {
+              "name": "CloseHandle"
+            },
+            {
+              "name": "InitializeCriticalSection"
+            },
+            {
+              "name": "DeleteCriticalSection"
+            },
+            {
+              "name": "FatalAppExitA"
+            },
+            {
+              "name": "SetUnhandledExceptionFilter"
+            },
+            {
+              "name": "UnhandledExceptionFilter"
+            },
+            {
+              "name": "LeaveCriticalSection"
+            },
+            {
+              "name": "FreeEnvironmentStringsA"
+            },
+            {
+              "name": "GetModuleFileNameA"
+            },
+            {
+              "name": "WideCharToMultiByte"
+            },
+            {
+              "name": "GetEnvironmentStrings"
+            },
+            {
+              "name": "GetEnvironmentStringsW"
+            },
+            {
+              "name": "SetHandleCount"
+            },
+            {
+              "name": "GetStdHandle"
+            },
+            {
+              "name": "GetFileType"
+            },
+            {
+              "name": "GetEnvironmentVariableA"
+            },
+            {
+              "name": "GetVersionExA"
+            },
+            {
+              "name": "HeapDestroy"
+            },
+            {
+              "name": "HeapCreate"
+            },
+            {
+              "name": "VirtualFree"
+            },
+            {
+              "name": "WriteFile"
+            },
+            {
+              "name": "VirtualAlloc"
+            },
+            {
+              "name": "IsBadWritePtr"
+            },
+            {
+              "name": "FreeEnvironmentStringsW"
+            },
+            {
+              "name": "TlsSetValue"
+            },
+            {
+              "name": "TerminateProcess"
+            },
+            {
+              "name": "GetCurrentThreadId"
+            },
+            {
+              "name": "SetFilePointer"
+            },
+            {
+              "name": "SetStdHandle"
+            },
+            {
+              "name": "FlushFileBuffers"
+            },
+            {
+              "name": "CreateFileA"
+            },
+            {
+              "name": "MultiByteToWideChar"
+            },
+            {
+              "name": "GetStringTypeA"
+            },
+            {
+              "name": "GetStringTypeW"
+            },
+            {
+              "name": "GetCPInfo"
+            },
+            {
+              "name": "GetACP"
+            },
+            {
+              "name": "GetOEMCP"
+            },
+            {
+              "name": "LoadLibraryA"
+            },
+            {
+              "name": "Sleep"
+            },
+            {
+              "name": "LCMapStringA"
+            },
+            {
+              "name": "LCMapStringW"
+            },
+            {
+              "name": "SetEndOfFile"
+            },
+            {
+              "name": "ReadFile"
+            },
+            {
+              "name": "IsValidLocale"
+            },
+            {
+              "name": "IsValidCodePage"
+            },
+            {
+              "name": "GetLocaleInfoA"
+            },
+            {
+              "name": "EnumSystemLocalesA"
+            },
+            {
+              "name": "GetUserDefaultLCID"
+            },
+            {
+              "name": "GetTimeZoneInformation"
+            },
+            {
+              "name": "GetLocaleInfoW"
+            },
+            {
+              "name": "CompareStringA"
+            },
+            {
+              "name": "CompareStringW"
+            },
+            {
+              "name": "SetEnvironmentVariableA"
+            },
+            {
+              "name": "SetThreadPriority"
+            },
+            {
+              "name": "SetCurrentDirectoryA"
+            },
+            {
+              "name": "InterlockedExchange"
+            },
+            {
+              "name": "RaiseException"
+            },
+            {
+              "name": "RtlUnwind"
+            },
+            {
+              "name": "GetProcAddress"
+            },
+            {
+              "name": "HeapSize"
+            },
+            {
+              "name": "InterlockedIncrement"
+            },
+            {
+              "name": "HeapReAlloc"
+            },
+            {
+              "name": "GetCurrentDirectoryA"
+            },
+            {
+              "name": "QueryPerformanceFrequency"
+            },
+            {
+              "name": "QueryPerformanceCounter"
+            },
+            {
+              "name": "GetCurrentProcess"
+            },
+            {
+              "name": "ExitProcess"
+            },
+            {
+              "name": "HeapFree"
+            },
+            {
+              "name": "HeapAlloc"
+            },
+            {
+              "name": "GetStartupInfoA"
+            },
+            {
+              "name": "GetVersion"
+            },
+            {
+              "name": "GetCommandLineA"
+            },
+            {
+              "name": "IsBadReadPtr"
+            },
+            {
+              "name": "GetModuleHandleA"
+            },
+            {
+              "name": "IsBadCodePtr"
+            },
+            {
+              "name": "InterlockedDecrement"
+            },
+            {
+              "name": "FindClose"
+            },
+            {
+              "name": "MoveFileA"
+            },
+            {
+              "name": "ExitThread"
+            },
+            {
+              "name": "CreateThread"
+            },
+            {
+              "name": "PeekNamedPipe"
+            },
+            {
+              "name": "GetFileInformationByHandle"
+            },
+            {
+              "name": "LocalFree"
+            },
+            {
+              "name": "FormatMessageA"
+            },
+            {
+              "name": "WaitForSingleObject"
+            },
+            {
+              "name": "GetSystemTime"
+            },
+            {
+              "name": "OutputDebugStringA"
+            },
+            {
+              "name": "FindNextFileA"
+            },
+            {
+              "name": "FindFirstFileA"
+            },
+            {
+              "name": "CopyFileA"
+            },
+            {
+              "name": "SetFileAttributesA"
+            },
+            {
+              "name": "GetFileSize"
+            },
+            {
+              "name": "FindResourceW"
+            },
+            {
+              "name": "DeleteFileA"
+            },
+            {
+              "name": "GetFileAttributesA"
+            },
+            {
+              "name": "FileTimeToSystemTime"
+            },
+            {
+              "name": "FileTimeToLocalFileTime"
+            },
+            {
+              "name": "GetDriveTypeA"
+            },
+            {
+              "name": "GetFullPathNameA"
+            },
+            {
+              "name": "MapViewOfFile"
+            },
+            {
+              "name": "CreateFileMappingA"
+            },
+            {
+              "name": "CreateFileW"
+            },
+            {
+              "name": "UnmapViewOfFile"
+            },
+            {
+              "name": "GetProcessHeap"
+            },
+            {
+              "name": "LockResource"
+            },
+            {
+              "name": "LoadResource"
+            },
+            {
+              "name": "SizeofResource"
+            },
+            {
+              "name": "FindResourceA"
+            }
+          ]
+        },
+        {
+          "dll": "user32.dll",
+          "symbols": [
+            {
+              "name": "TranslateMessage"
+            },
+            {
+              "name": "DestroyWindow"
+            },
+            {
+              "name": "KillTimer"
+            },
+            {
+              "name": "SetWindowLongA"
+            },
+            {
+              "name": "GetWindowLongA"
+            },
+            {
+              "name": "ReleaseDC"
+            },
+            {
+              "name": "GetDC"
+            },
+            {
+              "name": "ClientToScreen"
+            },
+            {
+              "name": "GetClientRect"
+            },
+            {
+              "name": "GetWindowRect"
+            },
+            {
+              "name": "ShowWindow"
+            },
+            {
+              "name": "InvalidateRect"
+            },
+            {
+              "name": "GetActiveWindow"
+            },
+            {
+              "name": "SetForegroundWindow"
+            },
+            {
+              "name": "PostMessageA"
+            },
+            {
+              "name": "SetWindowPos"
+            },
+            {
+              "name": "SetScrollPos"
+            },
+            {
+              "name": "SetScrollRange"
+            },
+            {
+              "name": "SetParent"
+            },
+            {
+              "name": "GetDesktopWindow"
+            },
+            {
+              "name": "MoveWindow"
+            },
+            {
+              "name": "SetTimer"
+            },
+            {
+              "name": "SetWindowTextA"
+            },
+            {
+              "name": "EndPaint"
+            },
+            {
+              "name": "FillRect"
+            },
+            {
+              "name": "BeginPaint"
+            },
+            {
+              "name": "CreateWindowExA"
+            },
+            {
+              "name": "RegisterClassA"
+            },
+            {
+              "name": "LoadCursorA"
+            },
+            {
+              "name": "DefWindowProcA"
+            },
+            {
+              "name": "PostQuitMessage"
+            },
+            {
+              "name": "WaitMessage"
+            },
+            {
+              "name": "EndDialog"
+            },
+            {
+              "name": "PeekMessageA"
+            },
+            {
+              "name": "GetMessageA"
+            },
+            {
+              "name": "DispatchMessageA"
+            },
+            {
+              "name": "CreateMenu"
+            },
+            {
+              "name": "DestroyMenu"
+            },
+            {
+              "name": "GetMenu"
+            },
+            {
+              "name": "SetMenu"
+            },
+            {
+              "name": "InsertMenuItemA"
+            },
+            {
+              "name": "GetMenuItemCount"
+            },
+            {
+              "name": "CheckMenuItem"
+            },
+            {
+              "name": "ShowCursor"
+            },
+            {
+              "name": "AdjustWindowRect"
+            },
+            {
+              "name": "SetRect"
+            },
+            {
+              "name": "ScreenToClient"
+            },
+            {
+              "name": "GetCursorPos"
+            },
+            {
+              "name": "SetCursor"
+            },
+            {
+              "name": "GetClassLongA"
+            },
+            {
+              "name": "SendMessageA"
+            },
+            {
+              "name": "GetDlgItem"
+            },
+            {
+              "name": "ScrollWindowEx"
+            },
+            {
+              "name": "GetDialogBaseUnits"
+            },
+            {
+              "name": "GetWindowTextA"
+            },
+            {
+              "name": "EnableWindow"
+            },
+            {
+              "name": "DrawTextA"
+            },
+            {
+              "name": "DrawTextW"
+            },
+            {
+              "name": "CreateDialogParamA"
+            },
+            {
+              "name": "DialogBoxParamA"
+            },
+            {
+              "name": "MessageBoxA"
+            },
+            {
+              "name": "GetSystemMetrics"
+            },
+            {
+              "name": "SetFocus"
+            }
+          ]
+        },
+        {
+          "dll": "winmm.dll",
+          "symbols": [
+            {
+              "name": "timeGetTime"
+            }
+          ]
+        },
+        {
+          "dll": "d3d8.dll",
+          "symbols": [
+            {
+              "name": "Direct3DCreate8"
+            }
+          ]
+        },
+        {
+          "dll": "dsound.dll",
+          "symbols": [
+            {
+              "ordinal": 1
+            }
+          ]
+        },
+        {
+          "dll": "dinput8.dll",
+          "symbols": [
+            {
+              "name": "DirectInput8Create"
+            }
+          ]
+        },
+        {
+          "dll": "ws2_32.dll",
+          "symbols": [
+            {
+              "ordinal": 8
+            },
+            {
+              "ordinal": 21
+            },
+            {
+              "ordinal": 115
+            },
+            {
+              "ordinal": 116
+            },
+            {
+              "ordinal": 57
+            },
+            {
+              "ordinal": 9
+            },
+            {
+              "ordinal": 13
+            },
+            {
+              "ordinal": 19
+            },
+            {
+              "ordinal": 2
+            },
+            {
+              "ordinal": 20
+            },
+            {
+              "ordinal": 52
+            },
+            {
+              "ordinal": 3
+            },
+            {
+              "ordinal": 23
+            },
+            {
+              "ordinal": 18
+            },
+            {
+              "ordinal": 4
+            },
+            {
+              "ordinal": 11
+            },
+            {
+              "ordinal": 1
+            },
+            {
+              "ordinal": 17
+            },
+            {
+              "ordinal": 151
+            }
+          ]
+        },
+        {
+          "dll": "gdi32.dll",
+          "symbols": [
+            {
+              "name": "GetObjectA"
+            },
+            {
+              "name": "GetTextMetricsA"
+            },
+            {
+              "name": "TextOutA"
+            },
+            {
+              "name": "GetStockObject"
+            },
+            {
+              "name": "SetBkMode"
+            },
+            {
+              "name": "DeleteObject"
+            },
+            {
+              "name": "GetTextExtentPoint32A"
+            },
+            {
+              "name": "CreateFontIndirectA"
+            },
+            {
+              "name": "DeleteDC"
+            },
+            {
+              "name": "CreateFontA"
+            },
+            {
+              "name": "SelectObject"
+            },
+            {
+              "name": "SetBkColor"
+            },
+            {
+              "name": "CreateDIBSection"
+            },
+            {
+              "name": "CreateCompatibleDC"
+            },
+            {
+              "name": "SetTextColor"
+            }
+          ]
+        },
+        {
+          "dll": "comdlg32.dll",
+          "symbols": [
+            {
+              "name": "GetSaveFileNameA"
+            },
+            {
+              "name": "GetOpenFileNameA"
+            }
+          ]
+        },
+        {
+          "dll": "ole32.dll",
+          "symbols": [
+            {
+              "name": "CoUninitialize"
+            },
+            {
+              "name": "CoCreateInstance"
+            },
+            {
+              "name": "CoInitialize"
+            }
+          ]
+        },
+        {
+          "dll": "comctl32.dll",
+          "symbols": [
+            {
+              "ordinal": 17
+            }
+          ]
+        }
+      ],
+      "imported_dlls": [
+        "kernel32.dll",
+        "user32.dll",
+        "winmm.dll",
+        "d3d8.dll",
+        "dsound.dll",
+        "dinput8.dll",
+        "ws2_32.dll",
+        "gdi32.dll",
+        "comdlg32.dll",
+        "ole32.dll",
+        "comctl32.dll"
+      ],
+      "exports": [],
+      "debug_directory": [
+        {
+          "type": 2,
+          "timestamp": 1000233924,
+          "version": "0.0",
+          "size": 62,
+          "format": "NB10",
+          "pdb_path": "D:\\Projects\\MRallyeTNG\\Release\\MRallyeTNG.pdb"
+        }
+      ],
+      "debug_information_present": true,
+      "pdb_path_strings": [
+        "D:\\Projects\\MRallyeTNG\\Release\\MRallyeTNG.pdb"
+      ],
+      "rtti_indicators": [
+        ".?AVexception@@",
+        ".?AVlength_error@std@@",
+        ".?AVlogic_error@std@@",
+        ".?AVout_of_range@std@@",
+        ".?AVtype_info@@",
+        ".WAV",
+        "ARNAUD DEBRON",
+        "AUDIO OPTIONS",
+        "AUSTRIA",
+        "D3DERR_NOTAVAILABLE",
+        "DSERR_CONTROLUNAVAIL",
+        "LEG 5/10 - AUSTRIA",
+        "LOAD/SAVE",
+        "RAV4 PICKUP",
+        "STAGE 1 OF THE MASTER RALLYE TAKES PLACE OVER TWO LEGS, ONE LEG IN FRANCE FOLLOWED BY ONE IN GERMANY.\\n\\nFARMLAND AND FORESTS MAKE UP MOST OF THE TERRAIN WITH SEVERAL BEAUTY SPOTS ALONG THE WAY.\\n\\nCAUTION IS ADVISED ON DOWNHILL SECTIONS ESPECIALLY ON MUD, OR IF TREES ARE CLOSE TO THE RACING LINE.",
+        "TOYOTA RAV4",
+        "VAUXHALL",
+        "VAUXHALL FRONTERA SPORT",
+        "WAVE",
+        "__NO_SAVE",
+        "tAVW"
+      ],
+      "rich_header_records": [],
+      "toolchain_fingerprints": {
+        "rich_header_present": false,
+        "linker_version": "6.0",
+        "crt": "no recognizable dynamic MSVC CRT import; static/runtime model unresolved",
+        "directx_imports": [
+          "d3d8.dll",
+          "dsound.dll",
+          "dinput8.dll"
+        ],
+        "rtti_marker_count": 21
+      }
+    },
+    {
+      "build": "9.3.1",
+      "source_relative_path": "demo-9.3.1/MRallye.exe",
+      "size_bytes": 2637886,
+      "sha256": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
+      "expected_sha256": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
+      "expected_hash_match": true,
+      "pe": {
+        "kind": "PE32",
+        "machine": "i386",
+        "machine_value": "0x014C",
+        "timestamp_unix": 1002641558,
+        "timestamp_utc": "2001-10-09T15:32:38+00:00",
+        "characteristics": "0x010F",
+        "image_base": "0x00400000",
+        "entry_point_rva": "0x0017A582",
+        "entry_point_va": "0x0057A582",
+        "section_alignment": 4096,
+        "file_alignment": 4096,
+        "size_of_image": 2711552,
+        "size_of_headers": 4096,
+        "subsystem": "Windows GUI",
+        "dll_characteristics": "0x0000",
+        "linker_version": "6.0",
+        "sections": [
+          {
+            "name": ".text",
+            "virtual_address": "0x00001000",
+            "virtual_size": 2379580,
+            "raw_offset": "0x00001000",
+            "raw_size": 2379776,
+            "characteristics": "0x60000020",
+            "flags": [
+              "CODE",
+              "EXECUTE",
+              "READ"
+            ]
+          },
+          {
+            "name": ".rdata",
+            "virtual_address": "0x00246000",
+            "virtual_size": 108272,
+            "raw_offset": "0x00246000",
+            "raw_size": 110592,
+            "characteristics": "0x40000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ"
+            ]
+          },
+          {
+            "name": ".data",
+            "virtual_address": "0x00261000",
+            "virtual_size": 200392,
+            "raw_offset": "0x00261000",
+            "raw_size": 126976,
+            "characteristics": "0xC0000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ",
+              "WRITE"
+            ]
+          },
+          {
+            "name": ".rsrc",
+            "virtual_address": "0x00292000",
+            "virtual_size": 15032,
+            "raw_offset": "0x00280000",
+            "raw_size": 16384,
+            "characteristics": "0x40000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ"
+            ]
+          }
+        ]
+      },
+      "imports": [
+        {
+          "dll": "kernel32.dll",
+          "symbols": [
+            {
+              "name": "RtlUnwind"
+            },
+            {
+              "name": "RaiseException"
+            },
+            {
+              "name": "MultiByteToWideChar"
+            },
+            {
+              "name": "GetLastError"
+            },
+            {
+              "name": "SetFileAttributesA"
+            },
+            {
+              "name": "GetFileAttributesA"
+            },
+            {
+              "name": "DeleteFileA"
+            },
+            {
+              "name": "GetStartupInfoA"
+            },
+            {
+              "name": "InterlockedIncrement"
+            },
+            {
+              "name": "WideCharToMultiByte"
+            },
+            {
+              "name": "ExitProcess"
+            },
+            {
+              "name": "HeapAlloc"
+            },
+            {
+              "name": "HeapFree"
+            },
+            {
+              "name": "HeapReAlloc"
+            },
+            {
+              "name": "FatalAppExitA"
+            },
+            {
+              "name": "LCMapStringA"
+            },
+            {
+              "name": "LCMapStringW"
+            },
+            {
+              "name": "GetCPInfo"
+            },
+            {
+              "name": "GetVersion"
+            },
+            {
+              "name": "GetCommandLineA"
+            },
+            {
+              "name": "CompareStringA"
+            },
+            {
+              "name": "GetCurrentProcess"
+            },
+            {
+              "name": "HeapSize"
+            },
+            {
+              "name": "GetProcAddress"
+            },
+            {
+              "name": "GetCurrentThreadId"
+            },
+            {
+              "name": "TlsSetValue"
+            },
+            {
+              "name": "TlsAlloc"
+            },
+            {
+              "name": "TlsFree"
+            },
+            {
+              "name": "SetLastError"
+            },
+            {
+              "name": "TlsGetValue"
+            },
+            {
+              "name": "GetCurrentThread"
+            },
+            {
+              "name": "SetConsoleCtrlHandler"
+            },
+            {
+              "name": "CloseHandle"
+            },
+            {
+              "name": "SetUnhandledExceptionFilter"
+            },
+            {
+              "name": "WriteFile"
+            },
+            {
+              "name": "ReadFile"
+            },
+            {
+              "name": "UnhandledExceptionFilter"
+            },
+            {
+              "name": "GetModuleFileNameA"
+            },
+            {
+              "name": "FreeEnvironmentStringsA"
+            },
+            {
+              "name": "DeleteCriticalSection"
+            },
+            {
+              "name": "CompareStringW"
+            },
+            {
+              "name": "Sleep"
+            },
+            {
+              "name": "TerminateProcess"
+            },
+            {
+              "name": "InterlockedDecrement"
+            },
+            {
+              "name": "GetFileType"
+            },
+            {
+              "name": "GetEnvironmentVariableA"
+            },
+            {
+              "name": "GetVersionExA"
+            },
+            {
+              "name": "HeapDestroy"
+            },
+            {
+              "name": "HeapCreate"
+            },
+            {
+              "name": "VirtualFree"
+            },
+            {
+              "name": "VirtualAlloc"
+            },
+            {
+              "name": "IsBadWritePtr"
+            },
+            {
+              "name": "IsValidLocale"
+            },
+            {
+              "name": "IsValidCodePage"
+            },
+            {
+              "name": "GetLocaleInfoA"
+            },
+            {
+              "name": "EnumSystemLocalesA"
+            },
+            {
+              "name": "GetUserDefaultLCID"
+            },
+            {
+              "name": "GetTimeZoneInformation"
+            },
+            {
+              "name": "GetStringTypeA"
+            },
+            {
+              "name": "GetStringTypeW"
+            },
+            {
+              "name": "IsBadReadPtr"
+            },
+            {
+              "name": "IsBadCodePtr"
+            },
+            {
+              "name": "SetFilePointer"
+            },
+            {
+              "name": "SetStdHandle"
+            },
+            {
+              "name": "FlushFileBuffers"
+            },
+            {
+              "name": "CreateFileA"
+            },
+            {
+              "name": "GetACP"
+            },
+            {
+              "name": "GetOEMCP"
+            },
+            {
+              "name": "GetSystemTime"
+            },
+            {
+              "name": "SetEndOfFile"
+            },
+            {
+              "name": "GetLocaleInfoW"
+            },
+            {
+              "name": "SetEnvironmentVariableA"
+            },
+            {
+              "name": "GetFileSize"
+            },
+            {
+              "name": "MapViewOfFile"
+            },
+            {
+              "name": "CreateFileMappingA"
+            },
+            {
+              "name": "CreateFileW"
+            },
+            {
+              "name": "UnmapViewOfFile"
+            },
+            {
+              "name": "LockResource"
+            },
+            {
+              "name": "LoadResource"
+            },
+            {
+              "name": "SizeofResource"
+            },
+            {
+              "name": "FindResourceA"
+            },
+            {
+              "name": "FindResourceW"
+            },
+            {
+              "name": "GetProcessHeap"
+            },
+            {
+              "name": "LeaveCriticalSection"
+            },
+            {
+              "name": "FreeEnvironmentStringsW"
+            },
+            {
+              "name": "InterlockedExchange"
+            },
+            {
+              "name": "QueryPerformanceFrequency"
+            },
+            {
+              "name": "QueryPerformanceCounter"
+            },
+            {
+              "name": "SetCurrentDirectoryA"
+            },
+            {
+              "name": "InitializeCriticalSection"
+            },
+            {
+              "name": "GetCurrentDirectoryA"
+            },
+            {
+              "name": "EnterCriticalSection"
+            },
+            {
+              "name": "GetModuleHandleA"
+            },
+            {
+              "name": "GetEnvironmentStringsW"
+            },
+            {
+              "name": "FormatMessageA"
+            },
+            {
+              "name": "OutputDebugStringA"
+            },
+            {
+              "name": "ExitThread"
+            },
+            {
+              "name": "CreateThread"
+            },
+            {
+              "name": "SetHandleCount"
+            },
+            {
+              "name": "LocalFree"
+            },
+            {
+              "name": "GetStdHandle"
+            },
+            {
+              "name": "GetEnvironmentStrings"
+            },
+            {
+              "name": "LoadLibraryA"
+            },
+            {
+              "name": "FindClose"
+            },
+            {
+              "name": "FindNextFileA"
+            },
+            {
+              "name": "FindFirstFileA"
+            },
+            {
+              "name": "FileTimeToSystemTime"
+            },
+            {
+              "name": "FileTimeToLocalFileTime"
+            },
+            {
+              "name": "GetFileInformationByHandle"
+            },
+            {
+              "name": "PeekNamedPipe"
+            },
+            {
+              "name": "GetDriveTypeA"
+            },
+            {
+              "name": "MoveFileA"
+            },
+            {
+              "name": "GetFullPathNameA"
+            },
+            {
+              "name": "SetThreadPriority"
+            },
+            {
+              "name": "WaitForSingleObject"
+            },
+            {
+              "name": "CopyFileA"
+            },
+            {
+              "name": "CreateDirectoryA"
+            }
+          ]
+        },
+        {
+          "dll": "winmm.dll",
+          "symbols": [
+            {
+              "name": "timeGetTime"
+            }
+          ]
+        },
+        {
+          "dll": "d3d8.dll",
+          "symbols": [
+            {
+              "name": "Direct3DCreate8"
+            }
+          ]
+        },
+        {
+          "dll": "dinput8.dll",
+          "symbols": [
+            {
+              "name": "DirectInput8Create"
+            }
+          ]
+        },
+        {
+          "dll": "user32.dll",
+          "symbols": [
+            {
+              "name": "LoadCursorA"
+            },
+            {
+              "name": "DefWindowProcA"
+            },
+            {
+              "name": "GetAsyncKeyState"
+            },
+            {
+              "name": "GetCursorPos"
+            },
+            {
+              "name": "ScreenToClient"
+            },
+            {
+              "name": "DestroyMenu"
+            },
+            {
+              "name": "KillTimer"
+            },
+            {
+              "name": "ReleaseDC"
+            },
+            {
+              "name": "GetDC"
+            },
+            {
+              "name": "DestroyWindow"
+            },
+            {
+              "name": "ShowWindow"
+            },
+            {
+              "name": "InvalidateRect"
+            },
+            {
+              "name": "ClientToScreen"
+            },
+            {
+              "name": "GetMenu"
+            },
+            {
+              "name": "PostMessageA"
+            },
+            {
+              "name": "SetScrollPos"
+            },
+            {
+              "name": "SetScrollRange"
+            },
+            {
+              "name": "SetParent"
+            },
+            {
+              "name": "GetDesktopWindow"
+            },
+            {
+              "name": "MoveWindow"
+            },
+            {
+              "name": "SetTimer"
+            },
+            {
+              "name": "SetWindowTextA"
+            },
+            {
+              "name": "RegisterClassA"
+            },
+            {
+              "name": "SetRect"
+            },
+            {
+              "name": "AdjustWindowRect"
+            },
+            {
+              "name": "SetCursor"
+            },
+            {
+              "name": "CreateWindowExA"
+            },
+            {
+              "name": "GetWindowLongA"
+            },
+            {
+              "name": "GetWindowRect"
+            },
+            {
+              "name": "GetClientRect"
+            },
+            {
+              "name": "SetWindowLongA"
+            },
+            {
+              "name": "GetClassLongA"
+            },
+            {
+              "name": "SetWindowPos"
+            },
+            {
+              "name": "SendMessageA"
+            },
+            {
+              "name": "DrawTextW"
+            },
+            {
+              "name": "DrawTextA"
+            },
+            {
+              "name": "MessageBoxA"
+            },
+            {
+              "name": "GetActiveWindow"
+            },
+            {
+              "name": "SetForegroundWindow"
+            },
+            {
+              "name": "PostQuitMessage"
+            },
+            {
+              "name": "ShowCursor"
+            },
+            {
+              "name": "GetDlgItem"
+            },
+            {
+              "name": "CreateMenu"
+            },
+            {
+              "name": "CheckMenuItem"
+            },
+            {
+              "name": "CreateDialogParamA"
+            },
+            {
+              "name": "DialogBoxParamA"
+            },
+            {
+              "name": "SetFocus"
+            },
+            {
+              "name": "GetSystemMetrics"
+            },
+            {
+              "name": "EnableWindow"
+            },
+            {
+              "name": "EndDialog"
+            },
+            {
+              "name": "GetWindowTextA"
+            },
+            {
+              "name": "GetDialogBaseUnits"
+            },
+            {
+              "name": "ScrollWindowEx"
+            },
+            {
+              "name": "InsertMenuItemA"
+            },
+            {
+              "name": "EndPaint"
+            },
+            {
+              "name": "FillRect"
+            },
+            {
+              "name": "BeginPaint"
+            },
+            {
+              "name": "WaitMessage"
+            },
+            {
+              "name": "TranslateMessage"
+            },
+            {
+              "name": "PeekMessageA"
+            },
+            {
+              "name": "GetMessageA"
+            },
+            {
+              "name": "DispatchMessageA"
+            },
+            {
+              "name": "GetMenuItemCount"
+            },
+            {
+              "name": "SetMenu"
+            }
+          ]
+        },
+        {
+          "dll": "gdi32.dll",
+          "symbols": [
+            {
+              "name": "GetStockObject"
+            },
+            {
+              "name": "CreateFontIndirectA"
+            },
+            {
+              "name": "DeleteDC"
+            },
+            {
+              "name": "DeleteObject"
+            },
+            {
+              "name": "SetBkColor"
+            },
+            {
+              "name": "SetBkMode"
+            },
+            {
+              "name": "SetTextColor"
+            },
+            {
+              "name": "CreateCompatibleDC"
+            },
+            {
+              "name": "CreateDIBSection"
+            },
+            {
+              "name": "CreateFontA"
+            },
+            {
+              "name": "GetTextExtentPoint32A"
+            },
+            {
+              "name": "GetObjectA"
+            },
+            {
+              "name": "SelectObject"
+            },
+            {
+              "name": "GetTextMetricsA"
+            },
+            {
+              "name": "TextOutA"
+            }
+          ]
+        },
+        {
+          "dll": "dsound.dll",
+          "symbols": [
+            {
+              "ordinal": 1
+            }
+          ]
+        },
+        {
+          "dll": "ws2_32.dll",
+          "symbols": [
+            {
+              "ordinal": 18
+            },
+            {
+              "ordinal": 11
+            },
+            {
+              "ordinal": 23
+            },
+            {
+              "ordinal": 19
+            },
+            {
+              "ordinal": 2
+            },
+            {
+              "ordinal": 13
+            },
+            {
+              "ordinal": 8
+            },
+            {
+              "ordinal": 9
+            },
+            {
+              "ordinal": 21
+            },
+            {
+              "ordinal": 20
+            },
+            {
+              "ordinal": 57
+            },
+            {
+              "ordinal": 17
+            },
+            {
+              "ordinal": 1
+            },
+            {
+              "ordinal": 151
+            },
+            {
+              "ordinal": 52
+            },
+            {
+              "ordinal": 4
+            },
+            {
+              "ordinal": 3
+            },
+            {
+              "ordinal": 115
+            },
+            {
+              "ordinal": 116
+            }
+          ]
+        },
+        {
+          "dll": "comdlg32.dll",
+          "symbols": [
+            {
+              "name": "GetSaveFileNameA"
+            },
+            {
+              "name": "GetOpenFileNameA"
+            }
+          ]
+        },
+        {
+          "dll": "ole32.dll",
+          "symbols": [
+            {
+              "name": "CoUninitialize"
+            },
+            {
+              "name": "CoCreateInstance"
+            },
+            {
+              "name": "CoInitialize"
+            }
+          ]
+        },
+        {
+          "dll": "comctl32.dll",
+          "symbols": [
+            {
+              "ordinal": 17
+            }
+          ]
+        }
+      ],
+      "imported_dlls": [
+        "kernel32.dll",
+        "winmm.dll",
+        "d3d8.dll",
+        "dinput8.dll",
+        "user32.dll",
+        "gdi32.dll",
+        "dsound.dll",
+        "ws2_32.dll",
+        "comdlg32.dll",
+        "ole32.dll",
+        "comctl32.dll"
+      ],
+      "exports": [],
+      "debug_directory": [
+        {
+          "type": 2,
+          "timestamp": 1002641558,
+          "version": "0.0",
+          "size": 62,
+          "format": "NB10",
+          "pdb_path": "C:\\Projects\\MRallyeTNG\\Release\\MRallyeTNG.pdb"
+        }
+      ],
+      "debug_information_present": true,
+      "pdb_path_strings": [
+        "C:\\Projects\\MRallyeTNG\\Release\\MRallyeTNG.pdb"
+      ],
+      "rtti_indicators": [
+        ".?AUctype_base@std@@",
+        ".?AUmessages_base@std@@",
+        ".?AUmoney_base@std@@",
+        ".?AUtime_base@std@@",
+        ".?AV?$_Mpunct@D@std@@",
+        ".?AV?$_Mpunct@G@std@@",
+        ".?AV?$codecvt@DDH@std@@",
+        ".?AV?$codecvt@GDH@std@@",
+        ".?AV?$collate@D@std@@",
+        ".?AV?$collate@G@std@@",
+        ".?AV?$ctype@D@std@@",
+        ".?AV?$ctype@G@std@@",
+        ".?AV?$messages@D@std@@",
+        ".?AV?$messages@G@std@@",
+        ".?AV?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$moneypunct@D$00@std@@",
+        ".?AV?$moneypunct@D$0A@@std@@",
+        ".?AV?$moneypunct@G$00@std@@",
+        ".?AV?$moneypunct@G$0A@@std@@",
+        ".?AV?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$numpunct@D@std@@",
+        ".?AV?$numpunct@G@std@@",
+        ".?AV?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV_Locimp@locale@std@@",
+        ".?AVbad_alloc@std@@",
+        ".?AVbad_cast@std@@",
+        ".?AVcodecvt_base@std@@",
+        ".?AVexception@@",
+        ".?AVfacet@locale@std@@",
+        ".?AVfailure@ios_base@std@@",
+        ".?AVios_base@std@@",
+        ".?AVlength_error@std@@",
+        ".?AVlogic_error@std@@",
+        ".?AVout_of_range@std@@",
+        ".?AVruntime_error@std@@",
+        ".?AVtype_info@@",
+        ".AVI",
+        ".WAV",
+        "0 PAVE NUM",
+        "1 PAVE NUM",
+        "2 PAVE NUM",
+        "3 PAVE  NUM",
+        "4 PAVE NUM",
+        "5 PAVE NUM",
+        "6 PAVE NUM",
+        "7 PAVE NUM",
+        "8 PAVE NUM",
+        "9 PAVE NUM",
+        "ALT GAUCHE",
+        "ARNAUD DEBRON",
+        "ATTENTE RESEAU",
+        "AUCUNE PARTIE CREEE",
+        "AUDIO OPTIONS",
+        "AUSTRIA",
+        "AUTOMATIC",
+        "AUTRICHE",
+        "AVI files",
+        "BIENVENUE A L'ETAPE 2\\nITALIE/AUTRICHE",
+        "BRANCHE 5/10 - AUTRICHE",
+        "CHARGER/SAUVEGARDER",
+        "CHOIX DE L'HOTE RESEAU",
+        "CLAVIER",
+        "CLAVIER 2",
+        "CTRL GAUCHE",
+        "CURSEUR GAUCHE",
+        "CURSEUR HAUT",
+        "D3DERR_NOTAVAILABLE",
+        "DSERR_CONTROLUNAVAIL",
+        "ENTREE PAV NUM",
+        "ETOILE PAVE NUM",
+        "GRAVEL",
+        "HOTE RESEAU",
+        "LAN-RESEAU LOCAL-",
+        "LEG 5/10 - AUSTRIA",
+        "LOAD/SAVE",
+        "MASTER RALLYE\\nBRANCHE 5 - AUSTRIA",
+        "MASTER RALLYE\\nLEG 5 - AUSTRIA",
+        "MAUVAISE DIRECTION",
+        "MENU / PAUSE",
+        "MOINS PAVE NUM",
+        "NIVEAU DE DIFFICULTE",
+        "NOUVEAU MASTER RALLYE",
+        "OPTIONS AUDIO",
+        "OPTIONS LAN-RESEAU LOCAL",
+        "OPTIONS RESEAU",
+        "PARENTHESE GAUCHE",
+        "PARTIES EN RESEAU",
+        "PAUSE",
+        "PLUS PAVE NUM",
+        "POINT PAVE NUM",
+        "RAV4 PICKUP"
+      ],
+      "rich_header_records": [],
+      "toolchain_fingerprints": {
+        "rich_header_present": false,
+        "linker_version": "6.0",
+        "crt": "no recognizable dynamic MSVC CRT import; static/runtime model unresolved",
+        "directx_imports": [
+          "d3d8.dll",
+          "dinput8.dll",
+          "dsound.dll"
+        ],
+        "rtti_marker_count": 167
+      }
+    },
+    {
+      "build": "9.10.0",
+      "source_relative_path": "demo-9.10.0/MRallye.exe",
+      "size_bytes": 2883646,
+      "sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+      "expected_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+      "expected_hash_match": true,
+      "pe": {
+        "kind": "PE32",
+        "machine": "i386",
+        "machine_value": "0x014C",
+        "timestamp_unix": 1003852268,
+        "timestamp_utc": "2001-10-23T15:51:08+00:00",
+        "characteristics": "0x010F",
+        "image_base": "0x00400000",
+        "entry_point_rva": "0x001A8D52",
+        "entry_point_va": "0x005A8D52",
+        "section_alignment": 4096,
+        "file_alignment": 4096,
+        "size_of_image": 2977792,
+        "size_of_headers": 4096,
+        "subsystem": "Windows GUI",
+        "dll_characteristics": "0x0000",
+        "linker_version": "6.0",
+        "sections": [
+          {
+            "name": ".text",
+            "virtual_address": "0x00001000",
+            "virtual_size": 2585868,
+            "raw_offset": "0x00001000",
+            "raw_size": 2588672,
+            "characteristics": "0x60000020",
+            "flags": [
+              "CODE",
+              "EXECUTE",
+              "READ"
+            ]
+          },
+          {
+            "name": ".rdata",
+            "virtual_address": "0x00279000",
+            "virtual_size": 119030,
+            "raw_offset": "0x00279000",
+            "raw_size": 122880,
+            "characteristics": "0x40000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ"
+            ]
+          },
+          {
+            "name": ".data",
+            "virtual_address": "0x00297000",
+            "virtual_size": 241992,
+            "raw_offset": "0x00297000",
+            "raw_size": 151552,
+            "characteristics": "0xC0000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ",
+              "WRITE"
+            ]
+          },
+          {
+            "name": ".rsrc",
+            "virtual_address": "0x002D3000",
+            "virtual_size": 15032,
+            "raw_offset": "0x002BC000",
+            "raw_size": 16384,
+            "characteristics": "0x40000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ"
+            ]
+          }
+        ]
+      },
+      "imports": [
+        {
+          "dll": "kernel32.dll",
+          "symbols": [
+            {
+              "name": "InitializeCriticalSection"
+            },
+            {
+              "name": "LeaveCriticalSection"
+            },
+            {
+              "name": "EnterCriticalSection"
+            },
+            {
+              "name": "ResetEvent"
+            },
+            {
+              "name": "WaitForMultipleObjects"
+            },
+            {
+              "name": "GetCurrentThreadId"
+            },
+            {
+              "name": "MulDiv"
+            },
+            {
+              "name": "InterlockedIncrement"
+            },
+            {
+              "name": "InterlockedDecrement"
+            },
+            {
+              "name": "CreateEventA"
+            },
+            {
+              "name": "SetEvent"
+            },
+            {
+              "name": "DeleteCriticalSection"
+            },
+            {
+              "name": "DuplicateHandle"
+            },
+            {
+              "name": "GetCurrentProcess"
+            },
+            {
+              "name": "CreateSemaphoreA"
+            },
+            {
+              "name": "ReleaseSemaphore"
+            },
+            {
+              "name": "VirtualFree"
+            },
+            {
+              "name": "GetSystemInfo"
+            },
+            {
+              "name": "VirtualAlloc"
+            },
+            {
+              "name": "FreeLibrary"
+            },
+            {
+              "name": "LoadLibraryA"
+            },
+            {
+              "name": "InterlockedExchange"
+            },
+            {
+              "name": "GetProcAddress"
+            },
+            {
+              "name": "CloseHandle"
+            },
+            {
+              "name": "WaitForSingleObject"
+            },
+            {
+              "name": "CreateThread"
+            },
+            {
+              "name": "GetACP"
+            },
+            {
+              "name": "GetThreadPriority"
+            },
+            {
+              "name": "GetTickCount"
+            },
+            {
+              "name": "GetLastError"
+            },
+            {
+              "name": "RtlUnwind"
+            },
+            {
+              "name": "RaiseException"
+            },
+            {
+              "name": "SetFileAttributesA"
+            },
+            {
+              "name": "GetFileAttributesA"
+            },
+            {
+              "name": "DeleteFileA"
+            },
+            {
+              "name": "GetStartupInfoA"
+            },
+            {
+              "name": "GetCommandLineA"
+            },
+            {
+              "name": "GetVersion"
+            },
+            {
+              "name": "ExitProcess"
+            },
+            {
+              "name": "HeapFree"
+            },
+            {
+              "name": "HeapAlloc"
+            },
+            {
+              "name": "FindClose"
+            },
+            {
+              "name": "FileTimeToSystemTime"
+            },
+            {
+              "name": "FileTimeToLocalFileTime"
+            },
+            {
+              "name": "GetDriveTypeA"
+            },
+            {
+              "name": "FindFirstFileA"
+            },
+            {
+              "name": "HeapReAlloc"
+            },
+            {
+              "name": "FatalAppExitA"
+            },
+            {
+              "name": "LCMapStringA"
+            },
+            {
+              "name": "MultiByteToWideChar"
+            },
+            {
+              "name": "GetCPInfo"
+            },
+            {
+              "name": "CompareStringA"
+            },
+            {
+              "name": "WideCharToMultiByte"
+            },
+            {
+              "name": "ExitThread"
+            },
+            {
+              "name": "LocalFree"
+            },
+            {
+              "name": "GetCurrentThread"
+            },
+            {
+              "name": "TlsAlloc"
+            },
+            {
+              "name": "TlsFree"
+            },
+            {
+              "name": "SetLastError"
+            },
+            {
+              "name": "TlsGetValue"
+            },
+            {
+              "name": "SetConsoleCtrlHandler"
+            },
+            {
+              "name": "SetUnhandledExceptionFilter"
+            },
+            {
+              "name": "WriteFile"
+            },
+            {
+              "name": "ReadFile"
+            },
+            {
+              "name": "UnhandledExceptionFilter"
+            },
+            {
+              "name": "GetModuleFileNameA"
+            },
+            {
+              "name": "FreeEnvironmentStringsA"
+            },
+            {
+              "name": "FreeEnvironmentStringsW"
+            },
+            {
+              "name": "GetEnvironmentStrings"
+            },
+            {
+              "name": "GetEnvironmentStringsW"
+            },
+            {
+              "name": "SetHandleCount"
+            },
+            {
+              "name": "CreateDirectoryA"
+            },
+            {
+              "name": "GetFileType"
+            },
+            {
+              "name": "GetEnvironmentVariableA"
+            },
+            {
+              "name": "GetVersionExA"
+            },
+            {
+              "name": "HeapDestroy"
+            },
+            {
+              "name": "HeapCreate"
+            },
+            {
+              "name": "IsBadWritePtr"
+            },
+            {
+              "name": "GetFullPathNameA"
+            },
+            {
+              "name": "IsValidLocale"
+            },
+            {
+              "name": "IsValidCodePage"
+            },
+            {
+              "name": "GetLocaleInfoA"
+            },
+            {
+              "name": "EnumSystemLocalesA"
+            },
+            {
+              "name": "GetUserDefaultLCID"
+            },
+            {
+              "name": "GetTimeZoneInformation"
+            },
+            {
+              "name": "GetStringTypeA"
+            },
+            {
+              "name": "GetStringTypeW"
+            },
+            {
+              "name": "IsBadReadPtr"
+            },
+            {
+              "name": "IsBadCodePtr"
+            },
+            {
+              "name": "SetFilePointer"
+            },
+            {
+              "name": "SetStdHandle"
+            },
+            {
+              "name": "FlushFileBuffers"
+            },
+            {
+              "name": "CreateFileA"
+            },
+            {
+              "name": "GetOEMCP"
+            },
+            {
+              "name": "SetEndOfFile"
+            },
+            {
+              "name": "GetLocaleInfoW"
+            },
+            {
+              "name": "SetEnvironmentVariableA"
+            },
+            {
+              "name": "GetFileSize"
+            },
+            {
+              "name": "MapViewOfFile"
+            },
+            {
+              "name": "CreateFileMappingA"
+            },
+            {
+              "name": "CreateFileW"
+            },
+            {
+              "name": "UnmapViewOfFile"
+            },
+            {
+              "name": "LockResource"
+            },
+            {
+              "name": "LoadResource"
+            },
+            {
+              "name": "SizeofResource"
+            },
+            {
+              "name": "FindResourceA"
+            },
+            {
+              "name": "FindResourceW"
+            },
+            {
+              "name": "GetProcessHeap"
+            },
+            {
+              "name": "SetThreadPriority"
+            },
+            {
+              "name": "OutputDebugStringA"
+            },
+            {
+              "name": "QueryPerformanceCounter"
+            },
+            {
+              "name": "SetCurrentDirectoryA"
+            },
+            {
+              "name": "Sleep"
+            },
+            {
+              "name": "GetModuleHandleA"
+            },
+            {
+              "name": "GetCurrentDirectoryA"
+            },
+            {
+              "name": "QueryPerformanceFrequency"
+            },
+            {
+              "name": "HeapSize"
+            },
+            {
+              "name": "TlsSetValue"
+            },
+            {
+              "name": "CompareStringW"
+            },
+            {
+              "name": "FormatMessageA"
+            },
+            {
+              "name": "TerminateProcess"
+            },
+            {
+              "name": "LCMapStringW"
+            },
+            {
+              "name": "GetStdHandle"
+            },
+            {
+              "name": "MoveFileA"
+            },
+            {
+              "name": "CopyFileA"
+            },
+            {
+              "name": "GetSystemTime"
+            },
+            {
+              "name": "FindNextFileA"
+            },
+            {
+              "name": "GetFileInformationByHandle"
+            },
+            {
+              "name": "PeekNamedPipe"
+            }
+          ]
+        },
+        {
+          "dll": "ddraw.dll",
+          "symbols": [
+            {
+              "name": "DirectDrawCreate"
+            }
+          ]
+        },
+        {
+          "dll": "winmm.dll",
+          "symbols": [
+            {
+              "name": "timeEndPeriod"
+            },
+            {
+              "name": "timeBeginPeriod"
+            },
+            {
+              "name": "timeSetEvent"
+            },
+            {
+              "name": "timeGetTime"
+            },
+            {
+              "name": "timeKillEvent"
+            }
+          ]
+        },
+        {
+          "dll": "d3d8.dll",
+          "symbols": [
+            {
+              "name": "Direct3DCreate8"
+            }
+          ]
+        },
+        {
+          "dll": "dinput8.dll",
+          "symbols": [
+            {
+              "name": "DirectInput8Create"
+            }
+          ]
+        },
+        {
+          "dll": "user32.dll",
+          "symbols": [
+            {
+              "name": "MsgWaitForMultipleObjects"
+            },
+            {
+              "name": "wvsprintfA"
+            },
+            {
+              "name": "wsprintfA"
+            },
+            {
+              "name": "PeekMessageA"
+            },
+            {
+              "name": "GetQueueStatus"
+            },
+            {
+              "name": "RegisterWindowMessageA"
+            },
+            {
+              "name": "DrawTextA"
+            },
+            {
+              "name": "DrawTextW"
+            },
+            {
+              "name": "PostQuitMessage"
+            },
+            {
+              "name": "GetAsyncKeyState"
+            },
+            {
+              "name": "DispatchMessageA"
+            },
+            {
+              "name": "GetMenu"
+            },
+            {
+              "name": "PostThreadMessageA"
+            },
+            {
+              "name": "SetActiveWindow"
+            },
+            {
+              "name": "LoadCursorA"
+            },
+            {
+              "name": "RegisterClassA"
+            },
+            {
+              "name": "SetRect"
+            },
+            {
+              "name": "AdjustWindowRect"
+            },
+            {
+              "name": "CreateWindowExA"
+            },
+            {
+              "name": "SetWindowLongA"
+            },
+            {
+              "name": "MessageBoxA"
+            },
+            {
+              "name": "SendMessageA"
+            },
+            {
+              "name": "GetClassLongA"
+            },
+            {
+              "name": "SetCursor"
+            },
+            {
+              "name": "GetWindowLongA"
+            },
+            {
+              "name": "GetWindowRect"
+            },
+            {
+              "name": "DefWindowProcA"
+            },
+            {
+              "name": "SetWindowPos"
+            },
+            {
+              "name": "DestroyMenu"
+            },
+            {
+              "name": "DestroyWindow"
+            },
+            {
+              "name": "GetCursorPos"
+            },
+            {
+              "name": "ScreenToClient"
+            },
+            {
+              "name": "GetClientRect"
+            },
+            {
+              "name": "KillTimer"
+            },
+            {
+              "name": "ReleaseDC"
+            },
+            {
+              "name": "GetDC"
+            },
+            {
+              "name": "ClientToScreen"
+            },
+            {
+              "name": "ShowWindow"
+            },
+            {
+              "name": "InvalidateRect"
+            },
+            {
+              "name": "GetActiveWindow"
+            },
+            {
+              "name": "SetForegroundWindow"
+            },
+            {
+              "name": "PostMessageA"
+            },
+            {
+              "name": "SetScrollPos"
+            },
+            {
+              "name": "SetScrollRange"
+            },
+            {
+              "name": "SetParent"
+            },
+            {
+              "name": "GetDesktopWindow"
+            },
+            {
+              "name": "MoveWindow"
+            },
+            {
+              "name": "SetTimer"
+            },
+            {
+              "name": "SetWindowTextA"
+            },
+            {
+              "name": "BeginPaint"
+            },
+            {
+              "name": "WaitMessage"
+            },
+            {
+              "name": "SetFocus"
+            },
+            {
+              "name": "DialogBoxParamA"
+            },
+            {
+              "name": "GetSystemMetrics"
+            },
+            {
+              "name": "GetMenuItemCount"
+            },
+            {
+              "name": "EnableWindow"
+            },
+            {
+              "name": "EndDialog"
+            },
+            {
+              "name": "GetWindowTextA"
+            },
+            {
+              "name": "GetDialogBaseUnits"
+            },
+            {
+              "name": "ScrollWindowEx"
+            },
+            {
+              "name": "GetDlgItem"
+            },
+            {
+              "name": "CheckMenuItem"
+            },
+            {
+              "name": "CreateDialogParamA"
+            },
+            {
+              "name": "InsertMenuItemA"
+            },
+            {
+              "name": "SetMenu"
+            },
+            {
+              "name": "CreateMenu"
+            },
+            {
+              "name": "GetMessageA"
+            },
+            {
+              "name": "TranslateMessage"
+            },
+            {
+              "name": "FillRect"
+            },
+            {
+              "name": "EndPaint"
+            }
+          ]
+        },
+        {
+          "dll": "gdi32.dll",
+          "symbols": [
+            {
+              "name": "GetStockObject"
+            },
+            {
+              "name": "CreateFontIndirectA"
+            },
+            {
+              "name": "DeleteDC"
+            },
+            {
+              "name": "DeleteObject"
+            },
+            {
+              "name": "CreateFontA"
+            },
+            {
+              "name": "GetTextExtentPoint32A"
+            },
+            {
+              "name": "TextOutA"
+            },
+            {
+              "name": "SelectObject"
+            },
+            {
+              "name": "SetTextColor"
+            },
+            {
+              "name": "SetBkColor"
+            },
+            {
+              "name": "SetBkMode"
+            },
+            {
+              "name": "CreateDIBSection"
+            },
+            {
+              "name": "CreateCompatibleDC"
+            },
+            {
+              "name": "GetTextMetricsA"
+            },
+            {
+              "name": "GetObjectA"
+            }
+          ]
+        },
+        {
+          "dll": "ole32.dll",
+          "symbols": [
+            {
+              "name": "CoTaskMemAlloc"
+            },
+            {
+              "name": "CoUninitialize"
+            },
+            {
+              "name": "CoFreeUnusedLibraries"
+            },
+            {
+              "name": "CoCreateInstance"
+            },
+            {
+              "name": "CoInitialize"
+            },
+            {
+              "name": "CoTaskMemFree"
+            }
+          ]
+        },
+        {
+          "dll": "oleaut32.dll",
+          "symbols": [
+            {
+              "ordinal": 6
+            },
+            {
+              "ordinal": 2
+            }
+          ]
+        },
+        {
+          "dll": "dsound.dll",
+          "symbols": [
+            {
+              "ordinal": 11
+            }
+          ]
+        },
+        {
+          "dll": "ws2_32.dll",
+          "symbols": [
+            {
+              "ordinal": 52
+            },
+            {
+              "ordinal": 18
+            },
+            {
+              "ordinal": 116
+            },
+            {
+              "ordinal": 3
+            },
+            {
+              "ordinal": 151
+            },
+            {
+              "ordinal": 1
+            },
+            {
+              "ordinal": 11
+            },
+            {
+              "ordinal": 4
+            },
+            {
+              "ordinal": 13
+            },
+            {
+              "ordinal": 2
+            },
+            {
+              "ordinal": 19
+            },
+            {
+              "ordinal": 23
+            },
+            {
+              "ordinal": 8
+            },
+            {
+              "ordinal": 9
+            },
+            {
+              "ordinal": 21
+            },
+            {
+              "ordinal": 20
+            },
+            {
+              "ordinal": 17
+            },
+            {
+              "ordinal": 57
+            },
+            {
+              "ordinal": 115
+            }
+          ]
+        },
+        {
+          "dll": "comdlg32.dll",
+          "symbols": [
+            {
+              "name": "GetSaveFileNameA"
+            },
+            {
+              "name": "GetOpenFileNameA"
+            }
+          ]
+        },
+        {
+          "dll": "comctl32.dll",
+          "symbols": [
+            {
+              "ordinal": 17
+            }
+          ]
+        }
+      ],
+      "imported_dlls": [
+        "kernel32.dll",
+        "ddraw.dll",
+        "winmm.dll",
+        "d3d8.dll",
+        "dinput8.dll",
+        "user32.dll",
+        "gdi32.dll",
+        "ole32.dll",
+        "oleaut32.dll",
+        "dsound.dll",
+        "ws2_32.dll",
+        "comdlg32.dll",
+        "comctl32.dll"
+      ],
+      "exports": [],
+      "debug_directory": [
+        {
+          "type": 2,
+          "timestamp": 1003852268,
+          "version": "0.0",
+          "size": 62,
+          "format": "NB10",
+          "pdb_path": "D:\\Projects\\MRallyeTNG\\Release\\MRallyeTNG.pdb"
+        }
+      ],
+      "debug_information_present": true,
+      "pdb_path_strings": [
+        "D:\\Projects\\MRallyeTNG\\Release\\MRallyeTNG.pdb"
+      ],
+      "rtti_indicators": [
+        ".?AUctype_base@std@@",
+        ".?AUmessages_base@std@@",
+        ".?AUmoney_base@std@@",
+        ".?AUtime_base@std@@",
+        ".?AV?$_Mpunct@D@std@@",
+        ".?AV?$_Mpunct@G@std@@",
+        ".?AV?$codecvt@DDH@std@@",
+        ".?AV?$codecvt@GDH@std@@",
+        ".?AV?$collate@D@std@@",
+        ".?AV?$collate@G@std@@",
+        ".?AV?$ctype@D@std@@",
+        ".?AV?$ctype@G@std@@",
+        ".?AV?$messages@D@std@@",
+        ".?AV?$messages@G@std@@",
+        ".?AV?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$moneypunct@D$00@std@@",
+        ".?AV?$moneypunct@D$0A@@std@@",
+        ".?AV?$moneypunct@G$00@std@@",
+        ".?AV?$moneypunct@G$0A@@std@@",
+        ".?AV?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$numpunct@D@std@@",
+        ".?AV?$numpunct@G@std@@",
+        ".?AV?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV_Locimp@locale@std@@",
+        ".?AVbad_alloc@std@@",
+        ".?AVbad_cast@std@@",
+        ".?AVcodecvt_base@std@@",
+        ".?AVexception@@",
+        ".?AVfacet@locale@std@@",
+        ".?AVfailure@ios_base@std@@",
+        ".?AVios_base@std@@",
+        ".?AVlength_error@std@@",
+        ".?AVlogic_error@std@@",
+        ".?AVout_of_range@std@@",
+        ".?AVruntime_error@std@@",
+        ".?AVtype_info@@",
+        ".AVI",
+        ".WAV",
+        "0 PAVE NUM",
+        "1 PAVE NUM",
+        "2 PAVE NUM",
+        "3 PAVE  NUM",
+        "4 PAVE NUM",
+        "5 PAVE NUM",
+        "6 PAVE NUM",
+        "7 PAVE NUM",
+        "8 PAVE NUM",
+        "9 PAVE NUM",
+        "ALT GAUCHE",
+        "ARNAUD DEBRON",
+        "ATTENTE RESEAU",
+        "AUCUNE PARTIE CREEE",
+        "AUDIO OPTIONS",
+        "AUSTRIA",
+        "AUTOMATIC",
+        "AUTOMATIC RECOVERY",
+        "AUTRICHE",
+        "AVI files",
+        "BIENVENUE A L'ETAPE 2\\nITALIE/AUTRICHE",
+        "BRANCHE 5/10 - AUTRICHE",
+        "CHARGER/SAUVEGARDER",
+        "CHOIX DE L'HOTE RESEAU",
+        "CLAVIER",
+        "CLAVIER 2",
+        "CTRL GAUCHE",
+        "CURSEUR GAUCHE",
+        "CURSEUR HAUT",
+        "D3DERR_NOTAVAILABLE",
+        "DAMPERS DISSIPATE SPRING ENERGY WHEN THE VEHICLE IS ON ROUGH GROUND AND EXPERIENCING HEAVE, ROLL AND PITCH FORCES.",
+        "DAVID GLOVER",
+        "DAVID ROBERTSON",
+        "DEFAULT CAMERA",
+        "DSERR_CONTROLUNAVAIL",
+        "ENTREE PAV NUM",
+        "ERROR SAVING FILE",
+        "ETOILE PAVE NUM",
+        "FILE SAVED",
+        "GEAR RATIO SELECTION CAN HAVE AN IMPORTANT EFFECT ON ACCELERATION, PERFORMANCE IN CORNERS AND ACHIEVING TOP SPEED.",
+        "GRAVEL",
+        "HOTE RESEAU",
+        "LAN-RESEAU LOCAL-",
+        "LEG 5/10 - AUSTRIA",
+        "LOAD/SAVE",
+        "MASTER RALLYE\\nBRANCHE 5 - AUSTRIA",
+        "MASTER RALLYE\\nLEG 5 - AUSTRIA",
+        "MAUVAISE DIRECTION",
+        "MENU / PAUSE",
+        "MOINS PAVE NUM",
+        "NAVARA",
+        "NISSAN NAVARA",
+        "NIVEAU DE DIFFICULTE"
+      ],
+      "rich_header_records": [],
+      "toolchain_fingerprints": {
+        "rich_header_present": false,
+        "linker_version": "6.0",
+        "crt": "no recognizable dynamic MSVC CRT import; static/runtime model unresolved",
+        "directx_imports": [
+          "ddraw.dll",
+          "d3d8.dll",
+          "dinput8.dll",
+          "dsound.dll"
+        ],
+        "rtti_marker_count": 187
+      }
+    },
+    {
+      "build": "retail",
+      "source_relative_path": "retail/MRallye.exe",
+      "size_bytes": 3121214,
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "expected_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "expected_hash_match": true,
+      "pe": {
+        "kind": "PE32",
+        "machine": "i386",
+        "machine_value": "0x014C",
+        "timestamp_unix": 1006791005,
+        "timestamp_utc": "2001-11-26T16:10:05+00:00",
+        "characteristics": "0x010F",
+        "image_base": "0x00400000",
+        "entry_point_rva": "0x001C4602",
+        "entry_point_va": "0x005C4602",
+        "section_alignment": 4096,
+        "file_alignment": 4096,
+        "size_of_image": 3215360,
+        "size_of_headers": 4096,
+        "subsystem": "Windows GUI",
+        "dll_characteristics": "0x0000",
+        "linker_version": "6.0",
+        "sections": [
+          {
+            "name": ".text",
+            "virtual_address": "0x00001000",
+            "virtual_size": 2675348,
+            "raw_offset": "0x00001000",
+            "raw_size": 2678784,
+            "characteristics": "0x60000020",
+            "flags": [
+              "CODE",
+              "EXECUTE",
+              "READ"
+            ]
+          },
+          {
+            "name": ".rdata",
+            "virtual_address": "0x0028F000",
+            "virtual_size": 123954,
+            "raw_offset": "0x0028F000",
+            "raw_size": 126976,
+            "characteristics": "0x40000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ"
+            ]
+          },
+          {
+            "name": ".data",
+            "virtual_address": "0x002AE000",
+            "virtual_size": 386568,
+            "raw_offset": "0x002AE000",
+            "raw_size": 294912,
+            "characteristics": "0xC0000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ",
+              "WRITE"
+            ]
+          },
+          {
+            "name": ".rsrc",
+            "virtual_address": "0x0030D000",
+            "virtual_size": 15032,
+            "raw_offset": "0x002F6000",
+            "raw_size": 16384,
+            "characteristics": "0x40000040",
+            "flags": [
+              "INITIALIZED_DATA",
+              "READ"
+            ]
+          }
+        ]
+      },
+      "imports": [
+        {
+          "dll": "kernel32.dll",
+          "symbols": [
+            {
+              "name": "ResetEvent"
+            },
+            {
+              "name": "InitializeCriticalSection"
+            },
+            {
+              "name": "LeaveCriticalSection"
+            },
+            {
+              "name": "MulDiv"
+            },
+            {
+              "name": "EnterCriticalSection"
+            },
+            {
+              "name": "DeleteCriticalSection"
+            },
+            {
+              "name": "InterlockedDecrement"
+            },
+            {
+              "name": "CreateEventA"
+            },
+            {
+              "name": "WaitForMultipleObjects"
+            },
+            {
+              "name": "GetCurrentThreadId"
+            },
+            {
+              "name": "InterlockedIncrement"
+            },
+            {
+              "name": "GetCurrentProcess"
+            },
+            {
+              "name": "CreateSemaphoreA"
+            },
+            {
+              "name": "ReleaseSemaphore"
+            },
+            {
+              "name": "CloseHandle"
+            },
+            {
+              "name": "GetSystemInfo"
+            },
+            {
+              "name": "VirtualAlloc"
+            },
+            {
+              "name": "FreeLibrary"
+            },
+            {
+              "name": "LoadLibraryA"
+            },
+            {
+              "name": "InterlockedExchange"
+            },
+            {
+              "name": "GetProcAddress"
+            },
+            {
+              "name": "WaitForSingleObject"
+            },
+            {
+              "name": "DuplicateHandle"
+            },
+            {
+              "name": "WideCharToMultiByte"
+            },
+            {
+              "name": "VirtualFree"
+            },
+            {
+              "name": "GetThreadPriority"
+            },
+            {
+              "name": "GetTickCount"
+            },
+            {
+              "name": "GetLastError"
+            },
+            {
+              "name": "RtlUnwind"
+            },
+            {
+              "name": "FindClose"
+            },
+            {
+              "name": "FileTimeToSystemTime"
+            },
+            {
+              "name": "FileTimeToLocalFileTime"
+            },
+            {
+              "name": "GetDriveTypeA"
+            },
+            {
+              "name": "CreateThread"
+            },
+            {
+              "name": "RaiseException"
+            },
+            {
+              "name": "SetFileAttributesA"
+            },
+            {
+              "name": "GetFileAttributesA"
+            },
+            {
+              "name": "DeleteFileA"
+            },
+            {
+              "name": "GetStartupInfoA"
+            },
+            {
+              "name": "GetCommandLineA"
+            },
+            {
+              "name": "GetVersion"
+            },
+            {
+              "name": "ExitProcess"
+            },
+            {
+              "name": "HeapAlloc"
+            },
+            {
+              "name": "HeapFree"
+            },
+            {
+              "name": "FindNextFileA"
+            },
+            {
+              "name": "SetEnvironmentVariableA"
+            },
+            {
+              "name": "GetFullPathNameA"
+            },
+            {
+              "name": "MultiByteToWideChar"
+            },
+            {
+              "name": "GetACP"
+            },
+            {
+              "name": "LCMapStringA"
+            },
+            {
+              "name": "LCMapStringW"
+            },
+            {
+              "name": "GetCPInfo"
+            },
+            {
+              "name": "FindFirstFileA"
+            },
+            {
+              "name": "SetThreadPriority"
+            },
+            {
+              "name": "SetEvent"
+            },
+            {
+              "name": "HeapSize"
+            },
+            {
+              "name": "TlsSetValue"
+            },
+            {
+              "name": "TlsAlloc"
+            },
+            {
+              "name": "TlsFree"
+            },
+            {
+              "name": "SetLastError"
+            },
+            {
+              "name": "TlsGetValue"
+            },
+            {
+              "name": "SetConsoleCtrlHandler"
+            },
+            {
+              "name": "SetUnhandledExceptionFilter"
+            },
+            {
+              "name": "WriteFile"
+            },
+            {
+              "name": "ReadFile"
+            },
+            {
+              "name": "UnhandledExceptionFilter"
+            },
+            {
+              "name": "GetModuleFileNameA"
+            },
+            {
+              "name": "FreeEnvironmentStringsA"
+            },
+            {
+              "name": "FreeEnvironmentStringsW"
+            },
+            {
+              "name": "GetEnvironmentStrings"
+            },
+            {
+              "name": "CompareStringA"
+            },
+            {
+              "name": "SetHandleCount"
+            },
+            {
+              "name": "GetStdHandle"
+            },
+            {
+              "name": "GetFileType"
+            },
+            {
+              "name": "GetEnvironmentVariableA"
+            },
+            {
+              "name": "GetVersionExA"
+            },
+            {
+              "name": "HeapDestroy"
+            },
+            {
+              "name": "HeapCreate"
+            },
+            {
+              "name": "IsBadWritePtr"
+            },
+            {
+              "name": "IsValidLocale"
+            },
+            {
+              "name": "IsValidCodePage"
+            },
+            {
+              "name": "GetLocaleInfoA"
+            },
+            {
+              "name": "EnumSystemLocalesA"
+            },
+            {
+              "name": "GetUserDefaultLCID"
+            },
+            {
+              "name": "GetTimeZoneInformation"
+            },
+            {
+              "name": "GetStringTypeA"
+            },
+            {
+              "name": "GetStringTypeW"
+            },
+            {
+              "name": "IsBadReadPtr"
+            },
+            {
+              "name": "IsBadCodePtr"
+            },
+            {
+              "name": "SetFilePointer"
+            },
+            {
+              "name": "SetStdHandle"
+            },
+            {
+              "name": "FlushFileBuffers"
+            },
+            {
+              "name": "CreateFileA"
+            },
+            {
+              "name": "GetOEMCP"
+            },
+            {
+              "name": "SetEndOfFile"
+            },
+            {
+              "name": "GetLocaleInfoW"
+            },
+            {
+              "name": "GetFileSize"
+            },
+            {
+              "name": "MapViewOfFile"
+            },
+            {
+              "name": "CreateFileMappingA"
+            },
+            {
+              "name": "CreateFileW"
+            },
+            {
+              "name": "UnmapViewOfFile"
+            },
+            {
+              "name": "LockResource"
+            },
+            {
+              "name": "LoadResource"
+            },
+            {
+              "name": "SizeofResource"
+            },
+            {
+              "name": "FindResourceA"
+            },
+            {
+              "name": "FindResourceW"
+            },
+            {
+              "name": "GetProcessHeap"
+            },
+            {
+              "name": "OutputDebugStringA"
+            },
+            {
+              "name": "GetCurrentThread"
+            },
+            {
+              "name": "QueryPerformanceFrequency"
+            },
+            {
+              "name": "QueryPerformanceCounter"
+            },
+            {
+              "name": "SetCurrentDirectoryA"
+            },
+            {
+              "name": "GetCurrentDirectoryA"
+            },
+            {
+              "name": "Sleep"
+            },
+            {
+              "name": "GetModuleHandleA"
+            },
+            {
+              "name": "LocalFree"
+            },
+            {
+              "name": "PeekNamedPipe"
+            },
+            {
+              "name": "GetFileInformationByHandle"
+            },
+            {
+              "name": "CompareStringW"
+            },
+            {
+              "name": "FormatMessageA"
+            },
+            {
+              "name": "TerminateProcess"
+            },
+            {
+              "name": "HeapReAlloc"
+            },
+            {
+              "name": "FatalAppExitA"
+            },
+            {
+              "name": "GetEnvironmentStringsW"
+            },
+            {
+              "name": "MoveFileA"
+            },
+            {
+              "name": "GetSystemTime"
+            },
+            {
+              "name": "CreateDirectoryA"
+            },
+            {
+              "name": "ExitThread"
+            },
+            {
+              "name": "CopyFileA"
+            }
+          ]
+        },
+        {
+          "dll": "ddraw.dll",
+          "symbols": [
+            {
+              "name": "DirectDrawCreate"
+            }
+          ]
+        },
+        {
+          "dll": "winmm.dll",
+          "symbols": [
+            {
+              "name": "timeGetTime"
+            },
+            {
+              "name": "timeSetEvent"
+            },
+            {
+              "name": "timeKillEvent"
+            },
+            {
+              "name": "timeBeginPeriod"
+            },
+            {
+              "name": "timeEndPeriod"
+            }
+          ]
+        },
+        {
+          "dll": "d3d8.dll",
+          "symbols": [
+            {
+              "name": "Direct3DCreate8"
+            }
+          ]
+        },
+        {
+          "dll": "dsound.dll",
+          "symbols": [
+            {
+              "ordinal": 11
+            }
+          ]
+        },
+        {
+          "dll": "dinput8.dll",
+          "symbols": [
+            {
+              "name": "DirectInput8Create"
+            }
+          ]
+        },
+        {
+          "dll": "user32.dll",
+          "symbols": [
+            {
+              "name": "SetForegroundWindow"
+            },
+            {
+              "name": "MsgWaitForMultipleObjects"
+            },
+            {
+              "name": "wvsprintfA"
+            },
+            {
+              "name": "wsprintfA"
+            },
+            {
+              "name": "RegisterWindowMessageA"
+            },
+            {
+              "name": "GetQueueStatus"
+            },
+            {
+              "name": "PeekMessageA"
+            },
+            {
+              "name": "DrawTextA"
+            },
+            {
+              "name": "DrawTextW"
+            },
+            {
+              "name": "DestroyMenu"
+            },
+            {
+              "name": "DestroyWindow"
+            },
+            {
+              "name": "DispatchMessageA"
+            },
+            {
+              "name": "MessageBoxA"
+            },
+            {
+              "name": "GetCursorPos"
+            },
+            {
+              "name": "PostThreadMessageA"
+            },
+            {
+              "name": "SetWindowPos"
+            },
+            {
+              "name": "SetActiveWindow"
+            },
+            {
+              "name": "LoadCursorA"
+            },
+            {
+              "name": "RegisterClassA"
+            },
+            {
+              "name": "SetRect"
+            },
+            {
+              "name": "AdjustWindowRect"
+            },
+            {
+              "name": "CreateWindowExA"
+            },
+            {
+              "name": "SetWindowLongA"
+            },
+            {
+              "name": "GetWindowLongA"
+            },
+            {
+              "name": "GetWindowRect"
+            },
+            {
+              "name": "GetClientRect"
+            },
+            {
+              "name": "ScreenToClient"
+            },
+            {
+              "name": "SendMessageA"
+            },
+            {
+              "name": "ShowWindow"
+            },
+            {
+              "name": "GetClassLongA"
+            },
+            {
+              "name": "SetCursor"
+            },
+            {
+              "name": "PostQuitMessage"
+            },
+            {
+              "name": "GetMenu"
+            },
+            {
+              "name": "GetAsyncKeyState"
+            },
+            {
+              "name": "DefWindowProcA"
+            },
+            {
+              "name": "MoveWindow"
+            },
+            {
+              "name": "SetTimer"
+            },
+            {
+              "name": "PostMessageA"
+            },
+            {
+              "name": "FillRect"
+            },
+            {
+              "name": "EnableWindow"
+            },
+            {
+              "name": "EndDialog"
+            },
+            {
+              "name": "GetWindowTextA"
+            },
+            {
+              "name": "GetDialogBaseUnits"
+            },
+            {
+              "name": "ScrollWindowEx"
+            },
+            {
+              "name": "GetDlgItem"
+            },
+            {
+              "name": "CheckMenuItem"
+            },
+            {
+              "name": "GetMenuItemCount"
+            },
+            {
+              "name": "InsertMenuItemA"
+            },
+            {
+              "name": "SetMenu"
+            },
+            {
+              "name": "CreateMenu"
+            },
+            {
+              "name": "GetMessageA"
+            },
+            {
+              "name": "TranslateMessage"
+            },
+            {
+              "name": "WaitMessage"
+            },
+            {
+              "name": "BeginPaint"
+            },
+            {
+              "name": "SetWindowTextA"
+            },
+            {
+              "name": "GetSystemMetrics"
+            },
+            {
+              "name": "SetFocus"
+            },
+            {
+              "name": "DialogBoxParamA"
+            },
+            {
+              "name": "CreateDialogParamA"
+            },
+            {
+              "name": "GetActiveWindow"
+            },
+            {
+              "name": "KillTimer"
+            },
+            {
+              "name": "ReleaseDC"
+            },
+            {
+              "name": "GetDC"
+            },
+            {
+              "name": "ClientToScreen"
+            },
+            {
+              "name": "InvalidateRect"
+            },
+            {
+              "name": "EndPaint"
+            },
+            {
+              "name": "SetScrollPos"
+            },
+            {
+              "name": "SetScrollRange"
+            },
+            {
+              "name": "SetParent"
+            },
+            {
+              "name": "GetDesktopWindow"
+            }
+          ]
+        },
+        {
+          "dll": "gdi32.dll",
+          "symbols": [
+            {
+              "name": "GetObjectA"
+            },
+            {
+              "name": "CreateFontA"
+            },
+            {
+              "name": "GetTextExtentPoint32A"
+            },
+            {
+              "name": "DeleteDC"
+            },
+            {
+              "name": "SelectObject"
+            },
+            {
+              "name": "CreateFontIndirectA"
+            },
+            {
+              "name": "SetBkColor"
+            },
+            {
+              "name": "SetBkMode"
+            },
+            {
+              "name": "SetTextColor"
+            },
+            {
+              "name": "CreateCompatibleDC"
+            },
+            {
+              "name": "CreateDIBSection"
+            },
+            {
+              "name": "GetStockObject"
+            },
+            {
+              "name": "DeleteObject"
+            },
+            {
+              "name": "TextOutA"
+            },
+            {
+              "name": "GetTextMetricsA"
+            }
+          ]
+        },
+        {
+          "dll": "advapi32.dll",
+          "symbols": [
+            {
+              "name": "RegCloseKey"
+            },
+            {
+              "name": "RegQueryValueExA"
+            },
+            {
+              "name": "RegOpenKeyExA"
+            }
+          ]
+        },
+        {
+          "dll": "ole32.dll",
+          "symbols": [
+            {
+              "name": "CoCreateInstance"
+            },
+            {
+              "name": "CoUninitialize"
+            },
+            {
+              "name": "CoInitialize"
+            },
+            {
+              "name": "CoTaskMemAlloc"
+            },
+            {
+              "name": "CoFreeUnusedLibraries"
+            },
+            {
+              "name": "CoTaskMemFree"
+            }
+          ]
+        },
+        {
+          "dll": "oleaut32.dll",
+          "symbols": [
+            {
+              "ordinal": 2
+            },
+            {
+              "ordinal": 6
+            }
+          ]
+        },
+        {
+          "dll": "ws2_32.dll",
+          "symbols": [
+            {
+              "ordinal": 4
+            },
+            {
+              "ordinal": 18
+            },
+            {
+              "ordinal": 151
+            },
+            {
+              "ordinal": 1
+            },
+            {
+              "ordinal": 17
+            },
+            {
+              "ordinal": 116
+            },
+            {
+              "ordinal": 11
+            },
+            {
+              "ordinal": 13
+            },
+            {
+              "ordinal": 2
+            },
+            {
+              "ordinal": 19
+            },
+            {
+              "ordinal": 23
+            },
+            {
+              "ordinal": 8
+            },
+            {
+              "ordinal": 9
+            },
+            {
+              "ordinal": 21
+            },
+            {
+              "ordinal": 20
+            },
+            {
+              "ordinal": 57
+            },
+            {
+              "ordinal": 3
+            },
+            {
+              "ordinal": 52
+            },
+            {
+              "ordinal": 115
+            }
+          ]
+        },
+        {
+          "dll": "comdlg32.dll",
+          "symbols": [
+            {
+              "name": "GetOpenFileNameA"
+            },
+            {
+              "name": "GetSaveFileNameA"
+            }
+          ]
+        },
+        {
+          "dll": "comctl32.dll",
+          "symbols": [
+            {
+              "ordinal": 17
+            }
+          ]
+        }
+      ],
+      "imported_dlls": [
+        "kernel32.dll",
+        "ddraw.dll",
+        "winmm.dll",
+        "d3d8.dll",
+        "dsound.dll",
+        "dinput8.dll",
+        "user32.dll",
+        "gdi32.dll",
+        "advapi32.dll",
+        "ole32.dll",
+        "oleaut32.dll",
+        "ws2_32.dll",
+        "comdlg32.dll",
+        "comctl32.dll"
+      ],
+      "exports": [],
+      "debug_directory": [
+        {
+          "type": 2,
+          "timestamp": 1006791005,
+          "version": "0.0",
+          "size": 62,
+          "format": "NB10",
+          "pdb_path": "D:\\Projects\\MRallyeTNG\\Release\\MRallyeTNG.pdb"
+        }
+      ],
+      "debug_information_present": true,
+      "pdb_path_strings": [
+        "D:\\Projects\\MRallyeTNG\\Release\\MRallyeTNG.pdb"
+      ],
+      "rtti_indicators": [
+        " / PAUSA",
+        " ETAPA\\n  ITALIA/AUSTRIA",
+        " UTILIZAR MUELLES MAS SUAVES PARA OBTENER MEJORES PRESTACIONES SOBRE TERRENO ACCIDENTADO.",
+        ".?AUctype_base@std@@",
+        ".?AUmessages_base@std@@",
+        ".?AUmoney_base@std@@",
+        ".?AUtime_base@std@@",
+        ".?AV?$_Mpunct@D@std@@",
+        ".?AV?$_Mpunct@G@std@@",
+        ".?AV?$codecvt@DDH@std@@",
+        ".?AV?$codecvt@GDH@std@@",
+        ".?AV?$collate@D@std@@",
+        ".?AV?$collate@G@std@@",
+        ".?AV?$ctype@D@std@@",
+        ".?AV?$ctype@G@std@@",
+        ".?AV?$messages@D@std@@",
+        ".?AV?$messages@G@std@@",
+        ".?AV?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$moneypunct@D$00@std@@",
+        ".?AV?$moneypunct@D$0A@@std@@",
+        ".?AV?$moneypunct@G$00@std@@",
+        ".?AV?$moneypunct@G$0A@@std@@",
+        ".?AV?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$numpunct@D@std@@",
+        ".?AV?$numpunct@G@std@@",
+        ".?AV?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@",
+        ".?AV?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@",
+        ".?AV_Locimp@locale@std@@",
+        ".?AVbad_alloc@std@@",
+        ".?AVbad_cast@std@@",
+        ".?AVcodecvt_base@std@@",
+        ".?AVexception@@",
+        ".?AVfacet@locale@std@@",
+        ".?AVfailure@ios_base@std@@",
+        ".?AVios_base@std@@",
+        ".?AVlength_error@std@@",
+        ".?AVlogic_error@std@@",
+        ".?AVout_of_range@std@@",
+        ".?AVruntime_error@std@@",
+        ".?AVtype_info@@",
+        ".AVI",
+        ".WAV",
+        "0 PAVE NUM",
+        "1 PAVE NUM",
+        "2 PAVE NUM",
+        "3 PAVE  NUM",
+        "4 PAVE NUM",
+        "5 PAVE NUM",
+        "6 PAVE NUM",
+        "7 PAVE NUM",
+        "8 PAVE NUM",
+        "9 PAVE NUM",
+        "@REMERCIEMENTS SPECIAUX A:",
+        "ALIVIAR O DIFERENCIAL (VALORES MAIS ALTOS) AUMENTAR",
+        "ALT GAUCHE",
+        "AN/AUS",
+        "ASSOUPLIR POUR OBTENIR UNE MEILLEURE ADHERENCE EN VIRAGE EN TERRAIN ACCIDENTE, AU DETRIMENT DE LA MANIABILITE.",
+        "ATTENTE RESEAU",
+        "AUCUNE PARTIE ACTIVE",
+        "AUDIO OPTIONS",
+        "AUDIO-OPTIONEN",
+        "AUFH",
+        "AUFL",
+        "AUGMENTER LA GARDE AU SOL PERMET D'UTILISER DES RESSORTS PLUS SOUPLES POUR DE MEILLEURES PERFORMANCES EN TERRAIN ACCIDENTE.",
+        "AUGMENTER LA PUISSANCE DE FREINAGE SUR L'AVANT PEUT AMELIORER LE FREINAGE ET L'ADHERENCE EN VIRAGE, MAIS AU DETRIMENT DE LA STABILITE DU TRAIN ARRIERE DU VEHICULE.",
+        "AUGMENTER LE TAUX D'AMORTISSEMENT REDUIT LA VITESSE DES TRANSFERTS DE MASSE, CE QUI STABILISE LE VEHICULE.",
+        "AUMENTANDO L'ALTEZZA DA TERRA SI POSSONO USARE SOSPENSIONI PI",
+        "AUMENTANDO LA RIGIDIT",
+        "AUMENTAR A ALTURA PERMITIR",
+        "AUSTRIA",
+        "AUSWERFEN",
+        "AUTOM",
+        "AUTOMATIC",
+        "AUTOMATIC RECOVERY",
+        "AUTOMATICO",
+        "AUTOMATIK",
+        "AUTOMATIQUE",
+        "AUTOMATISCHE BERGUNG",
+        "AUTOSCONTRO",
+        "AUTRICHE",
+        "AV P",
+        "AVAN",
+        "AVANCER",
+        "AVANCER A LA FIN",
+        "AVANT",
+        "AVANZA",
+        "AVANZAMENTO",
+        "AVANZAR",
+        "AVEC",
+        "AVEC UN TEMPS DE",
+        "AVEC UN TEMPS RECORD DE",
+        "AVI files"
+      ],
+      "rich_header_records": [],
+      "toolchain_fingerprints": {
+        "rich_header_present": false,
+        "linker_version": "6.0",
+        "crt": "no recognizable dynamic MSVC CRT import; static/runtime model unresolved",
+        "directx_imports": [
+          "ddraw.dll",
+          "d3d8.dll",
+          "dsound.dll",
+          "dinput8.dll"
+        ],
+        "rtti_marker_count": 463
+      }
+    }
+  ]
+}

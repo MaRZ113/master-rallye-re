@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "method": {
+    "description": "Selected functions paired across builds using semantic strings/xrefs, callees/callers, decompiled behavior and, for listed cases, SequenceMatcher similarity over instruction mnemonic sequences.",
+    "similarity_metric": "difflib.SequenceMatcher over mnemonic-only disassembly sequences",
+    "limitations": [
+      "Operands, code addresses, data references and full CFG topology are not encoded in the reported ratio.",
+      "A high similarity supports but does not prove behavioral identity.",
+      "A low similarity can indicate a rewrite or a sequence-shape change and requires semantic inspection.",
+      "Missing literals do not prove absent dynamically formatted or virtual-call behavior."
+    ]
+  },
+  "build_order": ["8.4.1", "9.3.1", "9.10.0", "retail"],
+  "correspondences": [
+    {
+      "id": "resource_root_registration",
+      "role": "Register current-directory resource roots",
+      "addresses": {"8.4.1": "004CECF0", "9.3.1": "00513E10", "9.10.0": "0052A320", "retail": "00541640"},
+      "pair_similarity": {"8.4.1->9.3.1": 0.928, "9.3.1->9.10.0": 1.0, "9.10.0->retail": 1.0},
+      "evidence": ["Each constructor calls GetCurrentDirectoryA and registers DataAudio/DataGx/DataGame/DataScene roots.", "DataVideo root is present from 9.3.1 onward."],
+      "confidence": "HIGH"
+    },
+    {
+      "id": "udp_listener",
+      "role": "Enable, bind, disable and close a UDP listener",
+      "addresses": {"8.4.1": "0042FBF0", "9.3.1": "00430F20", "9.10.0": "00431F50", "retail": "00433240"},
+      "pair_similarity": {"8.4.1->9.3.1": 0.874, "9.3.1->9.10.0": 1.0, "9.10.0->retail": 1.0},
+      "evidence": ["All paths use a backend bind method and configured port 0x56CE (22222).", "Enable/disable branches update and clear socket state; log strings and call shape align."],
+      "confidence": "HIGH",
+      "unknowns": ["Protocol framing", "Online mode availability", "Maximum peers"]
+    },
+    {
+      "id": "shader_registry",
+      "role": "Register D3D8 shader/material families",
+      "addresses": {"8.4.1": "00512800", "9.3.1": "00534B50", "9.10.0": "00544270", "retail": "00565DA0"},
+      "pair_similarity": {"8.4.1->9.3.1": 0.87, "9.3.1->9.10.0": 0.447, "9.10.0->retail": 0.992},
+      "evidence": ["Family names cover base/alpha/environment/noise/particle variants.", "Explicit alpha-test variants appear in 9.10.0/retail.", "Selector and shader failure paths are independently mapped in retail."],
+      "confidence": "HIGH",
+      "unknowns": ["Exact per-material stage state and UsesAlpha branch semantics"]
+    },
+    {
+      "id": "progress_win_status",
+      "role": "Read/write progress win-status state",
+      "addresses": {
+        "8.4.1": {"write": "0046E020", "read": "0046DFA0", "prefix": "Progress/Won/"},
+        "9.3.1": {"write": "0048CE00", "read": "0048CE80", "prefix": "Progress/WinStatus/"},
+        "9.10.0": {"write": "004A2EA0", "read": "004A2F20", "prefix": "Progress/WinStatus/"},
+        "retail": {"write": "004AF3B0", "read": "004AF430", "prefix": "Progress/WinStatus/"}
+      },
+      "pair_similarity": {"8.4.1->9.3.1": 0.899, "9.3.1->9.10.0": 1.0, "9.10.0->retail": 1.0},
+      "evidence": ["Direct string xrefs and typed broker accessor call neighborhoods.", "Retail Progress.xml has matching WinStatus value records."],
+      "confidence": "HIGH"
+    },
+    {
+      "id": "application_settings_registration",
+      "role": "Register application settings including DebugWindow/Enabled and graphics/menu options",
+      "addresses": {"8.4.1": "00484EF0", "9.3.1": "004AEE40", "9.10.0": "004C3A00", "retail": "004D7BD0"},
+      "pair_similarity": {"8.4.1->9.3.1": 0.368, "9.3.1->9.10.0": 0.886, "9.10.0->retail": 0.377},
+      "instruction_counts": {"8.4.1": 264, "9.3.1": 242, "9.10.0": 232, "retail": 246},
+      "evidence": ["DebugWindow/Enabled direct xrefs in all builds.", "Menu/graphics setting names and registration call neighborhoods align.", "Decompiler observes entry strides 0x1c, 0x1c, 0x94, 0x1c; stride interpretation remains provisional."],
+      "confidence": "MEDIUM",
+      "limitations": ["Low mnemonic similarity may reflect layout/control-flow changes rather than setting semantics changing.", "No complete settings-entry structure is claimed."]
+    },
+    {
+      "id": "default_vehicle_parameter_registration",
+      "role": "Register default vehicle parameter-broker values",
+      "addresses": {
+        "8.4.1": ["00456590", "00456650"],
+        "9.3.1": ["00471380", "00471440"],
+        "9.10.0": ["00485550", "00485610"],
+        "retail": ["0048FA10", "0048FAD0"]
+      },
+      "pair_similarity": {"8.4.1->9.3.1": 1.0, "9.3.1->9.10.0": 1.0, "9.10.0->retail": 1.0},
+      "evidence": ["Direct gaDefaultParamBrokerRegistration name xrefs across all four builds.", "Constructor pair and registered CarModelDataFile semantics are already linked to corpus XML."],
+      "confidence": "HIGH"
+    },
+    {
+      "id": "race_finish_area_factory",
+      "role": "Register and construct gaRaceFinishAreaAI objects",
+      "addresses": {"8.4.1": "00452F90", "9.3.1": "0046D390", "9.10.0": "004802E0", "retail": "0048A750"},
+      "pair_similarity": null,
+      "evidence": ["Exact component class-name xrefs in each build.", "RaceTest XML corpus contains this component family."],
+      "confidence": "HIGH",
+      "unknowns": ["Runtime finish-area algorithm"]
+    },
+    {
+      "id": "race_line_factory",
+      "role": "Register and construct gaRaceLineAI objects",
+      "addresses": {"8.4.1": "00453320", "9.3.1": "0046D760", "9.10.0": "00480730", "retail": "0048ACB0"},
+      "pair_similarity": null,
+      "evidence": ["Exact component class-name xrefs in each build.", "Course XML contains ordered RaceLine markers and AI list references."],
+      "confidence": "HIGH",
+      "unknowns": ["Meaning of each RaceLine marker and progress consumer"]
+    },
+    {
+      "id": "split_time_component_registration",
+      "role": "Register/load gaRaceSplitTimeAI and XML property fields",
+      "addresses": {"8.4.1": ["00454900", "004543F0"], "9.3.1": ["00407220", "0046E8E0", "0046EE90", "00469F80", "0046C390"], "9.10.0": ["0047F2C0", "004073C0", "00482E30", "00482740", "0047CCA0"], "retail": ["00407880", "00486DC0", "0048D260", "004893E0", "0048CB50"]},
+      "pair_similarity": null,
+      "evidence": ["Direct class-name xrefs survive all builds.", "Retail property loader mapping is documented in research/r5t_d1/split-center-trace.md.", "France1 runtime relation remains prior CONFIRMED_BY_RUNTIME evidence."],
+      "confidence": "HIGH for class registration; prior runtime evidence only for France1 SplitTime0 semantics"
+    },
+    {
+      "id": "gxm_loader",
+      "role": "Load GXM source model and validate/write DX cache",
+      "addresses": {"8.4.1": "00520BB0", "9.3.1": "0051F140", "9.10.0": "00552700", "retail": "0053C3F0"},
+      "pair_similarity": null,
+      "evidence": ["Exact Reading GXM debug string xrefs in all builds.", "Matching cache-missing/out-of-date and loaded/saved diagnostics plus source parser neighborhood."],
+      "confidence": "HIGH"
+    },
+    {
+      "id": "gxi_loader",
+      "role": "Load GXI source texture and validate/write DX texture cache",
+      "addresses": {"8.4.1": "00521D20", "9.3.1": "005202B0", "9.10.0": "00553AB0", "retail": "0053DCC0"},
+      "pair_similarity": null,
+      "evidence": ["Exact Reading GXI debug string xrefs in all builds.", "Matching texture-cache diagnostics and Direct3D texture creation neighborhood."],
+      "confidence": "HIGH"
+    },
+    {
+      "id": "wrong_way_hud_component",
+      "role": "Construct HUD component named gaHudAiWrongWay",
+      "addresses": {"8.4.1": ["0046ADE0", "0046AEB0"], "9.3.1": ["00489080", "00489150"], "9.10.0": ["0049ECB0", "0049ED80"], "retail": ["004A91E0", "004A92B0"]},
+      "pair_similarity": {"8.4.1->9.3.1": 1.0, "9.3.1->9.10.0": 1.0, "9.10.0->retail": 0.857},
+      "evidence": ["Direct component-name xref and stable UI text setup.", "No detector logic identified in these constructors."],
+      "confidence": "HIGH for constructor pairing; UNKNOWN detector behavior"
+    },
+    {
+      "id": "build_data",
+      "role": "Retail-only developer cache-build directory walker and command wrapper",
+      "addresses": {"8.4.1": null, "9.3.1": null, "9.10.0": null, "retail": {"wrapper": "005B2F80", "walker": "005B2DA0", "model": "005B29C0", "texture": "005B2AD0", "image_bank": "005B2C40"}},
+      "pair_similarity": null,
+      "evidence": ["BuildData strings and xrefs are only present in retail catalog.", "Wrapper clears counters and dispatches recursive walk; method-pointer-like data cluster at 00692F8C references the wrapper.", "Callbacks reach ordinary GXM/GXI/image-bank processing functions."],
+      "confidence": "HIGH for retail code presence; UNKNOWN for retail UI accessibility"
+    }
+  ]
+}
