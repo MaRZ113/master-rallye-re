@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-F",
+  "scope": "one retail ID26 physical record and sparse T1 local7 mapping",
+  "source": {
+    "build": "retail",
+    "executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "data_sma_base_sha256": "BB3C69CB97ADD992BF261F64C6ABAFAABAB946AB5CAE7E496D2D486C31A18020",
+    "data_sma_base_members": 8015
+  },
+  "registry": {
+    "original_capacity": 26,
+    "new_capacity": 27,
+    "record_stride": "0x34",
+    "header_size": "0x4",
+    "old_allocation_size": "0xC00",
+    "new_allocation_size": "0xC34",
+    "record25_offset": "0x518",
+    "record26_offset": "0x54C",
+    "secondary_array": {
+      "rows": 39,
+      "stride": "0x2C",
+      "old_base": "0x54C",
+      "new_base": "0x580",
+      "end_exclusive": "0xC34"
+    }
+  },
+  "extra_slot": {
+    "id": 26,
+    "class": "T1",
+    "class_id": 0,
+    "local_index": 7,
+    "donor_id": 0,
+    "internal_name": "Landcruiser",
+    "stats": [4, 2, 4, 6],
+    "smallcarsheet_index": 9,
+    "race_colour_rgba_bits": ["3daa05cc", "3ed675db", "3e8172f5", "3f800000"],
+    "display_selector_id": 0,
+    "unlock_policy": "test_only_vehicle_select_gate"
+  },
+  "preserved_slot25": {
+    "internal_name": "Trooper",
+    "class": "T3",
+    "local_index": 11,
+    "smallcarsheet_index": 29,
+    "runtime_family": "Trooper"
+  },
+  "frontend": {
+    "capacities": {"T1": 8, "T2": 7, "T3": 12},
+    "widget": "T1_Car8",
+    "button_position": "Frontend/VehicleSelect/Button7XPos",
+    "frame": 3,
+    "sparse_vehicle_ids": {"T1": {"7": 26}}
+  },
+  "binary_operation_counts": {
+    "pe-bookkeeping": 1,
+    "registry-allocation": 1,
+    "construction": 2,
+    "destruction": 2,
+    "exception-unwind": 2,
+    "secondary-array-construction": 39,
+    "secondary-array-consumer": 11,
+    "frontend-capacity": 2,
+    "class-mapping": 2,
+    "unlock-policy": 2,
+    "display-localization": 3,
+    "record-initialization": 1,
+    "record-initialization-and-bounded-wrappers": 1
+  },
+  "runtime_gates": {
+    "P0": "human frontend-only test",
+    "P1": "blocked until P0 FULL PASS",
+    "campaign_save": "unproven; disposable profile",
+    "network": "unproven; offline only",
+    "tracks": "out of scope"
+  },
+  "candidate": {
+    "executable_sha256": "DFF9E86A06A6E5312995CC81C5920AAF1739DE324D84B5605FF1C19B60748ABC",
+    "data_sma_sha256": "D21EC114AE60B93720FA16E84592642C3D4055541FC8BA8B5E50FFC857E270FA",
+    "status": "READY_FOR_HUMAN_P0"
+  }
+}

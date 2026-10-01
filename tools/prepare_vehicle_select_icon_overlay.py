@@ -225,6 +225,21 @@ def generate_overlay(
         row_id = mapping.get("row_id")
         if not isinstance(base_id, int) or base_id < 0 or not isinstance(row_id, int) or row_id < 0:
             raise OverlayError(f"{class_name} mapping needs non-negative vehicle_id_base and row_id")
+        sparse_ids = mapping.get("sparse_vehicle_ids", {})
+        if not isinstance(sparse_ids, dict):
+            raise OverlayError(f"{class_name} sparse_vehicle_ids must be an object keyed by local index")
+        normalized_sparse_ids: dict[int, int] = {}
+        for raw_local, sparse_id in sparse_ids.items():
+            try:
+                sparse_local = int(raw_local)
+            except (TypeError, ValueError) as exc:
+                raise OverlayError(f"{class_name} sparse local-index keys must be non-negative integers") from exc
+            if (str(sparse_local) != str(raw_local) or sparse_local < 0
+                    or isinstance(sparse_id, bool) or not isinstance(sparse_id, int) or sparse_id < 0):
+                raise OverlayError(f"{class_name} sparse_vehicle_ids must map non-negative local indexes to vehicle IDs")
+            if sparse_local in normalized_sparse_ids:
+                raise OverlayError(f"{class_name} sparse_vehicle_ids repeats local index {sparse_local}")
+            normalized_sparse_ids[sparse_local] = sparse_id
         local_index = slot.get("local_index")
         vehicle_id = slot.get("vehicle_id")
         frame_index = slot.get("frame_index")
@@ -235,8 +250,12 @@ def generate_overlay(
             raise OverlayError(
                 f"local index {local_index} has no verified layout position in this profile; add a position key only after proving the runtime supports it"
             )
-        if not isinstance(vehicle_id, int) or vehicle_id != base_id + local_index:
-            raise OverlayError("vehicle_id does not match the supported class-base/local-index mapping")
+        expected_vehicle_id = normalized_sparse_ids.get(local_index, base_id + local_index)
+        if isinstance(vehicle_id, bool) or not isinstance(vehicle_id, int) or vehicle_id != expected_vehicle_id:
+            raise OverlayError(
+                "vehicle_id does not match dense/sparse class-local mapping "
+                "or class-base/local-index arithmetic"
+            )
         if vehicle_id in seen_vehicle_ids:
             raise OverlayError(f"multiple slots map to vehicle ID {vehicle_id}")
         seen_vehicle_ids.add(vehicle_id)

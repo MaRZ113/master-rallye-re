@@ -243,3 +243,19 @@ unchanged. This result supersedes the earlier E0.1c unknown-source report. See
 ## R5V-E0 Trooper ID25 candidate
 
 The retail ID25 patcher has a Trooper profile. Its candidate composes the demo-9.3.1 revision-131 Trooper model converted to revision 135, 24 referenced Trooper DXT dependencies, retail Trooper physics, and authentic Trooper tag101 collision. Automated conversion, composition, physics-schema, and collision-structure checks pass. The owner reports R5V-E0 P0/P1 FULL PASS: Trooper preview/race/wheel resources, physics, collision and damage work; a full stage, Race Results and return to menu work; original vehicles remain available. The reported frontend identity is `STEEL MONKEYS FORKLIFT`, Astero-derived stats, and a missing Vehicle Select icon. E0.1a selector diagnostics were owner-confirmed: the top-left participant and Race Results icons display Forklift frame 29; the progress marker remains aquamarine. The tested EXE hash and raw captures were not supplied. See `research/r5v_e/r5v_e0/` and `research/r5v_e/r5v_e0_1/`.
+
+## R5V-F retail physical registry expansion
+
+Static retail analysis and candidate construction extend the heap registry
+from 26 to 27 `0x34`-byte VehicleRecords. Record26 is at registry `+0x54C`;
+the adjacent 39-row RaceTest array moves from `+0x54C` to `+0x580`, and the
+allocation grows from `0xC00` to `0xC34`. Constructor/destructor counts,
+exception-unwind paths, all 39 secondary initializers and 11 direct readers
+are included in the hash-locked candidate. T1 local7 maps to ID26 and reverse;
+T2 and T3 IDs remain unchanged, with capacities 7 and 12. ID26 uses a
+Landcruiser ID0 value duplicate and the original full owned-string initializer.
+
+The ignored candidate is **READY FOR HUMAN P0** only. The frontend archive
+preserves the existing T3_Car12 binding and adds T1_Car8; the candidate has not
+been launched. P1 Quick Race is gated on human P0 FULL PASS. Campaign persistence
+and network support remain unproven. See `research/r5v_f/`.

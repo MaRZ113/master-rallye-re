@@ -20,6 +20,16 @@ Astero frame 5. No registry or executable limits changed. See
 `research/r5v_e0_2/findings.md` and
 `research/r5v_e0_2/trooper-icon-search.md`.
 
+R5V-F prepares the first true retail registry expansion: a 27th physical
+VehicleRecord at ID26, exposed only as sparse T1 local7, with a duplicate
+Landcruiser/ID0 payload. Construction, destruction, unwind, the adjacent
+39-row array, both class-map directions, T1 capacity, display alias and narrow
+unlock gate are statically checked. A hash-locked executable candidate and a
+VehicleSelect archive retaining T3_Car12 are staged under ignored
+`research-output/r5v_f/runtime-test/`. **P0 is waiting for human frontend
+testing; no R5V-F runtime result or P1 race test is claimed.** See
+`research/r5v_f/findings.md` and `research/r5v_f/runtime-test-plan.md`.
+
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
 preview materials, preserved draw/group/source metadata, and a fail-closed

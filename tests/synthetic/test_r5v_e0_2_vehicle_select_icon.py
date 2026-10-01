@@ -72,7 +72,7 @@ class VehicleSelectIconOverlayTests(unittest.TestCase):
         slots: list[dict[str, object]],
         *,
         position_count: int = 12,
-        class_mappings: dict[str, dict[str, int]] | None = None,
+        class_mappings: dict[str, dict[str, object]] | None = None,
         locked_template: bool = False,
     ) -> tuple[Path, Path]:
         source_text = _scene(class_counts, locked_template=locked_template)
@@ -153,6 +153,46 @@ class VehicleSelectIconOverlayTests(unittest.TestCase):
         names = {node.get("Name") for node in tree.iter("Egg")}
         self.assertTrue({"T1_Car8", "T2_Car8", "T3_Car12", "T3_Car13"}.issubset(names))
         self.assertEqual(len(result["additions"]), 4)  # type: ignore[arg-type]
+
+    def test_sparse_t1_car8_maps_to_physical_id26(self) -> None:
+        mappings: dict[str, dict[str, object]] = {
+            "T1": {"vehicle_id_base": 0, "row_id": 0, "sparse_vehicle_ids": {"7": 26}},
+            "T2": {"vehicle_id_base": 7, "row_id": 1},
+            "T3": {"vehicle_id_base": 14, "row_id": 2},
+        }
+        source, manifest = self._write_inputs(
+            {"T1": 7, "T2": 7, "T3": 12},
+            [{"class": "T1", "local_index": 7, "vehicle_id": 26,
+              "template_widget": "T1_Car1", "frame_index": 3}],
+            class_mappings=mappings,
+        )
+        result = self._generate(source, manifest)
+        tree = ET.parse(str(result["output_scene"])).getroot()
+        target = next(node for node in tree.iter("Egg") if node.get("Name") == "T1_Car8")
+        values = {node.get("Name"): node.get("Value") for node in target.findall("./Value")}
+        self.assertEqual(values["en2d Image Bank Index"], "3")
+        xy = target.find("./AI_List/AI/gaFrontendXYButtonAI")
+        assert xy is not None
+        bindings = {node.get("Name"): node.get("Value") for node in xy.findall("./Value")}
+        self.assertEqual(bindings["X ID"], "7")
+        self.assertEqual(bindings["Y ID"], "0")
+        self.assertEqual(bindings["XPos*"], "Frontend/VehicleSelect/Button7XPos")
+        self.assertEqual(result["additions"][0]["vehicle_id"], 26)  # type: ignore[index]
+
+    def test_sparse_t1_mapping_rejects_dense_alias_for_local7(self) -> None:
+        mappings: dict[str, dict[str, object]] = {
+            "T1": {"vehicle_id_base": 0, "row_id": 0, "sparse_vehicle_ids": {"7": 26}},
+            "T2": {"vehicle_id_base": 7, "row_id": 1},
+            "T3": {"vehicle_id_base": 14, "row_id": 2},
+        }
+        source, manifest = self._write_inputs(
+            {"T1": 7},
+            [{"class": "T1", "local_index": 7, "vehicle_id": 7,
+              "template_widget": "T1_Car1", "frame_index": 3}],
+            class_mappings=mappings,
+        )
+        with self.assertRaisesRegex(OverlayError, "dense/sparse class-local mapping"):
+            self._generate(source, manifest)
 
     def test_retail_profile_rejects_t3_car13_without_button12_evidence(self) -> None:
         source, manifest = self._write_inputs(

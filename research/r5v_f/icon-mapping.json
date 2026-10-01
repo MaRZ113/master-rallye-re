@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "source_scene_sha256": "7676532F4BFAD1A196A5AD39FA3941BFE9EBDD9E636A58C5A8FCF9F18CC3F95A",
+  "image_bank": {
+    "scene_name": "frontend\\vehicleselect\\carsheet",
+    "container": "carsheet.dxb",
+    "frame_pattern": "carsheet_{index:03d}_000.dxt",
+    "frame_count": 32,
+    "file_type": "1"
+  },
+  "class_mappings": {
+    "T1": { "vehicle_id_base": 0, "row_id": 0, "sparse_vehicle_ids": { "7": 26 } },
+    "T2": { "vehicle_id_base": 7, "row_id": 1 },
+    "T3": { "vehicle_id_base": 14, "row_id": 2 }
+  },
+  "layout_position_properties": [
+    "Frontend/VehicleSelect/Button0XPos",
+    "Frontend/VehicleSelect/Button1XPos",
+    "Frontend/VehicleSelect/Button2XPos",
+    "Frontend/VehicleSelect/Button3XPos",
+    "Frontend/VehicleSelect/Button4XPos",
+    "Frontend/VehicleSelect/Button5XPos",
+    "Frontend/VehicleSelect/Button6XPos",
+    "Frontend/VehicleSelect/Button7XPos",
+    "Frontend/VehicleSelect/Button8XPos",
+    "Frontend/VehicleSelect/Button9XPos",
+    "Frontend/VehicleSelect/Button10XPos",
+    "Frontend/VehicleSelect/Button11XPos"
+  ],
+  "slots": [
+    {
+      "class": "T1",
+      "local_index": 7,
+      "vehicle_id": 26,
+      "template_widget": "T1_Car1",
+      "frame_index": 3,
+      "purpose": "ID0_LANDCRUISER_DUPLICATE",
+      "unlock_policy": "test_only_id26_frontend_gate"
+    }
+  ]
+}
