@@ -33,3 +33,7 @@ No source-specific control point has been proven, so a red tint patch would be s
 R5V-F remains **BLOCKED** on this unresolved upstream edge. Keep `progress_marker_colour` out of `VehicleSlotProfile`; if later evidence establishes participant or player ownership, place the control in a separately named race/HUD participant profile. The separate `T3_Car12` Vehicle Select icon remains unresolved and should be tracked as UI mapping work, not conflated with marker tint.
 
 See [dynamic-trace.md](dynamic-trace.md), [race-colour-producer.md](race-colour-producer.md), [runtime-diagnostic.md](runtime-diagnostic.md), [validation.md](validation.md), and [r5v-f-readiness.md](r5v-f-readiness.md).
+
+## R5V-E0.1d follow-up
+
+On 2026-10-01, R5V-E0.1d rechecked the consumer and inspected bounded race participant / Quick Race paths. It prepared independent XML-only and HUD-slot-0 bypass diagnostics. The human runtime tests and manual x32dbg producer trace remain pending; the producer classification therefore remains **UNKNOWN**. This addendum does not change the historical E0.1c verdict above. See [E0.1d findings](../r5v_e0_1d/findings.md).

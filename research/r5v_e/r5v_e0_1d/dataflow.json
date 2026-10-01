@@ -1,0 +1,41 @@
+{
+  "phase": "R5V-E0.1d",
+  "build": {
+    "name": "retail",
+    "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "data_sma_sha256": "9bdf132cfde6e443e32f937b99289b07e9527457ae48fa9c7e0a373b52a28f30"
+  },
+  "hud_consumer": {
+    "function": "FUN_004A74A0",
+    "display_slot_offset": "0x18",
+    "property_format": "Race/Car%d/Colour",
+    "exists_getter_call": "0x004A7661 -> 0x004D7470",
+    "value_getter_call": "0x004A7684 -> 0x004D7340",
+    "value_pointer_first_read": "0x004A7689",
+    "component_offsets": ["+0x3C", "+0x40", "+0x44", "+0x48"],
+    "evidence": "RAW_GHIDRA_SUPPORTED"
+  },
+  "hud_xml": {
+    "single_player_scene": "DataScene/Hud/Hud0.xml",
+    "source_member_sha256": "91616caa529fb4762e8e263f58bfe0f35ee5aebf127e8ba2fc3014a677ea4dbf",
+    "widget": "ProgressCar0",
+    "display_car_id": 0,
+    "object_colour_before": [1.0, 1.0, 1.0, 0.5],
+    "object_colour_candidate": [1.0, 0.0, 0.0, 0.5],
+    "runtime_result": "NOT_RUN"
+  },
+  "materialization": {
+    "race_setup_functions_inspected": ["FUN_0048E2D0", "FUN_0048EB40", "FUN_004C0B20", "FUN_004BCA30", "FUN_004B6A00"],
+    "quickrace_functions_inspected": ["FUN_0047B780", "FUN_004ADFB0", "FUN_004ADF50"],
+    "colour_writer": null,
+    "semantic_owner": "UNKNOWN"
+  },
+  "slot0_bypass_candidate": {
+    "hook_va": "0x004A7661",
+    "helper_va": "0x0068E300",
+    "candidate_sha256": "2d78b8b990ca1e7fa10171352cc95af3ff8e9d2bcdfac54310b4c28c642aaf7f",
+    "runtime_result": "NOT_RUN"
+  },
+  "classification": "UNKNOWN",
+  "r5v_f_readiness": "BLOCKED_ON_HUMAN_DIAGNOSTIC_AND_PRODUCER_TRACE"
+}
