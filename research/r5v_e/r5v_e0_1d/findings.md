@@ -2,7 +2,7 @@
 
 ## Verdict
 
-**BLOCKED: the colour producer and semantic owner remain unknown.** This phase verified the retail HUD consumer, inspected bounded race setup and Quick Race paths, and prepared separate XML-only and slot-0 bypass diagnostics. Neither diagnostic has been run in the game, so XML precedence, runtime override behavior, colour values, and the effect of the bypass remain unconfirmed.
+**BLOCKED: the colour producer and semantic owner remain unknown.** This phase verified the retail HUD consumer and inspected bounded race setup and Quick Race paths. The subsequent R5V-E0.1d.1 user report records the red XML-only test as leaving the marker aquamarine/cyan-like. The old slot-0 bypass then crashed during race loading and is now invalidated because its helper violated the stack ABI. That crash is not colour-precedence evidence.
 
 The prior R5V-E0.1c commit remains an accurate record of its then-current blocked state. This phase adds evidence and candidates without replacing that history. E0.1c closeout commit: `685cf1f`.
 
@@ -16,16 +16,17 @@ The prior R5V-E0.1c commit remains an accurate record of its then-current blocke
 - `FUN_004B6A00` handles a `Race/Car%d/DriverID` path and vehicle/driver setup. No Colour write was found in the inspected function. `FUN_0047B780` restores `Frontend/QuickRace/Car0` and `Car1` values into race CarID/CarType state; it does not write the colour property. `FUN_004ADF50` is a generic Quick Race setter helper with no direct callers in the analyzed retail project.
 - The complete literal `Race/Car%d/Colour` has a direct code reference in the inspected retail image at the HUD consumer. Schema registration in `FUN_004ABCE0` is not a value producer. A generic schema/struct writer may still materialize the value without that literal; this phase did not identify one.
 
-## Diagnostics prepared
+## Diagnostics and later human results
 
-1. **XML-only:** a retail `Data.sma` copy changes only `ProgressCar0 / gaHudAiRaceProgress / ObjectColour` from `1.00 1.00 1.00 0.50` to `1.00 0.00 0.00 0.50`. The EXE is an unchanged copy of the existing Trooper + SmallCarSheet29 baseline.
-2. **Slot-0 bypass:** a second executable redirects the existence query at `0x004A7661` through a helper. It returns false for HUD display slot 0 so the XML colour remains active, and calls the original getter for every nonzero slot. Pair it with the same red XML archive only after recording the XML-only result.
+1. **XML-only:** the retail `Data.sma` copy changes only `ProgressCar0 / gaHudAiRaceProgress / ObjectColour` from `1.00 1.00 1.00 0.50` to `1.00 0.00 0.00 0.50`. The user reports that the bottom marker remained aquamarine/cyan-like. The XML fallback is therefore not the final visible colour in that tested path.
+2. **Old slot-0 bypass:** candidate SHA-256 `2d78b8b990ca1e7fa10171352cc95af3ff8e9d2bcdfac54310b4c28c642aaf7f`. The user reports a race-load crash. R5V-E0.1d.1 raw ABI review found that its bypass branch used plain `RET`, leaving the pushed argument on the stack, and its nonzero branch nested a `CALL` into a callee that executes `RET 4`. This candidate is invalid and its crash must not be interpreted as a colour result.
+3. **Corrected slot-0 bypass:** a new static candidate uses `RET 4` for the bypass and a tail `JMP` to the original getter for nonzero slots. It has not yet been run. Its SHA, diff, and instructions are in [R5V-E0.1d.1](../../r5v_e0_1d_1/findings.md).
 
-Both are static candidates only. The candidate archive and executables are under ignored `research-output/r5v_e0_1d/`; original retail EXE and archive hashes remain unchanged. No final semantic red-control candidate was produced.
+The XML archive and old executable remain under ignored `research-output/r5v_e0_1d/`; the corrected executable is under ignored `research-output/r5v_e0_1d_1/`. The retail EXE hash still matches; the current top-level `Data.sma` no longer matches its prior phase hash. R5V-E0.1d.1 records that archive-path difference; this phase did not write the archive. No producer-level red control has been produced.
 
 ## Remaining evidence gate
 
-The human must run the XML-only diagnostic, then the slot-0 bypass diagnostic, and report the marker result for each. Afterward use the manual x32dbg plan in [dynamic-trace-plan.md](dynamic-trace-plan.md) to record Car0..Car3 values and catch a writer. Until those steps establish the source and ownership:
+The XML-only test is complete. The corrected slot-0 bypass still needs the human runtime test in `research/r5v_e0_1d_1/runtime-test-plan.md`. If it turns the marker red, use `research/r5v_e0_1d_1/manual-x32dbg.md` with the clean E0 baseline to record Car0..Car3 values and catch a writer. Until the corrected test and producer trace establish the source and ownership:
 
 - `Race/Car0/Colour` runtime precedence is **NOT CONFIRMED**.
 - Colour producer classification is **UNKNOWN**.
@@ -36,8 +37,8 @@ The human must run the XML-only diagnostic, then the slot-0 bypass diagnostic, a
 
 | Criterion | Status |
 |---|---|
-| XML `ObjectColour` precedence experimentally understood | Candidate ready; runtime pending |
-| `Race/Car0/Colour` runtime override behavior proven | Runtime pending |
+| XML `ObjectColour` final visible effect | User reports red XML left marker aquamarine/cyan-like |
+| `Race/Car0/Colour` runtime override behavior proven | Corrected bypass runtime pending; old candidate invalid |
 | Producer identified | Unknown |
 | Semantic owner identified | Unknown |
 | Player1 colour source explained | Unknown; only an aquamarine visual report exists |

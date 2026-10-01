@@ -24,12 +24,14 @@ The archive member has 124,360 bytes before and after the replacement. A reverse
 
 The archive was recompressed as a whole, so the archive's physical bytes and size differ. The logical payload comparison confirms that only the named HUD XML payload changed. The source archive itself was not written.
 
-## Test and interpretation
+## Human test result and interpretation
 
-Run a one-player Quick Race in a separate copy of the existing R5V-E0 test installation. Use the candidate as `MRallye.exe`, the candidate archive as `Data.sma`, and keep the same Trooper overlay and settings used for the confirmed E0 test. Do not add the loose XML overlay in the same run. See the ignored [XML test instructions](../../../research-output/r5v_e0_1d/xml-red/TEST_INSTRUCTIONS.txt).
+The user reports the result from the one-player diagnostic:
 
-- **XML-A:** marker turns red. `ProgressCar0/ObjectColour` is live in this mode. The property-exists path still needs the second diagnostic.
-- **XML-B:** marker remains aquamarine/cyan-like. A later runtime tint replacement is likely; the bypass test checks whether the slot-0 `Race/Car0/Colour` consumer explains it.
-- **INVALID:** wrong scene/mode, missing marker, or load failure; do not infer precedence.
+```text
+marker remained aquamarine/cyan-like
+```
 
-No human runtime result is recorded yet.
+This is XML-B. The red XML value alone is not the final visible value in the tested race path. It supports looking for a later runtime replacement, but it does not identify that replacement. The previous bypass executable crashed due to an ABI bug and is invalid evidence. Use only the corrected candidate described in `research/r5v_e0_1d_1/runtime-test-plan.md` for the next test.
+
+The original isolated test instructions remain in the ignored [XML test instructions](../../../research-output/r5v_e0_1d/xml-red/TEST_INSTRUCTIONS.txt).

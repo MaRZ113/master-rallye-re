@@ -25,11 +25,14 @@
 
 ## Runtime and full tests
 
-- XML-only game test: **NOT RUN**.
-- Slot-0 bypass game test: **NOT RUN**.
+- XML-only game test: **RAN; user reports marker remained aquamarine/cyan-like**.
+- Old slot-0 bypass game test: **RAN; crashed during race loading; invalid because of stack ABI bug**.
+- Corrected slot-0 bypass game test: **NOT RUN**; see `research/r5v_e0_1d_1/runtime-test-plan.md`.
 - Dynamic producer trace: **NOT RUN**.
 - Full `tests/synthetic` suite: **PASS**, 205 tests in 12.153 seconds.
 - `git diff --check`: **PASS** after the final documentation update.
+
+The ABI follow-up verified `FUN_004D8EC0`'s plain `RET`, `FUN_004D7470`'s `[ESP+4]` argument and `RET 4`, and the consumer stack sequence from raw Ghidra assembly/P-code. The old helper's plain `RET` and nested `CALL` are invalid. Its generator is disabled; its binary remains ignored and must not be run again.
 
 ## Runtime package safety
 
