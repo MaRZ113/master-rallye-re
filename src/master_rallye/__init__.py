@@ -47,6 +47,7 @@ from .course_race_authoring import (
     RaceLogicAreaStatus,
     RaceLogicExportReport,
     RaceLogicSplitStatus,
+    RaceLogicVisualCompanionStatus,
     load_course_race_logic_authoring,
 )
 from .course_gxm import (

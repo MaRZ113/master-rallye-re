@@ -8,12 +8,23 @@
   "authoring_supported": {
     "StartArea_courses": 36,
     "FinishArea_courses": 34,
-    "SplitTime_records": 110
+    "SplitTime_records": 110,
+    "SplitTime_visual_companion_Eggs": 440
   },
   "split_count_distribution": {
     "3": 34,
     "4": 2
   },
+  "main_split_time_record_count": 110,
+  "visual_companion_egg_count": 440,
+  "visual_companion_count_per_split_distribution": {
+    "4": 110
+  },
+  "visual_companion_count_per_course_distribution": {
+    "12": 34,
+    "16": 2
+  },
+  "unusual_visual_companion_layouts": [],
   "split_radius_min": 7.0,
   "split_radius_max": 30.0,
   "safely_refused": [
@@ -56,6 +67,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -78,6 +108,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -100,6 +149,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -122,6 +190,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -144,6 +231,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -166,6 +272,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -188,6 +313,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -210,6 +354,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -232,6 +395,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -254,6 +436,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -276,6 +477,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -298,6 +518,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -320,6 +559,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -342,6 +600,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -364,6 +641,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -386,6 +682,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -408,6 +723,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -432,6 +766,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -454,6 +807,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -476,6 +848,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -498,6 +889,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -520,6 +930,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -542,6 +971,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -564,6 +1012,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -586,6 +1053,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -608,6 +1094,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -630,6 +1135,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -652,6 +1176,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -674,6 +1217,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -696,6 +1258,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -718,6 +1299,30 @@
       },
       "split_count": 4,
       "supported_split_count": 4,
+      "visual_companion_count": 16,
+      "supported_visual_companion_count": 16,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "Copy of SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -740,6 +1345,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -764,6 +1388,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -786,6 +1429,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -808,6 +1470,30 @@
       },
       "split_count": 4,
       "supported_split_count": 4,
+      "visual_companion_count": 16,
+      "supported_visual_companion_count": 16,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "Copy of SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     },
     {
@@ -830,6 +1516,25 @@
       },
       "split_count": 3,
       "supported_split_count": 3,
+      "visual_companion_count": 12,
+      "supported_visual_companion_count": 12,
+      "split_visual_companions": [
+        {
+          "split_egg": "SplitTime0",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime1",
+          "count": 4,
+          "supported_count": 4
+        },
+        {
+          "split_egg": "SplitTime2",
+          "count": 4,
+          "supported_count": 4
+        }
+      ],
       "unsupported_splits": []
     }
   ],

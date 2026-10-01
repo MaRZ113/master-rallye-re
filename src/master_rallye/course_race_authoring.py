@@ -51,6 +51,18 @@ class RaceLogicSplitStatus:
 
 
 @dataclass(frozen=True)
+class RaceLogicVisualCompanionStatus:
+    split_identity: str
+    source_identity: str
+    split_name: str | None
+    egg_name: str | None
+    position: tuple[float, float, float] | None
+    source_xml_path: str
+    supported: bool
+    issues: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class RaceLogicExportReport:
     course_identity: str
     source_xml: str
@@ -93,6 +105,7 @@ class _BoundField:
     path: str
     original_raw: str
     original_value: Any
+    semantic_role: str
 
 
 @dataclass
@@ -320,8 +333,10 @@ class CourseRaceLogicAuthoring:
         self._pending: dict[tuple[tuple[int, ...], str], _Mutation] = {}
         self._area_bindings: dict[str, list[_BoundField]] = {}
         self._split_bindings: dict[str, dict[str, _BoundField]] = {}
+        self._visual_companion_bindings: dict[str, _BoundField] = {}
         self._area_status: dict[str, RaceLogicAreaStatus] = {}
         self._split_status: list[RaceLogicSplitStatus] = []
+        self._visual_companion_status: list[RaceLogicVisualCompanionStatus] = []
         self._lexical_editable = not self._source.startswith((b"\xff\xfe", b"\xfe\xff", b"\x00\x00\xfe\xff", b"\xff\xfe\x00\x00"))
         self._build_area_bindings()
         self._build_split_bindings()
@@ -338,6 +353,10 @@ class CourseRaceLogicAuthoring:
     @property
     def split_status(self) -> tuple[RaceLogicSplitStatus, ...]:
         return tuple(self._split_status)
+
+    @property
+    def visual_companion_status(self) -> tuple[RaceLogicVisualCompanionStatus, ...]:
+        return tuple(self._visual_companion_status)
 
     @property
     def mutation_count(self) -> int:
@@ -402,6 +421,10 @@ class CourseRaceLogicAuthoring:
                             path=f"/MarkerLists/{name}/Marker[{index}]/Value[@Name='Marker Pos']/@Value",
                             original_raw=element.get("Value", ""),
                             original_value=position,
+                            semantic_role=(
+                                "race.start.marker_position" if name == "StartArea"
+                                else "race.finish.marker_position"
+                            ),
                         ))
                     positions = tuple(marker_positions)
             supported = not issues and len(bindings) == 4
@@ -433,12 +456,14 @@ class CourseRaceLogicAuthoring:
                 issues.append("duplicate structural split identity")
             seen_ids.add(identity)
             egg_element: ET.Element | None = None
+            source_lists: list[ET.Element] = []
             if len(containers) != 1:
                 issues.append(f"expected one root EggLists_Version4 container; found {len(containers)}")
             elif split.source_egg.list_ordinal is None:
                 issues.append("split Egg has no unambiguous source list ordinal")
             else:
                 lists = [child for child in list(containers[0]) if isinstance(child.tag, str)]
+                source_lists = lists
                 list_ordinal = split.source_egg.list_ordinal
                 if list_ordinal >= len(lists):
                     issues.append("split Egg list ordinal is outside the source container")
@@ -483,6 +508,7 @@ class CourseRaceLogicAuthoring:
                             matrix_element, self._locators[id(matrix_element)], "Row3", "row3-xyz",
                             f"{split.source_egg.xml_path}/Value[@Name='en3d Matrix']/@Row3[XYZ]",
                             matrix_element.get("Row3", ""), tuple(row[:3]),
+                            "race.split.trigger_center",
                         )
                         if split.center != tuple(row[:3]):
                             issues.append("Egg Row3 center does not match the Course SDK projection")
@@ -506,12 +532,15 @@ class CourseRaceLogicAuthoring:
                         continue
                     if key == "id" and (split.split_id is None or int(value) != split.split_id):
                         issues.append(f"{identity} ID does not match the Course SDK projection")
+                    if key == "id" and not (-(2 ** 31) <= int(value) <= 2 ** 31 - 1):
+                        issues.append(f"{identity} Split Time ID is outside the signed 32-bit range")
                     if key == "radius" and (split.radius is None or float(value) != split.radius or value <= 0):
                         issues.append(f"{identity} Radius is incomplete, differs from the projection, or is not positive")
                     fields[key] = _BoundField(
                         element, self._locators[id(element)], "Value", "attribute",
                         f"{split.source_component.xml_path}/Value[@Name={xml_name!r}]/@Value",
                         element.get("Value", ""), value,
+                        "race.split.id" if key == "id" else "race.split.radius",
                     )
             supported = not issues and set(fields) == {"center", "id", "radius"}
             if supported:
@@ -525,6 +554,78 @@ class CourseRaceLogicAuthoring:
                 extra_time_raw=split.extra_time_raw,
                 source_xml_path=split.egg_xml_path,
                 supported=supported,
+                issues=tuple(issues),
+            ))
+            self._bind_visual_companions(split, identity, source_lists)
+
+    @staticmethod
+    def _egg_source_identity(egg) -> str:
+        return f"list[{egg.list_ordinal}]/egg[{egg.index_in_list}]/{egg.name or '<unnamed>'}"
+
+    def _bind_visual_companions(self, split, split_identity: str, source_lists: list[ET.Element]) -> None:
+        seen: set[str] = set()
+        for companion in split.companions:
+            egg = companion.source_egg
+            source_identity = self._egg_source_identity(egg)
+            issues: list[str] = []
+            element: ET.Element | None = None
+            if not source_lists:
+                issues.append("expected one root EggLists_Version4 container and an unambiguous source list")
+            elif egg.list_ordinal is None or egg.list_ordinal < 0 or egg.list_ordinal >= len(source_lists):
+                issues.append("visual companion has no valid source Egg list ordinal")
+            else:
+                source_list = source_lists[egg.list_ordinal]
+                if source_list.tag != "List" or source_list.get("Name") != egg.list_name:
+                    issues.append("visual companion source list identity does not match")
+                else:
+                    eggs = list(source_list.iter("Egg"))
+                    if egg.index_in_list < 0 or egg.index_in_list >= len(eggs):
+                        issues.append("visual companion Egg index is outside its source list")
+                    else:
+                        element = eggs[egg.index_in_list]
+                        if element.get("Name") != egg.name:
+                            issues.append("visual companion literal Egg name does not match the Course SDK projection")
+            if source_identity in seen:
+                issues.append("duplicate visual companion source identity")
+            seen.add(source_identity)
+            if element is not None:
+                matrices = [
+                    child for child in list(element)
+                    if child.tag == "Value" and child.get("Name") == "en3d Matrix" and child.get("Type") == "Matrix"
+                ]
+                if len(matrices) != 1:
+                    issues.append(f"expected one direct en3d Matrix value; found {len(matrices)}")
+                else:
+                    matrix = matrices[0]
+                    try:
+                        row = _float_tuple(matrix.get("Row3"), 4, f"{source_identity} en3d Matrix Row3")
+                    except ValueError as error:
+                        issues.append(str(error))
+                    else:
+                        position = tuple(row[:3])
+                        if companion.position != position:
+                            issues.append("visual companion Row3 position does not match the Course SDK projection")
+                        if not issues:
+                            field = _BoundField(
+                                element=matrix,
+                                locator=self._locators[id(matrix)],
+                                attribute="Row3",
+                                mode="row3-xyz",
+                                path=f"{egg.xml_path}/Value[@Name='en3d Matrix']/@Row3[XYZ]",
+                                original_raw=matrix.get("Row3", ""),
+                                original_value=position,
+                                semantic_role="race.split.visual_companion_position",
+                            )
+                            if source_identity not in self._visual_companion_bindings:
+                                self._visual_companion_bindings[source_identity] = field
+            self._visual_companion_status.append(RaceLogicVisualCompanionStatus(
+                split_identity=split_identity,
+                source_identity=source_identity,
+                split_name=split.egg_name,
+                egg_name=egg.name,
+                position=companion.position,
+                source_xml_path=egg.xml_path,
+                supported=not issues and source_identity in self._visual_companion_bindings,
                 issues=tuple(issues),
             ))
 
@@ -585,6 +686,26 @@ class CourseRaceLogicAuthoring:
         raw = " ".join((*(_format_float(item) for item in position), original_w))
         self._set_field(field, raw, position)
 
+    def set_split_visual_companion_position(
+        self, split_identity: str, companion_identity: str, runtime_position
+    ) -> None:
+        position = self._validate_position(runtime_position)
+        status = next(
+            (item for item in self._visual_companion_status if item.source_identity == companion_identity),
+            None,
+        )
+        if status is None or status.split_identity != split_identity or not status.supported:
+            details = "; ".join(status.issues) if status else "source identity not found"
+            raise ValueError(f"Split visual companion authoring is refused for {companion_identity!r}: {details}")
+        field = self._visual_companion_bindings[companion_identity]
+        _float_tuple(field.original_raw, 4, "visual companion matrix Row3")
+        original_w = field.original_raw.split()[3]
+        if position == field.original_value:
+            self._set_field(field, field.original_raw, position)
+            return
+        raw = " ".join((*(_format_float(item) for item in position), original_w))
+        self._set_field(field, raw, position)
+
     def set_split_radius(self, source_identity: str, radius: float) -> None:
         value = float(radius)
         if not math.isfinite(value) or value <= 0.0:
@@ -598,6 +719,8 @@ class CourseRaceLogicAuthoring:
     def set_split_id(self, source_identity: str, split_id: int) -> None:
         if isinstance(split_id, bool) or not isinstance(split_id, int):
             raise ValueError("Split Time ID must be an integer")
+        if not -(2 ** 31) <= split_id <= 2 ** 31 - 1:
+            raise ValueError("Split Time ID must fit a signed 32-bit integer")
         field = self._split_fields(source_identity)["id"]
         if split_id == field.original_value:
             self._set_field(field, field.original_raw, split_id)
@@ -642,6 +765,9 @@ class CourseRaceLogicAuthoring:
         for split_id, identities in ids.items():
             if len(identities) > 1:
                 warnings.append(f"duplicate Split Time ID {split_id}: " + ", ".join(identities))
+        for status in self._visual_companion_status:
+            if not status.supported and status.issues:
+                warnings.append(f"{status.source_identity} visual companion is read-only: " + "; ".join(status.issues))
         return tuple(warnings)
 
     def export(self, additional_warnings=()) -> tuple[bytes, RaceLogicExportReport]:
@@ -674,6 +800,7 @@ class CourseRaceLogicAuthoring:
         )
         changes = tuple({
             "path": mutation.field.path,
+            "semantic_role": mutation.field.semantic_role,
             "old": mutation.field.original_value,
             "new": mutation.new_value,
         } for mutation in ordered)

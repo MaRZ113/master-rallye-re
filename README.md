@@ -77,22 +77,29 @@ meaning is unknown. The initializer derives a RaceLine percentage from the
 split center, not the reverse. `src/master_rallye/course_sdk.py` now composes
 render DX, semantic RaceTest logic, HNT dependencies, structural SFL, and
 optional TXT/GXM source metadata without replacing the forensic parsers. The
-existing Blender add-on consumes this model and draws the split trigger as a
-read-only wire sphere while keeping the visual sign and checkpoint companions
-separate. Course tag100 is surfaced as a neutral opaque region with unknown
-semantics. `$bsp -> tag100` and tag100 physical meaning remain unknown. See
+existing Blender add-on consumes this model and displays the split trigger as
+a wire sphere driven by its explicit Radius property, while keeping visual
+checkpoint companions separate. Course tag100 is surfaced as a neutral opaque
+region with unknown semantics. `$bsp -> tag100` and tag100 physical meaning
+remain unknown. See
 [`docs/course-sdk.md`](docs/course-sdk.md), `research/r5t_d1/`, and
 `docs/course-importer.md`.
 
-G0 adds the first bounded course authoring workflow: Blender can edit
-runtime-confirmed StartArea and FinishArea marker positions and main SplitTime
-center, Radius, and ID, then export a new RaceTest XML copy through the core
-allowlist writer. No DX/GXM/tag100/tag1400 or physical course writer, custom
-layout, or EXE change exists. The 36-project Retail no-op corpus is byte-
-identical; France1 static edit checks and Blender 5.2.2 source/ZIP smoke tests
-pass. **G0: PASS — READY_FOR_RUNTIME_AUTHORING_TEST**; no G0-generated file has
-yet been runtime-tested. See [`docs/course-race-logic-authoring.md`](docs/course-race-logic-authoring.md)
-and `research/g0/`.
+G0 adds bounded RaceTest authoring; human runtime testing through Blender
+export passed for StartArea, FinishArea, and the SplitTime0 trigger center.
+Combined StartArea + FinishArea editing loaded normally. G0.1 adds exact
+SplitTime visual-companion Row3 editing, a translation-only checkpoint group,
+semantic manifest roles, int32 ID bounds, quieter area transforms, and a
+Blender 5.2 panel-draw smoke that validates icons against Blender RNA. Retail
+validation remains 36/36 byte-identical no-op XML files, 110 main split
+records, and 440/440 visual-companion positions supported. The two 5-marker
+FinishAreas remain read-only. **G0: PASS — RUNTIME AUTHORING CONFIRMED.**
+**G0.1: PASS — BLENDER/CORPUS VALIDATED.** Visual-companion XML edits have not
+been separately runtime-tested. No course geometry/physical writer or EXE
+patch exists. See
+[`docs/course-race-logic-authoring.md`](docs/course-race-logic-authoring.md),
+[`research/g0/runtime-results.md`](research/g0/runtime-results.md), and
+[`research/course_marker_backlog.md`](research/course_marker_backlog.md).
 
 See
 [`docs/course-assets.md`](docs/course-assets.md),

@@ -424,12 +424,12 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
         box.operator(
             "import_scene.master_rallye_course_gxm_startpoint",
             text="Import GXM Startpoint Point Candidate",
-            icon="EMPTY_SPHERE",
+            icon="SPHERE",
         )
         box.label(text="RaceTest XML import adds StartArea, FinishArea, split signs, and split trigger spheres.")
         box.label(text="Split sign and trigger share Egg Row3; companion checkpoints stay separate visuals.")
         box.label(text="GXM startpoint overlay shows points only; connectivity is unknown.")
-        box.label(text="Only StartArea, FinishArea, and main SplitTime fields are exported.")
+        box.label(text="Race Logic export supports area points and bounded SplitTime edits.")
         warnings = metadata.get("blender", {}).get("import_warnings", [])
         if warnings:
             warning_box = layout.box()
@@ -461,11 +461,19 @@ class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
             layout.label(text="Runtime-confirmed area point; move with Blender transforms")
             layout.label(text="Export reads its world-space position")
         elif kind == "split_center":
-            layout.label(text="Runtime-confirmed spherical split trigger", icon="EMPTY_SPHERE")
+            layout.label(text="Runtime-confirmed spherical split trigger", icon="SPHERE")
             layout.prop(obj, '["mr_split_time_id"]', text="Split Time ID")
             layout.prop(obj, '["mr_split_radius"]', text="Radius")
             layout.label(text=f"ExtraTime preserved: {obj.get('mr_split_extra_time_raw', '')} (meaning UNKNOWN)")
-            layout.label(text="Move the sign helper to move its trigger center")
+            layout.label(text="Move sign to move trigger center; scale does not change Radius")
+        elif kind == "split_checkpoint_group":
+            layout.label(text="Split checkpoint translation controller", icon="EMPTY_AXIS")
+            layout.label(text="Move to translate trigger and visual companions together")
+            layout.label(text="Radius remains explicit; rotation and scale are not exported")
+        elif kind == "split_visual_companion":
+            layout.label(text="Visual checkpoint companion; not a trigger center", icon="MESH_DATA")
+            layout.label(text="Move this object alone, or move its checkpoint group")
+            layout.label(text="Export writes its final world position only")
         layout.operator("export_scene.master_rallye_race_logic_xml", text="Export Race Logic XML", icon="EXPORT")
         layout.label(text="Exports a new XML copy and a provenance manifest")
 

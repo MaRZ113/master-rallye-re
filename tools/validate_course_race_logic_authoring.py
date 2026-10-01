@@ -29,10 +29,14 @@ def validate_corpus(data_root: Path) -> dict:
     if len(project_rows) != 36 or {item.name.casefold() for item in folders} != set(project_rows):
         raise ValueError("current Retail folders do not match the 36 HNT-linked CourseProject inventory")
     split_counts: Counter[int] = Counter()
+    companion_counts: Counter[int] = Counter()
+    companion_counts_per_split: Counter[int] = Counter()
     radius_values: list[float] = []
     courses = []
     errors = []
     supported_start = supported_finish = supported_splits = no_op_byte_identity = 0
+    supported_companions = total_companions = total_splits = 0
+    unusual_companion_layouts = []
 
     for folder in folders:
         try:
@@ -51,8 +55,35 @@ def validate_corpus(data_root: Path) -> dict:
             supported_start += int(area_status["StartArea"].supported)
             supported_finish += int(area_status["FinishArea"].supported)
             supported_splits += sum(item.supported for item in editor.split_status)
+            total_splits += len(editor.split_status)
             split_counts[len(editor.split_status)] += 1
             radius_values.extend(item.radius for item in editor.split_status if item.radius is not None)
+            companion_status_by_split: dict[str, list] = {}
+            for companion in editor.visual_companion_status:
+                companion_status_by_split.setdefault(companion.split_identity, []).append(companion)
+                supported_companions += int(companion.supported)
+                total_companions += 1
+            course_companion_count = 0
+            course_companion_records = []
+            for split in editor.split_status:
+                companions = companion_status_by_split.get(split.identity, [])
+                companion_counts_per_split[len(companions)] += 1
+                names = [item.egg_name for item in companions]
+                course_companion_count += len(companions)
+                course_companion_records.append({
+                    "split_egg": split.egg_name,
+                    "count": len(companions),
+                    "supported_count": sum(item.supported for item in companions),
+                })
+                expected_names = [f"{split.egg_name}-{index}" for index in range(len(companions))]
+                if names != expected_names or len(companions) != 4:
+                    unusual_companion_layouts.append({
+                        "course_identity": project["identity"],
+                        "split_egg": split.egg_name,
+                        "names": names,
+                        "count": len(companions),
+                    })
+            companion_counts[sum(len(items) for items in companion_status_by_split.values())] += 1
             courses.append({
                 "course_identity": project["identity"],
                 "race_test_xml": xml_path.relative_to(data_root).as_posix(),
@@ -73,6 +104,11 @@ def validate_corpus(data_root: Path) -> dict:
                 },
                 "split_count": len(editor.split_status),
                 "supported_split_count": sum(item.supported for item in editor.split_status),
+                "visual_companion_count": course_companion_count,
+                "supported_visual_companion_count": sum(
+                    item.supported for item in editor.visual_companion_status
+                ),
+                "split_visual_companions": course_companion_records,
                 "unsupported_splits": [
                     {"identity": item.identity, "issues": list(item.issues)}
                     for item in editor.split_status if not item.supported
@@ -92,8 +128,18 @@ def validate_corpus(data_root: Path) -> dict:
             "StartArea_courses": supported_start,
             "FinishArea_courses": supported_finish,
             "SplitTime_records": supported_splits,
+            "SplitTime_visual_companion_Eggs": supported_companions,
         },
         "split_count_distribution": {str(count): total for count, total in sorted(split_counts.items())},
+        "main_split_time_record_count": total_splits,
+        "visual_companion_egg_count": total_companions,
+        "visual_companion_count_per_split_distribution": {
+            str(count): total for count, total in sorted(companion_counts_per_split.items())
+        },
+        "visual_companion_count_per_course_distribution": {
+            str(count): total for count, total in sorted(companion_counts.items())
+        },
+        "unusual_visual_companion_layouts": unusual_companion_layouts,
         "split_radius_min": min(radius_values) if radius_values else None,
         "split_radius_max": max(radius_values) if radius_values else None,
         "safely_refused": [
@@ -197,6 +243,10 @@ def main() -> int:
         f"- StartArea authoring supported: {corpus['authoring_supported']['StartArea_courses']}/{corpus['course_folder_count']}",
         f"- FinishArea authoring supported: {corpus['authoring_supported']['FinishArea_courses']}/{corpus['course_folder_count']}",
         f"- SplitTime records authoring supported: {corpus['authoring_supported']['SplitTime_records']}",
+        f"- SplitTime visual companion Egg Row3 positions supported: {corpus['authoring_supported']['SplitTime_visual_companion_Eggs']}/{corpus['visual_companion_egg_count']}",
+        f"- Visual companion count per course: `{json.dumps(corpus['visual_companion_count_per_course_distribution'], sort_keys=True)}`",
+        f"- Visual companion count per split: `{json.dumps(corpus['visual_companion_count_per_split_distribution'], sort_keys=True)}`",
+        f"- Split companion layout exceptions: {len(corpus['unusual_visual_companion_layouts'])}",
         f"- Split count distribution: `{json.dumps(corpus['split_count_distribution'], sort_keys=True)}`",
         "",
         "## Safely refused source structures",

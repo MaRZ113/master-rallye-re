@@ -1,18 +1,22 @@
 # Course SDK G0 — Race Logic Authoring v0
 
-Status: **PASS — READY_FOR_RUNTIME_AUTHORING_TEST**.
+Status: **PASS — RUNTIME AUTHORING CONFIRMED**.
 
 G0 adds the first user-facing authoring workflow for existing RaceTest logic.
 The output is a new RaceTest XML file; no compiled course resource or game
-archive is written. Human runtime testing of a G0-generated export remains
-pending.
+archive is written. The project owner has since tested G0-generated exports in
+the runtime: StartArea, FinishArea, and SplitTime0 center authoring all passed;
+combined StartArea + FinishArea editing loaded normally. See
+[`runtime-results.md`](runtime-results.md). This replaces the earlier
+runtime-pending status without changing the original structural test results.
 
 ## Implementation
 
 - Core model: `CourseRaceLogicAuthoring` in
   `src/master_rallye/course_race_authoring.py`.
 - Allowlisted setters: `set_start_marker`, `set_finish_marker`,
-  `set_split_center`, `set_split_radius`, and `set_split_id`.
+  `set_split_center`, `set_split_radius`, `set_split_id`, and
+  `set_split_visual_companion_position`.
 - Blender client: **Load Course Race Logic** creates source-identified helpers;
   **Export Race Logic XML** invokes the core transaction.
 - Position export reads helper world locations and uses the canonical
@@ -28,11 +32,13 @@ pending.
 ## Supported fields and preserved data
 
 Editable: all four ordered `Marker Pos` values in an unambiguous StartArea or
-FinishArea, plus main SplitTime Egg Row3 XYZ, `Radius`, and `Split Time ID`.
+FinishArea, plus main SplitTime Egg Row3 XYZ, `Radius`, `Split Time ID`, and
+G0.1 exact sibling visual-companion Egg Row3 XYZ.
 The writer preserves marker direction and other marker properties, Egg matrix
-rows 0–2, Row3 W, `ExtraTime`, visual sibling Eggs, hierarchy, object order,
-other attributes, unknown properties, and unrelated XML content. It exposes no
-generic XML setter.
+rows 0–2, Row3 W, `ExtraTime`, model references, hierarchy, object order, other
+attributes, unknown properties, and unrelated XML content. Visual companion
+edits are independently allowlisted by exact source Egg identity. It exposes
+no generic XML setter.
 
 StartArea and FinishArea accept point deformations. Validation reports
 coincident points, near-zero X/Z area, self-crossing point order, and extreme
@@ -78,12 +84,26 @@ FinishArea point, one SplitTime center, Radius, and ID, exports, and reparses
 the result. Existing Retail France1 course XML hash used by the smoke is
 `beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1`.
 
-These are structural and UI-pipeline checks only. They do not claim that a new
-G0-generated XML has been loaded by the game. See
-[`runtime-handoff.md`](runtime-handoff.md) for the review-gated human tests.
+G0's original Blender validation was structural/UI-pipeline testing. The later
+human runtime result is recorded separately. G0.1's additional Blender 5.2.2
+smoke executes the Master Rallye Course and Course Race Logic panel draw
+callbacks with icon enum validation, then checks byte-identical no-op export,
+area scale warning behavior, whole split-group translation, independent visual
+companion translation, explicit Radius behavior, and semantic manifest roles.
+G0.1 is **PASS — BLENDER/CORPUS VALIDATED**. Visual-companion edits have not
+been separately runtime-tested.
+
+## G0 runtime closeout
+
+Human runtime tests through Blender export passed for StartArea, FinishArea,
+and SplitTime0 center. Combined StartArea + FinishArea editing also loaded
+normally with no unexpected behavior reported. The runtime build/hash and
+exported XML hashes were not included in the closeout report and are left
+unspecified. The earlier [`runtime-handoff.md`](runtime-handoff.md) is retained
+as the preparation plan and marked completed.
 
 ## Scope boundary
 
 No DX, GXM, tag100, tag1400, physical, RaceLine, SFL, surface, or general course
-writer was added. No executable patch, archive modification, or runtime
-candidate was made. The existing Vehicle SDK remains unchanged.
+writer was added. No executable patch or archive modification was made. The
+existing Vehicle SDK remains unchanged.

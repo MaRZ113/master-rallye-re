@@ -12,8 +12,8 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.fl` / `.sf` | Historical 20-byte-header fields with four payload bytes per cell in scanned Demo 8.4.1 candidates. | **CONFIRMED** structure / **UNKNOWN** semantic | Ten candidates satisfy `20 + W*H*4`; direct semantic equivalence to SFL is not established. |
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
-| Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; SplitTime0 center **CONFIRMED_BY_RUNTIME_EDIT / DEBUGGER** | All 41 retail RaceTest XML files parse. In France1, `SplitTime0` Egg Row3 drives both the visual sign and gameplay center; `gaRaceSplitTimeAI/Radius` is the 3D sphere radius. SplitTime1/2 have matching structure but were not independently moved in runtime tests. See `docs/course-importer.md` and `research/r5t_d1/`. |
-| Course SDK | Typed `CourseProject` composition, read-only compiled/source geometry, and G0 allowlist-constrained RaceTest XML authoring. | **IMPLEMENTED; BOUNDED AUTHORING** | Only StartArea/FinishArea marker positions and main SplitTime Row3 XYZ, Radius, and Split Time ID can be exported. No geometry/physical writer exists. The standalone tag100 parser remains structural, with broader physical semantics **PARTIAL/UNKNOWN**. See `docs/course-sdk.md`, `docs/course-race-logic-authoring.md`, and `research/g0/`. |
+| Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, split-time records, and exact visual companion Eggs. | **CONFIRMED_BY_CORPUS** structure; StartArea/FinishArea/SplitTime0 authoring path **CONFIRMED_BY_RUNTIME_AUTHORING_TEST** | Main SplitTime Egg Row3 drives the sign and gameplay center; Radius is the 3D sphere radius. G0 Blender exports passed the reported runtime tests. G0.1 visual companion edits remain static/Blender-validated, not newly runtime-tested. See `docs/course-importer.md`, `research/r5t_d1/`, and `research/g0/runtime-results.md`. |
+| Course SDK | Typed `CourseProject` composition, read-only compiled/source geometry, and bounded RaceTest XML authoring. | **G0 PASS — RUNTIME AUTHORING CONFIRMED; G0.1 PASS — BLENDER/CORPUS VALIDATED** | Exports StartArea/FinishArea marker positions, main SplitTime Row3 XYZ/Radius/ID, and exact split visual-companion Row3 XYZ. Companion authoring has not been separately human-runtime-tested. No geometry/physical writer exists. The standalone tag100 parser remains structural, with broader physical semantics **PARTIAL/UNKNOWN**. See `docs/course-sdk.md`, `docs/course-race-logic-authoring.md`, and `research/g0/`. |
 | Course `.gxm` | Demo 8.4.1 / 9.10.0 paired version-7 source models, fixed attribute/triangle/position banks, and TXT-cross-validated node table. | Triangle grammar and `moMesh` spans **CONFIRMED_BY_EXECUTABLE / BINARY_STRUCTURE**; color-like / texcoord-like semantics conservative. | France1, Italy1, Boinds, and Demo 9.10 AI Track pass all five independent reference-domain checks and complete mesh-span coverage. France1 `startpoint` resolves to a closed 12-triangle box. Gameplay meaning of node names remains **UNKNOWN**. See `docs/formats/gxm-course.md` and `research/r5t_e/`. |
 
 ## Course status (R5T-C evidence closeout)
@@ -126,25 +126,32 @@ helpers and separate visual companions. G0 adds a bounded RaceTest XML
 exporter; it does not write compiled or source geometry. See `docs/course-sdk.md`
 and `docs/course-importer.md`.
 
-## Course SDK G0 — RaceTest authoring v0
+## Course SDK G0 / G0.1 — RaceTest authoring
 
-**PASS — READY_FOR_RUNTIME_AUTHORING_TEST.** `CourseRaceLogicAuthoring`
-provides allowlist setters for four StartArea/FinishArea marker positions and
-main SplitTime Row3 XYZ, Radius, and Split Time ID. The source-span writer
-returns original bytes on no-op, preserves bytes outside the edited attributes,
-and applies a parsed-tree semantic diff guard. Export is to a new XML path with
-a source/output hash manifest; no course archive or compiled resource is
-modified.
+**G0 PASS — RUNTIME AUTHORING CONFIRMED.** Human tests through Blender export
+passed for StartArea, FinishArea, and the SplitTime0 main Egg center. Combined
+StartArea + FinishArea editing loaded normally with no unexpected behavior
+reported. These observations are in `research/g0/runtime-results.md`; runtime
+binary/output hashes were not supplied with the report.
 
-The curated Retail corpus passes 36/36 principal XML no-op exports byte for
-byte. StartArea: 36/36 supported; FinishArea: 34/36; SplitTime: 110 records.
-ItalyS4 and TurkeyS1 have five-marker FinishAreas and are safely refused.
-France1 static scenarios for StartArea translation, FinishArea expansion,
-SplitTime center and Radius pass. Blender 5.2.2 source and built-ZIP tests cover
-no-op and edited export. No G0 export has been runtime-tested yet. See
+**G0.1 PASS — BLENDER/CORPUS VALIDATED.** It adds bounded visual-companion Row3 XYZ authoring and UX safeguards.
+The source-span writer returns original bytes on no-op, preserves bytes outside
+allowlisted attributes, applies a parsed-tree semantic diff guard, and writes
+to a new XML path with a provenance manifest. The 36 principal Retail XML files
+remain byte-identical at no-op. 36/36 StartAreas, 34/36 FinishAreas, all 110
+main SplitTimes, and all 440 visual-companion Egg Row3 positions pass the
+structural gate. Each split has four visual companions in this corpus. ItalyS4
+and TurkeyS1 have five-marker FinishAreas and are safely refused.
+
+Blender 5.2.2 smoke executes Course and Race Logic panel draw callbacks with
+icon validation against Blender RNA, then tests no-op export, area point
+transforms, checkpoint-group and individual companion translation, Radius
+warnings, and semantic manifest roles. Visual-companion XML authoring has not
+been separately human-runtime-tested. No geometry/physical writer, custom
+layout, or EXE patch is included. See
 [`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md),
-[`research/g0/findings.md`](../research/g0/findings.md), and the optional
-[`research/g0/runtime-handoff.md`](../research/g0/runtime-handoff.md).
+[`research/g0/findings.md`](../research/g0/findings.md), and
+[`research/g0/runtime-results.md`](../research/g0/runtime-results.md).
 
 ## R5T-E.1 GXM source topology closeout
 

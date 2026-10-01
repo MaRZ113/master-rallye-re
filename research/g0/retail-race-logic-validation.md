@@ -7,6 +7,10 @@ Status: **PASS** for principal corpus no-op validation; France1 edit scenarios: 
 - StartArea authoring supported: 36/36
 - FinishArea authoring supported: 34/36
 - SplitTime records authoring supported: 110
+- SplitTime visual companion Egg Row3 positions supported: 440/440
+- Visual companion count per course: `{"12": 34, "16": 2}`
+- Visual companion count per split: `{"4": 110}`
+- Split companion layout exceptions: 0
 - Split count distribution: `{"3": 34, "4": 2}`
 
 ## Safely refused source structures

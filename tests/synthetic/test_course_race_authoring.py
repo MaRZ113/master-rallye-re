@@ -53,6 +53,10 @@ class CourseRaceLogicAuthoringTests(unittest.TestCase):
         self.assertEqual(start.findall("Marker")[2].find("Value[@Name='Marker Pos']").get("Value"), "12.5 6 -3.25")
         self.assertEqual(finish.findall("Marker")[1].find("Value[@Name='Marker Pos']").get("Value"), "100 2 9")
         self.assertEqual(len(report.changes), 2)
+        self.assertEqual(
+            [item["semantic_role"] for item in report.changes],
+            ["race.start.marker_position", "race.finish.marker_position"],
+        )
         self.assertIn(b"<!-- before root -->", output)
         self.assertIn(b"<!-- inside root: preserve -->", output)
         self.assertIn(b"<!-- after root -->", output)
@@ -72,6 +76,40 @@ class CourseRaceLogicAuthoringTests(unittest.TestCase):
             next(item for item in self.editor._pending.values()).field.locator: {"Row3": "row3-xyz"}
         }))
 
+    def test_visual_companion_edit_only_changes_its_row3_xyz_and_has_semantic_role(self):
+        statuses = self.editor.visual_companion_status
+        self.assertEqual(len(statuses), 2)
+        self.assertTrue(all(item.supported for item in statuses))
+        companion = statuses[1]
+        split = self.editor.split_status[0]
+        self.editor.set_split_visual_companion_position(
+            split.identity, companion.source_identity, (12.5, -3.0, 44.25)
+        )
+        output, report = self.editor.export()
+        self.assertIn(b'Name="SplitTime0-1"', output)
+        self.assertIn(b'Row3="12.5 -3 44.25 1"', output)
+        self.assertIn(b'Row0="1 0 0 0" Row1="0 1 0 0" Row2="0 0 1 0"', output)
+        self.assertIn(b'<Egg Name="SplitTime0">', output)
+        self.assertEqual(len(report.changes), 1)
+        self.assertEqual(report.changes[0]["semantic_role"], "race.split.visual_companion_position")
+        self.assertEqual(report.changed_semantic_paths, (companion.source_xml_path + "/Value[@Name='en3d Matrix']/@Row3[XYZ]",))
+        self.assertEqual(report.changes[0]["old"], (1.0, 2.0, 3.0))
+        self.assertEqual(report.changes[0]["new"], (12.5, -3.0, 44.25))
+
+    def test_invalid_visual_companion_matrix_is_read_only(self):
+        xml = self.source.replace(
+            b'Row2="0 0 1 0" Row3="0 2 3 1"',
+            b'Row2="0 0 1 0"',
+            1,
+        )
+        editor = CourseRaceLogicAuthoring(xml, "missing-companion-row.xml")
+        companion = next(item for item in editor.visual_companion_status if item.egg_name == "SplitTime0-0")
+        self.assertFalse(companion.supported)
+        with self.assertRaisesRegex(ValueError, "visual companion authoring is refused"):
+            editor.set_split_visual_companion_position(
+                companion.split_identity, companion.source_identity, (1, 2, 3)
+            )
+
     def test_radius_and_id_mutations_leave_extra_time_and_sibling_eggs_untouched(self):
         split = self.editor.split_status[0]
         self.editor.set_split_radius(split.identity, 25.5)
@@ -82,6 +120,10 @@ class CourseRaceLogicAuthoringTests(unittest.TestCase):
         self.assertIn(b'Name="ExtraTime" Type="Float" Value="77.5"', output)
         self.assertIn(b'<Egg Name="SplitTime0-1">', output)
         self.assertEqual(len(report.changes), 2)
+        self.assertEqual(
+            {item["semantic_role"] for item in report.changes},
+            {"race.split.radius", "race.split.id"},
+        )
 
     def test_reverting_to_original_values_restores_byte_identical_noop(self):
         self.editor.set_start_marker(0, (3.0, 4.0, 5.0))
@@ -139,6 +181,18 @@ class CourseRaceLogicAuthoringTests(unittest.TestCase):
         for split_id in (1.5, True, "2"):
             with self.subTest(split_id=split_id), self.assertRaises(ValueError):
                 self.editor.set_split_id(identity, split_id)
+        for split_id in (-(2 ** 31) - 1, 2 ** 31):
+            with self.subTest(split_id=split_id), self.assertRaisesRegex(ValueError, "signed 32-bit"):
+                self.editor.set_split_id(identity, split_id)
+
+    def test_split_id_accepts_signed_int32_boundaries(self):
+        identity = self.editor.split_status[0].identity
+        for split_id in (-(2 ** 31), 2 ** 31 - 1):
+            editor = CourseRaceLogicAuthoring(self.source, "France1.xml")
+            editor.set_split_id(identity, split_id)
+            output, report = editor.export()
+            self.assertIn(f'Name="Split Time ID" Type="Int" Value="{split_id}"'.encode("ascii"), output)
+            self.assertEqual(report.changes[0]["semantic_role"], "race.split.id")
 
     def test_duplicate_split_id_is_warned_not_renumbered(self):
         xml = race_xml(companion_count=0)

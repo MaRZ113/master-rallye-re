@@ -197,7 +197,10 @@ Retail France1's RaceTest XML contains one `gaRaceSplitTimeAI` Egg for each ID
 Their Row3 positions form repeated point groups, but moving the four
 `SplitTime0-0..3` checkpoint objects did not move SplitTime0's gameplay center.
 Those sibling transforms are **NOT_SUPPORTED** as the direct center for
-SplitTime0; SplitTime1/2 equivalents were not independently tested.
+SplitTime0. Their visible role is runtime-confirmed, and G0.1 allows their
+Row3 XYZ positions as separate visual-companion edits; those new writer edits
+have not been separately runtime-tested. SplitTime1/2 visual companions were
+not independently moved in the original runtime probe.
 
 For France1 SplitTime0, the main Egg `en3d Matrix` Row3 is now confirmed as
 both the yellow-sign position and the gameplay trigger center. Baseline and
@@ -227,19 +230,24 @@ the canonical evidence ledger.
 ## G0 RaceTest authoring v0
 
 The core `CourseRaceLogicAuthoring` transaction and Blender export path support
-only four-marker StartArea/FinishArea positions plus main SplitTime Row3 XYZ,
-Radius, and Split Time ID. No generic XML setter or geometry exporter exists.
-The guarded writer preserves original bytes outside modified attributes and
-rejects non-allowlisted semantic changes. Retail principal-project no-op export
-is byte-identical in 36/36 files. StartArea authoring is supported in 36/36,
-FinishArea in 34/36, and all 110 split records are supported. Two five-marker
-FinishAreas are explicitly refused without dropping their extra marker.
+four-marker StartArea/FinishArea positions, main SplitTime Row3 XYZ/Radius/ID,
+and exact sibling visual-companion Row3 XYZ. A translation-only group moves the
+split center and companions together; independent companion edits do not move
+the trigger. There is no generic XML setter or geometry exporter. The guarded
+writer preserves original bytes outside modified attributes and rejects
+non-allowlisted semantic changes. Retail principal-project no-op export is
+byte-identical in 36/36 files; all 110 main SplitTimes and 440 visual
+companions are structurally supported. Two five-marker FinishAreas remain
+read-only.
 
-Programmatic France1 cases validate a StartArea +3 runtime-X translation,
-FinishArea X/Z scale 2 around its centroid, SplitTime0 center move, and Radius
-edit. These are static allowlist/diff checks only; generated XML was not placed
-in a game runtime. G0 is **PASS — READY_FOR_RUNTIME_AUTHORING_TEST**. See
-[`research/g0/findings.md`](../research/g0/findings.md).
+Human runtime tests through Blender export passed for StartArea, FinishArea,
+and SplitTime0 center. Combined StartArea + FinishArea editing also loaded
+normally. G0 is **PASS — RUNTIME AUTHORING CONFIRMED**. G0.1 companion editing
+has synthetic, corpus, and Blender smoke coverage, but no separate runtime
+authoring test. The [marker backlog](../research/course_marker_backlog.md)
+records RaceLine, Cameras, and limit-marker inventory as read-only/unknown.
+See [`research/g0/findings.md`](../research/g0/findings.md) and
+[`research/g0/runtime-results.md`](../research/g0/runtime-results.md).
 
 ## R5T-F.0 France1 named-mesh spatial correlation
 

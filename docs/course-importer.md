@@ -62,11 +62,20 @@ attempted move is refused at export.
 
 The main SplitTime sign helper is also the trigger center and can be moved.
 Its Radius and Split Time ID are editable in the Course Race Logic panel. The
-wire sphere follows the Radius custom property. Rotation/scale do not author
-XML and are ignored with an export warning; the helper locks them by default.
-ExtraTime remains informational with meaning marked `UNKNOWN`. The separate
-`SplitTimeN-0..3` visual checkpoint objects remain read-only and are not used as
-the trigger center.
+wire sphere follows the explicit Radius custom property. Scale does not change
+Radius and warns if the center helper scale is changed. ExtraTime remains
+informational with meaning marked `UNKNOWN`.
+
+Each exact source sibling `SplitTimeN-i` is a visual checkpoint companion and
+has its own stable XML identity metadata. Its final world position can be
+authored independently. The `SplitTimeN_Group` controller translates the main
+Egg and all visual companions together; the wire Radius remains unchanged.
+The main trigger center and each companion stay independently selectable.
+Matrix rows 0–2 and Row3 W are preserved.
+
+StartArea/FinishArea helpers represent points, so their final world positions
+are exported without warnings for editor-only helper rotation/scale. The
+checkpoint group is translation-only; export refuses group rotation or scale.
 
 Use **Export Race Logic XML** in the Course Race Logic panel and choose a new
 output path. The operator checks that the source XML hash still matches the
@@ -76,10 +85,13 @@ change outside its allowlist. A `<output>.mr-race-edit.json` manifest records
 source/output hashes, changed paths and values, and warnings. The export does
 not edit `Data.sma`, compiled resources, or the source XML.
 
-Retail checks establish structural/export safety, not runtime behavior for a
-new G0-generated file. See [`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md)
-and [`research/g0/runtime-handoff.md`](../research/g0/runtime-handoff.md) for
-workflow and the optional human runtime checks.
+Human runtime tests through Blender export confirmed StartArea, FinishArea, and
+SplitTime0 center edits. A combined StartArea + FinishArea edit loaded normally.
+These G0 results are recorded in
+[`research/g0/runtime-results.md`](../research/g0/runtime-results.md). G0.1
+visual-companion XML edits have not been separately human-runtime-tested. See
+[`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md) for the
+writer allowlist and transform rules.
 
 The core `discover_course_resources()` / `load_course_project()` APIs accept a
 course folder or a resource path and can compose matching DX, RaceTest XML,
@@ -88,9 +100,9 @@ selection. Blender currently keeps its compatible two-step DX and RaceTest XML
 operators; package discovery is available to scripts and other tools, while a
 folder-browse operator remains future UI work.
 
-Runtime evidence labels are attached to StartArea and FinishArea helpers. The
-current France1 inventory contains 1,080 markers in eight lists, 76 Eggs, and
-three split visual Eggs. Headless validation is in
+Runtime evidence labels are attached to StartArea, FinishArea and split-center
+helpers. The current France1 inventory contains 1,080 markers in eight lists,
+76 Eggs, and three main split records with 12 visual companions. Headless validation is in
 `tests/blender/r5t_b_xml_smoke.py`; the final SplitTime0 evidence is in
 `research/r5t_d1/` and the France1 corpus inventory is in
 `research/r5t_d0/france1-race-logic.md`.

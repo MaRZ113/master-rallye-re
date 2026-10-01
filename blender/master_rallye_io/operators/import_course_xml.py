@@ -261,6 +261,7 @@ def _create_split_visual(collection, source, course_name, split, split_status, s
     if split.split_id is not None:
         obj["mr_split_time_id"] = split.split_id
         obj["mr_source_split_time_id"] = split.split_id
+        obj.id_properties_ui("mr_split_time_id").update(min=-(2 ** 31), max=2 ** 31 - 1)
     obj["mr_split_visual_position_xyz"] = list(split.center)
     obj["mr_split_visual_matrix_json"] = json.dumps(
         {"attributes": dict(matrix.attributes), "rows": [list(row) if row is not None else None for row in matrix.rows]},
@@ -296,6 +297,48 @@ def _create_split_visual(collection, source, course_name, split, split_status, s
     obj.lock_rotation = (True, True, True)
     obj.lock_scale = (True, True, True)
     return obj
+
+
+def _create_split_checkpoint_group(collection, source, course_name, split, split_status):
+    if split.center is None:
+        return None
+    label = split.egg_name or str(split.split_id if split.split_id is not None else "Unknown")
+    obj = bpy.data.objects.new(f"{label}_Group", None)
+    collection.objects.link(obj)
+    obj.empty_display_type = "PLAIN_AXES"
+    obj.empty_display_size = 2.0
+    obj.show_in_front = True
+    obj.location = position_to_blender(split.center)
+    obj.color = (0.18, 0.72, 0.95, 1.0)
+    obj["mr_resource_kind"] = "course"
+    obj["mr_read_only"] = not split_status.supported
+    obj["mr_course_helper_kind"] = "split_checkpoint_group"
+    obj["mr_course_identity"] = course_name
+    obj["mr_xml_source"] = source
+    obj["mr_xml_path"] = split.egg_xml_path
+    obj["mr_race_logic_object_type"] = "split_checkpoint_group"
+    obj["mr_race_logic_editable"] = bool(split_status.supported)
+    obj["mr_split_source_identity"] = split_status.identity
+    obj["mr_split_source"] = split.egg_name or ""
+    obj["mr_group_transform_rule"] = "translation only; child final world positions are exported"
+    obj["mr_semantics_status"] = "CONFIRMED_BY_RUNTIME_EDIT: SplitTime center and visual companions remain separate editable points"
+    obj.lock_rotation = (True, True, True)
+    obj.lock_scale = (True, True, True)
+    return obj
+
+
+def _parent_preserving_world_transform(obj, parent):
+    """Parent an imported helper while keeping its current world matrix exact."""
+    bpy.context.view_layer.update()
+    world = obj.matrix_world.copy()
+    obj.parent = parent
+    obj.matrix_parent_inverse = parent.matrix_world.inverted()
+    obj.matrix_world = world
+    bpy.context.view_layer.update()
+    if "mr_initial_blender_position_json" in obj:
+        obj["mr_initial_blender_position_json"] = json.dumps(
+            [float(value) for value in obj.matrix_world.translation]
+        )
 
 
 def _create_split_trigger(collection, source, course_name, split, center_object):
@@ -369,7 +412,9 @@ def _create_split_trigger(collection, source, course_name, split, center_object)
     return obj
 
 
-def _create_visual_companion(collection, source, course_name, companion):
+def _create_visual_companion(
+    collection, source, course_name, split, companion, companion_status, source_sha256,
+):
     egg = companion.source_egg
     if companion.position is None:
         return None
@@ -380,19 +425,39 @@ def _create_visual_companion(collection, source, course_name, companion):
     obj.show_in_front = True
     obj.location = position_to_blender(companion.position)
     obj["mr_resource_kind"] = "course"
-    obj["mr_read_only"] = True
+    obj["mr_read_only"] = not bool(companion_status and companion_status.supported)
     obj["mr_course_helper_kind"] = "split_visual_companion"
     obj["mr_course_identity"] = course_name
+    obj["mr_xml_source"] = source
     obj["mr_source_xml_path"] = egg.xml_path
+    obj["mr_xml_path"] = egg.xml_path
     obj["mr_egg_list_name"] = egg.list_name or ""
     obj["mr_egg_index_in_list"] = egg.index_in_list
     obj["mr_egg_name"] = egg.name or ""
     obj["mr_model_name"] = egg.model_name or ""
     obj["mr_source_position_xyz"] = list(companion.position)
-    _set_evidence_metadata(obj, companion.semantic_rule_evidence, companion.record_evidence)
+    obj["mr_source_xml_sha256"] = source_sha256
+    obj["mr_race_logic_object_type"] = "split_visual_companion"
+    obj["mr_race_logic_editable"] = bool(companion_status and companion_status.supported)
+    obj["mr_split_source_identity"] = companion_status.split_identity if companion_status else ""
+    source_identity = companion_status.source_identity if companion_status else ""
+    obj["mr_visual_companion_source_identity"] = source_identity
+    obj["mr_role"] = "split_visual_companion"
+    obj["mr_split_source"] = split.egg_name or ""
+    obj["mr_source_egg"] = egg.name or ""
+    obj["mr_source_xml_identity"] = f"{course_name}:{source_identity}"
+    obj["mr_initial_blender_position_json"] = json.dumps([float(value) for value in obj.location])
+    obj["mr_initial_blender_rotation_json"] = json.dumps([float(value) for value in obj.rotation_euler])
+    obj["mr_initial_blender_scale_json"] = json.dumps([float(value) for value in obj.scale])
+    _set_evidence_metadata(
+        obj,
+        tuple(companion.semantic_rule_evidence) + ("CONFIRMED_BY_RUNTIME_EDIT",),
+        companion.record_evidence,
+    )
     obj["mr_is_trigger_center_source"] = False
     obj["mr_semantic_role"] = "visual checkpoint object; no trigger-center meaning assigned"
     obj["mr_source_egg_metadata_json"] = json.dumps(_source_egg_metadata(egg), ensure_ascii=False, separators=(",", ":"))
+    obj.lock_scale = (True, True, True)
     return obj
 
 
@@ -524,6 +589,9 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
 
             if len(race_logic.split_times) != len(authoring.split_status):
                 raise ValueError("Course SDK and Race Logic authoring split inventories disagree")
+            companion_status = {
+                item.source_identity: item for item in authoring.visual_companion_status
+            }
             for split, split_edit_status in zip(race_logic.split_times, authoring.split_status):
                 egg = split.source_egg
                 if split_edit_status.source_xml_path != split.egg_xml_path or split_edit_status.egg_name != split.egg_name:
@@ -543,8 +611,13 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 split_collection["mr_extra_time_semantics"] = split.extra_time_semantics
                 split_collection["mr_sdk_issues_json"] = json.dumps(list(split.issues), ensure_ascii=False)
 
+                group = _create_split_checkpoint_group(
+                    split_collection, source_path, source.stem, split, split_edit_status
+                )
                 center = _create_split_visual(split_collection, source_path, source.stem, split, split_edit_status, authoring.source_sha256)
                 if center is not None:
+                    if group is not None:
+                        _parent_preserving_world_transform(center, group)
                     _create_split_trigger(split_collection, source_path, source.stem, split, center)
 
                 companions_collection = create_collection("Visual Checkpoint Objects", split_collection)
@@ -552,7 +625,22 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 companions_collection["mr_semantic_role"] = "visual checkpoint objects; not trigger-center sources"
                 _set_evidence_metadata(companions_collection, split.companions_rule_evidence)
                 for companion in split.companions:
-                    _create_visual_companion(companions_collection, source_path, source.stem, companion)
+                    egg_identity = (
+                        f"list[{companion.source_egg.list_ordinal}]"
+                        f"/egg[{companion.source_egg.index_in_list}]"
+                        f"/{companion.source_egg.name or '<unnamed>'}"
+                    )
+                    created = _create_visual_companion(
+                        companions_collection,
+                        source_path,
+                        source.stem,
+                        split,
+                        companion,
+                        companion_status.get(egg_identity),
+                        authoring.source_sha256,
+                    )
+                    if created is not None and group is not None:
+                        _parent_preserving_world_transform(created, group)
 
             self.report(
                 {"INFO"},

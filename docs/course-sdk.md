@@ -117,15 +117,17 @@ The existing add-on consumes `CourseRaceLogic` for RaceTest helper creation.
 It creates source-ordered StartArea and FinishArea marker-point collections,
 the procedural split sign, a separate three-ring wire sphere for each complete
 split, and a `Visual Checkpoint Objects` collection for associated sibling
-Eggs. Center and radius use the established course-to-Blender transform and
-scale. The sphere stores ID, radius, source XML paths, semantic-rule evidence,
-record-evidence metadata, raw ExtraTime, and `ExtraTime` semantic status.
-`CourseRaceLogicAuthoring` provides setters only for four-marker StartArea and
-FinishArea positions, and main SplitTime Row3 XYZ, Radius, and Split Time ID.
-Its source-span writer preserves original bytes outside changed attributes,
-returns source bytes unchanged on no-op, applies a semantic diff guard, and
-refuses in-place overwrite. ExtraTime and all other properties remain
-unchanged.
+Eggs. A translation-only checkpoint group parents the main Egg helper and
+visual companions while preserving their initial world transforms. Center and
+radius use the established course-to-Blender transform and scale. The sphere
+stores ID, radius, source XML paths, semantic-rule evidence, record-evidence
+metadata, raw ExtraTime, and `ExtraTime` semantic status.
+`CourseRaceLogicAuthoring` provides setters for four-marker StartArea and
+FinishArea positions, main SplitTime Row3 XYZ/Radius/ID, and exact visual
+companion Egg Row3 XYZ. Its source-span writer preserves original bytes outside
+changed attributes, returns source bytes unchanged on no-op, applies a
+semantic diff guard, and refuses in-place overwrite. ExtraTime, matrix rows
+0–2, Row3 W, and all unallowlisted properties remain unchanged.
 
 RaceLine remains an ordered marker list. The executable-supported direction is
 split center to nearest RaceLine sample/percentage; no marker is relabeled as a
@@ -164,13 +166,19 @@ helper world positions and supported SplitTime properties, then calls this core
 transaction to write a new XML copy and a `.mr-race-edit.json` manifest. It
 does not alter a source archive or any compiled course resource.
 
+G0 runtime authoring passed for StartArea, FinishArea, and SplitTime0 center;
+combined StartArea + FinishArea editing loaded normally. G0 is **PASS —
+RUNTIME AUTHORING CONFIRMED**. Runtime hashes were not included with the human
+result. G0.1 is **PASS — BLENDER/CORPUS VALIDATED** and additionally allows
+exact visual-companion Row3 XYZ positions and adds a translation-only
+checkpoint group. Those newly editable visual-companion fields have
+corpus/Blender validation but no separate human runtime authoring test.
+
 The curated Retail validation passes no-op export for 36/36 principal course
 projects. StartArea authoring is supported in 36/36; FinishArea in 34/36; 110
-SplitTime records are supported. ItalyS4 and TurkeyS1 have five FinishArea
-markers, so those two lists are preserved and shown read-only rather than
-truncated to four.
-
-See [`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md) and
-[`research/g0/findings.md`](../research/g0/findings.md). G0 is **PASS —
-READY_FOR_RUNTIME_AUTHORING_TEST**; the new generated examples have not been
-tested in the game runtime.
+main SplitTime records and 440/440 visual companions are structurally
+supported. ItalyS4 and TurkeyS1 have five FinishArea markers, so those two
+lists are preserved and shown read-only rather than truncated to four. See
+[`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md),
+[`research/g0/findings.md`](../research/g0/findings.md), and
+[`research/g0/runtime-results.md`](../research/g0/runtime-results.md).
