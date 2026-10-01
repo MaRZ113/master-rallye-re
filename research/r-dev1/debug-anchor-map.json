@@ -1,8 +1,8 @@
 {
-  "schema_version":1,
+  "schema_version":2,
   "config":[
-    {"key":"Menues/Enabled","retail_string":"006E7888","consumer_xref":"005AFB65","role":"application/menu and capability-checked Debug path"},
-    {"key":"DebugWindow/Enabled","retail_string":"006E78F0","consumer_xref":null,"default_registration":"004D7BD8","role":"no consumer found"}
+    {"key":"Menues/Enabled","retail_string":"006E7888","consumer_xref":"005AFB65","role":"application/menu and capability-checked Debug path","runtime":"owner reports true opens native Debug window","confidence":["CONFIRMED_BY_EXE","CONFIRMED_BY_RUNTIME"]},
+    {"key":"DebugWindow/Enabled","retail_string":"006E78F0","consumer_xref":null,"default_registration":"004D7BD8","role":"no consumer found; toggling had no observable effect in owner test","classification":"ORPHANED_OR_REDUNDANT_KEY","confidence":"STRONG_HYPOTHESIS"}
   ],
   "messages":[
     {"text":"Loaded cached DX texture:","subsystem":"texture cache","builds":"all four"},
@@ -20,5 +20,5 @@
     {"text":"Shader [%s], entry %d selected","subsystem":"shader selection","retail":"00586B70","builds":"all four"}
   ],
   "help_files":["DataEditors/ParticleEditorHelpInfo.txt","DataEditors/EggEditorHelpInfo.txt","DataEditors/MarkerEditorHelpInfo.txt","DataEditors/BrokerEditorHelpInfo.txt"],
-  "evidence_note":"Prior human runtime observation enabled both dev values; it does not isolate their gate."
+  "evidence_note":"Owner-reported isolated runtime observation: Menues/Enabled=true opens Debug; DebugWindow/Enabled toggle had no observable effect. Build details unspecified."
 }

@@ -31,7 +31,7 @@ class DevelopmentConfigInventoryTests(unittest.TestCase):
     def test_tracks_load_order_values_and_present_editor_files(self):
         self.write(
             "demo-8.4.1/DataGame/Game.xml",
-            '<Game><Broker><Value Name="Load/Dev" Type="XmlFilename" Value="dev" />'
+            '<Game><Broker><Value Name="Load/Dev" Type="XmlFilename" Value="Dev" />'
             '<Value Name="Load/Editors" Type="XmlFilename" Value="Editors" />'
             '<Value Name="Unrelated/Example" Type="Bool" Value="False" />'
             "</Broker></Game>",
@@ -51,7 +51,20 @@ class DevelopmentConfigInventoryTests(unittest.TestCase):
             ["Load/Dev", "Load/Editors"],
         )
         self.assertTrue(all(item["exists"] for item in build["game_xml_load_order"]))
+        self.assertEqual(build["game_xml_load_order"][0]["file"], "DataGame/Dev.xml")
+        self.assertEqual(build["game_xml_load_order"][0]["resolved_path"], "DataGame/dev.xml")
+        self.assertEqual(
+            build["game_xml_load_order"][0]["lookup_model"],
+            "case-insensitive Windows filename semantics",
+        )
         self.assertEqual(build["development_values"][0]["value"], "True")
+        source = build["configs"]["Game"]
+        self.assertEqual(source["build"], "8.4.1")
+        self.assertEqual(source["corpus_identity"], "demo-8.4.1")
+        self.assertEqual(source["source_relative_path"], "demo-8.4.1/DataGame/Game.xml")
+        payload = (self.root / source["source_relative_path"]).read_bytes()
+        self.assertEqual(source["source_size_bytes"], len(payload))
+        self.assertEqual(source["source_sha256"], hashlib.sha256(payload).hexdigest())
         self.assertTrue(build["dataeditors_directory_present"])
         editor_file = build["dataeditors_files"][0]
         self.assertEqual(editor_file["path"], "DataEditors/Help.txt")
@@ -75,7 +88,7 @@ class DevelopmentConfigInventoryTests(unittest.TestCase):
             "</Broker></Game>",
         )
         self.write(
-            "retail/Data.sma_unpacked/DataGame/Dev.xml",
+            "retail/Data.sma_unpacked/DataGame/dev.xml",
             '<Game><Broker><Value Name="DebugWindow/Enabled" Type="Bool" Value="False" />'
             "</Broker></Game>",
         )
@@ -86,6 +99,10 @@ class DevelopmentConfigInventoryTests(unittest.TestCase):
             "Data.sma_unpacked/DataGame/Game.xml",
         )
         self.assertTrue(build["game_xml_load_order"][0]["exists"])
+        self.assertEqual(
+            build["game_xml_load_order"][0]["resolved_path"],
+            "Data.sma_unpacked/DataGame/dev.xml",
+        )
         self.assertEqual(build["development_values"][0]["name"], "DebugWindow/Enabled")
 
     def test_missing_or_malformed_files_are_reported_without_aborting(self):
@@ -99,7 +116,7 @@ class DevelopmentConfigInventoryTests(unittest.TestCase):
     def test_markdown_labels_values_as_corpus_observations(self):
         report = inventory_corpora(self.root)
         rendered = render_markdown(report)
-        self.assertIn("not proven engine fallback defaults", rendered)
+        self.assertIn("not compiled fallbacks or effective runtime values", rendered)
         self.assertIn("## retail", rendered)
 
 

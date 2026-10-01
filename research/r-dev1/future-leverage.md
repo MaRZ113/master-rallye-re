@@ -12,7 +12,7 @@
 
 ## Best-supported next branches
 
-1. Isolate Menues/Enabled and DebugWindow/Enabled in a retail copy.
+1. Reconstruct the original menu/accelerator/control senders across the early builds; the flag-isolation runtime question is now recorded as answered by the owner.
 2. Capture passive startup logs and correlate them to loader xrefs.
 3. Find a legitimate Flow Builder entry path before testing selection or writes.
 4. Inventory Broker Editor read-only behavior before attempting any mutation.

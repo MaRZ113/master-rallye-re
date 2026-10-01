@@ -2,7 +2,7 @@
 
 Retail ID 0x58 in 005B0990 constructs the object at 005B2960, whose vtable 00692F88 has destructor at +0 and execute method 005B2F80 at +4. 006018E0 registers it in a growing pointer list and immediately invokes +4. This confirms the preliminary dispatch path.
 
-005B2F80 gets a start path from a path service via vtable slot +0x14, normalizes slash direction, trims a trailing separator, clears counters at 006FE020–006FE03C and invokes 005B2DA0. No folder picker occurs in this wrapper; exact path-service meaning is UNKNOWN.
+005B2F80 gets a start path from a path service via vtable slot +0x14, normalizes slash direction, trims a trailing separator, clears all nine counters at 006FE020–006FE040, then invokes 005B2DA0. Retail assembly zeros EBX at 005B2F9E, stores it to 006FE020–006FE040 (including `MOV [006FE040], EBX` at 005B303B), then calls the walker at 005B3041. This disproves the earlier accumulation hypothesis. No folder picker occurs in this wrapper; exact path-service meaning is UNKNOWN.
 
 005B2DA0 recursively enumerates *.*; directories beginning with a dot are skipped. For file entries it checks for a DataGx\\ path segment and tries the supported callbacks. The wrapper reports file/directory/model/texture/image-bank totals. It does not establish a scope limited to one selected DataGx folder.
 

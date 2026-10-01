@@ -20,6 +20,6 @@
     ["005B29C0","0054B320"],["0054B320","0054D6E0 on source build path"],["005B2AD0","0054A9B0"],["005B2AD0","0054ACD0"],["005B2C40","0054B430"],
     ["model/texture cache paths","0064D530 when cache write occurs"]
   ],
-  "counters":{"files":"006FE020","directories":"006FE024","models":"006FE028","textures":"006FE02C","image_banks":"006FE030","file_failures":"006FE034","model_failures":"006FE038","texture_failures":"006FE03C","image_bank_failures":"006FE040"},
+  "counters":{"files":"006FE020","directories":"006FE024","models":"006FE028","textures":"006FE02C","image_banks":"006FE030","file_failures":"006FE034","model_failures":"006FE038","texture_failures":"006FE03C","image_bank_failures":"006FE040","reset_before_walk":true,"zero_register_setup":"005B2F9E","reset_sequence_start":"005B300B","image_bank_failure_counter_clear":"005B303B","walker_call":"005B3041"},
   "safety":"recursive read with possible DX/DXT cache writes; indirect image-bank write risk UNKNOWN"
 }

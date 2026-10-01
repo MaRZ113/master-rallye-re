@@ -1,6 +1,6 @@
-# Conservative human runtime-test plan
+# R-DEV1 runtime-test record and remaining plan
 
-These tests were prepared, not performed. They target gating first and do not invoke hidden IDs.
+The flag-isolation test below is now recorded from the owner's runtime report. It must not be repeated as a pending question. Remaining tests are proposals only and have not been performed in this phase.
 
 ## Common staging
 
@@ -11,22 +11,18 @@ These tests were prepared, not performed. They target gating first and do not in
 5. Launch and close normally. Do not send WM_COMMAND, inject messages, patch the executable, invoke editor/build/save/convert commands, or alter other broker values.
 6. Use the window helper in --list mode to record HWND titles/classes. If Tesseract is available, capture Debug text to an output path outside the game copy; otherwise use a screenshot.
 
-## Test A — 2×2 gate isolation
+## Test A — 2×2 gate isolation — owner result recorded
 
-Build/data: retail only. Target: startup 005AFB20 and the two values in copied DataGame/dev.xml.
+Build/data: exact build and staging identity were not supplied by the owner. Target: startup 005AFB20 and the two values in DataGame/dev.xml.
 
 | Case | Menues/Enabled | DebugWindow/Enabled | Expected comparison |
 |---|---:|---:|---|
-| A | false | false | retail-config baseline |
-| B | false | true | should match A if DebugWindow key has no independent consumer |
-| C | true | false | tests app/menu and Debug paths from Menues value |
-| D | true | true | reproduces prior combined setting |
+| A | false | false | no Debug window reported when Menues is false |
+| B | false | true | DebugWindow toggle had no observable effect |
+| C | true | false | Debug window reported when Menues is true |
+| D | true | true | no additional observable effect from DebugWindow |
 
-Observe only whether application/game window, Game menu and separate Debug window appear. Capture startup log/screenshots; do not click commands. Close normally.
-
-Interpretation: B differing from A supports an independent DebugWindow path; C showing menu+Debug supports the current shared Menues gate; C showing menu without Debug while D shows it supports an indirect DebugWindow consumer missed by literal xrefs. Equal runs do not prove the key dead. A startup failure is a staging/config issue until independently diagnosed.
-
-Files to monitor: the case copy, especially dev.xml, generated caches/logs and profile outputs. Preserve the original case baseline and hash manifest. Discard only case copies after recording the diff; verify source corpus hashes remain unchanged.
+Owner-reported outcome: **CONFIRMED_BY_RUNTIME** that `Menues/Enabled` gates the native Debug window in the tested configuration; changing `DebugWindow/Enabled` produced no observable change. The test build, exact four case results, screenshots/log captures and integrity manifest were not supplied, so this record intentionally does not invent them. The result supports the static consumer path and classifies `DebugWindow/Enabled` as `ORPHANED_OR_REDUNDANT_KEY` (**STRONG_HYPOTHESIS**), not absolutely dead.
 
 ## Test B — passive Debug logger observation
 

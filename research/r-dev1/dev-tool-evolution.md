@@ -1,5 +1,7 @@
 # Development-tool evolution
 
+Shipped configuration values: 8.4.1 and 9.3.1 set both `Menues/Enabled` and `DebugWindow/Enabled` true; 9.10.0 and retail set both false (**HUMAN_CORPUS_VERIFIED**; file provenance is recorded in `dev-config-corpus-inventory.json`). This is distinct from compiled fallback true and effective runtime state.
+
 ## 8.4.1 → 9.3.1
 
 - Flow Builder survives as a matching window/menu family.

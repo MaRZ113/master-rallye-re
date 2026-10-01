@@ -1,12 +1,12 @@
 # R-DEV1 findings
 
-Status: static archaeology complete for gating → dispatch → tool objects → file operations → internal loaders/writers. No R-DEV1 runtime experiment was performed.
+Status: static archaeology complete for gating → dispatch → tool objects → file operations → internal loaders/writers. No runtime action was performed by the research agent; the owner's later flag-isolation result is recorded below and in `runtime-test-plan.md`.
 
 ## Architectural result
 
 CONFIRMED_BY_EXE: application startup queues DataGame/Game.xml, parses it into the typed broker, and enumerates XmlFilename broker entries to queue further DataGame XML. CONFIRMED_BY_CORPUS: Game.xml contains Load/Dev and Load/Editors in all four supplied data views. Retail loose-file lookup precedes Data.sma fallback, as recorded in R-EXE1.
 
-The bootstrap reads Menues/Enabled. The resulting value is used for the application/menu path and a second capability-checked path that can create the separate Debug window. DebugWindow/Enabled is registered as default true but has no consumer string xref in any of the four EXEs. Its independent effect is UNKNOWN; a stale/redundant key is a STRONG_HYPOTHESIS. The prior human observation enabled both values together and therefore does not isolate either one.
+The bootstrap reads Menues/Enabled. Static control flow uses it for the application/menu path and a second capability-checked path that creates the separate Debug window. The owner reports that Menues/Enabled=true opens the native Debug window and toggling DebugWindow/Enabled has no observable effect (**CONFIRMED_BY_RUNTIME**; tested build not specified). DebugWindow/Enabled is registered with compiled fallback true but has no consumer string xref in any of the four EXEs; it is an **ORPHANED_OR_REDUNDANT_KEY** (**STRONG_HYPOTHESIS**), not conclusively dead.
 
 The mapped retail main menu is only Game → Reset… / Exit. Its WM_COMMAND procedure routes into a much larger switch with editor, Game/Scene XML and BuildData cases. Thus switch presence and command mapping do not prove a native menu item or normal retail UI reachability.
 
@@ -27,7 +27,7 @@ The Debug window is a custom GDI window fed by the global formatted logger, not 
 5. BuildData and Flow Builder reuse normal engine loaders/generators rather than a distinct external toolchain.
 6. Flow Builder's FL-to-SFL item is absent in 8.4.1 and present from 9.3.1 onward, matching supplied .fl → .sfl data evolution.
 7. Four DataEditors help paths are embedded, but no matching files occur in the supplied corpus views.
-8. Static evidence identified a possible non-reset BuildData image-bank failure counter; cumulative behavior remains a hypothesis.
+8. Retail assembly proves that all nine BuildData counters, including 006FE040, are reset before the recursive walker.
 
 ## Principal retail anchors
 
@@ -54,6 +54,8 @@ The Debug window is a custom GDI window fed by the global formatted logger, not 
 
 Retail Data.sma SHA256: 03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f.
 
+The two demo EXEs in the current supplied corpora folder no longer match the R-EXE1 verified SHA256 values for 8.4.1 and 9.3.1; see R-DEV1.1 provenance/correction notes. This does not change the historical XML values recorded below, but those binaries must be reconciled before treating new cross-build EXE analysis as verified.
+
 ## Analysis environment and provenance
 
 R-DEV1 is isolated on branch research/r-dev1-embedded-tools, based on committed R-EXE1 HEAD 27583d3629081a69382609c17171cca59d310113. The active R5T checkout was consulted read-only and was not changed.
@@ -70,5 +72,5 @@ Limitations: no source/PDB; exact capability implementations and hidden command 
 
 - CONFIRMED_BY_EXE: static strings, xrefs, instruction/control-flow, decompilation and selected assembly.
 - CONFIRMED_BY_CORPUS: XML names/values and supplied file presence.
-- CONFIRMED_BY_RUNTIME: only the earlier human observation with both flags true. It was not repeated.
-- UNKNOWN: independent flag effect, normal retail route to hidden IDs, several editor semantics and indirect image-bank writes.
+- CONFIRMED_BY_RUNTIME: owner-reported flag isolation: Menues/Enabled=true opens Debug; changing DebugWindow/Enabled has no observable effect. Build/staging details were not supplied.
+- UNKNOWN: whether DebugWindow/Enabled affects an unobserved path, normal retail route to hidden IDs, several editor semantics and indirect image-bank writes.

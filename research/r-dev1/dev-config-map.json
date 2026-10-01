@@ -15,8 +15,8 @@
     "key_predicate": {"address": "005D1660", "exact_semantics": "not promoted"}
   },
   "keys": [
-    {"name":"Menues/Enabled","type":"Bool","default":true,"corpus":{"8.4.1":true,"9.3.1":true,"9.10.0":true,"retail":false},"consumers":[{"build":"retail","address":"005AFB20","role":"application/menu and separate capability-checked Debug-window path"}],"confidence":"CONFIRMED_BY_EXE"},
-    {"name":"DebugWindow/Enabled","type":"Bool","default":true,"corpus":{"8.4.1":true,"9.3.1":true,"9.10.0":true,"retail":false},"consumer_xrefs":[],"default_registration":"004D7BD0","confidence":"STRONG_HYPOTHESIS","notes":["No consumer string xref in the four examined EXEs; stale/redundant/indirect access remains possible."]},
+    {"name":"Menues/Enabled","type":"Bool","compiled_fallback":true,"shipped_config":{"8.4.1":true,"9.3.1":true,"9.10.0":false,"retail":false},"consumers":[{"build":"retail","address":"005AFB20","role":"application/menu and separate capability-checked Debug-window path"}],"confidence":["CONFIRMED_BY_EXE","CONFIRMED_BY_RUNTIME"],"runtime_evidence":"Owner reports native Debug window appears with Menues/Enabled=true."},
+    {"name":"DebugWindow/Enabled","type":"Bool","compiled_fallback":true,"shipped_config":{"8.4.1":true,"9.3.1":true,"9.10.0":false,"retail":false},"consumer_xrefs":[],"default_registration":"004D7BD0","confidence":"STRONG_HYPOTHESIS","classification":"ORPHANED_OR_REDUNDANT_KEY","notes":["No consumer string xref in the four examined EXEs; toggling had no observable effect in the owner's flag-isolation runtime test; indirect or other unobserved access remains possible."]},
     {"name":"ModelCaching/CachingDisabled","type":"Bool","default":"UNKNOWN","corpus":{"8.4.1":true,"9.3.1":false,"9.10.0":false,"retail":false},"consumers":["model and texture cache families, all builds","retail examples 0053BE70, 0053C3F0, 0053DCC0"],"confidence":"CONFIRMED_BY_EXE","notes":["False permits normal cache lookup/generation; BuildData force-rebuild behavior not proven."]},
     {"name":"Camera0/SwitchTarget","type":"Bool","default":"UNKNOWN","corpus":{"8.4.1":false,"9.3.1":false,"9.10.0":true,"retail":false},"consumer":"camera/development family; exact effect UNKNOWN","confidence":"CONFIRMED_BY_CORPUS"},
     {"name":"Camera0/SwitchType","type":"Bool","default":"UNKNOWN","corpus":{"8.4.1":false,"9.3.1":false,"9.10.0":true,"retail":false},"consumer":"camera/development family; exact effect UNKNOWN","confidence":"CONFIRMED_BY_CORPUS"},
@@ -28,5 +28,5 @@
     {"name":"Load/Editors","type":"XmlFilename","corpus":{"8.4.1":"Editors","9.3.1":"Editors","9.10.0":"Editors","retail":"Editors"},"consumer":"00522BD0","confidence":"CONFIRMED_BY_CORPUS"}
   ],
   "missing_file": {"parse_error_log":"Error parsing XML file","failure_branch":"00522B10 records Default and does not enumerate nested XML","startup_fallback":"UNKNOWN"},
-  "human_runtime_evidence":"Prior combined true/true flags showed a Debug window; the individual gate was not isolated."
+  "human_runtime_evidence":{"observation":"Menues/Enabled=true opens the native Debug window; changing DebugWindow/Enabled had no observable effect.","build":"UNKNOWN","classification":["CONFIRMED_BY_RUNTIME","owner-reported"]}
 }

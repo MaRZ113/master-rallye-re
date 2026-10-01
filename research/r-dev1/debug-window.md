@@ -4,7 +4,7 @@
 
 The window is owner-drawn. No standard Edit child exists, so GetWindowText on the top-level HWND only returns the caption. It is not a DebugView/OutputDebugString path.
 
-The gate at 005AFB20 reads Menues/Enabled and uses that value for main UI and a separate capability-checked Debug window path. DebugWindow/Enabled is registered at 004D7BD0 but has no consumer xref in all four EXEs. Previous human evidence enabled both values and observed the window; it does not isolate the gate.
+The gate at 005AFB20 reads Menues/Enabled and uses that value for main UI and a separate capability-checked Debug window path. DebugWindow/Enabled is registered at 004D7BD0 but has no consumer xref in all four EXEs. The owner now reports that Menues/Enabled=true opens the window, and toggling DebugWindow/Enabled had no observable effect (**CONFIRMED_BY_RUNTIME**; build details unspecified). The key remains an **ORPHANED_OR_REDUNDANT_KEY** (**STRONG_HYPOTHESIS**), because unobserved or indirect effects remain possible.
 
 Retail 0053C3F0 emits cache/source model messages; 0054D6E0 emits GXM build stages while calling stage functions for moSortPlane insertion, vertex welding, convex hull, BSP, cylinders, 2D geometry, object nodes, land database and optimization. 00586B70 emits shader-selection messages. Build-specific anchors and xrefs are in debug-message-producers.json.
 
