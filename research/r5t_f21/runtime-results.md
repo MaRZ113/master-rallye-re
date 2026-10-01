@@ -13,7 +13,8 @@ Hybrid T used the modified tag100 tree with baseline tag1339, tag1400, and fixed
 
 ## Exact controlled state
 
-- Runtime: Demo 9.10.0; supported executable SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
+- Demo 9.10.0 runtime executable SHA256 `13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78`.
+- Retail executable used for static loader RE SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
 - Source: `COLLIDE_finishline03`, GXM Index 47083; 24 triangles, 14 unique positions, 12 coplanar plane groups.
 - Edit: translate all unique source positions by +20.0 on GXM X.
 - Runtime location: OLD `[-1471.7653, 68.4258, 352.5542]`; NEW `[-1451.7653, 68.4258, 352.5542]`; expected delta `[20.0, 0.0, 0.0]`.
