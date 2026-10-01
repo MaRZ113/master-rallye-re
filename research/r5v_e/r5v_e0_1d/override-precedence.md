@@ -17,7 +17,7 @@ Retail Ghidra Bridge raw assembly for `FUN_004A74A0` verifies this sequence:
 
 At entry the function saves `ECX` in `ESI`; therefore `[ESI+0x18]` remains the HUD object's display slot. `FUN_004A72A0` binds `Display Car ID` and XML `ObjectColour` into the HUD object. Static control flow makes the race property a conditional replacement for those loaded colour fields. It does not prove which branch is taken at runtime or whether another later writer changes the tint.
 
-Evidence classification: **RAW_GHIDRA_SUPPORTED** for the consumer control flow, display-slot field, and four-component copy. **NOT RUNTIME CONFIRMED** for XML/property precedence and values. The E0.1c x32dbg automation did not capture a consumer hit.
+Evidence classification: **RAW_GHIDRA_SUPPORTED** for the consumer control flow, display-slot field, and four-component copy. E0.1d.1 later received user runtime reports confirming the tested XML/property precedence and visible fallback values; the earlier E0.1c x32dbg automation itself did not capture a consumer hit.
 
 ## Retired diagnostic hook
 
@@ -50,4 +50,4 @@ The next section begins at VA `0x0068F000`; the new virtual size ends at `0x0068
 - Exact byte ranges are in `research-output/r5v_e0_1d/override-bypass/binary-diff.txt`; the manifest records all source bytes and replacements.
 - The source candidate and retail executable remain unchanged. The hook has passed four synthetic safety tests and a real-input dry run. It has not run in the game.
 
-The old generator and test instructions are retained only as history. The corrected candidate is prepared but still needs the owner runtime test. A red result from that ABI-correct candidate after the aquamarine XML-only result would confirm the tested fallback/override precedence. See `research/r5v_e0_1d_1/runtime-test-plan.md`.
+The old generator and test instructions are retained only as history. The user reports that the corrected candidate loaded successfully: normal XML showed the grey/white fallback and red XML showed red. This confirms tested fallback/override precedence; with the bypass, player-selected cars shared the fallback and opponents stayed normal. See [R5V-E0.1d.1](../../r5v_e0_1d_1/findings.md). R5V-E0.1d.2 separately traces VehicleRecord tail values into `Race/CarN/Colour`; its red-tail runtime test is pending.

@@ -1,4 +1,8 @@
-# Corrected bypass runtime test
+# Corrected bypass runtime test (completed by user report)
+
+## Result supplied by the user
+
+The ABI-safe candidate loaded the race. The bottom marker used the grey/white fallback with normal HUD XML and became red with red `ProgressCar0/ObjectColour` XML. With bypass active, all Player1-selected cars shared that XML fallback while opponents kept their normal colours. This closes the tested fallback/override precedence, but does not capture the backing property pointer or writer.
 
 ## Inputs
 

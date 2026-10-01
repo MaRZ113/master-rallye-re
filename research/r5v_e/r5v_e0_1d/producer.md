@@ -2,7 +2,7 @@
 
 ## Classification
 
-**UNKNOWN.** The game visibly displayed an aquamarine/cyan-like Player1 progress marker in the prior owner test, but no numeric runtime value or upstream writer was captured. The consumer maps a HUD display slot into `Race/CarN/Colour`; the relationship between that slot and a player/profile/palette is not enough to identify ownership.
+The E0.1d investigation originally stopped without identifying a writer. Follow-up [R5V-E0.1d.2](../../r5v_e0_1d_2/race-colour-dataflow.md) statically identifies the upstream source: race participant setup resolves CarID, reads `VehicleRecord[CarID]+0x24..+0x30`, and writes it to `Race/CarN/Colour`. The ABI-safe bypass report confirms the property override/fallback precedence. The isolated ID25 red-tail visual A/B and debugger storage capture remain pending.
 
 | Candidate class | Status | Evidence |
 |---|---|---|
@@ -10,14 +10,14 @@
 | `PARTICIPANT_INDEX_COLOUR` | Plausible, unproven | Consumer formats the property by display slot; no producer/table or runtime slot values captured. |
 | `PLAYER_PROFILE_COLOUR` | Unknown | No profile field traced to the property. |
 | `NETWORK_PLAYER_COLOUR` | Unknown | No network player field traced to the property. |
-| `VEHICLE_DEPENDENT_COLOUR` | Unknown | Consumer does not read a VehicleRecord, but upstream dependence was not traced. |
-| `RACE_SETUP_COLOUR` | Unknown | No value writer or source object recovered. |
+| `VEHICLE_DEPENDENT_COLOUR` | Static path supported; ID25 red-tail A/B pending | Setup resolves CarID to VehicleRecord tail and sends its four words to `/Colour`. |
+| `RACE_SETUP_COLOUR` | Static path confirmed | Participant setup writes `Race/CarN/Colour` through `FUN_004ACDD0`. |
 | `TEAM_COLOUR` | Unknown | No team source found. |
 | `OTHER` | Open | Generic schema/struct materialization remains possible. |
 
 ## Vehicle profile ownership
 
-Do not add marker tint to `VehicleSlotProfile`. The consumer does not read vehicle ID, class, runtime family, or `VehicleRecord` while loading the colour. No upstream evidence proves vehicle dependence. Keep the semantic model unset until dynamic tracing identifies whether it belongs to a participant, player HUD profile, race palette, or another owner.
+Do not add marker tint to `VehicleSlotProfile` yet. The static producer reads a VehicleRecord tail selected by participant CarID, but the isolated ID25 red-tail A/B has not run. Keep the profile model unchanged until that runtime comparison confirms the visible effect.
 
 ## User-facing control
 
@@ -32,4 +32,4 @@ race participant setup / schema table / profile or palette source
     -> FUN_004A74A0 tint
 ```
 
-The storage address, lifetime, writer, source object, slot/index rule, Car0..Car3 values, and overwrite timing remain unobserved.
+Static writer and source are now known. Runtime backing-storage address/lifetime, Car0..Car3 numeric values, and overwrite timing remain unobserved; the ID25 red-tail candidate is prepared under `research-output/r5v_e0_1d_2/runtime-test/`.

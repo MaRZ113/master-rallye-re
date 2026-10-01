@@ -26,8 +26,8 @@ New candidate SHA-256: `ce17e26a87f0d1f6aed4b96e77d2d57a4b3b7f9772c5f19f677af3c3
 
 - Red XML-only test: **RAN; bottom marker remained aquamarine/cyan-like** (user-reported).
 - Old bypass: **CRASHED during race loading; invalid ABI candidate** (user-reported; not colour evidence).
-- Corrected bypass: **NOT RUN**.
-- Colour writer / semantic source: **NOT CAPTURED**.
+- Corrected bypass: **RAN; user reports normal XML -> grey/white fallback and red XML -> red fallback; opponents unchanged**.
+- Runtime colour writer / backing pointer: **NOT CAPTURED**; static VehicleRecord-tail producer path is documented in R5V-E0.1d.2.
 
 ## Automated checks
 

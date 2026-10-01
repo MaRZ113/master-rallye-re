@@ -27,12 +27,16 @@
 
 - XML-only game test: **RAN; user reports marker remained aquamarine/cyan-like**.
 - Old slot-0 bypass game test: **RAN; crashed during race loading; invalid because of stack ABI bug**.
-- Corrected slot-0 bypass game test: **NOT RUN**; see `research/r5v_e0_1d_1/runtime-test-plan.md`.
-- Dynamic producer trace: **NOT RUN**.
+- Corrected slot-0 bypass game test: **RAN by user report**; normal XML gave grey/white fallback, red XML gave red, and opponents retained their colours.
+- Dynamic memory pointer/write capture: **NOT RUN**. R5V-E0.1d.2 has since statically traced the source vector from VehicleRecord tail to `Race/CarN/Colour`.
 - Full `tests/synthetic` suite: **PASS**, 205 tests in 12.153 seconds.
 - `git diff --check`: **PASS** after the final documentation update.
 
 The ABI follow-up verified `FUN_004D8EC0`'s plain `RET`, `FUN_004D7470`'s `[ESP+4]` argument and `RET 4`, and the consumer stack sequence from raw Ghidra assembly/P-code. The old helper's plain `RET` and nested `CALL` are invalid. Its generator is disabled; its binary remains ignored and must not be run again.
+
+## R5V-E0.1d.2 follow-up
+
+The retail static path is documented in `research/r5v_e0_1d_2/race-colour-dataflow.md`; it verifies participant CarID -> 16-byte VehicleRecord tail -> `Race/CarN/Colour` -> HUD consumer. The ID25-only red-tail candidate has SHA-256 `9d56c1ef0682224d3254db0e5e49cb4ecb11076467321f073f15d60526f60e46`; it changes only three RGB dwords in the initializer stub and remains untested by the user.
 
 ## Runtime package safety
 

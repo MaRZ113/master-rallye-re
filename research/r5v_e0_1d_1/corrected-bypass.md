@@ -43,4 +43,4 @@ The byte diff reports the five disjoint changed runs because unchanged zero byte
 
 ## Runtime status
 
-Static ABI verification and candidate generation passed. This candidate has not been run. Never test the old `2d78b8b990ca1e7fa10171352cc95af3ff8e9d2bcdfac54310b4c28c642aaf7f` candidate again; it has the invalid helper. Follow [runtime-test-plan.md](runtime-test-plan.md).
+Static ABI verification and candidate generation passed. The user reports that this candidate loaded the race: with normal XML the Player1 marker used the grey/white fallback; with red XML it became red. With the bypass, selected Player1 cars shared the XML fallback and opponents retained their colours. This confirms the tested fallback/override precedence. The report is owner-provided, not a debugger capture. Never test the old `2d78b8b990ca1e7fa10171352cc95af3ff8e9d2bcdfac54310b4c28c642aaf7f` candidate again; it has the invalid helper.

@@ -1,0 +1,71 @@
+R5V-E0.1d.2 — manual fallback if the red-tail diagnostic does not recolour ID25
+
+Use the NORMAL, non-bypass Trooper / SmallCarSheet29 baseline executable:
+  research-output/r5v_e0_1b/runtime-test/trooper-smallsheet29-baseline/
+  MRallye_slot25_trooper_smallsheet29_baseline.exe
+SHA-256: e19e80e64fcf2835d9883b115868e0cb8a0b63e05f48c8527580b2e0b531c0df
+
+Use the matching normal retail data. Do not use an XML-red archive or either
+Car0 bypass candidate. First run the red-tail candidate; use this trace only if
+the expected visible colour change does not occur or the result is ambiguous.
+
+BREAKPOINT 1 — read Race/Car0/Colour
+  Set a software execution breakpoint at VA 0x004A7689.
+  This is the first instruction after the property value getter call at
+  0x004A7684. The expected surrounding instructions are:
+
+    004A7684  CALL 0x004D7340
+    004A7689  MOV EDX,dword ptr [EAX]
+    004A768B  MOV dword ptr [ESI + 0x3c],EDX
+    004A768E  MOV EDX,dword ptr [EAX + 0x4]
+    004A7691  MOV dword ptr [ESI + 0x40],EDX
+    004A7694  MOV EDX,dword ptr [EAX + 0x8]
+    004A7697  MOV dword ptr [ESI + 0x44],EDX
+    004A769A  MOV EAX,dword ptr [EAX + 0xc]
+    004A769D  MOV dword ptr [ESI + 0x48],EAX
+
+  At 0x004A7689, record EAX. It is the returned 16-byte colour payload for the
+  selected Race/CarN property. In the x32dbg Dump pane, follow EAX and switch
+  the view to 4-byte floats; record the values at EAX, EAX+4, EAX+8, EAX+0xC.
+  Also save the four raw dwords.
+
+COMPARE WITH VehicleRecord[25]
+  The registry singleton pointer is stored at VA 0x006F5ED4; dereference it to
+  get the registry base returned by FUN_0045A3C0. Record 25 starts at:
+
+    registry_base + 4 + 25*0x34 = registry_base + 0x518
+
+  Its tail vector begins at:
+
+    registry_base + 0x518 + 0x24 = registry_base + 0x53C
+
+  In x32dbg, read the pointer at 0x006F5ED4, add 0x53C, follow that address in
+  Dump, and record the four floats/raw dwords. Compare them byte-for-byte with
+  the returned EAX payload. Expected P0 values are:
+
+    0.067924529  (0x3D8B1C04)
+    0.535849035  (0x3F092D67)
+    0.483018875  (0x3EF74E40)
+    1.000000000  (0x3F800000)
+
+WRITER TRACE
+  The statically identified shared vector setter is FUN_004ACDD0. Set execution
+  breakpoints at the relevant call sites:
+
+    0x0044A6B5  ordinary race setup
+    0x0044A88E  alternate race mode
+    0x0044AB25, 0x0044AD7C, 0x0044B27E  additional setup flow
+
+  At a hit, capture registers, ESP through ESP+0x18, the call stack, and the
+  selected CarN index. The setter receives the participant slot followed by
+  the four vector dwords. If the prior EAX payload is stable, set a hardware
+  write breakpoint on its first dword (size 4, write). If the debugger has free
+  hardware slots, additional dword watches can be placed at +4, +8, and +0xC.
+  Restart the race setup and inspect the writer's source pointer/registers and
+  stack vector when the watchpoint hits. Reapply the watchpoint if race setup
+  reallocated the property payload.
+
+RETURN
+  Provide the breakpoint hit address, EAX payload pointer, four float values
+  and raw dwords, four VehicleRecord[25] values/raw dwords, whether they match,
+  watchpoint hit/call stack, and screenshots of both memory views if available.

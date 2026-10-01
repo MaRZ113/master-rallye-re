@@ -2,9 +2,9 @@
 
 ## Status
 
-**Static ABI closure: PASS. Corrected candidate: prepared, runtime pending. Colour producer: UNKNOWN.** The previous candidate crashed during race loading because its helper did not preserve the original stack contract. The user confirms that the red XML-only diagnostic left the bottom progress marker aquamarine/cyan-like. That result does not identify the later tint producer by itself.
+**Static ABI closure: PASS. Runtime precedence: PASS by user report. Producer: statically traced in R5V-E0.1d.2; red record-tail A/B pending.** The previous candidate crashed during race loading because its helper did not preserve the original stack contract. That invalid candidate remains historical evidence only.
 
-The corrected candidate is `research-output/r5v_e0_1d_1/override-bypass/MRallye_slot25_trooper_smallsheet29_xmlred_colour-bypass-abi-safe.exe`, SHA-256 `ce17e26a87f0d1f6aed4b96e77d2d57a4b3b7f9772c5f19f677af3c35d0a71fb`. Pair it with the existing XML-red archive, SHA-256 `10f69fde8c9110abb69bb0c004904697af4e2ca024d4e38a24f97bbd04861072`, in an isolated game copy. It has **not** been run by the user yet.
+The corrected candidate is `research-output/r5v_e0_1d_1/override-bypass/MRallye_slot25_trooper_smallsheet29_xmlred_colour-bypass-abi-safe.exe`, SHA-256 `ce17e26a87f0d1f6aed4b96e77d2d57a4b3b7f9772c5f19f677af3c35d0a71fb`. It was run by the user in an isolated game copy with the existing XML-red archive, SHA-256 `10f69fde8c9110abb69bb0c004904697af4e2ca024d4e38a24f97bbd04861072`.
 
 ## Confirmed ABI
 
@@ -39,8 +39,10 @@ Raw Ghidra Bridge assembly, Ghidra P-code, and the retail bytes agree on the cal
 
 - Red `ProgressCar0/ObjectColour`: the bottom marker remained aquamarine/cyan-like. The XML value is therefore not the final visible colour in the tested path.
 - Previous slot-0 bypass executable: crashed while loading the race. That candidate is invalid and the crash is explained by its stack ABI bug; it is not evidence about colour precedence.
+- Corrected bypass + normal XML: the Player1 marker used the grey/white fallback.
+- Corrected bypass + red XML: the Player1 marker became red. With bypass active, all Player1-selected cars used the same XML fallback while opponent marker colours remained normal.
 
-The direct runtime claim `Race/Car0/Colour overrides the XML fallback` remains **pending** until the corrected candidate runs and changes the marker to red.
+These user-reported observations confirm the tested precedence: `Race/Car0/Colour` overrides `ProgressCar0/ObjectColour`, which supplies the fallback when the property-exists query is bypassed.
 
 ## Candidate scope and binary safety
 
@@ -52,6 +54,6 @@ The legacy E0.1d generator now refuses to emit its invalid helper. Its old outpu
 
 ## Producer trace and next step
 
-No backing colour pointer, Car0..Car3 numeric vectors, writer, or semantic source has been captured. If the corrected candidate produces a red marker, use the manual x32dbg plan in [manual-x32dbg.md](manual-x32dbg.md) with the clean E0 baseline to capture `Race/Car0/Colour` storage and its writer. Do not use the bypass candidate for that trace: its intended slot-0 branch skips the value getter at `004A7684`.
+No runtime backing pointer or Car0..Car3 numeric vectors have been captured. R5V-E0.1d.2 traces VehicleRecord tail values through the shared `Race/CarN/Colour` writer to the HUD consumer. If the red-tail test fails or remains ambiguous, use [../r5v_e0_1d_2/MANUAL_X32DBG.txt](../r5v_e0_1d_2/MANUAL_X32DBG.txt) with the clean E0 baseline. Do not use the bypass candidate for that trace: its slot-0 branch skips the value getter at `004A7684`.
 
-No vehicle dependence is proven, so marker colour remains outside `VehicleSlotProfile`. A producer-level control is not implemented. R5V-F remains blocked on corrected runtime confirmation and producer closure.
+Static evidence now supports vehicle-dependent production. The isolated ID25 red-tail A/B remains necessary before exposing a semantic profile field. R5V-F is not started.

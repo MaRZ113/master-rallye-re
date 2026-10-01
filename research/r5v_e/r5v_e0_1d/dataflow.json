@@ -22,13 +22,19 @@
     "display_car_id": 0,
     "object_colour_before": [1.0, 1.0, 1.0, 0.5],
     "object_colour_candidate": [1.0, 0.0, 0.0, 0.5],
-    "runtime_result": "Human reports red XML did not change the aquamarine/cyan-like marker"
+    "runtime_results_user_reported": {
+      "normal_consumer_normal_xml": "Player1 marker aquamarine",
+      "normal_consumer_red_xml": "Player1 marker remained aquamarine",
+      "abi_safe_bypass_normal_xml": "Player1 marker grey/white fallback",
+      "abi_safe_bypass_red_xml": "Player1 marker red",
+      "bypass_player_selection": "All Player1-selected cars use the same XML fallback; opponents remain normal colours"
+    }
   },
   "materialization": {
     "race_setup_functions_inspected": ["FUN_0048E2D0", "FUN_0048EB40", "FUN_004C0B20", "FUN_004BCA30", "FUN_004B6A00"],
     "quickrace_functions_inspected": ["FUN_0047B780", "FUN_004ADFB0", "FUN_004ADF50"],
-    "colour_writer": null,
-    "semantic_owner": "UNKNOWN"
+    "colour_writer": "VehicleRecord[CarID]+0x24..+0x30 -> Race/CarN/Colour via FUN_004ACDD0 (static R5V-E0.1d.2 evidence)",
+    "semantic_owner": "VehicleRecord race colour vector; ID25 red-tail runtime A/B pending"
   },
   "slot0_bypass_candidate": {
     "hook_va": "0x004A7661",
@@ -36,6 +42,6 @@
     "candidate_sha256": "2d78b8b990ca1e7fa10171352cc95af3ff8e9d2bcdfac54310b4c28c642aaf7f",
     "runtime_result": "Human reports race-load crash; invalid diagnostic due to stack ABI bug"
   },
-  "classification": "UNKNOWN",
-  "r5v_f_readiness": "BLOCKED_ON_HUMAN_DIAGNOSTIC_AND_PRODUCER_TRACE"
+  "classification": "RACE_SETUP_COLOUR; VEHICLE_RECORD_SOURCE_STATICALLY_CONFIRMED",
+  "r5v_f_readiness": "BLOCKED_ON_ID25_RED_TAIL_RUNTIME_A_B"
 }
