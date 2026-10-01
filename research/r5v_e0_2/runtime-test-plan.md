@@ -1,4 +1,13 @@
-# R5V-E0.2 Vehicle Select P0 test
+# R5V-E0.2 Vehicle Select P0 test and result
+
+## Result
+
+**FULL PASS by user report.** The owner reports that T3 local index 11 / ID25
+remained selectable, the 12th icon appeared in the correct slot, the Trooper
+preview remained correct, and the frontend stayed stable. The report did not
+include a screenshot, runtime log, executable hash, or installed `Data.sma`
+hash. The result is therefore recorded as human-reported and cannot be tied
+cryptographically to the staged candidate below.
 
 ## Candidate
 

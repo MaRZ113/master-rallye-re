@@ -49,3 +49,17 @@ not unique to a T3_Car12 object. Its demo frame15 is build-specific and is not
 identified as retail artwork. Demo identities remain separate: demo-9.3.1
 Forester is not retail NewRav, and demo-8.4.1 LandCruiser is not retail
 WildCat.
+
+## Authentic Trooper frame in both demos
+
+| Build | Source | Scene binding | Trooper registry identity | Hash / format |
+|---|---|---|---|---|
+| demo-8.4.1 | `DataGx/Frontend/VehicleSelect/carsheet_014_000.dxt` | `DataScene/FrontendScreens/VehicleSelect.xml`, `T2_Car1`, image-bank frame 14 | registry ID7, class 1 (T2 local 0) | SHA-256 `3994529FEC45E292918B36A7EEF4AF99CFBB7B753B52009AAD71A6FAB83476B6`; DXT wrapper, 128x128, 65,556 bytes |
+| demo-9.3.1 | `DataGx/Frontend/VehicleSelect/carsheet_014_000.dxt` | `DataScene/FrontendScreens/Wjd/VehicleSelect.xml`, `T2_Car3`, image-bank frame 14 | registry ID9, class 1 (T2 local 2) | same SHA-256; DXT wrapper, 128x128, 65,556 bytes |
+
+The registry indices/classes come from the separately audited demo registries;
+the scene objects explicitly bind frame 14, and the indexed DXT files hash
+identically. Visual inspection of the decoded frame shows the camouflaged
+Trooper pickup. The mapping is build-specific: the Trooper's T2 local index
+differs between versions even though the art payload is identical. The demo
+art remains outside Git.

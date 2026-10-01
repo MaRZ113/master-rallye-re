@@ -12,9 +12,13 @@ R5V-A mapped the final EXE registry and two PC demos. R5V-C later initialized al
 
 R5V-E0.2 adds a manifest-driven Vehicle Select scene overlay generator and a
 staged retail archive candidate for the missing `T3_Car12` icon widget. The
-candidate uses an Astero donor frame for a Vehicle Select-only diagnostic;
-human runtime confirmation is pending, and no registry or executable limits
-were changed. See `research/r5v_e0_2/findings.md`.
+owner reports FULL PASS: ID25 remains selectable, the 12th icon appears in the
+correct slot, Trooper preview remains correct, and the frontend stays stable.
+The exact tested archive hash was not supplied. Authentic Trooper icon frame
+14 was also identified in both demo carsheets, but retail's diagnostic uses
+Astero frame 5. No registry or executable limits changed. See
+`research/r5v_e0_2/findings.md` and
+`research/r5v_e0_2/trooper-icon-search.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
@@ -189,4 +193,4 @@ A hash-locked patcher creates an ignored retail EXE copy that initializes the al
 
 The Trooper profile uses the same ID25 initializer with retail Trooper physics, the R-COOKER1.1 runtime-tested Trooper DX conversion, 24 referenced DXT files and authentic Trooper tag101 collision. The owner reports R5V-E0 P0/P1 FULL PASS: Trooper preview and race resources, physics, collision and damage work; the full stage, results and return to menu work; original vehicles remain available. The reported frontend identity is `STEEL MONKEYS FORKLIFT`, Astero-derived stats, and a missing Vehicle Select icon. E0.1a selector diagnostics were owner-confirmed: top-left participant and Race Results icons display Forklift frame 29; the progress marker remains aquamarine. The tested EXE hash and raw captures were not supplied. See `research/r5v_e/r5v_e0/` and `research/r5v_e/r5v_e0_1/`.
 
-R5V-E0.1b confirms the four Vehicle Select stat bars read their corresponding VehicleRecord fields directly. The owner reports FULL PASS for the isolated ID25 candidate `(3,4,6,10)`, with Trooper configuration retained; the stat values are frontend presentation controls. E0.1c confirms that the progress-marker consumer reads `Race/CarN/Colour` as four components and applies them to generic marker artwork. HUD XML also contains per-widget `ObjectColour` values, but no writer link to the race property was proven; the producer, Car0 runtime values, and player/participant/vehicle semantics remain unknown. Dynamic debugger setup did not capture a consumer hit or property value, so no colour candidate was made. R5V-F remains blocked on this source path. See `research/r5v_e/r5v_e0_1b/` and `research/r5v_e/r5v_e0_1c/`.
+R5V-E0.1b confirms the four Vehicle Select stat bars read their corresponding VehicleRecord fields directly. The owner reports FULL PASS for the isolated ID25 candidate `(3,4,6,10)`, with Trooper configuration retained; the stat values are frontend presentation controls. R5V-E0.1d.2 later closed the marker-colour source: VehicleRecord `+0x24..+0x30` supplies race marker RGBA, and the owner reports an isolated red-ID25 runtime A/B with stock Astero and opponent colours unchanged. See `research/r5v_e/r5v_e0_1b/` and `research/r5v_e0_1d_2/`.

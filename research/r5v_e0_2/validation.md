@@ -16,7 +16,7 @@ that result.
 | Carsheet container | `712D655CD01FE2A6C7B5D3F9FD6B47234FDCC0430F1FCF4A85E383454131547F` | 4,752 bytes |
 | Diagnostic frame 5 | `370007A674232CB2BB6FDAB6FC00C2BEEF5247F7FBFCDBAEAE5D4D3E1F73D65D` | 128x128, 65,556 bytes |
 | Generated scene | `7676532F4BFAD1A196A5AD39FA3941BFE9EBDD9E636A58C5A8FCF9F18CC3F95A` | only `T3_Car12` appended |
-| Candidate `Data.sma` | `BB3C69CB97ADD992BF261F64C6ABAFAABAB946AB5CAE7E496D2D486C31A18020` | structurally validated; runtime pending |
+| Candidate `Data.sma` | `BB3C69CB97ADD992BF261F64C6ABAFAABAB946AB5CAE7E496D2D486C31A18020` | structurally validated; human reports E0.2 FULL PASS, but tested archive hash was not supplied |
 
 The 8,015 files in `Data.sma_unpacked` were compared by path and content
 against the source retail archive; there were zero differences. The packed
@@ -55,8 +55,12 @@ game visibly draws the new widget.
 
 The candidate archive is staged at
 `research-output/r5v_e0_2/runtime-test/Data.sma`. No game executable or source
-archive was changed. **Human P0 testing is still pending**; no runtime
-visibility or navigation result is claimed by this report.
+archive was changed. The owner reports **FULL PASS**: T3 local 11 / ID25 was
+selectable; the 12th icon appeared in the correct slot; Trooper preview
+remained correct; and the frontend stayed stable. This report was supplied by
+the user and was not independently reproduced. The tested executable and
+installed archive hashes, screenshot, and runtime log were not supplied, so
+the observation cannot be tied cryptographically to the candidate SHA above.
 
 The scene overlay can be regenerated from the verified local retail tree with:
 

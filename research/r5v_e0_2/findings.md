@@ -2,13 +2,19 @@
 
 ## Status
 
-**Static analysis and candidate preparation: PASS. Runtime P0: PENDING.** Retail
+**Static analysis and candidate preparation: PASS. Runtime P0: FULL PASS by user report.** Retail
 has 11 T3 icon widgets and no widget for class-local index 11 / vehicle ID25.
 The carsheet does contain frames, so the exact root cause is
 **SCENE_OBJECT_MISSING**. A scene-only `T3_Car12` candidate and a structurally
 validated full `Data.sma` candidate have been staged under ignored
 `research-output/r5v_e0_2/`. The diagnostic icon uses the existing Astero frame
 5; it is not represented as Trooper artwork.
+
+The owner reports that T3 local 11 / ID25 remains selectable, the 12th icon is
+visible and correctly positioned, Trooper preview remains correct, and the
+frontend remains stable. No screenshot, runtime log, or installed archive
+hash was supplied, so this is owner-reported evidence rather than an
+independently reproduced result.
 
 The reusable generator is manifest-driven across T1/T2/T3 classes. It checks
 class-local numbering, an explicit class-to-ID base, row ID, frame, and a list
@@ -37,8 +43,10 @@ were changed.
   proven Trooper icon. Frame 31 depicts a forklift, but no stock T3_Car12
   binding points to it.
 - The two historical demos contain T2_Car8 widgets, supporting a reusable
-  class-slot scene pattern. Neither has T3_Car12 or an identified Trooper
-  Vehicle Select icon. Their assets remain build-specific and were not copied.
+  class-slot scene pattern. Both also contain an authentic Trooper carsheet
+  image at frame 14: demo-8.4.1 binds it to T2_Car1, and demo-9.3.1 binds it
+  to T2_Car3. This is separate from retail's missing T3_Car12 binding. The
+  demo assets remain build-specific and were not copied.
 
 ## Candidate
 
@@ -68,12 +76,13 @@ scene were not modified.
 
 ## Readiness
 
-The scene-level mechanism is prepared, but it has not yet been shown in the
-game. **R5V-F remains BLOCKED pending the human P0 runtime check**: confirm the
-donor icon appears at T3 local 11 / ID25 and stays correctly navigable after
-moving between entries and classes. The candidate tests Vehicle Select only;
-it does not require a race. Authentic Trooper-specific Vehicle Select artwork
-remains unidentified, but that is not a blocker for the structural P0.
+The scene-level mechanism is prepared and the owner reports the Vehicle Select
+P0 as **FULL PASS**. The result clears the E0.2 gate for R5V-F. The exact
+installed archive hash was not reported, so the human observation cannot be
+cryptographically tied to the staged candidate listed above. The candidate
+tests Vehicle Select only; it does not require a race. Authentic Trooper art
+is now identified in both demo carsheets, but is not required for the E0.2
+structural result.
 
 See [scene inventory](vehicle-select-scene.md), [carsheet inventory](carsheet-inventory.md),
 [Trooper asset search](trooper-icon-search.md), [generic design](t3-car12-design.md),

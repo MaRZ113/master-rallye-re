@@ -230,17 +230,15 @@ Vehicle Select bars while Trooper configuration remained active. These values
 are frontend presentation controls; physical Trooper behavior was not part of
 that test. See `research/r5v_e/r5v_e0_1b/`.
 
-### R5V-E0.1c race progress-marker tint
+### R5V-E0.1d.2 race progress-marker tint
 
-`FUN_004A74A0` reads `Race/CarN/Colour` as four components and applies them to
-the generic progress-marker render object. `FUN_004A72A0` loads per-widget
-`ObjectColour` from HUD configuration, and Hud0/Hud1 contain a static palette,
-but no evidence links that config field to the race-property writer. Dynamic
-debugger setup did not capture a consumer hit, numeric Car0/Car1+ values, the
-property storage, or the writer. No tint candidate was created. The semantic
-source and the relationship of Car0 to Player1, participant order, or vehicle
-identity remain **UNKNOWN**; R5V-F remains **BLOCKED** on this edge. See
-`research/r5v_e/r5v_e0_1c/`.
+The VehicleRecord tail is runtime-confirmed as race marker colour:
+`+0x24=R`, `+0x28=G`, `+0x2C=B`, and `+0x30=A`. Static tracing follows the
+record selected by `Race/CarN/CarID` into `Race/CarN/Colour`, which the generic
+progress-marker renderer consumes. The owner reports the isolated red-ID25
+A/B changed only Trooper's marker; stock Astero and opponent colours remained
+unchanged. This result supersedes the earlier E0.1c unknown-source report. See
+`research/r5v_e0_1d_2/findings.md`.
 
 ## R5V-E0 Trooper ID25 candidate
 
