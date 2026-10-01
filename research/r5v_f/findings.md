@@ -8,9 +8,29 @@ retains the confirmed Trooper ID25 profile, and maps `T1 local7 ↔ ID26` withou
 moving T2 or T3. The new record uses Landcruiser ID0 values and the original
 full initializer, including its owned-name construction path.
 
-**Static readiness: PASS. Human P0: WAITING. P1: WAITING FOR P0.** The
-candidate has not been launched in the game. No runtime playability claim is
-made here.
+**Core expansion: owner-reported runtime PASS. Cleanup: pending. Independent
+record proof: pending.** The original candidate completed an offline stage,
+but runtime testing found two defects: T2 exposed an unintended eighth slot,
+and Quick Race displayed `GALOCAL UNKNOWN` for ID26. These defects do not
+invalidate the physical slot or observed race path, but the proof candidate is
+not clean and the duplicated ID0 payload does not demonstrate independent
+record reads.
+
+## Owner-reported core runtime result
+
+The owner confirmed that the eighth T1 entry is physical ID26, its preview
+loads, Quick Race starts, the vehicle drives normally, a full offline stage
+completes, Race Complete is reached, and returning to the frontend works.
+Record this as:
+
+```text
+R5V-F CORE REGISTRY EXPANSION = PASS
+ID26 OFFLINE RACE PATH = RUNTIME-CONFIRMED
+T1 local7 -> ID26 = RUNTIME-CONFIRMED
+```
+
+This report is user-provided and is not tied to a supplied candidate hash or
+capture. It does not close the two cleanup defects below.
 
 ## Closed expansion gates
 
@@ -57,7 +77,7 @@ demo-8.4.1 to demo-9.3.1, capacity rose 26→27 and the secondary array grew
 the demo byte layouts are architectural evidence, not patch templates. Details
 are in [demo-capacity-diff.md](demo-capacity-diff.md).
 
-## Candidate and gates
+## Original candidate and cleanup gates
 
 The ignored candidate is under `research-output/r5v_f/runtime-test/`. It contains
 the hash-locked executable copy, a Data.sma with both existing T3_Car12 and new
@@ -65,8 +85,11 @@ T1_Car8 bindings, patch manifest, categorized binary diff, validation JSON and
 P0 instructions. The archive was built from the previously staged E0.2 archive
 (`BB3C…18020`); exactly one member, VehicleSelect.xml, differs from that base.
 
-The P0 checklist is frontend-only. Do not enter a race until the owner reports
-P0 FULL PASS. Save persistence and network support remain unproven; use a
+The original runtime package has now been exercised by the owner, who reported
+the full-stage result above. That test also exposed the false T2 local7/Bowler
+entry and the Quick Race localization failure. R5V-F.1 creates a new cleanup
+candidate and requires a fresh frontend-only P0 followed by the independent
+record P1 canary. Save persistence and network support remain unproven; use a
 disposable profile and stay offline. The event/AI vehicle pool remains stock
 IDs 0–24.
 
@@ -85,4 +108,5 @@ findings and Trooper icon inventory.
 Registry counts, raw operands, and control flow are static retail Ghidra
 evidence cross-checked against instruction bytes and a Capstone decode of the
 candidate code cave. The candidate's SHA hashes and archive member diff are
-automated local checks. The P0/P1 runtime status is still pending human testing.
+automated local checks. Core slot/race observations are owner-reported runtime
+evidence; the cleanup P0 and independent-record P1 remain pending.

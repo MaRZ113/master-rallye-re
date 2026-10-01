@@ -255,7 +255,12 @@ are included in the hash-locked candidate. T1 local7 maps to ID26 and reverse;
 T2 and T3 IDs remain unchanged, with capacities 7 and 12. ID26 uses a
 Landcruiser ID0 value duplicate and the original full owned-string initializer.
 
-The ignored candidate is **READY FOR HUMAN P0** only. The frontend archive
-preserves the existing T3_Car12 binding and adds T1_Car8; the candidate has not
-been launched. P1 Quick Race is gated on human P0 FULL PASS. Campaign persistence
-and network support remain unproven. See `research/r5v_f/`.
+The owner reports runtime confirmation that ID26 is selectable at T1 local7,
+previews, starts Quick Race, drives normally, completes a full stage, reaches
+Race Complete, and returns to the frontend. This confirms the core physical
+expansion and offline race path, but not that ID26 is independent from donor
+ID0: both records still use the same values. The proof candidate exposed an
+extra T2 local7 that maps to the canonical T3 Bowler, and Quick Race displayed
+`GALOCAL UNKNOWN` for ID26. R5V-F.1 addresses these as cleanup defects before
+testing a red ID26-only race-colour canary. Campaign persistence and network
+support remain unproven. See `research/r5v_f/` and `research/r5v_f_1/`.
