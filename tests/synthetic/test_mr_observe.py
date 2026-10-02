@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import contextlib
 import io
+import itertools
 import json
 import sys
 import tempfile
 import unittest
 from datetime import datetime
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools/runtime"))
 import broker_observatory as core
@@ -156,11 +157,14 @@ class FreshDumpTests(unittest.TestCase):
             self.assertEqual(observe.ensure_tool(process, "broker-editor"), target)
             send.assert_not_called()
 
-    def test_dump_timeout_has_no_retry_or_output(self):
+    def test_zero_post_dispatch_wait_has_no_retry(self):
         process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
+        send = Mock(return_value=observe.commands.DumpDispatchOutcome.COMPLETED_SYNCHRONOUSLY)
         with patch.object(observe.time, "sleep"), self.assertRaises(core.ObservatoryError):
             observe.capture_fresh(process, timeout=0, read_fn=lambda _: (b"old", {}),
-                                  ensure_fn=lambda *_: "broker", dump_fn=lambda _: None)
+                                  ensure_fn=lambda *_: "broker", dump_fn=send)
+        send.assert_called_once_with("broker")
+
     def test_old_dump_cannot_be_captured_as_fresh(self):
         raw = dump([row("Test/X", "1")])
         with self.assertRaises(core.ObservatoryError):
@@ -183,13 +187,158 @@ class FreshDumpTests(unittest.TestCase):
         old = b"synthetic baseline\n"
         new = old + dump([row("Test/X", "1")])
         reads = iter([(old, {}), (new, {})])
-        sent = []
+        sent = Mock(return_value=observe.commands.DumpDispatchOutcome.COMPLETED_SYNCHRONOUSLY)
         process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
         raw, source = observe.capture_fresh(process, read_fn=lambda _: next(reads),
-                                           ensure_fn=lambda *_: "broker", dump_fn=sent.append)
-        self.assertEqual(sent, ["broker"])
+                                           ensure_fn=lambda *_: "broker", dump_fn=sent)
+        sent.assert_called_once_with("broker")
         self.assertEqual(raw, new)
         self.assertEqual(source["baseline_byte_length"], len(old))
+        self.assertEqual(source["dump_dispatch"], "completed_synchronously")
+        with tempfile.TemporaryDirectory() as folder:
+            path = observe.store_capture(Path(folder), raw, source, "synchronous")
+            self.assertEqual(core.load_snapshot(path)["source"]["dump_dispatch"], "completed_synchronously")
+            self.assertEqual(observe.capture_history(Path(folder)), [path])
+
+    def test_timeout_then_late_fresh_complete_dump_succeeds_once(self):
+        old = b"synthetic baseline\n"
+        new = old + dump([row("Test/X", "1")])
+        reads = Mock(side_effect=[(old, {}), (old, {}), (new, {})])
+        send = Mock(return_value=observe.commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN)
+        process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
+        with patch.object(observe.time, "sleep"), \
+             patch.object(observe.time, "monotonic", side_effect=itertools.count(step=0.25)), \
+             contextlib.redirect_stdout(io.StringIO()) as out:
+            raw, source = observe.capture_fresh(process, timeout=1, read_fn=reads,
+                                               ensure_fn=lambda *_: "broker", dump_fn=send)
+        send.assert_called_once_with("broker")
+        self.assertEqual(reads.call_count, 3)
+        self.assertEqual(raw, new)
+        self.assertIn("No retry will be sent", out.getvalue())
+        self.assertEqual(source["dump_dispatch"], "send_timeout_then_fresh_dump_observed")
+
+    def test_timeout_then_incomplete_then_complete_publishes_provenance(self):
+        old = dump([row("Test/X", "1")])
+        new_dump = dump([row("Test/X", "2")])
+        new = old + new_dump
+        reads = Mock(side_effect=[(old, {}), (old + new_dump[:-10], {}), (new, {})])
+        send = Mock(return_value=observe.commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN)
+        process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
+        with tempfile.TemporaryDirectory() as folder, patch.object(observe.time, "sleep"), \
+             patch.object(observe.time, "monotonic", side_effect=itertools.count(step=0.25)), \
+             contextlib.redirect_stdout(io.StringIO()):
+            raw, source = observe.capture_fresh(process, timeout=1, read_fn=reads,
+                                               ensure_fn=lambda *_: "broker", dump_fn=send)
+            path = observe.store_capture(Path(folder), raw, source, "timeout-recovery")
+            snapshot = core.load_snapshot(path)
+            self.assertEqual(path.with_suffix(".dump.bin").read_bytes(), new)
+            self.assertEqual(snapshot["source"]["dump_dispatch"], "send_timeout_then_fresh_dump_observed")
+            self.assertEqual(snapshot["source"]["dump_dispatch_win32_error"], 1460)
+            self.assertEqual(snapshot["source"]["freshness"], "post_baseline_complete_dump_proven")
+            self.assertEqual(snapshot["source"]["selected_block_offset"], len(old))
+            self.assertEqual(observe.capture_history(Path(folder)), [path])
+        send.assert_called_once_with("broker")
+        self.assertEqual(reads.call_count, 3)
+
+    def test_timeout_without_fresh_complete_dump_publishes_nothing(self):
+        process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
+        old = dump([row("Test/X", "1")])
+        reads = Mock(side_effect=[(old, {})] + [(old + b"incomplete log\n", {})] * 3)
+        send = Mock(return_value=observe.commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN)
+        coordinator = observe.capture_fresh
+        args = observe.build_parser().parse_args(["capture", "must-not-publish"])
+        with tempfile.TemporaryDirectory() as folder, patch.object(observe.time, "sleep"), \
+             patch.object(observe.time, "monotonic", side_effect=itertools.count(step=0.25)), \
+             patch.object(observe, "discover_processes", return_value=([process], [])), \
+             patch.object(observe, "capture_fresh", side_effect=lambda *a, **k: coordinator(
+                 process, timeout=1, read_fn=reads, ensure_fn=lambda *_: "broker", dump_fn=send)), \
+             contextlib.redirect_stdout(io.StringIO()), self.assertRaisesRegex(core.ObservatoryError, "timed out"):
+            try:
+                observe.execute(args, Path(folder), {})
+            finally:
+                self.assertEqual(list(Path(folder).iterdir()), [])
+        send.assert_called_once_with("broker")
+        self.assertEqual(reads.call_count, 4)
+
+    def test_non_timeout_dispatch_error_aborts_before_polling_or_publication(self):
+        process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
+        reads = Mock(return_value=(b"baseline", {}))
+        send = Mock(side_effect=PermissionError("Access denied"))
+        coordinator = observe.capture_fresh
+        args = observe.build_parser().parse_args(["capture", "error"])
+        with tempfile.TemporaryDirectory() as folder, \
+             patch.object(observe, "discover_processes", return_value=([process], [])), \
+             patch.object(observe, "capture_fresh", side_effect=lambda *a, **k: coordinator(
+                 process, read_fn=reads, ensure_fn=lambda *_: "broker", dump_fn=send)), \
+             self.assertRaises(PermissionError):
+            try:
+                observe.execute(args, Path(folder), {})
+            finally:
+                self.assertEqual(list(Path(folder).iterdir()), [])
+        send.assert_called_once_with("broker")
+        reads.assert_called_once_with(process.pid)  # Baseline only.
+
+    def test_manual_dump_has_no_automatic_dispatch(self):
+        process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
+        old = b"baseline\n"
+        new = old + dump([row("Test/X", "1")])
+        reads = Mock(side_effect=[(old, {}), (new, {})])
+        send = Mock()
+        raw, source = observe.capture_fresh(process, manual=True, input_fn=lambda _: "",
+                                           read_fn=reads, ensure_fn=lambda *_: "broker", dump_fn=send)
+        send.assert_not_called()
+        self.assertEqual(source["dump_dispatch"], "manual_original_menu")
+        self.assertEqual(raw, new)
+
+
+class PassiveRecoveryTests(unittest.TestCase):
+    def test_recover_publishes_latest_complete_dump_and_full_buffer_without_commands(self):
+        process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
+        first = dump([row("Test/X", "1")])
+        second = dump([row("Test/X", "2")])
+        raw = b"earlier logs\n" + first + second + second[:-10]
+        reader = Mock(return_value=(raw, {}))
+        recovery = observe.capture_recovery
+        args = observe.build_parser().parse_args(["recover", "salvaged-session"])
+        with tempfile.TemporaryDirectory() as folder, \
+             patch.object(observe, "discover_processes", return_value=([process], [])), \
+             patch.object(observe, "capture_recovery", side_effect=lambda p: recovery(p, read_fn=reader)), \
+             patch.object(observe, "capture_fresh") as fresh, \
+             patch.object(observe, "ensure_tool") as ensure, \
+             patch.object(observe.commands, "send_tool_command") as opener, \
+             patch.object(observe.commands, "send_broker_dump") as send, \
+             contextlib.redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(observe.execute(args, Path(folder), {}), 0)
+            history = observe.capture_history(Path(folder))
+            self.assertEqual(len(history), 1)
+            snapshot = core.load_snapshot(history[0])
+            self.assertEqual(history[0].with_suffix(".dump.bin").read_bytes(), raw)
+            self.assertEqual(snapshot["source"]["selected_block_offset"], len(b"earlier logs\n") + len(first))
+            self.assertEqual(snapshot["entries"][0]["value_raw"], "2")
+            self.assertEqual(snapshot["source"]["freshness"], "not_command_proven")
+            self.assertEqual(snapshot["source"]["dump_dispatch"], "not_sent")
+            self.assertEqual(snapshot["source"]["label"], "salvaged-session")
+        self.assertIn("NOT command-proven", out.getvalue())
+        reader.assert_called_once_with(process.pid)
+        for operation in (fresh, ensure, opener, send):
+            operation.assert_not_called()
+
+    def test_recovery_without_complete_dump_publishes_nothing(self):
+        process = observe.ProcessCandidate(3, Path("MRallye.exe"), core.RETAIL_SHA256)
+        reader = Mock(return_value=(dump([row("Test/X", "1")])[:-10], {}))
+        recovery = observe.capture_recovery
+        args = observe.build_parser().parse_args(["recover"])
+        self.assertEqual(args.label, "recovered")
+        with tempfile.TemporaryDirectory() as folder, \
+             patch.object(observe, "discover_processes", return_value=([process], [])), \
+             patch.object(observe, "capture_recovery", side_effect=lambda p: recovery(p, read_fn=reader)), \
+             patch.object(observe.commands, "send_broker_dump") as send, \
+             contextlib.redirect_stdout(io.StringIO()), self.assertRaises(core.ObservatoryError):
+            try:
+                observe.execute(args, Path(folder), {})
+            finally:
+                self.assertEqual(list(Path(folder).iterdir()), [])
+        send.assert_not_called()
 
 
 class OfflineAnalysisTests(unittest.TestCase):

@@ -26,6 +26,7 @@ import dev_command_trigger as commands
 REPO = Path(__file__).resolve().parents[2]
 DEFAULT_CAPTURE_ROOT = REPO / "research-output/general-re/broker-observatory/captures"
 DEFAULT_CONFIG = REPO / "research-output/general-re/runtime-config.json"
+FRESH_DUMP_WAIT_SECONDS = 120.0
 PRESETS = {
     "race": re.compile(r"^(?:Race/|Car\d+$|Vehicles/Car\d+(?:/|$)|Drivers/|Controller/Car\d+(?:/|$)|Physics/Car\d+(?:/|$))"),
     "frontend": re.compile(r"^(?:Frontend/|UI/)"),
@@ -269,16 +270,21 @@ def ensure_tool(process: ProcessCandidate, tool: str, timeout: float = 5.0) -> c
 
 
 def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
-                  input_fn: Callable[[str], str] = input, timeout: float = 15.0,
+                  input_fn: Callable[[str], str] = input, timeout: float = FRESH_DUMP_WAIT_SECONDS,
                   read_fn: Callable = core.capture_debug_buffer,
                   ensure_fn: Callable = ensure_tool,
                   dump_fn: Callable = commands.send_broker_dump) -> tuple[bytes, dict[str, Any]]:
     broker = ensure_fn(process, "broker-editor")
     baseline, _ = read_fn(process.pid)
+    dispatch = None
     if manual:
         input_fn("Press Broker Editor -> Debug -> Dump, then press Enter here: ")
     else:
-        dump_fn(broker)
+        dispatch = dump_fn(broker)
+        if dispatch == commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN:
+            print("Dump command is still processing; waiting for a fresh complete block. No retry will be sent.")
+        elif dispatch != commands.DumpDispatchOutcome.COMPLETED_SYNCHRONOUSLY:
+            raise core.ObservatoryError("Unrecognized Dump dispatch outcome; no retry was sent.")
     deadline = time.monotonic() + timeout
     problem = "no new complete block"
     while time.monotonic() < deadline:
@@ -286,7 +292,14 @@ def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
             raw, source = read_fn(process.pid)
             fresh_dump_snapshot(baseline, raw, source)
             source.update({"dump_request": "manual-original-menu" if manual else "broker-window-WM_COMMAND-2",
-                           "baseline_byte_length": len(baseline), "baseline_sha256": core.sha256_bytes(baseline)})
+                           "baseline_byte_length": len(baseline), "baseline_sha256": core.sha256_bytes(baseline),
+                           "freshness": "post_baseline_complete_dump_proven",
+                           "dump_dispatch": "manual_original_menu" if manual else (
+                               "send_timeout_then_fresh_dump_observed"
+                               if dispatch == commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN
+                               else "completed_synchronously"),
+                           "dump_dispatch_win32_error": commands.ERROR_TIMEOUT if (
+                               dispatch == commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN) else None if manual else 0})
             return raw, source
         except core.ObservatoryError as exc:
             problem = str(exc)
@@ -294,11 +307,25 @@ def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
     raise core.ObservatoryError(f"Fresh Dump capture timed out: {problem}; no automatic retry command was sent.")
 
 
+def capture_recovery(process: ProcessCandidate, *,
+                     read_fn: Callable = core.capture_debug_buffer) -> tuple[bytes, dict[str, Any]]:
+    """Read only: latest complete block plus full buffer; no opener or Dump."""
+    raw, source = read_fn(process.pid)
+    core.parse_dump_bytes(raw, source)  # Reject buffers without a complete Dump.
+    source.update({"dump_request": "none-passive-recovery", "dump_dispatch": "not_sent",
+                   "freshness": "not_command_proven"})
+    return raw, source
+
+
 def show_capture(path: Path) -> None:
     snapshot = core.load_snapshot(path)
     print(f"Captured: {snapshot['source'].get('label', 'snapshot')} ({snapshot['created_at_utc']})")
     print(f"Entries: {snapshot['dump']['reported_scope_counts']}")
     print(f"Raw: {snapshot['source']['raw_byte_length'] / 1048576:.2f} MiB")
+    if snapshot["source"].get("freshness") == "not_command_proven":
+        print("Freshness: NOT command-proven (passive recovery; may be an older Dump).")
+    elif "dump_dispatch" in snapshot["source"]:
+        print(f"Dump dispatch: {snapshot['source']['dump_dispatch']}")
     print(f"JSON: {path}\nRaw:  {path.with_suffix('.dump.bin')}")
 
 
@@ -396,6 +423,8 @@ def build_parser() -> argparse.ArgumentParser:
     capture = sub.add_parser("capture")
     capture.add_argument("label", nargs="?", default="snapshot")
     capture.add_argument("--manual-dump", action="store_true")
+    recovery = sub.add_parser("recover", help="passively salvage the latest complete Dump; sends no game command")
+    recovery.add_argument("label", nargs="?", default="recovered")
     show = sub.add_parser("show")
     show.add_argument("snapshot", nargs="?", type=Path)
     selection = show.add_mutually_exclusive_group()
@@ -480,7 +509,11 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
     if command in commands.TOOL_COMMANDS:
         ensure_tool(process, command)
         return 0
-    raw, source = capture_fresh(process, manual=args.manual_dump, input_fn=input_fn or input)
+    if command == "recover":
+        print("Passive recovery: no game command will be sent; freshness is NOT command-proven.")
+        raw, source = capture_recovery(process)
+    else:
+        raw, source = capture_fresh(process, manual=args.manual_dump, input_fn=input_fn or input)
     path = store_capture(root, raw, source, args.label)
     show_capture(path)
     return 0

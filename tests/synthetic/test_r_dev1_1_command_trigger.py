@@ -104,18 +104,52 @@ class DeveloperCommandTriggerTests(unittest.TestCase):
         fake.SendMessageTimeoutW.return_value = 1
         with patch.object(trigger, "find_tool_windows", return_value=[self.target]), \
              patch("ctypes.WinDLL", return_value=fake, create=True), \
-             patch.object(trigger, "_configure_user32"):
-            trigger.send_broker_dump(self.target)
+             patch.object(trigger, "_configure_user32"), \
+             patch("ctypes.set_last_error", create=True) as clear_error:
+            outcome = trigger.send_broker_dump(self.target)
+        self.assertEqual(outcome, trigger.DumpDispatchOutcome.COMPLETED_SYNCHRONOUSLY)
+        clear_error.assert_called_once_with(0)
         self.assertEqual(fake.SendMessageTimeoutW.call_args.args[:4],
                          (self.target.hwnd, trigger.WM_COMMAND, 2, 0))
+        self.assertEqual(fake.SendMessageTimeoutW.call_args.args[5], 10000)
         self.assertEqual(fake.SendMessageTimeoutW.call_count, 1)
 
-    def test_dump_timeout_is_not_retried(self):
+    def test_dump_timeout_returns_uncertainty_without_retry(self):
         fake = Mock()
         fake.SendMessageTimeoutW.return_value = 0
         with patch.object(trigger, "find_tool_windows", return_value=[self.target]), \
              patch("ctypes.WinDLL", return_value=fake, create=True), \
-             patch.object(trigger, "_configure_user32"), self.assertRaises(RuntimeError):
+             patch.object(trigger, "_configure_user32"), \
+             patch("ctypes.set_last_error", create=True), \
+             patch("ctypes.get_last_error", return_value=trigger.ERROR_TIMEOUT, create=True):
+            outcome = trigger.send_broker_dump(self.target)
+        self.assertEqual(outcome, trigger.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN)
+        self.assertEqual(fake.SendMessageTimeoutW.call_count, 1)
+
+    def test_dump_non_timeout_error_is_not_relabelled_timeout(self):
+        fake = Mock()
+        fake.SendMessageTimeoutW.return_value = 0
+        with patch.object(trigger, "find_tool_windows", return_value=[self.target]), \
+             patch("ctypes.WinDLL", return_value=fake, create=True), \
+             patch.object(trigger, "_configure_user32"), \
+             patch("ctypes.set_last_error", create=True) as clear_error, \
+             patch("ctypes.get_last_error", return_value=5, create=True), \
+             patch("ctypes.WinError", return_value=PermissionError("Access denied"), create=True) as error, \
+             self.assertRaises(PermissionError):
+            trigger.send_broker_dump(self.target)
+        clear_error.assert_called_once_with(0)
+        error.assert_called_once_with(5)
+        self.assertEqual(fake.SendMessageTimeoutW.call_count, 1)
+
+    def test_dump_zero_without_last_error_is_generic_failure(self):
+        fake = Mock()
+        fake.SendMessageTimeoutW.return_value = 0
+        with patch.object(trigger, "find_tool_windows", return_value=[self.target]), \
+             patch("ctypes.WinDLL", return_value=fake, create=True), \
+             patch.object(trigger, "_configure_user32"), \
+             patch("ctypes.set_last_error", create=True), \
+             patch("ctypes.get_last_error", return_value=0, create=True), \
+             self.assertRaisesRegex(RuntimeError, "without Win32 error information"):
             trigger.send_broker_dump(self.target)
         self.assertEqual(fake.SendMessageTimeoutW.call_count, 1)
 

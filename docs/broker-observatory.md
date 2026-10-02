@@ -53,9 +53,21 @@ SaveFile — это известное изменение метаданных. 
 допустим, если подтверждено новое смещение. При realloc адрес может измениться;
 используется содержимое/offset, а не закреплённый указатель.
 
-При сбросе/уплотнении буфера, неполном Dump, изменении HWND или timeout запрос
-не повторяется автоматически. Ошибка timeout не означает, что игра не обработает
-уже отправленный запрос. Можно заново выполнить capture после стабилизации.
+Dump отправляется **ровно один раз** через прежний `SendMessageTimeoutW` с
+10-секундным dispatch timeout. После Win32 `ERROR_TIMEOUT` capture продолжает
+пассивно ждать новый полный блок до **120 секунд после dispatch**; timeout
+означает неопределённое завершение, а не доказательство, что игра прекратила Dump.
+В консоли появится предупреждение об ожидании без retry. Другие Win32 dispatch
+errors, включая generic failure без error code, прекращают capture сразу.
+
+При сбросе/уплотнении буфера, неполном Dump или исчерпании post-dispatch ожидания
+capture не публикует пару. Запрос не повторяется автоматически. Не запускайте
+повторный capture, пока текущий ждёт; после ошибки можно пассивно спасти уже
+завершившийся Dump через `recover` ниже.
+
+В JSON `source.dump_dispatch` записывается `completed_synchronously` либо
+`send_timeout_then_fresh_dump_observed`; freshness proof остаётся прежним:
+baseline prefix и начало выбранного complete блока после baseline.
 Ручной fallback:
 
 ```powershell
@@ -63,6 +75,24 @@ python tools/runtime/mr_observe.py capture frontend --manual-dump
 ```
 
 После baseline нажмите в Broker `Debug → Dump`, затем Enter в консоли.
+
+## Пассивное восстановление после failed capture
+
+Если Dump выполнился, но capture ранее завершился ошибкой:
+
+```powershell
+python tools/runtime/mr_observe.py recover salvaged-session
+```
+
+`recover` **не отправляет ни одной игровой команды и не открывает редактор**.
+Он читает текущий Debug buffer, сохраняет последний полный Dump и полный raw
+sidecar через тот же защищённый paired writer. Неполный последний Dump не мешает
+спасти предшествующий полный блок; без полного блока ничего не публикуется.
+
+Freshness явно помечается `source.freshness=not_command_proven`, dispatch —
+`not_sent`. Это salvage, а не обычный fresh capture: сохранённый блок может быть
+старым. При просмотре такой пары выводится `NOT command-proven`. Ранее сохранённые
+файлы не перезаписываются; recovered pairs доступны через latest/diff как обычно.
 
 ## Файлы и история
 

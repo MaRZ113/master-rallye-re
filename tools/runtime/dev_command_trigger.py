@@ -1,8 +1,9 @@
 """Narrow, confirmation-gated opener for two retail developer tools.
 
-This helper sends one allowlisted WM_COMMAND to a verified Master Rallye retail
-main window. It does not accept arbitrary command IDs, write process memory,
-inject code, or perform any tool action after opening.
+The CLI sends one allowlisted opener WM_COMMAND to a verified retail main
+window. The reusable Broker Dump helper sends only the original local command
+2 to a separately verified Broker window. No arbitrary IDs, memory writes,
+injection, editing or persistence commands are exposed.
 """
 
 from __future__ import annotations
@@ -12,6 +13,7 @@ import hashlib
 import os
 import sys
 from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
 from typing import Callable, Sequence
 
@@ -33,6 +35,7 @@ CONFIRM_PHRASES = {
 CONFIRM_PHRASE = CONFIRM_PHRASES["flow-builder"]
 WM_COMMAND = 0x0111
 SMTO_ABORTIFHUNG = 0x0002
+ERROR_TIMEOUT = 1460
 PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 MF_BYPOSITION = 0x0400
 
@@ -44,6 +47,11 @@ class TargetWindow:
     image_path: Path
     sha256: str
     title: str
+
+
+class DumpDispatchOutcome(str, Enum):
+    COMPLETED_SYNCHRONOUSLY = "completed_synchronously"
+    TIMEOUT_COMPLETION_UNCERTAIN = "send_timeout_completion_uncertain"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -316,11 +324,13 @@ def _has_broker_menu(user32: object, hwnd: int) -> bool:
                 and user32.GetMenuItemID(debug, 0) == 2)
 
 
-def send_broker_dump(target: TargetWindow) -> None:
+def send_broker_dump(target: TargetWindow) -> DumpDispatchOutcome:
     """Only Broker Editor local WM_COMMAND 2: original observational Dump.
 
     The recipient is freshly rediscovered by PID, exact title and menu layout.
-    The main-window command ID 2 is never used.
+    The main-window command ID 2 is never used. ERROR_TIMEOUT is not proof of
+    failure: the window procedure may still append the original Dump. Return
+    that uncertainty to the capture coordinator without retrying the message.
     """
     matches = find_tool_windows(target.pid, "broker-editor")
     if len(matches) != 1 or matches[0].hwnd != target.hwnd:
@@ -329,9 +339,18 @@ def send_broker_dump(target: TargetWindow) -> None:
     user32 = ctypes.WinDLL("user32", use_last_error=True)
     _configure_user32(user32, ctypes)
     result = ctypes.c_size_t()
+    # SendMessageTimeout does not always set LastError on failure. Clear the
+    # ctypes thread-local error copy before the use_last_error=True API call.
+    ctypes.set_last_error(0)
     if not user32.SendMessageTimeoutW(target.hwnd, WM_COMMAND, 2, 0,
                                      SMTO_ABORTIFHUNG, 10000, ctypes.byref(result)):
-        raise RuntimeError("Broker Dump command timed out; it may still run. No retry was sent.")
+        error = ctypes.get_last_error()
+        if error == ERROR_TIMEOUT:
+            return DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN
+        if error:
+            raise ctypes.WinError(error)
+        raise RuntimeError("Broker Dump dispatch failed without Win32 error information; no retry was sent.")
+    return DumpDispatchOutcome.COMPLETED_SYNCHRONOUSLY
 
 
 def main(

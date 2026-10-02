@@ -1,5 +1,11 @@
 # Broker Observatory — findings
 
+> **2026-10-03 automatic-capture hotfix:** the owner found that a synchronous
+> Dump timeout aborted capture before polling. The sender now distinguishes
+> ERROR_TIMEOUT from real errors; the coordinator waits for fresh output without
+> resending. Passive `recover` can salvage an existing complete Dump. See
+> [hotfix evidence](automatic-capture-hotfix.md). Human retest is pending.
+
 > **R-BROKER1 update:** the owner has runtime-confirmed the original passive
 > reader, including realloc, multiple Dumps and XmlData continuations. The new
 > frontend can issue original Broker-local Dump and requires fresh-block proof;
