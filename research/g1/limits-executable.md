@@ -91,5 +91,7 @@ varying Y, so that simplification must not be generalized.
   is asserted.
 - Inner/outer classification shape is executable-bounded as above; exact
   downstream response and reset policy remain `UNKNOWN`.
-- No Limit XML runtime probe has been run yet. See
+- The LeftInnerLimit 98–100 runtime edit produced no clear visible effect and is
+  `INCONCLUSIVE_RUNTIME_PROBE`, not negative evidence. A separate
+  LeftOuterLimit 58–60 candidate awaits runtime testing; see
   [`runtime-handoff.md`](runtime-handoff.md).

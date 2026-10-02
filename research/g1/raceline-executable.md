@@ -94,5 +94,11 @@ The identified executable path consumes Pos, not Dir.
   no list-reordering pass was observed.
 - Exact racing-line meaning, AI steering, ranking outside the observed progress
   sort, reset outcome, and full wrap/route behavior: `UNKNOWN`.
-- No edited RaceLine runtime probe has been run yet. See
-  [`runtime-handoff.md`](runtime-handoff.md).
+- The controlled France1 Pos edit at markers 265–268 caused a localized visible
+  progress-indicator disturbance at the edited region:
+  `CONFIRMED_BY_RUNTIME_EDIT` for RaceLine Pos influence on race progression.
+  No obvious AI steering change was observed in this probe; global AI use is
+  not ruled out. See [`runtime-results.md`](runtime-results.md).
+- Practical bounded-authoring readiness: `READY_FOR_BOUNDED_AUTHORING` in a
+  later explicit phase. Preserve source order and approximately uniform sample
+  spacing; the corpus median near 20 world units is guidance, not an invariant.

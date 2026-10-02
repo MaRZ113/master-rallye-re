@@ -5,14 +5,18 @@
 Static executable observations below were made against Retail `MRallye.exe`,
 SHA-256 `BF8AEF32407EB6552C05045B8ABEF149F32983CEDD9503B865069B444C5F96B4`.
 The exact file at `corpora/retail/MRallye.exe` was re-hashed before corpus
-analysis. This is not runtime evidence for any G1 route or limit behavior.
+analysis. This section records static evidence; human runtime edit results are
+listed separately in [`runtime-results.md`](runtime-results.md).
 
 ## Current result
 
 - **RaceLine:** `CONFIRMED_BY_EXECUTABLE` as an ordered per-car nearest-marker,
-  progress and rank input. `Marker Pos` is consumed; no `Marker Dir` read was
-  found in the identified RaceLine update/init path. AI steering and broad
-  route meaning remain `UNKNOWN`.
+  progress and rank input. A human-tested local edit to markers 265–268 caused
+  a localized progress-indicator disturbance at the edited region, upgrading
+  `Marker Pos -> runtime race progression` to `CONFIRMED_BY_RUNTIME_EDIT`.
+  No obvious AI steering change was observed in that probe; this does not prove
+  RaceLine is unused by AI globally. No `Marker Dir` read was found in the
+  identified update/init path, so its runtime role remains `UNKNOWN`.
 - **Four limit lists:** `CONFIRMED_BY_EXECUTABLE` as the exact input lists to
   `gaLimitsAI`, which publishes per-car `LimitState` classifications. Their
   literal names are not being promoted to runtime boundary names beyond the
@@ -26,6 +30,10 @@ analysis. This is not runtime evidence for any G1 route or limit behavior.
   helpers. Marker Dir previews/rays are diagnostic only; rays are opt-in.
 - **Authoring:** G0's StartArea/FinishArea/SplitTime allowlist was not expanded.
   All new G1 lists remain read-only.
+
+**G1.1a status:** `READY_FOR_OUTERLIMIT_RUNTIME_TEST`. RaceLine Pos has a
+bounded progression runtime result; LeftInnerLimit remains inconclusive; the
+separate LeftOuterLimit candidate is prepared and verified but not yet run.
 
 ## Retail marker corpus
 
@@ -92,25 +100,29 @@ remain distinct; the name and proximity do not prove shared runtime semantics.
 
 ## Probe readiness
 
-Two fixed, hash-guarded France1 probe candidates were prepared under the
-ignored `research-output/g1/probes` directory:
+The fixed RaceLine and LeftInnerLimit France1 probes were human-tested:
 
-- RaceLine indices 265–268, to compare per-car `LastMarker`, `Progress` and
-  `Rank` while render/physical course geometry remains fixed.
-- LeftInnerLimit indices 98–100, to compare the executable's `LimitState`
-  classification around the translated inner-list segment while the other
-  three limit lists remain fixed.
+- RaceLine indices 265–268: localized progress-bar disturbance observed;
+  `CONFIRMED_BY_RUNTIME_EDIT` for RaceLine position influence on progression.
+- LeftInnerLimit indices 98–100: no clear visible effect; retained as
+  `INCONCLUSIVE_RUNTIME_PROBE`, not a failed or negative test.
 
-Exact hashes, old/new values and observation instructions are in
-[`runtime-handoff.md`](runtime-handoff.md). Neither candidate has been run in a
-game runtime. No route/limit/camera authoring is enabled.
+One stronger, isolated candidate is prepared for LeftOuterLimit markers 58–60.
+It is still awaiting the human runtime test. Exact hashes, values, output paths
+and observation instructions are in [`runtime-handoff.md`](runtime-handoff.md)
+and [`runtime-results.md`](runtime-results.md). No route/limit/camera
+authoring is enabled.
 
 ## Evidence boundaries
 
 - Runtime-confirmed G0/G0.1 behavior is unchanged and remains documented in
   `research/g0` and `docs/course-race-logic-authoring.md`.
-- RaceLine `LastMarker`/`Progress`/`Rank` and limit `LimitState` dataflow are
-  executable findings, not a human test of edited XML.
+- RaceLine position influence on visible local race progress has a human
+  runtime edit result. The exact output of each individual internal field
+  remains based on the executable trace unless explicitly captured.
+- LeftInnerLimit has one inconclusive runtime probe. LeftOuterLimit has not yet
+  been runtime-tested. Limit-state dataflow and reset-manager consumption are
+  executable findings; reset behavior is not confirmed by gameplay.
 - The RaceLine-to-GXM spatial match is not a source/compiler/runtime link.
 - Limit name-based interpretation, AI steering, recovery, camera-list binding,
   and downstream reset behavior remain unresolved.

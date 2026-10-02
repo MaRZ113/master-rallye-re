@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import zipfile
 from pathlib import Path
@@ -10,6 +11,39 @@ from pathlib import Path
 EXCLUDED_PARTS = {"__pycache__", ".git", ".research-output", "dist", "tests", "research"}
 EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".dx", ".dxt", ".png", ".blend", ".gltf", ".bin"}
 FIXED_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
+FRESHNESS_FILES = (
+    "master_rallye_io/ui.py",
+    "master_rallye_io/operators/import_course_xml.py",
+    "master_rallye_io/course_diagnostics.py",
+    "master_rallye_io/operators/export_course_race_logic.py",
+)
+
+
+def _sha256(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest().upper()
+
+
+def verify_package_freshness(output: Path, root: Path) -> list[dict[str, str]]:
+    """Fail if key generated add-on sources do not match their ZIP members."""
+    source_root = root / "blender" / "master_rallye_io"
+    checked = []
+    with zipfile.ZipFile(output, "r") as archive:
+        names = set(archive.namelist())
+        for member in FRESHNESS_FILES:
+            source_path = source_root / Path(member).relative_to("master_rallye_io")
+            archive_path = member
+            if archive_path not in names:
+                raise RuntimeError(f"packaged add-on is missing freshness target {archive_path}")
+            source_bytes = source_path.read_bytes()
+            packaged_bytes = archive.read(archive_path)
+            source_hash = _sha256(source_bytes)
+            package_hash = _sha256(packaged_bytes)
+            if packaged_bytes != source_bytes:
+                raise RuntimeError(
+                    f"stale add-on ZIP member {archive_path}: source {source_hash}, package {package_hash}"
+                )
+            checked.append({"member": archive_path, "sha256": source_hash})
+    return checked
 
 
 def source_files(root: Path):
@@ -54,7 +88,14 @@ def build(output: Path, root: Path) -> dict:
         info = zipfile.ZipInfo("master_rallye_io/build_manifest.json", FIXED_TIMESTAMP)
         info.compress_type = zipfile.ZIP_DEFLATED
         archive.writestr(info, json.dumps(manifest, indent=2) + "\n")
-    return {**manifest, "output": str(output), "zip_entries": len(files) + 2}
+    freshness = verify_package_freshness(output, root)
+    return {
+        **manifest,
+        "output": str(output),
+        "zip_entries": len(files) + 2,
+        "freshness_check": {"status": "PASS", "files": freshness},
+        "zip_sha256": _sha256(output.read_bytes()),
+    }
 
 
 def main() -> int:

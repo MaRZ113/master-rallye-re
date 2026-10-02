@@ -3,6 +3,8 @@ from __future__ import annotations
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 from types import SimpleNamespace
 import xml.etree.ElementTree as ET
@@ -19,7 +21,10 @@ from g1_route_limit_probe import (  # noqa: E402
     _assert_output_path,
     _make_expected,
     _marker_pos_spans,
+    _print_output_locations,
+    resolve_output_paths,
     sha256,
+    DEFAULT_OUTPUT_ROOT,
 )
 
 
@@ -29,7 +34,10 @@ def _marker(name: str, index: int, position, direction=(1.0, 0.0, 0.0)):
 
 def _probe_source() -> bytes:
     lists = []
-    for name, count in (("RaceLine", 269), ("LeftInnerLimit", 101)):
+    for name, count in (
+        ("RaceLine", 269), ("LeftInnerLimit", 101), ("LeftOuterLimit", 61),
+        ("RightInnerLimit", 1), ("RightOuterLimit", 1), ("Cameras", 1),
+    ):
         markers = []
         for index in range(count):
             markers.append(
@@ -118,15 +126,72 @@ class G1ProbeGuardTests(unittest.TestCase):
         with self.assertRaises(ProbeError):
             _marker_pos_spans(duplicate, "RaceLine", 0)
 
-    def test_probe_output_must_be_new_and_inside_research_output_probes(self):
+    def test_probe_output_must_be_new_and_inside_explicit_research_output_root(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             source = root / "France1.xml"
-            output = root / "candidate.xml"
+            output = root / "g1" / "probes" / "France1_outerlimit_58-60.xml"
+            _assert_output_path(output, source, root)
             with self.assertRaises(ProbeError):
-                _assert_output_path(output, source)
+                _assert_output_path(root / "g1" / "candidate.xml", source, root)
             with self.assertRaises(ProbeError):
-                _assert_output_path(source, source)
+                _assert_output_path(source, source, root)
+
+    def test_outerlimit_probe_changes_only_three_predeclared_pos_fields(self):
+        source = _probe_source()
+        output, edits = _make_expected(source, "outerlimit", expected_sha256=sha256(source))
+        self.assertEqual([item["marker_index"] for item in edits], [58, 59, 60])
+        self.assertEqual({tuple(item["byte_range"]) for item in edits}.__len__(), 3)
+        before = parse_course_xml_bytes(source)
+        after = parse_course_xml_bytes(output)
+        lists_before = {item.name: item for item in before.marker_lists}
+        lists_after = {item.name: item for item in after.marker_lists}
+        self.assertEqual(set(lists_before), set(lists_after))
+        for name in set(lists_before) - {"LeftOuterLimit"}:
+            before_markers = lists_before[name].markers
+            after_markers = lists_after[name].markers
+            self.assertEqual(len(before_markers), len(after_markers), name)
+            self.assertEqual(
+                [(item.position, item.direction, item.record.value("Marker Type")) for item in before_markers],
+                [(item.position, item.direction, item.record.value("Marker Type")) for item in after_markers],
+                name,
+            )
+        old_outer = lists_before["LeftOuterLimit"].markers
+        new_outer = lists_after["LeftOuterLimit"].markers
+        self.assertEqual(len(old_outer), len(new_outer))
+        for index, (old, new) in enumerate(zip(old_outer, new_outer)):
+            self.assertEqual(old.direction, new.direction)
+            if index in {58, 59, 60}:
+                self.assertAlmostEqual(new.position[0] - old.position[0], -33.453008, places=5)
+                self.assertEqual(new.position[1], old.position[1])
+                self.assertAlmostEqual(new.position[2] - old.position[2], -21.929346, places=5)
+            else:
+                self.assertEqual(old.position, new.position)
+        self.assertEqual(output.count(b"<"), source.count(b"<"))
+
+    def test_output_root_defaults_and_explicit_override_are_absolute_and_printed(self):
+        default_root, default_candidate, _default_manifest = resolve_output_paths("outerlimit")
+        self.assertEqual(default_root, DEFAULT_OUTPUT_ROOT.resolve())
+        self.assertEqual(default_candidate.parent, (DEFAULT_OUTPUT_ROOT / "g1" / "probes").resolve())
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "custom-output"
+            resolved, candidate, manifest = resolve_output_paths("outerlimit", output_root=root)
+            self.assertEqual(resolved, root.resolve())
+            self.assertEqual(candidate, (root / "g1" / "probes" / "France1_outerlimit_58-60.xml").resolve())
+            self.assertEqual(manifest, candidate.with_suffix(candidate.suffix + ".manifest.json"))
+            output = StringIO()
+            with redirect_stdout(output):
+                _print_output_locations(resolved, candidate, manifest)
+            printed = output.getvalue()
+            self.assertIn(str(resolved), printed)
+            self.assertIn(str(candidate), printed)
+            self.assertIn(str(manifest), printed)
+
+    def test_raceline_and_first_limit_runtime_results_are_not_misclassified(self):
+        results = (ROOT / "research" / "g1" / "runtime-results.md").read_text(encoding="utf-8")
+        self.assertIn("CONFIRMED_BY_RUNTIME_EDIT", results)
+        self.assertIn("NO_OBSERVABLE_AI_STEERING_CHANGE_IN_THIS_PROBE", results)
+        self.assertIn("INCONCLUSIVE_RUNTIME_PROBE", results)
 
 
 if __name__ == "__main__":

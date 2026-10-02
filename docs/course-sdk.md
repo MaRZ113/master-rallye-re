@@ -131,24 +131,36 @@ changed attributes, returns source bytes unchanged on no-op, applies a
 semantic diff guard, and refuses in-place overwrite. ExtraTime, matrix rows
 0–2, Row3 W, and all unallowlisted properties remain unchanged.
 
-RaceLine remains an ordered marker list. Retail executable analysis now
-confirms that `gaRaceLineAI` consumes its `Marker Pos` sequence for nearest
-per-car sample, normalized Progress and Rank updates. The separate SplitTime
-path still runs from split center to nearest RaceLine sample/percentage; no
-RaceLine marker is treated as a split trigger center. RaceLine AI steering and
-reset/recovery semantics remain unresolved. The add-on package is version 4.6.0
-and retains its Blender 4.3 minimum.
+RaceLine remains an ordered marker list. Retail executable analysis confirms
+that `gaRaceLineAI` consumes its `Marker Pos` sequence for nearest per-car
+sample, normalized Progress and Rank updates. A controlled runtime edit to
+France1 samples 265–268 produced a localized visible progress-indicator change
+as the player passed that region (`CONFIRMED_BY_RUNTIME_EDIT`). No obvious AI
+steering change was observed in that probe; AI use is not ruled out globally.
+The separate SplitTime path still runs from split center to nearest RaceLine
+sample/percentage; no RaceLine marker is treated as a split trigger center.
+The source-order corpus median spacing is about 20 world units, with variation;
+this is guidance for a future bounded authoring phase, not a format constant.
+RaceLine remains read-only in the stable writer. The add-on package is version
+4.6.0 and retains its Blender 4.3 minimum.
 
 G1 adds read-only Blender source-order polylines and marker helpers for
 RaceLine and the four exact limit lists. Retail executable analysis confirms
 `gaLimitsAI` loads `LeftInnerLimit`, `RightInnerLimit`, `LeftOuterLimit`, and
 `RightOuterLimit` and publishes per-car `LimitState`; it does not establish all
-downstream reset behavior. `Marker Dir` is preserved and visualized as an
-optional diagnostic ray, not promoted to gameplay semantics. The XML
-`Cameras` list remains read-only; its linkage to camera parameters is unknown.
-See [`research/g1`](../research/g1/findings.md) for executable anchors, corpus
-geometry, and runtime-probe candidates. None of these G1 fields were added to
-the stable G0 XML writer.
+downstream reset behavior. The first LeftInnerLimit edit was inconclusive; an
+isolated LeftOuterLimit probe is prepared but not runtime-tested. `Marker Dir`
+is preserved and visualized as an optional diagnostic ray, not promoted to
+gameplay semantics. The XML `Cameras` list remains read-only; its linkage to
+camera parameters is unknown. See [`research/g1`](../research/g1/findings.md)
+for executable anchors, corpus geometry, and runtime results. None of these G1
+fields were added to the stable G0 XML writer.
+
+Tracked corpus reports and findings live under repository `research/`.
+Hash-guarded human runtime probe XML/manifests default to the untracked runtime
+root `D:\Game\Master Rallye\research-output\g1\probes`; the probe tool prints
+the resolved absolute paths and accepts `--output-root <path>` to select
+another destination.
 
 ## Authoring boundary and open questions
 

@@ -43,6 +43,23 @@ class CourseRaceLogicAuthoringTests(unittest.TestCase):
         self.assertEqual(report.changed_semantic_paths, ())
         self.assertTrue(report.unknown_content_preserved)
 
+    def test_route_limit_and_camera_marker_lists_remain_outside_stable_writer(self):
+        extra = (
+            b'<MarkerLists>'
+            b'<List Name="RaceLine"><Marker><Value Name="Marker Pos" Type="Vector3" Value="1 2 3" /></Marker></List>'
+            b'<List Name="LeftInnerLimit"><Marker><Value Name="Marker Pos" Type="Vector3" Value="4 5 6" /></Marker></List>'
+            b'<List Name="LeftOuterLimit"><Marker><Value Name="Marker Pos" Type="Vector3" Value="7 8 9" /></Marker></List>'
+            b'<List Name="RightInnerLimit"><Marker><Value Name="Marker Pos" Type="Vector3" Value="10 11 12" /></Marker></List>'
+            b'<List Name="RightOuterLimit"><Marker><Value Name="Marker Pos" Type="Vector3" Value="13 14 15" /></Marker></List>'
+            b'<List Name="Cameras"><Marker><Value Name="Marker Pos" Type="Vector3" Value="16 17 18" /></Marker></List>'
+            b'</MarkerLists>'
+        )
+        source = source_fixture(comments=False).replace(b"</Scene>", extra + b"</Scene>")
+        output, report = CourseRaceLogicAuthoring(source, "g1-read-only.xml").export()
+        self.assertEqual(output, source)
+        self.assertEqual(report.changes, ())
+        self.assertEqual(report.changed_semantic_paths, ())
+
     def test_start_and_finish_marker_mutations_change_only_selected_positions(self):
         self.editor.set_start_marker(2, (12.5, 6.0, -3.25))
         self.editor.set_finish_marker(1, (100.0, 2.0, 9.0))
