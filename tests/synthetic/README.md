@@ -31,3 +31,9 @@ Run with:
 ```powershell
 py -3 -m unittest discover -s tests\synthetic -v
 ```
+
+`test_broker_observatory.py` uses only hand-authored Dump text. It covers the
+Broker Debug→Dump parser, raw/continuation preservation, duplicate-aware
+identity, labels and scope classification, SaveFile sentinels, change
+categories, prefix filtering, float tolerance, and JSON/CSV output. It does
+not attach to or modify a game process.

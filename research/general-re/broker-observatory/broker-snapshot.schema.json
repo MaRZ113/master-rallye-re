@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://master-rallye-re.invalid/schema/broker-snapshot-v1.json",
+  "title": "Master Rallye Broker Debug Dump Snapshot",
+  "description": "Parsed view of the retail Debug-to-Dump text, paired with a byte-exact source sidecar for live captures.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kind",
+    "created_at_utc",
+    "source",
+    "dump",
+    "entries",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "kind": { "const": "master-rallye-broker-dump-snapshot" },
+    "created_at_utc": { "type": "string", "format": "date-time" },
+    "source": {
+      "type": "object",
+      "required": ["capture_kind", "raw_sha256", "raw_byte_length", "selected_block_offset", "selected_block_length", "selected_block_sha256"],
+      "properties": {
+        "capture_kind": { "type": "string" },
+        "label": { "type": "string" },
+        "build": { "type": "string" },
+        "image_path": { "type": "string" },
+        "image_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "image_size": { "type": "integer", "minimum": 1 },
+        "process_id": { "type": "integer", "minimum": 1 },
+        "module_base": { "type": "string" },
+        "active_sink_pointer": { "type": "string" },
+        "sink_vtable": { "type": "string" },
+        "debug_window_handle": { "type": "string" },
+        "debug_buffer_base": { "type": "string" },
+        "debug_buffer_capacity_bytes": { "type": "integer", "minimum": 0 },
+        "debug_buffer_used_bytes": { "type": "integer", "minimum": 0 },
+        "capture_consistency": { "type": "string" },
+        "access_rights": { "type": "array", "items": { "type": "string" } },
+        "input_name": { "type": "string" },
+        "raw_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "raw_byte_length": { "type": "integer", "minimum": 0 },
+        "raw_nul_suffix_bytes": { "type": "integer", "minimum": 0 },
+        "raw_sidecar": { "type": "string" },
+        "selected_block_offset": { "type": "integer", "minimum": 0 },
+        "selected_block_length": { "type": "integer", "minimum": 0 },
+        "selected_block_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "selected_block_first_line": { "type": "integer", "minimum": 1 },
+        "selected_block_last_line": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": true
+    },
+    "dump": {
+      "type": "object",
+      "required": ["reported_size", "reported_capacity", "reported_scope_counts", "parsed_entry_count", "reported_filename_count", "filenames"],
+      "properties": {
+        "reported_size": { "type": "integer", "minimum": 0 },
+        "reported_capacity": { "type": "integer", "minimum": 0 },
+        "reported_scope_counts": {
+          "type": "object",
+          "required": ["GLOBAL", "SCENE", "USER", "TOTAL"],
+          "properties": {
+            "GLOBAL": { "type": "integer", "minimum": 0 },
+            "SCENE": { "type": "integer", "minimum": 0 },
+            "USER": { "type": "integer", "minimum": 0 },
+            "TOTAL": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "parsed_entry_count": { "type": "integer", "minimum": 0 },
+        "reported_filename_count": { "type": "integer", "minimum": 0 },
+        "filenames": { "type": "array", "items": { "type": "string" } },
+        "special_labels_observed": { "type": "array", "items": { "type": "string", "enum": ["__NO_SAVE", "__NO_CHANGE", "__IGNORE"] } }
+      },
+      "additionalProperties": false
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ordinal", "occurrence", "revision", "broker_id", "scope_label", "path", "type", "value", "value_raw", "value_raw_remainder", "save_flags", "save_game", "save_options", "save_player_state", "save_file", "raw_first_line", "continuation_lines"],
+        "properties": {
+          "ordinal": { "type": "integer", "minimum": 0 },
+          "occurrence": { "type": "integer", "minimum": 0 },
+          "revision": { "type": "integer" },
+          "broker_id": { "type": "string", "description": "Exact text printed after ID=; not a numeric interned path ID." },
+          "scope_label": { "type": "string" },
+          "path": { "type": "string" },
+          "type": { "type": "string" },
+          "value": { "type": ["boolean", "integer", "number", "string", "array", "null"] },
+          "value_raw": { "type": "string" },
+          "value_raw_remainder": { "type": "string" },
+          "save_flags": {
+            "type": "object",
+            "required": ["S", "O", "PS"],
+            "properties": {
+              "S": { "type": "boolean" },
+              "O": { "type": "boolean" },
+              "PS": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          },
+          "save_game": { "type": "boolean" },
+          "save_options": { "type": "boolean" },
+          "save_player_state": { "type": "boolean" },
+          "save_file": { "type": "string" },
+          "raw_first_line": { "type": "string" },
+          "continuation_lines": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "diagnostics": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": false
+}
