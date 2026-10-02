@@ -115,11 +115,13 @@ Course SDK surface uses neutral names.
 
 The existing add-on consumes `CourseRaceLogic` for RaceTest helper creation.
 It creates source-ordered StartArea and FinishArea marker-point collections,
-the procedural split sign, a separate three-ring wire sphere for each complete
-split, and a `Visual Checkpoint Objects` collection for associated sibling
-Eggs. A translation-only checkpoint group parents the main Egg helper and
-visual companions while preserving their initial world transforms. Center and
-radius use the established course-to-Blender transform and scale. The sphere
+a separate three-ring wire sphere for each complete split, and a
+`Visual Checkpoint Objects` collection for associated sibling Eggs. The main
+SplitTime center stays visually simple; the procedural sign cards and direction
+rays are attached to each sibling visual companion and use that companion's own
+source matrix. A translation-only checkpoint group parents the main Egg helper
+and visual companions while preserving their initial world transforms. Center
+and radius use the established course-to-Blender transform and scale. The sphere
 stores ID, radius, source XML paths, semantic-rule evidence, record-evidence
 metadata, raw ExtraTime, and `ExtraTime` semantic status.
 `CourseRaceLogicAuthoring` provides setters for four-marker StartArea and
@@ -129,10 +131,24 @@ changed attributes, returns source bytes unchanged on no-op, applies a
 semantic diff guard, and refuses in-place overwrite. ExtraTime, matrix rows
 0–2, Row3 W, and all unallowlisted properties remain unchanged.
 
-RaceLine remains an ordered marker list. The executable-supported direction is
-split center to nearest RaceLine sample/percentage; no marker is relabeled as a
-special trigger center. The add-on package is version 4.6.0 and retains its
-Blender 4.3 minimum.
+RaceLine remains an ordered marker list. Retail executable analysis now
+confirms that `gaRaceLineAI` consumes its `Marker Pos` sequence for nearest
+per-car sample, normalized Progress and Rank updates. The separate SplitTime
+path still runs from split center to nearest RaceLine sample/percentage; no
+RaceLine marker is treated as a split trigger center. RaceLine AI steering and
+reset/recovery semantics remain unresolved. The add-on package is version 4.6.0
+and retains its Blender 4.3 minimum.
+
+G1 adds read-only Blender source-order polylines and marker helpers for
+RaceLine and the four exact limit lists. Retail executable analysis confirms
+`gaLimitsAI` loads `LeftInnerLimit`, `RightInnerLimit`, `LeftOuterLimit`, and
+`RightOuterLimit` and publishes per-car `LimitState`; it does not establish all
+downstream reset behavior. `Marker Dir` is preserved and visualized as an
+optional diagnostic ray, not promoted to gameplay semantics. The XML
+`Cameras` list remains read-only; its linkage to camera parameters is unknown.
+See [`research/g1`](../research/g1/findings.md) for executable anchors, corpus
+geometry, and runtime-probe candidates. None of these G1 fields were added to
+the stable G0 XML writer.
 
 ## Authoring boundary and open questions
 
@@ -143,11 +159,13 @@ topology, and raw tag100 metadata. A standalone read-only tag100 parser now
 decodes the loader-confirmed recursive wire shape; a separate probe correlates
 some optional float4/code records with the tested source planes. The higher-level
 `CourseProject` physical API remains unimplemented. G0 does not support course
-geometry writing, physical/collision authoring, arbitrary layouts, full
-RaceLine or AI semantics, or surface authoring.
+geometry writing, physical/collision authoring, arbitrary layouts, RaceLine AI
+steering authoring, limit authoring, camera authoring, or surface authoring.
 
 Still unknown are ExtraTime's exact meaning, StartArea interpolation, the exact
-FinishArea algorithm, broad RaceLine semantics, SFL meaning, most tag100
+FinishArea algorithm, RaceLine steering/route semantics beyond executable
+progress/rank tracking, limit downstream reset behavior, Cameras XML linkage,
+SFL meaning, most tag100
 semantics, `$bsp -> tag100`, and source-node gameplay semantics. For the one
 tested France1 source mesh, face-plane records in the tag100 tree correlate
 with the moved physical state, but F.1 swapped the complete tag100-starting

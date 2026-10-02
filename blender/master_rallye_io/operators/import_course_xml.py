@@ -6,13 +6,26 @@ import json
 from pathlib import Path
 
 import bpy
-from bpy.props import StringProperty
+from bpy.props import BoolProperty, StringProperty
 from bpy_extras.io_utils import ImportHelper
-from mathutils import Matrix
+from mathutils import Matrix, Vector
 
 from ..blender_mesh import create_collection
 from ..course_diagnostics import create_direction_ray, create_marker_billboard
 from ..library import load_course_project, load_course_race_logic_authoring, position_to_blender
+
+
+G1_ROUTE_LISTS = {"RaceLine"}
+G1_LIMIT_LISTS = {"LeftInnerLimit", "LeftOuterLimit", "RightInnerLimit", "RightOuterLimit"}
+G1_CAMERA_LISTS = {"Cameras"}
+G1_MARKER_COLORS = {
+    "RaceLine": (0.95, 0.78, 0.08, 1.0),
+    "LeftInnerLimit": (0.18, 0.75, 0.40, 1.0),
+    "LeftOuterLimit": (0.10, 0.45, 0.27, 1.0),
+    "RightInnerLimit": (0.22, 0.60, 0.95, 1.0),
+    "RightOuterLimit": (0.12, 0.34, 0.72, 1.0),
+    "Cameras": (0.85, 0.25, 0.92, 1.0),
+}
 
 
 def _walk_collections(collection):
@@ -150,6 +163,79 @@ def _create_area_outline(
     _set_evidence_metadata(obj, semantic_rule_evidence, record_evidence)
     obj["mr_semantics_limit"] = "Source-order outline only; no per-car interpolation or sole-subsystem claim"
     return obj
+
+
+def _create_marker_list_polyline(collection, source, course_name, marker_list):
+    """Display literal source marker order without sorting or closing the line."""
+    markers = [item for item in marker_list.markers if item.position is not None]
+    if len(markers) < 2:
+        return None
+    curve = bpy.data.curves.new(f"{marker_list.name} source-order polyline", type="CURVE")
+    curve.dimensions = "3D"
+    curve.resolution_u = 1
+    curve.bevel_depth = 0.055 if marker_list.name == "RaceLine" else 0.035
+    curve.bevel_resolution = 1
+    spline = curve.splines.new("POLY")
+    spline.points.add(len(markers) - 1)
+    for point, marker in zip(spline.points, markers):
+        point.co = (*position_to_blender(marker.position), 1.0)
+    obj = bpy.data.objects.new(f"{marker_list.name} source-order polyline", curve)
+    collection.objects.link(obj)
+    obj.show_in_front = True
+    obj.color = G1_MARKER_COLORS.get(marker_list.name, (0.75, 0.75, 0.75, 1.0))
+    obj["mr_resource_kind"] = "course"
+    obj["mr_read_only"] = True
+    obj["mr_editor_only"] = True
+    obj["mr_course_helper_kind"] = "RaceTest MarkerList source-order diagnostic polyline"
+    obj["mr_course_identity"] = course_name
+    obj["mr_xml_source"] = source
+    obj["mr_xml_path"] = marker_list.xml_path
+    obj["mr_marker_list_name"] = marker_list.name or ""
+    obj["mr_source_list_ordinal"] = marker_list.ordinal
+    obj["mr_source_order_preserved"] = True
+    obj["mr_marker_count"] = len(markers)
+    obj["mr_marker_ordinals"] = [marker.index_in_list for marker in markers]
+    obj["mr_semantics_status"] = "READ_ONLY_DIAGNOSTIC; runtime role not inferred from list name"
+    return obj
+
+
+def _apply_marker_direction_preview(helper, marker):
+    if marker.direction is None:
+        return None
+    direction = Vector(position_to_blender(marker.direction))
+    if direction.length_squared < 1.0e-12:
+        return None
+    direction.normalize()
+    helper.rotation_mode = "QUATERNION"
+    helper.rotation_quaternion = direction.to_track_quat("Z", "Y")
+    helper.lock_rotation = (True, True, True)
+    helper["mr_direction_preview_source"] = "Marker Dir transformed by shared source-to-Blender axes"
+    helper["mr_direction_preview_blender_xyz"] = list(direction)
+    helper["mr_rotation_is_read_only_preview"] = True
+    return direction
+
+
+def _create_marker_direction_ray(collection, course_name, source, marker, helper):
+    color = G1_MARKER_COLORS.get(marker.marker_list_name, (0.8, 0.8, 0.8, 1.0))
+    ray = create_direction_ray(
+        collection,
+        f"{marker.marker_list_name}_Marker_{marker.index_in_list:04d}_Direction",
+        helper,
+        local_direction=(0.0, 0.0, 1.0),
+        length=5.0,
+        color=color,
+        thickness=0.025,
+    )
+    ray["mr_course_identity"] = course_name
+    ray["mr_xml_source"] = source
+    ray["mr_xml_path"] = marker.record.xml_path
+    ray["mr_marker_list_name"] = marker.marker_list_name or ""
+    ray["mr_marker_list_ordinal"] = marker.marker_list_ordinal if marker.marker_list_ordinal is not None else -1
+    ray["mr_marker_index_in_list"] = marker.index_in_list
+    ray["mr_source_direction_xyz"] = list(marker.direction)
+    ray["mr_direction_basis"] = "parent marker's own Marker Dir; visual direction only"
+    ray["mr_semantics_status"] = "READ_ONLY_DIAGNOSTIC; no gameplay direction semantics asserted"
+    return ray
 
 
 def _matrix_rotation(matrix):
@@ -534,6 +620,15 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
 
     filename_ext = ".xml"
     filter_glob: StringProperty(default="*.xml", options={"HIDDEN"})
+    show_marker_direction_rays: BoolProperty(
+        name="Show Marker Dir Rays",
+        description="Add read-only arrows for RaceLine, Cameras, and limit Marker Dir fields",
+        default=False,
+    )
+
+    def draw(self, context):
+        self.layout.prop(self, "show_marker_direction_rays")
+        self.layout.label(text="RaceLine, Limits, and Cameras stay read-only")
 
     def execute(self, context):
         source = Path(self.filepath).resolve()
@@ -602,17 +697,44 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             logic["mr_race_logic_authoring"] = True
 
             marker_lists_collection = _get_child_collection(logic, "MarkerLists - Other", "marker_lists_root")
+            route_research = None
+            limits_research = None
             semantic_areas = {
                 "StartArea": race_logic.start_area,
                 "FinishArea": race_logic.finish_area,
             }
             for marker_list in document.marker_lists:
                 semantic_area = semantic_areas.get(marker_list.name or "")
+                route_family = False
+                direction_collection = None
                 if semantic_area is not None:
                     group = create_collection(marker_list.name or f"MarkerList {marker_list.ordinal}", logic)
                     kind = marker_list.name
+                    marker_collection = group
                 else:
-                    group = create_collection(marker_list.name or f"MarkerList {marker_list.ordinal}", marker_lists_collection)
+                    list_name = marker_list.name or f"MarkerList {marker_list.ordinal}"
+                    if list_name in G1_ROUTE_LISTS | G1_LIMIT_LISTS | G1_CAMERA_LISTS:
+                        if route_research is None:
+                            route_research = _get_child_collection(logic, "Route Research", "route_research_root")
+                            route_research["mr_read_only"] = True
+                            route_research["mr_semantics_status"] = "STATIC/EXECUTABLE RESEARCH VIEW; no authoring enabled"
+                        if list_name in G1_LIMIT_LISTS:
+                            if limits_research is None:
+                                limits_research = _get_child_collection(route_research, "Limits", "route_limits_root")
+                                limits_research["mr_read_only"] = True
+                            parent = limits_research
+                        else:
+                            parent = route_research
+                        group = create_collection(list_name, parent)
+                        marker_collection = _get_child_collection(group, "Markers", "route_marker_points")
+                        marker_collection["mr_read_only"] = True
+                        direction_collection = _get_child_collection(group, "Marker Dir Rays", "route_marker_directions")
+                        direction_collection["mr_read_only"] = True
+                        direction_collection["mr_editor_only"] = True
+                        route_family = True
+                    else:
+                        group = create_collection(list_name, marker_lists_collection)
+                        marker_collection = group
                     kind = None
                 group["mr_xml_collection_kind"] = f"marker_list:{marker_list.ordinal}"
                 group["mr_source_list_name"] = marker_list.name or ""
@@ -631,11 +753,17 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                     group["mr_authoring_evidence"] = "CONFIRMED_BY_RUNTIME_EDIT"
                 else:
                     group["mr_semantics_status"] = "UNKNOWN; ordered RaceTest markers preserved"
+                if route_family:
+                    group["mr_read_only"] = True
+                    group["mr_editor_only"] = True
+                    group["mr_semantics_status"] = "READ_ONLY_DIAGNOSTIC; executable/corpus evidence recorded separately"
+                    group["mr_source_order_preserved"] = True
+                    group["mr_visualization_note"] = "Literal source-order curve; no nearest-neighbor reorder; marker semantics remain evidence-bounded"
                 for marker in marker_list.markers:
                     if marker.position is None:
                         continue
-                    _create_marker_point(
-                        group,
+                    helper = _create_marker_point(
+                        marker_collection,
                         source_path,
                         source.stem,
                         marker,
@@ -645,6 +773,15 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                         area_status[kind].supported if semantic_area is not None else False,
                         authoring.source_sha256,
                     )
+                    if route_family:
+                        helper["mr_marker_preview_read_only"] = True
+                        helper["mr_editor_only"] = True
+                        helper["mr_source_list_semantics_status"] = "UNKNOWN; source name and Marker Dir retained only"
+                        _apply_marker_direction_preview(helper, marker)
+                        if self.show_marker_direction_rays and marker.direction is not None:
+                            _create_marker_direction_ray(direction_collection, source.stem, source_path, marker, helper)
+                if route_family and marker_list.name in G1_ROUTE_LISTS | G1_LIMIT_LISTS:
+                    _create_marker_list_polyline(group, source_path, source.stem, marker_list)
 
             eggs_root = create_collection("EggLists_Version4", logic)
             eggs_root["mr_xml_collection_kind"] = "egg_lists_root"
@@ -722,7 +859,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
 
             self.report(
                 {"INFO"},
-                f"Loaded {len(positioned)} markers, {len(race_logic.split_times)} split records; runtime-confirmed fields are editable",
+                f"Loaded {len(positioned)} markers, {len(race_logic.split_times)} split records; new route marker lists are read-only",
             )
             return {"FINISHED"}
         except Exception as error:

@@ -1,0 +1,144 @@
+{
+  "schema": "master-rallye-g1-gxm-raceline-correlation-v1",
+  "evidence": "CONFIRMED_BY_CORPUS; static geometry only",
+  "source_corpus": "Demo 8.4.1 corpus (paths are relative to the corpus root)",
+  "cases": [
+    {
+      "course": "France1",
+      "build": "Demo 8.4.1",
+      "gxm": "DataGx/Course/France1/France1.gxm",
+      "gxm_sha256": "56EBBF03FE681D730E796A40D455562B5F9976D794C710E73D5C9BE32E4E86B2",
+      "txt": "DataGx/Course/France1/France1.txt",
+      "txt_sha256": "71EA372203BCC6E84BFEE87E7D2F410E22C1FDCDC5F653C87274100DF38C0D43",
+      "racetest_xml": "DataScene/RaceTest/France1.xml",
+      "racetest_xml_sha256": "89304E2F0E0E5E76AD34F8E9E7AB033544F9712B73AB334240DBB1A098B462E3",
+      "mesh_name": "_raceline",
+      "mesh_triangle_index": 59293,
+      "mesh_triangle_count": 954,
+      "unique_position_indices": 954,
+      "source_to_runtime_coordinate_map": "(x, y, z) -> (x, z, -y)",
+      "runtime_transformed_mesh_bounds_xyz": [
+        [
+          -3346.9453125,
+          -923.1390991210938
+        ],
+        [
+          210.7918701171875,
+          210.79299926757812
+        ],
+        [
+          -358.92620849609375,
+          1217.592529296875
+        ]
+      ],
+      "raceline_marker_count": 448,
+      "raceline_bounds_xyz": [
+        [
+          -3346.13,
+          -923.97
+        ],
+        [
+          -18.37,
+          83.64
+        ],
+        [
+          -358.1,
+          1216.76
+        ]
+      ],
+      "nearest_source_order_raceline_segment_distance_xz": {
+        "count": 954,
+        "min": 0.11029243214714855,
+        "median": 0.8305043851361146,
+        "p90": 0.838438911843971,
+        "p95": 50.84064406955061,
+        "p99": 154.18704444980514,
+        "max": 168.70838058628306,
+        "within_threshold_count": {
+          "1": 876,
+          "5": 896,
+          "10": 898,
+          "20": 898
+        },
+        "within_threshold_fraction": {
+          "1": 0.9182389937106918,
+          "5": 0.939203354297694,
+          "10": 0.9412997903563941,
+          "20": 0.9412997903563941
+        }
+      },
+      "interpretation": "STATIC_SPATIAL_CORRELATION_ONLY; GXM mesh and RaceTest MarkerLists/RaceLine remain distinct resources."
+    },
+    {
+      "course": "Italy1",
+      "build": "Demo 8.4.1",
+      "gxm": "DataGx/Course/Italy1/track01.gxm",
+      "gxm_sha256": "C9CA6831569EF5F23B7203CBA0C95E08AD604D9F8F4D2FF557BF193C186054BA",
+      "txt": "DataGx/Course/Italy1/track01.txt",
+      "txt_sha256": "7E7406A6C2772B4E6D30EF390230136D2EB46247F49D431BDBFB178EF3CE346D",
+      "racetest_xml": "DataScene/RaceTest/Italy1.xml",
+      "racetest_xml_sha256": "E93F20C5D1CC479694C1DEBEC0508EAAB908C93677DF81E32D22788D84377433",
+      "mesh_name": "raceline",
+      "mesh_triangle_index": 46579,
+      "mesh_triangle_count": 690,
+      "unique_position_indices": 692,
+      "source_to_runtime_coordinate_map": "(x, y, z) -> (x, z, -y)",
+      "runtime_transformed_mesh_bounds_xyz": [
+        [
+          -2603.805908203125,
+          -1378.7467041015625
+        ],
+        [
+          391.0161437988281,
+          391.0162048339844
+        ],
+        [
+          -1132.778564453125,
+          238.40191650390625
+        ]
+      ],
+      "raceline_marker_count": 213,
+      "raceline_bounds_xyz": [
+        [
+          -2585.89,
+          -1386.04
+        ],
+        [
+          -19.6,
+          163.19
+        ],
+        [
+          -1120.85,
+          231.14
+        ]
+      ],
+      "nearest_source_order_raceline_segment_distance_xz": {
+        "count": 692,
+        "min": 0.019385558194080905,
+        "median": 8.046806115990613,
+        "p90": 16.357690557527704,
+        "p95": 18.795693130607802,
+        "p99": 23.942567580236403,
+        "max": 59.07067096210566,
+        "within_threshold_count": {
+          "1": 41,
+          "5": 215,
+          "10": 433,
+          "20": 669
+        },
+        "within_threshold_fraction": {
+          "1": 0.059248554913294796,
+          "5": 0.3106936416184971,
+          "10": 0.6257225433526011,
+          "20": 0.9667630057803468
+        }
+      },
+      "interpretation": "STATIC_SPATIAL_CORRELATION_ONLY; GXM mesh and RaceTest MarkerLists/RaceLine remain distinct resources."
+    }
+  ],
+  "semantic_limits": [
+    "No runtime relationship between GXM mesh names and RaceTest list names is asserted.",
+    "Distances use nearest source-order RaceLine segment in runtime X/Z only; vertical mismatch is reported separately in bounds.",
+    "Nearest-segment proximity cannot distinguish a center path, road strip, helper mesh, or other related geometry by itself."
+  ]
+}

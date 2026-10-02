@@ -37,7 +37,9 @@ Helpers live under `Course Helpers/Race Logic`. StartArea and FinishArea retain
 four ordered, individually transformable points; there is no filled area or
 invented per-car start slot interpolation. Other MarkerLists remain grouped by
 source list. Positions use the established
-`(X, Y, Z) → (X, -Z, Y)` conversion. Directions stay as source metadata.
+`(X, Y, Z) → (X, -Z, Y)` conversion. Directions are retained as source metadata;
+the G1 route/limit/camera views additionally use them for locked, read-only
+orientation previews and optional direction rays.
 
 Each SplitTime has a simple editable center helper at `en3d Matrix` Row3 and a
 three-ring wire sphere driven by the explicit `Radius`. The sphere remains the
@@ -54,6 +56,26 @@ debugger and runtime evidence confirms the main Egg Row3 is both the main sign
 position and gameplay center. Exact ExtraTime meaning remains `UNKNOWN`. All
 sign/ray/radius preview objects are marked editor-only and excluded from the
 XML edit traversal.
+
+### G1 route, limit and camera diagnostics
+
+RaceLine and the four literal limit lists are placed under
+`Route Research/RaceLine` and `Route Research/Limits/<list>`. Each RaceLine and
+limit view keeps individual source-order marker helpers and a source-order
+polyline. The importer does not reorder points, synthesize a closing edge, or
+interpret marker names as gameplay semantics. The `Cameras` list receives
+individual position helpers and optional Marker Dir rays, but no path line is
+invented. Direction-ray creation is disabled by default and can be enabled in
+the XML import options. The points, curves, and rays are marked read-only and
+editor-only; none are added to the stable G0 RaceTest writer allowlist.
+
+Retail executable analysis confirms `gaRaceLineAI` consumes RaceLine positions
+for per-car nearest sample/progress/rank tracking, and `gaLimitsAI` loads the
+four exact limit lists to publish `LimitState`. It does not prove RaceLine AI
+steering or limit-triggered reset behavior. The RaceTest `Cameras` list has not
+been linked to the camera parameter records. All new G1 views remain
+non-authorable pending isolated human runtime tests; details are in
+[`research/g1/findings.md`](../research/g1/findings.md).
 
 ## G0 editing and export
 
