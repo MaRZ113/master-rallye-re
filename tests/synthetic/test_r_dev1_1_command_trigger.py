@@ -22,8 +22,12 @@ class DeveloperCommandTriggerTests(unittest.TestCase):
             title="Master Rallye",
         )
 
-    def test_tool_allowlist_contains_only_flow_builder(self):
-        self.assertEqual(trigger.TOOL_COMMANDS, {"flow-builder": 0x30})
+    def test_tool_allowlist_contains_only_the_two_reviewed_openers(self):
+        self.assertEqual(
+            trigger.TOOL_COMMANDS,
+            {"flow-builder": 0x30, "broker-editor": 0x27},
+        )
+        self.assertNotIn("build-data", trigger.TOOL_COMMANDS)
 
     def test_main_window_signature_accepts_recovered_menu_tree(self):
         class FakeUser32:
@@ -65,14 +69,14 @@ class DeveloperCommandTriggerTests(unittest.TestCase):
 
     def test_unsupported_tool_is_rejected_by_argument_parser(self):
         with self.assertRaises(SystemExit):
-            trigger.main(["--tool", "broker-editor"], find_targets=lambda: [])
+            trigger.main(["--tool", "build-data"], find_targets=lambda: [])
 
     def test_default_is_dry_run_and_sends_nothing(self):
         sent = []
         result = trigger.main(
             ["--tool", "flow-builder"],
             find_targets=lambda: [self.target],
-            send_command=sent.append,
+            send_command=lambda target, tool: sent.append((target, tool)),
         )
         self.assertEqual(result, 0)
         self.assertEqual(sent, [])
@@ -82,7 +86,7 @@ class DeveloperCommandTriggerTests(unittest.TestCase):
         result = trigger.main(
             ["--tool", "flow-builder", "--confirm"],
             find_targets=lambda: [self.target],
-            send_command=sent.append,
+            send_command=lambda target, tool: sent.append((target, tool)),
             input_fn=lambda _prompt: "yes",
         )
         self.assertEqual(result, 3)
@@ -93,18 +97,40 @@ class DeveloperCommandTriggerTests(unittest.TestCase):
         result = trigger.main(
             ["--tool", "flow-builder", "--confirm"],
             find_targets=lambda: [self.target],
-            send_command=sent.append,
+            send_command=lambda target, tool: sent.append((target, tool)),
             input_fn=lambda _prompt: trigger.CONFIRM_PHRASE,
         )
         self.assertEqual(result, 0)
-        self.assertEqual(sent, [self.target])
+        self.assertEqual(sent, [(self.target, "flow-builder")])
+
+    def test_broker_editor_requires_its_stronger_confirmation(self):
+        sent = []
+        result = trigger.main(
+            ["--tool", "broker-editor", "--confirm"],
+            find_targets=lambda: [self.target],
+            send_command=lambda target, tool: sent.append((target, tool)),
+            input_fn=lambda _prompt: trigger.CONFIRM_PHRASE,
+        )
+        self.assertEqual(result, 3)
+        self.assertEqual(sent, [])
+
+    def test_broker_editor_exact_confirmation_sends_only_its_allowlisted_command(self):
+        sent = []
+        result = trigger.main(
+            ["--tool", "broker-editor", "--confirm"],
+            find_targets=lambda: [self.target],
+            send_command=lambda target, tool: sent.append((target, tool)),
+            input_fn=lambda _prompt: trigger.CONFIRM_PHRASES["broker-editor"],
+        )
+        self.assertEqual(result, 0)
+        self.assertEqual(sent, [(self.target, "broker-editor")])
 
     def test_ambiguous_targets_refuse_to_send(self):
         sent = []
         result = trigger.main(
             ["--tool", "flow-builder", "--confirm"],
             find_targets=lambda: [self.target, self.target],
-            send_command=sent.append,
+            send_command=lambda target, tool: sent.append((target, tool)),
             input_fn=lambda _prompt: trigger.CONFIRM_PHRASE,
         )
         self.assertEqual(result, 2)

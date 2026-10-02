@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "evidence_levels": ["CONFIRMED_BY_RUNTIME", "CONFIRMED_BY_CORPUS", "CONFIRMED_BY_EXE", "SOURCE_EVIDENCE", "STRONG_HYPOTHESIS", "HYPOTHESIS", "UNKNOWN", "DISPROVED"],
+  "input_hashes": {
+    "8.4.1": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+    "9.3.1": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+    "9.10.0": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+    "retail": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+  },
+  "literal_occurrences": {
+    "8.4.1": {"__NO_SAVE": ["005E4D44", "005E5B64"], "__NO_CHANGE": ["005E4D50", "005E5B70"], "__IGNORE": ["005E4D5C", "005E5B7C"]},
+    "9.3.1": {"__NO_SAVE": ["006620C4", "00663274"], "__NO_CHANGE": ["006620D0", "00663280"], "__IGNORE": ["006620DC", "0066328C"]},
+    "9.10.0": {"__NO_SAVE": ["00698244", "00699480"], "__NO_CHANGE": ["00698250", "0069948C"], "__IGNORE": ["0069825C", "00699498"]},
+    "retail": {"__NO_SAVE": ["006AF364", "006B063C"], "__NO_CHANGE": ["006AF370", "006B0648"], "__IGNORE": ["006AF37C", "006B0654"]}
+  },
+  "literal_xref_classification": {
+    "first_occurrence": "existing R-EXE1 catalog has no function xref for the first __NO_SAVE occurrence; a fresh retail Ghidra query found many direct references from non-function memory locations for all three first literal copies, which are not identified as policy consumers",
+    "second_no_save_occurrence_static_initializer_xrefs": {
+      "8.4.1": {"function": "0041AE8A", "reference": "0041AE8D"},
+      "9.3.1": {"function": "0041AF4A", "reference": "0041AF4D"},
+      "9.10.0": {"function": "0041BA8A", "reference": "0041BA8D"},
+      "retail": {"function": "0041BCFA", "reference": "0041BCFD"}
+    },
+    "retail_direct_reference_census": {
+      "literal_targets": {
+        "006AF364": {"label": "__NO_SAVE", "reference_count": 260, "source_class": "NO_FUNCTION grouped memory references"},
+        "006B063C": {"label": "__NO_SAVE", "reference_count": 1, "source_function": "0041BCFA", "source_class": "string-ID initializer"},
+        "006AF370": {"label": "__NO_CHANGE", "reference_count": 261, "source_class": "NO_FUNCTION grouped memory references"},
+        "006B0648": {"label": "__NO_CHANGE", "reference_count": 1, "source_function": "0041BD18", "source_class": "string-ID initializer"},
+        "006AF37C": {"label": "__IGNORE", "reference_count": 260, "source_class": "NO_FUNCTION grouped memory references"},
+        "006B0654": {"label": "__IGNORE", "reference_count": 1, "source_function": "0041BD36", "source_class": "string-ID initializer"}
+      },
+      "pooled_objects": {
+        "0070AEE4": {"label": "__IGNORE", "reference_count": 1, "code_consumer": false},
+        "0070AEE8": {"label": "__NO_SAVE", "reference_count": 2, "broker_editor_code_consumers": 1},
+        "0070AEEC": {"label": "__NO_CHANGE", "reference_count": 2, "broker_editor_code_consumers": 1}
+      },
+      "crossbuild_raw_census_complete": false,
+      "interpretation": "non-function literal references are not identified as policy consumers; second-occurrence references are static string-ID initialization; pooled-object code xrefs lead to Broker Editor registration only"
+    },
+    "interpretation": "static string-ID initialization only; not a serializer or mutation-policy test"
+  },
+  "broker_editor_open_registration": {
+    "builds": {
+      "8.4.1": {"opener": "00543670", "command_id": "0x26", "manager_accessor": "004863F0", "insert": "00482670", "no_save_object": "005FD704", "no_change_object": "005FD708"},
+      "9.3.1": {"opener": "00619480", "command_id": "0x27", "manager_accessor": "004B0260", "insert": "004AC7B0", "no_save_object": "006907D0", "no_change_object": "006907D4"},
+      "9.10.0": {"opener": "0064B010", "command_id": "0x27", "manager_accessor": "004C4E00", "insert": "004C1370", "no_save_object": "006D0A3C", "no_change_object": "006D0A40"},
+      "retail": {"opener": "0065E990", "command_id": "0x27", "manager_accessor": "004D8EC0", "insert": "004D54A0", "no_save_object": "0070AEE8", "no_change_object": "0070AEEC", "ignore_object": "0070AEE4"}
+    },
+    "retail_insert_callsites": [
+      {"function": "0065E990", "object": "0070AEE8", "label": "__NO_SAVE"},
+      {"function": "0065E990", "object": "0070AEEC", "label": "__NO_CHANGE"}
+    ],
+    "retail_ignore": {"opener_passed": false, "pooled_object_direct_reference_count": 1, "other_direct_code_consumer_found": false, "confidence": "MEDIUM"}
+  },
+  "retail_registry": {
+    "manager_global": "DAT_006F9410",
+    "manager_size": "0x1c",
+    "fields": {"+0x04": "typed entry vector begin", "+0x08": "typed entry vector end", "+0x0c": "typed entry vector capacity", "+0x14": "circular linked-list head for interned key IDs", "+0x18": "list count"},
+    "node_size": "0x0c",
+    "node_fields": {"+0x00": "previous pointer", "+0x04": "next pointer", "+0x08": "interned string-ID numeric value"},
+    "insert_function": "004D54A0",
+    "insert_callers": ["00522810", "00522BD0", "0065E990", "0065F170", "00671DF0", "00673130"],
+    "membership_test": "duplicate string-ID comparison inside 004D54A0 using 005D1660; this tests whether the same key ID is already in the registry",
+    "effects": ["if duplicate, return without mutation", "otherwise allocate and tail-link one node", "store key ID, increment count"],
+    "not_effects": ["does not create/update typed broker value", "does not set dirty/revision/save flags", "does not serialize XML", "does not write a file"]
+  },
+  "sentinel_semantics": {
+    "__NO_SAVE": {"confirmed": "registered as an interned broker key ID by Broker Editor opener", "policy_meaning": "UNKNOWN; no serializer-side test of this exact ID recovered", "evidence": "CONFIRMED_BY_EXE"},
+    "__NO_CHANGE": {"confirmed": "registered as a distinct interned broker key ID by Broker Editor opener", "policy_meaning": "UNKNOWN; no value-mutation/read-only test of this exact ID recovered", "evidence": "CONFIRMED_BY_EXE"},
+    "__IGNORE": {"confirmed": "adjacent string-ID object exists; Broker Editor opener does not register it", "policy_meaning": "UNKNOWN; no non-initializer retail direct consumer recovered", "evidence": "CONFIRMED_BY_EXE"}
+  },
+  "runtime_status": "No editor was opened and no broker value was modified during this phase"
+}

@@ -1,3 +1,5 @@
+> **R-DEV1.2 correction:** a producer for the four retail pending-open bytes was found at `005AF970`; `005AF9F0` consumes them. They are used around Game/Scene open/reset state operations, not only as an unexplained latent path. See `research/r-dev1_2/editor-lifecycle.md`.
+
 # Embedded tool lifecycle
 
 ## Shared lifecycle pattern

@@ -1,3 +1,5 @@
+> **R-DEV1.2 correction:** the prior `DO_NOT_RUNTIME_TEST` conclusion is superseded for open-only observation. `004D54A0` is now mapped as a deduplicating insertion into the shared interned broker key-ID list; opening is classified `LOW_RISK_BUT_METADATA_MUTATION` and requires a separate strong confirmation. Editing/Commit Changes remains excluded. See `research/r-dev1_2/broker-sentinels.md`, `broker-editor-open-path.md`, and `broker-editor-safety.md`.
+
 # Broker Editor open-only safety
 
 ## Decision

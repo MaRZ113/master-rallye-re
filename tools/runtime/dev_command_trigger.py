@@ -1,8 +1,8 @@
-"""Narrow, confirmation-gated opener for the retail Flow Builder.
+"""Narrow, confirmation-gated opener for two retail developer tools.
 
-This helper sends exactly WM_COMMAND 0x30 to a verified Master Rallye retail
+This helper sends one allowlisted WM_COMMAND to a verified Master Rallye retail
 main window. It does not accept arbitrary command IDs, write process memory,
-inject code, or perform any Flow Builder action after opening.
+inject code, or perform any tool action after opening.
 """
 
 from __future__ import annotations
@@ -17,9 +17,20 @@ from typing import Callable, Sequence
 
 
 RETAIL_SHA256 = "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
-TOOL_COMMANDS = {"flow-builder": 0x30}
-SAFETY = {"flow-builder": "SAFE_OPEN_CANDIDATE (open only), medium-high confidence"}
-CONFIRM_PHRASE = "OPEN FLOW BUILDER"
+TOOL_COMMANDS = {"flow-builder": 0x30, "broker-editor": 0x27}
+SAFETY = {
+    "flow-builder": "SAFE_OPEN_CANDIDATE (open only), medium-high confidence",
+    "broker-editor": (
+        "LOW_RISK_BUT_METADATA_MUTATION (open only); adds two interned broker "
+        "key IDs to shared in-memory metadata"
+    ),
+}
+CONFIRM_PHRASES = {
+    "flow-builder": "OPEN FLOW BUILDER",
+    "broker-editor": "OPEN BROKER EDITOR WITH METADATA REGISTRATION",
+}
+# Kept as a compatibility name for existing Flow Builder-only callers/tests.
+CONFIRM_PHRASE = CONFIRM_PHRASES["flow-builder"]
 WM_COMMAND = 0x0111
 SMTO_ABORTIFHUNG = 0x0002
 PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
@@ -38,8 +49,8 @@ class TargetWindow:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
-            "Dry-run by default. The only supported action is opening the retail "
-            "Flow Builder via WM_COMMAND 0x30 after strict identity checks."
+            "Dry-run by default. The only supported actions are opening the "
+            "retail Flow Builder or Broker Editor after strict identity checks."
         )
     )
     parser.add_argument("--tool", required=True, choices=sorted(TOOL_COMMANDS))
@@ -208,10 +219,12 @@ def find_retail_main_windows() -> list[TargetWindow]:
     return candidates
 
 
-def send_flow_builder_command(target: TargetWindow) -> None:
-    """Revalidate the target and send the sole allowlisted command."""
+def send_tool_command(target: TargetWindow, tool: str) -> None:
+    """Revalidate the target and send one CLI-allowlisted tool command."""
     if os.name != "nt":
         raise RuntimeError("This helper is Windows-only.")
+    if tool not in TOOL_COMMANDS:
+        raise ValueError(f"Unsupported developer tool: {tool!r}")
 
     import ctypes
     from ctypes import wintypes
@@ -238,7 +251,7 @@ def send_flow_builder_command(target: TargetWindow) -> None:
     sent = user32.SendMessageTimeoutW(
         target.hwnd,
         WM_COMMAND,
-        TOOL_COMMANDS["flow-builder"],
+        TOOL_COMMANDS[tool],
         0,
         SMTO_ABORTIFHUNG,
         3000,
@@ -252,7 +265,7 @@ def main(
     argv: Sequence[str] | None = None,
     *,
     find_targets: Callable[[], list[TargetWindow]] = find_retail_main_windows,
-    send_command: Callable[[TargetWindow], None] = send_flow_builder_command,
+    send_command: Callable[[TargetWindow, str], None] = send_tool_command,
     input_fn: Callable[[str], str] = input,
 ) -> int:
     args = build_parser().parse_args(argv)
@@ -275,12 +288,13 @@ def main(
     if not args.confirm:
         print("Dry run only. No command was sent. Add --confirm to continue.")
         return 0
-    if input_fn(f'Type exactly "{CONFIRM_PHRASE}" to send: ') != CONFIRM_PHRASE:
+    confirm_phrase = CONFIRM_PHRASES[args.tool]
+    if input_fn(f'Type exactly "{confirm_phrase}" to send: ') != confirm_phrase:
         print("Confirmation did not match; no command was sent.", file=sys.stderr)
         return 3
 
-    send_command(target)
-    print("Sent WM_COMMAND 0x30 to the verified retail main window.")
+    send_command(target, args.tool)
+    print(f"Sent WM_COMMAND 0x{command_id:02X} to the verified retail main window.")
     return 0
 
 

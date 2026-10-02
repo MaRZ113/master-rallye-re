@@ -1,3 +1,5 @@
+> **R-DEV1.2 update:** Flow Builder remains the first `SAFE_OPEN_CANDIDATE`. Broker Editor is now `LOW_RISK_BUT_METADATA_MUTATION` with a separate confirmation and its own open-only human test. See `research/r-dev1_2/runtime-test-plan.md`; that plan supersedes the old Broker Editor exclusion.
+
 # Prepared human runtime tests — R-DEV1.1
 
 Static analysis is complete. The research agent has not executed the game or sent a command. Run only the test whose preconditions are satisfied, using disposable copies and preserving the original EXE/config hashes.

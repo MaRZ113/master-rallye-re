@@ -1,3 +1,5 @@
+> **R-DEV1.2 update:** Flow Builder's open-only classification remains unchanged. The command helper now also permits Broker Editor command `0x27` under a stronger phrase; see `research/r-dev1_2/runtime-test-plan.md` for the current allowlist and separate safety boundaries.
+
 # Flow Builder open-only safety
 
 ## Decision

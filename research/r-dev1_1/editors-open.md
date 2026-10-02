@@ -1,3 +1,5 @@
+> **R-DEV1.2 correction:** the statement below that no producer was found for retail `+0x44..+0x47` is superseded. `005AF970` snapshots/closes open editors and writes those flags; `005AF9F0` restores and clears them. The counter owner set is now mapped to Marker and Egg. See `research/r-dev1_2/editor-lifecycle.md` and `editor-state-structure.md`.
+
 # Editor open paths and `Editing/EditorsOpen`
 
 ## Startup-created owners

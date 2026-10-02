@@ -1,3 +1,5 @@
+> **R-DEV1.2 resolution note:** the editor-state producer and Game/Scene lifecycle callers are now mapped; `Editing/EditorsOpen` is mapped to Marker/Egg contexts. See `research/r-dev1_2/editor-lifecycle.md`. Unresolved callback dispatch and editor-local state details remain listed below.
+
 # Known unknowns after R-DEV1.1
 
 1. **Original developer sender.** No in-binary native menu, dialog, accelerator, keyboard, toolbar, context-menu, or generated WM_COMMAND sender for hidden global editor IDs was found. Whether an external Steel Monkeys harness sent them remains unknown.

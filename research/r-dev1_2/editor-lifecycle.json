@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "evidence_levels": [
+    "CONFIRMED_BY_RUNTIME",
+    "CONFIRMED_BY_CORPUS",
+    "CONFIRMED_BY_EXE",
+    "SOURCE_EVIDENCE",
+    "STRONG_HYPOTHESIS",
+    "HYPOTHESIS",
+    "UNKNOWN",
+    "DISPROVED"
+  ],
+  "analysis_identity": {
+    "retail_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "9_3_1_pristine_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+    "9_10_0_sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+    "8_4_1_pristine_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+    "ghidra": "12.1.4 on D:\\Game\\Master Rallye\\_reverse-tools\\ghidra-bridge-main\\ghidra_12.1.4_PUBLIC",
+    "project_handling": "isolated ignored projects for pristine retail and pristine 9.3.1; no shared Ghidra project modified"
+  },
+  "correction": {
+    "prior_claim": "R-DEV1.1 said application bytes +0x44..+0x47 had no recovered producer.",
+    "corrected_by": "retail 005AF970 writes all four bytes; retail 005AF9F0 consumes and clears them",
+    "evidence": "CONFIRMED_BY_EXE"
+  },
+  "application_object": {
+    "retail_constructor": "005AF5C0",
+    "retail_allocation_size": "0x4c",
+    "9_3_1_allocation_size": "0x48",
+    "members": {
+      "+0x10": {"meaning": "Broker Editor owner pointer", "confidence": "HIGH"},
+      "+0x24": {"meaning": "Marker Editor owner pointer", "confidence": "HIGH"},
+      "+0x28": {"meaning": "Egg Editor owner pointer", "confidence": "HIGH"},
+      "+0x2c": {"meaning": "Particle Editor owner pointer", "confidence": "HIGH"},
+      "+0x38": {"meaning": "shared tool/window context passed to editor openers", "confidence": "MEDIUM"},
+      "+0x44": {"meaning": "Marker was open", "type": "uint8", "confidence": "HIGH"},
+      "+0x45": {"meaning": "Particle was open", "type": "uint8", "confidence": "HIGH"},
+      "+0x46": {"meaning": "Broker Editor was open", "type": "uint8", "confidence": "HIGH"},
+      "+0x47": {"meaning": "Egg Editor was open", "type": "uint8", "confidence": "HIGH"}
+    }
+  },
+  "retail_functions": {
+    "snapshot_and_close": {
+      "address": "005AF970",
+      "behavior": "zero four pending bytes; test editor HWND predicates in Marker, Particle, Broker, Egg order; close/reset only open editors; set matching byte to 1",
+      "callers": [
+        {"function": "005AF920", "context": "application shutdown"},
+        {"function": "005B14D0", "context": "Open Game after selected path validation"},
+        {"function": "005B1370", "context": "Game command dispatch; includes Reset Game case 0x32"},
+        {"function": "005B2260", "context": "Open Scene after selected path validation"},
+        {"function": "005B1F80", "context": "Scene command dispatch; includes Reset Scene case 0x50 and scene state operations 0x53/0x54"},
+        {"function": "005B2920", "context": "reset-like scene operation wrapper; no direct code caller recovered"}
+      ],
+      "evidence": "CONFIRMED_BY_EXE"
+    },
+    "restore": {
+      "address": "005AF9F0",
+      "behavior": "test bytes in the same order; lazily obtain the application singleton; call matching openers; zero all four bytes after attempts",
+      "direct_callers": ["005AFAF0"],
+      "error_handling": "no per-opener success check or rollback; allocation failure is not safely handled before context use",
+      "evidence": "CONFIRMED_BY_EXE"
+    },
+    "foreground_callback": {
+      "address": "005AFAF0",
+      "behavior": "call 005AF9F0, then call USER32 SetForegroundWindow with the main HWND",
+      "direct_callers": [],
+      "dispatch": "virtual/event-table route not recovered from direct-call xrefs",
+      "evidence": "CONFIRMED_BY_EXE"
+    },
+    "application_shutdown": {
+      "address": "005AF920",
+      "caller": "006766A0",
+      "caller_sequence": ["005AFB20 application initialization", "005AFE30 main frame loop", "005AF920 manager/window teardown"],
+      "snapshot_call": "005AF970",
+      "evidence": "CONFIRMED_BY_EXE"
+    }
+  },
+  "retail_editor_map": [
+    {"name": "Marker", "owner_offset": "0x24", "flag_offset": "0x44", "predicate": "0065B860", "close": "0065B820", "open": "0065B870"},
+    {"name": "Particle", "owner_offset": "0x2c", "flag_offset": "0x45", "predicate": "006557B0", "close": "00655700", "open": "006557C0"},
+    {"name": "Broker", "owner_offset": "0x10", "flag_offset": "0x46", "predicate": "0065E980", "close": "0065E960", "open": "0065E990"},
+    {"name": "Egg", "owner_offset": "0x28", "flag_offset": "0x47", "predicate": "00657FC0", "close": "00657F80", "open": "00657FD0"}
+  ],
+  "lifecycle_triggers": [
+    {"caller": "005B14D0", "operation": "Open Game; selected file must be under DataGame/ and pass XML extension validation", "evidence": "CONFIRMED_BY_EXE"},
+    {"caller": "005B1370", "operation": "Reset Game case 0x32 after confirmation", "evidence": "CONFIRMED_BY_EXE"},
+    {"caller": "005B2260", "operation": "Open Scene; selected file must be under DataScene/ and pass XML extension validation", "evidence": "CONFIRMED_BY_EXE"},
+    {"caller": "005B1F80", "operation": "Reset Scene case 0x50 after confirmation; cases 0x53/0x54 also snapshot before scene-state operations", "evidence": "CONFIRMED_BY_EXE"},
+    {"caller": "005AF920", "operation": "application manager/window teardown after the main frame loop", "evidence": "CONFIRMED_BY_EXE"}
+  ],
+  "editing_editorsopen": {
+    "key": "Editing/EditorsOpen",
+    "storage": "typed integer broker value",
+    "increment": "0066C180 initializes missing value to 1 or increments it",
+    "decrement": "0066C380 decrements and clamps to 0",
+    "increment_callers": ["0065ACD0 Marker initialization", "006573B0 Egg initialization"],
+    "decrement_callers": ["0065AEA0 Marker cleanup", "00657630 Egg cleanup"],
+    "side_effect": "camera/view state saved and restored alongside the integer update",
+    "meaning": "active Marker/Egg editing-view context count; not a global count of all open editor windows",
+    "confidence": "HIGH",
+    "evidence": "CONFIRMED_BY_EXE"
+  },
+  "cross_build": {
+    "8.4.1": {"snapshot": null, "restore": null, "status": "UNKNOWN; no same application-object quartet established"},
+    "9.3.1": {"snapshot": "005FF080", "restore": "005FF100", "restore_thunk": "005FF200", "status": "same four byte meanings/order confirmed in pristine EXE; thunk does not itself show a SetForegroundWindow call"},
+    "9.10.0": {"snapshot": "006309C0", "restore": "00630A40", "callback": "00630B40", "status": "same flags/order; callback restores then calls SetForegroundWindow"},
+    "retail": {"snapshot": "005AF970", "restore": "005AF9F0", "callback": "005AFAF0", "status": "same flags/order; callback restores then calls SetForegroundWindow"}
+  },
+  "lifecycle_conclusion": {
+    "operation": "Game/Scene open, reset, or state reinitialization; shutdown also snapshots",
+    "restore_timing": "deferred to the application foreground/event callback in retail; no direct open/reset epilogue calls restore",
+    "normal_pairing": "STRONG_HYPOTHESIS",
+    "exact_event_dispatch_and_guarantee": "UNKNOWN",
+    "selection_scroll_geometry_restore": "UNKNOWN; not encoded in the pending bytes"
+  },
+  "runtime_status": "No runtime test performed"
+}

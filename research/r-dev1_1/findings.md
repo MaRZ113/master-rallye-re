@@ -1,3 +1,5 @@
+> **R-DEV1.2 corrections:** the no-producer statement for application bytes `+0x44..+0x47` and Broker Editor `DO_NOT_RUNTIME_TEST` classification are superseded. See `research/r-dev1_2/findings.md` and the linked focused reports there. R-DEV1.1's other reachability findings remain unchanged.
+
 # R-DEV1.1 findings — hidden command reachability
 
 Status: static reconstruction complete for the executable's native menu trees, main command dispatch, embedded editor open paths, and open-only write-safety. No hidden command was sent to a running game by the research agent.
