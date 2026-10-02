@@ -30,6 +30,7 @@ class _LayoutDrawProbe:
     def __init__(self, valid_icons):
         self.valid_icons = valid_icons
         self.draw_calls = 0
+        self.labels = []
 
     def box(self):
         self.draw_calls += 1
@@ -41,6 +42,7 @@ class _LayoutDrawProbe:
 
     def label(self, *, text="", icon=None, **_kwargs):
         self.draw_calls += 1
+        self.labels.append(str(text))
         self._check_icon(icon)
 
     def operator(self, _operator, *, text="", icon=None, **_kwargs):
@@ -56,7 +58,7 @@ class _LayoutDrawProbe:
             raise AssertionError(f"Panel.draw used unsupported Blender {bpy.app.version_string} icon {icon!r}")
 
 
-def _draw_panel(panel_type, obj, valid_icons):
+def _draw_panel(panel_type, obj, valid_icons, *, expected_label=None):
     context = SimpleNamespace(object=obj)
     if not panel_type.poll(context):
         raise AssertionError(f"{panel_type.__name__}.poll rejected the smoke context")
@@ -64,6 +66,8 @@ def _draw_panel(panel_type, obj, valid_icons):
     panel_type.draw(SimpleNamespace(layout=probe), context)
     if probe.draw_calls == 0:
         raise AssertionError(f"{panel_type.__name__}.draw did not issue UI controls")
+    if expected_label is not None and expected_label not in probe.labels:
+        raise AssertionError(f"{panel_type.__name__}.draw omitted expected label {expected_label!r}")
     return probe.draw_calls
 
 
@@ -224,14 +228,31 @@ def main():
             raise AssertionError("companion orientation must be presented as read-only")
         matrix = source_companion.source_egg.matrix("en3d Matrix")
         expected_row2 = Vector(position_to_blender(matrix.row(2)[:3])).normalized()
+        expected_position = position_to_blender(source_companion.position)
+        if not _close3(helper.matrix_world.translation, expected_position, epsilon=2.0e-4):
+            raise AssertionError(
+                f"companion helper world anchor must remain at source Row3: "
+                f"{tuple(helper.matrix_world.translation)} != {tuple(expected_position)}"
+            )
         actual_ray = (
             ray.matrix_world.to_3x3() @ Vector((0.0, 0.0, 1.0))
         ).normalized()
         if (actual_ray - expected_row2).length > 1.0e-3:
             raise AssertionError("companion direction ray does not follow its own Matrix Row2")
-        panel_normal = (billboard.matrix_world.to_3x3() @ Vector((0.0, 0.0, 1.0))).normalized()
+        panel_normal = (
+            billboard.matrix_world.to_3x3() @ billboard.data.polygons[-1].normal
+        ).normalized()
         if (panel_normal - actual_ray).length > 1.0e-3:
             raise AssertionError("companion billboard normal and direction ray disagree")
+        local_up_world = (helper.matrix_world.to_3x3() @ Vector((0.0, 1.0, 0.0))).normalized()
+        if local_up_world.z < 0.95:
+            raise AssertionError("companion billboard local up axis must point above the source anchor")
+        if not _close3(billboard.location, (0.0, 0.15, 0.0)):
+            raise AssertionError("only the editor billboard geometry may use its small local upward offset")
+        panel_vertices_world = [billboard.matrix_world @ vertex.co for vertex in billboard.data.vertices]
+        lowest_card_z = min(vertex.z for vertex in panel_vertices_world)
+        if not (helper.matrix_world.translation.z + 0.10 <= lowest_card_z <= helper.matrix_world.translation.z + 0.20):
+            raise AssertionError("companion sign card bottom should start just above its unchanged source anchor")
 
     valid_icons = {
         item.identifier
@@ -245,7 +266,12 @@ def main():
     course_obj["mr_course_identity"] = "France1"
     course_obj["mr_metadata_json"] = json.dumps({"course": {}, "draws": [], "blender": {}})
     course_draw_calls = _draw_panel(addon_ui.VIEW3D_PT_master_rallye_course, course_obj, valid_icons)
-    race_draw_calls = _draw_panel(addon_ui.VIEW3D_PT_master_rallye_course_race_logic, starts[0], valid_icons)
+    race_draw_calls = _draw_panel(
+        addon_ui.VIEW3D_PT_master_rallye_course_race_logic,
+        starts[0],
+        valid_icons,
+        expected_label="Route/Limit/Camera diagnostics are read-only; runtime probes are separate.",
+    )
     split_draw_calls = _draw_panel(
         addon_ui.VIEW3D_PT_master_rallye_course_race_logic, split_centers[0], valid_icons
     )

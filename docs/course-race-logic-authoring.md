@@ -64,9 +64,11 @@ normal and direction ray use that companion's own local basis. This does not
 assert runtime-forward semantics.
 
 Companion cards use their `SplitTimeN-i` source name and are procedural
-diagnostics, not extracted game textures/models. Their source orientation is
-preserved and never authored; only the already-allowlisted companion Row3
-position is exported. Billboard, label, ray, and Radius visualization carry
+diagnostics, not extracted game textures/models. The editor-only card faces
+along the companion direction ray and has a small local-up geometry offset;
+the source/export anchor is not moved. Their source orientation is preserved
+and never authored; only the already-allowlisted companion Row3 position is
+exported. Billboard, label, ray, and Radius visualization carry
 `mr_editor_only` metadata and are excluded from export traversal. The generic
 billboard/ray helpers are intended for future read-only Route, Limits, and
 Camera views; those marker families remain non-authoring.

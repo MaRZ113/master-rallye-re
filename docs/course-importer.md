@@ -48,10 +48,12 @@ trigger center. The sibling Eggs `SplitTimeN-i` are shown at their own Row3
 positions in `Visual Checkpoint Objects`. Each companion imports its own
 `en3d Matrix` orientation as a locked, read-only helper basis and gets a
 procedural labeled sign card plus cyan direction ray derived from that same
-companion matrix. These are viewport aids only and do not assert runtime
-forward semantics. The fallback panels use Blender geometry/text and no game
-texture/model. Companion Row3 position authoring remains unchanged; companion
-rotation is preserved from source and never exported. For France1 SplitTime0,
+companion matrix. The panel's front follows the ray, its local-up basis points
+above the unchanged source anchor, and only the editor-only card geometry gets
+a small local vertical offset. These are viewport aids only and do not assert
+runtime-forward semantics. The fallback panels use Blender geometry/text and
+no game texture/model. Companion Row3 position authoring remains unchanged;
+companion rotation is preserved from source and never exported. For France1 SplitTime0,
 debugger and runtime evidence confirms the main Egg Row3 is both the main sign
 position and gameplay center. Exact ExtraTime meaning remains `UNKNOWN`. All
 sign/ray/radius preview objects are marked editor-only and excluded from the
@@ -70,11 +72,14 @@ the XML import options. The points, curves, and rays are marked read-only and
 editor-only; none are added to the stable G0 RaceTest writer allowlist.
 
 Retail executable analysis confirms `gaRaceLineAI` consumes RaceLine positions
-for per-car nearest sample/progress/rank tracking, and `gaLimitsAI` loads the
-four exact limit lists to publish `LimitState`. It does not prove RaceLine AI
-steering or limit-triggered reset behavior. The RaceTest `Cameras` list has not
-been linked to the camera parameter records. All new G1 views remain
-non-authorable pending isolated human runtime tests; details are in
+for per-car nearest sample/progress/rank tracking; the controlled local Pos
+probe produced a localized visible progress-bar change. No obvious AI steering
+change was observed in that probe. `gaLimitsAI` loads the four exact limit lists
+to publish `LimitState`; the first LeftInnerLimit runtime probe was
+inconclusive, and an isolated LeftOuterLimit probe awaits testing. It does not
+prove limit-triggered reset behavior. The RaceTest `Cameras` list has not been
+linked to the camera parameter records. All new G1 views remain read-only in
+the stable authoring UI; details are in
 [`research/g1/findings.md`](../research/g1/findings.md).
 
 ## G0 editing and export

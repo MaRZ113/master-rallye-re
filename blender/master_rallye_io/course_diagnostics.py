@@ -78,8 +78,9 @@ def create_marker_billboard(
     *,
     panel_material,
     text_material,
-    local_right=(-1.0, 0.0, 0.0),
-    local_up=(0.0, -1.0, 0.0),
+    local_right=(1.0, 0.0, 0.0),
+    local_up=(0.0, 1.0, 0.0),
+    local_offset=(0.0, 0.0, 0.0),
     width: float = 2.35,
     height: float = 1.05,
     pole_width: float = 0.10,
@@ -119,12 +120,14 @@ def create_marker_billboard(
     panel = bpy.data.objects.new(name, mesh)
     collection.objects.link(panel)
     _parent_at_local_origin(panel, parent)
+    panel.location = tuple(Vector(local_offset))
     panel.show_in_front = True
     panel.color = (1.0, 0.72, 0.05, 1.0)
     panel["mr_editor_only"] = True
     panel["mr_read_only"] = True
     panel["mr_course_helper_kind"] = "diagnostic_marker_billboard"
     panel["mr_role"] = "split_billboard"
+    panel["mr_billboard_local_offset"] = [float(value) for value in local_offset]
 
     text_data = bpy.data.curves.new(f"{name} label data", type="FONT")
     text_data.body = str(label)

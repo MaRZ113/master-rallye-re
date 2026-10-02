@@ -477,6 +477,7 @@ class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
             layout.label(text="Its own source orientation is preview-only; export writes final world position only")
         layout.operator("export_scene.master_rallye_race_logic_xml", text="Export Race Logic XML", icon="EXPORT")
         layout.label(text="Exports a new XML copy and a provenance manifest")
+        layout.label(text="Route/Limit/Camera diagnostics are read-only; runtime probes are separate.")
 
 
 CLASSES = (

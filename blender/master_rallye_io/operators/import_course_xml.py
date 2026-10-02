@@ -406,8 +406,9 @@ def _create_companion_diagnostics(collection, source, course_name, split, compan
         text_material=_split_sign_text_material(),
         # These axes are local to this companion's imported matrix, not the
         # main SplitTime trigger matrix.
-        local_right=(-1.0, 0.0, 0.0),
-        local_up=(0.0, -1.0, 0.0),
+        local_right=(1.0, 0.0, 0.0),
+        local_up=(0.0, 1.0, 0.0),
+        local_offset=(0.0, 0.15, 0.0),
     )
     ray = create_direction_ray(
         collection,
