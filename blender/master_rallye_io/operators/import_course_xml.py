@@ -11,6 +11,7 @@ from bpy_extras.io_utils import ImportHelper
 from mathutils import Matrix
 
 from ..blender_mesh import create_collection
+from ..course_diagnostics import create_direction_ray, create_marker_billboard
 from ..library import load_course_project, load_course_race_logic_authoring, position_to_blender
 
 
@@ -187,6 +188,21 @@ def _split_sign_material():
     return material
 
 
+def _split_sign_text_material():
+    name = "MR Race Logic Helper - Split Sign Text"
+    material = bpy.data.materials.get(name)
+    if material is None:
+        material = bpy.data.materials.new(name)
+        material.diffuse_color = (0.035, 0.025, 0.01, 1.0)
+        material.use_nodes = True
+        principled = material.node_tree.nodes.get("Principled BSDF") if material.node_tree else None
+        if principled is not None:
+            color = principled.inputs.get("Base Color")
+            if color is not None:
+                color.default_value = (0.035, 0.025, 0.01, 1.0)
+    return material
+
+
 def _source_egg_metadata(egg):
     def value_payload(value):
         return {
@@ -222,35 +238,25 @@ def _source_egg_metadata(egg):
     }
 
 
-def _create_split_visual(collection, source, course_name, split, split_status, source_sha256):
+def _create_split_center(collection, source, course_name, split, split_status, source_sha256):
     egg = split.source_egg
     matrix = egg.matrix("en3d Matrix")
     if matrix is None or split.center is None:
         return None
     label = str(split.split_id) if split.split_id is not None else (egg.name or str(egg.index_in_list))
-
-    # A small, original arrow-board icon. This is a procedural visualization,
-    # not a copied game model or texture.
-    vertices = [
-        (-1.10, 0.0, -0.28), (0.18, 0.0, -0.28), (0.18, 0.0, -0.62),
-        (0.95, 0.0, 0.0), (0.18, 0.0, 0.62), (0.18, 0.0, 0.28),
-        (-1.10, 0.0, 0.28), (-0.07, 0.0, -0.28), (0.07, 0.0, -0.28),
-        (0.07, 0.0, -1.25), (-0.07, 0.0, -1.25),
-    ]
-    mesh = bpy.data.meshes.new(f"MR split visual icon {label}")
-    mesh.from_pydata(vertices, [], [(0, 1, 2, 3, 4, 5, 6), (7, 8, 9, 10)])
-    mesh.materials.append(_split_sign_material())
-    obj = bpy.data.objects.new(f"MR_SplitTime{label}_Visual", mesh)
+    obj = bpy.data.objects.new(f"MR_SplitTime{label}_Center", None)
     collection.objects.link(obj)
+    obj.empty_display_type = "SPHERE"
+    obj.empty_display_size = 0.24
     obj.location = position_to_blender(split.center)
     rotation = _matrix_rotation(matrix)
     if rotation is not None:
         obj.rotation_euler = rotation
     obj.show_in_front = True
-    obj.color = (1.0, 0.72, 0.05, 1.0)
+    obj.color = (1.0, 0.26, 0.04, 1.0)
     obj["mr_resource_kind"] = "course"
     obj["mr_read_only"] = not split_status.supported
-    obj["mr_course_helper_kind"] = "RaceTest split-time visual sign icon"
+    obj["mr_course_helper_kind"] = "split_center"
     obj["mr_course_identity"] = course_name
     obj["mr_xml_source"] = source
     obj["mr_xml_path"] = egg.xml_path
@@ -285,7 +291,7 @@ def _create_split_visual(collection, source, course_name, split, split_status, s
     _set_evidence_metadata(obj, split.center_rule_evidence, split.record_evidence)
     obj["mr_extra_time_semantics"] = split.extra_time_semantics
     obj["mr_source_component_xml_path"] = split.source_component.xml_path
-    obj["mr_icon_status"] = "procedural helper icon; not a game asset or exact render reproduction"
+    obj["mr_icon_status"] = "procedural billboard is a separate editor-only diagnostic helper"
     obj["mr_race_logic_editable"] = bool(split_status.supported)
     obj["mr_race_logic_object_type"] = "split_center"
     obj["mr_split_source_identity"] = split_status.identity
@@ -294,9 +300,48 @@ def _create_split_visual(collection, source, course_name, split, split_status, s
     obj["mr_initial_blender_rotation_json"] = json.dumps([float(value) for value in obj.rotation_euler])
     obj["mr_initial_blender_scale_json"] = json.dumps([float(value) for value in obj.scale])
     obj["mr_semantics_status"] = "CONFIRMED_BY_EXECUTABLE; runtime edit confirmed for France1 SplitTime0" if split_status.supported else "read-only: ambiguous or incomplete split source"
-    obj.lock_rotation = (True, True, True)
     obj.lock_scale = (True, True, True)
     return obj
+
+
+def _create_split_diagnostics(collection, source, course_name, split, split_status, source_sha256, center):
+    label = f"SPLIT {split.split_id}" if split.split_id is not None else (split.egg_name or "SPLIT")
+    panel, text_obj = create_marker_billboard(
+        collection,
+        f"MR_{split.egg_name or 'SplitTime'}_Billboard",
+        center,
+        label,
+        panel_material=_split_sign_material(),
+        text_material=_split_sign_text_material(),
+        # RaceTest matrix Row1 is the converted vertical axis; Row2 is the
+        # panel normal. These are visualization-basis choices only.
+        local_right=(-1.0, 0.0, 0.0),
+        local_up=(0.0, -1.0, 0.0),
+    )
+    ray = create_direction_ray(
+        collection,
+        f"MR_{split.egg_name or 'SplitTime'}_DirectionRay",
+        center,
+        local_direction=(0.0, 0.0, 1.0),
+        length=8.0,
+        color=(0.05, 0.82, 1.0, 1.0),
+    )
+    for obj in (panel, text_obj, ray):
+        obj["mr_course_identity"] = course_name
+        obj["mr_xml_source"] = source
+        obj["mr_xml_path"] = split.egg_xml_path
+        obj["mr_source_xml_sha256"] = source_sha256
+        obj["mr_split_source_identity"] = split_status.identity
+        obj["mr_split_source"] = split.egg_name or ""
+        obj["mr_race_logic_editable"] = False
+        obj["mr_editor_only"] = True
+        obj["mr_read_only"] = True
+        obj["mr_orientation_source"] = "en3d Matrix Row2 mapped to imported helper local +Z; visualization only"
+        obj["mr_semantics_status"] = "VIEWPORT_ONLY; no runtime-forward semantics asserted"
+    panel["mr_billboard_style"] = "procedural diagnostic fallback; no game texture/model"
+    text_obj["mr_billboard_label"] = label
+    ray["mr_direction_basis"] = "imported en3d Matrix local +Z (Row2)"
+    return panel, text_obj, ray
 
 
 def _create_split_checkpoint_group(collection, source, course_name, split, split_status):
@@ -380,6 +425,7 @@ def _create_split_trigger(collection, source, course_name, split, center_object)
     obj.color = (0.95, 0.22, 0.08, 1.0)
     obj["mr_resource_kind"] = "course"
     obj["mr_read_only"] = True
+    obj["mr_editor_only"] = True
     obj["mr_course_helper_kind"] = "split_trigger"
     obj["mr_course_identity"] = course_name
     obj["mr_split_time_id_raw"] = split.split_id_raw or ""
@@ -614,11 +660,25 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 group = _create_split_checkpoint_group(
                     split_collection, source_path, source.stem, split, split_edit_status
                 )
-                center = _create_split_visual(split_collection, source_path, source.stem, split, split_edit_status, authoring.source_sha256)
+                center = _create_split_center(split_collection, source_path, source.stem, split, split_edit_status, authoring.source_sha256)
                 if center is not None:
                     if group is not None:
                         _parent_preserving_world_transform(center, group)
                     _create_split_trigger(split_collection, source_path, source.stem, split, center)
+
+                    diagnostics = create_collection("Diagnostic Visuals", split_collection)
+                    diagnostics["mr_xml_collection_kind"] = "split_diagnostic_visuals"
+                    diagnostics["mr_editor_only"] = True
+                    diagnostics["mr_semantic_role"] = "viewport-only billboard and imported orientation-basis ray"
+                    _create_split_diagnostics(
+                        diagnostics,
+                        source_path,
+                        source.stem,
+                        split,
+                        split_edit_status,
+                        authoring.source_sha256,
+                        center,
+                    )
 
                 companions_collection = create_collection("Visual Checkpoint Objects", split_collection)
                 companions_collection["mr_xml_collection_kind"] = "split_visual_companions"

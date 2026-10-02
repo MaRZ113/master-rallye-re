@@ -39,17 +39,22 @@ invented per-car start slot interpolation. Other MarkerLists remain grouped by
 source list. Positions use the established
 `(X, Y, Z) → (X, -Z, Y)` conversion. Directions stay as source metadata.
 
-Split visual Eggs get a small original procedural yellow arrow icon at the
-serialized `en3d Matrix` transform. For France1 SplitTime0, debugger and
-runtime evidence confirms this Row3 is both the sign position and gameplay
-center. The add-on now draws the read-only trigger as a three-ring wire sphere
-at the semantic center, with the parsed Radius and `Split Time ID`. SplitTime0
-has direct runtime/debugger evidence; other records retain executable/shared
-structure evidence without claiming separate runtime movement tests. Exact
-ExtraTime meaning remains `UNKNOWN`. Exact-name `SplitTimeN-<index>` siblings
-appear in a separate `Visual Checkpoint Objects` collection and are never
-marked as trigger-center sources. No helper includes copied game models or
-textures.
+Each SplitTime has an editable center helper at `en3d Matrix` Row3 and a
+three-ring wire sphere driven by the explicit `Radius`. The sphere remains the
+3D trigger-volume preview. A hideable `Diagnostic Visuals` collection adds a
+procedural yellow `SPLIT N` billboard and a cyan direction ray. The billboard
+normal and ray follow the imported Matrix Row2 / local +Z basis; this is an
+orientation display only and does not claim runtime-forward semantics. The
+panel is generated from Blender geometry/text and uses no extracted game
+texture or model. Rotating the center updates both visuals immediately, while
+RaceTest export preserves Matrix rows 0–2 and only writes its existing
+allowlisted fields. For France1 SplitTime0, debugger and runtime evidence
+confirms Row3 is both the sign position and gameplay center. Other records
+retain executable/shared structure evidence without claiming separate runtime
+movement tests. Exact ExtraTime meaning remains `UNKNOWN`. Exact-name
+`SplitTimeN-<index>` siblings appear separately in `Visual Checkpoint Objects`
+and are never marked as trigger-center sources. The ray/billboard objects and
+radius sphere are marked editor-only and excluded from the XML edit traversal.
 
 ## G0 editing and export
 
@@ -60,11 +65,12 @@ positions. It never writes a Blender parent transform. Two current Retail
 FinishArea lists have five markers; their helpers remain read-only, and an
 attempted move is refused at export.
 
-The main SplitTime sign helper is also the trigger center and can be moved.
-Its Radius and Split Time ID are editable in the Course Race Logic panel. The
-wire sphere follows the explicit Radius custom property. Scale does not change
-Radius and warns if the center helper scale is changed. ExtraTime remains
-informational with meaning marked `UNKNOWN`.
+The SplitTime center Empty is at the shared sign/trigger center and can be
+moved. Its Radius and Split Time ID are editable in the Course Race Logic
+panel. The wire sphere follows the explicit Radius custom property. Scale does
+not change Radius and warns if the center helper scale is changed. Rotation
+updates the billboard and basis ray for inspection, but does not author Matrix
+orientation. ExtraTime remains informational with meaning marked `UNKNOWN`.
 
 Each exact source sibling `SplitTimeN-i` is a visual checkpoint companion and
 has its own stable XML identity metadata. Its final world position can be

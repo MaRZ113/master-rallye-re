@@ -465,7 +465,8 @@ class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
             layout.prop(obj, '["mr_split_time_id"]', text="Split Time ID")
             layout.prop(obj, '["mr_split_radius"]', text="Radius")
             layout.label(text=f"ExtraTime preserved: {obj.get('mr_split_extra_time_raw', '')} (meaning UNKNOWN)")
-            layout.label(text="Move sign to move trigger center; scale does not change Radius")
+            layout.label(text="Move center to move trigger/sign; rotate to inspect imported basis")
+            layout.label(text="Rotation is a viewport aid and is not exported; scale does not change Radius")
         elif kind == "split_checkpoint_group":
             layout.label(text="Split checkpoint translation controller", icon="EMPTY_AXIS")
             layout.label(text="Move to translate trigger and visual companions together")

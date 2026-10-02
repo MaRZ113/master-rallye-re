@@ -100,6 +100,8 @@ def render(rows: dict[str, dict]) -> str:
         "",
         "Every observed marker in these lists has a parsed `Marker Pos` and `Marker Dir` value. The add-on preserves the source record metadata. `StartArea` and `FinishArea` use the existing bounded authoring workflow; every other family below remains read-only.",
         "",
+        "The SplitTime viewport now has reusable procedural billboard and local-basis direction-ray helpers. Their future use for RaceLine, Cameras, and Left/Right limit lists is a visualization plan only; those families remain read-only and their runtime roles unknown.",
+        "",
         "| Source list name | Course coverage | Markers total (per-course range) | Marker count distribution (markers/course: courses) | Parsed fields | Current import status | Semantic evidence |",
         "|---|---:|---:|---|---|---|---|",
     ]

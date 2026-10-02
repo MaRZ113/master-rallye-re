@@ -34,8 +34,11 @@ semantic-role field is additive.
 
 ```text
 SplitTimeN_Group (translation controller)
-├── SplitTimeN main Egg helper
-│   └── wire Radius visualization
+├── SplitTimeN center Empty (semantic authoring object)
+│   └── wire Radius visualization (editor-only)
+├── Diagnostic Visuals collection
+│   ├── SPLIT N procedural billboard + label (editor-only)
+│   └── Matrix Row2 / local +Z orientation ray (editor-only)
 └── visual checkpoint companions
     ├── SplitTimeN-0
     ├── SplitTimeN-1
@@ -54,7 +57,19 @@ positions can be edited independently or translated with the group. Moving a
 visual companion does not move the gameplay center. The group controller moves
 all its children by one translation delta; Radius stays unchanged. Group
 rotation and scale are locked in the UI and rejected by export if changed.
-Main/helper rotation and scale are not written to Matrix rows 0–2.
+The center helper imports the Egg orientation so the sign and ray show its
+current basis. Rotating the center updates these visuals immediately; export
+warns that the rotation is preview-only and preserves Matrix rows 0–2. Scale
+does not change Radius.
+
+The yellow `SPLIT N` panel is an original procedural fallback, not a game
+texture/model. A cyan ray follows the imported Matrix Row2 through the helper's
+local +Z axis; it is a basis visualization, not proof of a runtime heading
+rule. Billboard, label, ray, and radius sphere carry `mr_editor_only` metadata
+and are excluded from export traversal. The three-ring sphere remains visible
+as the explicit 3D Radius preview. These generic billboard/ray helpers prepare
+a consistent viewport style for later read-only Route, Limits, and Camera
+research; those marker families remain non-authoring.
 
 ### Transform and warning behavior
 
@@ -80,8 +95,9 @@ Main/helper rotation and scale are not written to Matrix rows 0–2.
    rotation is represented by the resulting point locations.
 4. To translate a split and its visual companions together, select its
    `SplitTimeN_Group` controller and move it. To move just the trigger/sign,
-   move the main `SplitTimeN` helper. To adjust only a visual object, move that
-   `SplitTimeN-i` helper.
+   move the main `SplitTimeN` center. Rotate that helper to preview the imported
+   basis; orientation remains preserved in the source XML. To adjust only a
+   visual object, move that `SplitTimeN-i` helper.
 5. Set Radius and Split Time ID on the main SplitTime helper in the
    **Course Race Logic** panel. ExtraTime remains visible/preserved metadata.
 6. Select a helper in the imported Race Logic hierarchy and click

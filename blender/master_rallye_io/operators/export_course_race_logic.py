@@ -85,7 +85,9 @@ def _validate_group_translation_only(group):
 
 
 def _apply_scene_edits(root, editor):
-    objects = tuple(root.all_objects)
+    # Diagnostic viewport objects have stable source metadata for inspection,
+    # but never participate in the RaceTest edit transaction.
+    objects = tuple(obj for obj in root.all_objects if not obj.get("mr_editor_only"))
     warnings = []
 
     for area_name, setter in (
