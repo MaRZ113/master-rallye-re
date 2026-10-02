@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "build": "retail",
+  "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "evidence_level": "CONFIRMED_BY_EXE",
+  "naming": "Conservative partial structures, not original source names. Not applied to shared Ghidra programs.",
+  "structures": [
+    {
+      "name": "RetailBrokerEntry",
+      "size": 28,
+      "fields": [
+        {"offset": 0, "name": "path_id", "size": 4, "kind": "interned_string_id"},
+        {"offset": 4, "name": "payload", "size": 4, "kind": "owned_typed_pointer_or_xmldata_object"},
+        {"offset": 8, "name": "type_tag", "size": 4, "kind": "uint32"},
+        {"offset": 12, "name": "save_flags", "size": 4, "kind": "uint32_low_bits_1_game_2_playerstate_4_options"},
+        {"offset": 16, "name": "revision", "size": 4, "kind": "uint32"},
+        {"offset": 20, "name": "scope", "size": 4, "kind": "uint32_0_global_1_scene_others_user_display"},
+        {"offset": 24, "name": "save_file_id", "size": 4, "kind": "interned_string_id"}
+      ],
+      "evidence": ["004DD980", "004DDC20", "004D8000", "00601D00", "005FE460"]
+    },
+    {
+      "name": "RetailBrokerManagerPartial",
+      "size": 28,
+      "global_pointer": "006F9410",
+      "fields": [
+        {"offset": 0, "name": "unknown_0x00", "size": 4},
+        {"offset": 4, "name": "entry_begin", "size": 4},
+        {"offset": 8, "name": "entry_end", "size": 4},
+        {"offset": 12, "name": "entry_capacity_end", "size": 4},
+        {"offset": 16, "name": "unknown_0x10", "size": 4},
+        {"offset": 20, "name": "save_file_list_head", "size": 4},
+        {"offset": 24, "name": "save_file_list_count", "size": 4}
+      ],
+      "evidence": ["004D8EC0", "004D54A0", "004D5350", "005B16C0"]
+    },
+    {
+      "name": "SaveFileListNode",
+      "size": 12,
+      "fields": [
+        {"offset": 0, "name": "next", "size": 4},
+        {"offset": 4, "name": "previous", "size": 4},
+        {"offset": 8, "name": "save_file_id", "size": 4}
+      ],
+      "evidence": ["004D54A0", "005B16C0"]
+    },
+    {
+      "name": "XmlNodePartial",
+      "size": 40,
+      "fields": [
+        {"offset": 0, "name": "vtable", "size": 4},
+        {"offset": 4, "name": "first_child", "size": 4},
+        {"offset": 8, "name": "next_sibling", "size": 4},
+        {"offset": 12, "name": "unknown_0x0c", "size": 4},
+        {"offset": 16, "name": "unknown_0x10", "size": 4},
+        {"offset": 20, "name": "unknown_0x14", "size": 4},
+        {"offset": 24, "name": "attributes_begin", "size": 4},
+        {"offset": 28, "name": "attributes_end", "size": 4},
+        {"offset": 32, "name": "attributes_capacity_end", "size": 4},
+        {"offset": 36, "name": "tag_id", "size": 4}
+      ],
+      "evidence": ["005FDE30", "005FE060", "004DF760", "004DFA00"]
+    }
+  ],
+  "type_tags": [
+    {"tag": 0, "name": "Bool", "payload_bytes": 1},
+    {"tag": 1, "name": "Float", "payload_bytes": 4},
+    {"tag": 2, "name": "Int", "payload_bytes": 4},
+    {"tag": 3, "name": "Matrix", "payload_bytes": 64},
+    {"tag": 4, "name": "String", "payload_bytes": 4, "payload_kind": "interned_id_wrapper"},
+    {"tag": 5, "name": "Vector4", "payload_bytes": 16},
+    {"tag": 6, "name": "Vector3", "payload_bytes": 12},
+    {"tag": 7, "name": "Vector2", "payload_bytes": 8},
+    {"tag": 8, "name": "MarkerListName", "payload_bytes": 4, "payload_kind": "interned_id_wrapper"},
+    {"tag": 9, "name": "StringList", "payload_bytes": 16, "payload_kind": "owned_vector_wrapper_and_owned_elements"},
+    {"tag": 10, "name": "XmlData", "payload_kind": "polymorphic_owned_object_pointer"},
+    {"tag": 11, "name": "XmlFilename", "payload_bytes": 4, "payload_kind": "interned_id_wrapper"},
+    {"tag": 12, "name": "Empty", "payload_bytes": 0, "emitted_by_dump": false}
+  ],
+  "limitations": [
+    "Retail only; pristine demo serializers use stride 148/save_flags offset 132.",
+    "Unknown flag bits and unused fields are not named speculatively.",
+    "USER display classification is not a recovered profile-lifetime policy.",
+    "XmlData private subclass fields and full XML lexical grammar are outside this partial layout."
+  ]
+}

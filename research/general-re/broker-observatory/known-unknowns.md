@@ -1,5 +1,12 @@
 # Known unknowns and limits
 
+> **R-BROKER1 update:** original passive live capture is now owner-confirmed;
+> automatic fresh-Dump capture remains unrun. Type C is resolved as empty.
+> SaveFile/sentinel policy is mapped in [persistence](../persistence/findings.md).
+> Scope lifecycle and object-specific serialization limits remain open. The
+> list below preserves the original delivery's historical unknowns; use the
+> linked R-BROKER1 documents for current status.
+
 - **Live memory layout validation pending.** The reader's object layout and
   vtable are static retail evidence; it has not yet captured a running process.
 - **No atomic process snapshot.** The tool double-reads bytes and triple-checks

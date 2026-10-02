@@ -1,0 +1,50 @@
+build,address,proposed_name,evidence_level,evidence
+retail,004D8EC0,GetSharedBrokerManager,CONFIRMED_BY_EXE,006F9410 lazy allocation and editor/game callers
+retail,004D4460,InternExactString,CONFIRMED_BY_EXE,hash candidate lookup and numeric string pool ID
+retail,004D4B30,FindInternedExactString,CONFIRMED_BY_EXE,byte exact collision chain comparison
+retail,004D0570,ResolveInternedText,CONFIRMED_BY_EXE,string ID to pooled text
+retail,004DD980,ConstructEmptyBrokerEntry,CONFIRMED_BY_EXE,tag C scope1 zero revision and cleared save bits
+retail,004DDC20,ResetBrokerEntry,CONFIRMED_BY_EXE,typed destruction then empty state
+retail,004DE7B0,DestroyBrokerPayload,CONFIRMED_BY_EXE,typed payload release only
+retail,004DEAA0,CopyBrokerEntry,CONFIRMED_BY_EXE,payload clone and metadata copy
+retail,004D6520,ReadBrokerBool,CONFIRMED_BY_EXE,indexed type check and false default
+retail,004D6650,ReadBrokerFloat,CONFIRMED_BY_EXE,indexed type check and zero default
+retail,004D6760,ReadBrokerInt,CONFIRMED_BY_EXE,indexed type check and zero default
+retail,004D7AA0,WriteBrokerBool,CONFIRMED_BY_EXE,indexed growth and typed value setter
+retail,004D7ED0,WriteBrokerFloat,CONFIRMED_BY_EXE,indexed growth and typed value setter
+retail,004D8000,WriteBrokerInt,CONFIRMED_BY_EXE,indexed growth and typed value setter
+retail,004D84C0,ReplaceBrokerXmlData,CONFIRMED_BY_EXE,type A ownership replacement
+retail,004D8260,WriteBrokerXmlFilename,CONFIRMED_BY_EXE,type B interned name payload
+retail,004D8D40,RemoveBrokerKey,CONFIRMED_BY_EXE,reset slot without index shifting
+retail,004D5DF0,AssignBrokerRevision,CONFIRMED_BY_EXE,direct revision assignment
+retail,004D5AF0,AssignBrokerScope,CONFIRMED_BY_EXE,direct scope assignment
+retail,004D58F0,AssignBrokerSaveFile,CONFIRMED_BY_EXE,unconditional ID assignment
+retail,004D5FF0,SetBrokerGameFlag,CONFIRMED_BY_EXE,save bit1
+retail,004D6200,SetBrokerOptionsFlag,CONFIRMED_BY_EXE,save bit4
+retail,004D6410,SetBrokerPlayerStateFlag,CONFIRMED_BY_EXE,save bit2
+retail,004D54A0,RegisterBrokerSaveFile,CONFIRMED_BY_EXE,circular filename list and case insensitive dedup
+retail,004D5350,RegisterLiveEntrySaveFiles,CONFIRMED_BY_EXE,entry SaveFile enumeration
+retail,004D5400,RetagBrokerSaveFileGroup,CONFIRMED_BY_EXE,old file compare and replacement
+retail,004D7690,MergeBrokerManager,CONFIRMED_BY_EXE,nonempty entries copied by key index
+retail,004D78C0,ReplaceBrokerManagerEntries,CONFIRMED_BY_EXE,reset and copy temporary manager
+retail,004D7830,ClearBrokerStorage,CONFIRMED_BY_EXE,whole Game reset consumer
+retail,004D7A60,ClearBrokerEntriesForScope,CONFIRMED_BY_EXE,exact scope predicate but caller UNKNOWN
+retail,00601D00,DumpBrokerDiagnostics,CONFIRMED_BY_EXE,formatted values and metadata skipping tag C
+retail,0065EC40,DispatchBrokerEditorCommand,CONFIRMED_BY_EXE,local command switch with Dump case2
+retail,0065F170,AcceptBrokerValueDialog,CONFIRMED_BY_EXE,typed live write and explicit metadata/revision
+retail,006608A0,ApplyBrokerBranchMetadataDialog,CONFIRMED_BY_EXE,prefix entries flags and unconditional SaveFile
+retail,00671570,DispatchBrokerValueDialog,CONFIRMED_BY_EXE,temporary XmlData commit/cancel notifications
+retail,006645C0,DispatchGenericEditorWindow,CONFIRMED_BY_EXE,nine word table only Exit active
+retail,00664440,CloseGenericEditorWithProviderChoice,CONFIRMED_BY_EXE,dirty prompt and virtual provider callbacks
+retail,005FE460,SerializeFilteredBrokerTree,CONFIRMED_BY_EXE,mode predicates and typed serializer
+retail,005FE580,SerializeBrokerValue,CONFIRMED_BY_EXE,Value conversion and save annotations
+retail,005FE120,ConvertTypedBrokerValue,CONFIRMED_BY_EXE,typed parsers and loader metadata assignment
+retail,004DFA00,ParseXmlDataValue,CONFIRMED_BY_EXE,class registry construction and FromXml
+retail,00522BD0,RequestXmlFilenameDependencies,CONFIRMED_BY_EXE,type B and source SaveFile match
+retail,0054A4B0,PumpWritesWithHashSuffixBackup,CONFIRMED_BY_EXE,CopyFileA then truncating open and WriteFile
+8.4.1,004E2630,SerializeFilteredBrokerTree,CONFIRMED_BY_EXE,pristine filter loop stride94 flags84
+8.4.1,004E2770,SerializeBrokerValue,CONFIRMED_BY_EXE,pristine type switch and Value attributes
+9.3.1,005B3230,SerializeFilteredBrokerTree,CONFIRMED_BY_EXE,pristine filter loop stride94 flags84
+9.3.1,005B3370,SerializeBrokerValue,CONFIRMED_BY_EXE,pristine type switch and Value attributes
+9.10.0,005E15F0,SerializeFilteredBrokerTree,CONFIRMED_BY_EXE,pristine filter loop stride94 flags84
+9.10.0,005E1730,SerializeBrokerValue,CONFIRMED_BY_EXE,pristine type switch and Value attributes

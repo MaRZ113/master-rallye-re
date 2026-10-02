@@ -1,5 +1,11 @@
 # Game and Scene XML open/save
 
+> **R-BROKER1 correction:** the historical “No application backup was found”
+> statement below is superseded for retail: `0054A4B0` copies an existing loose
+> file to the same filename with suffix `#` via `0064D030 → CopyFileA(...,FALSE)`,
+> then uses CREATE_ALWAYS/WriteFile. One overwriteable backup, not atomic
+> replacement. See `research/general-re/persistence/save-pipeline.md`.
+
 ## Game configuration
 
 - ID 0x31 → 005B14D0 opens Game XML constrained to DataGame\\ and queues it into the broker.

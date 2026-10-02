@@ -13,14 +13,34 @@ existing Master Rallye research.
 | Broker Editor → Debug → Dump | `CONFIRMED_BY_RUNTIME` — previously emitted the large text broker diagnostic. |
 | Flow Builder | `CONFIRMED_BY_RUNTIME` — open-only behavior was observed in earlier work. |
 
-The Broker Observatory code itself remains `AWAITING_HUMAN_RUNTIME_VALIDATION`.
+The original passive Broker Observatory reader is now `CONFIRMED_BY_RUNTIME`
+from owner-provided captures and observations (large Dumps, realloc, multiple
+complete blocks, XmlData continuations). The **new automatic frontend** remains
+`AWAITING_HUMAN_RUNTIME_VALIDATION`.
 
 ## Current tool
 
-[Broker Observatory](broker-observatory/findings.md) parses the game's original
-Broker Editor Debug→Dump output and can passively capture the existing retail
-Debug text buffer. It does not invoke the Dump command or edit broker values.
+[Broker Observatory](../../docs/broker-observatory.md) has a one-command frontend:
 
-Live capture has not yet been exercised against a running game process. The
-prepared procedure is in
-[runtime-validation-plan.md](broker-observatory/runtime-validation-plan.md).
+```powershell
+python tools/runtime/mr_observe.py
+```
+
+It discovers verified retail, opens the reviewed Broker window when needed,
+requests original Debug→Dump, requires a new complete block and stores checked
+raw/JSON pairs. The previous low-level passive reader is reused and remains
+available. No edit/commit/save/gameplay commands are exposed.
+
+## R-BROKER1 architecture
+
+- [Broker core](broker-core/findings.md): indexed entries, type/ownership,
+  scope boundaries and revision.
+- [XML core](xml-core/findings.md): typed loading, XmlData factories,
+  XmlFilename dependencies.
+- [Persistence](persistence/findings.md): mode filters, logical SaveFiles,
+  native `#` backup/write chain and reload.
+- [Human U1–U4 plan](persistence/runtime-validation-plan.md): prepared only;
+  no persistence experiment was executed by the assistant.
+
+Overall R-BROKER1 is **PARTIAL** until the scope lifecycle and new frontend
+runtime gates close. Do not advance to unrelated RE phases from this result.

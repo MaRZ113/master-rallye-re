@@ -1,5 +1,14 @@
 # Broker key registry and reserved-looking names
 
+> **R-BROKER1 semantic closeout:** see
+> `research/general-re/persistence/sentinels.md` and
+> `research/general-re/broker-core/manager.md`. The linked ID list is the
+> SaveFile registry and deduplicates resolved filenames with `_stricmp`.
+> __NO_SAVE is not a universal Options/PlayerState veto; branch __NO_CHANGE
+> assignment is unconditional; mapped __IGNORE arguments are temporary mode-0
+> conversion context. Open-only metadata-mutation safety stands. Original
+> phase statements below are retained as history.
+
 ## Finding
 
 Retail Broker Editor opening interns two string-ID objects named `__NO_SAVE` and `__NO_CHANGE` into a shared broker key registry. The insertion routine deduplicates by string-ID equality and, if absent, appends a 12-byte linked-list node that stores the ID. It does **not** add a typed broker value, modify an existing broker value, set a dirty/revision/save flag, or write a file.

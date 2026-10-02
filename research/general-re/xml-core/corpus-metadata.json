@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "filename": "Game.xml",
+      "size_bytes": 2605,
+      "sha256": "c46a9d1ea2f805142ae5f0ed42ed40fc30a6555c941d7088bb2fec634cc8b4c6",
+      "root": "Game",
+      "value_count": 22,
+      "type_counts": {
+        "XmlFilename": 22
+      },
+      "attribute_orders": [
+        {
+          "order": [
+            "Name",
+            "Type",
+            "Value",
+            "SaveOptions",
+            "SavePlayerState"
+          ],
+          "count": 22
+        }
+      ],
+      "save_options": {
+        "False": 22
+      },
+      "save_player_state": {
+        "False": 22
+      },
+      "path_roots": {
+        "Load": 22
+      },
+      "duplicate_path_count": 0,
+      "representative_paths": [
+        "Load/Collision",
+        "Load/Damage",
+        "Load/DefaultOptions",
+        "Load/Dev",
+        "Load/Drivers",
+        "Load/Editors",
+        "Load/Frontend",
+        "Load/GameParticles",
+        "Load/ICont",
+        "Load/Input",
+        "Load/Keyboard1Defaults",
+        "Load/Keyboard2Defaults"
+      ],
+      "limitation": "No values or embedded XmlData copied; metadata inspection does not establish native parser acceptance."
+    },
+    {
+      "filename": "dev.xml",
+      "size_bytes": 601,
+      "sha256": "6630d9509450f1f6ecd2d7ac46ba4cb9651a9760ffebb60492b00f6fd6093c64",
+      "root": "Game",
+      "value_count": 5,
+      "type_counts": {
+        "Bool": 5
+      },
+      "attribute_orders": [
+        {
+          "order": [
+            "Name",
+            "Type",
+            "Value",
+            "SaveOptions",
+            "SavePlayerState"
+          ],
+          "count": 5
+        }
+      ],
+      "save_options": {
+        "False": 5
+      },
+      "save_player_state": {
+        "False": 5
+      },
+      "path_roots": {
+        "Camera0": 2,
+        "DebugWindow": 1,
+        "Menues": 1,
+        "ModelCaching": 1
+      },
+      "duplicate_path_count": 0,
+      "representative_paths": [
+        "Camera0/SwitchTarget",
+        "Camera0/SwitchType",
+        "DebugWindow/Enabled",
+        "Menues/Enabled",
+        "ModelCaching/CachingDisabled"
+      ],
+      "limitation": "No values or embedded XmlData copied; metadata inspection does not establish native parser acceptance."
+    },
+    {
+      "filename": "Editors.xml",
+      "size_bytes": 380,
+      "sha256": "15ce7c74a763e5aa22486646e84399e0555b6cdb26fccb7852e6ec17effe5e26",
+      "root": "Game",
+      "value_count": 3,
+      "type_counts": {
+        "Bool": 2,
+        "String": 1
+      },
+      "attribute_orders": [
+        {
+          "order": [
+            "Name",
+            "Type",
+            "Value",
+            "SaveOptions",
+            "SavePlayerState"
+          ],
+          "count": 3
+        }
+      ],
+      "save_options": {
+        "False": 3
+      },
+      "save_player_state": {
+        "False": 3
+      },
+      "path_roots": {
+        "Scene": 3
+      },
+      "duplicate_path_count": 0,
+      "representative_paths": [
+        "Scene/HatchEggsOnLoad",
+        "Scene/ResetSceneOnLoad",
+        "Scene/StartScene"
+      ],
+      "limitation": "No values or embedded XmlData copied; metadata inspection does not establish native parser acceptance."
+    },
+    {
+      "filename": "Progress.xml",
+      "size_bytes": 23022,
+      "sha256": "404b0a3463f3cf5d659a31902b96018b608c156505ca790189d62711e27d1f51",
+      "root": "Game",
+      "value_count": 184,
+      "type_counts": {
+        "Bool": 29,
+        "Float": 46,
+        "Int": 109
+      },
+      "attribute_orders": [
+        {
+          "order": [
+            "Name",
+            "Type",
+            "Value",
+            "SaveOptions",
+            "SavePlayerState"
+          ],
+          "count": 184
+        }
+      ],
+      "save_options": {
+        "False": 184
+      },
+      "save_player_state": {
+        "False": 7,
+        "True": 177
+      },
+      "path_roots": {
+        "Progress": 184
+      },
+      "duplicate_path_count": 0,
+      "representative_paths": [
+        "Progress/BestTimes/BestTime_BFGoodrichCup",
+        "Progress/BestTimes/BestTime_BFGoodrichCup1",
+        "Progress/BestTimes/BestTime_BFGoodrichCup2",
+        "Progress/BestTimes/BestTime_BFGoodrichCup3",
+        "Progress/BestTimes/BestTime_BagooCup",
+        "Progress/BestTimes/BestTime_BagooCup1",
+        "Progress/BestTimes/BestTime_BagooCup2",
+        "Progress/BestTimes/BestTime_BagooCup3",
+        "Progress/BestTimes/BestTime_Challenge1",
+        "Progress/BestTimes/BestTime_Challenge10",
+        "Progress/BestTimes/BestTime_Challenge11",
+        "Progress/BestTimes/BestTime_Challenge2"
+      ],
+      "limitation": "No values or embedded XmlData copied; metadata inspection does not establish native parser acceptance."
+    },
+    {
+      "filename": "Settings.xml",
+      "size_bytes": 675,
+      "sha256": "bb136b370e7de3990b8569798f56ab5f32d07a6c142f2c0dec590d7a031503ea",
+      "root": "Game",
+      "value_count": 6,
+      "type_counts": {
+        "Int": 4,
+        "String": 2
+      },
+      "attribute_orders": [
+        {
+          "order": [
+            "Name",
+            "Type",
+            "Value",
+            "SaveOptions",
+            "SavePlayerState"
+          ],
+          "count": 6
+        }
+      ],
+      "save_options": {
+        "False": 6
+      },
+      "save_player_state": {
+        "True": 6
+      },
+      "path_roots": {
+        "Settings": 6
+      },
+      "duplicate_path_count": 0,
+      "representative_paths": [
+        "Settings/Catchup",
+        "Settings/Gearbox1",
+        "Settings/Gearbox2",
+        "Settings/Player1Name",
+        "Settings/Player2Name",
+        "Settings/SpeedUnits"
+      ],
+      "limitation": "No values or embedded XmlData copied; metadata inspection does not establish native parser acceptance."
+    },
+    {
+      "filename": "vehicles.xml",
+      "size_bytes": 757388,
+      "sha256": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+      "root": "Game",
+      "value_count": 5490,
+      "type_counts": {
+        "Bool": 70,
+        "Float": 4927,
+        "Int": 140,
+        "String": 70,
+        "Vector2": 213,
+        "Vector3": 70
+      },
+      "attribute_orders": [
+        {
+          "order": [
+            "Name",
+            "Type",
+            "Value",
+            "SaveOptions",
+            "SavePlayerState"
+          ],
+          "count": 5490
+        }
+      ],
+      "save_options": {
+        "False": 5490
+      },
+      "save_player_state": {
+        "False": 5490
+      },
+      "path_roots": {
+        "Vehicles": 5490
+      },
+      "duplicate_path_count": 0,
+      "representative_paths": [
+        "Vehicles/Astero/Chassis/AerodynamicDownForceCoeff",
+        "Vehicles/Astero/Chassis/AerodynamicDragCoeff",
+        "Vehicles/Astero/Chassis/BrakeTorqueFront",
+        "Vehicles/Astero/Chassis/BrakeTorqueRear",
+        "Vehicles/Astero/Chassis/CentreOfGravity",
+        "Vehicles/Astero/Chassis/DragCoeff",
+        "Vehicles/Astero/Chassis/Gravity",
+        "Vehicles/Astero/Chassis/HandBrakeTorque",
+        "Vehicles/Astero/Chassis/MaxAerodynamicDownForceSpeed",
+        "Vehicles/Astero/Chassis/MinAerodynamicDownForceSpeed",
+        "Vehicles/Astero/Chassis/MomentOfInertia",
+        "Vehicles/Astero/Chassis/Restitution"
+      ],
+      "limitation": "No values or embedded XmlData copied; metadata inspection does not establish native parser acceptance."
+    },
+    {
+      "filename": "DefaultOptions.xml",
+      "size_bytes": 8096,
+      "sha256": "bdeb5a4ac4c299fe0b13aa8d512ee5f694a9c082e74ca6c542ad19c3f32bf572",
+      "root": "Game",
+      "value_count": 66,
+      "type_counts": {
+        "Float": 6,
+        "Int": 60
+      },
+      "attribute_orders": [
+        {
+          "order": [
+            "Name",
+            "Type",
+            "Value",
+            "SaveOptions",
+            "SavePlayerState"
+          ],
+          "count": 66
+        }
+      ],
+      "save_options": {
+        "True": 66
+      },
+      "save_player_state": {
+        "False": 66
+      },
+      "path_roots": {
+        "Controller": 54,
+        "DirectX": 9,
+        "Sound": 3
+      },
+      "duplicate_path_count": 0,
+      "representative_paths": [
+        "Controller/Car/Joystick0/Accel/Ascii",
+        "Controller/Car/Joystick0/Accel/Axis",
+        "Controller/Car/Joystick0/Accel/Button",
+        "Controller/Car/Joystick0/Accel/Type",
+        "Controller/Car/Joystick0/Brake/Ascii",
+        "Controller/Car/Joystick0/Brake/Axis",
+        "Controller/Car/Joystick0/Brake/Button",
+        "Controller/Car/Joystick0/Brake/Type",
+        "Controller/Car/Joystick0/ChangeView/Ascii",
+        "Controller/Car/Joystick0/ChangeView/Axis",
+        "Controller/Car/Joystick0/ChangeView/Button",
+        "Controller/Car/Joystick0/ChangeView/Type"
+      ],
+      "limitation": "No values or embedded XmlData copied; metadata inspection does not establish native parser acceptance."
+    }
+  ]
+}

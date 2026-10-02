@@ -1,5 +1,12 @@
 # Retail Broker Editor open path
 
+> **R-BROKER1 semantic correction:** the linked string-ID list at manager +0x14
+> is the SaveFile registry, proven by `004D5350` entry +0x18 enumeration and
+> `005B16C0` group saving. References to “key IDs” below describe the old naming,
+> not typed Broker-path insertions. Open-only metadata-mutation classification
+> stands. Owner runtime confirmation now exists; the historical phase's unrun
+> test statement is retained. See `research/general-re/broker-core/manager.md`.
+
 ## Command and opener
 
 ```text

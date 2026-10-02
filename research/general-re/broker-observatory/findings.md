@@ -1,5 +1,13 @@
 # Broker Observatory — findings
 
+> **R-BROKER1 update:** the owner has runtime-confirmed the original passive
+> reader, including realloc, multiple Dumps and XmlData continuations. The new
+> frontend can issue original Broker-local Dump and requires fresh-block proof;
+> that new chain still awaits human validation. See
+> [current guide](../../../docs/broker-observatory.md) and
+> [Broker core](../broker-core/findings.md). The delivery notes below describe
+> the original implementation's state at its original commit.
+
 ## Status
 
 **Tooling implemented; offline synthetic validation passes; live process capture is awaiting the human runtime check.** The tool is based on the verified retail executable and the existing R-DEV1.2 static analysis. It reads the existing Debug window buffer only. It does not invoke Debug→Dump, send a command, suspend the process, edit a broker, save game state, or patch an executable.
