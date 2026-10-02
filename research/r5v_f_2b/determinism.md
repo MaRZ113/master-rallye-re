@@ -1,18 +1,9 @@
-# R5V-F.2b cook determinism
+# R5V-F.2c determinism status
 
-**Cook A: partial.** The retail Cook A produced and validated `complete.dx`
-(SHA-256 is in `complete-cook.md`). `car.dx` and `wheel.dx` have not been
-cooked, and Cook B has not been run. There is no complete A/B set to compare.
+Cook A is frozen as three immutable DX files under research-output/r5v_f_2b/cook-a/cache_snapshot/DataGx/Vehicles/Mercedes, with hashes and source evidence in cook-a/hashes.json. The set combines the earlier complete cook and the later car/wheel cook. The later session loaded complete.dx from cache, so it was not a three-role recook.
 
-The planned comparison uses exactly the same retail candidate, retail
-`Data.sma`, three source GXM hashes, authoring GXI copies, and 25 historical
-root DXT files. Cook B must start from absent generated DX files in its own
-isolated directory; it must not delete or reset anything in the canonical demo
-or retail trees.
+The current runtime-cook DX files are being cleared after snapshot verification so the next human run starts without complete.dx, car.dx or wheel.dx. GXM, GXI, DXT, TXT source, Data.sma and the candidate runtime remain in place. Cook B instructions are in research-output/r5v_f_2b/COOK_B_INSTRUCTIONS.txt.
 
-For `complete.dx`, `car.dx`, and `wheel.dx`, record SHA-256 and semantic DX
-summaries for A and B. Byte-identical output is the target. If hashes differ,
-produce a binary and semantic diff and explain each changed field before
-calling the retail cook reproducible. The isolated `cook-a/` folder now
-contains the human-captured complete cook log and output; `cook-b/` remains
-unused until all three Cook A roles pass.
+Cook B is WAITING_FOR_HUMAN. After a fresh log proves all three GXM reads, model builds, saves and reloads, compare SHA-256 for each role against hashes.json. If any differ, run a structural and field-level diff before classifying determinism.
+
+Cook A's render outputs and texture closure pass. The authentic car tag101 has a bounded auxiliary secondary-descriptor difference from legacy rev127. This remains a semantic collision limitation and prevents final package acceptance; Cook B is still useful to test whether the retail build reproduces the current output deterministically.

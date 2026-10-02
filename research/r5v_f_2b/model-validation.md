@@ -1,28 +1,13 @@
-# R5V-F.2b model validation
+# R5V-F.2c model validation
 
-`complete.dx` has now been retail-cooked and passed revision-135 SDK
-validation. Its size/hash, complete parser report, and semantic comparison to
-the selected demo-8.4.1 rev127 reference are recorded in
-`research-output/r5v_f_2b/cook-a/complete-cook-validation.md` and `.json`.
-The car and wheel outputs are not present yet, so their validation gates remain
-open.
+All three retail-cooked models are available in the frozen Cook A snapshot and pass the current modern rev135 parser.
 
-For the remaining `car.dx` and `wheel.dx` outputs:
+Complete: 122372 bytes, SHA-256 ddad0c7b13be70388a60a541255eaaf3af7f9b1815f5aa02f2b60050862dc28b; 2305 vertices, 2096 triangles, 18 draws; tag102 and marker-1339 accepted.
 
-1. Record file size, modification time, and SHA-256 immediately after the
-   isolated game exits.
-2. Parse with the current Vehicle SDK and require revision 135, finite
-   geometry/bounds, valid draws/materials, resolved texture references, and a
-   valid footer.
-3. Compare semantic vertex, triangle, draw, material, texture, and AABB data
-   against the matching selected-source rev127 file. Do not demand byte
-   identity across revisions.
-4. Require tag101 parsing and collision checks for `car.dx` in addition to its
-   render model validation.
+Car: 112722 bytes, SHA-256 5ec5f7480ddfc1380131a012b300a4cdeb28b869a1668b6f8bbe97210893ff44; 2115 vertices, 1632 triangles, 17 draws; authentic tag101 plus marker-1339 accepted. Structural collision checks pass; the legacy secondary descriptor comparison remains open as documented in collision-validation.md.
 
-The copied historical DXT set passed the current round-trip validation:
-44/44 files across the root Mercedes and separate `lpha` source families were
-byte-identical, with zero header or payload differences. The runtime stages
-only the 25 root Mercedes textures. For `complete.dx`, all 20 non-null texture
-references resolve to staged files and appear in the retail load log. This
-does not validate yet-unproduced `car.dx` or `wheel.dx` dependencies.
+Wheel: 12997 bytes, SHA-256 8707d887a75c452eb739775e21f94109521d9fc6be07726cee28a8e911c590ff; 220 vertices, 252 triangles, 5 draws; tag102 and marker-1339 accepted.
+
+All three strict validator outputs are VALID with no parser errors. All non-null texture references resolve to the locked 25-file DXT set. Legacy render comparison and exact runtime cook evidence are in car-wheel-cook.md and cook-a/validation.json.
+
+The runtime cache copies have been removed only after verifying them byte-for-byte against the frozen snapshot. This leaves the isolated runtime ready for a new human Cook B. No original game assets were changed.

@@ -2,19 +2,13 @@
 
 ## Current result
 
-**PARTIAL PASS — `complete.dx` retail cook and validation passed; R5V-F.2b is
-not complete.** The isolated retail run produced a new revision-135
-`complete.dx` from the pinned `complete.gxm` through the retail GXM loader and
-DX cache writer. Modern SDK parsing, footer/bounds/material-reference checks,
-and semantic comparison with the selected rev127 source passed. The
-comparison has no topology or bounds differences; it records a one-code RGB
-drift at ten vertices whose exact cause is not independently established. The
-car/wheel cook is now authorized by the complete-only gate.
+Retail DebugView proves native GXM-to-DX cache cooking for complete, car and wheel. Each output is revision 135 and passes strict modern parsing. Car and wheel render semantics match the selected demo-8.4.1 Copy of Mercedes rev127 files except for tiny precision/color quantization.
 
-`car.dx` and `wheel.dx` have not been cooked. Cook B, cache-only proof, and
-final Mercedes P0/P1 remain pending. The canonical retail executable,
-`Data.sma`, and source assets remain unchanged. Runtime output and logs are
-kept only in the ignored, repo-local `research-output/r5v_f_2b/` tree.
+Cook A is frozen for a determinism comparison. It combines complete.dx from the first capture with car.dx and wheel.dx from the later capture; complete was loaded from cache in that later session. It is not one three-role launch. All three files and the matching DXT hashes are recorded in research-output/r5v_f_2b/cook-a/hashes.json, with immutable DX copies under cook-a/cache_snapshot/.
+
+The authentic Mercedes car tag101 passes structural checks: finite, in-range, closed, Euler-2, convex, and zero-edit serializer identity. Core hull geometry/topology matches the rev127 Mercedes control within measured float drift. Thirty-six bytes in secondary face descriptors differ, and their runtime semantics remain unresolved. This is the remaining collision comparison gate; no donor collision was substituted.
+
+All 25 non-null texture dependencies resolve, parse, match the locked source hashes, and appear in runtime load logs. The junction verifier bug is fixed in source tools and regression-tested. The exact Junction remains for Cook B.
 
 ## Locked inputs
 
@@ -116,8 +110,4 @@ validators after human cooking.
 
 ## Next gate
 
-The complete-only gate passed. Proceed with the isolated offline Practice or
-Quick Race trigger for `car.dx` and `wheel.dx`, capturing their GXM/cache log
-messages. Stop once both caches are written, then validate both files offline.
-This does not mark Cook B, cache-only proof, or the final Mercedes P0/P1 as
-passed.
+Run research-output/r5v_f_2b/COOK_B_INSTRUCTIONS.txt to recook all three roles from absent DX caches. Compare each result with the frozen Cook A SHA-256 values. Keep the Junction until that comparison is complete. The secondary tag101 descriptor meaning and cache-only portability remain open; no final Mercedes acceptance is claimed.
