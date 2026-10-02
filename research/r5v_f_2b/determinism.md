@@ -1,9 +1,23 @@
-# R5V-F.2c determinism status
+# R5V-F.2d retail cook determinism
 
-Cook A is frozen as three immutable DX files under research-output/r5v_f_2b/cook-a/cache_snapshot/DataGx/Vehicles/Mercedes, with hashes and source evidence in cook-a/hashes.json. The set combines the earlier complete cook and the later car/wheel cook. The later session loaded complete.dx from cache, so it was not a three-role recook.
+## Result
 
-The current runtime-cook DX files are being cleared after snapshot verification so the next human run starts without complete.dx, car.dx or wheel.dx. GXM, GXI, DXT, TXT source, Data.sma and the candidate runtime remain in place. Cook B instructions are in research-output/r5v_f_2b/COOK_B_INSTRUCTIONS.txt.
+**MERCEDES RETAIL NATIVE COOKER: DETERMINISTIC FOR COMPLETE/CAR/WHEEL.**
 
-Cook B is WAITING_FOR_HUMAN. After a fresh log proves all three GXM reads, model builds, saves and reloads, compare SHA-256 for each role against hashes.json. If any differ, run a structural and field-level diff before classifying determinism.
+Cook B is a fresh single-session recook of all three Mercedes roles. Its DebugView log records GXM reads, DX saves, and DX reloads for each role. Recomputed Cook B SHA-256 values match the frozen Cook A snapshots byte-for-byte:
 
-Cook A's render outputs and texture closure pass. The authentic car tag101 has a bounded auxiliary secondary-descriptor difference from legacy rev127. This remains a semantic collision limitation and prevents final package acceptance; Cook B is still useful to test whether the retail build reproduces the current output deterministically.
+| Role | Bytes | Cook A SHA-256 | Cook B SHA-256 | Cook B log evidence |
+|---|---:|---|---|---|
+| `complete.dx` | 122372 | `ddad0c7b13be70388a60a541255eaaf3af7f9b1815f5aa02f2b60050862dc28b` | identical | read 1498, save 1519, reload 1520 |
+| `car.dx` | 112722 | `5ec5f7480ddfc1380131a012b300a4cdeb28b869a1668b6f8bbe97210893ff44` | identical | read 1621, save 1642, reload 1643 |
+| `wheel.dx` | 12997 | `8707d887a75c452eb739775e21f94109521d9fc6be07726cee28a8e911c590ff` | identical | read 1650, save 1671, reload 1672 |
+
+The Cook B log is `research-output/r5v_f_2b/cook-b/cook-b.log`; the separately recorded comparison is `cook-b/cook-b-hashes.txt`. The captured DX files are preserved under `cook-b/cache_snapshot/DataGx/Vehicles/Mercedes/`. Their computed hashes were checked again before packaging.
+
+This proves repeatability for these exact GXM inputs, retail executable, cooker configuration, and runtime environment. It does not establish determinism for arbitrary GXM or other retail builds.
+
+## Cache-only handoff
+
+The assembled runtime is at `research-output/r5v_f_2b/cache-only/runtime/`. Its Mercedes folder contains the three Cook B DX files and the 25 required DXT files. The machine-readable inventory and SHA-256 closure are in `cache-only/cache-manifest.json`; the human run procedure is in `cache-only/CACHE_ONLY_TEST_INSTRUCTIONS.md`.
+
+Static package checks pass. Preview, race car/wheel load, and authoring-source independence remain **WAITING_FOR_HUMAN** until the isolated DebugView test is run.

@@ -1,6 +1,6 @@
 # R5V-F.2c model validation
 
-All three retail-cooked models are available in the frozen Cook A snapshot and pass the current modern rev135 parser.
+All three retail-cooked models pass the current modern rev135 parser. Cook B regenerated all three in one session, and its output bytes equal the frozen Cook A snapshot for each role.
 
 Complete: 122372 bytes, SHA-256 ddad0c7b13be70388a60a541255eaaf3af7f9b1815f5aa02f2b60050862dc28b; 2305 vertices, 2096 triangles, 18 draws; tag102 and marker-1339 accepted.
 
@@ -10,4 +10,4 @@ Wheel: 12997 bytes, SHA-256 8707d887a75c452eb739775e21f94109521d9fc6be07726cee28
 
 All three strict validator outputs are VALID with no parser errors. All non-null texture references resolve to the locked 25-file DXT set. Legacy render comparison and exact runtime cook evidence are in car-wheel-cook.md and cook-a/validation.json.
 
-The runtime cache copies have been removed only after verifying them byte-for-byte against the frozen snapshot. This leaves the isolated runtime ready for a new human Cook B. No original game assets were changed.
+The cache-only package uses the byte-verified Cook B files. It contains no GXM, GXI, or TXT under `DataGx/Vehicles/Mercedes`; the package copy has not yet received the human preview/race load test. No original game assets were changed.

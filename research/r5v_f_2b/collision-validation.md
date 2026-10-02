@@ -1,5 +1,18 @@
 # R5V-F.2c Mercedes car tag101 collision validation
 
+## R5V-F.2d classification
+
+`car.dx` is byte-identical between the frozen Cook A and native retail Cook B builds. Retain the conservative classification:
+
+```text
+NATIVE_RETAIL_REBUILD
+STRUCTURALLY_VALID
+GEOMETRICALLY_EQUIVALENT_WITH_BOUNDED_FLOAT/SECONDARY_DESCRIPTOR_DELTA
+SECONDARY_DESCRIPTOR_SEMANTICS_UNRESOLVED
+```
+
+This evidence is sufficient to proceed to cache-only portability and controlled Mercedes P1. It does not resolve or name the secondary descriptor semantics.
+
 ## Structural validation
 
 The cooked retail car.dx contains authentic Mercedes tag101 collision data. Its 5668-byte tag parses without collision warnings or errors. The 44-byte marker-1339 suffix is recognized. The legacy Copy of Mercedes car.dx also has a 5668-byte tag101 payload. Both source and cooked tags serialize back to their original tag bytes on a zero-edit roundtrip.
@@ -16,9 +29,9 @@ The source tool deliberately classifies changed secondary descriptor semantics a
 
 Tag101 structural integrity: PASS.
 Core collision geometry/topology comparison: PASS within measured float drift.
-Auxiliary secondary descriptor comparison: OPEN; 36-byte delta, meaning unresolved.
+Auxiliary secondary descriptor comparison: UNRESOLVED; 36-byte delta retained and documented.
 Zero-edit tag101 serializer: PASS for legacy and cooked payloads.
 
-Keep final Mercedes asset acceptance and cache-only portability blocked until the secondary descriptor delta is accepted by a documented native-rebuild semantic rule or its meaning is resolved. Cook B may proceed as a separate reproducibility experiment; it cannot by itself explain these legacy differences.
+The bounded delta does not block cache-only packaging or the controlled runtime proof. It remains a stated semantic limitation and must not be described as byte-level collision equivalence. Final Mercedes gameplay acceptance still requires the human P1 collision check.
 
 Evidence is machine-readable in cook-a/validation.json under cook_a_followup.collision_followup.
