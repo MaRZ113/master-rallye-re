@@ -1,6 +1,19 @@
-# R5V-F.2b — retail-native Mercedes cook proof
+# R5V-F.2d — deterministic cook and cache-only handoff
 
-## Current result
+## Current checkpoint
+
+Cook B regenerated complete, car, and wheel from GXM in one retail session. Each DX was saved and reloaded; all three computed SHA-256 values equal the frozen Cook A files. The native retail cooker is deterministic for these exact source inputs. Rev135 parsing and 25/25 DXT dependency validation remain PASS.
+
+The cooked Mercedes tag101 classification is `NATIVE_RETAIL_REBUILD`, `STRUCTURALLY_VALID`, `GEOMETRICALLY_EQUIVALENT_WITH_BOUNDED_FLOAT/SECONDARY_DESCRIPTOR_DELTA`, with secondary descriptor semantics unresolved. This bounded uncertainty is accepted for the cache-only test and controlled P1. Keep those descriptor semantics labeled unresolved; byte-level equivalence is not claimed.
+
+The fixed Junction helper removed only the marked `D:\projects\MRallyeTNG\DataGx\Vehicles\Mercedes` node. Its authoring target and 25 GXI files remain intact. A fresh ignored runtime copy is in `research-output/r5v_f_2b/cache-only/runtime/`; its Mercedes directory contains exactly 3 DX and 25 DXT files, with no GXM/GXI/TXT. See `cache-only-proof.md` and the package manifest.
+
+**Current status: READY_FOR_HUMAN_CACHE_ONLY_RUNTIME_TEST.** Preview, race car/wheel loading, and no-authoring-path access are not runtime-confirmed yet. The final Mercedes profile and executable must wait for that PASS. The fixed target profile is recorded in `research/r5v_f_2/mercedes-profile.md`.
+
+---
+# R5V-F.2b — retail-native Mercedes cook proof (historical baseline)
+
+## F.2b state at Cook A freeze
 
 Retail DebugView proves native GXM-to-DX cache cooking for complete, car and wheel. Each output is revision 135 and passes strict modern parsing. Car and wheel render semantics match the selected demo-8.4.1 Copy of Mercedes rev127 files except for tiny precision/color quantization.
 
@@ -108,6 +121,6 @@ historical context only; no beta code or asset was copied into this phase.
 Existing Vehicle SDK parsers and R4G collision tools remain the planned
 validators after human cooking.
 
-## Next gate
+## F.2b next gate (superseded)
 
-Run research-output/r5v_f_2b/COOK_B_INSTRUCTIONS.txt to recook all three roles from absent DX caches. Compare each result with the frozen Cook A SHA-256 values. Keep the Junction until that comparison is complete. The secondary tag101 descriptor meaning and cache-only portability remain open; no final Mercedes acceptance is claimed.
+The Cook B, collision-classification, and cache-only package tasks were completed or advanced in the R5V-F.2d addendum above. Only the human cache-only preview/race test remains open.

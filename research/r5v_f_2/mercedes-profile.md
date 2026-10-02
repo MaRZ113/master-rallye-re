@@ -1,19 +1,18 @@
-# Planned Mercedes profile — not implemented
+# Final Mercedes ML-320 profile — values fixed, implementation gated
 
-The common physical registry expansion and F.1 cleanup remain the regression baseline. No `mercedes` profile has been added because the distinct source model cannot yet be converted and validated as retail revision135.
+The final profile values are defined by R5V-F.2d. **Do not generate the profile or its executable until the cache-only preview and race car/wheel loads pass in the isolated runtime.** At the current checkpoint, only the `mercedes-cook-harness` profile exists in the patcher; the profile below has not been applied.
 
-| Profile field | Intended value | Evidence/status |
+| Profile field | Final value | Evidence / limit |
 |---|---|---|
-| physical slot / class-local | ID26 / class0 T1 local7 | Already proven by F/F.1; keep IDs0–25 and T2/T3 mappings unchanged |
-| internal/runtime family | `Mercedes` | Literal demo registry name; retail XML has compatible named family |
-| resource folder | `DataGx/Vehicles/Mercedes` | Target overlay path; source to be converted from root `Copy of Mercedes` |
-| model roles | Mercedes `complete.dx`, `car.dx`, `wheel.dx` | Source packages exist at rev127; retail output is the blocker |
-| physics | retail `Vehicles/Mercedes` | 144-field schema compatible; runtime must wait for P1 |
-| display | `MERCEDES ML-320` | Historic EXE string; implement as ID26-only override, keeping 0x33/0x34/0x35 distinct |
-| Vehicle Select art | frame4 on T1_Car8 | Historic ID2/local2 slot mapping; art is not Mercedes-exclusive |
-| SmallCarSheet | donor frame9 for controlled P0 | Historic ID2 final integer 0 is not independently semantically proven in demo |
-| frontend stats | 4 / 3 / 6 / 5 | Raw historical initializer values |
-| race colour | retain red canary for first identity P0, then explicit custom RGBA if needed | No comparable historic RGBA field in demo record |
-| unlock policy | ID26-only test unlock | Existing F1 test policy; campaign persistence remains unproven |
+| Physical slot / class-local | ID26 / T1 local7 | Existing R5V-F registry expansion; IDs 0–25 remain unchanged |
+| Internal/resource/runtime family | `Mercedes` | Retail native cooker and family path use `DataGx/Vehicles/Mercedes` |
+| Physics family | Retail `Vehicles/Mercedes` | Static schema: 144 parsed values, 6 gears, 6 torque entries; gameplay still needs P1 |
+| Model package | Native retail-cooked rev135 `complete.dx`, `car.dx`, `wheel.dx` | Cook A/B byte-identical; cache-only human test still pending |
+| Display | `MERCEDES ML-320` | Historic demo spelling; ID26-only overrides for groups 0x33, 0x34, and 0x35; do not patch `gaLocal` globally |
+| Vehicle Select art | T1_Car8 uses historic carsheet frame4 | Historic Mercedes-slot mapping, not Mercedes-exclusive art |
+| Frontend stats | Speed 4, Acceleration 3, Handling 6, Endurance 5 | Historical demo initializer order |
+| SmallCarSheet | donor frame9 | Controlled fallback; authentic Mercedes frame remains unproven |
+| Race colour | Existing explicit red ID26 canary | Custom presentation colour, not historically authentic |
+| Unlock | ID26-only test unlock | Campaign unlock/save integration remains out of scope |
 
-Keep the existing donor-cleanup profile unchanged. When the conversion gate closes, add a separate Mercedes profile whose asset staging and display strategy are manifest-driven; do not scatter Mercedes literals through physical registry patch code. Candidate generation stays forbidden until model conversion, complete asset validation, dependency staging, cleanup regression, and collision checks pass.
+Keep `donor-cleanup` and `mercedes-cook-harness` intact. The final profile should be a separate semantic profile in the profile-driven patcher. Cache-only PASS is the hard prerequisite for that change. The profile's first human gate is P0 identity/preview; P1 gameplay remains a separate test.
