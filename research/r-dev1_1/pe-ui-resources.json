@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "inspection": "PE resource inventory of supplied corpus executables; early-build whole-file hash caveat is in corrections.md; .rsrc byte ranges were compared with the prior analyzed programs",
+  "builds": {
+    "8.4.1":{"resource_type_ids":{"5":"RT_DIALOG"},"RT_MENU":0,"RT_ACCELERATOR":0,"RT_STRINGTABLE":0,"RT_ICON":0,"RT_RCDATA":0,"dialogs":24,"dialog_controls":306},
+    "9.3.1":{"resource_type_ids":{"5":"RT_DIALOG"},"RT_MENU":0,"RT_ACCELERATOR":0,"RT_STRINGTABLE":0,"RT_ICON":0,"RT_RCDATA":0,"dialogs":24,"dialog_controls":307},
+    "9.10.0":{"resource_type_ids":{"5":"RT_DIALOG"},"RT_MENU":0,"RT_ACCELERATOR":0,"RT_STRINGTABLE":0,"RT_ICON":0,"RT_RCDATA":0,"dialogs":24,"dialog_controls":307},
+    "retail":{"resource_type_ids":{"5":"RT_DIALOG"},"RT_MENU":0,"RT_ACCELERATOR":0,"RT_STRINGTABLE":0,"RT_ICON":0,"RT_RCDATA":0,"dialogs":24,"dialog_controls":307}
+  },
+  "dialog_resource_ids_decimal":[1001,1002,1005,1008,1009,1010,1016,1018,1019,1020,1021,1022,1023,1024,1025,1026,1027,1028,1091,1093,1094,1096,1097,1098],
+  "dialog_control_id_range_checked_inclusive":[38,88],
+  "hidden_global_command_ids_checked":[38,39,45,46,47,48,49,50,51,58,59,63,64,65,66,67,68,69,70,71,72,73,74,78,79,80,81,82,83,84,85,86,88],
+  "hidden_global_dialog_control_matches":{"8.4.1":0,"9.3.1":0,"9.10.0":0,"retail":0},
+  "custom_resource_types":[],
+  "interpretation":"There are no conventional menu, accelerator, string-table, icon, RCDATA, or custom resources in the inspected PE resource trees. Native tool menus are assembled in code."
+}

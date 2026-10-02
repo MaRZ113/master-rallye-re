@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "categories": {
+    "A":"ORIGINAL_VISIBLE_ROUTE_RECOVERED",
+    "B":"ORIGINAL_ROUTE_EXISTS_IN_EARLY_BUILD_ONLY",
+    "C":"ORIGINAL_INDIRECT_ROUTE_RECOVERED",
+    "D":"HANDLER_PRESENT_BUT_ORIGINAL_SENDER_UNKNOWN",
+    "E":"DEAD_OR_UNREFERENCED_HANDLER"
+  },
+  "findings": [
+    {"feature":"Main Reset/Exit","class":"A","evidence":"Visible in every recovered main menu; menu item IDs dispatch to reset/exit handlers."},
+    {"feature":"Debug window","class":"A","evidence":"Startup config path plus owner runtime result: Menues/Enabled true opens the native Debug window; the setting is shipped true only in 8.4.1/9.3.1."},
+    {"feature":"Broker Editor opener","class":"D","evidence":"Global switch case and opener exist in all builds; no menu, dialog, accelerator, keyboard, or internal message sender found."},
+    {"feature":"Egg Editor opener","class":"D","evidence":"Global switch case and opener exist in all builds; no sender recovered."},
+    {"feature":"Flow Builder opener","class":"D","evidence":"Global switch case and opener exist in all builds; local menu is only built after window open; no original opener sender recovered."},
+    {"feature":"Marker Editor opener","class":"D","evidence":"Global switch case and opener exist in all builds; pending-open callback has no recovered producer."},
+    {"feature":"Particle Editor opener","class":"D","evidence":"Global switch case and opener exist in all builds; pending-open callback has no recovered producer."},
+    {"feature":"Generic tree/object editor family","class":"D","evidence":"Global 0x3F and 0x40-0x49 paths exist; no sender recovered; max collection is 10."},
+    {"feature":"BuildData","class":"D","evidence":"Retail 0x58 constructs and executes a command object; no original sender recovered; no matched earlier-build handler."},
+    {"feature":"Game XML open/save","class":"D","evidence":"Subdispatcher handlers exist, but no menu/dialog/accelerator sender recovered; save is write-capable."},
+    {"feature":"Scene XML open/save","class":"D","evidence":"Subdispatcher handlers exist, but no menu/dialog/accelerator sender recovered; save is write-capable."},
+    {"feature":"Tool-local edit commands","class":"A","evidence":"Each tool's own native menu routes local actions after the window is open. This classification does not imply a reachable global opener."}
+  ],
+  "no_class_b_or_c": "No early-only visible tool opener or internal indirect sender was recovered. Queued-open flags are consumed internally but no producer exists in the evidence set.",
+  "no_class_e": "The hidden cases remain referenced by the main window WM_COMMAND dispatcher, so this phase does not classify them as dead/unreferenced.",
+  "caveat": "Category D is scoped to the analyzed executable and supplied UI resources. It does not exclude an external development harness or another process sending the message."
+}

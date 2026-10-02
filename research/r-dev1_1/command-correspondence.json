@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "evidence": "CONFIRMED_BY_EXE from main WM_COMMAND dispatchers, subdispatcher switches, and handler xrefs; early-build raw corpus hash caveat in corrections.md",
+  "main_dispatchers": {
+    "8.4.1":"004EBC40",
+    "9.3.1":"005FFC10",
+    "9.10.0":"00631660",
+    "retail":"005B0990"
+  },
+  "tool_commands": {
+    "Broker Editor": {"8.4.1":{"id":"0x26","handler":"00543670"},"9.3.1":{"id":"0x27","handler":"00619480"},"9.10.0":{"id":"0x27","handler":"0064B010"},"retail":{"id":"0x27","handler":"0065E990"}},
+    "Egg Editor": {"8.4.1":{"id":"0x2D","handler":"0053CE50"},"9.3.1":{"id":"0x2E","handler":"00612E20"},"9.10.0":{"id":"0x2E","handler":"00644650"},"retail":{"id":"0x2E","handler":"00657FD0"}},
+    "Flow Builder": {"8.4.1":{"id":"0x2F","handler":"00547A00"},"9.3.1":{"id":"0x30","handler":"0061D8D0"},"9.10.0":{"id":"0x30","handler":"0064F490"},"retail":{"id":"0x30","handler":"00662D90"}},
+    "Marker Editor": {"8.4.1":{"id":"0x3A","handler":"00540870"},"9.3.1":{"id":"0x3B","handler":"00616680"},"9.10.0":{"id":"0x3B","handler":"00647EF0"},"retail":{"id":"0x3B","handler":"0065B870"}},
+    "Particle Editor": {"8.4.1":{"id":"0x49","handler":"0053AB60"},"9.3.1":{"id":"0x4A","handler":"00610620"},"9.10.0":{"id":"0x4A","handler":"00641E40"},"retail":{"id":"0x4A","handler":"006557C0"}}
+  },
+  "game_io": {
+    "8.4.1":{"dispatcher":"004EC580","open":{"id":"0x32","handler":"004EC8D0"},"reset":{"id":"0x31","handler":"004EC580"},"save":{"id":"0x33","handler":"004ECAB0","argument":1},"save_variants":[{"id":"0x34","handler":"004ECAB0","argument":2},{"id":"0x35","handler":"004ECAB0","argument":3},{"id":"0x36","handler":"004ECAB0","argument":4}]},
+    "9.3.1":{"dispatcher":"006005C0","open":{"id":"0x31","handler":"00600720"},"reset":{"id":"0x32","handler":"006005C0"},"save":{"id":"0x33","handler":"00600910"},"save_variants":[{"id":"0x34","handler":"00600AF0","argument":1},{"id":"0x35","handler":"00600AF0","argument":2},{"id":"0x36","handler":"00600AF0","argument":3},{"id":"0x37","handler":"00600AF0","argument":4}]},
+    "9.10.0":{"dispatcher":"00632010","open":{"id":"0x31","handler":"00632170"},"reset":{"id":"0x32","handler":"00632010"},"save":{"id":"0x33","handler":"00632360"},"save_variants":[{"id":"0x34","handler":"00632540","argument":1},{"id":"0x35","handler":"00632540","argument":2},{"id":"0x36","handler":"00632540","argument":3},{"id":"0x37","handler":"00632540","argument":4}]},
+    "retail":{"dispatcher":"005B1370","open":{"id":"0x31","handler":"005B14D0"},"reset":{"id":"0x32","handler":"005B1370"},"save":{"id":"0x33","handler":"005B16C0"},"save_variants":[{"id":"0x34","handler":"005B18A0","argument":1},{"id":"0x35","handler":"005B18A0","argument":2},{"id":"0x36","handler":"005B18A0","argument":3},{"id":"0x37","handler":"005B18A0","argument":4}]}
+  },
+  "scene_io": {
+    "8.4.1":{"dispatcher":"004ED190","open":{"id":"0x4E","handler":"004ED470"},"reset":{"id":"0x4F","handler":"004ED190"},"save":{"id":"0x50","handler":"004ED690","argument":0},"other":{"0x51":"004ED830","0x52":"004ED690(argument=1)","0x53":"alternate scene-state path","0x54":"toggle path","0x55":"toggle path"}},
+    "9.3.1":{"dispatcher":"006011D0","open":{"id":"0x4F","handler":"006014B0"},"reset":{"id":"0x50","handler":"006011D0"},"save":{"id":"0x51","handler":"006016D0","argument":0},"other":{"0x52":"00601870","0x53":"006016D0(argument=1)","0x54":"alternate scene-state path","0x55":"toggle HatchEggsOnLoad","0x56":"toggle ResetSceneOnLoad"}},
+    "9.10.0":{"dispatcher":"00632C20","open":{"id":"0x4F","handler":"00632F00"},"reset":{"id":"0x50","handler":"00632C20"},"save":{"id":"0x51","handler":"00633120","argument":0},"other":{"0x52":"006332C0","0x53":"00633120(argument=1)","0x54":"alternate scene-state path","0x55":"toggle HatchEggsOnLoad","0x56":"toggle ResetSceneOnLoad"}},
+    "retail":{"dispatcher":"005B1F80","open":{"id":"0x4F","handler":"005B2260"},"reset":{"id":"0x50","handler":"005B1F80"},"save":{"id":"0x51","handler":"005B2480","argument":0},"other":{"0x52":"005B2620","0x53":"005B2480(argument=1)","0x54":"alternate scene-state path","0x55":"toggle HatchEggsOnLoad","0x56":"toggle ResetSceneOnLoad"}}
+  },
+  "build_data": {
+    "retail":{"id":"0x58","constructor":"005B2960","vtable":"00692F88","execute_slot":"+0x04","execute":"005B2F80","recursive_walker":"005B2DA0"},
+    "8.4.1":"no semantically corresponding handler matched in this phase",
+    "9.3.1":"no semantically corresponding handler matched in this phase",
+    "9.10.0":"no semantically corresponding handler matched in this phase"
+  },
+  "dispatch_id_evolution": "The five editor IDs above shift +1 from 8.4.1 to 9.3.1 and remain stable through retail. Do not infer why. Flow FL-to-SFL local menu action first appears in 9.3.1; Marker reverse-order local action first appears in 9.10.0."
+}

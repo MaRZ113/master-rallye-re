@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scope": "Static search across four analyzed executables. Negative findings are limited to code/resources in those executables; an external tool or build-time-only harness is not excluded.",
+  "main_dispatcher_callers": {
+    "8.4.1":[{"caller":"004EBB30","kind":"main WndProc forwarding WM_COMMAND wParam"}],
+    "9.3.1":[{"caller":"005FFB00","kind":"main WndProc forwarding WM_COMMAND wParam"}],
+    "9.10.0":[{"caller":"00631550","kind":"main WndProc forwarding WM_COMMAND wParam"}],
+    "retail":[{"caller":"005B0880","kind":"main WndProc forwarding WM_COMMAND wParam"}]
+  },
+  "senders": [
+    {"mechanism":"native main menu","result":"no hidden tool IDs in any build; only Reset and Exit are registered","coverage":"all four main menu builders","confidence":"HIGH"},
+    {"mechanism":"tool-local menus","result":"present only on tool windows after open; local IDs invoke editor actions and are not global opener IDs","coverage":"Particle, Egg, Marker, Broker, Flow, generic editor roots in all builds","confidence":"HIGH"},
+    {"mechanism":"dialog controls","result":"none of the hidden global IDs occur as dialog control IDs","coverage":"all four PE RT_DIALOG resources","confidence":"HIGH"},
+    {"mechanism":"accelerators/hotkeys","result":"no RT_ACCELERATOR resources; no CreateAcceleratorTable, TranslateAccelerator, RegisterHotKey, GetKeyState, or GetAsyncKeyState code xrefs found","coverage":"all four PE resources and imported/referenced API call sites","confidence":"HIGH_WITHIN_EXE"},
+    {"mechanism":"menu APIs","result":"CreateMenu/CreatePopupMenu, InsertMenuItemA, SetMenu, CheckMenuItem, DestroyMenu are used; AppendMenu, LoadMenu, TrackPopupMenu/Ex are absent by code xref","coverage":"all four executables","confidence":"HIGH_WITHIN_EXE"},
+    {"mechanism":"WM_COMMAND construction via SendMessage/PostMessage","result":"many control messaging sites exist, but no site was found constructing WM_COMMAND 0x111 with a hidden global tool ID; PostMessage sites do not construct those IDs","coverage":"all SendMessageA/PostMessageA references and immediate/dataflow candidates","confidence":"MEDIUM_HIGH"},
+    {"mechanism":"keyboard input in main WndProc","result":"main WndProc routes WM_COMMAND and selected paint/close messages, not WM_KEYDOWN/WM_SYSKEYDOWN; game DirectInput has no demonstrated path to editor command IDs","coverage":"main WndProc and key API audit","confidence":"HIGH_WITHIN_MAPPED_PATH"},
+    {"mechanism":"external development harness or other process","result":"not established or excluded by executable analysis","coverage":"outside the analyzed EXE","confidence":"UNKNOWN"}
+  ],
+  "hidden_main_ids_checked": ["0x26","0x27","0x2D","0x2E","0x2F","0x30","0x31","0x32","0x33","0x34","0x35","0x36","0x37","0x3A","0x3B","0x3F","0x40-0x49","0x49","0x4A","0x4E","0x4F","0x50","0x51","0x52","0x53","0x54","0x55","0x56","0x58"],
+  "dialog_control_id_range_checked_inclusive": ["0x26","0x58"],
+  "dialog_control_id_matches": {"8.4.1":0,"9.3.1":0,"9.10.0":0,"retail":0},
+  "conclusion": "No original in-executable command sender for hidden editor/tool openers has been recovered. Classify those commands D, not dead code. This does not prove how Steel Monkeys reached them in a separate development environment."
+}

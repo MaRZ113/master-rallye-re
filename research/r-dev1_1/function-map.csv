@@ -1,0 +1,80 @@
+build,address,old_name,proposed_name,confidence,evidence
+8.4.1,004EBB30,WndProc,MainWindow_WndProc,high,forwards WM_COMMAND to main dispatcher
+9.3.1,005FFB00,WndProc,MainWindow_WndProc,high,forwards WM_COMMAND to main dispatcher
+9.10.0,00631550,WndProc,MainWindow_WndProc,high,forwards WM_COMMAND to main dispatcher
+retail,005B0880,WndProc,MainWindow_WndProc,high,forwards WM_COMMAND to main dispatcher
+8.4.1,004EBC40,FUN_004EBC40,DispatchMainWindowCommand,high,switch includes hidden tool and Game/Scene routes
+9.3.1,005FFC10,FUN_005FFC10,DispatchMainWindowCommand,high,switch includes hidden tool and Game/Scene routes
+9.10.0,00631660,FUN_00631660,DispatchMainWindowCommand,high,switch includes hidden tool and Game/Scene routes
+retail,005B0990,DispatchMainWindowCommand,DispatchMainWindowCommand,high,switch includes hidden tool and Game/Scene routes
+8.4.1,004EC530,FUN_004EC530,BuildMainMenu,high,creates Game Reset/Exit menu only
+9.3.1,00600570,FUN_00600570,BuildMainMenu,high,creates Game Reset/Exit menu only
+9.10.0,00631FC0,FUN_00631FC0,BuildMainMenu,high,creates Game Reset/Exit menu only
+retail,005B1320,BuildMainMenu,BuildMainMenu,high,creates Game Reset/Exit menu only
+8.4.1,0053A710,FUN_0053A710,BuildParticleEditorMenu,high,local particle labels and IDs resolved from decompilation
+9.3.1,006101D0,FUN_006101D0,BuildParticleEditorMenu,high,local particle labels and IDs resolved from decompilation
+9.10.0,006419F0,FUN_006419F0,BuildParticleEditorMenu,high,local particle labels and IDs resolved from decompilation
+retail,00655370,FUN_00655370,BuildParticleEditorMenu,high,local particle labels and IDs resolved from decompilation
+8.4.1,0053C5D0,FUN_0053C5D0,BuildEggEditorMenu,high,local egg item IDs plus memory-read string labels and enable/check state
+9.3.1,006125A0,FUN_006125A0,BuildEggEditorMenu,high,local egg item IDs plus memory-read string labels and enable/check state
+9.10.0,00643DD0,FUN_00643DD0,BuildEggEditorMenu,high,local egg item IDs plus memory-read string labels and enable/check state
+retail,00657750,FUN_00657750,BuildEggEditorMenu,high,local egg item IDs plus memory-read string labels and enable/check state
+8.4.1,0053FF70,FUN_0053FF70,BuildMarkerEditorMenu,high,local marker menu hierarchy IDs and disabled states
+9.3.1,00615D80,FUN_00615D80,BuildMarkerEditorMenu,high,local marker menu hierarchy IDs and disabled states
+9.10.0,006475C0,FUN_006475C0,BuildMarkerEditorMenu,high,adds reverse-order command 0x22
+retail,0065AF40,FUN_0065AF40,BuildMarkerEditorMenu,high,includes local reverse-order command 0x22
+8.4.1,00543B90,FUN_00543B90,BuildBrokerEditorMenu,high,local command IDs; Branch popup state is selection-dependent
+9.3.1,006199A0,FUN_006199A0,BuildBrokerEditorMenu,high,local command IDs; Branch popup state is selection-dependent
+9.10.0,0064B530,FUN_0064B530,BuildBrokerEditorMenu,high,local command IDs; Branch popup state is selection-dependent
+retail,0065EEB0,FUN_0065EEB0,BuildBrokerEditorMenu,high,local command IDs; Branch popup state is selection-dependent
+8.4.1,00547C00,FUN_00547C00,BuildFlowBuilderMenu,high,local menu tree; file controls disabled
+9.3.1,0061DAF0,FUN_0061DAF0,BuildFlowBuilderMenu,high,adds Convert FL to SFL local item 0x0A
+9.10.0,0064F6B0,FUN_0064F6B0,BuildFlowBuilderMenu,high,includes Convert FL to SFL local item 0x0A
+retail,00662FB0,BuildFlowBuilderMenu,BuildFlowBuilderMenu,high,includes Convert FL to SFL local item 0x0A
+8.4.1,00548E10,FUN_00548E10,BuildGenericParameterEditorMenu,high,local item strings resolved from data memory
+9.3.1,0061EFF0,FUN_0061EFF0,BuildGenericParameterEditorMenu,high,local item strings resolved from data memory
+9.10.0,00650BC0,FUN_00650BC0,BuildGenericParameterEditorMenu,high,local item strings resolved from data memory
+retail,006644C0,FUN_006644C0,BuildGenericParameterEditorMenu,high,"Edit local ID 3 is Cu&t, not New"
+8.4.1,00543670,FUN_00543670,OpenBrokerEditor,high,global switch and Broker Editor title/window path
+9.3.1,00619480,FUN_00619480,OpenBrokerEditor,high,global switch and Broker Editor title/window path
+9.10.0,0064B010,FUN_0064B010,OpenBrokerEditor,high,global switch and Broker Editor title/window path
+retail,0065E990,FUN_0065E990,OpenBrokerEditor,high,global switch and Broker Editor title/window path
+8.4.1,0053CE50,FUN_0053CE50,OpenEggEditor,high,global switch and Egg editor window path
+9.3.1,00612E20,FUN_00612E20,OpenEggEditor,high,global switch and Egg editor window path
+9.10.0,00644650,FUN_00644650,OpenEggEditor,high,global switch and Egg editor window path
+retail,00657FD0,FUN_00657FD0,OpenEggEditor,high,global switch and Egg editor window path
+8.4.1,00547A00,FUN_00547A00,OpenFlowBuilder,high,global switch and Flow Builder title/window path
+9.3.1,0061D8D0,FUN_0061D8D0,OpenFlowBuilder,high,global switch and Flow Builder title/window path
+9.10.0,0064F490,FUN_0064F490,OpenFlowBuilder,high,global switch and Flow Builder title/window path
+retail,00662D90,OpenFlowBuilder,OpenFlowBuilder,high,global switch and Flow Builder title/window path
+8.4.1,00540870,FUN_00540870,OpenMarkerEditor,high,global switch and Marker editor window path
+9.3.1,00616680,FUN_00616680,OpenMarkerEditor,high,global switch and Marker editor window path
+9.10.0,00647EF0,FUN_00647EF0,OpenMarkerEditor,high,global switch and Marker editor window path
+retail,0065B870,FUN_0065B870,OpenMarkerEditor,high,global switch and Marker editor window path
+8.4.1,0053AB60,FUN_0053AB60,OpenParticleEditor,high,global switch and Particle editor window path
+9.3.1,00610620,FUN_00610620,OpenParticleEditor,high,global switch and Particle editor window path
+9.10.0,00641E40,FUN_00641E40,OpenParticleEditor,high,global switch and Particle editor window path
+retail,006557C0,FUN_006557C0,OpenParticleEditor,high,global switch and Particle editor window path
+8.4.1,004EC580,FUN_004EC580,DispatchGameCommands,high,open/reset/save case family
+9.3.1,006005C0,FUN_006005C0,DispatchGameCommands,high,open/reset/save case family
+9.10.0,00632010,FUN_00632010,DispatchGameCommands,high,open/reset/save case family
+retail,005B1370,DispatchGameCommands,DispatchGameCommands,high,open/reset/save case family
+8.4.1,004ED190,FUN_004ED190,DispatchSceneCommands,high,open/reset/save/toggle case family
+9.3.1,006011D0,FUN_006011D0,DispatchSceneCommands,high,open/reset/save/toggle case family
+9.10.0,00632C20,FUN_00632C20,DispatchSceneCommands,high,open/reset/save/toggle case family
+retail,005B1F80,DispatchSceneCommands,DispatchSceneCommands,high,open/reset/save/toggle case family
+retail,005AF5C0,FUN_005AF5C0,ConstructEmbeddedToolOwners,high,constructs editor owners before Menues startup gate
+retail,005AF9F0,FUN_005AF9F0,ConsumePendingEditorOpenFlags,medium,opens four tools from bytes but producer is unknown
+retail,005B0720,FUN_005B0720,OpenGenericParameterEditor,high,global 0x3F path and ten-editor bound
+retail,00660D80,FUN_00660D80,GenericParameterEditor_WndProc,high,Edit Parameters dialog and local actions
+retail,0065E650,FUN_0065E650,ConstructBrokerEditor,high,constructor and DataEditors help resource reference
+retail,0065EA90,FUN_0065EA90,BrokerEditor_WndProc,high,WM_COMMAND and window/control messages
+retail,0065EC40,FUN_0065EC40,DispatchBrokerEditorCommand,high,local menu command switch
+retail,0065F170,FUN_0065F170,ApplyBrokerEditorSelection,medium,local broker editing route; semantics not fully named
+retail,00662E00,FUN_00662E00,FlowBuilder_WndProc,high,local menu command dispatch
+retail,006635B0,FUN_006635B0,ConvertFLToSFL,high,local ID 10 and sibling .sfl create-always writer
+retail,0066C180,FUN_0066C180,IncrementEditorsOpenCounter,medium,integer-like Editing/EditorsOpen broker value
+retail,0066C380,FUN_0066C380,DecrementEditorsOpenCounter,medium,decrement clamps to zero and restores editor view state
+retail,005B2960,FUN_005B2960,ConstructBuildDataCommand,high,retail global command 0x58 installs vtable and executes
+retail,005B2F80,FUN_005B2F80,ExecuteBuildDataCommand,high,retail command-object execute slot; resets counters and calls recursive walker
+retail,005B2DA0,FUN_005B2DA0,WalkBuildDataResources,high,recursive DataGx resource walk

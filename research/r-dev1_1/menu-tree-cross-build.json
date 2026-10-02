@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "evidence": "CONFIRMED_BY_EXE; 8.4.1 and 9.3.1 menu code is from the prior hash-verified Ghidra projects, with current .rsrc byte identity cross-check; whole-file mismatch is documented in corrections.md",
+  "main_menu": {
+    "8.4.1": {"builder":"004EC530","wndproc":"004EBB30","dispatcher":"004EBC40","tree":[{"text":"&Game","items":[{"text":"&Reset...","id":"0x31"},{"separator":true},{"text":"E&xit","id":"0x2E"}]}]},
+    "9.3.1": {"builder":"00600570","wndproc":"005FFB00","dispatcher":"005FFC10","tree":[{"text":"&Game","items":[{"text":"&Reset...","id":"0x32"},{"separator":true},{"text":"E&xit","id":"0x2F"}]}]},
+    "9.10.0": {"builder":"00631FC0","wndproc":"00631550","dispatcher":"00631660","tree":[{"text":"&Game","items":[{"text":"&Reset...","id":"0x32"},{"separator":true},{"text":"E&xit","id":"0x2F"}]}]},
+    "retail": {"builder":"005B1320","wndproc":"005B0880","dispatcher":"005B0990","tree":[{"text":"&Game","items":[{"text":"&Reset...","id":"0x32"},{"separator":true},{"text":"E&xit","id":"0x2F"}]}]}
+  },
+  "tool_menu_roots": {
+    "8.4.1": {"particle":"0053A710","egg":"0053C5D0","marker":"0053FF70","broker":"00543B90","flow":"00547C00","generic_tree":"00548E10"},
+    "9.3.1": {"particle":"006101D0","egg":"006125A0","marker":"00615D80","broker":"006199A0","flow":"0061DAF0","generic_tree":"0061EFF0"},
+    "9.10.0": {"particle":"006419F0","egg":"00643DD0","marker":"006475C0","broker":"0064B530","flow":"0064F6B0","generic_tree":"00650BC0"},
+    "retail": {"particle":"00655370","egg":"00657750","marker":"0065AF40","broker":"0065EEB0","flow":"00662FB0","generic_tree":"006644C0"}
+  },
+  "normalized_tool_menu_trees": {
+    "Particle": [
+      {"label":"&File","items":[{"label":"&Close","id":"0x00","enabled":true}]},
+      {"label":"Particle &Edit","items":[{"label":"&New Particle","id":"0x02","enabled":true},{"label":"Rename &Particle","id":"0x03","enabled":true},{"label":"&Edit Particle(s)...","id":"0x04","enabled":true},{"label":"&Remove Particle(s)","id":"0x05","enabled":true},{"separator":true},{"label":"&Cut Particle(s)","id":"0x06","enabled":true},{"label":"C&opy Particle(s)","id":"0x07","enabled":true},{"label":"&Paste Particle(s)","id":"0x08","enabled":true}]},
+      {"label":"&View","items":[{"label":"&Refresh","id":"0x01","enabled":true}]},
+      {"label":"&Help","items":[{"label":"&View","id":"0x09","enabled":true}]}
+    ],
+    "Egg": [
+      {"label":"&File","items":[{"label":"&Close","id":"0x00","enabled":true}]},
+      {"label":"&Options","items":[{"label":"&General...","id":"0x04","enabled":true}]},
+      {"label":"&Egg List","items":[{"label":"&New List","id":"0x05","enabled":true},{"label":"&Edit List...","id":"0x06","enabled":true},{"label":"&Copy List...","id":"0x07","enabled":true},{"separator":true},{"label":"&Remove List","id":"0x08","enabled":"selection at +0x44 is not -1"}]},
+      {"label":"E&gg Edit","items":[{"label":"&New Egg","id":"0x09","enabled":true},{"label":"&Rename Egg","id":"0x0A","enabled":"selection at +0x48 is not -1"},{"label":"&Edit Egg(s)...","id":"0x0B","enabled":true},{"label":"&Remove Egg(s)","id":"0x0C","enabled":true},{"separator":true},{"label":"&Hatch Egg(s)","id":"0x10","enabled":true},{"label":"&UnHatch Egg(s)","id":"0x11","enabled":false},{"separator":true},{"label":"&Cut Egg(s)","id":"0x0D","enabled":true},{"label":"C&opy Egg(s)","id":"0x0E","enabled":true},{"label":"&Paste Egg(s)","id":"0x0F","enabled":true}]},
+      {"label":"&View","items":[{"label":"&Refresh","id":"0x03","enabled":true}]},
+      {"label":"&Camera","items":[{"label":"Top Down","id":"0x15","enabled":true,"check":"camera mode == 0"},{"label":"Bottom Up","id":"0x16","enabled":true,"check":"camera mode == 1"},{"label":"Front to Back","id":"0x17","enabled":true,"check":"camera mode == 2"},{"label":"Back to Front","id":"0x18","enabled":true,"check":"camera mode == 3"},{"label":"Left to Right","id":"0x19","enabled":true,"check":"camera mode == 4"},{"label":"Right to Left","id":"0x1A","enabled":true,"check":"camera mode == 5"}]},
+      {"label":"&Snap","items":[{"label":"&Floor","id":"0x13","enabled":true},{"label":"&Grid","id":"0x12","enabled":true},{"label":"&Near Eggs","id":"0x14","enabled":true}]},
+      {"label":"&Edit Method","items":[{"label":"en3d","id":"0x1B","enabled":true,"check":"edit method == 0"},{"label":"en2d","id":"0x1C","enabled":true,"check":"edit method == 1"}]},
+      {"label":"&Debug","items":[{"label":"&Dump","id":"0x01","enabled":true}]},
+      {"label":"&Help","items":[{"label":"&View","id":"0x02","enabled":true}]}
+    ],
+    "Marker": [
+      {"label":"&File","items":[{"label":"&Close","id":"0x00","enabled":true}]},
+      {"label":"&Options","items":[{"label":"&General...","id":"0x03","enabled":true}]},
+      {"label":"Marker &List","items":[{"label":"&New List","id":"0x04","enabled":true},{"label":"&Edit List...","id":"0x05","enabled":true},{"label":"&Copy List...","id":"0x06","enabled":true},{"separator":true},{"label":"&Remove List","id":"0x07","enabled":"selected-list state at +0x2C is nonzero"}]},
+      {"label":"Markers &Edit","items":[{"label":"&New Marker","id":"0x08","enabled":true},{"label":"&Edit Marker...","id":"0x09","enabled":true},{"label":"&Remove Marker(s)","id":"0x0A","enabled":true},{"separator":true},{"label":"&Cut Marker(s)","id":"0x0B","enabled":true},{"label":"C&opy Marker(s)","id":"0x0C","enabled":true},{"label":"&Paste Marker(s)","id":"0x0D","enabled":true}]},
+      {"label":"&View","items":[{"label":"&View as Markers","id":"0x1A","enabled":true,"check":"view mode == 0"},{"label":"&View as Open Line","id":"0x1B","enabled":true,"check":"view mode == 2"},{"label":"&View as Closed Line","id":"0x1C","enabled":true,"check":"view mode == 1"},{"label":"&View as Tris","id":"0x1D","enabled":true,"check":"view mode == 3"},{"label":"&View as Quads","id":"0x1E","enabled":true,"check":"view mode == 4"},{"label":"&View as Spline","id":"0x1F","enabled":false,"check":"view mode == 5"},{"label":"&View as Area","id":"0x20","enabled":false,"check":"view mode == 6"},{"separator":true},{"label":"&Refresh","id":"0x02","enabled":true}]},
+      {"label":"&Camera","items":[{"label":"Top Down","id":"0x13","enabled":true,"check":"camera mode == 0"},{"label":"Bottom Up","id":"0x14","enabled":true,"check":"camera mode == 1"},{"label":"Front to Back","id":"0x15","enabled":true,"check":"camera mode == 2"},{"label":"Back to Front","id":"0x16","enabled":true,"check":"camera mode == 3"},{"label":"Left to Right","id":"0x17","enabled":true,"check":"camera mode == 4"},{"label":"Right to Left","id":"0x18","enabled":true,"check":"camera mode == 5"},{"label":"Marker Direction","id":"0x19","enabled":false,"check":"camera mode == 6"}]},
+      {"label":"&Snap","items":[{"label":"&Floor","id":"0x0F","enabled":true},{"label":"&Grid","id":"0x0E","enabled":true},{"label":"&Near Markers","id":"0x10","enabled":true},{"label":"&Ceiling","id":"0x11","enabled":false}]},
+      {"label":"&Debug","items":[{"label":"&Dump","id":"0x01","enabled":true}]},
+      {"label":"&Help","items":[{"label":"&View","id":"0x21","enabled":true}]}
+    ],
+    "Broker": [
+      {"label":"&File","items":[{"label":"&New...","id":"0x00","enabled":true},{"separator":true},{"label":"&Close","id":"0x01","enabled":true}]},
+      {"label":"&Edit","items":[{"label":"&New...","id":"0x05","enabled":true},{"label":"&Edit...","id":"0x06","enabled":true},{"label":"&Copy...","id":"0x07","enabled":true},{"label":"&Remove","id":"0x08","enabled":true},{"label":"&Branch","kind":"popup","enabled":"true only when selected value name equals 'broker'"},{"label":"&Options...","id":"0x09","enabled":true},{"separator":true},{"label":"&Delete...","id":"0x0A","enabled":true}]},
+      {"label":"&View","items":[{"label":"&Refresh","id":"0x04","enabled":true}]},
+      {"label":"&Debug","items":[{"label":"&Dump","id":"0x02","enabled":true}]},
+      {"label":"&Help","items":[{"label":"&View","id":"0x03","enabled":true}]}
+    ],
+    "Flow": [
+      {"label":"&File","items":[{"label":"&New...","id":"0x03","enabled":false},{"label":"&Open...","id":"0x04","enabled":false},{"separator":true},{"label":"&Save","id":"0x05","enabled":false},{"label":"Save &As...","id":"0x06","enabled":false},{"separator":true},{"label":"&Close","id":"0x07","enabled":true}]},
+      {"label":"&Load","items":[{"label":"&Clear","kind":"popup","items":[{"label":"&Speed Matrix","id":"0x08","enabled":true}]},{"separator":true},{"label":"&Speed Matrix","id":"0x09","enabled":true}]},
+      {"label":"&Build","items":[{"label":"&Simple Game","id":"0x00","enabled":true},{"label":"&Race Game","id":"0x01","enabled":true},{"label":"&Rally Game","id":"0x02","enabled":true}]}
+    ],
+    "Generic_tree_editor": [
+      {"label":"&File","items":[{"label":"&New","id":"0x00","enabled":true},{"label":"&Save","id":"0x01","enabled":true},{"label":"E&xit","id":"0x02","enabled":true}]},
+      {"label":"&Edit","items":[{"label":"Cu&t","id":"0x03","enabled":true},{"label":"&Copy","id":"0x04","enabled":true},{"label":"&Paste","id":"0x05","enabled":true},{"separator":true},{"label":"&Delete","id":"0x06","enabled":true}]},
+      {"label":"&Update","items":[{"label":"&Commit Changes","id":"0x07","enabled":true},{"label":"C&ancel Changes","id":"0x08","enabled":true}]}
+    ]
+  },
+  "build_specific_items": {
+    "Marker": {
+      "8.4.1": [],
+      "9.3.1": [],
+      "9.10.0": [{"parent":"Markers &Edit","label":"&Reverse Order of Selected Marker(s)","id":"0x22","enabled":true,"check":null}],
+      "retail": [{"parent":"Markers &Edit","label":"&Reverse Order of Selected Marker(s)","id":"0x22","enabled":true,"check":null}]
+    },
+    "Flow": {
+      "8.4.1": [],
+      "9.3.1": [{"parent":"&Convert","kind":"popup","label":"&Convert FL to SFL","id":"0x0A","enabled":true,"check":null}],
+      "9.10.0": [{"parent":"&Convert","kind":"popup","label":"&Convert FL to SFL","id":"0x0A","enabled":true,"check":null}],
+      "retail": [{"parent":"&Convert","kind":"popup","label":"&Convert FL to SFL","id":"0x0A","enabled":true,"check":null}]
+    }
+  },
+  "meaningful_local_differences": [
+    {"feature":"Flow Convert FL to SFL","first_present":"9.3.1","local_id":"0x0A","evidence":"menu builder inserts converter in 9.3.1, 9.10.0, retail; absent in 8.4.1"},
+    {"feature":"Marker Reverse Order of Selected Markers","first_present":"9.10.0","local_id":"0x22","evidence":"local menu item appears in 9.10.0 and retail; absent in 8.4.1 and 9.3.1"}
+  ],
+  "negative_scope": "No editor opener is inserted in any main-menu tree. Tool-local menus require their parent window to exist first. This does not exclude a sender outside the analyzed executable."
+}
