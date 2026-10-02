@@ -6,7 +6,7 @@ Static analysis is complete. The research agent has not executed the game or sen
 
 **Question:** Did an original 8.4.1 or 9.3.1 development UI expose any tool sender not represented by the analyzed native menu builders?
 
-**Build:** Start with 9.3.1, then 8.4.1, but only the exact expected executable hashes from `corrections.md`. Current `corpora` loose EXEs for both builds have whole-file hash mismatches, so the supplied copies are **not eligible** for this comparison until their identity is reconciled.
+**Build:** Start with 9.3.1, then 8.4.1, using only the pristine executable hashes in `research/corpus/executable-provenance.md`. The fresh corpus files are now eligible. Preserve before/after hashes and use disposable copies.
 
 **Procedure:** Copy a verified build and its matching shipped DataGame files. Do not modify the original corpus. Launch with original shipped `dev.xml`; record the menu bar, all visible windows, and all menu item text/states. Do not activate any hidden ID or write-capable local menu item.
 

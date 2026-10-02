@@ -13,4 +13,4 @@
 11. **BuildData earlier history.** No equivalent `0x58` switch handler was matched in three earlier programs; equivalent behavior may be reachable by another path or use a different implementation.
 12. **Tool destruction.** Duplicate detection and close commands are mapped, but full destructor order and owner release paths were not reconstructed.
 13. **Egg Edit Method labels.** Two retail data pointers remain unresolved; not relevant to global sender reachability.
-14. **Current early-binary provenance.** Existing decompilation derives from prior hash-verified Ghidra projects. Current loose 8.4.1/9.3.1 binaries remain non-authoritative for new whole-file claims until reconciled.
+14. **Prior early-binary provenance.** Existing demo decompilation derives from Ghidra projects opened on `RESEARCH_PATCHED_COPY` inputs. The fresh 8.4.1/9.3.1 corpus binaries are now authoritative for new analysis. Exhaustive comparison to the missing old files remains unavailable.

@@ -1,6 +1,6 @@
 # Native menu tree — 9.3.1
 
-Evidence class: **CONFIRMED_BY_EXE** from the existing hash-verified Ghidra program export; current loose corpus EXE whole-file identity mismatch is documented in `corrections.md`. The analyzed `.rsrc` bytes match the current file.
+Evidence class: **CONFIRMED_BY_EXE** from the existing Ghidra program analyzed from a `RESEARCH_PATCHED_COPY`. The current pristine corpus EXE is authoritative for future analysis. The analyzed `.rsrc` bytes match the current file; avoid roster conclusions at the Astero/Forester initializer. See `research/corpus/executable-provenance.md`.
 
 ## Main window
 

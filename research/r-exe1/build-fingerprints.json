@@ -5,8 +5,8 @@
       "build": "8.4.1",
       "source_relative_path": "demo-8.4.1/MRallye.exe",
       "size_bytes": 2084926,
-      "sha256": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
-      "expected_sha256": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
+      "sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+      "expected_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
       "expected_hash_match": true,
       "pe": {
         "kind": "PE32",
@@ -866,14 +866,16 @@
           "dinput8.dll"
         ],
         "rtti_marker_count": 21
-      }
+      },
+      "provenance": "PRISTINE_HISTORICAL_CORPUS",
+      "metadata_note": "PE metadata fields are stable across the owner-reported patch sites; original fingerprint report was collected from the RESEARCH_PATCHED_COPY. See research/corpus/executable-provenance.md."
     },
     {
       "build": "9.3.1",
       "source_relative_path": "demo-9.3.1/MRallye.exe",
       "size_bytes": 2637886,
-      "sha256": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
-      "expected_sha256": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
+      "sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+      "expected_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
       "expected_hash_match": true,
       "pe": {
         "kind": "PE32",
@@ -1818,7 +1820,9 @@
           "dsound.dll"
         ],
         "rtti_marker_count": 167
-      }
+      },
+      "provenance": "PRISTINE_HISTORICAL_CORPUS",
+      "metadata_note": "PE metadata fields are stable across the owner-reported patch sites; original fingerprint report was collected from the RESEARCH_PATCHED_COPY. See research/corpus/executable-provenance.md."
     },
     {
       "build": "9.10.0",

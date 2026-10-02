@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "evidence": "CONFIRMED_BY_EXE; 8.4.1 and 9.3.1 menu code is from the prior hash-verified Ghidra projects, with current .rsrc byte identity cross-check; whole-file mismatch is documented in corrections.md",
+  "evidence": "CONFIRMED_BY_EXE; 8.4.1 and 9.3.1 menu code is from Ghidra projects analyzed on RESEARCH_PATCHED_COPY inputs; resource bytes were cross-checked against pristine corpus files. See research/corpus/executable-provenance.md",
   "main_menu": {
     "8.4.1": {"builder":"004EC530","wndproc":"004EBB30","dispatcher":"004EBC40","tree":[{"text":"&Game","items":[{"text":"&Reset...","id":"0x31"},{"separator":true},{"text":"E&xit","id":"0x2E"}]}]},
     "9.3.1": {"builder":"00600570","wndproc":"005FFB00","dispatcher":"005FFC10","tree":[{"text":"&Game","items":[{"text":"&Reset...","id":"0x32"},{"separator":true},{"text":"E&xit","id":"0x2F"}]}]},

@@ -57,11 +57,11 @@ An external trigger helper is included only for the single Flow Builder open com
 
 ## Corrective pass status
 
-`corrections.md` records the owner-provided flag-isolation result, the shipped XML values, the `006FE040` BuildData reset correction, the portable case-insensitive config lookup/test correction, and the early EXE identity discrepancy. The corrective pass is separately committed before this phase's research.
+`corrections.md` records the owner-provided flag-isolation result, the shipped XML values, the `006FE040` BuildData reset correction, the portable case-insensitive config lookup/test correction, and the early EXE provenance correction. The corrective pass is separately committed before this phase's research.
 
 ## Identity and provenance
 
-Expected source identities are the hash values listed in `corrections.md`. The current loose 8.4.1 and 9.3.1 files do not match the expected whole-file hashes, so fresh raw-EXE claims for those copies remain provenance-qualified. The prior Ghidra projects were built from the previously hash-verified originals; their static exports are reused as reference evidence. Their `.rsrc` byte ranges match the current files, and the PE UI inventory was checked against those resource sections. 9.10.0, retail, and retail `Data.sma` match their recorded identities.
+The current 8.4.1 and 9.3.1 corpus files are now canonical pristine sources with verified hashes listed in `research/corpus/executable-provenance.md`. Earlier detailed demo analysis used research-modified copies. The prior early-demo Ghidra projects were built from research-modified copies. Their static exports are reused as reference evidence with the provenance correction and narrow contamination recorded in `research/corpus/executable-provenance.md`. The `.rsrc` byte ranges match the current pristine files, and the PE UI inventory was checked against those resource sections. The old program inputs are patched copies; see the provenance record. 9.10.0, retail, and retail `Data.sma` match their recorded identities.
 
 ## Evidence boundaries
 
@@ -77,4 +77,4 @@ Expected source identities are the hash values listed in `corrections.md`. The c
 - Ghidra: 12.0.4; selective PyGhidra decompilation of copied existing projects and raw PE resource inspection. No full decompile dump is committed.
 - Earlier R5T checkout: read-only reference; no edits, staging, checkout, stash, reset, or commit.
 - Runtime: none by the research agent; runtime observations in the report are explicitly attributed to the owner.
-- Current `corpora` raw hashes for 8.4.1 and 9.3.1 differ from expected whole-file hashes; see `corrections.md` before using those loose files as runtime or fresh static authorities.
+- The canonical 8.4.1 and 9.3.1 pristine EXEs are independently hash-verified and can be used for future runtime/static work. Earlier detailed analysis used research-modified copies; see `research/corpus/executable-provenance.md`.

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "purpose": "Canonical provenance record for the four primary Master Rallye executable builds and two historical research-modified demo copies.",
+  "verification": {
+    "pristine_demo_hashes_independently_verified": true,
+    "method": "SHA-256 and byte size recomputed directly from corpus files with PowerShell Get-FileHash; PE branch sites checked by VA-to-file-offset mapping.",
+    "old_research_copy_files_available_for_full_byte_comparison": false
+  },
+  "executables": [
+    {
+      "build": "8.4.1",
+      "filename": "MRallye.exe",
+      "corpus_path": "corpora/demo-8.4.1/MRallye.exe",
+      "size_bytes": 2084926,
+      "sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+      "provenance": "fresh untouched reinstall, owner-designated authoritative corpus",
+      "status": "PRISTINE_HISTORICAL_CORPUS"
+    },
+    {
+      "build": "9.3.1",
+      "filename": "MRallye.exe",
+      "corpus_path": "corpora/demo-9.3.1/MRallye.exe",
+      "size_bytes": 2637886,
+      "sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+      "provenance": "fresh untouched reinstall, owner-designated authoritative corpus",
+      "status": "PRISTINE_HISTORICAL_CORPUS"
+    },
+    {
+      "build": "9.10.0",
+      "filename": "MRallye.exe",
+      "corpus_path": "corpora/demo-9.10.0/MRallye.exe",
+      "size_bytes": 2883646,
+      "sha256": "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
+      "provenance": "existing verified project corpus identity",
+      "status": "PRISTINE_HISTORICAL_CORPUS"
+    },
+    {
+      "build": "retail",
+      "filename": "MRallye.exe",
+      "corpus_path": "corpora/retail/MRallye.exe",
+      "size_bytes": 3121214,
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "provenance": "existing verified project corpus identity",
+      "status": "PRISTINE_HISTORICAL_CORPUS"
+    },
+    {
+      "build": "8.4.1",
+      "filename": "MRallye.exe",
+      "size_bytes": 2084926,
+      "sha256": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
+      "status": "RESEARCH_PATCHED_COPY",
+      "known_modifications": [
+        {
+          "id": "DEMO_TIME_LIMIT_BYPASS",
+          "va": "0x004EB994",
+          "pristine_bytes": "74 35",
+          "patched_bytes": "EB 35",
+          "semantics": "JE replaced with JMP; bypasses demo time-limit expiration path"
+        }
+      ],
+      "verification_note": "Hash and patch history supplied by owner. Original patched file not found in searched project/corpus trees; exact full-file diff not independently verified."
+    },
+    {
+      "build": "9.3.1",
+      "filename": "MRallye.exe",
+      "size_bytes": 2637886,
+      "sha256": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
+      "status": "RESEARCH_PATCHED_COPY",
+      "known_modifications": [
+        {
+          "id": "DEMO_TIME_LIMIT_BYPASS",
+          "va": "0x005FF5B2",
+          "pristine_bytes": "74 35",
+          "patched_bytes": "EB 35",
+          "semantics": "JE replaced with JMP; bypasses demo time-limit expiration path"
+        },
+        {
+          "id": "DEMO_VEHICLE_SELECTION_EXPERIMENT",
+          "site_va_approx": "0x0044D629",
+          "pristine_reference": "Astero",
+          "patched_reference": "Forester",
+          "semantics": "initializer roster experiment; arbitrary within-class selection is not normal public demo behavior"
+        }
+      ],
+      "verification_note": "Hash and modification history supplied by owner. Original patched file not found in searched project/corpus trees; exact full-file diff and string-reference change not independently verified."
+    }
+  ],
+  "analysis_impact": {
+    "unaffected_by_known_patches": [
+      "R-EXE1 general architecture",
+      "R-DEV1 embedded editor framework",
+      "R-DEV1.1 command reachability",
+      "Flow Builder",
+      "Broker Editor",
+      "BuildData",
+      "debug-window architecture",
+      "resource manager",
+      "general cross-build function correspondence"
+    ],
+    "narrowly_affected": [
+      "demo time-limit logic",
+      "9.3.1 vehicle initializer/roster evidence touching the Astero to Forester entry"
+    ],
+    "caveat": "The previous copies are owner-confirmed research-modified, but exhaustive diff verification awaits access to those exact files. Do not silently assert there were no other byte changes."
+  },
+  "ghidra_projects": {
+    "policy": "Preserve all existing annotated Ghidra projects. Existing early-demo analysis projects are classified as patched-research lineage where their input identity is the old hash. Import pristine programs separately and designate them authoritative for future demo analysis. Do not transfer annotations on modified instructions or the Astero/Forester xref.",
+    "old_projects_deleted": false,
+    "pristine_authoritative_programs_created_by_this_task": false,
+    "note": "No Ghidra database was modified in this corpus-housekeeping task."
+  }
+}

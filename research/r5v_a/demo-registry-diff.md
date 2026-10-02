@@ -1,5 +1,7 @@
 # September → November → final registry evolution
 
+**Provenance correction:** September and November EXE rows below are hashes of `RESEARCH_PATCHED_COPY` inputs used for this historical extraction, not pristine corpus hashes. The 9.3.1 Astero → Forester initializer edit affects only that name/roster claim; do not treat Forester at that initializer as shipped original behavior. Registry capacities, strides, and unrelated records remain structurally usable. Exhaustive byte comparison of the missing old copies was not possible. See `research/corpus/executable-provenance.md`.
+
 The counts below distinguish **allocated record capacity**, **explicit literal names**, XML physics sections and asset folders. A literal-free record may use an unresolved global string; it is not counted as a confirmed playable car. Directory order was never used as an index.
 
 | Build | EXE SHA-256 | Data.sma SHA-256 | Capacity / stride | Named EXE entries | Physics sections | Asset folders |

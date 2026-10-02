@@ -33,8 +33,8 @@ Affected R-DEV1 documents have been corrected; the obsolete counter question was
 
 The test fixture used uppercase `Dev.xml` in one case while the supplied corpus uses lowercase `dev.xml`; Windows masked the mismatch. The fixture now uses the corpus spelling, while the scanner explicitly resolves configured filenames case-insensitively to model Windows behavior. A synthetic assertion verifies `Dev` → `dev.xml`, and provenance fields are tested.
 
-## Executable identity discrepancy to resolve before early-build claims
+## Demo executable provenance correction
 
-The current supplied corpora directory contains 8.4.1 `MRallye.exe` SHA256 `2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a` and 9.3.1 `MRallye.exe` SHA256 `611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728`. Both files retain the previously documented sizes, but neither matches the R-EXE1 verified hash for that path (`bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be` and `931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680`). 9.10.0 and retail still match their documented hashes.
+The fresh 8.4.1 and 9.3.1 corpus files are now owner-designated pristine authoritative binaries and independently hash-verified. The previous hashes `bbdfdb...` and `931cfc...` identify owner-confirmed `RESEARCH_PATCHED_COPY` files, not pristine originals. Their known changes and the narrow impact assessment are recorded in `research/corpus/executable-provenance.md`.
 
-No replacement binary was found in the project corpus during this check. Do not treat fresh analysis of the current 8.4.1/9.3.1 EXE files as verified original-build evidence until this discrepancy is resolved. Existing R-EXE1/R-DEV1 derived exports remain reference evidence from the prior hash-verified analysis; their provenance must be kept explicit when reused.
+The old patched EXE files were not available for exhaustive binary comparison in this workspace. The fresh pristine binaries contain the reported `74 35` conditional branches at the two time-limit sites, but a full diff and the old 9.3.1 Astero/Forester initializer bytes remain unverified here. Existing R-EXE1/R-DEV1 static exports remain structurally useful outside the narrow affected claims; do not describe their early-demo inputs as pristine.

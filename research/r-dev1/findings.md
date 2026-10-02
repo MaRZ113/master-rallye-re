@@ -43,7 +43,7 @@ The Debug window is a custom GDI window fed by the global formatted logger, not 
 | Broker Editor | 0065E990, 0065EC40, 0065F170 |
 | Game/Scene XML save | 005B16C0, 005B2480, 005FE460, 0064D530 |
 
-## Corpus identities
+## Original analyzed input identities (research-modified demos)
 
 | Build | EXE SHA256 |
 |---|---|
@@ -52,9 +52,11 @@ The Debug window is a custom GDI window fed by the global formatted logger, not 
 | 9.10.0 | 13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78 |
 | retail | bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4 |
 
-Retail Data.sma SHA256: 03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f.
+Pristine demo EXE identities now supersede the old demo hashes as canonical corpus sources: 8.4.1 `2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a`; 9.3.1 `611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728`. Retail Data.sma SHA256: 03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f. See `research/corpus/executable-provenance.md`.
 
-The two demo EXEs in the current supplied corpora folder no longer match the R-EXE1 verified SHA256 values for 8.4.1 and 9.3.1; see R-DEV1.1 provenance/correction notes. This does not change the historical XML values recorded below, but those binaries must be reconciled before treating new cross-build EXE analysis as verified.
+The old demo input hashes above are research-modified copies. Canonical pristine hashes now supersede them for future analysis; see R-DEV1.1 provenance/correction notes. This does not change the historical XML values recorded below.
+
+The early demo static exports were originally analyzed from the two `RESEARCH_PATCHED_COPY` files, not pristine historical executables. Their general architecture findings remain structurally applicable; demo time-limit behavior is affected, and 9.3.1 vehicle roster evidence at the Astero/Forester initializer must be excluded. See `research/corpus/executable-provenance.md`.
 
 ## Analysis environment and provenance
 

@@ -27,4 +27,4 @@ Startup reads the typed broker key `Menues/Enabled`. When true, it proceeds thro
 
 ## Historical interpretation
 
-The original binary may have relied on a development-only sender outside the shipped program, or a route omitted from these builds. Current evidence does not identify a compiler `#if`, role/capability build discriminator, fuller early menu, or surviving retail sender. The responsible next test is UI observation on verified early binaries, but the present 8.4.1/9.3.1 loose corpus binaries have whole-file hash mismatches, so they should not be substituted for the expected verified artifacts.
+The original binary may have relied on a development-only sender outside the shipped program, or a route omitted from these builds. Current evidence does not identify a compiler `#if`, role/capability build discriminator, fuller early menu, or surviving retail sender. The responsible next test is UI observation on verified pristine early binaries; exact hashes and provenance are in `research/corpus/executable-provenance.md`.

@@ -2,6 +2,8 @@
 
 Constructor ranges and record constructor targets are explicit research anchors.
 The extractor refuses duplicate indices, bad strides and non-string pointers.
+The current expected hashes are pristine corpus identities; old JSON exports are
+from research-modified inputs and carry provenance notes.
 """
 from __future__ import annotations
 
@@ -18,8 +20,8 @@ BUILD = {
     "final": (0x458E70, 0x4598CC, 0x45A0B0, 0x34, 26),
 }
 EXPECTED_SHA256 = {
-    "september": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
-    "november": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
+    "september": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+    "november": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
     "final": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
 }
 

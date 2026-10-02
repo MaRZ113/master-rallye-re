@@ -6,10 +6,14 @@ All four corpus executables were read in place. No binary was copied or modified
 
 | Build | Size | SHA-256 | PE | Image base | Entry point | Timestamp (UTC) | Hash gate |
 |---|---:|---|---|---:|---:|---|---|
-| 8.4.1 | 2,084,926 | `bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be` | PE32 i386 | `0x00400000` | `0x004D10F2` | 2001-09-11T18:45:24+00:00 | PASS |
-| 9.3.1 | 2,637,886 | `931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680` | PE32 i386 | `0x00400000` | `0x0057A582` | 2001-10-09T15:32:38+00:00 | PASS |
+| 8.4.1 | 2,084,926 | `2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a` | PE32 i386 | `0x00400000` | `0x004D10F2` | 2001-09-11T18:45:24+00:00 | PASS |
+| 9.3.1 | 2,637,886 | `611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728` | PE32 i386 | `0x00400000` | `0x0057A582` | 2001-10-09T15:32:38+00:00 | PASS |
 | 9.10.0 | 2,883,646 | `13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78` | PE32 i386 | `0x00400000` | `0x005A8D52` | 2001-10-23T15:51:08+00:00 | PASS |
 | retail | 3,121,214 | `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4` | PE32 i386 | `0x00400000` | `0x005C4602` | 2001-11-26T16:10:05+00:00 | PASS |
+
+## Provenance correction
+
+The 8.4.1 and 9.3.1 hashes above now identify the pristine corpus files. The original PE metadata collection used research-modified copies with the same lengths and unchanged PE header/section metadata. See `research/corpus/executable-provenance.md` for full provenance and limits of byte-diff verification.
 
 ## 8.4.1
 

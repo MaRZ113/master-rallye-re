@@ -1,6 +1,6 @@
 {
   "build": "november",
-  "source_note": "External local game corpus; no binary or asset content copied",
+  "source_note": "External local game corpus; no binary or asset content copied. Historical EXE analysis input was RESEARCH_PATCHED_COPY; demo-limit and Astero to Forester initializer experiments are owner-reported. See research/corpus/executable-provenance.md.",
   "hashes": {
     "MRallye.exe": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
     "Data.sma": null,
@@ -8968,5 +8968,6 @@
       14,
       23
     ]
-  }
+  },
+  "executable_provenance": "RESEARCH_PATCHED_COPY; initializer roster evidence touching Astero/Forester is contaminated; see research/corpus/executable-provenance.md."
 }

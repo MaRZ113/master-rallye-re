@@ -1,6 +1,6 @@
 {
   "build": "september",
-  "source_note": "External local game corpus; no binary or asset content copied",
+  "source_note": "External local game corpus; no binary or asset content copied. Historical EXE analysis input was RESEARCH_PATCHED_COPY with owner-reported demo time-limit bypass; see research/corpus/executable-provenance.md.",
   "hashes": {
     "MRallye.exe": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
     "Data.sma": null,
@@ -7500,5 +7500,6 @@
       24,
       25
     ]
-  }
+  },
+  "executable_provenance": "RESEARCH_PATCHED_COPY; known time-limit bypass only. Old file unavailable for exhaustive byte comparison; see research/corpus/executable-provenance.md."
 }
