@@ -143,7 +143,7 @@ def main():
     direction_rays = [obj for obj in objects if obj.get("mr_course_helper_kind") == "diagnostic_direction_ray"]
     diagnostic_collections = [
         item for item in descendants
-        if item.get("mr_xml_collection_kind") == "split_diagnostic_visuals"
+        if item.get("mr_xml_collection_kind") == "split_companion_diagnostics"
     ]
     if len(starts) != 4 or len(finishes) != 4:
         raise AssertionError("Race Logic collection must have four editable markers for each area")
@@ -151,10 +151,10 @@ def main():
         raise AssertionError("Race Logic collection must have one center and trigger sphere per SplitTime")
     if len(companions) != 12 or len(groups) != len(split_centers):
         raise AssertionError("each France1 split needs one group and its four visual companions")
-    if len(billboards) != len(split_centers) or len(direction_rays) != len(split_centers):
-        raise AssertionError("each main SplitTime needs a distinct billboard and direction ray")
-    if len(billboard_labels) != len(split_centers) or len(diagnostic_collections) != len(split_centers):
-        raise AssertionError("each SplitTime needs a labeled billboard in a hideable diagnostics collection")
+    if len(billboards) != len(companions) or len(direction_rays) != len(companions):
+        raise AssertionError("each visual companion needs its own billboard and direction ray")
+    if len(billboard_labels) != len(companions) or len(diagnostic_collections) != len(split_centers):
+        raise AssertionError("every companion needs a labeled preview in its split diagnostics collection")
     if any(not obj.get("mr_editor_only") or obj.get("mr_race_logic_object_type") for obj in (
         *billboards, *billboard_labels, *direction_rays, *trigger_spheres,
     )):
@@ -167,24 +167,18 @@ def main():
     center_by_identity = {obj["mr_split_source_identity"]: obj for obj in split_centers}
     group_by_identity = {obj["mr_split_source_identity"]: obj for obj in groups}
     trigger_by_parent = {obj.parent.name: obj for obj in trigger_spheres}
-    billboard_by_parent = {obj.parent["mr_split_source_identity"]: obj for obj in billboards}
-    ray_by_parent = {obj.parent["mr_split_source_identity"]: obj for obj in direction_rays}
-    label_by_center = {obj.parent.parent["mr_split_source_identity"]: obj for obj in billboard_labels}
     companion_by_identity = {obj["mr_visual_companion_source_identity"]: obj for obj in companions}
-    source_split_by_name = {item.egg_name: item for item in project.race_logic.split_times}
+    billboard_by_companion = {obj.parent["mr_visual_companion_source_identity"]: obj for obj in billboards}
+    ray_by_companion = {obj.parent["mr_visual_companion_source_identity"]: obj for obj in direction_rays}
+    label_by_companion = {obj.parent.parent["mr_visual_companion_source_identity"]: obj for obj in billboard_labels}
     for status in authoring.split_status:
         center = center_by_identity[status.identity]
         group = group_by_identity[status.identity]
         trigger = trigger_by_parent.get(center.name)
-        billboard = billboard_by_parent.get(status.identity)
-        ray = ray_by_parent.get(status.identity)
-        label = label_by_center.get(status.identity)
         if trigger is None:
             raise AssertionError(f"{center.name} has no attached trigger sphere")
-        if billboard is None or ray is None or label is None:
-            raise AssertionError(f"{center.name} is missing its billboard, label, or direction ray")
-        if center.type != "EMPTY" or any(center.lock_rotation):
-            raise AssertionError("SplitTime center must remain rotatable so its imported basis is visible")
+        if center.type != "EMPTY" or not all(center.lock_rotation):
+            raise AssertionError("SplitTime center must remain a simple, non-rotating trigger helper")
         if not _close3(center.location, position_to_blender(status.center)):
             raise AssertionError("SplitTime center helper does not use the canonical coordinate transform")
         bpy.context.view_layer.update()
@@ -192,30 +186,52 @@ def main():
             raise AssertionError("trigger radius display does not follow the editable Radius value")
         if len(trigger.data.splines) != 3 or len(trigger.animation_data.drivers) != 3:
             raise AssertionError("trigger radius must be an actual 3D unit sphere driven by Radius")
-        if billboard.type != "MESH" or label.type != "FONT" or label.data.body != f"SPLIT {status.split_id}":
-            raise AssertionError("SplitTime billboard must be a labeled procedural panel")
-        if billboard.get("mr_billboard_style") != "procedural diagnostic fallback; no game texture/model":
-            raise AssertionError("billboard appearance must be explicitly marked as a non-game fallback")
-        if ray.get("mr_direction_basis") != "imported en3d Matrix local +Z (Row2)":
-            raise AssertionError("direction ray basis must identify the source matrix row used")
-        source_split = source_split_by_name[status.egg_name]
-        source_matrix = source_split.source_egg.matrix("en3d Matrix")
-        source_row2 = Vector(position_to_blender(source_matrix.row(2)[:3])).normalized()
-        ray_direction = (
-            (ray.matrix_world @ (Vector((0.0, 0.0, 8.0))))
-            - (ray.matrix_world @ Vector((0.0, 0.0, 0.0)))
-        ).normalized()
-        if (ray_direction - source_row2).length > 1.0e-3:
-            raise AssertionError("direction ray does not follow the imported Matrix Row2 basis")
-        billboard_normal = (billboard.matrix_world.to_3x3() @ Vector((0.0, 0.0, 1.0))).normalized()
-        if (billboard_normal - ray_direction).length > 1.0e-3:
-            raise AssertionError("billboard panel normal and direction-ray basis disagree")
         if center.get("mr_extra_time_semantics") != "UNKNOWN":
             raise AssertionError("ExtraTime semantics were overclaimed")
         if center.parent != group or any(companion.parent != group for companion in companions if companion.get("mr_split_source_identity") == status.identity):
             raise AssertionError("checkpoint group must parent its trigger center and visual companions")
     if len(companion_by_identity) != len(companions):
         raise AssertionError("visual companion source identities must be unique")
+    source_companions = {
+        (companion.source_egg.xml_path, companion.source_egg.name): companion
+        for split in project.race_logic.split_times
+        for companion in split.companions
+    }
+    if len(billboard_by_companion) != len(companions) or len(ray_by_companion) != len(companions) or len(label_by_companion) != len(companions):
+        raise AssertionError("companion diagnostic helpers must preserve one-to-one companion identity")
+    if any(obj.parent in split_centers for obj in billboards):
+        raise AssertionError("no large SplitTime billboard may be attached to a gameplay trigger center")
+    for identity, helper in companion_by_identity.items():
+        source_companion = source_companions.get((helper["mr_xml_path"], helper["mr_source_egg"]))
+        if source_companion is None:
+            raise AssertionError(f"could not bind {helper.name} to its own source Egg matrix")
+        billboard = billboard_by_companion.get(identity)
+        ray = ray_by_companion.get(identity)
+        label = label_by_companion.get(identity)
+        if billboard is None or ray is None or label is None:
+            raise AssertionError(f"{helper.name} has no companion-attached billboard/ray")
+        if billboard.parent != helper or ray.parent != helper or label.parent != billboard:
+            raise AssertionError("companion previews must be parented to that exact visual companion")
+        if helper.get("mr_model_name") != source_companion.source_egg.model_name:
+            raise AssertionError("visual companion model identity was not preserved")
+        if billboard.type != "MESH" or label.type != "FONT" or label.data.body != helper.get("mr_source_egg"):
+            raise AssertionError("companion billboard must identify its source Egg, not the main split trigger")
+        if billboard.get("mr_billboard_style") != "procedural companion diagnostic fallback; no game texture/model":
+            raise AssertionError("companion fallback must be explicitly marked as a non-game visual")
+        if ray.get("mr_direction_basis") != "this companion en3d Matrix local +Z (Row2)":
+            raise AssertionError("companion ray must identify its own Matrix Row2 basis")
+        if not all(helper.lock_rotation) or helper.get("mr_orientation_export_policy") != "rotation is preserved from source and not authored":
+            raise AssertionError("companion orientation must be presented as read-only")
+        matrix = source_companion.source_egg.matrix("en3d Matrix")
+        expected_row2 = Vector(position_to_blender(matrix.row(2)[:3])).normalized()
+        actual_ray = (
+            ray.matrix_world.to_3x3() @ Vector((0.0, 0.0, 1.0))
+        ).normalized()
+        if (actual_ray - expected_row2).length > 1.0e-3:
+            raise AssertionError("companion direction ray does not follow its own Matrix Row2")
+        panel_normal = (billboard.matrix_world.to_3x3() @ Vector((0.0, 0.0, 1.0))).normalized()
+        if (panel_normal - actual_ray).length > 1.0e-3:
+            raise AssertionError("companion billboard normal and direction ray disagree")
 
     valid_icons = {
         item.identifier
@@ -255,7 +271,7 @@ def main():
         if no_op_path.read_bytes() != xml_path.read_bytes():
             raise AssertionError("zero-edit Blender RaceTest output is not byte-identical")
 
-        # Diagnostic transforms are explicitly outside the RaceTest writer.
+        # Companion diagnostic transforms are explicitly outside the RaceTest writer.
         diagnostic_helpers = (*billboards, *billboard_labels, *direction_rays)
         diagnostic_transforms = {obj: obj.location.copy() for obj in diagnostic_helpers}
         billboards[0].location.x += 0.4
@@ -268,33 +284,6 @@ def main():
             raise AssertionError("diagnostic helper transforms must not affect RaceTest XML or manifest semantics")
         for obj, location in diagnostic_transforms.items():
             obj.location = location
-        bpy.context.view_layer.update()
-
-        orientation_center = split_centers[0]
-        orientation_ray = ray_by_parent[orientation_center["mr_split_source_identity"]]
-        orientation_before = (
-            (orientation_ray.matrix_world @ Vector((0.0, 0.0, 8.0)))
-            - (orientation_ray.matrix_world @ Vector((0.0, 0.0, 0.0)))
-        ).normalized()
-        orientation_original = orientation_center.rotation_euler.copy()
-        orientation_center.rotation_euler.z += 0.3
-        bpy.context.view_layer.update()
-        orientation_after = (
-            (orientation_ray.matrix_world @ Vector((0.0, 0.0, 8.0)))
-            - (orientation_ray.matrix_world @ Vector((0.0, 0.0, 0.0)))
-        ).normalized()
-        if (orientation_after - orientation_before).length < 0.05:
-            raise AssertionError("rotating the semantic helper did not visibly reorient its diagnostic ray")
-        orientation_path = temp / "France1_orientation_preview_only.xml"
-        bpy.context.view_layer.objects.active = orientation_center
-        if bpy.ops.export_scene.master_rallye_race_logic_xml("EXEC_DEFAULT", filepath=str(orientation_path)) != {"FINISHED"}:
-            raise AssertionError("SplitTime orientation preview export failed")
-        orientation_manifest = json.loads(Path(str(orientation_path) + ".mr-race-edit.json").read_text(encoding="utf-8"))
-        if orientation_path.read_bytes() != xml_path.read_bytes() or orientation_manifest["changes"]:
-            raise AssertionError("SplitTime rotation must not author Matrix orientation fields")
-        if not any("rotation is not exported" in item for item in orientation_manifest["warnings"]):
-            raise AssertionError("preview-only center rotation must remain explicitly non-authoring")
-        orientation_center.rotation_euler = orientation_original
         bpy.context.view_layer.update()
 
         start_original = {obj: obj.location.copy() for obj in starts}
@@ -490,19 +479,20 @@ def main():
         "finish_area_helpers": len(finishes),
         "split_center_helpers": len(split_centers),
         "radius_spheres": len(trigger_spheres),
-        "split_billboards": len(billboards),
-        "split_billboard_labels": len(billboard_labels),
-        "split_direction_rays": len(direction_rays),
+        "main_center_billboards": sum(obj.parent in split_centers for obj in billboards),
+        "companion_billboards": len(billboards),
+        "companion_billboard_labels": len(billboard_labels),
+        "companion_direction_rays": len(direction_rays),
         "visual_checkpoint_helpers": len(companions),
         "split_checkpoint_groups": len(groups),
         "noop_export_byte_identical": True,
         "area_point_scale_warning_suppressed": True,
         "whole_split_checkpoint_translation": True,
         "independent_visual_companion_translation": True,
-        "direction_ray_follows_imported_matrix_row2": True,
-        "billboard_and_ray_update_when_center_rotates": True,
+        "companion_rays_follow_own_imported_matrix_row2": True,
+        "companion_billboards_follow_own_imported_matrix": True,
         "diagnostic_helpers_excluded_from_export": True,
-        "orientation_export_semantics_unchanged": True,
+        "companion_orientation_is_read_only": True,
         "split_scale_radius_warning": True,
         "panel_draw_callbacks": {
             "master_rallye_course": course_draw_calls,

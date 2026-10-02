@@ -465,8 +465,8 @@ class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
             layout.prop(obj, '["mr_split_time_id"]', text="Split Time ID")
             layout.prop(obj, '["mr_split_radius"]', text="Radius")
             layout.label(text=f"ExtraTime preserved: {obj.get('mr_split_extra_time_raw', '')} (meaning UNKNOWN)")
-            layout.label(text="Move center to move trigger/sign; rotate to inspect imported basis")
-            layout.label(text="Rotation is a viewport aid and is not exported; scale does not change Radius")
+            layout.label(text="Move center to move trigger; visual companions are shown at their own positions")
+            layout.label(text="Source orientation is preserved; rotation is not authored; scale does not change Radius")
         elif kind == "split_checkpoint_group":
             layout.label(text="Split checkpoint translation controller", icon="EMPTY_AXIS")
             layout.label(text="Move to translate trigger and visual companions together")
@@ -474,7 +474,7 @@ class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
         elif kind == "split_visual_companion":
             layout.label(text="Visual checkpoint companion; not a trigger center", icon="MESH_DATA")
             layout.label(text="Move this object alone, or move its checkpoint group")
-            layout.label(text="Export writes its final world position only")
+            layout.label(text="Its own source orientation is preview-only; export writes final world position only")
         layout.operator("export_scene.master_rallye_race_logic_xml", text="Export Race Logic XML", icon="EXPORT")
         layout.label(text="Exports a new XML copy and a provenance manifest")
 

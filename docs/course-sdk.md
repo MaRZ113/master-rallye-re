@@ -174,11 +174,12 @@ exact visual-companion Row3 XYZ positions and adds a translation-only
 checkpoint group. Those newly editable visual-companion fields have
 corpus/Blender validation but no separate human runtime authoring test.
 
-The SplitTime viewport retains its 3D Radius sphere and adds a procedural
-`SPLIT N` billboard plus a direction ray along the imported Matrix Row2 / local
-+Z basis. These are editor-only diagnostics, not new gameplay semantics or
-writer fields. The same generic visualization helpers are intended for future
-read-only RaceLine, Camera, and limit-marker views.
+The SplitTime viewport keeps the main trigger center and 3D Radius sphere
+visually simple. Procedural sign cards and direction rays sit at each
+`SplitTimeN-i` visual companion and follow that companion's own imported
+matrix. They are editor-only diagnostics, not new gameplay semantics or writer
+fields. The generic visualization helpers are intended for future read-only
+RaceLine, Camera, and limit-marker views.
 
 The curated Retail validation passes no-op export for 36/36 principal course
 projects. StartArea authoring is supported in 36/36; FinishArea in 34/36; 110
