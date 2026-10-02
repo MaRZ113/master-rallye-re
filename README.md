@@ -24,10 +24,13 @@ R5V-F established a physical retail ID26 at sparse T1 local7. The owner reports
 that the entry previews, starts Quick Race, drives, completes a stage and
 returns to the frontend. Cleanup found the shared T1/T2 capacity bug and the
 Quick Race group-0x35 `GALOCAL UNKNOWN` defect. A new hash-locked cleanup
-candidate now sets T1=8/T2=7 separately, aliases only the three group-0x35
-display selectors and gives ID26 a red record-colour canary. **Cleanup P0 is
-ready for human testing; P1 waits for P0 FULL PASS. Mercedes work is gated on
-cleanup FULL PASS and no Mercedes candidate exists.** See
+candidate sets T1=8/T2=7 separately, aliases only the three group-0x35 display
+selectors and gives ID26 a red record-colour canary. The owner reports cleanup
+P0 FULL PASS and the red ID26 marker on the candidate with SHA-256
+`120fb40bbe012914b82847f2d78f126dca0a8d6a5459855a7e29386ee63419c9`. The
+separate ID0 colour comparison was not reported and is non-blocking for the
+Mercedes source audit. **R5V-F.2 Mercedes source auditing is underway; no
+Mercedes runtime candidate exists.** See
 `research/r5v_f_1/findings.md` and the original expansion evidence in
 `research/r5v_f/findings.md`.
 

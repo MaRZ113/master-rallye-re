@@ -65,5 +65,8 @@ other than 7. Candidate disassembly is preserved under ignored
 
 ## Runtime check
 
-P0 must show exactly T1=8, T2=7 and T3=12 entries, with no Bowler eighth entry
-in T2. Runtime confirmation remains pending.
+The owner reports cleanup P0 FULL PASS for the same candidate SHA recorded in
+`validation.md`: T1 retains eight entries, the false T2 Bowler is gone, and T3
+remains intact. The follow-up report does not provide a separate T3 numeric
+count observation, so the T3=12 conclusion is supported by the preserved
+static configuration and the report that the existing layout remained intact.

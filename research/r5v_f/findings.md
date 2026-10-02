@@ -85,15 +85,19 @@ T1_Car8 bindings, patch manifest, categorized binary diff, validation JSON and
 P0 instructions. The archive was built from the previously staged E0.2 archive
 (`BB3C…18020`); exactly one member, VehicleSelect.xml, differs from that base.
 
-The original runtime package has now been exercised by the owner, who reported
-the full-stage result above. That test also exposed the false T2 local7/Bowler
-entry and the Quick Race localization failure. R5V-F.1 has built a separate
-cleanup candidate from the exact retail source; it separates T1=8/T2=7,
-aliases the three group-0x35 display selectors, and gives only ID26 a red marker
-canary. Cleanup P0 must now reconfirm the corrected frontend before P1 tests
-record independence. Save persistence and network support remain unproven; use
-a disposable profile and stay offline. The event/AI vehicle pool remains stock
-IDs 0–24. See [R5V-F.1 findings](../r5v_f_1/findings.md).
+The original runtime package was exercised by the owner, who reported the
+full-stage result above. That test also exposed the false T2 local7/Bowler
+entry and the Quick Race localization failure. R5V-F.1 built a separate cleanup
+candidate from the exact retail source; it separates T1=8/T2=7, aliases the
+three group-0x35 display selectors, and gives only ID26 a red marker canary.
+The owner reports P0 FULL PASS and confirms the ID26 red marker on cleanup
+candidate SHA-256
+`120fb40bbe012914b82847f2d78f126dca0a8d6a5459855a7e29386ee63419c9`. The
+separate ID0 stock-colour runtime comparison was not reported; F.2 says it is
+not a blocker for the Mercedes source audit. Save persistence and network
+support remain unproven; use a disposable profile and stay offline. The event/AI
+vehicle pool remains stock IDs 0–24. See
+[R5V-F.1 findings](../r5v_f_1/findings.md).
 
 ## E0.2 closeout
 
@@ -110,5 +114,6 @@ findings and Trooper icon inventory.
 Registry counts, raw operands, and control flow are static retail Ghidra
 evidence cross-checked against instruction bytes and a Capstone decode of the
 candidate code cave. The candidate's SHA hashes and archive member diff are
-automated local checks. Core slot/race observations are owner-reported runtime
-evidence; the cleanup P0 and independent-record P1 remain pending.
+automated local checks. Core slot/race, cleanup P0 and ID26 red-marker
+observations are owner-reported runtime evidence. ID0's marker comparison was
+not reported.

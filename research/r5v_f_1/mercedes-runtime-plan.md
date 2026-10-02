@@ -1,7 +1,8 @@
 # Mercedes runtime plan — gated
 
-**Current status: WAIT FOR CLEANUP.** Do not create or launch a Mercedes
-candidate until cleanup P0 and P1 both pass.
+**Current status: STATIC AUDIT UNDERWAY.** Cleanup P0 and the ID26 red canary
+are owner-reported runtime passes. Do not create or launch a Mercedes candidate
+until its model, physics, collision and texture-dependency gates pass.
 
 After the gate, stage the same physical ID26/T1 local7 slot with a validated
 Mercedes model, retail-compatible Mercedes physics and authentic valid Mercedes

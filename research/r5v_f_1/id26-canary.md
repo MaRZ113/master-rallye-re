@@ -19,12 +19,11 @@ the original full VehicleRecord initializer for ID26. It uses no XML tint,
 consumer bypass or raw record copy. The original ID0 initialization is not
 patched; its stock colour remains the control.
 
-## P1 check, after P0 FULL PASS only
+## Owner-reported runtime result
 
-1. Select ID26 and inspect the player progress marker: it should be red.
-2. Return to the frontend, select original donor ID0 and inspect its marker:
-   it should retain the stock donor colour.
-3. Confirm ID25/Trooper remains selectable and unaffected.
-
-Only this A/B result closes `ID26 physical record = independently
-runtime-confirmed`. The cleanup candidate has not been run in the game.
+The F.2 master prompt reports that ID26's progress marker was red in the
+cleanup candidate, confirming that the race path consumed the red values from
+VehicleRecord[26]. The report does not include a runtime observation of ID0's
+marker. Static candidate operations leave ID0 initialization untouched, but
+that is not a substitute for an A/B runtime comparison. The F.2 prompt says
+the ID0 recheck is useful and does not block the Mercedes source audit.

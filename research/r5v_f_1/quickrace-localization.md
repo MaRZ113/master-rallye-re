@@ -54,6 +54,6 @@ Emitted bytes decode as `push [esp+4]; call 0x4adfb0; cmp eax,0x1a; jne
 return; xor eax,eax; ret 4`. The three existing direct calls are retargeted to
 this wrapper; their group-`0x35` pushes remain unchanged.
 
-This is a display-only patch. Candidate P0 must confirm the Quick Race pre-race
-name is valid and no longer displays `GALOCAL UNKNOWN`; this is not yet
-human-confirmed.
+This is a display-only patch. The owner reports that the cleanup candidate
+shows a valid Quick Race pre-race name and no longer displays
+`GALOCAL UNKNOWN`. The tested candidate hash is recorded in `validation.md`.

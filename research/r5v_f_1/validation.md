@@ -57,6 +57,10 @@ the game; human steps and exact hashes are in
 - `tests.synthetic.test_vehicle_registry_id26_patcher`: 6 passed after cleanup
   patcher changes.
 - Full repository synthetic suite: 228 tests passed.
-- Cleanup P0: **READY / WAITING FOR HUMAN**.
-- Cleanup P1: **WAITING FOR P0 FULL PASS**.
-- Mercedes P0/P1: **BLOCKED BY CLEANUP GATE; NO MERCEDES CANDIDATE**.
+- Cleanup P0: **OWNER-REPORTED FULL PASS** for the candidate hash above.
+- ID26 red marker: **OWNER-REPORTED RUNTIME-CONFIRMED**.
+- ID0 stock-colour runtime comparison: **NOT REPORTED**; static patch does not
+  alter ID0 initialization. The F.2 prompt explicitly makes this non-blocking
+  for Mercedes source research.
+- Mercedes candidate: **NOT GENERATED**; this report only clears the source
+  audit gate.

@@ -1,4 +1,21 @@
-# Cleanup runtime plan
+# Cleanup runtime result and plan
+
+## Owner-reported result
+
+The R5V-F.2 master prompt reports the cleanup candidate hash
+`120fb40bbe012914b82847f2d78f126dca0a8d6a5459855a7e29386ee63419c9` was
+human-tested. P0 is FULL PASS: T1 has eight entries with ID26 at local7, T2 is
+back to seven entries with the false Bowler removed, T3's layout remains
+intact, and Quick Race has a valid name instead of `GALOCAL UNKNOWN`. In a
+race, ID26 shows the red progress-marker canary and remains a separate
+selectable vehicle.
+
+The prompt does not report the separate runtime control check of ID0's stock
+marker colour. Do not claim that A/B comparison passed. The F.2 prompt says
+this check is useful but not a blocker to begin the Mercedes asset audit.
+
+The detailed steps below are retained as provenance for the completed P0 and
+the outstanding optional ID0 colour comparison.
 
 Use only an isolated duplicate of the existing R5V-E0 Trooper test install.
 Preserve its working Trooper loose override and use a disposable profile. Copy

@@ -266,9 +266,11 @@ testing a red ID26-only race-colour canary. Campaign persistence and network
 support remain unproven. See `research/r5v_f/` and `research/r5v_f_1/`.
 
 R5V-F.1 statically corrects the T1/T2 capacity coupling (`T1=8`, `T2=7`,
-`T3=12`), maps ID26 to donor selector0 only in Quick Race group `0x35`, and
+`T3=12`), maps ID26 to donor selector0 only for Quick Race group `0x35`, and
 initializes a red race-marker canary only in VehicleRecord26. The archive is
-unchanged. Its isolated cleanup candidate is **READY FOR HUMAN P0**; P1 is
-gated on P0 FULL PASS. Mercedes model/physics/collision and localization work
-has not started and remains gated on cleanup P0+P1 FULL PASS. See
-`research/r5v_f_1/`.
+unchanged. The owner reports cleanup P0 FULL PASS, a valid Quick Race name, and
+the red ID26 marker for the exact cleanup candidate hash documented in
+`research/r5v_f_1/validation.md`. The ID0 stock-marker comparison was not
+reported and is not a gate for F.2's source audit. Mercedes model/physics/
+collision and frontend identity research is underway; no Mercedes runtime
+candidate exists. See `research/r5v_f_1/`.

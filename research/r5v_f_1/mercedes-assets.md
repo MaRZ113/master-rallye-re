@@ -1,8 +1,9 @@
 # Mercedes assets — deferred
 
-Asset audit is intentionally deferred until cleanup P0 and P1 both pass.
-There is no Mercedes model package, converted DX resource, collision result,
-texture dependency list, or staged override from R5V-F.1.
+Asset audit is beginning in R5V-F.2 after the owner-reported cleanup P0 FULL
+PASS and ID26 red-canary observation. There is no Mercedes model package,
+converted DX resource, collision result, texture dependency list, or staged
+override recorded in R5V-F.1.
 
 The post-gate audit must inventory `complete.dx`, `car.dx`, `wheel.dx`, DXT
 dependencies, bounds and tag101 collision; record source build, source revision,

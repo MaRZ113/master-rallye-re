@@ -1,8 +1,7 @@
 # Mercedes frontend — deferred
 
-Mercedes-specific frontend work is gated on cleanup FULL PASS. The cleanup
-candidate keeps the current ID26 Landcruiser/donor presentation and validates
-the slot mechanics first.
+Mercedes-specific frontend work begins in R5V-F.2. The cleanup candidate kept
+the ID26 Landcruiser/donor presentation and its P0 is owner-reported FULL PASS.
 
 After the gate, audit authentic Mercedes display selectors separately for
 localization groups `0x33`, `0x34` and `0x35`; search demo VehicleSelect art and

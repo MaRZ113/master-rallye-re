@@ -7,15 +7,16 @@
 | R5V-F core physical ID26 | **OWNER-REPORTED RUNTIME PASS** |
 | ID26 frontend and offline race path | **OWNER-REPORTED RUNTIME-CONFIRMED** |
 | Cleanup patch static validation | **PASS** |
-| Cleanup P0 human check | **READY / WAITING** |
-| Cleanup P1 independent-record canary | **WAITING FOR P0 FULL PASS** |
-| Mercedes asset/profile work | **GATED ON CLEANUP FULL PASS; NOT STARTED** |
+| Cleanup P0 | **OWNER-REPORTED FULL PASS** |
+| ID26 red canary | **OWNER-REPORTED RUNTIME-CONFIRMED** |
+| ID0 stock-colour comparison | **NOT REPORTED; not a blocker for Mercedes source audit** |
+| Mercedes source/profile work | **CLEARED TO BEGIN; no candidate yet** |
 
-The owner reports that T1 local7 is physical ID26, its preview loads, Quick
-Race starts, the vehicle drives normally, a full stage completes, Race Complete
-is reached, and returning to the frontend works. This establishes the core
-registry expansion and race path. The tested EXE hash and captures were not
-provided, so this remains owner-reported evidence.
+The earlier R5V-F result reports T1 local7 as physical ID26, with preview,
+Quick Race, normal driving, full-stage completion, Race Complete and return to
+frontend. For the cleanup candidate, the owner supplied a follow-up report in
+the R5V-F.2 master prompt. It identifies the tested EXE as
+`120fb40bbe012914b82847f2d78f126dca0a8d6a5459855a7e29386ee63419c9`.
 
 Two defects were reported in that proof candidate:
 
@@ -31,8 +32,13 @@ only `VehicleRecord[26]` red as an independent-record canary. It retains
 `Race/Car0/CarID = 26`, the Landcruiser runtime family, the T1/T2/T3 mappings,
 the ID25 Trooper profile and the existing VehicleSelect archive.
 
-**No cleanup runtime result is claimed yet. Do not generate or test a Mercedes
-payload until cleanup P0 and P1 both pass.**
+The cleanup P0 observations are owner-reported FULL PASS: T1 has eight entries
+with ID26 at local7, T2 is back to seven with no false Bowler, T3 remains
+intact, and Quick Race shows a valid name. The owner also reports the ID26 red
+progress-marker canary in a race. The prompt does not report an A/B runtime
+check of ID0's stock colour; the deterministic patch leaves its record
+initialization untouched. The F.2 prompt explicitly says this separate ID0
+recheck is useful but does not block starting the Mercedes source audit.
 
 ## Static closure
 
@@ -53,8 +59,9 @@ payload until cleanup P0 and P1 both pass.**
 
 Evidence class: the addresses and raw instruction behavior are
 **RAW_GHIDRA_SUPPORTED** and match bytes in the SHA-verified retail executable.
-Candidate construction and archive checks are **AUTOMATED_STATIC**. Cleanup
-P0/P1 remain **NOT RUNTIME-TESTED**.
+Candidate construction and archive checks are **AUTOMATED_STATIC**. Cleanup P0,
+the corrected group-0x35 name, and the ID26 red marker are **OWNER-REPORTED
+RUNTIME-CONFIRMED**. Do not claim the ID0 marker A/B comparison was tested.
 
 See [capacity-fix.md](capacity-fix.md),
 [quickrace-localization.md](quickrace-localization.md),
@@ -62,14 +69,12 @@ See [capacity-fix.md](capacity-fix.md),
 
 ## Two-stage run plan
 
-1. Install only the cleanup candidate EXE and unchanged `Data.sma` into an
-   isolated duplicate of the existing Trooper test installation. Perform P0
-   frontend checks only; do not start a race.
-2. Only after P0 FULL PASS, use that same candidate for P1: ID26 marker red,
-   then donor ID0 marker still stock. Report cleanup FULL PASS only if both
-   observations match.
-3. Only after cleanup FULL PASS begin the separate Mercedes evidence and asset
-   audit. The physical slot remains ID26/T1 local7; no ID27 or renumbering is in
+1. Cleanup P0 is closed by the owner's report in the F.2 master prompt.
+2. The ID26 red marker was observed. ID0's stock-colour A/B recheck remains a
+   useful open observation but is not a gate for the F.2 source audit.
+3. Begin Mercedes evidence and asset research on the same physical ID26/T1
+   local7. Do not generate a Mercedes runtime candidate until model, physics,
+   collision and dependency gates are satisfied. No ID27 or renumbering is in
    scope.
 
 Detailed steps are in [cleanup/TEST_INSTRUCTIONS.txt](../../research-output/r5v_f_1/cleanup/TEST_INSTRUCTIONS.txt)
