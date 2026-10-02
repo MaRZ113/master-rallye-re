@@ -22,12 +22,14 @@ Astero frame 5. No registry or executable limits changed. See
 
 R5V-F established a physical retail ID26 at sparse T1 local7. The owner reports
 that the entry previews, starts Quick Race, drives, completes a stage and
-returns to the frontend. That core expansion is runtime-confirmed, but cleanup
-found two defects in the proof candidate: T2 incorrectly exposes local7, and
-Quick Race shows `GALOCAL UNKNOWN` for ID26. The current cleanup work separates
-T1/T2 capacities, aliases only the group-0x35 display selector, and adds an
-ID26-only race-colour canary to prove independent VehicleRecord access. See
-`research/r5v_f_1/` and the original expansion evidence in `research/r5v_f/`.
+returns to the frontend. Cleanup found the shared T1/T2 capacity bug and the
+Quick Race group-0x35 `GALOCAL UNKNOWN` defect. A new hash-locked cleanup
+candidate now sets T1=8/T2=7 separately, aliases only the three group-0x35
+display selectors and gives ID26 a red record-colour canary. **Cleanup P0 is
+ready for human testing; P1 waits for P0 FULL PASS. Mercedes work is gated on
+cleanup FULL PASS and no Mercedes candidate exists.** See
+`research/r5v_f_1/findings.md` and the original expansion evidence in
+`research/r5v_f/findings.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

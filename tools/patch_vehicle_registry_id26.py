@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build a fail-closed retail ID26 / sparse T1 local-7 test executable.
+"""Build a fail-closed retail ID26 / sparse T1 cleanup executable.
 
-This patcher supports one exact retail image and one bounded profile. It
-preserves the confirmed Trooper ID25 record, expands the registry object to
-27 VehicleRecords, moves the adjacent 39-row RaceTest table, and initializes
-new ID26 by calling the original full initializer with Landcruiser donor
-values. It never edits the source executable.
+This patcher supports one exact retail image and the donor-cleanup profile.
+It preserves the confirmed Trooper ID25 record, expands the registry object
+to 27 VehicleRecords, moves the adjacent 39-row RaceTest table, initializes
+ID26 with the original full initializer, fixes independent T1/T2 capacities,
+and aliases ID26 only for localization display. It never edits the source.
 """
 from __future__ import annotations
 
@@ -43,6 +43,7 @@ REGISTRY_HOOK_VA = 0x458D3F
 ORIGINAL_SECONDARY_INITIALIZER_VA = 0x4598D0
 VEHICLE_INITIALIZER_VA = 0x45A0B0
 STRING_CONSTRUCTOR_VA = 0x4D11D0
+QUICKRACE_SELECTOR_GETTER_VA = 0x4ADFB0
 REGISTRY_ALLOCATOR_IMMEDIATE_VA = 0x45A3E0
 OLD_REGISTRY_BYTES = 0xC00
 NEW_REGISTRY_BYTES = 0xC34
@@ -58,6 +59,10 @@ RACETEST_COUNT = 39
 RACETEST_STRIDE = 0x2C
 RACETEST_END_OLD = 0xC00
 RACETEST_END_NEW = 0xC34
+CAPACITY_INIT_HOOK_VA = 0x480A4A
+CAPACITY_INIT_CONTINUATION_VA = 0x480A55
+QUICKRACE_SELECTOR_CALLS = (0x47B0AF, 0x47B13A, 0x47B1BA)
+QUICKRACE_LOCALIZATION_GROUP = 0x35
 
 
 class PatchError(ValueError):
@@ -74,7 +79,12 @@ class VehicleRecordProfile:
     stats: tuple[int, int, int, int]
     smallcarsheet_index: int
     race_colour_rgba_bits: tuple[int, int, int, int]
-    donor_id: int
+    donor_id: int | None
+    runtime_family: str
+    vehicle_select_icon_frame: int | None
+    display_selector_by_group: tuple[tuple[int, int], ...]
+    unlock_policy: str
+    race_colour_role: str
 
 
 # Preserve the latest human-tested ID25/Trooper presentation profile. Its
@@ -89,19 +99,30 @@ ID25_TROOPER = VehicleRecordProfile(
     smallcarsheet_index=29,
     race_colour_rgba_bits=(0x3D8B1C04, 0x3F092D67, 0x3EF74E40, 0x3F800000),
     donor_id=16,
+    runtime_family="Trooper",
+    vehicle_select_icon_frame=None,
+    display_selector_by_group=(),
+    unlock_policy="existing ID25 test-selectable policy",
+    race_colour_role="existing Trooper profile colour",
 )
 
-# First physical expansion payload: semantic copy of retail T1 ID0.
-ID26_LANDCRUISER = VehicleRecordProfile(
-    profile_id="duplicate-t1-id0-landcruiser",
+# Cleanup payload remains a semantic ID0 duplicate except for its deliberate
+# red race-marker canary. The original ID0 record and colour are untouched.
+ID26_DONOR_CLEANUP = VehicleRecordProfile(
+    profile_id="donor-cleanup-landcruiser-red-canary",
     slot_id=26,
     vehicle_class=0,
     local_index=7,
     internal_name="Landcruiser",
     stats=(4, 2, 4, 6),
     smallcarsheet_index=9,
-    race_colour_rgba_bits=(0x3DAA05CC, 0x3ED675DB, 0x3E8172F5, 0x3F800000),
+    race_colour_rgba_bits=(0x3F800000, 0x00000000, 0x00000000, 0x3F800000),
     donor_id=0,
+    runtime_family="Landcruiser",
+    vehicle_select_icon_frame=3,
+    display_selector_by_group=((0x33, 0), (0x34, 0), (0x35, 0)),
+    unlock_policy="test-only Vehicle Select gate",
+    race_colour_role="red cleanup canary; custom presentation colour",
 )
 
 
@@ -184,13 +205,33 @@ def _emit_record_initializer(code: _CodeImage, profile: VehicleRecordProfile,
     code.call(VEHICLE_INITIALIZER_VA)
 
 
-def build_code_payload() -> tuple[bytes, dict[str, int]]:
+def _id26_display_selectors(profile: VehicleRecordProfile) -> dict[int, int]:
+    if profile.slot_id != 26 or profile.vehicle_class != 0 or profile.local_index != 7:
+        raise PatchError("R5V-F.1 profile must retain physical ID26 / T1 local7")
+    if profile.unlock_policy != "test-only Vehicle Select gate":
+        raise PatchError("unsupported ID26 unlock policy for this bounded patcher")
+    if not profile.internal_name or "\x00" in profile.internal_name or not profile.internal_name.isascii():
+        raise PatchError("ID26 profile needs a non-empty ASCII NUL-free internal name")
+    selectors = dict(profile.display_selector_by_group)
+    if set(selectors) != {0x33, 0x34, 0x35}:
+        raise PatchError("ID26 profile must define display selectors for groups 0x33/0x34/0x35")
+    if selectors[0x33] != selectors[0x34]:
+        raise PatchError("the current Vehicle Select ABI uses one selector for groups 0x33 and 0x34")
+    if any(isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= 0xFFFFFFFF
+           for value in selectors.values()):
+        raise PatchError("localization selectors must be unsigned 32-bit integers")
+    return selectors
+
+
+def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
+                       ) -> tuple[bytes, dict[str, int]]:
+    selectors = _id26_display_selectors(id26_profile)
     code = _CodeImage(STUB_VA)
 
     code.label("registry_init")
     code.emit(b"\x56\x8B\xF1")  # preserve ESI; ESI = registry object
     _emit_record_initializer(code, ID25_TROOPER, RECORD25_OFFSET, "trooper_name")
-    _emit_record_initializer(code, ID26_LANDCRUISER, RECORD26_OFFSET, "landcruiser_name")
+    _emit_record_initializer(code, id26_profile, RECORD26_OFFSET, "id26_name")
     code.emit(b"\x8B\xCE")
     code.call(ORIGINAL_SECONDARY_INITIALIZER_VA)
     code.emit(b"\x5E\xC3")
@@ -202,18 +243,18 @@ def build_code_payload() -> tuple[bytes, dict[str, int]]:
     code.jne("forward_dense")
     code.emit(b"\x83\x79\x14\x07")  # cmp dword ptr [ecx+14], 7
     code.jne("forward_dense")
-    code.emit(b"\xB8\x1A\x00\x00\x00\xC3")
+    code.emit(b"\xB8" + struct.pack("<I", id26_profile.slot_id) + b"\xC3")
     code.label("forward_dense")
     code.emit(b"\x8B\x41\x10\x83\xE8\x00")  # replay retail MOV/SUB prefix
     code.jump(0x481E26)
 
     code.align()
     code.label("reverse_class_map")
-    code.emit(b"\x81\x7C\x24\x04\x1A\x00\x00\x00")  # arg == 26?
+    code.emit(b"\x81\x7C\x24\x04" + struct.pack("<I", id26_profile.slot_id))
     code.jne("reverse_dense")
     code.emit(b"\x56\x8B\xF1")  # match retail prologue and preserve caller ESI
-    code.emit(b"\xC7\x46\x10\x00\x00\x00\x00")  # state.class = T1
-    code.emit(b"\xC7\x46\x14\x07\x00\x00\x00")  # state.local = 7
+    code.emit(b"\xC7\x46\x10" + struct.pack("<I", id26_profile.vehicle_class))
+    code.emit(b"\xC7\x46\x14" + struct.pack("<I", id26_profile.local_index))
     code.jump(0x481E89)  # shared localization/update tail and original RET 4
     code.label("reverse_dense")
     code.emit(b"\x8B\x44\x24\x04\x56")  # replay retail MOV/PUSH prefix
@@ -221,9 +262,12 @@ def build_code_payload() -> tuple[bytes, dict[str, int]]:
 
     code.align()
     code.label("display_selector")
-    code.emit(b"\x8B\xF8\x8B\xDF\x83\xFB\x1A")  # EDI=ID; EBX=ID; cmp EBX,26
+    code.emit(b"\x8B\xF8\x8B\xDF\x81\xFB" + struct.pack("<I", id26_profile.slot_id))
     code.jne("display_get_registry")
-    code.emit(b"\x31\xDB")  # ID26 only: reuse ID0 localization selector
+    if selectors[0x33] == 0:
+        code.emit(b"\x31\xDB")
+    else:
+        code.emit(b"\xBB" + struct.pack("<I", selectors[0x33]))
     code.label("display_get_registry")
     code.call(0x45A3C0)
     code.jump(0x4819C4)
@@ -232,17 +276,41 @@ def build_code_payload() -> tuple[bytes, dict[str, int]]:
     code.label("id26_unlock")
     code.emit(b"\x51")  # preserve registry-record pointer across original unlock call
     code.call(0x45A150)
-    code.emit(b"\x59\x83\x79\x04\x1A")  # restore ECX; test record.ID == 26
+    code.emit(b"\x59\x83\x79\x04" + bytes((id26_profile.slot_id,)))
     code.jne("unlock_return")
     code.emit(b"\xB0\x01")
     code.label("unlock_return")
     code.emit(b"\xC3")
 
+    code.align()
+    code.label("capacity_init")
+    # The retail constructor shared EAX=7 between T1 and T2. Keep capacities
+    # independent, preserve the original live EAX value, then resume before
+    # the untouched object-field stores.
+    code.emit(b"\xB8\x07\x00\x00\x00")  # preserve retail EAX=7 at continuation
+    code.emit(b"\xC7\x46\x20\x08\x00\x00\x00")  # [ESI+0x20] = 8 (T1)
+    code.emit(b"\xC7\x46\x24\x07\x00\x00\x00")  # [ESI+0x24] = 7 (T2)
+    code.jump(CAPACITY_INIT_CONTINUATION_VA)
+
+    code.align()
+    code.label("quickrace_display_selector")
+    # FUN_004adfb0 takes one stack argument and returns with RET 4. Copy that
+    # argument for the nested call, alias only returned selector 26 to 0,
+    # then clean the original caller argument with the matching RET 4.
+    code.emit(b"\xFF\x74\x24\x04")  # push dword ptr [ESP+4]
+    code.call(QUICKRACE_SELECTOR_GETTER_VA)
+    code.emit(b"\x3D" + struct.pack("<I", id26_profile.slot_id) + b"\x75\x02")
+    if selectors[0x35] == 0:
+        code.emit(b"\x31\xC0")
+    else:
+        code.emit(b"\xB8" + struct.pack("<I", selectors[0x35]))
+    code.emit(b"\xC2\x04\x00")
+
     code.align(4)
     code.label("trooper_name")
     code.emit(b"Trooper\x00")
-    code.label("landcruiser_name")
-    code.emit(b"Landcruiser\x00")
+    code.label("id26_name")
+    code.emit(id26_profile.internal_name.encode("ascii") + b"\x00")
     payload = code.build()
     if len(payload) > 0xD60:
         raise PatchError(f"code-cave payload too large: 0x{len(payload):X}")
@@ -322,8 +390,10 @@ SECONDARY_CONSUMER_DISPS = (
 )
 
 
-def build_operations(data: bytes, pe: dict) -> tuple[list[dict[str, Any]], bytes, dict[str, int], int]:
-    payload, entrypoints = build_code_payload()
+def build_operations(data: bytes, pe: dict, *,
+                     id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
+                     ) -> tuple[list[dict[str, Any]], bytes, dict[str, int], int]:
+    payload, entrypoints = build_code_payload(id26_profile)
     text = pe["sections"][0]
     text_start_va = IMAGE_BASE + text["rva"]
     relative_end = STUB_VA - text_start_va + len(payload)
@@ -392,10 +462,14 @@ def build_operations(data: bytes, pe: dict) -> tuple[list[dict[str, Any]], bytes
                       replacement=struct.pack("<I", old_disp + RECORD_STRIDE),
                       purpose="retarget an indexed RaceTest field after VehicleRecord[26]")
 
-    # P0 class capacity: T1=8, preserve the already-confirmed T3=12 and T2=7.
-    _add_va_patch(data, pe, operations, name="frontend_t1_capacity", category="frontend-capacity",
-                  va=0x480A4B, original=b"\x07\x00\x00\x00", replacement=b"\x08\x00\x00\x00",
-                  purpose="expose eight T1 class-local entries")
+    # P0 class capacity: replace the shared T1/T2 initializer with separate
+    # writes. A shared immediate change would incorrectly make T2=8 as well.
+    capacity_source = bytes.fromhex("b807000000894620894624")
+    capacity_dispatch = _rel32_jump(CAPACITY_INIT_HOOK_VA, entrypoints["capacity_init"]) + b"\x90" * 6
+    _add_va_patch(data, pe, operations, name="frontend_independent_t1_t2_capacity",
+                  category="frontend-capacity", va=CAPACITY_INIT_HOOK_VA,
+                  original=capacity_source, replacement=capacity_dispatch,
+                  purpose="set T1=8 and T2=7 independently after the verified shared retail initializer")
     _add_va_patch(data, pe, operations, name="frontend_t3_capacity_id25_compat", category="frontend-capacity",
                   va=0x480A65, original=b"\x0B", replacement=b"\x0C",
                   purpose="retain the E0.2-tested 12-entry T3 capacity and ID25")
@@ -431,6 +505,18 @@ def build_operations(data: bytes, pe: dict) -> tuple[list[dict[str, Any]], bytes
                   va=0x481A4D, original=b"\x57", replacement=b"\x53",
                   purpose="use the donor selector for localization group 0x34")
 
+    for call_va in QUICKRACE_SELECTOR_CALLS:
+        _add_va_patch(
+            data, pe, operations,
+            name=f"quickrace_group_35_selector_{call_va:08x}",
+            category="quickrace-display-localization",
+            va=call_va,
+            original=_rel32_call(call_va, QUICKRACE_SELECTOR_GETTER_VA),
+            replacement=_rel32_call(call_va, entrypoints["quickrace_display_selector"]),
+            purpose=("alias only returned selector ID26 to donor ID0 before localization group "
+                     "0x35; retain Car0/Car1 state and Race/Car0/CarID"),
+        )
+
     _add_va_patch(data, pe, operations, name="combined_registry_initializer_hook", category="record-initialization",
                   va=REGISTRY_HOOK_VA,
                   original=_rel32_call(REGISTRY_HOOK_VA, ORIGINAL_SECONDARY_INITIALIZER_VA),
@@ -441,7 +527,7 @@ def build_operations(data: bytes, pe: dict) -> tuple[list[dict[str, Any]], bytes
     operations.append(_operation(
         "id26_code_cave_payload", "record-initialization-and-bounded-wrappers", cave_offset,
         section_cave, payload,
-        "owned-string full initializers, sparse maps, display selector, and narrow unlock wrapper",
+        "owned-string full initializers, sparse maps, display selectors, capacity fix, and narrow unlock wrapper",
         va=STUB_VA))
     return operations, payload, entrypoints, new_virtual_size
 
@@ -461,7 +547,9 @@ def validate_operations(data: bytes, operations: list[dict[str, Any]]) -> None:
         prior_end = start + len(original)
 
 
-def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256) -> tuple[bytes, dict[str, Any]]:
+def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
+                  id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
+                  ) -> tuple[bytes, dict[str, Any]]:
     digest = sha256(data)
     if digest != expected_sha256.lower():
         raise PatchError(f"unsupported retail source SHA256: {digest}")
@@ -469,7 +557,8 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256) -> tupl
         pe = parse_pe(data)
     except (BasePatchError, struct.error) as exc:
         raise PatchError(str(exc)) from exc
-    operations, payload, entrypoints, text_virtual_size = build_operations(data, pe)
+    operations, payload, entrypoints, text_virtual_size = build_operations(
+        data, pe, id26_profile=id26_profile)
     validate_operations(data, operations)
 
     result = bytearray(data)
@@ -501,10 +590,8 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256) -> tupl
             "new_end_exclusive": RACETEST_END_NEW,
             "allocation_end_exclusive": NEW_REGISTRY_BYTES,
         },
-        "id25": _profile_manifest(ID25_TROOPER, record_offset=RECORD25_OFFSET,
-                                  runtime_family="Trooper"),
-        "id26": _profile_manifest(ID26_LANDCRUISER, record_offset=RECORD26_OFFSET,
-                                  runtime_family="Landcruiser"),
+        "id25": _profile_manifest(ID25_TROOPER, record_offset=RECORD25_OFFSET),
+        "id26": _profile_manifest(id26_profile, record_offset=RECORD26_OFFSET),
         "class_mappings": {
             "T1": {"local_0_to_6": "absolute IDs 0..6", "local_7": 26, "capacity": 8},
             "T2": {"local_0_to_6": "absolute IDs 7..13", "capacity": 7},
@@ -513,13 +600,23 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256) -> tupl
         },
         "unlock": {"id25": "test-selectable (existing R5V-E profile)",
                    "id26": "test-selectable at VehicleSelect gate only"},
-        "display_selector": {"id26": 0, "scope": "two localization selector pushes only"},
+        "display_selector": {
+            "id26_by_localization_group": {"0x33": 0, "0x34": 0, "0x35": 0},
+            "scope": "Vehicle Select display pushes and three Quick Race name lookups only",
+            "race_id_unchanged": 26,
+        },
+        "race_colour_canary": {
+            "record_id": 26,
+            "rgba_bits": [f"{value:08x}" for value in id26_profile.race_colour_rgba_bits],
+            "role": id26_profile.race_colour_role,
+            "id0_record_touched": False,
+        },
         "code_entrypoints": {name: f"0x{value:08X}" for name, value in entrypoints.items()},
     }
     manifest = {
-        "phase": "R5V-F",
+        "phase": "R5V-F.1 cleanup",
         "build": "retail",
-        "profile": "duplicate-t1-id0-landcruiser",
+        "profile": id26_profile.profile_id,
         "source_sha256": digest,
         "patched_sha256": sha256(candidate),
         "image_base": IMAGE_BASE,
@@ -530,11 +627,13 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256) -> tupl
         "structural_self_check": structural,
         "operation_counts_by_category": _operation_counts(operations),
         "operations": operations,
-        "runtime_validation": "WAITING FOR HUMAN P0",
+        "runtime_validation": "WAITING FOR CLEANUP P0",
         "risks": [
             "Campaign/save persistence for ID26 is unproven; use a disposable profile.",
             "Network/multiplayer support for ID26 is unproven; do not test online.",
             "ID26 is a test-only quick-race/practice slot; AI/event pools remain stock-only.",
+            "The red marker canary is for cleanup P1 and must not be treated as Mercedes payload evidence.",
+            "Do not generate a Mercedes candidate until cleanup P0 and P1 both pass.",
         ],
     }
     # Run structural self-check against the bytes just generated.
@@ -542,19 +641,25 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256) -> tupl
     return candidate, manifest
 
 
-def _profile_manifest(profile: VehicleRecordProfile, *, record_offset: int,
-                      runtime_family: str) -> dict[str, Any]:
+def _profile_manifest(profile: VehicleRecordProfile, *, record_offset: int) -> dict[str, Any]:
     return {
+        "profile_id": profile.profile_id,
         "id": profile.slot_id,
         "class": profile.vehicle_class,
         "class_local_index": profile.local_index,
         "record_offset_from_registry": record_offset,
         "internal_name": profile.internal_name,
-        "runtime_family": runtime_family,
+        "runtime_family": profile.runtime_family,
         "donor_id": profile.donor_id,
         "frontend_stats": list(profile.stats),
         "smallcarsheet_index": profile.smallcarsheet_index,
         "race_colour_rgba_bits": [f"{value:08x}" for value in profile.race_colour_rgba_bits],
+        "race_colour_role": profile.race_colour_role,
+        "vehicle_select_icon_frame": profile.vehicle_select_icon_frame,
+        "display_selector_by_group": {
+            f"0x{group:02X}": selector for group, selector in profile.display_selector_by_group
+        },
+        "unlock_policy": profile.unlock_policy,
         "initializer_va": f"0x{VEHICLE_INITIALIZER_VA:08X}",
         "owned_name": "temporary deep-copied by the original full initializer",
     }
@@ -591,6 +696,22 @@ def _verify_structural(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise PatchError("structural self-check: sparse forward map missing")
     if structural["class_mappings"]["reverse_id26"] != {"class": 0, "local_index": 7}:
         raise PatchError("structural self-check: sparse reverse map missing")
+    if structural["class_mappings"]["T1"]["capacity"] != 8:
+        raise PatchError("structural self-check: T1 capacity is not eight")
+    if structural["class_mappings"]["T2"]["capacity"] != 7:
+        raise PatchError("structural self-check: T2 capacity must remain seven")
+    if structural["class_mappings"]["T3"]["capacity"] != 12:
+        raise PatchError("structural self-check: T3 capacity must remain twelve")
+    if structural["race_colour_canary"]["rgba_bits"] != [
+            "3f800000", "00000000", "00000000", "3f800000"]:
+        raise PatchError("structural self-check: cleanup ID26 red canary mismatch")
+    if structural["race_colour_canary"]["id0_record_touched"] is not False:
+        raise PatchError("structural self-check: donor ID0 must remain untouched")
+    if structural["display_selector"]["id26_by_localization_group"] != {
+            "0x33": 0, "0x34": 0, "0x35": 0}:
+        raise PatchError("structural self-check: ID26 display selectors are incomplete")
+    if len(QUICKRACE_SELECTOR_CALLS) != 3:
+        raise PatchError("structural self-check: expected three group-0x35 display lookups")
     if len(SECONDARY_INIT_LEAS) != RACETEST_COUNT:
         raise PatchError("structural self-check: RaceTest initializer coverage mismatch")
     if len(SECONDARY_CONSUMER_DISPS) != 11:
@@ -673,6 +794,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", type=Path, help="Unmodified supported retail MRallye.exe")
     parser.add_argument("output", type=Path, help="New isolated candidate path inside research-output")
+    parser.add_argument("--profile", choices=("donor-cleanup",), default="donor-cleanup",
+                        help="semantic ID26 payload profile (Mercedes is gated on cleanup runtime pass)")
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--diff", type=Path)
     parser.add_argument("--dry-run", action="store_true")

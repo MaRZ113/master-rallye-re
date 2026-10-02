@@ -49,7 +49,7 @@ def retail_layout_fixture() -> bytes:
         0x458E46: b"\x1A",
         0x686796: b"\x1A",
         0x6867B3: struct.pack("<I", 0x54C),
-        0x480A4B: b"\x07\x00\x00\x00",
+        0x480A4A: bytes.fromhex("b807000000894620894624"),
         0x480A65: b"\x0B",
         0x481E20: bytes.fromhex("8b411083e800"),
         0x481E50: bytes.fromhex("8b44240456"),
@@ -63,6 +63,8 @@ def retail_layout_fixture() -> bytes:
         0x458E2A: bytes.fromhex("8d864c050000"),
         0x6867B2: bytes.fromhex("054c050000"),
     }
+    for call_va in patcher.QUICKRACE_SELECTOR_CALLS:
+        fixed[call_va] = patcher._rel32_call(call_va, patcher.QUICKRACE_SELECTOR_GETTER_VA)
     for va, raw in fixed.items():
         put(va, raw)
     for va, disp in patcher.SECONDARY_INIT_LEAS:
@@ -118,14 +120,103 @@ class VehicleRegistryId26PatcherTests(unittest.TestCase):
         self.assertEqual(structural["class_mappings"]["T3"]["capacity"], 12)
         self.assertEqual(structural["class_mappings"]["reverse_id26"], {"class": 0, "local_index": 7})
         self.assertEqual(structural["id25"]["internal_name"], "Trooper")
+        self.assertEqual(structural["id25"]["class"], 2)
+        self.assertEqual(structural["id25"]["class_local_index"], 11)
         self.assertEqual(structural["id25"]["smallcarsheet_index"], 29)
         self.assertEqual(structural["id26"]["internal_name"], "Landcruiser")
         self.assertEqual(structural["id26"]["donor_id"], 0)
         self.assertEqual(structural["id26"]["frontend_stats"], [4, 2, 4, 6])
         self.assertEqual(structural["id26"]["smallcarsheet_index"], 9)
+        self.assertEqual(structural["id26"]["runtime_family"], "Landcruiser")
+        self.assertEqual(structural["id26"]["vehicle_select_icon_frame"], 3)
+        self.assertEqual(structural["id26"]["display_selector_by_group"],
+                         {"0x33": 0, "0x34": 0, "0x35": 0})
+        self.assertEqual(structural["id26"]["race_colour_rgba_bits"],
+                         ["3f800000", "00000000", "00000000", "3f800000"])
         payload = bytes.fromhex(next(op["replacement_bytes"] for op in manifest["operations"]
                                      if op["name"] == "id26_code_cave_payload"))
         self.assertIn(b"Trooper\x00Landcruiser\x00", payload)
+        self.assertEqual(structural["race_colour_canary"]["id0_record_touched"], False)
+        self.assertFalse(any("id0" in op["name"].lower() for op in manifest["operations"]))
+        operations = {op["name"]: op for op in manifest["operations"]}
+        self.assertEqual(operations["display_group_33_selector"]["original_bytes"], "57")
+        self.assertEqual(operations["display_group_33_selector"]["replacement_bytes"], "53")
+        self.assertEqual(operations["display_group_34_selector"]["original_bytes"], "57")
+        self.assertEqual(operations["display_group_34_selector"]["replacement_bytes"], "53")
+
+    def test_emitted_capacity_stub_sets_t1_eight_and_t2_seven(self) -> None:
+        source = retail_layout_fixture()
+        candidate, manifest = patcher.make_candidate(source, expected_sha256=patcher.sha256(source))
+        operation = next(op for op in manifest["operations"]
+                         if op["name"] == "frontend_independent_t1_t2_capacity")
+        replacement = bytes.fromhex(operation["replacement_bytes"])
+        self.assertEqual(len(replacement), 11)
+        self.assertEqual(replacement[5:], b"\x90" * 6)
+        displacement = struct.unpack_from("<i", replacement, 1)[0]
+        capacity_helper_va = int(
+            manifest["structural_self_check"]["code_entrypoints"]["capacity_init"], 16)
+        self.assertEqual(0x480A4A + 5 + displacement, capacity_helper_va)
+
+        payload = bytes.fromhex(next(op["replacement_bytes"] for op in manifest["operations"]
+                                     if op["name"] == "id26_code_cave_payload"))
+        helper = payload[capacity_helper_va - patcher.STUB_VA:]
+        # Decode the exact x86 instructions emitted by the patcher.
+        self.assertEqual(helper[:5], bytes.fromhex("b807000000"))  # preserve original EAX=7
+        self.assertEqual(helper[5:7], b"\xC7\x46")
+        t1_offset = helper[7]
+        t1_value = struct.unpack_from("<I", helper, 8)[0]
+        self.assertEqual(helper[12:14], b"\xC7\x46")
+        t2_offset = helper[14]
+        t2_value = struct.unpack_from("<I", helper, 15)[0]
+        self.assertEqual((t1_offset, t1_value), (0x20, 8))
+        self.assertEqual((t2_offset, t2_value), (0x24, 7))
+        jmp_at = 19
+        self.assertEqual(helper[jmp_at], 0xE9)
+        jump_delta = struct.unpack_from("<i", helper, jmp_at + 1)[0]
+        self.assertEqual(capacity_helper_va + jmp_at + 5 + jump_delta,
+                         patcher.CAPACITY_INIT_CONTINUATION_VA)
+        self.assertEqual(candidate[operation["file_offset"]:
+                                   operation["file_offset"] + len(replacement)], replacement)
+
+        memory: dict[int, int] = {}
+        memory[t1_offset] = t1_value
+        memory[t2_offset] = t2_value
+        self.assertEqual(memory, {0x20: 8, 0x24: 7})
+        self.assertEqual(manifest["structural_self_check"]["class_mappings"]["T2"]["capacity"], 7)
+
+    def test_quickrace_alias_wrapper_preserves_stdcall_and_only_aliases_id26(self) -> None:
+        source = retail_layout_fixture()
+        _candidate, manifest = patcher.make_candidate(source, expected_sha256=patcher.sha256(source))
+        structural = manifest["structural_self_check"]
+        payload = bytes.fromhex(next(op["replacement_bytes"] for op in manifest["operations"]
+                                     if op["name"] == "id26_code_cave_payload"))
+        helper_va = int(structural["code_entrypoints"]["quickrace_display_selector"], 16)
+        helper = payload[helper_va - patcher.STUB_VA:]
+        self.assertEqual(helper[:4], bytes.fromhex("ff742404"))  # preserve original arg for nested call
+        self.assertEqual(helper[4], 0xE8)
+        original_call_delta = struct.unpack_from("<i", helper, 5)[0]
+        self.assertEqual(helper_va + 9 + original_call_delta, patcher.QUICKRACE_SELECTOR_GETTER_VA)
+        self.assertEqual(helper[9:14], bytes.fromhex("3d1a000000"))
+        self.assertEqual(helper[14:16], bytes.fromhex("7502"))
+        self.assertEqual(helper[16:18], bytes.fromhex("31c0"))
+        self.assertEqual(helper[18:21], b"\xC2\x04\x00")  # same RET 4 cleanup as original getter
+
+        call_ops = [op for op in manifest["operations"]
+                    if op["category"] == "quickrace-display-localization"]
+        self.assertEqual({op["virtual_address"] for op in call_ops}, set(patcher.QUICKRACE_SELECTOR_CALLS))
+        for op in call_ops:
+            call_va = op["virtual_address"]
+            patch = bytes.fromhex(op["replacement_bytes"])
+            self.assertEqual(patch[0], 0xE8)
+            delta = struct.unpack_from("<i", patch, 1)[0]
+            self.assertEqual(call_va + 5 + delta, helper_va)
+
+        def alias(selector: int) -> int:
+            return 0 if selector == 26 else selector
+
+        self.assertEqual(alias(26), 0)
+        self.assertEqual(alias(0), 0)
+        self.assertEqual(alias(14), 14)
 
     def test_deterministic_patch_and_no_source_mutation(self) -> None:
         source = retail_layout_fixture()
@@ -135,8 +226,8 @@ class VehicleRegistryId26PatcherTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(first_manifest, second_manifest)
         self.assertEqual(hashlib.sha256(source).hexdigest(), before)
-        self.assertEqual(len(first_manifest["operations"]), 69)
-        self.assertEqual(first_manifest["runtime_validation"], "WAITING FOR HUMAN P0")
+        self.assertEqual(len(first_manifest["operations"]), 72)
+        self.assertEqual(first_manifest["runtime_validation"], "WAITING FOR CLEANUP P0")
 
     def test_wrong_hash_and_overlap_are_rejected(self) -> None:
         source = retail_layout_fixture()

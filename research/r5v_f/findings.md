@@ -87,11 +87,13 @@ P0 instructions. The archive was built from the previously staged E0.2 archive
 
 The original runtime package has now been exercised by the owner, who reported
 the full-stage result above. That test also exposed the false T2 local7/Bowler
-entry and the Quick Race localization failure. R5V-F.1 creates a new cleanup
-candidate and requires a fresh frontend-only P0 followed by the independent
-record P1 canary. Save persistence and network support remain unproven; use a
-disposable profile and stay offline. The event/AI vehicle pool remains stock
-IDs 0–24.
+entry and the Quick Race localization failure. R5V-F.1 has built a separate
+cleanup candidate from the exact retail source; it separates T1=8/T2=7,
+aliases the three group-0x35 display selectors, and gives only ID26 a red marker
+canary. Cleanup P0 must now reconfirm the corrected frontend before P1 tests
+record independence. Save persistence and network support remain unproven; use
+a disposable profile and stay offline. The event/AI vehicle pool remains stock
+IDs 0–24. See [R5V-F.1 findings](../r5v_f_1/findings.md).
 
 ## E0.2 closeout
 
