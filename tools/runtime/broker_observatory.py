@@ -550,6 +550,7 @@ def diff_snapshots(
     *,
     prefixes: Sequence[str] = (),
     float_tolerance: float = 0.0,
+    ignore_revision_only: bool = False,
 ) -> dict[str, Any]:
     if float_tolerance < 0 or not math.isfinite(float_tolerance):
         raise ObservatoryError("float tolerance must be a finite non-negative number")
@@ -601,7 +602,7 @@ def diff_snapshots(
     events: list[dict[str, Any]] = []
     for left, right, pairing in paired:
         changes = _changes(left, right, float_tolerance)
-        if changes:
+        if changes and not (ignore_revision_only and set(changes) == {"REVISION_CHANGED"}):
             events.append(
                 {
                     "kind": "CHANGED",
@@ -638,10 +639,56 @@ def diff_snapshots(
         "after_label": after.get("source", {}).get("label"),
         "before_entry_count": len(old_entries),
         "after_entry_count": len(new_entries),
-        "filters": {"path_prefixes": list(prefixes), "float_tolerance": float_tolerance},
+        "filters": {"path_prefixes": list(prefixes), "float_tolerance": float_tolerance,
+                    "ignore_revision_only": ignore_revision_only},
         "summary": dict(sorted(counts.items())),
         "events": events,
     }
+
+
+SAVE_MODE_FIELDS = {"game": "save_game", "options": "save_options", "playerstate": "save_player_state"}
+
+
+def persistence_report(snapshot: dict[str, Any], *, save_file: str | None = None,
+                       save_mode: str | None = None, scope: str | None = None) -> dict[str, Any]:
+    """Group emitted diagnostic rows; this is metadata coverage, not a save preview."""
+    if save_mode is not None and save_mode not in SAVE_MODE_FIELDS:
+        raise ObservatoryError(f"Unknown save mode: {save_mode}")
+    groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for entry in snapshot["entries"]:
+        if save_file is not None and entry["save_file"] != save_file:
+            continue
+        if scope is not None and entry["scope_label"] != scope:
+            continue
+        if save_mode is not None and not entry[SAVE_MODE_FIELDS[save_mode]]:
+            continue
+        groups[entry["save_file"]].append(entry)
+    result = []
+    for name, entries in sorted(groups.items()):
+        revisions = [entry["revision"] for entry in entries]
+        result.append({
+            "save_file": name, "entries": len(entries),
+            "scopes": dict(sorted(Counter(e["scope_label"] for e in entries).items())),
+            "save_enabled": {mode: sum(bool(e[field]) for e in entries) for mode, field in SAVE_MODE_FIELDS.items()},
+            "types": dict(sorted(Counter(e["type"] for e in entries).items())),
+            "revisions": {"min": min(revisions), "max": max(revisions),
+                          "histogram": dict(sorted(Counter(str(r) for r in revisions).items()))},
+            "representative_paths": sorted(set(e["path"] for e in entries))[:8],
+        })
+    return {"kind": "master-rallye-broker-persistence-report", "schema_version": 1,
+            "entry_count": sum(g["entries"] for g in result), "groups": result,
+            "filters": {"save_file": save_file, "save_mode": save_mode, "scope": scope},
+            "limitation": "Emitted Dump rows only; type 0x0C is omitted. Save bits alone are not the entire serializer filter."}
+
+
+def print_persistence_report(report: dict[str, Any]) -> None:
+    print(f"Emitted entries: {report['entry_count']}")
+    for group in report["groups"]:
+        print(f"SaveFile {group['save_file']}: {group['entries']} entries")
+        print(f"  scopes={group['scopes']} save-enabled={group['save_enabled']}")
+        print(f"  types={group['types']} revision={group['revisions']['min']}..{group['revisions']['max']}")
+        print("  paths: " + ", ".join(group["representative_paths"]))
+    print(report["limitation"])
 
 
 def _configure_win32(kernel32: Any, ctypes: Any) -> None:
@@ -950,8 +997,15 @@ def build_parser() -> argparse.ArgumentParser:
     diff.add_argument("after", type=Path)
     diff.add_argument("--prefix", action="append", default=[], help="case-sensitive path prefix filter; repeatable")
     diff.add_argument("--float-tolerance", type=float, default=0.0, help="absolute tolerance for parsed numeric values; default 0")
+    diff.add_argument("--ignore-revision-only", action="store_true", help="hide rows whose only change is revision")
     diff.add_argument("--format", choices=("text", "json", "csv"), default="text")
     diff.add_argument("--output", type=Path, help="optional output file for JSON or CSV")
+    report = sub.add_parser("persistence-report", help="group emitted rows by SaveFile, scope, types and save bits")
+    report.add_argument("snapshot", type=Path)
+    report.add_argument("--save-file", help="exact case-sensitive SaveFile identity")
+    report.add_argument("--save-mode", choices=tuple(SAVE_MODE_FIELDS))
+    report.add_argument("--scope", choices=("GLOBAL", "SCENE", "USER"))
+    report.add_argument("--json", action="store_true")
     return parser
 
 
@@ -1003,6 +1057,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 load_snapshot(args.after),
                 prefixes=args.prefix,
                 float_tolerance=args.float_tolerance,
+                ignore_revision_only=args.ignore_revision_only,
             )
             if args.format == "text":
                 _print_diff_text(result)
@@ -1050,6 +1105,14 @@ def main(argv: Sequence[str] | None = None) -> int:
                     args.output.write_text(buffer.getvalue(), encoding="utf-8", newline="")
                 else:
                     sys.stdout.write(buffer.getvalue())
+            return 0
+        if args.command == "persistence-report":
+            report = persistence_report(load_snapshot(args.snapshot), save_file=args.save_file,
+                                        save_mode=args.save_mode, scope=args.scope)
+            if args.json:
+                print(json.dumps(report, ensure_ascii=True, indent=2, sort_keys=True))
+            else:
+                print_persistence_report(report)
             return 0
     except (OSError, ObservatoryError) as exc:
         print(f"broker_observatory: {exc}", file=sys.stderr)

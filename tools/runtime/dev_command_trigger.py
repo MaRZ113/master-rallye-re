@@ -21,8 +21,8 @@ TOOL_COMMANDS = {"flow-builder": 0x30, "broker-editor": 0x27}
 SAFETY = {
     "flow-builder": "SAFE_OPEN_CANDIDATE (open only), medium-high confidence",
     "broker-editor": (
-        "LOW_RISK_BUT_METADATA_MUTATION (open only); adds two interned broker "
-        "key IDs to shared in-memory metadata"
+        "LOW_RISK_BUT_METADATA_MUTATION (open only); registers two reserved "
+        "SaveFile names in shared in-memory metadata"
     ),
 }
 CONFIRM_PHRASES = {
@@ -259,6 +259,79 @@ def send_tool_command(target: TargetWindow, tool: str) -> None:
     )
     if not sent:
         raise ctypes.WinError(ctypes.get_last_error())
+
+
+def find_tool_windows(pid: int, tool: str) -> list[TargetWindow]:
+    """Find a verified process's existing tool windows, without activating them.
+
+    Broker identity additionally requires its recovered File and Debug menus;
+    Flow Builder's title is status evidence only (no local actions are sent).
+    """
+    if os.name != "nt" or tool not in TOOL_COMMANDS:
+        raise RuntimeError("Supported tool discovery requires Windows.")
+    import ctypes
+    from ctypes import wintypes
+    user32 = ctypes.WinDLL("user32", use_last_error=True)
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    _configure_user32(user32, ctypes)
+    _configure_kernel32(kernel32, ctypes)
+    user32.GetMenuItemID.argtypes = [wintypes.HMENU, ctypes.c_int]
+    user32.GetMenuItemID.restype = wintypes.UINT
+    image = _image_for_pid(kernel32, pid)
+    if image is None or sha256_file(image) != RETAIL_SHA256:
+        raise RuntimeError("Tool owner is not verified retail.")
+    result: list[TargetWindow] = []
+    callback_type = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+
+    @callback_type
+    def callback(hwnd, _lparam):
+        owner = wintypes.DWORD()
+        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(owner))
+        if owner.value != pid:
+            return True
+        title = ctypes.create_unicode_buffer(512)
+        user32.GetWindowTextW(hwnd, title, len(title))
+        expected = "Broker Editor" if tool == "broker-editor" else "Flow Builder"
+        if title.value != expected:
+            return True
+        if tool == "broker-editor" and not _has_broker_menu(user32, hwnd):
+            return True
+        result.append(TargetWindow(pid, int(hwnd), image, RETAIL_SHA256, title.value))
+        return True
+
+    user32.EnumWindows(callback, 0)
+    return result
+
+
+def _has_broker_menu(user32: object, hwnd: int) -> bool:
+    menu = user32.GetMenu(hwnd)
+    if not menu or user32.GetMenuItemCount(menu) != 6:
+        return False
+    titles = [_menu_text(user32, menu, i).replace("&", "").casefold() for i in range(6)]
+    if titles != ["file", "edit", "branch", "view", "debug", "help"]:
+        return False
+    debug = user32.GetSubMenu(menu, 4)
+    return bool(debug and user32.GetMenuItemCount(debug) == 1
+                and _menu_text(user32, debug, 0).replace("&", "").casefold() == "dump"
+                and user32.GetMenuItemID(debug, 0) == 2)
+
+
+def send_broker_dump(target: TargetWindow) -> None:
+    """Only Broker Editor local WM_COMMAND 2: original observational Dump.
+
+    The recipient is freshly rediscovered by PID, exact title and menu layout.
+    The main-window command ID 2 is never used.
+    """
+    matches = find_tool_windows(target.pid, "broker-editor")
+    if len(matches) != 1 or matches[0].hwnd != target.hwnd:
+        raise RuntimeError("Broker Editor identity changed or is ambiguous.")
+    import ctypes
+    user32 = ctypes.WinDLL("user32", use_last_error=True)
+    _configure_user32(user32, ctypes)
+    result = ctypes.c_size_t()
+    if not user32.SendMessageTimeoutW(target.hwnd, WM_COMMAND, 2, 0,
+                                     SMTO_ABORTIFHUNG, 10000, ctypes.byref(result)):
+        raise RuntimeError("Broker Dump command timed out; it may still run. No retry was sent.")
 
 
 def main(

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import sys
 import unittest
+from unittest.mock import Mock, patch
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -66,6 +67,57 @@ class DeveloperCommandTriggerTests(unittest.TestCase):
                 return len(buffer.value)
 
         self.assertFalse(trigger._has_expected_main_menu(FakeUser32(), 0x123456))
+
+    def test_dump_requires_exact_broker_menu_and_local_id(self):
+        class FakeUser32:
+            command = 2
+
+            def GetMenu(self, hwnd):
+                return 10
+
+            def GetMenuItemCount(self, menu):
+                return 6 if menu == 10 else 1
+
+            def GetSubMenu(self, menu, position):
+                return 20 if position == 4 else 0
+
+            def GetMenuStringW(self, menu, position, buffer, length, flags):
+                buffer.value = ["&File", "&Edit", "&Branch", "&View", "&Debug", "&Help"][position] if menu == 10 else "&Dump"
+                return len(buffer.value)
+
+            def GetMenuItemID(self, menu, position):
+                return self.command
+
+        user = FakeUser32()
+        self.assertTrue(trigger._has_broker_menu(user, 123))
+        user.command = 3
+        self.assertFalse(trigger._has_broker_menu(user, 123))
+
+    def test_dump_rejects_changed_or_ambiguous_window_before_send(self):
+        for windows in ([], [self.target, self.target]):
+            with patch.object(trigger, "find_tool_windows", return_value=windows), \
+                 self.assertRaises(RuntimeError):
+                trigger.send_broker_dump(self.target)
+
+    def test_verified_dump_sends_only_local_command_two(self):
+        fake = Mock()
+        fake.SendMessageTimeoutW.return_value = 1
+        with patch.object(trigger, "find_tool_windows", return_value=[self.target]), \
+             patch("ctypes.WinDLL", return_value=fake, create=True), \
+             patch.object(trigger, "_configure_user32"):
+            trigger.send_broker_dump(self.target)
+        self.assertEqual(fake.SendMessageTimeoutW.call_args.args[:4],
+                         (self.target.hwnd, trigger.WM_COMMAND, 2, 0))
+        self.assertEqual(fake.SendMessageTimeoutW.call_count, 1)
+
+    def test_dump_timeout_is_not_retried(self):
+        fake = Mock()
+        fake.SendMessageTimeoutW.return_value = 0
+        with patch.object(trigger, "find_tool_windows", return_value=[self.target]), \
+             patch("ctypes.WinDLL", return_value=fake, create=True), \
+             patch.object(trigger, "_configure_user32"), self.assertRaises(RuntimeError):
+            trigger.send_broker_dump(self.target)
+        self.assertEqual(fake.SendMessageTimeoutW.call_count, 1)
 
     def test_unsupported_tool_is_rejected_by_argument_parser(self):
         with self.assertRaises(SystemExit):
