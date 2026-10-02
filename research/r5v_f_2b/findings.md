@@ -2,15 +2,19 @@
 
 ## Current result
 
-**PREPARED; RUNTIME COOK NOT RUN.** The phase has a hash-locked source, an
-isolated retail runtime copy, and an ID26-only cook-harness candidate. Retail
-itself contains the GXM→DX cache path documented in F.2a. The remaining gate
-is a human Vehicle Select run that proves the newly staged `complete.gxm`
-actually produces a revision-135 `complete.dx`.
+**PARTIAL PASS — `complete.dx` retail cook and validation passed; R5V-F.2b is
+not complete.** The isolated retail run produced a new revision-135
+`complete.dx` from the pinned `complete.gxm` through the retail GXM loader and
+DX cache writer. Modern SDK parsing, footer/bounds/material-reference checks,
+and semantic comparison with the selected rev127 source passed. The
+comparison has no topology or bounds differences; it records a one-code RGB
+drift at ten vertices whose exact cause is not independently established. The
+car/wheel cook is now authorized by the complete-only gate.
 
-No canonical retail executable, retail `Data.sma`, demo asset, or source file
-was modified. No runtime cook, Practice load, Cook B, cache-only test, or final
-Mercedes P0/P1 test has been run.
+`car.dx` and `wheel.dx` have not been cooked. Cook B, cache-only proof, and
+final Mercedes P0/P1 remain pending. The canonical retail executable,
+`Data.sma`, and source assets remain unchanged. Runtime output and logs are
+kept only in the ignored, repo-local `research-output/r5v_f_2b/` tree.
 
 ## Locked inputs
 
@@ -68,17 +72,23 @@ candidate rebuild check passed; this is static patch validation only.
 ## Authoring path and cooker evidence
 
 The byte-identical GXM files refer to
-`D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/`. The exact Windows path was
-absent at preflight. `CHECK_AUTHORING_PATH.ps1` confirmed that state without
-writing anything. The safe setup helper is ready to create a Junction to
-`research-output/r5v_f_2b/authoring-root/Mercedes`; the Junction has **not** yet
-been created.
+`D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/`. The validated Junction at
+that path targets the isolated
+`research-output/r5v_f_2b/authoring-root/Mercedes` copy. Runtime evidence shows
+the retail process reading the staged `complete.gxm` from its isolated runtime
+tree and writing the DX cache without rewriting GXM bytes. The log does not
+contain a `Reading GXI` event; because the validated historical DXT files were
+staged, this cook does not by itself prove a GXI-to-DXT source conversion.
 
-F.2a's static chain is reused: retail `FUN_0053C3F0` chooses `.gxm`/`.dx`,
-reaches the GXM parse/build path and writer `FUN_00551260`, which emits DX
-revision `0x87` (135). The texture route separately reads GXI and writes DXT.
-Raw exports and assembly/P-code from F.2a remain the static source. No runtime
-message has yet proven the source path, a cache miss, or a new cache write.
+F.2a's static chain is confirmed by runtime messages: the retail cache reports
+the model missing/stale, reads `vehicles\\mercedes\\complete.gxm`, builds
+`vehicles\\mercedes\\complete`, saves
+`DataGx/Vehicles/Mercedes/complete.dx`, and reloads that DX. The output SHA-256
+is `ddad0c7b13be70388a60a541255eaaf3af7f9b1815f5aa02f2b60050862dc28b`.
+The rev127 DX has 18 draw records; the bounded raw draw scan consumed all
+1,342 bytes. All draw cores and texture-slot tuples match the rev135 output by
+index. The detailed line references and parser output are in
+`research-output/r5v_f_2b/cook-a/complete-cook-validation.md` and `.json`.
 
 ## Ghidra provenance
 
@@ -106,7 +116,8 @@ validators after human cooking.
 
 ## Next gate
 
-Follow `research-output/r5v_f_2b/HUMAN_COOK_INSTRUCTIONS.txt`: create the
-verified Junction, launch the isolated candidate, select T1 local7, capture
-the complete preview cook, and stop after `complete.dx` appears. Codex must
-validate that file before the Practice car/wheel cook is started.
+The complete-only gate passed. Proceed with the isolated offline Practice or
+Quick Race trigger for `car.dx` and `wheel.dx`, capturing their GXM/cache log
+messages. Stop once both caches are written, then validate both files offline.
+This does not mark Cook B, cache-only proof, or the final Mercedes P0/P1 as
+passed.

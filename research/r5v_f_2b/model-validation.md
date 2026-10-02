@@ -1,9 +1,13 @@
 # R5V-F.2b model validation
 
-No retail-cooked model DX is available yet. Historical rev127 files are
-references only; they do not satisfy the native retail-cook gate.
+`complete.dx` has now been retail-cooked and passed revision-135 SDK
+validation. Its size/hash, complete parser report, and semantic comparison to
+the selected demo-8.4.1 rev127 reference are recorded in
+`research-output/r5v_f_2b/cook-a/complete-cook-validation.md` and `.json`.
+The car and wheel outputs are not present yet, so their validation gates remain
+open.
 
-For each new `complete.dx`, `car.dx`, and `wheel.dx`:
+For the remaining `car.dx` and `wheel.dx` outputs:
 
 1. Record file size, modification time, and SHA-256 immediately after the
    isolated game exits.
@@ -19,5 +23,6 @@ For each new `complete.dx`, `car.dx`, and `wheel.dx`:
 The copied historical DXT set passed the current round-trip validation:
 44/44 files across the root Mercedes and separate `lpha` source families were
 byte-identical, with zero header or payload differences. The runtime stages
-only the 25 root Mercedes textures. No model output, semantic report, or DX
-dependency closure has been validated in R5V-F.2b yet.
+only the 25 root Mercedes textures. For `complete.dx`, all 20 non-null texture
+references resolve to staged files and appear in the retail load log. This
+does not validate yet-unproduced `car.dx` or `wheel.dx` dependencies.
