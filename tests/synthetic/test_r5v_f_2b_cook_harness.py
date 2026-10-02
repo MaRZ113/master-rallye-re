@@ -84,6 +84,29 @@ class R5vF2bCookHarnessTests(unittest.TestCase):
                 expected_target=target,
             )
 
+    def test_creating_marker_recovers_only_for_the_exact_junction(self) -> None:
+        link_path = r"D:\projects\MRallyeTNG\DataGx\Vehicles\Mercedes"
+        target = r"D:\Game\Master Rallye\research-output\r5v_f_2b\authoring-root\Mercedes"
+        marker = {"phase": "R5V-F.2b", "state": "creating", "link_path": link_path, "target": target}
+        state = harness.authorize_authoring_path(
+            link_exists=True,
+            marker=marker,
+            link_type="Junction",
+            resolved_target=target,
+            expected_link_path=link_path,
+            expected_target=target,
+        )
+        self.assertEqual(state, "recover")
+        with self.assertRaisesRegex(harness.PreparationError, "unexpected target"):
+            harness.authorize_authoring_path(
+                link_exists=True,
+                marker=marker,
+                link_type="Junction",
+                resolved_target=r"D:\other\Mercedes",
+                expected_link_path=link_path,
+                expected_target=target,
+            )
+
     def test_staging_preserves_source_and_omits_legacy_dx(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary)
@@ -121,11 +144,16 @@ class R5vF2bCookHarnessTests(unittest.TestCase):
 
     def test_junction_helpers_are_exact_path_and_nonrecursive(self) -> None:
         scripts = Path(harness.TOOLS_DIR) / "r5v_f_2b"
+        check = (scripts / "CHECK_AUTHORING_PATH.ps1").read_text(encoding="utf-8")
         setup = (scripts / "SETUP_MERCEDES_JUNCTION.ps1").read_text(encoding="utf-8")
         removal = (scripts / "REMOVE_MERCEDES_JUNCTION.ps1").read_text(encoding="utf-8")
-        for script in (setup, removal):
+        for script in (check, setup, removal):
             self.assertIn(r"D:\projects\MRallyeTNG\DataGx\Vehicles\Mercedes", script)
             self.assertIn("R5V-F.2b", script)
+            self.assertIn("$targets = @($Item.Target)", script)
+            self.assertNotRegex(script, r"Resolve-Path\s+-LiteralPath\s+\$linkPath")
+        self.assertIn("$marker.state -eq 'creating'", setup)
+        self.assertIn("$marker.state = 'created'", setup)
         self.assertIn("$Item.LinkType -ne 'Junction'", removal)
         self.assertIn("[IO.Directory]::Delete($linkPath, $false)", removal)
         self.assertNotRegex(removal, r"Remove-Item\s+-Recurse")

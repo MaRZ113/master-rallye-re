@@ -7,7 +7,7 @@ $markerPath = Join-Path $phaseRoot 'junction-created.json'
 $manifestPath = Join-Path $phaseRoot 'source-manifest.json'
 
 function Normalize-Path([string] $Path) {
-    return [IO.Path]::GetFullPath($Path).TrimEnd('\')
+    return [IO.Path]::GetFullPath($Path).TrimEnd([char[]]@('\', '/'))
 }
 
 function Get-ItemIfPresent([string] $Path) {
@@ -49,9 +49,13 @@ function Assert-ExpectedJunction($Item, [string] $ExpectedTarget) {
     if ($Item.LinkType -ne 'Junction') {
         throw "Existing authoring path is not a Junction (LinkType=$($Item.LinkType)): $linkPath"
     }
-    $resolved = (Resolve-Path -LiteralPath $linkPath).ProviderPath
-    if ((Normalize-Path $resolved) -ine (Normalize-Path $ExpectedTarget)) {
-        throw "Existing authoring junction target mismatch: resolved '$resolved', expected '$ExpectedTarget'"
+    $targets = @($Item.Target)
+    if ($targets.Count -ne 1 -or [string]::IsNullOrWhiteSpace([string]$targets[0])) {
+        throw "Cannot read Junction target: $linkPath"
+    }
+    $actualTarget = [string]$targets[0]
+    if ((Normalize-Path $actualTarget) -ine (Normalize-Path $ExpectedTarget)) {
+        throw "Existing authoring junction target mismatch: actual '$actualTarget', expected '$ExpectedTarget'"
     }
 }
 
@@ -71,7 +75,8 @@ if ($null -eq $linkItem) {
     exit 0
 }
 
-if ($null -eq $marker -or $marker.phase -ne 'R5V-F.2b' -or $marker.state -ne 'created') {
+if ($null -eq $marker -or $marker.phase -ne 'R5V-F.2b' -or
+    $marker.state -notin @('creating', 'created')) {
     throw "Authoring path exists without a completed R5V-F.2b ownership marker. Nothing was changed."
 }
 if ((Normalize-Path $marker.link_path) -ine (Normalize-Path $linkPath) -or
@@ -79,4 +84,8 @@ if ((Normalize-Path $marker.link_path) -ine (Normalize-Path $linkPath) -or
     throw 'R5V-F.2b ownership marker path/target mismatch. Nothing was changed.'
 }
 Assert-ExpectedJunction $linkItem $sourcePath
+if ($marker.state -eq 'creating') {
+    Write-Output 'RECOVERABLE STATE: exact R5V-F.2b Junction verified; run the setup helper to mark it created.'
+    exit 0
+}
 Write-Output 'SAFE STATE: exact R5V-F.2b Junction and target verified; existing link may be reused.'

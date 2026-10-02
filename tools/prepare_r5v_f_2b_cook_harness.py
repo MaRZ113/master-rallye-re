@@ -191,8 +191,9 @@ def authorize_authoring_path(
         return "create"
     if marker is None:
         raise PreparationError("authoring path already exists without an R5V-F.2b ownership marker")
-    if marker.get("phase") != PHASE_ID or marker.get("state") != "created":
-        raise PreparationError("authoring path marker is not a completed R5V-F.2b junction record")
+    state = marker.get("state")
+    if marker.get("phase") != PHASE_ID or state not in {"creating", "created"}:
+        raise PreparationError("authoring path marker is not a recoverable R5V-F.2b junction record")
     if os.path.normcase(os.path.normpath(str(marker.get("link_path", "")))) != os.path.normcase(os.path.normpath(expected_link_path)):
         raise PreparationError("authoring path marker names a different junction path")
     if link_type != "Junction":
@@ -201,7 +202,7 @@ def authorize_authoring_path(
         raise PreparationError("existing authoring junction resolves to an unexpected target")
     if os.path.normcase(os.path.normpath(str(marker.get("target", "")))) != os.path.normcase(os.path.normpath(expected_target)):
         raise PreparationError("authoring path marker names an unexpected target")
-    return "reuse"
+    return "recover" if state == "creating" else "reuse"
 
 
 def authorize_junction_removal(

@@ -7,7 +7,7 @@ $markerPath = Join-Path $phaseRoot 'junction-created.json'
 $manifestPath = Join-Path $phaseRoot 'source-manifest.json'
 
 function Normalize-Path([string] $Path) {
-    return [IO.Path]::GetFullPath($Path).TrimEnd('\')
+    return [IO.Path]::GetFullPath($Path).TrimEnd([char[]]@('\', '/'))
 }
 
 function Get-ItemIfPresent([string] $Path) {
@@ -49,9 +49,13 @@ function Assert-ExpectedJunction($Item, [string] $ExpectedTarget) {
     if ($Item.LinkType -ne 'Junction') {
         throw "Junction removal refused: exact path is not a Junction (LinkType=$($Item.LinkType))."
     }
-    $resolved = (Resolve-Path -LiteralPath $linkPath).ProviderPath
-    if ((Normalize-Path $resolved) -ine (Normalize-Path $ExpectedTarget)) {
-        throw "Junction removal refused: target '$resolved' does not match '$ExpectedTarget'."
+    $targets = @($Item.Target)
+    if ($targets.Count -ne 1 -or [string]::IsNullOrWhiteSpace([string]$targets[0])) {
+        throw "Junction removal refused: cannot read the actual target of $linkPath."
+    }
+    $actualTarget = [string]$targets[0]
+    if ((Normalize-Path $actualTarget) -ine (Normalize-Path $ExpectedTarget)) {
+        throw "Junction removal refused: target '$actualTarget' does not match '$ExpectedTarget'."
     }
 }
 
