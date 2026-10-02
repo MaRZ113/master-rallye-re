@@ -1,0 +1,1877 @@
+{
+  "schema_version": 1,
+  "note": "Hashes and structural metadata only. No proprietary binaries or assets are embedded.",
+  "builds": {
+    "demo-8.4.1": {
+      "exe_sha256": "bbdfdb709ed41b10461b233b2f5c55403f1b6640f57d9e440476211e51ce75be",
+      "vehicles_xml_sha256": "bd3efca271e27f4d00cc4f5846c4aa0bf74836dac223bc64339d28a05a65f4f7",
+      "has_data_sma": false
+    },
+    "demo-9.3.1": {
+      "exe_sha256": "931cfc4e0c520c26581b0c1173d1beb586facd17176b885666f455090f646680",
+      "vehicles_xml_sha256": "d32c9ec40cb4d29b8c2e7c12ab401518e025973c6a8bcd4aa255f6fe2402b55a",
+      "has_data_sma": false
+    },
+    "retail": {
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "vehicles_xml_sha256": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+      "has_data_sma": true
+    }
+  },
+  "demo8_4_vehicle_roots": {
+    "Mercedes": {
+      "directory": "D:\\Game\\Master Rallye\\corpora\\demo-8.4.1\\DataGx\\Vehicles\\Mercedes",
+      "root_file_count": 59,
+      "nested_directories": [
+        {
+          "name": "lpha",
+          "file_count": 29,
+          "dxt_count": 0,
+          "dx_count": 0
+        }
+      ],
+      "root_dxt_count": 25,
+      "recursive_dxt_count": 25,
+      "files": [
+        {
+          "name": "black-tga.dxt",
+          "bytes": 1044,
+          "sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Black-tga.gxi",
+          "bytes": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "car.dx",
+          "bytes": 131317,
+          "sha256": "6a1a929e88d79f8a7f797cf55ef99b7742ba7547f17459698d7f9f89694fc5cd",
+          "revision": 127
+        },
+        {
+          "name": "car.gxm",
+          "bytes": 224818,
+          "sha256": "585329a420313469537840f69273237b860db1b393f2eb6b9f6c79920a465794"
+        },
+        {
+          "name": "car.txt",
+          "bytes": 8320,
+          "sha256": "b188d481a52887570cb93f72d66377eef78eafb09bbb913edd385c45b152cfd5",
+          "declared_materials": 24,
+          "parsed_materials": 24,
+          "referenced_texture_stems": [
+            "black-tga",
+            "chair2-tga",
+            "chrome-tga",
+            "citybird128-tga",
+            "dcambell-tga",
+            "drichard-tga",
+            "glass-tga",
+            "landgrst64-tga",
+            "landhelmet32-tga",
+            "landlamp-tga",
+            "landlogosgrey-tga",
+            "landwheel64-tga",
+            "landwheelrim-tga",
+            "lgreen-tga",
+            "lgrey-tga",
+            "mastersland-tga",
+            "perspex-tga",
+            "rubber-tga",
+            "swindow32-tga",
+            "tread-tga",
+            "underdash-tga",
+            "wheel643-tga",
+            "whitepaint-tga",
+            "whitesuit-tga",
+            "windscreen32-tga"
+          ]
+        },
+        {
+          "name": "chair2-tga.dxt",
+          "bytes": 16404,
+          "sha256": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "bytes": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "chrome-tga.dxt",
+          "bytes": 4116,
+          "sha256": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "bytes": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "citybird128-tga.dxt",
+          "bytes": 65556,
+          "sha256": "eb48ecfe81b45acef6931d978d128e9c49d1897f6019b0f99fe8e35af9316090",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Citybird128-tga.gxi",
+          "bytes": 65544,
+          "sha256": "517186a93f3bba7336193828f9697d50476c69255545cb1c977f7efe2daebbdf"
+        },
+        {
+          "name": "complete.dx",
+          "bytes": 141173,
+          "sha256": "a4b84932ba47a0e54085eb0790adfe1b05316d92f8f2ec94e14a4016aa27af6e",
+          "revision": 127
+        },
+        {
+          "name": "complete.gxm",
+          "bytes": 262480,
+          "sha256": "66bf867f03d47174fc005c1e3c10cd4ba3ed01f6433a144f66ae692a880de351"
+        },
+        {
+          "name": "complete.txt",
+          "bytes": 9568,
+          "sha256": "41690b180e7ec44f397fa7386bed6c10415755dc0469bbe7ff249302e33e09b3",
+          "declared_materials": 28,
+          "parsed_materials": 28,
+          "referenced_texture_stems": [
+            "black-tga",
+            "chair2-tga",
+            "chrome-tga",
+            "citybird128-tga",
+            "dcambell-tga",
+            "drichard-tga",
+            "glass-tga",
+            "landgrst64-tga",
+            "landhelmet32-tga",
+            "landlamp-tga",
+            "landlogosgrey-tga",
+            "landwheel64-tga",
+            "landwheelrim-tga",
+            "lgreen-tga",
+            "lgrey-tga",
+            "mastersland-tga",
+            "perspex-tga",
+            "rubber-tga",
+            "swindow32-tga",
+            "tread-tga",
+            "underdash-tga",
+            "wheel643-tga",
+            "whitepaint-tga",
+            "whitesuit-tga",
+            "windscreen32-tga"
+          ]
+        },
+        {
+          "name": "dcambell-tga.dxt",
+          "bytes": 4116,
+          "sha256": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "bytes": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "drichard-tga.dxt",
+          "bytes": 4116,
+          "sha256": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "bytes": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "glass-tga.dxt",
+          "bytes": 4116,
+          "sha256": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "bytes": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "landgrst64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "baba3437e7bc89a777bb485cc51d82961dc7e5b1519a81c164140d980831a402",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Landgrst64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "4361692e6d57df7b5eb9a1e09cf40d29575e183493d8bbb9be9c2a00f90a58c9"
+        },
+        {
+          "name": "landhelmet32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "8ea05444ec3fb9fa046c405ec9cdff96437573708cf5e57540fdc68fd0f34906",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Landhelmet32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "57a00db37d99e5728f9287cd84023107d4842514b5a5d31768f95d1e7427de30"
+        },
+        {
+          "name": "landlamp-tga.dxt",
+          "bytes": 4116,
+          "sha256": "b339c89c93b81c0ae7b103e4e78ba5bbfdc3eda0dbc83bbebe2c9ea7bf53d3b5",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Landlamp-tga.gxi",
+          "bytes": 4104,
+          "sha256": "da0927e691905789c7779bc8c53f2a005bff65dbd13b046803a5737f74e06d8c"
+        },
+        {
+          "name": "landlogosgrey-tga.dxt",
+          "bytes": 65556,
+          "sha256": "43d7e1e6c5aff8f431d0c00f97931113bc09d011c6177c10bb7a7436949b2ec0",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Landlogosgrey-tga.gxi",
+          "bytes": 65544,
+          "sha256": "2211a59105c69542f4eefddaa59769c52f4c74afc0e5f23185985ddc58c64bfc"
+        },
+        {
+          "name": "landwheel64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "e7ce1e216e03157c2a65d54f4c0a707ed3e4637469b71bcd57d1110be9a62a1a",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Landwheel64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "277a27a3908e5a8cfaee9a4620da043a970498cdfa81aeae5eddfc1049c8d28e"
+        },
+        {
+          "name": "landwheelrim-tga.dxt",
+          "bytes": 1044,
+          "sha256": "76c4f54c70779a750a33158b6794c903816f42dc8af0d9446f7eef424dd6ab15",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Landwheelrim-tga.gxi",
+          "bytes": 1032,
+          "sha256": "8ada5533a6bb1a4f3ae63eaf9b4f8c2aa8ebd7a4c2af5549b8597bc63fbd16cf"
+        },
+        {
+          "name": "lgreen-tga.dxt",
+          "bytes": 1044,
+          "sha256": "160887a4359ec9d837f06621a906c2cd93b42fab63ff7a115993f68276d5fe60",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Lgreen-tga.gxi",
+          "bytes": 1032,
+          "sha256": "268f7a8d86f4f8a273063c4212bf6485b40c73d834bcd0a71f1a49052a55e0e8"
+        },
+        {
+          "name": "lgrey-tga.dxt",
+          "bytes": 1044,
+          "sha256": "3727bcd974988f70afbc67c5e3a5b094f22a9e53df1bc163bea7f8c275edd662",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Lgrey-tga.gxi",
+          "bytes": 1032,
+          "sha256": "11daae87ede7e64989f58bef7404e50158d646008b5fa8e786a267ef8c75c189"
+        },
+        {
+          "name": "mastersland-tga.dxt",
+          "bytes": 4116,
+          "sha256": "090709cf97ab56fc7a59e4bd80883f0ddcaa3e6aa28908978d8ec82f2171d1cb",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Mastersland-tga.gxi",
+          "bytes": 4104,
+          "sha256": "1a8a2ba09f14d667b9a0e0addba20f3da497730e9cd79ea5f4828490d461a904"
+        },
+        {
+          "name": "perspex-tga.dxt",
+          "bytes": 16404,
+          "sha256": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "bytes": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "rubber-tga.dxt",
+          "bytes": 4116,
+          "sha256": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "bytes": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "swindow32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "c02512b39d88bab4f4ba09e1c356e949491219441b1ffac3c444bbec51f63eda",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Swindow32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "6d6e1276398eed47dc9579df13a764d09dc066130fbefcb871c50d48033fb85c"
+        },
+        {
+          "name": "tread-tga.dxt",
+          "bytes": 4116,
+          "sha256": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Tread-tga.gxi",
+          "bytes": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "underdash-tga.dxt",
+          "bytes": 65556,
+          "sha256": "d2eda2c6196d9d50448f90828450d81c4f6dc1d8041b7c0ae04ddbbcb81f8a9f",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "bytes": 65544,
+          "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+        },
+        {
+          "name": "wheel.dx",
+          "bytes": 12924,
+          "sha256": "c98962ce472dca08556f3b72a86745c68ca9ca99bc63989304bf516e1e93a719",
+          "revision": 127
+        },
+        {
+          "name": "wheel.gxm",
+          "bytes": 27289,
+          "sha256": "0b0143c5fec166f71a42e22be76be4d52db08c885d6fcd0a0c08c8766203afe3"
+        },
+        {
+          "name": "wheel.txt",
+          "bytes": 1771,
+          "sha256": "3456cfa63c64cb76f9fcc3f8d2549da139c11fa00328309ad7e747e859a6b52e",
+          "declared_materials": 5,
+          "parsed_materials": 5,
+          "referenced_texture_stems": [
+            "chrome-tga",
+            "landwheel64-tga",
+            "landwheelrim-tga",
+            "rubber-tga",
+            "tread-tga",
+            "wheel643-tga"
+          ]
+        },
+        {
+          "name": "wheel643-tga.dxt",
+          "bytes": 16404,
+          "sha256": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Wheel643-tga.gxi",
+          "bytes": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "whitepaint-tga.dxt",
+          "bytes": 16404,
+          "sha256": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "bytes": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "whitesuit-tga.dxt",
+          "bytes": 4116,
+          "sha256": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Whitesuit-tga.gxi",
+          "bytes": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "windscreen32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "149aaca75c11ff403c36f6ba22586a28a5cd553af4adaf6dc45afde39014e0be",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "564a69f427fe4d61df65bd0898385d710c7a0e86107d7fceb4aacc1eb8e56c47"
+        }
+      ],
+      "sidecar_dependency_audit": {
+        "car": {
+          "sidecar": "car.txt",
+          "materials_parsed": 24,
+          "unique_texture_stems": [
+            "black-tga",
+            "chair2-tga",
+            "chrome-tga",
+            "citybird128-tga",
+            "dcambell-tga",
+            "drichard-tga",
+            "glass-tga",
+            "landgrst64-tga",
+            "landhelmet32-tga",
+            "landlamp-tga",
+            "landlogosgrey-tga",
+            "landwheel64-tga",
+            "landwheelrim-tga",
+            "lgreen-tga",
+            "lgrey-tga",
+            "mastersland-tga",
+            "perspex-tga",
+            "rubber-tga",
+            "swindow32-tga",
+            "tread-tga",
+            "underdash-tga",
+            "wheel643-tga",
+            "whitepaint-tga",
+            "whitesuit-tga",
+            "windscreen32-tga"
+          ],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        },
+        "complete": {
+          "sidecar": "complete.txt",
+          "materials_parsed": 28,
+          "unique_texture_stems": [
+            "black-tga",
+            "chair2-tga",
+            "chrome-tga",
+            "citybird128-tga",
+            "dcambell-tga",
+            "drichard-tga",
+            "glass-tga",
+            "landgrst64-tga",
+            "landhelmet32-tga",
+            "landlamp-tga",
+            "landlogosgrey-tga",
+            "landwheel64-tga",
+            "landwheelrim-tga",
+            "lgreen-tga",
+            "lgrey-tga",
+            "mastersland-tga",
+            "perspex-tga",
+            "rubber-tga",
+            "swindow32-tga",
+            "tread-tga",
+            "underdash-tga",
+            "wheel643-tga",
+            "whitepaint-tga",
+            "whitesuit-tga",
+            "windscreen32-tga"
+          ],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        },
+        "wheel": {
+          "sidecar": "wheel.txt",
+          "materials_parsed": 5,
+          "unique_texture_stems": [
+            "chrome-tga",
+            "landwheel64-tga",
+            "landwheelrim-tga",
+            "rubber-tga",
+            "tread-tga",
+            "wheel643-tga"
+          ],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        }
+      }
+    },
+    "MercedesAlpha": {
+      "directory": "D:\\Game\\Master Rallye\\corpora\\demo-8.4.1\\DataGx\\Vehicles\\MercedesAlpha",
+      "root_file_count": 29,
+      "nested_directories": [],
+      "root_dxt_count": 0,
+      "recursive_dxt_count": 0,
+      "files": [
+        {
+          "name": "Black-tga.gxi",
+          "bytes": 1032,
+          "sha256": "543be57c973946c9b278b456b627b76e6952f22d026991b161583233a5bbbe0b"
+        },
+        {
+          "name": "car.gxm",
+          "bytes": 218160,
+          "sha256": "8f1c56185a8783609b4fc6605b3e7b4abc9a384a484edf4c28b03cf58b213259"
+        },
+        {
+          "name": "car.txt",
+          "bytes": 1748,
+          "sha256": "749d817681212fa45200b3605f48242cfc0cf218def81b811f68ddcbc920ebbc",
+          "declared_materials": null,
+          "parsed_materials": 0,
+          "referenced_texture_stems": []
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "bytes": 16392,
+          "sha256": "6d592c53d4d124bc4022dc28c8c709e412eebb9a67f1e8b5928d723585d05161"
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "bytes": 4104,
+          "sha256": "b4403e90a1e27f0244038e52fd454a70ae6625baef10fb861aa66930580c2d29"
+        },
+        {
+          "name": "Citybird128-tga.gxi",
+          "bytes": 65544,
+          "sha256": "39dc523ff3bc9fb0fe685ea3192eb36ac6ac853102dfe252cfebfb631b92b0bc"
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "bytes": 4104,
+          "sha256": "da795e0138dc71db1f1b1e503b7f06fd3574fc9a63e7dc6191ae485f65e4ba35"
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "bytes": 4104,
+          "sha256": "11d448c6b0cbb97f7f2c61aac59ea15efe2442170b76d1037ca07bddc979f37e"
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "bytes": 4104,
+          "sha256": "efc0da6bfe27886f84a29ad2cac85e76079ca76682aa6b53296b0eb8f232d3b8"
+        },
+        {
+          "name": "Landgrst64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "faefb9f2d489a7ed476c586ad8fad30bfd08582ebb99ecc378f3299b322eae80"
+        },
+        {
+          "name": "Landhelmet32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "0e12107c27f2a566a1b8afe5cb65d3fff7205659a448a55c601aae3f9b3c966f"
+        },
+        {
+          "name": "Landlamp-tga.gxi",
+          "bytes": 16392,
+          "sha256": "75480c080dcd10f13d8a6fcfc4b49d068b68c05fc0d63a406efd22abaafc1573"
+        },
+        {
+          "name": "Landlogosgrey-tga.gxi",
+          "bytes": 65544,
+          "sha256": "cd52eaa5a6835153ef7e5d18930aaedde76e660dc1a0aecb809308cb8ece4f69"
+        },
+        {
+          "name": "Landwheel64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "93d096c2e08724dcabc664fdb0624d536277b538d04e5bb3819a0d7258ccc907"
+        },
+        {
+          "name": "Landwheelrim-tga.gxi",
+          "bytes": 1032,
+          "sha256": "64c08005e314e0a166d44dab2610fc04591abd5931d49f865e881aeb33661d4e"
+        },
+        {
+          "name": "Lgreen-tga.gxi",
+          "bytes": 1032,
+          "sha256": "fb227424d6492d7f88deb69cacfb93288b94f283665a5add1cee1467a9b804c1"
+        },
+        {
+          "name": "Lgrey-tga.gxi",
+          "bytes": 1032,
+          "sha256": "14f36beb06adbb73c1d05692ceff26434151d10fafb40f6f6101a8c450d956d2"
+        },
+        {
+          "name": "Mastersland-tga.gxi",
+          "bytes": 16392,
+          "sha256": "d5b644aa4bee4eec7ef06edc1caad31140fbaba6c2b6b533c90181afafe7fd3a"
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "bytes": 16392,
+          "sha256": "82db907a18c795fd92eeee20e2231fb7df65bd189c3f8913a34f7bce957c7b23"
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "bytes": 4104,
+          "sha256": "356893b4da403678c15660f84e874d87e4a808be11c288e792b9bde2b8fca4d7"
+        },
+        {
+          "name": "Swindow32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "ed715d13baa8e0b9dc2dbb26a6d591ba07787b60933174f015cef4716be75219"
+        },
+        {
+          "name": "Tread-tga.gxi",
+          "bytes": 4104,
+          "sha256": "75c7aa84a78db534c739bde54553da08b262fe66be2567d57b3af2d38baa2d91"
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "bytes": 65544,
+          "sha256": "3ab5616828c2e61a750dea7b770561fe8297b0fc5dabeed76efdc68dec85fe39"
+        },
+        {
+          "name": "wheel.gxm",
+          "bytes": 27339,
+          "sha256": "9ff3bc13db4e899a323e80d69293c814a35a2dab7efd1c54440ef1837ebd43e0"
+        },
+        {
+          "name": "wheel.txt",
+          "bytes": 182,
+          "sha256": "17e7552d8dcca69684a7055f3f0543edca7b1decf70f0f14f19ccb917f2766a6",
+          "declared_materials": null,
+          "parsed_materials": 0,
+          "referenced_texture_stems": []
+        },
+        {
+          "name": "Wheel643-tga.gxi",
+          "bytes": 16392,
+          "sha256": "3707d0a6ea458d0e776410b208c8f7735882a97c7832465bf21937b6e271c2f8"
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "bytes": 16392,
+          "sha256": "a718c5a0349a9dcfd802af838affc5e91f4135999320c095d890134a8baf273f"
+        },
+        {
+          "name": "Whitesuit-tga.gxi",
+          "bytes": 16392,
+          "sha256": "576a6015b9ac04e7ac0d8731b535de0d8cea0e0546264bf3a238822429931644"
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "a32d45391584cf4935f5e4307f6c3c9c5f6e1372b39160717cdc4505515a889b"
+        }
+      ],
+      "sidecar_dependency_audit": {
+        "car": {
+          "sidecar": "car.txt",
+          "materials_parsed": 0,
+          "unique_texture_stems": [],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        },
+        "wheel": {
+          "sidecar": "wheel.txt",
+          "materials_parsed": 0,
+          "unique_texture_stems": [],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        }
+      }
+    },
+    "Copy of Mercedes": {
+      "directory": "D:\\Game\\Master Rallye\\corpora\\demo-8.4.1\\DataGx\\Vehicles\\Copy of Mercedes",
+      "root_file_count": 59,
+      "nested_directories": [
+        {
+          "name": "lpha",
+          "file_count": 44,
+          "dxt_count": 19,
+          "dx_count": 2
+        }
+      ],
+      "root_dxt_count": 25,
+      "recursive_dxt_count": 44,
+      "files": [
+        {
+          "name": "black-tga.dxt",
+          "bytes": 1044,
+          "sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Black-tga.gxi",
+          "bytes": 1032,
+          "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+        },
+        {
+          "name": "car.dx",
+          "bytes": 112501,
+          "sha256": "989905468d528bb35dec7901b03a08367b37a1fa4f8a32143428a782253d0791",
+          "revision": 127
+        },
+        {
+          "name": "car.gxm",
+          "bytes": 195867,
+          "sha256": "ff238b391da254ef10904bb59b7430d17e1000cfceec8821d61f98b7158993fe"
+        },
+        {
+          "name": "car.txt",
+          "bytes": 5772,
+          "sha256": "76e4241e97aaf0f42675dfe1940625fb91dc57e9ee781bb51127fd9b5453b586",
+          "declared_materials": 17,
+          "parsed_materials": 17,
+          "referenced_texture_stems": [
+            "black-tga",
+            "chair2-tga",
+            "dcambell-tga",
+            "drichard-tga",
+            "glass-tga",
+            "mastersticker-tga",
+            "mbackb-tga",
+            "mblight64-tga",
+            "mdoor64-tga",
+            "mfgrill64-tga",
+            "mhelmet32-tga",
+            "mpanel16-tga",
+            "msbackc-tga",
+            "perspex-tga",
+            "silverpaint-tga",
+            "underdash-tga",
+            "whitepaint-tga",
+            "whitesuit32-tga",
+            "windscreen32-tga"
+          ]
+        },
+        {
+          "name": "chair2-tga.dxt",
+          "bytes": 16404,
+          "sha256": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "bytes": 16392,
+          "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+        },
+        {
+          "name": "chrome-tga.dxt",
+          "bytes": 4116,
+          "sha256": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Chrome-tga.gxi",
+          "bytes": 4104,
+          "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+        },
+        {
+          "name": "complete.dx",
+          "bytes": 122138,
+          "sha256": "000735aabd54dd6d6e3146ee981c5739616ad9169fbffe7bb9bbb3f461498c91",
+          "revision": 127
+        },
+        {
+          "name": "complete.gxm",
+          "bytes": 231795,
+          "sha256": "95caced8716239d4fa093fc0320e737e13dc1eedc8b649456d4cc89444fe354d"
+        },
+        {
+          "name": "complete.txt",
+          "bytes": 7318,
+          "sha256": "8ec89bbe87c8c5912dd754479fd0bc0a17d35422875758196a2d903b62896eae",
+          "declared_materials": 22,
+          "parsed_materials": 22,
+          "referenced_texture_stems": [
+            "black-tga",
+            "chair2-tga",
+            "chrome-tga",
+            "dcambell-tga",
+            "drichard-tga",
+            "glass-tga",
+            "mastersticker-tga",
+            "mbackb-tga",
+            "mblight64-tga",
+            "mdoor64-tga",
+            "merctread-tga",
+            "mercwheel64-tga",
+            "mercwheel643-tga",
+            "mercwheelrim-tga",
+            "mfgrill64-tga",
+            "mhelmet32-tga",
+            "mpanel16-tga",
+            "msbackc-tga",
+            "perspex-tga",
+            "rubber-tga",
+            "silverpaint-tga",
+            "underdash-tga",
+            "whitepaint-tga",
+            "whitesuit32-tga",
+            "windscreen32-tga"
+          ]
+        },
+        {
+          "name": "dcambell-tga.dxt",
+          "bytes": 4116,
+          "sha256": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "bytes": 4104,
+          "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+        },
+        {
+          "name": "drichard-tga.dxt",
+          "bytes": 4116,
+          "sha256": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "bytes": 4104,
+          "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+        },
+        {
+          "name": "glass-tga.dxt",
+          "bytes": 4116,
+          "sha256": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Glass-tga.gxi",
+          "bytes": 4104,
+          "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+        },
+        {
+          "name": "mastersticker-tga.dxt",
+          "bytes": 4116,
+          "sha256": "081c42cce81feb31a3c05785e1d39d60524958fbf63bf400be188aeab49cdf87",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "bytes": 4104,
+          "sha256": "6dd0bd503320c43cf0a4a5cf8ca4f5ee2b440d3099b880f8b1ef336afbc4faec"
+        },
+        {
+          "name": "mbackb-tga.dxt",
+          "bytes": 65556,
+          "sha256": "ee819a7e204f66be58761ae61a2c7f4c2a008ac69b3fbef837b171e0b7770e88",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Mbackb-tga.gxi",
+          "bytes": 65544,
+          "sha256": "e801a0a9f3c1acb7f2c3e76cf9340111f274699cf36acadecfce6fbefff479db"
+        },
+        {
+          "name": "mblight64-tga.dxt",
+          "bytes": 4116,
+          "sha256": "0ee733491ac1ee727352434654c7f4dcbee4f1656884ec1545f59ca9763d08f0",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Mblight64-tga.gxi",
+          "bytes": 4104,
+          "sha256": "c326a8ec9ade333ff273b903dad486c0c38201f8decc9154535d1d658e517e00"
+        },
+        {
+          "name": "mdoor64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "4264f5e9c46bf07b9e550b2049c0fb1109457914b037b9e32536bec47ed2c298",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mdoor64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "05d374bdd675ed466f9136b49dbdc891b354b7e187be6bd6f86aa83e87706096"
+        },
+        {
+          "name": "merctread-tga.dxt",
+          "bytes": 4116,
+          "sha256": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Merctread-tga.gxi",
+          "bytes": 4104,
+          "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+        },
+        {
+          "name": "mercwheel64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "d8cc8339cf74ebbb3e8a079f436324229aa6a0450acbf99ad08c42f86b8ff2c0",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mercwheel64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "b248c5e2a028ee063abbc54bdf52a1b20507b793df2080716dd83bef774377d7"
+        },
+        {
+          "name": "mercwheel643-tga.dxt",
+          "bytes": 16404,
+          "sha256": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mercwheel643-tga.gxi",
+          "bytes": 16392,
+          "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+        },
+        {
+          "name": "mercwheelrim-tga.dxt",
+          "bytes": 1044,
+          "sha256": "6bf5f8f65f7dc2befd8ffdbd8cd34a015e0dc3b218c13e5b1e0dbed3297a0437",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Mercwheelrim-tga.gxi",
+          "bytes": 1032,
+          "sha256": "dd006bfb53df42802d4a4dab0e26ec1bf4c82b2e2ac4994212ecc3d3ee7adfc1"
+        },
+        {
+          "name": "mfgrill64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "7d5aca0f8dad311b463c4713097b8aa919a154e0f3e0f091287ffc10462df298",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mfgrill64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "ce88f946ad388dabcd205461685582768623678288a29ca00ec0c6851c77dd6a"
+        },
+        {
+          "name": "mhelmet32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "7a48ce0a108dbc7f81edcf4cbc3beb908bc8675a8aff8a7c83453303aa491339",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Mhelmet32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "0dc3d4e46fbe5b5f12349b061c75b26ed705948a663a20c9c76a7aa35c6caa18"
+        },
+        {
+          "name": "mpanel16-tga.dxt",
+          "bytes": 1044,
+          "sha256": "551d48a965d97f9e1883c753d6c08e703a33598853e355f8673a0d81f936472a",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Mpanel16-tga.gxi",
+          "bytes": 1032,
+          "sha256": "754199795470e020c2a1c075fe95ba27028c8c28b4720a4e9fc2c617debb7caa"
+        },
+        {
+          "name": "msbackc-tga.dxt",
+          "bytes": 65556,
+          "sha256": "ad103ec246df053b2ce8fd9775fbcb31b9657656940bbdf610d343f1a2e23026",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Msbackc-tga.gxi",
+          "bytes": 65544,
+          "sha256": "2456171a413ff2b8678e0438a2aa584f5c8b56e375d9a54d2ee7463f9f97a29a"
+        },
+        {
+          "name": "perspex-tga.dxt",
+          "bytes": 16404,
+          "sha256": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Perspex-tga.gxi",
+          "bytes": 16392,
+          "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+        },
+        {
+          "name": "rubber-tga.dxt",
+          "bytes": 4116,
+          "sha256": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Rubber-tga.gxi",
+          "bytes": 4104,
+          "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+        },
+        {
+          "name": "silverpaint-tga.dxt",
+          "bytes": 4116,
+          "sha256": "4d0264cbed42fea2c2abf80ad2841b8405875cd8c5607aebacfe83992f4873db",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Silverpaint-tga.gxi",
+          "bytes": 4104,
+          "sha256": "3ac674f0462bad45e5b14439b8446dc010530cc395323621df255fe535486539"
+        },
+        {
+          "name": "underdash-tga.dxt",
+          "bytes": 65556,
+          "sha256": "d2eda2c6196d9d50448f90828450d81c4f6dc1d8041b7c0ae04ddbbcb81f8a9f",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "bytes": 65544,
+          "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+        },
+        {
+          "name": "wheel.dx",
+          "bytes": 12932,
+          "sha256": "9a331627ce44dc24ed9e3a3e4d92882e22b34cf4ef8fe561c1ee293e41d35661",
+          "revision": 127
+        },
+        {
+          "name": "wheel.gxm",
+          "bytes": 27267,
+          "sha256": "74bfb66a0b411cb3814bbc16f4c672bc9d42b5b7b7e7e7415686ba805ac517ea"
+        },
+        {
+          "name": "wheel.txt",
+          "bytes": 1749,
+          "sha256": "7eeff865cdbd341d3f58c26572a2161d5b20d08a3f1072698efe02ad141756cd",
+          "declared_materials": 5,
+          "parsed_materials": 5,
+          "referenced_texture_stems": [
+            "chrome-tga",
+            "merctread-tga",
+            "mercwheel64-tga",
+            "mercwheel643-tga",
+            "mercwheelrim-tga",
+            "rubber-tga"
+          ]
+        },
+        {
+          "name": "whitepaint-tga.dxt",
+          "bytes": 16404,
+          "sha256": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Whitepaint-tga.gxi",
+          "bytes": 16392,
+          "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+        },
+        {
+          "name": "whitesuit32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+        },
+        {
+          "name": "windscreen32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "149aaca75c11ff403c36f6ba22586a28a5cd553af4adaf6dc45afde39014e0be",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "564a69f427fe4d61df65bd0898385d710c7a0e86107d7fceb4aacc1eb8e56c47"
+        }
+      ],
+      "sidecar_dependency_audit": {
+        "car": {
+          "sidecar": "car.txt",
+          "materials_parsed": 17,
+          "unique_texture_stems": [
+            "black-tga",
+            "chair2-tga",
+            "dcambell-tga",
+            "drichard-tga",
+            "glass-tga",
+            "mastersticker-tga",
+            "mbackb-tga",
+            "mblight64-tga",
+            "mdoor64-tga",
+            "mfgrill64-tga",
+            "mhelmet32-tga",
+            "mpanel16-tga",
+            "msbackc-tga",
+            "perspex-tga",
+            "silverpaint-tga",
+            "underdash-tga",
+            "whitepaint-tga",
+            "whitesuit32-tga",
+            "windscreen32-tga"
+          ],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        },
+        "complete": {
+          "sidecar": "complete.txt",
+          "materials_parsed": 22,
+          "unique_texture_stems": [
+            "black-tga",
+            "chair2-tga",
+            "chrome-tga",
+            "dcambell-tga",
+            "drichard-tga",
+            "glass-tga",
+            "mastersticker-tga",
+            "mbackb-tga",
+            "mblight64-tga",
+            "mdoor64-tga",
+            "merctread-tga",
+            "mercwheel64-tga",
+            "mercwheel643-tga",
+            "mercwheelrim-tga",
+            "mfgrill64-tga",
+            "mhelmet32-tga",
+            "mpanel16-tga",
+            "msbackc-tga",
+            "perspex-tga",
+            "rubber-tga",
+            "silverpaint-tga",
+            "underdash-tga",
+            "whitepaint-tga",
+            "whitesuit32-tga",
+            "windscreen32-tga"
+          ],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        },
+        "wheel": {
+          "sidecar": "wheel.txt",
+          "materials_parsed": 5,
+          "unique_texture_stems": [
+            "chrome-tga",
+            "merctread-tga",
+            "mercwheel64-tga",
+            "mercwheel643-tga",
+            "mercwheelrim-tga",
+            "rubber-tga"
+          ],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        }
+      }
+    },
+    "Copy of MercedesAlpha": {
+      "directory": "D:\\Game\\Master Rallye\\corpora\\demo-8.4.1\\DataGx\\Vehicles\\Copy of MercedesAlpha",
+      "root_file_count": 44,
+      "nested_directories": [],
+      "root_dxt_count": 19,
+      "recursive_dxt_count": 19,
+      "files": [
+        {
+          "name": "black-tga.dxt",
+          "bytes": 1044,
+          "sha256": "4363a64182e3feb223f2d8e1fcad6669a65930b7be4e521041428a1db4115218",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Black-tga.gxi",
+          "bytes": 1032,
+          "sha256": "e7a96a840a22424341532657f11c025677d0ada12c809d7daee94b2bc41e50e3"
+        },
+        {
+          "name": "car.dx",
+          "bytes": 203924,
+          "sha256": "fa1bce12fba9a4554bd5e2af39ce59c2c946dcd0cef17b19a01944578255edd8",
+          "revision": 125
+        },
+        {
+          "name": "car.gxm",
+          "bytes": 187043,
+          "sha256": "44800f8b5e4f8b47aa31fc225eb192df05256ccbcced38edcda6c36bed9f1641"
+        },
+        {
+          "name": "car.txt",
+          "bytes": 1451,
+          "sha256": "809381ba58dc5f36cc2783f83bbbec29692fb804cddb7dc008149d1b6dad5fa9",
+          "declared_materials": null,
+          "parsed_materials": 0,
+          "referenced_texture_stems": []
+        },
+        {
+          "name": "chair2-tga.dxt",
+          "bytes": 16404,
+          "sha256": "a81866fc60b3f49307d8453333f83967df0f27f3c878faa1adccbf10b9bea16c",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Chair2-tga.gxi",
+          "bytes": 16392,
+          "sha256": "e8938d35f666124bc91bfc7a78bb0768448dce744ecbcdd6219d437c089be4f1"
+        },
+        {
+          "name": "dcambell-tga.dxt",
+          "bytes": 4116,
+          "sha256": "361b5ff71764e1f3abadbddac48be06e5b576dbf14e785f89a1d98c05002861e",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Dcambell-tga.gxi",
+          "bytes": 4104,
+          "sha256": "7f0d593eb5bcd05b042291b3ecd9731a5c68289a57bcdb7ff615411aa69e64c6"
+        },
+        {
+          "name": "drichard-tga.dxt",
+          "bytes": 4116,
+          "sha256": "88b5bf67097a817c7ea3fc06d499796d19db66b558e9fd7309c4949d7a93bea5",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Drichard-tga.gxi",
+          "bytes": 4104,
+          "sha256": "1c4503ad247bf3330c683deab8ed039d6121f68b6fcb4d3cb3e24c5b952b13c9"
+        },
+        {
+          "name": "mastersticker-tga.dxt",
+          "bytes": 16404,
+          "sha256": "f31fd688bc9d9768716dc58eaf50e5b3b64b97e045bc991ab2a0b1f36c6e3434",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mastersticker-tga.gxi",
+          "bytes": 16392,
+          "sha256": "6d37ddfe82371d2c87a95486460f50a93ccb186450d79ab30d31910db7f20e5c"
+        },
+        {
+          "name": "mbackb-tga.dxt",
+          "bytes": 65556,
+          "sha256": "9a47cde6007dd8b049748ba2201ee47ba2d4bc3bbea8c26d9c1b34618ca5ed93",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Mbackb-tga.gxi",
+          "bytes": 65544,
+          "sha256": "88f6d359b99e830cd94db95dc1a7c141f032dcec17d974ee34df79ac69deec0b"
+        },
+        {
+          "name": "mblight64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "d4b9cfdd074aa26bd146f3232df98d42de5a3d0c54ce37b1f07d43cadc7ab443",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mblight64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "9965b5abaacb1b2f302492a7eb40f98a3de4697a52ba090a2d5a59d5b0621cf3"
+        },
+        {
+          "name": "mdoor64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "6bb003920563cd6a89fa03eb8621dceb479d6f626853abdf2d14d2f7bb4ededa",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mdoor64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "dbb0ffde3563a7ae5345c2a0e562a40d2ac512f818c6ec35f1dfeeffa5449c52"
+        },
+        {
+          "name": "merctread-tga.dxt",
+          "bytes": 4116,
+          "sha256": "0e5d8a9d816ea8db8e7032976acadc34956f1ce3040bd5cabbeb7c4d5e717dba",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Merctread-tga.gxi",
+          "bytes": 4104,
+          "sha256": "e482d7f231e4a111f34948b6526392d064c34b7175b62531c7219cfa2a1339ee"
+        },
+        {
+          "name": "mercwheel64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "a49015c17e32e892f6af0e115beae1dec3209fbaba27c7796176ab881c5798c8",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mercwheel64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "b1bd5d4617ba2a8d658e1b9e7a88fb95f2e324e6b9d02df2a13efda855115f4f"
+        },
+        {
+          "name": "mercwheel643-tga.dxt",
+          "bytes": 16404,
+          "sha256": "a8c361c4bf2eedeae504d7161b99f7cbafaa4aba4a7528c076fce81b095037ff",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mercwheel643-tga.gxi",
+          "bytes": 16392,
+          "sha256": "3db075f9dc94df016a20482fc0bc2bc9a10f845a7b7ad2528d1e26e1aa12481d"
+        },
+        {
+          "name": "mercwheelrim-tga.dxt",
+          "bytes": 1044,
+          "sha256": "9f1b3f742c3060d6a1a962c80b12fb66d62affc586a6bd9aeff5e1e1dbfa857b",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Mercwheelrim-tga.gxi",
+          "bytes": 1032,
+          "sha256": "b8933e5a074a4242c56027745e28f7f726949a45bb9ec90f747993950f59f5a5"
+        },
+        {
+          "name": "mfgrill64-tga.dxt",
+          "bytes": 16404,
+          "sha256": "2f8528b845ebcb15aa8bf69956064e170464c9f37e04a810097089cad31a7a45",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            64,
+            64
+          ]
+        },
+        {
+          "name": "Mfgrill64-tga.gxi",
+          "bytes": 16392,
+          "sha256": "6600bc51ec34b4b3dbd42b7ecb19197c712173c6dfbe29e3adc245f6860cdb71"
+        },
+        {
+          "name": "mhelmet32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "a528268164483b429a4efba220ac38a9ac3a040c1c5075b773b054af52744f79",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Mhelmet32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "22f7486547a47882d093e2d42f23822651aacd64cc963a3d206270cf428c584e"
+        },
+        {
+          "name": "mpanel16-tga.dxt",
+          "bytes": 1044,
+          "sha256": "ef4aa1b404fba34cad1b343bab502a7dd8929d4532e0d5b0ccc332efb740a3d6",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            16,
+            16
+          ]
+        },
+        {
+          "name": "Mpanel16-tga.gxi",
+          "bytes": 1032,
+          "sha256": "249bfa25267d2bdc2d969812f35453bbb7f31c6723dfcd916a9ad2b1e91de46c"
+        },
+        {
+          "name": "msbackc-tga.dxt",
+          "bytes": 65556,
+          "sha256": "9f2152ae6d6bbadcba01c614b46454a6c0dde6a54171f7b60b9a41c1d4242099",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Msbackc-tga.gxi",
+          "bytes": 65544,
+          "sha256": "aa5721e6fa58ca1bdc4cfda6bd8f18d5007f77dd58007218e925be749aff7c72"
+        },
+        {
+          "name": "underdash-tga.dxt",
+          "bytes": 65556,
+          "sha256": "2333d5f4986d7fad9b8a433cf551ce83ea4d6f01b7953a58f6b91a71ee9657aa",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "name": "Underdash-tga.gxi",
+          "bytes": 65544,
+          "sha256": "695c07b4a7cd37b030c09110f06a7c79a8377283236222cf5ef78c572a021966"
+        },
+        {
+          "name": "wheel.dx",
+          "bytes": 27082,
+          "sha256": "c1f107ebe8972fb341350b90c8fa29798f35eb5efe8e2008d5f6e0fd8d2fc09b",
+          "revision": 125
+        },
+        {
+          "name": "wheel.gxm",
+          "bytes": 27002,
+          "sha256": "bc783b07cc47dcce93a1c7532ea03960dc58b4a95d2947e88104b2fc7207eb9d"
+        },
+        {
+          "name": "wheel.txt",
+          "bytes": 1111,
+          "sha256": "abb21aab9c1941f4f70c15d97a4e13e7ac91b61dc7756dc455ffd0571b2b83e7",
+          "declared_materials": 5,
+          "parsed_materials": 5,
+          "referenced_texture_stems": [
+            "merctread-tga",
+            "mercwheel64-tga",
+            "mercwheel643-tga",
+            "mercwheelrim-tga"
+          ]
+        },
+        {
+          "name": "whitesuit32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "c54e490173c33c997605c4530ddffc4a2e469d2cff4aa306e015496e5ba972be",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Whitesuit32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "ae7f7e54cbd6cc6b385657be12fda827a9059bedeb52b3b5ec72bdae10aafbf5"
+        },
+        {
+          "name": "windscreen32-tga.dxt",
+          "bytes": 4116,
+          "sha256": "030be977bd011a6519d49d7a8894c5eb30d036a1941c24e2d356fb90617843c6",
+          "dxt_parse": "PASS",
+          "dimensions": [
+            32,
+            32
+          ]
+        },
+        {
+          "name": "Windscreen32-tga.gxi",
+          "bytes": 4104,
+          "sha256": "8c16b48889b40968cb2973df554c7d04f0a22882325f18f4accd39c8bcbdd0b4"
+        }
+      ],
+      "sidecar_dependency_audit": {
+        "car": {
+          "sidecar": "car.txt",
+          "materials_parsed": 0,
+          "unique_texture_stems": [],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        },
+        "wheel": {
+          "sidecar": "wheel.txt",
+          "materials_parsed": 5,
+          "unique_texture_stems": [
+            "merctread-tga",
+            "mercwheel64-tga",
+            "mercwheel643-tga",
+            "mercwheelrim-tga"
+          ],
+          "missing_dxt": [],
+          "all_references_present_and_parse": true
+        }
+      }
+    }
+  },
+  "registered_demo8_id2": {
+    "internal_name": "Mercedes",
+    "class_id": 0,
+    "local_index": 2,
+    "raw_push_order": [
+      0,
+      5,
+      6,
+      3,
+      4,
+      0,
+      2
+    ],
+    "right_to_left_call_values": [
+      2,
+      0,
+      4,
+      3,
+      6,
+      5,
+      0
+    ],
+    "presentation_integer_values": [
+      4,
+      3,
+      6,
+      5
+    ],
+    "final_integer_untyped": 0,
+    "record_offset": "0x4C",
+    "call_va": "0x004478E4"
+  },
+  "registered_demo9_3_id2": {
+    "internal_name": "Mercedes",
+    "class_id": 0,
+    "local_index": 2,
+    "raw_push_order": [
+      0,
+      5,
+      6,
+      3,
+      4,
+      0,
+      2
+    ],
+    "right_to_left_call_values": [
+      2,
+      0,
+      4,
+      3,
+      6,
+      5,
+      0
+    ],
+    "presentation_integer_values": [
+      4,
+      3,
+      6,
+      5
+    ],
+    "final_integer_untyped": 0,
+    "record_offset": "0x4C",
+    "call_va": "0x0044D3D4",
+    "model_folder_present": false
+  },
+  "display_literals": {
+    "demo-8.4.1": {
+      "internal_name_file_offset": "0x1E75F4",
+      "display_string": "MERCEDES ML-320",
+      "display_string_file_offset": "0x1E9CE8"
+    },
+    "demo-9.3.1": {
+      "display_string": "MERCEDES ML-320",
+      "display_string_file_offset": "0x26B8EC"
+    },
+    "retail_exe_contains_ascii_mercedes_literal": false
+  },
+  "vehicle_select_icon": {
+    "demo-8.4.1": {
+      "scene": "DataScene/FrontendScreens/VehicleSelect.xml",
+      "widget": "T1_Car3",
+      "class_local": "T1 local2 (registered ID2)",
+      "image_bank_index": 4,
+      "asset": "DataGx/Frontend/VehicleSelect/carsheet_004_000.dxt",
+      "bytes": 65556,
+      "sha256": "c1b9e1c7db098b83256d40dea60f7f131b00265b5448637294f8feb172c40872"
+    },
+    "demo-9.3.1": {
+      "scene": "DataScene/FrontendScreens/Wjd/VehicleSelect.xml",
+      "widget": "T1_Car3",
+      "class_local": "T1 local2 (registered ID2)",
+      "image_bank_index": 4,
+      "asset": "DataGx/Frontend/VehicleSelect/carsheet_004_000.dxt",
+      "bytes": 65556,
+      "sha256": "c3f5d7ac2e388a6412ef21cf3722e2ccfae80029abd5c51d8e40343681006c23"
+    },
+    "retail": {
+      "asset": "DataGx/Frontend/VehicleSelect/carsheet_004_000.dxt",
+      "bytes": 65556,
+      "sha256": "c3f5d7ac2e388a6412ef21cf3722e2ccfae80029abd5c51d8e40343681006c23",
+      "identical_to_demo9_3": true
+    }
+  },
+  "smallsheet": {
+    "demo-8.4.1": {
+      "asset_folder_present": false
+    },
+    "demo-9.3.1": {
+      "frame_count": 20,
+      "frame0": {
+        "bytes": 8212,
+        "sha256": "12b7ae410b4cbc3507596c46b474662b0470210cda7bccc155a3ed9688a9b56a"
+      },
+      "id2_initializer_final_integer": 0,
+      "semantic_mapping_to_id2": "unproven"
+    },
+    "retail": {
+      "frame_count": 30,
+      "id2_initializer_selector": null,
+      "known_unassigned_frames": [
+        12,
+        18,
+        23,
+        29
+      ],
+      "fallback_frame9_sha256": "05ceac207d3bc2bc7ecd9bb4cfcd5bf369c4e9958a0421b9f0dda29368c879a9"
+    }
+  },
+  "retail_mercedes_physics": {
+    "path": "DataGame/vehicles.xml",
+    "source_sha256": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+    "fields": 144,
+    "status": "COMPATIBLE",
+    "missing_paths": [],
+    "unexpected_paths": [],
+    "type_mismatches": [],
+    "count_errors": [],
+    "group_counts": {
+      "Chassis": 16,
+      "DamageParams": 25,
+      "Dimensions": 8,
+      "Engine": 42,
+      "Steering": 5,
+      "Suspension": 48
+    },
+    "gears": {
+      "type": "Int",
+      "value": "6"
+    },
+    "torque_entries": {
+      "type": "Int",
+      "value": "6"
+    }
+  }
+}
