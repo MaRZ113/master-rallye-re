@@ -26,6 +26,8 @@ The beta branch's R-COOKER closeout documents a different bridge: an original De
 
 ## Gate result
 
-**BLOCKED.** No already-tested retail-compatible Mercedes package or exact conversion output exists in either project branch or the supplied retail corpus. The original 9.10 cooker is a possible future bridge, but this phase did not guess its invocation or generate an output. The selected source's render draw/material binding, retail bounds/footer policy, and SDK-level full-DX validation therefore remain unclosed even though its collision and DXT dependencies have separate static evidence.
+**BLOCKED.** No already-tested retail-compatible Mercedes package or exact conversion output exists in either project branch or the supplied retail corpus. R5V-F.2a has since statically confirmed that retail itself contains a GXM-to-DX cache-miss path whose writer emits revision 135, plus a separate GXI-to-DXT cache path. This establishes an available architecture, not a reproducible cook of these Mercedes files.
 
-No DX/DXT was generated, staged, or committed. The precise missing item is a deterministic, hash-recorded build of all three distinct Mercedes roles from this source to supported retail revision135, followed by strict SDK validation and exact texture-user validation.
+The source GXM embeds absolute GXI paths rooted at `D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/`. A safe, writable mapping for those source and generated-cache paths has not been proven in an isolated retail workspace, and there is no runtime trace proving cache misses for all three roles. No DX/DXT was generated, staged, or committed. The precise missing item is a deterministic, hash-recorded retail-native build of all three distinct Mercedes roles and their textures, followed by strict SDK validation, authentic collision retention checks, and texture/material dependency validation.
+
+See [R5V-F.2a findings](../r5v_f_2a/findings.md), [retail model cooker evidence](../r5v_f_2a/retail-model-cooker.md), and [texture cooker evidence](../r5v_f_2a/retail-texture-cooker.md). The 9.10.0 cooker remains separate historical evidence and was not substituted for retail.

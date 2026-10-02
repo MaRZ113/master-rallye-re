@@ -29,12 +29,14 @@ selectors and gives ID26 a red record-colour canary. The owner reports cleanup
 P0 FULL PASS and the red ID26 marker on the candidate with SHA-256
 `120fb40bbe012914b82847f2d78f126dca0a8d6a5459855a7e29386ee63419c9`. The
 separate ID0 colour comparison was not reported and is non-blocking for the
-Mercedes source audit. **R5V-F.2 static audit is complete; Mercedes P0 is
-blocked before candidate generation.** The distinct demo source is revision127,
-while the proven retail converter starts at revision131; an exact reproducible
-cooker route for these Mercedes files remains unverified. See
+Mercedes source audit. **R5V-F.2a statically traced retail's native GXM→DX and
+GXI→DXT cache paths, but Mercedes P0 remains blocked before candidate
+generation.** The distinct demo source is revision127, while the supported SDK
+converter starts at revision131. Retail's writer targets revision135, but the
+source-specific texture path and runtime cook/determinism are unverified. See
 `research/r5v_f_2/findings.md`, `research/r5v_f_2/mercedes-model-conversion.md`,
-and the original expansion evidence in `research/r5v_f/findings.md`.
+`research/r5v_f_2a/findings.md`, and the original expansion evidence in
+`research/r5v_f/findings.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

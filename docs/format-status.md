@@ -271,11 +271,14 @@ initializes a red race-marker canary only in VehicleRecord26. The archive is
 unchanged. The owner reports cleanup P0 FULL PASS, a valid Quick Race name, and
 the red ID26 marker for the exact cleanup candidate hash documented in
 `research/r5v_f_1/validation.md`. The ID0 stock-marker comparison was not
-reported and is not a gate for F.2's source audit. R5V-F.2 static research is
-complete, but Mercedes P0 is blocked before candidate generation: the distinct
-demo Mercedes DX package is revision127, the proven SDK conversion starts at
-revision131, and the exact source-specific cooker route is not yet reproducible.
-Retail Mercedes physics is schema-compatible and source collision passes a
-bounded structural check; neither establishes a retail-ready model or runtime
-behavior. No Mercedes profile or candidate was created. See
-`research/r5v_f_2/findings.md` and `research/r5v_f_2/mercedes-model-conversion.md`.
+reported and is not a gate for F.2's source audit. R5V-F.2a statically traced
+retail's native GXM→DX and GXI→DXT cache paths; the DX writer emits revision
+135. Mercedes P0 remains blocked before candidate generation: its distinct
+demo source is revision127, the supported SDK conversion starts at revision131,
+and the source-specific retail path has not been run. The embedded absolute GXI
+root and writable cache mapping are unresolved; Cook A/B and output validation
+remain unrun. Retail Mercedes physics is schema-compatible and source collision
+has separate bounded structural evidence; neither establishes a retail-ready
+model or runtime behavior. No Mercedes profile or candidate was created. See
+`research/r5v_f_2/findings.md`, `research/r5v_f_2/mercedes-model-conversion.md`,
+and `research/r5v_f_2a/findings.md`.

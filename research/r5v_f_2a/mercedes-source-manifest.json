@@ -1,0 +1,795 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-F.2a",
+  "source": {
+    "build": "demo-8.4.1",
+    "folder": "DataGx/Vehicles/Copy of Mercedes",
+    "selection": "unique full three-role Mercedes source; registered Mercedes folder aliases LandCruiser car/wheel/GXM payloads",
+    "local_root_read_only": true
+  },
+  "source_inventory": {
+    "verified_against_prior_audit": true,
+    "counts": {
+      "files": 59,
+      "gxm": 3,
+      "gxi": 25,
+      "dxt": 25,
+      "txt": 3,
+      "legacy_dx": 3
+    },
+    "files": [
+      {
+        "path": "black-tga.dxt",
+        "bytes": 1044,
+        "sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82"
+      },
+      {
+        "path": "Black-tga.gxi",
+        "bytes": 1032,
+        "sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8"
+      },
+      {
+        "path": "car.dx",
+        "bytes": 112501,
+        "sha256": "989905468d528bb35dec7901b03a08367b37a1fa4f8a32143428a782253d0791"
+      },
+      {
+        "path": "car.gxm",
+        "bytes": 195867,
+        "sha256": "ff238b391da254ef10904bb59b7430d17e1000cfceec8821d61f98b7158993fe"
+      },
+      {
+        "path": "car.txt",
+        "bytes": 5772,
+        "sha256": "76e4241e97aaf0f42675dfe1940625fb91dc57e9ee781bb51127fd9b5453b586"
+      },
+      {
+        "path": "chair2-tga.dxt",
+        "bytes": 16404,
+        "sha256": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4"
+      },
+      {
+        "path": "Chair2-tga.gxi",
+        "bytes": 16392,
+        "sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41"
+      },
+      {
+        "path": "chrome-tga.dxt",
+        "bytes": 4116,
+        "sha256": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b"
+      },
+      {
+        "path": "Chrome-tga.gxi",
+        "bytes": 4104,
+        "sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a"
+      },
+      {
+        "path": "complete.dx",
+        "bytes": 122138,
+        "sha256": "000735aabd54dd6d6e3146ee981c5739616ad9169fbffe7bb9bbb3f461498c91"
+      },
+      {
+        "path": "complete.gxm",
+        "bytes": 231795,
+        "sha256": "95caced8716239d4fa093fc0320e737e13dc1eedc8b649456d4cc89444fe354d"
+      },
+      {
+        "path": "complete.txt",
+        "bytes": 7318,
+        "sha256": "8ec89bbe87c8c5912dd754479fd0bc0a17d35422875758196a2d903b62896eae"
+      },
+      {
+        "path": "dcambell-tga.dxt",
+        "bytes": 4116,
+        "sha256": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62"
+      },
+      {
+        "path": "Dcambell-tga.gxi",
+        "bytes": 4104,
+        "sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc"
+      },
+      {
+        "path": "drichard-tga.dxt",
+        "bytes": 4116,
+        "sha256": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b"
+      },
+      {
+        "path": "Drichard-tga.gxi",
+        "bytes": 4104,
+        "sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10"
+      },
+      {
+        "path": "glass-tga.dxt",
+        "bytes": 4116,
+        "sha256": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b"
+      },
+      {
+        "path": "Glass-tga.gxi",
+        "bytes": 4104,
+        "sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7"
+      },
+      {
+        "path": "mastersticker-tga.dxt",
+        "bytes": 4116,
+        "sha256": "081c42cce81feb31a3c05785e1d39d60524958fbf63bf400be188aeab49cdf87"
+      },
+      {
+        "path": "Mastersticker-tga.gxi",
+        "bytes": 4104,
+        "sha256": "6dd0bd503320c43cf0a4a5cf8ca4f5ee2b440d3099b880f8b1ef336afbc4faec"
+      },
+      {
+        "path": "mbackb-tga.dxt",
+        "bytes": 65556,
+        "sha256": "ee819a7e204f66be58761ae61a2c7f4c2a008ac69b3fbef837b171e0b7770e88"
+      },
+      {
+        "path": "Mbackb-tga.gxi",
+        "bytes": 65544,
+        "sha256": "e801a0a9f3c1acb7f2c3e76cf9340111f274699cf36acadecfce6fbefff479db"
+      },
+      {
+        "path": "mblight64-tga.dxt",
+        "bytes": 4116,
+        "sha256": "0ee733491ac1ee727352434654c7f4dcbee4f1656884ec1545f59ca9763d08f0"
+      },
+      {
+        "path": "Mblight64-tga.gxi",
+        "bytes": 4104,
+        "sha256": "c326a8ec9ade333ff273b903dad486c0c38201f8decc9154535d1d658e517e00"
+      },
+      {
+        "path": "mdoor64-tga.dxt",
+        "bytes": 16404,
+        "sha256": "4264f5e9c46bf07b9e550b2049c0fb1109457914b037b9e32536bec47ed2c298"
+      },
+      {
+        "path": "Mdoor64-tga.gxi",
+        "bytes": 16392,
+        "sha256": "05d374bdd675ed466f9136b49dbdc891b354b7e187be6bd6f86aa83e87706096"
+      },
+      {
+        "path": "merctread-tga.dxt",
+        "bytes": 4116,
+        "sha256": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705"
+      },
+      {
+        "path": "Merctread-tga.gxi",
+        "bytes": 4104,
+        "sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e"
+      },
+      {
+        "path": "mercwheel64-tga.dxt",
+        "bytes": 16404,
+        "sha256": "d8cc8339cf74ebbb3e8a079f436324229aa6a0450acbf99ad08c42f86b8ff2c0"
+      },
+      {
+        "path": "Mercwheel64-tga.gxi",
+        "bytes": 16392,
+        "sha256": "b248c5e2a028ee063abbc54bdf52a1b20507b793df2080716dd83bef774377d7"
+      },
+      {
+        "path": "mercwheel643-tga.dxt",
+        "bytes": 16404,
+        "sha256": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc"
+      },
+      {
+        "path": "Mercwheel643-tga.gxi",
+        "bytes": 16392,
+        "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0"
+      },
+      {
+        "path": "mercwheelrim-tga.dxt",
+        "bytes": 1044,
+        "sha256": "6bf5f8f65f7dc2befd8ffdbd8cd34a015e0dc3b218c13e5b1e0dbed3297a0437"
+      },
+      {
+        "path": "Mercwheelrim-tga.gxi",
+        "bytes": 1032,
+        "sha256": "dd006bfb53df42802d4a4dab0e26ec1bf4c82b2e2ac4994212ecc3d3ee7adfc1"
+      },
+      {
+        "path": "mfgrill64-tga.dxt",
+        "bytes": 16404,
+        "sha256": "7d5aca0f8dad311b463c4713097b8aa919a154e0f3e0f091287ffc10462df298"
+      },
+      {
+        "path": "Mfgrill64-tga.gxi",
+        "bytes": 16392,
+        "sha256": "ce88f946ad388dabcd205461685582768623678288a29ca00ec0c6851c77dd6a"
+      },
+      {
+        "path": "mhelmet32-tga.dxt",
+        "bytes": 4116,
+        "sha256": "7a48ce0a108dbc7f81edcf4cbc3beb908bc8675a8aff8a7c83453303aa491339"
+      },
+      {
+        "path": "Mhelmet32-tga.gxi",
+        "bytes": 4104,
+        "sha256": "0dc3d4e46fbe5b5f12349b061c75b26ed705948a663a20c9c76a7aa35c6caa18"
+      },
+      {
+        "path": "mpanel16-tga.dxt",
+        "bytes": 1044,
+        "sha256": "551d48a965d97f9e1883c753d6c08e703a33598853e355f8673a0d81f936472a"
+      },
+      {
+        "path": "Mpanel16-tga.gxi",
+        "bytes": 1032,
+        "sha256": "754199795470e020c2a1c075fe95ba27028c8c28b4720a4e9fc2c617debb7caa"
+      },
+      {
+        "path": "msbackc-tga.dxt",
+        "bytes": 65556,
+        "sha256": "ad103ec246df053b2ce8fd9775fbcb31b9657656940bbdf610d343f1a2e23026"
+      },
+      {
+        "path": "Msbackc-tga.gxi",
+        "bytes": 65544,
+        "sha256": "2456171a413ff2b8678e0438a2aa584f5c8b56e375d9a54d2ee7463f9f97a29a"
+      },
+      {
+        "path": "perspex-tga.dxt",
+        "bytes": 16404,
+        "sha256": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0"
+      },
+      {
+        "path": "Perspex-tga.gxi",
+        "bytes": 16392,
+        "sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa"
+      },
+      {
+        "path": "rubber-tga.dxt",
+        "bytes": 4116,
+        "sha256": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208"
+      },
+      {
+        "path": "Rubber-tga.gxi",
+        "bytes": 4104,
+        "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899"
+      },
+      {
+        "path": "silverpaint-tga.dxt",
+        "bytes": 4116,
+        "sha256": "4d0264cbed42fea2c2abf80ad2841b8405875cd8c5607aebacfe83992f4873db"
+      },
+      {
+        "path": "Silverpaint-tga.gxi",
+        "bytes": 4104,
+        "sha256": "3ac674f0462bad45e5b14439b8446dc010530cc395323621df255fe535486539"
+      },
+      {
+        "path": "underdash-tga.dxt",
+        "bytes": 65556,
+        "sha256": "d2eda2c6196d9d50448f90828450d81c4f6dc1d8041b7c0ae04ddbbcb81f8a9f"
+      },
+      {
+        "path": "Underdash-tga.gxi",
+        "bytes": 65544,
+        "sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5"
+      },
+      {
+        "path": "wheel.dx",
+        "bytes": 12932,
+        "sha256": "9a331627ce44dc24ed9e3a3e4d92882e22b34cf4ef8fe561c1ee293e41d35661"
+      },
+      {
+        "path": "wheel.gxm",
+        "bytes": 27267,
+        "sha256": "74bfb66a0b411cb3814bbc16f4c672bc9d42b5b7b7e7e7415686ba805ac517ea"
+      },
+      {
+        "path": "wheel.txt",
+        "bytes": 1749,
+        "sha256": "7eeff865cdbd341d3f58c26572a2161d5b20d08a3f1072698efe02ad141756cd"
+      },
+      {
+        "path": "whitepaint-tga.dxt",
+        "bytes": 16404,
+        "sha256": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0"
+      },
+      {
+        "path": "Whitepaint-tga.gxi",
+        "bytes": 16392,
+        "sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df"
+      },
+      {
+        "path": "whitesuit32-tga.dxt",
+        "bytes": 4116,
+        "sha256": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67"
+      },
+      {
+        "path": "Whitesuit32-tga.gxi",
+        "bytes": 4104,
+        "sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4"
+      },
+      {
+        "path": "windscreen32-tga.dxt",
+        "bytes": 4116,
+        "sha256": "149aaca75c11ff403c36f6ba22586a28a5cd553af4adaf6dc45afde39014e0be"
+      },
+      {
+        "path": "Windscreen32-tga.gxi",
+        "bytes": 4104,
+        "sha256": "564a69f427fe4d61df65bd0898385d710c7a0e86107d7fceb4aacc1eb8e56c47"
+      }
+    ],
+    "roles": {
+      "complete": {
+        "gxm": {
+          "path": "complete.gxm",
+          "bytes": 231795,
+          "sha256": "95caced8716239d4fa093fc0320e737e13dc1eedc8b649456d4cc89444fe354d"
+        },
+        "legacy_dx": {
+          "path": "complete.dx",
+          "bytes": 122138,
+          "sha256": "000735aabd54dd6d6e3146ee981c5739616ad9169fbffe7bb9bbb3f461498c91",
+          "revision": 127
+        },
+        "material_count": 22,
+        "unique_texture_references": [
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Black-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Chair2-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Chrome-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Dcambell-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Drichard-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Glass-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mastersticker-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mbackb-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mblight64-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mdoor64-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Merctread-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mercwheel64-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mercwheel643-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mercwheelrim-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mfgrill64-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mhelmet32-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mpanel16-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Msbackc-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Perspex-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Rubber-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Silverpaint-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Underdash-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Whitepaint-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Whitesuit32-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Windscreen32-tga.gxi",
+          "Null"
+        ]
+      },
+      "car": {
+        "gxm": {
+          "path": "car.gxm",
+          "bytes": 195867,
+          "sha256": "ff238b391da254ef10904bb59b7430d17e1000cfceec8821d61f98b7158993fe"
+        },
+        "legacy_dx": {
+          "path": "car.dx",
+          "bytes": 112501,
+          "sha256": "989905468d528bb35dec7901b03a08367b37a1fa4f8a32143428a782253d0791",
+          "revision": 127
+        },
+        "material_count": 17,
+        "unique_texture_references": [
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Black-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Chair2-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Dcambell-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Drichard-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Glass-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mastersticker-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mbackb-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mblight64-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mdoor64-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mfgrill64-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mhelmet32-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mpanel16-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Msbackc-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Perspex-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Silverpaint-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Underdash-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Whitepaint-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Whitesuit32-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Windscreen32-tga.gxi",
+          "Null"
+        ]
+      },
+      "wheel": {
+        "gxm": {
+          "path": "wheel.gxm",
+          "bytes": 27267,
+          "sha256": "74bfb66a0b411cb3814bbc16f4c672bc9d42b5b7b7e7e7415686ba805ac517ea"
+        },
+        "legacy_dx": {
+          "path": "wheel.dx",
+          "bytes": 12932,
+          "sha256": "9a331627ce44dc24ed9e3a3e4d92882e22b34cf4ef8fe561c1ee293e41d35661",
+          "revision": 127
+        },
+        "material_count": 5,
+        "unique_texture_references": [
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Chrome-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Merctread-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mercwheel64-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mercwheel643-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Mercwheelrim-tga.gxi",
+          "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/Rubber-tga.gxi",
+          "Null"
+        ]
+      }
+    },
+    "textures": [
+      {
+        "gxi": "Black-tga.gxi",
+        "gxi_sha256": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+        "gxi_bytes": 1032,
+        "dimensions": [
+          16,
+          16
+        ],
+        "dxt": "black-tga.dxt",
+        "dxt_sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+        "dxt_bytes": 1044,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82"
+      },
+      {
+        "gxi": "Chair2-tga.gxi",
+        "gxi_sha256": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41",
+        "gxi_bytes": 16392,
+        "dimensions": [
+          64,
+          64
+        ],
+        "dxt": "chair2-tga.dxt",
+        "dxt_sha256": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4",
+        "dxt_bytes": 16404,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4"
+      },
+      {
+        "gxi": "Chrome-tga.gxi",
+        "gxi_sha256": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "chrome-tga.dxt",
+        "dxt_sha256": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b"
+      },
+      {
+        "gxi": "Dcambell-tga.gxi",
+        "gxi_sha256": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "dcambell-tga.dxt",
+        "dxt_sha256": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62"
+      },
+      {
+        "gxi": "Drichard-tga.gxi",
+        "gxi_sha256": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "drichard-tga.dxt",
+        "dxt_sha256": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b"
+      },
+      {
+        "gxi": "Glass-tga.gxi",
+        "gxi_sha256": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "glass-tga.dxt",
+        "dxt_sha256": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b"
+      },
+      {
+        "gxi": "Mastersticker-tga.gxi",
+        "gxi_sha256": "6dd0bd503320c43cf0a4a5cf8ca4f5ee2b440d3099b880f8b1ef336afbc4faec",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "mastersticker-tga.dxt",
+        "dxt_sha256": "081c42cce81feb31a3c05785e1d39d60524958fbf63bf400be188aeab49cdf87",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "081c42cce81feb31a3c05785e1d39d60524958fbf63bf400be188aeab49cdf87"
+      },
+      {
+        "gxi": "Mbackb-tga.gxi",
+        "gxi_sha256": "e801a0a9f3c1acb7f2c3e76cf9340111f274699cf36acadecfce6fbefff479db",
+        "gxi_bytes": 65544,
+        "dimensions": [
+          128,
+          128
+        ],
+        "dxt": "mbackb-tga.dxt",
+        "dxt_sha256": "ee819a7e204f66be58761ae61a2c7f4c2a008ac69b3fbef837b171e0b7770e88",
+        "dxt_bytes": 65556,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "ee819a7e204f66be58761ae61a2c7f4c2a008ac69b3fbef837b171e0b7770e88"
+      },
+      {
+        "gxi": "Mblight64-tga.gxi",
+        "gxi_sha256": "c326a8ec9ade333ff273b903dad486c0c38201f8decc9154535d1d658e517e00",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "mblight64-tga.dxt",
+        "dxt_sha256": "0ee733491ac1ee727352434654c7f4dcbee4f1656884ec1545f59ca9763d08f0",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "0ee733491ac1ee727352434654c7f4dcbee4f1656884ec1545f59ca9763d08f0"
+      },
+      {
+        "gxi": "Mdoor64-tga.gxi",
+        "gxi_sha256": "05d374bdd675ed466f9136b49dbdc891b354b7e187be6bd6f86aa83e87706096",
+        "gxi_bytes": 16392,
+        "dimensions": [
+          64,
+          64
+        ],
+        "dxt": "mdoor64-tga.dxt",
+        "dxt_sha256": "4264f5e9c46bf07b9e550b2049c0fb1109457914b037b9e32536bec47ed2c298",
+        "dxt_bytes": 16404,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "4264f5e9c46bf07b9e550b2049c0fb1109457914b037b9e32536bec47ed2c298"
+      },
+      {
+        "gxi": "Merctread-tga.gxi",
+        "gxi_sha256": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "merctread-tga.dxt",
+        "dxt_sha256": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705"
+      },
+      {
+        "gxi": "Mercwheel64-tga.gxi",
+        "gxi_sha256": "b248c5e2a028ee063abbc54bdf52a1b20507b793df2080716dd83bef774377d7",
+        "gxi_bytes": 16392,
+        "dimensions": [
+          64,
+          64
+        ],
+        "dxt": "mercwheel64-tga.dxt",
+        "dxt_sha256": "d8cc8339cf74ebbb3e8a079f436324229aa6a0450acbf99ad08c42f86b8ff2c0",
+        "dxt_bytes": 16404,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "d8cc8339cf74ebbb3e8a079f436324229aa6a0450acbf99ad08c42f86b8ff2c0"
+      },
+      {
+        "gxi": "Mercwheel643-tga.gxi",
+        "gxi_sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+        "gxi_bytes": 16392,
+        "dimensions": [
+          64,
+          64
+        ],
+        "dxt": "mercwheel643-tga.dxt",
+        "dxt_sha256": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc",
+        "dxt_bytes": 16404,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc"
+      },
+      {
+        "gxi": "Mercwheelrim-tga.gxi",
+        "gxi_sha256": "dd006bfb53df42802d4a4dab0e26ec1bf4c82b2e2ac4994212ecc3d3ee7adfc1",
+        "gxi_bytes": 1032,
+        "dimensions": [
+          16,
+          16
+        ],
+        "dxt": "mercwheelrim-tga.dxt",
+        "dxt_sha256": "6bf5f8f65f7dc2befd8ffdbd8cd34a015e0dc3b218c13e5b1e0dbed3297a0437",
+        "dxt_bytes": 1044,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "6bf5f8f65f7dc2befd8ffdbd8cd34a015e0dc3b218c13e5b1e0dbed3297a0437"
+      },
+      {
+        "gxi": "Mfgrill64-tga.gxi",
+        "gxi_sha256": "ce88f946ad388dabcd205461685582768623678288a29ca00ec0c6851c77dd6a",
+        "gxi_bytes": 16392,
+        "dimensions": [
+          64,
+          64
+        ],
+        "dxt": "mfgrill64-tga.dxt",
+        "dxt_sha256": "7d5aca0f8dad311b463c4713097b8aa919a154e0f3e0f091287ffc10462df298",
+        "dxt_bytes": 16404,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "7d5aca0f8dad311b463c4713097b8aa919a154e0f3e0f091287ffc10462df298"
+      },
+      {
+        "gxi": "Mhelmet32-tga.gxi",
+        "gxi_sha256": "0dc3d4e46fbe5b5f12349b061c75b26ed705948a663a20c9c76a7aa35c6caa18",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "mhelmet32-tga.dxt",
+        "dxt_sha256": "7a48ce0a108dbc7f81edcf4cbc3beb908bc8675a8aff8a7c83453303aa491339",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "7a48ce0a108dbc7f81edcf4cbc3beb908bc8675a8aff8a7c83453303aa491339"
+      },
+      {
+        "gxi": "Mpanel16-tga.gxi",
+        "gxi_sha256": "754199795470e020c2a1c075fe95ba27028c8c28b4720a4e9fc2c617debb7caa",
+        "gxi_bytes": 1032,
+        "dimensions": [
+          16,
+          16
+        ],
+        "dxt": "mpanel16-tga.dxt",
+        "dxt_sha256": "551d48a965d97f9e1883c753d6c08e703a33598853e355f8673a0d81f936472a",
+        "dxt_bytes": 1044,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "551d48a965d97f9e1883c753d6c08e703a33598853e355f8673a0d81f936472a"
+      },
+      {
+        "gxi": "Msbackc-tga.gxi",
+        "gxi_sha256": "2456171a413ff2b8678e0438a2aa584f5c8b56e375d9a54d2ee7463f9f97a29a",
+        "gxi_bytes": 65544,
+        "dimensions": [
+          128,
+          128
+        ],
+        "dxt": "msbackc-tga.dxt",
+        "dxt_sha256": "ad103ec246df053b2ce8fd9775fbcb31b9657656940bbdf610d343f1a2e23026",
+        "dxt_bytes": 65556,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "ad103ec246df053b2ce8fd9775fbcb31b9657656940bbdf610d343f1a2e23026"
+      },
+      {
+        "gxi": "Perspex-tga.gxi",
+        "gxi_sha256": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa",
+        "gxi_bytes": 16392,
+        "dimensions": [
+          64,
+          64
+        ],
+        "dxt": "perspex-tga.dxt",
+        "dxt_sha256": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0",
+        "dxt_bytes": 16404,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0"
+      },
+      {
+        "gxi": "Rubber-tga.gxi",
+        "gxi_sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "rubber-tga.dxt",
+        "dxt_sha256": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208"
+      },
+      {
+        "gxi": "Silverpaint-tga.gxi",
+        "gxi_sha256": "3ac674f0462bad45e5b14439b8446dc010530cc395323621df255fe535486539",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "silverpaint-tga.dxt",
+        "dxt_sha256": "4d0264cbed42fea2c2abf80ad2841b8405875cd8c5607aebacfe83992f4873db",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "4d0264cbed42fea2c2abf80ad2841b8405875cd8c5607aebacfe83992f4873db"
+      },
+      {
+        "gxi": "Underdash-tga.gxi",
+        "gxi_sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5",
+        "gxi_bytes": 65544,
+        "dimensions": [
+          128,
+          128
+        ],
+        "dxt": "underdash-tga.dxt",
+        "dxt_sha256": "d2eda2c6196d9d50448f90828450d81c4f6dc1d8041b7c0ae04ddbbcb81f8a9f",
+        "dxt_bytes": 65556,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "d2eda2c6196d9d50448f90828450d81c4f6dc1d8041b7c0ae04ddbbcb81f8a9f"
+      },
+      {
+        "gxi": "Whitepaint-tga.gxi",
+        "gxi_sha256": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df",
+        "gxi_bytes": 16392,
+        "dimensions": [
+          64,
+          64
+        ],
+        "dxt": "whitepaint-tga.dxt",
+        "dxt_sha256": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+        "dxt_bytes": 16404,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0"
+      },
+      {
+        "gxi": "Whitesuit32-tga.gxi",
+        "gxi_sha256": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "whitesuit32-tga.dxt",
+        "dxt_sha256": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67"
+      },
+      {
+        "gxi": "Windscreen32-tga.gxi",
+        "gxi_sha256": "564a69f427fe4d61df65bd0898385d710c7a0e86107d7fceb4aacc1eb8e56c47",
+        "gxi_bytes": 4104,
+        "dimensions": [
+          32,
+          32
+        ],
+        "dxt": "windscreen32-tga.dxt",
+        "dxt_sha256": "149aaca75c11ff403c36f6ba22586a28a5cd553af4adaf6dc45afde39014e0be",
+        "dxt_bytes": 4116,
+        "offline_encoder_matches_dxt": true,
+        "offline_dxt_sha256": "149aaca75c11ff403c36f6ba22586a28a5cd553af4adaf6dc45afde39014e0be"
+      }
+    ]
+  },
+  "retail_inputs": {
+    "exe": {
+      "path": "corpora/retail/MRallye.exe",
+      "bytes": 3121214,
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+    },
+    "data_sma": {
+      "path": "corpora/retail/Data.sma",
+      "bytes": 282396172,
+      "sha256": "03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f"
+    }
+  },
+  "path_observation": {
+    "gxm_reference_root": "D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/",
+    "retail_texture_output_path_mapping": "UNRESOLVED",
+    "retail_native_cook_run": false
+  },
+  "evidence_scope": {
+    "gxm_gxi_dx_dxt_bytes_not_embedded": true,
+    "native_cooked_outputs_created": false,
+    "registry_or_runtime_candidate_modified": false
+  }
+}
