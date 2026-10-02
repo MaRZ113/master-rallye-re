@@ -144,6 +144,46 @@ class VehicleRegistryId26PatcherTests(unittest.TestCase):
         self.assertEqual(operations["display_group_34_selector"]["original_bytes"], "57")
         self.assertEqual(operations["display_group_34_selector"]["replacement_bytes"], "53")
 
+    def test_mercedes_cook_harness_changes_only_id26_resource_family(self) -> None:
+        source = retail_layout_fixture()
+        candidate, manifest = patcher.make_candidate(
+            source,
+            expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_COOK_HARNESS,
+        )
+
+        structural = manifest["structural_self_check"]
+        self.assertEqual(manifest["phase"], "R5V-F.2b isolated retail cook harness")
+        self.assertEqual(manifest["runtime_validation"], "NOT RUN — isolated cook trigger only")
+        self.assertEqual(structural["registry_capacity"], 27)
+        self.assertEqual(structural["class_mappings"]["T1"]["capacity"], 8)
+        self.assertEqual(structural["class_mappings"]["T2"]["capacity"], 7)
+        self.assertEqual(structural["class_mappings"]["T3"]["capacity"], 12)
+        self.assertEqual(structural["id25"]["internal_name"], "Trooper")
+        self.assertEqual(structural["id26"]["internal_name"], "Mercedes")
+        self.assertEqual(structural["id26"]["runtime_family"], "Mercedes")
+        self.assertEqual(structural["id26"]["frontend_stats"], [4, 2, 4, 6])
+        self.assertEqual(structural["id26"]["race_colour_rgba_bits"],
+                         ["3f800000", "00000000", "00000000", "3f800000"])
+        self.assertEqual(structural["race_colour_canary"]["id0_record_touched"], False)
+        payload = bytes.fromhex(next(op["replacement_bytes"] for op in manifest["operations"]
+                                     if op["name"] == "id26_code_cave_payload"))
+        self.assertIn(b"Trooper\x00Mercedes\x00", payload)
+        self.assertEqual(len(candidate), len(source))
+
+        # The default F.1 profile and its status label remain unchanged.
+        _cleanup_candidate, cleanup_manifest = patcher.make_candidate(
+            source, expected_sha256=patcher.sha256(source)
+        )
+        self.assertEqual(cleanup_manifest["profile"], "donor-cleanup-landcruiser-red-canary")
+        self.assertEqual(cleanup_manifest["phase"], "R5V-F.1 cleanup")
+        self.assertEqual(cleanup_manifest["runtime_validation"], "WAITING FOR CLEANUP P0")
+        cleanup_ops = {op["name"]: op for op in cleanup_manifest["operations"]}
+        harness_ops = {op["name"]: op for op in manifest["operations"]}
+        self.assertEqual(set(cleanup_ops), set(harness_ops))
+        self.assertEqual({name for name in cleanup_ops if cleanup_ops[name] != harness_ops[name]},
+                         {"pe_text_virtual_size", "id26_code_cave_payload"})
+
     def test_emitted_capacity_stub_sets_t1_eight_and_t2_seven(self) -> None:
         source = retail_layout_fixture()
         candidate, manifest = patcher.make_candidate(source, expected_sha256=patcher.sha256(source))

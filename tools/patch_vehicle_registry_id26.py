@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""Build a fail-closed retail ID26 / sparse T1 cleanup executable.
+"""Build a fail-closed retail ID26 / sparse T1 test executable.
 
-This patcher supports one exact retail image and the donor-cleanup profile.
-It preserves the confirmed Trooper ID25 record, expands the registry object
-to 27 VehicleRecords, moves the adjacent 39-row RaceTest table, initializes
-ID26 with the original full initializer, fixes independent T1/T2 capacities,
-and aliases ID26 only for localization display. It never edits the source.
+This patcher supports one exact retail image and two fixed ID26 profiles: the
+F.1 donor-cleanup profile and the F.2b Mercedes cook-harness profile. Both
+preserve the confirmed Trooper ID25 record, expand the registry object to 27
+VehicleRecords, move the adjacent 39-row RaceTest table, initialize ID26 with
+the original full initializer, fix independent T1/T2 capacities, and alias
+ID26 only for localization display. It never edits the source.
 """
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import hashlib
 import json
 import os
@@ -124,6 +125,23 @@ ID26_DONOR_CLEANUP = VehicleRecordProfile(
     unlock_policy="test-only Vehicle Select gate",
     race_colour_role="red cleanup canary; custom presentation colour",
 )
+
+# Isolated F.2b cooker trigger. Keep every proven F.1 registry and presentation
+# field the same; only change the owned resource/internal name and runtime
+# family so retail requests Vehicles/Mercedes. The red marker remains a
+# deliberate canary and is not final Mercedes presentation data.
+ID26_MERCEDES_COOK_HARNESS = replace(
+    ID26_DONOR_CLEANUP,
+    profile_id="mercedes-cook-harness",
+    internal_name="Mercedes",
+    runtime_family="Mercedes",
+    race_colour_role="F.1 red canary retained for isolated cooker trigger",
+)
+
+ID26_PROFILES = {
+    "donor-cleanup": ID26_DONOR_CLEANUP,
+    "mercedes-cook-harness": ID26_MERCEDES_COOK_HARNESS,
+}
 
 
 def sha256(data: bytes) -> str:
@@ -613,8 +631,10 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
         },
         "code_entrypoints": {name: f"0x{value:08X}" for name, value in entrypoints.items()},
     }
+    is_mercedes_cook_harness = id26_profile.profile_id == ID26_MERCEDES_COOK_HARNESS.profile_id
     manifest = {
-        "phase": "R5V-F.1 cleanup",
+        "phase": ("R5V-F.2b isolated retail cook harness" if is_mercedes_cook_harness
+                  else "R5V-F.1 cleanup"),
         "build": "retail",
         "profile": id26_profile.profile_id,
         "source_sha256": digest,
@@ -627,14 +647,21 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
         "structural_self_check": structural,
         "operation_counts_by_category": _operation_counts(operations),
         "operations": operations,
-        "runtime_validation": "WAITING FOR CLEANUP P0",
-        "risks": [
+        "runtime_validation": ("NOT RUN — isolated cook trigger only" if is_mercedes_cook_harness
+                               else "WAITING FOR CLEANUP P0"),
+        "risks": ([
+            "Campaign/save persistence for ID26 is unproven; use a disposable profile.",
+            "Network/multiplayer support for ID26 is unproven; do not test online.",
+            "ID26 is a test-only quick-race/practice slot; AI/event pools remain stock-only.",
+            "The F.1 red marker canary is retained only to isolate the retail cooker path.",
+            "This profile is not final Mercedes P0/P1 acceptance or presentation data.",
+        ] if is_mercedes_cook_harness else [
             "Campaign/save persistence for ID26 is unproven; use a disposable profile.",
             "Network/multiplayer support for ID26 is unproven; do not test online.",
             "ID26 is a test-only quick-race/practice slot; AI/event pools remain stock-only.",
             "The red marker canary is for cleanup P1 and must not be treated as Mercedes payload evidence.",
             "Do not generate a Mercedes candidate until cleanup P0 and P1 both pass.",
-        ],
+        ]),
     }
     # Run structural self-check against the bytes just generated.
     _verify_structural(candidate, manifest)
@@ -737,7 +764,9 @@ def _binary_diff_text(manifest: dict[str, Any]) -> str:
 
 
 def write_candidate(source: Path, output: Path, manifest_path: Path,
-                    diff_path: Path, *, dry_run: bool = False) -> dict[str, Any]:
+                    diff_path: Path, *, dry_run: bool = False,
+                    id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
+                    ) -> dict[str, Any]:
     source = source.resolve(strict=True)
     output = output.resolve(strict=False)
     manifest_path = manifest_path.resolve(strict=False)
@@ -752,7 +781,7 @@ def write_candidate(source: Path, output: Path, manifest_path: Path,
     if len({str(path).casefold() for path in paths}) != len(paths):
         raise PatchError("source, executable, manifest, and diff paths must be distinct")
     source_before = sha256(source.read_bytes())
-    candidate, manifest = make_candidate(source.read_bytes())
+    candidate, manifest = make_candidate(source.read_bytes(), id26_profile=id26_profile)
     if source_before != manifest["source_sha256"]:
         raise PatchError("source changed while building candidate")
     if not dry_run:
@@ -768,14 +797,16 @@ def write_candidate(source: Path, output: Path, manifest_path: Path,
 
 
 def verify_existing(source: Path, output: Path, manifest_path: Path,
-                    diff_path: Path) -> dict[str, Any]:
+                    diff_path: Path, *,
+                    id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
+                    ) -> dict[str, Any]:
     source = source.resolve(strict=True)
     output = output.resolve(strict=True)
     manifest_path = manifest_path.resolve(strict=True)
     diff_path = diff_path.resolve(strict=True)
     if source == output or os.path.samefile(source, output):
         raise PatchError("candidate path must differ from source")
-    expected, manifest = make_candidate(source.read_bytes())
+    expected, manifest = make_candidate(source.read_bytes(), id26_profile=id26_profile)
     if output.read_bytes() != expected:
         raise PatchError("candidate differs from deterministic clean-retail rebuild")
     try:
@@ -794,8 +825,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", type=Path, help="Unmodified supported retail MRallye.exe")
     parser.add_argument("output", type=Path, help="New isolated candidate path inside research-output")
-    parser.add_argument("--profile", choices=("donor-cleanup",), default="donor-cleanup",
-                        help="semantic ID26 payload profile (Mercedes is gated on cleanup runtime pass)")
+    parser.add_argument("--profile", choices=tuple(ID26_PROFILES), default="donor-cleanup",
+                        help="fixed semantic ID26 profile; mercedes-cook-harness only triggers isolated retail cooking")
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--diff", type=Path)
     parser.add_argument("--dry-run", action="store_true")
@@ -805,12 +836,14 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("--dry-run and --verify-existing are mutually exclusive")
     manifest_path = args.manifest or args.output.with_name("patch-manifest.json")
     diff_path = args.diff or args.output.with_name("binary-diff.txt")
+    id26_profile = ID26_PROFILES[args.profile]
     try:
         if args.verify_existing:
-            manifest = verify_existing(args.source, args.output, manifest_path, diff_path)
+            manifest = verify_existing(args.source, args.output, manifest_path, diff_path,
+                                       id26_profile=id26_profile)
         else:
             manifest = write_candidate(args.source, args.output, manifest_path, diff_path,
-                                       dry_run=args.dry_run)
+                                       dry_run=args.dry_run, id26_profile=id26_profile)
     except (PatchError, BasePatchError, OSError, struct.error) as exc:
         parser.exit(2, f"ID26 patch refused: {exc}\n")
     print(json.dumps({

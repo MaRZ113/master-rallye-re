@@ -70,3 +70,17 @@ See the detailed [model cooker](retail-model-cooker.md), [texture cooker](retail
 [determinism](determinism.md), [model validation](model-validation.md),
 [collision validation](collision-validation.md), [texture validation](texture-validation.md),
 and [gate summary](validation.md).
+
+## R5V-F.2b follow-up (historical status preserved)
+
+F.2a's blocker remains accurate for the state at the end of that phase: no
+retail-native Mercedes cache cook had been run. F.2b now has a hash-locked,
+isolated authoring-root copy and fail-closed helpers for the embedded
+`D:/projects/MRallyeTNG/DataGx/Vehicles/Mercedes/` source path. The exact
+authoring path was absent at preflight. A reversible Junction to the isolated
+copy is prepared, but has not yet been created or exercised by the game.
+
+Therefore GXM binary rewrite/rebase is not required **if** the Junction
+authoring-root method succeeds at runtime. The cook and path-resolution result
+are still pending; F.2a's blocked classification has not been retroactively
+changed. See [R5V-F.2b](../r5v_f_2b/findings.md).
