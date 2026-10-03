@@ -1,4 +1,4 @@
-# Human runtime validation plan
+# Reported runtime validation plan
 
 ## Safety boundary
 

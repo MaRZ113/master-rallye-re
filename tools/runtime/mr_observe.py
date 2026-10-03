@@ -14,6 +14,7 @@ import subprocess
 import sys
 import time
 import uuid
+import traceback
 from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime
@@ -22,10 +23,61 @@ from typing import Any, Callable, Sequence
 
 import broker_observatory as core
 import dev_command_trigger as commands
+from observatory_version import VERSION, TOOL_NAME
 
-REPO = Path(__file__).resolve().parents[2]
-DEFAULT_CAPTURE_ROOT = REPO / "research-output/general-re/broker-observatory/captures"
-DEFAULT_CONFIG = REPO / "research-output/general-re/runtime-config.json"
+SCRIPT_DIR = Path(__file__).resolve().parent
+PORTABLE = not (SCRIPT_DIR.name == "runtime" and SCRIPT_DIR.parent.name == "tools")
+REPO = SCRIPT_DIR if PORTABLE else SCRIPT_DIR.parents[1]
+DATA_ROOT = REPO / "observatory-data" if PORTABLE else REPO / "research-output/general-re"
+DEFAULT_CAPTURE_ROOT = DATA_ROOT / "captures" if PORTABLE else DATA_ROOT / "broker-observatory/captures"
+DEFAULT_CONFIG = DATA_ROOT / "config.json" if PORTABLE else DATA_ROOT / "runtime-config.json"
+VERBOSE = False
+DEBUG = False
+
+
+def data_boundary() -> Path:
+    return (REPO / ("observatory-data" if PORTABLE else "research-output")).resolve()
+
+
+class UserError(core.ObservatoryError):
+    def __init__(self, message: str, detail: str = ""):
+        super().__init__(message)
+        self.detail = detail
+
+
+def short_path(path: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(REPO.resolve()))
+    except ValueError:
+        return str(path)
+
+
+def report_error(exc: Exception) -> None:
+    message = str(exc)
+    lowered = message.casefold()
+    if not isinstance(exc, UserError):
+        if isinstance(exc, PermissionError):
+            message = "Access denied. Use a writable Observatory folder and run the game/tool at the same privilege level."
+        elif "logger sink" in lowered or ("debug" in lowered and ("sink" in lowered or "window" in lowered)):
+            message = "Debug buffer unavailable. Enable Menues/Enabled=True in DataGame/dev.xml and restart the game."
+        elif "timed out" in lowered and "dump" in lowered:
+            message = "A fresh complete Dump did not appear in time. Let the game finish, then try recover; no second Dump was sent. " + str(exc)
+        elif "snapshot" in lowered or "sidecar" in lowered or "capture pair" in lowered:
+            message = "Capture pair is missing or corrupt. Select another pair or capture again; do not modify its JSON/raw files."
+        elif "no complete" in lowered:
+            message = "No complete Dump is available. Use Capture Snapshot and wait for completion."
+        elif isinstance(exc, OSError):
+            message = "File/process access failed. Check that the game is running and the Observatory data folder is writable."
+        elif isinstance(exc, (KeyError, TypeError)):
+            message = "Unexpected capture/status data. Select another capture or check Status; use --debug for details."
+    print(message, file=sys.stderr)
+    if VERBOSE and isinstance(exc, UserError) and exc.detail:
+        print(exc.detail, file=sys.stderr)
+    elif VERBOSE and message != str(exc):
+        print(str(exc), file=sys.stderr)
+    if DEBUG:
+        traceback.print_exception(type(exc), exc, exc.__traceback__)
+
 FRESH_DUMP_WAIT_SECONDS = 120.0
 PRESETS = {
     "race": re.compile(r"^(?:Race/|Car\d+$|Vehicles/Car\d+(?:/|$)|Drivers/|Controller/Car\d+(?:/|$)|Physics/Car\d+(?:/|$))"),
@@ -44,9 +96,9 @@ class ProcessCandidate:
 
 def verify_executable(path: Path) -> None:
     if path.name.casefold() != "mrallye.exe" or not path.is_file():
-        raise core.ObservatoryError(f"Expected an existing retail MRallye.exe: {path}")
+        raise UserError("MRallye.exe was not found. Select the installed retail MRallye.exe.", str(path))
     if path.stat().st_size != core.RETAIL_SIZE or core.sha256_file(path) != core.RETAIL_SHA256:
-        raise core.ObservatoryError(f"Unsupported/patched EXE: {path}; only the pristine retail hash is supported.")
+        raise UserError(f"Unsupported Master Rallye executable.\nObservatory {VERSION} currently supports pristine retail only. Choose an untouched retail installation.", f"Expected SHA256: {core.RETAIL_SHA256}\nSelected: {path}")
 
 
 def discover_processes() -> tuple[list[ProcessCandidate], list[str]]:
@@ -88,7 +140,8 @@ def discover_processes() -> tuple[list[ProcessCandidate], list[str]]:
                     verify_executable(path)
                     candidates.append(ProcessCandidate(pid, path, core.RETAIL_SHA256))
                 except (OSError, core.ObservatoryError) as exc:
-                    rejected.append(f"PID {pid}: {exc}")
+                    detail = f"\n{exc.detail}" if isinstance(exc, UserError) and exc.detail else ""
+                    rejected.append(f"PID {pid}: {exc}{detail}")
             ok = kernel32.Process32NextW(handle, ctypes.byref(entry))
     finally:
         kernel32.CloseHandle(handle)
@@ -107,7 +160,7 @@ def select_process(candidates: Sequence[ProcessCandidate], pid: int | None = Non
     if len(candidates) == 1:
         return candidates[0]
     if input_fn is None:
-        raise core.ObservatoryError("Multiple supported instances; use --pid or the interactive menu.")
+        raise core.ObservatoryError("Multiple Master Rallye processes found. Close extra instances, use --pid, or select one in the interactive menu.")
     for i, process in enumerate(candidates, 1):
         print(f"[{i}] PID {process.pid}: {process.image_path}")
     choice = input_fn("Select instance (0 cancels): ").strip()
@@ -134,8 +187,8 @@ def load_config(path: Path) -> dict[str, str]:
 
 def capture_root_for(args: argparse.Namespace, config: dict[str, str]) -> Path:
     root = Path(args.capture_root or config.get("capture_root") or DEFAULT_CAPTURE_ROOT).resolve()
-    if not root.is_relative_to((REPO / "research-output").resolve()):
-        raise core.ObservatoryError("Capture root must stay inside this worktree's ignored research-output.")
+    if not root.is_relative_to(data_boundary()):
+        raise core.ObservatoryError("Choose a capture folder inside the Observatory data directory.")
     return root
 
 
@@ -255,8 +308,8 @@ def ensure_tool(process: ProcessCandidate, tool: str, timeout: float = 5.0) -> c
         raise core.ObservatoryError(f"Ambiguous {tool} windows; no command sent.")
     mains = [w for w in commands.find_retail_main_windows() if w.pid == process.pid]
     if len(mains) != 1:
-        raise core.ObservatoryError("No unique verified Game/Reset/Exit main window. Enable Menues/Enabled in your disposable install.")
-    print(f"Opening {tool} (open only; Broker may register two SaveFile metadata names).")
+        raise core.ObservatoryError("Broker Editor cannot be opened. Enable Menues/Enabled=True in DataGame/dev.xml, restart the game, and close extra game windows.")
+    print("Opening " + ("Broker Editor" if tool == "broker-editor" else "Flow Builder") + "...")
     commands.send_tool_command(mains[0], tool)
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
@@ -266,7 +319,7 @@ def ensure_tool(process: ProcessCandidate, tool: str, timeout: float = 5.0) -> c
         if len(existing) > 1:
             raise core.ObservatoryError(f"Ambiguous {tool} windows after open.")
         time.sleep(0.1)
-    raise core.ObservatoryError(f"{tool} did not appear. No repeated open command sent.")
+    raise UserError(f"{tool} did not appear. Check the developer window setting, let the game respond, then check Status. No repeated open command was sent.")
 
 
 def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
@@ -280,9 +333,12 @@ def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
     if manual:
         input_fn("Press Broker Editor -> Debug -> Dump, then press Enter here: ")
     else:
+        print("Requesting Broker Dump...")
         dispatch = dump_fn(broker)
         if dispatch == commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN:
-            print("Dump command is still processing; waiting for a fresh complete block. No retry will be sent.")
+            print("Broker Dump is still processing...\nWaiting for a fresh complete dump.")
+            if VERBOSE:
+                print("Dispatch: ERROR_TIMEOUT 1460; completion uncertain. No retry will be sent.")
         elif dispatch != commands.DumpDispatchOutcome.COMPLETED_SYNCHRONOUSLY:
             raise core.ObservatoryError("Unrecognized Dump dispatch outcome; no retry was sent.")
     deadline = time.monotonic() + timeout
@@ -300,11 +356,13 @@ def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
                                else "completed_synchronously"),
                            "dump_dispatch_win32_error": commands.ERROR_TIMEOUT if (
                                dispatch == commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN) else None if manual else 0})
+            print("Fresh Broker Dump captured.")
             return raw, source
         except core.ObservatoryError as exc:
             problem = str(exc)
         time.sleep(0.1)
-    raise core.ObservatoryError(f"Fresh Dump capture timed out: {problem}; no automatic retry command was sent.")
+    error = commands.ERROR_TIMEOUT if dispatch == commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN else 0
+    raise core.ObservatoryError(f"Fresh Dump capture timed out: {problem}; dispatch={dispatch}, Win32 error={error}; no automatic retry command was sent.")
 
 
 def capture_recovery(process: ProcessCandidate, *,
@@ -317,16 +375,59 @@ def capture_recovery(process: ProcessCandidate, *,
     return raw, source
 
 
-def show_capture(path: Path) -> None:
+def checked_snapshot(path: Path) -> dict:
     snapshot = core.load_snapshot(path)
-    print(f"Captured: {snapshot['source'].get('label', 'snapshot')} ({snapshot['created_at_utc']})")
-    print(f"Entries: {snapshot['dump']['reported_scope_counts']}")
-    print(f"Raw: {snapshot['source']['raw_byte_length'] / 1048576:.2f} MiB")
+    raw = path.with_suffix(".dump.bin")
+    source = snapshot["source"]
+    if (source.get("raw_sidecar") != raw.name or not raw.is_file()
+            or raw.stat().st_size != source["raw_byte_length"]
+            or core.sha256_file(raw) != source["raw_sha256"]):
+        raise UserError("Capture pair is missing or corrupt. Select another pair or capture again.", str(path))
+    return snapshot
+
+
+def show_capture(path: Path) -> None:
+    snapshot = checked_snapshot(path)
+    print(f"Snapshot: {snapshot['source'].get('label', 'snapshot')} ({snapshot['created_at_utc']})")
+    print("Entries:")
+    counts = snapshot["dump"]["reported_scope_counts"]
+    for scope in ("GLOBAL", "SCENE", "USER", "TOTAL"):
+        count = counts[scope]
+        print(f"    {scope.upper():<7} {count}")
     if snapshot["source"].get("freshness") == "not_command_proven":
-        print("Freshness: NOT command-proven (passive recovery; may be an older Dump).")
-    elif "dump_dispatch" in snapshot["source"]:
-        print(f"Dump dispatch: {snapshot['source']['dump_dispatch']}")
-    print(f"JSON: {path}\nRaw:  {path.with_suffix('.dump.bin')}")
+        print("Passive recovery: freshness is NOT command-proven; this Dump may be older.")
+    if VERBOSE:
+        print(f"Raw: {snapshot['source']['raw_byte_length'] / 1048576:.2f} MiB")
+        print(f"Dispatch: {snapshot['source'].get('dump_dispatch', 'not recorded')}")
+        print(f"Win32 error: {snapshot['source'].get('dump_dispatch_win32_error', 'not recorded')}")
+    print(f"Saved:\n    {short_path(path)}\n    {short_path(path.with_suffix('.dump.bin'))}")
+
+
+def print_diff(result: dict, before: dict, after: dict) -> None:
+    for name, snapshot in (("A", before), ("B", after)):
+        print(f"Snapshot {name}: {snapshot['source'].get('label', 'snapshot')} ({snapshot['created_at_utc']})")
+    counts = Counter()
+    for event in result["events"]:
+        kind = event["kind"]
+        if kind in {"ADDED", "REMOVED"}:
+            counts[kind] += 1
+        elif kind == "CHANGED":
+            changes = set(event["changes"])
+            counts["VALUE_CHANGED"] += bool(changes & {"VALUE_CHANGED", "TYPE_CHANGED"})
+            counts["REVISION_ONLY"] += changes == {"REVISION_CHANGED"}
+            counts["METADATA_CHANGED"] += bool(changes - {"VALUE_CHANGED", "TYPE_CHANGED", "REVISION_CHANGED"})
+    for key, title in (("ADDED", "Added"), ("REMOVED", "Removed"), ("VALUE_CHANGED", "Value changed"),
+                       ("METADATA_CHANGED", "Metadata changed"), ("REVISION_ONLY", "Revision-only")):
+        print(f"{title}: {counts[key]}")
+    if result["filters"].get("ignore_revision_only"):
+        print("Revision-only changes hidden.")
+    if VERBOSE:
+        core._print_diff_text(result)
+    else:
+        for event in result["events"][:30]:
+            print(f"  {event['kind']}: {event['path']}")
+        if len(result["events"]) > 30:
+            print("More changes available with --verbose or diff --json.")
 
 
 def filtered_diff(before: dict, after: dict, *, preset: str | None = None,
@@ -357,31 +458,33 @@ def filtered_diff(before: dict, after: dict, *, preset: str | None = None,
     return result
 
 
-def status(root: Path, process: ProcessCandidate | None, rejected: Sequence[str] = ()) -> None:
-    print("Master Rallye Observatory")
+def status(root: Path, process: ProcessCandidate | None, rejected: Sequence[str] = (), *, detailed: bool = False) -> None:
+    print(TOOL_NAME + "\n")
     for reason in rejected:
-        print("Rejected: " + reason)
+        print("Unsupported or inaccessible game process. Select pristine retail; check --verbose for details.")
+        if detailed or VERBOSE:
+            print(reason)
     if process is None:
-        print("Game: no supported retail process selected.")
+        print("Game: not running. Launch retail or select its installation with [C].")
     else:
-        print(f"Game: PID {process.pid}; {process.image_path}; SHA256 {process.sha256}")
+        print(f"Game: Master Rallye Retail\nPID: {process.pid}\nRetail verified")
+        if detailed or VERBOSE:
+            print(f"EXE: {process.image_path}\nSHA256: {process.sha256}")
         for tool in commands.TOOL_COMMANDS:
             try:
                 windows = commands.find_tool_windows(process.pid, tool)
-                print(f"{tool}: {'open' if len(windows) == 1 else 'closed' if not windows else 'ambiguous'}")
+                name = "Broker Editor" if tool == "broker-editor" else "Flow Builder"
+                print(f"{name}: {'open' if len(windows) == 1 else 'closed' if not windows else 'multiple windows; close extras'}")
             except (OSError, RuntimeError) as exc:
-                print(f"{tool}: unavailable ({exc})")
+                report_error(exc)
         try:
             _raw, source = core.capture_debug_buffer(process.pid)
-            capacity = source["debug_buffer_capacity_bytes"] / 1048576
-            used = source["debug_buffer_used_bytes"] / 1048576
-            print(f"Debug sink: active; used={used:.2f} MiB; capacity={capacity:.2f} MiB; HWND={source['debug_window_handle']}")
+            print(f"Debug buffer: {source['debug_buffer_used_bytes']/1048576:.2f} / {source['debug_buffer_capacity_bytes']/1048576:.2f} MiB")
         except (OSError, core.ObservatoryError) as exc:
-            print(f"Debug sink: unavailable ({exc})")
+            report_error(exc)
     history = capture_history(root)
-    print(f"Captures: {len(history)}; folder: {root}")
-    if history:
-        show_capture(history[-1])
+    print(f"Captures: {len(history)}")
+    print(f"Capture folder: {root if detailed or VERBOSE else short_path(root)}")
 
 
 def launch_game(exe: Path, install_root: Path | None = None) -> None:
@@ -400,8 +503,8 @@ def _cmd_literal(text: str) -> str:
 
 
 def setup_launcher(output: Path, exe: Path | None) -> None:
-    if not output.resolve().is_relative_to((REPO / "research-output").resolve()):
-        raise core.ObservatoryError("Generate launcher inside research-output, then copy it next to the game.")
+    if not output.resolve().is_relative_to(data_boundary()):
+        raise core.ObservatoryError("Generate the launcher inside the Observatory data directory, then copy it if needed.")
     script, python = _cmd_literal(str(Path(__file__).resolve())), _cmd_literal(sys.executable)
     extra = (' --exe "' + _cmd_literal(str(exe.resolve())) + '"') if exe else ''
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -413,6 +516,9 @@ def setup_launcher(output: Path, exe: Path | None) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--version", action="version", version=f"{TOOL_NAME} {VERSION}")
+    parser.add_argument("--verbose", action="store_true", help="show paths, hashes and dispatch details")
+    parser.add_argument("--debug", action="store_true", help="include diagnostic details and exception tracebacks")
     parser.add_argument("--pid", type=int)
     parser.add_argument("--exe", type=Path)
     parser.add_argument("--install-root", type=Path)
@@ -420,6 +526,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     sub = parser.add_subparsers(dest="command")
     sub.add_parser("status")
+    config = sub.add_parser("config", help="show/change/clear/reset local installation settings")
+    config.add_argument("action", choices=("show", "set", "clear", "reset"), nargs="?", default="show")
+    config.add_argument("exe", type=Path, nargs="?")
     capture = sub.add_parser("capture")
     capture.add_argument("label", nargs="?", default="snapshot")
     capture.add_argument("--manual-dump", action="store_true")
@@ -447,7 +556,7 @@ def build_parser() -> argparse.ArgumentParser:
         sub.add_parser(tool)
     sub.add_parser("launch")
     setup = sub.add_parser("setup-launcher")
-    setup.add_argument("--output", type=Path, default=REPO / "research-output/general-re/MRallye-Observatory.cmd")
+    setup.add_argument("--output", type=Path, default=DATA_ROOT / "MRallye-Observatory.cmd")
     return parser
 
 
@@ -470,7 +579,7 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
         if command == "show":
             show_capture(path)
         else:
-            core.print_persistence_report(core.persistence_report(core.load_snapshot(path), save_file=args.save_file,
+            core.print_persistence_report(core.persistence_report(checked_snapshot(path), save_file=args.save_file,
                                                                   save_mode=args.save_mode, scope=args.scope))
         return 0
     if command == "diff":
@@ -482,12 +591,13 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
             before, after = args.before, args.after
         else:
             raise core.ObservatoryError("Use diff --last or diff BEFORE AFTER.")
-        result = filtered_diff(core.load_snapshot(before), core.load_snapshot(after), preset=args.preset,
+        left, right = checked_snapshot(before), checked_snapshot(after)
+        result = filtered_diff(left, right, preset=args.preset,
                                ignore_revision_only=args.ignore_revision_only, prefixes=args.prefix)
         if args.json:
             print(json.dumps(result, ensure_ascii=True, indent=2))
         else:
-            core._print_diff_text(result)
+            print_diff(result, left, right)
         return 0
     exe = args.exe or (Path(config["retail_exe"]) if "retail_exe" in config else None)
     install = args.install_root or (Path(config["install_root"]) if "install_root" in config else None)
@@ -502,10 +612,10 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
     candidates, rejected = discover_processes()
     process = select_process(candidates, args.pid, input_fn)
     if command == "status":
-        status(root, process, rejected)
+        status(root, process, rejected, detailed=not getattr(args, "compact", False))
         return 0
     if process is None:
-        raise core.ObservatoryError("Game is not running. Launch verified retail, then retry." + (" Rejected: " + "; ".join(rejected) if rejected else ""))
+        raise UserError("Master Rallye was not found. Launch pristine retail, then try again or select an installation with config set.", "\n".join(rejected))
     if command in commands.TOOL_COMMANDS:
         ensure_tool(process, command)
         return 0
@@ -519,32 +629,102 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
     return 0
 
 
+def save_config(path: Path, config: dict[str, str]) -> None:
+    if not path.resolve().is_relative_to(data_boundary()):
+        raise UserError("Configuration must be saved inside the Observatory data directory.")
+    core.write_json(path, config)
+
+
+def configure_install(path: Path, config: dict[str, str], exe: Path) -> None:
+    exe = exe.resolve()
+    verify_executable(exe)
+    updated = {**config, "retail_exe": str(exe), "install_root": str(exe.parent)}
+    save_config(path, updated)
+    config.clear()
+    config.update(updated)
+    print("Retail installation configured.")
+
+
+def config_action(args, config: dict[str, str]) -> int:
+    if args.action == "show":
+        print("Configured installation: " + config.get("retail_exe", "not selected"))
+        print(f"Local configuration: {args.config}")
+    elif args.action == "set":
+        if args.exe is None:
+            raise UserError("Select MRallye.exe: config set PATH_TO_MRallye.exe")
+        configure_install(args.config, config, args.exe)
+    else:
+        updated = {} if args.action == "reset" else {k: v for k, v in config.items() if k not in {"retail_exe", "install_root"}}
+        save_config(args.config, updated)
+        config.clear()
+        config.update(updated)
+        print("Configuration reset." if args.action == "reset" else "Configured installation cleared.")
+    return 0
+
+
+def installation_menu(args, config: dict[str, str]) -> None:
+    print("Configured installation: " + config.get("retail_exe", "not selected"))
+    choice = input("[1] Change installation  [2] Clear installation  [0] Back: ").strip()
+    if choice == "1":
+        configure_install(args.config, config, Path(input("Select retail MRallye.exe: ").strip().strip('"')))
+        args.exe = args.install_root = None
+    elif choice == "2":
+        request = build_parser().parse_args(["config", "clear"])
+        request.config = args.config
+        config_action(request, config)
+        args.exe = args.install_root = None
+
+
+def first_run(args, config: dict[str, str]) -> bool:
+    if args.exe is not None:
+        verify_executable(args.exe)
+        return True
+    while not config.get("retail_exe"):
+        candidates, rejected = discover_processes()
+        if candidates:
+            return True
+        print(TOOL_NAME + "\n\nMaster Rallye was not found.\n1. Select Master Rallye installation\n2. Wait for manually launched game\n0. Exit")
+        if rejected:
+            print("Unsupported or inaccessible MRallye process detected; pristine retail is required.")
+            if VERBOSE:
+                print("\n".join(rejected))
+        choice = input("Action: ").strip()
+        if choice == "0":
+            return False
+        if choice == "1":
+            try:
+                configure_install(args.config, config, Path(input("Select retail MRallye.exe: ").strip().strip('"')))
+            except Exception as exc:
+                report_error(exc)
+        elif choice == "2":
+            input("Launch the game manually, then press Enter to check again: ")
+    return True
+
+
 def interactive(args, root: Path, config: dict[str, str]) -> int:
+    if not first_run(args, config):
+        return 0
     try:
         request = build_parser().parse_args(["status"])
-        for key in ("pid", "exe", "install_root", "config", "capture_root"):
-            setattr(request, key, getattr(args, key))
+        request.compact = True
+        request.pid = args.pid
         execute(request, root, config, input)
-    except (OSError, RuntimeError) as exc:
-        print(f"Initial status unavailable: {exc}")
+    except Exception as exc:
+        report_error(exc)
     while True:
-        print("\nMaster Rallye Observatory\n[1] Open Broker Editor  [2] Capture snapshot  [3] Capture with label\n"
-              "[4] Show latest  [5] Diff last two  [6] Diff two files\n[7] Open capture folder  [8] Open Flow Builder\n"
-              "[9] Status  [L] Launch game  [W] Wait/recheck  [C] Configure install  [0] Exit")
+        print("\n[1] Broker Editor  [2] Capture Snapshot  [3] Capture with label\n"
+              "[4] Latest  [5] Diff Last Two  [6] Diff Files\n[7] Capture Folder  [8] Flow Builder\n"
+              "[9] Status  [L] Launch Game  [W] Recheck  [C] Installation  [0] Exit")
         choice = input("Action: ").strip().casefold()
         if choice == "0":
             return 0
         try:
             if choice == "c":
-                exe = Path(input("Path to disposable retail MRallye.exe: ").strip().strip('"')).resolve()
-                verify_executable(exe)
-                config.update({"retail_exe": str(exe), "install_root": str(exe.parent)})
-                if not args.config.resolve().is_relative_to((REPO / "research-output").resolve()):
-                    raise core.ObservatoryError("Writable local config must be inside ignored research-output.")
-                core.write_json(args.config, config)
+                installation_menu(args, config)
                 continue
             if choice == "7":
                 root.mkdir(parents=True, exist_ok=True)
+                print(f"Capture folder: {root}")
                 os.startfile(root)
                 continue
             action = {"1": "broker-editor", "2": "capture", "3": "capture", "4": "show", "5": "diff",
@@ -553,33 +733,49 @@ def interactive(args, root: Path, config: dict[str, str]) -> int:
                 continue
             tokens = [action]
             if action == "capture":
-                tokens += [(input("Optional label [snapshot]: ").strip() or "snapshot") if choice == "3" else "snapshot"]
+                tokens += [input("Label [snapshot]: ").strip() or "snapshot"]
             if action == "diff":
                 tokens += ["--last"] if choice == "5" else [input("Before JSON: ").strip().strip('"'), input("After JSON: ").strip().strip('"')]
-                if input("Hide revision-only changes? [y/N]: ").casefold() == "y":
+                if input("Hide revision-only changes? [y/N]: ").strip().casefold() == "y":
                     tokens += ["--ignore-revision-only"]
             request = build_parser().parse_args(tokens)
             for key in ("pid", "exe", "install_root", "config", "capture_root"):
                 setattr(request, key, getattr(args, key))
             execute(request, root, config, input)
-        except (OSError, RuntimeError, ValueError) as exc:
-            print(f"Observatory: {exc}", file=sys.stderr)
+        except Exception as exc:
+            report_error(exc)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    global VERBOSE, DEBUG
     args = build_parser().parse_args(argv)
+    DEBUG = args.debug
+    VERBOSE = args.verbose or DEBUG
     try:
-        config = load_config(args.config)
+        if args.command == "config" and args.action == "reset":
+            return config_action(args, {})
+        try:
+            config = load_config(args.config)
+        except core.ObservatoryError as exc:
+            if args.command is not None:
+                raise UserError("Local configuration is corrupt. Run config reset, then config set to select retail again.", str(exc)) from exc
+            print("Local configuration is corrupt. Reset and select an installation again.")
+            if input("[R] Reset configuration  [0] Exit: ").strip().casefold() != "r":
+                return 2
+            save_config(args.config, {})
+            config = {}
+        if args.command == "config":
+            return config_action(args, config)
         root = capture_root_for(args, config)
         if args.command is None:
             return interactive(args, root, config)
         return execute(args, root, config, input if sys.stdin.isatty() else None)
-    except (OSError, RuntimeError, ValueError) as exc:
-        print(f"mr_observe: {exc}", file=sys.stderr)
-        return 2
     except (KeyboardInterrupt, EOFError):
-        print("\nObservatory closed; no gameplay/persistence command sent.")
+        print("\nObservatory closed.")
         return 130
+    except Exception as exc:
+        report_error(exc)
+        return 2
 
 
 if __name__ == "__main__":

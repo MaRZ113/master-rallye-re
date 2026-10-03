@@ -1,6 +1,10 @@
 # R-BROKER1 Observatory automatic-capture hotfix
 
-## Human runtime failure, 2026-10-03
+> Subsequent status: **CONFIRMED_BY_RUNTIME**, including six consecutive
+> timeout-recovery captures. See [runtime confirmation](runtime-confirmation.md).
+> The failed session and delivery-time validation notes below are historical.
+
+## Reported runtime failure, 2026-10-03
 
 The owner reported a pristine retail session starting with Broker closed,
 Debug used 0.04 MiB/capacity 0.06 MiB and three captures. After capture attempts,
@@ -8,7 +12,7 @@ Broker was open, Debug used 5.61 MiB/capacity 8.00 MiB, but still three captures
 The frontend raised `Broker Dump command timed out; it may still run. No retry
 was sent.` No new raw/JSON pairs were published.
 
-This is human-reported runtime failure evidence, not a successful hotfix test.
+This is owner-reported runtime failure evidence, not a successful hotfix test.
 Buffer growth supports execution of the original Dump, but does not alone prove
 a new complete block or its freshness. No runtime action was performed by the
 assistant for this hotfix.
@@ -60,7 +64,7 @@ Metadata explicitly records `freshness=not_command_proven`,
 also warns that the salvaged Dump may be old. Recovery is not the normal capture
 path and does not establish baseline freshness.
 
-## Synthetic validation and human gate
+## Synthetic validation and runtime gate
 
 Required cases cover synchronous completion, timeout followed by later complete
 output, incomplete-to-complete output after timeout, timeout with no fresh block,
@@ -74,7 +78,7 @@ tests PASS; full synthetic suite **277 tests PASS**. `compileall -q src tools
 tests` and `git diff --check` pass. Window/process operations in the synthetic
 tests are mocks; no live game command was sent by these checks.
 
-New Windows automatic capture remains **AWAITING_HUMAN_RUNTIME_VALIDATION**.
+New Windows automatic capture remains **AWAITING_RUNTIME_VALIDATION**.
 Retest in the same disposable pristine retail install: salvage the existing
 session first if needed, then request one labelled normal capture, allow polling
 to finish and inspect the pair/provenance. Do not request another Dump while

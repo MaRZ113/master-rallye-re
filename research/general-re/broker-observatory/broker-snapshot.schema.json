@@ -15,6 +15,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
+    "tool_version": { "type": "string" },
     "kind": { "const": "master-rallye-broker-dump-snapshot" },
     "created_at_utc": { "type": "string", "format": "date-time" },
     "source": {

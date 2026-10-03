@@ -214,7 +214,9 @@ class FreshDumpTests(unittest.TestCase):
         send.assert_called_once_with("broker")
         self.assertEqual(reads.call_count, 3)
         self.assertEqual(raw, new)
-        self.assertIn("No retry will be sent", out.getvalue())
+        self.assertIn("Broker Dump is still processing...", out.getvalue())
+        self.assertIn("Fresh Broker Dump captured.", out.getvalue())
+        self.assertNotIn("ERROR_TIMEOUT", out.getvalue())
         self.assertEqual(source["dump_dispatch"], "send_timeout_then_fresh_dump_observed")
 
     def test_timeout_then_incomplete_then_complete_publishes_provenance(self):

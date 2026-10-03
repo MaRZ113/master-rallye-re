@@ -204,7 +204,9 @@ class BrokerDumpParserTests(unittest.TestCase):
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
         parsed = parse_rows([row("Game/Mode", "2")])
         self.assertEqual(schema["properties"]["kind"]["const"], parsed["kind"])
-        self.assertEqual(set(schema["required"]), set(parsed))
+        self.assertEqual(set(schema["required"]), set(parsed) - {"tool_version"})
+        self.assertNotIn("tool_version", schema["required"])
+        self.assertEqual(schema["properties"]["tool_version"]["type"], "string")
         self.assertEqual(set(schema["properties"]["entries"]["items"]["required"]), set(parsed["entries"][0]))
 
 

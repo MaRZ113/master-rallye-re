@@ -20,6 +20,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
+from observatory_version import VERSION
 
 
 RETAIL_SHA256 = "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
@@ -418,8 +419,9 @@ def parse_dump_bytes(raw: bytes, source: dict[str, Any] | None = None) -> dict[s
     )
     return {
         "schema_version": SNAPSHOT_SCHEMA_VERSION,
+        "tool_version": VERSION,
         "kind": "master-rallye-broker-dump-snapshot",
-        "created_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "created_at_utc": datetime.now(timezone.utc).isoformat(timespec="microseconds"),
         "source": src,
         "dump": parsed["dump"],
         "entries": parsed["entries"],
@@ -980,12 +982,12 @@ def build_parser() -> argparse.ArgumentParser:
     capture = sub.add_parser("capture", help="read the live retail Debug text buffer (read-only)")
     capture.add_argument("--pid", required=True, type=int, help="PID of the verified retail MRallye.exe")
     capture.add_argument("--output", required=True, type=Path, help="snapshot JSON destination; raw .dump.bin is written beside it")
-    capture.add_argument("--label", help="optional human experiment label; metadata only")
+    capture.add_argument("--label", help="optional experiment label; metadata only")
 
     parse_cmd = sub.add_parser("parse", help="parse an existing raw Debug text capture offline")
     parse_cmd.add_argument("input", type=Path, help="raw text/binary Debug buffer capture")
     parse_cmd.add_argument("--output", required=True, type=Path, help="snapshot JSON destination")
-    parse_cmd.add_argument("--label", help="optional human experiment label; metadata only")
+    parse_cmd.add_argument("--label", help="optional experiment label; metadata only")
 
     summarize = sub.add_parser("summarize", help="print entry/type/scope summary without values")
     summarize.add_argument("snapshot", type=Path)

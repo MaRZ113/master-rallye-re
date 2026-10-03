@@ -1,5 +1,10 @@
 # Known unknowns and limits
 
+> Current frontend status is **CONFIRMED_BY_RUNTIME**; see
+> [runtime confirmation](runtime-confirmation.md). The older pending capture
+> gates below retain their delivery-time context. Beta UX/package smoke is
+> separate from the already confirmed capture workflow.
+
 > **R-BROKER1 update:** original passive live capture is now owner-confirmed;
 > automatic fresh-Dump capture remains unrun. Type C is resolved as empty.
 > SaveFile/sentinel policy is mapped in [persistence](../persistence/findings.md).

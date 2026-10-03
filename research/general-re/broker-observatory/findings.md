@@ -1,22 +1,28 @@
 # Broker Observatory — findings
 
+> **Current status:** core and automatic frontend are CONFIRMED_BY_RUNTIME.
+> Six consecutive captures recovered from dispatch timeout and published fresh
+> complete Dumps. See [runtime confirmation](runtime-confirmation.md). Earlier
+> delivery notes below retain their original observation context.
+
 > **2026-10-03 automatic-capture hotfix:** the owner found that a synchronous
 > Dump timeout aborted capture before polling. The sender now distinguishes
 > ERROR_TIMEOUT from real errors; the coordinator waits for fresh output without
 > resending. Passive `recover` can salvage an existing complete Dump. See
-> [hotfix evidence](automatic-capture-hotfix.md). Human retest is pending.
+> [hotfix evidence](automatic-capture-hotfix.md). At that delivery, runtime
+> retest was pending; subsequent confirmation is recorded above.
 
 > **R-BROKER1 update:** the owner has runtime-confirmed the original passive
 > reader, including realloc, multiple Dumps and XmlData continuations. The new
 > frontend can issue original Broker-local Dump and requires fresh-block proof;
-> that new chain still awaits human validation. See
+> at that delivery the new chain awaited runtime validation. See
 > [current guide](../../../docs/broker-observatory.md) and
 > [Broker core](../broker-core/findings.md). The delivery notes below describe
 > the original implementation's state at its original commit.
 
 ## Status
 
-**Tooling implemented; offline synthetic validation passes; live process capture is awaiting the human runtime check.** The tool is based on the verified retail executable and the existing R-DEV1.2 static analysis. It reads the existing Debug window buffer only. It does not invoke Debug→Dump, send a command, suspend the process, edit a broker, save game state, or patch an executable.
+**Tooling implemented; offline synthetic validation passes; live process capture is awaiting the runtime check.** The tool is based on the verified retail executable and the existing R-DEV1.2 static analysis. It reads the existing Debug window buffer only. It does not invoke Debug→Dump, send a command, suspend the process, edit a broker, save game state, or patch an executable.
 
 The persistent research checkout is `master-rallye-re-general`, branch
 `research/general-re`. It continues from the completed R-DEV1.2 baseline. No
@@ -77,7 +83,7 @@ checks the loaded `MRallye.exe` module, and reads the existing Debug sink with
 same-basename `.dump.bin` raw sidecar. It fails closed if the active sink is
 not the known Debug sink or if the data changes during its consistency reads.
 
-For the exact human procedure and safety boundary, see
+For the exact operator procedure and safety boundary, see
 [runtime-validation-plan.md](runtime-validation-plan.md). Captures belong in
 ignored `research-output/`; never add them to Git.
 

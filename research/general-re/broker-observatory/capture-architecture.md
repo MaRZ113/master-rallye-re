@@ -59,7 +59,7 @@ projection and a stable textual validation target.
    sidecar remains available for diagnosis.
 
 The tool prints only capture identity and hashes, not the potentially large
-broker values. It never invokes `Debug → Dump`; the human must invoke that
+broker values. It never invokes `Debug → Dump`; the operator must invoke that
 menu item first. The raw sidecar is the byte-exact text buffer read from the
 game, including any surrounding Debug messages and a possible NUL suffix. The
 JSON identifies the selected block by byte offset, length, and SHA256.

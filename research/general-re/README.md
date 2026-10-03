@@ -15,8 +15,8 @@ existing Master Rallye research.
 
 The original passive Broker Observatory reader is now `CONFIRMED_BY_RUNTIME`
 from owner-provided captures and observations (large Dumps, realloc, multiple
-complete blocks, XmlData continuations). The **new automatic frontend** remains
-`AWAITING_HUMAN_RUNTIME_VALIDATION`.
+complete blocks, XmlData continuations). The automatic frontend is also
+`CONFIRMED_BY_RUNTIME`; see [six-capture confirmation](broker-observatory/runtime-confirmation.md).
 
 ## Current tool
 
@@ -39,8 +39,8 @@ available. No edit/commit/save/gameplay commands are exposed.
   XmlFilename dependencies.
 - [Persistence](persistence/findings.md): mode filters, logical SaveFiles,
   native `#` backup/write chain and reload.
-- [Human U1–U4 plan](persistence/runtime-validation-plan.md): prepared only;
+- [U1–U4 plan](persistence/runtime-validation-plan.md): prepared only;
   no persistence experiment was executed by the assistant.
 
-Overall R-BROKER1 is **PARTIAL** until the scope lifecycle and new frontend
-runtime gates close. Do not advance to unrelated RE phases from this result.
+Overall R-BROKER1 is **PARTIAL** until the remaining scope lifecycle
+gates close. Do not advance to unrelated RE phases from this result.

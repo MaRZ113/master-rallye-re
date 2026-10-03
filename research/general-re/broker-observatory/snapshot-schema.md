@@ -2,6 +2,10 @@
 
 Schema: [broker-snapshot.schema.json](broker-snapshot.schema.json), version 1.
 
+New captures include optional `tool_version` and microsecond UTC creation times
+for reliable same-second history ordering. Older snapshots without tool_version
+remain valid schema v1; no existing capture is rewritten.
+
 The JSON is a parsed view of the game's emitted text, paired with a raw
 `.dump.bin` sidecar during live capture. Important `source` fields include the
 process/build identity, full-buffer hash and length, selected-block byte

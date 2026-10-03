@@ -1,8 +1,12 @@
 @echo off
 setlocal
-rem Repository launcher. For next-to-game deployment use setup-launcher.
-pushd "%~dp0..\.."
-py -3 tools\runtime\mr_observe.py %*
+if exist "%~dp0mr_observe.py" (
+    pushd "%~dp0"
+    py -3 mr_observe.py %*
+) else (
+    pushd "%~dp0..\.."
+    py -3 tools\runtime\mr_observe.py %*
+)
 set "observe_exit=%ERRORLEVEL%"
 if not "%observe_exit%"=="0" pause
 popd

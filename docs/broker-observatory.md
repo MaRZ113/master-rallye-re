@@ -57,7 +57,7 @@ Dump отправляется **ровно один раз** через преж
 10-секундным dispatch timeout. После Win32 `ERROR_TIMEOUT` capture продолжает
 пассивно ждать новый полный блок до **120 секунд после dispatch**; timeout
 означает неопределённое завершение, а не доказательство, что игра прекратила Dump.
-В консоли появится предупреждение об ожидании без retry. Другие Win32 dispatch
+В консоли появится спокойное сообщение о продолжении обработки. ERROR_TIMEOUT/1460 выводится только с --verbose/--debug либо при реальном отказе. Другие Win32 dispatch
 errors, включая generic failure без error code, прекращают capture сразу.
 
 При сбросе/уплотнении буфера, неполном Dump или исчерпании post-dispatch ожидания
@@ -160,16 +160,17 @@ python tools/runtime/mr_observe.py setup-launcher
 перемещения repo/Python. Существующий launcher не перезаписывается.
 Machine-specific пути не добавляются в Git.
 
-Standalone EXE в будущем можно собрать локально (например, PyInstaller one-folder
-с этими тремя Python-модулями). Такая упаковка не сделана в R-BROKER1: сначала
-нужен человеческий Windows smoke test, затем воспроизводимая проверка bundle.
+Portable Python ZIP собирается через `tools/build_observatory_release.py`.
+Он содержит только необходимые проектные модули и документы; сторонний
+packaging stack не требуется.
 
 ## Статус доказательств
 
-Предыдущий passive reader уже проверен человеком: большие Dumps, realloc,
+Предыдущий passive reader уже проверен в игре: большие Dumps, realloc,
 несколько блоков и XmlData continuation. Новая цепочка discovery→open→автоматический
 Dump→paired capture проверена синтетическими тестами и статическим разбором,
-**но ещё не подтверждена новым runtime-тестом**.
+**и подтверждена шестью последовательными runtime captures**, включая timeout recovery.
+Новая beta UX/package проверяется отдельно перед публикацией.
 
 Нет injection, WriteProcessMemory, patch EXE, suspend/debugger modification,
 команд Save/Commit/Build или автоматической игры. Process access — query/read;
@@ -179,8 +180,19 @@ Dump→paired capture проверена синтетическими теста
 Результаты RE: [Broker](../research/general-re/broker-core/findings.md),
 [XML](../research/general-re/xml-core/findings.md),
 [persistence](../research/general-re/persistence/findings.md).
-Human persistence tests: [U1–U4](../research/general-re/persistence/runtime-validation-plan.md).
+Runtime persistence tests: [U1–U4](../research/general-re/persistence/runtime-validation-plan.md).
 
 Низкоуровневый `tools/runtime/broker_observatory.py` сохранён: parse, summarize,
 diff, passive capture и новый persistence-report. Primary frontend импортирует
 его parser/schema/diff/reader вместо независимой реализации.
+
+## Beta package
+
+Короткий публичный старт: [Quickstart](observatory-quickstart.md).
+Версия доступна через `python tools/runtime/mr_observe.py --version`.
+Сборка после коммита release inputs: `python tools/build_observatory_release.py`.
+ZIP/manifest остаются в игнорируемом `dist/observatory`; публикация не выполняется.
+
+`[C]` показывает настройки и предлагает change/clear. CLI: `config show`,
+`config set PATH`, `config clear`, `config reset`. Нормальный экран не показывает
+полный hash; `[9] Status`, `--verbose` и `--debug` оставляют подробности доступными.
