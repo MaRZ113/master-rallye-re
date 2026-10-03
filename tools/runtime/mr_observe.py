@@ -27,6 +27,7 @@ from typing import Any, Callable, Sequence
 import broker_observatory as core
 import dev_command_trigger as commands
 from observatory_version import VERSION, TOOL_NAME
+from observatory_build_profiles import PROFILES, RETAIL_PRISTINE, match_profile
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PORTABLE = not (SCRIPT_DIR.name == "runtime" and SCRIPT_DIR.parent.name == "tools")
@@ -96,12 +97,22 @@ class ProcessCandidate:
     image_path: Path
     sha256: str
 
+    @property
+    def profile(self):
+        for profile in PROFILES:
+            if profile.sha256 == self.sha256:
+                return profile
+        raise core.ObservatoryError("Unknown process build profile")
 
-def verify_executable(path: Path) -> None:
+
+def verify_executable(path: Path):
     if path.name.casefold() != "mrallye.exe" or not path.is_file():
         raise UserError("MRallye.exe was not found. Select the installed retail MRallye.exe.", str(path))
-    if path.stat().st_size != core.RETAIL_SIZE or core.sha256_file(path) != core.RETAIL_SHA256:
-        raise UserError(f"Unsupported Master Rallye executable.\nObservatory {VERSION} currently supports pristine retail only. Choose an untouched retail installation.", f"Expected SHA256: {core.RETAIL_SHA256}\nSelected: {path}")
+    try:
+        return match_profile(core.sha256_file(path), path.stat().st_size)
+    except ValueError as exc:
+        raise UserError("Unsupported Master Rallye executable. Choose an exact known build; arbitrary patched EXEs are rejected.",
+                        f"Known profiles: {', '.join(p.id + ': ' + p.sha256 for p in PROFILES)}\nSelected: {path}\n{exc}") from exc
 
 
 def discover_processes() -> tuple[list[ProcessCandidate], list[str]]:
@@ -140,8 +151,8 @@ def discover_processes() -> tuple[list[ProcessCandidate], list[str]]:
                 try:
                     if path is None:
                         raise core.ObservatoryError("image path unavailable")
-                    verify_executable(path)
-                    candidates.append(ProcessCandidate(pid, path, core.RETAIL_SHA256))
+                    profile = verify_executable(path)
+                    candidates.append(ProcessCandidate(pid, path, profile.sha256))
                 except (OSError, core.ObservatoryError) as exc:
                     detail = f"\n{exc.detail}" if isinstance(exc, UserError) and exc.detail else ""
                     rejected.append(f"PID {pid}: {exc}{detail}")
@@ -165,7 +176,7 @@ def select_process(candidates: Sequence[ProcessCandidate], pid: int | None = Non
     if input_fn is None:
         raise core.ObservatoryError("Multiple Master Rallye processes found. Close extra instances, use --pid, or select one in the interactive menu.")
     for i, process in enumerate(candidates, 1):
-        print(f"[{i}] PID {process.pid}: {process.image_path}")
+        print(f"[{i}] {process.profile.id} — PID {process.pid}: {process.image_path}")
     choice = input_fn("Select instance (0 cancels): ").strip()
     if choice == "0":
         return None
@@ -304,6 +315,8 @@ def fresh_dump_snapshot(baseline: bytes, current: bytes, source: dict[str, Any])
 
 
 def ensure_tool(process: ProcessCandidate, tool: str, timeout: float = 5.0) -> commands.TargetWindow:
+    if tool not in process.profile.tools:
+        raise core.ObservatoryError("Tool is not verified for the selected build profile.")
     existing = commands.find_tool_windows(process.pid, tool)
     if len(existing) == 1:
         return existing[0]
@@ -464,16 +477,16 @@ def filtered_diff(before: dict, after: dict, *, preset: str | None = None,
 def status(root: Path, process: ProcessCandidate | None, rejected: Sequence[str] = (), *, detailed: bool = False) -> None:
     print(TOOL_NAME + "\n")
     for reason in rejected:
-        print("Unsupported or inaccessible game process. Select pristine retail; check --verbose for details.")
+        print("Unsupported or inaccessible game process. Select an exact known build; check --verbose for details.")
         if detailed or VERBOSE:
             print(reason)
     if process is None:
         print("Game: not running. Launch retail or select its installation with [C].")
     else:
-        print(f"Game: Master Rallye Retail\nPID: {process.pid}\nRetail verified")
+        print(f"Game: {process.profile.display_name}\nBuild: {process.profile.id}\nPID: {process.pid}\nRetail verified")
         if detailed or VERBOSE:
             print(f"EXE: {process.image_path}\nSHA256: {process.sha256}")
-        for tool in commands.TOOL_COMMANDS:
+        for tool in process.profile.tools:
             try:
                 windows = commands.find_tool_windows(process.pid, tool)
                 name = "Broker Editor" if tool == "broker-editor" else "Flow Builder"

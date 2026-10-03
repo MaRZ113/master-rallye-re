@@ -20,6 +20,10 @@ complete blocks, XmlData continuations). The automatic frontend is also
 
 ## Current tool
 
+Research-only extension: [exact known build profiles](known-builds/findings.md)
+adds the statically verified widescreen/freeze identity; runtime confirmation is
+pending. Published v0.1.0-beta remains pristine-only.
+
 [Broker Observatory](../../docs/broker-observatory.md) has a one-command frontend:
 
 ```powershell

@@ -17,6 +17,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "tools/runtime"))
 from observatory_version import VERSION, TOOL_NAME, PYTHON_REQUIREMENT
 from broker_observatory import RETAIL_SHA256
+from observatory_build_profiles import PROFILES, RETAIL_PRISTINE
 
 FILES = {
     "MRallye-Observatory.cmd": "tools/runtime/MRallye-Observatory.cmd",
@@ -24,6 +25,7 @@ FILES = {
     "broker_observatory.py": "tools/runtime/broker_observatory.py",
     "dev_command_trigger.py": "tools/runtime/dev_command_trigger.py",
     "observatory_version.py": "tools/runtime/observatory_version.py",
+    "observatory_build_profiles.py": "tools/runtime/observatory_build_profiles.py",
     "README.md": "docs/observatory-quickstart.md",
     "RELEASE-NOTES.md": f"docs/releases/observatory-{VERSION}.md",
     "NOTICE.md": "docs/releases/observatory-notice.md",
@@ -160,6 +162,8 @@ def main(argv=None) -> int:
             inputs.append("LICENSE")
         if git("status", "--porcelain", "--", *inputs):
             raise ValueError("Commit release inputs first so build_commit identifies the packaged source")
+        if VERSION == "0.1.0-beta" and PROFILES != (RETAIL_PRISTINE,):
+            raise ValueError("Released v0.1.0-beta is pristine-only. Extended research profiles require a separately authorized versioned release after runtime confirmation.")
         raw, manifest = build_bytes(collect_files(REPO), git("rev-parse", "HEAD"))
         output.mkdir(parents=True, exist_ok=True)
         archive = output / manifest["archive"]

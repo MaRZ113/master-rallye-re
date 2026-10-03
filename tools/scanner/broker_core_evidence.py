@@ -19,13 +19,17 @@ CANONICAL_SHA256 = {
     "13eaa642d0aabdfc47911a8606b02d9fc8d57d74328b36a0d3d618aadf1e0b78",
     "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
 }
+VERIFIED_ANALYSIS_SHA256 = CANONICAL_SHA256 | {
+    # Exact supplied widescreen/freeze research corpus; not pristine retail.
+    "bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6",
+}
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--config", help="config pointing to an isolated scratch project")
-    source.add_argument("--binary", type=Path, help="import a verified pristine corpus into a new scratch project")
+    source.add_argument("--binary", type=Path, help="import an exact allowlisted analysis corpus into a new scratch project")
     parser.add_argument("--project-name", default="BrokerCorpus")
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--function", action="append", default=[])
@@ -35,6 +39,7 @@ def main() -> int:
     parser.add_argument("--words", action="append", default=[], help="VA:count")
     parser.add_argument("--function-range", action="append", default=[], help="list existing entries within START:END; no automatic decompilation")
     parser.add_argument("--disassemble-missing", action="store_true", help="define requested entry points in the isolated scratch program only")
+    parser.add_argument("--analyze", action="store_true", help="run Ghidra auto-analysis in the isolated scratch project")
     args = parser.parse_args()
     addresses = args.function + args.xref + args.sentinel_literal + args.call_target
     addresses += [spec.split(":")[0] for spec in args.words]
@@ -58,8 +63,8 @@ def main() -> int:
     else:
         import hashlib
         binary = args.binary.resolve()
-        if hashlib.sha256(binary.read_bytes()).hexdigest() not in CANONICAL_SHA256:
-            parser.error("binary is not a verified pristine primary corpus")
+        if hashlib.sha256(binary.read_bytes()).hexdigest() not in VERIFIED_ANALYSIS_SHA256:
+            parser.error("binary is not an exact verified analysis corpus")
         project_dir = output / "scratch-project"
         project_name = args.project_name
         program_name = binary.name
@@ -73,11 +78,11 @@ def main() -> int:
         binary, project_location=project_dir,
         project_name=project_name,
         program_name=program_name,
-        analyze=False, nested_project_location=False,
+        analyze=args.analyze, nested_project_location=False,
     ) as api:
         program = api.getCurrentProgram()
-        if str(program.getExecutableSHA256()).lower() not in CANONICAL_SHA256:
-            raise ValueError("scratch program identity is not a pristine primary corpus")
+        if str(program.getExecutableSHA256()).lower() not in VERIFIED_ANALYSIS_SHA256:
+            raise ValueError("scratch program identity is not an exact verified analysis corpus")
         space = program.getAddressFactory().getDefaultAddressSpace()
         functions = program.getFunctionManager()
         listing = program.getListing()

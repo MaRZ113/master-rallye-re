@@ -64,7 +64,7 @@ class PublicUXTests(unittest.TestCase):
         with contextlib.redirect_stderr(io.StringIO()) as out:
             observe.report_error(caught.exception)
         self.assertIn("Unsupported Master Rallye executable", out.getvalue())
-        self.assertIn(f"Observatory {VERSION} currently supports pristine retail only", out.getvalue())
+        self.assertIn("arbitrary patched EXEs are rejected", out.getvalue())
         self.assertNotIn(core.RETAIL_SHA256, out.getvalue())
         with patch.object(observe, "VERBOSE", True), contextlib.redirect_stderr(io.StringIO()) as detail:
             observe.report_error(caught.exception)

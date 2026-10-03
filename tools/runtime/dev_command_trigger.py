@@ -16,9 +16,10 @@ from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Callable, Sequence
+from observatory_build_profiles import RETAIL_PRISTINE, profile_for_file
 
 
-RETAIL_SHA256 = "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+RETAIL_SHA256 = RETAIL_PRISTINE.sha256  # backwards-compatible constant
 TOOL_COMMANDS = {"flow-builder": 0x30, "broker-editor": 0x27}
 SAFETY = {
     "flow-builder": "SAFE_OPEN_CANDIDATE (open only), medium-high confidence",
@@ -76,6 +77,15 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def verified_profile(path: Path | None):
+    if path is None or path.name.casefold() != "mrallye.exe":
+        raise RuntimeError("Tool owner is not a known MRallye.exe build.")
+    try:
+        return profile_for_file(path)
+    except ValueError as exc:
+        raise RuntimeError(str(exc)) from exc
 
 
 def _menu_text(user32: object, menu: int, position: int) -> str:
@@ -205,13 +215,14 @@ def find_retail_main_windows() -> list[TargetWindow]:
         if image_path is None:
             return True
         try:
-            image_hash = sha256_file(image_path)
-        except OSError:
-            return True
-        if image_hash != RETAIL_SHA256:
+            profile = verified_profile(image_path)
+            image_hash = profile.sha256
+        except (OSError, ValueError, RuntimeError):
             return True
         title_buffer = ctypes.create_unicode_buffer(512)
         user32.GetWindowTextW(hwnd_value, title_buffer, len(title_buffer))
+        if title_buffer.value != "Master Rallye":
+            return True
         candidates.append(
             TargetWindow(
                 pid=int(pid.value),
@@ -247,9 +258,14 @@ def send_tool_command(target: TargetWindow, tool: str) -> None:
     user32.GetWindowThreadProcessId(target.hwnd, ctypes.byref(pid))
     if int(pid.value) != target.pid:
         raise RuntimeError("Target HWND changed process identity.")
+    title = ctypes.create_unicode_buffer(512)
+    user32.GetWindowTextW(target.hwnd, title, len(title))
+    if title.value != target.title or title.value != "Master Rallye":
+        raise RuntimeError("Target main-window title changed identity.")
     image_path = _image_for_pid(kernel32, target.pid)
-    if image_path is None or sha256_file(image_path) != RETAIL_SHA256:
-        raise RuntimeError("Target process no longer matches the verified retail EXE.")
+    profile = verified_profile(image_path)
+    if profile.sha256 != target.sha256 or tool not in profile.tools:
+        raise RuntimeError("Target identity changed or tool is not verified for this build.")
     if not user32.IsWindowVisible(target.hwnd) or not _has_expected_main_menu(
         user32, target.hwnd
     ):
@@ -286,8 +302,9 @@ def find_tool_windows(pid: int, tool: str) -> list[TargetWindow]:
     user32.GetMenuItemID.argtypes = [wintypes.HMENU, ctypes.c_int]
     user32.GetMenuItemID.restype = wintypes.UINT
     image = _image_for_pid(kernel32, pid)
-    if image is None or sha256_file(image) != RETAIL_SHA256:
-        raise RuntimeError("Tool owner is not verified retail.")
+    profile = verified_profile(image)
+    if tool not in profile.tools:
+        raise RuntimeError("Tool is not statically verified for this build.")
     result: list[TargetWindow] = []
     callback_type = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
 
@@ -304,7 +321,7 @@ def find_tool_windows(pid: int, tool: str) -> list[TargetWindow]:
             return True
         if tool == "broker-editor" and not _has_broker_menu(user32, hwnd):
             return True
-        result.append(TargetWindow(pid, int(hwnd), image, RETAIL_SHA256, title.value))
+        result.append(TargetWindow(pid, int(hwnd), image, profile.sha256, title.value))
         return True
 
     user32.EnumWindows(callback, 0)
@@ -333,7 +350,8 @@ def send_broker_dump(target: TargetWindow) -> DumpDispatchOutcome:
     that uncertainty to the capture coordinator without retrying the message.
     """
     matches = find_tool_windows(target.pid, "broker-editor")
-    if len(matches) != 1 or matches[0].hwnd != target.hwnd:
+    if (len(matches) != 1 or matches[0].hwnd != target.hwnd
+            or matches[0].sha256 != target.sha256 or matches[0].image_path != target.image_path):
         raise RuntimeError("Broker Editor identity changed or is ambiguous.")
     import ctypes
     user32 = ctypes.WinDLL("user32", use_last_error=True)
@@ -362,7 +380,7 @@ def main(
 ) -> int:
     args = build_parser().parse_args(argv)
     command_id = TOOL_COMMANDS[args.tool]
-    print(f"Build: retail; required EXE SHA256: {RETAIL_SHA256}")
+    print("Build: exact known profile required (unknown EXEs rejected)")
     print(f"Tool: {args.tool}; command ID: 0x{command_id:02X}")
     print(f"Safety: {SAFETY[args.tool]}")
 

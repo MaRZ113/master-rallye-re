@@ -21,13 +21,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 from observatory_version import VERSION
+from observatory_build_profiles import RETAIL_PRISTINE, ObservatoryBuildProfile, match_profile
 
 
-RETAIL_SHA256 = "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
-RETAIL_SIZE = 3_121_214
+RETAIL_SHA256 = RETAIL_PRISTINE.sha256  # compatibility aliases; not selection gates
+RETAIL_SIZE = RETAIL_PRISTINE.file_size
 RETAIL_IMAGE_BASE = 0x00400000
-ACTIVE_LOG_SINK_RVA = 0x2F7B7C
-DEBUG_SINK_VTABLE_RVA = 0x29CEA8
+ACTIVE_LOG_SINK_RVA = RETAIL_PRISTINE.active_log_sink_rva
+DEBUG_SINK_VTABLE_RVA = RETAIL_PRISTINE.debug_sink_vtable_rva
 DEBUG_SINK_OBJECT_SIZE = 0x30
 DEBUG_BUFFER_MAX_BYTES = 128 * 1024 * 1024
 CAPTURE_RETRIES = 5
@@ -811,14 +812,15 @@ def _valid_x86_user_pointer(pointer: int) -> bool:
     return 0x10000 <= pointer <= 0x7FFFFFFF
 
 
-def _read_sink_state(kernel32: Any, user32: Any, process: Any, module_base: int, ctypes: Any) -> dict[str, int]:
-    global_address = module_base + ACTIVE_LOG_SINK_RVA
+def _read_sink_state(kernel32: Any, user32: Any, process: Any, module_base: int, ctypes: Any,
+                     profile: ObservatoryBuildProfile = RETAIL_PRISTINE) -> dict[str, int]:
+    global_address = module_base + profile.active_log_sink_rva
     sink_pointer = _u32(_read_remote(kernel32, process, global_address, 4, ctypes))
     if not _valid_x86_user_pointer(sink_pointer):
         raise ObservatoryError(f"Active logger sink pointer is invalid: 0x{sink_pointer:08X}")
     obj = _read_remote(kernel32, process, sink_pointer, DEBUG_SINK_OBJECT_SIZE, ctypes)
     vtable = _u32(obj, 0)
-    expected_vtable = module_base + DEBUG_SINK_VTABLE_RVA
+    expected_vtable = module_base + profile.debug_sink_vtable_rva
     if vtable != expected_vtable:
         raise ObservatoryError(
             f"Active logger is not the expected Debug sink (vtable 0x{vtable:08X}, expected 0x{expected_vtable:08X}); "
@@ -882,12 +884,11 @@ def capture_debug_buffer(pid: int) -> tuple[bytes, dict[str, Any]]:
         if not image_path.is_file():
             raise ObservatoryError(f"Process image path is no longer readable: {image_path}")
         image_hash = sha256_file(image_path)
-        if image_hash != RETAIL_SHA256:
-            raise ObservatoryError(
-                f"PID {pid} image SHA256 is {image_hash}, expected verified retail {RETAIL_SHA256}"
-            )
-        if image_path.stat().st_size != RETAIL_SIZE:
-            raise ObservatoryError(f"Retail file size mismatch at {image_path}")
+        image_size = image_path.stat().st_size
+        try:
+            profile = match_profile(image_hash, image_size)
+        except ValueError as exc:
+            raise ObservatoryError(f"PID {pid}: {exc}") from exc
         module_base = _module_base(kernel32, pid, ctypes)
         if module_base < 0x10000 or module_base > 0x7FFFFFFF:
             raise ObservatoryError(f"Unexpected 32-bit main-module base 0x{module_base:X}")
@@ -897,15 +898,15 @@ def capture_debug_buffer(pid: int) -> tuple[bytes, dict[str, Any]]:
         final_state: dict[str, int] | None = None
         for _attempt in range(CAPTURE_RETRIES):
             try:
-                state_a = _read_sink_state(kernel32, user32, process, module_base, ctypes)
+                state_a = _read_sink_state(kernel32, user32, process, module_base, ctypes, profile)
                 first = _read_remote(
                     kernel32, process, state_a["buffer_base"], state_a["used_bytes"], ctypes
                 )
-                state_b = _read_sink_state(kernel32, user32, process, module_base, ctypes)
+                state_b = _read_sink_state(kernel32, user32, process, module_base, ctypes, profile)
                 second = _read_remote(
                     kernel32, process, state_b["buffer_base"], state_b["used_bytes"], ctypes
                 )
-                state_c = _read_sink_state(kernel32, user32, process, module_base, ctypes)
+                state_c = _read_sink_state(kernel32, user32, process, module_base, ctypes, profile)
                 if state_a == state_b == state_c and first == second:
                     captured = first
                     final_state = state_c
@@ -919,9 +920,10 @@ def capture_debug_buffer(pid: int) -> tuple[bytes, dict[str, Any]]:
         metadata = {
             "capture_kind": "live-debug-buffer-read-only",
             "build": "retail",
+            "build_profile_id": profile.id,
             "image_path": str(image_path),
             "image_sha256": image_hash,
-            "image_size": image_path.stat().st_size,
+            "image_size": image_size,
             "process_id": pid,
             "module_base": f"0x{module_base:08X}",
             "active_sink_pointer": f"0x{final_state['sink_pointer']:08X}",

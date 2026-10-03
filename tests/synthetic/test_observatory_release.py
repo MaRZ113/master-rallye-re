@@ -21,6 +21,14 @@ from test_broker_observatory import dump, row
 
 
 class ObservatoryReleaseTests(unittest.TestCase):
+    def test_released_beta_cannot_be_rebuilt_with_research_profiles(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(release,'REPO',Path(folder)), \
+             patch.object(release.subprocess,'check_output',side_effect=['','']), \
+             patch.object(release,'collect_files') as collect, contextlib.redirect_stderr(io.StringIO()) as out:
+            self.assertEqual(release.main([]),2)
+            self.assertIn('Released v0.1.0-beta is pristine-only',out.getvalue())
+            collect.assert_not_called()
+
     def test_unsupported_python_stops_before_runtime_imports(self):
         script = ROOT / "tools/runtime/mr_observe.py"
         ast.parse(script.read_text(encoding="utf-8"), feature_version=(3, 6))
