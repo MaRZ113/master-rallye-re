@@ -30,10 +30,11 @@ Source Cooker.
 
 Setup accepts only an absent path or the exact owned Junction target. A real
 directory, unknown reparse point, ownership mismatch, or different target
-stops execution. Target checks use `Get-Item -Force` and the `.Target`
-property. Cleanup rechecks job ownership, Junction type, and exact target,
-then removes only the Junction link with non-recursive `rmdir`; it never
-deletes the target tree.
+stops execution. Setup also stops if the historical parent directory is
+missing; it does not create directories outside the job. Target checks use
+`Get-Item -Force` and the `.Target` property. Cleanup rechecks job ownership,
+Junction type, and exact target, then removes only the Junction link with
+non-recursive `rmdir`; it never deletes the target tree.
 
 The Mercedes T1/T2 historical path was already removed by its prior owned
 helper and was observed absent for T2. The new Mercedes golden job and
