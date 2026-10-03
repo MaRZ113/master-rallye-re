@@ -1,6 +1,9 @@
 # U3 closeout — one ordinary PlayerState trigger test
 
-Status: **NOT_RUN**. One test, no automated save invocation or Broker editing.
+Status: **COMPLETED / FULL PASS**, per the final controlled-runtime report.
+See [results](final-closeout.md). The instructions below are retained as the
+historical test plan, not a request for another test. No automated save invocation
+or Broker editing was performed by the researcher.
 Target: pristine retail SHA256
 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
 

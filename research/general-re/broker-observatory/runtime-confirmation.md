@@ -33,7 +33,17 @@ previous buffer length.
 PASS: automatic discovery, pristine-retail verification, automatic Broker Dump,
 timeout recovery, fresh-Dump proof, realloc handling, repeated capture, paired
 publication and semantic diff. This closes the portable beta live-smoke gate.
-No runtime dumps are committed. No persistence round-trip experiment is claimed.
+No runtime dumps are committed. This portable smoke itself did not test persistence;
+the later [R-BROKER1 final closeout](../persistence/final-closeout.md) records that proof.
+
+## Exact research profile — PASS
+
+`CONFIRMED_BY_RUNTIME`: retail-widescreen-freeze SHA256
+`bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6` was
+identified by Status. The owner's patched-front-1/2 diff, with revision-only
+hidden, showed 0 added/removed/value/metadata/revision-only changes. This closes
+the exact profile gate, not arbitrary patched-build support. Published beta
+remains pristine-only; unknown executable hashes still fail closed.
 
 ## U1 lifecycle observation
 

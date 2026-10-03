@@ -53,10 +53,9 @@ from the external baseline, or discard the whole disposable copy.
 
 ## U3 — historical initial plan (superseded for the name round trip)
 
-The later normal-name test is [PARTIAL](u3-runtime-result.md), not FULL PASS.
-Use the [single static-confirmed QuickRace SelectCar test](u3-save-trigger-test.md)
-for this closeout. The original progress-oriented proposal below is retained as
-history; do not execute an additional progress experiment in this task.
+The normal-name round trip is now [FULL PASS](final-closeout.md), including the
+[mapped QuickRace SelectCar test](u3-save-trigger-test.md). The original plan
+below is historical; no additional progress experiment is requested.
 
 **Question:** does one normal progress change selected by PlayerState bit2
 survive reload? **Anchors:** mode3; known gameplay save callers `004841B0`,

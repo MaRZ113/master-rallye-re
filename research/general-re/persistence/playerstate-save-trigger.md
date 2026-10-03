@@ -192,13 +192,15 @@ not every dynamically constructed Settings path.
 ## Interpretation of U3 and closeout
 
 See [accepted U3 evidence](u3-runtime-result.md) and the
-[single next test](u3-save-trigger-test.md). Native name UI **already has** a
+[completed trigger test](u3-save-trigger-test.md). Native name UI **already has** a
 mode-3 request, so “the UI never saves” is disproved as a blanket explanation.
-The missing runtime proof is where this particular session fell between request,
+The initial observation left unresolved where that session fell between request,
 queue pump, file output and reload. The observed QuickRace/Car0 generation change
 cannot timestamp that write relative to the name edit.
 
-**R-BROKER1: ONE RUNTIME TEST REMAINS for this PlayerState gap.** The static trigger
-owner question is answered; the observed U3 loss is not yet causally explained.
-Unrelated SCENE bulk-clear and other previously bounded unknowns remain outside
-this task. No U3 FULL PASS, developer persistence control, U4 or new phase began.
+**R-BROKER1: CLOSED / END-TO-END CONFIRMED. U3 FULL PASS.**
+The subsequent [controlled runtime report](final-closeout.md) confirms native
+PlayerState output, identical-result generation/backup and fresh-process load-back.
+The earlier U3 loss remains a historical sequence without successful observed
+output, not evidence of serializer failure. SCENE bulk-clear and USER lifecycle
+are explicit non-blocking unknowns. No developer control, U4 or new phase began.

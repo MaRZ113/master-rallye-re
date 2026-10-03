@@ -1,5 +1,13 @@
 # Per-entry revision
 
+## Runtime confirmation at R-BROKER1 closeout
+
+`CONFIRMED_BY_RUNTIME` for Settings/Player1Name String: normal UI mutation
+1P → U3TEST increments revision to 1; persistence serialization does not itself
+increment it; after a full process restart the loaded U3TEST entry has revision 0.
+See [final PlayerState round trip](../persistence/final-closeout.md). This supports
+the recovered per-entry model, without replacing the per-type caveats below.
+
 `CONFIRMED_BY_EXE`: +0x10 is uint32, initialized/reset to zero. It is neither a
 process-wide monotonically increasing change serial nor proof of pending disk IO.
 

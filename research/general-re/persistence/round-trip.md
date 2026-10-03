@@ -15,9 +15,10 @@ hashes and backup hashes. Use the native application to write; do not produce
 synthetic XML for the first validation. Recovery is restoring the stopped
 disposable install's baseline copy, never the authoritative corpus.
 
-The original static phase performed no round trip. The later
-[U3 name observation](u3-runtime-result.md) confirmed UI/runtime use but did not
-observe persistence; it is not FULL PASS. Follow the
-[single mapped trigger test](u3-save-trigger-test.md). Synthetic parser/filter/storage
-tests do not prove persistence works in the game. Broad developer Game save remains
+The original static phase performed no round trip. The initial
+[U3 name observation](u3-runtime-result.md) lacked observed persistence; the
+subsequent [final U3 round trip](final-closeout.md) is **FULL PASS**. Options
+round-trip completion is also accepted from the owner's final core report.
+Synthetic parser/filter/storage tests do not prove persistence works in the game.
+Broad developer Game save remains
 behind the archive-only backup and metadata-retagging questions.

@@ -58,8 +58,8 @@ class PlayerStateEvidenceTests(unittest.TestCase):
 
     def test_runtime_and_planned_evidence_are_separate(self):
         evidence = json.loads(evidence_tool.EVIDENCE.read_text(encoding='utf-8'))
-        self.assertFalse(evidence['u3']['full_pass'])
-        self.assertEqual(evidence['u3']['automatic_persistence'], 'NOT_OBSERVED')
+        self.assertTrue(evidence['u3']['full_pass'])
+        self.assertEqual(evidence['u3']['automatic_persistence'], 'CONFIRMED_BY_RUNTIME')
         self.assertFalse(evidence['player_name']['selector_is_edited_text'])
         self.assertFalse(evidence['shutdown']['dedicated_playerstate_save'])
         self.assertTrue((evidence_tool.EVIDENCE.parent/evidence['next_test']).is_file())

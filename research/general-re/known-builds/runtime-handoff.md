@@ -1,7 +1,10 @@
 # Exact widescreen/freeze profile — observation only
 
-Runtime evidence: **PENDING**, not CONFIRMED_BY_RUNTIME. Do not run persistence
-operations or editor editing actions.
+Runtime evidence: **CONFIRMED_BY_RUNTIME / PASS**, from the owner's exact-build
+report: Status identified retail-widescreen-freeze; patched-front-1/2 diff with
+revision-only hidden showed zero Added, Removed, Value changed, Metadata changed
+and Revision-only. This does not authorize arbitrary patched EXEs, persistence
+operations or editor editing. The completed observation plan is retained below.
 
 1. Use a disposable installation with the supplied exact executable, named
    MRallye.exe. Verify SHA256

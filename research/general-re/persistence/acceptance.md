@@ -2,19 +2,18 @@
 
 ## Current narrow PlayerState closeout
 
-**ONE RUNTIME TEST REMAINS for the PlayerState gap.** Reported U3 proves normal
-UI → Broker and same-session race use, not disk/reload persistence. The static
-mode-3 caller map is now complete for the recovered direct calls; ordinary
-QuickRace confirmation provides a precise next trigger. Dedicated central
-shutdown saving is absent. See [trigger map](playerstate-save-trigger.md),
-[U3 evidence](u3-runtime-result.md), [one next test](u3-save-trigger-test.md).
+**R-BROKER1 CLOSED / END-TO-END CONFIRMED. U3 FULL PASS.**
+UI → Broker → native PlayerState output/backup → new-process reload is confirmed.
+Options round-trip completion is accepted from the owner's final core report.
+The direct static mode-3 map and absence of blanket shutdown saving are preserved.
+See [final runtime evidence](final-closeout.md), [trigger map](playerstate-save-trigger.md).
 
 The earlier frontend pending gate below is superseded by the canonical
 [runtime confirmation](../broker-observatory/runtime-confirmation.md).
-Other historical research unknowns remain bounded. No automatic save experiment
+SCENE bulk-clear and USER lifecycle are non-blocking unknowns. No automatic save experiment
 was executed in this task.
 
-Closeout validation: **324 synthetic tests PASS, 0 failures, 0 skips**;
+Previous trigger-tracing validation: **324 synthetic tests PASS, 0 failures, 0 skips**;
 compileall and git diff --check pass. The new read-only evidence verifier
 independently rechecks pristine identity, 26 direct save calls and 25 literal
 mode arguments. JSON/CSV and documentation links are checked separately.

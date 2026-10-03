@@ -44,15 +44,17 @@ Earlier open-only risk classification remains valid.
 The original static closeout prepared normal Options/PlayerState observations.
 Subsequent [Observatory runtime confirmation](../broker-observatory/runtime-confirmation.md)
 closed the frontend automatic-capture gate; it did not prove persistence.
-The reported [U3 normal UI observation](u3-runtime-result.md) confirms live name
-mutation and race use, but persistence was NOT OBSERVED and U3 is not FULL PASS.
+The initial [U3 normal UI observation](u3-runtime-result.md) confirmed live name
+mutation/race use but did not observe persistence. The subsequent
+[final round trip](final-closeout.md) confirms disk output and restart load-back:
+**U3 FULL PASS; R-BROKER1 CLOSED / END-TO-END CONFIRMED**, including the owner's
+reported Options round-trip completion.
 
 The [narrow save-trigger tracing](playerstate-save-trigger.md) now identifies
 normal frontend/name-editor/result owners and excludes a dedicated central
 shutdown save. Eligibility, request, queued output and reload are separate.
-**ONE RUNTIME TEST REMAINS for the PlayerState gap**:
-[confirm the same car in offline QuickRace](u3-save-trigger-test.md).
-SCENE bulk-clear/USER and other bounded research unknowns are not silently closed.
+The [same-car QuickRace confirmation](u3-save-trigger-test.md) is completed.
+SCENE bulk-clear/USER remain non-blocking unknowns, not grounds to reopen the core.
 No developer SaveGame/SaveAs is authorized through the observational helper.
 
 See [save modes](save-modes.md), [writer](save-pipeline.md),

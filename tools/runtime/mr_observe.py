@@ -282,14 +282,7 @@ def capture_history(root: Path) -> list[Path]:
         if path.with_suffix(".pending").exists():
             continue
         try:
-            snapshot = core.load_snapshot(path)
-            raw = path.with_suffix(".dump.bin")
-            if snapshot["source"].get("raw_sidecar") != raw.name:
-                continue
-            if raw.stat().st_size != snapshot["source"]["raw_byte_length"]:
-                continue
-            if core.sha256_file(raw) != snapshot["source"]["raw_sha256"]:
-                continue
+            snapshot = checked_snapshot(path)
             found.append((snapshot["created_at_utc"], path.name, path))
         except (OSError, KeyError, TypeError, core.ObservatoryError):
             continue
@@ -399,7 +392,39 @@ def checked_snapshot(path: Path) -> dict:
             or raw.stat().st_size != source["raw_byte_length"]
             or core.sha256_file(raw) != source["raw_sha256"]):
         raise UserError("Capture pair is missing or corrupt. Select another pair or capture again.", str(path))
+    payload = raw.read_bytes()
+    offset, length = source["selected_block_offset"], source["selected_block_length"]
+    if (type(offset) is not int or type(length) is not int or offset < 0 or length <= 0
+            or offset + length > len(payload)
+            or core.sha256_bytes(payload[offset:offset + length]) != source["selected_block_sha256"]):
+        raise UserError("Capture pair is missing or corrupt. Select another pair or capture again.", str(path))
     return snapshot
+
+
+def resolve_capture(value: str | Path, root: Path) -> Path:
+    """Resolve only explicit JSON files or unique entries in validated history."""
+    text = str(value).strip().strip('"')
+    path = Path(text)
+    if text and path.exists():
+        if not path.is_file() or path.suffix.lower() != ".json":
+            raise UserError("Select a capture JSON file, not a raw file or directory.")
+        checked_snapshot(path)
+        return path
+    matches = []
+    for candidate in capture_history(root):
+        snapshot = checked_snapshot(candidate)
+        label = snapshot["source"].get("label")
+        if text and text in (candidate.name, candidate.stem, label,
+                             label + ".json" if isinstance(label, str) else None):
+            matches.append(candidate)
+    if not matches:
+        raise UserError("Capture not found. Use a capture filename, stem, label, or full JSON path.")
+    if len(matches) != 1:
+        candidates = "\n".join(f"  {p.relative_to(root)}" for p in matches[:10])
+        extra = f"\n  ... {len(matches) - 10} more" if len(matches) > 10 else ""
+        raise UserError("Capture name is ambiguous. Use a specific filename or full JSON path.\n" + candidates + extra)
+    checked_snapshot(matches[0])
+    return matches[0]
 
 
 def show_capture(path: Path) -> None:
@@ -604,7 +629,7 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
                 raise core.ObservatoryError("Choose --last or explicit paths, not both.")
             before, after = last_two(root)
         elif args.before is not None and args.after is not None:
-            before, after = args.before, args.after
+            before, after = resolve_capture(args.before, root), resolve_capture(args.after, root)
         else:
             raise core.ObservatoryError("Use diff --last or diff BEFORE AFTER.")
         left, right = checked_snapshot(before), checked_snapshot(after)
@@ -751,6 +776,12 @@ def interactive(args, root: Path, config: dict[str, str]) -> int:
             if action == "capture":
                 tokens += [input("Label [snapshot]: ").strip() or "snapshot"]
             if action == "diff":
+                if choice == "6":
+                    recent = capture_history(root)[-3:]
+                    if recent:
+                        print("Recent captures:")
+                        for path in recent:
+                            print(f"  {path.name}  [{checked_snapshot(path)['source'].get('label', 'snapshot')}]")
                 tokens += ["--last"] if choice == "5" else [input("Before JSON: ").strip().strip('"'), input("After JSON: ").strip().strip('"')]
                 if input("Hide revision-only changes? [y/N]: ").strip().casefold() == "y":
                     tokens += ["--ignore-revision-only"]

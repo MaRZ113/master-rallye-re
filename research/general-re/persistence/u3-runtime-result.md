@@ -1,5 +1,9 @@
 # U3 reported normal-UI Player1Name observation
 
+**Current: U3 FULL PASS; R-BROKER1 CLOSED / END-TO-END CONFIRMED.**
+See [final controlled round trip](final-closeout.md). The initial observation
+below is retained as history; it is not the current closeout status.
+
 Evidence source: user's controlled-session report supplied for this closeout.
 `CONFIRMED_BY_RUNTIME` for the reported observations below; the researcher did
 not execute the game or independently inspect the reported raw captures/save
@@ -27,5 +31,6 @@ mutation hook alone cannot explain this U3 outcome. Request execution, deferred
 IO errors, physical output root and exact UI ordering remain possible gaps;
 none is selected as the diagnosis without the next observation.
 
-Status: **PARTIAL — ONE RUNTIME TEST REMAINS**, using the
-[single mapped ordinary QuickRace confirmation](u3-save-trigger-test.md).
+Historical status at the initial observation: PARTIAL. The later
+[mapped ordinary QuickRace confirmation](u3-save-trigger-test.md) and restart
+load-back completed successfully; see [final closeout](final-closeout.md).

@@ -25,7 +25,7 @@ RETAIL_PRISTINE = ObservatoryBuildProfile(
 RETAIL_WIDESCREEN_FREEZE = ObservatoryBuildProfile(
     "retail-widescreen-freeze", "Master Rallye Retail (widescreen + freeze)",
     "bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6",
-    3117118, 0x2F6B64, 0x29BF3C, "CONFIRMED_BY_EXE; runtime pending",
+    3117118, 0x2F6B64, 0x29BF3C, "CONFIRMED_BY_RUNTIME",
     ("broker-editor",),
 )
 PROFILES = (RETAIL_PRISTINE, RETAIL_WIDESCREEN_FREEZE)

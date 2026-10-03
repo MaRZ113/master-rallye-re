@@ -1,4 +1,4 @@
-# Exact known build support — static implementation closeout
+# Exact known build support — runtime-confirmed closeout
 
 ## Scope and release boundary
 
@@ -6,16 +6,23 @@ This research checkout accepts exactly two hash-and-size profiles. Unknown,
 arbitrary patched and demo executables still fail closed. The published
 v0.1.0-beta assets/tag remain pristine-only and are not rebuilt or uploaded.
 The release builder refuses to produce a v0.1.0-beta package from this extended
-source. A future release requires separate versioning and runtime confirmation.
+source. A future release requires separate versioning and release approval;
+the exact additional profile's runtime confirmation is recorded below.
 Canonical tool version is retained here; **profile metadata**, not that version
 alone, distinguishes captures from this research checkout.
 
 | Profile | SHA256 | Size | Active sink RVA | Vtable RVA | Evidence |
 |---|---|---:|---|---|---|
 | retail-pristine | bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4 | 3121214 | 0x2F7B7C | 0x29CEA8 | CONFIRMED_BY_RUNTIME (existing) |
-| retail-widescreen-freeze | bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6 | 3117118 | 0x2F6B64 | 0x29BF3C | CONFIRMED_BY_EXE; runtime PENDING |
+| retail-widescreen-freeze | bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6 | 3117118 | 0x2F6B64 | 0x29BF3C | CONFIRMED_BY_RUNTIME |
 
 ## Independently verified static evidence
+
+Final exact-build observation: **CONFIRMED_BY_RUNTIME**, per the owner's report.
+Status identified retail-widescreen-freeze; patched-front-1 and patched-front-2
+diff (revision-only hidden) showed zero added/removed, value, metadata and
+revision-only changes. Only this exact profile is confirmed. The following static
+evidence and original implementation validation are preserved.
 
 Ghidra 12.1.4 from the installed ghidra-bridge environment, JDK 25, isolated
 scratch imports under this worktree's ignored research-output. No input binary
@@ -89,9 +96,9 @@ support was introduced. No game command/runtime experiment was run in this task.
 
 See [runtime handoff](runtime-handoff.md) and
 [future manifest design](research-derived-design.md). The new profile requires
-the prescribed controlled observation before any claim of runtime confirmation.
+no further observation for the completed two-capture gate.
 
-Final automated validation: **319 tests PASS**, 0 failures/skips; compileall
+Original implementation automated validation: **319 tests PASS**, 0 failures/skips; compileall
 src/tools/tests and git diff --check PASS. Both input EXE hashes are unchanged
 after analysis. Tests cover profile selection/size rejection, profile-specific
 global/vtable reads, live metadata propagation, old snapshot compatibility,

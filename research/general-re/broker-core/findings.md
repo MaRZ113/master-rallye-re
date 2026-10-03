@@ -9,11 +9,12 @@ using constructors, lookup/setter assembly, typed XML conversion, serializer
 filters, and the original Dump consumer. Earlier work already established the
 0x1C retail stride and many paths; those are foundations, not new discoveries.
 
-**Phase status: PARTIAL.** Core representation, XML conversion, save filters,
-writer and observational frontend are reconstructed. The normal SCENE cleanup
-producer and USER scope producers remain unresolved; the new automatic frontend
-still needs human runtime validation. The first disposable Options observation
-is prepared, but developer Game-save activation is not authorized by this tool.
+**Phase status: CLOSED / END-TO-END CONFIRMED.** Core representation, XML
+conversion, save filters/writer, Options and PlayerState round trips, restart
+load-back and Observatory runtime workflow are closed. See
+[final runtime closeout](../persistence/final-closeout.md).
+Normal SCENE bulk-clear owner and USER producers/lifecycle remain non-blocking
+UNKNOWN. Developer Game-save activation is not authorized by this tool.
 
 ## Material new conclusions
 

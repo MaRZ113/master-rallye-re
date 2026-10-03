@@ -410,12 +410,15 @@
   "u3": {
     "ui_to_broker": "CONFIRMED_BY_RUNTIME",
     "same_session_race": "CONFIRMED_BY_RUNTIME",
-    "automatic_persistence": "NOT_OBSERVED",
-    "reload": "1P, revision 0",
-    "writer_generation_timing": "UNKNOWN",
-    "full_pass": false,
-    "source": "user supplied controlled-session report"
+    "automatic_persistence": "CONFIRMED_BY_RUNTIME",
+    "reload": "U3TEST, revision 0; GLOBAL; PlayerState; SavePlayerState=True",
+    "reload_capture_label": "u3-reloaded-after-save",
+    "backup": "CONFIRMED_BY_RUNTIME",
+    "identical_result_save_generation": "CONFIRMED_BY_RUNTIME",
+    "full_pass": true,
+    "earlier_observation": {"automatic_persistence": "NOT_OBSERVED", "reload": "1P, revision 0", "writer_generation_timing": "UNKNOWN"},
+    "source": "user supplied final controlled-session report"
   },
   "next_test": "u3-save-trigger-test.md",
-  "status": "ONE_RUNTIME_TEST_REMAINS"
+  "status": "CLOSED_END_TO_END_CONFIRMED"
 }

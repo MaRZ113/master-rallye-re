@@ -1,9 +1,9 @@
 # Persistence unknowns and limits
 
-1. U3 UI mutation and same-session race use are runtime-confirmed, but native
-   name persistence was NOT OBSERVED. Mode-3 trigger owners are now mapped;
-   exact prior UI/queue/output timing is unresolved. See
-   [trigger map](playerstate-save-trigger.md) and [one next test](u3-save-trigger-test.md).
+1. U3 FULL PASS: UI mutation, native output, backup and fresh-process load-back
+   are runtime-confirmed. Earlier failed-sequence timing is historical, not a core
+   blocker. See [final closeout](final-closeout.md). Exact normal SCENE bulk-clear
+   owner and USER producer/lifecycle remain non-blocking UNKNOWN.
 2. Archive-only target: read-based existence can succeed but loose CopyFileA can
    fail. Test only with a disposable target in an explicitly authorized follow-up.
 3. All IO-failure interleavings: immediate successful startup order is proven;
