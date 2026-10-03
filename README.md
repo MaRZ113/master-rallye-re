@@ -8,6 +8,13 @@ read-only.
 
 ## Current scope
 
+R-AI1 mixed-class opponents is **STATIC COMPLETE / READY FOR HUMAN RUNTIME**.
+An exact pristine-derived candidate changes only Car1 to stock T1 Landcruiser
+in a four-car T3 Quick Race; player and two AI controls follow stock paths.
+Mixed-class driving/results remain unconfirmed. See
+[findings](research/r-ai1/findings.md) and the
+[human test plan](research/r-ai1/runtime-test-plan.md). Opponent capacity is deferred.
+
 Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native

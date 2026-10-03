@@ -1,0 +1,40 @@
+{
+  "phase": "R-AI1",
+  "profile": "retail-r-ai1-wildcat-landcruiser",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "output_sha256": "985cef18ada36dd4f17979e671c6ef1dd9647fa82903cee886156ecac4ed73f3",
+  "image_size": 3121214,
+  "num_cars_changed": false,
+  "guards": {
+    "participant": 1,
+    "first_ai": 1,
+    "ai_count": 3,
+    "requested_class": 2
+  },
+  "controlled_human_player_id": 14,
+  "target_id": 0,
+  "driver_id_changed": false,
+  "ranges": [
+    {
+      "offset": 536,
+      "va": null,
+      "purpose": "Declare the selector in existing .text raw padding; no page/image growth",
+      "original_hex": "94d22800",
+      "replacement_hex": "37d32800"
+    },
+    {
+      "offset": 361512,
+      "va": 4555816,
+      "purpose": "Guarded per-participant absolute-ID substitution before stock setters",
+      "original_hex": "8b44241450",
+      "replacement_hex": "e9d35e2300"
+    },
+    {
+      "offset": 2679552,
+      "va": 6873856,
+      "purpose": "Car1 ID0 only for retained args (first AI1,count3,class2); replay MOV/PUSH",
+      "original_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "replacement_hex": "9c83fe01752683bc248800000001751c83bc248c00000003751283bc2490000000027508c7442418000000009d8b44241450e9f6a0dcff"
+    }
+  ]
+}
