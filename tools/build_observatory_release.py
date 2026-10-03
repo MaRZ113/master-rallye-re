@@ -5,10 +5,11 @@ import argparse
 import hashlib
 import io
 import json
+import os
 import re
 import subprocess
 import sys
-import tempfile
+import uuid
 import zipfile
 from pathlib import Path
 
@@ -118,6 +119,31 @@ def validate_release(raw: bytes, manifest: dict) -> None:
                 raise ValueError("Absolute machine path in archive")
 
 
+def publish_files(output: Path, files: dict[str, bytes]) -> None:
+    """Stage beside destinations so Windows files inherit the output ACL.
+
+    Moving files out of TemporaryDirectory preserves its restricted Windows
+    permissions. Exclusive ordinary file creation here inherits the parent
+    directory permissions and still allows atomic replacement of each file.
+    """
+    staged = []
+    try:
+        for name, data in files.items():
+            if Path(name).name != name or (output / name).is_symlink():
+                raise ValueError("Invalid release destination")
+            temporary = output / f".{name}.{uuid.uuid4().hex}.tmp"
+            with temporary.open("xb") as stream:
+                staged.append((temporary, output / name))
+                stream.write(data)
+                stream.flush()
+                os.fsync(stream.fileno())
+        for temporary, target in staged:
+            temporary.replace(target)
+    finally:
+        for temporary, _ in staged:
+            temporary.unlink(missing_ok=True)
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=REPO / "dist/observatory")
@@ -141,12 +167,10 @@ def main(argv=None) -> int:
         for target in (archive, manifest_path):
             if target.is_symlink():
                 raise ValueError("Release destination must not be a symlink")
-        with tempfile.TemporaryDirectory(dir=output) as temporary:
-            folder = Path(temporary)
-            (folder / archive.name).write_bytes(raw)
-            (folder / manifest_path.name).write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-            (folder / archive.name).replace(archive)
-            (folder / manifest_path.name).replace(manifest_path)
+        publish_files(output, {
+            archive.name: raw,
+            manifest_path.name: (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode("utf-8"),
+        })
         print(f"Archive: {archive}\nBytes: {len(raw)}\nSHA256: {manifest['archive_sha256']}\nManifest: {manifest_path}")
         return 0
     except (OSError, ValueError, subprocess.CalledProcessError) as exc:

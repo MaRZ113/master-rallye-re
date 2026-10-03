@@ -20,6 +20,33 @@ from test_broker_observatory import dump, row
 
 
 class ObservatoryReleaseTests(unittest.TestCase):
+    def test_publication_stages_directly_in_output_and_cleans_up(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder)
+            files = {"release.zip": b"archive", "release.manifest.json": b"{}"}
+            original_open = Path.open
+            staged_parents = []
+            def tracked_open(path, mode="r", *args, **kwargs):
+                if mode == "xb":
+                    staged_parents.append(path.parent)
+                return original_open(path, mode, *args, **kwargs)
+            with patch.object(Path, "open", tracked_open):
+                release.publish_files(output, files)
+            self.assertEqual(staged_parents, [output, output])
+            self.assertEqual({p.name: p.read_bytes() for p in output.iterdir()}, files)
+            release.publish_files(output, {"release.zip": b"replacement"})
+            self.assertEqual((output / "release.zip").read_bytes(), b"replacement")
+
+    def test_publication_failure_cleans_staging_and_preserves_existing(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder)
+            (output / "release.zip").write_bytes(b"existing")
+            with patch.object(release.os, "fsync", side_effect=OSError("write failed")):
+                with self.assertRaises(OSError):
+                    release.publish_files(output, {"release.zip": b"new"})
+            self.assertEqual(list(output.iterdir()), [output / "release.zip"])
+            self.assertEqual((output / "release.zip").read_bytes(), b"existing")
+
     def payload(self):
         return release.collect_files(ROOT)
 
