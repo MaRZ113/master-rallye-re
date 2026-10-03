@@ -39,8 +39,9 @@ available. No edit/commit/save/gameplay commands are exposed.
   XmlFilename dependencies.
 - [Persistence](persistence/findings.md): mode filters, logical SaveFiles,
   native `#` backup/write chain and reload.
-- [U1–U4 plan](persistence/runtime-validation-plan.md): prepared only;
-  no persistence experiment was executed by the assistant.
+- [U1–U4 plan](persistence/runtime-validation-plan.md): U1 observation confirms
+  race SCENE survives RaceRetry/QuickRace/GameSelect; U2–U4 remain unexecuted.
+  No persistence experiment was executed by the assistant.
 
 Overall R-BROKER1 is **PARTIAL** until the remaining scope lifecycle
 gates close. Do not advance to unrelated RE phases from this result.

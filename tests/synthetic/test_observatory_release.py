@@ -1,5 +1,6 @@
 from __future__ import annotations
 import hashlib
+import ast
 import io
 import json
 import subprocess
@@ -20,6 +21,24 @@ from test_broker_observatory import dump, row
 
 
 class ObservatoryReleaseTests(unittest.TestCase):
+    def test_unsupported_python_stops_before_runtime_imports(self):
+        script = ROOT / "tools/runtime/mr_observe.py"
+        ast.parse(script.read_text(encoding="utf-8"), feature_version=(3, 6))
+        for version in ((3, 6), (3, 10)):
+            result = subprocess.run([sys.executable, "-c",
+                "import sys,runpy; sys.version_info=" + repr(version)
+                + "; runpy.run_path(sys.argv[1], run_name='__main__')", str(script)],
+                text=True, capture_output=True)
+            self.assertEqual(result.returncode, 2)
+            self.assertEqual(result.stderr.strip(),
+                             "Master Rallye Observatory requires Python 3.11 or newer.")
+            self.assertNotIn("Traceback", result.stderr)
+
+    def test_launcher_checks_python_before_frontend(self):
+        launcher = (ROOT / "tools/runtime/MRallye-Observatory.cmd").read_text()
+        self.assertLess(launcher.index("sys.version_info >= (3, 11)"),
+                        launcher.index("py -3 mr_observe.py"))
+
     def test_publication_stages_directly_in_output_and_cleans_up(self):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder)

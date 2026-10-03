@@ -78,3 +78,10 @@ transaction. Incomplete/corrupt pairs are excluded from history.
 Supported retail SHA256:
 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
 No unsupported-build bypass is provided.
+
+## License and release status
+
+Project code and documentation use the MIT License (included LICENSE).
+Version 0.1.0-beta is RELEASE READY; portable Windows live capture and diff have
+passed against pristine retail. Windows and Python 3.11+ remain required.
+The launcher checks Python before loading the tool and explains how to upgrade.

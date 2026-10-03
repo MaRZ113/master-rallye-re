@@ -4,14 +4,17 @@ No gameplay automation or persistence commands. Low-level parsing and memory
 capture are imported from broker_observatory; verified window commands are
 imported from dev_command_trigger.
 """
-from __future__ import annotations
+import sys
+
+if sys.version_info < (3, 11):
+    sys.stderr.write("Master Rallye Observatory requires Python 3.11 or newer.\n")
+    raise SystemExit(2)
 
 import argparse
 import json
 import os
 import re
 import subprocess
-import sys
 import time
 import uuid
 import traceback

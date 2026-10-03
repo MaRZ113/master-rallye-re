@@ -25,6 +25,10 @@ for the supplied states, not for all scene transitions.
 
 ## Sharply bounded unknowns
 
+`CONFIRMED_BY_RUNTIME` U1: race Broker SCENE state survives RaceRetry, QuickRace
+and GameSelect. SCENE is not the current DataScene XML lifetime. This observation
+does not identify the normal bulk-clear owner, which remains UNKNOWN.
+
 No direct call or validated raw E8 candidate to `004D7A60` was recovered. Scene
 teardown `00522480` resets many subsystem owners, but a call from those owners
 to this scope-clear primitive was not established. Inline clearing, virtual

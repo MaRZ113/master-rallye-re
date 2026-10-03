@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .research-output/
 research-output/
+_re-evidence/
 
 # Original game data must stay external.
 Data.sma*

@@ -1,6 +1,6 @@
 # Master Rallye Observatory v0.1.0-beta
 
-First public beta preparation of the runtime-confirmed observability workflow.
+First public beta of the runtime-confirmed observability workflow. **RELEASE READY**.
 
 - Automatic discovery and exact verification of pristine retail.
 - Broker Editor opening/reopening and original Debug→Dump automation.
@@ -17,7 +17,8 @@ trainer or save editor. Review captured paths/state before public sharing.
 
 The existing core/frontend workflow was runtime-confirmed in six consecutive
 captures; all six recovered from dispatch timeout before observing fresh complete
-Dumps. The beta presentation/package receives synthetic and portable offline
-checks; installation/UI smoke is part of the pre-publication checklist.
+Dumps. The final portable Windows live smoke outside the research repository
+also passed: two 6923-entry captures, fresh-Dump proof across buffer realloc and
+semantic diff showing only normal revision noise. The package is MIT licensed.
 
 Local preparation only: no tag, GitHub Release or upload is created by the builder.
