@@ -1,6 +1,24 @@
 # R-COOKER3 — retail-native source cooker
 
-## Current result
+## R-COOKER3.1 current status (2026-10-03)
+
+The original R-COOKER3 findings below preserve their evidence sequence. Their
+statements that Forester was still pending are historical and are superseded
+by the R-COOKER3.1 results. Forester's three native-cook outputs now parse and
+validate; the operator reports successful Vehicle Select/race loading and
+collision/damage in the temporary Mercedes runtime namespace. This proves
+runtime use of the Forester model/collision resources in that harness, not
+authentic Forester physics. A Forester-named cache-only runtime check remains
+pending.
+
+R-COOKER3.1 also replaces the generated PowerShell bridge workflow with a
+Python-owned, fail-closed Junction lifecycle, relocatable schema-2 jobs,
+status/resume/recover/cleanup commands, a no-`PYTHONPATH` entrypoint, and an
+allowlist-based release build. See [current architecture](architecture.md),
+[Forester qualification](forester-qualification.md), and
+[release design](release-design.md).
+
+## R-COOKER3 V1 result (original phase)
 
 **R-COOKER3 V1 ORCHESTRATION IMPLEMENTED; MERCEDES T1/T2/T3 CLOSED.** The
 retail runtime can produce the supported Mercedes model DX from its GXM source
@@ -8,8 +26,10 @@ in the exact tested build/harness. T1 established that the ordinary DXT cache
 miss path does not regenerate a missing DXT from GXI; V1 therefore resolves
 textures separately through validated DXT reuse or the existing offline GXI
 encoder. The tool prepares isolated human-assisted native-cook jobs, validates
-their outputs, and assembles cache-only packages. It is not a general GXM
-cooker and does not launch the game or create Junctions itself.
+their outputs, and assembles cache-only packages. That original V1 did not
+launch the game or create Junctions itself. R-COOKER3.1 adds optional isolated
+game launch and a Python-managed Junction lifecycle; it remains an orchestrator,
+not a general GXM cooker.
 
 The new evidence comes from the separate Mercedes source-cook work. The
 unique source is Demo 8.4.1 `DataGx/Vehicles/Copy of Mercedes`, not the

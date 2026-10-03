@@ -1,5 +1,15 @@
 # Embedded authoring paths and guarded bridge
 
+## Current R-COOKER3.1 lifecycle
+
+Current jobs keep authoring mirrors beneath their own job roots and use the
+Python Junction manager in `junction_lifecycle.py` and `source_cooker_jobs.py`.
+New jobs do not emit setup/removal scripts. Junction creation and cleanup
+verify path type, exact target, and job ownership; ambiguous state is blocked.
+Schema-2 paths resolve relative to the current job directory. The generated
+PowerShell workflow described later on this page is historical V1 behavior,
+not a current requirement or release artifact.
+
 ## Discovery
 
 `discover_embedded_authoring_paths` parses every supported material-prefix
@@ -21,12 +31,12 @@ references to 23 unique GXI files. Forester's fourth inventory GXI is not
 referenced by the selected complete/car/wheel GXM set and is not copied into
 the authoring mirror.
 
-## Mirror and Junction scripts
+## Historical V1 mirror and generated scripts
 
 `materialize_authoring_mirror` copies only referenced GXI files and verifies
-each copied SHA256. The job then emits setup and cleanup PowerShell scripts
-and a job-owned manifest. The scripts are generated, not executed by the
-Source Cooker.
+each copied SHA256. The initial V1 implementation emitted setup and cleanup
+PowerShell scripts and a job-owned manifest. That workflow was replaced by the
+R-COOKER3.1 Python lifecycle above.
 
 Setup accepts only an absent path or the exact owned Junction target. A real
 directory, unknown reparse point, ownership mismatch, or different target
@@ -37,10 +47,11 @@ Junction type, and exact target, then removes only the Junction link with
 non-recursive `rmdir`; it never deletes the target tree.
 
 The Mercedes T1/T2 historical path was already removed by its prior owned
-helper and was observed absent for T2. The new Mercedes golden job and
-Forester candidate have their own prepared mirrors and scripts beneath the
-ignored current-branch `.research-output/r-cooker3/v1/jobs/` tree. No
-Junction was created during this phase.
+helper and was observed absent for T2. Older user-owned Mercedes/Forester job
+directories retain their original manifests and generated helpers; R-COOKER3.1
+does not rewrite those ignored research outputs. The current Python lifecycle
+is exercised with isolated temporary Junctions by the synthetic integration
+tests, and release jobs created by the current CLI do not generate scripts.
 
 ## Fail-closed cases
 

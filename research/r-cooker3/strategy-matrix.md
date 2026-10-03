@@ -1,52 +1,58 @@
 # R-COOKER3 strategy matrix
 
-This matrix is implemented by the R-COOKER3 source orchestration layer. The
-retail-native route is runtime-proven only for the exact Mercedes source and
-harness described in this directory. R-COOKER2 remains the independent
-revision-131 vehicle DX strategy.
+This is the current implemented strategy policy. R-COOKER2 remains the
+independent offline revision-131 converter.
 
-| Input evidence | Implemented strategy | Current status | Fail-closed condition |
+| Input evidence | Strategy | Current evidence | Fail-closed condition |
 |---|---|---|---|
-| `complete.gxm`, `car.gxm`, and `wheel.gxm` pass supported prefix checks and source dependencies resolve | Prepare an isolated copy of the supported retail runtime; operator cooks and collects DX | Demonstrated for Demo 8.4.1 `Copy of Mercedes`; Forester job statically prepared, cook pending | Refuse unresolved/ambiguous authoring roots, missing roles/dependencies, unsupported retail build, or unsafe path bridge |
-| Supported vehicle DX revision 131 is present and source-side cooking is not required | Use the existing R-COOKER2 revision-131 to revision-135 upgrader | Production-ready within its documented vehicle-DX scope | Refuse unsupported structures/revisions and preserve generated-output validation |
-| Supported vehicle DX revision 135 is present | Validate and copy unchanged | Existing-rev135 validation policy is implemented in R-COOKER2.1 | Reject structural/range/topology failures; do not normalize triangle ordering |
-| Only revision-127 cached DX is present, with no usable GXM source | No conversion route | Unsupported | Refuse; do not guess-convert revision 127 |
+| `complete.gxm`, `car.gxm`, and `wheel.gxm` pass supported prefix checks and dependencies resolve | `retail-native-gxm` | Mercedes and Forester native-source model outputs have runtime evidence for their tested cook cases | Refuse unsupported prefixes, missing roles/dependencies, unverified retail/harness builds, unresolved authoring paths, or unsafe Junction state |
+| All three DX roles are supported vehicle revision 131 | `offline-131-to-135` | R-COOKER2 is production-ready within its documented vehicle-DX grammar; Trooper and Forester converted candidates passed runtime | Refuse unsupported structures/revisions; preserve strict generated-output validation |
+| All three DX roles are supported revision 135 | `pass-through-135` | Validate according to existing-rev135 policy, then copy unchanged | Reject structural/range/topology failures; do not normalize index ordering |
+| Revision-127 DX only, with no usable GXM set | Unsupported | No conversion is implemented | Refuse rather than infer a converter |
+
+Texture strategies are independent:
+
+| Input state | Strategy | Behavior |
+|---|---|---|
+| Valid required DXT exists | `reuse-valid-dxt` | Parse, hash, and reuse unchanged. |
+| Required DXT missing; supported GXI exists | `offline-gxi-to-dxt` | Use the established offline encoder, then validate. |
+| Retail DXT cache miss | Not relied on | The tested ordinary path did not regenerate DXT from GXI. |
 
 ## Selection order
 
-1. Prefer the native retail cook when a complete supported GXM source set and
-   its dependencies are available.
-2. Otherwise use R-COOKER2 for supported revision-131 vehicle DX.
-3. Validate and pass through already-supported revision-135 DX.
-4. Refuse legacy revision-127-only inputs and all unknown revisions.
+1. Prefer a complete supported GXM source set when native cooking is requested
+   or `auto` finds one.
+2. Otherwise use R-COOKER2 for a consistent supported revision-131 set.
+3. Validate and pass through a consistent supported revision-135 set.
+4. Refuse mixed/unknown layouts and revision-127-only inputs.
 
-When all three usable GXM roles pass supported prefix checks, `auto` selects
-retail-native GXM first. Otherwise it selects one consistent supported rev131
-or rev135 DX strategy. Mixed roles are never silently combined.
+No silent mixing of model roles is allowed.
+
+## Current native-GXM coverage
+
+| Family | Source build | Static preflight | Native-cook runtime evidence | Cache-only family namespace |
+|---|---|---|---|---|
+| Mercedes | Demo 8.4.1 `Copy of Mercedes` | Pass | Runtime-confirmed for the exact source/harness; deterministic and gameplay oracles closed | Confirmed for the tested Mercedes package |
+| Forester | Demo 9.3.1, with source typo `comlplete.gxm` staged as `complete.gxm` | Pass; 46 authoring refs, 23 unique referenced GXI, 23 DXT dependencies | Runtime-confirmed under a temporary Mercedes namespace; authentic Forester physics not proven | Static cache-only package validates; Forester-named runtime check pending |
+
+These cases do not establish support for every GXM variant.
 
 ## Output boundary
 
-The output is a portable model/resource package, for example:
+Successful output is a portable resource package such as:
 
 ```text
-DataGx/Vehicles/<Family>/
+DataGx/Vehicles/<family>/
     complete.dx
     car.dx
     wheel.dx
     required *.dxt
 ```
 
-The cooker does not assign registry IDs, menu order, unlocks, AI eligibility,
-frontend statistics, localization, or physics configuration. Vehicle
-Composer or later roster tooling remains responsible for those systems.
+The package excludes GXM/GXI and authoring/runtime machinery. Source Cooker
+does not assign IDs, menu order, unlocks, AI eligibility, localization,
+frontend statistics, or physics configuration.
 
-The available native-job command is:
-
-```text
-python -m master_rallye.source_cooker vehicle --source <source-folder> --family <family> --model-strategy retail-native-gxm --retail-root <isolated-harness-template> --output <new-job-folder>
-```
-
-For GXM input, `--output` names a prepared job directory. After the operator
-cooks the three roles, `collect --job ... --output <new-package-folder>`
-creates and validates the portable package. The tool does not launch the game
-or execute generated Junction scripts.
+Use `python tools/source_cooker.py --help`; the wrapper adds the repository's
+`src` path, so no environment variable or generated PowerShell helper is
+required. The exact workflow is in [docs/source-cooker.md](../../docs/source-cooker.md).

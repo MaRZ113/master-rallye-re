@@ -58,17 +58,19 @@ grammars outside its supported vehicle layout. See the
 [DX 131-to-135 guide](docs/dx-131-to-135-upgrader.md) and
 [regenerable corpus coverage](research/r-cooker2/corpus-coverage.md).
 
-R-COOKER3 adds a separate human-assisted source workflow for supported GXM
-packages: it inventories and hashes source files, resolves embedded GXI paths,
-prepares a copy of the verified retail cook harness, and validates/assembles
-the resulting DX plus DXT package. Mercedes is the one completed native-GXM
-runtime family; its cache-only load, collision, and damage checks passed.
-Forester is statically prepared as the next native-cook candidate but is not
-yet cooked through this R-COOKER3 job. T1 showed that the ordinary missing-DXT
-consumer did not regenerate from GXI, so textures use validated DXT reuse or
-the existing offline encoder. The tool does not launch the game automatically
-and this does not establish arbitrary GXM support. See
-[R-COOKER3 architecture](research/r-cooker3/architecture.md) and its
+R-COOKER3 provides a human-assisted source workflow for supported GXM packages.
+It inventories and hashes source files, resolves embedded GXI paths, prepares
+an isolated copy of the verified retail cook harness, and validates/assembles
+the resulting DX plus DXT package. The native GXM path is runtime-confirmed for
+the tested Mercedes and Forester sources. Forester's model loaded with
+collision/damage in the test harness's temporary Mercedes namespace; this does
+not prove authentic Forester physics. A separate Forester-named cache-only
+namespace test remains pending. The workflow uses Python-managed Junctions,
+supports relocatable schema-2 jobs, and needs no manual `PYTHONPATH` or generated
+PowerShell helper scripts. It keeps R-COOKER2 as the rev131-to-rev135 offline
+strategy and reuses valid DXT or the established offline GXI encoder. This is
+not arbitrary GXM support. See the [Source Cooker guide](docs/source-cooker.md),
+[R-COOKER3 architecture](research/r-cooker3/architecture.md), and its
 [capability matrix](research/r-cooker3/capability-matrix.md).
 
 **The practical cooker compatibility problem is closed** for supported

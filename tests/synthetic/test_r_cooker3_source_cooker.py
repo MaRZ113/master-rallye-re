@@ -6,14 +6,13 @@ import struct
 import tempfile
 import unittest
 import zlib
+from unittest.mock import patch
 from pathlib import Path
 
 from master_rallye.authoring_paths import (
     AuthoringPathError,
-    classify_junction_state,
     discover_embedded_authoring_paths,
     materialize_authoring_mirror,
-    write_guarded_junction_scripts,
 )
 from master_rallye.dx_revision_upgrade import upgrade_dx_131_to_135
 from master_rallye.gxm import parse_gxm_prefix
@@ -28,6 +27,8 @@ from master_rallye.source_cooker import (
     build_validation_status,
     collect_native_cook_job,
     inventory_vehicle_source,
+    plan_vehicle_source,
+    prepare_native_gxm_job,
     _build_parser,
     select_model_strategy,
     validate_cache_only_package,
@@ -189,6 +190,49 @@ class SourceCookerInventoryTests(unittest.TestCase):
         self.assertEqual(strategy_action.choices, (
             "auto", "retail-native-gxm", "offline-131-to-135", "pass-through-135",
         ))
+        self.assertIn("plan", subparsers.choices)
+        self.assertIn("cook", subparsers.choices)
+        self.assertIn("status", subparsers.choices)
+        self.assertIn("resume", subparsers.choices)
+        self.assertIn("cleanup", subparsers.choices)
+        self.assertIn("recover", subparsers.choices)
+
+    def test_native_job_schema_is_relocatable_and_generates_no_powershell_workflow(self):
+        with tempfile.TemporaryDirectory(prefix="source cooker lifecycle ") as temporary:
+            base = Path(temporary)
+            source = base / "Forester source"
+            source.mkdir()
+            for role_name in ("car", "wheel"):
+                (source / f"{role_name}.gxm").write_bytes(_gxm_fixture())
+            (source / "comlplete.gxm").write_bytes(_gxm_fixture())
+            (source / "body-tga.gxi").write_bytes(_gxi_fixture())
+            template = base / "isolated retail harness"
+            template.mkdir()
+            (template / "MRallye.exe").write_bytes(b"synthetic exe")
+            (template / "Data.sma").write_bytes(b"synthetic archive")
+            job_root = base / "job output with spaces"
+
+            def expected_hash(path):
+                path = Path(path)
+                if path.name.casefold() == "mrallye.exe":
+                    return "a6a5f0590405e1a2051ef21f2be58197857e72f4a651506627c8966083a21d91"
+                if path.name.casefold() == "data.sma":
+                    return "03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f"
+                return hashlib.sha256(path.read_bytes()).hexdigest()
+
+            with patch("master_rallye.source_cooker.sha256_file", side_effect=expected_hash):
+                result = prepare_native_gxm_job(source, "Forester", template, job_root)
+            manifest = json.loads((job_root / "job-manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(manifest["schema_version"], 2)
+            self.assertEqual(manifest["state"], "PREFLIGHT_OK")
+            self.assertEqual(manifest["job_kind"], "NATIVE_GXM_COOK")
+            self.assertNotIn("status", manifest)
+            self.assertEqual(manifest["paths"]["runtime"], "runtime")
+            self.assertEqual(manifest["authoring_links"][0]["target_relative_to_job"], "authoring-root/root-00")
+            self.assertEqual(result["authoring_discovery"]["status"], "PASS")
+            self.assertFalse(list(job_root.glob("*.ps1")))
+            self.assertFalse((job_root / "HUMAN_COOK_INSTRUCTIONS.txt").exists())
+            self.assertTrue((job_root / "runtime" / "MRallye.exe").is_file())
 
     def test_validation_status_keeps_evidence_dimensions_independent(self):
         status = build_validation_status(
@@ -209,6 +253,16 @@ class SourceCookerInventoryTests(unittest.TestCase):
             (root / "wheel.dx").write_bytes(upgrade_dx_131_to_135(_rev131_fixture()))
             with self.assertRaisesRegex(SourceCookerError, "mixed or missing"):
                 select_model_strategy(inventory_vehicle_source(root, "Test"))
+
+    def test_plan_extracts_rev131_texture_references_through_canonical_adapter(self):
+        with tempfile.TemporaryDirectory(prefix="source cooker plan ") as temporary:
+            source = Path(temporary) / "vehicle source"
+            _write_role_files(source, revision=131)
+            (source / "body-tga.dxt").write_bytes(_dxt_fixture())
+            plan = plan_vehicle_source(source, "Test", model_strategy="offline-131-to-135")
+            self.assertEqual(plan["model"]["selected"], "offline-131-to-135")
+            self.assertEqual(plan["texture_plan"]["count"], 1)
+            self.assertEqual(plan["texture_plan"]["strategy_counts"], {"reuse-valid-dxt": 1})
 
 
 class AuthoringPathTests(unittest.TestCase):
@@ -245,44 +299,6 @@ class AuthoringPathTests(unittest.TestCase):
             result = discover_embedded_authoring_paths(root, {r: root / f"{r}.gxm" for r in VEHICLE_ROLES})
             self.assertEqual(result["status"], "BLOCKED")
             self.assertIn("ambiguous_source_GXI_basename", result["unresolved"][0]["reason"])
-
-    def test_junction_policy_and_generated_helpers_use_target_not_resolve_path(self):
-        self.assertEqual(classify_junction_state(
-            exists=False, link_type=None, actual_target=None, expected_target=r"D:\mirror",
-            owned_by_job=False, ownership_state=None,
-        ), "CREATE")
-        self.assertEqual(classify_junction_state(
-            exists=True, link_type="Junction", actual_target="D:\\mirror\\",
-            expected_target=r"d:\mirror", owned_by_job=True, ownership_state="created",
-        ), "REUSE")
-        self.assertEqual(classify_junction_state(
-            exists=True, link_type="Directory", actual_target=None, expected_target=r"D:\mirror",
-            owned_by_job=True, ownership_state="created",
-        ), "STOP")
-        self.assertEqual(classify_junction_state(
-            exists=True, link_type="Junction", actual_target=r"D:\other", expected_target=r"D:\mirror",
-            owned_by_job=True, ownership_state="created",
-        ), "STOP")
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            result = write_guarded_junction_scripts(
-                [{"link_path": r"D:\projects\MRallyeTNG\DataGx\Vehicles\Test",
-                  "target": str(root / "mirror")}],
-                job_id="job-123",
-                ownership_manifest=root / "ownership.json",
-                setup_script=root / "setup.ps1",
-                cleanup_script=root / "remove.ps1",
-            )
-            setup = (root / "setup.ps1").read_text(encoding="utf-8")
-            remove = (root / "remove.ps1").read_text(encoding="utf-8")
-            self.assertEqual(result["links"][0]["state"], "planned")
-            self.assertIn("$item.Target", setup)
-            self.assertNotIn("Resolve-Path $linkPath", setup)
-            self.assertIn("Get-Item -LiteralPath", setup)
-            self.assertIn("Historical parent path is missing; refusing to create directories.", setup)
-            self.assertNotIn("New-Item -ItemType Directory", setup)
-            self.assertIn("rmdir", remove)
-            self.assertNotIn("rmdir /S", remove)
 
 
 class TextureAndPackageTests(unittest.TestCase):
@@ -388,7 +404,9 @@ class TextureAndPackageTests(unittest.TestCase):
             self.assertEqual(package_manifest["source_provenance"]["native_cook_job_id"], "fixture-job")
             self.assertEqual(package_manifest["source_provenance"]["source_gxm"]["complete"]["sha256"], "complete-hash")
             updated_job = json.loads((job / "job-manifest.json").read_text(encoding="utf-8"))
-            self.assertEqual(updated_job["status"], "NATIVE_OUTPUTS_COLLECTED")
+            self.assertEqual(updated_job["job_kind"], "NATIVE_GXM_COOK")
+            self.assertEqual(updated_job["state"], "PACKAGED")
+            self.assertNotIn("status", updated_job)
 
 
 if __name__ == "__main__":

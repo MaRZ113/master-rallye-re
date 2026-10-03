@@ -1,102 +1,100 @@
-# R-COOKER3 Retail Source Cooker V1
+# R-COOKER3 Unified Source Cooker architecture
 
-## Responsibility
+## Current R-COOKER3.1 design
 
-The Source Cooker produces a portable vehicle resource package:
-
-```text
-DataGx/Vehicles/<family>/
-    complete.dx
-    car.dx
-    wheel.dx
-    required *.dxt
-```
-
-It does not create vehicle IDs, menu slots, unlocks, AI entries, frontend art,
-or physics configuration. Vehicle Composer and later registry work remain
-separate consumers.
-
-## Strategy flow
+Source Cooker V1 is a human-assisted orchestrator around the original retail
+vehicle cooker. It does not implement a GXM-to-DX serializer, a native tag101
+descriptor producer, or mesh optimization.
 
 ```text
-source inventory + hashes
-        |
-        +-- all usable GXM roles --> isolated retail-native human cook
-        |
-        +-- all supported rev131 DX --> canonical R-COOKER2 adapter
-        |
-        +-- all supported rev135 DX --> validate and pass through
-        |
-        +-- rev127 DX only / mixed / unknown --> fail closed
-        |
-texture closure: valid DXT reuse, else existing offline GXI encoder
-        |
-format + collision + texture validation
-        |
-cache-only package + provenance manifest
+supported GXM/GXI source
+    -> source inventory and hashes
+    -> isolated copy of verified retail cook harness
+    -> Python-owned authoring Junctions
+    -> operator triggers complete/car/wheel cache misses
+    -> output validation and texture closure
+    -> portable cache-only DX/DXT package
 ```
 
-GXM validation currently establishes supported material, geometry, and
-triangle prefixes. The hierarchy/tail remains opaque. Retail-native support
-is runtime-confirmed only for the exact Mercedes source and cook harness
-described in the oracle records.
+The product uses one strategy selection layer:
 
-## CLI
+| Model inputs | Model strategy | Result |
+| --- | --- | --- |
+| All supported `complete.gxm`, `car.gxm`, `wheel.gxm` roles | `retail-native-gxm` | Prepare an isolated native-cook job; operator performs the game interaction. |
+| Supported vehicle DX revision 131 for all three roles | `offline-131-to-135` | Delegate conversion and strict generated-output validation to R-COOKER2. |
+| Structurally valid revision-135 vehicle DX for all three roles | `pass-through-135` | Validate and copy the bytes unchanged. |
+| Revision 127 only, mixed revisions, or unknown layout | Unsupported | Fail closed. |
 
-Run from the repository root with `PYTHONPATH=src` (or install the project in
-editable mode):
+Texture selection is independent: reuse a valid DXT, or use the existing
+offline GXI-to-DXT encoder when the DXT is absent and the GXI is supported.
+The tested retail cache-miss path is not relied on to regenerate DXT from GXI.
+Portable packages contain `DataGx/Vehicles/<family>/complete.dx`, `car.dx`,
+`wheel.dx`, and only the required DXT files. They exclude GXM, GXI, authoring
+mirrors, runtime executables, and retail archives.
 
-```powershell
-python -m master_rallye.source_cooker --help
-python -m master_rallye.source_cooker inventory --source <vehicle-folder> --family <name> --json <manifest.json>
-```
+## Runtime evidence and scope
 
-For GXM, `vehicle --output` creates a fresh cook-job directory, not a final
-package. It requires a copied, verified cook-harness template:
+The native GXM path has runtime evidence for the exact Mercedes and Forester
+sources and supported cook-harness profile. Mercedes has the completed
+determinism, cache-only, collision, and damage oracles. Forester's native
+outputs validate and the operator reports successful model/race loading and
+collision/damage under the temporary `Mercedes` runtime namespace. That does
+not prove authentic Forester physics or Forester-family cache-only portability.
+The separate Forester-named cache-only runtime check remains pending.
 
-```powershell
-python -m master_rallye.source_cooker vehicle --source <vehicle-folder> --family <name> --model-strategy retail-native-gxm --texture-strategy auto --retail-root <isolated-harness-template> --runtime-family <harness-family> --output <new-job-folder>
-```
+No arbitrary GXM support is claimed. Current source grammar checks cover the
+supported material, geometry, and triangle prefixes; hierarchy/tail data
+remain opaque. Native tag101 secondary descriptor semantics remain unresolved.
+The original retail runtime emits usable tested outputs, so that unresolved
+offline writer detail is not a blocker for the orchestrated route.
 
-The job contains a staged runtime copy, source hashes, embedded authoring
-reference report, copied GXI mirror, guarded PowerShell Junction helpers, and
-human cook instructions. The command does not launch the game or execute those
-helpers.
+## CLI and job lifecycle
 
-After the operator cooks the three roles, collect and validate:
+The public repository entrypoint is `python tools/source_cooker.py`; it
+bootstraps `src/` itself, so normal use requires no manual `PYTHONPATH`.
+`python -m master_rallye.source_cooker` remains available to development users
+who configure the source tree themselves. See [the user guide](../../docs/source-cooker.md)
+for copy-pasteable commands.
 
-```powershell
-python -m master_rallye.source_cooker collect --job <job-folder> --output <new-package-folder>
-python -m master_rallye.source_cooker validate-package <new-package-folder>
-```
+The CLI provides `inventory`, `plan`, `cook` (`vehicle` alias), `status`,
+`resume`, `collect` (`package` alias), `cleanup`, `recover`, and
+`validate-package` (`validate` alias), plus `--version`. Jobs use schema 2,
+store internal paths relative to their job root, and migrate schema-1 manifests
+when loaded. `status` reports output presence, texture count, link ownership,
+validation dimensions, and a next action. `resume` inspects actual outputs and
+Junction state; with missing outputs it may create or restore only an absent
+job-owned link whose mirror and existing historical parent match the
+manifest. It refuses unsafe links and ambiguous package provenance, and
+collects only after output validation.
 
-For supported revision-131 DX or revision-135 DX inputs, `vehicle` validates
-and builds a package directly. Existing outputs are never overwritten;
-choose a new output directory for each run.
+The state machine records preparation, runtime output, package validation,
+and cleanup separately. It does not infer runtime evidence from parser or
+package success. `BLOCKED` and `RECOVERY_REQUIRED` preserve manifests and
+diagnostics for review instead of deleting evidence.
 
-## Safety boundaries
+## Junction safety
 
-- Only the supported retail build and exact prepared harness are accepted for
-  native GXM jobs.
-- Canonical retail/demo installs are read-only inputs; the tool copies the
-  isolated runtime template before preparation.
-- The game is started by the operator. The tool only stages and validates.
-- Junction setup/cleanup scripts verify job ownership, link type, and exact
-  target. A mismatch stops the script; cleanup removes only the Junction node.
-- DXT is handled independently from model cooking. A missing DXT is reused
-  from a valid GXI only through the existing offline encoder.
-- Output packages contain three rev135 model DX files, required DXT, and
-  JSON manifests only. GXM, GXI, TXT and harness files are excluded.
+The Python Junction manager inspects reparse points without following them.
+It creates a link only when the path is absent, the historical parent exists,
+and the target is the job's exact authoring mirror. Real directories, symlinks,
+unknown reparse points, wrong targets, and unowned links stop the operation.
+Cleanup removes only the exact Junction node recorded as created by the job;
+it never recursively deletes the target or historical parents. `recover`
+reconciles only exact, unambiguous live state. Paths containing spaces are
+supported.
 
-## Version 1 limits
+New jobs do not generate PowerShell setup/removal scripts. Old schema-1 jobs
+remain loadable; any scripts preserved inside those user-owned historical
+job folders are not used by the current CLI or included in the release.
 
-No arbitrary GXM support is claimed. One Mercedes family has a completed
-native cook, deterministic DX outputs, cache-only runtime use, and collision
-and damage runtime confirmation. Forester is the next clean source candidate;
-its package preparation is statically ready, but the R-COOKER3 native cook and
-runtime are pending. Rev127 DX without usable GXM remains unsupported.
+## Strategy boundary
 
-The tool does not reconstruct original retail cooker algorithms. Broad
-GXM/GXI serialization, headless cooking, R-DEMO2 secondary collision
-descriptor generation, Vehicle Composer integration, and vehicle registry
-work remain outside this phase.
+R-COOKER2 remains the canonical offline rev131-to-rev135 implementation and
+retains its strict generated-output checks. Source Cooker calls that backend;
+it does not duplicate or weaken it. Retail-native cooking is an orchestrator
+around the original game, not a clone of its collision or draw writers.
+
+Vehicle registration, menu slots, physics configuration, AI, and roster
+capacity are not part of Source Cooker. Vehicle Composer is a separate tool.
+See [the current capability matrix](capability-matrix.md) and
+[Forester qualification](forester-qualification.md).

@@ -1,17 +1,11 @@
-"""Evidence-led discovery and guarded bridging for absolute GXI source paths.
-
-The helpers prepare copies and PowerShell scripts only. They never create or
-remove a junction themselves; the generated scripts re-check ownership and the
-live ``Get-Item .Target`` value immediately before acting.
-"""
+"""Evidence-led discovery and mirroring for absolute GXI source paths."""
 from __future__ import annotations
 
 import hashlib
-import json
 import shutil
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath, PureWindowsPath
-from typing import Any, Iterable, Mapping
+from typing import Any, Mapping
 
 from .gxm import parse_gxm_prefix
 
@@ -229,121 +223,3 @@ def materialize_authoring_mirror(
         shutil.rmtree(mirror_root, ignore_errors=True)
         raise
     return sorted(records, key=lambda item: (item["mirror_id"], item["mirror_relative_path"].casefold()))
-
-
-def classify_junction_state(
-    *,
-    exists: bool,
-    link_type: str | None,
-    actual_target: str | Iterable[str] | None,
-    expected_target: str,
-    owned_by_job: bool,
-    ownership_state: str | None,
-) -> str:
-    """Return CREATE, REUSE, STOP, or LEAVE_UNCHANGED for a historical path."""
-    if not exists:
-        return "CREATE"
-    if (link_type or "").casefold() != "junction":
-        return "STOP"
-    actual = [actual_target] if isinstance(actual_target, str) else list(actual_target or [])
-    normalize = lambda value: str(value).rstrip("\\/").casefold()
-    if len(actual) != 1 or normalize(actual[0]) != normalize(expected_target):
-        return "STOP"
-    if not owned_by_job or ownership_state not in {"created", "reused"}:
-        return "STOP"
-    return "REUSE" if ownership_state == "created" else "LEAVE_UNCHANGED"
-
-
-def write_guarded_junction_scripts(
-    mappings: list[dict[str, str]],
-    *,
-    job_id: str,
-    ownership_manifest: Path,
-    setup_script: Path,
-    cleanup_script: Path,
-) -> dict[str, Any]:
-    """Write ownership metadata and scripts guarded by type, target and job ID.
-
-    The scripts use ``Get-Item -Force`` and its ``.Target`` field. Cleanup uses
-    ``cmd.exe rmdir`` without ``/S`` and only after verifying the owned Junction.
-    """
-    manifest_path = Path(ownership_manifest).resolve()
-    setup_path = Path(setup_script).resolve()
-    cleanup_path = Path(cleanup_script).resolve()
-    links = []
-    for mapping in sorted(mappings, key=lambda item: item["link_path"].casefold()):
-        link = str(Path(mapping["link_path"]))
-        target = str(Path(mapping["target"]).resolve())
-        links.append({
-            "phase": "R-COOKER3",
-            "job_id": job_id,
-            "link_path": link,
-            "target": target,
-            "state": "planned",
-        })
-    manifest = {"schema_version": 1, "phase": "R-COOKER3", "job_id": job_id, "links": links}
-    manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-
-    quote = lambda value: "'" + str(value).replace("'", "''") + "'"
-    setup_lines = [
-        "$ErrorActionPreference = 'Stop'",
-        f"$manifestPath = {quote(manifest_path)}",
-        "$manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json",
-        f"if ($manifest.phase -ne 'R-COOKER3' -or $manifest.job_id -ne {quote(job_id)}) {{ throw 'Ownership manifest does not belong to this job.' }}",
-    ]
-    cleanup_lines = list(setup_lines)
-    for index, link in enumerate(links):
-        link_path, target = link["link_path"], link["target"]
-        setup_lines += [
-            f"$linkPath = {quote(link_path)}",
-            f"$target = {quote(target)}",
-            f"$owner = $manifest.links | Where-Object {{ $_.job_id -eq {quote(job_id)} -and $_.link_path -ieq $linkPath }} | Select-Object -First 1",
-            "if ($null -eq $owner -or $owner.target -ine $target) { throw 'Link ownership entry is missing or mismatched.' }",
-            "$item = Get-Item -LiteralPath $linkPath -Force -ErrorAction SilentlyContinue",
-            "if ($null -eq $item) {",
-            "  if (Test-Path -LiteralPath $linkPath) { throw 'Historical path exists but cannot be inspected.' }",
-            "  if (-not (Test-Path -LiteralPath $target -PathType Container)) { throw 'Authoring mirror target is missing.' }",
-            "  $parent = Split-Path -Parent $linkPath",
-            "  if (-not (Test-Path -LiteralPath $parent -PathType Container)) { throw 'Historical parent path is missing; refusing to create directories.' }",
-            "  New-Item -ItemType Junction -Path $linkPath -Target $target | Out-Null",
-            "  $item = Get-Item -LiteralPath $linkPath -Force",
-            "  $owner.state = 'created'",
-            "} else {",
-            "  if ($item.LinkType -ne 'Junction') { throw 'Refusing a real directory or non-Junction reparse point.' }",
-            "  $actual = @($item.Target)",
-            "  if ($actual.Count -ne 1 -or $actual[0].TrimEnd('\\') -ine $target.TrimEnd('\\')) { throw 'Existing Junction target mismatch.' }",
-            "  if ($owner.state -ne 'created' -or $owner.target -ine $target) { throw 'Matching Junction is not owned by this job.' }",
-            "}",
-            "if ($item.LinkType -ne 'Junction' -or @($item.Target).Count -ne 1 -or @($item.Target)[0].TrimEnd('\\') -ine $target.TrimEnd('\\')) { throw 'Post-create Junction verification failed.' }",
-        ]
-        cleanup_lines += [
-            f"$linkPath = {quote(link_path)}",
-            f"$target = {quote(target)}",
-            f"$owner = $manifest.links | Where-Object {{ $_.job_id -eq {quote(job_id)} -and $_.link_path -ieq $linkPath }} | Select-Object -First 1",
-            "if ($null -eq $owner -or $owner.target -ine $target) { throw 'Link ownership entry is missing or mismatched.' }",
-            "$item = Get-Item -LiteralPath $linkPath -Force -ErrorAction SilentlyContinue",
-            "if ($null -ne $item) {",
-            "  if ($item.LinkType -ne 'Junction') { throw 'Refusing to remove a real directory or non-Junction path.' }",
-            "  $actual = @($item.Target)",
-            "  if ($actual.Count -ne 1 -or $actual[0].TrimEnd('\\') -ine $target.TrimEnd('\\')) { throw 'Refusing to remove a Junction with a different target.' }",
-            "  if ($owner.state -eq 'created') {",
-            "    & $env:ComSpec /d /c ('rmdir "' + $linkPath + '"')",
-            "    if ($LASTEXITCODE -ne 0) { throw 'cmd.exe rmdir failed for the verified Junction.' }",
-            "    $owner.state = 'removed'",
-            "  } else { Write-Host 'Junction is not owned as created by this job; leaving it in place.' }",
-            "}",
-        ]
-    setup_lines += [
-        "$manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $manifestPath -Encoding UTF8",
-        "Write-Host 'Authoring Junctions verified/created for this job.'",
-    ]
-    cleanup_lines += [
-        "$manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $manifestPath -Encoding UTF8",
-        "Write-Host 'Owned authoring Junction cleanup complete.'",
-    ]
-    setup_path.parent.mkdir(parents=True, exist_ok=True)
-    cleanup_path.parent.mkdir(parents=True, exist_ok=True)
-    setup_path.write_text("\n".join(setup_lines) + "\n", encoding="utf-8")
-    cleanup_path.write_text("\n".join(cleanup_lines) + "\n", encoding="utf-8")
-    return manifest

@@ -1,0 +1,100 @@
+{
+  "candidate_family": "Trooper",
+  "file_counts_by_extension": {
+    ".dx": 3,
+    ".dxt": 24,
+    ".gxi": 26,
+    ".gxm": 3,
+    ".txt": 4
+  },
+  "phase": "R-COOKER3.1",
+  "plan": {
+    "authoring_preflight": {
+      "historical_root_count": 1,
+      "reference_count": 54,
+      "status": "PASS",
+      "unique_gxi_count": 24
+    },
+    "family": "Trooper",
+    "model": {
+      "output_revision": 135,
+      "reason": "all three GXM roles pass the currently supported material/geometry/triangle prefix checks",
+      "requested": "auto",
+      "role_inputs": {
+        "car": "car.gxm",
+        "complete": "complete.gxm",
+        "wheel": "wheel.gxm"
+      },
+      "selected": "retail-native-gxm",
+      "source_revisions": {
+        "car": 131,
+        "complete": 131,
+        "wheel": 131
+      },
+      "status": "READY"
+    },
+    "model_inputs": {
+      "car": "car.gxm",
+      "complete": "complete.gxm",
+      "wheel": "wheel.gxm"
+    },
+    "native_cook_required": true,
+    "required_harness_exe_sha256": "a6a5f0590405e1a2051ef21f2be58197857e72f4a651506627c8966083a21d91",
+    "runtime_package_includes_gxm_gxi": false,
+    "texture_plan": {
+      "count": 24,
+      "strategy_counts": {
+        "offline-gxi-to-dxt": 1,
+        "reuse-valid-dxt": 23
+      }
+    }
+  },
+  "roles": {
+    "car": {
+      "dx": {
+        "relative_path": "car.dx",
+        "revision": 131,
+        "sha256": "bf644c0530b3908789676564b4761cd670cc2bb187b084983d414bba458fa041",
+        "size": 124568
+      },
+      "gxm": {
+        "prefix_status": "PASS_SUPPORTED_PREFIX",
+        "relative_path": "car.gxm",
+        "sha256": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+        "size": 222754
+      }
+    },
+    "complete": {
+      "dx": {
+        "relative_path": "complete.dx",
+        "revision": 131,
+        "sha256": "fe4dfa6639c0ac2c9baf4e07428abe4ea3a528bb86b411a3034d74d4ce83a3a9",
+        "size": 134349
+      },
+      "gxm": {
+        "prefix_status": "PASS_SUPPORTED_PREFIX",
+        "relative_path": "complete.gxm",
+        "sha256": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+        "size": 260220
+      }
+    },
+    "wheel": {
+      "dx": {
+        "relative_path": "wheel.dx",
+        "revision": 131,
+        "sha256": "4611a14326b0413cab8bffc7a61e0c6ee710f69bb986f0cab83921193bf8505f",
+        "size": 12924
+      },
+      "gxm": {
+        "prefix_status": "PASS_SUPPORTED_PREFIX",
+        "relative_path": "wheel.gxm",
+        "sha256": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65",
+        "size": 27234
+      }
+    }
+  },
+  "runtime_gate": "PENDING_HUMAN_NATIVE_COOK",
+  "schema_version": 1,
+  "source_location_label": "inputs/9.3.1_Trooper",
+  "status": "STATIC_PREFLIGHT_PASS"
+}

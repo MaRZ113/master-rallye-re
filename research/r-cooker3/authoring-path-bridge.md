@@ -2,10 +2,11 @@
 
 **Historical Mercedes T1 setup notes.** The completed T1 result is in
 [oracle-t1-texture-miss.md](oracle-t1-texture-miss.md). Generic authoring-path
-discovery and guarded-script generation are implemented in
-`src/master_rallye/authoring_paths.py`; current jobs generate their own mirror
-and helpers. The historic Junction remains absent unless an operator runs the
-exact generated helper for an active job.
+discovery is implemented in `src/master_rallye/authoring_paths.py`. The
+PowerShell procedure below records the original T1 setup only. R-COOKER3.1
+removed generated Junction scripts from the primary workflow; current jobs
+use the Python lifecycle manager. Existing historical job folders are left
+intact and are not used as release tooling.
 
 ## Evidence and current setup
 

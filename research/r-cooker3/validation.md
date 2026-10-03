@@ -1,26 +1,44 @@
 # R-COOKER3 validation layers
 
-Keep validation claims separate. A parser pass, a deterministic cook, and a
-successful gameplay test establish different things and must not collapse
-into a single generic `PASS`. The current package manifest has six independent
-evidence fields; see [validation-model.md](validation-model.md).
+Keep parser, package, determinism, and runtime evidence separate. A static
+package `PASS` does not promote runtime-only claims.
 
-| Status | Evidence required | Current Mercedes state |
-|---|---|---|
-| `FORMAT_VALIDATED` | DX revision and canonical parser checks; draw/material references, geometry ranges, footer/bounds and texture records pass | Cooked `complete`, `car`, and `wheel` DX are revision 135 and parser-valid |
-| `COLLISION_STRUCTURALLY_VALID` | tag101/tag102 parse, finite values, in-range indices, topology checks and zero-edit serialization where supported | `car.dx` tag101 core checks pass; secondary face-descriptor semantics remain unresolved |
-| `TEXTURE_DEPENDENCIES_VALIDATED` | Every non-null model texture reference resolves to a parseable DXT; dimensions and payload validate | Existing 25 DXT dependencies parse; this does not prove a native GXI cache miss |
-| `DETERMINISTIC_COOK_CONFIRMED` | Two clean cooks of the same locked sources in the same supported environment produce byte-identical outputs | Confirmed for the three Mercedes DX roles; not a general claim |
-| T1 ordinary DXT cache miss | Runtime log shows DXT miss but no GXI read or DXT write; negative result scoped to the tested consumer | **CLOSED — `CONFIRMED_BY_RUNTIME`** |
-| `CACHE_ONLY_PORTABLE` | Runtime loads required DX/DXT with source GXM/GXI absent; assertion scoped to Mercedes | **CLOSED — `CONFIRMED_BY_RUNTIME`** |
-| `GAMEPLAY_RUNTIME_CONFIRMED` | Model loads in gameplay; collision and damage recorded separately | **CLOSED for Mercedes T3 — `CONFIRMED_BY_RUNTIME`** |
+| Dimension | Evidence required | Mercedes | Forester |
+|---|---|---|---|
+| `FORMAT_VALIDATED` | Supported rev135 parser and strategy validation pass | PASS for `complete`, `car`, `wheel` | PASS for `complete`, `car`, `wheel` |
+| `TEXTURES_RESOLVED` | Every model DXT reference resolves to a valid texture | PASS, 25 referenced DXT | PASS, 23 referenced DXT |
+| `COLLISION_STRUCTURALLY_VALID` | Parsed collision structure passes available range/topology checks | PASS; secondary tag101 descriptor meaning unresolved | PASS; tag101 descriptor lists differ slightly from R2 with unresolved semantics |
+| `DETERMINISTIC_COOK_CONFIRMED` | Independent same-source cooks have byte-identical outputs | Confirmed for exact three-role Mercedes source/environment | Not established by the current Forester native job |
+| `CACHE_ONLY_PORTABLE` | Runtime loads DX/DXT with source GXM/GXI absent in the named namespace | `CONFIRMED_BY_RUNTIME` for Mercedes | Static package passes; Forester-named runtime test PENDING |
+| `GAMEPLAY_RUNTIME_CONFIRMED` | Runtime model loads in a race; describe collision/damage independently | `CONFIRMED_BY_RUNTIME` for Mercedes | `CONFIRMED_BY_RUNTIME` for model/race and collision/damage under temporary Mercedes namespace; not Forester physics |
+
+## Forester measured static result
+
+The collected native package has 3 DX resources and 23 DXT dependencies. All
+three DX resources are revision 135 and parse without warnings/errors. The
+cache-only package under `.research-output/r-cooker3_1/forester-cache-only/`
+contains 26 files (three DX plus 23 DXT), no GXM/GXI, and passes
+`validate-package --family Forester`.
+
+The current native output hashes and sizes are:
+
+| Role | Size | SHA256 | Collision |
+|---|---:|---|---|
+| `complete.dx` | 138,687 | `852d2188d8ee3913ea366a684ca818b1e51bed61e4c4b685308dee3939153aa7` | tag102 |
+| `car.dx` | 128,522 | `27217ef5129dbb84f4237308400a0285babba12988f9d27eb6ffa8248f187492` | tag101; Rep A 8 vertices/12 triangles, Rep B 30 vertices/56 triangles |
+| `wheel.dx` | 13,002 | `ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c` | tag102 |
+
+These outputs were supplied from the native cook job. Their runtime
+observations are recorded with user-provided provenance in
+[Forester qualification](forester-qualification.md); package validation alone
+does not create runtime evidence.
 
 ## Reporting rules
 
 - Record source, executable, archive, and output hashes with each oracle.
-- Distinguish format validity from semantic equivalence and visual appearance.
-- Keep collision and damage observations separate.
-- Keep the 36-byte secondary face-descriptor delta unresolved; native output
-  availability is not proof of its semantics.
-- A result applies to the exact source and runtime case tested. Broader
-  retail-native GXM support requires additional controlled vehicle families.
+- Keep source identity separate from filename matching.
+- Distinguish parser validity, semantic comparison, and runtime appearance.
+- Treat tag101 secondary descriptor meaning as unresolved even where runtime
+  accepts the native output.
+- Do not treat the temporary Mercedes runtime namespace as Forester physics.
+- Do not treat a static cache-only package validation as runtime portability.

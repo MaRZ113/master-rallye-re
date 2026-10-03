@@ -1,5 +1,15 @@
 # R-COOKER3 validation model
 
+## R-COOKER3.1 update
+
+The Forester candidate section later on this page records its original
+pre-cook state. The operator has since completed the native cook and reported
+runtime model/race loading and collision/damage under a temporary Mercedes
+namespace. Current output hashes and separate evidence dimensions are in
+[Forester qualification](forester-qualification.md). Forester-named cache-only
+runtime portability is still pending; static package validation is not a
+runtime claim.
+
 The package manifest keeps six separate evidence dimensions. A single
 overall package PASS means the package passed its static assembly gate; it
 does not promote unobserved runtime claims.

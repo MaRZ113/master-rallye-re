@@ -13,6 +13,7 @@ import json
 import os
 import shutil
 import struct
+import subprocess
 import sys
 import tempfile
 import uuid
@@ -26,7 +27,6 @@ from .authoring_paths import (
     AuthoringPathError,
     discover_embedded_authoring_paths,
     materialize_authoring_mirror,
-    write_guarded_junction_scripts,
 )
 from .collision_analysis import analyze_collision_geometry_topology
 from .collision_writer import serialize_tag101
@@ -47,6 +47,19 @@ from .gxm import (
 )
 from .gxi import encode_gxi_as_observed_dxt, parse_gxi_bytes
 from .sidecar import normalize_texture_value
+from .source_cooker_jobs import (
+    CookJobError,
+    JOB_SCHEMA_VERSION,
+    cleanup_authoring_links,
+    ensure_authoring_links,
+    job_state_summary,
+    load_cook_job,
+    recover_authoring_links,
+    resolve_job_path,
+    transition_job,
+    write_cook_job,
+)
+from .junction_lifecycle import JunctionError
 
 
 VEHICLE_ROLES = ("complete", "car", "wheel")
@@ -937,8 +950,11 @@ def prepare_native_gxm_job(
     runtime_family: str | None = None,
     texture_strategy: str = "auto",
 ) -> dict[str, Any]:
-    """Create a fresh isolated human-cook job from the one verified harness.
-    No game process is launched and no historical Junction is created here.
+    """Create a fresh isolated native-cook job from the verified harness.
+
+    The job stores its own paths relative to its root. Historical authoring
+    Junctions are managed later by the Python lifecycle, never by generated
+    PowerShell scripts.
     """
     inventory = inventory_vehicle_source(source_root, family)
     decision = select_model_strategy(inventory, ModelStrategy.RETAIL_NATIVE_GXM.value)
@@ -1014,23 +1030,14 @@ def prepare_native_gxm_job(
         if any((asset_dir / f"{role}.dx").exists() for role in VEHICLE_ROLES):
             raise SourceCookerError("pre-cook runtime still contains one or more DX outputs")
 
-        bridge_mappings = []
-        mirror_by_root = {
-            row["historical_root"].casefold(): mirror / row["mirror_id"]
-            for row in discovery["historical_roots"]
-        }
+        authoring_links = []
         for row in discovery["historical_roots"]:
-            bridge_mappings.append({
+            authoring_links.append({
+                "job_id": job_id,
                 "link_path": row["historical_root"],
-                "target": str(mirror_by_root[row["historical_root"].casefold()]),
+                "target_relative_to_job": f"authoring-root/{row['mirror_id']}",
+                "state": "planned",
             })
-        ownership = write_guarded_junction_scripts(
-            bridge_mappings,
-            job_id=job_id,
-            ownership_manifest=job / "junction-ownership.json",
-            setup_script=job / "SetupAuthoringBridge.ps1",
-            cleanup_script=job / "RemoveAuthoringBridge.ps1",
-        )
         source_manifest = inventory.to_dict()
         source_manifest["source_root_label"] = inventory.source_root.name
         source_manifest["source_root"] = "<local source path omitted from portable package>"
@@ -1038,13 +1045,23 @@ def prepare_native_gxm_job(
         write_json(job / "embedded-authoring-paths.json", discovery)
 
         manifest = {
-            "schema_version": 1,
+            "schema_version": JOB_SCHEMA_VERSION,
             "phase": "R-COOKER3",
+            "job_kind": "NATIVE_GXM_COOK",
             "job_id": job_id,
             "tool_version": __version__,
-            "status": "PREPARED_FOR_HUMAN_NATIVE_COOK",
+            "state": "PREFLIGHT_OK",
+            "state_history": ["CREATED", "INVENTORIED", "PREFLIGHT_OK"],
             "source_family": inventory.family,
             "runtime_family": runtime_family_name,
+            "paths": {
+                "runtime": "runtime",
+                "authoring_mirror": "authoring-root",
+                "package": "runtime-package",
+                "source_manifest": "source-manifest.json",
+                "authoring_discovery": "embedded-authoring-paths.json",
+            },
+            "authoring_links": authoring_links,
             "source_manifest": "source-manifest.json",
             "source_root": str(inventory.source_root),
             "runtime_template": str(template),
@@ -1066,7 +1083,6 @@ def prepare_native_gxm_job(
             },
             "authoring_reference_count": len(discovery["references"]),
             "authoring_gxi_count": len(copied_authoring),
-            "junction_ownership_manifest": "junction-ownership.json",
             "outputs": {
                 role: {"path": f"runtime/DataGx/Vehicles/{runtime_family_name}/{role}.dx", "status": "MISSING_EXPECTED_BEFORE_COOK"}
                 for role in VEHICLE_ROLES
@@ -1083,71 +1099,33 @@ def prepare_native_gxm_job(
             },
         }
         write_json(job / "job-manifest.json", manifest)
-        instructions = _human_cook_instructions(job, manifest)
-        (job / "HUMAN_COOK_INSTRUCTIONS.txt").write_text(instructions, encoding="utf-8")
         return {
-            "status": manifest["status"],
+            "status": manifest["state"],
+            "state": manifest["state"],
             "job_id": job_id,
             "job_root": str(job),
             "manifest": manifest,
             "authoring_discovery": discovery,
             "package_ready": False,
-            "reason": "native retail GXM cook is pending the operator's isolated runtime load",
+            "reason": "preflight passed; run source-cooker cook on this job to create its owned authoring Junctions",
         }
     except Exception:
         shutil.rmtree(job, ignore_errors=True)
         raise
 
 
-def _human_cook_instructions(job_root: Path, manifest: Mapping[str, Any]) -> str:
-    runtime = (Path(job_root) / "runtime").resolve()
-    family_path = f"DataGx/Vehicles/{manifest['runtime_family']}"
-    return f"""MASTER RALLYE SOURCE COOKER — HUMAN NATIVE GXM COOK
-
-Job: {manifest['job_id']}
-Source family: {manifest['source_family']}
-Temporary runtime family: {manifest['runtime_family']}
-
-The job is an isolated copy of the verified retail cook harness. The tool did
-not launch the game and did not create any historical Junction.
-
-1. Review the job manifest and source-manifest.json.
-2. In a PowerShell window, run:
-   & '{Path(job_root) / 'SetupAuthoringBridge.ps1'}'
-   The helper creates only Junctions listed in junction-ownership.json. It
-   stops for a real directory, an unknown reparse point, an ownership mismatch,
-   or a target mismatch.
-3. Launch the copied runtime only, with its working directory set to:
-   '{runtime}'
-   Executable: '{runtime / 'MRallye.exe'}'
-4. Use the established isolated harness profile (ID26 / T1 local7). Load the
-   frontend preview to cook complete.gxm. Enter Practice/Quick Race to cook
-   car.gxm and wheel.gxm. Do not cook in the canonical retail installation.
-5. Confirm the three expected cache outputs exist:
-   {runtime / family_path / 'complete.dx'}
-   {runtime / family_path / 'car.dx'}
-   {runtime / family_path / 'wheel.dx'}
-6. Collect and validate them with:
-   python -m master_rallye.source_cooker collect --job '{Path(job_root)}' --output '{Path(job_root) / 'runtime-package'}'
-7. Close the game, then run:
-   & '{Path(job_root) / 'RemoveAuthoringBridge.ps1'}'
-
-The cleanup helper removes only a Junction still matching this job's
-ownership manifest and exact target. It never recursively deletes a target.
-Textures are pre-staged under the selected texture policy; this runtime path
-does not rely on the ordinary cache-miss path regenerating DXT from GXI.
-"""
-
-
 def collect_native_cook_job(job_root: Path, output_root: Path) -> dict[str, Any]:
-    job = Path(job_root).resolve()
-    manifest_path = job / "job-manifest.json"
-    manifest = _load_json(manifest_path)
-    if manifest.get("phase") != "R-COOKER3" or manifest.get("status") not in {
+    cook_job = load_cook_job(job_root)
+    job = cook_job.root
+    manifest = cook_job.manifest
+    legacy_status = manifest.get("status") in {
         "PREPARED_FOR_HUMAN_NATIVE_COOK", "NATIVE_OUTPUTS_COLLECTED",
-    }:
+    }
+    if manifest.get("phase") != "R-COOKER3" or not (
+        manifest.get("job_kind") == "NATIVE_GXM_COOK" or legacy_status
+    ):
         raise SourceCookerError("job manifest is not a prepared R-COOKER3 native-cook job")
-    runtime = job / manifest["runtime_root"]
+    runtime = resolve_job_path(job, manifest["paths"]["runtime"], label="runtime")
     asset_dir = runtime / "DataGx" / "Vehicles" / manifest["runtime_family"]
     role_paths = {role: asset_dir / f"{role}.dx" for role in VEHICLE_ROLES}
     missing = [str(path) for path in role_paths.values() if not path.is_file()]
@@ -1183,10 +1161,9 @@ def collect_native_cook_job(job_root: Path, output_root: Path) -> dict[str, Any]
             },
         },
     )
-    manifest["status"] = "NATIVE_OUTPUTS_COLLECTED"
-    manifest["outputs"] = {
+    output_rows = {
         role: {
-            "path": f"runtime/DataGx/Vehicles/{manifest['runtime_family']}/{role}.dx",
+            "path": f"{manifest['paths']['runtime']}/DataGx/Vehicles/{manifest['runtime_family']}/{role}.dx",
             "size": role_paths[role].stat().st_size,
             "sha256": sha256_file(role_paths[role]),
             "revision": REVISION_135,
@@ -1194,7 +1171,19 @@ def collect_native_cook_job(job_root: Path, output_root: Path) -> dict[str, Any]
         }
         for role in VEHICLE_ROLES
     }
-    manifest["package_root"] = str(Path(output_root).resolve())
+    package = Path(output_root).resolve()
+    try:
+        package_relative = package.relative_to(job).as_posix()
+        manifest["paths"]["package"] = package_relative
+        manifest.pop("package_output_external", None)
+    except ValueError:
+        # External output paths are user-selected destinations, not job-owned
+        # state. Preserve only an explicit location hint and never treat it as
+        # an internal path during job relocation.
+        manifest["package_output_external"] = str(package)
+    manifest["job_kind"] = "NATIVE_GXM_COOK"
+    manifest.pop("status", None)
+    manifest["outputs"] = output_rows
     manifest["validation_status"] = build_validation_status(
         FORMAT_VALIDATED="PASS",
         TEXTURES_RESOLVED="PASS",
@@ -1203,7 +1192,15 @@ def collect_native_cook_job(job_root: Path, output_root: Path) -> dict[str, Any]
         CACHE_ONLY_PORTABLE="STATICALLY_VALIDATED",
         GAMEPLAY_RUNTIME_CONFIRMED="NOT_ASSESSED_BY_COLLECT",
     )
-    write_json(manifest_path, manifest)
+    if cook_job.manifest.get("state") not in {"RUNTIME_OUTPUTS_PRESENT", "COLLECTED", "VALIDATED", "PACKAGED"}:
+        cook_job = transition_job(cook_job, "RUNTIME_OUTPUTS_PRESENT", updates=manifest)
+    else:
+        cook_job = write_cook_job(cook_job, manifest)
+    if cook_job.manifest.get("state") == "RUNTIME_OUTPUTS_PRESENT":
+        cook_job = transition_job(cook_job, "COLLECTED")
+    if cook_job.manifest.get("state") == "COLLECTED":
+        cook_job = transition_job(cook_job, "VALIDATED")
+    cook_job = transition_job(cook_job, "PACKAGED", updates=manifest)
     return result
 
 
@@ -1215,10 +1212,15 @@ def _write_cli_json(value: Mapping[str, Any], path: Path | None = None) -> None:
         print(serialized)
 
 
-def _build_parser() -> argparse.ArgumentParser:
+def _build_parser(program_name: str = "python tools/source_cooker.py") -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="python -m master_rallye.source_cooker",
-        description="Master Rallye Source Cooker - source inventory, safe cook orchestration and package validation.",
+        prog=program_name,
+        description=(
+            "Master Rallye Source Cooker. Supply your own local vehicle source assets and retail files. "
+            "Native GXM cooking requires a separate verified retail cook-harness copy. "
+            f"Supported retail executable SHA256: {SUPPORTED_RETAIL_EXE_SHA256}. "
+            "The release includes no game files."
+        ),
     )
     parser.add_argument("--version", action="version", version=f"Master Rallye Source Cooker {__version__}")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -1228,24 +1230,205 @@ def _build_parser() -> argparse.ArgumentParser:
     inventory.add_argument("--family")
     inventory.add_argument("--json", type=Path)
 
-    vehicle = commands.add_parser("vehicle", help="select a model strategy and prepare or build a runtime package")
+    plan = commands.add_parser("plan", help="show a no-write strategy, texture and authoring preflight")
+    plan.add_argument("--source", required=True, type=Path)
+    plan.add_argument("--family", required=True)
+    plan.add_argument("--model-strategy", default="auto", choices=_MODEL_STRATEGY_CHOICES)
+    plan.add_argument("--texture-strategy", default="auto", choices=[item.value for item in TextureStrategy])
+
+    vehicle = commands.add_parser(
+        "cook", aliases=["vehicle"],
+        help="prepare a native cook job or build an offline DX package",
+    )
     vehicle.add_argument("--source", required=True, type=Path)
     vehicle.add_argument("--family", required=True)
     vehicle.add_argument("--output", required=True, type=Path)
     vehicle.add_argument("--retail-root", "--runtime-template", dest="runtime_template", type=Path,
-                         help="isolated, verified ID26 cook-harness template; never point at the canonical install")
-    vehicle.add_argument("--runtime-family", help="temporary harness family namespace; defaults to --family")
+                         help="separate verified ID26 cook-harness template; never use the canonical install")
+    vehicle.add_argument("--runtime-family", help="temporary harness namespace; defaults to the source family")
     vehicle.add_argument("--model-strategy", default="auto", choices=_MODEL_STRATEGY_CHOICES)
     vehicle.add_argument("--texture-strategy", default="auto", choices=[item.value for item in TextureStrategy])
+    vehicle.add_argument("--launch", action="store_true", help="launch the isolated harness and resume after exit")
 
-    collect = commands.add_parser("collect", help="validate native DX cooked in a prepared isolated job")
+    status = commands.add_parser("status", help="inspect a prepared or interrupted native cook job")
+    status.add_argument("--job", required=True, type=Path)
+
+    resume = commands.add_parser("resume", help="continue a cook job from its actual outputs")
+    resume.add_argument("--job", required=True, type=Path)
+    resume.add_argument("--output", type=Path, help="optional package output; defaults inside the job")
+
+    collect = commands.add_parser("collect", help="validate and package cooked outputs from a native job")
     collect.add_argument("--job", required=True, type=Path)
-    collect.add_argument("--output", required=True, type=Path)
+    collect.add_argument("--output", type=Path, help="defaults to <job>/runtime-package")
 
-    validate = commands.add_parser("validate-package", help="check a portable cache-only DX/DXT package")
+    package = commands.add_parser("package", help="alias for collect")
+    package.add_argument("--job", required=True, type=Path)
+    package.add_argument("--output", type=Path, help="defaults to <job>/runtime-package")
+
+    cleanup = commands.add_parser("cleanup", help="remove only exact authoring Junctions owned by this job")
+    cleanup.add_argument("--job", required=True, type=Path)
+
+    recover = commands.add_parser("recover", help="reconcile an interrupted Junction ownership operation")
+    recover.add_argument("--job", required=True, type=Path)
+
+    validate = commands.add_parser("validate-package", aliases=["validate"], help="validate a cache-only DX/DXT package")
     validate.add_argument("package", type=Path)
     validate.add_argument("--family")
     return parser
+
+
+def plan_vehicle_source(
+    source_root: Path,
+    family: str,
+    *,
+    model_strategy: str = "auto",
+    texture_strategy: str = "auto",
+) -> dict[str, Any]:
+    """Build a no-write strategy and dependency preflight."""
+    inventory = inventory_vehicle_source(source_root, family)
+    decision = select_model_strategy(inventory, model_strategy)
+    if decision.selected == ModelStrategy.UNSUPPORTED_REV127_CACHE_ONLY:
+        raise SourceCookerError(decision.reason)
+    if decision.selected == ModelStrategy.RETAIL_NATIVE_GXM:
+        texture_refs = _all_gxm_texture_references(inventory)
+    else:
+        texture_refs = sorted({
+            slot.value
+            for role in VEHICLE_ROLES
+            for draw in parse_dx_bytes(
+                (
+                    upgrade_dx_131_to_135_with_report(
+                        _role_path(inventory, role, ".dx").read_bytes(),
+                        str(_role_path(inventory, role, ".dx")),
+                    )[0]
+                    if decision.source_revisions[role] == REVISION_131
+                    else _role_path(inventory, role, ".dx").read_bytes()
+                ),
+                str(_role_path(inventory, role, ".dx")),
+            ).physical_draws
+            for slot in draw.texture_slots
+            if slot.value.strip().casefold() != "null"
+        }, key=str.casefold)
+    texture_assets = build_texture_assets(inventory.source_root, texture_refs, texture_strategy) if texture_refs else []
+    discovery = None
+    if decision.selected == ModelStrategy.RETAIL_NATIVE_GXM:
+        discovery = discover_embedded_authoring_paths(
+            inventory.source_root,
+            {role: _role_path(inventory, role, ".gxm") for role in VEHICLE_ROLES},
+        )
+        if discovery["status"] != "PASS":
+            raise SourceCookerError(f"embedded authoring GXI references unresolved: {discovery['unresolved']}")
+    strategy_counts: dict[str, int] = {}
+    for asset in texture_assets:
+        strategy_counts[asset.strategy] = strategy_counts.get(asset.strategy, 0) + 1
+    return {
+        "family": inventory.family,
+        "source_root": str(inventory.source_root),
+        "model": decision.to_dict(),
+        "model_inputs": decision.role_inputs,
+        "texture_plan": {"count": len(texture_assets), "strategy_counts": strategy_counts},
+        "authoring_preflight": {
+            "status": discovery["status"] if discovery else "NOT_REQUIRED",
+            "reference_count": len(discovery["references"]) if discovery else 0,
+            "unique_gxi_count": len({row["source_sha256"] for row in discovery["references"]}) if discovery else 0,
+            "historical_root_count": len(discovery["historical_roots"]) if discovery else 0,
+        },
+        "native_cook_required": decision.selected == ModelStrategy.RETAIL_NATIVE_GXM,
+        "required_harness_exe_sha256": SUPPORTED_COOK_HARNESS_EXE_SHA256 if decision.selected == ModelStrategy.RETAIL_NATIVE_GXM else None,
+        "runtime_package_includes_gxm_gxi": False,
+    }
+
+
+def _resume_job(job_path: Path, output_root: Path | None = None) -> dict[str, Any]:
+    job = load_cook_job(job_path)
+    summary = job_state_summary(job)
+    unsafe_links = [
+        row for row in summary.get("authoring_links", [])
+        if row.get("live_state") in {"STOP", "BLOCKED"}
+    ]
+    if unsafe_links:
+        return {
+            "status": "RECOVERY_REQUIRED",
+            "job": summary,
+            "diagnostic": "authoring Junction state does not match this job; run recover and inspect the exact path/target before continuing",
+            "unsafe_authoring_links": unsafe_links,
+        }
+    if summary["state"] in {"BLOCKED", "RECOVERY_REQUIRED"}:
+        return {"status": summary["state"], "job": summary,
+                "diagnostic": "run recover and inspect the exact Junction target before continuing"}
+    package = output_root or resolve_job_path(job.root, job.manifest["paths"]["package"], label="package")
+    if package.exists():
+        package_manifest_path = package / "package-manifest.json"
+        if not package_manifest_path.is_file():
+            raise SourceCookerError(f"package output exists without a manifest; refusing overwrite: {package}")
+        package_manifest = _load_json(package_manifest_path)
+        provenance = package_manifest.get("source_provenance", {})
+        if provenance.get("native_cook_job_id") != job.manifest.get("job_id"):
+            raise SourceCookerError(f"package output belongs to another source/job; refusing overwrite: {package}")
+        validation = validate_cache_only_package(package, job.manifest.get("source_family"))
+        if validation.get("status") != "PASS":
+            raise SourceCookerError(f"existing package failed validation and was left untouched: {package}")
+        try:
+            package_relative = package.resolve().relative_to(job.root).as_posix()
+            package_update = {"paths": {**job.manifest["paths"], "package": package_relative},
+                              "package_output_external": None}
+        except ValueError:
+            package_update = {"package_output_external": str(package.resolve())}
+        state = str(job.manifest.get("state"))
+        if state in {"WAITING_FOR_RUNTIME", "AUTHORING_READY"}:
+            job = transition_job(job, "RUNTIME_OUTPUTS_PRESENT", updates=package_update)
+            state = "RUNTIME_OUTPUTS_PRESENT"
+        if state == "RUNTIME_OUTPUTS_PRESENT":
+            job = transition_job(job, "COLLECTED")
+            state = "COLLECTED"
+        if state == "COLLECTED":
+            job = transition_job(job, "VALIDATED")
+            state = "VALIDATED"
+        if state == "VALIDATED":
+            job = transition_job(job, "PACKAGED")
+            state = "PACKAGED"
+        if state not in {"PACKAGED", "COMPLETE", "AUTHORING_CLEANED"}:
+            raise SourceCookerError(f"existing package cannot be reconciled from job state {state}")
+        if job.manifest.get("state") in {"PACKAGED", "AUTHORING_CLEANED"}:
+            cleaned = cleanup_authoring_links(job)
+            return {"status": "COMPLETE" if cleaned.manifest.get("state") == "COMPLETE" else cleaned.manifest.get("state"),
+                    "job_id": job.manifest.get("job_id"), "package_root": str(package.resolve()),
+                    "package_validation": validation.get("status"), "state": cleaned.manifest.get("state"),
+                    "recovered_existing_package": True}
+    missing = [role for role, record in summary["model_outputs"].items() if not record["present"]]
+    link_status = summary.get("authoring_links", [])
+    if missing and any(row.get("live_state") in {"ABSENT", "CREATE"} for row in link_status):
+        if any(row.get("live_state") == "ABSENT" and row.get("state") == "created" for row in link_status):
+            job = recover_authoring_links(job)
+            summary = job_state_summary(job)
+            if summary["state"] in {"BLOCKED", "RECOVERY_REQUIRED"}:
+                return {
+                    "status": summary["state"], "job": summary,
+                    "diagnostic": "authoring Junction recovery did not produce an unambiguous owned state",
+                }
+        job = ensure_authoring_links(job)
+        if job.manifest.get("state") == "AUTHORING_READY":
+            job = transition_job(job, "WAITING_FOR_RUNTIME")
+        summary = job_state_summary(job)
+        missing = [role for role, record in summary["model_outputs"].items() if not record["present"]]
+    if missing:
+        return {
+            "status": "WAITING_FOR_RUNTIME",
+            "job": summary,
+            "missing_outputs": missing,
+            "next": "Load the frontend preview, then car and wheel in the isolated runtime; exit the game and run resume again.",
+        }
+    result = collect_native_cook_job(job.root, package)
+    latest = load_cook_job(job.root)
+    cleaned = cleanup_authoring_links(latest)
+    return {
+        "status": "COMPLETE" if cleaned.manifest.get("state") == "COMPLETE" else cleaned.manifest.get("state"),
+        "job_id": job.manifest.get("job_id"),
+        "package_root": str(package.resolve()),
+        "package_validation": result.get("status"),
+        "state": cleaned.manifest.get("state"),
+        "validation_status": cleaned.manifest.get("validation_status"),
+    }
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -1256,7 +1439,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             inventory = inventory_vehicle_source(args.source, args.family)
             _write_cli_json(inventory.to_dict(), args.json)
             return 0
-        if args.command == "vehicle":
+        if args.command == "plan":
+            _write_cli_json(plan_vehicle_source(
+                args.source, args.family, model_strategy=args.model_strategy,
+                texture_strategy=args.texture_strategy,
+            ))
+            return 0
+        if args.command in {"cook", "vehicle"}:
             inventory = inventory_vehicle_source(args.source, args.family)
             decision = select_model_strategy(inventory, args.model_strategy)
             if decision.selected == ModelStrategy.UNSUPPORTED_REV127_CACHE_ONLY:
@@ -1270,6 +1459,19 @@ def main(argv: Sequence[str] | None = None) -> int:
                     args.source, args.family, args.runtime_template, args.output,
                     runtime_family=args.runtime_family, texture_strategy=args.texture_strategy,
                 )
+                job = ensure_authoring_links(load_cook_job(args.output))
+                if job.manifest.get("state") == "AUTHORING_READY":
+                    job = transition_job(job, "WAITING_FOR_RUNTIME")
+                runtime = resolve_job_path(job.root, job.manifest["paths"]["runtime"], label="runtime")
+                result.update({
+                    "state": job.manifest.get("state"),
+                    "runtime_executable": str(runtime / "MRallye.exe"),
+                    "next": "Load Vehicle Select preview, then Practice/Quick Race. After game exit, run `python tools/source_cooker.py resume --job <job>`.",
+                })
+                if args.launch:
+                    process = subprocess.Popen([str(runtime / "MRallye.exe")], cwd=runtime)
+                    process.wait()
+                    result["resume_result"] = _resume_job(job.root)
             else:
                 role_paths = {role: _role_path(inventory, role, ".dx") for role in VEHICLE_ROLES}
                 if any(path is None for path in role_paths.values()):
@@ -1285,14 +1487,37 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             _write_cli_json({**result, "model_strategy": decision.to_dict()})
             return 0
-        if args.command == "collect":
-            result = collect_native_cook_job(args.job, args.output)
+        if args.command == "status":
+            job = load_cook_job(args.job)
+            summary = job_state_summary(job)
+            if job.source_schema_version == 1:
+                summary["schema_migration_available"] = "V1 job will migrate on its next lifecycle update"
+            _write_cli_json(summary)
+            return 0
+        if args.command == "resume":
+            result = _resume_job(args.job, args.output)
+            _write_cli_json(result)
+            return 0 if result["status"] not in {"BLOCKED", "RECOVERY_REQUIRED"} else 2
+        if args.command in {"collect", "package"}:
+            job = load_cook_job(args.job)
+            output = args.output or resolve_job_path(job.root, job.manifest["paths"]["package"], label="package")
+            result = collect_native_cook_job(args.job, output)
             _write_cli_json(result)
             return 0
-        if args.command == "validate-package":
+        if args.command == "cleanup":
+            job = cleanup_authoring_links(load_cook_job(args.job))
+            _write_cli_json({"job_id": job.manifest.get("job_id"), "state": job.manifest.get("state"),
+                             "authoring_links": job.manifest.get("authoring_links", [])})
+            return 0
+        if args.command == "recover":
+            job = recover_authoring_links(load_cook_job(args.job))
+            _write_cli_json({"job_id": job.manifest.get("job_id"), "state": job.manifest.get("state"),
+                             "authoring_links": job.manifest.get("authoring_links", [])})
+            return 0 if job.manifest.get("state") != "RECOVERY_REQUIRED" else 2
+        if args.command in {"validate-package", "validate"}:
             _write_cli_json(validate_cache_only_package(args.package, args.family))
             return 0
-    except (SourceCookerError, AuthoringPathError, DxRevisionUpgradeError, OSError, ValueError) as exc:
+    except (SourceCookerError, AuthoringPathError, DxRevisionUpgradeError, CookJobError, JunctionError, OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     parser.error("unknown command")

@@ -56,7 +56,9 @@ future add-on layer consumes the package separately.
 - Refuse unknown path layouts, unsupported revisions, incomplete dependencies,
   and sources without a proven route. Never guess-convert rev127 DX alone.
 
-The available module CLI is `python -m master_rallye.source_cooker`. Native
-GXM mode creates a fresh cook job; after an operator cooks the three roles,
-`collect` validates and assembles the package. It does not launch a headless
-cooker.
+The public entrypoint is `python tools/source_cooker.py`; it bootstraps the
+bundled/repository `src` package without a manual `PYTHONPATH`. Native GXM
+mode creates a fresh cook job. `--launch` can start the isolated retail game
+and resume collection after exit; the tool does not automate menus or run a
+headless cooker. Without `--launch`, use `resume` or `collect` after the
+operator finishes in-game cooking.

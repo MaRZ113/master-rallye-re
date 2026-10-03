@@ -1,0 +1,516 @@
+{
+  "classification": "SECOND_INDEPENDENT_FAMILY_QUALIFIED_FOR_RETAIL_NATIVE_GXM_STRATEGY",
+  "dxt": {
+    "all_native_dxt_match_source": true,
+    "byte_identical_names": [
+      "black-tga.dxt",
+      "chair2-tga.dxt",
+      "chrome-tga.dxt",
+      "dcambell-tga.dxt",
+      "drichard-tga.dxt",
+      "fhelmet32-tga.dxt",
+      "forestgrill64-tga.dxt",
+      "forestside128-tga.dxt",
+      "foresttread-tga.dxt",
+      "forestwheel64-tga.dxt",
+      "forestwheel643-tga.dxt",
+      "fwheelrim-tga.dxt",
+      "glass-tga.dxt",
+      "lights64-tga.dxt",
+      "mastersticker216-tga.dxt",
+      "perspex-tga.dxt",
+      "rear128-tga.dxt",
+      "rubber-tga.dxt",
+      "shade16-tga.dxt",
+      "underdash-tga.dxt",
+      "whitepaint-tga.dxt",
+      "whitesuit-tga.dxt",
+      "windscreen32-tga.dxt"
+    ],
+    "native_package_count": 23,
+    "source_package_count": 23
+  },
+  "family": "Forester",
+  "phase": "R-COOKER3.1",
+  "roles": {
+    "car": {
+      "counts": {
+        "native": {
+          "collision_errors": [],
+          "collision_tags": [
+            101
+          ],
+          "collision_warnings": [],
+          "draws": 15,
+          "global_index_count": 5592,
+          "parse_errors": [],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 1864,
+          "uv_sets": 1,
+          "vertices": 2459
+        },
+        "official_9_10": {
+          "collision_errors": [],
+          "collision_tags": [
+            101
+          ],
+          "collision_warnings": [],
+          "draws": 15,
+          "global_index_count": 5592,
+          "parse_errors": [
+            "stored global indices differ at 5449 covered positions; first 0x0"
+          ],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 1864,
+          "uv_sets": 1,
+          "vertices": 2459
+        },
+        "r2_minimal": {
+          "collision_errors": [],
+          "collision_tags": [
+            101
+          ],
+          "collision_warnings": [],
+          "draws": 15,
+          "global_index_count": 5592,
+          "parse_errors": [],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 1864,
+          "uv_sets": 1,
+          "vertices": 2459
+        }
+      },
+      "files": {
+        "native": {
+          "path": "research-output/r-cooker3/v1/jobs/Forester-native-cook/runtime/DataGx/Vehicles/Mercedes/car.dx",
+          "sha256": "27217ef5129dbb84f4237308400a0285babba12988f9d27eb6ffa8248f187492",
+          "size": 128522
+        },
+        "official_9_10": {
+          "path": "inputs/!other_research/9.10.0_dxForester/car.dx",
+          "sha256": "fbe8d15af205a3cbe95773d5241372352729f7fbcef21e61386123209a80a423",
+          "size": 128522
+        },
+        "r2_minimal": {
+          "path": ".research-output/r-cooker3_1/forester-r2-candidate/car.dx",
+          "sha256": "11433415ebeb4f4864a78e64ae2de9e0462b14fcf16b1b63e56313015e1a1086",
+          "size": 128522
+        }
+      },
+      "input_9_3_1_dx": {
+        "path": "inputs/!other_research/9.3.1_dxForester/car.dx",
+        "revision": 131,
+        "sha256": "eb2909b1d623f9e053a11114fe1d6d17283495bf7cab902755f87d2ee299e7de",
+        "size": 128327
+      },
+      "native_vs_official_9_10": {
+        "collision_raw_equal": false,
+        "colors_exact": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_indices_exact": false,
+        "normals_exact": true,
+        "positions_exact": true,
+        "trailing_exact": false,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "native_vs_r2": {
+        "byte_identical": false,
+        "collision_raw_equal": false,
+        "colors_exact": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_indices_exact": true,
+        "max_normal_component_delta": 0.0,
+        "max_position_component_delta": 0.0,
+        "normals_exact": true,
+        "positions_exact": true,
+        "tag101": {
+          "base_scalar": [
+            2.6695199012756348,
+            2.6695199012756348
+          ],
+          "representations": {
+            "representation_a": {
+              "edge_face_adjacency_equal": true,
+              "edges_equal": true,
+              "face_loops_equal": true,
+              "face_scalar_max_abs_delta": 5.245208740234375e-06,
+              "geometry_a_max_component_delta": 1.1920928955078125e-06,
+              "geometry_a_triangles_equal": true,
+              "geometry_a_vertices": [
+                8,
+                8
+              ],
+              "geometry_b_max_component_delta": 5.960464477539062e-07,
+              "geometry_b_triangles_equal": true,
+              "geometry_b_vertices": [
+                1,
+                1
+              ],
+              "secondary_descriptor_changed_faces": 4,
+              "secondary_descriptor_pure_permutation_faces": 0
+            },
+            "representation_b": {
+              "edge_face_adjacency_equal": true,
+              "edges_equal": true,
+              "face_loops_equal": true,
+              "face_scalar_max_abs_delta": 5.4836273193359375e-06,
+              "geometry_a_max_component_delta": 5.4836273193359375e-06,
+              "geometry_a_triangles_equal": true,
+              "geometry_a_vertices": [
+                30,
+                30
+              ],
+              "geometry_b_max_component_delta": 8.940696716308594e-08,
+              "geometry_b_triangles_equal": true,
+              "geometry_b_vertices": [
+                1,
+                1
+              ],
+              "secondary_descriptor_changed_faces": 10,
+              "secondary_descriptor_pure_permutation_faces": 6
+            }
+          },
+          "secondary_descriptor_semantics": "UNRESOLVED"
+        },
+        "trailing_exact": false,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "r2_candidate_vs_official_9_10": {
+        "byte_diff_count": 7134,
+        "collision_raw_equal": true,
+        "colors_exact": true,
+        "diff_range_only_local_indices": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_index_byte_range": [
+          88548,
+          99732
+        ],
+        "local_indices_exact": false,
+        "normals_exact": true,
+        "oriented_triangles_equal_per_draw": true,
+        "positions_exact": true,
+        "trailing_exact": true,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "source_gxm": {
+        "demo_9_10_0": {
+          "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+          "size": 219728
+        },
+        "demo_9_3_1": {
+          "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+          "size": 219728
+        },
+        "demo_9_3_1_cooker_inputs": {
+          "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+          "size": 219728
+        }
+      }
+    },
+    "complete": {
+      "counts": {
+        "native": {
+          "collision_errors": [],
+          "collision_tags": [
+            102
+          ],
+          "collision_warnings": [],
+          "draws": 15,
+          "global_index_count": 6984,
+          "parse_errors": [],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 2328,
+          "uv_sets": 1,
+          "vertices": 2649
+        },
+        "official_9_10": {
+          "collision_errors": [],
+          "collision_tags": [
+            102
+          ],
+          "collision_warnings": [],
+          "draws": 15,
+          "global_index_count": 6984,
+          "parse_errors": [
+            "stored global indices differ at 6644 covered positions; first 0x0"
+          ],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 2328,
+          "uv_sets": 1,
+          "vertices": 2649
+        },
+        "r2_minimal": {
+          "collision_errors": [],
+          "collision_tags": [
+            102
+          ],
+          "collision_warnings": [],
+          "draws": 15,
+          "global_index_count": 6984,
+          "parse_errors": [],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 2328,
+          "uv_sets": 1,
+          "vertices": 2649
+        }
+      },
+      "files": {
+        "native": {
+          "path": "research-output/r-cooker3/v1/jobs/Forester-native-cook/runtime/DataGx/Vehicles/Mercedes/complete.dx",
+          "sha256": "852d2188d8ee3913ea366a684ca818b1e51bed61e4c4b685308dee3939153aa7",
+          "size": 138687
+        },
+        "official_9_10": {
+          "path": "inputs/!other_research/9.10.0_dxForester/complete.dx",
+          "sha256": "72a3b98f616d55e66e43bf0bbc2702bdb5ff464406ae7e14338cc3c4a5a4ee15",
+          "size": 138687
+        },
+        "r2_minimal": {
+          "path": ".research-output/r-cooker3_1/forester-r2-candidate/complete.dx",
+          "sha256": "852d2188d8ee3913ea366a684ca818b1e51bed61e4c4b685308dee3939153aa7",
+          "size": 138687
+        }
+      },
+      "input_9_3_1_dx": {
+        "path": "inputs/!other_research/9.3.1_dxForester/complete.dx",
+        "revision": 131,
+        "sha256": "d42ce558a6455a3c8e75b661b962ab472cf9a6ebeceeda9658a70ac1d163e219",
+        "size": 138492
+      },
+      "native_vs_official_9_10": {
+        "collision_raw_equal": true,
+        "colors_exact": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_indices_exact": false,
+        "normals_exact": true,
+        "positions_exact": true,
+        "trailing_exact": true,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "native_vs_r2": {
+        "byte_identical": true,
+        "collision_raw_equal": true,
+        "colors_exact": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_indices_exact": true,
+        "max_normal_component_delta": 0.0,
+        "max_position_component_delta": 0.0,
+        "normals_exact": true,
+        "positions_exact": true,
+        "trailing_exact": true,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "r2_candidate_vs_official_9_10": {
+        "byte_diff_count": 8221,
+        "collision_raw_equal": true,
+        "colors_exact": true,
+        "diff_range_only_local_indices": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_index_byte_range": [
+          95388,
+          109356
+        ],
+        "local_indices_exact": false,
+        "normals_exact": true,
+        "oriented_triangles_equal_per_draw": true,
+        "positions_exact": true,
+        "trailing_exact": true,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "source_gxm": {
+        "demo_9_10_0": {
+          "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+          "size": 257541
+        },
+        "demo_9_3_1": {
+          "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+          "size": 257541
+        },
+        "demo_9_3_1_cooker_inputs": {
+          "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+          "size": 257541
+        }
+      }
+    },
+    "wheel": {
+      "counts": {
+        "native": {
+          "collision_errors": [],
+          "collision_tags": [
+            102
+          ],
+          "collision_warnings": [],
+          "draws": 5,
+          "global_index_count": 756,
+          "parse_errors": [],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 252,
+          "uv_sets": 1,
+          "vertices": 220
+        },
+        "official_9_10": {
+          "collision_errors": [],
+          "collision_tags": [
+            102
+          ],
+          "collision_warnings": [],
+          "draws": 5,
+          "global_index_count": 756,
+          "parse_errors": [
+            "stored global indices differ at 675 covered positions; first 0x3"
+          ],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 252,
+          "uv_sets": 1,
+          "vertices": 220
+        },
+        "r2_minimal": {
+          "collision_errors": [],
+          "collision_tags": [
+            102
+          ],
+          "collision_warnings": [],
+          "draws": 5,
+          "global_index_count": 756,
+          "parse_errors": [],
+          "parse_warnings": [],
+          "revision": 135,
+          "triangles": 252,
+          "uv_sets": 1,
+          "vertices": 220
+        }
+      },
+      "files": {
+        "native": {
+          "path": "research-output/r-cooker3/v1/jobs/Forester-native-cook/runtime/DataGx/Vehicles/Mercedes/wheel.dx",
+          "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+          "size": 13002
+        },
+        "official_9_10": {
+          "path": "inputs/!other_research/9.10.0_dxForester/wheel.dx",
+          "sha256": "191009bd708ed20fd0d46c00572e8d8ba833ff5cff5c5f8f92b6772bd1d9a328",
+          "size": 13002
+        },
+        "r2_minimal": {
+          "path": ".research-output/r-cooker3_1/forester-r2-candidate/wheel.dx",
+          "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+          "size": 13002
+        }
+      },
+      "input_9_3_1_dx": {
+        "path": "inputs/!other_research/9.3.1_dxForester/wheel.dx",
+        "revision": 131,
+        "sha256": "1e2fefdf5fdaa4eba94490a3287de2fbc14863b6812c5902ba8f4d3a089d3dd7",
+        "size": 12937
+      },
+      "native_vs_official_9_10": {
+        "collision_raw_equal": true,
+        "colors_exact": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_indices_exact": false,
+        "normals_exact": true,
+        "positions_exact": true,
+        "trailing_exact": true,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "native_vs_r2": {
+        "byte_identical": true,
+        "collision_raw_equal": true,
+        "colors_exact": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_indices_exact": true,
+        "max_normal_component_delta": 0.0,
+        "max_position_component_delta": 0.0,
+        "normals_exact": true,
+        "positions_exact": true,
+        "trailing_exact": true,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "r2_candidate_vs_official_9_10": {
+        "byte_diff_count": 675,
+        "collision_raw_equal": true,
+        "colors_exact": true,
+        "diff_range_only_local_indices": true,
+        "draw_semantics_exact": true,
+        "global_indices_exact": true,
+        "local_index_byte_range": [
+          7944,
+          9456
+        ],
+        "local_indices_exact": false,
+        "normals_exact": true,
+        "oriented_triangles_equal_per_draw": true,
+        "positions_exact": true,
+        "trailing_exact": true,
+        "uv_sets_exact": [
+          true
+        ]
+      },
+      "source_gxm": {
+        "demo_9_10_0": {
+          "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+          "size": 27272
+        },
+        "demo_9_3_1": {
+          "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+          "size": 27272
+        },
+        "demo_9_3_1_cooker_inputs": {
+          "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+          "size": 27272
+        }
+      }
+    }
+  },
+  "runtime_evidence": {
+    "collision_damage": "PASS",
+    "external_damage": "PASS",
+    "forester_namespace_cache_only_runtime": "PENDING",
+    "internal_damage": "PASS",
+    "native_cook_model_load": "PASS",
+    "normal_driving": "OBSERVED",
+    "provenance": "USER_SUPPLIED_RUNTIME_OBSERVATIONS",
+    "race_model_load": "PASS",
+    "scope": "runtime cook harness mounted the Forester model in the temporary Mercedes namespace; does not prove authentic Forester physics."
+  },
+  "same_source_gxm_by_role": {
+    "car": true,
+    "complete": true,
+    "wheel": true
+  },
+  "schema_version": 1,
+  "source_identity_note": "9.3.1 staged typo comlplete.gxm and normalized role complete.gxm copies have identical bytes to the 9.10.0 role source.",
+  "source_identity_status": "CONFIRMED_BY_BYTES"
+}
