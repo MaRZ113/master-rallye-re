@@ -24,6 +24,14 @@ extension, and delegates according to mode. SaveGameAs can **retag live groups**
 through `004D5400` before saving. “As” is not guaranteed copy-only behavior.
 
 Normal gameplay callers use logical options/mode 2 and PlayerState/mode 3.
-Mapped PlayerState callers include `004501D0`, `00450310`, `004841B0` and
-application call sites `005B0505/005B0526`. The latter enclosing function boundary
-is not confidently named. None of these commands was invoked in this phase.
+Mapped PlayerState callers include `004501D0`, `00450310`, `004841B0`.
+Historical correction: `005B0505` is **mode 2**, `005B0526` is mode 3, both in
+calibration helper **005B03D0**, whose normal reachability remains UNKNOWN.
+An earlier forced scratch boundary `005B0500` was inside an instruction and
+must not be used as evidence for application shutdown saving.
+See [direct-call census and normal owners](playerstate-save-trigger.md).
+No save command was executed by the researcher.
+
+SavePlayerState=True means **eligibility**, not “mutation automatically saves”.
+Frontend confirmation, ordinary name-editor destruction and progress/result
+owners request mode 3. Native file output is queued; reload is a separate proof.

@@ -41,11 +41,19 @@ Earlier open-only risk classification remains valid.
 
 ## State and next gate
 
-Static save/load architecture is sufficient to prepare a **normal Options and
-PlayerState observation in a disposable copy**. It does not authorize using
-developer SaveGame/SaveAs through the observational helper. SCENE/USER lifecycle,
-the new frontend's Windows command/capture chain and actual round-trip behavior
-remain open. Overall R-BROKER1 is PARTIAL; no runtime save test was performed.
+The original static closeout prepared normal Options/PlayerState observations.
+Subsequent [Observatory runtime confirmation](../broker-observatory/runtime-confirmation.md)
+closed the frontend automatic-capture gate; it did not prove persistence.
+The reported [U3 normal UI observation](u3-runtime-result.md) confirms live name
+mutation and race use, but persistence was NOT OBSERVED and U3 is not FULL PASS.
+
+The [narrow save-trigger tracing](playerstate-save-trigger.md) now identifies
+normal frontend/name-editor/result owners and excludes a dedicated central
+shutdown save. Eligibility, request, queued output and reload are separate.
+**ONE RUNTIME TEST REMAINS for the PlayerState gap**:
+[confirm the same car in offline QuickRace](u3-save-trigger-test.md).
+SCENE bulk-clear/USER and other bounded research unknowns are not silently closed.
+No developer SaveGame/SaveAs is authorized through the observational helper.
 
 See [save modes](save-modes.md), [writer](save-pipeline.md),
 [load order](load-order.md), [human plan](runtime-validation-plan.md),

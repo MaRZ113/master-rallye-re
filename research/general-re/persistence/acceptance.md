@@ -1,5 +1,27 @@
 # R-BROKER1 closeout checklist
 
+## Current narrow PlayerState closeout
+
+**ONE RUNTIME TEST REMAINS for the PlayerState gap.** Reported U3 proves normal
+UI → Broker and same-session race use, not disk/reload persistence. The static
+mode-3 caller map is now complete for the recovered direct calls; ordinary
+QuickRace confirmation provides a precise next trigger. Dedicated central
+shutdown saving is absent. See [trigger map](playerstate-save-trigger.md),
+[U3 evidence](u3-runtime-result.md), [one next test](u3-save-trigger-test.md).
+
+The earlier frontend pending gate below is superseded by the canonical
+[runtime confirmation](../broker-observatory/runtime-confirmation.md).
+Other historical research unknowns remain bounded. No automatic save experiment
+was executed in this task.
+
+Closeout validation: **324 synthetic tests PASS, 0 failures, 0 skips**;
+compileall and git diff --check pass. The new read-only evidence verifier
+independently rechecks pristine identity, 26 direct save calls and 25 literal
+mode arguments. JSON/CSV and documentation links are checked separately.
+Synthetic tests do not prove native disk persistence.
+
+## Original static closeout snapshot (historical)
+
 Overall **PARTIAL**, with the remaining blockers stated explicitly. Static
 architecture and synthetic frontend implementation are completed; human tests
 are prepared and not reported as executed.
@@ -30,7 +52,8 @@ No Material/Ghost/OFF COURSE/opponent/registry phase is begun by this closeout.
 - All four pristine hashes/sizes independently matched their corpus manifest.
 - Targeted suites: Observatory frontend 28, original core 16, trigger 14,
   XML inventory 3; synthetic-only, no live window commands.
-- Full synthetic suite: **268 tests, PASS** after final frontend/launcher changes.
+- Original static closeout suite: **268 tests, PASS** at that earlier commit;
+  this is a historical count, not the current suite size.
 - Native XML metadata inventory: seven selected retail source files inspected
   read-only, excluding proprietary values/object XML from committed metadata.
 - Existing frontend/frontend2/race-baseline capture pairs validated offline.

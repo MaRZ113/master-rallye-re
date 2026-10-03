@@ -1,0 +1,10 @@
+build,address,old_name,proposed_name,confidence,evidence
+retail-pristine,00481340,FUN_00481340,VehicleSelect_HandleFrontendEvent,CONFIRMED_BY_EXE,"screen class/vtable; event decoder; car update and explicit save branches"
+retail-pristine,004ADF50,FUN_004ADF50,SetQuickRacePlayerCar,CONFIRMED_BY_EXE,"player 0/other selects Car0/Car1 literal; int setter; no save call"
+retail-pristine,004AD7D0,FUN_004AD7D0,SetSettingsPlayer1Name,CONFIRMED_BY_EXE,"destination path ID plus supplied string; generic String setter"
+retail-pristine,00461A90,FUN_00461A90,GameOptions_HandleFrontendEvent,CONFIRMED_BY_EXE,"gaFEScreenGameOptionsAI vtable; positive/negative events and name destination selector"
+retail-pristine,00461C00,FUN_00461C00,CommitGameOptionsAndRequestPlayerStateSave,CONFIRMED_BY_EXE,"SpeedUnits/GearType transfer; mode 3 request"
+retail-pristine,004669B0,FUN_004669B0,DestroyNameScreenAndCommitOrdinaryName,CONFIRMED_BY_EXE,"deleting destructor; local text to selected Broker target; ordinary branch saves mode 3"
+retail-pristine,0047A8C0,FUN_0047A8C0,CommitQuickModeSelectionAndRequestPlayerStateSave,CONFIRMED_BY_EXE,"QuickModeSelect broker reads; runtime setters; mode 3 call"
+retail-pristine,005B03D0,FUN_005B03D0,CalibrateFrontendFeedbackCandidate,STRONG_HYPOTHESIS,"NoReduction gate and force-feedback transforms; mode 2/3; normal reachability unknown"
+retail-pristine,00404710,FUN_00404710,ResourceContextShutdownNoOp,CONFIRMED_BY_EXE,"00522800 resolved vtable slot; RET-only"

@@ -1,6 +1,9 @@
 # Persistence unknowns and limits
 
-1. Actual native round-trip behavior: not yet human-tested in this phase.
+1. U3 UI mutation and same-session race use are runtime-confirmed, but native
+   name persistence was NOT OBSERVED. Mode-3 trigger owners are now mapped;
+   exact prior UI/queue/output timing is unresolved. See
+   [trigger map](playerstate-save-trigger.md) and [one next test](u3-save-trigger-test.md).
 2. Archive-only target: read-based existence can succeed but loose CopyFileA can
    fail. Test only with a disposable target in an explicitly authorized follow-up.
 3. All IO-failure interleavings: immediate successful startup order is proven;
@@ -11,7 +14,10 @@
    path; no universal preserve-old guard exists there.
 7. Multi-editor __IGNORE owner callback and application-local reused storage:
    do not extrapolate the mapped dummy mode-0 argument to all consumers.
-8. All normal progress/profile writers and fixed identity/capacity constraints.
+8. Direct mode-3 save callers and major frontend/result owners are mapped; this
+   is not exhaustive proof against computed/indirect invocations. Calibration
+   helper 005B03D0 normal reachability and fixed identity/capacity constraints
+   remain bounded unknowns. No universal frontend-exit or race-entry save proven.
 9. Backend root variations under custom developer configurations.
 
 There is a one-generation overwriteable `#` backup, not transactional durability.
