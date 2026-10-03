@@ -49,6 +49,31 @@ python tools/scan_dx_131_135_corpus.py inputs --json research/r-cooker2/corpus-c
 
 See research/r-cooker2/findings.md and the machine-readable corpus-coverage.json.
 
+## R-COOKER3 source package workflow
+
+R-COOKER3 V1 provides a separate human-assisted path for supported source
+GXM: source inventory and hash provenance, embedded GXI resolution, guarded
+authoring-path helper generation, isolated retail cook-job preparation,
+native DX collection, and cache-only package validation. It delegates model
+and collision cooking to the exact verified retail runtime rather than
+recreating that cooker.
+
+| Capability | Current evidence/status |
+|---|---|
+| Mercedes native GXM-to-DX | **CONFIRMED_BY_RUNTIME** for the exact Demo 8.4.1 source/build/harness; Cook A/B byte-identical for complete/car/wheel |
+| Mercedes cache-only DX/DXT package | **CONFIRMED_BY_RUNTIME**; all three model roles and 25 DXT loaded without Mercedes GXM/GXI source access |
+| Mercedes collision and damage | **CONFIRMED_BY_RUNTIME** for normal barrier collision and reported external/internal damage |
+| Ordinary retail DXT cache miss from GXI | T1 negative observation: no GXI read or cached DXT write in the tested consumer path; not a global reachability claim |
+| Forester native GXM cook | GXM/GXI/DXT static preflight passes; isolated job prepared; native cook and runtime remain pending |
+
+R-COOKER3 does not claim arbitrary GXM support. Texture handling remains
+independent from native model cooking: valid DXT may be reused, or GXI may be
+converted by the existing offline encoder. Full GXM/GXI serialization,
+headless retail cooking, and the unresolved offline tag101 secondary
+descriptor producer remain outside this implementation. See
+[`research/r-cooker3/capability-matrix.md`](../research/r-cooker3/capability-matrix.md)
+and [`research/r-cooker3/runtime-results.json`](../research/r-cooker3/runtime-results.json).
+
 R4F runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
 ## R-COOKER1 same-source comparison (initial Trooper set)

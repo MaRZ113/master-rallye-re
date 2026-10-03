@@ -28,6 +28,7 @@ The high-level tested path is:
 
 ```text
 older demo model source -> original DEMO 9.10.0 cooker -> retail-compatible model package
+GXM/GXI source -> R-COOKER3 isolated retail cook job -> validated DX/DXT package
 retail carrier + physics family + model donor -> Vehicle Composer -> retail runtime
 ```
 
@@ -56,6 +57,19 @@ runtime-confirmed. The converter does not copy or convert DXT and rejects DX
 grammars outside its supported vehicle layout. See the
 [DX 131-to-135 guide](docs/dx-131-to-135-upgrader.md) and
 [regenerable corpus coverage](research/r-cooker2/corpus-coverage.md).
+
+R-COOKER3 adds a separate human-assisted source workflow for supported GXM
+packages: it inventories and hashes source files, resolves embedded GXI paths,
+prepares a copy of the verified retail cook harness, and validates/assembles
+the resulting DX plus DXT package. Mercedes is the one completed native-GXM
+runtime family; its cache-only load, collision, and damage checks passed.
+Forester is statically prepared as the next native-cook candidate but is not
+yet cooked through this R-COOKER3 job. T1 showed that the ordinary missing-DXT
+consumer did not regenerate from GXI, so textures use validated DXT reuse or
+the existing offline encoder. The tool does not launch the game automatically
+and this does not establish arbitrary GXM support. See
+[R-COOKER3 architecture](research/r-cooker3/architecture.md) and its
+[capability matrix](research/r-cooker3/capability-matrix.md).
 
 **The practical cooker compatibility problem is closed** for supported
 revision-131 vehicle DX. The standalone [Master Rallye DX Upgrader v0.1.0](https://github.com/MaRZ113/master-rallye-re/releases/tag/dx-upgrader-v0.1.0)

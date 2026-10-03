@@ -71,6 +71,11 @@ def _closed_geometry(geometry: CollisionGeometryBlock) -> dict[str, Any]:
     }
 
 
+def analyze_collision_geometry_topology(geometry: CollisionGeometryBlock) -> dict[str, Any]:
+    """Return the established closed/Euler/convex checks for one triangle mesh."""
+    return _closed_geometry(geometry)
+
+
 def _polygon_area(vertices, indices) -> float:
     if len(indices) < 3:
         return 0.0

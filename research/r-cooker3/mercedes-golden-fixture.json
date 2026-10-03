@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "fixture": "Mercedes R-COOKER3 golden",
+  "source_corpus": "demo-8.4.1",
+  "source_folder": "DataGx/Vehicles/Copy of Mercedes",
+  "native_model_strategy": "retail-native-gxm",
+  "texture_strategy": "reuse-valid-dxt",
+  "source_gxm_sha256": {
+    "complete": "95caced8716239d4fa093fc0320e737e13dc1eedc8b649456d4cc89444fe354d",
+    "car": "ff238b391da254ef10904bb59b7430d17e1000cfceec8821d61f98b7158993fe",
+    "wheel": "74bfb66a0b411cb3814bbc16f4c672bc9d42b5b7b7e7e7415686ba805ac517ea"
+  },
+  "cook_a_equals_cook_b": true,
+  "dx_sha256": {
+    "complete": "ddad0c7b13be70388a60a541255eaaf3af7f9b1815f5aa02f2b60050862dc28b",
+    "car": "5ec5f7480ddfc1380131a012b300a4cdeb28b869a1668b6f8bbe97210893ff44",
+    "wheel": "8707d887a75c452eb739775e21f94109521d9fc6be07726cee28a8e911c590ff"
+  },
+  "texture_dependency_count": 25,
+  "cache_only_package_validation": "PASS",
+  "runtime_evidence": {
+    "native_model_cook": "CONFIRMED_BY_RUNTIME",
+    "determinism": "CONFIRMED_BY_BYTES",
+    "cache_only_portability": "CONFIRMED_BY_RUNTIME",
+    "collision": "CONFIRMED_BY_RUNTIME",
+    "external_damage": "CONFIRMED_BY_RUNTIME",
+    "internal_damage": "CONFIRMED_BY_RUNTIME"
+  },
+  "fresh_job": {
+    "relative_path": ".research-output/r-cooker3/v1/jobs/Mercedes-golden",
+    "job_id": "dd52632dd44690079a9e",
+    "status": "PREPARED_FOR_HUMAN_NATIVE_COOK",
+    "runtime_family": "Mercedes",
+    "pre_cook_dx_outputs_present": false
+  },
+  "fresh_cache_only_package": {
+    "relative_path": ".research-output/r-cooker3/v1/Mercedes-golden-package-final",
+    "file_count": 30,
+    "model_dx_count": 3,
+    "dxt_count": 25,
+    "authoring_sources_included": false,
+    "static_validation": "PASS"
+  },
+  "scope": "The prepared fresh job is pending a new operator cook. The golden package was assembled from already runtime-confirmed T2 outputs; this does not claim arbitrary GXM support."
+}

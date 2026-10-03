@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "family": "Forester",
+  "source_corpus": "demo-9.3.1",
+  "source_folder": "DataGx/Vehicles/Forester",
+  "source_file_instances": 56,
+  "model_strategy": "retail-native-gxm",
+  "texture_strategy": "auto",
+  "source_gxm": {
+    "complete": {
+      "source_filename": "comlplete.gxm",
+      "staged_filename": "complete.gxm",
+      "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+      "size": 257541,
+      "prefix_status": "PASS_SUPPORTED_PREFIX"
+    },
+    "car": {
+      "source_filename": "car.gxm",
+      "staged_filename": "car.gxm",
+      "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+      "size": 219728,
+      "prefix_status": "PASS_SUPPORTED_PREFIX"
+    },
+    "wheel": {
+      "source_filename": "wheel.gxm",
+      "staged_filename": "wheel.gxm",
+      "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+      "size": 27272,
+      "prefix_status": "PASS_SUPPORTED_PREFIX"
+    }
+  },
+  "texture_preflight": {
+    "unique_runtime_dxt_dependencies": 23,
+    "valid_source_dxt_count": 23,
+    "gxi_references_resolved": 23,
+    "dxt_strategy_counts": {
+      "reuse-valid-dxt": 23
+    }
+  },
+  "authoring_path_preflight": {
+    "status": "PASS",
+    "gxm_role_references": 46,
+    "unique_gxi_copies": 23,
+    "historical_root_count": 1,
+    "unresolved_references": 0
+  },
+  "job": {
+    "relative_path": ".research-output/r-cooker3/v1/jobs/Forester-native-cook",
+    "job_id": "30f992c2c14accd7728b",
+    "status": "PREPARED_FOR_HUMAN_NATIVE_COOK",
+    "runtime_family": "Mercedes",
+    "harness_exe_sha256": "a6a5f0590405e1a2051ef21f2be58197857e72f4a651506627c8966083a21d91",
+    "data_sma_sha256": "03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f",
+    "pre_cook_dx_outputs_present": false
+  },
+  "runtime_status": "PENDING",
+  "separate_prior_evidence": "R-COOKER1.2 rev131-upgraded Forester car/complete/wheel runtime PASS does not establish this native-GXM cook result."
+}

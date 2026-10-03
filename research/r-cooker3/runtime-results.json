@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "phase": "R-COOKER3",
+  "source_family": "Mercedes",
+  "source_identity": {
+    "corpus": "demo-8.4.1",
+    "relative_folder": "DataGx/Vehicles/Copy of Mercedes",
+    "retail_harness_exe_sha256": "a6a5f0590405e1a2051ef21f2be58197857e72f4a651506627c8966083a21d91",
+    "retail_data_sma_sha256": "03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f"
+  },
+  "source_gxm": {
+    "complete": {
+      "sha256": "95caced8716239d4fa093fc0320e737e13dc1eedc8b649456d4cc89444fe354d",
+      "size": 231795
+    },
+    "car": {
+      "sha256": "ff238b391da254ef10904bb59b7430d17e1000cfceec8821d61f98b7158993fe",
+      "size": 195867
+    },
+    "wheel": {
+      "sha256": "74bfb66a0b411cb3814bbc16f4c672bc9d42b5b7b7e7e7415686ba805ac517ea",
+      "size": 27267
+    }
+  },
+  "cook_determinism": {
+    "status": "CONFIRMED_BY_BYTES",
+    "scope": "Exact Mercedes source GXM, supported retail build and isolated harness only",
+    "cook_a_equals_cook_b": true,
+    "outputs": {
+      "complete.dx": {
+        "sha256": "ddad0c7b13be70388a60a541255eaaf3af7f9b1815f5aa02f2b60050862dc28b",
+        "size": 122372,
+        "revision": 135
+      },
+      "car.dx": {
+        "sha256": "5ec5f7480ddfc1380131a012b300a4cdeb28b869a1668b6f8bbe97210893ff44",
+        "size": 112722,
+        "revision": 135
+      },
+      "wheel.dx": {
+        "sha256": "8707d887a75c452eb739775e21f94109521d9fc6be07726cee28a8e911c590ff",
+        "size": 12997,
+        "revision": 135
+      }
+    }
+  },
+  "texture_oracle_t1": {
+    "status": "CONFIRMED_BY_RUNTIME",
+    "result": "NEGATIVE_FOR_TESTED_ORDINARY_CACHE_MISS_PATH",
+    "texture": "underdash-tga",
+    "gxi_sha256": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5",
+    "historical_dxt_sha256": "d2eda2c6196d9d50448f90828450d81c4f6dc1d8041b7c0ae04ddbbcb81f8a9f",
+    "offline_encoder_matches_historical_dxt": true,
+    "runtime_events": {
+      "missing_mercedes_dxt_reported": true,
+      "reading_gxi": false,
+      "saved_cached_texture": false
+    },
+    "debugview_log": {
+      "relative_path": "research-output/r-cooker3/remove_underdash.log",
+      "size": 138593,
+      "sha256": "fd9979230a0d767df66c9bd5a616d139b9eb02ef8132d9384aa0a2daa192b0d0"
+    },
+    "scope_note": "Does not establish that the GXI writer is unreachable in every runtime path."
+  },
+  "cache_only_oracle_t2": {
+    "status": "CONFIRMED_BY_RUNTIME",
+    "runtime_models_loaded": [
+      "complete.dx",
+      "car.dx",
+      "wheel.dx"
+    ],
+    "unique_mercedes_dxt_loaded": 25,
+    "mercedes_gxm_or_gxi_access": false,
+    "historical_authoring_root_access": false,
+    "unrelated_global_gxm_lines": 2,
+    "debugview_log": {
+      "relative_path": "research-output/r-cooker3/oracle-t2-t3/results/oracle-t2-result.log",
+      "size": 152378,
+      "sha256": "cded3ff9a024e9335f0e04a5c4bd1c3f6c4195e19caa0616a8435003c8d2b58d"
+    },
+    "scope_note": "Negative source-access assertions are scoped to Mercedes; unrelated game-wide GXM reads are not a failure."
+  },
+  "collision_and_damage_oracle_t3": {
+    "status": "CONFIRMED_BY_RUNTIME",
+    "source": "Project operator runtime observations included in the R-COOKER3 handoff; no standalone raw T3 capture was present in the checked inputs.",
+    "collision": "Normal solid barrier response; no gross hull offset or pass-through observed.",
+    "external_damage": "Observed working.",
+    "internal_damage": "Observed working.",
+    "glass_breakage": "Not expected for this early Mercedes model; not treated as a failure.",
+    "tag101_secondary_descriptor_semantics": "UNRESOLVED"
+  }
+}
