@@ -45,7 +45,16 @@ translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
 collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. R4C itself did not add scale, rotation, topology, BSP, cylinder, or Blender collision
 export; R4G per-axis scale is confirmed by the C1 human wall-contact test. See `docs/collision-writer.md` and `research/r4c/`.
 
-Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT probes now have human in-game results: M1/M3 reflection helpers, M2 glass source-alpha, and M4 active brake-glow alpha. See research/r4d_1/runtime-results.md. See docs/vehicle-materials.md and research/r4d_1/findings.md.
+Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Its M1/M3 reflection, M2 glass source-alpha and M4 active brake-glow human results retain their tested scope; see research/r4d_1/runtime-results.md.
+
+R-MAT1 closes the observed vehicle material runtime model with non-blocking
+unknowns: exact slot0/stage0 and slot1/stage1 bindings, no NULL-slot promotion,
+byte2 diffuse and byte3 UV gates, all stock feature bits and the transparent
+queue's bound-depth sort key. Blender Preview V3 uses generic slot1 semantics
+with explicit approximation limits; 1478/1478 draws classify and 78/78 loaded
+Blender zero-edit exports are byte-identical. No new runtime result or material
+writer capability is claimed. See [research/r-mat1/findings.md](research/r-mat1/findings.md)
+and [docs/vehicle-materials.md](docs/vehicle-materials.md).
 
 Phase R4E adds same-topology attribute authoring, same-size DXT replacement, exact
 vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human testing confirms E1 UV, E3 vertex color, E4 alpha flag, and E5 full-tree Python Data.sma packing. E2 normal was inconclusive; stronger R4E.1 N1 and M1 human tests confirmed normal and environment-feature writing. The SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is now frozen. See
@@ -180,8 +189,10 @@ Exports are local validation artifacts under ignored `.research-output/` and
 must not be committed. DXT parsing preserves raw stored BGRA rows; PNG export
 explicitly uses the `flip-vertical` presentation policy. The evidenced glTF
 vehicle preview uses `--flip-v` as a separate UV-coordinate transform. The
-material preview uses the first non-`Null` texture only; all original ordered
+legacy glTF material preview uses the first non-`Null` texture only; all original ordered
 slots and candidates remain metadata.
+Vehicle Blender Preview V3 uses fixed runtime slot semantics instead; see
+`docs/blender-materials.md`.
 
 ## Reproduce R0 metadata
 

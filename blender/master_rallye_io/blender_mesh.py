@@ -252,7 +252,7 @@ def import_dx_resource(
     slot_by_material = {}
     draw_material_slots = {}
     for draw in model.physical_draws:
-        material = cache.material_for_draw(draw)
+        material = cache.material_for_draw(draw, resource_kind=resource_kind)
         pointer = material.as_pointer()
         if pointer not in slot_by_material:
             mesh.materials.append(material)
@@ -303,6 +303,14 @@ def import_dx_resource(
     )
     if resource_kind == "course":
         metadata = mark_course_metadata(metadata, model)
+    else:
+        # Derived annotations are separate from canonical raw writer fields.
+        metadata["vehicle_material_semantics_version"] = "R_MAT1_V3"
+        from .library import MaterialSemantics
+        for raw, draw in zip(metadata["draws"], model.physical_draws):
+            raw["runtime_material_semantics"] = MaterialSemantics.from_draw(
+                draw, reflections=cache.reflections
+            ).to_dict()
     if sidecar_resolution is not None:
         metadata["sidecar_resolution"] = {
             "selected_path": (

@@ -60,11 +60,18 @@ the same core fields.
 | `+0x14` | `uint32` | `unknown_0x14` | raw value preserved | **UNKNOWN** |
 | `+0x18` | `uint32` | `unknown_0x18` | raw value preserved | **UNKNOWN** |
 | `+0x1C` | `float32` | unknown scalar | raw value preserved | **UNKNOWN** |
-| `+0x20` | 4 bytes | flags/control bytes | raw value preserved | **UNKNOWN** |
-| `+0x24` | `uint32` | `unknown_0x24` | raw value preserved | **UNKNOWN** |
+| `+0x20` | 4 bytes | alpha enable, alpha-test selector, pass vertex diffuse enable, pass source UV enable | loader +22/+23/+20/+21 and vehicle consumers | **CONFIRMED_BY_EXE**, raw value preserved |
+| `+0x24` | `uint32` | `unknown_0x24`, runtime feature mask | base handle/selector bits01/02, env bit04 plus Reflections gate | **CONFIRMED_BY_EXE** for observed vehicle bits, raw value preserved |
 | `+0x28` | `uint32 T` | texture-slot count | parseable ordered strings and sidecar matches | **HIGH** |
 | next | repeated | `uint32 length` + bytes | texture resource stem | **HIGH** |
 | final | `uint32` | observed terminator/control | boundary **HIGH**, semantics **UNKNOWN** |
+
+Vehicle slot0/+38 binds stage0 and slot1/+3C binds stage1 without NULL-slot
+promotion. Byte2 and mask02 are correlated in the corpus but have separate
+runtime consumers. Shader setup writes differ from later instance depth-state
+overrides. See [vehicle-materials](../vehicle-materials.md) and
+[R-MAT1 binding proof](../../research/r-mat1/texture-stage-binding.md).
+No byte1/2/3 writer or engine-wide slot2 claim follows from this interpretation.
 
 Astero wheel draw 0 begins at `0x24F8`: base 0, inclusive local maximum 53,
 index start 0, index count 216, then slots `asterowheel64-tga`, `rubber-tga`,

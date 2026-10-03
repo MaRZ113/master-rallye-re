@@ -16,7 +16,7 @@ def draw(slots, flags, mask):
     return SimpleNamespace(
         texture_slots=[SimpleNamespace(slot=i, value=value) for i, value in enumerate(slots)],
         flags_0x20=bytes(flags), unknown_0x24=mask,
-        unknown_0x14=17, unknown_0x18=23, unknown_0x1c_float=0.5,
+        unknown_0x14=17, unknown_0x18=0, unknown_0x1c_float=0.5,
     )
 
 
@@ -51,10 +51,14 @@ class R4D1MaterialTests(unittest.TestCase):
             self.assertEqual(value["runtime_feature_mask"], 7)
             self.assertEqual(value["alpha_mode"], mode)
             self.assertEqual(value["alpha_enabled"], enabled)
-            self.assertEqual(test, value["d3d8_render_states"]["ALPHATESTENABLE"])
-            self.assertIsNone(value["texture_stage_mapping"])
-            self.assertIsNone(value["texture_combine_operations"])
-            self.assertIsNone(value["runtime_shader_family"])
+            # Env setup leaves non-test ALPHATESTENABLE unwritten, and the
+            # emitter later overrides Z state. Preserve that scope explicitly.
+            self.assertEqual(True if test else None, value["d3d8_render_states"]["ALPHATESTENABLE"])
+            self.assertEqual(value["texture_stage_mapping"]["slot0"]["d3d_stage"], 0)
+            self.assertEqual(value["texture_stage_mapping"]["slot1"]["d3d_stage"], 1)
+            self.assertEqual(value["texture_combine_operations"]["stage0_rgb"], "texture0.rgb * diffuse.rgb")
+            self.assertEqual(value["runtime_shader_family"], "shader/base_env" +
+                             ("_alphatest" if test else "_alpha" if enabled else ""))
             self.assertEqual(value["unknown_fields"]["unknown_0x14"], 17)
 
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 try:
     from master_rallye.assets import AssetResolver
+    from master_rallye.material_semantics import MaterialSemantics
     from master_rallye.coords import (
         BLENDER_PREVIEW_UV_POLICY,
         GLTF_PREVIEW_UV_POLICY,
@@ -61,6 +62,7 @@ try:
     )
 except ModuleNotFoundError:
     from .vendor.master_rallye.assets import AssetResolver
+    from .vendor.master_rallye.material_semantics import MaterialSemantics
     from .vendor.master_rallye.coords import (
         BLENDER_PREVIEW_UV_POLICY,
         GLTF_PREVIEW_UV_POLICY,

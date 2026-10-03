@@ -1,4 +1,25 @@
-# Format status (Phase R4D.1 vehicle-material hardening)
+# Format status
+
+## R-MAT1 current vehicle material closeout
+
+Vehicle runtime model: **CLOSED WITH NON-BLOCKING UNKNOWNS**. Blender vehicle
+Preview V3: **APPROXIMATE WITH DOCUMENTED LIMITATIONS**. Loader/compiled/pass/
+SetTexture evidence proves fixed slot0->stage0 and slot1->stage1, including
+NULL bindings without promotion. Byte2 gates pass vertex diffuse and byte3
+source UV; all stock masks01/02/04 are mapped. Alpha draws use a separate
+queue with a composite per-pass key and descending shared bound depth.
+Observed sticker/glow layers use ordinary base/env and source-alpha families.
+
+Fresh protected retail audit classifies 1478/1478 draws across 78 DX. All 1092
+slot1 bindings use generic semantics; 1089 have effective env node previews,
+with three NULL-base cases explicitly suppressed under the cascade inference.
+Raw metadata and 78/78 Blender zero-edit exports remain identical. Unknown
+variant/control fields, inherited state, scene grouping and damage fade retain
+documented boundaries; no new human runtime result or writer capability was
+added. See [R-MAT1](../research/r-mat1/findings.md),
+[vehicle materials](vehicle-materials.md) and [Blender preview](blender-materials.md).
+Earlier milestone sections below are historical and are refined by this
+closeout where they describe unresolved material stages or Preview V2.
 
 R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
@@ -388,7 +409,7 @@ opaque collision prefix; it did not perform broad executable analysis.
 - Scale, rotation, individual hull editing, topology changes, BSP/tag-100 and
   cylinder/tag-102 writing remain unsupported.
 
-## R4D material-semantics status
+## R4D material-semantics status (historical; refined by R4D.1 and R-MAT1)
 
 - **CONFIRMED_BY_CORPUS:** 1,478/1,478 physical vehicle draws inventoried; 18 neutral structural signatures. Current evidence-scored sidecar resolver yields 1,365 unique, 99 multiple, and 14 unmatched draw matches. These counts reflect the current resolver.
 - **CONFIRMED_BY_EXECUTABLE:** original PE imports Direct3D 8; registered shader families include base, alpha, alphatest, environment, noise, water, and particle.

@@ -1,35 +1,87 @@
-# Vehicle material semantics (R4D.1)
+# Vehicle material runtime model (R-MAT1)
 
-The canonical R4D inventory is research/r4d/material-corpus.json; focused R4D.1 source recomputation is research/r4d_1/corpus-hardening.json. It covers 1,478 physical draws in 78 vehicle DX resources. Every draw stores three ordered texture slots, with slot 2 always Null in this corpus. Slot 0 is populated in 1,473 draws; three draws have Null in slot 0 but a texture in slot 1; two have no texture. Slot 1 contains shared helper families in many draws.
+**CLOSED WITH NON-BLOCKING UNKNOWNS** for the observed retail vehicle branch.
+The fresh [R-MAT1 corpus report](../research/r-mat1/corpus-validation.json)
+covers 1478 physical draws in 78 resources. All are classified; slot0 is
+populated 1473 times, slot1 1092 times, and slot2 is NULL 1478 times. This is
+vehicle corpus evidence, not an engine-wide slot2 rule.
 
-## Evidence-based model
+## Serialized and runtime semantics
 
-A material binding should retain ordered DX slots, raw core/prefix control words, sidecar candidates and nullable HasAlpha/UsesAlpha/IsNoise values, per-texture DXT alpha statistics, source vertex colors, and distinct confidence/evidence labels. A derived preview_base_texture may be chosen independently. UNKNOWN is a valid semantic category.
+| Raw flag byte | Runtime offset | Role | Confidence |
+|---:|---|---|---|
+| 0 | +22 | alpha family enable | CONFIRMED_BY_EXE |
+| 1 | +23 | alpha-test selector when byte0 enabled | CONFIRMED_BY_EXE |
+| 2 | +20 | pass vertex diffuse enable -> FVF DIFFUSE | CONFIRMED_BY_EXE |
+| 3 | +21 | pass source UV enable -> FVF UV count | CONFIRMED_BY_EXE |
 
-**CONFIRMED_BY_EXECUTABLE:** the paired tag-2 serializer/deserializer maps DX flag bytes 0/1/2/3 to runtime material +0x22/+0x23/+0x20/+0x21, DX unknown_0x24 directly to +0x34, and three ordered texture names to handles +0x38/+0x3C/+0x40. The shader selector reads +0x22/+0x23/+0x34. Byte 0 enables the alpha family; byte 1 chooses alpha test when nonzero (all observed vehicle byte-1 values are zero). The base alpha shader uses source-alpha blending with Z writes off; its alpha-test variant uses a >128 test with Z writes on.
+`unknown_0x24` copies directly to runtime mask+34. Mask01 gates the base
+handle; mask&03 selects the base family; mask04 plus global Reflections>0
+selects/binds env. Byte2's equality to mask02 is CONFIRMED_BY_CORPUS, while
+its independent FVF consumer is CONFIRMED_BY_EXE. All observed masks are
+1:21, 2:2, 3:363, 5:151, 6:3, 7:938.
 
-**CONFIRMED_BY_CORPUS:** the serialized mask is exactly (slot0?1:0)|(flag_byte2?2:0)|(slot1?4:0) in 1,478/1,478 draws. Flag byte 0 agrees with sidecar slot-0 UsesAlpha in 1,364/1,365 unique bindings; the exception is Kamaz/complete.dx draw 19. HasAlpha, UsesAlpha, and pixel alpha remain distinct. The R4D alpha table's 2,395 values count texture entries, not physical draws.
+The loader -> compiled fixed vector -> shader pass mapping -> SetTexture chain
+proves slot0 (+38) -> stage0 and slot1 (+3C) -> stage1. NULL positions are
+retained, never promoted. The three NULL-base/helper-present records retain
+base_env when Reflections is ON. Blender suppresses their env preview under
+the documented HIGH_CONFIDENCE_INFERENCE of the fixed-function NULL cascade;
+no new in-game pixel observation is claimed. See
+[texture-stage-binding](../research/r-mat1/texture-stage-binding.md).
 
-## Material families
+Stage0 modulates texture with diffuse. Env stage1 uses camera-space normals,
+COUNT2 and the constructor's XY scale0.5/bias0.5 matrix; color is
+`current.rgb + current.a*env.rgb`, alpha `current.a*env.a`.
+All eight observed helper filenames use this generic mechanism. Texture names
+do not select shader families.
 
-- Opaque body/paint: the base shader's stage 0 modulates its bound texture with vertex diffuse. Slot-1 helper textures make the env shader available when Reflections is enabled; the in-game effect of whitepaint/silverpaint is confirmed by M1 as a continuous body/helmet reflection helper; absent with Reflections OFF.
-- Decals: sticker/body tuples recur, but a distinct decal operation is still UNKNOWN.
-- Glass: windscreen+glass tuples generally request the _alpha blend path and disable Z writes. M2 confirms continuous source-alpha transparency; sorting remains untested.
-- Chrome/envmap: slot-1 presence sets runtime mask bit 0x4; the env shader uses stage 1 with camera-space normals, a COUNT2 transform, and a MODULATEALPHA_ADDCOLOR operation. A reflection-vector coordinate claim would be incorrect.
-- Light/glow: brake/glow-like alpha draws also request _alpha; byte 2 is not the alpha-test selector. M4 confirms active brake-light glow alpha response while the base lamp remains. Additive blending, emission, and dynamic lights remain UNKNOWN.
+## Alpha, layering and ordering
 
-R4E provides restricted template-preserving fixed-field material edits. See research/r4d_1/dx-to-runtime-material.md, alpha-path.md, texture-stage-map.md, and runtime-test-plan.md for exact evidence and next tests.
+1241 draws are opaque, 237 blended; no stock draw selects alphatest. The six
+base/env and alpha/test families are statically established. Base_alpha setup
+uses ZWRITE=0, blend=1, SRCALPHA/INVSRCALPHA, test=0. Base_alphatest setup uses
+ZWRITE=1, blend=0, test=1, GREATER128. Env_alpha setup writes ZWRITE=1 and does
+not explicitly reset alpha test. The emitter subsequently writes instance
+ZENABLE/ZWRITE overrides. These explicit writes are distinguished from a
+complete effective device-state snapshot in the typed model; see
+[runtime-material-map](../research/r-mat1/runtime-material-map.md).
 
-## R4D.1 in-game closeout
+Alpha-blend submissions use a separate queue, after opaque/alphatest. The
+64-bit key orders pass, descending quantized shared bound depth, order counter,
+shader and texture. It is object/bound depth, not per-triangle sorting. Equal
+full keys and all scene grouping configurations are not promised stable.
+See [transparent-ordering](../research/r-mat1/transparent-ordering.md).
 
-M1 and M3 confirm distinct body/helmet and chrome/trim reflection helpers; both are gated by Reflections. M2 confirms glass source-alpha blending. M4 confirms active brake-glow alpha strength. See research/r4d_1/runtime-results.md and JSON for candidate hashes and human evidence. These observations do not prove exact transparent sorting or damage fade.
+The observed sticker/decal draws are ordinary opaque base/env geometry;
+all 25 glow-name draws use ordinary source-alpha base/env families. There is
+no distinct stock vehicle additive family in this selector/corpus evidence.
+Dynamic lamp activation, physical emission and damage are separate questions.
 
-## R4E fixed-field authoring
+HasAlpha, UsesAlpha, decoded pixel alpha and runtime alpha choice remain
+distinct. Byte0 agrees with unique sidecar slot0 UsesAlpha in 1364/1365
+bindings, retaining Kamaz/complete.dx draw19 as the exception. The older R4D
+2395 alpha values counted texture entries, not physical draws.
 
-Existing draw alpha enable (flag byte 0) can be toggled on draws whose
-alpha-test selector is zero. An existing slot-1 helper permits toggling mask
-bit 4; R4E.1 M1 confirms this control in the original runtime. Existing texture content can be replaced under the same DXT
-name. Flag bytes 1-3, unknown controls, texture strings and new material
-creation remain untouched. E4 confirms in-game that disabling the existing windscreen alpha-enable byte makes it opaque.\n
+## Existing human evidence and writer boundary
 
-R4E.1 M1 confirms the environment mask bit writer: Astero body draw 7 has acamo64b-tga in slot 0, whitepaint-tga in slot 1 and feature mask 7. Disabling only bit 0x4 removed that draw's environment contribution in-game; the primary livery and unrelated reflections remained. See research/r4e_1/runtime-results.md.
+R4D.1 M1/M3 confirm the tested Astero reflection helpers and Reflections gate;
+M2 confirms glass source-alpha response; M4 confirms active brake-glow alpha
+strength. R4E E1/E3/E4 and R4E.1 N1/M1 retain their exact runtime labels for
+UV/color/alpha/normal/env edits. The earlier E2 normal probe stays inconclusive.
+See [R4D.1 runtime results](../research/r4d_1/runtime-results.md),
+[R4E runtime results](../research/r4e/runtime-results.md), and
+[R4E.1 runtime results](../research/r4e_1/runtime-results.md).
+
+Existing-draw alpha enable can be toggled when byte1 is zero. An existing
+slot1 helper permits toggling mask04. Supported source normals/UVs/colors and
+same-size DXT content can be edited through the existing writers. Byte1/2/3,
+unknown controls, texture strings and new material creation retain their
+previous writer restrictions. Interpreting a field does not authorize its
+writer or arbitrary material creation.
+
+Damage RemoveEnvMap/EnvMapFadeStrength were traced only to configuration owned
+by the renderer: **OUTSIDE STATIC MATERIAL PREVIEW**, non-blocking. Optional
+variant objects/unknown controls and full effective scene state stay raw or
+explicit UNKNOWN. [Remaining boundaries](../research/r-mat1/remaining-unknowns.md).
+Historical R4D/R4E notes retain their original evidence and are superseded by
+this current runtime/preview closeout where stated.
