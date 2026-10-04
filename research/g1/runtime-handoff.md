@@ -12,16 +12,18 @@ human runtime test. Never combine the candidate XML files.
 | Expected runtime EXE SHA256 | `BF8AEF32407EB6552C05045B8ABEF149F32983CEDD9503B865069B444C5F96B4` |
 | Source RaceTest XML | `DataScene/RaceTest/France1.xml` |
 | Source XML SHA256 | `BEAA2180912FFD54F313A149962E295F9894239014481D2C7BA2DB84FB1E08E1` |
-| RaceLine / LeftInner legacy candidates | `D:\Game\Master Rallye\master-rallye-re\research-output\g1\probes` (repository-local ignored output) |
-| New probe default output | `D:\Game\Master Rallye\research-output\g1\probes` (runtime-root untracked output) |
+| Research output root | `D:\Game\Master Rallye\master-rallye-re\research-output` (repository-local ignored output) |
+| Probe directory | `D:\Game\Master Rallye\master-rallye-re\research-output\g1\probes` |
 
 Use a disposable Retail runtime copy and install exactly one candidate as that
 copy's `DataScene/RaceTest/France1.xml`. Keep a hash-verified baseline XML copy
 to restore between runs. For the outstanding OuterLimit test, do not modify
 DX, GXM, TXT, DXT, HNT, RaceLine, other limit lists, StartArea, FinishArea,
 SplitTime, or any other resource. The probe tool prints the resolved output
-root, candidate XML and manifest paths after each command. `--output-root`
-overrides the runtime-root default without changing it.
+root, candidate XML and manifest paths after each command. The default and
+`--output-root` both remain inside the repository so generated research files
+stay with the checked-out branch. An explicit root is resolved exactly and
+must be a descendant of the repository directory.
 
 The preparation/verification tool is deliberately limited to three fixed
 recipes (RaceLine, LeftInnerLimit, and LeftOuterLimit):
@@ -31,7 +33,7 @@ python tools\g1_route_limit_probe.py inspect --source "<baseline France1.xml>"
 python tools\g1_route_limit_probe.py prepare-outerlimit --source "<baseline France1.xml>"
 python tools\g1_route_limit_probe.py verify --kind raceline --source "<baseline France1.xml>" --edited "<RaceLine candidate>"
 python tools\g1_route_limit_probe.py verify --kind limit --source "<baseline France1.xml>" --edited "<LeftInnerLimit candidate>"
-python tools\g1_route_limit_probe.py verify --kind outerlimit --source "<baseline France1.xml>" --edited "D:\Game\Master Rallye\research-output\g1\probes\France1_outerlimit_58-60.xml"
+python tools\g1_route_limit_probe.py verify --kind outerlimit --source "<baseline France1.xml>" --edited "D:\Game\Master Rallye\master-rallye-re\research-output\g1\probes\France1_outerlimit_58-60.xml"
 ```
 
 It checks the exact baseline hash and verifies that only the predeclared
@@ -138,10 +140,10 @@ list, RightOuterLimit, road/render geometry, or race logic.
 | Exact XML source | `D:\Game\Master Rallye\Data.sma_unpacked\DataScene\RaceTest\France1.xml` |
 | Source SHA256 | `BEAA2180912FFD54F313A149962E295F9894239014481D2C7BA2DB84FB1E08E1` |
 | Expected runtime | Retail `MRallye.exe`; SHA256 `BF8AEF32407EB6552C05045B8ABEF149F32983CEDD9503B865069B444C5F96B4` |
-| Candidate XML | `D:\Game\Master Rallye\research-output\g1\probes\France1_outerlimit_58-60.xml` |
+| Candidate XML | `D:\Game\Master Rallye\master-rallye-re\research-output\g1\probes\France1_outerlimit_58-60.xml` |
 | Candidate SHA256 | `A398EDE6934F95146EAB8C81E38DA10B737EFD05E79C9BA0851F96874A0D8911` |
-| Probe manifest | `D:\Game\Master Rallye\research-output\g1\probes\France1_outerlimit_58-60.xml.manifest.json` |
-| Baseline reference manifest | `D:\Game\Master Rallye\research-output\g1\probes\France1_retail_baseline.manifest.json` |
+| Probe manifest | `D:\Game\Master Rallye\master-rallye-re\research-output\g1\probes\France1_outerlimit_58-60.xml.manifest.json` |
+| Baseline reference manifest | `D:\Game\Master Rallye\master-rallye-re\research-output\g1\probes\France1_retail_baseline.manifest.json` |
 | Exact list/field | `MarkerLists/List[@Name='LeftOuterLimit']`, `Marker Pos` XYZ; Y remains unchanged |
 | Zero-based indices | 58, 59, 60 |
 | Shared displacement | `(-33.453008, 0, -21.929346)` in source X/Y/Z; 40 units in X/Z toward the nearby route |
@@ -178,6 +180,22 @@ Competing outcomes:
 The first LeftInnerLimit test remains `INCONCLUSIVE_RUNTIME_PROBE`; do not treat
 this outer test as a retry with the same edit. It changes a different exact
 list and is designed to move the outer boundary across/near a drivable line.
+
+### Optional Broker Observatory comparison
+
+The separate General-RE Broker Observatory may be used as an optional runtime
+oracle; it is not part of this Course SDK branch. Compare baseline and
+candidate snapshots at the same physical road position for:
+
+- `Race/Car0/Transform`
+- `Race/Car0/LimitState` (primary success observable)
+- `Race/Car0/LastMarker`
+- `Race/Car0/Progress`
+- `Race/Car0/RaceState`
+
+A `LimitState` transition that follows the edited boundary is sufficient for a
+positive result. Reset/recovery is not required. Broker snapshots augment the
+controlled XML/runtime comparison and do not replace hash verification.
 
 ## Handoff discipline
 

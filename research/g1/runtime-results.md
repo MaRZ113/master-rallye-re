@@ -55,8 +55,10 @@ The next human test is the fixed `LeftOuterLimit` 58–60 candidate described in
 ## Research output locations
 
 Tracked corpus analyses and findings live under `research/` in the repository.
-The fixed probe tool defaults generated XML and manifests to the absolute
-runtime-root directory `D:\Game\Master Rallye\research-output\g1\probes`;
-this is untracked runtime/research output, separate from the repository's own
-`research-output` directory. `--output-root <path>` selects and prints another
-explicit absolute destination.
+The RaceLine and LeftInnerLimit candidates used in the completed human tests
+were originally copied under the runtime-root directory
+`D:\Game\Master Rallye\research-output\g1\probes`; that location is historical.
+The current fixed probe tool defaults new artifacts to the branch-local
+`<repository>\research-output\g1\probes`. `--output-root <path>` selects and
+prints an exact absolute destination inside the repository, keeping generated
+research results with the checked-out branch.

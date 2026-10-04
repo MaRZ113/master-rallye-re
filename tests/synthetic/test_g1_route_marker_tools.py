@@ -127,7 +127,7 @@ class G1ProbeGuardTests(unittest.TestCase):
             _marker_pos_spans(duplicate, "RaceLine", 0)
 
     def test_probe_output_must_be_new_and_inside_explicit_research_output_root(self):
-        with tempfile.TemporaryDirectory() as directory:
+        with tempfile.TemporaryDirectory(dir=ROOT / "research-output") as directory:
             root = Path(directory)
             source = root / "France1.xml"
             output = root / "g1" / "probes" / "France1_outerlimit_58-60.xml"
@@ -136,6 +136,11 @@ class G1ProbeGuardTests(unittest.TestCase):
                 _assert_output_path(root / "g1" / "candidate.xml", source, root)
             with self.assertRaises(ProbeError):
                 _assert_output_path(source, source, root)
+
+    def test_research_output_roots_cannot_escape_the_repository(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ProbeError, "must be inside the repository"):
+                resolve_output_paths("outerlimit", output_root=Path(directory) / "outside")
 
     def test_outerlimit_probe_changes_only_three_predeclared_pos_fields(self):
         source = _probe_source()
@@ -172,8 +177,9 @@ class G1ProbeGuardTests(unittest.TestCase):
     def test_output_root_defaults_and_explicit_override_are_absolute_and_printed(self):
         default_root, default_candidate, _default_manifest = resolve_output_paths("outerlimit")
         self.assertEqual(default_root, DEFAULT_OUTPUT_ROOT.resolve())
+        self.assertEqual(default_root, (ROOT / "research-output").resolve())
         self.assertEqual(default_candidate.parent, (DEFAULT_OUTPUT_ROOT / "g1" / "probes").resolve())
-        with tempfile.TemporaryDirectory() as directory:
+        with tempfile.TemporaryDirectory(dir=ROOT / "research-output") as directory:
             root = Path(directory) / "custom-output"
             resolved, candidate, manifest = resolve_output_paths("outerlimit", output_root=root)
             self.assertEqual(resolved, root.resolve())

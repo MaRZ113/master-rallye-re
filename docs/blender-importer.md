@@ -241,3 +241,13 @@ The panel lists existing draw IDs/materials, shows draw IDs on selected faces, a
 ## R4G vehicle workflow controls
 
 Imported objects display RACE BODY, PRESENTATION or WHEEL TEMPLATE roles. The sidebar can save a VehicleProject, validate it, and build an isolated mod staging tree. A car.dx with a finite tag101 hull exposes source-space collision translation and per-axis scale controls, validation/reset, preview center/radius/AABB and source hash. Marker-1339 box/sphere visualization is opt-in. These controls do not write the source DX; collision scale and expanded bounds await original-game tests. See docs/vehicle-project.md and docs/collision-authoring.md.
+
+## Unified Course and vehicle add-on package
+
+The maintained add-on source is `blender/master_rallye_io/` plus the bundled
+runtime library in `src/master_rallye/`. Build the single install candidate
+with `python tools/build_blender_addon.py`; the builder compares every packaged
+Python member byte-for-byte with its canonical source and rejects missing,
+stale, duplicate, or unexpected Python files. Course Race Logic and read-only
+G1 diagnostics coexist with vehicle R-MAT1 Preview V3. R-MAT1 remains scoped to
+vehicle resources; course draws retain the unscoped course preview.

@@ -20,8 +20,8 @@ from pathlib import Path
 REPOSITORY = Path(__file__).resolve().parents[1]
 RETAIL_EXE_SHA256 = "BF8AEF32407EB6552C05045B8ABEF149F32983CEDD9503B865069B444C5F96B4"
 FRANCE1_RETAIL_XML_SHA256 = "BEAA2180912FFD54F313A149962E295F9894239014481D2C7BA2DB84FB1E08E1"
-RUNTIME_EXE = REPOSITORY.parent / "MRallye.exe"
-DEFAULT_OUTPUT_ROOT = REPOSITORY.parent / "research-output"
+RUNTIME_EXE = REPOSITORY.parent / "corpora" / "retail" / "MRallye.exe"
+DEFAULT_OUTPUT_ROOT = REPOSITORY / "research-output"
 
 # Zero-based Marker ordinals within the exact, unique named MarkerList.
 PROBES = {
@@ -245,7 +245,17 @@ def _infer_output_root(path: Path) -> Path:
     path = path.resolve()
     if path.parent.name.casefold() != "probes" or path.parent.parent.name.casefold() != "g1":
         raise ProbeError("probe XML must be inside <output-root>/g1/probes")
-    return path.parent.parent.parent.resolve()
+    return _validate_output_root(path.parent.parent.parent)
+
+
+def _validate_output_root(path: Path) -> Path:
+    """Keep generated research artifacts inside this checked-out repository."""
+    root = path.expanduser().resolve()
+    try:
+        root.relative_to(REPOSITORY.resolve())
+    except ValueError as error:
+        raise ProbeError(f"research output root must be inside the repository: {REPOSITORY.resolve()}") from error
+    return root
 
 
 def resolve_output_paths(
@@ -263,19 +273,20 @@ def resolve_output_paths(
     start, end = indices[0], indices[-1]
     filename = f"France1_{probe_name}_{start}-{end}.xml"
     if output_root is not None:
-        root = output_root.expanduser().resolve()
+        root = _validate_output_root(output_root)
         candidate = root / "g1" / "probes" / filename
     elif output is not None:
         candidate = output.expanduser().resolve()
         root = _infer_output_root(candidate)
     else:
-        root = DEFAULT_OUTPUT_ROOT.expanduser().resolve()
+        root = _validate_output_root(DEFAULT_OUTPUT_ROOT)
         candidate = root / "g1" / "probes" / filename
     manifest = candidate.with_suffix(candidate.suffix + ".manifest.json")
     return root, candidate.resolve(), manifest.resolve()
 
 
 def _assert_output_path(path: Path, source: Path, output_root: Path) -> None:
+    output_root = _validate_output_root(output_root)
     if path.resolve() == source.resolve():
         raise ProbeError("probe output must be a new file, not the source XML")
     expected_parent = (output_root.resolve() / "g1" / "probes").resolve()
@@ -347,7 +358,7 @@ def _verify(
     source_path = source_path.resolve()
     edited_path = edited_path.resolve()
     inferred_root = _infer_output_root(edited_path)
-    resolved_root = output_root.expanduser().resolve() if output_root is not None else inferred_root
+    resolved_root = _validate_output_root(output_root) if output_root is not None else inferred_root
     _assert_output_path(edited_path, source_path, resolved_root)
     source = source_path.read_bytes()
     expected, edits = _make_expected(source, probe_name, expected_sha256=FRANCE1_RETAIL_XML_SHA256)
@@ -395,7 +406,7 @@ def _verify(
 
 def _inspect(source_path: Path, output_root: Path | None = None) -> dict:
     source_path = source_path.resolve()
-    resolved_root = (output_root or DEFAULT_OUTPUT_ROOT).expanduser().resolve()
+    resolved_root = _validate_output_root(output_root or DEFAULT_OUTPUT_ROOT)
     payload = source_path.read_bytes()
     actual_hash = sha256(payload)
     if actual_hash != FRANCE1_RETAIL_XML_SHA256:
@@ -431,18 +442,18 @@ def build_parser() -> argparse.ArgumentParser:
     commands = parser.add_subparsers(dest="command", required=True)
     inspect = commands.add_parser("inspect", help="show the fixed France1 probe targets")
     inspect.add_argument("--source", required=True, type=Path)
-    inspect.add_argument("--output-root", type=Path, help="research output root (default: Master Rallye runtime root research-output)")
+    inspect.add_argument("--output-root", type=Path, help="research output root inside this repository (default: repository research-output)")
     for name in PROBES:
         prepare = commands.add_parser(f"prepare-{name}", help=f"prepare the fixed {name} XML probe")
         prepare.add_argument("--source", required=True, type=Path)
         destination = prepare.add_mutually_exclusive_group()
         destination.add_argument("--output", type=Path, help="explicit candidate XML path inside <output-root>/g1/probes")
-        destination.add_argument("--output-root", type=Path, help="research output root; writes candidate under g1/probes")
+        destination.add_argument("--output-root", type=Path, help="research output root inside this repository; writes candidate under g1/probes")
     verify = commands.add_parser("verify", help="verify a probe XML against the fixed source and recipe")
     verify.add_argument("--kind", required=True, choices=tuple(PROBES))
     verify.add_argument("--source", required=True, type=Path)
     verify.add_argument("--edited", required=True, type=Path)
-    verify.add_argument("--output-root", type=Path, help="expected research output root (defaults to the edited XML location)")
+    verify.add_argument("--output-root", type=Path, help="expected research output root inside this repository (defaults to the edited XML location)")
     return parser
 
 

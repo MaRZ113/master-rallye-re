@@ -49,6 +49,23 @@ The Blender interface remains incremental: import the course DX, then select
 its RaceTest XML. The core SDK discovery/loading path is ready for scripts and
 later package-folder UI work.
 
+## Unified Blender add-on
+
+Course workflows and vehicle workflows share one maintained source tree:
+`blender/master_rallye_io/`, with the reusable parser library in
+`src/master_rallye/`. The install candidate is
+`dist/master_rallye_io.zip`; `tools/build_blender_addon.py` verifies every
+packaged Python source against its canonical source, including the vendored
+library. R-MAT1 Preview V3 is selected only for `resource_kind="vehicle"`.
+Course DX keeps the existing unscoped material preview because equivalent
+course-material semantics have not been established.
+
+SplitTime companion cards remain editor-only: their pole base begins at the
+unchanged Row3 export anchor, the billboard previews the source-facing `+Row2`
+basis, and the separate arrow previews `-Row2` as a local RaceLine travel
+correlation. The latter is a high-confidence geometric correlation, not
+runtime gameplay proof. Neither diagnostic object expands the RaceTest writer.
+
 ## Model layers
 
 Raw readers remain loss-preserving and independently available:

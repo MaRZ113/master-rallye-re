@@ -4,6 +4,10 @@
 annotations are backed by the executable; the node graph is an honest
 approximation, not a Direct3D8 raster-equivalence claim.
 
+This R-MAT1 projection is vehicle-scoped. `resource_kind="course"` continues
+to use the add-on's existing unscoped course material preview; vehicle stage
+and environment semantics are not inferred for course draws.
+
 Slot0 alone supplies the base texture. Slot1 stays an environment stage and is
 never promoted when slot0 is NULL. All observed helpers share one generic
 camera-normal path, with no filename strengths or special chrome shader.

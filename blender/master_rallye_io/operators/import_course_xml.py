@@ -408,13 +408,17 @@ def _create_companion_diagnostics(collection, source, course_name, split, compan
         # main SplitTime trigger matrix.
         local_right=(1.0, 0.0, 0.0),
         local_up=(0.0, 1.0, 0.0),
-        local_offset=(0.0, 0.15, 0.0),
+        # The procedural pole begins at local origin, so its base meets the
+        # unchanged source/export anchor without shifting the semantic helper.
+        local_offset=(0.0, 0.0, 0.0),
     )
     ray = create_direction_ray(
         collection,
         f"MR_{label}_DirectionRay",
         helper,
-        local_direction=(0.0, 0.0, 1.0),
+        # Row2 is the sign-facing normal. The ray previews the opposite,
+        # source-order route/travel direction seen in the France1 correlation.
+        local_direction=(0.0, 0.0, -1.0),
         length=4.0,
         color=(0.05, 0.82, 1.0, 1.0),
     )
@@ -435,7 +439,9 @@ def _create_companion_diagnostics(collection, source, course_name, split, compan
         obj["mr_semantics_status"] = "VIEWPORT_ONLY; no runtime-forward semantics asserted"
     panel["mr_billboard_style"] = "procedural companion diagnostic fallback; no game texture/model"
     text_obj["mr_billboard_label"] = label
-    ray["mr_direction_basis"] = "this companion en3d Matrix local +Z (Row2)"
+    panel["mr_billboard_basis"] = "this companion en3d Matrix local +Z (Row2); source-facing preview"
+    ray["mr_direction_basis"] = "this companion en3d Matrix local -Z (-Row2); route/travel diagnostic"
+    ray["mr_direction_evidence"] = "HIGH_CONFIDENCE_GEOMETRIC_CORRELATION; not runtime gameplay proof"
     return panel, text_obj, ray
 
 

@@ -11,38 +11,49 @@ from pathlib import Path
 EXCLUDED_PARTS = {"__pycache__", ".git", ".research-output", "dist", "tests", "research"}
 EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".dx", ".dxt", ".png", ".blend", ".gltf", ".bin"}
 FIXED_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
-FRESHNESS_FILES = (
-    "master_rallye_io/ui.py",
-    "master_rallye_io/operators/import_course_xml.py",
-    "master_rallye_io/course_diagnostics.py",
-    "master_rallye_io/operators/export_course_race_logic.py",
-)
-
-
 def _sha256(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest().upper()
 
 
 def verify_package_freshness(output: Path, root: Path) -> list[dict[str, str]]:
-    """Fail if key generated add-on sources do not match their ZIP members."""
-    source_root = root / "blender" / "master_rallye_io"
+    """Fail unless every canonical Python source has one exact ZIP counterpart."""
+    expected: dict[str, Path] = {}
+    for source, member in source_files(root):
+        if member in expected:
+            raise RuntimeError(f"multiple canonical sources map to ZIP member {member}")
+        expected[member] = source
+
+    vendor_init = "master_rallye_io/vendor/__init__.py"
+    expected_python = set(expected) | {vendor_init}
     checked = []
     with zipfile.ZipFile(output, "r") as archive:
-        names = set(archive.namelist())
-        for member in FRESHNESS_FILES:
-            source_path = source_root / Path(member).relative_to("master_rallye_io")
-            archive_path = member
-            if archive_path not in names:
-                raise RuntimeError(f"packaged add-on is missing freshness target {archive_path}")
+        names = archive.namelist()
+        python_names = [name for name in names if name.endswith(".py")]
+        duplicates = sorted(name for name in set(python_names) if python_names.count(name) > 1)
+        if duplicates:
+            raise RuntimeError(f"duplicate packaged Python source members: {duplicates}")
+        actual_python = set(python_names)
+        missing = sorted(expected_python - actual_python)
+        unexpected = sorted(actual_python - expected_python)
+        if missing:
+            raise RuntimeError(f"packaged add-on is missing Python source members: {missing}")
+        if unexpected:
+            raise RuntimeError(f"packaged add-on has unexpected Python source members: {unexpected}")
+
+        vendor_bytes = archive.read(vendor_init)
+        if vendor_bytes != b'"""Build-time vendor namespace."""\n':
+            raise RuntimeError(f"unexpected generated vendor namespace source in ZIP member {vendor_init}")
+        checked.append({"member": vendor_init, "sha256": _sha256(vendor_bytes)})
+        for member, source_path in sorted(expected.items()):
             source_bytes = source_path.read_bytes()
-            packaged_bytes = archive.read(archive_path)
+            packaged_bytes = archive.read(member)
             source_hash = _sha256(source_bytes)
             package_hash = _sha256(packaged_bytes)
             if packaged_bytes != source_bytes:
                 raise RuntimeError(
-                    f"stale add-on ZIP member {archive_path}: source {source_hash}, package {package_hash}"
+                    f"stale add-on ZIP member {member}: source {source_hash}, package {package_hash}"
                 )
-            checked.append({"member": archive_path, "sha256": source_hash})
+            checked.append({"member": member, "sha256": source_hash})
     return checked
 
 
@@ -93,7 +104,11 @@ def build(output: Path, root: Path) -> dict:
         **manifest,
         "output": str(output),
         "zip_entries": len(files) + 2,
-        "freshness_check": {"status": "PASS", "files": freshness},
+        "freshness_check": {
+            "status": "PASS",
+            "python_source_members_checked": len(freshness),
+            "files": freshness,
+        },
         "zip_sha256": _sha256(output.read_bytes()),
     }
 

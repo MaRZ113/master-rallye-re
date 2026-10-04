@@ -24,6 +24,30 @@ def _close3(a, b, epsilon=1.0e-4):
     return all(abs(float(a[index]) - float(b[index])) <= epsilon for index in range(3))
 
 
+def _nearest_route_tangent(position, markers):
+    """Return the source-order segment tangent nearest a source-space point."""
+    point = Vector(position)
+    best = None
+    for first, second in zip(markers, markers[1:]):
+        if first.position is None or second.position is None:
+            continue
+        start, end = Vector(first.position), Vector(second.position)
+        segment = end - start
+        horizontal = Vector((segment.x, 0.0, segment.z))
+        if horizontal.length_squared < 1.0e-12:
+            continue
+        offset = Vector((point.x - start.x, 0.0, point.z - start.z))
+        amount = max(0.0, min(1.0, offset.dot(horizontal) / horizontal.length_squared))
+        nearest = start + segment * amount
+        delta = point - nearest
+        distance_xz = delta.x * delta.x + delta.z * delta.z
+        if best is None or distance_xz < best[0]:
+            best = (distance_xz, segment.normalized())
+    if best is None:
+        raise AssertionError("RaceLine has no usable source-order segment")
+    return best[1]
+
+
 class _LayoutDrawProbe:
     """Run real panel draw callbacks and validate icons against Blender RNA."""
 
@@ -86,10 +110,14 @@ def _source_egg_map(xml_bytes):
 
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
-    if len(args) not in {2, 3}:
-        raise SystemExit("expected RaceTest.xml output.json [addon.zip] after --")
+    if len(args) not in {2, 3, 4, 5}:
+        raise SystemExit("expected RaceTest.xml output.json [addon.zip|-] [synthetic_vehicle.dx] [course.dx] after --")
     xml_path, result_path = (Path(value).resolve() for value in args[:2])
     archive = Path(args[2]).resolve() if len(args) == 3 else None
+    if len(args) >= 4 and args[2] != "-":
+        archive = Path(args[2]).resolve()
+    vehicle_fixture = Path(args[3]).resolve() if len(args) >= 4 else None
+    course_dx = Path(args[4]).resolve() if len(args) == 5 else None
     repository = Path(__file__).resolve().parents[2]
     if archive is not None:
         sys.path.insert(0, str(archive))
@@ -201,6 +229,10 @@ def main():
         for split in project.race_logic.split_times
         for companion in split.companions
     }
+    race_line = project.race_logic.source_document.marker_list("RaceLine")
+    if race_line is None:
+        raise AssertionError("France1 RaceLine is required for static direction correlation")
+    route_tangents = []
     if len(billboard_by_companion) != len(companions) or len(ray_by_companion) != len(companions) or len(label_by_companion) != len(companions):
         raise AssertionError("companion diagnostic helpers must preserve one-to-one companion identity")
     if any(obj.parent in split_centers for obj in billboards):
@@ -222,8 +254,10 @@ def main():
             raise AssertionError("companion billboard must identify its source Egg, not the main split trigger")
         if billboard.get("mr_billboard_style") != "procedural companion diagnostic fallback; no game texture/model":
             raise AssertionError("companion fallback must be explicitly marked as a non-game visual")
-        if ray.get("mr_direction_basis") != "this companion en3d Matrix local +Z (Row2)":
-            raise AssertionError("companion ray must identify its own Matrix Row2 basis")
+        if ray.get("mr_direction_basis") != "this companion en3d Matrix local -Z (-Row2); route/travel diagnostic":
+            raise AssertionError("companion ray must identify the -Row2 route/travel diagnostic")
+        if billboard.get("mr_billboard_basis") != "this companion en3d Matrix local +Z (Row2); source-facing preview":
+            raise AssertionError("companion billboard must retain the source-facing +Row2 basis")
         if not all(helper.lock_rotation) or helper.get("mr_orientation_export_policy") != "rotation is preserved from source and not authored":
             raise AssertionError("companion orientation must be presented as read-only")
         matrix = source_companion.source_egg.matrix("en3d Matrix")
@@ -234,25 +268,36 @@ def main():
                 f"companion helper world anchor must remain at source Row3: "
                 f"{tuple(helper.matrix_world.translation)} != {tuple(expected_position)}"
             )
-        actual_ray = (
-            ray.matrix_world.to_3x3() @ Vector((0.0, 0.0, 1.0))
-        ).normalized()
-        if (actual_ray - expected_row2).length > 1.0e-3:
-            raise AssertionError("companion direction ray does not follow its own Matrix Row2")
+        arrow_tip_local = Vector(ray.data.splines[0].points[1].co[:3])
+        actual_ray = (ray.matrix_world.to_3x3() @ arrow_tip_local).normalized()
+        if (actual_ray + expected_row2).length > 1.0e-3:
+            raise AssertionError("companion route/travel ray must follow -Row2")
         panel_normal = (
             billboard.matrix_world.to_3x3() @ billboard.data.polygons[-1].normal
         ).normalized()
-        if (panel_normal - actual_ray).length > 1.0e-3:
-            raise AssertionError("companion billboard normal and direction ray disagree")
+        if (panel_normal - expected_row2).length > 1.0e-3:
+            raise AssertionError("companion billboard front must follow the source-facing +Row2")
+        if panel_normal.dot(actual_ray) > -0.999:
+            raise AssertionError("source-facing sign and route/travel arrow must remain opposite")
         local_up_world = (helper.matrix_world.to_3x3() @ Vector((0.0, 1.0, 0.0))).normalized()
         if local_up_world.z < 0.95:
             raise AssertionError("companion billboard local up axis must point above the source anchor")
-        if not _close3(billboard.location, (0.0, 0.15, 0.0)):
-            raise AssertionError("only the editor billboard geometry may use its small local upward offset")
-        panel_vertices_world = [billboard.matrix_world @ vertex.co for vertex in billboard.data.vertices]
-        lowest_card_z = min(vertex.z for vertex in panel_vertices_world)
-        if not (helper.matrix_world.translation.z + 0.10 <= lowest_card_z <= helper.matrix_world.translation.z + 0.20):
-            raise AssertionError("companion sign card bottom should start just above its unchanged source anchor")
+        if not _close3(billboard.location, (0.0, 0.0, 0.0)):
+            raise AssertionError("billboard pole must have no artificial offset from the unchanged source anchor")
+        vertices = billboard.data.vertices
+        pole_base_local = (vertices[0].co + vertices[1].co) * 0.5
+        pole_base_world = billboard.matrix_world @ pole_base_local
+        if (pole_base_world - helper.matrix_world.translation).length > 2.0e-4:
+            raise AssertionError("editor-only billboard pole/base must begin at its unchanged source anchor")
+        source_tangent = _nearest_route_tangent(source_companion.position, race_line.markers)
+        source_travel = -Vector(matrix.row(2)[:3]).normalized()
+        travel_alignment = source_travel.dot(source_tangent)
+        route_tangents.append(travel_alignment)
+        if travel_alignment < 0.85:
+            raise AssertionError(
+                f"-Row2 should align with France1 source-order RaceLine locally; "
+                f"{helper.get('mr_source_egg')} dot={travel_alignment:.4f}"
+            )
 
     valid_icons = {
         item.identifier
@@ -495,6 +540,60 @@ def main():
         if len(unsupported_finish) != 5 or any(obj.get("mr_race_logic_editable") for obj in unsupported_finish):
             raise AssertionError("five-marker FinishArea was not safely exposed read-only")
 
+    material_import_status = "NOT_RUN"
+    material_semantics_module = None
+    if vehicle_fixture is not None:
+        existing_objects = set(bpy.data.objects)
+        result = bpy.ops.import_scene.master_rallye_dx(
+            filepath=str(vehicle_fixture), import_sidecar=True, load_textures=True,
+            strict_validation=True,
+        )
+        if result != {"FINISHED"}:
+            raise AssertionError(f"unified add-on synthetic vehicle import failed: {result}")
+        imported_vehicles = [
+            obj for obj in bpy.data.objects if obj not in existing_objects
+            and obj.get("mr_source_path") == str(vehicle_fixture)
+            and obj.get("mr_resource_kind") == "vehicle"
+        ]
+        if len(imported_vehicles) != 1:
+            raise AssertionError("unified add-on did not create exactly one vehicle fixture object")
+        vehicle = imported_vehicles[0]
+        vehicle_metadata = json.loads(vehicle["mr_metadata_json"])
+        if vehicle_metadata.get("vehicle_material_semantics_version") != "R_MAT1_V3":
+            raise AssertionError("unified add-on package is missing R-MAT1 Preview V3 metadata")
+        if not vehicle.data.materials or any(
+            material.get("mr_preview_semantics") != "R_MAT1_RUNTIME_STAGES_V3"
+            for material in vehicle.data.materials
+        ):
+            raise AssertionError("unified add-on package is missing R-MAT1 stage/environment material preview")
+        from master_rallye_io.library import MaterialSemantics
+        material_semantics_module = MaterialSemantics.__module__
+        if archive is not None and material_semantics_module != "master_rallye_io.vendor.master_rallye.material_semantics":
+            raise AssertionError("packaged G0 smoke did not use the add-on's vendored MaterialSemantics")
+        material_import_status = "PASS"
+
+    course_material_status = "NOT_RUN"
+    if course_dx is not None:
+        existing_objects = set(bpy.data.objects)
+        result = bpy.ops.import_scene.master_rallye_course(filepath=str(course_dx), load_textures=False)
+        if result != {"FINISHED"}:
+            raise AssertionError(f"unified add-on course render import failed: {result}")
+        imported_courses = [
+            obj for obj in bpy.data.objects if obj not in existing_objects
+            and obj.get("mr_source_path") == str(course_dx)
+            and obj.get("mr_resource_kind") == "course"
+        ]
+        if not imported_courses:
+            raise AssertionError("unified add-on did not create a course-scoped render object")
+        for course in imported_courses:
+            metadata = json.loads(course["mr_metadata_json"])
+            if "vehicle_material_semantics_version" in metadata:
+                raise AssertionError("course resource inherited vehicle-scoped R-MAT1 annotations")
+            if any(material.get("mr_preview_semantics") == "R_MAT1_RUNTIME_STAGES_V3"
+                   for material in course.data.materials):
+                raise AssertionError("course materials inherited vehicle-scoped R-MAT1 semantics")
+        course_material_status = "UNSCOPED_COURSE_PREVIEW"
+
     result_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "status": "PASS",
@@ -515,8 +614,19 @@ def main():
         "area_point_scale_warning_suppressed": True,
         "whole_split_checkpoint_translation": True,
         "independent_visual_companion_translation": True,
-        "companion_rays_follow_own_imported_matrix_row2": True,
-        "companion_billboards_follow_own_imported_matrix": True,
+        "companion_billboards_follow_own_imported_matrix_row2_source_facing": True,
+        "companion_rays_follow_negative_imported_matrix_row2_route_preview": True,
+        "companion_route_alignment_evidence": {
+            "classification": "HIGH_CONFIDENCE_GEOMETRIC_CORRELATION",
+            "companion_count": len(route_tangents),
+            "minimum_minus_row2_dot_local_raceline_tangent": min(route_tangents),
+            "maximum_minus_row2_dot_local_raceline_tangent": max(route_tangents),
+            "runtime_proof": False,
+        },
+        "billboard_pole_base_starts_at_source_anchor": True,
+        "unified_material_preview_import": material_import_status,
+        "material_semantics_module": material_semantics_module,
+        "course_material_scope": course_material_status,
         "diagnostic_helpers_excluded_from_export": True,
         "companion_orientation_is_read_only": True,
         "split_scale_radius_warning": True,
