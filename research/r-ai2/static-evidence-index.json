@@ -1,0 +1,823 @@
+{
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "ghidra_version": "12.1.4",
+  "project_saved": false,
+  "functions": [
+    {
+      "function_va": "0042a540",
+      "instruction_count": 47,
+      "assembly_listing_sha256": "2cbd037a38ac10f398b989cc18599130dd1dff83c7848f4b88a21a79100f59e8"
+    },
+    {
+      "function_va": "0042a600",
+      "instruction_count": 24,
+      "assembly_listing_sha256": "0fb8b5a7f7e22dff2621b6ff44dc79b7b9c25895934fa5612788f4d1c62dc998"
+    },
+    {
+      "function_va": "0042a660",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "38d58d05a0a859299187a3e37df4e4e2d1013c580bb610e2b608d6a592fd28b3"
+    },
+    {
+      "function_va": "0042a680",
+      "instruction_count": 15,
+      "assembly_listing_sha256": "73bdb60b476aa776be3c53a8d6768973ae0d743a3b7cfe8475e4dc90e9d84dda"
+    },
+    {
+      "function_va": "0042a6b0",
+      "instruction_count": 72,
+      "assembly_listing_sha256": "88e4d53d4c74481e8ba43ca4bc4f0ceebadd37dac82b34be156e380757e80f0b"
+    },
+    {
+      "function_va": "0042a7b0",
+      "instruction_count": 54,
+      "assembly_listing_sha256": "a6cc24cbdf9e8feac0d0c184c6b2dbe019695bc9dcdb7395728abf1945b38ff9"
+    },
+    {
+      "function_va": "0042a890",
+      "instruction_count": 260,
+      "assembly_listing_sha256": "3601b0d8b7bcba6df4519c4e35dc6f02edce067c3e4cf0182edc90fd99d12dfa"
+    },
+    {
+      "function_va": "0042abd0",
+      "instruction_count": 5,
+      "assembly_listing_sha256": "72a8dab4c7d351a980deb9815db2542d76be5cb210c85252c514b8e711ff0c66"
+    },
+    {
+      "function_va": "0042ac10",
+      "instruction_count": 36,
+      "assembly_listing_sha256": "459706cf749b7f1a546e89680a6292423009923641dc3790dfd5496e4283aeff"
+    },
+    {
+      "function_va": "0042ac80",
+      "instruction_count": 58,
+      "assembly_listing_sha256": "db9c90e23d3acce067f4f12df9ee06b779563bd2a49a54a32fc5ea7272db623b"
+    },
+    {
+      "function_va": "0042ad30",
+      "instruction_count": 1,
+      "assembly_listing_sha256": "d994c2ee715b4e19a6d0aa26f8f5435c2af437ac6049e6371a6ebdd0a2cf8bf2"
+    },
+    {
+      "function_va": "0042ad40",
+      "instruction_count": 216,
+      "assembly_listing_sha256": "9f78712bb3dc8e0b13d291bf923a64955041f6763961bba11b5f645a018f458c"
+    },
+    {
+      "function_va": "0042b1b0",
+      "instruction_count": 16,
+      "assembly_listing_sha256": "6422faa3128e8435344de589828dced3e1d2446c1d5cb25b0a3d629b2cd79b84"
+    },
+    {
+      "function_va": "0042b6d0",
+      "instruction_count": 100,
+      "assembly_listing_sha256": "f684d9ce8d15e7865c104d9cb99599bb0292a2785f4e11e57ee9737282a9c4a8"
+    },
+    {
+      "function_va": "0042b830",
+      "instruction_count": 90,
+      "assembly_listing_sha256": "5d86c562e1ef02a86c3031fb67c8f640925789a2d22497f44d9518ad349df4e6"
+    },
+    {
+      "function_va": "0042ba00",
+      "instruction_count": 12,
+      "assembly_listing_sha256": "3409d2455e9a0d0ff3ec9f5c95201489ff062c4b26fe8e699264d3438dccd523"
+    },
+    {
+      "function_va": "0042bd90",
+      "instruction_count": 59,
+      "assembly_listing_sha256": "19d509cc93442ff0fb934cf93d0c8b2722bf75e164826669103919a96e1bfcd7"
+    },
+    {
+      "function_va": "004333d0",
+      "instruction_count": 72,
+      "assembly_listing_sha256": "77b5417fb2a4a0c0a8e05eaceb7825e86c58eacd4b51c1652ec7966bf11e1f42"
+    },
+    {
+      "function_va": "0043a800",
+      "instruction_count": 165,
+      "assembly_listing_sha256": "f2571192c414490dc8b14177751f360579141757d03116664df0156910dfeac6"
+    },
+    {
+      "function_va": "0043ac80",
+      "instruction_count": 175,
+      "assembly_listing_sha256": "8c98017ea6a37e88df90987ef1b35e25d3deb4cf8085a9e0ddf420ea61b257ec"
+    },
+    {
+      "function_va": "0043b800",
+      "instruction_count": 107,
+      "assembly_listing_sha256": "b9d356a0aca0a223d5d2c1f52f874669606fa5d0dab76c551a4b22deee047228"
+    },
+    {
+      "function_va": "0043bb70",
+      "instruction_count": 216,
+      "assembly_listing_sha256": "2047d462300df5871e9c8551827f97fcc7819fe3b65d77274d4ac170132052b0"
+    },
+    {
+      "function_va": "0043dd40",
+      "instruction_count": 186,
+      "assembly_listing_sha256": "e9dcedf68a5387e76d0f44fa793ee07d21d9d7742a4aa139da32897bcde90e84"
+    },
+    {
+      "function_va": "0043dfa0",
+      "instruction_count": 24,
+      "assembly_listing_sha256": "11196998bf244bf975c2ef97634581c858c8cab5918146e8afa7130f5fc88a47"
+    },
+    {
+      "function_va": "0043e000",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "01c8fa891ba2bf6142e9150292397c215500f842041f0bba7e9058a24eef12f4"
+    },
+    {
+      "function_va": "0043e020",
+      "instruction_count": 228,
+      "assembly_listing_sha256": "07e6bd7fa5ccc4f5daf22e8a03bd97c17a327bf408873060c71c3df47d202b57"
+    },
+    {
+      "function_va": "0043e4c0",
+      "instruction_count": 243,
+      "assembly_listing_sha256": "84523cc4b746d3a17b070279ae3c968282dcfabd08fb4ae6582a9fd7c7e9fe41"
+    },
+    {
+      "function_va": "0043ee00",
+      "instruction_count": 33,
+      "assembly_listing_sha256": "4237ddd4957992024dba247a969420c7b74fa22565d7d0f68f3f2bec251e5e39"
+    },
+    {
+      "function_va": "0043ef40",
+      "instruction_count": 24,
+      "assembly_listing_sha256": "4018f0bb4ee09382ad8c481d599fdd76669d94bc39efca73e7096ff1d3c75443"
+    },
+    {
+      "function_va": "0043ef80",
+      "instruction_count": 54,
+      "assembly_listing_sha256": "9702f3e5f6b6f885f999cd68261f156cd9fc7dbbf4c13938c20b572765102d8f"
+    },
+    {
+      "function_va": "0043f020",
+      "instruction_count": 209,
+      "assembly_listing_sha256": "75c6d72bd91a9dda9af1741a2a7340851864a4162e14760fc6dea7313add8d35"
+    },
+    {
+      "function_va": "0043f2c0",
+      "instruction_count": 26,
+      "assembly_listing_sha256": "219185bf104e46720c1f8affdb932707b337d05f6f82a7123c622fc25cb60a6f"
+    },
+    {
+      "function_va": "0043f310",
+      "instruction_count": 18,
+      "assembly_listing_sha256": "d37a4f17ffe673e7b0a8317061bc37db5678b2d234f38b14be655e7c2a5dfdad"
+    },
+    {
+      "function_va": "0043f350",
+      "instruction_count": 46,
+      "assembly_listing_sha256": "c3e4960b83c53cd68e1abfbace5f7f26885ce8f948299c618807a505914a9ea2"
+    },
+    {
+      "function_va": "0043f3d0",
+      "instruction_count": 44,
+      "assembly_listing_sha256": "9a9bb2d8b3a4453b554a06a7d62f22654e2078434368dd50bb18abcc9c125e7f"
+    },
+    {
+      "function_va": "0043f450",
+      "instruction_count": 125,
+      "assembly_listing_sha256": "7fb0ba3939ef1965e6b602e9bf6b521e2fb6817312a801a2ce3eba7b51567f34"
+    },
+    {
+      "function_va": "0043f650",
+      "instruction_count": 96,
+      "assembly_listing_sha256": "11e85939f3f28b08364f3e265743356c88cb6125e7a1c1b276aca91a23a8d423"
+    },
+    {
+      "function_va": "0043f890",
+      "instruction_count": 39,
+      "assembly_listing_sha256": "726099c0c2db6ba98fa31968d01efaa6ddefd528001418ce7052f73d480fac31"
+    },
+    {
+      "function_va": "0043f960",
+      "instruction_count": 50,
+      "assembly_listing_sha256": "7884608488cebad92b2d1b061859eb88e4bac3d017bcca12653a35e6610dd82c"
+    },
+    {
+      "function_va": "0043f9d0",
+      "instruction_count": 14,
+      "assembly_listing_sha256": "69e89f679d955713503441a222e9c2dc601d95800774ac7c7e5fb7312a6d08b4"
+    },
+    {
+      "function_va": "0043fa00",
+      "instruction_count": 110,
+      "assembly_listing_sha256": "d5edf5e68f1c886a4e0868d3fda4574448178c725e9e762ba0e9708de75d5002"
+    },
+    {
+      "function_va": "0043fb60",
+      "instruction_count": 25,
+      "assembly_listing_sha256": "c63647ec3b5df79962ad65d767a1e8f9c04a1075dbadeabe1a98e2baddccca4c"
+    },
+    {
+      "function_va": "0043fc00",
+      "instruction_count": 88,
+      "assembly_listing_sha256": "761ce830384a3ca3d8851adae7fac15a4c8cba83fc2f832c0f09e49b7294d889"
+    },
+    {
+      "function_va": "0043fd50",
+      "instruction_count": 32,
+      "assembly_listing_sha256": "439193a435770d4b4f98d3bda413d28aaa0a21be1f9647f51a38f682152ca414"
+    },
+    {
+      "function_va": "0043fda0",
+      "instruction_count": 37,
+      "assembly_listing_sha256": "c572b09023299ec83a2fd6c0dc28d4fda99146bbc3e01113ca98b196fb81f6d9"
+    },
+    {
+      "function_va": "0043fe00",
+      "instruction_count": 44,
+      "assembly_listing_sha256": "90d6177b69959c96293ed972d8905305ce2ec18a119a9da57360e7a6377ef090"
+    },
+    {
+      "function_va": "00449100",
+      "instruction_count": 114,
+      "assembly_listing_sha256": "28a66402b624a896ae698ea22afe66757bf00d46965a8091ffe74d6b7bcb5c79"
+    },
+    {
+      "function_va": "00449e90",
+      "instruction_count": 320,
+      "assembly_listing_sha256": "7cc1817b5fb6b7f78d3a127cad86123621d0729d131d2cb7a2a390ec3bd3b37e"
+    },
+    {
+      "function_va": "0044a510",
+      "instruction_count": 160,
+      "assembly_listing_sha256": "74012e1250b53422c1f3dbf3d271e3d2936215c73ca7aa9014f73eea3489989c"
+    },
+    {
+      "function_va": "0044ed50",
+      "instruction_count": 415,
+      "assembly_listing_sha256": "039be4bf6f3d4798ce9ba6fb3265a1e4ae3d5ecd885adffa21d6e4b8412373eb"
+    },
+    {
+      "function_va": "00479bb0",
+      "instruction_count": 385,
+      "assembly_listing_sha256": "70adc03b2051d227d8de9470f627038368e2f30cc7cc2f15f9456ac6fcd00a75"
+    },
+    {
+      "function_va": "0047a120",
+      "instruction_count": 321,
+      "assembly_listing_sha256": "88ce78719d64fb59259efd5ea4ea1543b8175ca67288cf13f1b8db7bd4e6e126"
+    },
+    {
+      "function_va": "0047a540",
+      "instruction_count": 261,
+      "assembly_listing_sha256": "20e1d049775aa5d23fa33c37162d43f7ce353a1ca6e3835a56b0f07970fb81f6"
+    },
+    {
+      "function_va": "0047a8c0",
+      "instruction_count": 69,
+      "assembly_listing_sha256": "3f8b38b9c2d9ace780414a16852a90b8047619c8dedaf8b2684d0c29378da2a6"
+    },
+    {
+      "function_va": "0047c6b0",
+      "instruction_count": 7,
+      "assembly_listing_sha256": "0c01f103b482344cab5f8923828113e59ed7274c76fced2e1b2dfcf9044e516b"
+    },
+    {
+      "function_va": "0047c6c0",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "b044fc5454d351f73f9619e6df09ec40645d14c8b2d578e067e30fe28aab589f"
+    },
+    {
+      "function_va": "0047c6f0",
+      "instruction_count": 21,
+      "assembly_listing_sha256": "c2c0dd047e9feeb25ddecd36529fe1d71c15fefdaf2ba776b3ebb2ff601cc437"
+    },
+    {
+      "function_va": "0047c740",
+      "instruction_count": 24,
+      "assembly_listing_sha256": "081d570f1130887347f1587557cc5603d29ec5e20abae23afe49697c08014b96"
+    },
+    {
+      "function_va": "0047c7a0",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "a259a1f35bf6609fccf3a6c10605ac74943e228f5a7a87e11c592cbb8c471dd4"
+    },
+    {
+      "function_va": "0047c7c0",
+      "instruction_count": 35,
+      "assembly_listing_sha256": "1578bda14b9fab5ca7102f946f58efb2e11cd228bd244955ff26b25fe50eb782"
+    },
+    {
+      "function_va": "0047c840",
+      "instruction_count": 664,
+      "assembly_listing_sha256": "97d5de85a67da7eb1d58296c935738ba16f605011297f6c48996dacb6c3811b9"
+    },
+    {
+      "function_va": "0047d100",
+      "instruction_count": 82,
+      "assembly_listing_sha256": "2f48ffeef74f8768a09b8610cdc731b88feee06f11e137fb24096e2204063922"
+    },
+    {
+      "function_va": "0047d340",
+      "instruction_count": 55,
+      "assembly_listing_sha256": "3e494a22a254b1793a76db2aadaa074b3e598d83e2091848dd285934f54fdf68"
+    },
+    {
+      "function_va": "0047d400",
+      "instruction_count": 55,
+      "assembly_listing_sha256": "769208865220b4ea9fd25ab3172396e0ecfe741d75637209b3e53723a93a55f2"
+    },
+    {
+      "function_va": "0047d4c0",
+      "instruction_count": 154,
+      "assembly_listing_sha256": "149c87f6c07607c63281e323a364d5d71e87ab0f0276678011b516ce975af5df"
+    },
+    {
+      "function_va": "0047d6d0",
+      "instruction_count": 98,
+      "assembly_listing_sha256": "0eba453c22e8be0ad9299b5fc25a95457ed2fce73be4a844e27322eb7b0460ab"
+    },
+    {
+      "function_va": "0047d7e0",
+      "instruction_count": 88,
+      "assembly_listing_sha256": "fafc0fd61fd5f6c0f548c2af02dedf259c6441f1cec0eb8e276c7a1d1e921132"
+    },
+    {
+      "function_va": "0047d8d0",
+      "instruction_count": 96,
+      "assembly_listing_sha256": "88204563e5b3557a44d7853f6b5ada9d5760fca0a3d0d97679cca1917851444e"
+    },
+    {
+      "function_va": "0047d9d0",
+      "instruction_count": 88,
+      "assembly_listing_sha256": "df69823dd5973f9ad3025e1244eb2e8818b88266a897b7dc61f59d544bfcb32e"
+    },
+    {
+      "function_va": "0047dac0",
+      "instruction_count": 43,
+      "assembly_listing_sha256": "6c3d943a7841135cda5c6c20e7faf9fc04ca64d67a0088baad272f82c6f0daf2"
+    },
+    {
+      "function_va": "0047db30",
+      "instruction_count": 50,
+      "assembly_listing_sha256": "b19faee3fb74510086beb7c2781bd25c50afb5f3e1057d94390902cc0472f808"
+    },
+    {
+      "function_va": "0047dbe0",
+      "instruction_count": 216,
+      "assembly_listing_sha256": "cbc190e92afdc33546cba7f0ccf732a677c25c796b6aa1ab5a8e366164d41bdf"
+    },
+    {
+      "function_va": "00489a60",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "dc033173cf8c379735dfb69fc674f489f914c2cff0387438d0fedc5a01fa310c"
+    },
+    {
+      "function_va": "00489a80",
+      "instruction_count": 35,
+      "assembly_listing_sha256": "28430058d63a0f13e10371d456bac6d29d9d1fcfd4a2fecbea53449dbda4f811"
+    },
+    {
+      "function_va": "00489af0",
+      "instruction_count": 247,
+      "assembly_listing_sha256": "724945dc38ee58a8237b7cde13b2b2501698720e7c931c691a5325bdd916cc77"
+    },
+    {
+      "function_va": "00489ec0",
+      "instruction_count": 502,
+      "assembly_listing_sha256": "55ae4b36c83c7884bf880e907e6c6f2b52da67584d066d793bf512f817a30c55"
+    },
+    {
+      "function_va": "0048a570",
+      "instruction_count": 96,
+      "assembly_listing_sha256": "d201663dec2af44435d2969bb79fe1d9da766e2f49ecbc3136217ace081eddec"
+    },
+    {
+      "function_va": "0048a7f0",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "134646c8f59482a8449b014bd434504a9b55762c617db852d249c9e4d8ca2dc0"
+    },
+    {
+      "function_va": "0048a810",
+      "instruction_count": 36,
+      "assembly_listing_sha256": "6beb6f95d1507dbca6239ac7de5b9cacd0bf5429e22f587a05eb2e1d42960110"
+    },
+    {
+      "function_va": "0048a880",
+      "instruction_count": 223,
+      "assembly_listing_sha256": "4534083e41167fd6e2f4858f427b2d2aa94aaf151f4bfb1647fd5bec0f126708"
+    },
+    {
+      "function_va": "0048ab20",
+      "instruction_count": 87,
+      "assembly_listing_sha256": "3bcba48dc6a3e9d289e5aad351ce0804ae6161cd034121e26bb2e6a0bc097265"
+    },
+    {
+      "function_va": "0048ada0",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "0fd363c71edf84bfc57536767d7154474e04d7691daba2a92ec5099a451fe0bc"
+    },
+    {
+      "function_va": "0048adc0",
+      "instruction_count": 36,
+      "assembly_listing_sha256": "ff89a884da17888e288ab0dbf9bd8a6af2cf605d5986d8e944c97fe6d7c75a5e"
+    },
+    {
+      "function_va": "0048ae30",
+      "instruction_count": 623,
+      "assembly_listing_sha256": "936b14224f4b88f4f274eec5a80785211009a62bb452b02307eaac7fa7d45d34"
+    },
+    {
+      "function_va": "0048b520",
+      "instruction_count": 283,
+      "assembly_listing_sha256": "e6d74ea61e9ec75f18f86f369d90c7b75bb12dbf6803498ddf6cbb547984a66f"
+    },
+    {
+      "function_va": "0048c470",
+      "instruction_count": 132,
+      "assembly_listing_sha256": "8107b66bb519081e7ab4427dc0c838440428d6e893cbcdc040d265d065891a27"
+    },
+    {
+      "function_va": "0048c860",
+      "instruction_count": 100,
+      "assembly_listing_sha256": "a0148edbeb3e8663ceb966d6bd86c66d977eea227b3e864735fc1ea7b171a317"
+    },
+    {
+      "function_va": "0048cc00",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "741c33490dbea1d4751c20589bb1a342ba8fbf39e57a579d10d57a9c3d92090b"
+    },
+    {
+      "function_va": "0048cc20",
+      "instruction_count": 12,
+      "assembly_listing_sha256": "87ad6c3bcfde37874cd1347475508a0b0a46630c545f3e39566482f12e25eb3c"
+    },
+    {
+      "function_va": "0048cfe0",
+      "instruction_count": 208,
+      "assembly_listing_sha256": "5fd11dbeae0c332106d0d70a05d9c251c57198595ca312852c6f99872df64efa"
+    },
+    {
+      "function_va": "0048d260",
+      "instruction_count": 64,
+      "assembly_listing_sha256": "4f191ca28775ca8da3350646b33850e870b2ad63e343979acc001ada98884c0b"
+    },
+    {
+      "function_va": "0048d550",
+      "instruction_count": 312,
+      "assembly_listing_sha256": "b3d99417610bc0e2c7e312d020a186b8d411bde96c11e42c46f20692beebb6d4"
+    },
+    {
+      "function_va": "0048e2d0",
+      "instruction_count": 398,
+      "assembly_listing_sha256": "7eaff35a446935dcbb0d48912f5d8f490e64aab13dddaf16cd09ee2768bb82ee"
+    },
+    {
+      "function_va": "0048e820",
+      "instruction_count": 127,
+      "assembly_listing_sha256": "95c710fd645014519de75a4981f48f9773b599afee36dbedf73c6754de29c10a"
+    },
+    {
+      "function_va": "0048e9c0",
+      "instruction_count": 104,
+      "assembly_listing_sha256": "f4573939a5675b17cad630896e3005dd18c9b32d88fd6d6765c7c182dbe84c42"
+    },
+    {
+      "function_va": "0048eb40",
+      "instruction_count": 399,
+      "assembly_listing_sha256": "ba4c356f707f942dbb4340f98ac7fab380e11bcb21cf204a387ce6993aaaefd4"
+    },
+    {
+      "function_va": "0048f5f0",
+      "instruction_count": 332,
+      "assembly_listing_sha256": "f2c1af6fe06f545618aed20e95f76540f0d1bc411287eed468f1a6f3d08de0f9"
+    },
+    {
+      "function_va": "00491e00",
+      "instruction_count": 63,
+      "assembly_listing_sha256": "ca08165aea798bbadf760e6882ad9d388de2e5ef263daa0b572bce6c7502fb58"
+    },
+    {
+      "function_va": "00493600",
+      "instruction_count": 122,
+      "assembly_listing_sha256": "ee7bbdd3903ca05ae68525cb2ccaca1e1fcd1d6b05d49cfcef10b5116076e9a7"
+    },
+    {
+      "function_va": "004938c0",
+      "instruction_count": 79,
+      "assembly_listing_sha256": "f3a6ed8e4fe7a19bd79811913034aae3c3aa8cd2639fd89bff22bdd6761750d6"
+    },
+    {
+      "function_va": "004a74a0",
+      "instruction_count": 221,
+      "assembly_listing_sha256": "cb6ce23f444bfbe2bbe004f6393777b7b8799acb99879d03ecb1474e10771bdc"
+    },
+    {
+      "function_va": "004aae70",
+      "instruction_count": 141,
+      "assembly_listing_sha256": "ed67410af5064cbb4f9f41fba6d9dff36b03b8aca4c82343626329673264c153"
+    },
+    {
+      "function_va": "004ab040",
+      "instruction_count": 238,
+      "assembly_listing_sha256": "ba47f123fc3e051f2923b76841f20e4a79be4a38c94ff5ab75bcb09cd32b5935"
+    },
+    {
+      "function_va": "004ab390",
+      "instruction_count": 187,
+      "assembly_listing_sha256": "8c20a9f4ef4a5df96e224c92c85d4fa51e0adf799e822894e4ecbb17bf21148b"
+    },
+    {
+      "function_va": "004abbd0",
+      "instruction_count": 69,
+      "assembly_listing_sha256": "89b6381e686969510be0b41234084de645f91018bb838340fbb35db6f2dd6513"
+    },
+    {
+      "function_va": "004abce0",
+      "instruction_count": 97,
+      "assembly_listing_sha256": "ef7d291d9d3b852f7689569bd93ad6a3f3169c677f5cadad2a89211f0e13f72d"
+    },
+    {
+      "function_va": "004ac040",
+      "instruction_count": 12,
+      "assembly_listing_sha256": "af52c5c0df34ea723c7f378eefbec7d6d9655b825f88122bf69da26b879fc435"
+    },
+    {
+      "function_va": "004ac590",
+      "instruction_count": 20,
+      "assembly_listing_sha256": "3ec3ef8153545cbe3067e6d1b7afd14e9212aa7613629524f1dc8d6a6f7049ce"
+    },
+    {
+      "function_va": "004ac660",
+      "instruction_count": 23,
+      "assembly_listing_sha256": "9c0219360df6d1329c95811152c0d3605ccd38fbfed57bfeb8fd9a90fb65d107"
+    },
+    {
+      "function_va": "004ac930",
+      "instruction_count": 80,
+      "assembly_listing_sha256": "de707c03651eae6b42624c88a9136def8a39f3f1bdee5e98950cecf188f6f4f5"
+    },
+    {
+      "function_va": "004acaf0",
+      "instruction_count": 25,
+      "assembly_listing_sha256": "5ead3bf8a063767d9431018079ad2b6a0dd1f76024ccb5d1ff7b512d00f98ee8"
+    },
+    {
+      "function_va": "004ada50",
+      "instruction_count": 29,
+      "assembly_listing_sha256": "cfb9c5c82fe8fab160a4e46bfe490863a16b5f5a8c6faacced32b6b8122ac6c1"
+    },
+    {
+      "function_va": "004ae090",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "877b40a613fd5830e57ec440137f2cf46c91fe0f9ae09060a14100f401291b98"
+    },
+    {
+      "function_va": "004ae0f0",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "6657e30100d129f86f5fbf5e7457c8eb71626d2d5e6d0ca5850c025ec5acd656"
+    },
+    {
+      "function_va": "004ae150",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "86d4bb0a8bb6a34fecb7317b1e12cee2523d398715e0640c9e606037fdc40807"
+    },
+    {
+      "function_va": "004ae270",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "44e7ed3e2edf3ce4461099ea7f7f02f91a5c22dfdc3747f3dd4fb25bb4736aab"
+    },
+    {
+      "function_va": "004ae2d0",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "97de7ff604016a30cccb77f338bad2aa408ec1acbc6ec5119b04d62a5b8f86e6"
+    },
+    {
+      "function_va": "004b08b0",
+      "instruction_count": 25,
+      "assembly_listing_sha256": "e08d36daa3b2a9512cf149abbf5fc01f77f4327535e40fce3dd86db0d4c39fd8"
+    },
+    {
+      "function_va": "004b0af0",
+      "instruction_count": 29,
+      "assembly_listing_sha256": "ebfb98ec09e864ab4720c8a068b0751b3c8c42f0cdfdd4f17361430c6d8d016d"
+    },
+    {
+      "function_va": "004b6750",
+      "instruction_count": 41,
+      "assembly_listing_sha256": "232e6b681f716d6d9c715118a63a3bdde3a9df7afe74efec58db19c9b7c7ef72"
+    },
+    {
+      "function_va": "004b67f0",
+      "instruction_count": 24,
+      "assembly_listing_sha256": "deecd00f65e6baf07dd32cb18cd047d4df0639352dd1d3965c9303ec5f9758d2"
+    },
+    {
+      "function_va": "004b6850",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "889abdfb6fc3f97c7277d71d2e4e0b75f4c6a967adf5898c0b2aa65c2c5a5eac"
+    },
+    {
+      "function_va": "004b6870",
+      "instruction_count": 2,
+      "assembly_listing_sha256": "e807dd48c35c3757ee8cb2bf7638b6a6a77e5c272e339bf9ba6d4defad384bf4"
+    },
+    {
+      "function_va": "004b6a00",
+      "instruction_count": 845,
+      "assembly_listing_sha256": "b60442ea647be0c44829586f0590685356b3f062b0421e8c305cc634ba955c98"
+    },
+    {
+      "function_va": "004b7a70",
+      "instruction_count": 237,
+      "assembly_listing_sha256": "fa0c32f591cd3d421f31b78c578350db537faeb5321141fd96770514eba09481"
+    },
+    {
+      "function_va": "004b7de0",
+      "instruction_count": 132,
+      "assembly_listing_sha256": "7dd5d5a1d865b627c63edbc79ac047d9791016ce033070fd5f304d7e1fe9704b"
+    },
+    {
+      "function_va": "004b8170",
+      "instruction_count": 29,
+      "assembly_listing_sha256": "db7bae22ded8b79b2e695a5356b0dd7755fa58f48ec7c0a456556a74cbd6aae6"
+    },
+    {
+      "function_va": "004b81e0",
+      "instruction_count": 10,
+      "assembly_listing_sha256": "49e19fadcc71c5fa6a9eb79753f66c7b2ca924ed9618bf8de3f7b1e65c6fa89e"
+    },
+    {
+      "function_va": "004b8210",
+      "instruction_count": 33,
+      "assembly_listing_sha256": "c375d92870e5d3c1af45f6ec50d588b0ab9ccaefee21523a96120ca003a73401"
+    },
+    {
+      "function_va": "004b82a0",
+      "instruction_count": 226,
+      "assembly_listing_sha256": "c7474fbee6f1f6399eb5df8ab0f7bc48d7b1233b9002b4678033d0501843f5a3"
+    },
+    {
+      "function_va": "004b8810",
+      "instruction_count": 31,
+      "assembly_listing_sha256": "366818b227e0c34044588c8d30c169f16e752ac227d29bf102a0568864f04440"
+    },
+    {
+      "function_va": "004bc3c0",
+      "instruction_count": 160,
+      "assembly_listing_sha256": "df9f30c364d20b56a27b1d674c80e990f2475739f446450c91f08897b30a6ab9"
+    },
+    {
+      "function_va": "004bca30",
+      "instruction_count": 29,
+      "assembly_listing_sha256": "a3b7dcb453f9ced1d1cb7f0378458a36c3f96344634de7b9e0f0b734e0ce635d"
+    },
+    {
+      "function_va": "004cadf0",
+      "instruction_count": 59,
+      "assembly_listing_sha256": "e7ec9f544399bbce9cbfd7f49ffc150b64adf7e8648f77b38c58258c317323f1"
+    },
+    {
+      "function_va": "004caec0",
+      "instruction_count": 2,
+      "assembly_listing_sha256": "1cddff71f19eb1f1e38477ca76f96843f62591a97a564d2f83ad6698e62ffc55"
+    },
+    {
+      "function_va": "004caff0",
+      "instruction_count": 59,
+      "assembly_listing_sha256": "bd821b041530cbce0f108ccf0a185a082ef83319288b777be77f82a5673abc6e"
+    },
+    {
+      "function_va": "004cb0c0",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "94d92ccba24dede8606828c5515a28471ad5023e3990601ead54ad7381da2eee"
+    },
+    {
+      "function_va": "004cb0e0",
+      "instruction_count": 39,
+      "assembly_listing_sha256": "839d4b6ea42e93205f66a7bc10e74c85788ab055aee1625915d1ff22179caba4"
+    },
+    {
+      "function_va": "004cb150",
+      "instruction_count": 241,
+      "assembly_listing_sha256": "7dd7038041eafb535e4a82f442ea4fd31dc7b8e049e7c11a49583728beb60b7c"
+    },
+    {
+      "function_va": "004cb410",
+      "instruction_count": 288,
+      "assembly_listing_sha256": "23b8806d629754e5fbf5addc795f76b8713194d980f03a1372078a645d8532b0"
+    },
+    {
+      "function_va": "004cb860",
+      "instruction_count": 58,
+      "assembly_listing_sha256": "807740b8f878891d5c39af811021aedca78f88f5c6637137cd89d797c4240b9d"
+    },
+    {
+      "function_va": "004cb930",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "7fe4a934398aec80ff92b0dbd646bec859cd1c10acd7b2d24da2910aae43eb5a"
+    },
+    {
+      "function_va": "004cb950",
+      "instruction_count": 32,
+      "assembly_listing_sha256": "bccff1f58728760d22a21f74239aa485703825106ddeca227c56d1327bba5783"
+    },
+    {
+      "function_va": "004cb9b0",
+      "instruction_count": 136,
+      "assembly_listing_sha256": "3701ac8dbc13a4db909afd427d7f05bfd1d5e35d5877c8ff9a46f17b7d61b7c4"
+    },
+    {
+      "function_va": "004cbb50",
+      "instruction_count": 221,
+      "assembly_listing_sha256": "dd0acd505042950e4d0969ad09ebcd1c7eded64a090111ab2d8b57df72dcd3e3"
+    },
+    {
+      "function_va": "004cc400",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "56c6a3bc1aa9e6ef9b5fff90671fd17b026d9deaa485ff103d68582c0579f0a3"
+    },
+    {
+      "function_va": "004cc420",
+      "instruction_count": 135,
+      "assembly_listing_sha256": "682c2184ab5508f229715a26a43a18966ee086cabbdd4d929d07e165045f8cf5"
+    },
+    {
+      "function_va": "004cc5f0",
+      "instruction_count": 418,
+      "assembly_listing_sha256": "de11ce7cdb4c0286dae1a939ebf97cb9aaed1735234991cdd940dcb9975d7c63"
+    },
+    {
+      "function_va": "004ccaf0",
+      "instruction_count": 141,
+      "assembly_listing_sha256": "ec4566a3fd9ab343eedc4d93fa7571a1f3c1ab2c142c75d632b0293d72ce3446"
+    },
+    {
+      "function_va": "004cd900",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "ef1d034db94ff0d531ebd788b0cec3f7f2e3f47ad4de43d02afb12b6fde2170f"
+    },
+    {
+      "function_va": "004cd920",
+      "instruction_count": 48,
+      "assembly_listing_sha256": "1fa5c0fff213b0c469f5447825ccb00e7c95ada9fa8bee46a59e07354916da2c"
+    },
+    {
+      "function_va": "004cd9b0",
+      "instruction_count": 429,
+      "assembly_listing_sha256": "eca001d7b36ee8d25225c0c7ec2522e4ab02724bebdae4b4e09db501aff40cc0"
+    },
+    {
+      "function_va": "004cdf00",
+      "instruction_count": 179,
+      "assembly_listing_sha256": "a1c25062e64416b86a8f1c7ec80ce774189add0c060f871d6558432eac73488a"
+    },
+    {
+      "function_va": "004f5670",
+      "instruction_count": 74,
+      "assembly_listing_sha256": "be1000dca5da61cca7fb3aca45b68cfeea34df31283f4212a8036dbe869b1245"
+    },
+    {
+      "function_va": "004f5780",
+      "instruction_count": 71,
+      "assembly_listing_sha256": "61d96cbecd63b2a1e967dca65a7e62b87effc361fc1658690df77d8a77db7b64"
+    },
+    {
+      "function_va": "004f5840",
+      "instruction_count": 22,
+      "assembly_listing_sha256": "0f636a1fcdc81c914780d7aa128a65a5082ea0b1c6385bee2859a35f6a16cf7e"
+    },
+    {
+      "function_va": "004f5950",
+      "instruction_count": 33,
+      "assembly_listing_sha256": "3f55594a305e9858f1be8b4a46df25cdea3e1d82ef9537d42954a86f2378600d"
+    },
+    {
+      "function_va": "004f59f0",
+      "instruction_count": 15,
+      "assembly_listing_sha256": "57b53fd62b1775c1d10ea0b8522b7f5c6fe7a21ea33fe45f28fd9853dd682fc7"
+    },
+    {
+      "function_va": "004f5a20",
+      "instruction_count": 12,
+      "assembly_listing_sha256": "a9e4e622360e66afb1e6a1c00efc375b8aa469ef868c0e1eb6a6a9960fb4bc4e"
+    },
+    {
+      "function_va": "004f5ff0",
+      "instruction_count": 27,
+      "assembly_listing_sha256": "ab6d814daa0d172ee222edc2071e094e96a0e77af392ec5ce4200d50ec57b914"
+    },
+    {
+      "function_va": "004f6030",
+      "instruction_count": 27,
+      "assembly_listing_sha256": "3022774214fb07d5eb1447a321d0683ce24f502de69e99eae4f9f0bdf379af8f"
+    },
+    {
+      "function_va": "004f60f0",
+      "instruction_count": 66,
+      "assembly_listing_sha256": "9654701b3398ffa1438defea68045037c19efc36198af8826c8a07ed97f11f88"
+    },
+    {
+      "function_va": "004f61a0",
+      "instruction_count": 121,
+      "assembly_listing_sha256": "1a64563479dcf41563014fbc24dea15e942ad5d64420abd42ac32042c9cba82f"
+    }
+  ],
+  "assembly_hash_encoding": "UTF-8 of newline-joined assembly strings plus final newline"
+}

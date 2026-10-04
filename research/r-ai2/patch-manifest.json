@@ -1,0 +1,127 @@
+{
+  "phase": "R-AI2",
+  "profile": "retail-r-ai2-five-car-hardened",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "hardened_base_sha256": "bbb9f0a8bb2523adf125582d16512c25f9b51db7a4104ee5edf8f7251865ae00",
+  "output_sha256": "806ebedcd6d174682fcc4619fb75eaabca2a1281eda4d4d784807b3583f5f2e2",
+  "image_size": 3121214,
+  "broker_dump_variant": "native_hardened",
+  "status": "PREPARED_RUNTIME_UNTESTED",
+  "num_cars": 5,
+  "num_players": 1,
+  "active_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "mixed_class_chooser": false,
+  "frontend_opponent_choice": 3,
+  "effective_opponents": 4,
+  "guard": {
+    "mode": 2,
+    "split_screen": false,
+    "ghost": 0,
+    "player_id": 0,
+    "track": 10
+  },
+  "arrays_relocated": false,
+  "participant_loops_patched": false,
+  "ranges": [
+    {
+      "offset": 536,
+      "va": null,
+      "rva": null,
+      "purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+      "length": 4,
+      "original_hex": "94d22800",
+      "replacement_hex": "83d32800"
+    },
+    {
+      "offset": 413545,
+      "va": 4607849,
+      "rva": 413545,
+      "purpose": "loading_attract_legacy_media_check_neutralization",
+      "continuation": 4607814,
+      "evidence": "464E40 odd counter -> stat/size failure -> 464F69; stock success sets Starter1",
+      "length": 5,
+      "original_hex": "68841f6b00",
+      "replacement_hex": "e9d8ffffff"
+    },
+    {
+      "offset": 505994,
+      "va": 4700298,
+      "rva": 505994,
+      "purpose": "Quick Race effective opponent read: guarded 3 -> 4",
+      "evidence": "47B780 consumes both count reads; ordinary chooser and NumCars increment retained",
+      "length": 5,
+      "original_hex": "e8c1280300",
+      "replacement_hex": "e8712a2100"
+    },
+    {
+      "offset": 506077,
+      "va": 4700381,
+      "rva": 506077,
+      "purpose": "Quick Race effective opponent read: guarded 3 -> 4",
+      "evidence": "47B780 consumes both count reads; ordinary chooser and NumCars increment retained",
+      "length": 5,
+      "original_hex": "e86e280300",
+      "replacement_hex": "e81e2a2100"
+    },
+    {
+      "offset": 2105374,
+      "va": 6299678,
+      "rva": 2105374,
+      "purpose": "broker_dump_null_stringlist_guard",
+      "continuation": 6873760,
+      "evidence": "4DE1C0 accepts NULL; 47D340/47D400 set NULL lists; Dump dereferences EBX",
+      "length": 6,
+      "original_hex": "8b7b043b7b08",
+      "replacement_hex": "e97dc2080090"
+    },
+    {
+      "offset": 2105683,
+      "va": 6299987,
+      "rva": 2105683,
+      "purpose": "broker_dump_null_xmldata_guard",
+      "continuation": 6873792,
+      "evidence": "4DDA10 explicitly returns NULL; 4DE480/4D84C0 accept it, editor forwards getter",
+      "length": 7,
+      "original_hex": "8b108bc8ff520c",
+      "replacement_hex": "e968c108009090"
+    },
+    {
+      "offset": 2679456,
+      "va": 6873760,
+      "rva": 2679456,
+      "purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+      "continuation": 6299684,
+      "evidence": "NULL -> 602040 closes brace, restores indent and continues next entry",
+      "length": 19,
+      "original_hex": "00000000000000000000000000000000000000",
+      "replacement_hex": "85db0f84983df7ff8b7b043b7b08e9713df7ff"
+    },
+    {
+      "offset": 2679488,
+      "va": 6873792,
+      "rva": 2679488,
+      "purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+      "continuation": 6299994,
+      "evidence": "NULL -> 60218E; preserve flags; no text grammar change",
+      "length": 28,
+      "original_hex": "00000000000000000000000000000000000000000000000000000000",
+      "replacement_hex": "9c85c00f840d0000009d8b108bc8ff520ce9843ef7ff9de9b23ef7ff"
+    },
+    {
+      "offset": 2679552,
+      "va": 6873856,
+      "rva": 2679552,
+      "purpose": "Original getter, exact one-human T1 ID0 / Track10 / Race / ghost-off guard",
+      "evidence": "Register/flags/stack preservation checked by native emulation",
+      "length": 131,
+      "original_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "replacement_hex": "e84bfee1ff9c6083f8030f8570000000e8eb03e2ff8bc8e874fde1ff83f8020f855b000000e8d603e2ff8bc8e89fffe1ff84c00f8547000000e8c203e2ff8bc8e8abfde1ff85c00f8533000000e8ae03e2ff8bc8e8d7fce1ff83f80a0f851e0000006a00e89703e2ff8bc8e840fce1ff85c00f8508000000c744241c04000000619dc3"
+    }
+  ]
+}

@@ -14,6 +14,7 @@ from pathlib import Path
 from r_ai1_mixed_class import (CANDIDATE_SHA256, GENERAL_SHA256, REPOSITORY, ignored_output,
                               sha256, verify_candidate, verify_general)
 from r_ai1_hardening import BASE_SHA256, MIXED_SHA256, verify as verify_hardening
+from r_ai2_capacity import CANDIDATE_SHA256 as FIVE_CAR_SHA256, verify as verify_five_car
 
 OBSERVATORY_FILES = {
     "broker_observatory.py": "d1a07eab330ef3d8b825ef3320b458d20ced11df99d75250a72e9c7701c4ba7d",
@@ -38,6 +39,8 @@ def load_profile(directory: Path, candidate: Path):
         verifier, phase = verify_general, "r-ai1-1"
     elif image_hash in (BASE_SHA256, MIXED_SHA256):
         verifier, phase = verify_hardening, "r-ai1-1/hardening"
+    elif image_hash == FIVE_CAR_SHA256:
+        verifier, phase = verify_five_car, "r-ai2"
     else:
         raise ValueError("Unknown research image; only exact audited profiles accepted")
     manifest = verifier(data)
@@ -52,7 +55,7 @@ def load_profile(directory: Path, candidate: Path):
     core, commands = observe.core, observe.commands
     # Exact audited implementation, exact candidate, retail image size/base/RVAs.
     core.RETAIL_SHA256 = commands.RETAIL_SHA256 = image_hash
-    if image_hash in (BASE_SHA256, MIXED_SHA256):
+    if image_hash in (BASE_SHA256, MIXED_SHA256, FIVE_CAR_SHA256):
         original_parse = core.parse_dump_bytes
         def parse_dump_bytes(raw, source=None):
             provenance = dict(source or {})
@@ -66,7 +69,7 @@ def load_profile(directory: Path, candidate: Path):
         try:
             original_verify(path)  # Retains basename, size, exact hash and file gates.
         except observe.UserError as exc:
-            raise observe.UserError("R-AI1 requires the exact generated MRallye.exe profile.",
+            raise observe.UserError("R-AI requires the exact generated MRallye.exe profile.",
                                     f"Expected SHA256: {image_hash}") from exc
         verifier(path.read_bytes())  # Inverse manifest must restore pristine exactly.
     observe.verify_executable = verify_executable

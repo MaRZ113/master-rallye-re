@@ -33,8 +33,37 @@ expansion or material/Blender changes are claimed.
 
 The Results Dump exports Frontend/RaceResults/Car0..7 with four actual result
 entries. This is **CAPACITY CLUE — NOT RUNTIME PARTICIPANT-CAPACITY PROOF**,
-deferred to R-AI2. It proves neither engine/physics/HUD capacity8 nor eight valid
+now characterized statically in R-AI2. It proves neither engine/physics/HUD capacity8 nor eight valid
 result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
+
+## R-AI2 five-car participant capacity
+
+**CAPACITY MAP COMPLETE / READY FOR HUMAN RUNTIME**, bounded to ordinary
+offline Quick Race / Race, one ID0/T1 human, Track10/ItalyS4, ghost off.
+Five-car runtime is **UNKNOWN / PREPARED_RUNTIME_UNTESTED**; stock observed
+active capacity remains four. [Canonical matrix](../research/r-ai2/capacity-map.md)
+distinguishes frontend policy4, dynamic physical/AI/progress/result storage,
+eight authored scene/HUD/Results slots and eight offline Network mirrors.
+Those eight slots do not establish eight active racers.
+
+Only identified five-car blocker in this path is the frontend opponent policy:
+two effective getter calls in47B780 are redirected to a guarded original-read
+shim. Visible Opponents3 becomes four stock T1 AI plus the unchanged human;
+no native arrays, participant loops, Broker core, HUD or Results are patched.
+The exact candidate composes pristine + base-only Loading/Dump hardening +
+R-AI2; randomized mixed-class selection is off. Static native setup, stock
+selection, five-entry growth, Car4 progress/result allocation and physical/AI
+destruction pass; runtime collision, finish, display and stable exit await the
+[human gate](../research/r-ai2/runtime-handoff.md). Stock reclamation limitations
+are explicit in [native storage](../research/r-ai2/native-storage.md).
+
+Results47C840 publishes registry image integers for the actual N records and
+blank image12 through slot7; Position/Name/Time lists follow N. The corpus
+adds evidence of eight icon positions/browser rows, beyond the old Broker-only
+clue. Fifth result logic is statically supported; fifth display is not yet
+runtime-confirmed. Registry capacity is untouched and unrelated. Future public
+deployment remains an exact-build external runtime mod with the original EXE
+unchanged on disk. Stop at the human five-car proof; no6+ or genericN work.
 
 ## R-MAT1 current vehicle material closeout
 

@@ -18,7 +18,7 @@ from r_ai1_mixed_class import (CONTINUE, SITE, SELECTOR, RETAIL_SHA256,
                               general_ranges, build_general)
 
 
-def emulate_general(program, api, monitor, source):
+def emulate_general(program, api, monitor, source, *, five_car=False):
     """Execute the full native chooser, with explicit synthetic OS/data boundaries.
 
     Actual class cases, pool draw, vector erase, both shuffles, CRT rand and
@@ -63,7 +63,7 @@ def emulate_general(program, api, monitor, source):
             putreg("EIP", destination)
         participants = {n: {"CarID": player if n == 0 else -1,
                             "CarClass": player // 7 if n == 0 else -1,
-                            "DriverID": 30 if n == 0 else -1} for n in range(4)}
+                            "DriverID": 30 if n == 0 else -1} for n in range(5 if five_car else 4)}
         writes, ranges, allocations = [], [], {}
         next_heap = 0x00780000
         draw_iter = iter(draws)
@@ -94,12 +94,12 @@ def emulate_general(program, api, monitor, source):
                 elif pc == 0x4ac660:
                     slot = read(sp + 4)
                     if slot not in participants:
-                        raise ValueError("Getter escaped existing four slots")
+                        raise ValueError("Getter escaped bounded participant slots")
                     ret(participants[slot]["CarID"], 4)
                 elif pc in (0x4acaf0, 0x4acc10, 0x4accd0):
                     slot, value = read(sp + 4), read(sp + 8)
                     if slot not in participants:
-                        raise ValueError("Publisher escaped existing four slots")
+                        raise ValueError("Publisher escaped bounded participant slots")
                     key = {0x4acaf0: "CarID", 0x4acc10: "CarClass", 0x4accd0: "DriverID"}[pc]
                     participants[slot][key] = value
                     writes.append((slot, key, value))
@@ -178,6 +178,34 @@ def emulate_general(program, api, monitor, source):
 
     rows = []
     install("stock")
+    if five_car:
+        # R-AI2 invokes the unchanged stock chooser only, exactly four T1 AI.
+        # Existing R-AI1.1 emulation defaults and four-slot guards stay intact.
+        for seed in (1, 2, 3, 7, 42, 12345, 65535, 2147483646):
+            control = run(0, (), count=3, seed=seed)
+            result = run(0, (), count=4, seed=seed)
+            cars = result["participants"]
+            if cars[0] != control["participants"][0] or cars[0]["CarID"] != 0:
+                raise ValueError("Human state changed")
+            if any(cars[n][key] != control["participants"][n][key]
+                   for n in (1, 2, 3) for key in ("CarID", "CarClass")):
+                raise ValueError("Existing AI vehicle draws changed")
+            if any(cars[n]["CarID"] not in range(1, 7) or cars[n]["CarClass"] != 0 or
+                   cars[n]["DriverID"] not in range(10) for n in (1, 2, 3, 4)):
+                raise ValueError("Invalid stock Car4 path")
+            if len({car["CarID"] for car in cars.values()}) != 5 or len({cars[n]["DriverID"] for n in (1, 2, 3, 4)}) != 4:
+                raise ValueError("Five-car vehicle/driver alias")
+            if [(n, key) for n, key, _ in result["writes"]].count((4, "CarID")) != 1 or len(result["writes"]) != 12:
+                raise ValueError("Unexpected native publication count")
+            if not all(result[key] for key in ("executed_driver", "executed_vehicle_shuffle",
+                                               "executed_driver_shuffle", "executed_crt_rand")):
+                raise ValueError("Stock bookkeeping was bypassed")
+            rows.extend(({"count": 3, "seed": seed, "result": control},
+                         {"count": 4, "seed": seed, "result": result}))
+        return {"status": "STATIC_FIVE_CAR_CHOOSER_EMULATION_PASS", "runtime_game_test": False,
+                "cases": len(rows), "source_sha256": RETAIL_SHA256, "project_saved": False,
+                "boundaries": ["Broker", "heap insert/free", "TLS pointer", "game range outputs"],
+                "rows": rows}
     baselines = {}
     guards = [(1, 3, 1), (1, 3, 3), (1, 3, 14), (2, 2, 2), (1, 2, 2), (1, 0, 2), (0, 3, 2)]
     for player in (0, 7, 14):
