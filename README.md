@@ -63,7 +63,7 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 
 Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
-## Course resources and RaceTest authoring (G0)
+## Course resources and RaceTest authoring (G0–G1.1)
 
 The Vehicle SDK v1 baseline remains frozen. The read-only revision-135 course
 DX parser and Italy1/France1 Blender imports remain validated. R5T-C confirms
@@ -109,6 +109,16 @@ patch exists. See
 [`docs/course-race-logic-authoring.md`](docs/course-race-logic-authoring.md),
 [`research/g0/runtime-results.md`](research/g0/runtime-results.md), and
 [`research/course_marker_backlog.md`](research/course_marker_backlog.md).
+
+G1 runtime testing confirmed that a local RaceLine position edit disturbs
+visible race progression and that one LeftOuterLimit edit changes the local
+LimitState classification; the LeftInnerLimit probe was inconclusive. G1.1
+adds bounded authoring of only existing Marker Pos XYZ fields for RaceLine and
+the four limit lists. Marker order/topology, Marker Dir, Cameras, course
+geometry, and compiled physical data remain read-only. The Retail corpus and
+Blender source/package smoke are documented in
+[`research/g1_1/findings.md`](research/g1_1/findings.md); a human Blender-to-
+runtime authoring-path check remains pending.
 
 See
 [`docs/course-assets.md`](docs/course-assets.md),

@@ -127,7 +127,7 @@ class G1ProbeGuardTests(unittest.TestCase):
             _marker_pos_spans(duplicate, "RaceLine", 0)
 
     def test_probe_output_must_be_new_and_inside_explicit_research_output_root(self):
-        with tempfile.TemporaryDirectory(dir=ROOT / "research-output") as directory:
+        with tempfile.TemporaryDirectory(prefix=".test-research-output-", dir=ROOT) as directory:
             root = Path(directory)
             source = root / "France1.xml"
             output = root / "g1" / "probes" / "France1_outerlimit_58-60.xml"
@@ -179,7 +179,7 @@ class G1ProbeGuardTests(unittest.TestCase):
         self.assertEqual(default_root, DEFAULT_OUTPUT_ROOT.resolve())
         self.assertEqual(default_root, (ROOT / "research-output").resolve())
         self.assertEqual(default_candidate.parent, (DEFAULT_OUTPUT_ROOT / "g1" / "probes").resolve())
-        with tempfile.TemporaryDirectory(dir=ROOT / "research-output") as directory:
+        with tempfile.TemporaryDirectory(prefix=".test-research-output-", dir=ROOT) as directory:
             root = Path(directory) / "custom-output"
             resolved, candidate, manifest = resolve_output_paths("outerlimit", output_root=root)
             self.assertEqual(resolved, root.resolve())

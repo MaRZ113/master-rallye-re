@@ -13,8 +13,10 @@ for path in (ROOT, ROOT / "src", ROOT / "tests" / "synthetic"):
         sys.path.insert(0, str(path))
 
 from master_rallye.coords import blender_position_to_source, position_to_blender  # noqa: E402
+from master_rallye.course_xml import parse_course_xml_bytes  # noqa: E402
 from master_rallye.course_race_authoring import (  # noqa: E402
     CourseRaceLogicAuthoring,
+    G1_MARKER_LISTS,
     _semantic_guard,
 )
 from master_rallye.errors import FormatError  # noqa: E402
@@ -29,6 +31,51 @@ def source_fixture(*, comments=True, split_row="10.000 20 30.0 1.0000"):
         xml = xml.replace(b"<Scene>", b"<Scene><!-- inside root: preserve -->")
         xml = b"<?xml version='1.0' encoding='utf-8'?>\n<!-- before root -->\n" + xml + b"\n<!-- after root -->\n"
     return xml
+
+
+def g1_marker_source():
+    lists = []
+    definitions = (
+        ("RaceLine", 0.0),
+        ("LeftInnerLimit", 4.0),
+        ("LeftOuterLimit", 8.0),
+        ("RightInnerLimit", -4.0),
+        ("RightOuterLimit", -8.0),
+    )
+    for name, z in definitions:
+        markers = []
+        for index, x in enumerate((0.0, 10.0, 20.0)):
+            markers.append(
+                f'<Marker No="{index}" custom="keep-{name}-{index}">'
+                f'<Value Name="Marker Pos" Type="Vector3" Value="{x:g} 0 {z:g}" />'
+                '<Value Name="Marker Dir" Type="Vector3" Value="0 0 1" />'
+                f'<Value Name="Private Field" Type="String" Value="preserve-{name}-{index}" />'
+                '</Marker>'
+            )
+        lists.append(f'<List Name="{name}">' + "".join(markers) + "</List>")
+    source = source_fixture(comments=False)
+    return source.replace(b"</List></MarkerLists>", ("</List>" + "".join(lists) + "</MarkerLists>").encode("ascii"), 1)
+
+
+def g1_corridor_source(*, route_count, limit_count, inner_z, outer_z):
+    """Build a straight source-order route with symmetric synthetic limits."""
+    lists = []
+    for name, count, z in (
+        ("RaceLine", route_count, 0.0),
+        ("LeftInnerLimit", limit_count, inner_z),
+        ("LeftOuterLimit", limit_count, outer_z),
+        ("RightInnerLimit", limit_count, -inner_z),
+        ("RightOuterLimit", limit_count, -outer_z),
+    ):
+        markers = []
+        for index in range(count):
+            x = index * 10.0 if name == "RaceLine" else index * (route_count - 1) * 10.0 / max(1, limit_count - 1)
+            markers.append(
+                f'<Marker No="{index}"><Value Name="Marker Pos" Type="Vector3" Value="{x:g} 0 {z:g}" />'
+                '<Value Name="Marker Dir" Type="Vector3" Value="0 0 1" /></Marker>'
+            )
+        lists.append(f'<List Name="{name}">' + "".join(markers) + "</List>")
+    return ("<Scene><MarkerLists>" + "".join(lists) + "</MarkerLists></Scene>").encode("ascii")
 
 
 class CourseRaceLogicAuthoringTests(unittest.TestCase):
@@ -59,6 +106,139 @@ class CourseRaceLogicAuthoringTests(unittest.TestCase):
         self.assertEqual(output, source)
         self.assertEqual(report.changes, ())
         self.assertEqual(report.changed_semantic_paths, ())
+
+    def test_g1_pos_authoring_is_bounded_to_five_existing_marker_lists(self):
+        source = g1_marker_source()
+        editor = CourseRaceLogicAuthoring(source, "g1-authoring.xml")
+        self.assertEqual(tuple(item.name for item in editor.marker_list_status), G1_MARKER_LISTS)
+        self.assertTrue(all(item.present and item.supported and item.marker_count == 3
+                            for item in editor.marker_list_status))
+        edits = {
+            "RaceLine": (10.0, 2.0, 1.0),
+            "LeftInnerLimit": (10.0, 2.0, 5.0),
+            "LeftOuterLimit": (10.0, 2.0, 9.0),
+            "RightInnerLimit": (10.0, 2.0, -3.0),
+            "RightOuterLimit": (10.0, 2.0, -7.0),
+        }
+        for list_name, position in edits.items():
+            editor.set_marker_position(list_name, 1, position)
+        output, report = editor.export()
+        before = parse_course_xml_bytes(source, "g1-authoring.xml")
+        after = parse_course_xml_bytes(output, "g1-authoring.xml")
+        before_lists = {item.name: item for item in before.marker_lists}
+        after_lists = {item.name: item for item in after.marker_lists}
+        self.assertEqual([item.name for item in before.marker_lists], [item.name for item in after.marker_lists])
+        self.assertEqual(len(report.changes), 5)
+        self.assertEqual({item["marker_list"] for item in report.changes}, set(G1_MARKER_LISTS))
+        self.assertEqual({item["marker_index"] for item in report.changes}, {1})
+        self.assertEqual(
+            {item["semantic_role"] for item in report.changes},
+            {
+                "race.route.raceline.marker_position",
+                "race.limit.left_inner.marker_position",
+                "race.limit.left_outer.marker_position",
+                "race.limit.right_inner.marker_position",
+                "race.limit.right_outer.marker_position",
+            },
+        )
+        self.assertTrue(all(item["marker_count_unchanged"] and item["source_order_unchanged"]
+                            for item in report.to_dict()["marker_list_invariants"]))
+        for name in G1_MARKER_LISTS:
+            old = before_lists[name].markers
+            new = after_lists[name].markers
+            self.assertEqual(len(old), len(new), name)
+            for index, (old_marker, new_marker) in enumerate(zip(old, new)):
+                expected = edits[name] if index == 1 else old_marker.position
+                self.assertEqual(new_marker.position, expected, (name, index))
+                self.assertEqual(new_marker.direction, old_marker.direction, (name, index))
+                self.assertEqual(new_marker.record.value("Private Field"), old_marker.record.value("Private Field"))
+                self.assertEqual(dict(new_marker.record.attributes), dict(old_marker.record.attributes))
+
+    def test_g1_noop_is_byte_identical_and_camera_or_other_lists_are_not_writable(self):
+        source = g1_marker_source()
+        editor = CourseRaceLogicAuthoring(source, "g1-noop.xml")
+        output, report = editor.export()
+        self.assertEqual(output, source)
+        self.assertEqual(report.changes, ())
+        with self.assertRaisesRegex(ValueError, "does not support"):
+            editor.set_marker_position("Cameras", 0, (1, 2, 3))
+        with self.assertRaisesRegex(ValueError, "does not support"):
+            editor.set_marker_position("UnknownList", 0, (1, 2, 3))
+
+    def test_g1_refuses_missing_or_duplicate_lists_without_expanding_the_guard(self):
+        source = g1_marker_source()
+        start = source.index(b'<List Name="RaceLine">')
+        end = source.index(b'</List>', start)
+        segment = source[start:end]
+        segment = segment.replace(b'Name="Marker Pos"', b'Name="Position"', 1)
+        missing_value = source[:start] + segment + source[end:]
+        missing_editor = CourseRaceLogicAuthoring(missing_value, "missing-pos.xml")
+        race_status = next(item for item in missing_editor.marker_list_status if item.name == "RaceLine")
+        self.assertFalse(race_status.supported)
+        with self.assertRaisesRegex(ValueError, "RaceLine authoring is refused"):
+            missing_editor.set_marker_position("RaceLine", 0, (1, 2, 3))
+
+        duplicate = source.replace(
+            b'</List></MarkerLists>', b'</List><List Name="RaceLine"></List></MarkerLists>', 1
+        )
+        duplicate_editor = CourseRaceLogicAuthoring(duplicate, "duplicate-list.xml")
+        duplicate_status = next(item for item in duplicate_editor.marker_list_status if item.name == "RaceLine")
+        self.assertFalse(duplicate_status.supported)
+        with self.assertRaisesRegex(ValueError, "RaceLine authoring is refused"):
+            duplicate_editor.set_marker_position("RaceLine", 0, (1, 2, 3))
+
+    def test_g1_position_validation_and_semantic_diff_guard_preserve_topology(self):
+        source = g1_marker_source()
+        editor = CourseRaceLogicAuthoring(source, "g1-validation.xml")
+        for position in ((1.0, 2.0), (1.0, float("nan"), 3.0), (1.0, float("inf"), 3.0)):
+            with self.subTest(position=position), self.assertRaises(ValueError):
+                editor.set_marker_position("RaceLine", 0, position)
+        with self.assertRaises(ValueError):
+            editor.set_marker_position("RaceLine", True, (1, 2, 3))
+        editor.set_marker_position("RaceLine", 1, (10, 0, 1))
+        output, _report = editor.export()
+        malformed_topology = output.replace(b'<Marker No="2"', b'<Marker No="9"', 1)
+        masks = {
+            mutation.field.locator: {mutation.field.attribute: mutation.field.mode}
+            for mutation in editor._pending.values()
+        }
+        self.assertFalse(_semantic_guard(source, malformed_topology, masks))
+
+    def test_position_float_serialization_roundtrips_world_coordinate_precision(self):
+        source = g1_marker_source()
+        editor = CourseRaceLogicAuthoring(source, "g1-float-precision.xml")
+        editor.set_marker_position("RaceLine", 0, (-2469.939355, -18.1, 926.482487))
+        output, report = editor.export()
+        self.assertIn(b'Value="-2469.939355 -18.100000 926.482487"', output)
+        self.assertEqual(report.changes[0]["new"], (-2469.939355, -18.1, 926.482487))
+
+    def test_g1_outer_limit_geometry_warnings_do_not_crash_on_nested_progress_match(self):
+        source = g1_marker_source()
+        editor = CourseRaceLogicAuthoring(source, "g1-limit-warning.xml")
+        editor.set_marker_position("LeftOuterLimit", 1, (10.0, 0.0, 1.0))
+        output, report = editor.export()
+        self.assertNotEqual(output, source)
+        self.assertTrue(all(isinstance(item, str) for item in report.warnings))
+
+    def test_limit_confidence_threshold_uses_limit_sample_population(self):
+        # Four valid limit samples must not be suppressed because the route is
+        # twenty points long (the old threshold incorrectly demanded five).
+        source = g1_corridor_source(route_count=20, limit_count=4, inner_z=4.0, outer_z=8.0)
+        editor = CourseRaceLogicAuthoring(source, "g1-short-corridor.xml")
+        editor.set_marker_position("LeftOuterLimit", 1, (63.333333, 0.0, -8.0))
+        _output, report = editor.export()
+        self.assertTrue(any("crosses the list's baseline RaceLine-side polarity" in warning
+                            for warning in report.warnings))
+
+    def test_outer_inner_order_compares_absolute_signed_offsets(self):
+        # This side of the route has negative signed offsets. An outer sample
+        # farther from the route than its inner sample must not warn as nearer.
+        source = g1_corridor_source(route_count=3, limit_count=3, inner_z=-4.0, outer_z=-8.0)
+        editor = CourseRaceLogicAuthoring(source, "g1-negative-side-corridor.xml")
+        editor.set_marker_position("LeftOuterLimit", 1, (10.0, 0.0, -8.25))
+        _output, report = editor.export()
+        self.assertFalse(any("is closer to RaceLine than the nearest-progress LeftInnerLimit sample" in warning
+                             for warning in report.warnings))
 
     def test_start_and_finish_marker_mutations_change_only_selected_positions(self):
         self.editor.set_start_marker(2, (12.5, 6.0, -3.25))

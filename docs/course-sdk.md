@@ -157,27 +157,41 @@ steering change was observed in that probe; AI use is not ruled out globally.
 The separate SplitTime path still runs from split center to nearest RaceLine
 sample/percentage; no RaceLine marker is treated as a split trigger center.
 The source-order corpus median spacing is about 20 world units, with variation;
-this is guidance for a future bounded authoring phase, not a format constant.
-RaceLine remains read-only in the stable writer. The add-on package is version
-4.6.0 and retains its Blender 4.3 minimum.
+this is diagnostic guidance, not a format constant. G1.1 adds bounded
+`Marker Pos` XYZ authoring for existing source-order RaceLine samples only.
+Marker count/order and `Marker Dir` remain read-only; the authoring path does
+not resample arbitrary geometry or claim an AI path format.
 
-G1 adds read-only Blender source-order polylines and marker helpers for
-RaceLine and the four exact limit lists. Retail executable analysis confirms
+G1 adds Blender source-order polylines and marker helpers for RaceLine and the
+four exact limit lists. Retail executable analysis confirms
 `gaLimitsAI` loads `LeftInnerLimit`, `RightInnerLimit`, `LeftOuterLimit`, and
 `RightOuterLimit` and publishes per-car `LimitState`; it does not establish all
-downstream reset behavior. The first LeftInnerLimit edit was inconclusive; an
-isolated LeftOuterLimit probe is prepared but not runtime-tested. `Marker Dir`
-is preserved and visualized as an optional diagnostic ray, not promoted to
-gameplay semantics. The XML `Cameras` list remains read-only; its linkage to
-camera parameters is unknown. See [`research/g1`](../research/g1/findings.md)
-for executable anchors, corpus geometry, and runtime results. None of these G1
-fields were added to the stable G0 XML writer.
+downstream reset behavior. A local `LeftOuterLimit[58..60]` edit changed
+`LimitState` from 1 to 2 at the corresponding route sample/progress and
+appeared to initiate off-course/recovery earlier. `LeftInnerLimit[98..100]`
+was inconclusive, and neither right-side list has an individual boundary edit.
+RaceLine's edited positions caused a localized progress-indicator disturbance;
+no obvious AI steering change was seen in that probe. These bounded results
+are documented in [`research/g1`](../research/g1/findings.md). The XML
+`Cameras` list remains read-only; its linkage to camera parameters is unknown.
+
+G1.1 exposes only existing `Marker Pos` XYZ on `RaceLine`,
+`LeftInnerLimit`, `LeftOuterLimit`, `RightInnerLimit`, and `RightOuterLimit`.
+The source-preserving writer validates exact list identity, ordinal, inventory,
+and input hash, and refuses missing/duplicate helpers. It never authors Marker
+Dir, Cameras, marker topology, or compiled course data. The list polylines
+update from moved point helpers and remain editor-only. See
+[`research/g1_1`](../research/g1_1/findings.md) for corpus validation and the
+pending Blender-to-runtime authoring handoff. G1.1 adds no DX/GXM/tag100/
+tag1400 writer or arbitrary-layout support.
 
 Tracked corpus reports and findings live under repository `research/`.
-Hash-guarded human runtime probe XML/manifests default to the untracked runtime
-root `D:\Game\Master Rallye\research-output\g1\probes`; the probe tool prints
-the resolved absolute paths and accepts `--output-root <path>` to select
-another destination.
+Hash-guarded human runtime probe XML/manifests default to the ignored
+worktree-local path
+`D:\Game\Master Rallye\master-rallye-re-course\research-output\g1\probes`.
+The probe tool prints the resolved absolute paths and accepts
+`--output-root <path>` for an explicit destination inside the active Course
+worktree. The general/AI checkout keeps a separate output directory.
 
 ## Authoring boundary and open questions
 
@@ -188,12 +202,15 @@ topology, and raw tag100 metadata. A standalone read-only tag100 parser now
 decodes the loader-confirmed recursive wire shape; a separate probe correlates
 some optional float4/code records with the tested source planes. The higher-level
 `CourseProject` physical API remains unimplemented. G0 does not support course
-geometry writing, physical/collision authoring, arbitrary layouts, RaceLine AI
-steering authoring, limit authoring, camera authoring, or surface authoring.
+geometry writing, physical/collision authoring, arbitrary layouts, RaceLine
+Marker Dir authoring, limit Marker Dir authoring, camera authoring, or surface
+authoring. G1.1 Marker Pos authoring is narrowly limited to the five existing
+ordered lists above.
 
 Still unknown are ExtraTime's exact meaning, StartArea interpolation, the exact
 FinishArea algorithm, RaceLine steering/route semantics beyond executable
-progress/rank tracking, limit downstream reset behavior, Cameras XML linkage,
+progress/rank tracking, limit downstream reset behavior and untested per-list
+effects, Cameras XML linkage,
 SFL meaning, most tag100
 semantics, `$bsp -> tag100`, and source-node gameplay semantics. For the one
 tested France1 source mesh, face-plane records in the tag100 tree correlate

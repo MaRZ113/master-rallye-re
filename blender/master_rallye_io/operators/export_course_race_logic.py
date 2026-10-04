@@ -14,6 +14,13 @@ from ..library import blender_position_to_source, load_course_race_logic_authori
 
 
 _TRANSFORM_EPSILON = 1.0e-5
+_G1_MARKER_LISTS = (
+    "RaceLine",
+    "LeftInnerLimit",
+    "LeftOuterLimit",
+    "RightInnerLimit",
+    "RightOuterLimit",
+)
 
 
 def _walk(collection):
@@ -47,7 +54,13 @@ def _json_vector(obj, key, size=3):
 
 
 def _changed(actual, original, epsilon=_TRANSFORM_EPSILON):
-    return math.dist(tuple(float(value) for value in actual), original) > epsilon
+    actual = tuple(float(value) for value in actual)
+    # Blender stores object transforms at float32 precision. Scale the no-op
+    # tolerance to the coordinate magnitude so large world positions do not
+    # become false edits from float32 rounding alone.
+    magnitude = max(1.0, *(abs(value) for value in actual), *(abs(value) for value in original))
+    effective_epsilon = max(epsilon, 2.0e-7 * magnitude)
+    return math.dist(actual, original) > effective_epsilon
 
 
 def _original_transform_warnings(obj, *, role):
@@ -67,6 +80,8 @@ def _original_transform_warnings(obj, *, role):
             warnings.append("SplitTime object scale does not change gameplay Radius; edit Radius explicitly.")
     elif role == "split_visual_companion" and (rotation_changed or scale_changed):
         warnings.append("Split visual companion rotation/scale are not exported; only final world positions are authored")
+    elif role in {"route_marker", "limit_marker"} and rotation_changed:
+        warnings.append("Marker Dir preview is read-only; only Marker Pos is exported")
     # A checkpoint may contain four visual children. Report unsupported
     # transform classes once, rather than spamming one identical warning per
     # child while preserving distinct warning categories.
@@ -82,6 +97,81 @@ def _validate_group_translation_only(group):
     scale = tuple(float(value) for value in group.scale)
     if _changed(rotation, (0.0, 0.0, 0.0)) or _changed(scale, (1.0, 1.0, 1.0)):
         raise ValueError(f"{group.name} supports translation only; reset group rotation and scale before export")
+
+
+def _apply_g1_marker_edits(objects, editor):
+    """Apply only Marker Pos edits on the five pre-existing G1 lists."""
+    statuses = {item.name: item for item in editor.marker_list_status}
+    marker_objects = [
+        obj for obj in objects
+        if obj.get("mr_race_logic_object_type") in {"route_marker", "limit_marker", "camera_marker"}
+    ]
+    warnings = []
+    handled_pointers = set()
+    for list_name in _G1_MARKER_LISTS:
+        status = statuses[list_name]
+        helpers = [obj for obj in marker_objects if obj.get("mr_source_list_name") == list_name]
+        handled_pointers.update(obj.as_pointer() for obj in helpers)
+        if not status.supported:
+            for obj in helpers:
+                if obj.get("mr_race_logic_editable") or obj.get("mr_marker_position_editable"):
+                    raise ValueError(f"{list_name} is unsupported by the source binding; reload read-only helpers")
+                initial = _json_vector(obj, "mr_initial_blender_position_json")
+                current = tuple(float(value) for value in obj.matrix_world.translation)
+                if _changed(current, initial):
+                    raise ValueError(f"{obj.name} belongs to an unsupported {list_name}; its position cannot be exported")
+            continue
+
+        by_index = {}
+        for obj in helpers:
+            index = obj.get("mr_marker_index_in_list")
+            if isinstance(index, bool) or not isinstance(index, int) or index in by_index:
+                raise ValueError(f"{list_name} has an invalid or duplicate Blender marker index")
+            if obj.get("mr_source_list_ordinal") != status.source_list_ordinal:
+                raise ValueError(f"{obj.name} has stale {list_name} list-ordinal metadata")
+            if obj.get("mr_source_list_count") != status.marker_count:
+                raise ValueError(f"{obj.name} has stale {list_name} marker-count metadata")
+            if obj.get("mr_source_xml_sha256") != editor.source_sha256:
+                raise ValueError(f"{obj.name} was imported from a different RaceTest source hash")
+            if obj.get("mr_source_list_path") != status.source_xml_path:
+                raise ValueError(f"{obj.name} has stale {list_name} XML identity metadata")
+            expected_identity = f"{editor.source}|{status.source_list_ordinal}|{index}"
+            if obj.get("mr_xml_source_identity") != expected_identity:
+                raise ValueError(f"{obj.name} has stale {list_name} source identity metadata")
+            by_index[index] = obj
+        expected_indices = set(range(status.marker_count))
+        if set(by_index) != expected_indices:
+            missing = sorted(expected_indices - set(by_index))
+            extra = sorted(set(by_index) - expected_indices)
+            raise ValueError(f"{list_name} helper inventory changed (missing={missing}, unexpected={extra})")
+
+        expected_type = "route_marker" if list_name == "RaceLine" else "limit_marker"
+        for index in range(status.marker_count):
+            obj = by_index[index]
+            if (obj.get("mr_race_logic_object_type") != expected_type
+                    or not obj.get("mr_race_logic_editable")
+                    or not obj.get("mr_marker_position_editable")):
+                raise ValueError(f"{obj.name} is not an authorable {list_name} Marker Pos helper")
+            original = status.positions[index]
+            if original is None:
+                raise ValueError(f"{list_name} marker {index} has no valid source position")
+            expected_initial = position_to_blender(original)
+            initial = _json_vector(obj, "mr_initial_blender_position_json")
+            if _changed(initial, expected_initial):
+                raise ValueError(f"{obj.name} helper anchor does not match the source XML position")
+            world_position = tuple(float(value) for value in obj.matrix_world.translation)
+            warnings.extend(_original_transform_warnings(obj, role=expected_type))
+            if _changed(world_position, initial):
+                editor.set_marker_position(list_name, index, blender_position_to_source(world_position))
+
+    for obj in marker_objects:
+        if obj.as_pointer() in handled_pointers:
+            continue
+        initial = _json_vector(obj, "mr_initial_blender_position_json")
+        current = tuple(float(value) for value in obj.matrix_world.translation)
+        if obj.get("mr_race_logic_editable") or _changed(current, initial):
+            raise ValueError(f"{obj.name} is a read-only marker outside the G1 Marker Pos allowlist")
+    return warnings
 
 
 def _apply_scene_edits(root, editor):
@@ -124,6 +214,8 @@ def _apply_scene_edits(root, editor):
             world_position = tuple(float(value) for value in obj.matrix_world.translation)
             if _changed(world_position, initial_blender):
                 setter(index, blender_position_to_source(world_position))
+
+    warnings.extend(_apply_g1_marker_edits(objects, editor))
 
     authorable_splits = {item.identity: item for item in editor.split_status if item.supported}
     all_split_helpers = [

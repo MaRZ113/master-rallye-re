@@ -12,6 +12,31 @@ from .blender_collision import set_collision_visibility
 from .blender_metadata import refresh_authoring_status
 
 
+def _route_marker_context(obj):
+    list_name = str(obj.get("mr_source_list_name", ""))
+    source = obj.get("mr_xml_source")
+    ordinal = obj.get("mr_source_list_ordinal", -1)
+    object_type = obj.get("mr_race_logic_object_type")
+    peers = [
+        item for item in bpy.data.objects
+        if item.get("mr_race_logic_object_type") == object_type
+        and item.get("mr_xml_source") == source
+        and item.get("mr_source_list_name") == list_name
+        and item.get("mr_source_list_ordinal", -1) == ordinal
+    ]
+    peers.sort(key=lambda item: int(item.get("mr_marker_index_in_list", -1)))
+    index = int(obj.get("mr_marker_index_in_list", -1))
+    before = after = None
+    if 0 <= index < len(peers):
+        point = obj.matrix_world.translation
+        if index > 0:
+            before = (point - peers[index - 1].matrix_world.translation).length
+        if index + 1 < len(peers):
+            after = (peers[index + 1].matrix_world.translation - point).length
+    progress = index / (len(peers) - 1) if list_name == "RaceLine" and len(peers) > 1 and index >= 0 else None
+    return index, len(peers), progress, before, after
+
+
 class OBJECT_OT_master_rallye_print_metadata(bpy.types.Operator):
     bl_idname = "object.master_rallye_print_metadata"
     bl_label = "Print Master Rallye Metadata"
@@ -414,7 +439,7 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
         grid.label(text=f"{loaded_textures} materials")
         box = layout.box()
         box.label(text="Course render is read-only; RaceTest logic has a bounded XML exporter", icon="INFO")
-        box.label(text="tag100 meaning, full RaceLine, surfaces, and physical collision remain unknown.")
+        box.label(text="Route behavior remains partly unknown; tag100 meaning and physical collision grammar remain incomplete.")
         box.operator(
             "import_scene.master_rallye_course_xml_markers",
             text="Load Course Race Logic",
@@ -429,7 +454,7 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
         box.label(text="RaceTest XML import adds StartArea, FinishArea, split signs, and split trigger spheres.")
         box.label(text="Split sign and trigger share Egg Row3; companion checkpoints stay separate visuals.")
         box.label(text="GXM startpoint overlay shows points only; connectivity is unknown.")
-        box.label(text="Race Logic export supports area points and bounded SplitTime edits.")
+        box.label(text="Race Logic export supports G0 fields plus existing RaceLine/Limit Marker Pos only.")
         warnings = metadata.get("blender", {}).get("import_warnings", [])
         if warnings:
             warning_box = layout.box()
@@ -475,9 +500,32 @@ class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
             layout.label(text="Visual checkpoint companion; not a trigger center", icon="MESH_DATA")
             layout.label(text="Move this object alone, or move its checkpoint group")
             layout.label(text="Its own source orientation is preview-only; export writes final world position only")
+        elif kind in {"route_marker", "limit_marker"}:
+            index, count, progress, before, after = _route_marker_context(obj)
+            list_name = str(obj.get("mr_source_list_name", ""))
+            layout.label(text=f"{list_name} marker {index} / {max(0, count - 1)}", icon="EMPTY_AXIS")
+            if progress is not None:
+                layout.label(text=f"Approximate source-order progress: {progress:.3f}")
+                layout.label(text="Marker Pos influences race progression; runtime edit confirmed")
+            else:
+                layout.label(text="Limit Marker Pos: gaLimitsAI consumer confirmed; geometry stays evidence-bounded")
+                layout.label(text=str(obj.get("mr_g1_evidence_status", "UNKNOWN"))[:100])
+            if before is not None:
+                layout.label(text=f"Previous source-order gap: {before:.3f} units")
+            if after is not None:
+                layout.label(text=f"Next source-order gap: {after:.3f} units")
+            if obj.get("mr_race_logic_editable"):
+                layout.prop(obj, "location", text="Marker Pos")
+                layout.label(text="Only final world position exports; order and Marker Dir stay fixed")
+            else:
+                layout.label(text="This marker is read-only or has ambiguous source structure", icon="INFO")
+            layout.label(text="Marker Dir runtime role remains UNKNOWN")
+        elif kind == "camera_marker":
+            layout.label(text="Camera marker diagnostics are read-only", icon="INFO")
+            layout.label(text="Pos/Dir runtime behavior is not established")
         layout.operator("export_scene.master_rallye_race_logic_xml", text="Export Race Logic XML", icon="EXPORT")
         layout.label(text="Exports a new XML copy and a provenance manifest")
-        layout.label(text="Route/Limit/Camera diagnostics are read-only; runtime probes are separate.")
+        layout.label(text="RaceLine/Limit edits are bounded Marker Pos only; cameras and runtime probes stay separate.")
 
 
 CLASSES = (

@@ -315,7 +315,7 @@ def main():
         addon_ui.VIEW3D_PT_master_rallye_course_race_logic,
         starts[0],
         valid_icons,
-        expected_label="Route/Limit/Camera diagnostics are read-only; runtime probes are separate.",
+        expected_label="RaceLine/Limit edits are bounded Marker Pos only; cameras and runtime probes stay separate.",
     )
     split_draw_calls = _draw_panel(
         addon_ui.VIEW3D_PT_master_rallye_course_race_logic, split_centers[0], valid_icons

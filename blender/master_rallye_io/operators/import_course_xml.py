@@ -622,7 +622,7 @@ def _create_visual_companion(
 class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, ImportHelper):
     bl_idname = "import_scene.master_rallye_course_xml_markers"
     bl_label = "Load Course Race Logic"
-    bl_description = "Load RaceTest helpers and enable only runtime-confirmed StartArea, FinishArea, and SplitTime edits"
+    bl_description = "Load RaceTest helpers; author bounded race logic and existing RaceLine/Limit positions"
     bl_options = {"REGISTER", "UNDO"}
 
     filename_ext = ".xml"
@@ -635,7 +635,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
 
     def draw(self, context):
         self.layout.prop(self, "show_marker_direction_rays")
-        self.layout.label(text="RaceLine, Limits, and Cameras stay read-only")
+        self.layout.label(text="RaceLine and four Limit lists: existing Marker Pos only; cameras and Marker Dir stay read-only")
 
     def execute(self, context):
         source = Path(self.filepath).resolve()
@@ -647,6 +647,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             document = race_logic.source_document
             authoring = load_course_race_logic_authoring(source)
             area_status = {item.name: item for item in authoring.area_status}
+            marker_list_status = {item.name: item for item in authoring.marker_list_status}
             positioned = [marker for marker in document.markers if marker.position is not None]
             if not positioned and not race_logic.split_times:
                 raise ValueError("XML contains no positioned Marker records or split-time visual eggs")
@@ -692,7 +693,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             logic["mr_xml_collection_kind"] = "race_logic_root"
             logic["mr_xml_source"] = source_path
             logic["mr_xml_sha256"] = hashlib.sha256(payload).hexdigest()
-            logic["mr_authoring_schema"] = "master-rallye-race-logic-edit-v1"
+            logic["mr_authoring_schema"] = "master-rallye-race-logic-edit-v2"
             logic["mr_course_identity"] = source.stem
             logic["mr_read_only"] = True
             logic["mr_marker_count"] = len(document.markers)
@@ -724,7 +725,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                         if route_research is None:
                             route_research = _get_child_collection(logic, "Route Research", "route_research_root")
                             route_research["mr_read_only"] = True
-                            route_research["mr_semantics_status"] = "STATIC/EXECUTABLE RESEARCH VIEW; no authoring enabled"
+                            route_research["mr_semantics_status"] = "G1 diagnostics; only bounded existing Marker Pos fields are authorable"
                         if list_name in G1_LIMIT_LISTS:
                             if limits_research is None:
                                 limits_research = _get_child_collection(route_research, "Limits", "route_limits_root")
@@ -733,8 +734,20 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                         else:
                             parent = route_research
                         group = create_collection(list_name, parent)
+                        list_status = marker_list_status.get(list_name)
+                        can_author_list = bool(
+                            list_name in G1_ROUTE_LISTS | G1_LIMIT_LISTS
+                            and list_status is not None
+                            and list_status.supported
+                        )
+                        group["mr_read_only"] = not can_author_list
+                        group["mr_g1_authoring_enabled"] = can_author_list
+                        group["mr_g1_evidence_status"] = (
+                            list_status.evidence_status if list_status is not None
+                            else "UNKNOWN; no typed authoring status"
+                        )
                         marker_collection = _get_child_collection(group, "Markers", "route_marker_points")
-                        marker_collection["mr_read_only"] = True
+                        marker_collection["mr_read_only"] = not can_author_list
                         direction_collection = _get_child_collection(group, "Marker Dir Rays", "route_marker_directions")
                         direction_collection["mr_read_only"] = True
                         direction_collection["mr_editor_only"] = True
@@ -761,9 +774,24 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 else:
                     group["mr_semantics_status"] = "UNKNOWN; ordered RaceTest markers preserved"
                 if route_family:
-                    group["mr_read_only"] = True
-                    group["mr_editor_only"] = True
-                    group["mr_semantics_status"] = "READ_ONLY_DIAGNOSTIC; executable/corpus evidence recorded separately"
+                    list_status = marker_list_status.get(marker_list.name or "")
+                    can_author_list = bool(
+                        marker_list.name in G1_ROUTE_LISTS | G1_LIMIT_LISTS
+                        and list_status is not None
+                        and list_status.supported
+                    )
+                    group["mr_read_only"] = not can_author_list
+                    group["mr_editor_only"] = False
+                    group["mr_g1_authoring_enabled"] = can_author_list
+                    group["mr_g1_evidence_status"] = (
+                        list_status.evidence_status if list_status is not None
+                        else "UNKNOWN; no typed authoring status"
+                    )
+                    group["mr_semantics_status"] = (
+                        "Bounded Marker Pos authoring; source order and list topology are fixed"
+                        if can_author_list else
+                        "READ_ONLY_DIAGNOSTIC; executable/corpus evidence recorded separately"
+                    )
                     group["mr_source_order_preserved"] = True
                     group["mr_visualization_note"] = "Literal source-order curve; no nearest-neighbor reorder; marker semantics remain evidence-bounded"
                 for marker in marker_list.markers:
@@ -781,10 +809,61 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                         authoring.source_sha256,
                     )
                     if route_family:
-                        helper["mr_marker_preview_read_only"] = True
-                        helper["mr_editor_only"] = True
-                        helper["mr_source_list_semantics_status"] = "UNKNOWN; source name and Marker Dir retained only"
+                        list_name = marker.marker_list_name or ""
+                        list_status = marker_list_status.get(list_name)
+                        can_author_marker = bool(
+                            list_name in G1_ROUTE_LISTS | G1_LIMIT_LISTS
+                            and list_status is not None
+                            and list_status.supported
+                            and marker.index_in_list < list_status.marker_count
+                            and marker.position is not None
+                        )
+                        object_type = "route_marker" if list_name == "RaceLine" else (
+                            "limit_marker" if list_name in G1_LIMIT_LISTS else "camera_marker"
+                        )
+                        helper["mr_marker_preview_read_only"] = not can_author_marker
+                        helper["mr_editor_only"] = False
+                        helper["mr_read_only"] = not can_author_marker
+                        helper["mr_race_logic_object_type"] = object_type
+                        helper["mr_race_logic_editable"] = can_author_marker
+                        helper["mr_marker_position_editable"] = can_author_marker
+                        helper["mr_source_list_name"] = list_name
+                        helper["mr_source_list_index"] = marker.index_in_list
+                        helper["mr_source_list_count"] = (
+                            list_status.marker_count if list_status is not None
+                            else len(marker_list.markers)
+                        )
+                        helper["mr_source_list_ordinal"] = marker_list.ordinal
+                        helper["mr_source_list_path"] = marker_list.xml_path
+                        helper["mr_source_xml_path"] = marker.record.xml_path
+                        helper["mr_source_xml_sha256"] = authoring.source_sha256
+                        helper["mr_xml_source_identity"] = (
+                            f"{source_path}|{marker_list.ordinal}|{marker.index_in_list}"
+                        )
+                        # Use the source-derived anchor directly. Reading
+                        # matrix_world immediately after linking a new object
+                        # can observe Blender's unevaluated identity matrix.
+                        helper["mr_initial_blender_position_json"] = json.dumps(
+                            [float(value) for value in position_to_blender(marker.position)]
+                        )
+                        helper["mr_initial_blender_scale_json"] = json.dumps(
+                            [float(value) for value in helper.scale]
+                        )
+                        helper["mr_g1_evidence_status"] = (
+                            list_status.evidence_status if list_status is not None
+                            else "UNKNOWN; no typed authoring status"
+                        )
+                        helper["mr_direction_semantics_status"] = "UNKNOWN; Marker Dir is preserved and not authored"
+                        helper["mr_source_list_semantics_status"] = (
+                            "Marker Pos only; list membership/order and Marker Dir are read-only"
+                            if can_author_marker else "READ_ONLY_DIAGNOSTIC; no editable semantic binding"
+                        )
                         _apply_marker_direction_preview(helper, marker)
+                        helper["mr_initial_blender_rotation_json"] = json.dumps(
+                            [float(value) for value in helper.rotation_euler]
+                        )
+                        helper.lock_rotation = (True, True, True)
+                        helper.lock_scale = (True, True, True)
                         if self.show_marker_direction_rays and marker.direction is not None:
                             _create_marker_direction_ray(direction_collection, source.stem, source_path, marker, helper)
                 if route_family and marker_list.name in G1_ROUTE_LISTS | G1_LIMIT_LISTS:

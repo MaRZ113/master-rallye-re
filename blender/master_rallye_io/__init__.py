@@ -13,6 +13,7 @@ bl_info = {
 
 import bpy
 
+from . import course_route
 from .operators import CLASSES as OPERATOR_CLASSES
 from .ui import CLASSES as UI_CLASSES
 
@@ -40,11 +41,13 @@ def _menu_export(self, context):
 def register():
     for cls in CLASSES:
         bpy.utils.register_class(cls)
+    course_route.register()
     bpy.types.TOPBAR_MT_file_import.append(_menu_import)
     bpy.types.TOPBAR_MT_file_export.append(_menu_export)
 
 
 def unregister():
+    course_route.unregister()
     bpy.types.TOPBAR_MT_file_export.remove(_menu_export)
     bpy.types.TOPBAR_MT_file_import.remove(_menu_import)
     for cls in reversed(CLASSES):

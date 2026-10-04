@@ -442,18 +442,18 @@ def build_parser() -> argparse.ArgumentParser:
     commands = parser.add_subparsers(dest="command", required=True)
     inspect = commands.add_parser("inspect", help="show the fixed France1 probe targets")
     inspect.add_argument("--source", required=True, type=Path)
-    inspect.add_argument("--output-root", type=Path, help="research output root inside this repository (default: repository research-output)")
+    inspect.add_argument("--output-root", type=Path, help="research output root inside this worktree (default: worktree-local research-output)")
     for name in PROBES:
         prepare = commands.add_parser(f"prepare-{name}", help=f"prepare the fixed {name} XML probe")
         prepare.add_argument("--source", required=True, type=Path)
         destination = prepare.add_mutually_exclusive_group()
         destination.add_argument("--output", type=Path, help="explicit candidate XML path inside <output-root>/g1/probes")
-        destination.add_argument("--output-root", type=Path, help="research output root inside this repository; writes candidate under g1/probes")
+        destination.add_argument("--output-root", type=Path, help="research output root inside this worktree; writes candidate under g1/probes")
     verify = commands.add_parser("verify", help="verify a probe XML against the fixed source and recipe")
     verify.add_argument("--kind", required=True, choices=tuple(PROBES))
     verify.add_argument("--source", required=True, type=Path)
     verify.add_argument("--edited", required=True, type=Path)
-    verify.add_argument("--output-root", type=Path, help="expected research output root inside this repository (defaults to the edited XML location)")
+    verify.add_argument("--output-root", type=Path, help="expected research output root inside this worktree (defaults to the edited XML location)")
     return parser
 
 

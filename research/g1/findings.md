@@ -20,20 +20,30 @@ listed separately in [`runtime-results.md`](runtime-results.md).
 - **Four limit lists:** `CONFIRMED_BY_EXECUTABLE` as the exact input lists to
   `gaLimitsAI`, which publishes per-car `LimitState` classifications. Their
   literal names are not being promoted to runtime boundary names beyond the
-  list lookup. Reset consequences remain unresolved.
+  list lookup. The fixed `LeftOuterLimit[58..60]` runtime comparison changed
+  `LimitState` from 1 to 2 at the same route sample/progress; an earlier
+  recovery onset was also observed. `LeftInnerLimit[98..100]` remains
+  `INCONCLUSIVE_RUNTIME_PROBE`. No direct edit was run against either
+  right-side list. Reset consequences beyond the observed local recovery onset
+  remain unresolved.
 - **Cameras:** the executable has `gaCameraManagerParams` camera parameter
   accessors, but the RaceTest `MarkerLists/Cameras` to camera-parameter link was
   not established. Its XML `Pos` and `Dir` are only structurally preserved and
   visualized read-only.
 - **Blender:** RaceLine and the four limit lists are displayed in literal
-  source order with individual read-only helpers. Cameras receive position
-  helpers. Marker Dir previews/rays are diagnostic only; rays are opt-in.
-- **Authoring:** G0's StartArea/FinishArea/SplitTime allowlist was not expanded.
-  All new G1 lists remain read-only.
+  source order with individual marker helpers and a source-order polyline.
+  Their bounded G1.1 workflow authors only existing `Marker Pos` values;
+  topology and `Marker Dir` remain read-only. Cameras remain read-only.
+  Marker Dir previews/rays are diagnostic only; rays are opt-in.
+- **Authoring:** the G0/G0.1 fields remain supported. G1.1 adds only the
+  existing position fields on RaceLine and the four literal limit lists; it
+  does not add list/marker topology, direction, or Camera editing.
 
-**G1.1a status:** `READY_FOR_OUTERLIMIT_RUNTIME_TEST`. RaceLine Pos has a
-bounded progression runtime result; LeftInnerLimit remains inconclusive; the
-separate LeftOuterLimit candidate is prepared and verified but not yet run.
+**G1 status:** `PASS` — RaceLine progression and LeftOuterLimit state-change
+runtime results close the G1 evidence gate. **G1.1 status:** implementation is
+`READY_FOR_ROUTE_AUTHORING_RUNTIME_TEST`; the tested source probes are now exposed by
+the bounded Blender XML authoring path, but a human test of that UI/export
+workflow remains separate from the earlier probe-file tests.
 
 ## Retail marker corpus
 
@@ -107,11 +117,30 @@ The fixed RaceLine and LeftInnerLimit France1 probes were human-tested:
 - LeftInnerLimit indices 98–100: no clear visible effect; retained as
   `INCONCLUSIVE_RUNTIME_PROBE`, not a failed or negative test.
 
-One stronger, isolated candidate is prepared for LeftOuterLimit markers 58–60.
-It is still awaiting the human runtime test. Exact hashes, values, output paths
-and observation instructions are in [`runtime-handoff.md`](runtime-handoff.md)
-and [`runtime-results.md`](runtime-results.md). No route/limit/camera
-authoring is enabled.
+The isolated LeftOuterLimit markers 58–60 probe completed with a runtime state
+change. The runtime and state-capture results are in
+[`runtime-handoff.md`](runtime-handoff.md) and
+[`runtime-results.md`](runtime-results.md). The probe result supports local
+`LimitState` sensitivity to that edited boundary; it does not assign road-edge
+semantics to all four list names or prove a general reset policy.
+
+## G1.1 bounded authoring
+
+The shared source-preserving RaceTest editor can now change only `Marker Pos`
+XYZ for existing markers in exactly `RaceLine`, `LeftInnerLimit`,
+`LeftOuterLimit`, `RightInnerLimit`, and `RightOuterLimit`. The writer refuses
+ambiguous/missing lists and preserves every marker's identity, ordinal,
+`Marker Dir`, unknown fields, and all other XML bytes. Blender keeps source
+order explicit, updates each diagnostic polyline when a point moves, and shows
+per-marker index/approximate progress and neighboring gaps. Stable Marker Dir,
+Cameras, and all non-listed marker families remain outside the exporter.
+
+`Marker Pos` authoring is ready for one human Blender-to-runtime validation.
+RaceLine and the LeftOuterLimit source mutations already have separate runtime
+evidence; this next check validates the new authoring interaction and exported
+artifact path rather than reopening their established consumer results. See
+[`research/g1_1/findings.md`](../g1_1/findings.md) and
+[`research/g1_1/runtime-handoff.md`](../g1_1/runtime-handoff.md).
 
 ## Evidence boundaries
 
@@ -120,11 +149,14 @@ authoring is enabled.
 - RaceLine position influence on visible local race progress has a human
   runtime edit result. The exact output of each individual internal field
   remains based on the executable trace unless explicitly captured.
-- LeftInnerLimit has one inconclusive runtime probe. LeftOuterLimit has not yet
-  been runtime-tested. Limit-state dataflow and reset-manager consumption are
-  executable findings; reset behavior is not confirmed by gameplay.
+- LeftInnerLimit has one inconclusive runtime probe. LeftOuterLimit[58..60]
+  has one state-diff and earlier-recovery observation. The other three list
+  families have no individual human boundary-mutation test. Limit-state
+  dataflow and reset-manager consumption are executable findings; broad reset
+  behavior is not confirmed by gameplay.
 - The RaceLine-to-GXM spatial match is not a source/compiler/runtime link.
 - Limit name-based interpretation, AI steering, recovery, camera-list binding,
   and downstream reset behavior remain unresolved.
-- No G1 list was added to the stable XML writer. No course binary writer was
-  changed.
+- Only bounded `Marker Pos` XYZ on the five G1 lists is now added to the
+  RaceTest XML authoring surface. No marker topology, `Marker Dir`, Camera, or
+  course binary writer was changed.

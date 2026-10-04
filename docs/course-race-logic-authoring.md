@@ -22,13 +22,21 @@ new human runtime authoring test.
 | `MarkerLists/FinishArea` | `Marker Pos` XYZ for exactly four ordered markers | Writes each helper's final world point. Runtime authoring test confirmed the expected completion-region change. |
 | Main `SplitTimeN` Egg | `en3d Matrix/@Row3` XYZ, `gaRaceSplitTimeAI/Split Time ID`, `Radius` | Row3 XYZ is the trigger/sign center; Radius is explicit. Row3 W, Matrix rows 0–2, ExtraTime, model references, and other fields are preserved. |
 | Exact sibling visual companion Egg | Its `en3d Matrix/@Row3` XYZ only | Preserves Row3 W, Matrix rows 0–2, model references, name, other properties, and hierarchy. Does not change the split trigger center. |
+| Existing `MarkerLists/RaceLine` Marker | `Marker Pos` Vector3 XYZ only | Preserves source list, marker order/count, Marker Dir, Marker Type, and all unknown fields. |
+| Existing `MarkerLists/LeftInnerLimit` Marker | `Marker Pos` Vector3 XYZ only | Same bounded field policy; consumer is executable-confirmed; one runtime edit was inconclusive. |
+| Existing `MarkerLists/LeftOuterLimit` Marker | `Marker Pos` Vector3 XYZ only | Same bounded field policy; one local runtime edit changed LimitState. |
+| Existing `MarkerLists/RightInnerLimit` Marker | `Marker Pos` Vector3 XYZ only | Same bounded field policy; list consumer is executable-confirmed, individual runtime edit not tested. |
+| Existing `MarkerLists/RightOuterLimit` Marker | `Marker Pos` Vector3 XYZ only | Same bounded field policy; list consumer is executable-confirmed, individual runtime edit not tested. |
 
 The manifest labels changes as `race.start.marker_position`,
 `race.finish.marker_position`, `race.split.trigger_center`,
 `race.split.visual_companion_position`, `race.split.radius`, or
-`race.split.id`. Each change also retains its source XML path and old/new
-values. The manifest schema remains `master-rallye-race-logic-edit-v1`; the
-semantic-role field is additive.
+`race.split.id`. G1.1 additionally labels RaceLine and four limit-position
+changes as `race.route.raceline.marker_position` and
+`race.limit.{left|right}_{inner|outer}.marker_position`; entries include the
+literal list, zero-based marker index, source-order invariant, old/new values,
+and position delta. The manifest schema is
+`master-rallye-race-logic-edit-v2`.
 
 ### SplitTime model
 
@@ -135,17 +143,45 @@ Current principal Retail validation:
 The add-on's headless Blender 5.2.2 smoke executes the Master Rallye Course and
 Course Race Logic panel draw callbacks with icons validated against Blender's
 RNA enum, then exercises import, no-op export, area point transforms, group and
-individual companion movement, explicit Radius behavior, and manifest roles.
+individual companion movement, route/limit point movement, source-order
+polyline refresh, explicit Radius behavior, and manifest roles.
+
+## G1.1 route and corridor marker positions
+
+The RaceLine and four limit lists preserve their complete source-order marker
+inventory. The exporter accepts only the final world position of an existing
+helper bound to the exact source list ordinal and marker index. A mutation may
+change only that Marker record's direct `Marker Pos` Vector3 `Value` XYZ.
+Marker count/order, `Marker Dir`, `Marker Type`, unknown fields, all other XML
+records, and compiled resources remain unchanged. RaceLine/limit helper
+rotation and scale are preview/editor state; Marker Dir is not authored.
+
+The selected-marker panel reports its list/index, approximate index-based
+RaceLine progress, and distances to neighboring source-order samples. Moving a
+RaceLine or limit helper refreshes the editor-only polyline in source order; it
+never sorts or resamples the points. Validation warnings flag suspicious gaps,
+backtracking, and obvious corridor-side/order inversions without enforcing a
+fixed spacing or rewriting geometry.
+
+RaceLine position influence on local visible progression is runtime-confirmed;
+the one controlled probe showed no obvious AI steering change. Limit-list
+consumers and `LimitState` are executable-confirmed. LeftOuterLimit[58..60]
+changed the local state in one runtime comparison, LeftInnerLimit[98..100]
+was inconclusive, and the right-side lists have not been individually mutated
+at runtime. These findings support bounded position editing but do not label
+the lists as road edges or establish a complete recovery policy. Cameras,
+Marker Dir, and topology remain read-only. See
+[`research/g1_1/findings.md`](../research/g1_1/findings.md).
 
 ## What is not yet editable
 
 | Source family | Current status |
 |---|---|
-| `RaceLine` | Imported read-only; broader runtime role remains a research target. |
+| `RaceLine` | Existing Marker Pos XYZ only; no add/delete/reorder/resample or Marker Dir. |
 | `Cameras` | Imported read-only; camera behavior is not assigned from the name. |
-| `LeftInnerLimit`, `LeftOuterLimit`, `RightInnerLimit`, `RightOuterLimit` | Imported read-only; names do not prove road-edge, AI, respawn, or collision semantics. |
+| `LeftInnerLimit`, `LeftOuterLimit`, `RightInnerLimit`, `RightOuterLimit` | Existing Marker Pos XYZ only; no topology or Marker Dir. Names do not prove road-edge, AI, respawn, or collision semantics. |
 | `FinishAreaQuick` and other non-allowlisted marker lists | Imported read-only; no writer support. |
 | Course render geometry, GXM, tag100, tag1400, physical data | Read-only; no writer support. |
 
-No RaceLine, Camera, limit-marker, physical-course, geometry, or executable
-authoring work is included in G0.1.
+G1.1 does not add stable authoring for Cameras, Marker Dir, marker topology,
+physical-course data, geometry, or executable behavior.

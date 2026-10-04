@@ -1,10 +1,11 @@
-"""Headless Blender smoke for read-only G1 RaceLine/limit/camera diagnostics."""
+"""Headless Blender smoke for bounded G1 Marker Pos authoring and diagnostics."""
 from __future__ import annotations
 
 import json
 import shutil
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -93,7 +94,8 @@ def _main():
 
     import master_rallye_io
     from master_rallye_io import ui as addon_ui
-    from master_rallye_io.library import load_course_project, position_to_blender
+    from master_rallye_io.course_route import refresh_marker_list_polyline
+    from master_rallye_io.library import load_course_project, position_to_blender, blender_position_to_source
 
     master_rallye_io.register()
     course_status = bpy.ops.import_scene.master_rallye_course(
@@ -134,10 +136,21 @@ def _main():
         by_index = {int(obj["mr_marker_index_in_list"]): obj for obj in helpers}
         if len(by_index) != len(helpers) or sorted(by_index) != list(range(len(source_markers))):
             raise AssertionError(f"{list_name} source marker order/identity was not retained")
-        if any(not obj.get("mr_read_only") or not obj.get("mr_editor_only") for obj in helpers):
-            raise AssertionError(f"{list_name} helpers are not explicitly read-only/editor-only")
-        if any(obj.get("mr_race_logic_editable") or obj.get("mr_race_logic_object_type") for obj in helpers):
-            raise AssertionError(f"{list_name} leaked into the stable G0 authoring allowlist")
+        authorable = list_name in TARGET_LISTS[:-1]
+        if any(bool(obj.get("mr_read_only")) != (not authorable) for obj in helpers):
+            raise AssertionError(f"{list_name} helper read-only state does not match its bounded authoring status")
+        if any(bool(obj.get("mr_editor_only")) for obj in helpers):
+            raise AssertionError(f"{list_name} source marker helpers must remain semantic points, not editor-only geometry")
+        if authorable:
+            expected_type = "route_marker" if list_name == "RaceLine" else "limit_marker"
+            if any(not obj.get("mr_race_logic_editable")
+                   or not obj.get("mr_marker_position_editable")
+                   or obj.get("mr_race_logic_object_type") != expected_type
+                   for obj in helpers):
+                raise AssertionError(f"{list_name} did not expose only bounded Marker Pos authoring")
+        elif any(obj.get("mr_race_logic_editable") or obj.get("mr_marker_position_editable")
+                 or obj.get("mr_race_logic_object_type") != "camera_marker" for obj in helpers):
+            raise AssertionError("Cameras marker diagnostics leaked into the authoring allowlist")
 
         source_list = source_lists[0] if source_lists else None
         polyline = [
@@ -176,7 +189,7 @@ def _main():
             "count": len(helpers),
             "position_and_direction_helpers": checked,
             "source_order_polyline": bool(polyline),
-            "read_only": True,
+            "position_authoring": authorable,
         }
 
     marker_rays = [
@@ -191,7 +204,7 @@ def _main():
     if camera_polylines:
         raise AssertionError("Cameras markers must not be presented as an invented ordered path")
 
-    # The ordinary Race Logic exporter must ignore all read-only G1 helpers.
+    # The no-op exporter preserves bytes; a deliberate marker move changes only one Marker Pos.
     area_helper = next(
         obj for obj in all_objects
         if obj.get("mr_race_logic_object_type") == "area_marker"
@@ -207,8 +220,62 @@ def _main():
         if export_status != {"FINISHED"} or noop.read_bytes() != xml_path.read_bytes():
             raise AssertionError("G1 helper import changed stable no-op RaceTest export identity")
         manifest = json.loads(Path(str(noop) + ".mr-race-edit.json").read_text(encoding="utf-8"))
-        if manifest.get("changes") or not manifest.get("unknown_content_preserved"):
-            raise AssertionError("G1 diagnostics polluted the bounded G0 export manifest")
+        if manifest.get("changes") or manifest.get("warnings") or not manifest.get("unknown_content_preserved"):
+            raise AssertionError("G1 marker import polluted the no-op export manifest")
+
+        route_marker = next(
+            obj for obj in all_objects
+            if obj.get("mr_race_logic_object_type") == "route_marker"
+            and obj.get("mr_marker_index_in_list") == 265
+        )
+        route_polyline = next(
+            obj for obj in all_objects
+            if obj.get("mr_course_helper_kind") == "RaceTest MarkerList source-order diagnostic polyline"
+            and obj.get("mr_marker_list_name") == "RaceLine"
+        )
+        route_marker.location.x += 0.25
+        bpy.context.view_layer.update()
+        if not refresh_marker_list_polyline(str(xml_path), route_marker["mr_source_list_ordinal"], "RaceLine"):
+            raise AssertionError("moving a RaceLine point did not update its source-order polyline")
+        curve_point = route_polyline.matrix_world @ Vector(route_polyline.data.splines[0].points[265].co[:3])
+        if (curve_point - route_marker.matrix_world.translation).length > 2.0e-4:
+            raise AssertionError("RaceLine polyline did not follow the moved source marker")
+        outer_marker = next(
+            obj for obj in all_objects
+            if obj.get("mr_race_logic_object_type") == "limit_marker"
+            and obj.get("mr_source_list_name") == "LeftOuterLimit"
+            and obj.get("mr_marker_index_in_list") == 58
+        )
+        outer_marker.location.x += 0.5
+        edited_xml = temp / "France1_g1_marker_positions.xml"
+        edited_status = bpy.ops.export_scene.master_rallye_race_logic_xml(
+            "EXEC_DEFAULT", filepath=str(edited_xml)
+        )
+        if edited_status != {"FINISHED"}:
+            raise AssertionError(f"bounded RaceLine/Limit export failed: {edited_status}")
+        edited_manifest = json.loads(
+            Path(str(edited_xml) + ".mr-race-edit.json").read_text(encoding="utf-8")
+        )
+        changes = edited_manifest.get("changes", [])
+        if len(changes) != 2 or {item.get("semantic_role") for item in changes} != {
+            "race.route.raceline.marker_position", "race.limit.left_outer.marker_position"
+        }:
+            raise AssertionError(f"unexpected G1.1 manifest semantic paths: {changes!r}")
+        edited_root = ET.parse(edited_xml).getroot()
+        for list_name, marker_index, helper in (
+            ("RaceLine", 265, route_marker),
+            ("LeftOuterLimit", 58, outer_marker),
+        ):
+            old = next(item for item in document.marker_lists if item.name == list_name).markers[marker_index]
+            values = edited_root.findall(f"./MarkerLists/List[@Name='{list_name}']/Marker")
+            new_marker = values[marker_index]
+            new_pos = new_marker.find("Value[@Name='Marker Pos']").get("Value").split()
+            expected_source = blender_position_to_source(helper.matrix_world.translation)
+            if any(abs(float(value) - expected_source[axis]) > 2.0e-4 for axis, value in enumerate(new_pos)):
+                raise AssertionError(f"{list_name}[{marker_index}] did not export final world position")
+            new_dir = new_marker.find("Value[@Name='Marker Dir']").get("Value")
+            if new_dir != old.raw_direction:
+                raise AssertionError(f"{list_name}[{marker_index}] Marker Dir changed unexpectedly")
 
         rays_xml = temp / "France1_marker_rays.xml"
         shutil.copyfile(xml_path, rays_xml)
@@ -254,7 +321,7 @@ def _main():
         if obj.get("mr_resource_kind") == "course" and "mr_metadata_json" in obj
     )
     panel_course_draws = _draw(addon_ui.VIEW3D_PT_master_rallye_course, course_obj, valid_icons)
-    panel_logic_draws = _draw(addon_ui.VIEW3D_PT_master_rallye_course_race_logic, area_helper, valid_icons)
+    panel_logic_draws = _draw(addon_ui.VIEW3D_PT_master_rallye_course_race_logic, route_marker, valid_icons)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     result = {
         "status": "PASS",
@@ -264,7 +331,8 @@ def _main():
         "marker_lists": marker_results,
         "optional_marker_rays": len(ray_objects),
         "cameras_rendered_as_polyline": False,
-        "read_only_helpers_outside_g0_allowlist": True,
+        "bounded_route_limit_marker_pos_export": True,
+        "marker_dir_and_topology_unchanged": True,
         "noop_export_byte_identical": True,
         "manifest_changes": 0,
         "panel_draw_callbacks": {
