@@ -1,5 +1,12 @@
 # Native Dump after Race Results
 
+Current scope correction: the warning below still applies to **pristine and
+older un-hardened profiles**. The new exact [research hardened profiles](hardening.md)
+contain StringList and XmlData NULL guards and are prepared for post-results
+Dump smoke, **PENDING HUMAN VALIDATION**. Their [current handoff](runtime-handoff.md)
+supersedes the old active-only plan. This does not establish universal Dump
+safety or change the public Observatory distribution.
+
 **KNOWN STOCK DEVELOPER-TOOL BUG**. Post-results native Debug->Dump is **UNSAFE**,
 including after returning to frontend in the same process. Restart the game
 process before another Dump once Race Results has been entered.
@@ -14,17 +21,19 @@ retail; human stock developer-tool crash observations are separate from
 mixed-class race behavior. `0x47D400` similarly creates a NULL TimeList in the
 alternate result format; no general Dump-safety claim is made.
 
-Do not require mixed-return/mixed-results Dump after a finish. Capture during
+For pristine/old profiles, do not require mixed-return/mixed-results Dump after a finish. Capture during
 active races and use visual observations/screenshots for finish, result identity
-and frontend return. Do not fix native Dump or work around Observatory's trust
-model in this phase. Preserved Broker paths after exit are not actor evidence.
+and frontend return. The earlier generalization phase did not patch Dump;
+the subsequent bounded hardening is described separately. Preserved Broker
+paths after exit are not actor evidence.
 
 ## Adapter and oracle integrity
 
 The adapter retains the audited portable Observatory implementation hashes,
 basename/size/hash checks, native command path and raw-parser implementation.
-It adds only one exact allowlisted R-AI1.1 image. Legacy fresh-v2 remains
-supported. Both inverse manifests restore exact pristine; unknown images or
+It adds exact allowlisted research images. Legacy fresh-v2, original general
+and both new hardening profiles remain supported. All inverse manifests restore
+exact pristine; unknown images or
 changed Observatory scripts reject before use. No allow-any/force option.
 External files remain unchanged; capture/settings outputs stay ignored in the
 main checkout, under the selected phase directory.

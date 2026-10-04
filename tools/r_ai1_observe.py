@@ -1,4 +1,4 @@
-"""Use an audited external Observatory with one exact R-AI1 research profile.
+"""Use an audited external Observatory with an exact R-AI research profile.
 
 The external distribution remains unchanged. Its capture/UI implementations
 are reused; every native memory location and command ID retains retail layout.
@@ -13,6 +13,7 @@ from pathlib import Path
 
 from r_ai1_mixed_class import (CANDIDATE_SHA256, GENERAL_SHA256, REPOSITORY, ignored_output,
                               sha256, verify_candidate, verify_general)
+from r_ai1_hardening import BASE_SHA256, MIXED_SHA256, verify as verify_hardening
 
 OBSERVATORY_FILES = {
     "broker_observatory.py": "d1a07eab330ef3d8b825ef3320b458d20ced11df99d75250a72e9c7701c4ba7d",
@@ -35,9 +36,11 @@ def load_profile(directory: Path, candidate: Path):
         verifier, phase = verify_candidate, "r-ai1"
     elif image_hash == GENERAL_SHA256:
         verifier, phase = verify_general, "r-ai1-1"
+    elif image_hash in (BASE_SHA256, MIXED_SHA256):
+        verifier, phase = verify_hardening, "r-ai1-1/hardening"
     else:
-        raise ValueError("Unknown research image; only two exact audited profiles accepted")
-    verifier(data)
+        raise ValueError("Unknown research image; only exact audited profiles accepted")
+    manifest = verifier(data)
     directory = directory.resolve()
     verify_distribution(directory)
     for name in ("broker_observatory", "dev_command_trigger", "mr_observe", "observatory_version"):
@@ -49,6 +52,15 @@ def load_profile(directory: Path, candidate: Path):
     core, commands = observe.core, observe.commands
     # Exact audited implementation, exact candidate, retail image size/base/RVAs.
     core.RETAIL_SHA256 = commands.RETAIL_SHA256 = image_hash
+    if image_hash in (BASE_SHA256, MIXED_SHA256):
+        original_parse = core.parse_dump_bytes
+        def parse_dump_bytes(raw, source=None):
+            provenance = dict(source or {})
+            if provenance.get("image_sha256") == image_hash:
+                provenance.update(build_profile=manifest["profile"],
+                                  broker_dump_variant="native_hardened")
+            return original_parse(raw, provenance)
+        core.parse_dump_bytes = parse_dump_bytes
     original_verify = observe.verify_executable
     def verify_executable(path):
         try:

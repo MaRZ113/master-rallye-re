@@ -7,14 +7,19 @@ ID0/T1 human + ID14/T3 AI + two T1 AI, NumCars4. Captured IDs0/14/4/1 and human
 driving/collision/damage/progress/finish/results observations are recorded in
 [R-AI1 result](../research/r-ai1/runtime-result.md). Separate stock control is pending.
 
-R-AI1.1: **STATIC COMPLETE / READY FOR HUMAN RUNTIME**. Stock Attract uses a
+R-AI1.1 generalized existing-participant gameplay: **CONFIRMED_BY_RUNTIME** for
+[one full race](../research/r-ai1-1/runtime-validation.md), IDs0/15/17/7,
+classes0/2/2/1. Repeated-race variation remains pending. Stock Attract uses a
 broad absolute-ID pool and derives class; its chooser is partially reusable.
 Quick Race generalization selects class independently per AI and retains native
 class pools/driver/publication, four participants and normal player balance.
-One exact randomized candidate awaits five active-race samples and representative
-lifecycle observations. No-EXE deployment requires a future external runtime mod;
+The exact [hardened research candidate](../research/r-ai1-1/hardening.md) is
+**STATIC COMPLETE / READY FOR HUMAN RUNTIME**: Loading media failure redirects
+to Starter1; native Dump guards nullable StringList/XmlData while retaining idle
+Attract and original MIXED chooser. It awaits post-results Dump/subsequent-load
+smoke and five newly generated race samples. No-EXE deployment requires a future external runtime mod;
 none is implemented. See [findings](../research/r-ai1-1/findings.md) and
-[handoff](../research/r-ai1-1/runtime-handoff.md). Post-results native Dump is
+[handoff](../research/r-ai1-1/runtime-handoff.md). Pristine/old post-results native Dump is
 [UNSAFE](../research/r-ai1-1/observatory-limitations.md). No capacity/registry
 expansion or material/Blender changes are claimed.
 

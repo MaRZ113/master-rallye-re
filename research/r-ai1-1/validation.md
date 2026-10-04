@@ -1,5 +1,12 @@
 # R-AI1.1 validation — 2026-10-04
 
+Current update: [one full generalized race](runtime-validation.md) passed by
+human evidence plus raw-bound capture. [Hardening validation](hardening.md):
+baseline285/final302 synthetic PASS,40 Loading and12 Dump fixture assertions,
+94 chooser cases on hardened base, exact build/inverse gates and compileall/
+diff-check PASS. Hardening runtime and repeated RNG variation remain pending.
+The remainder records the earlier static preparation chronologically.
+
 Baseline: **270 passed, 0 failed, 0 skipped** before research edits. Starting
 branch research/r-ai1, HEAD73ccb37, tracked tree clean. Latest on-disk Ghidra
 12.1.4 with installed ghidra-bridge/pyghidra was used read-only; temporary

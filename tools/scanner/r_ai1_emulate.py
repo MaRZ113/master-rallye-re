@@ -228,10 +228,14 @@ def main():
     parser.add_argument("--project", required=True, type=Path)
     parser.add_argument("--candidate", type=Path)
     parser.add_argument("--general-source", type=Path)
+    parser.add_argument("--hardened-base", type=Path,
+                        help="Exact audited base guards remain installed throughout native chooser cases")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     if bool(args.candidate) == bool(args.general_source):
         parser.error("Choose --candidate (legacy) or --general-source (R-AI1.1)")
+    if args.hardened_base and not args.general_source:
+        parser.error("--hardened-base requires --general-source")
     manifest = verify_candidate(args.candidate.read_bytes()) if args.candidate else None
     output = ignored_output(args.output)
     import pyghidra
@@ -250,7 +254,18 @@ def main():
         api = FlatProgramAPI(program)
         transaction = program.startTransaction("R-AI1 unsaved selector emulation")
         if args.general_source:
+            hardened = None
+            if args.hardened_base:
+                from r_ai1_hardening import verify as verify_hardening, BASE_SHA256
+                from r_ai1_hardening_emulate import install
+                hardened = verify_hardening(args.hardened_base.read_bytes())
+                if hardened["output_sha256"] != BASE_SHA256:
+                    raise ValueError("Need hardened base, not a precomposed chooser")
+                install(program, api, pyghidra.task_monitor(), True)
             result = emulate_general(program, api, pyghidra.task_monitor(), args.general_source.read_bytes())
+            if hardened:
+                from r_ai1_hardening import MIXED_SHA256
+                result.update(hardened_base_sha256=BASE_SHA256, candidate_sha256=MIXED_SHA256)
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_text(json.dumps(result, indent=2) + "\n")
             print("Native chooser:", result["cases"], "cases PASS; game runtime untested")

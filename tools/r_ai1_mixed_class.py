@@ -437,13 +437,17 @@ def verify_general(candidate: bytes) -> dict:
 
 
 def check_general_snapshot(snapshot: dict, image_hash: str) -> dict:
+    from r_ai1_hardening import MIXED_SHA256, PROFILES
     source = snapshot.get("source", {})
-    if (image_hash != GENERAL_SHA256 or source.get("image_sha256") != image_hash or
+    if (image_hash not in (GENERAL_SHA256, MIXED_SHA256) or source.get("image_sha256") != image_hash or
             snapshot.get("kind") != "master-rallye-broker-dump-snapshot" or
             snapshot.get("schema_version") != 1 or
             source.get("freshness") != "post_baseline_complete_dump_proven" or
             not re.fullmatch(r"mixed-random-race-[1-9][0-9]*", source.get("label", ""))):
         raise ValueError("Need a fresh active-race capture of the exact R-AI1.1 profile")
+    if image_hash == MIXED_SHA256 and (source.get("build_profile") != PROFILES["mixed"] or
+                                     source.get("broker_dump_variant") != "native_hardened"):
+        raise ValueError("Hardened capture provenance is missing or inconsistent")
     entries = snapshot["entries"]
     def get(path):
         values = [item["value"] for item in entries if item["path"] == path]
@@ -505,7 +509,9 @@ def check_general_snapshot(snapshot: dict, image_hash: str) -> dict:
             "subsystem_path_counts_not_actor_proof": counts,
             "human_evidence_required": ["own models/wheels/collision", "AI movement/progress",
                                         "one normal finish/results/icons/frontend return"],
-            "post_results_dump": "UNSAFE; restart process before further native Dump"}
+            "post_results_dump": ("NATIVE_NULL_GUARDS_PREPARED; human hardening smoke pending"
+                                  if image_hash == MIXED_SHA256 else
+                                  "UNSAFE; restart process before further native Dump")}
 
 
 def summarize_general(reports: list[dict]) -> dict:
@@ -565,6 +571,10 @@ def main():
         output.with_suffix(".manifest.json").write_text(json.dumps(result, indent=2) + "\n")
     else:
         verifier = verify_general if args.command in ("verify-general", "summarize-general") else verify_candidate
+        if args.command == "summarize-general":
+            from r_ai1_hardening import MIXED_SHA256, verify as verify_hardening
+            if sha256(args.candidate.read_bytes()) == MIXED_SHA256:
+                verifier = verify_hardening
         result = verifier(args.candidate.read_bytes())
         if args.command in ("check", "summarize-general"):
             from r_ai1_observe import load_profile
