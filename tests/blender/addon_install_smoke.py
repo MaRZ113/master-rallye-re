@@ -11,6 +11,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import bpy
+from mathutils import Vector
 
 
 values = sys.argv[sys.argv.index("--") + 1:]
@@ -72,6 +73,10 @@ def _draw_panel(panel_type, obj, valid_icons):
     if not layout.calls:
         raise AssertionError(f"{panel_type.__name__}.draw emitted no controls")
     return layout.calls
+
+
+def _close_vector(left, right, epsilon=2.0e-4):
+    return all(abs(float(left[index]) - float(right[index])) <= epsilon for index in range(3))
 result = bpy.ops.preferences.addon_install(filepath=str(archive), overwrite=True)
 if result != {"FINISHED"}:
     raise AssertionError(f"add-on install failed: {result}")
@@ -242,6 +247,37 @@ if course_pair is not None:
     if any(obj.get("mr_direction_basis") != "this companion en3d Matrix local -Z (-Row2); route/travel diagnostic"
            for obj in rays):
         raise AssertionError("packaged SplitTime route rays are stale or use the source-facing direction")
+    from master_rallye_io.library import position_to_blender
+    billboard_by_parent = {obj.parent: obj for obj in billboards}
+    ray_by_parent = {obj.parent: obj for obj in rays}
+    if len(billboard_by_parent) != 12 or len(ray_by_parent) != 12:
+        raise AssertionError("installed SplitTime diagnostics are not uniquely attached to their companions")
+    for helper in companions:
+        billboard = billboard_by_parent.get(helper)
+        ray = ray_by_parent.get(helper)
+        if billboard is None or ray is None:
+            raise AssertionError(f"installed companion {helper.name} is missing its own billboard or route ray")
+        if not all(obj.get("mr_editor_only") and obj.get("mr_read_only") for obj in (billboard, ray)):
+            raise AssertionError("installed billboard/ray helpers must remain editor-only and read-only")
+        try:
+            matrix_rows = json.loads(helper["mr_source_matrix_json"])["rows"]
+            source_row2 = Vector(position_to_blender(matrix_rows[2][:3])).normalized()
+            source_row3 = position_to_blender(matrix_rows[3][:3])
+        except (KeyError, TypeError, ValueError, IndexError) as error:
+            raise AssertionError(f"{helper.name} lacks its own source matrix basis") from error
+        if not _close_vector(helper.matrix_world.translation, source_row3):
+            raise AssertionError(f"{helper.name} moved away from its source/export Row3 anchor")
+        if not _close_vector(billboard.matrix_world.translation, helper.matrix_world.translation):
+            raise AssertionError(f"{billboard.name} visual card offset changed the semantic companion anchor")
+        if not billboard.data.vertices or min(float(vertex.co.y) for vertex in billboard.data.vertices) > 2.0e-4:
+            raise AssertionError(f"{billboard.name} pole base does not start at the source anchor")
+        panel_normal = (billboard.matrix_world.to_3x3() @ billboard.data.polygons[-1].normal).normalized()
+        if (panel_normal - source_row2).length > 1.0e-3:
+            raise AssertionError(f"{billboard.name} does not face along its companion's source +Row2")
+        ray_tip = Vector(ray.data.splines[0].points[-1].co[:3])
+        travel_direction = (ray.matrix_world.to_3x3() @ ray_tip).normalized()
+        if (travel_direction + source_row2).length > 1.0e-3:
+            raise AssertionError(f"{ray.name} does not point along its companion's route/travel -Row2")
     split_center = next((obj for obj in bpy.data.objects if obj.get("mr_course_helper_kind") == "split_center"), None)
     course_object = next((obj for obj in course_objects if obj.type == "MESH"), None)
     if split_center is None or course_object is None:
@@ -271,6 +307,14 @@ if course_pair is not None:
     payload["course_xml_overlay"] = "PASS"
     payload["course_xml_marker_count"] = marker_count
     payload["course_xml_split_visual_count"] = split_count
+    payload["installed_split_companion_diagnostics"] = {
+        "count": len(companions),
+        "source_row3_anchor": "PASS",
+        "billboard_source_facing": "+Row2",
+        "route_travel_ray": "-Row2",
+        "pole_base_at_anchor": "PASS",
+        "editor_only": "PASS",
+    }
     if gxm_source is not None:
         result = bpy.ops.import_scene.master_rallye_course_gxm_startpoint(filepath=str(gxm_source))
         if result != {"FINISHED"}:
