@@ -64,4 +64,8 @@ Native emulator:40 executions, counters0..3 crossed with missing/stat failure,
 zero size, exact threshold, threshold+1 and signed-negative size for pristine
 and hardened code. Native decode, branch flow, counter and RET/ESP/SEH execute;
 stat/allocation/Broker setters are synthetic boundaries. All assertions pass.
-This is static proof; the human subsequent-loading/restart smoke is pending.
+These are historical static proofs. The subsequent human Restart loaded normal
+race2 with Type2, AttractMode=False and NumPlayers1: **LEGACY LOADING->ATTRACT
+FALSE TRIGGER HARDENING CONFIRMED_BY_RUNTIME**. Idle Attract preservation
+remains static evidence only; no explicit human idle test was reported.
+[Final closeout](runtime-closeout.md).

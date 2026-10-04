@@ -6,7 +6,9 @@ Fixed fresh-profile-v2 proof: **MIXED-CLASS EXISTING PARTICIPANTS —
 CONFIRMED_BY_RUNTIME**. [Exact capture and human result](runtime-result.md).
 The counts and untested statements below describe the historical preparation
 at commits73ccb37/babbb25, not the current gameplay verdict. Separate pristine
-human control remains PENDING. New randomized R-AI1.1 remains runtime-untested.
+matched fixed-selection human control was not separately reported (non-blocking).
+R-AI1.1 is now [CLOSED / CONFIRMED_BY_RUNTIME](../r-ai1-1/runtime-closeout.md),
+including repeated fresh variation and the hardened runtime lifecycle.
 
 ## Historical fresh-profile v2 correction — 2026-10-04
 

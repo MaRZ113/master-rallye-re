@@ -1,5 +1,8 @@
 # SUPERSEDED / DO NOT USE
 
+Historical plan only; current R-AI1/R-AI1.1 are CLOSED / CONFIRMED_BY_RUNTIME.
+See the final runtime closeout; historical readiness text below is retained.
+
 Historical handoff from babbb25. Its fresh-profile T3 selection assumption is incorrect.
 Use [corrected runtime plan](runtime-test-plan.md); see [correction](correction.md).
 

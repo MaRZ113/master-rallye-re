@@ -1,6 +1,6 @@
 # Fixed mixed-class runtime result — 2026-10-04
 
-**MIXED-CLASS EXISTING PARTICIPANTS — CONFIRMED_BY_RUNTIME**.
+**R-AI1: CLOSED / FIXED MIXED-CLASS EXISTING PARTICIPANTS CONFIRMED_BY_RUNTIME**.
 The fresh-profile-v2 experiment passed according to the supplied human report,
 supported by the active-race JSON/raw capture. This is the existing four-slot
 T1 human + one T3 AI proof, not arbitrary classes/counts/registry expansion.
@@ -29,13 +29,16 @@ identity/vehicle icon and normal race completion. These observations establish
 the bounded gameplay result separately from the Broker state-only verdict.
 Stable frontend return and reset/recovery were not explicitly described in the
 supplied report and are not independently upgraded here. The generalized
-handoff checks frontend return. Separate unpatched stock control: **PENDING**.
+full-race lifecycle later passed. A matched fixed-selection unpatched stock
+control was not separately reported; this is non-blocking. The clean-stock
+Dump-crash control is explicitly confirmed in the final human report.
 
 Post-results Dump can crash pristine retail through a NULL StringList payload.
 This is a [known stock developer-tool bug](../r-ai1-1/observatory-limitations.md),
 not evidence of mixed-class instability. The old mixed-return Dump requirement
 is withdrawn. Restart the process before another Dump after Race Results.
 
-The static homogeneity model remains valid. Current work is
-[R-AI1.1 generalization](../r-ai1-1/findings.md), with a new randomized candidate
-and active-race-only handoff; no capacity phase has begun.
+The static homogeneity model remains valid.
+[R-AI1.1 final closeout](../r-ai1-1/runtime-closeout.md) records generalized
+selection, repeated variation and hardened post-results Dump survival. The
+warning above applies to pristine/old un-hardened images. No capacity phase began.

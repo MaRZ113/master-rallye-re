@@ -2,9 +2,11 @@
 
 Current scope correction: the warning below still applies to **pristine and
 older un-hardened profiles**. The new exact [research hardened profiles](hardening.md)
-contain StringList and XmlData NULL guards and are prepared for post-results
-Dump smoke, **PENDING HUMAN VALIDATION**. Their [current handoff](runtime-handoff.md)
-supersedes the old active-only plan. This does not establish universal Dump
+contain StringList and XmlData NULL guards. Human post-results Dump survival
+and continuation are **CONFIRMED_BY_RUNTIME** in the exact composed hardened
+profile, with21 following entries. The XmlData NULL trigger was not separately
+isolated. Their [completed handoff](runtime-handoff.md) supersedes the old active-only
+plan; [final runtime evidence](runtime-closeout.md) is canonical. This does not establish universal Dump
 safety or change the public Observatory distribution.
 
 **KNOWN STOCK DEVELOPER-TOOL BUG**. Post-results native Debug->Dump is **UNSAFE**,

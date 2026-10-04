@@ -1,0 +1,286 @@
+{
+  "phase": "R-AI1 / R-AI1.1 runtime closeout",
+  "date": "2026-10-04",
+  "human_evidence_source": "Explicit user runtime closeout report in this task",
+  "r_ai1": {
+    "status": "CLOSED",
+    "evidence": "CONFIRMED_BY_RUNTIME",
+    "ids": [
+      0,
+      14,
+      4,
+      1
+    ],
+    "classes": [
+      0,
+      2,
+      0,
+      0
+    ],
+    "full_race_and_correct_results": true,
+    "capture": "20261004-145347_mixed-race",
+    "raw_sha256": "1adf91bf8a695c89361135a58a655b13a2dea1af897f584fe1663d2c00cf316d"
+  },
+  "r_ai1_1": {
+    "status": "CLOSED",
+    "evidence": "CONFIRMED_BY_RUNTIME",
+    "generalized_full_race_ids": [
+      0,
+      15,
+      17,
+      7
+    ],
+    "generalized_full_race_classes": [
+      0,
+      2,
+      2,
+      1
+    ],
+    "raw_sha256": "f36a80ab256e5acdfb0859c5e4594152e5e6125331a9c4a9fd4a40631c3f79a3",
+    "player_independent_slots": [
+      1,
+      2,
+      3
+    ],
+    "num_cars": 4,
+    "num_players": 1,
+    "uniform_rng": "NOT_PROVEN",
+    "exact_one_third_probability": "NOT_PROVEN"
+  },
+  "hardened_runtime": {
+    "sha256": "603f0c06ca2a502367baa7e49fcaeab9e2ab9a7d6c47dd46ed82ca27cb9840a1",
+    "evidence": "CONFIRMED_BY_RUNTIME",
+    "process_id": 34240,
+    "broker_dump_variant": "native_hardened",
+    "base_only_sha256": "bbb9f0a8bb2523adf125582d16512c25f9b51db7a4104ee5edf8f7251865ae00",
+    "base_only_separate_launch": "NOT_SEPARATELY_TESTED",
+    "xml_null_guard_specific_runtime_trigger": "UNKNOWN"
+  },
+  "samples": [
+    {
+      "race": 1,
+      "creation": "fresh_quickrace_frontend_generation",
+      "independent_fresh_sample": true,
+      "capture": "20261004-182655_mixed-random-race-1.json",
+      "raw_sha256": "b21830eede5166681a0a25343d1824bf8a3f40afcfd36751813e283dd053d0cc",
+      "selected_block_sha256": "3ebb9bdc58be62b6455c4363f18635a6a88a0b6e5d550e4e42336ef1dc13d2cb",
+      "ids": [
+        0,
+        18,
+        1,
+        12
+      ],
+      "classes": [
+        0,
+        2,
+        0,
+        1
+      ],
+      "families": [
+        "Landcruiser",
+        "Megane",
+        "Pajero",
+        "Newrav"
+      ]
+    },
+    {
+      "race": 2,
+      "creation": "restart_reuses_composition",
+      "independent_fresh_sample": false,
+      "capture": "20261004-183717_mixed-random-race-2.json",
+      "raw_sha256": "276edadb3b5580aca854f2df01186781896c6a2c6c3d69c3a052e80fb2d76bc6",
+      "selected_block_sha256": "562d5c7aa25349de2eb159b6747ec2560fad97fd5211cb5169972187fc3818c3",
+      "ids": [
+        0,
+        18,
+        1,
+        12
+      ],
+      "classes": [
+        0,
+        2,
+        0,
+        1
+      ],
+      "families": [
+        "Landcruiser",
+        "Megane",
+        "Pajero",
+        "Newrav"
+      ]
+    },
+    {
+      "race": 3,
+      "creation": "fresh_quickrace_frontend_generation",
+      "independent_fresh_sample": true,
+      "capture": "20261004-184042_mixed-random-race-3.json",
+      "raw_sha256": "05a9fd457bc534195ede6a71e17394577c93de5a978c33bf968be05f60394d19",
+      "selected_block_sha256": "bb84aa0d7ab5ae44844080d36c83755d9515d5add879c3fbfc827fb140a1054d",
+      "ids": [
+        0,
+        11,
+        13,
+        19
+      ],
+      "classes": [
+        0,
+        1,
+        1,
+        2
+      ],
+      "families": [
+        "Landcruiser",
+        "Patrol",
+        "Kiasportage",
+        "Mattserati"
+      ]
+    },
+    {
+      "race": 4,
+      "creation": "fresh_quickrace_frontend_generation",
+      "independent_fresh_sample": true,
+      "capture": "20261004-184208_mixed-random-race-4.json",
+      "raw_sha256": "1f073f1093fa708ea7e832d7081f810a15bdf813b3bd441971b563de12afa028",
+      "selected_block_sha256": "d39552baa2d1fae1133f3886185e6892beb83a1ece7b52497c2df9730c903557",
+      "ids": [
+        0,
+        17,
+        1,
+        3
+      ],
+      "classes": [
+        0,
+        2,
+        0,
+        0
+      ],
+      "families": [
+        "Landcruiser",
+        "Kangoo",
+        "Pajero",
+        "Terrano"
+      ]
+    },
+    {
+      "race": 5,
+      "creation": "fresh_quickrace_frontend_generation",
+      "independent_fresh_sample": true,
+      "capture": "20261004-184338_mixed-random-race-5.json",
+      "raw_sha256": "f15b29f34b9efad5f839a291eef66870f0a26178b705b53006cce72c1cebf63c",
+      "selected_block_sha256": "870d833eabf9ee2f2257b6201d87cf39e0c84b8c0ea1bd8b0597b99bd9c97a23",
+      "ids": [
+        0,
+        12,
+        3,
+        11
+      ],
+      "classes": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "families": [
+        "Landcruiser",
+        "Newrav",
+        "Terrano",
+        "Patrol"
+      ]
+    }
+  ],
+  "sample_interpretation": {
+    "active_captures": 5,
+    "fresh_generations": 4,
+    "restart_capture": 2,
+    "fresh_class_and_id_variation": "CONFIRMED_BY_RUNTIME",
+    "simultaneous_t1_t2_t3": "CONFIRMED_BY_RUNTIME",
+    "automated_status": "BROKER_SAMPLING_MATCH_ONLY",
+    "automated_checks": {
+      "ai_class_assignments_vary": true,
+      "ai_ids_vary": true,
+      "two_non_player_class_outcomes": true,
+      "simultaneous_mixed_classes": true
+    },
+    "automated_full_pass": false
+  },
+  "restart": {
+    "same_participants_as_race1": true,
+    "evidence": "CONFIRMED_BY_RUNTIME",
+    "attract_mode": false,
+    "race_type": 2,
+    "num_players": 1
+  },
+  "loading_hardening": {
+    "evidence": "CONFIRMED_BY_RUNTIME",
+    "idle_attract_owner": "UNCHANGED_STATICALLY",
+    "idle_attract_human_test": "NOT_REPORTED"
+  },
+  "results_dump": {
+    "capture": "20261004-183422_mixed-hardened-results.json",
+    "raw_sha256": "51cedf2aa2b4f20a8915213e2554369046c393b1b5d2f0fa4760e20c56566024",
+    "selected_block_sha256": "a551c6f071b5ef3c7bb8e5058dfd1e32f85e8acbe90be55858d292fffd817b3b",
+    "oracle": {
+      "status": "BROKER_RESULTS_DUMP_MATCH_ONLY",
+      "runtime_full_pass": false,
+      "following_entries": 21,
+      "first_following_path": "Frontend/RaceResults/Car0",
+      "empty_list_does_not_prove_allocated_empty_or_null": true,
+      "human_checks": [
+        "game alive after Dump",
+        "subsequent loading/restart is normal"
+      ]
+    },
+    "human_game_survival": "CONFIRMED_BY_RUNTIME",
+    "human_dump_continuation": "CONFIRMED_BY_RUNTIME",
+    "stock_bug_attribution": "STOCK NATIVE BROKER DEBUG->DUMP BUG; clean stock reproduction reported",
+    "points_list": [],
+    "null_vs_allocated_empty": "NOT_DISTINGUISHABLE_FROM_HARDENED_TEXT"
+  },
+  "replay": {
+    "capture": "20261004-183900_mixed-random-race-2_REPLAY_MODE.json",
+    "raw_sha256": "d8f4e623ceaac7aa54a7a5fc545d03772657c18c1baee86eb229b2177acced49",
+    "selected_block_sha256": "1deb83352c2e28765a90805afe63f327af0d2605e4deb508e1a92062dc0465c1",
+    "state": {
+      "Race/NumCars": 4,
+      "Race/NumPlayers": 1,
+      "Race/Type": 2,
+      "Race/AttractMode": false,
+      "Race/PlaybackReplay": true,
+      "Race/RecordReplay": false
+    },
+    "human_lifecycle": "CONFIRMED_BY_RUNTIME",
+    "specific_patch_causal_attribution": "UNKNOWN / NON-BLOCKING"
+  },
+  "capacity_clue": {
+    "label": "CAPACITY CLUE \u2014 NOT RUNTIME PARTICIPANT-CAPACITY PROOF",
+    "evidence": "CONFIRMED_BY_RUNTIME for exported Broker paths only",
+    "results_car_values": [
+      9,
+      11,
+      14,
+      17,
+      12,
+      12,
+      12,
+      12
+    ],
+    "position_list_count": 4,
+    "time_list_count": 4,
+    "payload_semantics": "UNKNOWN; not equated with Race/CarN/CarID",
+    "not_proven": [
+      "eight actors",
+      "native participant array capacity",
+      "physics/controller/network capacity",
+      "HUD capacity",
+      "eight valid result rows"
+    ],
+    "deferred_to": "R-AI2; no investigation performed"
+  },
+  "deployment": {
+    "data_only": "No usable audited Quick Race seam found",
+    "final_user_mod": "EXTERNAL_RUNTIME_MOD_REQUIRED",
+    "original_exe_on_disk": "UNCHANGED",
+    "known_builds": "FAIL_CLOSED",
+    "implementation": "NOT_IMPLEMENTED"
+  }
+}

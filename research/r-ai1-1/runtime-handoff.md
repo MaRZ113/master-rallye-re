@@ -1,8 +1,8 @@
 # Hardened randomized Quick Race — human handoff
 
-Status: **READY FOR HUMAN RUNTIME**. Generalized mixed-class gameplay passed
-one full race on the earlier image. New hardening and repeated variation are
-pending. [Older handoff](runtime-handoff-unhardened.md) is **SUPERSEDED / DO NOT
+Status: **COMPLETED / CONFIRMED_BY_RUNTIME**. This is the historical protocol;
+[final closeout](runtime-closeout.md) records the actual four fresh generations
+plus one Restart capture, hardened Results Dump survival and loading pass. [Older handoff](runtime-handoff-unhardened.md) is **SUPERSEDED / DO NOT
 USE** for this smoke. The new guard permission applies only to the exact new
 candidate; pristine/old candidates remain unsafe for post-results Dump.
 

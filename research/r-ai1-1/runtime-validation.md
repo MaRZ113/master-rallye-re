@@ -37,7 +37,8 @@ driver identities and correct vehicle icons, with stable frontend lifecycle.
 These observations supply the actor/lifecycle evidence that the Broker checker
 cannot establish. Fixed R-AI1 remains separately runtime-confirmed.
 
-**Repeated-race RNG variation: PENDING HUMAN VALIDATION.** One race cannot show
-variation across newly generated races, statistical independence or uniformity.
-Hardening is separately **STATIC COMPLETE / READY FOR HUMAN RUNTIME**; this
-earlier race does not validate the newly hardened executable.
+At this first-race checkpoint, repeated variation and hardening were untested.
+They subsequently passed [final runtime closeout](runtime-closeout.md): four
+fresh generations and one Restart reuse capture in one hardened process.
+This earlier race alone does not show variation or validate hardening.
+R-AI1.1 is now **CLOSED / CONFIRMED_BY_RUNTIME**; uniformity remains unproven.

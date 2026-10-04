@@ -8,10 +8,12 @@ read-only.
 
 ## Current scope
 
-R-AI1 fixed four-car mixed-class proof is **CONFIRMED_BY_RUNTIME**.
-R-AI1.1 independent AI-class selection is **CONFIRMED_BY_RUNTIME** for one full
-four-car race. Repeated-race variation remains pending. The narrow Loading/Dump
-[research hardening](research/r-ai1-1/hardening.md) is ready for human smoke.
+R-AI1 and R-AI1.1 are **CLOSED / CONFIRMED_BY_RUNTIME** for four existing
+participants: fixed cross-class AI, player-independent selection in all three
+AI slots and repeated fresh-race class/ID variation. Loading/Dump research
+hardening and Replay lifecycle passed. See the bounded
+[runtime closeout](research/r-ai1-1/runtime-closeout.md); uniform RNG and
+participant-capacity expansion are not proven.
 See [findings](research/r-ai1-1/findings.md) and
 [human handoff](research/r-ai1-1/runtime-handoff.md). Opponent capacity is deferred.
 

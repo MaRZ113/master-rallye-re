@@ -4,7 +4,10 @@ Current update: [one full generalized race](runtime-validation.md) passed by
 human evidence plus raw-bound capture. [Hardening validation](hardening.md):
 baseline285/final302 synthetic PASS,40 Loading and12 Dump fixture assertions,
 94 chooser cases on hardened base, exact build/inverse gates and compileall/
-diff-check PASS. Hardening runtime and repeated RNG variation remain pending.
+diff-check PASS. Hardening runtime and repeated fresh class/ID variation are now
+[CONFIRMED_BY_RUNTIME / CLOSED](runtime-closeout.md): five captures, four fresh
+generations, one Restart reuse. Closeout suite302 passed/0 failed/0 skipped;
+compileall, all four candidate verifiers, Results checker and raw integrity PASS.
 The remainder records the earlier static preparation chronologically.
 
 Baseline: **270 passed, 0 failed, 0 skipped** before research edits. Starting
@@ -17,7 +20,7 @@ Final synthetic suite: **285 passed, 0 failed, 0 skipped**. R-AI1-specific:
 **31 passed**, including all previous16 tests, one live-offline-key correction
 test and14 generalization tests. Compileall and diff-check PASS.
 
-## Native x86 emulation
+## Native x86 emulation — historical pre-runtime checkpoint
 
 **94 cases passed, 0 failed, 0 skipped**:3 STOCK,3 DIVERSE,81 MIXED
 (all27 class sequences for player IDs0/7/14),7 paired setup/mode guards.

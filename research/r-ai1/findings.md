@@ -4,9 +4,11 @@ Correction: previous static model **STILL VALID**; fresh-profile T3 frontend
 reachability assumption was incorrect. Current proof is T1 player + T3 AI.
 [Correction note](correction.md); old handoff is SUPERSEDED / DO NOT USE.
 
-Status: **MIXED-CLASS EXISTING PARTICIPANTS — CONFIRMED_BY_RUNTIME**.
+Status: **R-AI1 — MIXED-CLASS OPPONENTS: CLOSED / CONFIRMED_BY_RUNTIME**.
+Fixed mixed-class existing participants passed the full race/Results proof.
 The fixed fresh-profile proof passed; [verified capture and human observations](runtime-result.md).
-Generalization proceeds separately in [R-AI1.1](../r-ai1-1/findings.md).
+Generalization is also closed in [R-AI1.1](../r-ai1-1/runtime-closeout.md).
+Participant-count questions are deferred to separately authorized R-AI2.
 The historical runtime handoff below is completed and superseded for new tests.
 
 ## Starting state and boundary

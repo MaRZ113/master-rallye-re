@@ -88,5 +88,10 @@ The representative fixture contains ResultsType=RACE TIME, populated NameList
 and TimeList, NULL PointsList, then an ordinary Int. enString intern lookup,
 logger printf sink, allocator/free and non-NULL XML internals are explicit
 synthetic boundaries. The actual native walker/branches/list loops/cleanup
-execute. Real post-results Dump/liveness and subsequent race loading remain
-the human gate; synthetic emulation is not that result.
+execute. Synthetic emulation is not runtime survival proof. The subsequent human Results
+Dump survived and continued through21 later entries (first Results/Car0):
+**NULL STRINGLIST CRASH PREVENTION / CONTINUATION CONFIRMED_BY_RUNTIME**.
+Clean stock reproduced the original native developer-tool bug. The specific
+XmlData NULL runtime trigger is unisolated; no universal Dump-safety claim.
+See [final runtime closeout](runtime-closeout.md); empty output retains the
+NULL-versus-allocated-empty ambiguity.

@@ -1,11 +1,12 @@
 # R-AI1.1 — mixed-class generalization
 
-Status: generalized three-slot mixed-class gameplay **CONFIRMED_BY_RUNTIME**
-for [one full race](runtime-validation.md). Fixed R-AI1 is separately
-**CONFIRMED_BY_RUNTIME**; see [runtime result](../r-ai1/runtime-result.md).
-Repeated-race variation remains **PENDING HUMAN VALIDATION**.
-The [research hardening](hardening.md) is **STATIC COMPLETE / READY FOR HUMAN
-RUNTIME**, with a new exact composed candidate and [handoff](runtime-handoff.md).
+Status: **R-AI1.1 — PLAYER-INDEPENDENT RANDOMIZED MIXED-CLASS: CLOSED /
+CONFIRMED_BY_RUNTIME**. All three AI slots, repeated fresh-race class/ID
+variation, simultaneous T1/T2/T3 and the composed hardened runtime passed.
+[Final closeout](runtime-closeout.md) distinguishes four fresh generations
+from the fifth Restart capture; uniform RNG is not proven. Fixed R-AI1 is
+separately CLOSED / CONFIRMED_BY_RUNTIME. The [handoff](runtime-handoff.md)
+is completed; no Opponent Capacity work began.
 
 Starting main checkout: branch `research/r-ai1`, HEAD `73ccb37`, tracked tree
 clean. This phase uses `research/r-ai1-1` at that HEAD. Existing untracked
@@ -40,7 +41,8 @@ synthetic Broker/heap/TLS/game-range boundaries; it does not materialize actors.
 Raw-bound fixed capture: IDs **0/14/4/1**, classes **0/2/0/0**, PlayerTypes
 **1/2/2/2**, DriverIDs **30/7/1/2**. Human observations establish model, driving,
 physics, contacts/damage, progress, Wildcat finish and result identity/icon.
-The separate unmodified control remains **PENDING**.
+The separate matched fixed-selection control was not supplied (non-blocking);
+clean-stock reproduction of the native Dump crash is confirmed separately.
 
 Raw-bound pristine Attract capture: NumCars4, NumPlayers0, Type14,
 AttractMode=True, RecordReplay=False, PlaybackReplay=False. IDs **1/5/12/14**,
@@ -66,4 +68,5 @@ already configured CarIDs are excluded when a class pool is rebuilt.
 The original un-hardened handoff is [SUPERSEDED](runtime-handoff-unhardened.md)
 for same-process sampling; its post-results Dump remains unsafe. The new
 composed candidate is documented in [hardening](hardening.md), not a chooser
-redesign. Stop at the hardening/repeated-sampling human gate; R-AI2 is deferred.
+redesign. Hardening/repeated-sampling human validation is complete; R-AI2
+remains separately deferred. [Final runtime evidence](runtime-closeout.md).

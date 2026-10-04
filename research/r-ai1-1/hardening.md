@@ -1,9 +1,11 @@
 # R-AI1.1 research hardening — 2026-10-04
 
-Status: **STATIC COMPLETE / READY FOR HUMAN RUNTIME**. Existing generalized
-three-AI mixed-class gameplay is [CONFIRMED_BY_RUNTIME](runtime-validation.md)
-for one full race. The new hardening and repeated-race RNG variation remain
-**PENDING HUMAN VALIDATION**. No capacity or public release work is begun.
+Status: **HARDENED RESEARCH RUNTIME BASE — CONFIRMED_BY_RUNTIME** in the exact
+composed randomized image below. Loading failure neutralization, NULL StringList
+Dump continuation/survival, Restart and Replay passed human validation.
+[Final closeout](runtime-closeout.md) records repeated fresh variation. Base-only
+EXE was not separately launched; the specific NULL-XmlData trigger remains
+static/emulation evidence. No capacity or public release work began.
 
 Starting main checkout: branch `research/r-ai1-1`, HEAD `24ac105`, clean tracked
 tree. Work continues on the user-approved `research/r-ai1-1-hardening` branch.
@@ -35,7 +37,9 @@ page count or allocation change. Inverse verification restores pristine exactly
 and rejects any unapproved byte anywhere in the image.
 
 [Manifest](patch-manifest.json) records VA/RVA/file offsets, original/replacement
-bytes, purposes, caves and continuations for both profiles. It contains patch
+bytes, purposes, caves and continuations for both profiles. The tracked manifest
+now carries separate runtime-closeout annotations; generated tool manifests
+retain their build-time PENDING field and never imply an automatic runtime test. It contains patch
 descriptions/our code only, no proprietary executable or assets.
 
 ```powershell
@@ -95,6 +99,8 @@ Reproduce native tests with the installed bridge Python and latest Ghidra:
 & '<ghidra-bridge Python>' tools/scanner/r_ai1_emulate.py --install '<latest Ghidra>' --project _ghidra_project --general-source ../corpora/retail/MRallye.exe --hardened-base .research-output/r-ai1-1/hardening/rbase-hardened/MRallye.exe --output .research-output/r-ai1-1/hardening/chooser-emulation.json
 ```
 
-Human smoke must prove post-results Dump/liveness and subsequent loading/restart.
-Then five newly generated races in the same process establish observed variation,
-not uniform probabilities. Stop at this handoff; Opponent Capacity is deferred.
+The historical smoke/sampling handoff is completed. Human and raw-bound evidence
+establish post-results Dump/liveness and subsequent normal loading/Restart.
+Five captures include four fresh generations plus one Restart reuse; observed
+variation is confirmed, uniform probabilities are not. The [runtime summary](runtime-closeout-summary.json)
+and [closeout](runtime-closeout.md) are canonical. Opponent Capacity is deferred.

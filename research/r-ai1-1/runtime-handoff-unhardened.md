@@ -1,5 +1,8 @@
 # SUPERSEDED — original un-hardened handoff
 
+Historical plan only; current R-AI1/R-AI1.1 are CLOSED / CONFIRMED_BY_RUNTIME.
+See the final runtime closeout; historical readiness text below is retained.
+
 Historical instructions for hash f9e8... ONLY. **DO NOT USE for the new hardening
 smoke or same-process sampling**. Its post-results warning remains valid for
 that image. Use [current handoff](runtime-handoff.md). The first full race from

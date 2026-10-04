@@ -2,26 +2,39 @@
 
 ## R-AI1 mixed-class opponents
 
-Fixed existing-participant mixed-class proof: **CONFIRMED_BY_RUNTIME**,
+R-AI1: **CLOSED / CONFIRMED_BY_RUNTIME**, fixed existing-participant mixed-class proof,
 ID0/T1 human + ID14/T3 AI + two T1 AI, NumCars4. Captured IDs0/14/4/1 and human
 driving/collision/damage/progress/finish/results observations are recorded in
-[R-AI1 result](../research/r-ai1/runtime-result.md). Separate stock control is pending.
+[R-AI1 result](../research/r-ai1/runtime-result.md). A matched fixed-selection stock
+control was not separately supplied (non-blocking); clean-stock reproduction
+of the native Dump crash is confirmed in the final report.
 
-R-AI1.1 generalized existing-participant gameplay: **CONFIRMED_BY_RUNTIME** for
+R-AI1.1: **CLOSED / CONFIRMED_BY_RUNTIME**, generalized existing-participant gameplay with
 [one full race](../research/r-ai1-1/runtime-validation.md), IDs0/15/17/7,
-classes0/2/2/1. Repeated-race variation remains pending. Stock Attract uses a
+classes0/2/2/1. Repeated fresh-race class/ID variation, all three player-independent
+AI slots and simultaneous T1/T2/T3 are runtime-confirmed. Five active captures
+include four fresh generations and one Restart reuse, not five fresh draws.
+Uniform RNG/exact probabilities are unproven. Stock Attract uses a
 broad absolute-ID pool and derives class; its chooser is partially reusable.
 Quick Race generalization selects class independently per AI and retains native
 class pools/driver/publication, four participants and normal player balance.
 The exact [hardened research candidate](../research/r-ai1-1/hardening.md) is
-**STATIC COMPLETE / READY FOR HUMAN RUNTIME**: Loading media failure redirects
+**CONFIRMED_BY_RUNTIME** in the composed image: Loading media failure redirects
 to Starter1; native Dump guards nullable StringList/XmlData while retaining idle
-Attract and original MIXED chooser. It awaits post-results Dump/subsequent-load
-smoke and five newly generated race samples. No-EXE deployment requires a future external runtime mod;
+Attract and original MIXED chooser. Human post-results Dump survived, continuing
+through21 entries, and Restart loaded a normal race without Attract contamination.
+Idle Attract preservation is static; the particular NULL-XmlData trigger was
+not isolated. Replay lifecycle passed, exact patch causality remains unknown.
+Base-only EXE was not separately launched. No-EXE deployment requires a future external runtime mod;
 none is implemented. See [findings](../research/r-ai1-1/findings.md) and
 [handoff](../research/r-ai1-1/runtime-handoff.md). Pristine/old post-results native Dump is
 [UNSAFE](../research/r-ai1-1/observatory-limitations.md). No capacity/registry
 expansion or material/Blender changes are claimed.
+
+The Results Dump exports Frontend/RaceResults/Car0..7 with four actual result
+entries. This is **CAPACITY CLUE — NOT RUNTIME PARTICIPANT-CAPACITY PROOF**,
+deferred to R-AI2. It proves neither engine/physics/HUD capacity8 nor eight valid
+result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
 
 ## R-MAT1 current vehicle material closeout
 
