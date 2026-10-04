@@ -1,0 +1,193 @@
+{
+  "phase": "R-AI1.2",
+  "status": "READY_FOR_HUMAN_RUNTIME",
+  "runtime_game_test": false,
+  "starting_branch": "research/r-ai2",
+  "starting_head": "7adca41",
+  "branch": "research/r-ai1-2",
+  "baseline": {
+    "synthetic": {
+      "passed": 316,
+      "failed": 0,
+      "skipped": 0
+    },
+    "compileall": "PASS",
+    "diff_check": "PASS"
+  },
+  "final": {
+    "synthetic": {
+      "passed": 334,
+      "failed": 0,
+      "skipped": 0
+    },
+    "compiled_native": {
+      "cases": 2534,
+      "passed": 2534,
+      "failed": 0,
+      "skipped": 0
+    },
+    "native_x86": {
+      "passed": 824,
+      "failed": 0,
+      "skipped": 0,
+      "builder_cases": {
+        "QuickRace": 750,
+        "MasterRallye": 18,
+        "RallyeCup": 18,
+        "Invitation": 18,
+        "Challenge": 6
+      },
+      "master_save_load": {
+        "native_save_load_identity_equal": true,
+        "policy_calls_during_load": 0,
+        "active_participants": 4,
+        "stock_serialized_tail_not_active_capacity_proof": true,
+        "boundaries": [
+          "typed Broker",
+          "PlayerState XML/file writer"
+        ],
+        "runtime_fresh_process_test": false
+      },
+      "loader_cases": 7,
+      "lifecycle": [
+        {
+          "kind": "cup-stage",
+          "same_roster": true,
+          "policy_calls": 0,
+          "next_race": 11,
+          "boundaries": [
+            "scoring/bests/conditions",
+            "typed Broker",
+            "XML/file writer"
+          ]
+        },
+        {
+          "kind": "invitation-stage",
+          "same_roster": true,
+          "policy_calls": 0,
+          "next_race": 37,
+          "boundaries": [
+            "scoring/bests/conditions",
+            "typed Broker",
+            "XML/file writer"
+          ]
+        },
+        {
+          "kind": "master-stage",
+          "same_roster": true,
+          "policy_calls": 0,
+          "next_race": 3,
+          "boundaries": [
+            "scoring/bests/conditions",
+            "typed Broker",
+            "XML/file writer"
+          ]
+        },
+        {
+          "kind": "R-AI2-composed",
+          "plan": [],
+          "NumCars": 5,
+          "policy_count": 4,
+          "classes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "capacity_shim_unchanged": true
+        },
+        {
+          "kind": "R-AI2-composed",
+          "plan": [
+            2,
+            2,
+            0,
+            1
+          ],
+          "NumCars": 5,
+          "policy_count": 4,
+          "classes": [
+            2,
+            2,
+            0,
+            1
+          ],
+          "capacity_shim_unchanged": true
+        },
+        {
+          "kind": "R-AI2-composed",
+          "plan": [
+            2,
+            1,
+            0,
+            2
+          ],
+          "NumCars": 5,
+          "policy_count": 4,
+          "classes": [
+            2,
+            1,
+            0,
+            2
+          ],
+          "capacity_shim_unchanged": true
+        }
+      ],
+      "project_saved": false
+    },
+    "challenge_driver_recheck": {
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    "legacy_general": {
+      "passed": 94,
+      "failed": 0,
+      "skipped": 0
+    },
+    "legacy_five": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0
+    },
+    "oracle_synthetic_cli": {
+      "synthetic_fixture_only": true,
+      "cases": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "runtime_game_test": false,
+      "json_raw_integrity_enforced": true,
+      "module_pin_enforced": true
+    },
+    "compileall": "PASS",
+    "diff_check": "PASS",
+    "candidate_module_verifiers": "PASS",
+    "missing_fixtures": []
+  },
+  "human_pending": [
+    "QuickRace count1..4 gameplay and parameter changes",
+    "Stock/Mixed/Diverse gameplay",
+    "Challenge opt-in objective completion",
+    "RallyeCup/Invitation stage reuse",
+    "MasterRallye save/full process exit/fresh load/continue"
+  ],
+  "no_sidecar": true,
+  "no_active_Car5": true,
+  "randomizer_changes_count": false,
+  "boundaries": [
+    "Broker",
+    "heap insertion/free",
+    "TLS",
+    "native game range output",
+    "DLL callback"
+  ],
+  "report_hashes": {
+    "emulation.json": "f6da92ece3134543ef8efd0caf2d798055b7f00479ccd4d272f61b66bc437406",
+    "legacy-general-regression.json": "c7a77268366db3f7995a5fb53594a6c8c562b9a3c272d6d7ca630d71ceffdbb1",
+    "legacy-five-regression.json": "8118c195e94b28cd106cb4c0c091655206d49826fda4b73ab1ed1c982d06937c",
+    "package/native-policy-tests.json": "ac3dfd8d541874e13701a36ad8c5c269f15ea3a5980b71edc632838599ebacda",
+    "oracle-smoke/summary.json": "e1214d4f26edd1a52e5eda3332a061bc9f8c5f186c40b624cba9b0ac6321f5b4",
+    "synthetic-tests.log": "80f6db3724fdfcba72a9b1f5a449b785e5de2ca20305a0bd80ef984051495c29"
+  }
+}

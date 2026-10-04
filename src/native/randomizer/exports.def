@@ -1,0 +1,4 @@
+LIBRARY MRallyeRandomizer
+EXPORTS
+    MRChooseV1=_MRChooseV1@16
+    MRChallengeV1=_MRChallengeV1@16

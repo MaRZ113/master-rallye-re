@@ -15,6 +15,7 @@ from r_ai1_mixed_class import (CANDIDATE_SHA256, GENERAL_SHA256, REPOSITORY, ign
                               sha256, verify_candidate, verify_general)
 from r_ai1_hardening import BASE_SHA256, MIXED_SHA256, verify as verify_hardening
 from r_ai2_capacity import CANDIDATE_SHA256 as FIVE_CAR_SHA256, verify as verify_five_car
+from r_ai1_2_randomizer import PROFILE_SHA256 as AI12_SHA256, verify as verify_ai12
 
 OBSERVATORY_FILES = {
     "broker_observatory.py": "d1a07eab330ef3d8b825ef3320b458d20ced11df99d75250a72e9c7701c4ba7d",
@@ -41,6 +42,9 @@ def load_profile(directory: Path, candidate: Path):
         verifier, phase = verify_hardening, "r-ai1-1/hardening"
     elif image_hash == FIVE_CAR_SHA256:
         verifier, phase = verify_five_car, "r-ai2"
+    elif image_hash in AI12_SHA256.values():
+        five = image_hash == AI12_SHA256[True]
+        verifier, phase = lambda data: verify_ai12(data, five), "r-ai1-2"
     else:
         raise ValueError("Unknown research image; only exact audited profiles accepted")
     manifest = verifier(data)
@@ -55,7 +59,7 @@ def load_profile(directory: Path, candidate: Path):
     core, commands = observe.core, observe.commands
     # Exact audited implementation, exact candidate, retail image size/base/RVAs.
     core.RETAIL_SHA256 = commands.RETAIL_SHA256 = image_hash
-    if image_hash in (BASE_SHA256, MIXED_SHA256, FIVE_CAR_SHA256):
+    if manifest.get("broker_dump_variant") == "native_hardened":
         original_parse = core.parse_dump_bytes
         def parse_dump_bytes(raw, source=None):
             provenance = dict(source or {})

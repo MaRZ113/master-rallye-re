@@ -61,9 +61,30 @@ complete reclamation or long-run generic-N safety.
 
 Six/seven/eight/generic-N remain UNKNOWN. Public deployment still targets a
 removable fail-closed exact-build runtime mod leaving the original EXE unchanged.
-[R-AI1.2 design notes](../research/r-ai2/randomizer-follow-up.md) record mode
-coverage/persistence goals only; no randomizer implementation or higher-capacity
-candidate is started.
+[Earlier design notes](../research/r-ai2/randomizer-follow-up.md) remain historical
+R-AI2 closeout notes. R-AI1.2 implementation is tracked separately below;
+higher-capacity work has not started.
+
+## R-AI1.2 mode coverage and roster persistence
+
+**READY FOR HUMAN RUNTIME**, with static/native verification only for this new
+implementation. [Mode map](../research/r-ai1-2/mode-map.md) identifies separate
+Quick Race, Challenge, Cup/Invitation and Master builders. Configurable
+Stock/Mixed/Diverse is bounded to one human and 0..4 existing AI. Stock preserves
+native publication and game RNG calls; Challenge remains Stock by default.
+
+The [research package](../research/r-ai1-2/deployment.md) contains a modular DLL
+and exact-build EXE bridge. The old randomizer/capacity cave collision is resolved
+with disjoint ranges; the composed fifth-participant shim is unchanged.
+R-AI1.2 never writes participant count. Unknown builds/config/context fail Stock.
+An original-EXE external loader is deferred; this is not a public EXE release.
+
+[Persistence](../research/r-ai1-2/persistence.md) reuses native Cup/Invitation RAM
+rosters and Master PlayerState identity fields, without a sidecar/save format
+change. Native save/load transfer is verified; Master actual save -> full process
+exit -> fresh process load remains a [human gate](../research/r-ai1-2/runtime-handoff.md).
+Per-mode gameplay and Challenge completion also remain pending. Six/seven/eight/
+generic-N are UNKNOWN and were not tested.
 
 ## R-MAT1 current vehicle material closeout
 
