@@ -1,15 +1,17 @@
+# SUPERSEDED / DO NOT USE
+
+Historical handoff from babbb25. Its fresh-profile T3 selection assumption is incorrect.
+Use [corrected runtime plan](runtime-test-plan.md); see [correction](correction.md).
+
 # Human runtime handoff — one experiment
 
-Revised fresh-profile v2; [old handoff](runtime-test-plan-superseded.md) is SUPERSEDED / DO NOT USE.
-No progressed save or T3 frontend access is required.
-
 Status: **READY FOR HUMAN RUNTIME**, not runtime PASS. Use only the final
-`.research-output/r-ai1/fresh-profile-v2/MRallye.exe`.
+`.research-output/r-ai1/human-candidate/MRallye.exe`.
 
 1. Use an isolated retail game copy with a fresh stock profile, without bonus
    vehicle unlocks. Stage this generated EXE there as `MRallye.exe`. Preserve
    the original. Its SHA256 must be
-   `bae5de6aa3ba6cfcd08425c5a00341a3c374ec503b4ba944db6fc2c0d6a77a57`.
+   `985cef18ada36dd4f17979e671c6ef1dd9647fa82903cee886156ecac4ed73f3`.
 2. If the isolated copy does not already expose native developer tools, enable
    the existing `Menues/Enabled=True` in its loose `DataGame/dev.xml`, preserving
    other values. Do not edit the corpus, archives or participant values.
@@ -23,15 +25,15 @@ Status: **READY FOR HUMAN RUNTIME**, not runtime PASS. Use only the final
    Use its **L** action to launch. Capture through **3** (capture with label).
    Existing settings and captures go under
    `.research-output/r-ai1/observatory/observatory-data/`.
-4. Select **Quick Race / Race**, one human, **T1 / TOMMEK DIRTBEAST** (ID0),
+4. Select **Quick Race / Race**, one human, **T3 / BOWLER WILDCAT** (ID14),
    **three opponents**. Keep ordinary rules/difficulty and ghost off. Leave the
    fresh profile's stock default course (Frontend/QuickRace/Track10). Capture
    **mixed-front** at the configured frontend before starting.
 5. Start the race. After the countdown, with all four participants active,
-   capture **mixed-race**. The distinct T3 Wildcat must be an AI opponent; player
-   remains the T1 Landcruiser and the other two AI remain stock T1 vehicles.
+   capture **mixed-race**. The distinct T1 SUV must be an AI opponent; player
+   remains the T3 Wildcat and the other two AI remain ordinary T3 vehicles.
 6. Drive for a meaningful interval and finish normally if practical. Observe
-   Wildcat movement, ordinary wheel/model identity, contacts/collision, race progress,
+   SUV movement, ordinary wheel/model identity, contacts/collision, race progress,
    HUD/markers and result identity as exercised. Check the two control AI too.
    Return from results/end to frontend; capture **mixed-return** once there.
 7. Preserve the three JSON + `.dump.bin` pairs and a short observation record:
@@ -53,10 +55,10 @@ The race checker requires:
 | State | Expected |
 |---|---|
 | Race | NumCars4, NumPlayers1, Type2, Networked=False, Frontend/Active=True; frontend Track10 |
-| Car0 | ID0, class0, PlayerType1, DriverID30, Landcruiser car/wheels |
-| Car1 | ID14, class2, PlayerType2, DriverID0..9, Wildcat car/wheels |
-| Car2/3 | Distinct IDs1..6, class0, PlayerType2, DriverID0..9, correct own families |
-| Target physics | Vehicles/Car1 wheelbase2.77, front track1.66, diff ratio3.72 |
+| Car0 | ID14, class2, PlayerType1, DriverID30, Wildcat car/wheels |
+| Car1 | ID0, class0, PlayerType2, DriverID0..9, Landcruiser car/wheels |
+| Car2/3 | Distinct IDs15..20, class2, PlayerType2, DriverID0..9, correct own families |
+| Target physics | Vehicles/Car1 wheelbase2.45, front track1.50, diff ratio3.95 |
 
 It also reports Vehicles/Physics/Controller/Network path counts for each Car0..3
 and available Finished/lifecycle values. **BROKER_STATE_MATCH_ONLY** is the
@@ -73,6 +75,6 @@ exercised; leave unobserved damage/recovery behavior unclaimed. Screenshots alon
 or Broker values alone cannot prove actual physical identity.
 
 A matched unmodified control is optional only if the target's distinction is
-unclear: same player/course/mode/count, then compare all-T1 vs one-T3 behavior.
+unclear: same player/course/mode/count, then compare all-T3 vs one-T1 behavior.
 Random control IDs need not match across launches. No diagnostic canary is
 currently necessary. Stop after this proof; do not start capacity or other phases.

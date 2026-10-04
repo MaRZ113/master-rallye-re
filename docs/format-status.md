@@ -5,8 +5,8 @@
 **STATIC COMPLETE / READY FOR HUMAN RUNTIME**. Pristine retail has25 named
 records: T1 IDs0..6, T2 IDs7..13, T3 IDs14..24. Quick Race passes Car0 class
 to a class-filtered absolute-ID opponent chooser. The exact candidate changes
-Car1 to stock ID0/T1 after stock pool/driver bookkeeping; normal ID14/T3 player,
-two T3 AI controls and NumCars4 remain. Per-ID model/physics/wheel consumers
+Car1 to stock ID14/T3 after stock pool/driver bookkeeping; normal fresh ID0/T1 player,
+two T1 AI controls and NumCars4 remain. Per-ID model/physics/wheel consumers
 are traced; the Car0-derived AI balancing scalar is retained. Actual mixed-class
 driving/collision/progress/results/exit await one human test. See
 [R-AI1 findings](../research/r-ai1/findings.md) and

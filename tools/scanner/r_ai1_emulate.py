@@ -52,21 +52,19 @@ def main():
             api.clearListing(address, address.add(len(code) - 1))
             memory.setBytes(address, code)
             api.disassemble(address)
-        # Pool construction overwrites the two original exclusion arguments.
-        # At SITE, the driver-pool scratch is 9; the vehicle scratch is the
-        # last admitted T3 ID (20,22,23,24 or21, depending on unlock state).
-        normal = [1, 3, 2, 9, 20]
+        # T1 ID0 player is excluded: selected IDs1..6, last pool item6.
+        # Original exclusion slots have become driver/vehicle scratch9 and6.
+        normal = [1, 3, 0, 9, 6]
         cases = []
-        for selected in range(15, 25):
+        for selected in range(1, 7):
             for driver in range(10):
-                for slot in (1, 2, 3):
-                    for tail in (20, 22, 23, 24, 21):
-                        values = [*normal[:4], tail]
-                        cases.append((slot, selected, driver, values, slot == 1))
-        for arg, bad in enumerate((2, 2, 1)):
+                for slot in (0, 1, 2, 3):
+                    cases.append((slot, selected, driver, normal, slot == 1))
+        for arg, bad in ((0, 0), (0, 2), (1, 0), (1, 2), (1, 4),
+                         (2, 1), (2, 2), (2, 4)):
             values = list(normal)
             values[arg] = bad
-            cases.append((1, 15, 9, values, False))
+            cases.append((1, 1, 9, values, False))
         rows = []
         for n, (slot, selected, driver, values, changes) in enumerate(cases):
             emu = EmulatorHelper(program)
@@ -94,7 +92,7 @@ def main():
                     if steps > 40 or not emu.step(pyghidra.task_monitor()):
                         raise ValueError(f"Emulator failed: {emu.getLastError()}")
                     steps += 1
-                chosen = 0 if changes else selected
+                chosen = 14 if changes else selected
                 struct.pack_into("<I", initial, 0x14, chosen)
                 if bytes(emu.readMemory(api.toAddr(stack), len(initial))) != bytes(initial):
                     raise ValueError("Selector changed unrelated locals/arguments/DriverID")

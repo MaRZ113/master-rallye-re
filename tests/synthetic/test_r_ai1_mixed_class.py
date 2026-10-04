@@ -10,7 +10,7 @@ import r_ai1_mixed_class as ai
 
 
 def stock_participants():
-    return [{"CarID": 14 + n, "CarClass": 2, "PlayerType": 1 if n == 0 else 2,
+    return [{"CarID": n, "CarClass": 0, "PlayerType": 1 if n == 0 else 2,
              "DriverID": 30 if n == 0 else n + 1, "sentinel": f"untouched-{n}"}
             for n in range(4)]
 
@@ -27,8 +27,8 @@ def synthetic_capture():
             entries.append({"path": f"Race/Car{n}/{key}", "value": participant[key]})
         for key in ("CarType", "WheelType"):
             entries.append({"path": f"Race/Car{n}/{key}", "value": families[participant["CarID"]]["family"]})
-    for suffix, value in {"Dimensions/WheelBase": 2.45, "Dimensions/TrackWidthFront": 1.5,
-                          "Engine/GearRatioDiff": 3.95}.items():
+    for suffix, value in {"Dimensions/WheelBase": 2.77, "Dimensions/TrackWidthFront": 1.66,
+                          "Engine/GearRatioDiff": 3.72}.items():
         entries.append({"path": "Vehicles/Car1/" + suffix, "value": value})
     return {"kind": "master-rallye-broker-dump-snapshot", "schema_version": 1,
             "source": {"image_sha256": ai.CANDIDATE_SHA256, "label": "mixed-race",
@@ -60,21 +60,21 @@ class MixedClassTests(unittest.TestCase):
         self.assertEqual(len(result), 4)
         for n in (0, 2, 3):
             self.assertEqual(result[n], source[n])
-        self.assertEqual(result[1], {**source[1], "CarID": 0, "CarClass": 0})
+        self.assertEqual(result[1], {**source[1], "CarID": 14, "CarClass": 2})
         self.assertEqual(sum(row["CarClass"] != result[0]["CarClass"] for row in result), 1)
 
     def test_plan_rejects_capacity_or_player_changes(self):
         for count in (3, 5, True):
             with self.assertRaises(ValueError):
                 ai.mixed_plan(stock_participants(), count)
-        for key, value in (("CarID", 16), ("PlayerType", 2), ("CarClass", 0)):
+        for key, value in (("CarID", 2), ("PlayerType", 2), ("CarClass", 2)):
             rows = stock_participants()
             rows[0][key] = value
             with self.assertRaises(ValueError):
                 ai.mixed_plan(rows, 4)
 
     def test_plan_rejects_invalid_ai_or_aliased_ids(self):
-        for key, value in (("DriverID", 10), ("PlayerType", 1), ("CarID", 16), ("CarClass", 0)):
+        for key, value in (("DriverID", 10), ("PlayerType", 1), ("CarID", 2), ("CarClass", 2)):
             rows = stock_participants()
             rows[1][key] = value
             with self.assertRaises(ValueError):
@@ -137,6 +137,17 @@ class MixedClassTests(unittest.TestCase):
         self.assertFalse(result["runtime_full_pass"])
         self.assertEqual(len(result["participants"]), 4)
 
+    def test_oracle_accepts_other_stock_t1_control_pairs(self):
+        snapshot = synthetic_capture()
+        for n, vehicle_id in ((2, 5), (3, 6)):
+            for row in snapshot["entries"]:
+                if row["path"] == f"Race/Car{n}/CarID":
+                    row["value"] = vehicle_id
+                elif row["path"] in (f"Race/Car{n}/CarType", f"Race/Car{n}/WheelType"):
+                    row["value"] = ai.stock_map()[vehicle_id]["family"]
+        self.assertEqual(ai.check_snapshot(snapshot, ai.CANDIDATE_SHA256)["status"],
+                         "BROKER_STATE_MATCH_ONLY")
+
     def test_oracle_rejects_stale_frontend_recovery_or_unknown_build(self):
         for key, value in (("label", "mixed-front"), ("freshness", "NOT command-proven"),
                            ("image_sha256", ai.RETAIL_SHA256)):
@@ -147,11 +158,11 @@ class MixedClassTests(unittest.TestCase):
 
     def test_oracle_rejects_count_identity_physics_and_controller_errors(self):
         for path, value in (("Race/NumCars", 5), ("Race/Car1/CarID", 15),
-                            ("Race/Car1/CarClass", 2), ("Race/Car1/DriverID", 10),
-                            ("Race/Car1/PlayerType", 1), ("Race/Car1/WheelType", "Wildcat"),
+                            ("Race/Car1/CarClass", 0), ("Race/Car1/DriverID", 10),
+                            ("Race/Car1/PlayerType", 1), ("Race/Car1/WheelType", "Landcruiser"),
                             ("Race/Car0/PlayerType", True),
                             ("Race/Car0/DriverID", 0), ("Race/Car3/DriverID", 2),
-                            ("Vehicles/Car1/Dimensions/WheelBase", 2.77),
+                            ("Vehicles/Car1/Dimensions/WheelBase", 2.45),
                             ("Frontend/QuickRace/Track", 8),
                             ("Frontend/Active", False)):
             snapshot = synthetic_capture()
@@ -171,9 +182,9 @@ class MixedClassTests(unittest.TestCase):
         snapshot = synthetic_capture()
         for row in snapshot["entries"]:
             if row["path"] == "Race/Car3/CarID":
-                row["value"] = 16
+                row["value"] = 2
             elif row["path"] in ("Race/Car3/CarType", "Race/Car3/WheelType"):
-                row["value"] = "Astero"
+                row["value"] = "Tata"
         with self.assertRaises(ValueError):
             ai.check_snapshot(snapshot, ai.CANDIDATE_SHA256)
 

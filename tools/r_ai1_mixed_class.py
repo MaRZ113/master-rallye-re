@@ -16,7 +16,7 @@ from patch_vehicle_slot25 import parse_pe, va_to_file_offset
 REPOSITORY = Path(__file__).resolve().parents[1]
 RETAIL_SHA256 = "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
 RETAIL_SIZE = 3_121_214
-CANDIDATE_SHA256 = "985cef18ada36dd4f17979e671c6ef1dd9647fa82903cee886156ecac4ed73f3"
+CANDIDATE_SHA256 = "bae5de6aa3ba6cfcd08425c5a00341a3c374ec503b4ba944db6fc2c0d6a77a57"
 SITE = 0x00458428
 CONTINUE = 0x0045842D
 SELECTOR = 0x0068E300
@@ -68,12 +68,12 @@ def selector_code() -> bytes:
     # (driver-pool item 9 and last vehicle-pool item); never guard on them here.
     code = bytearray(b"\x9c\x83\xfe\x01\x75\x00")
     branches = [5]
-    for offset, expected in ((0x88, 1), (0x8C, 3), (0x90, 2)):
+    for offset, expected in ((0x88, 1), (0x8C, 3), (0x90, 0)):
         code += b"\x83\xbc\x24" + struct.pack("<I", offset) + bytes([expected & 255])
         code += b"\x75\x00"
         branches.append(len(code) - 1)
     # Change only the chosen ID local after RNG/pool/driver bookkeeping.
-    code += bytes.fromhex("c744241800000000")
+    code += bytes.fromhex("c74424180e000000")
     restore = len(code)
     for branch in branches:
         code[branch] = restore - (branch + 1)
@@ -94,7 +94,7 @@ def patch_ranges() -> list[dict]:
          "purpose": "Guarded per-participant absolute-ID substitution before stock setters"},
         {"offset": SELECTOR - 0x400000, "va": SELECTOR,
          "original": bytes(len(code)), "replacement": code,
-         "purpose": "Car1 ID0 only for retained args (first AI1,count3,class2); replay MOV/PUSH"},
+         "purpose": "Car1 ID14 only for retained args (first AI1,count3,class0); replay MOV/PUSH"},
     ]
 
 
@@ -128,13 +128,13 @@ def build_candidate(source: bytes) -> tuple[bytes, dict]:
 
 
 def patch_manifest(output_hash: str) -> dict:
-    return {"phase": "R-AI1", "profile": "retail-r-ai1-wildcat-landcruiser",
+    return {"phase": "R-AI1", "profile": "retail-r-ai1-fresh-profile-v2",
             "source_sha256": RETAIL_SHA256, "output_sha256": output_hash,
             "image_size": RETAIL_SIZE, "num_cars_changed": False,
             "guards": {"participant": 1, "first_ai": 1, "ai_count": 3,
-                       "requested_class": 2},
-            "controlled_human_player_id": 14,
-            "target_id": 0, "driver_id_changed": False,
+                       "requested_class": 0},
+            "controlled_human_player_id": 0,
+            "target_id": 14, "driver_id_changed": False,
             "ranges": [{**{k: v for k, v in item.items() if k not in ("original", "replacement")},
                         "original_hex": item["original"].hex(),
                         "replacement_hex": item["replacement"].hex()}
@@ -161,20 +161,20 @@ def verify_candidate(candidate: bytes) -> dict:
 def mixed_plan(participants: list[dict], num_cars: int) -> list[dict]:
     if type(num_cars) is not int or num_cars != 4 or len(participants) != 4:
         raise ValueError("R-AI1 requires exactly four existing participants")
-    if (participants[0]["CarID"] != 14 or type(participants[0]["PlayerType"]) is not int or
+    if (participants[0]["CarID"] != 0 or type(participants[0]["PlayerType"]) is not int or
             participants[0]["PlayerType"] != 1):
-        raise ValueError("Player must follow the normal ID14 human path")
+        raise ValueError("Player must follow the normal ID0 human path")
     for n, participant in enumerate(participants):
         cls, _ = stock_class_local(participant["CarID"])
-        if participant["CarClass"] != cls or cls != 2:
-            raise ValueError("Source participants must all be stock T3")
+        if participant["CarClass"] != cls or cls != 0:
+            raise ValueError("Source participants must all be stock T1")
         if n and (type(participant["PlayerType"]) is not int or participant["PlayerType"] != 2 or
                   type(participant["DriverID"]) is not int or not 0 <= participant["DriverID"] <= 9):
             raise ValueError("Source AI identity invalid")
     if len({item["CarID"] for item in participants}) != 4:
         raise ValueError("Source participants alias vehicle IDs")
     result = [dict(item) for item in participants]
-    result[1].update(CarID=0, CarClass=0)
+    result[1].update(CarID=14, CarClass=2)
     return result
 
 
@@ -205,11 +205,11 @@ def check_snapshot(snapshot: dict, image_hash: str) -> dict:
         row = {key: get(f"Race/Car{n}/{key}") for key in
                ("CarID", "CarClass", "PlayerType", "DriverID", "CarType", "WheelType")}
         cls, _ = stock_class_local(row["CarID"])
-        expected_cls = 0 if n == 1 else 2
+        expected_cls = 2 if n == 1 else 0
         if type(row["CarClass"]) is not int or row["CarClass"] != cls or cls != expected_cls:
             raise ValueError(f"Car{n} class/ID mismatch")
-        if n in (2, 3) and not 15 <= row["CarID"] <= 20:
-            raise ValueError("Controlled proof requires ordinary T3 AI controls (IDs15..20)")
+        if n in (2, 3) and not 1 <= row["CarID"] <= 6:
+            raise ValueError("Controlled proof requires stock T1 AI controls (IDs1..6)")
         if type(row["PlayerType"]) is not int or row["PlayerType"] != (1 if n == 0 else 2):
             raise ValueError(f"Car{n} player/AI mismatch")
         if n and (type(row["DriverID"]) is not int or not 0 <= row["DriverID"] < 10):
@@ -220,15 +220,15 @@ def check_snapshot(snapshot: dict, image_hash: str) -> dict:
             if str(row[key]).casefold() != vehicles[row["CarID"]]["family"].casefold():
                 raise ValueError(f"Car{n} {key} contradicts ID")
         participants.append(row)
-    if participants[0]["CarID"] != 14 or participants[1]["CarID"] != 0:
+    if participants[0]["CarID"] != 0 or participants[1]["CarID"] != 14:
         raise ValueError("Controlled player/target IDs differ")
     if len({row["CarID"] for row in participants}) != 4:
         raise ValueError("Participant CarID alias")
     if len({row["DriverID"] for row in participants[1:]}) != 3:
         raise ValueError("Stock AI driver pool unexpectedly aliases DriverIDs")
     # Independent named-physics values, chosen for stock T1/T3 distinction.
-    physics = {"Dimensions/WheelBase": 2.45, "Dimensions/TrackWidthFront": 1.5,
-               "Engine/GearRatioDiff": 3.95}
+    physics = {"Dimensions/WheelBase": 2.77, "Dimensions/TrackWidthFront": 1.66,
+               "Engine/GearRatioDiff": 3.72}
     for suffix, expected in physics.items():
         value = get("Vehicles/Car1/" + suffix)
         if type(value) not in (int, float) or not math.isclose(value, expected, abs_tol=0.0001):

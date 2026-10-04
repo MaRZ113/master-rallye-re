@@ -1,5 +1,9 @@
 # R-AI1 — mixed-class opponents
 
+Correction: previous static model **STILL VALID**; fresh-profile T3 frontend
+reachability assumption was incorrect. Current proof is T1 player + T3 AI.
+[Correction note](correction.md); old handoff is SUPERSEDED / DO NOT USE.
+
 Status: **STATIC COMPLETE / READY FOR HUMAN RUNTIME**. Mixed-class driving and
 race completion remain **UNKNOWN**; no R-AI1 game runtime has been performed.
 
@@ -43,22 +47,22 @@ fresh hash-locked `r5v_a_exe_registry` extraction, rather than another parser.
 
 | Participant | ID / native class | Identity |
 |---|---|---|
-| Car0 | 14 / 2 (T3) | Wildcat, BOWLER WILDCAT, normal human path |
-| Car1 | 0 / 0 (T1) | Landcruiser, TOMMEK DIRTBEAST, existing AI driver |
-| Car2, Car3 | Distinct normal stock IDs15..20 / 2 | Unchanged stock chooser outputs; two AI controls |
+| Car0 | 0 / 0 (T1) | Landcruiser, TOMMEK DIRTBEAST, normal fresh human path |
+| Car1 | 14 / 2 (T3) | Wildcat, BOWLER WILDCAT, existing AI driver |
+| Car2, Car3 | Distinct normal stock IDs1..6 / 0 | Unchanged stock chooser outputs; two AI controls |
 
 Use a fresh stock profile without bonus unlocks. Neither controls' IDs nor
 driver IDs are hard-coded. Exactly one chosen AI identity changes; the RNG,
 original pool consumption and driver allocation remain intact. NumCars stays
-four. No canary or asset edit is needed: the SUV is visibly distinct from the
-T3 buggy player.
+four. No canary or asset edit is needed: the T3 buggy is visibly distinct from the
+T1 SUV player.
 
 ## Evidence and deliverables
 
 Pristine source SHA256:
 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
 Human candidate SHA256:
-`985cef18ada36dd4f17979e671c6ef1dd9647fa82903cee886156ecac4ed73f3`.
+`bae5de6aa3ba6cfcd08425c5a00341a3c374ec503b4ba944db6fc2c0d6a77a57`.
 
 Latest installed Ghidra 12.1.4 and ghidra-bridge read-only exports were used;
 temporary disassembly/emulation transactions were rolled back without saving

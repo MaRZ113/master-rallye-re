@@ -1,18 +1,18 @@
 {
   "phase": "R-AI1",
-  "profile": "retail-r-ai1-wildcat-landcruiser",
+  "profile": "retail-r-ai1-fresh-profile-v2",
   "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-  "output_sha256": "985cef18ada36dd4f17979e671c6ef1dd9647fa82903cee886156ecac4ed73f3",
+  "output_sha256": "bae5de6aa3ba6cfcd08425c5a00341a3c374ec503b4ba944db6fc2c0d6a77a57",
   "image_size": 3121214,
   "num_cars_changed": false,
   "guards": {
     "participant": 1,
     "first_ai": 1,
     "ai_count": 3,
-    "requested_class": 2
+    "requested_class": 0
   },
-  "controlled_human_player_id": 14,
-  "target_id": 0,
+  "controlled_human_player_id": 0,
+  "target_id": 14,
   "driver_id_changed": false,
   "ranges": [
     {
@@ -32,9 +32,9 @@
     {
       "offset": 2679552,
       "va": 6873856,
-      "purpose": "Car1 ID0 only for retained args (first AI1,count3,class2); replay MOV/PUSH",
+      "purpose": "Car1 ID14 only for retained args (first AI1,count3,class0); replay MOV/PUSH",
       "original_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "replacement_hex": "9c83fe01752683bc248800000001751c83bc248c00000003751283bc2490000000027508c7442418000000009d8b44241450e9f6a0dcff"
+      "replacement_hex": "9c83fe01752683bc248800000001751c83bc248c00000003751283bc2490000000007508c74424180e0000009d8b44241450e9f6a0dcff"
     }
   ]
 }

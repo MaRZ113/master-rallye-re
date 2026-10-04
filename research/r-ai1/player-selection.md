@@ -24,6 +24,11 @@
    Frontend/Active path loads the participant's CarType body and WheelType
    wheels. See [downstream audit](downstream-consumers.md) for lifecycle gates.
 
-`0x45A150` marks IDs0..2, 7..9 and 14..17 available by default. Player ID14
-therefore requires neither bonus unlocks nor a custom vehicle. Its frontend
-local index is T3/local0. The patch does not alter this path or player identity.
+`0x45A150` marks IDs0..2, 7..9 and 14..17 individually available by default.
+This does **not** prove that the T2/T3 frontend class itself is reachable.
+The previous ID14 fresh-profile conclusion conflated these two gates and is
+superseded. Human fresh-profile evidence supplies T1 only and initial T1 IDs0..2.
+The corrected normal player is ID0/T1/local0, TOMMEK DIRTBEAST / Landcruiser.
+The exact frontend class-unlock owner remains UNKNOWN; a bounded check of
+existing frontend research/config did not identify it. No progression research
+or unlock bypass is needed. See [correction](correction.md).

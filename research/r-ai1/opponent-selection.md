@@ -48,5 +48,6 @@ setter derives from CarID. The intervention after bookkeeping preserves both
 the stock driver's choice and the remaining two vehicle choices/RNG sequence.
 
 A fresh stock profile excludes optional bonus vehicles from the controlled
-human proof. AI2/AI3 stay distinct IDs15..20, while the normal player remains14.
+human proof. AI2/AI3 stay distinct stock T1 IDs1..6, while the fresh-profile player is0.
+The T1 AI pool is not restricted to the three frontend-visible initial cars.
 No participant count, loop bound or allocation changes are involved.

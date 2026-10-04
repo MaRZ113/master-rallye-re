@@ -9,8 +9,8 @@ read-only.
 ## Current scope
 
 R-AI1 mixed-class opponents is **STATIC COMPLETE / READY FOR HUMAN RUNTIME**.
-An exact pristine-derived candidate changes only Car1 to stock T1 Landcruiser
-in a four-car T3 Quick Race; player and two AI controls follow stock paths.
+An exact pristine-derived candidate changes only Car1 to stock T3 Wildcat
+in a four-car fresh-profile T1 Quick Race; player and two AI controls follow stock paths.
 Mixed-class driving/results remain unconfirmed. See
 [findings](research/r-ai1/findings.md) and the
 [human test plan](research/r-ai1/runtime-test-plan.md). Opponent capacity is deferred.

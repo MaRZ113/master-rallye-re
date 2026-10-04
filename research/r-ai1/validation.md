@@ -1,5 +1,33 @@
 # R-AI1 validation
 
+## Current fresh-profile v2 correction — 2026-10-04
+
+Static model STILL VALID. Corrected direction is ID0/T1 human + ID14/T3 Car1 AI,
+with normal T1 controls and NumCars4. Previous fresh-profile T3 frontend
+assumption was incorrect; [old handoff](runtime-test-plan-superseded.md) is
+SUPERSEDED / DO NOT USE. See [correction](correction.md).
+
+Current full suite: **270 passed, 0 failed, 0 skipped**; R-AI1-specific tests:
+**16 passed, 0 failed, 0 skipped**. Compileall and diff-check PASS.
+Actual x86 emulation: **248 passed, 0 failed, 0 skipped**: six eligible selected
+T1 IDs, ten drivers, four slots (including human-slot guard), plus eight failed
+firstAI/count/class guard cases. Stack locals representing bookkeeping state,
+driver, registers/flags and displaced return/control flow are preserved except
+the intended final chosen-ID substitution. No game runtime test occurred.
+The earlier stock RNG/pool/driver instructions remain unchanged in the binary;
+the hook runs after them. Their execution is not re-created by this seam emulator.
+
+Deterministic build/inverse verification and allowed-ranges-only check PASS;
+old exact candidate reconstructed in memory and rejected by the new verifier.
+Audited Observatory implementation and adapter behavior are unchanged; only
+the imported exact candidate hash changes. New candidate size3,121,214 bytes,
+SHA256 `bae5de6aa3ba6cfcd08425c5a00341a3c374ec503b4ba944db6fc2c0d6a77a57`.
+Ignored current logs/reports reside in `.research-output/r-ai1/fresh-profile-v2/`.
+Wildcat canaries2.77/1.66/3.72 were rechecked against protected vehicles.xml,
+not inferred from memory. Oracle remains BROKER_STATE_MATCH_ONLY.
+
+## Historical babbb25 validation (superseded candidate)
+
 Evidence labels retain their scope: **CONFIRMED_BY_EXE** for static selection
 and consumers, **CONFIRMED_BY_CORPUS** for stock records/resources/physics,
 **SOURCE_EVIDENCE** for the historical frontend capture, and **UNKNOWN** for

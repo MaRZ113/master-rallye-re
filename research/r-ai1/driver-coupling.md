@@ -27,11 +27,11 @@ vehicle/curve-related terms passed to `0x5C2F80`. Assembly contains stack FP
 arguments incompletely represented by the decompiler; the precise steering/
 speed-control formula is not claimed. This phase does not reconstruct steering.
 
-The T1 target therefore uses its own vehicle ceiling with the existing T3
+The corrected T3 target uses its own vehicle ceiling with the existing T1
 race balance scalar. Retaining this scalar keeps the race rules and two AI
-controls unchanged. It does not force the target ID/class back to T3.
+controls unchanged. It does not force the target ID/class back to T1.
 
-**STRONG_HYPOTHESIS:** a stock driver0..9 can initialize the stock T1 target in
-this T3 race. **UNKNOWN:** its driving quality/stability through finish, which
+**STRONG_HYPOTHESIS:** a stock driver0..9 can initialize the stock T3 target in
+this T1 race. **UNKNOWN:** its driving quality/stability through finish, which
 must be observed in the controlled human test. Do not turn profile independence
 or successful initialization code into a runtime result.

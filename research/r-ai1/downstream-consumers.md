@@ -7,15 +7,15 @@ subsystem reconstruction. The cited path/key/data selection is
 | Consumer | Observed selection and evidence | Remaining runtime check |
 |---|---|---|
 | Identity preparation | `0x44A320` loops current NumCars; `0x44A450` human/AI types; `0x44A510` per-ID registry family -> CarType/WheelType/colour | Exactly four actor identities |
-| Body model | `0x4B6A00` Frontend/Active branch, N<NumCars, CarType getter; `0x4B7027` Vehicles/<own family>/car | Visibly Landcruiser, no alias |
+| Body model | `0x4B6A00` Frontend/Active branch, N<NumCars, CarType getter; `0x4B7027` Vehicles/<own family>/car | Visibly Wildcat, no alias |
 | Wheels | Same owner; `0x4B71E1` Vehicles/<WheelType>/wheel | Correct loaded wheels |
-| Physics | `0x44ED50 -> 0x493E30/0x4938C0/0x493600` copies own named family to Vehicles/CarN | Target wheelbase2.45, front track1.50, diff ratio3.95; movement |
+| Physics | `0x44ED50 -> 0x493E30/0x4938C0/0x493600` copies own named family to Vehicles/CarN | Target wheelbase2.77, front track1.66, diff ratio3.72; movement |
 | Collision | Own loaded stock body and bound information used by AI init `0x42CDB0`; both body DX retain stock tag101 collision data | Actual normal contacts, recovery and no unstable collisions |
 | AI | Per-N driver/controller/own physical ceiling; player class scalar retained (`0x42D0D0/0x42E020/0x42DDE0`) | Target drives, progresses, finishes |
 | Camera | `0x4B8810` selects humans by PlayerType; camera+0x210 target participant, +0x214 human ordinal | Player camera stays normal; full camera logic not reconstructed |
 | HUD/name | `0x4AAE70` per-participant CarID -> registry row image/localization | Target marker/name/image where exercised |
 | Results | `0x47D6D0` per-N CarID/DriverID/time/Finished -> stride0x1C record; `0x47C6C0` initializer | Normal result/end/return path |
-| Race class title | `0x4BBE8C` reads Car0 class for race description | Title remains T3; it is not every car's class |
+| Race class title | `0x4BBE8C` reads Car0 class for race description | Title remains T1; it is not every car's class |
 | Sound | `0x408F20` own CarID switch includes stock ID0 case | Target normal sound where audible |
 | Damage | `0x4A41F0` own CarN handle/global damage thresholds; named DamageParams copied with each vehicle's physics family | Normal damage behavior as exercised; whole damage system not reconstructed |
 | Reset/recovery | `0x4CC5F0` registers own CarN/Controller/Progress/LastMarker/LimitState/ResetNo/Finished/Resetting; `0x4CCAF0` operates these handles | Normal recovery if exercised |
