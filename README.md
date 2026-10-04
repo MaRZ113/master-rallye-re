@@ -17,13 +17,13 @@ participant-capacity expansion are not proven.
 See [findings](research/r-ai1-1/findings.md) and
 [completed handoff](research/r-ai1-1/runtime-handoff.md).
 
-R-AI2 is **READY FOR HUMAN RUNTIME / PREPARED_RUNTIME_UNTESTED** for exactly
-five offline participants. The stock four-car Quick Race restriction is a
-frontend policy in the audited path; physics/AI/progress storage and teardown
-are dynamic, with existing Car4 scene/HUD/Results templates. A guarded candidate
-uses stock T1 selection and the existing Loading/Dump hardening. No five-car
-gameplay or higher capacity is claimed. See the [capacity map](research/r-ai2/capacity-map.md)
-and [five-car human handoff](research/r-ai2/runtime-handoff.md).
+R-AI2 five-car target is **CLOSED / CONFIRMED_BY_RUNTIME**: one human + four
+AI, independent Car4 actor/physics/collision/damage, HUD, five finishers/results,
+hardened Dump, Replay and stable frontend return. The guarded setup intervention
+uses existing engine storage; no physical participant array expansion was needed.
+Six/seven/eight/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
+and [capacity map](research/r-ai2/capacity-map.md). Randomizer coverage/persistence
+is a separate future phase, not implemented here.
 
 Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
 

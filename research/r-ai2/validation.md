@@ -8,7 +8,7 @@ suite **302 passed, 0 failed, 0 skipped**; compileall and diff-check passed.
 Fixed, generalized, base-only hardening and randomized-hardened EXE verifiers
 passed. Previous four-car runtime results remain closed and unchanged.
 
-## Current deterministic evidence
+## Deterministic preparation evidence (retained chronology)
 
 The new synthetic suite has **316 passed, 0 failed, 0 skipped**, including
 14 R-AI2 tests for guarded policy, stock pool, source/output hash rejection,
@@ -33,8 +33,7 @@ Actual native x86 emulation: **44 passed, 0 failed, 0 skipped**:
 Bounded allocations have untouched redzones. The result test runs native
 47D6D0/47C6C0/47DBE0 and publishes rank5 for participant4. Finish-time sorting
 is an explicit boundary; UI lists are checked by the separate synthetic oracle.
-Heap, Broker, scene and OS boundaries are explicit. No game rendering,
-collision simulation, completed fifth finish or Results UI has been exercised.
+Heap, Broker, scene and OS boundaries are explicit. These emulation tests do not exercise game rendering, collision simulation, a completed fifth finish or Results UI; the later human validation establishes that separate evidence.
 The Ghidra transaction is rolled back and the project is not saved. Newest
 installed Ghidra12.1.4 is used; [derived evidence index](static-evidence-index.json)
 records function addresses and assembly-listing hashes without raw disassembly.
@@ -76,6 +75,4 @@ With the existing read-only pristine Ghidra project and latest installation:
 
 Builder reproduction and exact ranges are in [intervention](five-car-intervention.md).
 Logs, emulation details, proprietary EXEs and all future captures stay ignored.
-**Five-car runtime status: UNKNOWN / PREPARED_RUNTIME_UNTESTED.** Human P0 and
-FULL PASS are separate gates in [handoff](runtime-handoff.md); no five-car
-runtime confirmation is claimed here.
+**Five-car runtime status: CLOSED / CONFIRMED_BY_RUNTIME.** Both bound captures pass the original checkers, whose runtime_full_pass remains false by design. Human FULL PASS is recorded separately in [closeout](runtime-closeout.md). Closeout reruns the 316-test suite, 44-case native five-car emulation, compileall, candidate/base verifiers and diff-check. No missing fixture was encountered.

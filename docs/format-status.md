@@ -38,32 +38,32 @@ result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
 
 ## R-AI2 five-car participant capacity
 
-**CAPACITY MAP COMPLETE / READY FOR HUMAN RUNTIME**, bounded to ordinary
-offline Quick Race / Race, one ID0/T1 human, Track10/ItalyS4, ghost off.
-Five-car runtime is **UNKNOWN / PREPARED_RUNTIME_UNTESTED**; stock observed
-active capacity remains four. [Canonical matrix](../research/r-ai2/capacity-map.md)
-distinguishes frontend policy4, dynamic physical/AI/progress/result storage,
-eight authored scene/HUD/Results slots and eight offline Network mirrors.
-Those eight slots do not establish eight active racers.
+**CLOSED / CONFIRMED_BY_RUNTIME — EXACT FIVE-CAR TARGET.** Ordinary offline
+Quick Race / Race, ID0/T1 human plus four T1 AI, Track10/ItalyS4, ghost off.
+Exact candidate SHA256 `806ebedcd6d174682fcc4619fb75eaabca2a1281eda4d4d784807b3583f5f2e2`.
+Captured IDs0/3/6/2/4; Car4 Chevyblazer independently materialized and completed
+AI/physics/collision/damage/progress/finish. Five-participant HUD, five logical
+and rendered Results rows, RaceData Competitor0..4, native hardened Dump,
+Replay and stable frontend return are confirmed. Automated checkers retain
+BROKER_STATE_MATCH_ONLY / BROKER_RESULTS_MATCH_ONLY and runtime_full_pass=false;
+human behavior supplies the runtime proof. See [closeout](../research/r-ai2/runtime-closeout.md)
+and [capacity matrix](../research/r-ai2/capacity-map.md).
 
-Only identified five-car blocker in this path is the frontend opponent policy:
-two effective getter calls in47B780 are redirected to a guarded original-read
-shim. Visible Opponents3 becomes four stock T1 AI plus the unchanged human;
-no native arrays, participant loops, Broker core, HUD or Results are patched.
-The exact candidate composes pristine + base-only Loading/Dump hardening +
-R-AI2; randomized mixed-class selection is off. Static native setup, stock
-selection, five-entry growth, Car4 progress/result allocation and physical/AI
-destruction pass; runtime collision, finish, display and stable exit await the
-[human gate](../research/r-ai2/runtime-handoff.md). Stock reclamation limitations
-are explicit in [native storage](../research/r-ai2/native-storage.md).
+Two effective opponent getter calls in47B780 relax the stock setup policy;
+no physical participant storage expansion, participant-loop widening, table
+relocation, Broker/HUD/Results patch was required. Five cars flow through the
+existing audited pipeline. Static eight-slot scene/HUD/Results resources and
+offline Network mirrors do not prove eight active participants. Results image
+values22/20/15/1/9 are registry image IDs; slots5..7 contain blank image12.
+NULL-safe empty PointsList output does not distinguish NULL from allocated-empty.
+Stock heap-reclamation caveats remain; stable tested teardown is not proof of
+complete reclamation or long-run generic-N safety.
 
-Results47C840 publishes registry image integers for the actual N records and
-blank image12 through slot7; Position/Name/Time lists follow N. The corpus
-adds evidence of eight icon positions/browser rows, beyond the old Broker-only
-clue. Fifth result logic is statically supported; fifth display is not yet
-runtime-confirmed. Registry capacity is untouched and unrelated. Future public
-deployment remains an exact-build external runtime mod with the original EXE
-unchanged on disk. Stop at the human five-car proof; no6+ or genericN work.
+Six/seven/eight/generic-N remain UNKNOWN. Public deployment still targets a
+removable fail-closed exact-build runtime mod leaving the original EXE unchanged.
+[R-AI1.2 design notes](../research/r-ai2/randomizer-follow-up.md) record mode
+coverage/persistence goals only; no randomizer implementation or higher-capacity
+candidate is started.
 
 ## R-MAT1 current vehicle material closeout
 

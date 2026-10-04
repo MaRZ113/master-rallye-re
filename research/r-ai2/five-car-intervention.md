@@ -1,5 +1,7 @@
 # Guarded five-car research intervention
 
+**Human runtime validation completed:** [five-car closeout](runtime-closeout.md). The manifest retains its historical build-time PREPARED_RUNTIME_UNTESTED status; runtime status is recorded separately. No candidate bytes were changed.
+
 Exact output profile `retail-r-ai2-five-car-hardened`:
 
 - Source SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.

@@ -1,6 +1,6 @@
 # Five-car Quick Race — human runtime gate
 
-**READY FOR HUMAN RUNTIME / PREPARED_RUNTIME_UNTESTED.** This tests exactly
+**COMPLETED / CONFIRMED_BY_RUNTIME.** Historical test protocol; [closeout](runtime-closeout.md) records the subsequent successful human validation. This tests exactly
 five cars, all T1: one human and four ordinary stock AI. The extra AI uses the
 stock unique pool, so its exact CarID varies. No sixth participant is enabled.
 

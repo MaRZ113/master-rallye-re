@@ -3,7 +3,7 @@
 All VAs refer to pristine retail SHA256
 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
 Evidence labels: `CONFIRMED_BY_EXE` for native reads/allocations/loops;
-`CONFIRMED_BY_CORPUS` for authored XML; five-car gameplay is **UNKNOWN**.
+`CONFIRMED_BY_CORPUS` for authored XML; five-car gameplay is **CONFIRMED_BY_RUNTIME** in the completed test; see [closeout](runtime-closeout.md).
 
 | Stage | Owner/count/storage |
 |---|---|

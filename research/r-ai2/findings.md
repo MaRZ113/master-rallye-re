@@ -1,8 +1,6 @@
 # R-AI2 — exactly five offline participants
 
-**READY FOR HUMAN RUNTIME / PREPARED_RUNTIME_UNTESTED.** The capacity map and
-bounded native emulation support one five-car experiment. No five-car game run
-has occurred. R-AI1/R-AI1.1 remain closed for four participants.
+**CLOSED / CONFIRMED_BY_RUNTIME -- EXACT FIVE-CAR TARGET.** One human and four AI completed the full race, Results, hardened Dump, Replay and stable frontend return. See [runtime closeout](runtime-closeout.md) and [derived runtime summary](runtime-summary.json). Six/seven/eight/generic-N remain UNKNOWN.
 
 Starting checkout: `master-rallye-re`, branch `research/r-ai1-1-hardening`,
 HEAD `6b30a48`; tracked tree clean. Research continues on `research/r-ai2`.
@@ -13,7 +11,7 @@ The ordinary stock limit originates in the Quick Race frontend's three opponent
 choices. `47B780` obtains that choice twice: first to publish opponents+1 as
 `Race/NumCars`, then to pass the AI count into the stock chooser. The examined
 five-car path uses dynamic physics/controller/progress storage and authored
-Car0..7 scene/HUD templates. This establishes a static path for five; it does
+Car0..7 scene/HUD templates. The human five-car pass supports this static model; it does
 not establish a general engine maximum or runtime eight-car support.
 
 The first candidate promotes those two reads from3 to4 only for normal Race,
@@ -34,8 +32,7 @@ Car1..3 are not promised.
 
 Composition: exact pristine + existing Loading/Dump hardening **base only** +
 R-AI2 getter shim. The R-AI1.1 mixed-class patch is absent. Hardened components
-were runtime-confirmed in the earlier composed four-car candidate; this new
-composition and fifth participant still require human validation.
+were runtime-confirmed in the earlier composed four-car candidate; this exact composition and fifth participant are now runtime-confirmed.
 
 Evidence is divided among [pipeline](participant-pipeline.md),
 [capacity matrix](capacity-map.md), [native storage and teardown](native-storage.md),
@@ -51,5 +48,5 @@ The final user mod still targets an exact-build external runtime hook with the
 original EXE unchanged on disk. The two setup call sites appear hookable without
 structural relocation. No public runtime mod is implemented here.
 
-Stop at the human five-car test. No six-car experiment, generic N, registry
+The five-car target is closed. No six-car experiment, generic N, registry
 expansion, course reconstruction, Ghost Mode or material work is authorized here.

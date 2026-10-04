@@ -149,7 +149,9 @@ class CapacityTests(unittest.TestCase):
     def test_capacity_matrix_keeps_storage_and_runtime_separate(self):
         data = json.loads((c.REPOSITORY / "research/r-ai2/capacity-map.json").read_text())
         self.assertEqual(len(data["subsystems"]), 13)
-        self.assertFalse(data["five_car_runtime_confirmed"])
+        self.assertTrue(data["five_car_runtime_confirmed"])
+        self.assertEqual(data["status"], "CLOSED / CONFIRMED_BY_RUNTIME")
+        self.assertEqual(data["higher_active_capacity"], {"6": "UNKNOWN", "7": "UNKNOWN", "8": "UNKNOWN", "generic_N": "UNKNOWN"})
         for row in data["subsystems"]:
             self.assertIn("storage", row); self.assertIn("active_bound", row); self.assertTrue(row["evidence"])
         self.assertEqual(data["proof_target"], 5)
