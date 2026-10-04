@@ -1,9 +1,15 @@
 # Human runtime handoff — one experiment
 
+**COMPLETED / SUPERSEDED FOR NEW TESTS — DO NOT USE.** Fixed fresh-v2 passed;
+see [runtime result](runtime-result.md). Current handoff is
+[R-AI1.1 randomized](../r-ai1-1/runtime-handoff.md). The post-results native
+Dump requirement from the original handoff is explicitly withdrawn.
+
 Revised fresh-profile v2; [old handoff](runtime-test-plan-superseded.md) is SUPERSEDED / DO NOT USE.
 No progressed save or T3 frontend access is required.
 
-Status: **READY FOR HUMAN RUNTIME**, not runtime PASS. Use only the final
+Historical preparation status: READY FOR HUMAN RUNTIME. Fixed proof now passed.
+The original proof used only the final
 `.research-output/r-ai1/fresh-profile-v2/MRallye.exe`.
 
 1. Use an isolated retail game copy with a fresh stock profile, without bonus
@@ -33,8 +39,9 @@ Status: **READY FOR HUMAN RUNTIME**, not runtime PASS. Use only the final
 6. Drive for a meaningful interval and finish normally if practical. Observe
    Wildcat movement, ordinary wheel/model identity, contacts/collision, race progress,
    HUD/markers and result identity as exercised. Check the two control AI too.
-   Return from results/end to frontend; capture **mixed-return** once there.
-7. Preserve the three JSON + `.dump.bin` pairs and a short observation record:
+   Observe return from results/end to frontend. **Do not capture mixed-return
+   after Results: native Dump is unsafe; restart process before another Dump.**
+7. Preserve the mixed-front/mixed-race JSON + `.dump.bin` pairs and a short observation record:
    target identified/drives/progresses; contacts and recovery if exercised;
    results/end and frontend return stable; any inert actor, alias or crash.
 
@@ -52,7 +59,7 @@ The race checker requires:
 
 | State | Expected |
 |---|---|
-| Race | NumCars4, NumPlayers1, Type2, Networked=False, Frontend/Active=True; frontend Track10 |
+| Race | NumCars4, NumPlayers1, Type2, NumNetworkPlayers0, NetworkSyncActive=False, Frontend/Active=True; frontend Track10 |
 | Car0 | ID0, class0, PlayerType1, DriverID30, Landcruiser car/wheels |
 | Car1 | ID14, class2, PlayerType2, DriverID0..9, Wildcat car/wheels |
 | Car2/3 | Distinct IDs1..6, class0, PlayerType2, DriverID0..9, correct own families |
@@ -60,8 +67,8 @@ The race checker requires:
 
 It also reports Vehicles/Physics/Controller/Network path counts for each Car0..3
 and available Finished/lifecycle values. **BROKER_STATE_MATCH_ONLY** is the
-maximum automatic verdict. Paths may persist after exiting; mixed-return is
-not evidence that those actors remain instantiated.
+maximum automatic verdict. Paths may persist after exiting and do not prove
+those actors remain instantiated. No post-results Dump is required or safe.
 
 ## Runtime levels
 

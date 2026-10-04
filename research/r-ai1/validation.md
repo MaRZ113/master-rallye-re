@@ -1,6 +1,14 @@
 # R-AI1 validation
 
-## Current fresh-profile v2 correction — 2026-10-04
+## Runtime update — 2026-10-04
+
+Fixed fresh-profile-v2 proof: **MIXED-CLASS EXISTING PARTICIPANTS —
+CONFIRMED_BY_RUNTIME**. [Exact capture and human result](runtime-result.md).
+The counts and untested statements below describe the historical preparation
+at commits73ccb37/babbb25, not the current gameplay verdict. Separate pristine
+human control remains PENDING. New randomized R-AI1.1 remains runtime-untested.
+
+## Historical fresh-profile v2 correction — 2026-10-04
 
 Static model STILL VALID. Corrected direction is ID0/T1 human + ID14/T3 Car1 AI,
 with normal T1 controls and NumCars4. Previous fresh-profile T3 frontend
@@ -87,8 +95,10 @@ Synthetic oracle tests reject wrong count, IDs, classes, driver/type, wheels,
 physics, lifecycle gate, stale/recovered/other-build snapshots, ambiguous paths,
 aliases and JSON/raw edits. A matching synthetic snapshot returns state-only.
 
-## Human runtime status
+## Current human runtime status
 
-**NOT RUN / UNKNOWN.** No mixed-front/mixed-race/mixed-return captures have been
-provided. AI movement, intended runtime collision, HUD/results and stable exit
-remain pending. Do not record MIXED-CLASS OPPONENTS CONFIRMED_BY_RUNTIME yet.
+Fixed fresh-v2: **CONFIRMED_BY_RUNTIME**, bounded to the supplied observations.
+mixed-front/mixed-race JSON+raw pairs have been verified; post-results
+mixed-return Dump is withdrawn because of the [stock native NULL StringList
+bug](../r-ai1-1/observatory-limitations.md). Result identity/finish use human
+observations. Frontend return/reset not explicitly observed are left unclaimed.

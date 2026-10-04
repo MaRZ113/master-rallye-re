@@ -2,16 +2,21 @@
 
 ## R-AI1 mixed-class opponents
 
-**STATIC COMPLETE / READY FOR HUMAN RUNTIME**. Pristine retail has25 named
-records: T1 IDs0..6, T2 IDs7..13, T3 IDs14..24. Quick Race passes Car0 class
-to a class-filtered absolute-ID opponent chooser. The exact candidate changes
-Car1 to stock ID14/T3 after stock pool/driver bookkeeping; normal fresh ID0/T1 player,
-two T1 AI controls and NumCars4 remain. Per-ID model/physics/wheel consumers
-are traced; the Car0-derived AI balancing scalar is retained. Actual mixed-class
-driving/collision/progress/results/exit await one human test. See
-[R-AI1 findings](../research/r-ai1/findings.md) and
-[runtime plan](../research/r-ai1/runtime-test-plan.md). No capacity expansion,
-registry expansion or new material/Blender capability is claimed.
+Fixed existing-participant mixed-class proof: **CONFIRMED_BY_RUNTIME**,
+ID0/T1 human + ID14/T3 AI + two T1 AI, NumCars4. Captured IDs0/14/4/1 and human
+driving/collision/damage/progress/finish/results observations are recorded in
+[R-AI1 result](../research/r-ai1/runtime-result.md). Separate stock control is pending.
+
+R-AI1.1: **STATIC COMPLETE / READY FOR HUMAN RUNTIME**. Stock Attract uses a
+broad absolute-ID pool and derives class; its chooser is partially reusable.
+Quick Race generalization selects class independently per AI and retains native
+class pools/driver/publication, four participants and normal player balance.
+One exact randomized candidate awaits five active-race samples and representative
+lifecycle observations. No-EXE deployment requires a future external runtime mod;
+none is implemented. See [findings](../research/r-ai1-1/findings.md) and
+[handoff](../research/r-ai1-1/runtime-handoff.md). Post-results native Dump is
+[UNSAFE](../research/r-ai1-1/observatory-limitations.md). No capacity/registry
+expansion or material/Blender changes are claimed.
 
 ## R-MAT1 current vehicle material closeout
 

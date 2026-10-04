@@ -20,7 +20,8 @@ def synthetic_capture():
     families = ai.stock_map()
     entries = [{"path": path, "value": value} for path, value in
                {"Race/NumCars": 4, "Race/NumPlayers": 1, "Race/Type": 2,
-                "Race/Networked": False, "Frontend/Active": True,
+                "Race/Networked": False, "Race/NumNetworkPlayers": 0,
+                "Race/NetworkSyncActive": False, "Frontend/Active": True,
                 "Frontend/QuickRace/Track": 10}.items()]
     for n, participant in enumerate(participants):
         for key in ("CarID", "CarClass", "DriverID", "PlayerType"):
@@ -206,6 +207,16 @@ class MixedClassTests(unittest.TestCase):
         snapshot["entries"][0]["value"] = 5
         with self.assertRaises(ValueError):
             ai.verify_capture(snapshot, raw, lambda data: parsed)
+
+    def test_real_exported_offline_keys_without_registered_networked(self):
+        snapshot = synthetic_capture()
+        snapshot["entries"] = [row for row in snapshot["entries"] if row["path"] != "Race/Networked"]
+        self.assertEqual(ai.check_snapshot(snapshot, ai.CANDIDATE_SHA256)["status"], "BROKER_STATE_MATCH_ONLY")
+        for path, value in (("Race/NumNetworkPlayers", 1), ("Race/NetworkSyncActive", True)):
+            changed = copy.deepcopy(snapshot)
+            next(row for row in changed["entries"] if row["path"] == path)["value"] = value
+            with self.assertRaises(ValueError):
+                ai.check_snapshot(changed, ai.CANDIDATE_SHA256)
 
 
 if __name__ == "__main__":

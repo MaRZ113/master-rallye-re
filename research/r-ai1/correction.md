@@ -1,4 +1,4 @@
-# Fresh-profile correction — 2026-10-04
+# Fresh-profile correction â€” 2026-10-04
 
 Previous static selection model: **STILL VALID**. Homogeneity owner, absolute-ID
 chooser, registry-derived class and downstream per-participant resource paths
@@ -12,8 +12,10 @@ A bounded existing frontend research/config check did not cheaply identify it;
 no progression/unlock reconstruction or bypass was begun.
 
 Old handoff and SHA985cef18... are **SUPERSEDED / DO NOT USE**; the old text is
-preserved in runtime-test-plan-superseded.md and babbb25 history. Neither old nor
-corrected candidate has R-AI1 runtime confirmation.
+preserved in runtime-test-plan-superseded.md and babbb25 history. At correction
+handoff time neither candidate had R-AI1 runtime confirmation. The corrected
+fresh-v2 candidate has since [passed the fixed runtime proof](runtime-result.md);
+the earlier opposite-direction candidate remains untested and superseded.
 
 Corrected proof: genuinely fresh profile, Car0 ID0/T1 human, Car1 ID14/T3 AI,
 Car2/Car3 distinct normal T1 AI IDs1..6. Frontend needs only T1 and TOMMEK

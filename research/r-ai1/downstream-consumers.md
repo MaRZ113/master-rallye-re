@@ -2,7 +2,10 @@
 
 This is a bounded ordinary offline Quick Race audit, not all game modes or full
 subsystem reconstruction. The cited path/key/data selection is
-**CONFIRMED_BY_EXE**; live model/physics/contact behavior is **UNKNOWN**.
+**CONFIRMED_BY_EXE**. The table preserves the original runtime-check checklist;
+fixed ID14/Driver7 model/physics/contact/driving/results observations have since
+passed [the bounded runtime proof](runtime-result.md). Other combinations remain
+unconfirmed; the table does not imply every listed behavior was exercised.
 
 | Consumer | Observed selection and evidence | Remaining runtime check |
 |---|---|---|
@@ -50,4 +53,4 @@ retail physics. Fresh body parser checks passed with collision sections present:
 Named physics distinguishing Landcruiser from Wildcat: wheelbase2.45 vs2.77,
 front track1.50 vs1.66, diff ratio3.95 vs3.72. These are
 **CONFIRMED_BY_CORPUS**, not proof of which actor loaded them. Model/physics/
-collision identity and stability remain the human runtime gate.
+collision identity and stability for other combinations remain the human runtime gate.

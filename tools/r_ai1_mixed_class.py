@@ -1,4 +1,4 @@
-"""R-AI1: one exact retail selector patch, stock mapping and offline oracle.
+"""R-AI1/R-AI1.1: exact retail research selectors, stock mapping and offline oracles.
 
 No process-memory writes, assets, registry changes or capacity changes.
 """
@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 import struct
 from pathlib import Path
 
@@ -194,11 +195,18 @@ def check_snapshot(snapshot: dict, image_hash: str) -> dict:
             raise ValueError(f"Missing/ambiguous Broker path: {path}")
         return matches[0]["value"]
     for path, expected in {"Race/NumCars": 4, "Race/NumPlayers": 1,
-                           "Race/Type": 2, "Race/Networked": False,
+                           "Race/Type": 2, "Race/NumNetworkPlayers": 0,
+                           "Race/NetworkSyncActive": False,
                            "Frontend/Active": True, "Frontend/QuickRace/Track": 10}.items():
         value = get(path)
         if type(value) is not type(expected) or value != expected:
             raise ValueError(f"Unexpected {path}: {value!r}")
+    # The key is registered by retail but absent from the supplied live Dump.
+    # Reject an explicit network value when present; use actual live offline
+    # counters above rather than inventing a mandatory exported path.
+    networked = [row for row in entries if row["path"] == "Race/Networked"]
+    if networked and (len(networked) != 1 or networked[0]["value"] is not False):
+        raise ValueError("Unexpected Race/Networked")
     vehicles = stock_map()
     participants = []
     for n in range(4):
@@ -239,7 +247,7 @@ def check_snapshot(snapshot: dict, image_hash: str) -> dict:
     lifecycle = {row["path"]: row["value"] for row in entries
                  if row["path"] in {f"{prefix}/Car{n}/Finished"
                                      for prefix in ("Race", "Network") for n in range(4)} or
-                 row["path"] in ("Race/ID", "Race/Name", "Frontend/Running")}
+                 row["path"] in ("Race/RaceID", "Race/RaceName", "Frontend/Running")}
     return {"status": "BROKER_STATE_MATCH_ONLY", "runtime_full_pass": False,
             "participants": participants, "target_physics": physics,
             "lifecycle_values_not_actor_proof": lifecycle,
@@ -269,15 +277,274 @@ def ignored_output(path: Path) -> Path:
     return path
 
 
+
+# R-AI1.1 reuses the native inline class-pool builder and original driver loop.
+GENERAL_SHA256 = "f9e8e556842602252ec39b2174e796f6cb67651d8f573f2565f9d2e5569bd9ac"
+GENERAL_BASE = 0x0068E300
+VEHICLES_SHA256 = "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0"
+POOL_START = 0x00458112
+POOL_JOIN = 0x004582DC
+DRAW_JOIN = 0x00458382
+GENERAL_SITES = ((0x0045810B, bytes.fromhex("8b84248c000000")),
+                 (0x00458379, bytes.fromhex("8d4c2430e81e93fbff")),
+                 (0x004582D5, bytes.fromhex("8a942494000000")))
+
+
+def physics_canary_table(path: Path) -> dict:
+    from scanner.r5v_a_inventory import xml_values
+    if sha256(path.read_bytes()) != VEHICLES_SHA256:
+        raise ValueError("Need exact protected retail vehicles.xml")
+    values = {item["Name"].casefold(): item["Value"] for item in xml_values(path)}
+    suffixes = ("Dimensions/WheelBase", "Dimensions/TrackWidthFront", "Engine/GearRatioDiff")
+    return {"source_sha256": VEHICLES_SHA256, "evidence": "CONFIRMED_BY_CORPUS",
+            "vehicles": [{"id": row["id"], "family": row["family"],
+                          "values": {key: float(values[f"Vehicles/{row['family']}/{key}".casefold()])
+                                     for key in suffixes}} for row in stock_map()]}
+
+
+def class_plan(policy: str, player_class: int, draws=(0, 1, 2)) -> tuple[int, ...]:
+    if type(player_class) is not int or player_class not in (0, 1, 2):
+        raise ValueError("Invalid stock player class")
+    if policy == "stock":
+        return (player_class,) * 3
+    if policy == "diverse":
+        return (2, 1, 0)
+    if policy != "mixed" or len(draws) != 3 or any(type(n) is not int or n not in (0, 1, 2) for n in draws):
+        raise ValueError("Need three valid independent class draws")
+    return tuple(draws)
+
+
+def general_code(policy="mixed") -> tuple[bytes, dict]:
+    if policy not in ("mixed", "diverse"):
+        raise ValueError("Only research MIXED/DIVERSE code; STOCK is pristine")
+    code = bytearray()
+    labels, fixups = {}, []
+    def emit(value):
+        code.extend(bytes.fromhex(value))
+    def label(name):
+        labels[name] = GENERAL_BASE + len(code)
+    def branch(op, target):
+        emit(op)
+        fixups.append((len(code), target))
+        code.extend(bytes(4))
+    def call(address):
+        branch("e8", address)
+    label("init")
+    emit("c744241800000000")  # initialize scratch marker before first pool build
+    code.extend(GENERAL_SITES[0][1])
+    branch("e9", POOL_START)
+    label("loop")
+    emit("9c60")  # preserve all incoming registers/flags; original ESP+36
+    emit("83bc24a800000001"); branch("0f85", "stock_draw")
+    emit("83bc24ac00000003"); branch("0f85", "stock_draw")
+    emit("83fe01"); branch("0f82", "stock_draw")
+    emit("83fe03"); branch("0f87", "stock_draw")
+    call(0x4ADA50); emit("8bc8"); call(0x4ABE90)
+    emit("83f802"); branch("0f85", "stock_draw")
+    if policy == "mixed":
+        emit("6a036a00"); call(0x4D1E90); emit("8bc8"); call(0x4D1DF0)
+    else:
+        emit("b8030000002bc6")  # diverse: independent inputs Car1/2/3 =2/1/0
+    emit("83f802"); branch("0f87", "stock_draw")
+    # Keep the native remaining pool if its class matches; no class RNG reads it.
+    emit("3b8424b0000000"); branch("0f84", "stock_draw")
+    emit("898424b00000008944241c89742438")  # class cache, saved EAX, current slot
+    emit("c78424b4000000ffffffffc78424b8000000ffffffff")
+    emit("8d4c2444"); call(0x41FA50)  # clear eligible/used vector (retain allocation)
+    emit("8d4c2454"); call(0x41FA50)  # clear remaining vector
+    emit("c744243cffffffff619d")  # marker at original ESP+18; restore frame
+    branch("e9", POOL_START)  # stock class cases, no driver-pool reconstruction
+    label("stock_draw")
+    emit("619d")
+    label("draw")
+    emit("8d4c2430"); call(0x4116A0)
+    branch("e9", DRAW_JOIN)
+    label("pool_end")
+    emit("9c837c241cff"); branch("0f85", "initial_pool")
+    emit("9d31ff")  # filter already configured Car0..currentSlot-1
+    label("participant")
+    emit("3b7c2414"); branch("0f8d", "pool_ready")
+    emit("57"); call(0x4ADA50); emit("8bc8"); call(0x4AC660)
+    emit("894424188b6c2424")  # prior CarID and eligible iterator
+    label("filter")
+    emit("3b6c2428"); branch("0f83", "next_participant")
+    emit("8b442418394500"); branch("0f85", "next_vehicle")
+    emit("558d4c2424"); call(0x416620)  # stock vector erase; EBP preserved
+    branch("e9", "filter")
+    label("next_vehicle")
+    emit("83c504"); branch("e9", "filter")
+    label("next_participant")
+    emit("47"); branch("e9", "participant")
+    label("pool_ready")
+    emit("c7442418000000008b7424148bac248400000003ac2488000000")
+    branch("e9", "draw")
+    label("initial_pool")
+    emit("9d"); code.extend(GENERAL_SITES[2][1])
+    branch("e9", POOL_JOIN)
+    for offset, target in fixups:
+        destination = labels[target] if isinstance(target, str) else target
+        struct.pack_into("<i", code, offset, destination - (GENERAL_BASE + offset + 4))
+    return bytes(code), labels
+
+
+def general_ranges(policy="mixed") -> list[dict]:
+    code, labels = general_code(policy)
+    ranges = [{"offset": TEXT_SIZE_OFFSET, "va": None,
+               "original": struct.pack("<I", ORIGINAL_TEXT_SIZE),
+               "replacement": struct.pack("<I", GENERAL_BASE + len(code) - 0x401000),
+               "purpose": "Declare research code in existing text padding; same pages/image"}]
+    for (address, old), label in zip(GENERAL_SITES, ("init", "loop", "pool_end")):
+        ranges.append({"offset": address - 0x400000, "va": address, "original": old,
+                       "replacement": b"\xe9" + struct.pack("<i", labels[label] - address - 5) + b"\x90" * (len(old) - 5),
+                       "purpose": "Native class-pool reuse: " + label})
+    ranges.append({"offset": GENERAL_BASE - 0x400000, "va": GENERAL_BASE,
+                   "original": bytes(len(code)), "replacement": code,
+                   "purpose": "Independent class policy, stock pool/erase/draw/driver/publication"})
+    return ranges
+
+
+def build_general(source: bytes, policy="mixed") -> tuple[bytes, dict]:
+    if len(source) != RETAIL_SIZE or sha256(source) != RETAIL_SHA256:
+        raise ValueError("R-AI1.1 requires exact pristine retail")
+    ranges = [] if policy == "stock" else general_ranges(policy)
+    pe = parse_pe(source)
+    for row in ranges:
+        if row["va"] is not None and va_to_file_offset(pe, row["va"]) != row["offset"]:
+            raise ValueError("Unexpected target layout")
+    result = apply_ranges(source, ranges, RETAIL_SHA256)
+    if policy == "mixed" and sha256(result) != GENERAL_SHA256:
+        raise ValueError("R-AI1.1 MIXED profile changed; audit required")
+    manifest = {"phase": "R-AI1.1", "policy": policy, "source_sha256": RETAIL_SHA256,
+                "output_sha256": sha256(result), "image_size": RETAIL_SIZE,
+                "num_cars_changed": False, "guards": {"first_ai": 1, "count": 3, "race_type": 2},
+                "ranges": [{**{k: v for k, v in row.items() if k not in ("original", "replacement")},
+                            "original_hex": row["original"].hex(), "replacement_hex": row["replacement"].hex()}
+                           for row in ranges]}
+    return result, manifest
+
+
+def verify_general(candidate: bytes) -> dict:
+    if len(candidate) != RETAIL_SIZE or sha256(candidate) != GENERAL_SHA256:
+        raise ValueError("Need exact R-AI1.1 MIXED image")
+    source = bytearray(candidate)
+    for row in general_ranges():
+        begin, old, new = row["offset"], row["original"], row["replacement"]
+        if candidate[begin:begin + len(new)] != new:
+            raise ValueError("Generalized candidate original-byte/manifest mismatch")
+        source[begin:begin + len(old)] = old
+    _, manifest = build_general(bytes(source))
+    return manifest
+
+
+def check_general_snapshot(snapshot: dict, image_hash: str) -> dict:
+    source = snapshot.get("source", {})
+    if (image_hash != GENERAL_SHA256 or source.get("image_sha256") != image_hash or
+            snapshot.get("kind") != "master-rallye-broker-dump-snapshot" or
+            snapshot.get("schema_version") != 1 or
+            source.get("freshness") != "post_baseline_complete_dump_proven" or
+            not re.fullmatch(r"mixed-random-race-[1-9][0-9]*", source.get("label", ""))):
+        raise ValueError("Need a fresh active-race capture of the exact R-AI1.1 profile")
+    entries = snapshot["entries"]
+    def get(path):
+        values = [item["value"] for item in entries if item["path"] == path]
+        if len(values) != 1:
+            raise ValueError(f"Missing/ambiguous Broker path: {path}")
+        return values[0]
+    guards = {"Race/NumCars": 4, "Race/NumPlayers": 1, "Race/Type": 2,
+              "Race/NumNetworkPlayers": 0, "Race/NetworkSyncActive": False,
+              "Race/AttractMode": False, "Frontend/Active": True,
+              "Frontend/QuickRace/Car0": 0, "Frontend/QuickRace/Mode": 2,
+              "Frontend/QuickRace/NumOpponents": 3, "Frontend/QuickRace/Ghost": 0}
+    for path, expected in guards.items():
+        value = get(path)
+        if type(value) is not type(expected) or value != expected:
+            raise ValueError(f"Unexpected {path}: {value!r}")
+    if any(item["path"] == "Race/Networked" and item["value"] is not False for item in entries):
+        raise ValueError("Explicit networked state")
+    families = stock_map()
+    canaries = json.loads((REPOSITORY / "research/r-ai1-1/vehicle-physics-canaries.json").read_text())
+    if canaries["source_sha256"] != VEHICLES_SHA256:
+        raise ValueError("Wrong canonical physics source")
+    participants = []
+    for n in range(4):
+        row = {key: get(f"Race/Car{n}/{key}") for key in
+               ("CarID", "CarClass", "PlayerType", "DriverID", "CarType", "WheelType")}
+        cls, _ = stock_class_local(row["CarID"])
+        if type(row["CarClass"]) is not int or row["CarClass"] != cls:
+            raise ValueError(f"Car{n} ID/class mismatch")
+        if type(row["PlayerType"]) is not int or row["PlayerType"] != (1 if n == 0 else 2):
+            raise ValueError(f"Car{n} player type mismatch")
+        driver = row["DriverID"]
+        if type(driver) is not int or (driver != 30 if n == 0 else not 0 <= driver < 10):
+            raise ValueError(f"Car{n} driver invalid")
+        if n == 0 and row["CarID"] != 0:
+            raise ValueError("Controlled normal human ID0 changed")
+        if row["CarID"] > 20:
+            raise ValueError("Fresh-profile protocol has no bonus vehicle unlocks")
+        for key in ("CarType", "WheelType"):
+            if str(row[key]).casefold() != families[row["CarID"]]["family"].casefold():
+                raise ValueError(f"Car{n} {key} mismatches registry")
+        physics = canaries["vehicles"][row["CarID"]]
+        if physics["id"] != row["CarID"] or physics["family"] != families[row["CarID"]]["family"]:
+            raise ValueError("Canonical canary table inconsistent")
+        for suffix, expected in physics["values"].items():
+            value = get(f"Vehicles/Car{n}/" + suffix)
+            if type(value) not in (int, float) or not math.isclose(value, expected, abs_tol=0.0001):
+                raise ValueError(f"Car{n} named-physics mismatch: {suffix}")
+        row["named_physics"] = physics["values"]
+        participants.append(row)
+    if len({row["CarID"] for row in participants}) != 4:
+        raise ValueError("CarID alias")
+    if len({row["DriverID"] for row in participants[1:]}) != 3:
+        raise ValueError("AI DriverID alias")
+    counts = {f"{prefix}/Car{n}": sum(item["path"].startswith(f"{prefix}/Car{n}/") for item in entries)
+              for prefix in ("Vehicles", "Physics", "Controller", "Network") for n in range(4)}
+    return {"status": "BROKER_STATE_MATCH_ONLY", "runtime_full_pass": False,
+            "label": source["label"], "participants": participants,
+            "course": get("Frontend/QuickRace/Track"),
+            "subsystem_path_counts_not_actor_proof": counts,
+            "human_evidence_required": ["own models/wheels/collision", "AI movement/progress",
+                                        "one normal finish/results/icons/frontend return"],
+            "post_results_dump": "UNSAFE; restart process before further native Dump"}
+
+
+def summarize_general(reports: list[dict]) -> dict:
+    if len(reports) < 5 or len({r["label"] for r in reports}) != len(reports):
+        raise ValueError("Need at least five distinct active-race capture labels")
+    if len({report["course"] for report in reports}) != 1:
+        raise ValueError("Use the same course for the controlled samples")
+    classes = {tuple(p["CarClass"] for p in r["participants"][1:]) for r in reports}
+    ids = {tuple(p["CarID"] for p in r["participants"][1:]) for r in reports}
+    non_player = sum(p["CarClass"] != r["participants"][0]["CarClass"]
+                     for r in reports for p in r["participants"][1:])
+    checks = {"ai_class_assignments_vary": len(classes) > 1,
+              "ai_ids_vary": len(ids) > 1, "two_non_player_class_outcomes": non_player >= 2,
+              "simultaneous_mixed_classes": any(len({p["CarClass"] for p in r["participants"]}) > 1 for r in reports)}
+    return {"status": "BROKER_SAMPLING_MATCH_ONLY" if all(checks.values()) else "MORE_SAMPLES_NEEDED",
+            "runtime_full_pass": False, "checks": checks, "non_player_outcomes": non_player,
+            "samples": reports,
+            "limitation": "Distinct labels cannot prove new race creations; human protocol and lifecycle observations required"}
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("map")
+    physics_map_cli = sub.add_parser("physics-map")
+    physics_map_cli.add_argument("vehicles", type=Path)
     build = sub.add_parser("build")
     build.add_argument("source", type=Path)
     build.add_argument("output", type=Path)
     verify = sub.add_parser("verify")
     verify.add_argument("candidate", type=Path)
+    build_general_cli = sub.add_parser("build-general")
+    build_general_cli.add_argument("source", type=Path)
+    build_general_cli.add_argument("output", type=Path)
+    verify_general_cli = sub.add_parser("verify-general")
+    verify_general_cli.add_argument("candidate", type=Path)
+    summarize = sub.add_parser("summarize-general")
+    summarize.add_argument("candidate", type=Path)
+    summarize.add_argument("snapshots", nargs="+", type=Path)
+    summarize.add_argument("--observatory", required=True, type=Path)
     check = sub.add_parser("check")
     check.add_argument("candidate", type=Path)
     check.add_argument("snapshot", type=Path)
@@ -285,27 +552,33 @@ def main():
     args = parser.parse_args()
     if args.command == "map":
         result = stock_map()
-    elif args.command == "build":
+    elif args.command == "physics-map":
+        result = physics_canary_table(args.vehicles)
+    elif args.command in ("build", "build-general"):
         output = ignored_output(args.output)
-        data, result = build_candidate(args.source.read_bytes())
+        builder = build_general if args.command == "build-general" else build_candidate
+        data, result = builder(args.source.read_bytes())
         if output.exists() or output.with_suffix(".manifest.json").exists():
             raise ValueError("Refusing to overwrite an existing candidate or manifest")
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_bytes(data)
         output.with_suffix(".manifest.json").write_text(json.dumps(result, indent=2) + "\n")
     else:
-        result = verify_candidate(args.candidate.read_bytes())
-        if args.command == "check":
-            snapshot = json.loads(args.snapshot.read_text(encoding="utf-8"))
-            source = snapshot["source"]
-            sidecar = source["raw_sidecar"]
-            if Path(sidecar).name != sidecar:
-                raise ValueError("Invalid raw sidecar name")
-            raw = args.snapshot.with_name(sidecar).read_bytes()
+        verifier = verify_general if args.command in ("verify-general", "summarize-general") else verify_candidate
+        result = verifier(args.candidate.read_bytes())
+        if args.command in ("check", "summarize-general"):
             from r_ai1_observe import load_profile
             observe = load_profile(args.observatory, args.candidate)
-            verify_capture(snapshot, raw, observe.core.parse_dump_bytes)
-            result = check_snapshot(snapshot, result["output_sha256"])
+            reports = []
+            for path in ([args.snapshot] if args.command == "check" else args.snapshots):
+                snapshot = json.loads(path.read_text(encoding="utf-8"))
+                sidecar = snapshot["source"]["raw_sidecar"]
+                if Path(sidecar).name != sidecar:
+                    raise ValueError("Invalid raw sidecar name")
+                verify_capture(snapshot, path.with_name(sidecar).read_bytes(), observe.core.parse_dump_bytes)
+                checker = check_snapshot if args.command == "check" else check_general_snapshot
+                reports.append(checker(snapshot, result["output_sha256"]))
+            result = reports[0] if args.command == "check" else summarize_general(reports)
     print(json.dumps(result, indent=2))
 
 

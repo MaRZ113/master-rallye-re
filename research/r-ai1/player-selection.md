@@ -1,6 +1,8 @@
 # Player selection into an ordinary race
 
-**CONFIRMED_BY_EXE**, exact pristine build; game execution pending for this phase.
+**CONFIRMED_BY_EXE**, exact pristine build. Fixed ID0 human runtime is recorded
+in [runtime-result](runtime-result.md); arbitrary frontend class reachability
+is not implied by these static conversions.
 
 1. Selection-screen member +0x10 stores native class 0/1/2. Members
    +0x14/+0x18/+0x1C store independent class-local choices.

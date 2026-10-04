@@ -8,12 +8,11 @@ read-only.
 
 ## Current scope
 
-R-AI1 mixed-class opponents is **STATIC COMPLETE / READY FOR HUMAN RUNTIME**.
-An exact pristine-derived candidate changes only Car1 to stock T3 Wildcat
-in a four-car fresh-profile T1 Quick Race; player and two AI controls follow stock paths.
-Mixed-class driving/results remain unconfirmed. See
-[findings](research/r-ai1/findings.md) and the
-[human test plan](research/r-ai1/runtime-test-plan.md). Opponent capacity is deferred.
+R-AI1 fixed four-car mixed-class proof is **CONFIRMED_BY_RUNTIME**.
+R-AI1.1 independent AI-class selection is **STATIC COMPLETE / READY FOR HUMAN RUNTIME**:
+native stock pools, one randomized research candidate and active-race-only captures.
+See [findings](research/r-ai1-1/findings.md) and
+[human handoff](research/r-ai1-1/runtime-handoff.md). Opponent capacity is deferred.
 
 Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
 

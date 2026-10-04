@@ -31,7 +31,8 @@ The corrected T3 target uses its own vehicle ceiling with the existing T1
 race balance scalar. Retaining this scalar keeps the race rules and two AI
 controls unchanged. It does not force the target ID/class back to T1.
 
-**STRONG_HYPOTHESIS:** a stock driver0..9 can initialize the stock T3 target in
-this T1 race. **UNKNOWN:** its driving quality/stability through finish, which
-must be observed in the controlled human test. Do not turn profile independence
-or successful initialization code into a runtime result.
+The static profile independence above remains **CONFIRMED_BY_EXE/CORPUS**.
+The fixed runtime capture uses **Driver7 with ID14/T3 in the T1 race**; human
+observations confirm driving/physics/progress and Wildcat finish/results for
+that case: [CONFIRMED_BY_RUNTIME](runtime-result.md). This does not prove every
+driver/class combination. Generalized slot selection remains a separate test.

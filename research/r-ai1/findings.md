@@ -4,8 +4,10 @@ Correction: previous static model **STILL VALID**; fresh-profile T3 frontend
 reachability assumption was incorrect. Current proof is T1 player + T3 AI.
 [Correction note](correction.md); old handoff is SUPERSEDED / DO NOT USE.
 
-Status: **STATIC COMPLETE / READY FOR HUMAN RUNTIME**. Mixed-class driving and
-race completion remain **UNKNOWN**; no R-AI1 game runtime has been performed.
+Status: **MIXED-CLASS EXISTING PARTICIPANTS — CONFIRMED_BY_RUNTIME**.
+The fixed fresh-profile proof passed; [verified capture and human observations](runtime-result.md).
+Generalization proceeds separately in [R-AI1.1](../r-ai1-1/findings.md).
+The historical runtime handoff below is completed and superseded for new tests.
 
 ## Starting state and boundary
 
@@ -32,8 +34,8 @@ attract and network paths are outside the proof.
 | Smallest supported intervention | Change Car1's chosen absolute ID after pool/driver bookkeeping; retain stock class/name/physics derivation | `0x458428` |
 | Downstream hazards | AI balance scalar and race-description class label still use Car0; retain both. No later AI ID/class normalizer found in audited ordinary path | `0x42CFF1`, `0x42E020`, `0x4BBE8C`; [audit](downstream-consumers.md) |
 
-These answers are **CONFIRMED_BY_EXE** at the traced boundaries, with runtime
-materialization/driving explicitly pending. Broker key storage is not a native
+These answers are **CONFIRMED_BY_EXE** at the traced boundaries; the bounded
+fixed runtime result is recorded separately. Broker key storage is not a native
 participant array; distributed actor, AI and result records are distinguished
 in [participant-structure.md](participant-structure.md).
 
