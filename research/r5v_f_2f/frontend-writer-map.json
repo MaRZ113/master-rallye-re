@@ -1,0 +1,124 @@
+{
+  "phase": "R5V-F.2f",
+  "status": "READY_FOR_HUMAN_P0",
+  "source_build": "retail",
+  "ghidra_version": "12.1.4",
+  "broker_keys": {
+    "Frontend/QuickRace/CurrentManufacturerString": {
+      "code_references": ["0x0047A540"],
+      "writer_function": "0x0047A540",
+      "caller": "0x00479BB0",
+      "path_key_reference": "0x0047A642",
+      "lookup_call_sequence": "0x0047A65F..0x0047A669",
+      "physical_id_source": "FUN_004ADFB0 result retained in ESI",
+      "localization_group": "0x33",
+      "stock_id26_result": "GALOCAL UNKNOWN",
+      "f2f_id26_result": "MERCEDES",
+      "presentation_role": "manufacturer"
+    },
+    "Frontend/QuickRace/CurrentVehicleString": {
+      "code_references": ["0x0047A540", "0x0047B040", "0x0047B040"],
+      "writers": [
+        {
+          "function": "0x0047A540",
+          "caller": "0x00479BB0",
+          "path_key_reference": "0x0047A6AD",
+          "lookup_call_sequence": "0x0047A6C4..0x0047A6CE",
+          "physical_id_source": "FUN_004ADFB0 result retained in ESI",
+          "localization_group": "0x34",
+          "stock_id26_result": "GALOCAL UNKNOWN",
+          "f2f_id26_result": "ML-320",
+          "presentation_role": "vehicle/model"
+        },
+        {
+          "function": "0x0047B040",
+          "caller": "0x0047AB30",
+          "path_key_references": ["0x0047B0C6", "0x0047B191"],
+          "lookup_call_sites": ["0x0047B0B4", "0x0047B13F", "0x0047B1BF"],
+          "localization_group": "0x35",
+          "f2e_id26_result": "MERCEDES ML-320",
+          "f2f_change": "none",
+          "presentation_role": "combined Quick Race vehicle identity"
+        }
+      ]
+    }
+  },
+  "vehicle_select_reference": {
+    "function": "0x004819B0",
+    "groups": {
+      "0x33": "MERCEDES",
+      "0x34": "ML-320"
+    },
+    "f2e_id26_only_hooks_retained": true
+  },
+  "root_cause": [
+    "Vehicle Select selection does not immediately refresh the Quick Race string keys.",
+    "Race Options independently sends physical ID26 to localization groups 0x33 and 0x34.",
+    "Quick Race combined group-0x35 text and manufacturer text have separate writer ownership."
+  ],
+  "classification": {
+    "stale_value": "CONFIRMED_BY_CAPTURE",
+    "independent_lookup": "CONFIRMED_BY_GHIDRA_AND_CAPTURE",
+    "post_override_overwrite": "NOT_SUPPORTED_BY_EVIDENCE",
+    "split_identity_path": "CONFIRMED_BY_GHIDRA_AND_CAPTURE"
+  },
+  "intervention": {
+    "new_call_sites": [
+      {
+        "va": "0x0047A65F",
+        "group": "0x33",
+        "compare": "ESI == 26",
+        "id26_value": "MERCEDES",
+        "other_ids": "replay original group-0x33 lookup"
+      },
+      {
+        "va": "0x0047A6C4",
+        "group": "0x34",
+        "compare": "ESI == 26",
+        "id26_value": "ML-320",
+        "other_ids": "replay original group-0x34 lookup"
+      }
+    ],
+    "physical_identity_changed": false,
+    "global_gaLocal_changed": false,
+    "carid_alias_added": false
+  },
+  "capture_evidence": [
+    {
+      "id": "20261005-233544_retail-merc-id26-menu",
+      "json_sha256": "4ee6113a296f6a73e2a2fa27a1aa9313e55ea0930f69750d73cac632f0f84bcd",
+      "raw_sha256": "6d7751b13b9d399070e104e71bf4b21d701c688dd250592572da11692999e57c",
+      "key_values": {
+        "Frontend/VehicleSelect/CarModel": 26,
+        "Frontend/QuickRace/CurrentVehicleString": "TOMMEK DIRTBEAST"
+      }
+    },
+    {
+      "id": "20261005-233655_retail-merc-id26-raceoptions_unknown",
+      "json_sha256": "b11f5281a257f2302a3b4365c93f5bbf3e77856a30ee7577ae844979dfb7211a",
+      "raw_sha256": "9a1ac0eb805bdc273a6ba606cbc06c795f076ce057a3cb7e099c65cd5e6c5a3b",
+      "key_values": {
+        "Frontend/VehicleSelect/CarModel": 26,
+        "Frontend/QuickRace/CurrentVehicleString": "GALOCAL UNKNOWN",
+        "Frontend/QuickRace/CurrentManufacturerString": "GALOCAL UNKNOWN",
+        "Race/Car0/CarID": 26,
+        "Race/Car0/CarClass": 0
+      }
+    },
+    {
+      "id": "20261005-233755_merc-id26-race",
+      "json_sha256": "41c1b0ad649617943632ba4b782c7a6c3f6717667f5ba0d3d21a28756e10e9b3",
+      "raw_sha256": "47a16c9416b057b00df8b8c9588067763eab648d7b9e2cff4aefe9d9190f2d4a",
+      "key_values": {
+        "Frontend/VehicleSelect/CarModel": 26,
+        "Frontend/QuickRace/CurrentVehicleString": "MERCEDES ML-320",
+        "Frontend/QuickRace/CurrentManufacturerString": "GALOCAL UNKNOWN",
+        "Race/Car0/CarID": 26,
+        "Race/Car0/CarClass": 0,
+        "Race/Car0/CarType": "Mercedes",
+        "Race/Car0/WheelType": "Mercedes",
+        "Race/Car0/Colour": [1.0, 0.0, 0.0, 1.0]
+      }
+    }
+  ]
+}

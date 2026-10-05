@@ -282,3 +282,23 @@ has separate bounded structural evidence; neither establishes a retail-ready
 model or runtime behavior. No Mercedes profile or candidate was created. See
 `research/r5v_f_2/findings.md`, `research/r5v_f_2/mercedes-model-conversion.md`,
 and `research/r5v_f_2a/findings.md`.
+
+### Current R5V-F.2 / F.2f status
+
+The later F.2e owner runtime report confirms the Mercedes ID26 Vehicle Select
+presentation and core race behavior (model, textures, handling, physics,
+collision and damage); it does not establish a full stage/results/return
+lifecycle. Three paired Broker Observatory captures show the remaining defect
+is frontend-only: `FUN_0047A540` sends physical ID26 to Race Options localization
+groups `0x33` (manufacturer) and `0x34` (model), while the separate
+`FUN_0047B040` group-`0x35` Quick Race writer already produces the combined
+`MERCEDES ML-320` string. F.2f adds two ID26-only wrappers at `0x0047A65F` and
+`0x0047A6C4`; all other IDs retain the original lookup and physical ID26 is
+unchanged. The candidate is **READY FOR HUMAN P0**, not runtime-confirmed.
+See `research/r5v_f_2f/`.
+
+The forward vehicle roadmap is R5V-G.1 unlock architecture, R5V-G.2 audio
+identity/sound-family architecture, R5V-H AI pools, R5V-I multi-slot registry
+expansion qualified by a T2 vehicle, then R5V-J generic addon tool/SDK. T2
+qualification and independently configurable add-on sound family are required
+before claiming the generic SDK complete; these are not part of F.2f.

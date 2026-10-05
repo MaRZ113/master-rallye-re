@@ -29,8 +29,9 @@
 
 The final-profile regression tests cover the sparse map, class counts, stats field order, display strings, art index, fallback fields, family metadata, no-donor identity, and both wrapper branches/resume addresses. These tests and static parsers do not substitute for game runtime.
 
-## Human gate
+## Later owner runtime report
 
-- P0 frontend: **WAITING FOR HUMAN**.
-- P1 gameplay: **BLOCKED UNTIL P0 PASS**.
-- Game runtime result for the exact candidate: **NOT YET VERIFIED**.
+- Vehicle Select, Mercedes preview/textures, stats and short-race core gameplay: **OWNER-REPORTED PASS** for the F.2e hash above.
+- Three paired Broker snapshots confirm the separate Race Options `0x33` manufacturer and `0x34` vehicle-name failures, plus the unchanged physical ID26 in active race.
+- Full stage/results/return: **NOT CLAIMED** for this exact candidate.
+- Race Options identity handoff: **SUPERSEDED** by R5V-F.2f; see `../r5v_f_2f/validation.md` and `runtime-handoff.md`.

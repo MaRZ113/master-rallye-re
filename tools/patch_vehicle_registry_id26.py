@@ -65,6 +65,12 @@ CAPACITY_INIT_CONTINUATION_VA = 0x480A55
 QUICKRACE_SELECTOR_CALLS = (0x47B0AF, 0x47B13A, 0x47B1BA)
 QUICKRACE_LOCALIZATION_CALLS = (0x47B0B4, 0x47B13F, 0x47B1BF)
 QUICKRACE_LOCALIZATION_GROUP = 0x35
+RACE_OPTIONS_LOCALIZATION_CALLS = (
+    (0x47A65F, 0x33, "race_options_manufacturer_lookup",
+     "vehicle_select_manufacturer_text", 0x47A669),
+    (0x47A6C4, 0x34, "race_options_model_lookup",
+     "vehicle_select_model_text", 0x47A6CE),
+)
 
 
 class PatchError(ValueError):
@@ -165,10 +171,18 @@ ID26_MERCEDES_FINAL = replace(
     physics_family="Vehicles/Mercedes",
 )
 
+# F.2f preserves the F.2e physical/runtime profile and adds only the two
+# independently-owned Race Options presentation writers (groups 0x33/0x34).
+ID26_MERCEDES_F2F = replace(
+    ID26_MERCEDES_FINAL,
+    profile_id="mercedes-f2f-frontend-writers",
+)
+
 ID26_PROFILES = {
     "donor-cleanup": ID26_DONOR_CLEANUP,
     "mercedes-cook-harness": ID26_MERCEDES_COOK_HARNESS,
     "mercedes-final": ID26_MERCEDES_FINAL,
+    "mercedes-f2f": ID26_MERCEDES_F2F,
 }
 
 
@@ -280,7 +294,10 @@ def _id26_display_selectors(profile: VehicleRecordProfile) -> dict[int, int]:
     if not profile.internal_name or "\x00" in profile.internal_name or not profile.internal_name.isascii():
         raise PatchError("ID26 profile needs a non-empty ASCII NUL-free internal name")
     if _has_display_string_override(profile):
-        if profile.profile_id != ID26_MERCEDES_FINAL.profile_id:
+        if profile.profile_id not in {
+                ID26_MERCEDES_FINAL.profile_id,
+                ID26_MERCEDES_F2F.profile_id,
+        }:
             raise PatchError("direct display-string override is reserved for the final Mercedes profile")
         return {}
     selectors = dict(profile.display_selector_by_group)
@@ -314,6 +331,19 @@ def _emit_quickrace_string_lookup(code: _CodeImage, *, label: str,
     code.emit(b"\x3D" + struct.pack("<I", 26))  # EAX is the selected physical ID
     code.je(label + "_id26")
     code.emit(b"\x50\x6A\x35\x8B\xCE\xFF\x57\x0C")
+    code.jump(resume_va)
+    code.label(label + "_id26")
+    code.mov_eax_literal(string_label)
+    code.jump(resume_va)
+
+
+def _emit_race_options_string_lookup(code: _CodeImage, *, label: str, group: int,
+                                     string_label: str, resume_va: int) -> None:
+    """Wrap the Race Options lookup whose verified physical-ID input is ESI."""
+    code.label(label)
+    code.emit(b"\x81\xFE" + struct.pack("<I", 26))  # cmp ESI, physical vehicle ID
+    code.je(label + "_id26")
+    code.emit(b"\x8B\x10\x56\x6A" + bytes((group,)) + b"\x8B\xC8\xFF\x52\x0C")
     code.jump(resume_va)
     code.label(label + "_id26")
     code.mov_eax_literal(string_label)
@@ -386,6 +416,12 @@ def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
             _emit_quickrace_string_lookup(
                 code, label=f"quickrace_name_lookup_{index}",
                 string_label="quickrace_display_text", resume_va=call_va + 8)
+        if id26_profile.profile_id == ID26_MERCEDES_F2F.profile_id:
+            for _call_va, group, label, string_label, resume_va in RACE_OPTIONS_LOCALIZATION_CALLS:
+                code.align()
+                _emit_race_options_string_lookup(
+                    code, label=label, group=group,
+                    string_label=string_label, resume_va=resume_va)
 
     code.align()
     code.label("id26_unlock")
@@ -651,6 +687,20 @@ def build_operations(data: bytes, pe: dict, *,
                 purpose=("return the historic MERCEDES ML-320 string only when the queried Quick Race "
                          "physical vehicle ID is 26; retain the stock group-0x35 lookup otherwise"),
             )
+        if id26_profile.profile_id == ID26_MERCEDES_F2F.profile_id:
+            for call_va, group, label, _string_label, _resume_va in RACE_OPTIONS_LOCALIZATION_CALLS:
+                original = (b"\x8B\x10\x56\x6A" + bytes((group,))
+                            + b"\x8B\xC8\xFF\x52\x0C")
+                _add_va_patch(
+                    data, pe, operations,
+                    name=f"{label}_id26_string_override",
+                    category="race-options-display-string-override",
+                    va=call_va, original=original,
+                    replacement=_rel32_jump(call_va, entrypoints[label])
+                    + b"\x90" * (len(original) - 5),
+                    purpose=("return the ID26-only Mercedes manufacturer/model string for the "
+                             f"Race Options group 0x{group:02X}; replay stock lookup for every other ID"),
+                )
     else:
         _add_va_patch(data, pe, operations, name="display_group_33_selector", category="display-localization",
                       va=0x481A10, original=b"\x57", replacement=b"\x53",
@@ -778,8 +828,31 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
     }
     is_mercedes_cook_harness = id26_profile.profile_id == ID26_MERCEDES_COOK_HARNESS.profile_id
     is_mercedes_final = id26_profile.profile_id == ID26_MERCEDES_FINAL.profile_id
+    is_mercedes_f2f = id26_profile.profile_id == ID26_MERCEDES_F2F.profile_id
+    if is_mercedes_f2f:
+        structural["display_selector"]["scope"] = (
+            "Vehicle Select manufacturer/model; Quick Race group-0x35 summary; "
+            "Race Options group-0x33 manufacturer and group-0x34 model, ID26 only")
+        structural["frontend_writer_hooks"] = {
+            "CurrentManufacturerString": {
+                "writer": "0x0047A540",
+                "call_va": "0x0047A65F",
+                "group": "0x33",
+                "selector_register": "ESI physical Vehicle ID",
+                "id26_value": "MERCEDES",
+            },
+            "CurrentVehicleString": {
+                "writer": "0x0047A540",
+                "call_va": "0x0047A6C4",
+                "group": "0x34",
+                "selector_register": "ESI physical Vehicle ID",
+                "id26_value": "ML-320",
+            },
+            "quickrace_summary_writer": "0x0047B040 / group 0x35 remains unchanged",
+        }
     manifest = {
-        "phase": ("R5V-F.2e final Mercedes ML-320 ID26 acceptance candidate" if is_mercedes_final
+        "phase": ("R5V-F.2f Mercedes Race Options frontend identity candidate" if is_mercedes_f2f
+                  else "R5V-F.2e final Mercedes ML-320 ID26 acceptance candidate" if is_mercedes_final
                   else "R5V-F.2b isolated retail cook harness" if is_mercedes_cook_harness
                   else "R5V-F.1 cleanup"),
         "build": "retail",
@@ -794,10 +867,16 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
         "structural_self_check": structural,
         "operation_counts_by_category": _operation_counts(operations),
         "operations": operations,
-        "runtime_validation": ("STATIC ACCEPTANCE CANDIDATE — WAITING FOR HUMAN P0/P1" if is_mercedes_final
+        "runtime_validation": ("STATIC F.2f CANDIDATE — WAITING FOR HUMAN P0 FRONTEND" if is_mercedes_f2f
+                               else "STATIC ACCEPTANCE CANDIDATE — WAITING FOR HUMAN P0/P1" if is_mercedes_final
                                else "NOT RUN — isolated cook trigger only" if is_mercedes_cook_harness
                                else "WAITING FOR CLEANUP P0"),
         "risks": ([
+            "Race Options frontend P0 has not been performed with this exact F.2f candidate.",
+            "P1 gameplay regression smoke remains required after frontend P0.",
+            "ID26 physical identity, Vehicle Select, Quick Race group-0x35 and resource paths are preserved by design; verify at runtime.",
+            "Campaign/save persistence and network/multiplayer support for ID26 are unproven; use a disposable offline profile.",
+        ] if is_mercedes_f2f else [
             "Final P0/P1 runtime acceptance has not been performed with this exact candidate.",
             "SmallCarSheet remains the documented donor-frame-9 fallback; historical restoration is partial.",
             "Campaign/save persistence and network/multiplayer support for ID26 are unproven; use a disposable offline profile.",
@@ -875,7 +954,7 @@ def _verify_structural(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise PatchError("structural self-check: .text VirtualSize mismatch")
     structural = manifest["structural_self_check"]
     profile = structural["id26"]
-    if profile["profile_id"] == ID26_MERCEDES_FINAL.profile_id:
+    if profile["profile_id"] in {ID26_MERCEDES_FINAL.profile_id, ID26_MERCEDES_F2F.profile_id}:
         expected_final = {
             "id": 26,
             "class": 0,

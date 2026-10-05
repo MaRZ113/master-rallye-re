@@ -58,6 +58,8 @@ def retail_layout_fixture() -> bytes:
         0x4819BD: bytes.fromhex("8bf8e8fc89fdff"),
         0x481A0E: bytes.fromhex("8b10576a338bc8ff520c"),
         0x481A4B: bytes.fromhex("8b10576a348bc8ff520c"),
+        0x47A65F: bytes.fromhex("8b10566a338bc8ff520c"),
+        0x47A6C4: bytes.fromhex("8b10566a348bc8ff520c"),
         0x481A10: b"\x57",
         0x481A4D: b"\x57",
         0x458D3F: patcher._rel32_call(0x458D3F, patcher.ORIGINAL_SECONDARY_INITIALIZER_VA),
@@ -309,6 +311,130 @@ class VehicleRegistryId26PatcherTests(unittest.TestCase):
             entrypoint = int(structural["code_entrypoints"][f"quickrace_name_lookup_{index}"], 16)
             self.assertEqual(call_va + 5 + displacement, entrypoint)
         self.assertEqual(len(candidate), len(source))
+
+    def test_f2f_adds_only_the_two_id26_race_options_string_writers(self) -> None:
+        source = retail_layout_fixture()
+        candidate, manifest = patcher.make_candidate(
+            source,
+            expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_F2F,
+        )
+        rebuilt, rebuilt_manifest = patcher.make_candidate(
+            source,
+            expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_F2F,
+        )
+        self.assertEqual(candidate, rebuilt)
+        self.assertEqual(manifest, rebuilt_manifest)
+        self.assertEqual(manifest["phase"],
+                         "R5V-F.2f Mercedes Race Options frontend identity candidate")
+        self.assertEqual(manifest["runtime_validation"],
+                         "STATIC F.2f CANDIDATE — WAITING FOR HUMAN P0 FRONTEND")
+        self.assertEqual(len(manifest["operations"]), 74)
+        structural = manifest["structural_self_check"]
+        self.assertEqual(structural["id26"]["id"], 26)
+        self.assertEqual(structural["id26"]["class"], 0)
+        self.assertEqual(structural["id26"]["class_local_index"], 7)
+        self.assertEqual(structural["id26"]["internal_name"], "Mercedes")
+        self.assertEqual(structural["display_selector"]["race_id_unchanged"], 26)
+        self.assertEqual(structural["frontend_writer_hooks"]["CurrentManufacturerString"], {
+            "writer": "0x0047A540",
+            "call_va": "0x0047A65F",
+            "group": "0x33",
+            "selector_register": "ESI physical Vehicle ID",
+            "id26_value": "MERCEDES",
+        })
+        self.assertEqual(structural["frontend_writer_hooks"]["CurrentVehicleString"], {
+            "writer": "0x0047A540",
+            "call_va": "0x0047A6C4",
+            "group": "0x34",
+            "selector_register": "ESI physical Vehicle ID",
+            "id26_value": "ML-320",
+        })
+
+        operations = {op["name"]: op for op in manifest["operations"]}
+        payload = bytes.fromhex(operations["id26_code_cave_payload"]["replacement_bytes"])
+        for call_va, group, label, string_label, resume in patcher.RACE_OPTIONS_LOCALIZATION_CALLS:
+            op = operations[f"{label}_id26_string_override"]
+            self.assertEqual(op["virtual_address"], call_va)
+            replacement = bytes.fromhex(op["replacement_bytes"])
+            original = bytes.fromhex(op["original_bytes"])
+            self.assertEqual(original, bytes.fromhex("8b10566a") + bytes((group,)
+                             ) + bytes.fromhex("8bc8ff520c"))
+            self.assertEqual(replacement[5:], b"\x90" * 5)
+            helper_va = int(structural["code_entrypoints"][label], 16)
+            self.assertEqual(call_va + 5 + struct.unpack_from("<i", replacement, 1)[0],
+                             helper_va)
+
+            helper = payload[helper_va - patcher.STUB_VA:]
+            self.assertEqual(helper[:6], bytes.fromhex("81fe1a000000"))  # compare physical ID in ESI
+            self.assertEqual(helper[6:8], bytes.fromhex("0f84"))
+            branch_delta = struct.unpack_from("<i", helper, 8)[0]
+            id26_branch = helper_va + 12 + branch_delta
+            self.assertEqual(helper[12:22], original)  # all other IDs replay the native call
+            self.assertEqual(helper[22], 0xE9)
+            stock_resume_delta = struct.unpack_from("<i", helper, 23)[0]
+            self.assertEqual(helper_va + 27 + stock_resume_delta, resume)
+            self.assertEqual(payload[id26_branch - patcher.STUB_VA], 0xB8)  # direct presentation pointer
+            literal_va = struct.unpack_from("<I", payload, id26_branch - patcher.STUB_VA + 1)[0]
+            expected_text = {"vehicle_select_manufacturer_text": "MERCEDES",
+                             "vehicle_select_model_text": "ML-320"}[string_label]
+            self.assertEqual(payload[literal_va - patcher.STUB_VA:].split(b"\x00", 1)[0],
+                             expected_text.encode("ascii"))
+            id26_resume_delta = struct.unpack_from(
+                "<i", payload, id26_branch - patcher.STUB_VA + 6)[0]
+            self.assertEqual(id26_branch + 10 + id26_resume_delta, resume)
+
+        # The older F.2e profile remains byte-for-byte at its 72-operation scope.
+        _f2e, f2e_manifest = patcher.make_candidate(
+            source,
+            expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_FINAL,
+        )
+        self.assertEqual(len(f2e_manifest["operations"]), 72)
+        self.assertFalse(any(op["category"] == "race-options-display-string-override"
+                             for op in f2e_manifest["operations"]))
+
+    def test_frontend_identity_writer_order_keeps_model_and_manufacturer_split(self) -> None:
+        # Deterministic semantic model of the independently verified native
+        # writer order; this does not claim to execute the retail frontend.
+        def localized_or_id26(group: int, car_id: int) -> str:
+            if car_id == 26 and group == 0x33:
+                return "MERCEDES"
+            if car_id == 26 and group == 0x34:
+                return "ML-320"
+            if car_id == 26 and group == 0x35:
+                return "MERCEDES ML-320"
+            return {0x33: "TOMMEK", 0x34: "DIRTBEAST", 0x35: "TOMMEK DIRTBEAST"}[group]
+
+        state = {
+            "Frontend/QuickRace/CurrentVehicleString": "TOMMEK DIRTBEAST",
+            "Frontend/QuickRace/CurrentManufacturerString": "",
+        }
+        # Vehicle Select changes CarModel, but the capture shows it does not
+        # itself refresh these Quick Race keys.
+        selected_car_id = 26
+        self.assertEqual(state["Frontend/QuickRace/CurrentVehicleString"], "TOMMEK DIRTBEAST")
+
+        # FUN_0047A540 writes manufacturer via 0x33, then model via 0x34.
+        state["Frontend/QuickRace/CurrentManufacturerString"] = localized_or_id26(0x33, selected_car_id)
+        state["Frontend/QuickRace/CurrentVehicleString"] = localized_or_id26(0x34, selected_car_id)
+        self.assertEqual(state["Frontend/QuickRace/CurrentManufacturerString"], "MERCEDES")
+        self.assertEqual(state["Frontend/QuickRace/CurrentVehicleString"], "ML-320")
+
+        # FUN_0047B040 writes the combined group-0x35 name and does not write
+        # CurrentManufacturerString; no ID or type identity is changed.
+        state["Frontend/QuickRace/CurrentVehicleString"] = localized_or_id26(0x35, selected_car_id)
+        self.assertEqual(state["Frontend/QuickRace/CurrentVehicleString"], "MERCEDES ML-320")
+        self.assertEqual(state["Frontend/QuickRace/CurrentManufacturerString"], "MERCEDES")
+        self.assertEqual(selected_car_id, 26)
+
+        # Stock vehicles continue through their original group-specific values.
+        self.assertEqual((localized_or_id26(0x33, 0), localized_or_id26(0x34, 0),
+                          localized_or_id26(0x35, 0)),
+                         ("TOMMEK", "DIRTBEAST", "TOMMEK DIRTBEAST"))
+        self.assertNotEqual(localized_or_id26(0x33, 25), "MERCEDES")
+        self.assertNotEqual(localized_or_id26(0x34, 25), "ML-320")
 
     def test_emitted_capacity_stub_sets_t1_eight_and_t2_seven(self) -> None:
         source = retail_layout_fixture()

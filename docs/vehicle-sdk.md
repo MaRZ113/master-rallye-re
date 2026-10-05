@@ -26,3 +26,14 @@ CLI: py -3 tools/mrtool.py validate-vehicle project.json; py -3 tools/mrtool.py 
 - No extra vehicle slot EXE patch and no track support in this vehicle baseline.
 - Rare or unknown auxiliary semantics remain optional future research.
 - The known non-finite Forklift tag101 hull remains rejected for scaling; it is preserved at zero edit.
+
+## Future addon qualification boundary
+
+The existing-donor SDK v1 baseline does not close the generic addon vehicle
+roadmap. The agreed phases are R5V-G.1 unlock architecture, R5V-G.2 vehicle
+audio identity/sound family, R5V-H AI pools, R5V-I multi-slot registry
+expansion with a real added T2 vehicle as a required qualification, then R5V-J
+the generic addon tool/SDK. Before that SDK can be called complete, an addon
+must select/configure its sound family independently of model/physics identity
+and pass a T2 addon vehicle qualification. F.2f does not implement these
+features.

@@ -1,5 +1,7 @@
 # R5V-F.2e P0/P1 runtime handoff
 
+> Historical handoff. The owner later tested the F.2e candidate and found the independent Race Options writer still emitted `GALOCAL UNKNOWN`. Use the F.2f handoff for the corrected Race Options identity candidate; this document is retained as chronology.
+
 ## Exact isolated build
 
 Run only the isolated copy:

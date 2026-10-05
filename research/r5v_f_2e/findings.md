@@ -2,7 +2,7 @@
 
 ## Current result
 
-**STATIC BUILD PASS; P0/P1 HUMAN ACCEPTANCE PENDING.** The final ID26 candidate and isolated retail runtime package are prepared and hash-locked. No human runtime test has been claimed for this exact candidate.
+**SUBSEQUENT OWNER-REPORTED CORE GAMEPLAY PASS; Race Options identity still defective.** The F.2e candidate's Vehicle Select presentation and short-race behavior were later tested by the owner. Its Race Options manufacturer/model strings still resolve to `GALOCAL UNKNOWN`; R5V-F.2f adds the missing narrow presentation hooks. This document preserves the F.2e build facts and chronology.
 
 Candidate package manifest: `research-output/r5v_f_2e/candidate/candidate-manifest.json` (ignored build output). The isolated runtime to test is `research-output/r5v_f_2e/runtime/`.
 
@@ -19,6 +19,14 @@ Candidate package manifest: `research-output/r5v_f_2e/candidate/candidate-manife
 | Presentation | Stats 4/3/6/5; historical slot art; SmallCarSheet frame9 fallback; custom red marker |
 | P0 | WAITING FOR HUMAN |
 | P1 | BLOCKED UNTIL P0 PASS |
+
+### Later runtime update and superseding handoff
+
+The owner subsequently reported that ID26/T1 local7 displays `MERCEDES` / `ML-320`, the model/textures and 4/3/6/5 stats are correct, and a short race passes model loading, controls, physics, collision and damage. ID25/Trooper remains separately selectable. This is a core gameplay pass; no full-stage/results/return lifecycle is claimed for this exact F.2e candidate.
+
+Three Broker Observatory JSON + raw pairs are under the ignored `research-output/r5v_f_2e/captures/` directory. They prove the Quick Race field lifecycle: Vehicle Select retains a stale `TOMMEK DIRTBEAST`; Race Options writes `GALOCAL UNKNOWN` to both vehicle and manufacturer strings; active race later refreshes the combined group-0x35 vehicle string to `MERCEDES ML-320` while the separate manufacturer remains unknown. The active race still reports physical `CarID=26`, class 0, `CarType=Mercedes`, `WheelType=Mercedes`, and the red ID26 colour canary.
+
+The old F.2e P0 handoff is **SUPERSEDED FOR FRONTEND IDENTITY** by [R5V-F.2f runtime handoff](../r5v_f_2f/runtime-handoff.md). The F.2e executable remains useful as its recorded historical candidate; do not treat it as having passed Race Options identity.
 
 ## Model, materials, and package
 
@@ -42,10 +50,10 @@ The known `Vehicles/Tyres/tarmac5/PeakMu` warning remains unclassified until han
 
 ## Evidence boundary
 
-The supplied R5V-F.2e prompt reports prior cache-only portability and collision/external/internal damage runtime success. I record those as **OWNER-REPORTED**. The checked-in R5V-F.2d cache manifest still says its runtime gate is waiting for a human log, and no matching DebugView capture was available in this repository. Therefore this phase claims neither a local cache-only runtime capture nor final-candidate P0/P1 success. Run the exact isolated candidate using [runtime-test-plan.md](runtime-test-plan.md).
+The later owner-reported F.2e gameplay results and three paired Broker captures support the CORE GAMEPLAY PASS and physical identity above. They do not establish a full stage/results/return lifecycle. Cache-only portability and the earlier cooker details remain as documented for their original phases; this frontend cleanup does not reopen them.
 
 Collision tag101 structural checks, zero-edit roundtrip, and cooked DX hashes remain as documented in [R5V-F.2b collision validation](../r5v_f_2b/collision-validation.md). The supplied phase prompt reports the earlier usable collision and damage test; final candidate gameplay acceptance remains pending.
 
 ## Scope
 
-ID26 remains test-unlocked for offline acceptance. Campaign/save persistence, AI/event pool integration, multiplayer, authentic Mercedes SmallCarSheet art, and tuned ID26 audio are not established here. No ID27, tracks, R5V-G implementation, or push was performed.
+ID26 remains test-unlocked for offline acceptance. Campaign/save persistence, AI/event pool integration, multiplayer, authentic Mercedes SmallCarSheet art, and tuned ID26 audio are not established here. The dedicated unlock and configurable audio-family requirements are recorded for R5V-G.1 and G.2; no such work is performed in F.2f.
