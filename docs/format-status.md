@@ -570,13 +570,7 @@ The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE
 
 ## Exact modded-build Observatory / registry profiles
 
-READY FOR HUMAN RUNTIME: `retail-merc-id26`, exact hash/size only. Broker format
-is unchanged; Observatory executable profiles and checker registry oracles are
-build-specific. ID26=T1/local7/Mercedes; ID25=Trooper/T3/local11; pristine ID26
-is rejected. Unknown images fail closed even if an audit finds matching anchors.
-Public v0.1.0-beta is unchanged. Mercedes native post-Results Dump is unsafe and
-legacy Loading->Attract behavior remains present. No EXE patch or public mod.
-See [findings](../research/r-observatory-modded-builds/findings.md).
+R-OBS2 defines an internal `retail-broker-v1` family. Exact PE/layout and all required anchor fingerprints are mandatory; a passing unknown SHA receives a local SHA-bound profile only after audit. Registry recognition remains an independent fingerprint decision, and public v0.1.0-beta remains pristine-only. The expected mercv2/F.2f binary passed direct family and registry audit; human Observatory captures remain pending. See [R-OBS2 findings](../research/r-obs2/findings.md).
 
 Independent feature closeouts: Challenge preview/race identity is runtime-confirmed
 (Retry not applicable after tested completion); normal Quick Race6/7/8 lifecycle

@@ -67,7 +67,7 @@
       "length": 144,
       "section": ".text",
       "sha256": "d02519fc43a42d595ccd39fa02772e68e28eb4a29d0b9f6deead6e4c05043128",
-      "semantics": "Lazy broker singleton at6F9410",
+      "semantics": "Native Dump entry / lazy Broker singleton accessor at6F9410",
       "zero_filled_tail": false
     },
     {
@@ -205,7 +205,22 @@
       "legacy_loading_attract_present": true,
       "broker_capture_active_race": true,
       "broker_dump_variant": "native_stock",
-      "support_scope": "exact pristine structural reference"
+      "support_scope": "exact pristine structural reference",
+      "compatibility_family": "retail-broker-v1",
+      "profile_origin": "committed_exact",
+      "capabilities": {
+        "broker_read": true,
+        "open_broker_editor": true,
+        "native_dump": true,
+        "active_race_native_dump_safe": true,
+        "post_results_native_dump_safe": false,
+        "flow_builder": false,
+        "hardened_dump": false,
+        "legacy_loading_attract_present": true,
+        "vehicle_registry_profile": "pristine",
+        "broker_capture_active_race": true,
+        "broker_dump_variant": "native_stock"
+      }
     },
     {
       "profile": "retail-merc-id26",
@@ -277,7 +292,60 @@
       "legacy_loading_attract_present": true,
       "broker_capture_active_race": true,
       "broker_dump_variant": "native_stock",
-      "support_scope": "INTERNAL RESEARCH / HUMAN CAPTURE PENDING"
+      "support_scope": "INTERNAL RESEARCH / HUMAN CAPTURE PENDING",
+      "compatibility_family": "retail-broker-v1",
+      "profile_origin": "committed_exact",
+      "capabilities": {
+        "broker_read": true,
+        "open_broker_editor": true,
+        "native_dump": true,
+        "active_race_native_dump_safe": true,
+        "post_results_native_dump_safe": false,
+        "flow_builder": false,
+        "hardened_dump": false,
+        "legacy_loading_attract_present": true,
+        "vehicle_registry_profile": "merc-id26",
+        "broker_capture_active_race": true,
+        "broker_dump_variant": "native_stock"
+      }
     }
-  ]
+  ],
+  "families": {
+    "retail-broker-v1": {
+      "display_name": "Retail Broker / Debug v1",
+      "pe_reference": "retail_pe",
+      "anchor_names": [
+        "resource_file_open",
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "native_dump_walker",
+        "main_loop",
+        "debug_sink_vtable",
+        "debug_sink_global",
+        "broker_manager_global",
+        "loading_legacy_failure"
+      ],
+      "capabilities": {
+        "broker_read": true,
+        "open_broker_editor": true,
+        "native_dump": true,
+        "active_race_native_dump_safe": true,
+        "post_results_native_dump_safe": false,
+        "flow_builder": false,
+        "hardened_dump": false,
+        "legacy_loading_attract_present": true
+      },
+      "limitations": [
+        "Native stock Results Dump is unsafe for NULL StringList payloads.",
+        "Flow Builder is not audited by this family.",
+        "Vehicle registry semantics are resolved independently."
+      ],
+      "audit_version": "retail-broker-v1.0",
+      "layout_policy": "same x86 PE32 ImageBase/SizeOfImage/entry point and section table; .text VirtualSize may vary within its raw section without overlap",
+      "anchor_policy": "all listed bounded exact fingerprints required; no fuzzy matching",
+      "observatory_layout_profile": "retail-pristine",
+      "registry_detector": "independent bounded mapping fingerprints in registry-profile.json"
+    }
+  }
 }

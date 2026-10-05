@@ -19,7 +19,8 @@ from r_ai1_hardening import BASE_SHA256, MIXED_SHA256, verify as verify_hardenin
 from r_ai2_capacity import CANDIDATE_SHA256 as FIVE_CAR_SHA256, verify as verify_five_car
 from r_ai1_2_randomizer import PROFILE_SHA256 as AI12_SHA256, verify as verify_ai12
 from r_ai1_2a_preview import PROFILE_SHA256 as AI12A_SHA256, verify as verify_ai12a
-from research_build_profiles import MERC_SHA256, PRISTINE_SHA256, identify
+from research_build_profiles import (MERC_SHA256, PRISTINE_SHA256, identify,
+                                     resolve_build)
 
 OBSERVATORY_FILES = {
     "broker_observatory.py": "d1a07eab330ef3d8b825ef3320b458d20ced11df99d75250a72e9c7701c4ba7d",
@@ -58,7 +59,8 @@ def _research_module(directory: Path, name: str):
                 if isinstance(node.ops[0],ast.Eq):node.ops[0]=ast.In()
                 elif isinstance(node.ops[0],ast.NotEq):node.ops[0]=ast.NotIn()
                 else:raise ValueError('Unexpected audited basename comparison')
-                node.comparators[0]=ast.Tuple(elts=[ast.Constant('mrallye.exe'),ast.Constant('mrallye_merc.exe')],ctx=ast.Load())
+                node.comparators[0]=ast.Tuple(elts=[ast.Constant('mrallye.exe'),
+                    ast.Constant('mrallye_merc.exe'), ast.Constant('mrallye_mercv2.exe')],ctx=ast.Load())
                 self.count+=1
             return node
     transform=Basenames();tree=transform.visit(tree)
@@ -74,6 +76,7 @@ def _research_module(directory: Path, name: str):
 def load_profile(directory: Path, candidate: Path):
     data = candidate.read_bytes()
     image_hash = sha256(data)
+    family_profile = None
     if image_hash == CANDIDATE_SHA256:
         verifier, phase = verify_candidate, "r-ai1"
     elif image_hash == GENERAL_SHA256:
@@ -89,10 +92,16 @@ def load_profile(directory: Path, candidate: Path):
         five = image_hash == AI12A_SHA256[True]
         verifier, phase = lambda data: verify_ai12a(data, five), "r-ai1-2a"
     elif image_hash in (MERC_SHA256,PRISTINE_SHA256):
-        verifier, phase = identify, "r-observatory-modded-builds"
+        family_profile = resolve_build(data)
+        manifest, phase = family_profile, "r-obs2-compatible-builds"
     else:
-        raise ValueError("Unknown research image; only exact audited profiles accepted")
-    manifest = verifier(data)
+        try:
+            family_profile = resolve_build(data)
+        except ValueError as exc:
+            raise ValueError("Unknown research image; executable is not a registered exact profile or audited Broker-family build: " + str(exc)) from exc
+        manifest, phase = family_profile, "r-obs2-compatible-builds"
+    if family_profile is None:
+        manifest = verifier(data)
     directory = directory.resolve()
     verify_distribution(directory)
     for name in ("broker_observatory", "dev_command_trigger", "mr_observe", "observatory_version"):
@@ -100,13 +109,13 @@ def load_profile(directory: Path, candidate: Path):
             raise ValueError("Observatory already loaded; use a fresh process for this exact profile")
     sys.dont_write_bytecode = True  # Do not create external __pycache__ research artifacts.
     sys.path.insert(0, str(directory))
-    if image_hash==MERC_SHA256:
+    if manifest.get("compatibility_family"):
         _research_module(directory,'broker_observatory')
         observe=_research_module(directory,'mr_observe')
     else:
         observe = importlib.import_module("mr_observe")
     core, commands = observe.core, observe.commands
-    if image_hash in (MERC_SHA256,PRISTINE_SHA256):
+    if manifest.get("compatibility_family"):
         layout=manifest['observatory']
         for field,key in (('RETAIL_IMAGE_BASE','image_base'),('ACTIVE_LOG_SINK_RVA','active_log_sink_rva'),
                           ('DEBUG_SINK_VTABLE_RVA','debug_sink_vtable_rva'),('DEBUG_SINK_OBJECT_SIZE','debug_sink_object_size')):
@@ -118,16 +127,33 @@ def load_profile(directory: Path, candidate: Path):
         def parse_dump_bytes(raw, source=None):
             provenance = dict(source or {})
             if provenance.get("image_sha256") == image_hash:
-                provenance.update(build_profile=manifest["profile"],
-                                  broker_dump_variant=manifest["broker_dump_variant"])
-                if image_hash in (MERC_SHA256,PRISTINE_SHA256):
-                    provenance.update(vehicle_registry_profile=manifest['vehicle_registry_profile'],
-                        native_dump_post_results_safe=manifest['native_dump_post_results_safe'],
-                        legacy_loading_attract_present=manifest['legacy_loading_attract_present'])
+                provenance.update(build_profile=manifest.get('profile_id', manifest.get('profile')),
+                                  exact_profile_id=manifest.get('exact_profile_id'),
+                                  profile_origin=manifest.get('profile_origin', 'committed_exact'),
+                                  compatibility_family=manifest.get('compatibility_family'),
+                                  audit_version=manifest.get('audit_version'),
+                                  audit_fingerprint=manifest.get('audit_fingerprint'),
+                                  vehicle_registry_profile=manifest.get('vehicle_registry_profile', 'unknown'),
+                                  capabilities=manifest.get('capabilities', {}),
+                                  broker_dump_variant=manifest.get('broker_dump_variant', 'unknown'),
+                                  native_dump_post_results_safe=manifest.get('native_dump_post_results_safe'),
+                                  legacy_loading_attract_present=manifest.get('legacy_loading_attract_present'))
+                provenance.setdefault('exe_sha256', image_hash)
+                provenance.setdefault('exe_size', len(data))
             return original_parse(raw, provenance)
         core.parse_dump_bytes = parse_dump_bytes
     original_verify = observe.verify_executable
     def verify_executable(path):
+        if manifest.get("compatibility_family"):
+            from research_build_profiles import resolve_build
+            try:
+                current = Path(path).read_bytes()
+                current_profile = resolve_build(current)
+            except (OSError, ValueError) as exc:
+                raise observe.UserError("Executable failed the Broker compatibility-family audit.", str(exc)) from exc
+            if current_profile['sha256'] != image_hash or current_profile['audit_fingerprint'] != manifest['audit_fingerprint']:
+                raise observe.UserError("Executable changed after compatibility audit.", "Re-run with the current file.")
+            return
         try:
             original_verify(path)  # Retains basename, size, exact hash and file gates.
         except observe.UserError as exc:
@@ -146,24 +172,39 @@ def load_profile(directory: Path, candidate: Path):
     observe.save_config = lambda path, config: original_save(ignored_output(path), config)
     original_launcher = observe.setup_launcher
     observe.setup_launcher = lambda output, exe: original_launcher(ignored_output(output), exe)
-    observe.RESEARCH_BUILD_PROFILE=manifest['profile']
+    observe.RESEARCH_BUILD_PROFILE=manifest.get('profile_id', manifest.get('profile'))
+    observe.RESEARCH_BUILD_PROVENANCE={
+        'sha256': image_hash,
+        'exact_profile_id': manifest.get('exact_profile_id'),
+        'profile_origin': manifest.get('profile_origin', 'committed_exact'),
+        'compatibility_family': manifest.get('compatibility_family'),
+        'audit_version': manifest.get('audit_version'),
+        'audit_fingerprint': manifest.get('audit_fingerprint'),
+        'vehicle_registry_profile': manifest.get('vehicle_registry_profile', 'unknown'),
+        'capabilities': manifest.get('capabilities', {}),
+    }
     return observe
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--observatory", required=True, type=Path)
-    parser.add_argument("--candidate", required=True, type=Path)
+    parser.add_argument("--candidate", "--exe", dest="candidate", required=True, type=Path)
     parser.add_argument("arguments", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     arguments = args.arguments
     if arguments[:1] == ["--"]:
         arguments = arguments[1:]
     observe = load_profile(args.observatory, args.candidate)
-    print("R-AI exact profile:", observe.core.RETAIL_SHA256)
-    print('Build:',observe.RESEARCH_BUILD_PROFILE)
-    if observe.core.RETAIL_SHA256==MERC_SHA256:
-        print('INTERNAL research profile: fresh first active race only; post-Results native Dump unsafe; no Restart before capture.')
+    provenance = observe.RESEARCH_BUILD_PROVENANCE
+    print("Build SHA256:", observe.core.RETAIL_SHA256)
+    print("Exact profile:", provenance['exact_profile_id'] or 'locally-audited')
+    print("Compatibility family:", provenance['compatibility_family'] or 'exact-research-profile')
+    print("Vehicle registry:", provenance['vehicle_registry_profile'])
+    print("Native Dump:", provenance['capabilities'].get('native_dump', 'research-profile-specific'))
+    print("Post-Results Dump safe:", provenance['capabilities'].get('post_results_native_dump_safe', 'see exact research profile'))
+    if provenance['compatibility_family'] and provenance['capabilities'].get('post_results_native_dump_safe') is False:
+        print('Research guidance: first active-race capture only; do not invoke native Dump after Results.')
     return observe.main(["--exe", str(args.candidate.resolve()), *arguments])
 
 

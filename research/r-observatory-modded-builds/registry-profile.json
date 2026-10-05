@@ -1,5 +1,41 @@
 {
   "schema_version": 1,
+  "detection_fingerprints": {
+    "merc-id26": [
+      {
+        "name": "t1_local7_forward_hook",
+        "va": 4726304,
+        "length": 16,
+        "section": ".text",
+        "sha256": "64d8b40ff298b7c7e2387f77b062cc5efe2a961bca0039ca92182611c45656bf",
+        "semantics": "Hook branches T1/local7 through the bounded ID26 forward mapping."
+      },
+      {
+        "name": "id26_reverse_hook",
+        "va": 4726352,
+        "length": 16,
+        "section": ".text",
+        "sha256": "b5c267c6eb024316ffcd861c9c182a1600612f21bbff037b769cc6513be2cda6",
+        "semantics": "Hook branches physical ID26 through the bounded class/local reverse mapping."
+      },
+      {
+        "name": "t1_local7_forward_body",
+        "va": 6873920,
+        "length": 48,
+        "section": ".text",
+        "sha256": "2e6261fc62caa776cba498285e17715736091116708560529e6ffe8612eb7d72",
+        "semantics": "Forward mapping body returns absolute ID26 for class 0/local index 7."
+      },
+      {
+        "name": "id26_reverse_body",
+        "va": 6873968,
+        "length": 48,
+        "section": ".text",
+        "sha256": "f99384fadf6290f5a2a77a6ebf18b7a9ee3bc9a2e198d96c1d79adf0d6d866fb",
+        "semantics": "Reverse mapping body returns class 0/local index 7 for ID26."
+      }
+    ]
+  },
   "registries": {
     "pristine": {
       "physical_record_count": 26,

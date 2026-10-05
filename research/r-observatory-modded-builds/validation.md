@@ -1,6 +1,9 @@
 # Validation / evidence boundary
 
-**READY FOR HUMAN RUNTIME**, not a Mercedes live-observation pass.
+Historical R-OBS1 validation below records the evidence available at that
+phase. Current family-audit implementation and results are in
+[R-OBS2 validation](../r-obs2/validation.md); the direct mercv2 family and
+registry audit has now passed, while human Observatory captures remain pending.
 Base: closed R-AI1.2a4afcf52143c9b53a61ae5f59f1bdaabceb713594.
 R-AI2.1 and R-UI1 are not merged. Their independent closeouts are indexed here
 as commit metadata, not copied feature implementations.

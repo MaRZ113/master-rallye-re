@@ -1,5 +1,7 @@
 """Synthetic profile gates/oracles; no retail bytes or live process required."""
 import copy
+import contextlib
+import io
 import importlib.util
 import json
 import struct
@@ -53,6 +55,23 @@ class ProfileAudit(unittest.TestCase):
     def test_exact_registered_fixture(self):
         data,defs=fixture()
         with patch.object(b,'definitions',return_value=defs):self.assertEqual(b.identify(data)['profile'],'fixture')
+
+    def test_verify_build_cli_does_not_require_audit_only_flag(self):
+        exe=b.ROOT/'inputs/MRallye_merc.exe'
+        if not exe.exists():self.skipTest('tracked retail research executable is not present')
+        stdout=io.StringIO()
+        with patch.object(sys,'argv',['research_build_profiles.py','verify-build',str(exe)]), contextlib.redirect_stdout(stdout):
+            b.main()
+        self.assertIn('Compatibility family: retail-broker-v1',stdout.getvalue())
+        self.assertIn('Local profile: committed exact profile',stdout.getvalue())
+
+    def test_audit_only_cli_reports_independent_registry_detection(self):
+        exe=b.ROOT/'inputs/MRallye_merc.exe'
+        if not exe.exists():self.skipTest('tracked retail research executable is not present')
+        stdout=io.StringIO()
+        with patch.object(sys,'argv',['research_build_profiles.py','audit-build',str(exe),'--audit-only']), contextlib.redirect_stdout(stdout):
+            b.main()
+        self.assertIn('Vehicle registry: merc-id26',stdout.getvalue())
     def test_unknown_hash_rejected(self):
         data,defs=fixture();wrong=data[:-1]+b'X'
         with patch.object(b,'definitions',return_value=defs):
@@ -87,6 +106,64 @@ class ProfileAudit(unittest.TestCase):
         p=next(x for x in b.definitions()['profiles'] if x['sha256']==b.MERC_SHA256)
         self.assertFalse(p['native_dump_post_results_safe']);self.assertTrue(p['legacy_loading_attract_present'])
         self.assertEqual(p['vehicle_registry_profile'],'merc-id26')
+
+    def test_available_merc_v1_passes_family_and_registry_audits(self):
+        image=Path(b.ROOT/'inputs/MRallye_merc.exe')
+        if not image.is_file():self.skipTest('tracked merc v1 executable fixture unavailable')
+        report=b.audit_build(image.read_bytes())
+        self.assertTrue(report['anchor_compatible'])
+        self.assertEqual(report['compatibility_family'],'retail-broker-v1')
+        self.assertEqual(report['registry_profile'],'merc-id26')
+        self.assertTrue(report['capabilities']['broker_capture_active_race'])
+        self.assertFalse(report['capabilities']['post_results_native_dump_safe'])
+
+    def test_cosmetic_unknown_sha_audits_and_local_profile_reuses(self):
+        image=Path(b.ROOT/'inputs/MRallye_merc.exe')
+        if not image.is_file():self.skipTest('tracked merc v1 executable fixture unavailable')
+        data=bytearray(image.read_bytes());data[-1]^=1
+        with tempfile.TemporaryDirectory() as td:
+            cache=Path(td)/'build-profiles'
+            first=b.resolve_build(bytes(data),cache_root=cache)
+            self.assertEqual(first['profile_origin'],'locally_audited')
+            self.assertIsNone(first['exact_profile_id'])
+            self.assertEqual(first['compatibility_family'],'retail-broker-v1')
+            self.assertEqual(first['vehicle_registry_profile'],'merc-id26')
+            self.assertTrue(Path(first['local_profile_cache']).is_file())
+            second=b.resolve_build(bytes(data),cache_root=cache)
+            self.assertTrue(second['cache_reused'])
+            self.assertEqual(first['audit_fingerprint'],second['audit_fingerprint'])
+
+    def test_cache_is_bound_to_sha_and_changed_bytes_reaudit(self):
+        image=Path(b.ROOT/'inputs/MRallye_merc.exe')
+        if not image.is_file():self.skipTest('tracked merc v1 executable fixture unavailable')
+        data=bytearray(image.read_bytes());data[-1]^=1
+        with tempfile.TemporaryDirectory() as td:
+            cache=Path(td)/'build-profiles'
+            first=b.resolve_build(bytes(data),cache_root=cache)
+            changed=bytearray(data);changed[-2]^=1
+            audit=b.audit_build(bytes(changed))
+            self.assertIsNone(b._load_valid_cache(Path(first['local_profile_cache']),audit))
+            next_profile=b.resolve_build(bytes(changed),cache_root=cache)
+            self.assertNotEqual(first['sha256'],next_profile['sha256'])
+            self.assertFalse(next_profile['cache_reused'])
+
+    def test_critical_anchor_mutation_refuses_unknown_build(self):
+        image=Path(b.ROOT/'inputs/MRallye_merc.exe')
+        if not image.is_file():self.skipTest('tracked merc v1 executable fixture unavailable')
+        data=bytearray(image.read_bytes());anchor=b.definitions()['anchors'][0]
+        _raw,_section,offset=b.window(data,b.pe_layout(data),anchor['va'],anchor['length'])
+        data[offset]^=1
+        audit=b.audit_build(bytes(data))
+        self.assertFalse(audit['anchor_compatible'])
+        with self.assertRaisesRegex(ValueError,'failed structural family audit'):
+            b.resolve_build(bytes(data),write_local_profile=False)
+
+    def test_wrong_pe_machine_is_rejected(self):
+        image=Path(b.ROOT/'inputs/MRallye_merc.exe')
+        if not image.is_file():self.skipTest('tracked merc v1 executable fixture unavailable')
+        data=bytearray(image.read_bytes());pe=struct.unpack_from('<I',data,0x3c)[0]
+        struct.pack_into('<H',data,pe+4,0x8664)
+        with self.assertRaises(ValueError):b.audit_build(bytes(data))
 
 
 class RegistryOracle(unittest.TestCase):
@@ -153,6 +230,30 @@ class RuntimeOracle(unittest.TestCase):
     def test_inactive_slot_rejected(self):
         with self.assertRaises(ValueError):b.check_vehicle(snapshot(),'retail-merc-id26',4)
 
+    def test_unknown_registry_build_can_check_generic_broker_without_vehicle_claims(self):
+        image=Path(b.ROOT/'inputs/MRallye_merc.exe')
+        if not image.is_file():self.skipTest('tracked merc v1 executable fixture unavailable')
+        data=bytearray(image.read_bytes());data[0x81e20]^=1  # break only registry-map evidence, outside Broker anchors
+        build=b.resolve_build(bytes(data),write_local_profile=False)
+        self.assertEqual(build['compatibility_family'],'retail-broker-v1')
+        self.assertEqual(build['vehicle_registry_profile'],'unknown')
+        snap=dict(kind='master-rallye-broker-dump-snapshot',schema_version=1,
+                  source=dict(image_sha256=build['sha256'],image_size=build['size'],
+                      exe_sha256=build['sha256'],exe_size=build['size'],
+                      build_profile=build['profile_id'],
+                      profile_origin='locally_audited',compatibility_family=build['compatibility_family'],
+                      audit_version=build['audit_version'],audit_fingerprint=build['audit_fingerprint'],
+                      vehicle_registry_profile='unknown'),
+                  entries=[dict(path='Race/NumCars',value=1),
+                           dict(path='Race/Car0/CarID',value=27),
+                           dict(path='Race/Car0/PlayerType',value=1)])
+        result=b.check_broker_capture(snap,build)
+        self.assertEqual(result['status'],'BROKER_STRUCTURE_MATCH_ONLY')
+        self.assertEqual(result['participants'][0]['CarID'],27)
+        self.assertEqual(result['vehicle_semantics'],'NOT_CHECKED')
+        with self.assertRaisesRegex(ValueError,'UNKNOWN_REGISTRY_PROFILE'):
+            b.check_vehicle(snap,build,0)
+
 
 class AuditedAdapter(unittest.TestCase):
     def test_unknown_hash_rejected_before_external_import(self):
@@ -172,6 +273,7 @@ class AuditedAdapter(unittest.TestCase):
                 module=adapter._research_module(Path(td),'synthetic_names')
             try:
                 self.assertEqual(module.names('MRallye_merc.exe','MRallye.exe'),(True,False))
+                self.assertEqual(module.names('MRallye_mercv2.exe','MRallye_mercv2.exe'),(True,False))
                 self.assertEqual(module.names('unknown.exe','unknown.exe'),(False,True))
                 self.assertEqual((Path(td)/'synthetic_names.py').read_text(),src)
             finally:sys.modules.pop('synthetic_names',None)

@@ -6,14 +6,18 @@ The repository contains only tools, documentation, machine-readable forensic
 metadata, and synthetic test data. Original game resources remain external and
 read-only.
 
-## Exact modded research build support
+## Observatory build compatibility
 
-Internal Observatory/checker profile `retail-merc-id26` is **READY FOR HUMAN
-RUNTIME** for one exact unchanged Mercedes EXE. Broker format is unchanged;
-registry validity is build-specific. Public Observatory v0.1.0-beta remains
-pristine-only. Post-Results native Dump is unsafe for Mercedes; use the fresh
-active-race [handoff](research/r-observatory-modded-builds/runtime-handoff.md).
-[Compatibility](research/r-observatory-modded-builds/findings.md).
+R-OBS2 adds an internal, fail-closed `retail-broker-v1` structural compatibility
+family. A new executable SHA is accepted only after its PE layout and every
+required exact Broker/debug anchor pass; the exact SHA and derived capabilities
+are then cached locally under ignored `.research-output`. Vehicle registry
+recognition is independent and requires its own bounded fingerprints. Public
+Observatory v0.1.0-beta remains pristine-only. Native post-Results Dump remains
+unsafe for this family. The expected Mercedes F.2f binary passed the direct
+family and registry audit; human Observatory captures remain pending. See
+[R-OBS2 findings](research/r-obs2/findings.md)
+and the [compatibility-family audit](research/r-obs2/compatibility-family.md).
 
 Independent R-AI1.2a, R-AI2.1 normal Quick Race6/7/8, and R-UI1 One..Seven/Four
 end-to-end are now closed by human evidence. See the cross-branch

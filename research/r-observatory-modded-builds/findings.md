@@ -6,7 +6,11 @@ Broker expansion, executable patching, a new vehicle import or integration.
 Input `inputs/MRallye_merc.exe` is unchanged: SHA256
 `1fb0a1f1ba02cd05fa25f0c94558cf1b281fd12affcdc37bb3c1ca538e6c65af`,
 3,121,214 bytes. Its exact INTERNAL profile is `retail-merc-id26`.
-Pristine remains a distinct exact profile. Unknown hashes fail closed.
+Pristine remains a distinct exact profile. **Historical R-OBS1 status:** unknown
+hashes were rejected. R-OBS2 supersedes that policy only for its internally
+audited `retail-broker-v1` family, with exact PE/layout and anchor fingerprints,
+local SHA-bound profiles, and an independent vehicle-registry verdict. Public
+Observatory v0.1.0-beta remains pristine-only. See [R-OBS2](../r-obs2/findings.md).
 
 Broker stores integer CarID26 without a new type. The build's registry makes
 ID26 meaningful; Observatory verifies the executable; the build-specific oracle
