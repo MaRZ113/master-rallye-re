@@ -1,0 +1,65 @@
+{
+  "phase": "R-UI1",
+  "status": "READY FOR HUMAN RUNTIME",
+  "runtime_full_pass": false,
+  "baseline": {
+    "passed": 334,
+    "failed": 0,
+    "skipped": 0
+  },
+  "final_synthetic": {
+    "passed": 351,
+    "failed": 0,
+    "skipped": 0
+  },
+  "native": {
+    "emulation": {
+      "status": "STATIC_NATIVE_R_UI1_MATCH_ONLY",
+      "passed": 107,
+      "failed": 0,
+      "skipped": 0,
+      "report_sha256": "37a5100d18ed2ec7da6bd6f8205689ac2c7831eba093c4eaaf6223c597546d7a"
+    },
+    "fixed-regression": {
+      "status": "STATIC_X86_EMULATION_PASS",
+      "passed": 248,
+      "failed": 0,
+      "skipped": 0,
+      "report_sha256": "3ac7c6a7ce5742d759a67082560a0d0fb55642093725052b688b4301d7167314"
+    },
+    "general-regression": {
+      "status": "STATIC_NATIVE_CHOOSER_EMULATION_PASS",
+      "passed": 94,
+      "failed": 0,
+      "skipped": 0,
+      "report_sha256": "c7a77268366db3f7995a5fb53594a6c8c562b9a3c272d6d7ca630d71ceffdbb1"
+    },
+    "r-ai1-2-regression": {
+      "status": "STATIC_NATIVE_R_AI12_PASS",
+      "passed": 824,
+      "failed": 0,
+      "skipped": 0,
+      "report_sha256": "f6da92ece3134543ef8efd0caf2d798055b7f00479ccd4d272f61b66bc437406"
+    },
+    "five-regression": {
+      "status": "STATIC_FIVE_CAR_EMULATION_PASS",
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0,
+      "report_sha256": "8118c195e94b28cd106cb4c0c091655206d49826fda4b73ab1ed1c982d06937c"
+    },
+    "hardening-regression": {
+      "status": "STATIC_NATIVE_HARDENING_EMULATION_PASS",
+      "passed": 52,
+      "failed": 0,
+      "skipped": 0,
+      "report_sha256": "f678e6e88d4ceffa098bb0067e206088cec538ac53b0044dd24f27790ade1f4c"
+    }
+  },
+  "candidate_verify": "PASS",
+  "inverse": "PASS",
+  "reproduction": "PASS",
+  "adapter_pins": "UNCHANGED / PASS",
+  "compileall": "PASS",
+  "diff_check": "PASS"
+}

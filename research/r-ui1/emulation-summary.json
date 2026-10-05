@@ -1,0 +1,13 @@
+{
+  "status": "STATIC_NATIVE_R_UI1_MATCH_ONLY",
+  "passed": 107,
+  "failed": 0,
+  "skipped": 0,
+  "runtime_full_pass": false,
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "candidate_sha256": "5507f3ebc474931084f9ddf2b06a3f7afe186c4e29a2dbd81519b86d00f32966",
+  "project_saved": false,
+  "limits": "Actual native locale/list growth/navigation/arrows/index publication; typed string/Broker/heap/save/input-controller boundaries. No visible layout or race behavior proof.",
+  "raw_report_sha256": "37a5100d18ed2ec7da6bd6f8205689ac2c7831eba093c4eaaf6223c597546d7a",
+  "raw_report_committed": false
+}

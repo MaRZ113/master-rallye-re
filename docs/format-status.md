@@ -36,6 +36,17 @@ entries. This is **CAPACITY CLUE â€” NOT RUNTIME PARTICIPANT-CAPACITY PROOF**,
 now characterized statically in R-AI2. It proves neither engine/physics/HUD capacity8 nor eight valid
 result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
 
+## R-UI1 native opponent-count frontend
+
+READY FOR HUMAN RUNTIME. Native gaLocal bank0x40 already contains One..Seven in
+six retail languages. The UI candidate appends four labels to its native StringList
+and changes only the Opponents right-arrow maximum index from2 to6. Navigation is
+bounded by actual list length; Next publishes index+1 and preserves native
+PlayerState persistence. 107 bounded native cases pass, including original Three
+->3 AI and visible Four ->4 AI/5 total. No hidden count shim, capacity patch or DLL.
+Five..Seven are menu-only; Stock T1 pool exhaustion is separate from capacity.
+See research/r-ui1/opponents-ui-map.md and runtime-handoff.md. No R-AI2.1 merge.
+
 ## R-AI2 five-car participant capacity
 
 **CLOSED / CONFIRMED_BY_RUNTIME — EXACT FIVE-CAR TARGET.** Ordinary offline

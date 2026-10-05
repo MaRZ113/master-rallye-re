@@ -1,0 +1,130 @@
+{
+  "phase": "R-UI1",
+  "common_base": "8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10",
+  "profile": "retail-r-ui1-opponents-seven-hardened",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "output_sha256": "5507f3ebc474931084f9ddf2b06a3f7afe186c4e29a2dbd81519b86d00f32966",
+  "size": 3121214,
+  "status": "PREPARED_RUNTIME_UNTESTED",
+  "broker_dump_variant": "native_hardened",
+  "list_bank": 64,
+  "list_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "semantic_ai_counts": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "hidden_count_shim": false,
+  "randomizer_dependency": false,
+  "engine_arrays_changed": false,
+  "race_setup_changed": false,
+  "loose_data": [],
+  "human_safe_start_max_ai": 4,
+  "human_menu_only_ai": [
+    5,
+    6,
+    7
+  ],
+  "ranges": [
+    {
+      "offset": 536,
+      "va": null,
+      "rva": null,
+      "purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+      "length": 4,
+      "original_sha256": "154b25bf31b9b6073fd369724b4580023ff893043eccb5639521775a84474ee7",
+      "replacement_sha256": "92e64c27bf608e54b848266d32190c1061da2b650b07f049cce8590ba8f34112"
+    },
+    {
+      "offset": 413545,
+      "va": 4607849,
+      "rva": 413545,
+      "purpose": "loading_attract_legacy_media_check_neutralization",
+      "continuation": 4607814,
+      "evidence": "464E40 odd counter -> stat/size failure -> 464F69; stock success sets Starter1",
+      "length": 5,
+      "original_sha256": "ac2eada1e8b2d562a513d4a266301e3b0aff31eebbefe5c50050bb9cce288280",
+      "replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2"
+    },
+    {
+      "va": 4693451,
+      "offset": 499147,
+      "purpose": "After stock three labels append localized Four..Seven to the same native list",
+      "length": 8,
+      "original_sha256": "cfbe46fb21284177b6faf40228edb6c70d07d2e94d39f912d57eeaf6100e3fea",
+      "replacement_sha256": "90339fae8b843f0671a4a22901223e27f9ce252ce8444168525ecf6612869c22"
+    },
+    {
+      "va": 4694828,
+      "offset": 500524,
+      "purpose": "Opponent right-arrow availability: highest zero-based index6; other mode/difficulty guards unchanged",
+      "length": 3,
+      "original_sha256": "8ba9ef1ae463015c58907bbb93a9614160c15e55f246dc682c8c04a65491e0b3",
+      "replacement_sha256": "f96ae196daa7f5d35586381fd3023ebc84da97a6b15a993a55f24cacd47f2b6c"
+    },
+    {
+      "offset": 2105374,
+      "va": 6299678,
+      "rva": 2105374,
+      "purpose": "broker_dump_null_stringlist_guard",
+      "continuation": 6873760,
+      "evidence": "4DE1C0 accepts NULL; 47D340/47D400 set NULL lists; Dump dereferences EBX",
+      "length": 6,
+      "original_sha256": "3867f4ec94ea89a368812c6fc6b33023dbe7d5b88a46d0926d82215c247bec1a",
+      "replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0"
+    },
+    {
+      "offset": 2105683,
+      "va": 6299987,
+      "rva": 2105683,
+      "purpose": "broker_dump_null_xmldata_guard",
+      "continuation": 6873792,
+      "evidence": "4DDA10 explicitly returns NULL; 4DE480/4D84C0 accept it, editor forwards getter",
+      "length": 7,
+      "original_sha256": "82dfbc8e7b717dc51edf77e2ec0f5e6ad90be1553b3cb399b3cfb79b059fe0fb",
+      "replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d"
+    },
+    {
+      "offset": 2679456,
+      "va": 6873760,
+      "rva": 2679456,
+      "purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+      "continuation": 6299684,
+      "evidence": "NULL -> 602040 closes brace, restores indent and continues next entry",
+      "length": 19,
+      "original_sha256": "d6fd62f5ce537d90ea3ea45841b17f34d727bcbc4128748cba14fb87c0ffd9d1",
+      "replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5"
+    },
+    {
+      "offset": 2679488,
+      "va": 6873792,
+      "rva": 2679488,
+      "purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+      "continuation": 6299994,
+      "evidence": "NULL -> 60218E; preserve flags; no text grammar change",
+      "length": 28,
+      "original_sha256": "3addfb141cd7c9c4c6543a82191a3707ac29c7a041217782e61d4d91c691aee8",
+      "replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171"
+    },
+    {
+      "va": 6873856,
+      "offset": 2679552,
+      "purpose": "Native localization and StringList append/temporary cleanup; replay displaced MOVs",
+      "length": 92,
+      "original_sha256": "62b14867e4e79d50673d2f7474335229f54c478f56d2a910235e1953c6d29206",
+      "replacement_sha256": "f6f235c9a53e0e4b96175ef122a725031cf7a3e0dcac3dba96c626cf72e4d956"
+    }
+  ]
+}

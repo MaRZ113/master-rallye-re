@@ -24,6 +24,14 @@ uses existing engine storage; no physical participant array expansion was needed
 Six/seven/eight/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
 and [capacity map](research/r-ai2/capacity-map.md).
 
+R-UI1 independent opponent selector is **READY FOR HUMAN RUNTIME**: native
+localized One..Seven list and numeric index+1 publication, without a hidden count
+shim or randomizer DLL. Only one-human Four -> five total is authorized for a
+race test; Five..Seven remain menu-only until separate capacity/roster integration.
+See [UI map](research/r-ui1/opponents-ui-map.md) and
+[handoff](research/r-ui1/runtime-handoff.md). R-AI2.1 remains on its independent
+branch; no combined candidate is built.
+
 R-AI1.2 is **CLOSED / CONFIRMED_BY_RUNTIME**: Stock/Mixed/Diverse, Quick Race
 1..4 AI, config reload at new-roster boundaries, Challenge opt-in completion,
 Cup/Invitation stage reuse and Master native fresh-process persistence. No
