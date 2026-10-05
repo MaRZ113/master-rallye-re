@@ -1,0 +1,915 @@
+{
+  "build_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "static_imports": [
+    {
+      "dll": "KERNEL32.dll",
+      "name": "LoadLibraryA",
+      "iat_va": "0x0068F0B8",
+      "iat_rva": "0x0028F0B8",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "005d3762",
+          "type": "READ",
+          "owner": "005d3750",
+          "instruction": "CALL dword ptr [0x0068f0b8]"
+        },
+        {
+          "from_va": "005e33d9",
+          "type": "READ",
+          "owner": "005e311f",
+          "instruction": "CALL dword ptr [0x0068f0b8]"
+        },
+        {
+          "from_va": "005a283e",
+          "type": "READ",
+          "owner": "005a2830",
+          "instruction": "CALL dword ptr [0x0068f0b8]"
+        }
+      ]
+    },
+    {
+      "dll": "KERNEL32.dll",
+      "name": "GetProcAddress",
+      "iat_va": "0x0068F0C0",
+      "iat_rva": "0x0028F0C0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "005d376e",
+          "type": "READ",
+          "owner": "005d3750",
+          "instruction": "MOV ESI,dword ptr [0x0068f0c0]"
+        },
+        {
+          "from_va": "005e340f",
+          "type": "READ",
+          "owner": "005e311f",
+          "instruction": "CALL dword ptr [0x0068f0c0]"
+        },
+        {
+          "from_va": "005e3436",
+          "type": "READ",
+          "owner": "005e311f",
+          "instruction": "CALL dword ptr [0x0068f0c0]"
+        },
+        {
+          "from_va": "005c7747",
+          "type": "READ",
+          "owner": "005c7732",
+          "instruction": "CALL dword ptr [0x0068f0c0]"
+        },
+        {
+          "from_va": "005aa52d",
+          "type": "READ",
+          "owner": "005aa4d0",
+          "instruction": "MOV EDI,dword ptr [0x0068f0c0]"
+        }
+      ]
+    },
+    {
+      "dll": "DDRAW.dll",
+      "name": "DirectDrawCreate",
+      "iat_va": "0x0068F018",
+      "iat_rva": "0x0028F018",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "supplementary DirectDraw primary surface",
+      "callers": [
+        {
+          "va": "0055adc6",
+          "owner": "0055ab90"
+        }
+      ],
+      "thunk_va": "0x005D5220"
+    },
+    {
+      "dll": "d3d8.dll",
+      "name": "Direct3DCreate8",
+      "iat_va": "0x0068F414",
+      "iat_rva": "0x0028F414",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "D3D8 creation",
+      "callers": [
+        {
+          "va": "0055905b",
+          "owner": "00558ee0"
+        }
+      ],
+      "thunk_va": "0x005D5244"
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "SetWindowPos",
+      "iat_va": "0x0068F2C0",
+      "iat_rva": "0x0028F2C0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "0064dff1",
+          "type": "READ",
+          "owner": "0064df90",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "0064e0a9",
+          "type": "READ",
+          "owner": "0064e090",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "0064e13b",
+          "type": "READ",
+          "owner": "0064e0c0",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "005592ad",
+          "type": "READ",
+          "owner": "00559260",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "0055ad13",
+          "type": "READ",
+          "owner": "0055ab90",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "0055af24",
+          "type": "READ",
+          "owner": "0055aed0",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "0064e199",
+          "type": "READ",
+          "owner": "0064e180",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "006817d2",
+          "type": "READ",
+          "owner": "006817b0",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "00660f01",
+          "type": "READ",
+          "owner": null,
+          "instruction": "MOV EDI,dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "00681870",
+          "type": "READ",
+          "owner": "00681810",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "006817fd",
+          "type": "READ",
+          "owner": "006817e0",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "0066f718",
+          "type": "READ",
+          "owner": "0066f670",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "006717b8",
+          "type": "READ",
+          "owner": "00671790",
+          "instruction": "MOV EDI,dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "006718d0",
+          "type": "READ",
+          "owner": "00671790",
+          "instruction": "MOV EDI,dword ptr [0x0068f2c0]"
+        },
+        {
+          "from_va": "00666f7d",
+          "type": "READ",
+          "owner": "00666e10",
+          "instruction": "CALL dword ptr [0x0068f2c0]"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "CreateWindowExA",
+      "iat_va": "0x0068F2D8",
+      "iat_rva": "0x0028F2D8",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "0064efcc",
+          "type": "READ",
+          "owner": "0064ef10",
+          "instruction": "CALL dword ptr [0x0068f2d8]"
+        },
+        {
+          "from_va": "005591dc",
+          "type": "READ",
+          "owner": "005590c0",
+          "instruction": "CALL dword ptr [0x0068f2d8]"
+        },
+        {
+          "from_va": "0067fb06",
+          "type": "READ",
+          "owner": "0067fac0",
+          "instruction": "CALL dword ptr [0x0068f2d8]"
+        },
+        {
+          "from_va": "0068029b",
+          "type": "READ",
+          "owner": "00680250",
+          "instruction": "CALL dword ptr [0x0068f2d8]"
+        },
+        {
+          "from_va": "0068178d",
+          "type": "READ",
+          "owner": "00681740",
+          "instruction": "CALL dword ptr [0x0068f2d8]"
+        },
+        {
+          "from_va": "006819ec",
+          "type": "READ",
+          "owner": "006819b0",
+          "instruction": "CALL dword ptr [0x0068f2d8]"
+        },
+        {
+          "from_va": "00681b5b",
+          "type": "READ",
+          "owner": "00681b20",
+          "instruction": "CALL dword ptr [0x0068f2d8]"
+        },
+        {
+          "from_va": "00681cb6",
+          "type": "READ",
+          "owner": "00681c70",
+          "instruction": "CALL dword ptr [0x0068f2d8]"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "SetWindowLongA",
+      "iat_va": "0x0068F2DC",
+      "iat_rva": "0x0028F2DC",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "00559279",
+          "type": "READ",
+          "owner": "00559260",
+          "instruction": "MOV EDI,dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "005591f5",
+          "type": "READ",
+          "owner": "005590c0",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "0055aee7",
+          "type": "READ",
+          "owner": "0055aed0",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "0055af08",
+          "type": "READ",
+          "owner": "0055aed0",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "0067f717",
+          "type": "READ",
+          "owner": "0067f700",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "0064e1cc",
+          "type": "READ",
+          "owner": "0064e1b0",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "0064db9e",
+          "type": "READ",
+          "owner": "0064db80",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "0064e1fc",
+          "type": "READ",
+          "owner": "0064e1e0",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "0064f00e",
+          "type": "READ",
+          "owner": "0064efe0",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        },
+        {
+          "from_va": "0068140f",
+          "type": "READ",
+          "owner": "006813e0",
+          "instruction": "CALL dword ptr [0x0068f2dc]"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "GetWindowRect",
+      "iat_va": "0x0068F2E4",
+      "iat_rva": "0x0028F2E4",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "00581f5e",
+          "type": "READ",
+          "owner": "00581dc0",
+          "instruction": "CALL dword ptr [0x0068f2e4]"
+        },
+        {
+          "from_va": "00581867",
+          "type": "READ",
+          "owner": "00581590",
+          "instruction": "CALL dword ptr [0x0068f2e4]"
+        },
+        {
+          "from_va": "0064de4c",
+          "type": "READ",
+          "owner": "0064de40",
+          "instruction": "CALL dword ptr [0x0068f2e4]"
+        },
+        {
+          "from_va": "0064dfae",
+          "type": "READ",
+          "owner": "0064df90",
+          "instruction": "CALL dword ptr [0x0068f2e4]"
+        },
+        {
+          "from_va": "0064e0d2",
+          "type": "READ",
+          "owner": "0064e0c0",
+          "instruction": "MOV EDI,dword ptr [0x0068f2e4]"
+        },
+        {
+          "from_va": "0055922c",
+          "type": "READ",
+          "owner": "005590c0",
+          "instruction": "CALL dword ptr [0x0068f2e4]"
+        },
+        {
+          "from_va": "0064ddeb",
+          "type": "READ",
+          "owner": "0064dde0",
+          "instruction": "MOV EDI,dword ptr [0x0068f2e4]"
+        },
+        {
+          "from_va": "0055a9de",
+          "type": "READ",
+          "owner": null,
+          "instruction": "CALL dword ptr [0x0068f2e4]"
+        },
+        {
+          "from_va": "0055a5c2",
+          "type": "READ",
+          "owner": null,
+          "instruction": "CALL dword ptr [0x0068f2e4]"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "GetClientRect",
+      "iat_va": "0x0068F2E8",
+      "iat_rva": "0x0028F2E8",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "0064df9f",
+          "type": "READ",
+          "owner": "0064df90",
+          "instruction": "CALL dword ptr [0x0068f2e8]"
+        },
+        {
+          "from_va": "0055923d",
+          "type": "READ",
+          "owner": "005590c0",
+          "instruction": "CALL dword ptr [0x0068f2e8]"
+        },
+        {
+          "from_va": "0064dd1c",
+          "type": "READ",
+          "owner": "0064dd10",
+          "instruction": "CALL dword ptr [0x0068f2e8]"
+        },
+        {
+          "from_va": "0055a9e9",
+          "type": "READ",
+          "owner": null,
+          "instruction": "CALL dword ptr [0x0068f2e8]"
+        },
+        {
+          "from_va": "0055a5cd",
+          "type": "READ",
+          "owner": null,
+          "instruction": "CALL dword ptr [0x0068f2e8]"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "GetClassLongA",
+      "iat_va": "0x0068F2F8",
+      "iat_rva": "0x0028F2F8",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "0055ad71",
+          "type": "READ",
+          "owner": "0055ab90",
+          "instruction": "CALL dword ptr [0x0068f2f8]"
+        },
+        {
+          "from_va": "0055aea2",
+          "type": "READ",
+          "owner": "0055ae40",
+          "instruction": "CALL dword ptr [0x0068f2f8]"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "SetCursor",
+      "iat_va": "0x0068F2FC",
+      "iat_rva": "0x0028F2FC",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": [
+        {
+          "from_va": "0055a685",
+          "type": "READ",
+          "owner": null,
+          "instruction": "CALL dword ptr [0x0068f2fc]"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "ReleaseDC",
+      "iat_va": "0x0068F378",
+      "iat_rva": "0x0028F378",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": []
+    },
+    {
+      "dll": "USER32.dll",
+      "name": "GetDC",
+      "iat_va": "0x0068F37C",
+      "iat_rva": "0x0028F37C",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "loader/presentation/window support",
+      "callers": []
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "GetObjectA",
+      "iat_va": "0x0068F030",
+      "iat_rva": "0x0028F030",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005daab2",
+          "type": "READ",
+          "owner": "005daaa3",
+          "instruction": "CALL dword ptr [0x0068f030]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "CreateFontA",
+      "iat_va": "0x0068F034",
+      "iat_rva": "0x0028F034",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "00652df8",
+          "type": "READ",
+          "owner": "00652dc0",
+          "instruction": "CALL dword ptr [0x0068f034]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "GetTextExtentPoint32A",
+      "iat_va": "0x0068F038",
+      "iat_rva": "0x0028F038",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "0064ece2",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f038]"
+        },
+        {
+          "from_va": "0064ecf7",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f038]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "DeleteDC",
+      "iat_va": "0x0068F03C",
+      "iat_rva": "0x0028F03C",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005ec56c",
+          "type": "READ",
+          "owner": "005ec4d6",
+          "instruction": "CALL dword ptr [0x0068f03c]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "SelectObject",
+      "iat_va": "0x0068F040",
+      "iat_rva": "0x0028F040",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005ec76b",
+          "type": "READ",
+          "owner": "005ec5c0",
+          "instruction": "CALL dword ptr [0x0068f040]"
+        },
+        {
+          "from_va": "005ec92d",
+          "type": "READ",
+          "owner": "005ec87d",
+          "instruction": "CALL dword ptr [0x0068f040]"
+        },
+        {
+          "from_va": "005ecaad",
+          "type": "READ",
+          "owner": "005ec87d",
+          "instruction": "CALL dword ptr [0x0068f040]"
+        },
+        {
+          "from_va": "0064ec83",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f040]"
+        },
+        {
+          "from_va": "0064ed7d",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f040]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "CreateFontIndirectA",
+      "iat_va": "0x0068F044",
+      "iat_rva": "0x0028F044",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005dfbd1",
+          "type": "READ",
+          "owner": "005dfbaa",
+          "instruction": "CALL dword ptr [0x0068f044]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "SetBkColor",
+      "iat_va": "0x0068F048",
+      "iat_rva": "0x0028F048",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005ec74e",
+          "type": "READ",
+          "owner": "005ec5c0",
+          "instruction": "CALL dword ptr [0x0068f048]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "SetBkMode",
+      "iat_va": "0x0068F04C",
+      "iat_rva": "0x0028F04C",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005ec744",
+          "type": "READ",
+          "owner": "005ec5c0",
+          "instruction": "CALL dword ptr [0x0068f04c]"
+        },
+        {
+          "from_va": "0064ec6f",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f04c]"
+        },
+        {
+          "from_va": "0064ed89",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f04c]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "SetTextColor",
+      "iat_va": "0x0068F050",
+      "iat_rva": "0x0028F050",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005ec75c",
+          "type": "READ",
+          "owner": "005ec5c0",
+          "instruction": "CALL dword ptr [0x0068f050]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "CreateCompatibleDC",
+      "iat_va": "0x0068F054",
+      "iat_rva": "0x0028F054",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005ec709",
+          "type": "READ",
+          "owner": "005ec5c0",
+          "instruction": "CALL dword ptr [0x0068f054]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "CreateDIBSection",
+      "iat_va": "0x0068F058",
+      "iat_rva": "0x0028F058",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "005ec725",
+          "type": "READ",
+          "owner": "005ec5c0",
+          "instruction": "CALL dword ptr [0x0068f058]"
+        },
+        {
+          "from_va": "005eca96",
+          "type": "READ",
+          "owner": "005ec87d",
+          "instruction": "CALL dword ptr [0x0068f058]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "GetStockObject",
+      "iat_va": "0x0068F05C",
+      "iat_rva": "0x0028F05C",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "0064ef60",
+          "type": "READ",
+          "owner": "0064ef10",
+          "instruction": "CALL dword ptr [0x0068f05c]"
+        },
+        {
+          "from_va": "0055914a",
+          "type": "READ",
+          "owner": "005590c0",
+          "instruction": "CALL dword ptr [0x0068f05c]"
+        },
+        {
+          "from_va": "0064ec7b",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f05c]"
+        },
+        {
+          "from_va": "0064ed26",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f05c]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "DeleteObject",
+      "iat_va": "0x0068F060",
+      "iat_rva": "0x0028F060",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "00652dca",
+          "type": "READ",
+          "owner": "00652dc0",
+          "instruction": "CALL dword ptr [0x0068f060]"
+        },
+        {
+          "from_va": "005dfac2",
+          "type": "READ",
+          "owner": "005dfabb",
+          "instruction": "CALL dword ptr [0x0068f060]"
+        },
+        {
+          "from_va": "005dfad3",
+          "type": "READ",
+          "owner": "005dfac9",
+          "instruction": "CALL dword ptr [0x0068f060]"
+        },
+        {
+          "from_va": "005dfb7c",
+          "type": "READ",
+          "owner": "005dfb6b",
+          "instruction": "CALL dword ptr [0x0068f060]"
+        },
+        {
+          "from_va": "005ec55e",
+          "type": "READ",
+          "owner": "005ec4d6",
+          "instruction": "CALL dword ptr [0x0068f060]"
+        },
+        {
+          "from_va": "005ecabb",
+          "type": "READ",
+          "owner": "005ec87d",
+          "instruction": "CALL dword ptr [0x0068f060]"
+        },
+        {
+          "from_va": "00652daa",
+          "type": "READ",
+          "owner": "00652da0",
+          "instruction": "CALL dword ptr [0x0068f060]"
+        },
+        {
+          "from_va": "00652e1a",
+          "type": "READ",
+          "owner": "00652e10",
+          "instruction": "CALL dword ptr [0x0068f060]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "TextOutA",
+      "iat_va": "0x0068F064",
+      "iat_rva": "0x0028F064",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": [
+        {
+          "from_va": "0064ed4b",
+          "type": "READ",
+          "owner": "0064ec50",
+          "instruction": "CALL dword ptr [0x0068f064]"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "name": "GetTextMetricsA",
+      "iat_va": "0x0068F068",
+      "iat_rva": "0x0028F068",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "PE import directory",
+      "confidence": "exact import; caller role checked separately",
+      "role": "font/text or linked D3DX GDI helpers",
+      "callers": []
+    }
+  ],
+  "dynamic_graphics_exports": [
+    {
+      "name": "ValidateVertexShader",
+      "iat_va": null,
+      "loader_iat_va": "0x0068F0B8",
+      "resolver_iat_va": "0x0068F0C0",
+      "call_site_va": "0x005E340F",
+      "call_site_rva": "0x001E340F",
+      "owner_va": "0x005E311F",
+      "role": "linked D3DX assembler optional validation; game reachability unknown",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "Ghidra assembler body"
+    },
+    {
+      "name": "ValidatePixelShader",
+      "iat_va": null,
+      "loader_iat_va": "0x0068F0B8",
+      "resolver_iat_va": "0x0068F0C0",
+      "call_site_va": "0x005E3436",
+      "call_site_rva": "0x001E3436",
+      "owner_va": "0x005E311F",
+      "role": "linked D3DX assembler optional validation; game reachability unknown",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "Ghidra assembler body"
+    }
+  ],
+  "gamma": "No gamma import; no reviewed SetGammaRamp call. Absence is coverage-limited."
+}

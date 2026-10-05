@@ -1,0 +1,225 @@
+interface	method	slot	offset	VA	RVA	returnVA	returnRVA	owner	role
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0053F6E9	0x0013F6E9	0x0053F6EF	0x0013F6EF	0x0053F590	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0053F767	0x0013F767	0x0053F76D	0x0013F76D	0x0053F590	renderer API / resource identity
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0053F7DD	0x0013F7DD	0x0053F7E3	0x0013F7E3	0x0053F590	renderer API / resource identity
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0053F857	0x0013F857	0x0053F85D	0x0013F85D	0x0053F590	renderer API / resource identity
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0053F921	0x0013F921	0x0053F927	0x0013F927	0x0053F8B0	cached renderer state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0053F9C8	0x0013F9C8	0x0053F9CE	0x0013F9CE	0x0053F930	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x0053FA6F	0x0013FA6F	0x0053FA75	0x0013FA75	0x0053F9E0	cached renderer state
+IDirect3DDevice8	CreateTexture	20	0x00000050	0x005589CD	0x001589CD	0x005589D0	0x001589D0	0x005587E0	resource creation/recreation
+IDirect3D8	Release	2	0x00000008	0x00559094	0x00159094	0x00559097	0x00159097	0x00558EE0	renderer API / resource identity
+IDirect3D8	GetAdapterCount	4	0x00000010	0x005593A9	0x001593A9	0x005593AC	0x001593AC	0x00559340	device manager/frame lifecycle
+IDirect3D8	GetAdapterIdentifier	5	0x00000014	0x00559414	0x00159414	0x00559417	0x00159417	0x00559340	device manager/frame lifecycle
+IDirect3D8	GetAdapterDisplayMode	8	0x00000020	0x00559425	0x00159425	0x00559428	0x00159428	0x00559340	device manager/frame lifecycle
+IDirect3D8	GetAdapterModeCount	6	0x00000018	0x0055947A	0x0015947A	0x0055947D	0x0015947D	0x00559340	device manager/frame lifecycle
+IDirect3D8	EnumAdapterModes	7	0x0000001C	0x0055951B	0x0015951B	0x0055951E	0x0015951E	0x00559340	device manager/frame lifecycle
+IDirect3D8	GetDeviceCaps	13	0x00000034	0x0055972D	0x0015972D	0x00559730	0x00159730	0x00559340	device manager/frame lifecycle
+IDirect3D8	CheckDeviceType	9	0x00000024	0x005597D8	0x001597D8	0x005597DB	0x001597DB	0x00559340	device manager/frame lifecycle
+IDirect3D8	CheckDeviceFormat	10	0x00000028	0x00559865	0x00159865	0x00559868	0x00159868	0x00559340	device manager/frame lifecycle
+IDirect3D8	CheckDeviceFormat	10	0x00000028	0x0055A057	0x0015A057	0x0055A05A	0x0015A05A	0x0055A030	device manager/frame lifecycle
+IDirect3D8	CheckDepthStencilMatch	12	0x00000030	0x0055A074	0x0015A074	0x0055A077	0x0015A077	0x0055A030	device manager/frame lifecycle
+IDirect3D8	CreateDevice	15	0x0000003C	0x0055ACD7	0x0015ACD7	0x0055ACDA	0x0015ACDA	0x0055AB90	device manager/frame lifecycle
+IDirect3DDevice8	GetDeviceCaps	7	0x0000001C	0x0055AD22	0x0015AD22	0x0055AD25	0x0015AD25	0x0055AB90	device manager/frame lifecycle
+IDirect3DDevice8	GetBackBuffer	16	0x00000040	0x0055AD3C	0x0015AD3C	0x0055AD3F	0x0015AD3F	0x0055AB90	device manager/frame lifecycle
+IDirect3DDevice8	ShowCursor	12	0x00000030	0x0055AD7E	0x0015AD7E	0x0055AD81	0x0015AD81	0x0055AB90	device manager/frame lifecycle
+IDirect3DDevice8	Reset	14	0x00000038	0x0055AE57	0x0015AE57	0x0055AE5A	0x0015AE5A	0x0055AE40	device manager/frame lifecycle
+IDirect3DDevice8	GetBackBuffer	16	0x00000040	0x0055AE6D	0x0015AE6D	0x0055AE70	0x0015AE70	0x0055AE40	device manager/frame lifecycle
+IDirect3DDevice8	ShowCursor	12	0x00000030	0x0055AEB0	0x0015AEB0	0x0055AEB3	0x0015AEB3	0x0055AE40	device manager/frame lifecycle
+IDirect3DDevice8	TestCooperativeLevel	3	0x0000000C	0x0055AFB3	0x0015AFB3	0x0055AFB6	0x0015AFB6	0x0055AF50	device manager/frame lifecycle
+IDirect3D8	GetAdapterDisplayMode	8	0x00000020	0x0055B006	0x0015B006	0x0055B009	0x0015B009	0x0055AF50	device manager/frame lifecycle
+IDirect3DDevice8	Present	15	0x0000003C	0x0055B0DE	0x0015B0DE	0x0055B0E1	0x0015B0E1	0x0055B0D0	device manager/frame lifecycle
+IDirect3DDevice8	Release	2	0x00000008	0x0055B11A	0x0015B11A	0x0055B11D	0x0015B11D	0x0055B0F0	renderer API / resource identity
+IDirect3DDevice8	SetViewport	40	0x000000A0	0x0056148B	0x0016148B	0x00561491	0x00161491	0x005613E0	renderer API / resource identity
+IDirect3DDevice8	SetTransform	37	0x00000094	0x00561A20	0x00161A20	0x00561A26	0x00161A26	0x005614A0	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x00561DDA	0x00161DDA	0x00561DE0	0x00161DE0	0x00561A40	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x00561ECD	0x00161ECD	0x00561ED3	0x00161ED3	0x00561DF0	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x00561FD6	0x00161FD6	0x00561FDC	0x00161FDC	0x00561DF0	cached renderer state
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x00564ECA	0x00164ECA	0x00564ED0	0x00164ED0	0x005641C0	draw emission/state
+IDirect3DDevice8	SetTexture	61	0x000000F4	0x00564F4E	0x00164F4E	0x00564F54	0x00164F54	0x00564EE0	cached renderer state
+IDirect3DDevice8	SetStreamSource	83	0x0000014C	0x00564F99	0x00164F99	0x00564F9F	0x00164F9F	0x00564F60	cached renderer state
+IDirect3DDevice8	SetVertexShader	76	0x00000130	0x00564FD7	0x00164FD7	0x00564FDD	0x00164FDD	0x00564FB0	cached renderer state
+IDirect3DDevice8	Clear	36	0x00000090	0x0056BA1A	0x0016BA1A	0x0056BA20	0x0016BA20	0x0056B900	device manager/frame lifecycle
+IDirect3DDevice8	BeginScene	34	0x00000088	0x0056BA23	0x0016BA23	0x0056BA29	0x0016BA29	0x0056B900	device manager/frame lifecycle
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0056C31D	0x0016C31D	0x0056C323	0x0016C323	0x0056C0D0	optional active-video texture quads, gated by video singleton +248
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0056C48D	0x0016C48D	0x0056C493	0x0016C493	0x0056C0D0	optional active-video texture quads, gated by video singleton +248
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0056C5FD	0x0016C5FD	0x0056C603	0x0016C603	0x0056C0D0	optional active-video texture quads, gated by video singleton +248
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0056C76D	0x0016C76D	0x0056C773	0x0016C773	0x0056C0D0	optional active-video texture quads, gated by video singleton +248
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0056C8DD	0x0016C8DD	0x0056C8E3	0x0016C8E3	0x0056C0D0	optional active-video texture quads, gated by video singleton +248
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0056CA47	0x0016CA47	0x0056CA4D	0x0016CA4D	0x0056C0D0	optional active-video texture quads, gated by video singleton +248
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0056CD3D	0x0016CD3D	0x0056CD43	0x0016CD43	0x0056C0D0	optional active-video texture quads, gated by video singleton +248
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0056CD53	0x0016CD53	0x0056CD59	0x0016CD59	0x0056C0D0	optional active-video texture quads, gated by video singleton +248
+IDirect3DDevice8	EndScene	35	0x0000008C	0x0056CE60	0x0016CE60	0x0056CE66	0x0016CE66	0x0056CD80	device manager/frame lifecycle
+IDirect3DDevice8	SetTexture	61	0x000000F4	0x0056D70E	0x0016D70E	0x0056D714	0x0016D714	0x0056D110	draw emission/state
+IDirect3DDevice8	SetStreamSource	83	0x0000014C	0x0056D7A8	0x0016D7A8	0x0056D7AE	0x0016D7AE	0x0056D110	draw emission/state
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0056D7BE	0x0016D7BE	0x0056D7C4	0x0016D7C4	0x0056D110	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0056D8AF	0x0016D8AF	0x0056D8B5	0x0016D8B5	0x0056D110	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0056D929	0x0016D929	0x0056D92F	0x0016D92F	0x0056D110	draw emission/state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0056DAFF	0x0016DAFF	0x0056DB05	0x0016DB05	0x0056D110	draw emission/state
+IDirect3DDevice8	SetVertexShader	76	0x00000130	0x00571CF2	0x00171CF2	0x00571CF8	0x00171CF8	0x00571BF0	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00571DB0	0x00171DB0	0x00571DB6	0x00171DB6	0x00571BF0	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00571E2F	0x00171E2F	0x00571E35	0x00171E35	0x00571BF0	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00571EB0	0x00171EB0	0x00571EB6	0x00171EB6	0x00571BF0	draw emission/state
+IDirect3DDevice8	SetTexture	61	0x000000F4	0x005722BF	0x001722BF	0x005722C5	0x001722C5	0x00571EC0	draw emission/state
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x005722E8	0x001722E8	0x005722EE	0x001722EE	0x00571EC0	draw emission/state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x00576C51	0x00176C51	0x00576C57	0x00176C57	0x00576970	draw emission/state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x00576CD9	0x00176CD9	0x00576CDF	0x00176CDF	0x00576970	draw emission/state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x00576D4F	0x00176D4F	0x00576D55	0x00176D55	0x00576970	draw emission/state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x00576DC5	0x00176DC5	0x00576DCB	0x00176DCB	0x00576970	draw emission/state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x00576E49	0x00176E49	0x00576E4F	0x00176E4F	0x00576970	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00576F41	0x00176F41	0x00576F47	0x00176F47	0x00576970	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0057703C	0x0017703C	0x00577042	0x00177042	0x00576970	draw emission/state
+IDirect3DDevice8	DrawIndexedPrimitive	71	0x0000011C	0x00577078	0x00177078	0x0057707E	0x0017707E	0x00576970	draw emission/state
+IDirect3DDevice8	SetIndices	85	0x00000154	0x005770C6	0x001770C6	0x005770CC	0x001770CC	0x00577090	cached renderer state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0058005F	0x0018005F	0x00580065	0x00180065	0x0057F9A0	renderer API / resource identity
+IDirect3DDevice8	SetVertexShader	76	0x00000130	0x005800CA	0x001800CA	0x005800D0	0x001800D0	0x0057F9A0	renderer API / resource identity
+IDirect3DDevice8	SetStreamSource	83	0x0000014C	0x00580195	0x00180195	0x0058019B	0x0018019B	0x0057F9A0	renderer API / resource identity
+IDirect3DDevice8	SetIndices	85	0x00000154	0x00580209	0x00180209	0x0058020F	0x0018020F	0x0057F9A0	renderer API / resource identity
+IDirect3DDevice8	DrawIndexedPrimitive	71	0x0000011C	0x00580242	0x00180242	0x00580248	0x00180248	0x0057F9A0	renderer API / resource identity
+IDirect3DDevice8	CreateVertexBuffer	23	0x0000005C	0x005849B5	0x001849B5	0x005849B8	0x001849B8	0x00584960	resource creation/recreation
+IDirect3DDevice8	CreateVertexBuffer	23	0x0000005C	0x00584A4E	0x00184A4E	0x00584A51	0x00184A51	0x00584A10	resource creation/recreation
+IDirect3DDevice8	CreateVertexBuffer	23	0x0000005C	0x00584B0A	0x00184B0A	0x00584B0D	0x00184B0D	0x00584AA0	resource creation/recreation
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00585037	0x00185037	0x0058503D	0x0018503D	0x00584EA0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005850B5	0x001850B5	0x005850BB	0x001850BB	0x00584EA0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0058512E	0x0018512E	0x00585134	0x00185134	0x00584EA0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005851AD	0x001851AD	0x005851B3	0x001851B3	0x00584EA0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00585223	0x00185223	0x00585229	0x00185229	0x00584EA0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0058567A	0x0018567A	0x00585680	0x00185680	0x005854D0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005856F2	0x001856F2	0x005856F8	0x001856F8	0x005854D0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0058576A	0x0018576A	0x00585770	0x00185770	0x005854D0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005857E8	0x001857E8	0x005857EE	0x001857EE	0x005854D0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0058586D	0x0018586D	0x00585873	0x00185873	0x005854D0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00585CAA	0x00185CAA	0x00585CB0	0x00185CB0	0x00585AC0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00585D22	0x00185D22	0x00585D28	0x00185D28	0x00585AC0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00585D9A	0x00185D9A	0x00585DA0	0x00185DA0	0x00585AC0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00585E18	0x00185E18	0x00585E1E	0x00185E1E	0x00585AC0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00585E9D	0x00185E9D	0x00585EA3	0x00185EA3	0x00585AC0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0058634F	0x0018634F	0x00586355	0x00186355	0x00586150	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005863CD	0x001863CD	0x005863D3	0x001863D3	0x00586150	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0058644A	0x0018644A	0x00586450	0x00186450	0x00586150	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005864C2	0x001864C2	0x005864C8	0x001864C8	0x00586150	renderer API / resource identity
+IDirect3DDevice8	SetTransform	37	0x00000094	0x0058654B	0x0018654B	0x00586551	0x00186551	0x00586150	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0058695F	0x0018695F	0x00586965	0x00186965	0x005867A0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005869D8	0x001869D8	0x005869DE	0x001869DE	0x005867A0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00586A51	0x00186A51	0x00586A57	0x00186A57	0x005867A0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00586AC5	0x00186AC5	0x00586ACB	0x00186ACB	0x005867A0	renderer API / resource identity
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00586B3B	0x00186B3B	0x00586B41	0x00186B41	0x005867A0	renderer API / resource identity
+IDirect3DDevice8	CreateIndexBuffer	24	0x00000060	0x00587958	0x00187958	0x0058795B	0x0018795B	0x005878F0	resource creation/recreation
+IDirect3DDevice8	CreateIndexBuffer	24	0x00000060	0x005879F9	0x001879F9	0x005879FC	0x001879FC	0x005879B0	resource creation/recreation
+IDirect3DDevice8	CreateIndexBuffer	24	0x00000060	0x00587AC5	0x00187AC5	0x00587AC8	0x00187AC8	0x00587A50	resource creation/recreation
+IDirect3DDevice8	SetTransform	37	0x00000094	0x00587D84	0x00187D84	0x00587D8A	0x00187D8A	0x00587C20	cached renderer state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005880A8	0x001880A8	0x005880AE	0x001880AE	0x00587DB0	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x00588124	0x00188124	0x0058812A	0x0018812A	0x00587DB0	draw emission/state
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x0058819B	0x0018819B	0x005881A1	0x001881A1	0x00587DB0	draw emission/state
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x005881E5	0x001881E5	0x005881EB	0x001881EB	0x00587DB0	draw emission/state
+IDirect3DDevice8	SetVertexShader	76	0x00000130	0x00589DEF	0x00189DEF	0x00589DF5	0x00189DF5	0x00589B70	optional game debug geometry
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x00589E93	0x00189E93	0x00589E99	0x00189E99	0x00589B70	optional game debug geometry
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x00589F0A	0x00189F0A	0x00589F10	0x00189F10	0x00589B70	optional game debug geometry
+IDirect3DDevice8	SetStreamSource	83	0x0000014C	0x00589F9E	0x00189F9E	0x00589FA4	0x00189FA4	0x00589B70	optional game debug geometry
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x00589FB4	0x00189FB4	0x00589FBA	0x00189FBA	0x00589B70	optional game debug geometry
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0058A02D	0x0018A02D	0x0058A033	0x0018A033	0x00589B70	optional game debug geometry
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0058A0BD	0x0018A0BD	0x0058A0C3	0x0018A0C3	0x00589B70	optional game debug geometry
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0058A2A3	0x0018A2A3	0x0058A2A9	0x0018A2A9	0x00589B70	optional game debug geometry
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0058A4C7	0x0018A4C7	0x0058A4CD	0x0018A4CD	0x00589B70	optional game debug geometry
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0058A766	0x0018A766	0x0058A76C	0x0018A76C	0x0058A4F0	optional game debug geometry
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0058A951	0x0018A951	0x0058A957	0x0018A957	0x0058A4F0	optional game debug geometry
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0058ABB3	0x0018ABB3	0x0058ABB9	0x0018ABB9	0x0058A4F0	optional game debug geometry
+IDirect3DDevice8	SetVertexShader	76	0x00000130	0x0058ABFB	0x0018ABFB	0x0058AC01	0x0018AC01	0x0058A4F0	optional game debug geometry
+IDirect3DDevice8	SetStreamSource	83	0x0000014C	0x0058AC88	0x0018AC88	0x0058AC8E	0x0018AC8E	0x0058A4F0	optional game debug geometry
+IDirect3DDevice8	DrawPrimitive	70	0x00000118	0x0058AC9E	0x0018AC9E	0x0058ACA4	0x0018ACA4	0x0058A4F0	optional game debug geometry
+IDirect3DDevice8	SetTransform	37	0x00000094	0x0058AF73	0x0018AF73	0x0058AF79	0x0018AF79	0x0058AD40	cached renderer state
+IDirect3DDevice8	SetTexture	61	0x000000F4	0x0058C1EF	0x0018C1EF	0x0058C1F5	0x0018C1F5	0x0058C100	cached renderer state
+IDirect3DDevice8	SetTexture	61	0x000000F4	0x0058C52D	0x0018C52D	0x0058C533	0x0018C533	0x0058C4C0	cached renderer state
+IDirect3DDevice8	SetStreamSource	83	0x0000014C	0x0058CC57	0x0018CC57	0x0058CC5D	0x0018CC5D	0x0058CBF0	cached renderer state
+IDirect3DDevice8	SetVertexShader	76	0x00000130	0x0058CC89	0x0018CC89	0x0058CC8F	0x0018CC8F	0x0058CBF0	cached renderer state
+IDirect3DDevice8	SetViewport	40	0x000000A0	0x0058CCCD	0x0018CCCD	0x0058CCD3	0x0018CCD3	0x0058CBF0	cached renderer state
+IDirect3DDevice8	SetStreamSource	83	0x0000014C	0x0058CD92	0x0018CD92	0x0058CD98	0x0018CD98	0x0058CD50	cached renderer state
+IDirect3DDevice8	SetIndices	85	0x00000154	0x0058CDC4	0x0018CDC4	0x0058CDCA	0x0018CDCA	0x0058CD50	cached renderer state
+IDirect3DDevice8	SetVertexShader	76	0x00000130	0x0058CDED	0x0018CDED	0x0058CDF3	0x0018CDF3	0x0058CD50	cached renderer state
+IDirect3DDevice8	SetViewport	40	0x000000A0	0x0058CE2D	0x0018CE2D	0x0058CE33	0x0018CE33	0x0058CD50	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x0058D20C	0x0018D20C	0x0058D212	0x0018D212	0x0058D070	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x0058D5E7	0x0018D5E7	0x0058D5ED	0x0018D5ED	0x0058D550	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x0058D66A	0x0018D66A	0x0058D670	0x0018D670	0x0058D550	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x0058D6F5	0x0018D6F5	0x0058D6FB	0x0018D6FB	0x0058D550	cached renderer state
+IDirect3DDevice8	SetTransform	37	0x00000094	0x0058D795	0x0018D795	0x0058D79B	0x0018D79B	0x0058D550	cached renderer state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0058EB2A	0x0018EB2A	0x0058EB30	0x0018EB30	0x0058EA90	cached renderer state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0058EBD3	0x0018EBD3	0x0058EBD9	0x0018EBD9	0x0058EA90	cached renderer state
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x0058EC7C	0x0018EC7C	0x0058EC82	0x0018EC82	0x0058EA90	cached renderer state
+IDirect3DDevice8	CreateTexture	20	0x00000050	0x005D99DF	0x001D99DF	0x005D99E2	0x001D99E2	0x005D9794	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateTexture	20	0x00000050	0x005D9A19	0x001D9A19	0x005D9A1C	0x001D9A1C	0x005D9794	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	UpdateTexture	29	0x00000074	0x005D9AE3	0x001D9AE3	0x005D9AE6	0x001D9AE6	0x005D9794	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateCubeTexture	22	0x00000058	0x005D9E01	0x001D9E01	0x005D9E04	0x001D9E04	0x005D9BA5	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateCubeTexture	22	0x00000058	0x005D9E3B	0x001D9E3B	0x005D9E3E	0x001D9E3E	0x005D9BA5	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	UpdateTexture	29	0x00000074	0x005D9F8C	0x001D9F8C	0x005D9F8F	0x001D9F8F	0x005D9BA5	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	GetDeviceCaps	7	0x0000001C	0x005DFDC9	0x001DFDC9	0x005DFDCC	0x001DFDCC	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	BeginStateBlock	52	0x000000D0	0x005DFDE6	0x001DFDE6	0x005DFDEC	0x001DFDEC	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetVertexShader	76	0x00000130	0x005DFDF7	0x001DFDF7	0x005DFDFD	0x001DFDFD	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFE09	0x001DFE09	0x005DFE0F	0x001DFE0F	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFE19	0x001DFE19	0x005DFE1F	0x001DFE1F	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFE28	0x001DFE28	0x005DFE2E	0x001DFE2E	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFE3A	0x001DFE3A	0x005DFE40	0x001DFE40	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFE4C	0x001DFE4C	0x005DFE52	0x001DFE52	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFE5E	0x001DFE5E	0x005DFE64	0x001DFE64	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFE70	0x001DFE70	0x005DFE76	0x001DFE76	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFE80	0x001DFE80	0x005DFE86	0x001DFE86	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFE8F	0x001DFE8F	0x005DFE95	0x001DFE95	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFE9F	0x001DFE9F	0x005DFEA5	0x001DFEA5	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFEB0	0x001DFEB0	0x005DFEB6	0x001DFEB6	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFEC0	0x001DFEC0	0x005DFEC6	0x001DFEC6	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFED0	0x001DFED0	0x005DFED6	0x001DFED6	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFEDF	0x001DFEDF	0x005DFEE5	0x001DFEE5	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFEEF	0x001DFEEF	0x005DFEF5	0x001DFEF5	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFEFF	0x001DFEFF	0x005DFF05	0x001DFF05	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFF0F	0x001DFF0F	0x005DFF15	0x001DFF15	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFF1F	0x001DFF1F	0x005DFF25	0x001DFF25	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFF2F	0x001DFF2F	0x005DFF35	0x001DFF35	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFF40	0x001DFF40	0x005DFF46	0x001DFF46	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFF51	0x001DFF51	0x005DFF57	0x001DFF57	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTextureStageState	63	0x000000FC	0x005DFF61	0x001DFF61	0x005DFF67	0x001DFF67	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFF7E	0x001DFF7E	0x005DFF84	0x001DFF84	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFF8E	0x001DFF8E	0x005DFF94	0x001DFF94	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFFA3	0x001DFFA3	0x005DFFA9	0x001DFFA9	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFFB3	0x001DFFB3	0x005DFFB9	0x001DFFB9	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005DFFC3	0x001DFFC3	0x005DFFC9	0x001DFFC9	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTexture	61	0x000000F4	0x005DFFD7	0x001DFFD7	0x005DFFDD	0x001DFFDD	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetStreamSource	83	0x0000014C	0x005DFFE6	0x001DFFE6	0x005DFFEC	0x001DFFEC	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	EndStateBlock	53	0x000000D4	0x005DFFF6	0x001DFFF6	0x005DFFFC	0x001DFFFC	0x005DFD97	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CaptureStateBlock	55	0x000000DC	0x005E005F	0x001E005F	0x005E0065	0x001E0065	0x005E0044	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	ApplyStateBlock	54	0x000000D8	0x005E006E	0x001E006E	0x005E0074	0x001E0074	0x005E0044	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	ApplyStateBlock	54	0x000000D8	0x005E00A2	0x001E00A2	0x005E00A8	0x001E00A8	0x005E0087	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetTexture	61	0x000000F4	0x005E046B	0x001E046B	0x005E0471	0x001E0471	0x005E01F1	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005E047A	0x001E047A	0x005E0480	0x001E0480	0x005E01F1	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	DrawPrimitiveUP	72	0x00000120	0x005E0490	0x001E0490	0x005E0496	0x001E0496	0x005E01F1	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateRenderTarget	25	0x00000064	0x005E06CF	0x001E06CF	0x005E06D2	0x001E06D2	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateDepthStencilSurface	26	0x00000068	0x005E06F7	0x001E06F7	0x005E06FA	0x001E06FA	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	BeginStateBlock	52	0x000000D0	0x005E070F	0x001E070F	0x005E0715	0x001E0715	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetViewport	40	0x000000A0	0x005E071F	0x001E071F	0x005E0725	0x001E0725	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	EndStateBlock	53	0x000000D4	0x005E072C	0x001E072C	0x005E0732	0x001E0732	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CaptureStateBlock	55	0x000000DC	0x005E075E	0x001E075E	0x005E0764	0x001E0764	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	GetRenderTarget	32	0x00000080	0x005E076B	0x001E076B	0x005E0771	0x001E0771	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	GetDepthStencilSurface	33	0x00000084	0x005E0778	0x001E0778	0x005E077E	0x001E077E	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderTarget	31	0x0000007C	0x005E0796	0x001E0796	0x005E0799	0x001E0799	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetViewport	40	0x000000A0	0x005E07A7	0x001E07A7	0x005E07AD	0x001E07AD	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	BeginScene	34	0x00000088	0x005E07B7	0x001E07B7	0x005E07BD	0x001E07BD	0x005E060E	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	EndScene	35	0x0000008C	0x005E07FC	0x001E07FC	0x005E0802	0x001E0802	0x005E07DA	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CopyRects	28	0x00000070	0x005E0839	0x001E0839	0x005E083C	0x001E083C	0x005E07DA	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderTarget	31	0x0000007C	0x005E0848	0x001E0848	0x005E084B	0x001E084B	0x005E07DA	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	ApplyStateBlock	54	0x000000D8	0x005E0854	0x001E0854	0x005E085A	0x001E085A	0x005E07DA	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	BeginStateBlock	52	0x000000D0	0x005E0A51	0x001E0A51	0x005E0A57	0x001E0A57	0x005E0A3F	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetViewport	40	0x000000A0	0x005E0A61	0x001E0A61	0x005E0A67	0x001E0A67	0x005E0A3F	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	EndStateBlock	53	0x000000D4	0x005E0A6E	0x001E0A6E	0x005E0A74	0x001E0A74	0x005E0A3F	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CaptureStateBlock	55	0x000000DC	0x005E0A7C	0x001E0A7C	0x005E0A82	0x001E0A82	0x005E0A3F	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	GetRenderTarget	32	0x00000080	0x005E0A8C	0x001E0A8C	0x005E0A92	0x001E0A92	0x005E0A3F	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	GetDepthStencilSurface	33	0x00000084	0x005E0A9C	0x001E0A9C	0x005E0AA2	0x001E0AA2	0x005E0A3F	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetViewport	40	0x000000A0	0x005E0AAC	0x001E0AAC	0x005E0AB2	0x001E0AB2	0x005E0A3F	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateTexture	20	0x00000050	0x005E0AFC	0x001E0AFC	0x005E0AFF	0x001E0AFF	0x005E0AB7	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateTexture	20	0x00000050	0x005E0B16	0x001E0B16	0x005E0B19	0x001E0B19	0x005E0AB7	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateRenderTarget	25	0x00000064	0x005E0B52	0x001E0B52	0x005E0B55	0x001E0B55	0x005E0AB7	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CreateDepthStencilSurface	26	0x00000068	0x005E0BA6	0x001E0BA6	0x005E0BA9	0x001E0BA9	0x005E0AB7	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderTarget	31	0x0000007C	0x005E0BB8	0x001E0BB8	0x005E0BBB	0x001E0BBB	0x005E0AB7	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	BeginScene	34	0x00000088	0x005E0BCF	0x001E0BCF	0x005E0BD5	0x001E0BD5	0x005E0AB7	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	EndScene	35	0x0000008C	0x005E0C04	0x001E0C04	0x005E0C0A	0x001E0C0A	0x005E0BEF	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	CopyRects	28	0x00000070	0x005E0C4C	0x001E0C4C	0x005E0C4F	0x001E0C4F	0x005E0BEF	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	GetCreationParameters	9	0x00000024	0x005EC5F2	0x001EC5F2	0x005EC5F5	0x001EC5F5	0x005EC5C0	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	BeginStateBlock	52	0x000000D0	0x005EC689	0x001EC689	0x005EC68F	0x001EC68F	0x005EC5C0	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	SetRenderState	50	0x000000C8	0x005EC699	0x001EC699	0x005EC69F	0x001EC69F	0x005EC5C0	linked D3DX helper; game reachability unresolved
+IDirect3DDevice8	EndStateBlock	53	0x000000D4	0x005EC6B0	0x001EC6B0	0x005EC6B6	0x001EC6B6	0x005EC5C0	linked D3DX helper; game reachability unresolved

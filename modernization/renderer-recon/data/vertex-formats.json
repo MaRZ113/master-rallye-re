@@ -1,0 +1,355 @@
+[
+  {
+    "fvf": "0x00000142",
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "DIFFUSE",
+        "offset": 12,
+        "type": "D3DCOLOR"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 16,
+        "type": "float2"
+      }
+    ],
+    "stride": 24,
+    "owners": [
+      "0x005641C0",
+      "0x00571EC0",
+      "0x00587DB0",
+      "0x0056D110",
+      "0x0056C0D0"
+    ],
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "006E9A78 and upload/draw arguments"
+  },
+  {
+    "fvf": null,
+    "fields": "descriptor-generated XYZ or RHW, optional normals/diffuse/specular, variable UV count/dimensions",
+    "owner_va": "0x00575E70",
+    "owner_rva": "0x00175E70",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "FVF builder; exhaustive active values unknown",
+    "skin_tangents": "descriptor blend support does not prove active skinning; tangent channel not established"
+  },
+  {
+    "fvf": "0x00000042",
+    "stride": 16,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "DIFFUSE",
+        "offset": 12,
+        "type": "D3DCOLOR"
+      }
+    ],
+    "owners": [
+      "0x00589B70",
+      "0x0058A4F0"
+    ],
+    "usage_scope": "game_debug",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "00589DBA / 0058ABC5 FVF arguments"
+  },
+  {
+    "fvf": "0x00000062",
+    "stride": 20,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "PSIZE",
+        "offset": 12,
+        "type": "float"
+      },
+      {
+        "semantic": "DIFFUSE",
+        "offset": 16,
+        "type": "D3DCOLOR"
+      }
+    ],
+    "owners": [
+      "0x00589B70",
+      "0x0058A4F0"
+    ],
+    "usage_scope": "game_debug",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "0058A1F3 / 0058A6C9 FVF arguments"
+  },
+  {
+    "fvf": "0x00000144",
+    "stride": 28,
+    "fields": [
+      {
+        "semantic": "POSITIONT",
+        "offset": 0,
+        "type": "float4"
+      },
+      {
+        "semantic": "DIFFUSE",
+        "offset": 16,
+        "type": "D3DCOLOR"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 20,
+        "type": "float2"
+      }
+    ],
+    "owners": [
+      "0x005E01F1"
+    ],
+    "usage_scope": "linked_helper_unproven_game_reachability",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "005DFDF1 PUSH 0x144; SetVertexShader at005DFDF7; 005E0490 stride28"
+  },
+  {
+    "fvf": "0x00000102",
+    "stride": 20,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 12,
+        "type": "float2"
+      }
+    ],
+    "family": "base",
+    "condition": "material UV byte+21 enabled; diffuse byte+20 False",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+    "owner_va": "0x00586560",
+    "owner_rva": "0x00186560"
+  },
+  {
+    "fvf": "0x00000142",
+    "stride": 24,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "DIFFUSE",
+        "offset": 12,
+        "type": "D3DCOLOR"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 16,
+        "type": "float2"
+      }
+    ],
+    "family": "base",
+    "condition": "material UV byte+21 enabled; diffuse byte+20 True",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+    "owner_va": "0x00586560",
+    "owner_rva": "0x00186560"
+  },
+  {
+    "fvf": "0x00000112",
+    "stride": 32,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "NORMAL",
+        "offset": 12,
+        "type": "float3"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 24,
+        "type": "float2"
+      }
+    ],
+    "family": "env",
+    "condition": "material UV byte+21 enabled; diffuse byte+20 False",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+    "owner_va": "0x005860A0",
+    "owner_rva": "0x001860A0"
+  },
+  {
+    "fvf": "0x00000152",
+    "stride": 36,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "NORMAL",
+        "offset": 12,
+        "type": "float3"
+      },
+      {
+        "semantic": "DIFFUSE",
+        "offset": 24,
+        "type": "D3DCOLOR"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 28,
+        "type": "float2"
+      }
+    ],
+    "family": "env",
+    "condition": "material UV byte+21 enabled; diffuse byte+20 True",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+    "owner_va": "0x005860A0",
+    "owner_rva": "0x001860A0"
+  },
+  {
+    "fvf": "0x00000202",
+    "stride": 28,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 12,
+        "type": "float2"
+      },
+      {
+        "semantic": "TEXCOORD1",
+        "offset": 20,
+        "type": "float2"
+      }
+    ],
+    "family": "noise",
+    "condition": "material UV byte+21 enabled; diffuse byte+20 False",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+    "owner_va": "0x00585880",
+    "owner_rva": "0x00185880"
+  },
+  {
+    "fvf": "0x00000242",
+    "stride": 32,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "DIFFUSE",
+        "offset": 12,
+        "type": "D3DCOLOR"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 16,
+        "type": "float2"
+      },
+      {
+        "semantic": "TEXCOORD1",
+        "offset": 24,
+        "type": "float2"
+      }
+    ],
+    "family": "noise",
+    "condition": "material UV byte+21 enabled; diffuse byte+20 True",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+    "owner_va": "0x00585880",
+    "owner_rva": "0x00185880"
+  },
+  {
+    "fvf": "0x00000212",
+    "stride": 40,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "NORMAL",
+        "offset": 12,
+        "type": "float3"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 24,
+        "type": "float2"
+      },
+      {
+        "semantic": "TEXCOORD1",
+        "offset": 32,
+        "type": "float2"
+      }
+    ],
+    "family": "water",
+    "condition": "material UV byte+21 enabled; diffuse byte+20 False",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+    "owner_va": "0x00585290",
+    "owner_rva": "0x00185290"
+  },
+  {
+    "fvf": "0x00000252",
+    "stride": 44,
+    "fields": [
+      {
+        "semantic": "POSITION",
+        "offset": 0,
+        "type": "float3"
+      },
+      {
+        "semantic": "NORMAL",
+        "offset": 12,
+        "type": "float3"
+      },
+      {
+        "semantic": "DIFFUSE",
+        "offset": 24,
+        "type": "D3DCOLOR"
+      },
+      {
+        "semantic": "TEXCOORD0",
+        "offset": 28,
+        "type": "float2"
+      },
+      {
+        "semantic": "TEXCOORD1",
+        "offset": 36,
+        "type": "float2"
+      }
+    ],
+    "family": "water",
+    "condition": "material UV byte+21 enabled; diffuse byte+20 True",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+    "owner_va": "0x00585290",
+    "owner_rva": "0x00185290"
+  }
+]

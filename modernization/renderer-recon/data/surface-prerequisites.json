@@ -1,0 +1,451 @@
+{
+  "source": "external protected retail DataGame/Surface.xml",
+  "sha256": "37e7b1ee9b2f283e8ed04a903c39eaa58f55d7224c86b125e61e6ebd055011ac",
+  "evidence_grade": "CONFIRMED_BY_EXISTING_RESEARCH",
+  "scope": "existing retail corpus observation; physical/data properties, not GPU draw identity",
+  "records": [
+    {
+      "index": 0,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(tarmac)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\tarmac"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 1,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(harddirt)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\harddirt"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 2,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(grass)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\grass"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 3,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(gravel)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\gravel"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 4,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(mud)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\mud"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 5,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(metal)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.50000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\metal"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 6,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(rubber)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\rubber"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 7,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(rock)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\rock"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 8,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(hay)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.20000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\hay"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 9,
+      "type": {
+        "type": "String",
+        "value": "$surfacetype(water)"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\water"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "False"
+      }
+    },
+    {
+      "index": 10,
+      "type": {
+        "type": "String",
+        "value": "NotDefined"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\tarmac"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 11,
+      "type": {
+        "type": "String",
+        "value": "NotDefined"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\tarmac"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 12,
+      "type": {
+        "type": "String",
+        "value": "NotDefined"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\tarmac"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 13,
+      "type": {
+        "type": "String",
+        "value": "NotDefined"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\tarmac"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 14,
+      "type": {
+        "type": "String",
+        "value": "NotDefined"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\tarmac"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    },
+    {
+      "index": 15,
+      "type": {
+        "type": "String",
+        "value": "NotDefined"
+      },
+      "quality": {
+        "type": "Float",
+        "value": "1.00000"
+      },
+      "restitution": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "friction": {
+        "type": "Float",
+        "value": "0.00000"
+      },
+      "tracktexture": {
+        "type": "String",
+        "value": "misc\\tracks\\tarmac"
+      },
+      "solid": {
+        "type": "Bool",
+        "value": "True"
+      }
+    }
+  ],
+  "code_registration": {
+    "va": "0x004DB5B0",
+    "rva": "0x000DB5B0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "pristine instructions register Surface_Type/Quality/Restitution/Friction/TrackTexture/Solid indexed properties"
+  },
+  "unknowns": [
+    "contact-to-particle transition",
+    "surface-to-compiled-draw material binding",
+    "snow type is not in the inspected 16-record XML"
+  ]
+}

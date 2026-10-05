@@ -1,0 +1,3965 @@
+{
+  "schema_version": 1,
+  "status": "MORE_WORK_NEEDED",
+  "build": {
+    "filename": "MRallye.exe",
+    "size": 3121214,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "image_base": "0x00400000",
+    "entry_point_rva": "0x001C4602",
+    "entry_point_va": "0x005C4602",
+    "pe_timestamp": 1006791005,
+    "pe_timestamp_utc": "2001-11-26T16:10:05+00:00",
+    "machine": "0x0000014C",
+    "sections": [
+      {
+        "name": ".text",
+        "va": "0x00401000",
+        "rva": "0x00001000",
+        "virtual_size": 2675348,
+        "raw_offset": 4096,
+        "raw_size": 2678784,
+        "characteristics": "0x60000020"
+      },
+      {
+        "name": ".rdata",
+        "va": "0x0068F000",
+        "rva": "0x0028F000",
+        "virtual_size": 123954,
+        "raw_offset": 2682880,
+        "raw_size": 126976,
+        "characteristics": "0x40000040"
+      },
+      {
+        "name": ".data",
+        "va": "0x006AE000",
+        "rva": "0x002AE000",
+        "virtual_size": 386568,
+        "raw_offset": 2809856,
+        "raw_size": 294912,
+        "characteristics": "0xC0000040"
+      },
+      {
+        "name": ".rsrc",
+        "va": "0x0070D000",
+        "rva": "0x0030D000",
+        "virtual_size": 15032,
+        "raw_offset": 3104768,
+        "raw_size": 16384,
+        "characteristics": "0x40000040"
+      }
+    ],
+    "imported_dlls": [
+      "KERNEL32.dll",
+      "DDRAW.dll",
+      "WINMM.dll",
+      "d3d8.dll",
+      "DSOUND.dll",
+      "DINPUT8.dll",
+      "USER32.dll",
+      "GDI32.dll",
+      "ADVAPI32.dll",
+      "ole32.dll",
+      "OLEAUT32.dll",
+      "WS2_32.dll",
+      "comdlg32.dll",
+      "COMCTL32.dll"
+    ],
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE headers and SHA256"
+  },
+  "starting_git": {
+    "branch": "research/r-ui1",
+    "head": "bd27cc1c12099b7062d251fa476fe62586ac4444",
+    "status": "clean after user cleanup",
+    "research_branch": "modernization/renderer-recon"
+  },
+  "device_creation": {
+    "owner": {
+      "value": "CreateDevice",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0055AB90",
+      "rva": "0x0015AB90"
+    },
+    "call": {
+      "value": "IDirect3D8 slot15",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0055ACD7",
+      "rva": "0x0015ACD7"
+    },
+    "adapter": {
+      "value": "manager+18",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export"
+    },
+    "device_type": {
+      "value": "selected device record DWORD0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export"
+    },
+    "focus_hwnd": {
+      "value": "manager+60",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export"
+    },
+    "device_hwnd": {
+      "value": "manager+5C",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export"
+    },
+    "presentation_parameters": {
+      "value": {
+        "owner_offset": 40,
+        "width_height": "selected mode / client rectangle",
+        "backbuffer_count": 1,
+        "format": "mode / desktop",
+        "multisample": "selected record+E0",
+        "swap_effect": 3,
+        "auto_depth": 1,
+        "depth_format": "selected vector entry",
+        "flags": 0,
+        "refresh_rate": 0,
+        "interval": 0
+      },
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0055AB90",
+      "rva": "0x0015AB90"
+    },
+    "vertex_processing": {
+      "value": "0x24 software / 0x44 hardware / 0x54 pure hardware; includes MULTITHREADED",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0055ACD7",
+      "rva": "0x0015ACD7"
+    },
+    "depth_candidates": {
+      "value": [
+        80,
+        73,
+        77,
+        75,
+        79,
+        71
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x006E93C8",
+      "rva": "0x002E93C8"
+    }
+  },
+  "frame": {
+    "begin": {
+      "value": "cooperative status, clear3, BeginScene",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056B900",
+      "rva": "0x0016B900"
+    },
+    "end": {
+      "value": "deferred packets, optional debug, unbind, EndScene, Present",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056CD80",
+      "rva": "0x0016CD80"
+    },
+    "application_owner": {
+      "value": "fixed-step update/interpolation then call00653080 at005B0166",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x005AFE30",
+      "rva": "0x001AFE30"
+    },
+    "global_pass_order": {
+      "value": [
+        "Clear before BeginScene",
+        "for each camera: reset queues -> select camera/viewport -> submit entities -> finalize",
+        "opaque before alpha within each group flush; immediate 2D can interleave entity submissions",
+        "final geometry flush -> projected shadows -> trails -> billboards -> optional video within each camera",
+        "restore first camera full viewport -> deferred 2D -> optional late debug -> EndScene -> Present after all cameras"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056E250",
+      "rva": "0x0016E250"
+    },
+    "render_owner": {
+      "value": "camera scheduler; BeginFrame, per-camera list and finalize, restore full viewport, EndFrame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x00653080",
+      "rva": "0x00253080"
+    },
+    "semantic_order": {
+      "value": null,
+      "evidence_grade": "HYPOTHESIS",
+      "source": "sky/terrain/car ownership inside shared queues unresolved"
+    }
+  },
+  "apis": [
+    {
+      "interface": "IDirect3D8",
+      "method": "CheckDepthStencilMatch",
+      "vtable_slot": 12,
+      "vtable_offset": "0x00000030",
+      "call_sites": [
+        "0x0055A074"
+      ],
+      "game_call_sites": [
+        "0x0055A074"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "CheckDeviceFormat",
+      "vtable_slot": 10,
+      "vtable_offset": "0x00000028",
+      "call_sites": [
+        "0x00559865",
+        "0x0055A057"
+      ],
+      "game_call_sites": [
+        "0x00559865",
+        "0x0055A057"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "CheckDeviceType",
+      "vtable_slot": 9,
+      "vtable_offset": "0x00000024",
+      "call_sites": [
+        "0x005597D8"
+      ],
+      "game_call_sites": [
+        "0x005597D8"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "CreateDevice",
+      "vtable_slot": 15,
+      "vtable_offset": "0x0000003C",
+      "call_sites": [
+        "0x0055ACD7"
+      ],
+      "game_call_sites": [
+        "0x0055ACD7"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "EnumAdapterModes",
+      "vtable_slot": 7,
+      "vtable_offset": "0x0000001C",
+      "call_sites": [
+        "0x0055951B"
+      ],
+      "game_call_sites": [
+        "0x0055951B"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "GetAdapterCount",
+      "vtable_slot": 4,
+      "vtable_offset": "0x00000010",
+      "call_sites": [
+        "0x005593A9"
+      ],
+      "game_call_sites": [
+        "0x005593A9"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "GetAdapterDisplayMode",
+      "vtable_slot": 8,
+      "vtable_offset": "0x00000020",
+      "call_sites": [
+        "0x00559425",
+        "0x0055B006"
+      ],
+      "game_call_sites": [
+        "0x00559425",
+        "0x0055B006"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "GetAdapterIdentifier",
+      "vtable_slot": 5,
+      "vtable_offset": "0x00000014",
+      "call_sites": [
+        "0x00559414"
+      ],
+      "game_call_sites": [
+        "0x00559414"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "GetAdapterModeCount",
+      "vtable_slot": 6,
+      "vtable_offset": "0x00000018",
+      "call_sites": [
+        "0x0055947A"
+      ],
+      "game_call_sites": [
+        "0x0055947A"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "GetDeviceCaps",
+      "vtable_slot": 13,
+      "vtable_offset": "0x00000034",
+      "call_sites": [
+        "0x0055972D"
+      ],
+      "game_call_sites": [
+        "0x0055972D"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3D8",
+      "method": "Release",
+      "vtable_slot": 2,
+      "vtable_offset": "0x00000008",
+      "call_sites": [
+        "0x00559094"
+      ],
+      "game_call_sites": [
+        "0x00559094"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "ApplyStateBlock",
+      "vtable_slot": 54,
+      "vtable_offset": "0x000000D8",
+      "call_sites": [
+        "0x005E006E",
+        "0x005E00A2",
+        "0x005E0854"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E006E",
+        "0x005E00A2",
+        "0x005E0854"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "BeginScene",
+      "vtable_slot": 34,
+      "vtable_offset": "0x00000088",
+      "call_sites": [
+        "0x0056BA23",
+        "0x005E07B7",
+        "0x005E0BCF"
+      ],
+      "game_call_sites": [
+        "0x0056BA23"
+      ],
+      "linked_helper_call_sites": [
+        "0x005E07B7",
+        "0x005E0BCF"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "BeginStateBlock",
+      "vtable_slot": 52,
+      "vtable_offset": "0x000000D0",
+      "call_sites": [
+        "0x005DFDE6",
+        "0x005E070F",
+        "0x005E0A51",
+        "0x005EC689"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005DFDE6",
+        "0x005E070F",
+        "0x005E0A51",
+        "0x005EC689"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "CaptureStateBlock",
+      "vtable_slot": 55,
+      "vtable_offset": "0x000000DC",
+      "call_sites": [
+        "0x005E005F",
+        "0x005E075E",
+        "0x005E0A7C"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E005F",
+        "0x005E075E",
+        "0x005E0A7C"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "Clear",
+      "vtable_slot": 36,
+      "vtable_offset": "0x00000090",
+      "call_sites": [
+        "0x0056BA1A"
+      ],
+      "game_call_sites": [
+        "0x0056BA1A"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "CopyRects",
+      "vtable_slot": 28,
+      "vtable_offset": "0x00000070",
+      "call_sites": [
+        "0x005E0839",
+        "0x005E0C4C"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E0839",
+        "0x005E0C4C"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "CreateCubeTexture",
+      "vtable_slot": 22,
+      "vtable_offset": "0x00000058",
+      "call_sites": [
+        "0x005D9E01",
+        "0x005D9E3B"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005D9E01",
+        "0x005D9E3B"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "CreateDepthStencilSurface",
+      "vtable_slot": 26,
+      "vtable_offset": "0x00000068",
+      "call_sites": [
+        "0x005E06F7",
+        "0x005E0BA6"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E06F7",
+        "0x005E0BA6"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "CreateIndexBuffer",
+      "vtable_slot": 24,
+      "vtable_offset": "0x00000060",
+      "call_sites": [
+        "0x00587958",
+        "0x005879F9",
+        "0x00587AC5"
+      ],
+      "game_call_sites": [
+        "0x00587958",
+        "0x005879F9",
+        "0x00587AC5"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "CreateRenderTarget",
+      "vtable_slot": 25,
+      "vtable_offset": "0x00000064",
+      "call_sites": [
+        "0x005E06CF",
+        "0x005E0B52"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E06CF",
+        "0x005E0B52"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "CreateTexture",
+      "vtable_slot": 20,
+      "vtable_offset": "0x00000050",
+      "call_sites": [
+        "0x005589CD",
+        "0x005D99DF",
+        "0x005D9A19",
+        "0x005E0AFC",
+        "0x005E0B16"
+      ],
+      "game_call_sites": [
+        "0x005589CD"
+      ],
+      "linked_helper_call_sites": [
+        "0x005D99DF",
+        "0x005D9A19",
+        "0x005E0AFC",
+        "0x005E0B16"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "CreateVertexBuffer",
+      "vtable_slot": 23,
+      "vtable_offset": "0x0000005C",
+      "call_sites": [
+        "0x005849B5",
+        "0x00584A4E",
+        "0x00584B0A"
+      ],
+      "game_call_sites": [
+        "0x005849B5",
+        "0x00584A4E",
+        "0x00584B0A"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "DrawIndexedPrimitive",
+      "vtable_slot": 71,
+      "vtable_offset": "0x0000011C",
+      "call_sites": [
+        "0x00577078",
+        "0x00580242"
+      ],
+      "game_call_sites": [
+        "0x00577078",
+        "0x00580242"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "DrawPrimitive",
+      "vtable_slot": 70,
+      "vtable_offset": "0x00000118",
+      "call_sites": [
+        "0x00564ECA",
+        "0x0056C31D",
+        "0x0056C48D",
+        "0x0056C5FD",
+        "0x0056C76D",
+        "0x0056C8DD",
+        "0x0056CA47",
+        "0x0056CD53",
+        "0x0056D7BE",
+        "0x005722E8",
+        "0x005881E5",
+        "0x00589FB4",
+        "0x0058A2A3",
+        "0x0058A4C7",
+        "0x0058A766",
+        "0x0058A951",
+        "0x0058AC9E"
+      ],
+      "game_call_sites": [
+        "0x00564ECA",
+        "0x0056C31D",
+        "0x0056C48D",
+        "0x0056C5FD",
+        "0x0056C76D",
+        "0x0056C8DD",
+        "0x0056CA47",
+        "0x0056CD53",
+        "0x0056D7BE",
+        "0x005722E8",
+        "0x005881E5",
+        "0x00589FB4",
+        "0x0058A2A3",
+        "0x0058A4C7",
+        "0x0058A766",
+        "0x0058A951",
+        "0x0058AC9E"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "DrawPrimitiveUP",
+      "vtable_slot": 72,
+      "vtable_offset": "0x00000120",
+      "call_sites": [
+        "0x005E0490"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E0490"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "EndScene",
+      "vtable_slot": 35,
+      "vtable_offset": "0x0000008C",
+      "call_sites": [
+        "0x0056CE60",
+        "0x005E07FC",
+        "0x005E0C04"
+      ],
+      "game_call_sites": [
+        "0x0056CE60"
+      ],
+      "linked_helper_call_sites": [
+        "0x005E07FC",
+        "0x005E0C04"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "EndStateBlock",
+      "vtable_slot": 53,
+      "vtable_offset": "0x000000D4",
+      "call_sites": [
+        "0x005DFFF6",
+        "0x005E072C",
+        "0x005E0A6E",
+        "0x005EC6B0"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005DFFF6",
+        "0x005E072C",
+        "0x005E0A6E",
+        "0x005EC6B0"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "GetBackBuffer",
+      "vtable_slot": 16,
+      "vtable_offset": "0x00000040",
+      "call_sites": [
+        "0x0055AD3C",
+        "0x0055AE6D"
+      ],
+      "game_call_sites": [
+        "0x0055AD3C",
+        "0x0055AE6D"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "GetCreationParameters",
+      "vtable_slot": 9,
+      "vtable_offset": "0x00000024",
+      "call_sites": [
+        "0x005EC5F2"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005EC5F2"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "GetDepthStencilSurface",
+      "vtable_slot": 33,
+      "vtable_offset": "0x00000084",
+      "call_sites": [
+        "0x005E0778",
+        "0x005E0A9C"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E0778",
+        "0x005E0A9C"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "GetDeviceCaps",
+      "vtable_slot": 7,
+      "vtable_offset": "0x0000001C",
+      "call_sites": [
+        "0x0055AD22",
+        "0x005DFDC9"
+      ],
+      "game_call_sites": [
+        "0x0055AD22"
+      ],
+      "linked_helper_call_sites": [
+        "0x005DFDC9"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "GetRenderTarget",
+      "vtable_slot": 32,
+      "vtable_offset": "0x00000080",
+      "call_sites": [
+        "0x005E076B",
+        "0x005E0A8C"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E076B",
+        "0x005E0A8C"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "Present",
+      "vtable_slot": 15,
+      "vtable_offset": "0x0000003C",
+      "call_sites": [
+        "0x0055B0DE"
+      ],
+      "game_call_sites": [
+        "0x0055B0DE"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "Release",
+      "vtable_slot": 2,
+      "vtable_offset": "0x00000008",
+      "call_sites": [
+        "0x0055B11A"
+      ],
+      "game_call_sites": [
+        "0x0055B11A"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "Reset",
+      "vtable_slot": 14,
+      "vtable_offset": "0x00000038",
+      "call_sites": [
+        "0x0055AE57"
+      ],
+      "game_call_sites": [
+        "0x0055AE57"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetIndices",
+      "vtable_slot": 85,
+      "vtable_offset": "0x00000154",
+      "call_sites": [
+        "0x005770C6",
+        "0x00580209",
+        "0x0058CDC4"
+      ],
+      "game_call_sites": [
+        "0x005770C6",
+        "0x00580209",
+        "0x0058CDC4"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetRenderState",
+      "vtable_slot": 50,
+      "vtable_offset": "0x000000C8",
+      "call_sites": [
+        "0x0053F7DD",
+        "0x0053F857",
+        "0x0053F921",
+        "0x0056CD3D",
+        "0x0056DAFF",
+        "0x00576C51",
+        "0x00576CD9",
+        "0x00576D4F",
+        "0x00576DC5",
+        "0x00576E49",
+        "0x0058005F",
+        "0x00589E93",
+        "0x00589F0A",
+        "0x0058A02D",
+        "0x0058A0BD",
+        "0x0058ABB3",
+        "0x0058EB2A",
+        "0x0058EBD3",
+        "0x0058EC7C",
+        "0x005DFE09",
+        "0x005DFE19",
+        "0x005DFE28",
+        "0x005DFE3A",
+        "0x005DFE4C",
+        "0x005DFE5E",
+        "0x005DFE70",
+        "0x005DFF7E",
+        "0x005DFF8E",
+        "0x005DFFA3",
+        "0x005DFFB3",
+        "0x005DFFC3",
+        "0x005E047A",
+        "0x005EC699"
+      ],
+      "game_call_sites": [
+        "0x0053F7DD",
+        "0x0053F857",
+        "0x0053F921",
+        "0x0056CD3D",
+        "0x0056DAFF",
+        "0x00576C51",
+        "0x00576CD9",
+        "0x00576D4F",
+        "0x00576DC5",
+        "0x00576E49",
+        "0x0058005F",
+        "0x00589E93",
+        "0x00589F0A",
+        "0x0058A02D",
+        "0x0058A0BD",
+        "0x0058ABB3",
+        "0x0058EB2A",
+        "0x0058EBD3",
+        "0x0058EC7C"
+      ],
+      "linked_helper_call_sites": [
+        "0x005DFE09",
+        "0x005DFE19",
+        "0x005DFE28",
+        "0x005DFE3A",
+        "0x005DFE4C",
+        "0x005DFE5E",
+        "0x005DFE70",
+        "0x005DFF7E",
+        "0x005DFF8E",
+        "0x005DFFA3",
+        "0x005DFFB3",
+        "0x005DFFC3",
+        "0x005E047A",
+        "0x005EC699"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetRenderTarget",
+      "vtable_slot": 31,
+      "vtable_offset": "0x0000007C",
+      "call_sites": [
+        "0x005E0796",
+        "0x005E0848",
+        "0x005E0BB8"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005E0796",
+        "0x005E0848",
+        "0x005E0BB8"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetStreamSource",
+      "vtable_slot": 83,
+      "vtable_offset": "0x0000014C",
+      "call_sites": [
+        "0x00564F99",
+        "0x0056D7A8",
+        "0x00580195",
+        "0x00589F9E",
+        "0x0058AC88",
+        "0x0058CC57",
+        "0x0058CD92",
+        "0x005DFFE6"
+      ],
+      "game_call_sites": [
+        "0x00564F99",
+        "0x0056D7A8",
+        "0x00580195",
+        "0x00589F9E",
+        "0x0058AC88",
+        "0x0058CC57",
+        "0x0058CD92"
+      ],
+      "linked_helper_call_sites": [
+        "0x005DFFE6"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetTexture",
+      "vtable_slot": 61,
+      "vtable_offset": "0x000000F4",
+      "call_sites": [
+        "0x00564F4E",
+        "0x0056D70E",
+        "0x005722BF",
+        "0x0058C1EF",
+        "0x0058C52D",
+        "0x005DFFD7",
+        "0x005E046B"
+      ],
+      "game_call_sites": [
+        "0x00564F4E",
+        "0x0056D70E",
+        "0x005722BF",
+        "0x0058C1EF",
+        "0x0058C52D"
+      ],
+      "linked_helper_call_sites": [
+        "0x005DFFD7",
+        "0x005E046B"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetTextureStageState",
+      "vtable_slot": 63,
+      "vtable_offset": "0x000000FC",
+      "call_sites": [
+        "0x0053F6E9",
+        "0x0053F767",
+        "0x0053F9C8",
+        "0x0056D8AF",
+        "0x0056D929",
+        "0x00571DB0",
+        "0x00571E2F",
+        "0x00571EB0",
+        "0x00576F41",
+        "0x0057703C",
+        "0x00585037",
+        "0x005850B5",
+        "0x0058512E",
+        "0x005851AD",
+        "0x00585223",
+        "0x0058567A",
+        "0x005856F2",
+        "0x0058576A",
+        "0x005857E8",
+        "0x0058586D",
+        "0x00585CAA",
+        "0x00585D22",
+        "0x00585D9A",
+        "0x00585E18",
+        "0x00585E9D",
+        "0x0058634F",
+        "0x005863CD",
+        "0x0058644A",
+        "0x005864C2",
+        "0x0058695F",
+        "0x005869D8",
+        "0x00586A51",
+        "0x00586AC5",
+        "0x00586B3B",
+        "0x005880A8",
+        "0x00588124",
+        "0x0058819B",
+        "0x005DFE80",
+        "0x005DFE8F",
+        "0x005DFE9F",
+        "0x005DFEB0",
+        "0x005DFEC0",
+        "0x005DFED0",
+        "0x005DFEDF",
+        "0x005DFEEF",
+        "0x005DFEFF",
+        "0x005DFF0F",
+        "0x005DFF1F",
+        "0x005DFF2F",
+        "0x005DFF40",
+        "0x005DFF51",
+        "0x005DFF61"
+      ],
+      "game_call_sites": [
+        "0x0053F6E9",
+        "0x0053F767",
+        "0x0053F9C8",
+        "0x0056D8AF",
+        "0x0056D929",
+        "0x00571DB0",
+        "0x00571E2F",
+        "0x00571EB0",
+        "0x00576F41",
+        "0x0057703C",
+        "0x00585037",
+        "0x005850B5",
+        "0x0058512E",
+        "0x005851AD",
+        "0x00585223",
+        "0x0058567A",
+        "0x005856F2",
+        "0x0058576A",
+        "0x005857E8",
+        "0x0058586D",
+        "0x00585CAA",
+        "0x00585D22",
+        "0x00585D9A",
+        "0x00585E18",
+        "0x00585E9D",
+        "0x0058634F",
+        "0x005863CD",
+        "0x0058644A",
+        "0x005864C2",
+        "0x0058695F",
+        "0x005869D8",
+        "0x00586A51",
+        "0x00586AC5",
+        "0x00586B3B",
+        "0x005880A8",
+        "0x00588124",
+        "0x0058819B"
+      ],
+      "linked_helper_call_sites": [
+        "0x005DFE80",
+        "0x005DFE8F",
+        "0x005DFE9F",
+        "0x005DFEB0",
+        "0x005DFEC0",
+        "0x005DFED0",
+        "0x005DFEDF",
+        "0x005DFEEF",
+        "0x005DFEFF",
+        "0x005DFF0F",
+        "0x005DFF1F",
+        "0x005DFF2F",
+        "0x005DFF40",
+        "0x005DFF51",
+        "0x005DFF61"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetTransform",
+      "vtable_slot": 37,
+      "vtable_offset": "0x00000094",
+      "call_sites": [
+        "0x0053FA6F",
+        "0x00561A20",
+        "0x00561DDA",
+        "0x00561ECD",
+        "0x00561FD6",
+        "0x0058654B",
+        "0x00587D84",
+        "0x0058AF73",
+        "0x0058D20C",
+        "0x0058D5E7",
+        "0x0058D66A",
+        "0x0058D6F5",
+        "0x0058D795"
+      ],
+      "game_call_sites": [
+        "0x0053FA6F",
+        "0x00561A20",
+        "0x00561DDA",
+        "0x00561ECD",
+        "0x00561FD6",
+        "0x0058654B",
+        "0x00587D84",
+        "0x0058AF73",
+        "0x0058D20C",
+        "0x0058D5E7",
+        "0x0058D66A",
+        "0x0058D6F5",
+        "0x0058D795"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetVertexShader",
+      "vtable_slot": 76,
+      "vtable_offset": "0x00000130",
+      "call_sites": [
+        "0x00564FD7",
+        "0x00571CF2",
+        "0x005800CA",
+        "0x00589DEF",
+        "0x0058ABFB",
+        "0x0058CC89",
+        "0x0058CDED",
+        "0x005DFDF7"
+      ],
+      "game_call_sites": [
+        "0x00564FD7",
+        "0x00571CF2",
+        "0x005800CA",
+        "0x00589DEF",
+        "0x0058ABFB",
+        "0x0058CC89",
+        "0x0058CDED"
+      ],
+      "linked_helper_call_sites": [
+        "0x005DFDF7"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "SetViewport",
+      "vtable_slot": 40,
+      "vtable_offset": "0x000000A0",
+      "call_sites": [
+        "0x0056148B",
+        "0x0058CCCD",
+        "0x0058CE2D",
+        "0x005E071F",
+        "0x005E07A7",
+        "0x005E0A61",
+        "0x005E0AAC"
+      ],
+      "game_call_sites": [
+        "0x0056148B",
+        "0x0058CCCD",
+        "0x0058CE2D"
+      ],
+      "linked_helper_call_sites": [
+        "0x005E071F",
+        "0x005E07A7",
+        "0x005E0A61",
+        "0x005E0AAC"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "ShowCursor",
+      "vtable_slot": 12,
+      "vtable_offset": "0x00000030",
+      "call_sites": [
+        "0x0055AD7E",
+        "0x0055AEB0"
+      ],
+      "game_call_sites": [
+        "0x0055AD7E",
+        "0x0055AEB0"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "TestCooperativeLevel",
+      "vtable_slot": 3,
+      "vtable_offset": "0x0000000C",
+      "call_sites": [
+        "0x0055AFB3"
+      ],
+      "game_call_sites": [
+        "0x0055AFB3"
+      ],
+      "linked_helper_call_sites": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    },
+    {
+      "interface": "IDirect3DDevice8",
+      "method": "UpdateTexture",
+      "vtable_slot": 29,
+      "vtable_offset": "0x00000074",
+      "call_sites": [
+        "0x005D9AE3",
+        "0x005D9F8C"
+      ],
+      "game_call_sites": [],
+      "linked_helper_call_sites": [
+        "0x005D9AE3",
+        "0x005D9F8C"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "receiver-reviewed call records below"
+    }
+  ],
+  "passes": [
+    {
+      "name": "frame clear/begin",
+      "order": 0,
+      "owner_va": "0x0056B900",
+      "owner_rva": "0x0016B900",
+      "likely_object_class": "lifecycle",
+      "depth_state": "clear depth1; TARGET|ZBUFFER",
+      "blend_state": "not applicable",
+      "texture_stage_family": "not applicable",
+      "camera": "current camera later",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "once_per_frame"
+    },
+    {
+      "name": "opaque queue flush",
+      "order": 10,
+      "owner_va": "0x00562810",
+      "owner_rva": "0x00162810",
+      "likely_object_class": "shared compiled world",
+      "depth_state": "per-instance +A8/+A9 overrides",
+      "blend_state": "opaque/alpha-test",
+      "texture_stage_family": "base/env/noise/water",
+      "camera": "shared renderer current camera",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "each_camera_and_group"
+    },
+    {
+      "name": "immediate 2D packet emission",
+      "order": 10,
+      "scope": "during_entity_list",
+      "owner_va": "0x0056D110",
+      "owner_rva": "0x0016D110",
+      "likely_object_class": "text/2D packets",
+      "depth_state": "packet flag",
+      "blend_state": "SRCALPHA/INVSRCALPHA",
+      "texture_stage_family": "texture*diffuse",
+      "camera": "ortho or perspective",
+      "render_target": "no target switching observed in reviewed game paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "enclosing function export / frame scheduling",
+      "confidence": "code path/scheduling confirmed; runtime frequency unobserved"
+    },
+    {
+      "name": "alpha queue flush",
+      "order": 11,
+      "owner_va": "0x00562810",
+      "owner_rva": "0x00162810",
+      "likely_object_class": "shared transparent world",
+      "depth_state": "per-instance +A8/+A9 overrides",
+      "blend_state": "SRCALPHA/INVSRCALPHA for base/env",
+      "texture_stage_family": "material family",
+      "camera": "shared renderer current camera",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "each_camera_and_group"
+    },
+    {
+      "name": "stock projected shadows",
+      "order": 20,
+      "owner_va": "0x00587DB0",
+      "owner_rva": "0x00187DB0",
+      "likely_object_class": "shadow geometry",
+      "depth_state": "ZENABLE1/ZWRITE0",
+      "blend_state": "particle_blend",
+      "texture_stage_family": "shadow texture",
+      "camera": "world projection",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "each_camera_finalize"
+    },
+    {
+      "name": "triangle trails",
+      "order": 30,
+      "owner_va": "0x00571EC0",
+      "owner_rva": "0x00171EC0",
+      "likely_object_class": "triangle trails",
+      "depth_state": "shader mode",
+      "blend_state": "shader mode",
+      "texture_stage_family": "particle",
+      "camera": "world projection",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "each_camera_finalize"
+    },
+    {
+      "name": "billboards",
+      "order": 40,
+      "owner_va": "0x005641C0",
+      "owner_rva": "0x001641C0",
+      "likely_object_class": "particles",
+      "depth_state": "shader mode",
+      "blend_state": "5 particle modes",
+      "texture_stage_family": "particle fixed function",
+      "camera": "current camera basis",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "each_camera_finalize"
+    },
+    {
+      "name": "optional video quads",
+      "order": 50,
+      "scope": "each_camera_finalize_if_active_video",
+      "owner_va": "0x0056C0D0",
+      "owner_rva": "0x0016C0D0",
+      "likely_object_class": "video",
+      "depth_state": "quad branch Z disabled",
+      "blend_state": "branch controlled",
+      "texture_stage_family": "video textures",
+      "camera": "ortho640x480",
+      "render_target": "no target switching observed in reviewed game paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "enclosing function export / frame scheduling",
+      "confidence": "code path/scheduling confirmed; runtime frequency unobserved"
+    },
+    {
+      "name": "deferred 2D packet emission",
+      "order": 60,
+      "owner_va": "0x0056D110",
+      "owner_rva": "0x0016D110",
+      "likely_object_class": "2D/text; packet mode can select perspective",
+      "depth_state": "packet flag controlled",
+      "blend_state": "SRCALPHA/INVSRCALPHA",
+      "texture_stage_family": "stage0 texture*diffuse",
+      "camera": "mode1/2 ortho640x480; other modes perspective",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "after_all_cameras"
+    },
+    {
+      "name": "optional late debug",
+      "order": 70,
+      "owner_va": "0x00589880",
+      "owner_rva": "0x00189880",
+      "likely_object_class": "debug",
+      "depth_state": "screen part ZENABLE0 then restore1",
+      "blend_state": "debug routines",
+      "texture_stage_family": "debug",
+      "camera": "world debug then ortho screen",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "after_deferred_packets"
+    },
+    {
+      "name": "EndScene/Present",
+      "order": 80,
+      "owner_va": "0x0056CD80",
+      "owner_rva": "0x0016CD80",
+      "likely_object_class": "lifecycle",
+      "depth_state": "not applicable",
+      "blend_state": "not applicable",
+      "texture_stage_family": "textures unbound",
+      "camera": "not applicable",
+      "render_target": "no target switching observed in reviewed paths",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00653080 / 0056E250 / enclosing export",
+      "confidence": "static scheduler order confirmed; semantic subcategory ordering remains partial",
+      "scope": "once_per_frame"
+    }
+  ],
+  "draw_owners": [
+    {
+      "owner_va": "0x00576970",
+      "owner_rva": "0x00176970",
+      "call_site_va": "0x00577078",
+      "call_site_rva": "0x00177078",
+      "primitive_api": "DrawIndexedPrimitive",
+      "category": "SHARED_COMPILED_WORLD",
+      "vb_ib_ownership": "compiled instance/material descriptors -> shared static suballocator00587070; VB+IB slices",
+      "material_source": "compiled ordered material passes, selector00580360, family setup",
+      "transform_source": "instance+44 via00583B90; final world00561A40",
+      "render_state_setup": "005867A0/base,00586150/env,00585AC0/noise,005854D0/water; final instance overrides",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "owner export; semantic subcategory reachability may need runtime",
+      "call_sites": [
+        "0x00577078"
+      ],
+      "usage_scope": "game_renderer"
+    },
+    {
+      "owner_va": "0x0057F9A0",
+      "owner_rva": "0x0017F9A0",
+      "call_site_va": "0x00580242",
+      "call_site_rva": "0x00180242",
+      "primitive_api": "DrawIndexedPrimitive",
+      "category": "ALTERNATE_FIXED_FUNCTION_MESH",
+      "vb_ib_ownership": "compiled instance/material descriptors -> shared static suballocator00587070; VB+IB slices",
+      "material_source": "compiled ordered material passes, selector00580360, family setup",
+      "transform_source": "instance+44 via00583B90; final world00561A40",
+      "render_state_setup": "005867A0/base,00586150/env,00585AC0/noise,005854D0/water; final instance overrides",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "owner export; semantic subcategory reachability may need runtime",
+      "call_sites": [
+        "0x00580242"
+      ],
+      "usage_scope": "game_renderer"
+    },
+    {
+      "owner_va": "0x005641C0",
+      "owner_rva": "0x001641C0",
+      "call_site_va": "0x00564ECA",
+      "call_site_rva": "0x00164ECA",
+      "primitive_api": "DrawPrimitive",
+      "category": "PARTICLE_BILLBOARDS",
+      "vb_ib_ownership": "dynamic ring VB; FVF0x142 stride24, no index buffer in draw",
+      "material_source": "particle texture/shader mode",
+      "transform_source": "camera basis plus particle world records",
+      "render_state_setup": "particle00584EA0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "owner export; semantic subcategory reachability may need runtime",
+      "call_sites": [
+        "0x00564ECA"
+      ],
+      "usage_scope": "game_renderer"
+    },
+    {
+      "owner_va": "0x00571EC0",
+      "owner_rva": "0x00171EC0",
+      "call_site_va": "0x005722E8",
+      "call_site_rva": "0x001722E8",
+      "primitive_api": "DrawPrimitive",
+      "category": "TRAILS",
+      "vb_ib_ownership": "dynamic ring VB; FVF0x142 stride24, no index buffer in draw",
+      "material_source": "trail shader/texture",
+      "transform_source": "trail triangle positions",
+      "render_state_setup": "particle00584EA0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "owner export; semantic subcategory reachability may need runtime",
+      "call_sites": [
+        "0x005722E8"
+      ],
+      "usage_scope": "game_renderer"
+    },
+    {
+      "owner_va": "0x00587DB0",
+      "owner_rva": "0x00187DB0",
+      "call_site_va": "0x005881E5",
+      "call_site_rva": "0x001881E5",
+      "primitive_api": "DrawPrimitive",
+      "category": "STOCK_SHADOWS",
+      "vb_ib_ownership": "dynamic ring VB; FVF0x142 stride24, no index buffer in draw",
+      "material_source": "misc/shadow/shadow",
+      "transform_source": "projected stock shadow positions",
+      "render_state_setup": "particle00584EA0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "owner export; semantic subcategory reachability may need runtime",
+      "call_sites": [
+        "0x005881E5"
+      ],
+      "usage_scope": "game_renderer"
+    },
+    {
+      "owner_va": "0x0056D110",
+      "owner_rva": "0x0016D110",
+      "call_site_va": "0x0056D7BE",
+      "call_site_rva": "0x0016D7BE",
+      "primitive_api": "DrawPrimitive",
+      "category": "TEXT_2D_PACKET",
+      "vb_ib_ownership": "dynamic ring VB; FVF0x142 stride24, no index buffer in draw",
+      "material_source": "text/sprite glyph texture handle",
+      "transform_source": "packet ortho/perspective mode",
+      "render_state_setup": "inline owner state + shared cache",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "owner export; semantic subcategory reachability may need runtime",
+      "call_sites": [
+        "0x0056D7BE"
+      ],
+      "usage_scope": "game_renderer"
+    },
+    {
+      "owner_va": "0x0056C0D0",
+      "owner_rva": "0x0016C0D0",
+      "call_site_va": "0x0056C31D",
+      "call_site_rva": "0x0016C31D",
+      "primitive_api": "DrawPrimitive",
+      "category": "VIDEO_QUADS",
+      "vb_ib_ownership": "dynamic ring VB; FVF0x142 stride24, no index buffer in draw",
+      "material_source": "video singleton texture slots",
+      "transform_source": "ortho video quads",
+      "render_state_setup": "inline owner state + shared cache",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "owner export; semantic subcategory reachability may need runtime",
+      "call_sites": [
+        "0x0056C31D",
+        "0x0056C48D",
+        "0x0056C5FD",
+        "0x0056C76D",
+        "0x0056C8DD",
+        "0x0056CA47",
+        "0x0056CD53"
+      ],
+      "usage_scope": "game_renderer"
+    },
+    {
+      "owner_va": "0x00589B70",
+      "owner_rva": "0x00189B70",
+      "call_site_va": "0x00589FB4",
+      "call_site_rva": "0x00189FB4",
+      "primitive_api": "DrawPrimitive",
+      "category": "DEBUG_WORLD",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "reviewed enclosing function / receiver flow",
+      "call_sites": [
+        "0x00589FB4",
+        "0x0058A2A3",
+        "0x0058A4C7"
+      ],
+      "usage_scope": "game_renderer",
+      "vb_ib_ownership": "dynamic ring VB, FVF0x42/16-byte lines/triangles or0x62/20-byte point-size vertices; no IB",
+      "material_source": "debug color/primitive collections",
+      "transform_source": "scene attachment0058AD40/current camera",
+      "render_state_setup": "inline owner state + shared cache"
+    },
+    {
+      "owner_va": "0x0058A4F0",
+      "owner_rva": "0x0018A4F0",
+      "call_site_va": "0x0058A766",
+      "call_site_rva": "0x0018A766",
+      "primitive_api": "DrawPrimitive",
+      "category": "DEBUG_SCREEN",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "reviewed enclosing function / receiver flow",
+      "call_sites": [
+        "0x0058A766",
+        "0x0058A951",
+        "0x0058AC9E"
+      ],
+      "usage_scope": "game_renderer",
+      "vb_ib_ownership": "dynamic ring VB, FVF0x42/16-byte lines/triangles or0x62/20-byte point-size vertices; no IB",
+      "material_source": "debug color/primitive collections",
+      "transform_source": "ortho identity world/view",
+      "render_state_setup": "inline owner state + shared cache"
+    },
+    {
+      "owner_va": "0x005E01F1",
+      "owner_rva": "0x001E01F1",
+      "call_site_va": "0x005E0490",
+      "call_site_rva": "0x001E0490",
+      "primitive_api": "DrawPrimitiveUP",
+      "category": "LINKED_D3DX_SPRITE",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "reviewed enclosing function / receiver flow",
+      "call_sites": [
+        "0x005E0490"
+      ],
+      "usage_scope": "linked_helper_unproven_game_reachability",
+      "vb_ib_ownership": "UP stack vertices, no VB/IB; FVF0x144 stride28",
+      "material_source": "sprite texture and tint argument",
+      "transform_source": "RHW vertices / optional matrix argument",
+      "render_state_setup": "005DFD97 sprite state blocks"
+    }
+  ],
+  "vertex_formats": [
+    {
+      "fvf": "0x00000142",
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "DIFFUSE",
+          "offset": 12,
+          "type": "D3DCOLOR"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 16,
+          "type": "float2"
+        }
+      ],
+      "stride": 24,
+      "owners": [
+        "0x005641C0",
+        "0x00571EC0",
+        "0x00587DB0",
+        "0x0056D110",
+        "0x0056C0D0"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "006E9A78 and upload/draw arguments"
+    },
+    {
+      "fvf": null,
+      "fields": "descriptor-generated XYZ or RHW, optional normals/diffuse/specular, variable UV count/dimensions",
+      "owner_va": "0x00575E70",
+      "owner_rva": "0x00175E70",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "FVF builder; exhaustive active values unknown",
+      "skin_tangents": "descriptor blend support does not prove active skinning; tangent channel not established"
+    },
+    {
+      "fvf": "0x00000042",
+      "stride": 16,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "DIFFUSE",
+          "offset": 12,
+          "type": "D3DCOLOR"
+        }
+      ],
+      "owners": [
+        "0x00589B70",
+        "0x0058A4F0"
+      ],
+      "usage_scope": "game_debug",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00589DBA / 0058ABC5 FVF arguments"
+    },
+    {
+      "fvf": "0x00000062",
+      "stride": 20,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "PSIZE",
+          "offset": 12,
+          "type": "float"
+        },
+        {
+          "semantic": "DIFFUSE",
+          "offset": 16,
+          "type": "D3DCOLOR"
+        }
+      ],
+      "owners": [
+        "0x00589B70",
+        "0x0058A4F0"
+      ],
+      "usage_scope": "game_debug",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "0058A1F3 / 0058A6C9 FVF arguments"
+    },
+    {
+      "fvf": "0x00000144",
+      "stride": 28,
+      "fields": [
+        {
+          "semantic": "POSITIONT",
+          "offset": 0,
+          "type": "float4"
+        },
+        {
+          "semantic": "DIFFUSE",
+          "offset": 16,
+          "type": "D3DCOLOR"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 20,
+          "type": "float2"
+        }
+      ],
+      "owners": [
+        "0x005E01F1"
+      ],
+      "usage_scope": "linked_helper_unproven_game_reachability",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "005DFDF1 PUSH 0x144; SetVertexShader at005DFDF7; 005E0490 stride28"
+    },
+    {
+      "fvf": "0x00000102",
+      "stride": 20,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 12,
+          "type": "float2"
+        }
+      ],
+      "family": "base",
+      "condition": "material UV byte+21 enabled; diffuse byte+20 False",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+      "owner_va": "0x00586560",
+      "owner_rva": "0x00186560"
+    },
+    {
+      "fvf": "0x00000142",
+      "stride": 24,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "DIFFUSE",
+          "offset": 12,
+          "type": "D3DCOLOR"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 16,
+          "type": "float2"
+        }
+      ],
+      "family": "base",
+      "condition": "material UV byte+21 enabled; diffuse byte+20 True",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+      "owner_va": "0x00586560",
+      "owner_rva": "0x00186560"
+    },
+    {
+      "fvf": "0x00000112",
+      "stride": 32,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "NORMAL",
+          "offset": 12,
+          "type": "float3"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 24,
+          "type": "float2"
+        }
+      ],
+      "family": "env",
+      "condition": "material UV byte+21 enabled; diffuse byte+20 False",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+      "owner_va": "0x005860A0",
+      "owner_rva": "0x001860A0"
+    },
+    {
+      "fvf": "0x00000152",
+      "stride": 36,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "NORMAL",
+          "offset": 12,
+          "type": "float3"
+        },
+        {
+          "semantic": "DIFFUSE",
+          "offset": 24,
+          "type": "D3DCOLOR"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 28,
+          "type": "float2"
+        }
+      ],
+      "family": "env",
+      "condition": "material UV byte+21 enabled; diffuse byte+20 True",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+      "owner_va": "0x005860A0",
+      "owner_rva": "0x001860A0"
+    },
+    {
+      "fvf": "0x00000202",
+      "stride": 28,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 12,
+          "type": "float2"
+        },
+        {
+          "semantic": "TEXCOORD1",
+          "offset": 20,
+          "type": "float2"
+        }
+      ],
+      "family": "noise",
+      "condition": "material UV byte+21 enabled; diffuse byte+20 False",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+      "owner_va": "0x00585880",
+      "owner_rva": "0x00185880"
+    },
+    {
+      "fvf": "0x00000242",
+      "stride": 32,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "DIFFUSE",
+          "offset": 12,
+          "type": "D3DCOLOR"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 16,
+          "type": "float2"
+        },
+        {
+          "semantic": "TEXCOORD1",
+          "offset": 24,
+          "type": "float2"
+        }
+      ],
+      "family": "noise",
+      "condition": "material UV byte+21 enabled; diffuse byte+20 True",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+      "owner_va": "0x00585880",
+      "owner_rva": "0x00185880"
+    },
+    {
+      "fvf": "0x00000212",
+      "stride": 40,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "NORMAL",
+          "offset": 12,
+          "type": "float3"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 24,
+          "type": "float2"
+        },
+        {
+          "semantic": "TEXCOORD1",
+          "offset": 32,
+          "type": "float2"
+        }
+      ],
+      "family": "water",
+      "condition": "material UV byte+21 enabled; diffuse byte+20 False",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+      "owner_va": "0x00585290",
+      "owner_rva": "0x00185290"
+    },
+    {
+      "fvf": "0x00000252",
+      "stride": 44,
+      "fields": [
+        {
+          "semantic": "POSITION",
+          "offset": 0,
+          "type": "float3"
+        },
+        {
+          "semantic": "NORMAL",
+          "offset": 12,
+          "type": "float3"
+        },
+        {
+          "semantic": "DIFFUSE",
+          "offset": 24,
+          "type": "D3DCOLOR"
+        },
+        {
+          "semantic": "TEXCOORD0",
+          "offset": 28,
+          "type": "float2"
+        },
+        {
+          "semantic": "TEXCOORD1",
+          "offset": 36,
+          "type": "float2"
+        }
+      ],
+      "family": "water",
+      "condition": "material UV byte+21 enabled; diffuse byte+20 True",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pass constructor +005781B0 +00575CC0 +00575E70; not a GPU capture",
+      "owner_va": "0x00585290",
+      "owner_rva": "0x00185290"
+    }
+  ],
+  "textures": [
+    {
+      "value": {
+        "owner": "005587E0",
+        "pool": 1,
+        "usage": 0,
+        "mip_levels": 0,
+        "upload_source_format": 21,
+        "format_candidates": [
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          30
+        ],
+        "resource_handle_lookup": "0054ACD0"
+      },
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x005589CD",
+      "rva": "0x001589CD"
+    }
+  ],
+  "material_families": [
+    {
+      "name": "base",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005867A0",
+      "owner_rva": "0x001867A0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 1,
+          "ALPHAOP": 1
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_alpha",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005867A0",
+      "owner_rva": "0x001867A0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 1,
+          "ALPHAOP": 1
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_alphatest",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005867A0",
+      "owner_rva": "0x001867A0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6,
+        "ALPHATESTENABLE": 1,
+        "ALPHAREF": 128,
+        "ALPHAFUNC": 5
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 1,
+          "ALPHAOP": 1
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_env",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00586150",
+      "owner_rva": "0x00186150",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 18,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": 65536,
+          "TEXTURETRANSFORMFLAGS": 2
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_env_alpha",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00586150",
+      "owner_rva": "0x00186150",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 18,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": 65536,
+          "TEXTURETRANSFORMFLAGS": 2
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_env_alphatest",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00586150",
+      "owner_rva": "0x00186150",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6,
+        "ALPHATESTENABLE": 1,
+        "ALPHAREF": 128,
+        "ALPHAFUNC": 5
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 18,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": 65536,
+          "TEXTURETRANSFORMFLAGS": 2
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_noise",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00585AC0",
+      "owner_rva": "0x00185AC0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 5,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 5,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_noise_alpha",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00585AC0",
+      "owner_rva": "0x00185AC0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 5,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 5,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_noise_alphatest",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00585AC0",
+      "owner_rva": "0x00185AC0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6,
+        "ALPHATESTENABLE": 1,
+        "ALPHAREF": 128,
+        "ALPHAFUNC": 5
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 5,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 5,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_water",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005854D0",
+      "owner_rva": "0x001854D0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 3,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 7,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 2,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_water_alpha",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005854D0",
+      "owner_rva": "0x001854D0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 3,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 7,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 2,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "particle_solid",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": null,
+        "DESTBLEND": null
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    },
+    {
+      "name": "particle_blend",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    },
+    {
+      "name": "particle_add",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 2,
+        "DESTBLEND": 2
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    },
+    {
+      "name": "particle_colorabsorb",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 2,
+        "DESTBLEND": 4
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    },
+    {
+      "name": "particle_densityabsorb",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 1,
+        "DESTBLEND": 4
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    }
+  ],
+  "camera": {
+    "view": {
+      "value": "interpolated basis and position -> inverse view -> SetTransform2",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x005614A0",
+      "rva": "0x001614A0"
+    },
+    "projection": {
+      "value": "PerspectiveFovLH, aspect width/height, near0.2, far2*distance_scalar; override100000 branch",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x005614A0",
+      "rva": "0x001614A0"
+    },
+    "FOV": {
+      "value": "004F2350: angle if width<=height else angle*height/width; then radians",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004F2350",
+      "rva": "0x000F2350"
+    },
+    "parameters": {
+      "value": {
+        "distance_scalar": [
+          300,
+          400,
+          500
+        ],
+        "near": 0.2
+      },
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056D020",
+      "rva": "0x0016D020"
+    },
+    "viewport": {
+      "value": "camera+78,+7C,+80,+84; Z range0..1",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x005613E0",
+      "rva": "0x001613E0"
+    },
+    "world": {
+      "value": "interpolated instance+44; mode2 camera X/Z adjustment",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x00561A40",
+      "rva": "0x00161A40"
+    },
+    "producer_convergence": {
+      "value": null,
+      "evidence_grade": "HYPOTHESIS",
+      "source": "gameplay/replay/frontend producer chains incomplete"
+    },
+    "viewport_scheduler": {
+      "value": "client dimensions each frame; one/two/four camera layouts; restore first camera full client before EndFrame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x00653080",
+      "rva": "0x00253080"
+    }
+  },
+  "lighting": {
+    "traced_materials": {
+      "value": "all reviewed base/env/noise/water/particle setup sets LIGHTING0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x005867A0",
+      "rva": "0x001867A0"
+    },
+    "initial_default": {
+      "value": "LIGHTING1 in runtime-initialized cache table",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0058E870",
+      "rva": "0x0018E870"
+    },
+    "native_light_owner": {
+      "value": null,
+      "evidence_grade": "HYPOTHESIS",
+      "source": "no proven device SetLight/LightEnable/SetMaterial path"
+    },
+    "vertex_diffuse": {
+      "value": "copied source packed colors; stage0 modulation",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x00577DD0",
+      "rva": "0x00177DD0"
+    }
+  },
+  "fog": {
+    "owner": {
+      "value": "common draw sets FOGENABLE28, COLOR34, VERTEXMODE140=LINEAR3, START36, END37",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x00576970",
+      "rva": "0x00176970"
+    },
+    "parameters": {
+      "value": "setter stores color/span; start=scalar*(1-span), end=scalar",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056D020",
+      "rva": "0x0016D020"
+    },
+    "sky_origin": {
+      "value": "CloudNumber-selected RGB + fog enabled + span0.9",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004B1180",
+      "rva": "0x000B1180"
+    }
+  },
+  "sky": {
+    "selection": {
+      "value": "Misc/Sky/cloudN/cloudsN, later layerN; CloudNumberReplay preserved",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004B1180",
+      "rva": "0x000B1180"
+    },
+    "geometry": {
+      "value": "external cloud3 txt names Cylinder01 and cloud $shader(sky)",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "protected retail DataGx/Misc/Sky/cloud3/clouds3.txt"
+    },
+    "draw_owner": {
+      "value": "shared compiled queue; semantic resource association requires observation",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x00576970",
+      "rva": "0x00176970"
+    },
+    "compiled_family": {
+      "value": "protected corpus mask1; clouds0..5 base, layers and clouds6 base_alpha; no-diffuse UV-enabled -> FVF102 stride20",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "data/sky-resources.json + selector/pass/FVF builder",
+      "va": "0x00580360",
+      "rva": "0x00180360"
+    },
+    "network_selection": {
+      "value": "CloudNumber serialized message byte004343C0; consumed00433EC0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004343C0",
+      "rva": "0x000343C0"
+    },
+    "initial_depth": {
+      "value": "generic packet low flags0xF; sky clears fog only; instance ZWRITE default1; final overrides still need observation",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004F5A80",
+      "rva": "0x000F5A80"
+    }
+  },
+  "ui": {
+    "owner": {
+      "value": "text/2D packet path; mode1/2 ortho otherwise perspective",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056D110",
+      "rva": "0x0016D110"
+    },
+    "late_boundary": {
+      "value": "deferred packets before EndScene",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056CD80",
+      "rva": "0x0016CD80"
+    },
+    "video": {
+      "value": "optional active-video quads, distinct from debug and ordinary HUD",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056C0D0",
+      "rva": "0x0016C0D0"
+    }
+  },
+  "depth": {
+    "allocation": {
+      "value": "automatic D3D depth; format selected after match queries",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0055AB90",
+      "rva": "0x0015AB90"
+    },
+    "clear": {
+      "value": "TARGET|ZBUFFER; depth1",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0056BA1A",
+      "rva": "0x0016BA1A"
+    },
+    "sampling": {
+      "value": null,
+      "evidence_grade": "HYPOTHESIS",
+      "source": "no stock depth texture/copy established"
+    }
+  },
+  "device_reset": {
+    "check": {
+      "value": "DEVICELOST skip; DEVICENOTRESET reset",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0055AF50",
+      "rva": "0x0015AF50"
+    },
+    "reset": {
+      "value": "resource callback +14 -> Reset -> backbuffer desc -> callback +18",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0055AE40",
+      "rva": "0x0015AE40"
+    },
+    "resource_callbacks": {
+      "value": "0055B410->00567F60 frees dynamic lists; 0055B450 reapplies caches",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x0055B410",
+      "rva": "0x0015B410"
+    },
+    "full_recreation": {
+      "value": null,
+      "evidence_grade": "HYPOTHESIS",
+      "source": "compiled slice and texture recovery reachability incomplete"
+    }
+  },
+  "render_targets": {
+    "value": "direct backbuffer in mapped game paths; linked D3DX offscreen code present, game reachability unknown",
+    "evidence_grade": "STATIC_INFERENCE",
+    "source": "ordinary game paths and separately reviewed linked helper exports",
+    "va": "0x005E060E",
+    "rva": "0x001E060E"
+  },
+  "classification_signals": [
+    {
+      "category": "SKY",
+      "signals": [
+        "CloudNumber resource identity",
+        "mode2 camera-relative X/Z world transform",
+        "packet fog bit cleared"
+      ],
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "draw-classification.md",
+      "classification_status": "RESOURCE_PROVENANCE_REQUIRED",
+      "addresses": [
+        {
+          "va": "0x004B1180",
+          "rva": "0x000B1180"
+        },
+        {
+          "va": "0x00580360",
+          "rva": "0x00180360"
+        }
+      ]
+    },
+    {
+      "category": "TERRAIN",
+      "signals": [
+        "scene model resource identity",
+        "hierarchy/entity ownership"
+      ],
+      "evidence_grade": "HYPOTHESIS",
+      "source": "draw-classification.md",
+      "classification_status": "UNRESOLVED",
+      "addresses": [
+        {
+          "va": "0x0054C9D0",
+          "rva": "0x0014C9D0"
+        }
+      ]
+    },
+    {
+      "category": "ROAD",
+      "signals": [
+        "material/resource identity plus surface linkage"
+      ],
+      "evidence_grade": "HYPOTHESIS",
+      "source": "draw-classification.md",
+      "classification_status": "UNRESOLVED",
+      "addresses": [
+        {
+          "va": "0x0054C9D0",
+          "rva": "0x0014C9D0"
+        }
+      ]
+    },
+    {
+      "category": "STATIC_OPAQUE",
+      "signals": [
+        "opaque queue",
+        "base family",
+        "scene resource"
+      ],
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "draw-classification.md",
+      "classification_status": "RESOURCE_PROVENANCE_REQUIRED",
+      "addresses": [
+        {
+          "va": "0x00576970",
+          "rva": "0x00176970"
+        }
+      ]
+    },
+    {
+      "category": "VEGETATION_ALPHA_TEST",
+      "signals": [
+        "ALPHATEST=1/REF128/FUNC5",
+        "foliage texture/model identity"
+      ],
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "draw-classification.md",
+      "classification_status": "RESOURCE_PROVENANCE_REQUIRED",
+      "addresses": [
+        {
+          "va": "0x005867A0",
+          "rva": "0x001867A0"
+        }
+      ]
+    },
+    {
+      "category": "VEHICLE_BODY",
+      "signals": [
+        "vehicle resource and compiled instance identity",
+        "entity model binding /car in004B6A00"
+      ],
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "draw-classification.md",
+      "classification_status": "RESOURCE_PROVENANCE_REQUIRED",
+      "addresses": [
+        {
+          "va": "0x004B6A00",
+          "rva": "0x000B6A00"
+        },
+        {
+          "va": "0x004F5440",
+          "rva": "0x000F5440"
+        }
+      ]
+    },
+    {
+      "category": "VEHICLE_WHEEL",
+      "signals": [
+        "wheel.dx instance/resource provenance",
+        "entity parent/Wheel0..3; Physics/<name>/Transform; ordinary vs Alpha/replay resources"
+      ],
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "draw-classification.md",
+      "classification_status": "RESOURCE_PROVENANCE_REQUIRED",
+      "addresses": [
+        {
+          "va": "0x004B6A00",
+          "rva": "0x000B6A00"
+        },
+        {
+          "va": "0x004F5440",
+          "rva": "0x000F5440"
+        },
+        {
+          "va": "0x004BFE00",
+          "rva": "0x000BFE00"
+        }
+      ]
+    },
+    {
+      "category": "VEHICLE_GLASS",
+      "signals": [
+        "vehicle material identity and alpha queue"
+      ],
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "draw-classification.md",
+      "classification_status": "RESOURCE_PROVENANCE_REQUIRED",
+      "addresses": [
+        {
+          "va": "0x00576970",
+          "rva": "0x00176970"
+        }
+      ]
+    },
+    {
+      "category": "PARTICLE",
+      "signals": [
+        "005641C0 caller",
+        "FVF142 stride24",
+        "particle texture"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "draw-classification.md",
+      "classification_status": "API_OWNER_CONFIRMED",
+      "addresses": [
+        {
+          "va": "0x005641C0",
+          "rva": "0x001641C0"
+        }
+      ]
+    },
+    {
+      "category": "TRANSPARENT_WORLD",
+      "signals": [
+        "alpha queue",
+        "blend signature",
+        "instance/model"
+      ],
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "draw-classification.md",
+      "classification_status": "RESOURCE_PROVENANCE_REQUIRED",
+      "addresses": [
+        {
+          "va": "0x00562810",
+          "rva": "0x00162810"
+        }
+      ]
+    },
+    {
+      "category": "HUD",
+      "signals": [
+        "0056D110 packet",
+        "ortho projection",
+        "HUD resource/state"
+      ],
+      "evidence_grade": "HYPOTHESIS",
+      "source": "draw-classification.md",
+      "classification_status": "UNRESOLVED",
+      "addresses": [
+        {
+          "va": "0x0056D110",
+          "rva": "0x0016D110"
+        }
+      ]
+    },
+    {
+      "category": "FRONTEND_UI",
+      "signals": [
+        "0056D110 packet",
+        "frontend resource/state"
+      ],
+      "evidence_grade": "HYPOTHESIS",
+      "source": "draw-classification.md",
+      "classification_status": "UNRESOLVED",
+      "addresses": [
+        {
+          "va": "0x0056D110",
+          "rva": "0x0016D110"
+        }
+      ]
+    },
+    {
+      "category": "UNKNOWN",
+      "signals": [
+        "default if multiple matches or missing provenance"
+      ],
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "draw-classification.md",
+      "classification_status": "DEFAULT_POLICY",
+      "addresses": []
+    }
+  ],
+  "future_seams": [
+    {
+      "feature": "per-pixel directional sun",
+      "difficulty": "MODERATE",
+      "reason": "Normals must survive layout path; shader/backend work and light source unresolved",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x00577DD0",
+          "rva": "0x00177DD0"
+        },
+        {
+          "va": "0x005867A0",
+          "rva": "0x001867A0"
+        }
+      ]
+    },
+    {
+      "feature": "ambient / hemisphere lighting",
+      "difficulty": "MODERATE",
+      "reason": "Replace unlit/baked diffuse carefully without double lighting",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x005867A0",
+          "rva": "0x001867A0"
+        }
+      ]
+    },
+    {
+      "feature": "vehicle specular",
+      "difficulty": "MODERATE",
+      "reason": "Vehicle identity and normal-bearing layouts need runtime confirmation",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x00586150",
+          "rva": "0x00186150"
+        }
+      ]
+    },
+    {
+      "feature": "vehicle environment reflection",
+      "difficulty": "MODERATE",
+      "reason": "Known stage1 normal mapping seam, no live cubemap capture established",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x00586150",
+          "rva": "0x00186150"
+        },
+        {
+          "va": "0x00561A40",
+          "rva": "0x00161A40"
+        }
+      ]
+    },
+    {
+      "feature": "gamma correction",
+      "difficulty": "MODERATE",
+      "reason": "Scene/UI boundary and texture color spaces must be identified",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0056CD80",
+          "rva": "0x0016CD80"
+        }
+      ]
+    },
+    {
+      "feature": "anisotropic filtering",
+      "difficulty": "EASY",
+      "reason": "Intercept known TSS filtering; caps/visual parity still required",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0053F930",
+          "rva": "0x0013F930"
+        }
+      ]
+    },
+    {
+      "feature": "anti-aliasing",
+      "difficulty": "MODERATE",
+      "reason": "Creation MSAA/depth matching and alpha-test edges",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0055AB90",
+          "rva": "0x0015AB90"
+        },
+        {
+          "va": "0x0055A030",
+          "rva": "0x0015A030"
+        }
+      ]
+    },
+    {
+      "feature": "extended draw distance",
+      "difficulty": "MODERATE",
+      "reason": "CPU bound rejection and fog scalar, not projection alone",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x004F2380",
+          "rva": "0x000F2380"
+        },
+        {
+          "va": "0x0054C9D0",
+          "rva": "0x0014C9D0"
+        },
+        {
+          "va": "0x0056D020",
+          "rva": "0x0016D020"
+        }
+      ]
+    },
+    {
+      "feature": "modern fog",
+      "difficulty": "MODERATE",
+      "reason": "Known fog/view scalar seam; reliable depth access depends on backend",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0056D020",
+          "rva": "0x0016D020"
+        }
+      ]
+    },
+    {
+      "feature": "shadow maps",
+      "difficulty": "HARD",
+      "reason": "Shared buffers/damage/transparency classification, replay and receiver normals",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x00576970",
+          "rva": "0x00176970"
+        },
+        {
+          "va": "0x00583B90",
+          "rva": "0x00183B90"
+        }
+      ]
+    },
+    {
+      "feature": "SSAO",
+      "difficulty": "HARD",
+      "reason": "Depth sampling and scene/UI separation absent in stock observed path",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0056B900",
+          "rva": "0x0016B900"
+        },
+        {
+          "va": "0x0056CD80",
+          "rva": "0x0016CD80"
+        }
+      ]
+    },
+    {
+      "feature": "tone mapping",
+      "difficulty": "MODERATE",
+      "reason": "Need offscreen scene target and correct UI composition",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0056CD80",
+          "rva": "0x0016CD80"
+        }
+      ]
+    },
+    {
+      "feature": "bloom",
+      "difficulty": "MODERATE",
+      "reason": "Need offscreen target; original values are LDR",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0056CD80",
+          "rva": "0x0016CD80"
+        }
+      ]
+    },
+    {
+      "feature": "skybox switching",
+      "difficulty": "MODERATE",
+      "reason": "Cloud resource seam exists; selection is scene initialization, live ownership not proved",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x004B1180",
+          "rva": "0x000B1180"
+        }
+      ]
+    },
+    {
+      "feature": "time-of-day presets",
+      "difficulty": "MODERATE",
+      "reason": "Sky/fog control known; sun/ambient native source unresolved",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x004B1180",
+          "rva": "0x000B1180"
+        },
+        {
+          "va": "0x0056D020",
+          "rva": "0x0016D020"
+        }
+      ]
+    },
+    {
+      "feature": "rain particles",
+      "difficulty": "MODERATE",
+      "reason": "Billboard path exists; spawn, lifetime, orientation and pause timing need mapping",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x005641C0",
+          "rva": "0x001641C0"
+        }
+      ]
+    },
+    {
+      "feature": "wet materials",
+      "difficulty": "HARD",
+      "reason": "Road/dirt/mud/snow identity not connected to GPU material families",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x00580360",
+          "rva": "0x00180360"
+        }
+      ]
+    },
+    {
+      "feature": "wheel spray",
+      "difficulty": "MODERATE",
+      "reason": "Existing water_drive particle inputs; wetness/surface trigger needs map",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x005641C0",
+          "rva": "0x001641C0"
+        }
+      ]
+    },
+    {
+      "feature": "night lighting",
+      "difficulty": "HARD",
+      "reason": "No known runtime light owner; night content/exposure missing",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x005867A0",
+          "rva": "0x001867A0"
+        }
+      ]
+    },
+    {
+      "feature": "headlights",
+      "difficulty": "HARD",
+      "reason": "New light projection/shadow path and vehicle association required",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0056BBC0",
+          "rva": "0x0016BBC0"
+        }
+      ]
+    },
+    {
+      "feature": "selective HD texture replacement",
+      "difficulty": "MODERATE",
+      "reason": "Loose/cached upload seam known; identity, alpha and mip compatibility needed",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x005587E0",
+          "rva": "0x001587E0"
+        },
+        {
+          "va": "0x0064D530",
+          "rva": "0x0024D530"
+        }
+      ]
+    },
+    {
+      "feature": "optional normal maps",
+      "difficulty": "HARD",
+      "reason": "No tangent stream established; requires UV-based generation and material identity",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x00577DD0",
+          "rva": "0x00177DD0"
+        }
+      ]
+    },
+    {
+      "feature": "freecam",
+      "difficulty": "MODERATE",
+      "reason": "Final view seam known; scene culling uses original camera and pause-independent update unknown",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x005614A0",
+          "rva": "0x001614A0"
+        },
+        {
+          "va": "0x004F2380",
+          "rva": "0x000F2380"
+        }
+      ]
+    },
+    {
+      "feature": "FOV control",
+      "difficulty": "EASY",
+      "reason": "Known angle helper and final projection; preserve baseline linear aspect rule",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x004F2350",
+          "rva": "0x000F2350"
+        },
+        {
+          "va": "0x005614A0",
+          "rva": "0x001614A0"
+        }
+      ]
+    },
+    {
+      "feature": "photo mode",
+      "difficulty": "HARD",
+      "reason": "Freecam plus culling, HUD suppression, pause control, capture and optional depth effects",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x005614A0",
+          "rva": "0x001614A0"
+        },
+        {
+          "va": "0x0056D110",
+          "rva": "0x0016D110"
+        }
+      ]
+    },
+    {
+      "feature": "exposure / DOF",
+      "difficulty": "BLOCKED / UNKNOWN",
+      "reason": "No stock HDR exposure or sampled depth established; backend and capture boundary prerequisite",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "modernization-seams.md",
+      "addresses": [
+        {
+          "va": "0x0056CD80",
+          "rva": "0x0016CD80"
+        }
+      ]
+    }
+  ],
+  "runtime_required": [
+    "full frame schedule by scene/camera",
+    "actual presentation/depth formats",
+    "all D3D method counts and shader handles",
+    "native light/fog state timeline",
+    "resource identity for shared world draws",
+    "device loss/default resource recovery",
+    "offscreen/capture/assembler reachability",
+    "static scheduler order and video gate across all camera modes; optional D3DX helper reachability"
+  ],
+  "geometry_producers": {
+    "ordinary_vehicle_entities": {
+      "value": "body /car and four /wheel entities; names parent/Wheel0..3; model binds004B7027/004B71E1",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004B6A00",
+      "rva": "0x000B6A00"
+    },
+    "resource_binding": {
+      "value": "packet+0C model handle; destroys old compiled instance+74 on change",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004F5B70",
+      "rva": "0x000F5B70"
+    },
+    "physics_world": {
+      "value": "Physics/<entity-name>/Transform -> entity+50 packet+1C..58 (16 DWORDs)",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004F5440",
+      "rva": "0x000F5440"
+    },
+    "ghost_wheel": {
+      "value": "Alpha/car and Alpha/wheel resources; indexed gaWheelSplinePlaybackAI",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004BFE00",
+      "rva": "0x000BFE00"
+    },
+    "ghost_wheel_world": {
+      "value": "recorded pose/suspension/steering/spin -> wheel transform",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine retail Ghidra export",
+      "va": "0x004C00D0",
+      "rva": "0x000C00D0"
+    }
+  },
+  "surface_prerequisites": {
+    "source": "external protected retail DataGame/Surface.xml",
+    "sha256": "37e7b1ee9b2f283e8ed04a903c39eaa58f55d7224c86b125e61e6ebd055011ac",
+    "evidence_grade": "CONFIRMED_BY_EXISTING_RESEARCH",
+    "scope": "existing retail corpus observation; physical/data properties, not GPU draw identity",
+    "records": [
+      {
+        "index": 0,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(tarmac)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\tarmac"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 1,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(harddirt)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\harddirt"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 2,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(grass)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\grass"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 3,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(gravel)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\gravel"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 4,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(mud)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\mud"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 5,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(metal)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.50000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\metal"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 6,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(rubber)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\rubber"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 7,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(rock)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\rock"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 8,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(hay)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.20000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\hay"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 9,
+        "type": {
+          "type": "String",
+          "value": "$surfacetype(water)"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\water"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "False"
+        }
+      },
+      {
+        "index": 10,
+        "type": {
+          "type": "String",
+          "value": "NotDefined"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\tarmac"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 11,
+        "type": {
+          "type": "String",
+          "value": "NotDefined"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\tarmac"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 12,
+        "type": {
+          "type": "String",
+          "value": "NotDefined"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\tarmac"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 13,
+        "type": {
+          "type": "String",
+          "value": "NotDefined"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\tarmac"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 14,
+        "type": {
+          "type": "String",
+          "value": "NotDefined"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\tarmac"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      },
+      {
+        "index": 15,
+        "type": {
+          "type": "String",
+          "value": "NotDefined"
+        },
+        "quality": {
+          "type": "Float",
+          "value": "1.00000"
+        },
+        "restitution": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "friction": {
+          "type": "Float",
+          "value": "0.00000"
+        },
+        "tracktexture": {
+          "type": "String",
+          "value": "misc\\tracks\\tarmac"
+        },
+        "solid": {
+          "type": "Bool",
+          "value": "True"
+        }
+      }
+    ],
+    "code_registration": {
+      "va": "0x004DB5B0",
+      "rva": "0x000DB5B0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "pristine instructions register Surface_Type/Quality/Restitution/Friction/TrackTexture/Solid indexed properties"
+    },
+    "unknowns": [
+      "contact-to-particle transition",
+      "surface-to-compiled-draw material binding",
+      "snow type is not in the inspected 16-record XML"
+    ]
+  }
+}
