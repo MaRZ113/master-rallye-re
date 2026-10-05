@@ -1,6 +1,6 @@
 # R-AI1.2a human handoff
 
-**READY FOR HUMAN RUNTIME**. Use an isolated retail installation with dev Dump
+**COMPLETED**. Historical handoff retained; see runtime-closeout.md. Use an isolated retail installation with dev Dump
 available and a profile that already unlocks Challenge11. No save edit needed.
 Preserve original EXE/config and prior logs. Stage the four-profile MRallye.exe,
 MRallyeRandomizer.dll and INI from ignored `.research-output/r-ai1-2a/package/four`.

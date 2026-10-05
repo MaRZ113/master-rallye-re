@@ -21,7 +21,7 @@ R-AI2 five-car target is **CLOSED / CONFIRMED_BY_RUNTIME**: one human + four
 AI, independent Car4 actor/physics/collision/damage, HUD, five finishers/results,
 hardened Dump, Replay and stable frontend return. The guarded setup intervention
 uses existing engine storage; no physical participant array expansion was needed.
-Six/seven/eight/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
+R-AI2 five-car scope does not claim higher counts; separate R-AI2.1 closes6/7/8.9+/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
 and [capacity map](research/r-ai2/capacity-map.md).
 
 R-AI1.2 is **CLOSED / CONFIRMED_BY_RUNTIME**: Stock/Mixed/Diverse, Quick Race
@@ -32,12 +32,12 @@ exact stock DriverID preservation is not confirmed. Original-EXE-unchanged
 loader is deferred. See [runtime closeout](research/r-ai1-2/runtime-closeout.md).
 Six+ capacity was not tested.
 
-R-AI1.2a Challenge preview synchronization is **READY FOR HUMAN RUNTIME**:
+R-AI1.2a Challenge preview synchronization is **CLOSED / CONFIRMED_BY_RUNTIME**:
 one transient opponent selection feeds the native localized name/model and
-actual race. Stock remains authored; Start/Retry reuse the selected identity.
+actual race. Stock remains authored; Start reuses the selected identity. Retry was not applicable in the tested completion flow.
 See [findings](research/r-ai1-2a/findings.md) and
 [human handoff](research/r-ai1-2a/runtime-handoff.md). Visible preview/race
-equality has not yet been runtime-confirmed.
+equality is CONFIRMED_BY_RUNTIME.
 
 Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
 

@@ -1,6 +1,6 @@
 # R-AI1.2a validation
 
-Status: **READY FOR HUMAN RUNTIME**, not CONFIRMED_BY_RUNTIME.
+Status: **CLOSED / CONFIRMED_BY_RUNTIME**. See runtime-closeout.md for the later human evidence; the static checks below retain their historical scope.
 Baseline334 passed, zero failed/skipped; compileall/diff-check PASS. Exact
 starting HEAD8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10 verified before branch creation.
 

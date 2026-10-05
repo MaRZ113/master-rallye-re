@@ -1,6 +1,6 @@
 {
   "phase": "R-AI1.2a",
-  "status": "READY FOR HUMAN RUNTIME",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "runtime_game_test": false,
   "starting_head": "8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10",
   "branch": "research/r-ai1-2a",
@@ -85,5 +85,6 @@
     "Pair checker reports state match only; no human visual or gameplay proof yet."
   ],
   "proprietary_payloads_committed": false,
-  "project_saved": false
+  "project_saved": false,
+  "runtime_closeout": "runtime-summary.json"
 }

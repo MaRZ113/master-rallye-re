@@ -1,7 +1,6 @@
 # R-AI1.2a - Challenge frontend preview sync
 
-Status: **READY FOR HUMAN RUNTIME**. This implementation has no human runtime
-pass yet. R-AI1.2 stays CLOSED / CONFIRMED_BY_RUNTIME for its tested behavior.
+Status: **CLOSED / CONFIRMED_BY_RUNTIME**. Human validation completed on 2026-10-05. R-AI1.2 stays CLOSED / CONFIRMED_BY_RUNTIME for its tested behavior.
 Starting branch research/r-ai1-2, exact HEAD
 8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10; tracked tree clean, baseline334/334.
 New branch research/r-ai1-2a. Existing local Ghidra and two ZIP artifacts retained.

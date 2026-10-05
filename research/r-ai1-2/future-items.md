@@ -3,10 +3,10 @@
 Items below distinguish prepared research work from deferred design notes.
 
 **R-AI1.2a - Challenge Preview Sync**, optional non-blocking polish:
-now **READY FOR HUMAN RUNTIME** on research/r-ai1-2a. See
+now **CLOSED / CONFIRMED_BY_RUNTIME** on research/r-ai1-2a. See
 [findings](../r-ai1-2a/findings.md) and [handoff](../r-ai1-2a/runtime-handoff.md).
 Static implementation resolves the requirements below; visible preview/race
-equality still needs human validation.
+equality is now human-confirmed; Retry was not applicable in the tested completion flow.
 when Challenge policy is not Stock, the frontend preview and actual race must
 reference the SAME generated opponent roster. Generate once, preview reads that
 identity, race consumes it. Never independently reroll a preview vehicle.

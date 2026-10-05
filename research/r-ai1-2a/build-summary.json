@@ -1,6 +1,6 @@
 {
   "phase": "R-AI1.2a",
-  "status": "READY FOR HUMAN RUNTIME",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "module": {
     "sha256": "055c0f73a10e169ce03c8671c12be19914c1651125d9bff7805fb94d5ebb9e1f",
@@ -17,7 +17,7 @@
     {
       "phase": "R-AI1.2a",
       "profile": "retail-r-ai1-2a-four-hardened",
-      "status": "PREPARED_RUNTIME_UNTESTED",
+      "status": "CONFIRMED_BY_RUNTIME",
       "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
       "output_sha256": "185900aa1cb0fd1ce4dbac4bfa48196fb0b3753b7dddcbb5418a965e812d9980",
       "size": 3121214,
@@ -267,7 +267,8 @@
           "original_sha256": "6a4875ddaceaa91fb3369f0f6d962f77442daf1b1d97733457d12bcabdf79441",
           "replacement_sha256": "bba419eb443dc5629511d34c99573c4febc7867088508b7b55e451baf0afcf95"
         }
-      ]
+      ],
+      "runtime_scope": "Challenge preview/race tested four-car profile"
     },
     {
       "phase": "R-AI1.2a",
@@ -556,5 +557,6 @@
     }
   ],
   "reproduction": "python tools/r_ai1_2_build_native.py --source <exact-pristine-MRallye.exe> --output .research-output/r-ai1-2a/package --challenge-preview",
-  "runtime_game_test": false
+  "runtime_game_test": false,
+  "runtime_closeout": "runtime-summary.json"
 }
