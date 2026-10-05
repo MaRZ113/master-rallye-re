@@ -12,4 +12,6 @@ The actual retail `Data.sma_unpacked/DataGame/vehicles.xml` was re-read and vali
 | Group counts | Chassis 16; DamageParams 25; Dimensions 8; Engine 42; Steering 5; Suspension 48 |
 | Gear count / torque entries | 6 / 6 |
 
-The September demo's Mercedes physics section has 121 values; November has 147, including a later/different schema shape. The ID26 target must use the retail `Mercedes` family, not copy a demo config or infer settings from its model. The semantic validator establishes static schema compatibility only. It does not establish runtime loading or correct instance-to-family binding; that remains part of a future P1 test after P0 and conversion pass.
+The September demo's Mercedes physics section has 121 values; November has 147, including a later/different schema shape. The ID26 target must use the retail `Mercedes` family, not copy a demo config or infer settings from its model. The semantic validator establishes static schema compatibility only. It does not establish runtime loading or correct instance-to-family binding; that remains part of final P1.
+
+For R5V-F.2e, the current retail files were re-read and revalidated: the vehicles.xml hash remains `a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0`, the schema is COMPATIBLE, and the Player1 overlay has 13 fields. The fresh machine report is `research-output/r5v_f_2e/mercedes-physics-validation.json`. Runtime handling and the PeakMu warning classification remain pending.
