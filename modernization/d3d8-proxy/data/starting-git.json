@@ -1,0 +1,9 @@
+{
+  "initial_checkout": "research/r-ui1",
+  "initial_head": "bd27cc1c12099b7062d251fa476fe62586ac4444",
+  "starting_branch": "modernization/renderer-recon",
+  "starting_head": "0caf0a21c5e1a9a72cb11c3e6a83991ece003e56",
+  "new_branch": "modernization/d3d8-proxy",
+  "tracked_preflight": "clean",
+  "untracked_before_switch": "R-GFX1 temporary .analysis exports; ignored after restoring R-GFX1 branch"
+}
