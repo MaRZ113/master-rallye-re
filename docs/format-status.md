@@ -38,7 +38,7 @@ result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
 
 ## R-UI1 native opponent-count frontend
 
-READY FOR HUMAN RUNTIME. Native gaLocal bank0x40 already contains One..Seven in
+CLOSED / CONFIRMED_BY_RUNTIME. Native gaLocal bank0x40 already contains One..Seven in
 six retail languages. The UI candidate appends four labels to its native StringList
 and changes only the Opponents right-arrow maximum index from2 to6. Navigation is
 bounded by actual list length; Next publishes index+1 and preserves native

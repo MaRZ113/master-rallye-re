@@ -1,6 +1,6 @@
 {
   "phase": "R-UI1",
-  "status": "READY FOR HUMAN RUNTIME",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "runtime_full_pass": false,
   "baseline": {
     "passed": 334,
@@ -61,5 +61,7 @@
   "reproduction": "PASS",
   "adapter_pins": "UNCHANGED / PASS",
   "compileall": "PASS",
-  "diff_check": "PASS"
+  "diff_check": "PASS",
+  "runtime_closeout": "runtime-summary.json",
+  "standalone_five_six_seven_race": "NOT TESTED"
 }

@@ -5,7 +5,7 @@
   "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "output_sha256": "5507f3ebc474931084f9ddf2b06a3f7afe186c4e29a2dbd81519b86d00f32966",
   "size": 3121214,
-  "status": "PREPARED_RUNTIME_UNTESTED",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "broker_dump_variant": "native_hardened",
   "list_bank": 64,
   "list_indices": [
@@ -126,5 +126,7 @@
       "original_sha256": "62b14867e4e79d50673d2f7474335229f54c478f56d2a910235e1953c6d29206",
       "replacement_sha256": "f6f235c9a53e0e4b96175ef122a725031cf7a3e0dcac3dba96c626cf72e4d956"
     }
-  ]
+  ],
+  "runtime_closeout": "runtime-summary.json",
+  "standalone_five_six_seven_race": "NOT TESTED"
 }

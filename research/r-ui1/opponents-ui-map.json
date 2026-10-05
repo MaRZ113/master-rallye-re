@@ -1,8 +1,7 @@
 {
   "phase": "R-UI1",
   "common_base": "8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10",
-  "status": "READY FOR HUMAN RUNTIME",
-  "runtime_full_pass": false,
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "frontend_owner": "479BB0 constructor /479A90 factory /47A070 tick",
   "localized_lookup": "485CF0 ->virtual+0C ->485BB0 ->485C20",
@@ -503,5 +502,9 @@
     7
   ],
   "integration_contract": "UI publishes numeric AI count without class-policy knowledge; randomizer later consumes active AI count separately. Capacity pass alone does not solve T1 pool exhaustion at7 AI; no combined mod here.",
-  "common_base_reason": "R-AI1.2a implemented but awaiting human validation, therefore committed R-AI1.2 closeout is the shared base; unfinished/new preview work is excluded."
+  "common_base_reason": "R-AI1.2a implemented but awaiting human validation, therefore committed R-AI1.2 closeout is the shared base; unfinished/new preview work is excluded.",
+  "runtime_closeout": "runtime-summary.json",
+  "standalone_five_six_seven_race": "NOT TESTED",
+  "automated_checker_runtime_full_pass": false,
+  "human_runtime_scope": "One..Seven frontend and one-human Four->5 total full lifecycle"
 }

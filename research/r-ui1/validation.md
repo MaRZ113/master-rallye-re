@@ -1,3 +1,5 @@
+Current status: **CLOSED / CONFIRMED_BY_RUNTIME**. Closeout rerun351 passed,0 failed/skipped; compileall, candidate verifier, diff-check PASS. Nine capture pairs pass JSON/raw binding and existing menu/race/results state oracles. Native counts below are historical static checks.
+
 # Independent static validation
 
 COMMON_BASE 8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10 baseline passes334 tests.

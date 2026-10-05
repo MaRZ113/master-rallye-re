@@ -21,13 +21,13 @@ R-AI2 five-car target is **CLOSED / CONFIRMED_BY_RUNTIME**: one human + four
 AI, independent Car4 actor/physics/collision/damage, HUD, five finishers/results,
 hardened Dump, Replay and stable frontend return. The guarded setup intervention
 uses existing engine storage; no physical participant array expansion was needed.
-Six/seven/eight/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
+R-AI2 itself proves five; separate R-AI2.1 closes6/7/8.9+/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
 and [capacity map](research/r-ai2/capacity-map.md).
 
-R-UI1 independent opponent selector is **READY FOR HUMAN RUNTIME**: native
+R-UI1 independent opponent selector is **CLOSED / CONFIRMED_BY_RUNTIME**: native
 localized One..Seven list and numeric index+1 publication, without a hidden count
-shim or randomizer DLL. Only one-human Four -> five total is authorized for a
-race test; Five..Seven remain menu-only until separate capacity/roster integration.
+shim or randomizer DLL. Human one-human Four -> five total passed the full
+race/results lifecycle; standalone Five..Seven races remain NOT TESTED until capacity/roster integration.
 See [UI map](research/r-ui1/opponents-ui-map.md) and
 [handoff](research/r-ui1/runtime-handoff.md). R-AI2.1 remains on its independent
 branch; no combined candidate is built.

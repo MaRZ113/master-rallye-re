@@ -1,8 +1,7 @@
-# R-UI1 - READY FOR HUMAN RUNTIME
+# R-UI1 - CLOSED / CONFIRMED_BY_RUNTIME
 
 Independent branch research/r-ui1 starts from COMMON_BASE
-8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10. R-AI1.2a is implemented but awaiting
-human validation, so it is excluded. R-AI2.1 has its own branch and is not merged.
+8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10. R-AI1.2a is independent and excluded. R-AI2.1 has its own branch and is not merged.
 
 Native localized One..Seven can be exposed with one post-append hook92 bytes and
 one opponent-arrow bound change. Existing dynamic input clamp, index+1 publication,
@@ -18,7 +17,7 @@ composed. Original sources remain external/read-only; outputs are ignored.
 
 351 synthetic and107 bounded native cases pass; closed R-AI1/R-AI1.2/R-AI2/
 hardening regressions pass. Details and limitations are in [validation](validation.md).
-No new UI visibility, input interaction or race completion is human confirmed.
+Later human closeout confirms visible One..Seven, keyboard/mouse bounds/layout and visibleFour ->four AI/five total full race. See runtime-closeout.md.
 
 Human [handoff](runtime-handoff.md): One..Seven menu navigation/text captures,
 then visibly Four ->one human+four AI ->five-car full lifecycle. Five..Seven and

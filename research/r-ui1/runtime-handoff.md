@@ -1,3 +1,5 @@
+**COMPLETED**. Historical handoff below; see runtime-closeout.md for scope. Five/Six/Seven standalone races were not started.
+
 # Separate human UI test
 
 Switch to `research/r-ui1` for these adapter/checker commands. Capacity tests
