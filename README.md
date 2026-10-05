@@ -32,6 +32,13 @@ exact stock DriverID preservation is not confirmed. Original-EXE-unchanged
 loader is deferred. See [runtime closeout](research/r-ai1-2/runtime-closeout.md).
 Six+ capacity was not tested.
 
+R-AI1.2a Challenge preview synchronization is **READY FOR HUMAN RUNTIME**:
+one transient opponent selection feeds the native localized name/model and
+actual race. Stock remains authored; Start/Retry reuse the selected identity.
+See [findings](research/r-ai1-2a/findings.md) and
+[human handoff](research/r-ai1-2a/runtime-handoff.md). Visible preview/race
+equality has not yet been runtime-confirmed.
+
 Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native

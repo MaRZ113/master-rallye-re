@@ -13,15 +13,20 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument("--source",required=True,type=Path)
     p.add_argument("--output",required=True,type=Path)
+    p.add_argument("--challenge-preview",action="store_true")
     a=p.parse_args();output=ignored_output(a.output);output.mkdir(parents=True,exist_ok=True)
     data=a.source.read_bytes()
-    candidates=[build(data,five) for five in (False,True)]
+    if a.challenge_preview:
+        from r_ai1_2a_preview import build as candidate_build, preview_ranges
+    else: candidate_build=build
+    candidates=[candidate_build(data,five) for five in (False,True)]
     for five,(binary,manifest) in zip((False,True),candidates):
         dest=output/("five" if five else "four");dest.mkdir(exist_ok=True)
         (dest/"MRallye.exe").write_bytes(binary)
         (dest/"patch-manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
     # Live pinning of all policy bridge ranges, plus immutable builder entries.
     pins=[r for r in bridge_ranges() if r["va"] is not None]
+    if a.challenge_preview:pins.extend(r for r in preview_ranges() if r["va"] is not None)
     for address in (0x458090,0x451DD0,0x45ABC0,0x44FEC0):
         pins.append({"va":address,"replacement":data[address-0x400000:address-0x400000+7]})
     text=['#pragma once',f'#define MR_FOUR_SHA "{candidates[0][1]["output_sha256"]}"',
@@ -55,7 +60,7 @@ def main():
     tool=Path(env["VCToolsInstallDir"])/"bin/Hostx64/x86"
     (output/"build.log").write_text("")
     run([str(tool/"cl.exe"),"/nologo","/c","/O2","/MT","/W4","/WX","/std:c++17",
-         "/I"+str(output),"/Fo"+str(output/"runtime.obj"),str(REPOSITORY/"src/native/randomizer/runtime.cpp")])
+         "/I"+str(output),"/Fo"+str(output/"runtime.obj"),str(REPOSITORY/("src/native/challenge_preview/runtime.cpp" if a.challenge_preview else "src/native/randomizer/runtime.cpp"))])
     run([str(tool/"link.exe"),"/nologo","/DLL","/MACHINE:X86","/INCREMENTAL:NO","/Brepro",
          "/OPT:REF","/OPT:ICF","/DEF:"+str(REPOSITORY/"src/native/randomizer/exports.def"),
          "/OUT:"+str(output/"MRallyeRandomizer.dll"),str(output/"runtime.obj"),"kernel32.lib","advapi32.lib"])
@@ -65,14 +70,26 @@ def main():
     result=run([str(output/"policy-test.exe"),str(output/"MRallyeRandomizer.dll")])
     native=json.loads(result.strip().splitlines()[-1])
     (output/"native-policy-tests.json").write_text(json.dumps(native,indent=2)+"\n")
+    preview_tests=None
+    if a.challenge_preview:
+        run([str(tool/"cl.exe"),"/nologo","/O2","/MT","/W4","/WX","/std:c++17",
+             "/Fo"+str(output/"preview-test.obj"),"/Fe"+str(output/"preview-test.exe"),
+             str(REPOSITORY/"tests/native/challenge_preview.cpp"),"/link","/INCREMENTAL:NO","/Brepro"])
+        preview_tests=json.loads(run([str(output/"preview-test.exe")]).strip().splitlines()[-1])
+        (output/"native-preview-tests.json").write_text(json.dumps(preview_tests,indent=2)+"\n")
     dll=output/"MRallyeRandomizer.dll"
-    report={"phase":"R-AI1.2","implementation_version":1,"module_sha256":sha256(dll.read_bytes()),
+    source_files=list((REPOSITORY/"src/native/randomizer").iterdir())
+    if a.challenge_preview:source_files.extend((REPOSITORY/"src/native/challenge_preview").iterdir())
+    report={"phase":"R-AI1.2a" if a.challenge_preview else "R-AI1.2","implementation_version":1,"module_sha256":sha256(dll.read_bytes()),
         "module_size":dll.stat().st_size,"compiler":env["VCToolsVersion"].strip("\\/"),
         "source_hashes":{str(file.relative_to(REPOSITORY)).replace("\\","/"):sha256(file.read_bytes())
-                         for file in sorted((REPOSITORY/"src/native/randomizer").iterdir())},
+                         for file in sorted(source_files)},
         "supported_profiles":[m for _,m in candidates],"native_policy_tests":native,
         "runtime_game_test":False}
     (output/"module-manifest.json").write_text(json.dumps(report,indent=2)+"\n")
+    if a.challenge_preview:
+        report['native_preview_tests']=preview_tests
+        (output/"module-manifest.json").write_text(json.dumps(report,indent=2)+"\n")
     for variant in ("four","five"):
         dest=output/variant
         shutil.copyfile(dll,dest/dll.name)

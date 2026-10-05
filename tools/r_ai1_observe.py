@@ -16,6 +16,7 @@ from r_ai1_mixed_class import (CANDIDATE_SHA256, GENERAL_SHA256, REPOSITORY, ign
 from r_ai1_hardening import BASE_SHA256, MIXED_SHA256, verify as verify_hardening
 from r_ai2_capacity import CANDIDATE_SHA256 as FIVE_CAR_SHA256, verify as verify_five_car
 from r_ai1_2_randomizer import PROFILE_SHA256 as AI12_SHA256, verify as verify_ai12
+from r_ai1_2a_preview import PROFILE_SHA256 as AI12A_SHA256, verify as verify_ai12a
 
 OBSERVATORY_FILES = {
     "broker_observatory.py": "d1a07eab330ef3d8b825ef3320b458d20ced11df99d75250a72e9c7701c4ba7d",
@@ -45,6 +46,9 @@ def load_profile(directory: Path, candidate: Path):
     elif image_hash in AI12_SHA256.values():
         five = image_hash == AI12_SHA256[True]
         verifier, phase = lambda data: verify_ai12(data, five), "r-ai1-2"
+    elif image_hash in AI12A_SHA256.values():
+        five = image_hash == AI12A_SHA256[True]
+        verifier, phase = lambda data: verify_ai12a(data, five), "r-ai1-2a"
     else:
         raise ValueError("Unknown research image; only exact audited profiles accepted")
     manifest = verifier(data)

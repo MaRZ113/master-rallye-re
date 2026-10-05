@@ -76,11 +76,26 @@ for tested V1 lifetimes. [Runtime evidence](../research/r-ai1-2/runtime-closeout
 
 Challenge11 opt-in randomization/completion passed. Exact stock DriverID
 preservation is NOT IMPLEMENTED / NOT CONFIRMED. Authored Challenge preview
-can differ from actual opponent: non-blocking R-AI1.2a polish, not implemented.
+can differ from actual opponent in the closed R-AI1.2 build; R-AI1.2a preview
+synchronization is now prepared for human validation, not runtime-confirmed.
 The audited research EXE bridge/DLL supports four active AI in the existing
 five-car setup; randomizer never writes participant count. Original-EXE-unchanged
 external loader remains NOT YET COMPLETE. Six/seven/eight/generic-N UNKNOWN.
-[Future items](../research/r-ai1-2/future-items.md) are design notes only.
+[Future items](../research/r-ai1-2/future-items.md) distinguish prepared preview
+work from deferred deployment/capacity/UI design notes.
+
+## R-AI1.2a Challenge preview sync
+
+**READY FOR HUMAN RUNTIME**. Native details owner45EB30 publishes the same
+opponent ID into localized vehicle name and 3D model. The research DLL resolves
+one roster at selection, then Start consumes it; redraw and Retry do not reroll.
+Config edits take effect at a later new-selection boundary. Driver remains native;
+no driver-name/class widget exists in this preview. Stock is pass-through.
+Exact-build module/EXE pinning and audited Observatory integrity remain enforced.
+No six+ capacity, general policy redesign, save sidecar or public loader work.
+[Findings](../research/r-ai1-2a/findings.md),
+[validation](../research/r-ai1-2a/validation.md),
+[human handoff](../research/r-ai1-2a/runtime-handoff.md).
 
 ## R-MAT1 current vehicle material closeout
 
