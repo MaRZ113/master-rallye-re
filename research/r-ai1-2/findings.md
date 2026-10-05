@@ -1,7 +1,8 @@
 # R-AI1.2 — mode coverage and roster persistence
 
-Current status: **READY FOR HUMAN RUNTIME**. No R-AI1.2 human runtime
-claim. Starting branch research/r-ai2, HEAD 7adca41; this phase uses
+Current status: **CLOSED / CONFIRMED_BY_RUNTIME**. Human gameplay and native
+fresh-process persistence are recorded in [runtime closeout](runtime-closeout.md).
+Starting branch research/r-ai2, HEAD 7adca41; this phase uses
 research/r-ai1-2. Baseline: 316 synthetic tests passed, zero failed/skipped;
 compileall/diff-check passed. Existing 94 generalized and 44 five-car native
 cases and exact candidate verifiers passed.
@@ -27,7 +28,9 @@ class pools; Diverse shuffles eligible classes per cycle. Challenge is explicit
 opt-in only. Cup/Invitation stage transitions reuse RaceData identities; Master
 save/load already transfers exact per-participant IDs/classes/drivers. No
 sidecar or save format change is required by the traced path. Actual Master
-fresh-process persistence and all new mode gameplay remain human gates.
+fresh-process persistence, tested mode gameplay and count1..4 coverage are now
+CONFIRMED_BY_RUNTIME. Challenge preview sync is non-blocking polish; exact
+stock Challenge DriverID preservation is NOT IMPLEMENTED / NOT CONFIRMED.
 
 Final verification: 334 synthetic, 2534 compiled native policy/config/ABI checks,
 824 bounded native x86 cases, legacy94 and five-car44 regressions; no failures

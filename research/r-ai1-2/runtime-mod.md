@@ -31,3 +31,8 @@ ordered diagnostic classes; it never declares a runtime pass.
 The loader for an unchanged original EXE remains **DEFERRED**. This is a
 modular research package, not a ready public runtime loader or EXE distribution.
 Proxy forwarding/wrapper compatibility must be audited in that later work.
+
+## Runtime closeout
+
+Exact package DLL behavior is CONFIRMED_BY_RUNTIME in tested modes/counts. Current bridge deployment remains research-only; no original-EXE-unchanged loader has been completed.
+See [runtime evidence](runtime-closeout.md).

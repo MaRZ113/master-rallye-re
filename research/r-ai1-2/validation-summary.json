@@ -1,7 +1,7 @@
 {
   "phase": "R-AI1.2",
-  "status": "READY_FOR_HUMAN_RUNTIME",
-  "runtime_game_test": false,
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "runtime_game_test": true,
   "starting_branch": "research/r-ai2",
   "starting_head": "7adca41",
   "branch": "research/r-ai1-2",
@@ -165,13 +165,7 @@
     "candidate_module_verifiers": "PASS",
     "missing_fixtures": []
   },
-  "human_pending": [
-    "QuickRace count1..4 gameplay and parameter changes",
-    "Stock/Mixed/Diverse gameplay",
-    "Challenge opt-in objective completion",
-    "RallyeCup/Invitation stage reuse",
-    "MasterRallye save/full process exit/fresh load/continue"
-  ],
+  "human_pending": [],
   "no_sidecar": true,
   "no_active_Car5": true,
   "randomizer_changes_count": false,
@@ -189,5 +183,47 @@
     "package/native-policy-tests.json": "ac3dfd8d541874e13701a36ad8c5c269f15ea3a5980b71edc632838599ebacda",
     "oracle-smoke/summary.json": "e1214d4f26edd1a52e5eda3332a061bc9f8c5f186c40b624cba9b0ac6321f5b4",
     "synthetic-tests.log": "80f6db3724fdfcba72a9b1f5a449b785e5de2ca20305a0bd80ef984051495c29"
+  },
+  "runtime_closeout": "runtime-closeout-summary.json",
+  "final_is_historical_static_preparation": true,
+  "closeout_rerun": {
+    "synthetic": {
+      "passed": 334,
+      "failed": 0,
+      "skipped": 0
+    },
+    "compiled_native": {
+      "passed": 2534,
+      "failed": 0,
+      "skipped": 0
+    },
+    "native_x86": {
+      "passed": 824,
+      "failed": 0,
+      "skipped": 0
+    },
+    "legacy_general": {
+      "passed": 94,
+      "failed": 0,
+      "skipped": 0
+    },
+    "legacy_five": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0
+    },
+    "capture_integrity_pairs": 20,
+    "equal_roster_comparisons": 5,
+    "compileall": "PASS",
+    "candidate_module_verifiers": "PASS",
+    "diff_check": "PASS",
+    "missing_fixtures": []
+  },
+  "closeout_report_hashes": {
+    "closeout-emulation.json": "f6da92ece3134543ef8efd0caf2d798055b7f00479ccd4d272f61b66bc437406",
+    "closeout-general.json": "c7a77268366db3f7995a5fb53594a6c8c562b9a3c272d6d7ca630d71ceffdbb1",
+    "closeout-five.json": "8118c195e94b28cd106cb4c0c091655206d49826fda4b73ab1ed1c982d06937c",
+    "closeout-synthetic.log": "2f89e4ab87b57054e569766916a3e81aac1a9b84a18f0e81eaf88daf48078720",
+    "closeout-compileall.log": "4dbd3d90062040bd92748928c64668fa4aad7d60b48542257056ad3420162e4f"
   }
 }

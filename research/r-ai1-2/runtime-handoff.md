@@ -1,7 +1,8 @@
 # R-AI1.2 staged human test
 
-Status: **READY FOR HUMAN RUNTIME**. This new implementation has no human
-runtime pass yet. Maximum: five active participants; do not test six.
+Status: **COMPLETED / CONFIRMED_BY_RUNTIME**. Historical preparation protocol
+retained below; actual results and caveats are in [runtime closeout](runtime-closeout.md).
+Maximum: five active participants; six+ not tested.
 
 ## Package and start
 

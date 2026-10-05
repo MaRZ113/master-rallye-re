@@ -44,3 +44,8 @@ publication, after the existing driver draw. Multi-human Challenge is Stock.
 Mode identity, first/count/slot and network guard failures return Stock.
 Replay/Attract/network/multi-human owners are not hooked. Mode identities
 outside Types2/5/6/7/8 are unsupported. Max active indices are Car0..Car4.
+
+## Runtime closeout
+
+Stock, Mixed and Diverse are CONFIRMED_BY_RUNTIME. Diverse three-AI sample covers T1/T2/T3 before repetition. No probability or uniform RNG proof. Exact stock Challenge DriverID preservation is NOT IMPLEMENTED / NOT CONFIRMED.
+See [runtime evidence](runtime-closeout.md).

@@ -67,24 +67,20 @@ higher-capacity work has not started.
 
 ## R-AI1.2 mode coverage and roster persistence
 
-**READY FOR HUMAN RUNTIME**, with static/native verification only for this new
-implementation. [Mode map](../research/r-ai1-2/mode-map.md) identifies separate
-Quick Race, Challenge, Cup/Invitation and Master builders. Configurable
-Stock/Mixed/Diverse is bounded to one human and 0..4 existing AI. Stock preserves
-native publication and game RNG calls; Challenge remains Stock by default.
+**CLOSED / CONFIRMED_BY_RUNTIME**. Quick Race1..4 AI, Stock/Mixed/Diverse,
+new-race generation and Restart identity reuse passed human validation. Config
+reload occurs at future roster-generation boundaries, not during an active race.
+Cup/Invitation stage persistence and Master native save -> full process exit ->
+fresh-process Resume -> next-stage reuse are confirmed; no sidecar required
+for tested V1 lifetimes. [Runtime evidence](../research/r-ai1-2/runtime-closeout.md).
 
-The [research package](../research/r-ai1-2/deployment.md) contains a modular DLL
-and exact-build EXE bridge. The old randomizer/capacity cave collision is resolved
-with disjoint ranges; the composed fifth-participant shim is unchanged.
-R-AI1.2 never writes participant count. Unknown builds/config/context fail Stock.
-An original-EXE external loader is deferred; this is not a public EXE release.
-
-[Persistence](../research/r-ai1-2/persistence.md) reuses native Cup/Invitation RAM
-rosters and Master PlayerState identity fields, without a sidecar/save format
-change. Native save/load transfer is verified; Master actual save -> full process
-exit -> fresh process load remains a [human gate](../research/r-ai1-2/runtime-handoff.md).
-Per-mode gameplay and Challenge completion also remain pending. Six/seven/eight/
-generic-N are UNKNOWN and were not tested.
+Challenge11 opt-in randomization/completion passed. Exact stock DriverID
+preservation is NOT IMPLEMENTED / NOT CONFIRMED. Authored Challenge preview
+can differ from actual opponent: non-blocking R-AI1.2a polish, not implemented.
+The audited research EXE bridge/DLL supports four active AI in the existing
+five-car setup; randomizer never writes participant count. Original-EXE-unchanged
+external loader remains NOT YET COMPLETE. Six/seven/eight/generic-N UNKNOWN.
+[Future items](../research/r-ai1-2/future-items.md) are design notes only.
 
 ## R-MAT1 current vehicle material closeout
 

@@ -24,13 +24,13 @@ uses existing engine storage; no physical participant array expansion was needed
 Six/seven/eight/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
 and [capacity map](research/r-ai2/capacity-map.md).
 
-R-AI1.2 mode/count-aware randomization is **READY FOR HUMAN RUNTIME**:
-Stock/Mixed/Diverse config, Quick Race 0..4 existing AI, Challenge opt-in,
-Cup/Invitation roster reuse and native Master save/load seams. The research
-package uses an exact-build EXE bridge and modular DLL; an unchanged-EXE loader
-is deferred. New mode gameplay and fresh-process persistence are not yet
-runtime-confirmed. See [findings](research/r-ai1-2/findings.md) and the
-[staged handoff](research/r-ai1-2/runtime-handoff.md). No capacity above five.
+R-AI1.2 is **CLOSED / CONFIRMED_BY_RUNTIME**: Stock/Mixed/Diverse, Quick Race
+1..4 AI, config reload at new-roster boundaries, Challenge opt-in completion,
+Cup/Invitation stage reuse and Master native fresh-process persistence. No
+sidecar required for tested V1. Challenge preview sync is non-blocking polish;
+exact stock DriverID preservation is not confirmed. Original-EXE-unchanged
+loader is deferred. See [runtime closeout](research/r-ai1-2/runtime-closeout.md).
+Six+ capacity was not tested.
 
 Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
 

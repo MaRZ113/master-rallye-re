@@ -1,6 +1,6 @@
 {
   "phase": "R-AI1.2",
-  "status": "PREPARED_RUNTIME_UNTESTED",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "implementation_version": 1,
   "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "source_size": 3121214,
@@ -425,5 +425,6 @@
         }
       ]
     }
-  ]
+  ],
+  "runtime_closeout": "runtime-closeout-summary.json"
 }

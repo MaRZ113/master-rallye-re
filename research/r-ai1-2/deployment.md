@@ -64,3 +64,8 @@ is staged only when absent, never over an existing user file.
 Remove DLL/config or use all-Stock config to disable randomization on future
 rosters. Restore pristine EXE to remove research hardening/capacity/bridge.
 Existing saved Master rosters remain governed by stock persistence.
+
+## Runtime closeout
+
+Mode-aware DLL behavior is CONFIRMED_BY_RUNTIME with the exact four/five research profiles. Original-EXE-unchanged deployment remains NOT YET COMPLETE; no loader work in this closeout.
+See [runtime evidence](runtime-closeout.md).

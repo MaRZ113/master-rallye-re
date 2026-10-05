@@ -43,3 +43,8 @@ Cup does not write RaceData/CompetitorN/CarClass in 45ABC0. Active race identity
 is derived from the chosen ID by 44A320 -> 44A710, which reads registry
 class/family/colour independently per participant. A stale RaceData class
 value is not evidence of active Race/CarN class normalization.
+
+## Runtime closeout
+
+All five tested modes are now CONFIRMED_BY_RUNTIME; QuickRace AI counts1..4 and all three policies, campaign stage reuse and Master fresh-process persistence. Challenge exact DriverID preservation is not confirmed; preview sync is not implemented.
+See [runtime evidence](runtime-closeout.md).

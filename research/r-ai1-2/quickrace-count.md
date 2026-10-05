@@ -22,3 +22,8 @@ Old randomizer68E300..approximately68E463 and capacity68E300..68E383 overlap.
 They are never overlaid. New selectors start68E400/68E700/68EA00; loader and
 Challenge fit below68F000. [Build summary](build-summary.json) records exact
 disjoint ranges, hashes and unchanged capacity composition.
+
+## Runtime closeout
+
+QuickRace Mixed coverage with1/2/3/4 active AI and parameter changes is CONFIRMED_BY_RUNTIME. Four AI uses the separate R-AI2 five-car setup; randomizer does not create participants.
+See [runtime evidence](runtime-closeout.md).

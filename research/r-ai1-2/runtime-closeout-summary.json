@@ -1,0 +1,1120 @@
+{
+  "phase": "R-AI1.2",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "runtime_evidence_authority": "Human closeout report plus integrity-verified native Broker captures; automated checks alone remain match-only",
+  "module_sha256": "517c4aa20e8dc80f2d51a64a79e59183d3ae27d47dbb3e0334ab458695c366f4",
+  "captures": [
+    {
+      "capture": "20261005-092212_qr-mixed-ai1.json",
+      "json_sha256": "e935213e56feb6d45db0a27e628b3194a3c677d73051c0c542f52ee2d06be6d7",
+      "raw_sha256": "9622ccb78f8ceaca5f2423132bd8cec0e35eda8ea32154fe509b0fe2e3c7532f",
+      "selected_block_sha256": "fee1301864c71591870d68e2831a9eb69460f7931761dc97af5adfb5c191ae84",
+      "internal_label": "qr-mixed-ai1",
+      "raw_sidecar_metadata": "20261005-092212_qr-mixed-ai1.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 40324,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Mixed",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 16,
+          "CarClass": 2,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 8,
+          "CarClass": 1,
+          "DriverID": 3,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 7,
+          "CarClass": 1,
+          "DriverID": 4,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 2,
+          "CarClass": 0,
+          "DriverID": 6,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "f5b25bdf199280fa639ec8d7dbcc1adaea5daf2c888aec890693ec11ed3c7933"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 8
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-092257_qr-mixed-ai2.json",
+      "json_sha256": "21f3befc30eef2194690d252c60413d93b08f3613be2cd56e44afb9becdbda93",
+      "raw_sha256": "b8d348c1ff75c733c6c50669dacdb694ee063f810b6252b15f1e3827cd6471ad",
+      "selected_block_sha256": "19608a137f9afea2b5dec3271985142861a5f6e31dbf6b7e893f25677f4af4a3",
+      "internal_label": "qr-mixed-ai2",
+      "raw_sidecar_metadata": "20261005-092257_qr-mixed-ai2.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 40324,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Mixed",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 7,
+          "CarClass": 1,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 3,
+          "CarClass": 0,
+          "DriverID": 8,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 1,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 12,
+          "CarClass": 1,
+          "DriverID": 4,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "f5b25bdf199280fa639ec8d7dbcc1adaea5daf2c888aec890693ec11ed3c7933"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 6
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-092431_qr-mixed-ai2-2op.json",
+      "json_sha256": "f5c5aef70b3918114d6f7dc4a69c89a635860c54783a4270d2bf235767b0f283",
+      "raw_sha256": "4a7a44134ae5409b31049c55bd8b2ef057786dd7ca3eb6bbdc75dbdc4a47bccf",
+      "selected_block_sha256": "b52394e275a9ebc20f0ead3b91ea2c5a0ea42859638e27ba3e666e8a92620bd0",
+      "internal_label": "qr-mixed-ai2-3op",
+      "raw_sidecar_metadata": "20261005-092431_qr-mixed-ai2-3op.dump.bin",
+      "manual_filename_alias": true,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 40324,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Mixed",
+      "NumCars": 3,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 7,
+          "CarClass": 1,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 4,
+          "CarClass": 0,
+          "DriverID": 5,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 24,
+          "CarClass": 2,
+          "DriverID": 4,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "f5b25bdf199280fa639ec8d7dbcc1adaea5daf2c888aec890693ec11ed3c7933"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 6
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-092531_qr-mixed-ai2-1op.json",
+      "json_sha256": "74a3dd554e752453370146b6f76738b0f278b2092d176e572f334356e505b754",
+      "raw_sha256": "4109075002cb7b5506eba6032e5b13f23547ac812b0f1e27f44d8e11080ea7e4",
+      "selected_block_sha256": "297a80e24a76bec24063f7bc69b1d0dd5796187688a7976d0e0108b053ff628f",
+      "internal_label": "qr-mixed-ai2-1op",
+      "raw_sidecar_metadata": "20261005-092531_qr-mixed-ai2-1op.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 40324,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Mixed",
+      "NumCars": 2,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 7,
+          "CarClass": 1,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 8,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "f5b25bdf199280fa639ec8d7dbcc1adaea5daf2c888aec890693ec11ed3c7933"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 6
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-092652_qr-mixed-ai3.json",
+      "json_sha256": "fd48d394022bdc199a76e05b218abd7d6e20b4ed0e7d5ffa18393149d83ddc63",
+      "raw_sha256": "a4090aca59c6435042648c0c5a8e9dfa254ea613dcd058522425db4347713fd6",
+      "selected_block_sha256": "55e38b60c1eee5d553d0b1be39a1f10bdcfbae294f11b4816625e85f27454833",
+      "internal_label": "qr-mixed-ai3",
+      "raw_sidecar_metadata": "20261005-092652_qr-mixed-ai3.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 40324,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Mixed",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 4,
+          "CarClass": 0,
+          "DriverID": 7,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 15,
+          "CarClass": 2,
+          "DriverID": 9,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 8,
+          "CarClass": 1,
+          "DriverID": 5,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "f5b25bdf199280fa639ec8d7dbcc1adaea5daf2c888aec890693ec11ed3c7933"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 6
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-092734_qr-mixed-restart.json",
+      "json_sha256": "3ae91c4ecfab8e33545cb44440826efa1277280c01d4e9497ee73c815948f419",
+      "raw_sha256": "40c0885d516837a2acad640c7fb003a64d2ee864dc558605b9278c762c04f5fe",
+      "selected_block_sha256": "c51cb0c3c9f8fbf2388911681addd5c8902501a393b91a870544139e5d86f405",
+      "internal_label": "qr-mixed-restart",
+      "raw_sidecar_metadata": "20261005-092734_qr-mixed-restart.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 40324,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Mixed",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 4,
+          "CarClass": 0,
+          "DriverID": 7,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 15,
+          "CarClass": 2,
+          "DriverID": 9,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 8,
+          "CarClass": 1,
+          "DriverID": 5,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "f5b25bdf199280fa639ec8d7dbcc1adaea5daf2c888aec890693ec11ed3c7933"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 6
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-092829_qr-mixed-new.json",
+      "json_sha256": "d953810add6b3c6d4660388d5b717a30c9fbd03051a36e5a9a17a91f1537f518",
+      "raw_sha256": "d87f66275461f065784efcb041734380ac3ebaa65d1b7b3814a9838863c242fc",
+      "selected_block_sha256": "b62af5e21384006a92ff6e5047791d2ef21ad8953dfccbd34a26ec9361269e9b",
+      "internal_label": "qr-mixed-new",
+      "raw_sidecar_metadata": "20261005-092829_qr-mixed-new.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 40324,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Mixed",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 8,
+          "CarClass": 1,
+          "DriverID": 6,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 7,
+          "CarClass": 1,
+          "DriverID": 1,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 1,
+          "CarClass": 0,
+          "DriverID": 0,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "f5b25bdf199280fa639ec8d7dbcc1adaea5daf2c888aec890693ec11ed3c7933"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 6
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093104_qr-mixed-ai4.json",
+      "json_sha256": "a1af5bec8781d0fa7affe24392e8167129c5f625757712e66128138b63627fd9",
+      "raw_sha256": "f76de7a910773b30e3639b640f4c01ca3b6842d5a82c587b3bea107adb495bae",
+      "selected_block_sha256": "5ce03094ed2aab4c92bd1a98a6a0fb8e4f7d0905390408f82a6ab89e86c7c43b",
+      "internal_label": "qr-mixed-ai4",
+      "raw_sidecar_metadata": "20261005-093104_qr-mixed-ai4.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-five-hardened",
+      "image_sha256": "32a09c466b9bb40513d8a801e0e9f420e902d6486ceb7ae76b243c7408404629",
+      "process_id": 26540,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Mixed",
+      "NumCars": 5,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 12,
+          "CarClass": 1,
+          "DriverID": 6,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 23,
+          "CarClass": 2,
+          "DriverID": 0,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 9,
+          "CarClass": 1,
+          "DriverID": 2,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 20,
+          "CarClass": 2,
+          "DriverID": 4,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "f5b25bdf199280fa639ec8d7dbcc1adaea5daf2c888aec890693ec11ed3c7933"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 10
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093208_qr-stock-four.json",
+      "json_sha256": "c66ed133a469b4966ecce1a538c4ecbf4b027022b89044c312bec64dbbd98c1e",
+      "raw_sha256": "2f2b3b22e1cca0ebbe5120653224d4b459e3fc06cf12b1cf3ade97bb862680c9",
+      "selected_block_sha256": "a791fbff4253a06919a500d08324e2868f31e4af04bdddf2ba486423e85dc3bd",
+      "internal_label": "qr-stock-four",
+      "raw_sidecar_metadata": "20261005-093208_qr-stock-four.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-five-hardened",
+      "image_sha256": "32a09c466b9bb40513d8a801e0e9f420e902d6486ceb7ae76b243c7408404629",
+      "process_id": 26540,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Stock",
+      "NumCars": 5,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 5,
+          "CarClass": 0,
+          "DriverID": 6,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 1,
+          "CarClass": 0,
+          "DriverID": 0,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 2,
+          "CarClass": 0,
+          "DriverID": 1,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 4,
+          "CarClass": 0,
+          "DriverID": 4,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "77b7498e93124814c04019537e484ff8cf439750758963c95b5b8f0c88b624f2"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 10
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093335_qr-stock.json",
+      "json_sha256": "33900a8a96572553d9af78ef10e07fbdb40f0e414ddd2466cccd79559fc382b1",
+      "raw_sha256": "38d0b0e59a1fc96ea8c1dbc6131eeff841deda63989c4b63ce13c766a332976a",
+      "selected_block_sha256": "660feae3743871514077f334151ae6d31843877c9cf6458c824d91f94d2feb7e",
+      "internal_label": "qr-stock",
+      "raw_sidecar_metadata": "20261005-093335_qr-stock.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Stock",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 5,
+          "CarClass": 0,
+          "DriverID": 6,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 4,
+          "CarClass": 0,
+          "DriverID": 0,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 3,
+          "CarClass": 0,
+          "DriverID": 1,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "77b7498e93124814c04019537e484ff8cf439750758963c95b5b8f0c88b624f2"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 10
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093419_qr-diverse.json",
+      "json_sha256": "a97597a709afe302dd696c4bbf8d5b4497b559522d2a44439a906a20f8cbb085",
+      "raw_sha256": "6c6ede3312be78b8fe6c6eacefc634d2f99924a099e11ed996442cc5ef7f1e09",
+      "selected_block_sha256": "d5e52f75dc7ab1daa20e0a642e4a438d0733b41690c43cea78cd73809d193f1d",
+      "internal_label": "qr-diverse",
+      "raw_sidecar_metadata": "20261005-093419_qr-diverse.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "QuickRace",
+      "policy": "Diverse",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 5,
+          "CarClass": 0,
+          "DriverID": 4,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 17,
+          "CarClass": 2,
+          "DriverID": 6,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 11,
+          "CarClass": 1,
+          "DriverID": 8,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "6f3a54720bf71ce86e7efca5accd19eef84e7233b2995044e859d7652ea33e41"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 10
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093528_challenge-mixed.json",
+      "json_sha256": "0b71802aef43180a7834771e1a7f16223de1054fc2de5722b53e2719db26844d",
+      "raw_sha256": "c711cdd94ad9e26929dda9dd1a7af144cc25f5b22f788f7d2060fffbb248d20c",
+      "selected_block_sha256": "0f99a55217a5bdba38bdf5885bb065c4c12eed97b01ad61645a81b60c9a129bc",
+      "internal_label": "challenge-mixed",
+      "raw_sidecar_metadata": "20261005-093528_challenge-mixed.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "Challenge",
+      "policy": "Mixed",
+      "NumCars": 2,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 18,
+          "CarClass": 2,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 2,
+          "CarClass": 0,
+          "DriverID": 2,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "6f3a54720bf71ce86e7efca5accd19eef84e7233b2995044e859d7652ea33e41"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 35
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093635_challenge-stock.json",
+      "json_sha256": "b0c4618a2924c9141a9811f446e58a3d396d071828c1785e118a48f232a1faa7",
+      "raw_sha256": "8f161a95debeb98d345c52385cb394e8c26daaa86d1f2b51203e0c0878badd41",
+      "selected_block_sha256": "b867a6044b9598f01e5f6b56efe5df61509f441cc8aa72858f2ef363eb1def61",
+      "internal_label": "challenge-stock",
+      "raw_sidecar_metadata": "20261005-093635_challenge-stock.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "Challenge",
+      "policy": "Stock",
+      "NumCars": 2,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 18,
+          "CarClass": 2,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 23,
+          "CarClass": 2,
+          "DriverID": 6,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "c0cfa7c924d51ab52d47012cadc26a467d852c43a5728f1404fc382bb7319d28"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 35
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093728_cup-stage1.json",
+      "json_sha256": "e15edb3242df01f28325f42e572dbf543e603f20ba3aea9f2a6ac37310dd1bd3",
+      "raw_sha256": "23a2f17127cb8a3d4dbd5db1ad3bfae0080cfb9707cfbbff83694a0bf620becc",
+      "selected_block_sha256": "3f73cb2b7e7fc36d33cdd516115bb1bf23931671fadbcf31e0e7f92a8b153f5b",
+      "internal_label": "cup-stage1",
+      "raw_sidecar_metadata": "20261005-093728_cup-stage1.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "RallyeCup",
+      "policy": "Diverse",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 5,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 0,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 10,
+          "CarClass": 1,
+          "DriverID": 1,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 14,
+          "CarClass": 2,
+          "DriverID": 5,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "dcc63685ace69c3d4c73b55ad4271ce4d2975d22ae0042d76332b14a31341264"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 10
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093834_cup-stage2.json",
+      "json_sha256": "be02a9c28a984b3de7c0237320f79e60135bbe403528edd1395774ce0498b8bf",
+      "raw_sha256": "adac708f6458e7fe30f23643967e5d521daf1c2724f4acb6fbb900ddf892c6ee",
+      "selected_block_sha256": "984c44f32f6f01a92f2a46700bc94599e6d9e4dd67505819e59e626e0f5e883b",
+      "internal_label": "cup-stage2",
+      "raw_sidecar_metadata": "20261005-093834_cup-stage2.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "RallyeCup",
+      "policy": "Diverse",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 5,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 0,
+          "CarClass": 0,
+          "DriverID": 0,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 10,
+          "CarClass": 1,
+          "DriverID": 1,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 14,
+          "CarClass": 2,
+          "DriverID": 5,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "dcc63685ace69c3d4c73b55ad4271ce4d2975d22ae0042d76332b14a31341264"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 11
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-093952_invitation-stage1.json",
+      "json_sha256": "6664d1007fbd964fb89f3d747bdef8b3f8f4a3c46f3ff328b5084d5ccae72b53",
+      "raw_sha256": "13dd67106b5c70dd37c4d9c1d4f9883036970ad017e26432481f7bc1000ca912",
+      "selected_block_sha256": "8bba66208e6df47695db99e530e68ad58fa7eec12e7b0a4c1be0d532a20cc74d",
+      "internal_label": "invitation-stage1",
+      "raw_sidecar_metadata": "20261005-093952_invitation-stage1.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "Invitation",
+      "policy": "Mixed",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 21,
+          "CarClass": 2,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 2,
+          "CarClass": 0,
+          "DriverID": 2,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 5,
+          "CarClass": 0,
+          "DriverID": 1,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 12,
+          "CarClass": 1,
+          "DriverID": 9,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "eac7e58674a7ce0a1543df314114e4a3347e43f7662493532ae31c67508ec59a"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 36
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-094103_invitation-stage2.json",
+      "json_sha256": "d709984979c0ecc574152c34e529723e34e59bbd5270e8a368829a6f013978de",
+      "raw_sha256": "1e3595e69204481884cb11fccd055ef020d356fffe4b0b4c7579acdb45bb5579",
+      "selected_block_sha256": "b6a8f07896c5d49ba360340d3e188c5e837919c272da2f978b408eb38f71b334",
+      "internal_label": "invitation-stage2",
+      "raw_sidecar_metadata": "20261005-094103_invitation-stage2.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "Invitation",
+      "policy": "Mixed",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 21,
+          "CarClass": 2,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 2,
+          "CarClass": 0,
+          "DriverID": 2,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 5,
+          "CarClass": 0,
+          "DriverID": 1,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 12,
+          "CarClass": 1,
+          "DriverID": 9,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "eac7e58674a7ce0a1543df314114e4a3347e43f7662493532ae31c67508ec59a"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 37
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-094213_master-new.json",
+      "json_sha256": "b545059eb936595c11cc00311ba1d8e440fd9eec1264386439d44d453c5301f0",
+      "raw_sha256": "30e861279f9c8eac757fee9c6c132f9e0c4589a7b667d9a379089b215f9c62c0",
+      "selected_block_sha256": "5f60213619694e7809842d4212a6bce7cef02975d2a5ac4e3959a679625d2143",
+      "internal_label": "master-new",
+      "raw_sidecar_metadata": "20261005-094213_master-new.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 44796,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "MasterRallye",
+      "policy": "Diverse",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 6,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 1,
+          "CarClass": 0,
+          "DriverID": 7,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 20,
+          "CarClass": 2,
+          "DriverID": 4,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 10,
+          "CarClass": 1,
+          "DriverID": 0,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "a8ca2c7ef8d63d8935da3562e1a13736706090f2bc7adac7faf1e6efa8942522"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 0
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-094320_master-resume.json",
+      "json_sha256": "75013d10fe6892fe793729bff6c552cb41f7f9889e585805695f9c60c6639ec7",
+      "raw_sha256": "ed3ca052a1ed366feae7e93b570fa418b98a1381434ccbaa64a2ac3d578bb105",
+      "selected_block_sha256": "ae457c9275999ee548d6bd909772c499abcbfa97691418186f9caec53bd73647",
+      "internal_label": "master-resume",
+      "raw_sidecar_metadata": "20261005-094320_master-resume.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 37108,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "MasterRallye",
+      "policy": "Diverse",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 6,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 1,
+          "CarClass": 0,
+          "DriverID": 7,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 20,
+          "CarClass": 2,
+          "DriverID": 4,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 10,
+          "CarClass": 1,
+          "DriverID": 0,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "a8ca2c7ef8d63d8935da3562e1a13736706090f2bc7adac7faf1e6efa8942522"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 1
+      },
+      "challenge11_completion_flag": 1
+    },
+    {
+      "capture": "20261005-094402_master-next.json",
+      "json_sha256": "35ed118e5f9f2946ed57308937e6a57dda4b3554000fad4532f2acc1fe766e15",
+      "raw_sha256": "d2d39d148ea40d4df4781e87aaf3a333aec9ddafca3b297b96e267992a66fb98",
+      "selected_block_sha256": "256654b6ae4642a30d2025153827339cd1adde0a7e2e9977bb9d57e552d7bb32",
+      "internal_label": "master-next",
+      "raw_sidecar_metadata": "20261005-094402_master-next.dump.bin",
+      "manual_filename_alias": false,
+      "profile": "retail-r-ai1-2-four-hardened",
+      "image_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "process_id": 37108,
+      "freshness": "post_baseline_complete_dump_proven",
+      "mode": "MasterRallye",
+      "policy": "Diverse",
+      "NumCars": 4,
+      "NumPlayers": 1,
+      "participants": [
+        {
+          "CarID": 6,
+          "CarClass": 0,
+          "DriverID": 30,
+          "PlayerType": 1
+        },
+        {
+          "CarID": 1,
+          "CarClass": 0,
+          "DriverID": 7,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 20,
+          "CarClass": 2,
+          "DriverID": 4,
+          "PlayerType": 2
+        },
+        {
+          "CarID": 10,
+          "CarClass": 1,
+          "DriverID": 0,
+          "PlayerType": 2
+        }
+      ],
+      "broker_checker_status": "BROKER_STATE_MATCH_ONLY",
+      "automated_runtime_full_pass": false,
+      "matching_generation_config_sha256": [
+        "a8ca2c7ef8d63d8935da3562e1a13736706090f2bc7adac7faf1e6efa8942522"
+      ],
+      "race_parameters": {
+        "Race/PlaybackReplay": false,
+        "Race/AttractMode": false,
+        "Race/RaceID": 2
+      },
+      "challenge11_completion_flag": 1
+    }
+  ],
+  "roster_comparisons": [
+    {
+      "before": "20261005-092652_qr-mixed-ai3.json",
+      "after": "20261005-092734_qr-mixed-restart.json",
+      "CarID_CarClass_DriverID_equal": true,
+      "process_changed": false,
+      "status": "BROKER_ROSTER_COMPARISON_ONLY"
+    },
+    {
+      "before": "20261005-093728_cup-stage1.json",
+      "after": "20261005-093834_cup-stage2.json",
+      "CarID_CarClass_DriverID_equal": true,
+      "process_changed": false,
+      "status": "BROKER_ROSTER_COMPARISON_ONLY"
+    },
+    {
+      "before": "20261005-093952_invitation-stage1.json",
+      "after": "20261005-094103_invitation-stage2.json",
+      "CarID_CarClass_DriverID_equal": true,
+      "process_changed": false,
+      "status": "BROKER_ROSTER_COMPARISON_ONLY"
+    },
+    {
+      "before": "20261005-094213_master-new.json",
+      "after": "20261005-094320_master-resume.json",
+      "CarID_CarClass_DriverID_equal": true,
+      "process_changed": true,
+      "status": "BROKER_ROSTER_COMPARISON_ONLY"
+    },
+    {
+      "before": "20261005-094320_master-resume.json",
+      "after": "20261005-094402_master-next.json",
+      "CarID_CarClass_DriverID_equal": true,
+      "process_changed": false,
+      "status": "BROKER_ROSTER_COMPARISON_ONLY"
+    }
+  ],
+  "diagnostic_log": {
+    "sha256": "e2005e761cbb9d63bedadd1d51d1afe24ccba016053a0a7501c5e08146757f44",
+    "size": 4430,
+    "source": "MRallyeRandomizer.log",
+    "native_broker_dump": false,
+    "contains_process_id": false,
+    "process_association": "Human test sequence and matching native capture compositions; log itself has no PID"
+  },
+  "human_confirmed": [
+    "QuickRace AI counts 1..4 and player/course/difficulty/count changes",
+    "Stock/Mixed/Diverse",
+    "NEW generation and Restart reuse",
+    "config reload at future generation boundary in same process",
+    "Cup and Invitation stage reuse",
+    "Master native save / full process exit / fresh native load / next-stage reuse",
+    "Challenge11 opt-in gameplay and successful completion",
+    "four randomized AI / five total"
+  ],
+  "sidecar_required": false,
+  "challenge_exact_stock_driver_preservation": "NOT IMPLEMENTED / NOT CONFIRMED",
+  "challenge_preview_sync": "NOT IMPLEMENTED / NON-BLOCKING POLISH",
+  "original_exe_unchanged_deployment": "NOT YET COMPLETE",
+  "six_plus": "UNKNOWN / NOT TESTED",
+  "rng_uniformity_proven": false,
+  "completion_flag_caveat": "Won_Challenge11=1 already appears in earlier captures; flag alone cannot establish new Mixed completion. Successful Mixed completion is human evidence."
+}

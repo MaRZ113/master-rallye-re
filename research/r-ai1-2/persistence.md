@@ -6,9 +6,11 @@
 | Challenge | NO_PERSISTENCE_NEEDED | Current fixed-event race state and Restart; new event constructor is the boundary |
 | RallyeCup | STOCK_STATE_ALREADY_PERSISTS_RANDOMIZED_ROSTER, in-process cup lifetime | RaceData/CompetitorN identities reused by subsequent stages |
 | Invitation | STOCK_STATE_ALREADY_PERSISTS_RANDOMIZED_ROSTER, in-process three-stage event | Shared cup progression owner, event Race IDs36..38 |
-| MasterRallye | STOCK_STATE_ALREADY_PERSISTS_RANDOMIZED_ROSTER, static/native-transfer evidence | Native MasterRallye fields and PlayerState save/load; fresh-process human proof pending |
+| MasterRallye | STOCK_STATE_ALREADY_PERSISTS_RANDOMIZED_ROSTER, CONFIRMED_BY_RUNTIME | Native save -> process exit -> fresh-process Resume -> next-stage identity reuse |
 
-No sidecar is required by the traced identity path; none is implemented.
+CUSTOM RANDOMIZER SIDECAR: NOT REQUIRED for tested V1 lifetimes; none implemented.
+Human Cup/Invitation stage reuse and Master fresh-process native persistence
+are CONFIRMED_BY_RUNTIME; see [closeout](runtime-closeout.md).
 No original save format is changed. This is not a claim that Cup/Invitation
 serialize full rosters across process exit.
 
@@ -50,7 +52,8 @@ phase never creates or tests an active Car5.
 New native emulation executes the real 452640/452FE0 control flow with typed
 Broker and XML/file boundaries. Identity equality through that transfer is
 static evidence. **Actual save -> close process -> fresh process load ->
-continue remains a required human runtime gate.**
+continue is now CONFIRMED_BY_RUNTIME**, PID44796 ->37108, same identity
+tuples in master-new/master-resume/master-next captures.
 
 Config is read only at the first AI of a newly generated roster. Editing it
 mid-cup/career leaves the current roster untouched. Next new competition/race

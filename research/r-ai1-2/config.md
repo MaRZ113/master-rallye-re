@@ -27,3 +27,8 @@ The checker consumes a preserved generation config and this separate log.
 A complete ordered group of AI slots must match mode/policy/count/config hash
 and captured classes. Restart/stage/load can reuse that original group; a log
 match is provenance, not proof of a fresh generation or actor behavior.
+
+## Runtime closeout
+
+Human edits in a running process took effect at a subsequent roster-generation boundary: CONFIRMED_BY_RUNTIME. Existing roster remains unchanged. Log provenance and observed config hashes are recorded in the closeout.
+See [runtime evidence](runtime-closeout.md).

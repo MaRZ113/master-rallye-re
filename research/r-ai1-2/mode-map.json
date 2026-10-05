@@ -1,85 +1,161 @@
 {
   "phase": "R-AI1.2",
   "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-  "status": "READY_FOR_HUMAN_RUNTIME",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "evidence": "CONFIRMED_BY_EXE",
-  "runtime_confirmed_new_implementation": false,
+  "runtime_confirmed_new_implementation": true,
   "max_active_total": 5,
-  "exclusions": ["Attract", "Replay", "network", "multiple humans", "unknown Race/Type"],
+  "exclusions": [
+    "Attract",
+    "Replay",
+    "network",
+    "multiple humans",
+    "unknown Race/Type"
+  ],
   "modes": [
     {
-      "mode": "QuickRace", "race_type": 2,
-      "frontend_owner": "0x47B780", "builder": "0x458090",
+      "mode": "QuickRace",
+      "race_type": 2,
+      "frontend_owner": "0x47B780",
+      "builder": "0x458090",
       "class_source": "Car0 registry class / builder class argument",
       "vehicle_chooser": "native class cases and remaining vector draw",
       "driver_chooser": "native ten-driver pool / 0x458980",
       "active_ai_count": "builder first/count arguments, 0..4 supported",
       "creation": "NEW frontend Quick Race",
       "reuse": "Restart/loading reuse current Race/CarN",
-      "storage": "Race/CarN", "persistence": "NO_PERSISTENCE_NEEDED",
-      "seams": ["0x45810B", "0x458379", "0x4582D5"],
-      "policies": ["Stock", "Mixed", "Diverse"]
+      "storage": "Race/CarN",
+      "persistence": "NO_PERSISTENCE_NEEDED",
+      "seams": [
+        "0x45810B",
+        "0x458379",
+        "0x4582D5"
+      ],
+      "policies": [
+        "Stock",
+        "Mixed",
+        "Diverse"
+      ],
+      "runtime_status": "CONFIRMED_BY_RUNTIME"
     },
     {
-      "mode": "Challenge", "race_type": 7,
-      "frontend_owner": "0x45EA60", "builder": "0x44FEC0",
+      "mode": "Challenge",
+      "race_type": 7,
+      "frontend_owner": "0x45EA60",
+      "builder": "0x44FEC0",
       "class_source": "fixed absolute ID -> registry class",
       "vehicle_chooser": "registry +0x570/+0x574+(event+25)*0x2C",
       "driver_chooser": "native shuffled driver pool before vehicle hook",
       "active_ai_count": "one in supported one-human branch",
-      "creation": "NEW selected challenge event", "reuse": "current race/Restart",
-      "storage": "Race/CarN", "persistence": "NO_PERSISTENCE_NEEDED",
-      "seams": ["0x45010E"], "default_policy": "Stock",
+      "creation": "NEW selected challenge event",
+      "reuse": "current race/Restart",
+      "storage": "Race/CarN",
+      "persistence": "NO_PERSISTENCE_NEEDED",
+      "seams": [
+        "0x45010E"
+      ],
+      "default_policy": "Stock",
       "duplicate_policy": "Stock retains authored fixed pair; opt-in excludes human ID",
-      "policies": ["Stock", "Mixed", "Diverse"],
-      "limitation": "objective checker 0x4501D0 has no exact opponent ID check; per-event completion remains human gate"
+      "policies": [
+        "Stock",
+        "Mixed",
+        "Diverse"
+      ],
+      "limitation": "Challenge11 completed; other objectives not exhaustively tested; exact stock DriverID preservation NOT CONFIRMED; preview synchronization NOT IMPLEMENTED",
+      "runtime_status": "CONFIRMED_BY_RUNTIME"
     },
     {
-      "mode": "RallyeCup", "race_type": 6,
-      "frontend_owner": "0x481722", "builder": "0x45BE10 -> 0x45ABC0",
+      "mode": "RallyeCup",
+      "race_type": 6,
+      "frontend_owner": "0x481722",
+      "builder": "0x45BE10 -> 0x45ABC0",
       "class_source": "RaceData/VehicleClass / builder argument",
       "vehicle_chooser": "native class cases, rewards and remaining vector draw",
       "driver_chooser": "native ten-driver pool / name and DriverID publication",
       "active_ai_count": "normal one-human path first=1,count=3",
-      "creation": "NEW cup event", "reuse": "0x45B170 stage advance / Restart",
+      "creation": "NEW cup event",
+      "reuse": "0x45B170 stage advance / Restart",
       "storage": "RaceData/CompetitorN",
       "persistence": "STOCK_STATE_ALREADY_PERSISTS_RANDOMIZED_ROSTER",
       "persistence_scope": "in-process three-stage cup; no disk roster resume claim",
       "active_class_publication": "0x44A320 -> 0x44A710 derives class from each CarID",
-      "seams": ["0x45AC79", "0x45AF0F", "0x45AE66"],
-      "policies": ["Stock", "Mixed", "Diverse"]
+      "seams": [
+        "0x45AC79",
+        "0x45AF0F",
+        "0x45AE66"
+      ],
+      "policies": [
+        "Stock",
+        "Mixed",
+        "Diverse"
+      ],
+      "runtime_status": "CONFIRMED_BY_RUNTIME"
     },
     {
-      "mode": "Invitation", "race_type": 8,
-      "frontend_owner": "0x462678 / 0x481722", "builder": "0x45BE10 -> 0x45ABC0",
+      "mode": "Invitation",
+      "race_type": 8,
+      "frontend_owner": "0x462678 / 0x481722",
+      "builder": "0x45BE10 -> 0x45ABC0",
       "class_source": "frontend class2 / cup5",
       "vehicle_chooser": "stock cup5 core T3 IDs14..20; opt-in permits core T1/T2 cases",
       "driver_chooser": "same native competition driver pool",
       "active_ai_count": "normal one-human path first=1,count=3",
-      "creation": "NEW invitation sequence", "reuse": "0x45B170 Race IDs36..38 / Restart",
+      "creation": "NEW invitation sequence",
+      "reuse": "0x45B170 Race IDs36..38 / Restart",
       "storage": "RaceData/CompetitorN",
       "persistence": "STOCK_STATE_ALREADY_PERSISTS_RANDOMIZED_ROSTER",
       "persistence_scope": "in-process three-stage invitation; no disk roster resume claim",
-      "seams": ["0x45AC79", "0x45AF0F", "0x45AE66"],
-      "policies": ["Stock", "Mixed", "Diverse"]
+      "seams": [
+        "0x45AC79",
+        "0x45AF0F",
+        "0x45AE66"
+      ],
+      "policies": [
+        "Stock",
+        "Mixed",
+        "Diverse"
+      ],
+      "runtime_status": "CONFIRMED_BY_RUNTIME"
     },
     {
-      "mode": "MasterRallye", "race_type": 5,
-      "frontend_owner": "0x48157C", "builder": "0x452590 -> 0x451DD0",
+      "mode": "MasterRallye",
+      "race_type": 5,
+      "frontend_owner": "0x48157C",
+      "builder": "0x452590 -> 0x451DD0",
       "class_source": "MasterRallye/VehicleClass / builder argument",
       "vehicle_chooser": "native class cases, rewards and remaining vector draw",
       "driver_chooser": "native ten-driver pool / name and DriverID publication",
       "active_ai_count": "normal one-human path first=1,count=3",
-      "creation": "NEW competition only", "reuse": "0x452370 stage / 0x465F00 resume",
+      "creation": "NEW competition only",
+      "reuse": "0x452370 stage / 0x465F00 resume",
       "storage": "RaceData/CompetitorN <-> MasterRallye/CarN",
       "save_owner": "0x452640 -> 0x522D80 -> 0x5229B0 -> 0x52D700",
       "load_owner": "0x452FE0",
-      "persisted_fields": ["CarID", "CarClass", "DriverID", "RaceTime", "TotalTime", "RacePosition", "TotalPosition", "Player"],
+      "persisted_fields": [
+        "CarID",
+        "CarClass",
+        "DriverID",
+        "RaceTime",
+        "TotalTime",
+        "RacePosition",
+        "TotalPosition",
+        "Player"
+      ],
       "persistence": "STOCK_STATE_ALREADY_PERSISTS_RANDOMIZED_ROSTER",
-      "persistence_evidence": "CONFIRMED_BY_EXE / native transfer emulation; fresh-process human pending",
+      "persistence_evidence": "CONFIRMED_BY_RUNTIME / native save, fresh-process Resume and next-stage identity reuse; PID44796 ->37108",
       "sidecar": false,
-      "seams": ["0x451E90", "0x4520D2", "0x45202D"],
-      "policies": ["Stock", "Mixed", "Diverse"]
+      "seams": [
+        "0x451E90",
+        "0x4520D2",
+        "0x45202D"
+      ],
+      "policies": [
+        "Stock",
+        "Mixed",
+        "Diverse"
+      ],
+      "runtime_status": "CONFIRMED_BY_RUNTIME"
     }
-  ]
+  ],
+  "runtime_closeout": "runtime-closeout-summary.json"
 }

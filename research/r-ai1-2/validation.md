@@ -4,7 +4,7 @@ Baseline 316 synthetic passed,0 failed,0 skipped; compileall/diff-check PASS.
 Legacy generalized native94 cases and five-car native44 cases PASS; existing
 general/hardened-base/randomized-hardened/five-car exact verifiers PASS.
 
-Final checks, 2026-10-05:
+Historical static preparation checks, 2026-10-05 (retained evidence):
 
 | Check | Passed | Failed | Skipped | Scope |
 |---|---:|---:|---:|---|
@@ -39,7 +39,8 @@ Actual Cup/Invitation/Master stage control flow keeps mixed identity tuples
 without policy callbacks. Scoring/bests/conditions and XML/OS writer calls are
 bounded interfaces in those cases. Master real452640 and452FE0 transfer typed
 identity state into a fresh emulator instance; real disk serialization/process
-restart remains human pending. Native stock saved tail fields are not active
+restart was human pending at preparation; now confirmed in the runtime closeout.
+Native stock saved tail fields are not active
 six-car tests. Full composed47B780 -> existing capacity shim ->458090 tests
 produce exactly five cars with Stock, Mixed-plan and Diverse-plan callbacks.
 
@@ -55,6 +56,12 @@ emulation.json/log, package/native-policy-tests.json, legacy-*-regression.json,
 oracle-smoke/summary.json and build/repro logs. Safe summary is
 [validation-summary.json](validation-summary.json).
 
-No R-AI1.2 human game run has been performed. All automated/native-emulation
-results are static evidence and cannot certify vehicles, racing, Challenge
-completion, Cup progression or fresh-process Master save/load.
+Human validation is now complete: [runtime closeout](runtime-closeout.md) and
+[derived capture summary](runtime-closeout-summary.json). Automated/native-emulation
+results remain static or Broker-match evidence; human observations certify gameplay
+and completion. Current closeout reruns: synthetic334, compiled native2534,
+x86 emulation824, R-AI1.1 regression94, R-AI2 regression44; all zero failures/skips.
+compileall and exact candidate/module verifiers PASS. Twenty real JSON/raw pairs
+verify integrity, five roster comparisons match. No missing fixtures.
+Config/policy/persistence tests are included in the suite and native checks.
+The historical four synthetic CLI smoke checks above were preparation evidence.
