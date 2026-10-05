@@ -532,5 +532,7 @@
       "inverse_verified": true,
       "byte_equal_reproduction": true
     }
-  ]
+  ],
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "runtime_closeout": "runtime-summary.json"
 }

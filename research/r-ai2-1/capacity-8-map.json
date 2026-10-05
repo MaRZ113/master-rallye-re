@@ -2,12 +2,12 @@
   "phase": "R-AI2.1",
   "common_base": "8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10",
   "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-  "status": "READY FOR HUMAN RUNTIME",
-  "runtime_verified_total": 5,
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "runtime_verified_total": 8,
   "requested_totals": {
-    "6": "STATIC VIABILITY / HUMAN PENDING",
-    "7": "STATIC VIABILITY / HUMAN PENDING",
-    "8": "STATIC VIABILITY / HUMAN PENDING"
+    "6": "CONFIRMED_BY_RUNTIME",
+    "7": "CONFIRMED_BY_RUNTIME",
+    "8": "CONFIRMED_BY_RUNTIME"
   },
   "generic_N": "UNKNOWN",
   "subsystems": [
@@ -20,9 +20,9 @@
       "evidence": "479BB0,47A120,47A8C0,47B780",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "PARTICIPANT RECORDS",
@@ -33,9 +33,9 @@
       "evidence": "4ABBD0,4AC590,42A890,43E4C0,47D6D0",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "RACE/CARN BROKER",
@@ -46,9 +46,9 @@
       "evidence": "4AC590,4ACAF0,4ACC10,4AC930,493600",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "VEHICLE ACTORS",
@@ -59,9 +59,9 @@
       "evidence": "4B6A00,4F5670,4F5950,4F5840; DataScene/RaceTest/ItalyS4.xml",
       "confidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "PHYSICS",
@@ -72,9 +72,9 @@
       "evidence": "43EF80,43F020,43E4C0,43BB70,43A800,43AC80,43F890,43E020",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "AI CONTROLLERS",
@@ -85,9 +85,9 @@
       "evidence": "42A890,42AD40,42AC10,42A6B0",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "NETWORK MIRROR",
@@ -98,9 +98,10 @@
       "evidence": "4333D0,432B80,489AF0,489EC0,48E2D0",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "runtime_caveat": "Offline mirror state only; network protocol capacity not tested"
     },
     {
       "subsystem": "START GRID",
@@ -111,9 +112,9 @@
       "evidence": "48E2D0,48EB40,48E9C0",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "PROGRESS/TIMING",
@@ -124,9 +125,9 @@
       "evidence": "489AF0/489EC0,48A880/48AB20,48B520/48AE30,48CFE0/48D260,4CC5F0/4CCAF0,4CDF00/4CD9B0",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "HUD",
@@ -137,9 +138,9 @@
       "evidence": "4A74A0,4AB040,4AB390; DataScene/Hud/Hud0.xml, Hud1.xml",
       "confidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "RESULTS",
@@ -150,9 +151,9 @@
       "evidence": "47D6D0,47DBE0,47C840,47C7C0; DataScene/FrontendScreens/RaceResults.xml",
       "confidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "CAMERA/REPLAY",
@@ -163,9 +164,9 @@
       "evidence": "4B7A70,4B8810,4B82A0,4CADF0,4CB9B0,4CBB50,4CB150,4CB410",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "subsystem": "CLEANUP",
@@ -176,15 +177,15 @@
       "evidence": "4F5780,4F60F0,4F61A0,43E020,42A6B0,48ADC0,4CC420,4CD920,47C7C0,4CB0E0,4CB950",
       "confidence": "CONFIRMED_BY_EXE",
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained"
     },
     {
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
       "subsystem": "COLLISION",
       "category": "DYNAMIC_N",
       "storage": "manager+0C/+10/+14 growing pointer vector",
@@ -195,9 +196,9 @@
     },
     {
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
       "subsystem": "DAMAGE",
       "category": "UNKNOWN",
       "storage": "independent vehicle/body and family DamageParams; no participant4 storage identified",
@@ -208,9 +209,9 @@
     },
     {
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
       "subsystem": "RESET/RECOVERY",
       "category": "DYNAMIC_N",
       "storage": "4CC5F0 fifteen N*4 arrays;4CDF00 seven N*4 arrays",
@@ -221,9 +222,9 @@
     },
     {
       "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
-      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
-      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index5": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index6": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
+      "index7": "CONFIRMED_BY_RUNTIME / normal Quick Race tested lifecycle; static storage classification retained",
       "subsystem": "FINISH STATE",
       "category": "DYNAMIC_N",
       "storage": "489AF0 two N*4 key arrays",
@@ -272,5 +273,7 @@
       "proof": "authored presentation ceiling, backend vectors/lists dynamic"
     }
   ],
-  "physical_cap_verdict": "Eight is the conservative authored/mirror boundary; no fundamental engine-wide flat participant[8] array was identified. No generic-N or9 inference."
+  "physical_cap_verdict": "Eight is the conservative authored/mirror boundary; no fundamental engine-wide flat participant[8] array was identified. No generic-N or9 inference.",
+  "9+": "UNKNOWN",
+  "course_start_layout_safety": "REQUIRES PER-COURSE AUDIT / R-GRID8"
 }

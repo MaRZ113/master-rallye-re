@@ -1037,5 +1037,7 @@
     "unique_courses": 36,
     "all_registered_courses_in_audit": true,
     "alias_mapping": "Exact case/underscore normalization of registered RaceTest resource name to corpus course directory; all39 registrations map to36 corpus courses."
-  }
+  },
+  "human_closeout_caveat": "Eight-car engine pass exposed unsafe player spawn near physical course geometry; all-course clearance not proven",
+  "all_courses_physically_safe_for_eight": "UNKNOWN / REQUIRES R-GRID8"
 }

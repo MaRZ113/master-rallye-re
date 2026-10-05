@@ -1,3 +1,5 @@
+**COMPLETED**: sequential human6/7/8 validation. See runtime-closeout.md. Original procedure below is historical.
+
 # Human capacity validation - SIX, then SEVEN, then EIGHT
 
 Use an isolated retail copy and preserved original EXE. Stage ONLY the chosen

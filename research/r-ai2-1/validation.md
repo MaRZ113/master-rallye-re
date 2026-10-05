@@ -24,8 +24,4 @@ from pristine. Audited Observatory adapter file pins are unchanged; new profiles
 are exact hashes only. JSON/raw integrity and unknown-implementation rejection
 remain enforced.
 
-No human six/seven/eight evidence exists in this phase. Every candidate remains
-READY FOR HUMAN RUNTIME. Human order is six, then seven, then eight, stopping at
-the first anomaly. Each count needs independent actors/AI/physics/collision/damage,
-HUD/progress/finish/results, Replay and frontend return. See the
-[handoff](runtime-handoff.md). No result here proves9 or generic N.
+Later human closeout: N6/N7/N8 CONFIRMED_BY_RUNTIME. Full suites rerun:351 passed,0 failed/skipped; compileall, diff-check and all three candidate verifiers PASS. See runtime-closeout.md and runtime-summary.json. Original static/emulation evidence above is unchanged.

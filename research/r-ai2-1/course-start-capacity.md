@@ -1,3 +1,5 @@
+Later runtime caveat: eight-car engine capacity is confirmed, but one tested start launched the player near unsuitable geometry. Structural Car0..7/StartArea coverage is NOT all-course physical safety. R-GRID8 is deferred.
+
 # Stock course start capacity
 
 CONFIRMED_BY_CORPUS: all36 canonical retail RaceTest scenes audited.

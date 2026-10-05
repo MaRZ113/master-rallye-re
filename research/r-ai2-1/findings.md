@@ -1,8 +1,8 @@
 # R-AI2.1 - six/seven/eight participant capacity
 
-**READY FOR SEPARATE HUMAN RUNTIME** at exact N6, N7, N8; none is runtime-confirmed.
+**CLOSED / CONFIRMED_BY_RUNTIME** at exact N6, N7, N8. See runtime-closeout.md.
 COMMON_BASE8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10, branch research/r-ai2-1.
-R-AI1.2a remains separately awaiting human test and is not included. Stock UI
+R-AI1.2a is independent and is not included. Stock UI
 stays One/Two/Three. No UI, randomizer DLL or general algorithm changes.
 
 The closed N5 engine map extends statically to indices5/6/7: dynamic participant

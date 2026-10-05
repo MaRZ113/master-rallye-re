@@ -38,7 +38,7 @@ result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
 
 ## R-AI2.1 six/seven/eight capacity research
 
-READY FOR HUMAN RUNTIME, not runtime confirmed. Exact pristine-source guarded
+CLOSED / CONFIRMED_BY_RUNTIME for normal Quick Race6/7/8.9+UNKNOWN. Exact pristine-source guarded
 candidates use stock mixed roster prefixes with unchanged visible Three, no DLL.
 Existing storage paths and native bounded enumeration support static indices5..7;
 Network inline flags, HUD markers and Results images provide an eight-slot
@@ -70,7 +70,7 @@ NULL-safe empty PointsList output does not distinguish NULL from allocated-empty
 Stock heap-reclamation caveats remain; stable tested teardown is not proof of
 complete reclamation or long-run generic-N safety.
 
-Six/seven/eight/generic-N remain UNKNOWN. Public deployment still targets a
+Six/seven/eight are separately runtime-confirmed in R-AI2.1;9+/generic-N remain UNKNOWN. Public deployment still targets a
 removable fail-closed exact-build runtime mod leaving the original EXE unchanged.
 [Earlier design notes](../research/r-ai2/randomizer-follow-up.md) remain historical
 R-AI2 closeout notes. R-AI1.2 implementation is tracked separately below;

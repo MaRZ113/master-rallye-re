@@ -21,14 +21,13 @@ R-AI2 five-car target is **CLOSED / CONFIRMED_BY_RUNTIME**: one human + four
 AI, independent Car4 actor/physics/collision/damage, HUD, five finishers/results,
 hardened Dump, Replay and stable frontend return. The guarded setup intervention
 uses existing engine storage; no physical participant array expansion was needed.
-Six/seven/eight/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
+Six/seven/eight are separately runtime-confirmed in R-AI2.1;9+/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
 and [capacity map](research/r-ai2/capacity-map.md).
 
-R-AI2.1 independent capacity research is **READY FOR HUMAN RUNTIME** for exact
+R-AI2.1 independent capacity research is **CLOSED / CONFIRMED_BY_RUNTIME** for exact
 6/7/8 totals, using deterministic stock mixed roster prefixes and unchanged
 One/Two/Three UI. All36 retail RaceTest courses contain Car0..7 templates and
-native StartArea data; actual spawn/clearance and full lifecycle remain human
-pending. See [findings](research/r-ai2-1/findings.md) and
+native StartArea data. Human full lifecycle passed6/7/8; physical start clearance remains a separate R-GRID8 audit. See [findings](research/r-ai2-1/findings.md) and
 [ordered handoff](research/r-ai2-1/runtime-handoff.md). No R-UI1 integration.
 
 R-AI1.2 is **CLOSED / CONFIRMED_BY_RUNTIME**: Stock/Mixed/Diverse, Quick Race

@@ -1,8 +1,7 @@
 # Exact index5 /6 /7 static capacity map
 
 Canonical addresses/categories/physical owners are in [JSON](capacity-8-map.json).
-Index4 is independently CONFIRMED_BY_RUNTIME by R-AI2. Index5/6/7 remain runtime
-UNKNOWN; audited bounds/allocation evidence is CONFIRMED_BY_EXE or CORPUS.
+Index4 is independently CONFIRMED_BY_RUNTIME by R-AI2. Index5/6/7 are now CONFIRMED_BY_RUNTIME for normal Quick Race. Audited physical storage remains separately CONFIRMED_BY_EXE or CORPUS. See runtime-closeout.md;9+ UNKNOWN.
 
 | Subsystem | Physical owner | Index5/6/7 |
 |---|---|---|

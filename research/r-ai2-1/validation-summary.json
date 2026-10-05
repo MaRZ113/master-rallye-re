@@ -1,6 +1,6 @@
 {
   "phase": "R-AI2.1",
-  "status": "READY FOR HUMAN RUNTIME",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "runtime_full_pass": false,
   "baseline": {
     "passed": 334,
@@ -64,5 +64,6 @@
     "reproduction": "PASS"
   },
   "compileall": "PASS",
-  "diff_check": "PASS"
+  "diff_check": "PASS",
+  "runtime_closeout": "runtime-summary.json"
 }
