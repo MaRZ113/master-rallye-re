@@ -56,6 +56,8 @@ def retail_layout_fixture() -> bytes:
         0x45A282: bytes.fromhex("6a0fe887"),
         0x4819CE: patcher._rel32_call(0x4819CE, 0x45A150),
         0x4819BD: bytes.fromhex("8bf8e8fc89fdff"),
+        0x481A0E: bytes.fromhex("8b10576a338bc8ff520c"),
+        0x481A4B: bytes.fromhex("8b10576a348bc8ff520c"),
         0x481A10: b"\x57",
         0x481A4D: b"\x57",
         0x458D3F: patcher._rel32_call(0x458D3F, patcher.ORIGINAL_SECONDARY_INITIALIZER_VA),
@@ -65,6 +67,8 @@ def retail_layout_fixture() -> bytes:
     }
     for call_va in patcher.QUICKRACE_SELECTOR_CALLS:
         fixed[call_va] = patcher._rel32_call(call_va, patcher.QUICKRACE_SELECTOR_GETTER_VA)
+    for call_va in patcher.QUICKRACE_LOCALIZATION_CALLS:
+        fixed[call_va] = bytes.fromhex("506a358bceff570c")
     for va, raw in fixed.items():
         put(va, raw)
     for va, disp in patcher.SECONDARY_INIT_LEAS:
@@ -183,6 +187,128 @@ class VehicleRegistryId26PatcherTests(unittest.TestCase):
         self.assertEqual(set(cleanup_ops), set(harness_ops))
         self.assertEqual({name for name in cleanup_ops if cleanup_ops[name] != harness_ops[name]},
                          {"pe_text_virtual_size", "id26_code_cave_payload"})
+
+    def test_mercedes_final_profile_uses_id26_only_historic_display_strings(self) -> None:
+        source = retail_layout_fixture()
+        candidate, manifest = patcher.make_candidate(
+            source,
+            expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_FINAL,
+        )
+        rebuilt, rebuilt_manifest = patcher.make_candidate(
+            source,
+            expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_FINAL,
+        )
+        self.assertEqual(candidate, rebuilt)
+        self.assertEqual(manifest, rebuilt_manifest)
+        self.assertEqual(len(manifest["operations"]), 72)
+        structural = manifest["structural_self_check"]
+        profile = structural["id26"]
+        self.assertEqual(manifest["phase"], "R5V-F.2e final Mercedes ML-320 ID26 acceptance candidate")
+        self.assertEqual(manifest["runtime_validation"],
+                         "STATIC ACCEPTANCE CANDIDATE — WAITING FOR HUMAN P0/P1")
+        self.assertEqual(structural["registry_capacity"], 27)
+        self.assertEqual(structural["class_mappings"]["T1"], {
+            "local_0_to_6": "absolute IDs 0..6", "local_7": 26, "capacity": 8,
+        })
+        self.assertEqual(structural["class_mappings"]["T2"]["capacity"], 7)
+        self.assertEqual(structural["class_mappings"]["T3"]["capacity"], 12)
+        self.assertEqual(profile["internal_name"], "Mercedes")
+        self.assertEqual(profile["runtime_family"], "Mercedes")
+        self.assertEqual(profile["frontend_stats"], [4, 3, 6, 5])
+        self.assertEqual(profile["smallcarsheet_index"], 9)
+        self.assertEqual(profile["vehicle_select_icon_frame"], 3)
+        self.assertEqual(profile["asset_package"], "DataGx/Vehicles/Mercedes")
+        self.assertEqual(profile["model_family"], "Mercedes")
+        self.assertEqual(profile["wheel_family"], "Mercedes")
+        self.assertEqual(profile["physics_family"], "Vehicles/Mercedes")
+        self.assertIsNone(profile["donor_id"])
+        self.assertEqual(structural["id25"]["internal_name"], "Trooper")
+        self.assertEqual(structural["id25"]["id"], 25)
+        self.assertEqual(structural["display_selector"]["id26_by_localization_group"], None)
+        self.assertEqual(structural["display_selector"]["id26_string_by_context"], {
+            "0x33_vehicle_select_manufacturer": "MERCEDES",
+            "0x34_vehicle_select_model": "ML-320",
+            "0x35_quickrace": "MERCEDES ML-320",
+        })
+        self.assertEqual(structural["display_selector"]["race_id_unchanged"], 26)
+        self.assertEqual(structural["race_colour_canary"]["rgba_bits"],
+                         ["3f800000", "00000000", "00000000", "3f800000"])
+
+        operations = {op["name"]: op for op in manifest["operations"]}
+        self.assertEqual(operations["vehicle_select_manufacturer_string_override"]["virtual_address"], 0x481A0E)
+        self.assertEqual(operations["vehicle_select_model_string_override"]["virtual_address"], 0x481A4B)
+        self.assertEqual({operations[name]["virtual_address"] for name in operations
+                          if name.startswith("quickrace_name_string_override_")},
+                         set(patcher.QUICKRACE_LOCALIZATION_CALLS))
+        self.assertNotIn("display_group_33_selector", operations)
+        self.assertNotIn("display_group_34_selector", operations)
+        self.assertFalse(any(name.startswith("quickrace_group_35_selector_") for name in operations))
+
+        payload = bytes.fromhex(operations["id26_code_cave_payload"]["replacement_bytes"])
+        self.assertIn(b"MERCEDES\x00ML-320\x00MERCEDES ML-320\x00", payload)
+
+        # Check both paths in each trampoline against the Ghidra-verified call
+        # contract: the non-ID26 route replays the original indirect call,
+        # while ID26 returns a code-cave C string and resumes after that call.
+        entrypoints = {name: int(value, 16)
+                       for name, value in structural["code_entrypoints"].items()}
+
+        def check_literal_and_resume(target: int, expected_text: str, resume: int) -> int:
+            target_offset = target - patcher.STUB_VA
+            self.assertEqual(payload[target_offset], 0xB8)  # mov eax, imm32
+            text_va = struct.unpack_from("<I", payload, target_offset + 1)[0]
+            text_offset = text_va - patcher.STUB_VA
+            self.assertGreaterEqual(text_offset, 0)
+            self.assertLess(text_offset, len(payload))
+            self.assertEqual(payload[text_offset:].split(b"\x00", 1)[0].decode("ascii"), expected_text)
+            jump_offset = target_offset + 5
+            self.assertEqual(payload[jump_offset], 0xE9)
+            delta = struct.unpack_from("<i", payload, jump_offset + 1)[0]
+            self.assertEqual(patcher.STUB_VA + jump_offset + 5 + delta, resume)
+            return text_va
+
+        def check_vehicle_select(name: str, group: int, resume: int, text: str) -> None:
+            address = entrypoints[name]
+            offset = address - patcher.STUB_VA
+            code = payload[offset:]
+            self.assertEqual(code[:6], bytes.fromhex("81ff1a000000"))
+            self.assertEqual(code[6:8], b"\x0f\x84")
+            id26_delta = struct.unpack_from("<i", code, 8)[0]
+            id26_target = address + 12 + id26_delta
+            self.assertEqual(code[12:22], b"\x8b\x10\x57\x6a" + bytes((group,)) + b"\x8b\xc8\xff\x52\x0c")
+            self.assertEqual(code[22], 0xE9)
+            other_delta = struct.unpack_from("<i", code, 23)[0]
+            self.assertEqual(address + 27 + other_delta, resume)
+            check_literal_and_resume(id26_target, text, resume)
+
+        check_vehicle_select("vehicle_select_manufacturer_lookup", 0x33, 0x481A18, "MERCEDES")
+        check_vehicle_select("vehicle_select_model_lookup", 0x34, 0x481A55, "ML-320")
+
+        for index, call_va in enumerate(patcher.QUICKRACE_LOCALIZATION_CALLS):
+            address = entrypoints[f"quickrace_name_lookup_{index}"]
+            offset = address - patcher.STUB_VA
+            code = payload[offset:]
+            self.assertEqual(code[:5], bytes.fromhex("3d1a000000"))
+            self.assertEqual(code[5:7], b"\x0f\x84")
+            id26_delta = struct.unpack_from("<i", code, 7)[0]
+            id26_target = address + 11 + id26_delta
+            self.assertEqual(code[11:19], bytes.fromhex("506a358bceff570c"))
+            self.assertEqual(code[19], 0xE9)
+            other_delta = struct.unpack_from("<i", code, 20)[0]
+            resume = call_va + 8
+            self.assertEqual(address + 24 + other_delta, resume)
+            check_literal_and_resume(id26_target, "MERCEDES ML-320", resume)
+
+            operation = operations[f"quickrace_name_string_override_{index}"]
+            replacement = bytes.fromhex(operation["replacement_bytes"])
+            self.assertEqual(len(replacement), 8)
+            self.assertEqual(replacement[5:], b"\x90" * 3)
+            displacement = struct.unpack_from("<i", replacement, 1)[0]
+            entrypoint = int(structural["code_entrypoints"][f"quickrace_name_lookup_{index}"], 16)
+            self.assertEqual(call_va + 5 + displacement, entrypoint)
+        self.assertEqual(len(candidate), len(source))
 
     def test_emitted_capacity_stub_sets_t1_eight_and_t2_seven(self) -> None:
         source = retail_layout_fixture()

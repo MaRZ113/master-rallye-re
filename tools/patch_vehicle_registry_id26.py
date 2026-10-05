@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Build a fail-closed retail ID26 / sparse T1 test executable.
+"""Build fail-closed retail ID26 / sparse T1 test executables.
 
-This patcher supports one exact retail image and two fixed ID26 profiles: the
-F.1 donor-cleanup profile and the F.2b Mercedes cook-harness profile. Both
-preserve the confirmed Trooper ID25 record, expand the registry object to 27
-VehicleRecords, move the adjacent 39-row RaceTest table, initialize ID26 with
-the original full initializer, fix independent T1/T2 capacities, and alias
-ID26 only for localization display. It never edits the source.
+Profiles preserve the confirmed Trooper ID25 record, expand the registry
+object to 27 VehicleRecords, move the adjacent 39-row RaceTest table,
+initialize ID26 with the original full initializer, and set independent
+frontend capacities. The final Mercedes profile supplies bounded ID26-only
+display strings while preserving the physical ID for resource and race paths.
+The source executable is never edited.
 """
 from __future__ import annotations
 
@@ -63,6 +63,7 @@ RACETEST_END_NEW = 0xC34
 CAPACITY_INIT_HOOK_VA = 0x480A4A
 CAPACITY_INIT_CONTINUATION_VA = 0x480A55
 QUICKRACE_SELECTOR_CALLS = (0x47B0AF, 0x47B13A, 0x47B1BA)
+QUICKRACE_LOCALIZATION_CALLS = (0x47B0B4, 0x47B13F, 0x47B1BF)
 QUICKRACE_LOCALIZATION_GROUP = 0x35
 
 
@@ -86,6 +87,13 @@ class VehicleRecordProfile:
     display_selector_by_group: tuple[tuple[int, int], ...]
     unlock_policy: str
     race_colour_role: str
+    display_manufacturer: str | None = None
+    display_model: str | None = None
+    display_quickrace: str | None = None
+    asset_package: str | None = None
+    model_family: str | None = None
+    wheel_family: str | None = None
+    physics_family: str | None = None
 
 
 # Preserve the latest human-tested ID25/Trooper presentation profile. Its
@@ -138,9 +146,29 @@ ID26_MERCEDES_COOK_HARNESS = replace(
     race_colour_role="F.1 red canary retained for isolated cooker trigger",
 )
 
+# Final semantic identity profile. The historical combined label is split
+# across the retail Vehicle Select manufacturer/model controls and is kept as
+# one string in Quick Race. The numeric registry/resource identity remains 26.
+ID26_MERCEDES_FINAL = replace(
+    ID26_MERCEDES_COOK_HARNESS,
+    profile_id="mercedes-final",
+    stats=(4, 3, 6, 5),
+    donor_id=None,
+    race_colour_role="custom presentation race colour; explicit red ID26 marker",
+    display_selector_by_group=(),
+    display_manufacturer="MERCEDES",
+    display_model="ML-320",
+    display_quickrace="MERCEDES ML-320",
+    asset_package="DataGx/Vehicles/Mercedes",
+    model_family="Mercedes",
+    wheel_family="Mercedes",
+    physics_family="Vehicles/Mercedes",
+)
+
 ID26_PROFILES = {
     "donor-cleanup": ID26_DONOR_CLEANUP,
     "mercedes-cook-harness": ID26_MERCEDES_COOK_HARNESS,
+    "mercedes-final": ID26_MERCEDES_FINAL,
 }
 
 
@@ -190,6 +218,14 @@ class _CodeImage:
         self.emit(b"\x68\x00\x00\x00\x00")
         self.imm32.append((len(self.code) - 4, label))
 
+    def mov_eax_literal(self, label: str) -> None:
+        self.emit(b"\xB8\x00\x00\x00\x00")
+        self.imm32.append((len(self.code) - 4, label))
+
+    def je(self, target: str) -> None:
+        self.emit(b"\x0F\x84\x00\x00\x00\x00")
+        self.rel32.append((len(self.code) - 4, len(self.code), target))
+
     def build(self) -> bytes:
         result = bytearray(self.code)
         for imm_offset, name in self.imm32:
@@ -223,6 +259,19 @@ def _emit_record_initializer(code: _CodeImage, profile: VehicleRecordProfile,
     code.call(VEHICLE_INITIALIZER_VA)
 
 
+def _has_display_string_override(profile: VehicleRecordProfile) -> bool:
+    values = (profile.display_manufacturer, profile.display_model, profile.display_quickrace)
+    present = [value is not None for value in values]
+    if any(present) and not all(present):
+        raise PatchError("ID26 display string override must define all three display contexts")
+    if all(present):
+        for value in values:
+            if not value or "\x00" in value or not value.isascii():
+                raise PatchError("ID26 display strings must be non-empty ASCII without NUL bytes")
+        return True
+    return False
+
+
 def _id26_display_selectors(profile: VehicleRecordProfile) -> dict[int, int]:
     if profile.slot_id != 26 or profile.vehicle_class != 0 or profile.local_index != 7:
         raise PatchError("R5V-F.1 profile must retain physical ID26 / T1 local7")
@@ -230,6 +279,10 @@ def _id26_display_selectors(profile: VehicleRecordProfile) -> dict[int, int]:
         raise PatchError("unsupported ID26 unlock policy for this bounded patcher")
     if not profile.internal_name or "\x00" in profile.internal_name or not profile.internal_name.isascii():
         raise PatchError("ID26 profile needs a non-empty ASCII NUL-free internal name")
+    if _has_display_string_override(profile):
+        if profile.profile_id != ID26_MERCEDES_FINAL.profile_id:
+            raise PatchError("direct display-string override is reserved for the final Mercedes profile")
+        return {}
     selectors = dict(profile.display_selector_by_group)
     if set(selectors) != {0x33, 0x34, 0x35}:
         raise PatchError("ID26 profile must define display selectors for groups 0x33/0x34/0x35")
@@ -241,9 +294,36 @@ def _id26_display_selectors(profile: VehicleRecordProfile) -> dict[int, int]:
     return selectors
 
 
+def _emit_vehicle_select_string_lookup(code: _CodeImage, *, label: str, group: int,
+                                       string_label: str, resume_va: int) -> None:
+    """Keep stock localization for other IDs; return one static C string for ID26."""
+    code.label(label)
+    code.emit(b"\x81\xFF" + struct.pack("<I", 26))  # cmp EDI, physical vehicle ID
+    code.je(label + "_id26")
+    code.emit(b"\x8B\x10\x57\x6A" + bytes((group,)) + b"\x8B\xC8\xFF\x52\x0C")
+    code.jump(resume_va)
+    code.label(label + "_id26")
+    code.mov_eax_literal(string_label)
+    code.jump(resume_va)
+
+
+def _emit_quickrace_string_lookup(code: _CodeImage, *, label: str,
+                                  string_label: str, resume_va: int) -> None:
+    """Wrap the group-0x35 lookup with its verified thiscall stack contract."""
+    code.label(label)
+    code.emit(b"\x3D" + struct.pack("<I", 26))  # EAX is the selected physical ID
+    code.je(label + "_id26")
+    code.emit(b"\x50\x6A\x35\x8B\xCE\xFF\x57\x0C")
+    code.jump(resume_va)
+    code.label(label + "_id26")
+    code.mov_eax_literal(string_label)
+    code.jump(resume_va)
+
+
 def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
                        ) -> tuple[bytes, dict[str, int]]:
     selectors = _id26_display_selectors(id26_profile)
+    has_display_override = _has_display_string_override(id26_profile)
     code = _CodeImage(STUB_VA)
 
     code.label("registry_init")
@@ -280,15 +360,32 @@ def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
 
     code.align()
     code.label("display_selector")
-    code.emit(b"\x8B\xF8\x8B\xDF\x81\xFB" + struct.pack("<I", id26_profile.slot_id))
-    code.jne("display_get_registry")
-    if selectors[0x33] == 0:
-        code.emit(b"\x31\xDB")
-    else:
-        code.emit(b"\xBB" + struct.pack("<I", selectors[0x33]))
-    code.label("display_get_registry")
+    code.emit(b"\x8B\xF8\x8B\xDF")  # retain EDI/EBX as physical ID
+    if not has_display_override:
+        code.emit(b"\x81\xFB" + struct.pack("<I", id26_profile.slot_id))
+        code.jne("display_get_registry")
+        if selectors[0x33] == 0:
+            code.emit(b"\x31\xDB")
+        else:
+            code.emit(b"\xBB" + struct.pack("<I", selectors[0x33]))
+        code.label("display_get_registry")
     code.call(0x45A3C0)
     code.jump(0x4819C4)
+
+    if has_display_override:
+        code.align()
+        _emit_vehicle_select_string_lookup(
+            code, label="vehicle_select_manufacturer_lookup", group=0x33,
+            string_label="vehicle_select_manufacturer_text", resume_va=0x481A18)
+        code.align()
+        _emit_vehicle_select_string_lookup(
+            code, label="vehicle_select_model_lookup", group=0x34,
+            string_label="vehicle_select_model_text", resume_va=0x481A55)
+        for index, call_va in enumerate(QUICKRACE_LOCALIZATION_CALLS):
+            code.align()
+            _emit_quickrace_string_lookup(
+                code, label=f"quickrace_name_lookup_{index}",
+                string_label="quickrace_display_text", resume_va=call_va + 8)
 
     code.align()
     code.label("id26_unlock")
@@ -310,25 +407,33 @@ def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
     code.emit(b"\xC7\x46\x24\x07\x00\x00\x00")  # [ESI+0x24] = 7 (T2)
     code.jump(CAPACITY_INIT_CONTINUATION_VA)
 
-    code.align()
-    code.label("quickrace_display_selector")
-    # FUN_004adfb0 takes one stack argument and returns with RET 4. Copy that
-    # argument for the nested call, alias only returned selector 26 to 0,
-    # then clean the original caller argument with the matching RET 4.
-    code.emit(b"\xFF\x74\x24\x04")  # push dword ptr [ESP+4]
-    code.call(QUICKRACE_SELECTOR_GETTER_VA)
-    code.emit(b"\x3D" + struct.pack("<I", id26_profile.slot_id) + b"\x75\x02")
-    if selectors[0x35] == 0:
-        code.emit(b"\x31\xC0")
-    else:
-        code.emit(b"\xB8" + struct.pack("<I", selectors[0x35]))
-    code.emit(b"\xC2\x04\x00")
+    if not has_display_override:
+        code.align()
+        code.label("quickrace_display_selector")
+        # FUN_004adfb0 takes one stack argument and returns with RET 4. Copy that
+        # argument for the nested call, alias only returned selector 26 to 0,
+        # then clean the original caller argument with the matching RET 4.
+        code.emit(b"\xFF\x74\x24\x04")  # push dword ptr [ESP+4]
+        code.call(QUICKRACE_SELECTOR_GETTER_VA)
+        code.emit(b"\x3D" + struct.pack("<I", id26_profile.slot_id) + b"\x75\x02")
+        if selectors[0x35] == 0:
+            code.emit(b"\x31\xC0")
+        else:
+            code.emit(b"\xB8" + struct.pack("<I", selectors[0x35]))
+        code.emit(b"\xC2\x04\x00")
 
     code.align(4)
     code.label("trooper_name")
     code.emit(b"Trooper\x00")
     code.label("id26_name")
     code.emit(id26_profile.internal_name.encode("ascii") + b"\x00")
+    if has_display_override:
+        code.label("vehicle_select_manufacturer_text")
+        code.emit(id26_profile.display_manufacturer.encode("ascii") + b"\x00")
+        code.label("vehicle_select_model_text")
+        code.emit(id26_profile.display_model.encode("ascii") + b"\x00")
+        code.label("quickrace_display_text")
+        code.emit(id26_profile.display_quickrace.encode("ascii") + b"\x00")
     payload = code.build()
     if len(payload) > 0xD60:
         raise PatchError(f"code-cave payload too large: 0x{len(payload):X}")
@@ -515,25 +620,55 @@ def build_operations(data: bytes, pe: dict, *,
     _add_va_patch(data, pe, operations, name="display_identity_selector_hook", category="display-localization",
                   va=0x4819BD, original=bytes.fromhex("8bf8e8fc89fdff"),
                   replacement=_rel32_jump(0x4819BD, entrypoints["display_selector"]) + b"\x90\x90",
-                  purpose="retain absolute ID26 while selecting donor ID0 localization only")
-    _add_va_patch(data, pe, operations, name="display_group_33_selector", category="display-localization",
-                  va=0x481A10, original=b"\x57", replacement=b"\x53",
-                  purpose="use the donor selector for localization group 0x33")
-    _add_va_patch(data, pe, operations, name="display_group_34_selector", category="display-localization",
-                  va=0x481A4D, original=b"\x57", replacement=b"\x53",
-                  purpose="use the donor selector for localization group 0x34")
-
-    for call_va in QUICKRACE_SELECTOR_CALLS:
-        _add_va_patch(
-            data, pe, operations,
-            name=f"quickrace_group_35_selector_{call_va:08x}",
-            category="quickrace-display-localization",
-            va=call_va,
-            original=_rel32_call(call_va, QUICKRACE_SELECTOR_GETTER_VA),
-            replacement=_rel32_call(call_va, entrypoints["quickrace_display_selector"]),
-            purpose=("alias only returned selector ID26 to donor ID0 before localization group "
-                     "0x35; retain Car0/Car1 state and Race/Car0/CarID"),
+                  purpose=("preserve physical ID26 for final direct display strings" if _has_display_string_override(id26_profile)
+                           else "retain absolute ID26 while selecting donor localization for display only"))
+    if _has_display_string_override(id26_profile):
+        vehicle_display_calls = (
+            (0x481A0E, "vehicle_select_manufacturer_string_override",
+             bytes.fromhex("8b10576a338bc8ff520c"),
+             entrypoints["vehicle_select_manufacturer_lookup"],
+             "return MERCEDES only for physical ID26; preserve the stock group-0x33 call for every other vehicle"),
+            (0x481A4B, "vehicle_select_model_string_override",
+             bytes.fromhex("8b10576a348bc8ff520c"),
+             entrypoints["vehicle_select_model_lookup"],
+             "return ML-320 only for physical ID26; preserve the stock group-0x34 call for every other vehicle"),
         )
+        for call_va, name, original, target_va, purpose in vehicle_display_calls:
+            _add_va_patch(
+                data, pe, operations, name=name, category="display-string-override",
+                va=call_va, original=original,
+                replacement=_rel32_jump(call_va, target_va) + b"\x90" * (len(original) - 5),
+                purpose=purpose,
+            )
+        for index, call_va in enumerate(QUICKRACE_LOCALIZATION_CALLS):
+            original = bytes.fromhex("506a358bceff570c")
+            _add_va_patch(
+                data, pe, operations,
+                name=f"quickrace_name_string_override_{index}",
+                category="quickrace-display-string-override", va=call_va,
+                original=original,
+                replacement=_rel32_jump(call_va, entrypoints[f"quickrace_name_lookup_{index}"]) + b"\x90" * 3,
+                purpose=("return the historic MERCEDES ML-320 string only when the queried Quick Race "
+                         "physical vehicle ID is 26; retain the stock group-0x35 lookup otherwise"),
+            )
+    else:
+        _add_va_patch(data, pe, operations, name="display_group_33_selector", category="display-localization",
+                      va=0x481A10, original=b"\x57", replacement=b"\x53",
+                      purpose="use the donor selector for localization group 0x33")
+        _add_va_patch(data, pe, operations, name="display_group_34_selector", category="display-localization",
+                      va=0x481A4D, original=b"\x57", replacement=b"\x53",
+                      purpose="use the donor selector for localization group 0x34")
+        for call_va in QUICKRACE_SELECTOR_CALLS:
+            _add_va_patch(
+                data, pe, operations,
+                name=f"quickrace_group_35_selector_{call_va:08x}",
+                category="quickrace-display-localization",
+                va=call_va,
+                original=_rel32_call(call_va, QUICKRACE_SELECTOR_GETTER_VA),
+                replacement=_rel32_call(call_va, entrypoints["quickrace_display_selector"]),
+                purpose=("alias only returned selector ID26 to donor ID0 before localization group "
+                         "0x35; retain Car0/Car1 state and Race/Car0/CarID"),
+            )
 
     _add_va_patch(data, pe, operations, name="combined_registry_initializer_hook", category="record-initialization",
                   va=REGISTRY_HOOK_VA,
@@ -619,8 +754,18 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
         "unlock": {"id25": "test-selectable (existing R5V-E profile)",
                    "id26": "test-selectable at VehicleSelect gate only"},
         "display_selector": {
-            "id26_by_localization_group": {"0x33": 0, "0x34": 0, "0x35": 0},
-            "scope": "Vehicle Select display pushes and three Quick Race name lookups only",
+            "mode": ("direct ID26 string override" if _has_display_string_override(id26_profile)
+                     else "ID26-only numeric localization alias"),
+            "id26_by_localization_group": (None if _has_display_string_override(id26_profile)
+                                           else {"0x33": 0, "0x34": 0, "0x35": 0}),
+            "id26_string_by_context": ({
+                "0x33_vehicle_select_manufacturer": id26_profile.display_manufacturer,
+                "0x34_vehicle_select_model": id26_profile.display_model,
+                "0x35_quickrace": id26_profile.display_quickrace,
+            } if _has_display_string_override(id26_profile) else None),
+            "scope": ("Vehicle Select manufacturer/model and three Quick Race name lookups for ID26 only"
+                      if _has_display_string_override(id26_profile)
+                      else "Vehicle Select display pushes and three Quick Race name lookups only"),
             "race_id_unchanged": 26,
         },
         "race_colour_canary": {
@@ -632,8 +777,10 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
         "code_entrypoints": {name: f"0x{value:08X}" for name, value in entrypoints.items()},
     }
     is_mercedes_cook_harness = id26_profile.profile_id == ID26_MERCEDES_COOK_HARNESS.profile_id
+    is_mercedes_final = id26_profile.profile_id == ID26_MERCEDES_FINAL.profile_id
     manifest = {
-        "phase": ("R5V-F.2b isolated retail cook harness" if is_mercedes_cook_harness
+        "phase": ("R5V-F.2e final Mercedes ML-320 ID26 acceptance candidate" if is_mercedes_final
+                  else "R5V-F.2b isolated retail cook harness" if is_mercedes_cook_harness
                   else "R5V-F.1 cleanup"),
         "build": "retail",
         "profile": id26_profile.profile_id,
@@ -647,9 +794,16 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
         "structural_self_check": structural,
         "operation_counts_by_category": _operation_counts(operations),
         "operations": operations,
-        "runtime_validation": ("NOT RUN — isolated cook trigger only" if is_mercedes_cook_harness
+        "runtime_validation": ("STATIC ACCEPTANCE CANDIDATE — WAITING FOR HUMAN P0/P1" if is_mercedes_final
+                               else "NOT RUN — isolated cook trigger only" if is_mercedes_cook_harness
                                else "WAITING FOR CLEANUP P0"),
         "risks": ([
+            "Final P0/P1 runtime acceptance has not been performed with this exact candidate.",
+            "SmallCarSheet remains the documented donor-frame-9 fallback; historical restoration is partial.",
+            "Campaign/save persistence and network/multiplayer support for ID26 are unproven; use a disposable offline profile.",
+            "ID26 remains a test-only quick-race/practice slot; AI/event pools and audio tuning remain stock-only.",
+            "Retail PeakMu warning requires observed handling before it can be classified.",
+        ] if is_mercedes_final else [
             "Campaign/save persistence for ID26 is unproven; use a disposable profile.",
             "Network/multiplayer support for ID26 is unproven; do not test online.",
             "ID26 is a test-only quick-race/practice slot; AI/event pools remain stock-only.",
@@ -686,6 +840,13 @@ def _profile_manifest(profile: VehicleRecordProfile, *, record_offset: int) -> d
         "display_selector_by_group": {
             f"0x{group:02X}": selector for group, selector in profile.display_selector_by_group
         },
+        "display_manufacturer": profile.display_manufacturer,
+        "display_model": profile.display_model,
+        "display_quickrace": profile.display_quickrace,
+        "asset_package": profile.asset_package,
+        "model_family": profile.model_family,
+        "wheel_family": profile.wheel_family,
+        "physics_family": profile.physics_family,
         "unlock_policy": profile.unlock_policy,
         "initializer_va": f"0x{VEHICLE_INITIALIZER_VA:08X}",
         "owned_name": "temporary deep-copied by the original full initializer",
@@ -713,6 +874,25 @@ def _verify_structural(candidate: bytes, manifest: dict[str, Any]) -> None:
     if text_virtual_size != manifest["text_virtual_size"]["patched"]:
         raise PatchError("structural self-check: .text VirtualSize mismatch")
     structural = manifest["structural_self_check"]
+    profile = structural["id26"]
+    if profile["profile_id"] == ID26_MERCEDES_FINAL.profile_id:
+        expected_final = {
+            "id": 26,
+            "class": 0,
+            "class_local_index": 7,
+            "internal_name": "Mercedes",
+            "runtime_family": "Mercedes",
+            "donor_id": None,
+            "frontend_stats": [4, 3, 6, 5],
+            "smallcarsheet_index": 9,
+            "asset_package": "DataGx/Vehicles/Mercedes",
+            "model_family": "Mercedes",
+            "wheel_family": "Mercedes",
+            "physics_family": "Vehicles/Mercedes",
+        }
+        for field, expected in expected_final.items():
+            if profile.get(field) != expected:
+                raise PatchError(f"structural self-check: final Mercedes profile {field} mismatch")
     if structural["registry_capacity"] != 27 or structural["record26_offset"] != 0x54C:
         raise PatchError("structural self-check: ID26 record layout mismatch")
     if structural["record26_end_offset"] > structural["racetest"]["new_base"]:
@@ -734,9 +914,16 @@ def _verify_structural(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise PatchError("structural self-check: cleanup ID26 red canary mismatch")
     if structural["race_colour_canary"]["id0_record_touched"] is not False:
         raise PatchError("structural self-check: donor ID0 must remain untouched")
-    if structural["display_selector"]["id26_by_localization_group"] != {
-            "0x33": 0, "0x34": 0, "0x35": 0}:
-        raise PatchError("structural self-check: ID26 display selectors are incomplete")
+    if structural["display_selector"]["id26_by_localization_group"] is not None:
+        if structural["display_selector"]["id26_by_localization_group"] != {
+                "0x33": 0, "0x34": 0, "0x35": 0}:
+            raise PatchError("structural self-check: ID26 display selectors are incomplete")
+    elif structural["display_selector"]["id26_string_by_context"] != {
+            "0x33_vehicle_select_manufacturer": "MERCEDES",
+            "0x34_vehicle_select_model": "ML-320",
+            "0x35_quickrace": "MERCEDES ML-320",
+    }:
+        raise PatchError("structural self-check: final ID26 display strings are incomplete")
     if len(QUICKRACE_SELECTOR_CALLS) != 3:
         raise PatchError("structural self-check: expected three group-0x35 display lookups")
     if len(SECONDARY_INIT_LEAS) != RACETEST_COUNT:
