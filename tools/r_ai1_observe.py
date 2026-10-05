@@ -7,7 +7,9 @@ All generated settings/captures stay in this checkout's ignored output.
 from __future__ import annotations
 
 import argparse
+import ast
 import importlib
+import importlib.util
 import sys
 from pathlib import Path
 
@@ -17,6 +19,7 @@ from r_ai1_hardening import BASE_SHA256, MIXED_SHA256, verify as verify_hardenin
 from r_ai2_capacity import CANDIDATE_SHA256 as FIVE_CAR_SHA256, verify as verify_five_car
 from r_ai1_2_randomizer import PROFILE_SHA256 as AI12_SHA256, verify as verify_ai12
 from r_ai1_2a_preview import PROFILE_SHA256 as AI12A_SHA256, verify as verify_ai12a
+from research_build_profiles import MERC_SHA256, PRISTINE_SHA256, identify
 
 OBSERVATORY_FILES = {
     "broker_observatory.py": "d1a07eab330ef3d8b825ef3320b458d20ced11df99d75250a72e9c7701c4ba7d",
@@ -30,6 +33,42 @@ def verify_distribution(directory: Path) -> None:
     for name, expected in OBSERVATORY_FILES.items():
         if sha256((directory / name).read_bytes()) != expected:
             raise ValueError(f"Observatory implementation changed: {name}; audit required")
+
+
+def _research_module(directory: Path, name: str):
+    """Adapt only basename filters in the hash-pinned public implementation.
+
+    This is an in-memory INTERNAL derivative; no public files/artifact change.
+    Every process is still checked against one exact executable hash and size.
+    """
+    path=directory/(name+'.py')
+    raw=path.read_bytes()
+    if OBSERVATORY_FILES.get(path.name)!=sha256(raw):
+        raise ValueError('Unknown Observatory implementation at import: '+path.name)
+    tree=ast.parse(raw.decode('utf-8'),filename=str(path))
+    class Basenames(ast.NodeTransformer):
+        count=0
+        def visit_Compare(self,node):
+            self.generic_visit(node)
+            if (len(node.ops)==1 and len(node.comparators)==1
+                and isinstance(node.comparators[0],ast.Constant)
+                and node.comparators[0].value=='mrallye.exe'
+                and isinstance(node.left,ast.Call) and isinstance(node.left.func,ast.Attribute)
+                and node.left.func.attr=='casefold'):
+                if isinstance(node.ops[0],ast.Eq):node.ops[0]=ast.In()
+                elif isinstance(node.ops[0],ast.NotEq):node.ops[0]=ast.NotIn()
+                else:raise ValueError('Unexpected audited basename comparison')
+                node.comparators[0]=ast.Tuple(elts=[ast.Constant('mrallye.exe'),ast.Constant('mrallye_merc.exe')],ctx=ast.Load())
+                self.count+=1
+            return node
+    transform=Basenames();tree=transform.visit(tree)
+    if transform.count!=2:raise ValueError('Audited basename filter count changed')
+    spec=importlib.util.spec_from_file_location(name,path)
+    module=importlib.util.module_from_spec(spec);sys.modules[name]=module
+    try:exec(compile(ast.fix_missing_locations(tree),str(path),'exec'),module.__dict__)
+    except BaseException:
+        sys.modules.pop(name,None);raise
+    return module
 
 
 def load_profile(directory: Path, candidate: Path):
@@ -49,6 +88,8 @@ def load_profile(directory: Path, candidate: Path):
     elif image_hash in AI12A_SHA256.values():
         five = image_hash == AI12A_SHA256[True]
         verifier, phase = lambda data: verify_ai12a(data, five), "r-ai1-2a"
+    elif image_hash in (MERC_SHA256,PRISTINE_SHA256):
+        verifier, phase = identify, "r-observatory-modded-builds"
     else:
         raise ValueError("Unknown research image; only exact audited profiles accepted")
     manifest = verifier(data)
@@ -59,17 +100,30 @@ def load_profile(directory: Path, candidate: Path):
             raise ValueError("Observatory already loaded; use a fresh process for this exact profile")
     sys.dont_write_bytecode = True  # Do not create external __pycache__ research artifacts.
     sys.path.insert(0, str(directory))
-    observe = importlib.import_module("mr_observe")
+    if image_hash==MERC_SHA256:
+        _research_module(directory,'broker_observatory')
+        observe=_research_module(directory,'mr_observe')
+    else:
+        observe = importlib.import_module("mr_observe")
     core, commands = observe.core, observe.commands
+    if image_hash in (MERC_SHA256,PRISTINE_SHA256):
+        layout=manifest['observatory']
+        for field,key in (('RETAIL_IMAGE_BASE','image_base'),('ACTIVE_LOG_SINK_RVA','active_log_sink_rva'),
+                          ('DEBUG_SINK_VTABLE_RVA','debug_sink_vtable_rva'),('DEBUG_SINK_OBJECT_SIZE','debug_sink_object_size')):
+            if getattr(core,field)!=layout[key]:raise ValueError('Audited reader layout changed: '+field)
     # Exact audited implementation, exact candidate, retail image size/base/RVAs.
     core.RETAIL_SHA256 = commands.RETAIL_SHA256 = image_hash
-    if manifest.get("broker_dump_variant") == "native_hardened":
+    if manifest.get("broker_dump_variant") in ("native_hardened","native_stock"):
         original_parse = core.parse_dump_bytes
         def parse_dump_bytes(raw, source=None):
             provenance = dict(source or {})
             if provenance.get("image_sha256") == image_hash:
                 provenance.update(build_profile=manifest["profile"],
-                                  broker_dump_variant="native_hardened")
+                                  broker_dump_variant=manifest["broker_dump_variant"])
+                if image_hash in (MERC_SHA256,PRISTINE_SHA256):
+                    provenance.update(vehicle_registry_profile=manifest['vehicle_registry_profile'],
+                        native_dump_post_results_safe=manifest['native_dump_post_results_safe'],
+                        legacy_loading_attract_present=manifest['legacy_loading_attract_present'])
             return original_parse(raw, provenance)
         core.parse_dump_bytes = parse_dump_bytes
     original_verify = observe.verify_executable
@@ -77,9 +131,9 @@ def load_profile(directory: Path, candidate: Path):
         try:
             original_verify(path)  # Retains basename, size, exact hash and file gates.
         except observe.UserError as exc:
-            raise observe.UserError("R-AI requires the exact generated MRallye.exe profile.",
+            raise observe.UserError("Research Observatory requires the exact audited executable profile.",
                                     f"Expected SHA256: {image_hash}") from exc
-        verifier(path.read_bytes())  # Inverse manifest must restore pristine exactly.
+        verifier(path.read_bytes())  # Research patch inverse OR exact audited original profile.
     observe.verify_executable = verify_executable
     observe.PORTABLE = True
     observe.REPO = REPOSITORY / f".research-output/{phase}/observatory"
@@ -92,6 +146,7 @@ def load_profile(directory: Path, candidate: Path):
     observe.save_config = lambda path, config: original_save(ignored_output(path), config)
     original_launcher = observe.setup_launcher
     observe.setup_launcher = lambda output, exe: original_launcher(ignored_output(output), exe)
+    observe.RESEARCH_BUILD_PROFILE=manifest['profile']
     return observe
 
 
@@ -106,6 +161,9 @@ def main():
         arguments = arguments[1:]
     observe = load_profile(args.observatory, args.candidate)
     print("R-AI exact profile:", observe.core.RETAIL_SHA256)
+    print('Build:',observe.RESEARCH_BUILD_PROFILE)
+    if observe.core.RETAIL_SHA256==MERC_SHA256:
+        print('INTERNAL research profile: fresh first active race only; post-Results native Dump unsafe; no Restart before capture.')
     return observe.main(["--exe", str(args.candidate.resolve()), *arguments])
 
 

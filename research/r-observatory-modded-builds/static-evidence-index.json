@@ -1,0 +1,79 @@
+{
+  "tool": "Ghidra12.1.4 + ghidra-bridge exporter",
+  "source_sha256": "1fb0a1f1ba02cd05fa25f0c94558cf1b281fd12affcdc37bb3c1ca538e6c65af",
+  "scope": "Bounded disassembly/functions only; no game runtime, imported local ignored project; scratch transactions rolled back",
+  "exports": [
+    {
+      "address": "0044a510",
+      "export_sha256": "3c61ab12e84fee6c048c04974462c44a8104635e5c12f75c4df0defcd485f9ad",
+      "instruction_count": 160,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "00481e20",
+      "export_sha256": "fb43c72309fb568e7e8f76d1062c748e709ed7f0e35a466fd50b7ea0812fdeca",
+      "instruction_count": 1,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "00481e50",
+      "export_sha256": "09d86ff13844675f67cd87638437840eb7dbd0254fd8462d5e9ee76403d8b4fc",
+      "instruction_count": 1,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "004d0620",
+      "export_sha256": "498f29af79bb4279e1837b377bfea7918095a8a4e0ea2a7550d4ddc5db3e2f6f",
+      "instruction_count": 72,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "004d8ec0",
+      "export_sha256": "bc3aa0f21b1cc9c973d466e02ef78fa70587ee7f1736e47cb5ebc4319bf12372",
+      "instruction_count": 59,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "005afe30",
+      "export_sha256": "cfd7de287f91a2fc331792d594bfaa0d68ee984585204125b2f9a46c12d8b2fd",
+      "instruction_count": 247,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "00601d00",
+      "export_sha256": "974f9b8a609237df3ecabd9d5404f330a2c5a37e886068f931f6c278f683c23d",
+      "instruction_count": 453,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "0064d530",
+      "export_sha256": "a555a3b674ae7611d9122f5519c9ab78930cb8e87e4d7011c4bfe8f7dbd4dd60",
+      "instruction_count": 166,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "0065ec40",
+      "export_sha256": "8ac0c64f712dacad1d416372b23e8b49232efac6f03380530cbb57fffa9106b8",
+      "instruction_count": 20,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "0068e2a0",
+      "export_sha256": "eb0c1b4990de5ff9d14845a3e0a7add95c58f17bb43caba0f74449a2c9572f24",
+      "instruction_count": 42,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "0068e340",
+      "export_sha256": "f4be313b901b11f5125eb094dc3921903366db9f77aeb520bde376ba9bd68410",
+      "instruction_count": 24,
+      "decompiler_calling_convention_is_not_proven": true
+    },
+    {
+      "address": "0068e370",
+      "export_sha256": "254664749b6bec6d648927118e7d0cdc81e3ca12a08568f7171d7ea8488d6b23",
+      "instruction_count": 37,
+      "decompiler_calling_convention_is_not_proven": true
+    }
+  ]
+}

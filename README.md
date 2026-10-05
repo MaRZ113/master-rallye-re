@@ -6,6 +6,21 @@ The repository contains only tools, documentation, machine-readable forensic
 metadata, and synthetic test data. Original game resources remain external and
 read-only.
 
+## Exact modded research build support
+
+Internal Observatory/checker profile `retail-merc-id26` is **READY FOR HUMAN
+RUNTIME** for one exact unchanged Mercedes EXE. Broker format is unchanged;
+registry validity is build-specific. Public Observatory v0.1.0-beta remains
+pristine-only. Post-Results native Dump is unsafe for Mercedes; use the fresh
+active-race [handoff](research/r-observatory-modded-builds/runtime-handoff.md).
+[Compatibility](research/r-observatory-modded-builds/findings.md).
+
+Independent R-AI1.2a, R-AI2.1 normal Quick Race6/7/8, and R-UI1 One..Seven/Four
+end-to-end are now closed by human evidence. See the cross-branch
+[closeout index](research/r-observatory-modded-builds/feature-closeouts.json).
+No feature merge;9+ UNKNOWN. Eight-car physical start clearance needs R-GRID8.
+Standalone UI Five/Six/Seven race composition remains NOT TESTED.
+
 ## Current scope
 
 R-AI1 and R-AI1.1 are **CLOSED / CONFIRMED_BY_RUNTIME** for four existing

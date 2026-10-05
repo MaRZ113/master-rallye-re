@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "sha256": "1fb0a1f1ba02cd05fa25f0c94558cf1b281fd12affcdc37bb3c1ca538e6c65af",
+  "size": 3121214,
+  "pe": {
+    "machine": 332,
+    "timestamp": 1006791005,
+    "pe_header_sha256": "d6a76bfec460e4ea2c2704f19c1155c970d100fcf55d03398ff399a098a5a99d",
+    "image_base": 4194304,
+    "size_of_image": 3215360,
+    "entry_rva": 1852930,
+    "sections": [
+      {
+        "name": ".text",
+        "virtual_size": 2675977,
+        "rva": 4096,
+        "raw_size": 2678784,
+        "raw_offset": 4096,
+        "characteristics": 1610612768
+      },
+      {
+        "name": ".rdata",
+        "virtual_size": 123954,
+        "rva": 2682880,
+        "raw_size": 126976,
+        "raw_offset": 2682880,
+        "characteristics": 1073741888
+      },
+      {
+        "name": ".data",
+        "virtual_size": 386568,
+        "rva": 2809856,
+        "raw_size": 294912,
+        "raw_offset": 2809856,
+        "characteristics": 3221225536
+      },
+      {
+        "name": ".rsrc",
+        "virtual_size": 15032,
+        "rva": 3198976,
+        "raw_size": 16384,
+        "raw_offset": 3104768,
+        "characteristics": 1073741888
+      }
+    ]
+  },
+  "layout_compatible": true,
+  "anchors": [
+    {
+      "name": "resource_file_open",
+      "va": 6608176,
+      "rva": 2413872,
+      "length": 544,
+      "section": ".text",
+      "file_offset": 2413872,
+      "sha256": "fe4cef790b0089966278a64a625a3cdc8ca4afb2c4fd58793df7aa5d4c556680",
+      "compatible": true,
+      "semantics": "Resource file opening owner, CreateFileA wrapper unchanged"
+    },
+    {
+      "name": "broker_editor_dump_route",
+      "va": 6679616,
+      "rva": 2485312,
+      "length": 384,
+      "section": ".text",
+      "file_offset": 2485312,
+      "sha256": "264525cbe46ec3c1ea2e9c85b107864a49f9e82f107b924c0df056c5a764fd77",
+      "compatible": true,
+      "semantics": "Command2 ->4D8EC0 Broker singleton ->601D00 Dump"
+    },
+    {
+      "name": "broker_singleton_accessor",
+      "va": 5082816,
+      "rva": 888512,
+      "length": 144,
+      "section": ".text",
+      "file_offset": 888512,
+      "sha256": "d02519fc43a42d595ccd39fa02772e68e28eb4a29d0b9f6deead6e4c05043128",
+      "compatible": true,
+      "semantics": "Lazy broker singleton at6F9410"
+    },
+    {
+      "name": "debug_logger",
+      "va": 5047840,
+      "rva": 853536,
+      "length": 272,
+      "section": ".text",
+      "file_offset": 853536,
+      "sha256": "3ee9a71942cee5360de435da99138122f17a5440f70ee8893ec55f2248e24a12",
+      "compatible": true,
+      "semantics": "Debug dispatch via active sink global6F7B7C"
+    },
+    {
+      "name": "native_dump_walker",
+      "va": 6298880,
+      "rva": 2104576,
+      "length": 1536,
+      "section": ".text",
+      "file_offset": 2104576,
+      "sha256": "27a0c5e3329ea58c7f9d573b33d1f86feeb3d39eea28177ac4c13ce7392d7c53",
+      "compatible": true,
+      "semantics": "Entry iteration and stock StringList/xmlData NULL-unsafe formatter"
+    },
+    {
+      "name": "main_loop",
+      "va": 5963312,
+      "rva": 1769008,
+      "length": 320,
+      "section": ".text",
+      "file_offset": 1769008,
+      "sha256": "75a45dc2cce2b45fbb3730825615c7eeeaba25de0dfdae8816b7e207239a6483",
+      "compatible": true,
+      "semantics": "Native main loop entry unchanged"
+    },
+    {
+      "name": "debug_sink_vtable",
+      "va": 6934184,
+      "rva": 2739880,
+      "length": 32,
+      "section": ".rdata",
+      "file_offset": 2739880,
+      "sha256": "13e9a268f984faae8c3064eabc7b9f744118849e13bec11d7f8fb1a45ac2001a",
+      "compatible": true,
+      "semantics": "Expected read-only Debug sink vtable"
+    },
+    {
+      "name": "debug_sink_global",
+      "va": 7306108,
+      "rva": 3111804,
+      "length": 4,
+      "section": ".data",
+      "file_offset": null,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "compatible": true,
+      "semantics": "BSS pointer slot: runtime pointer remains independently validated"
+    },
+    {
+      "name": "broker_manager_global",
+      "va": 7312400,
+      "rva": 3118096,
+      "length": 4,
+      "section": ".data",
+      "file_offset": null,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "compatible": true,
+      "semantics": "BSS pointer slot: native owner proven by accessor"
+    },
+    {
+      "name": "loading_legacy_failure",
+      "va": 4607841,
+      "rva": 413537,
+      "length": 32,
+      "section": ".text",
+      "file_offset": 413537,
+      "sha256": "ac7ebea2514ba820039a5171a388886abf87ad7c12247b9053fb5bc9999da1c7",
+      "compatible": true,
+      "semantics": "Legacy SETUP.DLL loading failure->Attract path remains stock"
+    }
+  ],
+  "anchor_compatible": true,
+  "status": "ANCHOR_COMPATIBLE_ONLY",
+  "exact_registered_profile": "retail-merc-id26",
+  "automatic_trust": false,
+  "runtime_full_pass": false,
+  "audit_does_not_register": true
+}

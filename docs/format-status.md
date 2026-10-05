@@ -80,7 +80,7 @@ can differ from actual opponent in the closed R-AI1.2 build; R-AI1.2a preview
 synchronization is now CLOSED / CONFIRMED_BY_RUNTIME.
 The audited research EXE bridge/DLL supports four active AI in the existing
 five-car setup; randomizer never writes participant count. Original-EXE-unchanged
-external loader remains NOT YET COMPLETE. Six/seven/eight/generic-N UNKNOWN.
+external loader remains NOT YET COMPLETE. Independent R-AI2.1 confirms6/7/8;9+/generic-N UNKNOWN.
 [Future items](../research/r-ai1-2/future-items.md) distinguish prepared preview
 work from deferred deployment/capacity/UI design notes.
 
@@ -567,3 +567,20 @@ The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE
 ## R5T-F.2.1 tree/tag1400 causal isolation — PASS
 
 **PASS — TREE_CARRIER_CONFIRMED.** The T-only modified hybrid produced the NEW tested collision; the U-only modified hybrid retained OLD. The visible support and FinishArea completion remained unchanged. Tag1400 is neither sufficient nor required for this tested translation; its broader runtime role remains unknown. F.1 remains the full-suffix result, F.2 the bounded parser/plane-correlation result, and F.2.1 the tree-only runtime proof. See `research/r5t_f21/runtime-results.md` and `research/r5t_f21/findings.md`. No course writer or EXE patch was added.
+
+## Exact modded-build Observatory / registry profiles
+
+READY FOR HUMAN RUNTIME: `retail-merc-id26`, exact hash/size only. Broker format
+is unchanged; Observatory executable profiles and checker registry oracles are
+build-specific. ID26=T1/local7/Mercedes; ID25=Trooper/T3/local11; pristine ID26
+is rejected. Unknown images fail closed even if an audit finds matching anchors.
+Public v0.1.0-beta is unchanged. Mercedes native post-Results Dump is unsafe and
+legacy Loading->Attract behavior remains present. No EXE patch or public mod.
+See [findings](../research/r-observatory-modded-builds/findings.md).
+
+Independent feature closeouts: Challenge preview/race identity is runtime-confirmed
+(Retry not applicable after tested completion); normal Quick Race6/7/8 lifecycle
+is runtime-confirmed,9+UNKNOWN; One..Seven UI and visibleFour->five total passed.
+Standalone UI Five/Six/Seven races await later composition proof. Eight-car course
+start safety remains separate R-GRID8 work. No merge or integration candidate.
+See [commit index](../research/r-observatory-modded-builds/feature-closeouts.json).

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "registries": {
+    "pristine": {
+      "physical_record_count": 26,
+      "named_valid_record_count": 25,
+      "reserved_uninitialized_ids": [
+        25
+      ],
+      "additional_records": []
+    },
+    "merc-id26": {
+      "physical_record_count": 27,
+      "named_valid_record_count": 27,
+      "reserved_uninitialized_ids": [],
+      "additional_records": [
+        {
+          "id": 25,
+          "class": 2,
+          "tier": "T3",
+          "local_index": 11,
+          "identity": "Trooper",
+          "CarType": "Trooper",
+          "WheelType": "Trooper",
+          "availability": "UNKNOWN for fresh profile",
+          "evidence": "CONFIRMED_BY_EXE / appended initializer68E2A0 ->45A0B0"
+        },
+        {
+          "id": 26,
+          "class": 0,
+          "tier": "T1",
+          "local_index": 7,
+          "identity": "MERCEDES ML-320",
+          "CarType": "Mercedes",
+          "WheelType": "Mercedes",
+          "availability": "UNKNOWN for fresh profile; registry validity != frontend access",
+          "evidence": "CONFIRMED_BY_EXE / initializer68E2A0 and unchanged44A510 family publication; runtime family pending"
+        }
+      ]
+    }
+  },
+  "stock_source": "research/r-ai1/vehicle-class-map.json",
+  "stock_source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+}
