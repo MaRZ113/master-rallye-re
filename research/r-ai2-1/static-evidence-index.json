@@ -1,0 +1,368 @@
+{
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "ghidra_version": "12.1.4",
+  "project_saved": false,
+  "functions": [
+    {
+      "function_va": "0042a540",
+      "instruction_count": 47,
+      "assembly_listing_sha256": "7ff12fe70d2671a7dffa1176f19971b377ddfddecb6a6003ce43523528610056",
+      "callers": [
+        {
+          "addr": "004011e0",
+          "name": "FUN_004011e0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "0042a600",
+          "name": "FUN_0042a600",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0042a6b0",
+      "instruction_count": 72,
+      "assembly_listing_sha256": "729a7681c685196c515ac5f3f20abf96fdcd439b0dfcbec17b89855cf8037747",
+      "callers": [
+        {
+          "addr": "0042a660",
+          "name": "FUN_0042a660",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0042a890",
+      "instruction_count": 260,
+      "assembly_listing_sha256": "c93626aced556fcfb326d3b8a6be9b81b855db503673c089a78d542b5d45fbf5",
+      "callers": []
+    },
+    {
+      "function_va": "0042ac10",
+      "instruction_count": 36,
+      "assembly_listing_sha256": "6ac96d505d5b0e19b921b6c4425b72ab9f6e9c3fab12de0348f6fe6224aa5307",
+      "callers": []
+    },
+    {
+      "function_va": "00432b80",
+      "instruction_count": 408,
+      "assembly_listing_sha256": "d145b168c3c16b99541a1c1a58c9d30e5db1bb35dea8d849a4a08429012c5e2b",
+      "callers": [
+        {
+          "addr": "00436710",
+          "name": "FUN_00436710",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "004333d0",
+      "instruction_count": 72,
+      "assembly_listing_sha256": "e01e33870f5d38198b2879b561e5da3128b2dfa75603753a1047841ef77df9aa",
+      "callers": [
+        {
+          "addr": "00433240",
+          "name": "FUN_00433240",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "0046ab50",
+          "name": "FUN_0046ab50",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "0047d4c0",
+          "name": "FUN_0047d4c0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0043a800",
+      "instruction_count": 165,
+      "assembly_listing_sha256": "812967e0985df1049f1b3da4814d166f6fbc1c02cd8567649deabd76652aaae2",
+      "callers": [
+        {
+          "addr": "0043e4c0",
+          "name": "FUN_0043e4c0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0043ac80",
+      "instruction_count": 175,
+      "assembly_listing_sha256": "fe3e508eb8f36e240218f579836e939e3aa6161cbf2edb2a7053bccf8c5bc65c",
+      "callers": [
+        {
+          "addr": "0043a9b0",
+          "name": "FUN_0043a9b0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "0043a800",
+          "name": "FUN_0043a800",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "0043ef40",
+          "name": "FUN_0043ef40",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0043dd40",
+      "instruction_count": 186,
+      "assembly_listing_sha256": "7a4a28c994fa378bda54da9e15556f05576ab58733b943bbc63071efdb4bafc2",
+      "callers": [
+        {
+          "addr": "004011e0",
+          "name": "FUN_004011e0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "0043dfa0",
+          "name": "FUN_0043dfa0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0043e020",
+      "instruction_count": 228,
+      "assembly_listing_sha256": "56a815a8844c3c22f592f21e020cd71527b5559e1d1d00094c0f85b0caea98dc",
+      "callers": [
+        {
+          "addr": "0043e000",
+          "name": "FUN_0043e000",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0043ef80",
+      "instruction_count": 54,
+      "assembly_listing_sha256": "01e4fe6f7cac03d5ae997e25a384a92e98ba6146f82e9b9b56a15251200369fc",
+      "callers": []
+    },
+    {
+      "function_va": "0044a320",
+      "instruction_count": 100,
+      "assembly_listing_sha256": "f1be5dd9dd257efae7eb3ed3a9cef582e9083dce8be8eb0c3e7bcde65bb630bb",
+      "callers": [
+        {
+          "addr": "00449d40",
+          "name": "FUN_00449d40",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0044a450",
+      "instruction_count": 64,
+      "assembly_listing_sha256": "10385008ec1a5985e413bb4bd3e74721a77d7ed37a5f10540b037d8f89de541b",
+      "callers": [
+        {
+          "addr": "0044a320",
+          "name": "FUN_0044a320",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "00458090",
+      "instruction_count": 295,
+      "assembly_listing_sha256": "fdc8ad21afa3bed7edc4ee2bcef78df688145becb6e9eaf013beb73871459969",
+      "callers": [
+        {
+          "addr": "0047b780",
+          "name": "FUN_0047b780",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "0047b780",
+          "name": "FUN_0047b780",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "004598d0",
+      "instruction_count": 630,
+      "assembly_listing_sha256": "97daedd8716d604a8b08f1c68df991904c4cc13f9d248c6f416380ea7961d8c1",
+      "callers": [
+        {
+          "addr": "00458cd0",
+          "name": "FUN_00458cd0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "00479bb0",
+      "instruction_count": 385,
+      "assembly_listing_sha256": "ac91630508996062ff8fd4f9e079f8040311dbb191eb866a0e951e9407f5c55c",
+      "callers": []
+    },
+    {
+      "function_va": "0047a120",
+      "instruction_count": 321,
+      "assembly_listing_sha256": "24f1a17a11cc1ab92db8f0307fe1ea766d4242995b6e3b208660a1c11ff6dbd7",
+      "callers": [
+        {
+          "addr": "00479bb0",
+          "name": "FUN_00479bb0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "0047a070",
+          "name": "FUN_0047a070",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0047a8c0",
+      "instruction_count": 69,
+      "assembly_listing_sha256": "e243e6982051c1d51fad3b0ef4ed74b8ae45f63785506a4f3b1fd2a2da7a1672",
+      "callers": [
+        {
+          "addr": "0047a070",
+          "name": "FUN_0047a070",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "0047b780",
+      "instruction_count": 157,
+      "assembly_listing_sha256": "73357e373dbc0edc78e153e32e59eda8565bfb3f00480a750dac0503fc6b7430",
+      "callers": []
+    },
+    {
+      "function_va": "0047c840",
+      "instruction_count": 664,
+      "assembly_listing_sha256": "96e49d6e9a8312f7730401c05030131321b4b2558b0a269c8495485a026080d5",
+      "callers": []
+    },
+    {
+      "function_va": "00489af0",
+      "instruction_count": 247,
+      "assembly_listing_sha256": "a9174ef51683c8e5166f17f61a5d6aebff28a3f1f9cc283acc784adc979f0f8a",
+      "callers": []
+    },
+    {
+      "function_va": "0048a880",
+      "instruction_count": 223,
+      "assembly_listing_sha256": "2dc113e4d1e84be99d4335670355b3c7a227d293ab622ddea844548dac107bfb",
+      "callers": []
+    },
+    {
+      "function_va": "0048e2d0",
+      "instruction_count": 398,
+      "assembly_listing_sha256": "d0f3578a72c466ca313d829aeed6c5ce36aab0fab3a5e78a2f87a52dea002a40",
+      "callers": []
+    },
+    {
+      "function_va": "0048eb40",
+      "instruction_count": 399,
+      "assembly_listing_sha256": "bb2989a002eefccc660b860967bef3b788a85ad3471518223789bd073a3811fb",
+      "callers": [
+        {
+          "addr": "0048e2d0",
+          "name": "FUN_0048e2d0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "004a74a0",
+      "instruction_count": 221,
+      "assembly_listing_sha256": "dee40646976068d41b6aa353cdbbdcb50b3bf4781b960aad23e8835cc67b94a3",
+      "callers": []
+    },
+    {
+      "function_va": "004ae480",
+      "instruction_count": 11,
+      "assembly_listing_sha256": "dfb11291804eea0664cf555a311863e41d94b341e2ae9bfcdf8c9a1e01e9ce1c",
+      "callers": [
+        {
+          "addr": "0045ddb0",
+          "name": "FUN_0045ddb0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "004b6a00",
+      "instruction_count": 845,
+      "assembly_listing_sha256": "9607bc0d4de62fff9587c5a4401d0df540be95ef9bf5f4ef821fa4d864bf7d86",
+      "callers": []
+    },
+    {
+      "function_va": "004b7a70",
+      "instruction_count": 237,
+      "assembly_listing_sha256": "63d32d89946c95df9bc1c2a4499ef4b9cb07552cc943e751eae12fc15786ab14",
+      "callers": []
+    },
+    {
+      "function_va": "004b82a0",
+      "instruction_count": 226,
+      "assembly_listing_sha256": "2b55a514778fe657d0237508ffe5243823a8853e776e715343da9d8b3230bf2a",
+      "callers": [
+        {
+          "addr": "004b7de0",
+          "name": "FUN_004b7de0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "004b7de0",
+          "name": "FUN_004b7de0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "004b7de0",
+          "name": "FUN_004b7de0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "004b85e0",
+          "name": "FUN_004b85e0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "004b8810",
+      "instruction_count": 31,
+      "assembly_listing_sha256": "54345bf4c61e6f7ea40772528adbf6abb1c21cf992630048bd82a11c639ea1b6",
+      "callers": [
+        {
+          "addr": "004b7a70",
+          "name": "FUN_004b7a70",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ]
+    },
+    {
+      "function_va": "004cadf0",
+      "instruction_count": 59,
+      "assembly_listing_sha256": "315f8ac10b1a50891f37bbef895a793f27dd417f56e09b4d2142fc8f7158f594",
+      "callers": []
+    },
+    {
+      "function_va": "004cb150",
+      "instruction_count": 241,
+      "assembly_listing_sha256": "406c901aeaab306bc8703ee56aa90dfbe6da408186e117d2a04ea44ce8edc1da",
+      "callers": []
+    },
+    {
+      "function_va": "004cb9b0",
+      "instruction_count": 136,
+      "assembly_listing_sha256": "dab39339db6f92dd642e0433f3ee24cb84875fa7686ecd4221fc457b62c839ae",
+      "callers": []
+    }
+  ]
+}

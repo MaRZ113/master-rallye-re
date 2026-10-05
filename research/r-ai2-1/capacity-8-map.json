@@ -1,0 +1,276 @@
+{
+  "phase": "R-AI2.1",
+  "common_base": "8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "status": "READY FOR HUMAN RUNTIME",
+  "runtime_verified_total": 5,
+  "requested_totals": {
+    "6": "STATIC VIABILITY / HUMAN PENDING",
+    "7": "STATIC VIABILITY / HUMAN PENDING",
+    "8": "STATIC VIABILITY / HUMAN PENDING"
+  },
+  "generic_N": "UNKNOWN",
+  "subsystems": [
+    {
+      "subsystem": "FRONTEND SETUP",
+      "category": "POLICY",
+      "storage": "unchanged stock One/Two/Three; hidden guarded count read only",
+      "active_bound": "47B780 uses effective opponents+1; ordinary one-human chooser count follows second read",
+      "count_source": "Frontend/QuickRace/NumOpponents",
+      "evidence": "479BB0,47A120,47A8C0,47B780",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "PARTICIPANT RECORDS",
+      "category": "DYNAMIC_N",
+      "storage": "Race wrapper 0xCC scalar path-key cache, not participant[4]; AI object0xD4, physics handle0x2C, result record0x1C per participant",
+      "active_bound": "independent per-index publications and per-object allocation",
+      "count_source": "Race/NumCars",
+      "evidence": "4ABBD0,4AC590,42A890,43E4C0,47D6D0",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "RACE/CARN BROKER",
+      "category": "DYNAMIC_N",
+      "storage": "decimal CarN path construction; scalar cached suffix IDs",
+      "active_bound": "generic getters/setters take participant N",
+      "count_source": "caller participant index",
+      "evidence": "4AC590,4ACAF0,4ACC10,4AC930,493600",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "VEHICLE ACTORS",
+      "category": "CAPACITY_8",
+      "storage": "All36 retail scenes have Car0..7 boot eggs; linked-list scene storage, activation N<NumCars",
+      "active_bound": "boot keeps N<NumCars and discards inactive templates",
+      "count_source": "Race/NumCars",
+      "evidence": "4B6A00,4F5670,4F5950,4F5840; DataScene/RaceTest/ItalyS4.xml",
+      "confidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "PHYSICS",
+      "category": "DYNAMIC_N",
+      "storage": "manager +18/+1C/+20 vector; dynamic pointer allocation; independent body and four wheels per car; collision registry +0C/+10/+14 vector",
+      "active_bound": "construct0..N-1; update/destroy use vector length",
+      "count_source": "Race/NumCars then vector length",
+      "evidence": "43EF80,43F020,43E4C0,43BB70,43A800,43AC80,43F890,43E020",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "AI CONTROLLERS",
+      "category": "DYNAMIC_N",
+      "storage": "manager +88/+8C/+90 vector; each AI allocation0xD4",
+      "active_bound": "init0..N-1 if PlayerType2; alternating update visits vector; dtor visits entire vector",
+      "count_source": "Race/NumCars then vector length",
+      "evidence": "42A890,42AD40,42AC10,42A6B0",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "NETWORK MIRROR",
+      "category": "CAPACITY_8",
+      "storage": "eight offline Finished/FinishTime paths and inline flags+60..7C",
+      "active_bound": "8 mirror initializers; offline finish reads per N; network sync disabled",
+      "count_source": "Race/NumNetworkPlayers0 / NetworkSyncActiveFalse",
+      "evidence": "4333D0,432B80,489AF0,489EC0,48E2D0",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "START GRID",
+      "category": "DYNAMIC_N",
+      "storage": "transforms generated from existing StartArea; rows/columns, no four-transform array",
+      "active_bound": "descending N-1 to0; grid padding per row",
+      "count_source": "Race/NumCars argument",
+      "evidence": "48E2D0,48EB40,48E9C0",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "PROGRESS/TIMING",
+      "category": "DYNAMIC_N",
+      "storage": "finish keys2*N*4; finish area5*N*4; progress byte N and six N*4 arrays; transient rank pairs N*8; reset fifteen N*4 arrays; limit seven N*4 arrays",
+      "active_bound": "init/tick current stored N, results sorting over actual vector",
+      "count_source": "Race/NumCars cached by each owner",
+      "evidence": "489AF0/489EC0,48A880/48AB20,48B520/48AE30,48CFE0/48D260,4CC5F0/4CCAF0,4CDF00/4CD9B0",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "HUD",
+      "category": "CAPACITY_8",
+      "storage": "Hud0/Hud1 ProgressCar0..7; comparison panel has 3 rows ahead/self/behind and dynamic per-car vectors",
+      "active_bound": "each progress marker checks its index<NumCars; comparison scans all N",
+      "count_source": "Race/NumCars",
+      "evidence": "4A74A0,4AB040,4AB390; DataScene/Hud/Hud0.xml, Hud1.xml",
+      "confidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "RESULTS",
+      "category": "CAPACITY_8",
+      "storage": "result0x1C records in dynamic +2C/+30/+34 vector; StringLists grow; authored eight icons and browser height8",
+      "active_bound": "records/lists use N; icons N..7 padded with image12",
+      "count_source": "Race/NumCars and sorted vector length",
+      "evidence": "47D6D0,47DBE0,47C840,47C7C0; DataScene/FrontendScreens/RaceResults.xml",
+      "confidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "CAMERA/REPLAY",
+      "category": "DYNAMIC_N",
+      "storage": "camera scalar focus+210, human viewport+214, cached count+218; replay N*0x10+4 allocation with N cookie and per-car dynamic 0x30 frames",
+      "active_bound": "record/playback loops cached N; human viewport count unchanged",
+      "count_source": "Race/NumCars; NumPlayers remains1",
+      "evidence": "4B7A70,4B8810,4B82A0,4CADF0,4CB9B0,4CBB50,4CB150,4CB410",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "subsystem": "CLEANUP",
+      "category": "DYNAMIC_N",
+      "storage": "scene linked-list destruction; physics/AI vector-length destruction; array blocks freed through pointer owners; results vector freed",
+      "active_bound": "no participant i<4 cleanup found; four AI slots inside each egg are not four cars",
+      "count_source": "actual list/vector length and owned pointers",
+      "evidence": "4F5780,4F60F0,4F61A0,43E020,42A6B0,48ADC0,4CC420,4CD920,47C7C0,4CB0E0,4CB950",
+      "confidence": "CONFIRMED_BY_EXE",
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN"
+    },
+    {
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "subsystem": "COLLISION",
+      "category": "DYNAMIC_N",
+      "storage": "manager+0C/+10/+14 growing pointer vector",
+      "evidence": "43A800,43AC80",
+      "active_bound": "actual vector length; per-car wheel4 is separate",
+      "confidence": "CONFIRMED_BY_EXE",
+      "count_source": "Race/NumCars"
+    },
+    {
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "subsystem": "DAMAGE",
+      "category": "UNKNOWN",
+      "storage": "independent vehicle/body and family DamageParams; no participant4 storage identified",
+      "evidence": "44ED50 ->4938C0",
+      "active_bound": "No damage execution/emulation claim; independent identity static, behavior human pending",
+      "confidence": "CONFIRMED_BY_EXE",
+      "count_source": "Race/NumCars"
+    },
+    {
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "subsystem": "RESET/RECOVERY",
+      "category": "DYNAMIC_N",
+      "storage": "4CC5F0 fifteen N*4 arrays;4CDF00 seven N*4 arrays",
+      "evidence": "4CC5F0,4CDF00",
+      "active_bound": "cached current participant count in ticks/destructors",
+      "confidence": "CONFIRMED_BY_EXE",
+      "count_source": "Race/NumCars"
+    },
+    {
+      "index4": "CONFIRMED_BY_RUNTIME / existing R-AI2 scope",
+      "index5": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index6": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "index7": "CONFIRMED_BY_EXE static path/storage viability; runtime UNKNOWN",
+      "subsystem": "FINISH STATE",
+      "category": "DYNAMIC_N",
+      "storage": "489AF0 two N*4 key arrays",
+      "evidence": "489AF0,489EC0",
+      "active_bound": "normal FinishingType0 count-bound loop; special FinishingType1 explicit four-car branch excluded",
+      "confidence": "CONFIRMED_BY_EXE",
+      "count_source": "Race/NumCars"
+    }
+  ],
+  "fixed_arrays": [
+    {
+      "owner": "Network manager / 0x432B80,0x4333D0",
+      "base": "instance+0x60",
+      "stride": 4,
+      "count": 8,
+      "end_exclusive": "instance+0x80",
+      "following_field": "instance+0x80 initialized separately",
+      "references": [
+        "0x4333D0 initialization",
+        "0x432B80 constructor",
+        "offline finish path 0x489EC0 publishes Network/CarN/Finished"
+      ],
+      "proof": "native initializer writes exactly eight and preserves following field; no participant8 tested"
+    },
+    {
+      "owner": "HUD0/HUD1",
+      "base": "ProgressCar0..7 authored eggs",
+      "count": 8,
+      "stride": "separate eggs, no native flat array",
+      "references": [
+        "0x4A74A0 index guard",
+        "DataScene/Hud/Hud0.xml",
+        "DataScene/Hud/Hud1.xml"
+      ],
+      "proof": "authored resource capacity, visibility/clipping requires human"
+    },
+    {
+      "owner": "Race Results",
+      "base": "Car0..7 authored image bindings / browser Height8",
+      "count": 8,
+      "stride": "separate XML widgets",
+      "references": [
+        "0x47C840 N real registry-image publications and N..7 blank image12",
+        "DataScene/FrontendScreens/RaceResults.xml"
+      ],
+      "proof": "authored presentation ceiling, backend vectors/lists dynamic"
+    }
+  ],
+  "physical_cap_verdict": "Eight is the conservative authored/mirror boundary; no fundamental engine-wide flat participant[8] array was identified. No generic-N or9 inference."
+}

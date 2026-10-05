@@ -24,6 +24,13 @@ uses existing engine storage; no physical participant array expansion was needed
 Six/seven/eight/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
 and [capacity map](research/r-ai2/capacity-map.md).
 
+R-AI2.1 independent capacity research is **READY FOR HUMAN RUNTIME** for exact
+6/7/8 totals, using deterministic stock mixed roster prefixes and unchanged
+One/Two/Three UI. All36 retail RaceTest courses contain Car0..7 templates and
+native StartArea data; actual spawn/clearance and full lifecycle remain human
+pending. See [findings](research/r-ai2-1/findings.md) and
+[ordered handoff](research/r-ai2-1/runtime-handoff.md). No R-UI1 integration.
+
 R-AI1.2 is **CLOSED / CONFIRMED_BY_RUNTIME**: Stock/Mixed/Diverse, Quick Race
 1..4 AI, config reload at new-roster boundaries, Challenge opt-in completion,
 Cup/Invitation stage reuse and Master native fresh-process persistence. No
