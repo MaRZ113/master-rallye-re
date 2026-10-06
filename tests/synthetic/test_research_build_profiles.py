@@ -85,6 +85,28 @@ class ProfileAudit(unittest.TestCase):
     def test_corrupted_anchor_incompatible(self):
         data,defs=fixture();wrong=bytearray(data);wrong[0x1004]^=1
         with patch.object(b,'definitions',return_value=defs):self.assertFalse(b.audit_build(bytes(wrong))['anchor_compatible'])
+
+    def test_only_exact_approved_loading_anchor_variant_is_compatible(self):
+        data,defs=fixture();anchor=defs['anchors'][0]
+        anchor['name']='loading_legacy_failure'
+        patched=bytearray(data);patched[0x1004:0x1009]=bytes.fromhex('e9d8ffffff')
+        anchor['approved_variants']=[dict(id='r-ai2-loading-false-trigger-neutralization-v1',
+            sha256=b.digest(patched[0x1000:0x1010]))]
+        with patch.object(b,'definitions',return_value=defs):
+            accepted=b.audit_build(bytes(patched))
+            self.assertTrue(accepted['anchor_compatible'])
+            self.assertEqual(accepted['anchors'][0]['matched_variant'],
+                             'r-ai2-loading-false-trigger-neutralization-v1')
+            self.assertFalse(accepted['capabilities']['legacy_loading_attract_present'])
+            self.assertTrue(accepted['capabilities']['legacy_loading_attract_neutralized'])
+            changed=bytearray(patched);changed[0x100f]^=1
+            rejected=b.audit_build(bytes(changed))
+            self.assertFalse(rejected['anchor_compatible'])
+            stock=bytearray(data);stock_audit=b.audit_build(bytes(stock))
+            self.assertNotEqual(b._audit_fingerprint(accepted),b._audit_fingerprint(stock_audit))
+            relabeled=dict(accepted);relabeled['anchors']=[dict(row) for row in accepted['anchors']]
+            relabeled['anchors'][0]['matched_variant']='different-approved-variant'
+            self.assertNotEqual(b._audit_fingerprint(accepted),b._audit_fingerprint(relabeled))
     def test_registered_identity_does_not_skip_anchors(self):
         data,defs=fixture();defs['anchors'][0]['sha256']='0'*64
         with patch.object(b,'definitions',return_value=defs):

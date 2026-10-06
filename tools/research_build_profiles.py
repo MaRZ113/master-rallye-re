@@ -116,6 +116,12 @@ def _audit_fingerprint(audit):
         'anchors': [(a['name'], a.get('sha256'), a.get('compatible')) for a in audit.get('anchors', [])],
         'capabilities': audit.get('capabilities', {}),
     }
+    # Preserve the historical stock fingerprint, but bind a non-stock exact
+    # anchor variant to its declared policy identity as well as its bytes.
+    variants = [(a['name'], a['matched_variant']) for a in audit.get('anchors', [])
+                if a.get('matched_variant') not in (None, 'stock')]
+    if variants:
+        canonical['approved_anchor_variants'] = variants
     raw = json.dumps(canonical, sort_keys=True, separators=(',', ':')).encode('utf-8')
     return digest(raw)
 
@@ -177,12 +183,19 @@ def audit_build(data):
         try:
             raw, section, offset = window(data,pe,anchor['va'],anchor['length'])
             observed = digest(raw)
-            match = observed == anchor['sha256'] and section == anchor['section']
+            matched_variant = 'stock' if observed == anchor['sha256'] else None
+            if matched_variant is None:
+                for variant in anchor.get('approved_variants', []):
+                    if observed == variant.get('sha256'):
+                        matched_variant = variant['id']
+                        break
+            match = matched_variant is not None and section == anchor['section']
         except ValueError:
-            observed, section, offset, match = None,None,None,False
+            observed, section, offset, matched_variant, match = None,None,None,None,False
         anchors.append(dict(name=anchor['name'],va=anchor['va'],rva=anchor['va']-pe['image_base'],
                             length=anchor['length'],section=section,file_offset=offset,
-                            sha256=observed,compatible=match,semantics=anchor['semantics']))
+                            sha256=observed,compatible=match,matched_variant=matched_variant,
+                            semantics=anchor['semantics']))
     h=digest(data)
     registered=next((p for p in canonical['profiles'] if p['sha256']==h and p['size']==len(data)),None)
     families = canonical.get('families', {})
@@ -210,7 +223,12 @@ def audit_build(data):
     capabilities['post_results_native_dump_safe'] = False if dump_anchor else None
     capabilities['hardened_dump'] = False
     capabilities['flow_builder'] = False
-    capabilities['legacy_loading_attract_present'] = bool(by_name.get('loading_legacy_failure', {}).get('compatible'))
+    loading_anchor = by_name.get('loading_legacy_failure', {})
+    capabilities['legacy_loading_attract_present'] = bool(
+        loading_anchor.get('compatible') and loading_anchor.get('matched_variant') == 'stock')
+    capabilities['legacy_loading_attract_neutralized'] = bool(
+        loading_anchor.get('compatible') and
+        loading_anchor.get('matched_variant') == 'r-ai2-loading-false-trigger-neutralization-v1')
     capabilities['broker_dump_variant'] = 'native_stock' if dump_anchor else 'unknown'
     return dict(schema_version=1,sha256=h,size=len(data),pe=pe,layout_compatible=layout_match,
                 anchors=anchors,anchor_compatible=compatible,

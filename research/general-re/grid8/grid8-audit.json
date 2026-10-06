@@ -1,0 +1,934 @@
+{
+  "phase": "R-GRID8",
+  "status": "READY_FOR_HUMAN_AUDIT",
+  "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+  "candidate_profile": "retail-r-grid8-audit",
+  "status_values": [
+    "PASS_CLEAR",
+    "PASS_TIGHT",
+    "CAR_OVERLAP",
+    "STATIC_GEOMETRY_CONTACT",
+    "TERRAIN_OR_BOUNDARY_CONTACT",
+    "PHYSICS_UNSTABLE",
+    "INVALID_POSITION",
+    "NOT_TESTED"
+  ],
+  "issue_tag_values": [
+    "CAR_OVERLAP",
+    "STATIC_GEOMETRY_CONTACT",
+    "TERRAIN_OR_BOUNDARY_CONTACT",
+    "PHYSICS_UNSTABLE",
+    "INVALID_POSITION"
+  ],
+  "audit_unit": "canonical physical RaceTest resource; scene aliases are listed but not presumed to change geometry",
+  "course_count": 36,
+  "scene_registration_count": 39,
+  "courses": [
+    {
+      "canonical_course": "France1",
+      "frontend_scene_ids": [
+        0
+      ],
+      "scene_aliases": [
+        "France1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/France1.xml",
+      "race_test_sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "525176922da5b67a6a697a89112baea50a854b36c81530a10842408d7538ab85",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "France2",
+      "frontend_scene_ids": [
+        1
+      ],
+      "scene_aliases": [
+        "France2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/France2.xml",
+      "race_test_sha256": "f7acc4cfcdc4f7d33f3ffecf84e9642440838ea269473693ae5217ac43cdfc4c",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "8a2ef5287fc9bc8784ab135ab93ad222cf63c8d89c58185f7b022a41681d5110",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "France_M",
+      "frontend_scene_ids": [
+        22
+      ],
+      "scene_aliases": [
+        "FranceM"
+      ],
+      "race_test_resource": "DataScene/RaceTest/FranceM.xml",
+      "race_test_sha256": "016ce125fa72cb1294769e19062f6f7a32c8a250da2b2c463319daa087728a35",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "cb7ebf83e607b536d8daaab917bfc25d51c20a143023d34d466a2c9fba22de87",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "France_S1",
+      "frontend_scene_ids": [
+        24,
+        36
+      ],
+      "scene_aliases": [
+        "FranceS1",
+        "FranceS1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/FranceS1.xml",
+      "race_test_sha256": "8251fc03fb9e8e98745004b18527be9d7b1df168f36c142ec50ac9b481ac369e",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "df7255e248ee5b3556bfc59b3e2dd501779e172398f8686f3f99a516f997af38",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "France_S2",
+      "frontend_scene_ids": [
+        11
+      ],
+      "scene_aliases": [
+        "FranceS2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/FranceS2.xml",
+      "race_test_sha256": "8bc149747d07b4da7dfecaaa7e6f9c1d32328f67bc69a6a3b82aa87633d20dc0",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "49da490d96c98e0d529c96b1f6faf899f20adf90c4299fd2ca3f553a3d821807",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "France_W",
+      "frontend_scene_ids": [
+        15
+      ],
+      "scene_aliases": [
+        "FranceW"
+      ],
+      "race_test_resource": "DataScene/RaceTest/FranceW.xml",
+      "race_test_sha256": "8bb17a1c62957fa3bcf72f9b818ce1d750e7982354b11e4f2c97b347e140c200",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "44cdb8692c74729ec693fca0385d35cb1e4157ce2ea88a8f37fea7282d08c5fb",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "France_W_flip",
+      "frontend_scene_ids": [
+        30
+      ],
+      "scene_aliases": [
+        "FranceWFlip"
+      ],
+      "race_test_resource": "DataScene/RaceTest/FranceWFlip.xml",
+      "race_test_sha256": "0329f91b035114cfdd7b2723e4f2fad1992ec7d3ab3ffe5dd85c19e568f012a4",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "610806f84dd3a98dbb02628a7fc6db4cd56f8a67c6875244f2b8807085e42fb2",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy1",
+      "frontend_scene_ids": [
+        2
+      ],
+      "scene_aliases": [
+        "Italy1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/Italy1.xml",
+      "race_test_sha256": "216c0b7c332058cd82ac0883e5e94482559db0570a2ef711e8d7e665dda02bc4",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "f35e2ecc414a739f367e3420d032e8fd42c12a7eaba7b85fe32124c1e00b7834",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy2",
+      "frontend_scene_ids": [
+        3
+      ],
+      "scene_aliases": [
+        "Italy2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/Italy2.xml",
+      "race_test_sha256": "3373926815b05480887968518c0eec3a4d1fa82d09c5d91dd739846af6ddd1d0",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "4ad05967322453b8033b6af03bd278d183394f00bbba9a2ab9c0b0d57e4187d4",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy3",
+      "frontend_scene_ids": [
+        4
+      ],
+      "scene_aliases": [
+        "Italy3"
+      ],
+      "race_test_resource": "DataScene/RaceTest/Italy3.xml",
+      "race_test_sha256": "19158249bd8ab37ab12a5ec5fe54c91eac467a369f8a43d9964f3f298695ad52",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "579b4a53af86d772870d2718c6448252019f8cdd21facc78791c2a6a69c3fcf5",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_M1",
+      "frontend_scene_ids": [
+        29,
+        38
+      ],
+      "scene_aliases": [
+        "ItalyM1",
+        "ItalyM1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyM1.xml",
+      "race_test_sha256": "e8407781de37fc546f566247e3f850d6015f55b2e0956d135246594581de4d94",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "8985388fa7744bc11943d88aaf00f959fcb405ff4230f0b8c42af50cde9a82e0",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_M1_flip",
+      "frontend_scene_ids": [
+        33
+      ],
+      "scene_aliases": [
+        "ItalyM1Flip"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyM1Flip.xml",
+      "race_test_sha256": "da0908ea5dce8d1edb45c21349eb8c34121f71471f40bb4550d0b56daf1325ed",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "f2fd0151cc5c8681afbb52fe170cd52d551f9ffb9071f62baa9186d2d7f12050",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_M2",
+      "frontend_scene_ids": [
+        19
+      ],
+      "scene_aliases": [
+        "ItalyM2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyM2.xml",
+      "race_test_sha256": "bd7cfd5d92e7310d72bafd62883802a7962cc881cefd35b48dad49675f1c2c47",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "902d2c2478541772d36afcffde667abc8565ada7937dd083b7c5126d41cf2479",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_S1",
+      "frontend_scene_ids": [
+        18
+      ],
+      "scene_aliases": [
+        "ItalyS1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyS1.xml",
+      "race_test_sha256": "009cec2b253e012fbd4c948b79dc6d8837943736e1ba6747b00a215611115e66",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "1b422cd177b4a81eb62d592fa0896b762b28ccea1f596e24033f87041b644d97",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_S2",
+      "frontend_scene_ids": [
+        12
+      ],
+      "scene_aliases": [
+        "ItalyS2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyS2.xml",
+      "race_test_sha256": "603269076c3d065f9e105bd1eb61c6639b60846f7d3f7be7887bcb5e75773afc",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "1ac24e25f04ee69bfcb8ae6e58187a73e31381a8c2dcc13242294a52ab3880d8",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_S3",
+      "frontend_scene_ids": [
+        25
+      ],
+      "scene_aliases": [
+        "ItalyS3"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyS3.xml",
+      "race_test_sha256": "2a2254c599bb7f37099fc09f0e25975d0cb6037781dddc191df647233eb3e888",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "b460e3159a361d4a84bf19b5f8de5e7ecf9fb8645f489da29c9fb3d17113c013",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_S3_flip",
+      "frontend_scene_ids": [
+        35
+      ],
+      "scene_aliases": [
+        "ItalyS3Flip"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyS3Flip.xml",
+      "race_test_sha256": "5221e4dd0bca21d26d0fe8f59e6a9afe916d7524a4d10abe0d8e0d2aa548000f",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "9e0ca25d80b323b857db50e5a8d13ebff1abcf5ffa0fcb5a5d7c60844de5afea",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_S4",
+      "frontend_scene_ids": [
+        10
+      ],
+      "scene_aliases": [
+        "ItalyS4"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyS4.xml",
+      "race_test_sha256": "ad3519dd7600eeef584b5ec557207aaecfcd556ef0f27549bbfd1b6f77dc4db0",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "32e48cc023adab5a55c1b4f485b81fe2ea29e9ddf75e3832e595b82a682dfcf1",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_W1",
+      "frontend_scene_ids": [
+        23
+      ],
+      "scene_aliases": [
+        "ItalyW1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyW1.xml",
+      "race_test_sha256": "cd5b35097fb17f81947633a0eafd3603c8365adab80573979625893988696c4f",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "8d1555c73c3f280735874798e38feb121f6d151599fb7cd437a20bc44bd279e5",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Italy_W2",
+      "frontend_scene_ids": [
+        14
+      ],
+      "scene_aliases": [
+        "ItalyW2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/ItalyW2.xml",
+      "race_test_sha256": "0b60d81eba3e23f3fc44ef4ebecf46b4f735f29f8b81f061c404773b8bae6b9f",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "f425a8a956791d7c45d19e99fef962a1361408613402d708f7aa75c6600c5bfc",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Spain1",
+      "frontend_scene_ids": [
+        5
+      ],
+      "scene_aliases": [
+        "Spain1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/Spain1.xml",
+      "race_test_sha256": "ae116c3633c469cef836697ade4dfbeefd9e66b415cf2e187c28e5a1094ce173",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "c83d91e7ee6d57a4d044afb3d97245c0d057fbc7db73630764090dfa90f24cd3",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Spain2",
+      "frontend_scene_ids": [
+        6
+      ],
+      "scene_aliases": [
+        "Spain2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/Spain2.xml",
+      "race_test_sha256": "bbde61e4ca25e6d61051d91656a8c554c5483ea0858c09410e53be07ecc6ff62",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "8b2ff954f598cc5da93d78e46c8764d86baaaaf9fbac7c71dd7b9e06a39466c1",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Spain_M",
+      "frontend_scene_ids": [
+        26
+      ],
+      "scene_aliases": [
+        "SpainM"
+      ],
+      "race_test_resource": "DataScene/RaceTest/SpainM.xml",
+      "race_test_sha256": "2821ec4c16e16cc5946fe14d07d485920e342222afb386de3d2c9b78c14b3a6b",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "63859cd3d67616012ad342a586d0333c92f13a312e3502a9dda8cb72336827b5",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Spain_S1",
+      "frontend_scene_ids": [
+        16
+      ],
+      "scene_aliases": [
+        "SpainS1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/SpainS1.xml",
+      "race_test_sha256": "47396c2f1e593e3d5dbf8d3bbf194a40e39aa9a4bfc7c3bee1eec38dd33547f3",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "549d075675caadcb43179bf1cb8438b13fb62d1501c9090d40fe849834de436c",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Spain_S1_flip",
+      "frontend_scene_ids": [
+        32
+      ],
+      "scene_aliases": [
+        "SpainS1Flip"
+      ],
+      "race_test_resource": "DataScene/RaceTest/SpainS1Flip.xml",
+      "race_test_sha256": "7d7536df6b3959245d42d90d4c5548fbd6e6c8e20bb3a2e3692528247bef8b8d",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "2a89fecc7afd7fea8af472204bb1226f992a9f84d5fc22bc4435864fc719d7c1",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Spain_S2",
+      "frontend_scene_ids": [
+        28
+      ],
+      "scene_aliases": [
+        "SpainS2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/SpainS2.xml",
+      "race_test_sha256": "5dfe27bbab86353b2095a238cbb28bbabf9a2bfd6e6617ca07da757c716cafd6",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "fea1f16021ee72dd299d37f7bb4ca01282052c31cb5d544829ebf0641a8ba0cb",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Spain_W",
+      "frontend_scene_ids": [
+        21
+      ],
+      "scene_aliases": [
+        "SpainW"
+      ],
+      "race_test_resource": "DataScene/RaceTest/SpainW.xml",
+      "race_test_sha256": "701ee0818edbf13c1d120d4bda8ff06292fe61bdee0a29321ade34d4a7b2e1ed",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "62185ee1341778f405fbd5f1c5235de05e93c6a4f1fef5002c179ceb849f55dc",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Spain_W_flip",
+      "frontend_scene_ids": [
+        34
+      ],
+      "scene_aliases": [
+        "SpainWFlip"
+      ],
+      "race_test_resource": "DataScene/RaceTest/SpainWFlip.xml",
+      "race_test_sha256": "edeeb559631dcb07cfe0251abe06dd08e5a52bb2160c4af2e69acc2865125cdd",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "b07bfa27ba743c37ebcf9ba4ba5209379017c0a10a3ed41e6e56cef550aa5d5d",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Turkey1",
+      "frontend_scene_ids": [
+        7
+      ],
+      "scene_aliases": [
+        "Turkey1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/Turkey1.xml",
+      "race_test_sha256": "8cca8bfe54672f8fa070c2ebfa097cfe0e842a57af675c7bae892c203ad30277",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "1a1930a0ff6e9e313ba6d67f4328b4601d722b1ab4408e025919b13cb6fff22e",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Turkey2",
+      "frontend_scene_ids": [
+        8
+      ],
+      "scene_aliases": [
+        "Turkey2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/Turkey2.xml",
+      "race_test_sha256": "da1c7362d7c7793f12cf69f60c9c7e597083f82a6f853fbeb87d98257464ad05",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "58cfa94ff376933d0d64ecea51c5eb20c5b89bcc81e8be6216f5ae01f21f61b2",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Turkey3",
+      "frontend_scene_ids": [
+        9,
+        37
+      ],
+      "scene_aliases": [
+        "Turkey3",
+        "Turkey3"
+      ],
+      "race_test_resource": "DataScene/RaceTest/Turkey3.xml",
+      "race_test_sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "d3774308866be51d2937280cd44d5b9f5bf05ef3aee0b533c29bd87261ae9017",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Turkey_m",
+      "frontend_scene_ids": [
+        20
+      ],
+      "scene_aliases": [
+        "TurkeyM"
+      ],
+      "race_test_resource": "DataScene/RaceTest/TurkeyM.xml",
+      "race_test_sha256": "ddcf92c5dd43992529162fe2aac11b149185e3b310bb2ed3df58d800552dba38",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "10a33b5fc8a2580ea8b435849607fdb47f5850cc5a30dd274565ef290538da8f",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Turkey_s1",
+      "frontend_scene_ids": [
+        27
+      ],
+      "scene_aliases": [
+        "TurkeyS1"
+      ],
+      "race_test_resource": "DataScene/RaceTest/TurkeyS1.xml",
+      "race_test_sha256": "a378feeeccf7f8225b49f873268e03b312d550f4004fcadbc0112de1119c4f6f",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "d61f514bd35902150edb17bf33c4eb341870d6da25fdd5102be473d998e0f17e",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Turkey_s2",
+      "frontend_scene_ids": [
+        13
+      ],
+      "scene_aliases": [
+        "TurkeyS2"
+      ],
+      "race_test_resource": "DataScene/RaceTest/TurkeyS2.xml",
+      "race_test_sha256": "45e5e24b2e15f5b429da67439c458365d10f44a4da4e5798c8f1e06e3a183856",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "a87e1d7ca75453e30a23899339a2b533e33c6f04ddb66abd657d91be37efaf5d",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Turkey_s2_flip",
+      "frontend_scene_ids": [
+        31
+      ],
+      "scene_aliases": [
+        "TurkeyS2Flip"
+      ],
+      "race_test_resource": "DataScene/RaceTest/TurkeyS2Flip.xml",
+      "race_test_sha256": "44201c3da6182727f6f6a5ecbfe97fd000e47c21eac3a84049910c9024ee74f2",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "0572ee10c025a019e1aa20a06f3841c2241eb9554e0a2e0440cbf2fd3a24e1b0",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    },
+    {
+      "canonical_course": "Turkey_w",
+      "frontend_scene_ids": [
+        17
+      ],
+      "scene_aliases": [
+        "TurkeyW"
+      ],
+      "race_test_resource": "DataScene/RaceTest/TurkeyW.xml",
+      "race_test_sha256": "af2595e48d36c2f18fb41bea4f7d123e0347e8eae3c1e6c1fddf6a9b7287229b",
+      "start_area_identifier": "StartArea / first two Marker Pos values",
+      "start_area_semantic_sha256": "652e9d32b8fd7d263259749b5e6279bcd43fc77a21a566bf439a7c53a8e2fc93",
+      "predicted_grid_available": true,
+      "runtime_status": "NOT_TESTED",
+      "issue_tags": [],
+      "affected_slots": [],
+      "human_note": "",
+      "capture_label": "",
+      "screenshot_reference": "",
+      "tested_candidate_sha256": "",
+      "tested_at": "",
+      "candidate_sha256_for_test": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "quick_race_finishing_type": 0,
+      "finishing_type_evidence": "normal Quick Race mode; not authored per course"
+    }
+  ]
+}

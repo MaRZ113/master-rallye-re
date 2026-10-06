@@ -17,6 +17,11 @@ The original passive Broker Observatory reader is now `CONFIRMED_BY_RUNTIME`
 from owner-provided captures and observations (large Dumps, realloc, multiple
 complete blocks, XmlData continuations). The automatic frontend is also
 `CONFIRMED_BY_RUNTIME`; see [six-capture confirmation](broker-observatory/runtime-confirmation.md).
+R-OBS2's fail-closed compatible-family capture workflow is also
+`CONFIRMED_BY_RUNTIME`: multiple distinct executable hashes have been accepted
+under `retail-broker-v1` after exact structural anchor audits, without adding
+each hash to the source profile list. Vehicle-registry recognition remains an
+independent gate.
 
 ## Current tool
 
@@ -49,3 +54,11 @@ available. No edit/commit/save/gameplay commands are exposed.
 
 Overall R-BROKER1 is **PARTIAL** until the remaining scope lifecycle
 gates close. Do not advance to unrelated RE phases from this result.
+
+## R-GRID8 — eight-car course starts
+
+**READY FOR HUMAN AUDIT.** The universal eight-car candidate retains the
+closed R-AI2.1 pipeline and broadens only its guarded course predicate to all
+39 registered scene IDs mapping onto 36 canonical RaceTest resources. Static
+grid transforms are derived for every resource; all physical clearance rows
+remain `NOT_TESTED`. See [the checklist](grid8/runtime-checklist.md).

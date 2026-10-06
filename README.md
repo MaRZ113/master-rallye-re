@@ -15,7 +15,10 @@ are then cached locally under ignored `.research-output`. Vehicle registry
 recognition is independent and requires its own bounded fingerprints. Public
 Observatory v0.1.0-beta remains pristine-only. Native post-Results Dump remains
 unsafe for this family. The expected Mercedes F.2f binary passed the direct
-family and registry audit; human Observatory captures remain pending. See
+family and registry audit; human Observatory captures remain pending. The
+compatible-family live capture workflow is separately
+`CONFIRMED_BY_RUNTIME` across multiple locally audited EXE hashes without
+source-SHA whitelist edits. See
 [R-OBS2 findings](research/r-obs2/findings.md)
 and the [compatibility-family audit](research/r-obs2/compatibility-family.md).
 
@@ -49,6 +52,12 @@ R-AI2.1 independent capacity research is **CLOSED / CONFIRMED_BY_RUNTIME** for e
 One/Two/Three UI. All 36 retail RaceTest courses contain Car0..7 templates and
 native StartArea data. Human full lifecycle passed 6/7/8; physical start clearance remains a separate R-GRID8 audit. See [findings](research/r-ai2-1/findings.md) and
 [ordered handoff](research/r-ai2-1/runtime-handoff.md).
+
+R-GRID8 is **READY FOR HUMAN AUDIT**: a track-agnostic guarded eight-car
+candidate, exact registered-scene gate, native grid predictions for all 36
+RaceTest resources, and a per-course runtime checklist are prepared. Physical
+clearance remains untested until the human course sweep. See
+[R-GRID8 handoff](research/general-re/grid8/runtime-checklist.md).
 
 R-UI1 independent opponent selector is **CLOSED / CONFIRMED_BY_RUNTIME**: native
 localized One..Seven list and numeric index+1 publication, without a hidden count

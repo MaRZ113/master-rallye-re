@@ -130,7 +130,18 @@
       "length": 32,
       "section": ".text",
       "sha256": "ac7ebea2514ba820039a5171a388886abf87ad7c12247b9053fb5bc9999da1c7",
-      "semantics": "Legacy SETUP.DLL loading failure->Attract path remains stock",
+      "semantics": "Legacy SETUP.DLL loading failure->Attract path; stock or one exact approved false-trigger neutralization",
+      "approved_variants": [
+        {
+          "id": "r-ai2-loading-false-trigger-neutralization-v1",
+          "sha256": "ed1ec9730d5b18c69a2544185e38828f4b0d72ba2d67fa1455fb53c56e105a52",
+          "patch_va": 4607849,
+          "original_hex": "68841f6b00",
+          "replacement_hex": "e9d8ffffff",
+          "continuation_va": 4607814,
+          "semantics": "Exact 5-byte jump to the normal success continuation; every other byte in this 32-byte anchor stays identical"
+        }
+      ],
       "zero_filled_tail": false
     }
   ],
@@ -343,7 +354,7 @@
       ],
       "audit_version": "retail-broker-v1.0",
       "layout_policy": "same x86 PE32 ImageBase/SizeOfImage/entry point and section table; .text VirtualSize may vary within its raw section without overlap",
-      "anchor_policy": "all listed bounded exact fingerprints required; no fuzzy matching",
+      "anchor_policy": "all listed bounded exact fingerprints or explicitly enumerated exact variants required; no fuzzy matching",
       "observatory_layout_profile": "retail-pristine",
       "registry_detector": "independent bounded mapping fingerprints in registry-profile.json"
     }
