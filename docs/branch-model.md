@@ -6,9 +6,9 @@ The repository keeps six long-lived branches:
 | --- | --- | --- |
 | `master` | Release and full integration | `D:\Game\Master Rallye\master-rallye-re` |
 | `research/general-re` | EXE and runtime research, Broker, AI/UI, Observatory, renderer and loader work | `D:\Game\Master Rallye\master-rallye-re-general` |
-| `research/r5t-course-archaeology` | Course formats, Courses and future GRID8 research | `D:\Game\Master Rallye\master-rallye-re-courses` |
+| `research/r5t-course-archaeology` | Course formats, Courses and future GRID8 research | `D:\Game\Master Rallye\master-rallye-re-course` |
 | `research/vehicles` | Addon vehicle slots, registry, Mercedes and demo-car work | `D:\Game\Master Rallye\master-rallye-re-vehicles` |
-| `research/r-demo-pipeline` | Demo/source/cooker pipeline | `D:\Game\Master Rallye\master-rallye-re-rdemo-master` |
+| `research/r-demo-pipeline` | Demo/source/cooker pipeline | `D:\Game\Master Rallye\master-rallye-re-rdemo` |
 | `research/blender-sdk` | Blender tooling, vehicle materials and multi-revision support | `D:\Game\Master Rallye\master-rallye-re-blend` |
 
 Short-lived experiment branches are allowed. After closeout, merge their
