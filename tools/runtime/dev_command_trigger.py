@@ -48,6 +48,7 @@ class TargetWindow:
     image_path: Path
     sha256: str
     title: str
+    profile: object | None = None
 
 
 class DumpDispatchOutcome(str, Enum):
@@ -79,9 +80,14 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def verified_profile(path: Path | None):
+def verified_profile(path: Path | None, expected_profile: object | None = None):
     if path is None or path.name.casefold() != "mrallye.exe":
         raise RuntimeError("Tool owner is not a known MRallye.exe build.")
+    if expected_profile is not None:
+        if (not path.is_file() or sha256_file(path) != expected_profile.sha256
+                or path.stat().st_size != expected_profile.file_size):
+            raise RuntimeError("Tool owner changed after the resolved profile was selected.")
+        return expected_profile
     try:
         return profile_for_file(path)
     except ValueError as exc:
@@ -184,7 +190,7 @@ def _image_for_pid(kernel32: object, pid: int) -> Path | None:
         kernel32.CloseHandle(handle)
 
 
-def find_retail_main_windows() -> list[TargetWindow]:
+def find_retail_main_windows(profile_by_pid: dict[int, object] | None = None) -> list[TargetWindow]:
     """Enumerate visible windows with the verified retail main-menu signature."""
     if os.name != "nt":
         raise RuntimeError("This helper is Windows-only.")
@@ -215,7 +221,7 @@ def find_retail_main_windows() -> list[TargetWindow]:
         if image_path is None:
             return True
         try:
-            profile = verified_profile(image_path)
+            profile = verified_profile(image_path, (profile_by_pid or {}).get(int(pid.value)))
             image_hash = profile.sha256
         except (OSError, ValueError, RuntimeError):
             return True
@@ -230,6 +236,7 @@ def find_retail_main_windows() -> list[TargetWindow]:
                 image_path=image_path,
                 sha256=image_hash,
                 title=title_buffer.value,
+                profile=profile,
             )
         )
         return True
@@ -263,9 +270,13 @@ def send_tool_command(target: TargetWindow, tool: str) -> None:
     if title.value != target.title or title.value != "Master Rallye":
         raise RuntimeError("Target main-window title changed identity.")
     image_path = _image_for_pid(kernel32, target.pid)
-    profile = verified_profile(image_path)
-    if profile.sha256 != target.sha256 or tool not in profile.tools:
+    profile = verified_profile(image_path, target.profile)
+    capability = {"broker-editor": "open_broker_editor", "flow-builder": "flow_builder"}[tool]
+    if profile.sha256 != target.sha256 or not profile.supports(capability):
         raise RuntimeError("Target identity changed or tool is not verified for this build.")
+    if profile.runtime_anchors:
+        from broker_observatory import verify_live_capability
+        verify_live_capability(target.pid, profile, capability)
     if not user32.IsWindowVisible(target.hwnd) or not _has_expected_main_menu(
         user32, target.hwnd
     ):
@@ -285,7 +296,7 @@ def send_tool_command(target: TargetWindow, tool: str) -> None:
         raise ctypes.WinError(ctypes.get_last_error())
 
 
-def find_tool_windows(pid: int, tool: str) -> list[TargetWindow]:
+def find_tool_windows(pid: int, tool: str, resolved_profile: object | None = None) -> list[TargetWindow]:
     """Find a verified process's existing tool windows, without activating them.
 
     Broker identity additionally requires its recovered File and Debug menus;
@@ -302,8 +313,10 @@ def find_tool_windows(pid: int, tool: str) -> list[TargetWindow]:
     user32.GetMenuItemID.argtypes = [wintypes.HMENU, ctypes.c_int]
     user32.GetMenuItemID.restype = wintypes.UINT
     image = _image_for_pid(kernel32, pid)
-    profile = verified_profile(image)
-    if tool not in profile.tools:
+    profile = verified_profile(image, resolved_profile)
+    allowed = ((profile.supports("open_broker_editor") or profile.supports("native_dump"))
+               if tool == "broker-editor" else profile.supports("flow_builder"))
+    if not allowed:
         raise RuntimeError("Tool is not statically verified for this build.")
     result: list[TargetWindow] = []
     callback_type = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
@@ -321,7 +334,7 @@ def find_tool_windows(pid: int, tool: str) -> list[TargetWindow]:
             return True
         if tool == "broker-editor" and not _has_broker_menu(user32, hwnd):
             return True
-        result.append(TargetWindow(pid, int(hwnd), image, profile.sha256, title.value))
+        result.append(TargetWindow(pid, int(hwnd), image, profile.sha256, title.value, profile))
         return True
 
     user32.EnumWindows(callback, 0)
@@ -349,9 +362,16 @@ def send_broker_dump(target: TargetWindow) -> DumpDispatchOutcome:
     failure: the window procedure may still append the original Dump. Return
     that uncertainty to the capture coordinator without retrying the message.
     """
-    matches = find_tool_windows(target.pid, "broker-editor")
+    profile = target.profile or RETAIL_PRISTINE
+    if not profile.supports("native_dump"):
+        raise RuntimeError("Native Broker Dump request is disabled for this resolved build.")
+    if profile.runtime_anchors:
+        from broker_observatory import verify_live_capability
+        verify_live_capability(target.pid, profile, "native_dump")
+    matches = find_tool_windows(target.pid, "broker-editor", profile)
     if (len(matches) != 1 or matches[0].hwnd != target.hwnd
-            or matches[0].sha256 != target.sha256 or matches[0].image_path != target.image_path):
+            or matches[0].sha256 != target.sha256 or matches[0].image_path != target.image_path
+            or (matches[0].profile is not None and matches[0].profile.audit_fingerprint != profile.audit_fingerprint)):
         raise RuntimeError("Broker Editor identity changed or is ambiguous.")
     import ctypes
     user32 = ctypes.WinDLL("user32", use_last_error=True)

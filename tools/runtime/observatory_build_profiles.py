@@ -1,7 +1,8 @@
 """Exact, immutable Observatory identities. Unknown executables fail closed."""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import hashlib
 from pathlib import Path
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -14,6 +15,39 @@ class ObservatoryBuildProfile:
     debug_sink_vtable_rva: int
     evidence: str
     tools: tuple[str, ...]
+    profile_origin: str = "committed_exact"
+    exact_profile_id: str | None = None
+    compatibility_family: str | None = "retail-broker-v1"
+    vehicle_registry_profile: str = "pristine"
+    audit_version: str | None = None
+    audit_fingerprint: str | None = None
+    capabilities: dict[str, Any] = field(default_factory=dict)
+    runtime_anchors: tuple[dict[str, Any], ...] = ()
+    local_profile_cache: str | None = None
+    cache_reused: bool = False
+    pe_identity: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if self.profile_origin == "committed_exact" and self.exact_profile_id is None:
+            object.__setattr__(self, "exact_profile_id", self.id)
+        if not self.capabilities:
+            # Exact public profiles retain their established opener contract.
+            # Native Dump is separate from post-Results safety.
+            capabilities = {
+                "broker_read": "broker-editor" in self.tools,
+                "open_broker_editor": "broker-editor" in self.tools,
+                "native_dump": "broker-editor" in self.tools,
+                "broker_capture_active_race": "broker-editor" in self.tools,
+                "active_race_native_dump_safe": "broker-editor" in self.tools,
+                "post_results_native_dump_safe": False,
+                "hardened_dump": False,
+                "flow_builder": "flow-builder" in self.tools,
+                "legacy_loading_attract_present": None,
+            }
+            object.__setattr__(self, "capabilities", capabilities)
+
+    def supports(self, capability: str) -> bool:
+        return bool(self.capabilities.get(capability, False))
 
 
 RETAIL_PRISTINE = ObservatoryBuildProfile(

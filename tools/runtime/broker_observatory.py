@@ -864,7 +864,73 @@ def _read_sink_state(kernel32: Any, user32: Any, process: Any, module_base: int,
     }
 
 
-def capture_debug_buffer(pid: int) -> tuple[bytes, dict[str, Any]]:
+def _anchors_for_capability(profile: ObservatoryBuildProfile, capability: str) -> tuple[dict[str, Any], ...]:
+    names = {
+        "broker_read": {"debug_logger", "debug_sink_vtable"},
+        "native_dump": {"broker_editor_dump_route", "broker_singleton_accessor", "native_dump_walker"},
+        "open_broker_editor": {"broker_editor_dump_route"},
+    }.get(capability, set())
+    by_name = {item["name"]: item for item in profile.runtime_anchors}
+    if not names or not names.issubset(by_name):
+        return ()
+    return tuple(by_name[name] for name in sorted(names))
+
+
+def _verify_remote_anchors(kernel32: Any, process: Any, module_base: int, ctypes: Any,
+                           profile: ObservatoryBuildProfile, capability: str) -> list[str]:
+    if not profile.supports(capability):
+        raise ObservatoryError(f"Capability {capability} is not statically audited for this build")
+    anchors = _anchors_for_capability(profile, capability)
+    if not anchors:
+        # The public exact-profile executable set predates family anchor
+        # metadata. Its exact file identity remains the frozen compatibility
+        # gate; newly locally-audited profiles must always carry live anchors.
+        if profile.profile_origin == "committed_exact" and not profile.audit_version:
+            return []
+        raise ObservatoryError(f"No runtime code fingerprints are available for {capability}")
+    identity = profile.pe_identity
+    preferred_base = identity.get("image_base")
+    image_size = identity.get("size_of_image")
+    if (type(preferred_base) is not int or type(image_size) is not int
+            or module_base != preferred_base or module_base + image_size > 0x80000000):
+        raise ObservatoryError("Live x86 module base/extent differs from the audited PE identity")
+    verified = []
+    for anchor in anchors:
+        rva, length = anchor.get("rva"), anchor.get("length")
+        expected = anchor.get("sha256")
+        if (type(rva) is not int or type(length) is not int or length <= 0
+                or rva < 0 or rva + length > image_size or not isinstance(expected, str)):
+            raise ObservatoryError("Malformed static runtime fingerprint")
+        actual = hashlib.sha256(_read_remote(kernel32, process, module_base + rva, length, ctypes)).hexdigest()
+        if actual != expected:
+            raise ObservatoryError(f"Live {capability} code fingerprint differs at {anchor['name']}")
+        verified.append(anchor["name"])
+    return verified
+
+
+def verify_live_capability(pid: int, profile: ObservatoryBuildProfile, capability: str) -> list[str]:
+    """Recheck file identity and used capability bytes in the live process."""
+    if not os.name == "nt":
+        raise ObservatoryError("Live capability verification is Windows-only")
+    import ctypes
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    _configure_win32(kernel32, ctypes)
+    process, image_path = _process_image_path(kernel32, pid, ctypes)
+    try:
+        if image_path.name.casefold() != "mrallye.exe" or not image_path.is_file():
+            raise ObservatoryError("Live process image is not a readable MRallye.exe")
+        if (sha256_file(image_path) != profile.sha256
+                or image_path.stat().st_size != profile.file_size):
+            raise ObservatoryError("Live process executable changed after profile resolution")
+        module_base = _module_base(kernel32, pid, ctypes)
+        if module_base < 0x10000 or module_base > 0x7FFFFFFF:
+            raise ObservatoryError(f"Unexpected 32-bit main-module base 0x{module_base:X}")
+        return _verify_remote_anchors(kernel32, process, module_base, ctypes, profile, capability)
+    finally:
+        kernel32.CloseHandle(process)
+
+
+def capture_debug_buffer(pid: int, profile: ObservatoryBuildProfile | None = None) -> tuple[bytes, dict[str, Any]]:
     """Read a consistent snapshot of the active retail Debug sink buffer."""
     if os.name != "nt":
         raise ObservatoryError("Live process capture is Windows-only; use parse for offline dump files.")
@@ -885,13 +951,19 @@ def capture_debug_buffer(pid: int) -> tuple[bytes, dict[str, Any]]:
             raise ObservatoryError(f"Process image path is no longer readable: {image_path}")
         image_hash = sha256_file(image_path)
         image_size = image_path.stat().st_size
-        try:
-            profile = match_profile(image_hash, image_size)
-        except ValueError as exc:
-            raise ObservatoryError(f"PID {pid}: {exc}") from exc
+        if profile is None:
+            try:
+                profile = match_profile(image_hash, image_size)
+            except ValueError as exc:
+                raise ObservatoryError(f"PID {pid}: {exc}") from exc
+        elif image_hash != profile.sha256 or image_size != profile.file_size:
+            raise ObservatoryError("PID executable identity changed after profile resolution")
+        if not profile.supports("broker_read"):
+            raise ObservatoryError("Passive Broker read is disabled for this build profile")
         module_base = _module_base(kernel32, pid, ctypes)
         if module_base < 0x10000 or module_base > 0x7FFFFFFF:
             raise ObservatoryError(f"Unexpected 32-bit main-module base 0x{module_base:X}")
+        verified_anchors = _verify_remote_anchors(kernel32, process, module_base, ctypes, profile, "broker_read")
 
         last_problem = "buffer changed during read"
         captured: bytes | None = None
@@ -934,7 +1006,21 @@ def capture_debug_buffer(pid: int) -> tuple[bytes, dict[str, Any]]:
             "debug_buffer_used_bytes": final_state["used_bytes"],
             "capture_consistency": "three equal metadata reads and two equal byte reads; process was not suspended",
             "access_rights": ["PROCESS_QUERY_INFORMATION", "PROCESS_VM_READ"],
+            "runtime_verified_anchors": verified_anchors,
         }
+        metadata.update({
+            "build_profile": profile.id,
+            "exact_profile_id": profile.exact_profile_id,
+            "profile_origin": profile.profile_origin,
+            "compatibility_family": profile.compatibility_family,
+            "audit_version": profile.audit_version,
+            "audit_fingerprint": profile.audit_fingerprint,
+            "vehicle_registry_profile": profile.vehicle_registry_profile,
+            "capabilities": dict(profile.capabilities),
+            "broker_dump_variant": profile.capabilities.get("broker_dump_variant", "unknown"),
+            "native_dump_post_results_safe": profile.capabilities.get("post_results_native_dump_safe"),
+            "legacy_loading_attract_present": profile.capabilities.get("legacy_loading_attract_present"),
+        })
         return captured, metadata
     finally:
         kernel32.CloseHandle(process)

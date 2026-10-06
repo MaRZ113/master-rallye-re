@@ -85,7 +85,13 @@
       "length": 1536,
       "section": ".text",
       "sha256": "27a0c5e3329ea58c7f9d573b33d1f86feeb3d39eea28177ac4c13ce7392d7c53",
-      "semantics": "Entry iteration and stock StringList/xmlData NULL-unsafe formatter",
+      "semantics": "Entry iteration and native StringList/xmlData formatter; exact stock or approved NULL-safe hardening variant",
+      "approved_variants": [
+        {
+          "id": "native-hardened-r-ai1-v1",
+          "sha256": "3283672b6c8d16d3c46d7ffe712d7f9b3bf39bc4f3e7de494dd58a940dd89fc2"
+        }
+      ],
       "zero_filled_tail": false
     },
     {
@@ -349,10 +355,11 @@
       },
       "limitations": [
         "Native stock Results Dump is unsafe for NULL StringList payloads.",
+        "The main-window Broker Editor opener (WM_COMMAND 0x27) has no standalone anchor; it is enabled only for a complete family match with the Dump route anchor. Degraded profiles may use an already-open, signature-checked editor.",
         "Flow Builder is not audited by this family.",
         "Vehicle registry semantics are resolved independently."
       ],
-      "audit_version": "retail-broker-v1.0",
+      "audit_version": "retail-broker-v1.1",
       "layout_policy": "same x86 PE32 ImageBase/SizeOfImage/entry point and section table; .text VirtualSize may vary within its raw section without overlap",
       "anchor_policy": "all listed bounded exact fingerprints or explicitly enumerated exact variants required; no fuzzy matching",
       "observatory_layout_profile": "retail-pristine",

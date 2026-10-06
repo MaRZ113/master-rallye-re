@@ -1,0 +1,110 @@
+{
+  "phase": "R-OBS3",
+  "status": "READY FOR HUMAN RUNTIME",
+  "audit_version": "retail-broker-v1.1",
+  "local_profile_cache_schema": 2,
+  "resolution_ladder": [
+    "committed_exact_profile",
+    "full_retail_broker_family",
+    "degraded_profile_with_safe_broker_read_core",
+    "reject"
+  ],
+  "capabilities": {
+    "broker_read": {
+      "requires": [
+        "PE32 and known retail RVA layout",
+        "debug_logger",
+        "debug_sink_vtable",
+        "debug_sink_global"
+      ],
+      "runtime_invariants": [
+        "current image path hash and file size match resolved profile",
+        "x86 module base and image extent match profile",
+        "live debug logger and vtable fingerprints match",
+        "active sink pointer and object vtable are valid",
+        "window helper and HWND are valid",
+        "buffer_base <= visible_start <= write_end <= capacity_end",
+        "capacity is bounded and repeated metadata and bytes remain stable"
+      ],
+      "allows_passive_recovery": true
+    },
+    "native_dump": {
+      "requires": [
+        "broker_read",
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "broker_manager_global",
+        "native_dump_walker"
+      ],
+      "live_fingerprints_before_command": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "native_dump_walker"
+      ],
+      "failure_effect": "disable native Dump only; preserve passive Broker read if independently valid"
+    },
+    "post_results_native_dump_safe": {
+      "native_stock": false,
+      "native_hardened": true,
+      "unknown_walker": null,
+      "approved_hardened_walker_sha256": "3283672b6c8d16d3c46d7ffe712d7f9b3bf39bc4f3e7de494dd58a940dd89fc2"
+    },
+    "open_broker_editor": {
+      "requires": [
+        "full compatibility-family match",
+        "broker_editor_dump_route",
+        "existing main-window and menu signature"
+      ],
+      "degraded_profile": "automatic opener disabled; already-open signature-checked editor may be used if native_dump is valid"
+    },
+    "flow_builder": {
+      "locally_audited_family": false,
+      "exact_profile_only": true
+    },
+    "legacy_loading_attract_present": {
+      "role": "informational",
+      "gates_broker_read": false
+    },
+    "vehicle_registry_profile": {
+      "role": "independent registry fingerprint",
+      "gates_broker_read": false
+    }
+  },
+  "known_candidate_audits": [
+    {
+      "purpose": "R5V-H forced-ID26 AI proof",
+      "sha256": "688653245b916ae7aae2a8e22fd47e76963f3afb1c23936b47b57bb40c76f0c5",
+      "size": 3121214,
+      "exact_profile": null,
+      "compatibility_family": "retail-broker-v1",
+      "vehicle_registry_profile": "merc-id26",
+      "profile_origin": "locally_audited",
+      "all_family_anchors_match": true,
+      "broker_read": true,
+      "open_broker_editor": true,
+      "native_dump": true,
+      "post_results_native_dump_safe": false
+    },
+    {
+      "purpose": "R-GRID8 research candidate",
+      "sha256": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+      "compatibility_family": "retail-broker-v1",
+      "exact_sha_required": false,
+      "registry_profile": "candidate-dependent"
+    }
+  ],
+  "public_beta": {
+    "version": "0.1.0-beta",
+    "modified": false,
+    "support_contract": "pristine-oriented exact profile"
+  },
+  "research_package": {
+    "version": "R-OBS3",
+    "directory": ".research-output/general-re/observatory-research-r-obs3-final",
+    "archive": ".research-output/general-re/MasterRallye-Observatory-Research-R-OBS3-final.zip",
+    "archive_sha256": "d17f6be6067a61bb45dafbcac54b032ecc89f1c13b63b446c9aa0a3c62b26f94",
+    "archive_size_bytes": 52732,
+    "contains_game_executable": false,
+    "cmd_launcher_smoke": "PASS"
+  }
+}

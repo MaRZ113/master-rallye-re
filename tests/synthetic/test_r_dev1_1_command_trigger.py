@@ -114,6 +114,26 @@ class DeveloperCommandTriggerTests(unittest.TestCase):
         self.assertEqual(fake.SendMessageTimeoutW.call_args.args[5], 10000)
         self.assertEqual(fake.SendMessageTimeoutW.call_count, 1)
 
+    def test_degraded_profile_cannot_dispatch_native_dump(self):
+        from dataclasses import replace
+        profile=replace(trigger.RETAIL_PRISTINE,profile_origin="locally_audited",exact_profile_id=None,
+                        capabilities={"broker_read":True,"open_broker_editor":False,"native_dump":False},
+                        runtime_anchors=())
+        target=replace(self.target,profile=profile)
+        with patch.object(trigger,"find_tool_windows") as find, self.assertRaisesRegex(RuntimeError,"disabled"):
+            trigger.send_broker_dump(target)
+        find.assert_not_called()
+
+    def test_degraded_profile_cannot_dispatch_native_dump(self):
+        from dataclasses import replace
+        profile=replace(trigger.RETAIL_PRISTINE,profile_origin="locally_audited",exact_profile_id=None,
+                        capabilities={"broker_read":True,"open_broker_editor":False,"native_dump":False},
+                        runtime_anchors=())
+        target=replace(self.target,profile=profile)
+        with patch.object(trigger,"find_tool_windows") as find, self.assertRaisesRegex(RuntimeError,"disabled"):
+            trigger.send_broker_dump(target)
+        find.assert_not_called()
+
     def test_dump_timeout_returns_uncertainty_without_retry(self):
         fake = Mock()
         fake.SendMessageTimeoutW.return_value = 0

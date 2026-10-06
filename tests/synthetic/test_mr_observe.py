@@ -7,6 +7,7 @@ import json
 import sys
 import tempfile
 import unittest
+from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
 from unittest.mock import Mock, patch
@@ -14,6 +15,7 @@ from unittest.mock import Mock, patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools/runtime"))
 import broker_observatory as core
 import mr_observe as observe
+from observatory_build_profiles import ObservatoryBuildProfile
 from test_broker_observatory import dump, row, parse_rows
 
 
@@ -47,6 +49,85 @@ class DiscoveryTests(unittest.TestCase):
             with patch.object(core, "RETAIL_SIZE", path.stat().st_size):
                 with self.assertRaises(core.ObservatoryError):
                     observe.verify_executable(path)
+
+    def test_process_candidate_retains_locally_audited_profile_without_exact_sha_lookup(self):
+        profile=replace(core.RETAIL_PRISTINE,sha256="a"*64,profile_origin="locally_audited",
+                        exact_profile_id=None,compatibility_family="retail-broker-v1")
+        process=observe.ProcessCandidate(9,Path("MRallye.exe"),profile.sha256,profile)
+        self.assertIs(process.profile,profile)
+        self.assertEqual(process.profile.profile_origin,"locally_audited")
+
+    def test_internal_verifier_uses_family_resolver(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/"MRallye.exe";path.write_bytes(b"family fixture")
+            expected=replace(core.RETAIL_PRISTINE,sha256="a"*64,profile_origin="locally_audited",
+                             exact_profile_id=None)
+            with patch.object(observe,"PORTABLE",False), \
+                 patch.object(observe,"resolve_executable_profile",return_value=expected) as resolve:
+                self.assertIs(observe.verify_executable(path),expected)
+            resolve.assert_called_once()
+
+    def test_exe_option_binds_live_process_to_same_resolved_profile_and_path(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/"MRallye.exe";path.write_bytes(b"family fixture")
+            profile=replace(core.RETAIL_PRISTINE,sha256="a"*64,profile_origin="locally_audited",
+                            exact_profile_id=None)
+            matching=observe.ProcessCandidate(1,path,profile.sha256)
+            other=observe.ProcessCandidate(2,Path(folder)/"other"/"MRallye.exe",profile.sha256)
+            args=observe.build_parser().parse_args(["--exe",str(path),"status"])
+            with patch.object(observe,"verify_executable",return_value=profile), \
+                 patch.object(observe,"discover_processes",return_value=([matching,other],[])), \
+                 patch.object(observe,"status") as show:
+                self.assertEqual(observe.execute(args,Path(folder),{}),0)
+            selected=show.call_args.args[1]
+            self.assertEqual(selected.pid,1)
+            self.assertIs(selected.profile,profile)
+
+    def test_exe_option_binds_live_process_to_same_resolved_profile_and_path(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/"MRallye.exe";path.write_bytes(b"family fixture")
+            profile=replace(core.RETAIL_PRISTINE,sha256="a"*64,profile_origin="locally_audited",
+                            exact_profile_id=None)
+            matching=observe.ProcessCandidate(1,path,profile.sha256)
+            other=observe.ProcessCandidate(2,Path(folder)/"other"/"MRallye.exe",profile.sha256)
+            args=observe.build_parser().parse_args(["--exe",str(path),"status"])
+            with patch.object(observe,"verify_executable",return_value=profile), \
+                 patch.object(observe,"discover_processes",return_value=([matching,other],[])), \
+                 patch.object(observe,"status") as show:
+                self.assertEqual(observe.execute(args,Path(folder),{}),0)
+            selected=show.call_args.args[1]
+            self.assertEqual(selected.pid,1)
+            self.assertIs(selected.profile,profile)
+
+    def test_degraded_process_can_recover_but_cannot_request_native_dump(self):
+        profile=replace(core.RETAIL_PRISTINE,sha256="a"*64,profile_origin="locally_audited",
+                        exact_profile_id=None,capabilities={"broker_read":True,"native_dump":False,
+                        "open_broker_editor":False,"post_results_native_dump_safe":None})
+        process=observe.ProcessCandidate(9,Path("MRallye.exe"),profile.sha256,profile)
+        raw=dump([row("Existing/Value","1")])
+        recovered,source=observe.capture_recovery(process,read_fn=lambda _pid:(raw,{}))
+        self.assertEqual(recovered,raw)
+        self.assertEqual(source["dump_dispatch"],"not_sent")
+        ensure=Mock();dispatch=Mock()
+        with self.assertRaisesRegex(core.ObservatoryError,"Native Dump request is disabled"):
+            observe.capture_fresh(process,ensure_fn=ensure,dump_fn=dispatch,read_fn=lambda _pid:(raw,{}))
+        ensure.assert_not_called();dispatch.assert_not_called()
+
+    def test_status_reports_independent_capabilities(self):
+        profile=replace(core.RETAIL_PRISTINE,sha256="a"*64,profile_origin="locally_audited",
+                        exact_profile_id=None,capabilities={"broker_read":True,"native_dump":False,
+                        "open_broker_editor":False,"flow_builder":False,
+                        "post_results_native_dump_safe":None,"legacy_loading_attract_present":False})
+        process=observe.ProcessCandidate(9,Path("MRallye.exe"),profile.sha256,profile)
+        with tempfile.TemporaryDirectory() as folder, \
+             patch.object(observe.core,"capture_debug_buffer",return_value=(b"",{"debug_buffer_used_bytes":0,"debug_buffer_capacity_bytes":1})) as read, \
+             contextlib.redirect_stdout(io.StringIO()) as out:
+            observe.status(Path(folder),process)
+        rendered=out.getvalue()
+        self.assertIn("Broker read          YES",rendered)
+        self.assertIn("Native Dump          NO",rendered)
+        self.assertIn("Legacy Attract      NEUTRALIZED",rendered)
+        read.assert_called_once_with(process.pid,profile)
 
 
 class CaptureStorageTests(unittest.TestCase):

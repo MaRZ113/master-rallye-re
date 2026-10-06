@@ -15,8 +15,8 @@ EVIDENCE = ROOT / 'research/r-observatory-modded-builds'
 PRISTINE_SHA256 = 'bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4'
 MERC_SHA256 = '1fb0a1f1ba02cd05fa25f0c94558cf1b281fd12affcdc37bb3c1ca538e6c65af'
 SIZE = 3_121_214
-AUDIT_VERSION = 'retail-broker-v1.0'
-PROFILE_SCHEMA_VERSION = 1
+AUDIT_VERSION = 'retail-broker-v1.1'
+PROFILE_SCHEMA_VERSION = 2
 PROFILE_CACHE_ROOT = ROOT / '.research-output/observatory/build-profiles'
 
 
@@ -131,6 +131,13 @@ def _profile_document(audit, *, exact_profile=None, registry_profile=None, regis
     profile_id = exact_profile['profile'] if exact_profile else 'local-audited-' + audit['sha256'][:12]
     family = audit.get('compatibility_family')
     caps = dict(audit.get('capabilities', {}))
+    if exact_profile:
+        # Exact profiles carry separately reviewed frontend tool permissions.
+        # Family Dump-route fingerprints do not prove the main-window 0x27
+        # opener or Flow Builder's full open path.
+        for capability in ('open_broker_editor', 'flow_builder'):
+            if capability in exact_profile.get('capabilities', {}):
+                caps[capability] = exact_profile['capabilities'][capability]
     reg = registry_profile if registry_profile is not None else audit.get('registry_profile', 'unknown')
     caps['vehicle_registry_profile'] = reg
     return {
@@ -208,34 +215,56 @@ def audit_build(data):
     required_anchors_match = bool(required) and all(by_name.get(name, {}).get('compatible') for name in required)
     compatible=layout_match and required_anchors_match
     registry_profile, registry_origin = _registry_profile_for(data, pe, registered)
-    capabilities = dict(family.get('capabilities', {})) if compatible else {}
-    # Capabilities are derived only from matching anchors, never from a build name.
-    dump_anchor = by_name.get('native_dump_walker', {}).get('compatible', False)
-    route_anchor = by_name.get('broker_editor_dump_route', {}).get('compatible', False)
-    broker_anchor_set = all(by_name.get(name, {}).get('compatible', False) for name in (
-        'broker_editor_dump_route', 'broker_singleton_accessor', 'debug_logger', 'debug_sink_vtable',
-        'debug_sink_global', 'broker_manager_global', 'main_loop'))
-    capabilities['broker_read'] = bool(compatible and broker_anchor_set)
-    capabilities['open_broker_editor'] = bool(compatible and route_anchor)
-    capabilities['native_dump'] = bool(compatible and route_anchor and dump_anchor)
-    capabilities['broker_capture_active_race'] = bool(capabilities['native_dump'])
-    capabilities['active_race_native_dump_safe'] = bool(capabilities['native_dump'])
-    capabilities['post_results_native_dump_safe'] = False if dump_anchor else None
-    capabilities['hardened_dump'] = False
-    capabilities['flow_builder'] = False
+    # Derive each observation capability from only the anchors it consumes.
+    # PE/layout compatibility is required because the reader and UI command
+    # routes use audited retail RVAs; unrelated gameplay, loading and resource
+    # anchors are informational and must not suppress passive Broker reads.
+    broker_read_anchors = ('debug_logger', 'debug_sink_vtable', 'debug_sink_global')
+    broker_read = bool(layout_match and all(by_name.get(name, {}).get('compatible')
+                                            for name in broker_read_anchors))
+    route_anchor = bool(by_name.get('broker_editor_dump_route', {}).get('compatible'))
+    singleton_anchor = bool(by_name.get('broker_singleton_accessor', {}).get('compatible'))
+    manager_anchor = bool(by_name.get('broker_manager_global', {}).get('compatible'))
+    dump_anchor = bool(by_name.get('native_dump_walker', {}).get('compatible'))
+    # The 0x27 main-window opener is not a standalone family anchor. Grant it
+    # only to a complete family match together with the Broker route anchor;
+    # degraded profiles may still discover/use an already-open, signature-
+    # checked editor when native_dump is independently proven.
+    open_editor = bool(compatible and route_anchor)
+    native_dump = bool(layout_match and broker_read and route_anchor and singleton_anchor
+                       and manager_anchor and dump_anchor)
+    walker = by_name.get('native_dump_walker', {})
+    walker_variant = walker.get('matched_variant') if walker.get('compatible') else None
+    hardened_dump = walker_variant == 'native-hardened-r-ai1-v1'
+    capabilities = {
+        'broker_read': broker_read,
+        'open_broker_editor': open_editor,
+        'native_dump': native_dump,
+        'broker_capture_active_race': broker_read,
+        'active_race_native_dump_safe': native_dump,
+        'post_results_native_dump_safe': (True if hardened_dump else False if walker_variant == 'stock' else None),
+        'hardened_dump': hardened_dump,
+        'flow_builder': False,
+    }
     loading_anchor = by_name.get('loading_legacy_failure', {})
     capabilities['legacy_loading_attract_present'] = bool(
         loading_anchor.get('compatible') and loading_anchor.get('matched_variant') == 'stock')
     capabilities['legacy_loading_attract_neutralized'] = bool(
         loading_anchor.get('compatible') and
         loading_anchor.get('matched_variant') == 'r-ai2-loading-false-trigger-neutralization-v1')
-    capabilities['broker_dump_variant'] = 'native_stock' if dump_anchor else 'unknown'
-    return dict(schema_version=1,sha256=h,size=len(data),pe=pe,layout_compatible=layout_match,
+    capabilities['broker_dump_variant'] = ('native_hardened' if hardened_dump else
+                                           'native_stock' if walker_variant == 'stock' else 'unknown')
+    capability_compatible = bool(layout_match and broker_read)
+    admitted = bool(compatible or capability_compatible)
+    return dict(schema_version=2,sha256=h,size=len(data),pe=pe,layout_compatible=layout_match,
                 anchors=anchors,anchor_compatible=compatible,
-                status='ANCHOR_COMPATIBLE_ONLY' if compatible else 'INCOMPATIBLE',
-                compatibility_family=family_id if compatible else None,
+                status=('FULL_FAMILY_COMPATIBLE' if compatible else
+                        'CAPABILITY_COMPATIBLE' if capability_compatible else 'INCOMPATIBLE'),
+                compatibility_family=family_id if admitted else None,
                 family_anchor_names=sorted(required),
                 family_anchor_compatible=required_anchors_match,
+                broker_core_compatible=broker_read,
+                capability_compatible=capability_compatible,
                 registry_profile=registry_profile,
                 registry_profile_origin=registry_origin,
                 capabilities=capabilities,
@@ -257,8 +286,8 @@ def identify(data):
     return profile
 
 
-def resolve_build(data, *, cache_root=None, write_local_profile=True):
-    """Resolve exact identity first, otherwise audit and locally bind one family-compatible SHA."""
+def resolve_build(data, *, cache_root=None, write_local_profile=True, allow_degraded=False):
+    """Resolve exact identity, a full family match, or an explicitly allowed Broker-core profile."""
     audit = audit_build(data)
     exact = next((p for p in definitions()['profiles']
                   if p['sha256'] == audit['sha256'] and p['size'] == audit['size']), None)
@@ -269,14 +298,15 @@ def resolve_build(data, *, cache_root=None, write_local_profile=True):
                                     registry_origin='committed_exact')
         resolved = {**audit, **profile, 'local_profile_cache': None, 'cache_reused': False}
     else:
-        if not audit['anchor_compatible'] or not audit.get('compatibility_family'):
+        full_family = bool(audit['anchor_compatible'] and audit.get('compatibility_family'))
+        degraded_core = bool(allow_degraded and audit.get('capability_compatible')
+                             and audit.get('compatibility_family'))
+        if not (full_family or degraded_core):
             failures = [a['name'] for a in audit['anchors'] if not a['compatible']]
-            raise ValueError('Unknown executable failed structural family audit: ' +
+            raise ValueError('Unknown executable failed structural family/Broker-core audit: ' +
                              (', '.join(failures) if failures else 'PE/layout mismatch'))
-        if not (audit['capabilities'].get('broker_read')
-                and audit['capabilities'].get('open_broker_editor')
-                and audit['capabilities'].get('native_dump')):
-            raise ValueError('Compatible family lacks capabilities required for Broker capture')
+        if not audit['capabilities'].get('broker_read'):
+            raise ValueError('Compatible family lacks the independently audited Broker read core')
         cache_root = Path(cache_root) if cache_root is not None else PROFILE_CACHE_ROOT
         path = _cache_path(cache_root, audit['sha256'])
         cached = _load_valid_cache(path, audit) if path.exists() else None

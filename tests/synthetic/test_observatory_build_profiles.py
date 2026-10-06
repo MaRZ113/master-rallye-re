@@ -1,12 +1,13 @@
 from __future__ import annotations
 import contextlib
 import ctypes
+import hashlib
 import io
 import struct
 import sys
 import tempfile
 import unittest
-from dataclasses import FrozenInstanceError
+from dataclasses import FrozenInstanceError, replace
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -25,7 +26,8 @@ class KnownBuildProfileTests(unittest.TestCase):
                 path = Path(folder)/'MRallye.exe'
                 with path.open('wb') as stream:
                     stream.truncate(p.file_size)
-                with patch.object(core,'sha256_file',return_value=p.sha256):
+                with patch.object(observe,'PORTABLE',False), \
+                     patch.object(observe,'resolve_executable_profile',return_value=p):
                     self.assertIs(observe.verify_executable(path),p)
 
     def test_dump_rejects_same_hwnd_with_changed_build_before_send(self):
@@ -75,6 +77,33 @@ class KnownBuildProfileTests(unittest.TestCase):
             with patch.object(core, '_read_remote', side_effect=lambda k,h,a,n,c: memory[a]):
                 with self.assertRaises(core.ObservatoryError):
                     core._read_sink_state(Mock(), Mock(), 1, base, ctypes, p)
+
+    def test_live_capability_requires_matching_used_code_fingerprints(self):
+        code_a=b"logger-anchor";code_b=b"vtable-anchor"
+        profile=replace(profiles.RETAIL_PRISTINE,profile_origin="locally_audited",exact_profile_id=None,
+            capabilities={"broker_read":True},
+            pe_identity={"image_base":0x400000,"size_of_image":0x500000},
+            runtime_anchors=(
+                {"name":"debug_logger","rva":0x1000,"length":len(code_a),"sha256":hashlib.sha256(code_a).hexdigest()},
+                {"name":"debug_sink_vtable","rva":0x2000,"length":len(code_b),"sha256":hashlib.sha256(code_b).hexdigest()},
+            ))
+        data={0x401000:code_a,0x402000:code_b}
+        def remote(_kernel,_process,address,size,_ctypes):
+            value=data.get(address,b"")
+            self.assertEqual(len(value),size)
+            return value
+        with patch.object(core,"_read_remote",side_effect=remote):
+            names=core._verify_remote_anchors(Mock(),Mock(),0x400000,ctypes,profile,"broker_read")
+        self.assertEqual(names,["debug_logger","debug_sink_vtable"])
+        data[0x401000]=b"changed-bytes"
+        with patch.object(core,"_read_remote",side_effect=remote), self.assertRaisesRegex(core.ObservatoryError,"fingerprint differs"):
+            core._verify_remote_anchors(Mock(),Mock(),0x400000,ctypes,profile,"broker_read")
+
+    def test_locally_audited_profile_without_used_fingerprints_fails_closed(self):
+        profile=replace(profiles.RETAIL_PRISTINE,profile_origin="locally_audited",exact_profile_id=None,
+                        capabilities={"broker_read":True},runtime_anchors=())
+        with self.assertRaisesRegex(core.ObservatoryError,"No runtime code fingerprints"):
+            core._verify_remote_anchors(Mock(),Mock(),0x400000,ctypes,profile,"broker_read")
 
     def test_live_capture_metadata_and_profile_propagation(self):
         for p in profiles.PROFILES:

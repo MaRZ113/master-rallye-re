@@ -590,9 +590,22 @@ The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE
 
 **PASS — TREE_CARRIER_CONFIRMED.** The T-only modified hybrid produced the NEW tested collision; the U-only modified hybrid retained OLD. The visible support and FinishArea completion remained unchanged. Tag1400 is neither sufficient nor required for this tested translation; its broader runtime role remains unknown. F.1 remains the full-suffix result, F.2 the bounded parser/plane-correlation result, and F.2.1 the tree-only runtime proof. See `research/r5t_f21/runtime-results.md` and `research/r5t_f21/findings.md`. No course writer or EXE patch was added.
 
-## Exact modded-build Observatory / registry profiles
+## Adaptive Research Observatory build families — R-OBS3
 
-R-OBS2 defines an internal `retail-broker-v1` family. Exact PE/layout and all required anchor fingerprints are mandatory; a passing unknown SHA receives a local SHA-bound profile only after audit. Registry recognition remains an independent fingerprint decision, and public v0.1.0-beta remains pristine-only. The expected mercv2/F.2f binary passed direct family and registry audit; human Observatory captures remain pending. See [R-OBS2 findings](../research/r-obs2/findings.md).
+The compatible-family live-capture workflow remains
+**CONFIRMED_BY_RUNTIME** across multiple locally audited hashes. The R-OBS3
+extension is **READY FOR HUMAN RUNTIME** for the newly routed forced-ID26
+candidate and degraded capability gates. Internal build resolution now follows exact
+profile → full `retail-broker-v1` family → degraded profile with a proven
+passive Broker-read core → reject. SHA256 and size remain required, caches are
+re-audited against current bytes, and capabilities are independent. A degraded
+profile can retain passive read while native Dump is disabled; post-Results
+Dump safety is enabled only for the audited NULL-safe walker variant. Registry
+recognition remains independent. The public Observatory v0.1.0-beta package is
+unchanged. The internal R-OBS3 CMD package was built and statically verified;
+the new candidate entrypoint still needs a human capture. See [R-OBS3 findings](../research/general-re/observatory-compatible-builds/findings.md),
+[capability map](../research/general-re/observatory-compatible-builds/capability-map.json),
+and [runtime handoff](../research/general-re/observatory-compatible-builds/runtime-handoff.md).
 
 Independent feature closeouts: Challenge preview/race identity is runtime-confirmed
 (Retry not applicable after tested completion); normal Quick Race6/7/8 lifecycle

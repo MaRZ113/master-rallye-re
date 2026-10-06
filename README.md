@@ -8,19 +8,21 @@ read-only.
 
 ## Observatory build compatibility
 
-R-OBS2 adds an internal, fail-closed `retail-broker-v1` structural compatibility
-family. A new executable SHA is accepted only after its PE layout and every
-required exact Broker/debug anchor pass; the exact SHA and derived capabilities
-are then cached locally under ignored `.research-output`. Vehicle registry
-recognition is independent and requires its own bounded fingerprints. Public
-Observatory v0.1.0-beta remains pristine-only. Native post-Results Dump remains
-unsafe for this family. The expected Mercedes F.2f binary passed the direct
-family and registry audit; human Observatory captures remain pending. The
-compatible-family live capture workflow is separately
-`CONFIRMED_BY_RUNTIME` across multiple locally audited EXE hashes without
-source-SHA whitelist edits. See
-[R-OBS2 findings](research/r-obs2/findings.md)
-and the [compatibility-family audit](research/r-obs2/compatibility-family.md).
+The compatible-family live-capture workflow was already
+`CONFIRMED_BY_RUNTIME` across multiple locally audited executable hashes.
+R-OBS3 extends the internal Research Observatory with adaptive, fail-closed
+build resolution. It tries committed exact profiles, then the audited
+`retail-broker-v1` family, then a degraded profile only when the PE layout and
+passive Broker-read core match, and otherwise rejects the executable. SHA256
+and size are always checked; local caches are re-audited and do not grant trust
+by themselves. Broker read, native Dump, post-Results Dump safety, Broker
+Editor opening, and Flow Builder are separate capabilities. The public
+Observatory v0.1.0-beta remains unchanged and pristine-oriented. The separate
+ignored Research package includes a CMD launcher and no game executable. The
+new degraded-capability route and supplied forced-ID26 AI build are
+**READY FOR HUMAN RUNTIME**; static and synthetic checks do not count as a new
+live capture. See [R-OBS3 findings](research/general-re/observatory-compatible-builds/findings.md)
+and the [runtime handoff](research/general-re/observatory-compatible-builds/runtime-handoff.md).
 
 Independent R-AI1.2a, R-AI2.1 normal Quick Race6/7/8, and R-UI1 One..Seven/Four
 end-to-end are now closed by human evidence. See the cross-branch

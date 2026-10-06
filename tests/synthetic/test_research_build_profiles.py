@@ -35,6 +35,49 @@ def fixture():
     return data,canonical
 
 
+def capability_fixture():
+    """Three-section retail-shaped PE with independently fingerprinted Broker anchors."""
+    data=bytearray(0x5000)
+    data[:2]=b'MZ';struct.pack_into('<I',data,0x3c,0x80);data[0x80:0x84]=b'PE\0\0'
+    struct.pack_into('<HHI',data,0x84,0x14c,3,12345)
+    struct.pack_into('<H',data,0x94,0xe0);struct.pack_into('<H',data,0x98,0x10b)
+    for offset,value in ((0xa8,0x1000),(0xb4,0x400000),(0xd0,0x5000)):
+        struct.pack_into('<I',data,offset,value)
+    sections=[('.text',0x2000,0x1000,0x2000,0x1000,0x60000020),
+              ('.rdata',0x1000,0x3000,0x1000,0x3000,0x40000040),
+              ('.data',0x1000,0x4000,0x1000,0x4000,0xC0000040)]
+    at=0x178
+    for name,vs,rva,size,raw,flags in sections:
+        data[at:at+8]=name.encode().ljust(8,b'\0')
+        struct.pack_into('<IIII',data,at+8,vs,rva,size,raw);struct.pack_into('<I',data,at+36,flags)
+        at+=40
+    for offset in range(0x1000,0x1180,0x10):
+        data[offset:offset+16]=bytes((offset+i)&0xff for i in range(16))
+    data[0x3000:0x3010]=bytes(range(16))
+    data[0x4000:0x4008]=bytes(8)
+    image=bytes(data);pe=b.pe_layout(image)
+    specs=[('resource_file_open',0x401100,16,'.text'),
+           ('broker_editor_dump_route',0x401040,16,'.text'),
+           ('broker_singleton_accessor',0x401080,16,'.text'),
+           ('debug_logger',0x401000,16,'.text'),
+           ('native_dump_walker',0x4010C0,16,'.text'),
+           ('main_loop',0x401140,16,'.text'),
+           ('debug_sink_vtable',0x403000,16,'.rdata'),
+           ('debug_sink_global',0x404000,4,'.data'),
+           ('broker_manager_global',0x404004,4,'.data'),
+           ('loading_legacy_failure',0x401180,16,'.text')]
+    anchors=[]
+    for name,va,length,section in specs:
+        raw,actual,offset=b.window(image,pe,va,length)
+        anchors.append(dict(name=name,va=va,length=length,sha256=b.digest(raw),section=section,
+                            semantics='synthetic capability anchor'))
+    canonical={'retail_pe':pe,'anchors':anchors,'profiles':[],
+               'families':{'retail-broker-v1':{'pe_reference':'retail_pe',
+                  'anchor_names':[row['name'] for row in anchors],
+                  'observatory_layout_profile':'fixture'}}}
+    return image,canonical
+
+
 def snapshot(profile='retail-merc-id26',ids=(26,1,2,3)):
     p=next(r for r in b.definitions()['profiles'] if r['profile']==profile)
     vals={'Race/NumCars':4,'Race/NumPlayers':1,'Race/NumNetworkPlayers':0,'Race/Type':2,
@@ -127,6 +170,7 @@ class ProfileAudit(unittest.TestCase):
     def test_merc_capabilities_stock_unsafe(self):
         p=next(x for x in b.definitions()['profiles'] if x['sha256']==b.MERC_SHA256)
         self.assertFalse(p['native_dump_post_results_safe']);self.assertTrue(p['legacy_loading_attract_present'])
+        self.assertTrue(p['capabilities']['open_broker_editor'])
         self.assertEqual(p['vehicle_registry_profile'],'merc-id26')
 
     def test_available_merc_v1_passes_family_and_registry_audits(self):
@@ -186,6 +230,75 @@ class ProfileAudit(unittest.TestCase):
         data=bytearray(image.read_bytes());pe=struct.unpack_from('<I',data,0x3c)[0]
         struct.pack_into('<H',data,pe+4,0x8664)
         with self.assertRaises(ValueError):b.audit_build(bytes(data))
+
+    def test_unrelated_anchor_does_not_disable_broker_read_or_native_dump(self):
+        data,defs=capability_fixture();changed=bytearray(data);changed[0x1180]^=0x7f
+        with patch.object(b,'definitions',return_value=defs):
+            audit=b.audit_build(bytes(changed))
+            self.assertFalse(audit['anchor_compatible'])
+            self.assertTrue(audit['capability_compatible'])
+            self.assertTrue(audit['capabilities']['broker_read'])
+            self.assertFalse(audit['capabilities']['open_broker_editor'])
+            self.assertTrue(audit['capabilities']['native_dump'])
+            self.assertEqual(audit['capabilities']['post_results_native_dump_safe'],False)
+
+    def test_walker_failure_keeps_passive_reader_but_disables_native_dump(self):
+        data,defs=capability_fixture();changed=bytearray(data);changed[0x10C2]^=1
+        with patch.object(b,'definitions',return_value=defs):
+            audit=b.audit_build(bytes(changed))
+            self.assertTrue(audit['capabilities']['broker_read'])
+            self.assertFalse(audit['capabilities']['open_broker_editor'])
+            self.assertFalse(audit['capabilities']['native_dump'])
+            self.assertFalse(audit['capabilities']['active_race_native_dump_safe'])
+            self.assertIsNone(audit['capabilities']['post_results_native_dump_safe'])
+            self.assertEqual(audit['capabilities']['broker_dump_variant'],'unknown')
+
+    def test_exact_hardened_walker_variant_alone_enables_results_dump_safety(self):
+        data,defs=capability_fixture()
+        walker=next(row for row in defs['anchors'] if row['name']=='native_dump_walker')
+        patched=bytearray(data);patched[0x10C0:0x10C8]=bytes.fromhex('e97dc20800909090')
+        expected=bytes(patched[0x10C0:0x10D0])
+        walker['approved_variants']=[dict(id='native-hardened-r-ai1-v1',sha256=b.digest(expected))]
+        with patch.object(b,'definitions',return_value=defs):
+            accepted=b.audit_build(bytes(patched))
+            self.assertTrue(accepted['capabilities']['native_dump'])
+            self.assertTrue(accepted['capabilities']['hardened_dump'])
+            self.assertTrue(accepted['capabilities']['post_results_native_dump_safe'])
+            self.assertEqual(accepted['capabilities']['broker_dump_variant'],'native_hardened')
+            changed=bytearray(patched);changed[0x10CF]^=1
+            rejected=b.audit_build(bytes(changed))
+            self.assertFalse(rejected['capabilities']['native_dump'])
+            self.assertIsNone(rejected['capabilities']['post_results_native_dump_safe'])
+
+    def test_allow_degraded_requires_broker_core_and_cache_is_reaudited(self):
+        data,defs=capability_fixture();changed=bytearray(data);changed[0x1180]^=0x7f
+        with tempfile.TemporaryDirectory() as td, patch.object(b,'definitions',return_value=defs):
+            with self.assertRaisesRegex(ValueError,'structural family/Broker-core'):
+                b.resolve_build(bytes(changed),cache_root=Path(td)/'build-profiles')
+            first=b.resolve_build(bytes(changed),cache_root=Path(td)/'build-profiles',allow_degraded=True)
+            self.assertEqual(first['status'],'CAPABILITY_COMPATIBLE')
+            self.assertEqual(first['profile_origin'],'locally_audited')
+            self.assertEqual(first['schema_version'],b.PROFILE_SCHEMA_VERSION)
+            second=b.resolve_build(bytes(changed),cache_root=Path(td)/'build-profiles',allow_degraded=True)
+            self.assertTrue(second['cache_reused'])
+            broken=bytearray(changed);broken[0x1001]^=1
+            with self.assertRaisesRegex(ValueError,'structural family/Broker-core'):
+                b.resolve_build(bytes(broken),cache_root=Path(td)/'build-profiles',allow_degraded=True)
+
+    def test_schema_one_local_cache_is_reaudited_and_migrated(self):
+        data,defs=capability_fixture();changed=bytearray(data);changed[0x1180]^=0x7f
+        with tempfile.TemporaryDirectory() as td, patch.object(b,'definitions',return_value=defs):
+            cache=Path(td)/'build-profiles'
+            first=b.resolve_build(bytes(changed),cache_root=cache,allow_degraded=True)
+            cache_path=Path(first['local_profile_cache'])
+            old=json.loads(cache_path.read_text(encoding='utf-8'))
+            old['schema_version']=1
+            cache_path.write_text(json.dumps(old),encoding='utf-8')
+            refreshed=b.resolve_build(bytes(changed),cache_root=cache,allow_degraded=True)
+            self.assertFalse(refreshed['cache_reused'])
+            migrated=json.loads(cache_path.read_text(encoding='utf-8'))
+            self.assertEqual(migrated['schema_version'],b.PROFILE_SCHEMA_VERSION)
+            self.assertEqual(migrated['audit_version'],b.AUDIT_VERSION)
 
 
 class RegistryOracle(unittest.TestCase):

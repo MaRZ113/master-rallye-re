@@ -32,6 +32,8 @@ from observatory_build_profiles import PROFILES, RETAIL_PRISTINE, match_profile
 SCRIPT_DIR = Path(__file__).resolve().parent
 PORTABLE = not (SCRIPT_DIR.name == "runtime" and SCRIPT_DIR.parent.name == "tools")
 REPO = SCRIPT_DIR if PORTABLE else SCRIPT_DIR.parents[1]
+if not PORTABLE:
+    from observatory_profile_resolver import resolve_executable_profile
 DATA_ROOT = REPO / "observatory-data" if PORTABLE else REPO / "research-output/general-re"
 DEFAULT_CAPTURE_ROOT = DATA_ROOT / "captures" if PORTABLE else DATA_ROOT / "broker-observatory/captures"
 DEFAULT_CONFIG = DATA_ROOT / "config.json" if PORTABLE else DATA_ROOT / "runtime-config.json"
@@ -96,9 +98,14 @@ class ProcessCandidate:
     pid: int
     image_path: Path
     sha256: str
+    resolved_profile: Any | None = None
 
     @property
     def profile(self):
+        if self.resolved_profile is not None:
+            if self.resolved_profile.sha256 != self.sha256:
+                raise core.ObservatoryError("Resolved process profile no longer matches its image SHA256")
+            return self.resolved_profile
         for profile in PROFILES:
             if profile.sha256 == self.sha256:
                 return profile
@@ -109,10 +116,13 @@ def verify_executable(path: Path):
     if path.name.casefold() != "mrallye.exe" or not path.is_file():
         raise UserError("MRallye.exe was not found. Select the installed retail MRallye.exe.", str(path))
     try:
-        return match_profile(core.sha256_file(path), path.stat().st_size)
+        if PORTABLE:
+            return match_profile(core.sha256_file(path), path.stat().st_size)
+        cache_root = REPO / ".research-output/general-re/observatory/build-profiles"
+        return resolve_executable_profile(path, cache_root=cache_root)
     except ValueError as exc:
-        raise UserError("Unsupported Master Rallye executable. Choose an exact known build; arbitrary patched EXEs are rejected.",
-                        f"Known profiles: {', '.join(p.id + ': ' + p.sha256 for p in PROFILES)}\nSelected: {path}\n{exc}") from exc
+        raise UserError("Unsupported Master Rallye executable. arbitrary patched EXEs are rejected unless an exact profile or safe Broker read core is proven.",
+                        f"Known exact profiles: {', '.join(p.id + ': ' + p.sha256 for p in PROFILES)}\nSelected: {path}\n{exc}") from exc
 
 
 def discover_processes() -> tuple[list[ProcessCandidate], list[str]]:
@@ -152,7 +162,7 @@ def discover_processes() -> tuple[list[ProcessCandidate], list[str]]:
                     if path is None:
                         raise core.ObservatoryError("image path unavailable")
                     profile = verify_executable(path)
-                    candidates.append(ProcessCandidate(pid, path, profile.sha256))
+                    candidates.append(ProcessCandidate(pid, path, profile.sha256, profile))
                 except (OSError, core.ObservatoryError) as exc:
                     detail = f"\n{exc.detail}" if isinstance(exc, UserError) and exc.detail else ""
                     rejected.append(f"PID {pid}: {exc}{detail}")
@@ -176,7 +186,7 @@ def select_process(candidates: Sequence[ProcessCandidate], pid: int | None = Non
     if input_fn is None:
         raise core.ObservatoryError("Multiple Master Rallye processes found. Close extra instances, use --pid, or select one in the interactive menu.")
     for i, process in enumerate(candidates, 1):
-        print(f"[{i}] {process.profile.id} — PID {process.pid}: {process.image_path}")
+        print(f"[{i}] {process.profile.id} [{process.profile.profile_origin}; {process.profile.compatibility_family or 'exact profile'}] — PID {process.pid}: {process.image_path}")
     choice = input_fn("Select instance (0 cancels): ").strip()
     if choice == "0":
         return None
@@ -308,21 +318,28 @@ def fresh_dump_snapshot(baseline: bytes, current: bytes, source: dict[str, Any])
 
 
 def ensure_tool(process: ProcessCandidate, tool: str, timeout: float = 5.0) -> commands.TargetWindow:
-    if tool not in process.profile.tools:
+    capability = {"broker-editor": "open_broker_editor", "flow-builder": "flow_builder"}.get(tool)
+    if capability is None:
         raise core.ObservatoryError("Tool is not verified for the selected build profile.")
-    existing = commands.find_tool_windows(process.pid, tool)
+    may_open = process.profile.supports(capability)
+    may_use_existing = (tool == "broker-editor" and process.profile.supports("native_dump"))
+    if not may_open and not may_use_existing:
+        raise core.ObservatoryError("Tool is not verified for the selected build profile.")
+    existing = commands.find_tool_windows(process.pid, tool, process.profile)
     if len(existing) == 1:
         return existing[0]
     if existing:
         raise core.ObservatoryError(f"Ambiguous {tool} windows; no command sent.")
-    mains = [w for w in commands.find_retail_main_windows() if w.pid == process.pid]
+    if not may_open:
+        raise core.ObservatoryError("Broker Editor opener is disabled for this build; an already-open audited window may be used.")
+    mains = [w for w in commands.find_retail_main_windows({process.pid: process.profile}) if w.pid == process.pid]
     if len(mains) != 1:
         raise core.ObservatoryError("Broker Editor cannot be opened. Enable Menues/Enabled=True in DataGame/dev.xml, restart the game, and close extra game windows.")
     print("Opening " + ("Broker Editor" if tool == "broker-editor" else "Flow Builder") + "...")
     commands.send_tool_command(mains[0], tool)
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        existing = commands.find_tool_windows(process.pid, tool)
+        existing = commands.find_tool_windows(process.pid, tool, process.profile)
         if len(existing) == 1:
             return existing[0]
         if len(existing) > 1:
@@ -333,9 +350,14 @@ def ensure_tool(process: ProcessCandidate, tool: str, timeout: float = 5.0) -> c
 
 def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
                   input_fn: Callable[[str], str] = input, timeout: float = FRESH_DUMP_WAIT_SECONDS,
-                  read_fn: Callable = core.capture_debug_buffer,
-                  ensure_fn: Callable = ensure_tool,
-                  dump_fn: Callable = commands.send_broker_dump) -> tuple[bytes, dict[str, Any]]:
+                  read_fn: Callable | None = None,
+                  ensure_fn: Callable | None = None,
+                  dump_fn: Callable | None = None) -> tuple[bytes, dict[str, Any]]:
+    if not process.profile.supports("native_dump"):
+        raise core.ObservatoryError("Native Dump request is disabled for this build. Use passive recover for an already-present complete Dump.")
+    read_fn = read_fn or (lambda pid: core.capture_debug_buffer(pid, process.profile))
+    ensure_fn = ensure_fn or ensure_tool
+    dump_fn = dump_fn or commands.send_broker_dump
     broker = ensure_fn(process, "broker-editor")
     baseline, _ = read_fn(process.pid)
     dispatch = None
@@ -375,8 +397,11 @@ def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
 
 
 def capture_recovery(process: ProcessCandidate, *,
-                     read_fn: Callable = core.capture_debug_buffer) -> tuple[bytes, dict[str, Any]]:
+                     read_fn: Callable | None = None) -> tuple[bytes, dict[str, Any]]:
     """Read only: latest complete block plus full buffer; no opener or Dump."""
+    if not process.profile.supports("broker_read"):
+        raise core.ObservatoryError("Passive Broker read is not verified for this build.")
+    read_fn = read_fn or (lambda pid: core.capture_debug_buffer(pid, process.profile))
     raw, source = read_fn(process.pid)
     core.parse_dump_bytes(raw, source)  # Reject buffers without a complete Dump.
     source.update({"dump_request": "none-passive-recovery", "dump_dispatch": "not_sent",
@@ -502,27 +527,58 @@ def filtered_diff(before: dict, after: dict, *, preset: str | None = None,
 def status(root: Path, process: ProcessCandidate | None, rejected: Sequence[str] = (), *, detailed: bool = False) -> None:
     print(TOOL_NAME + "\n")
     for reason in rejected:
-        print("Unsupported or inaccessible game process. Select an exact known build; check --verbose for details.")
+        print("Unsupported or inaccessible game process. No safe Broker read profile was proven; check --verbose for details.")
         if detailed or VERBOSE:
             print(reason)
     if process is None:
-        print("Game: not running. Launch retail or select its installation with [C].")
+        print("Game: not running. Launch a supported retail-family build or select its installation with [C].")
     else:
-        print(f"Game: {process.profile.display_name}\nBuild: {process.profile.id}\nPID: {process.pid}\nRetail verified")
+        profile = process.profile
+        print(f"Game: PID {process.pid}\nBuild: {profile.id}")
+        print(f"Profile origin: {profile.profile_origin}")
+        print(f"Broker family: {profile.compatibility_family or 'exact-profile-only'}")
+        if profile.profile_origin == "committed_exact":
+            print("Retail verified (committed exact profile)")
+        else:
+            print("Broker read core verified; optional capabilities remain separately gated")
+        print(f"Vehicle registry: {profile.vehicle_registry_profile}")
+        print("Capabilities:")
+        for label, capability in (
+            ("Broker read", "broker_read"),
+            ("Native Dump", "native_dump"),
+            ("Results Dump safe", "post_results_native_dump_safe"),
+            ("Broker Editor", "open_broker_editor"),
+            ("Flow Builder", "flow_builder"),
+        ):
+            value = profile.capabilities.get(capability)
+            rendered = "UNKNOWN" if value is None else "YES" if value else "NO"
+            print(f"    {label:<20} {rendered}")
+        attract = profile.capabilities.get("legacy_loading_attract_present")
+        print("    Legacy Attract      " + ("UNKNOWN" if attract is None else "PRESENT" if attract else "NEUTRALIZED"))
         if detailed or VERBOSE:
             print(f"EXE: {process.image_path}\nSHA256: {process.sha256}")
-        for tool in process.profile.tools:
+            if profile.audit_version:
+                print(f"Audit: {profile.audit_version}; fingerprint: {profile.audit_fingerprint}")
+            if profile.local_profile_cache:
+                print(f"Local cache: {profile.local_profile_cache}; reused: {profile.cache_reused}")
+        for tool, capability in (("broker-editor", "open_broker_editor"), ("flow-builder", "flow_builder")):
+            if not profile.supports(capability) and not (tool == "broker-editor" and profile.supports("native_dump")):
+                continue
             try:
-                windows = commands.find_tool_windows(process.pid, tool)
+                windows = commands.find_tool_windows(process.pid, tool, profile)
                 name = "Broker Editor" if tool == "broker-editor" else "Flow Builder"
-                print(f"{name}: {'open' if len(windows) == 1 else 'closed' if not windows else 'multiple windows; close extras'}")
+                state = 'open' if len(windows) == 1 else 'closed' if not windows else 'multiple windows; close extras'
+                if tool == "broker-editor" and not profile.supports("open_broker_editor") and not windows:
+                    state = "opener disabled; open Broker Editor manually"
+                print(f"{name}: {state}")
             except (OSError, RuntimeError) as exc:
                 report_error(exc)
-        try:
-            _raw, source = core.capture_debug_buffer(process.pid)
-            print(f"Debug buffer: {source['debug_buffer_used_bytes']/1048576:.2f} / {source['debug_buffer_capacity_bytes']/1048576:.2f} MiB")
-        except (OSError, core.ObservatoryError) as exc:
-            report_error(exc)
+        if profile.supports("broker_read"):
+            try:
+                _raw, source = core.capture_debug_buffer(process.pid, profile)
+                print(f"Debug buffer: {source['debug_buffer_used_bytes']/1048576:.2f} / {source['debug_buffer_capacity_bytes']/1048576:.2f} MiB")
+            except (OSError, core.ObservatoryError) as exc:
+                report_error(exc)
     history = capture_history(root)
     print(f"Captures: {len(history)}")
     print(f"Capture folder: {root if detailed or VERBOSE else short_path(root)}")
@@ -650,7 +706,18 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
             raise core.ObservatoryError("Configure the disposable retail install or supply --exe.")
         launch_game(exe, install)
         return 0
+    requested_profile = verify_executable(args.exe) if getattr(args, "exe", None) is not None else None
     candidates, rejected = discover_processes()
+    if requested_profile is not None:
+        requested_path = os.path.normcase(str(args.exe.resolve()))
+        candidates = [
+            ProcessCandidate(candidate.pid, candidate.image_path, requested_profile.sha256, requested_profile)
+            for candidate in candidates
+            if (os.path.normcase(str(candidate.image_path.resolve())) == requested_path
+                and candidate.sha256 == requested_profile.sha256)
+        ]
+        if not candidates:
+            rejected = [*rejected, f"No running MRallye.exe matches the selected path and resolved profile: {args.exe}"]
     process = select_process(candidates, args.pid, input_fn)
     if command == "status":
         status(root, process, rejected, detailed=not getattr(args, "compact", False))
@@ -749,6 +816,7 @@ def interactive(args, root: Path, config: dict[str, str]) -> int:
         request = build_parser().parse_args(["status"])
         request.compact = True
         request.pid = args.pid
+        request.exe = args.exe
         execute(request, root, config, input)
     except Exception as exc:
         report_error(exc)
