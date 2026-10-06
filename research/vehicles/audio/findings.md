@@ -2,9 +2,11 @@
 
 ## Current result
 
-**Static reconstruction is complete; the retail-derived ID26 donor candidates
-are READY FOR HUMAN AUDIO A/B.** Audible behavior remains untested in this
-phase. The G.1 physical and unlock profile is retained as the candidate base.
+**R5V-G.2 is FULL PASS / CLOSED.** Human A/B testing confirmed that changing
+ID26's audio profile changes its engine sound while the participant remains
+physical Mercedes ID26. The final Mercedes policy uses retail
+`stock_audio_profile_id = 0`; ID19 remains the confirmed diagnostic oracle.
+The G.1 physical and unlock profile is retained as the base.
 
 The retail executable creates a `gaAiVehicleSound` component for every active
 `Race/CarN` slot. The component reads the participant's absolute
@@ -20,19 +22,19 @@ the ordinary Landcruiser profile; there is no Mercedes-only sample. The retail
 donor A therefore uses the current retail ID0 profile. Demo data was not copied
 into the retail candidate.
 
-Two controlled candidates are prepared:
+The runtime-tested candidates were:
 
-| Candidate | Audio selector for physical ID26 | Sample family | Evidence-based role |
+| Candidate | `stock_audio_profile_id` | Sample family | Human result |
 |---|---:|---|---|
-| A | ID0 Landcruiser | `vehicles/rev9` | Ordinary retail profile and closest match to historical demo Mercedes mapping |
-| B | ID19 Mattserati | `vehicles/engine9` | Human-reported bass-heavy buggy oracle |
+| A | ID0 Landcruiser | `vehicles/rev9` | Ordinary / normal stock-style engine sound |
+| B | ID19 Mattserati | `vehicles/engine9` | Clearly changed; bass-heavy buggy sound |
 
 Both candidates change only the CarID value consumed by the audio constructor
 when it is 26. The native getter still runs for every participant. No vehicle
 record, CarClass, model, wheel, physics, unlock, frontend, or race-result field
-is changed by the G.2 layer. The existing untuned warning remains intact; a
-donor test passes only if the real tuned switch branch executes and the
-warning disappears naturally.
+is changed by the G.2 layer. The original warning code remains unchanged; the
+static switch path and runtime A/B show the configured tuned profile is used.
+The warning text itself was not directly recaptured in these tests.
 
 The deterministic outputs are 3,121,214-byte retail-derived executables:
 
@@ -47,7 +49,18 @@ the exact G.1 base SHA256
 `722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`, and pass
 the candidate verifier. The G.2 hook replaces the five-byte call at VA
 `0x00408FB4`; its wrapper starts at `0x0068E679`. Both outputs retain the same
-G.1 patch set and differ from each other only in the donor immediate.
+G.1 patch set and differ at exactly one byte: the low byte of the wrapper's
+`MOV EAX, stock_audio_profile_id` immediate (`0x00` versus `0x13`). The
+corresponding captures report the exact output hashes. See
+[runtime results](runtime-results.md).
+
+The builder now accepts any matrix-verified explicit tuned retail profile
+0..24. Only ID0 and ID19 are individually human-tested here; the other tuned
+profiles are statically supported, not runtime-qualified. Profiles 25, 26 and
+27+ are rejected as configuration values.
+
+The hash-keyed ID0 executable above is the canonical Mercedes G.2 candidate;
+its already-qualified bytes were preserved through the builder generalization.
 
 ## Evidence boundary
 
@@ -57,11 +70,16 @@ switches, scalar immediates, curve-table selection, and common per-slot owner.
 `CONFIRMED_BY_CORPUS`: stock vehicle names/classes, WAV availability and
 hashes, and the G.1 pristine-to-candidate reproduction.
 
-`READY FOR HUMAN AUDIO A/B`: two deterministic retail candidates and a short
-test procedure exist.
+`CONFIRMED_BY_RUNTIME`: exact ID0 and ID19 candidate hashes, Broker identity
+captures, and human audible A/B observations agree.
 
-`NOT TESTED`: whether either donor is audible, stable, or preferable on
-Mercedes ID26. No runtime audio result is claimed.
+`HUMAN_RUNTIME_OBSERVATION`: ID0 is ordinary stock-style; ID19 is audibly
+distinct and bass-heavy. This is a subjective sound description, not proof of
+which scalar or sample component causes it.
+
+`NOT DIRECTLY RECAPTURED`: the literal untuned-warning log line. Static switch
+flow and exact candidate-driven A/B support the normal tuned path, but the
+Broker dump is not a log capture.
 
 Internal float fields and curve-table values are recorded as raw bits. Their
 precise meanings (for example RPM, load, or pitch axes) remain unknown.
@@ -76,10 +94,12 @@ precise meanings (for example RPM, load, or pitch axes) remain unknown.
 * [Buggy audio oracles](buggy-oracles.md)
 * [Cross-build comparison](cross-build.md)
 * [Historical Mercedes mapping](historical-mercedes-audio.md)
-* [ID26 donor policy](id26-policy.md)
+* [ID26 stock audio profile policy](id26-policy.md)
 * [Fallback behavior](fallback.md)
-* [Runtime handoff](runtime-plan.md)
+* [Runtime closeout](runtime-results.md)
+* [Historical runtime handoff](runtime-plan.md)
 * [Validation](validation.md)
 
-Next step: human audio A/B only. R5V-H AI pools, ordering, ID27+, T2 expansion,
-and the generic SDK remain deferred.
+R5V-G.2 is closed. R5V-H AI Opponent Vehicle Pools is the next vehicle phase
+but was not started here. Ordering, ID27+, T2 expansion, and the generic SDK
+remain deferred.

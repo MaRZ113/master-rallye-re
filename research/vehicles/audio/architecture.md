@@ -2,12 +2,13 @@
 
 ## Identity layers
 
-The retail path has two identities that the G.2 candidates keep separate:
+The retail path has two identities that the G.2 selector keeps separate:
 
 1. **Physical participant identity** — `Race/CarN/CarID`, which continues to
    identify the vehicle record, model, class, wheel family and physics family.
-2. **Audio selector** — the CarID value read by `FUN_00408F20` and consumed by
-   its native sample/tuning switches.
+2. **Audio profile identity** — semantic `stock_audio_profile_id`, encoded by
+   retail as the CarID value consumed by `FUN_00408F20`'s native sample/tuning
+   switches. The physical participant's Broker CarID stays unchanged.
 
 Retail does not expose a separate named audio-profile field. The selector is
 an input to constructor logic that combines:
@@ -45,8 +46,8 @@ The manager creates it for Car0 and every other active CarN.
 
 ## Limits
 
-The static code shows profile selection and per-frame consumption. It does not
-establish what each float or curve axis means, nor whether an audible donor is
-subjectively suitable for Mercedes. Tyre, road, collision, starter, gearbox,
-and non-engine sound design are outside this phase unless they share the
-selected engine profile (no such coupling was needed for the current proof).
+Static code maps the tuned profile chooser and per-frame consumption. Human
+A/B confirms profile ID0 sounds ordinary on ID26 and ID19 is audibly different
+and bass-heavy. It does not establish what each float or curve axis means.
+Tyre, road, collision, starter, gearbox, and non-engine sound design remain
+outside this result.

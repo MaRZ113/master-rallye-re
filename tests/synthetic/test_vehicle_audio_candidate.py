@@ -4,6 +4,7 @@ import copy
 import json
 import struct
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -46,6 +47,7 @@ class VehicleAudioCandidateTests(unittest.TestCase):
         }
         self.assertEqual(len(composites), 25)
         self.assertTrue(all(row["profile"] is not None for row in tuned))
+        self.assertTrue(all(row["explicit_tuned_case"] is True for row in tuned))
         self.assertIsNone(rows[25]["profile"])
         self.assertFalse(rows[25]["explicit_tuned_case"])
         self.assertEqual(rows[0]["name"], "Landcruiser")
@@ -54,25 +56,49 @@ class VehicleAudioCandidateTests(unittest.TestCase):
         self.assertEqual((rows[4]["curve_group"], rows[18]["curve_group"]), ("B", "C"))
 
     def test_profile_selection_only_substitutes_physical_id26(self) -> None:
-        for donor in (0, 19):
-            for car_id in range(26):
-                self.assertEqual(audio.resolve_audio_profile_id(car_id, donor), car_id)
-            self.assertEqual(audio.resolve_audio_profile_id(26, donor), donor)
-            self.assertEqual(audio.resolve_audio_profile_id(27, donor), 27)
-            self.assertEqual(audio.resolve_audio_profile_id(255, donor), 255)
+        for profile_id in range(25):
+            with self.subTest(stock_audio_profile_id=profile_id):
+                for physical_id in range(26):
+                    self.assertEqual(audio.resolve_audio_profile_id(physical_id, profile_id), physical_id)
+                self.assertEqual(audio.resolve_audio_profile_id(26, profile_id), profile_id)
+                for physical_id in (27, 255, 65535):
+                    self.assertEqual(audio.resolve_audio_profile_id(physical_id, profile_id), physical_id)
 
     def test_wrapper_forwards_slot_lookup_and_keeps_original_return_cleanup(self) -> None:
         wrapper_va = 0x0068E679
-        for donor in (0, 19):
-            body = audio.audio_wrapper_bytes(donor, wrapper_va)
-            self.assertEqual(len(body), 22)
-            self.assertEqual(body[:4], bytes.fromhex("ff742404"))
-            self.assertEqual(body[4:9], audio._call_rel32(
-                wrapper_va + 4, audio.RACE_CAR_ID_GETTER_VA
-            ))
-            self.assertEqual(body[9:14], bytes.fromhex("83f81a7505"))
-            self.assertEqual(body[14:19], b"\xB8" + struct.pack("<I", donor))
-            self.assertEqual(body[19:22], bytes.fromhex("c20400"))
+        for profile_id in range(25):
+            with self.subTest(stock_audio_profile_id=profile_id):
+                body = audio.audio_wrapper_bytes(profile_id, wrapper_va)
+                self.assertEqual(len(body), 22)
+                self.assertEqual(body[:4], bytes.fromhex("ff742404"))
+                self.assertEqual(body[4:9], audio._call_rel32(
+                    wrapper_va + 4, audio.RACE_CAR_ID_GETTER_VA
+                ))
+                self.assertEqual(body[9:14], bytes.fromhex("83f81a7505"))
+                self.assertEqual(body[14:19], b"\xB8" + struct.pack("<I", profile_id))
+                self.assertEqual(body[19:22], bytes.fromhex("c20400"))
+
+    def test_all_proven_profiles_build_deterministically_without_changing_g1_identity(self) -> None:
+        source = synthetic_pristine()
+        source_hash, g1_hash = synthetic_hashes(source)
+        for profile_id in range(25):
+            with self.subTest(stock_audio_profile_id=profile_id):
+                candidate, manifest = audio.make_candidate(
+                    source, profile_id, expected_source_sha256=source_hash,
+                    expected_g1_sha256=g1_hash,
+                )
+                repeated, repeated_manifest = audio.make_candidate(
+                    source, profile_id, expected_source_sha256=source_hash,
+                    expected_g1_sha256=g1_hash,
+                )
+                self.assertEqual(candidate, repeated)
+                self.assertEqual(manifest, repeated_manifest)
+                self.assertEqual(manifest["stock_audio_profile_id"], profile_id)
+                self.assertEqual(manifest["g1_base_sha256"], g1_hash)
+                profile = manifest["structural_self_check"]["id26"]
+                self.assertEqual((profile["id"], profile["class_local_index"]), (26, 7))
+                self.assertEqual(profile["internal_name"], "Mercedes")
+                self.assertEqual(len(candidate), len(source))
 
     def test_candidates_are_deterministic_and_a_b_diff_only_at_donor_immediate(self) -> None:
         source = synthetic_pristine()
@@ -146,11 +172,63 @@ class VehicleAudioCandidateTests(unittest.TestCase):
             audio.make_candidate(source, 0, expected_source_sha256=source_hash,
                                  expected_g1_sha256=g1_hash)
 
-    def test_candidate_refuses_unsupported_audio_profile_donor(self) -> None:
-        with self.assertRaisesRegex(audio.CandidateError, "unsupported donor CarID"):
-            audio.audio_wrapper_bytes(18, 0x0068E679)
-        with self.assertRaisesRegex(audio.CandidateError, "unsupported donor CarID"):
-            audio.resolve_audio_profile_id(26, 18)
+    def test_candidate_refuses_unsupported_stock_audio_profile_ids(self) -> None:
+        for profile_id in (-1, 25, 26, 27):
+            with self.subTest(stock_audio_profile_id=profile_id):
+                with self.assertRaises(audio.CandidateError):
+                    audio.audio_wrapper_bytes(profile_id, 0x0068E679)
+                with self.assertRaises(audio.CandidateError):
+                    audio.resolve_audio_profile_id(26, profile_id)
+
+    def test_matrix_hash_build_identity_and_tuned_records_fail_closed(self) -> None:
+        matrix_path = Path(__file__).resolve().parents[2] / "research" / "vehicles" / "audio" / "stock-audio-matrix.json"
+        matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
+        cases = []
+
+        wrong_build = copy.deepcopy(matrix)
+        wrong_build["build"]["exe_sha256"] = "0" * 64
+        cases.append((wrong_build, "matrix retail hash"))
+
+        missing_profile = copy.deepcopy(matrix)
+        missing_profile["vehicles"][0]["profile"] = None
+        cases.append((missing_profile, "no profile record"))
+
+        non_tuned = copy.deepcopy(matrix)
+        non_tuned["vehicles"][0]["explicit_tuned_case"] = False
+        cases.append((non_tuned, "tuned-case set"))
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            for index, (bad_matrix, message) in enumerate(cases):
+                with self.subTest(case=index):
+                    path = Path(temp_dir) / f"matrix-{index}.json"
+                    raw = (json.dumps(bad_matrix, separators=(",", ":")) + "\n").encode("utf-8")
+                    path.write_bytes(raw)
+                    with self.assertRaisesRegex(audio.CandidateError, message):
+                        audio.get_stock_audio_profile(
+                            0, path, expected_matrix_sha256=audio.sha256(raw)
+                        )
+
+        with self.assertRaisesRegex(audio.CandidateError, "matrix SHA256"):
+            audio.get_stock_audio_profile(0, matrix_path, expected_matrix_sha256="0" * 64)
+
+    def test_legacy_ab_manifest_refresh_requires_exact_profile_identity(self) -> None:
+        source = synthetic_pristine()
+        source_hash, g1_hash = synthetic_hashes(source)
+        _candidate, current = audio.make_candidate(
+            source, 19, expected_source_sha256=source_hash,
+            expected_g1_sha256=g1_hash,
+        )
+        legacy = copy.deepcopy(current)
+        legacy.pop("stock_audio_profile_id")
+        legacy["donor_id"] = 19
+        legacy["profile"] = "id26-audio-donor-19"
+        legacy["runtime_validation"] = "STATIC CANDIDATE — WAITING FOR HUMAN AUDIO A/B"
+        old_audio = legacy["audio_identity"]
+        old_audio.pop("stock_audio_profile_id")
+        old_audio.pop("stock_audio_profile")
+        old_audio["donor_id"] = 19
+        self.assertTrue(audio._legacy_manifest_matches(legacy, current, 19))
+        self.assertFalse(audio._legacy_manifest_matches(legacy, current, 0))
 
     def test_candidate_structural_verifier_rejects_a_mutated_hook(self) -> None:
         source = synthetic_pristine()

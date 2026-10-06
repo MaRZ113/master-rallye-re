@@ -19,12 +19,15 @@ sample hash and table-A hash are byte-identical across the analyzed builds.
 Candidate A selects current retail ID0 for audio while physical CarID remains
 26. This is a semantic reconstruction of the historical demo mapping using
 the current retail switch/table layout, not a transplant of demo bytes. The
-full old-build tuning object is not asserted byte-equivalent; runtime
-listening is still required.
+full old-build tuning object is not asserted byte-equivalent. Human listening
+now confirms retail ID0 is an ordinary stock-style sound on ID26, making it a
+suitable historical-compatible current-retail policy, but not an authentic
+unique Mercedes recording.
 
 The useful classification is:
 
 * historical Mercedes mapping exists: **YES, demo 8.4.1 and 9.3.1**;
 * unique Mercedes engine sample/profile: **NO evidence**;
 * current retail donor chosen: **stock ID0 / Landcruiser**;
-* audible suitability on retail ID26: **NOT YET TESTED**.
+* retail ID0 audible result on physical ID26: **HUMAN_RUNTIME_OBSERVATION**;
+  ordinary / normal stock-style sound.

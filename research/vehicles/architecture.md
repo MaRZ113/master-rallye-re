@@ -14,6 +14,25 @@ physical, class-local, frontend, and runtime identities:
 | Race Details identity | `Frontend/RaceDetails/CurrentVehicleString`; shared `FUN_0047C080`, group `0x35`, three bounded sites | Final candidate runtime-confirmed in single-player Master Rallye and Rallye Cup: `MERCEDES ML-320`; absolute `RaceData/CompetitorN/CarID` remains 26 |
 | Runtime race identity | participant `CarID`, `CarClass`, `CarType`, `WheelType` | ID 26, T1, Mercedes / Mercedes |
 
+## Vehicle audio identity
+
+The engine-audio constructor selects an implicit stock profile from the
+participant's absolute `Race/CarN/CarID`. The addon-facing semantic field is
+therefore `stock_audio_profile_id`, separate from `physical_vehicle_id`.
+R5V-G.2 runtime evidence proves that physical ID26 can use a different tuned
+profile while Broker state, Mercedes model/physics configuration, class,
+`CarType`, and `WheelType` remain Mercedes. The canonical Mercedes setting is
+`stock_audio_profile_id = 0` (Landcruiser, historical-compatible `rev9`/A
+profile); ID19 was the intentionally diagnostic bass-heavy A/B oracle.
+
+Retail tuned profile IDs are 0..24. ID25 and ID26 have no ordinary tuned case
+in pristine retail. The tool validates the stock profile row against the
+hash-pinned [audio matrix](audio/stock-audio-matrix.json). Profile selection
+does not rename or remap the physical vehicle. The sample family, scalar
+fields, and curve-table pair remain one indivisible stock profile; they are
+not independently configurable addon fields in this phase. Runtime evidence
+and its limits are in [G.2 results](audio/runtime-results.md).
+
 The renderer-facing localization selector is not the physical identity. The
 R5V-F display hooks preserve ID26 and specialize only confirmed presentation
 consumers. G.1 mirrors ID3 only as temporary input to the native availability

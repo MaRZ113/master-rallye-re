@@ -35,10 +35,13 @@ evidence.
 | 24 | T3 / 10 | Ufo | ufo | `3fae147b` | `3f333333` | A |
 | 25 | — | No initialized pristine retail record | rev9 fallback if passed | default `3fc00000` | default | A fallback |
 
-IDs 0–24 all have explicit audio cases. Physical ID25 is uninitialized in
-pristine retail; the active project later uses this slot for Trooper, but that
-does not create a tuned retail sound case. Physical ID26 likewise takes the
-fallback unless the G.2 audio-only selector is enabled.
+IDs 0–24 all have explicit tuned cases and are the builder's supported
+`stock_audio_profile_id` range. ID0 and ID19 were human-tested on physical
+ID26; the other 23 profiles are statically supported, not individually
+runtime-qualified. Physical ID25 is uninitialized in pristine retail; the
+active project later uses this slot for Trooper, but that does not create a
+tuned retail sound case. Physical ID26 likewise takes the fallback unless
+configured with a proven stock profile.
 
 There are five explicit sample families and 25 distinct composite tuned
 profiles across IDs 0–24. Vehicles share sample families, but no exact

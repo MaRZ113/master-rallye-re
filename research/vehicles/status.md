@@ -6,14 +6,15 @@ active branch `research/vehicles` in `master-rallye-re-vehicles`. Older
 
 ## Current phase
 
-**R5V-G.2 Vehicle Audio Identity / Sound Family — STATIC COMPLETE; READY FOR
-HUMAN AUDIO A/B.** Retail sound selection is keyed by each active participant's
-physical `Race/CarN/CarID`; ID26 currently reaches the stock untuned fallback.
-Two fail-closed, deterministic candidates select either the ID0 Landcruiser
-profile or the ID19 Mattserati profile only for the audio constructor's ID26
-lookup. Candidate hashes, patch details, and the human test are in
-[G.2 findings](audio/findings.md) and [runtime plan](audio/runtime-plan.md).
-Audibility and donor preference remain untested until the human A/B run.
+**R5V-G.2 Vehicle Audio Identity / Sound Family — FULL PASS / CLOSED.**
+Human runtime A/B confirmed that physical Mercedes ID26 remains CarID26 while
+selecting a stock engine-audio profile. Canonical Mercedes policy is
+`stock_audio_profile_id=0` (Landcruiser, historical-compatible `rev9` / curve
+A profile); ID19/Mattserati is a confirmed bass-heavy diagnostic oracle. The
+generic selector now supports only matrix-verified tuned stock IDs 0..24.
+Capture hashes, physical-identity comparison and exact binary-diff proof are
+in [G.2 runtime results](audio/runtime-results.md); architecture and limits
+are in [G.2 findings](audio/findings.md).
 
 **R5V-G.1 Vehicle Unlock + Frontend Identity Architecture — FULL PASS / CLOSED.**
 Mercedes ID26 remains a distinct physical T1 vehicle at local index 7, mirrors
@@ -39,6 +40,7 @@ and the architecture is frozen in [G.1 closeout](unlock/closeout.md).
 | Stock ID0 Race Details regression | `PASS` (owner-reported human runtime) |
 | Full stage and Results on final candidate | `PASS` (owner-reported human runtime) |
 | Physical identity | CarID 26, T1, Mercedes runtime family preserved |
+| ID26 tuned engine audio profile | ID0 ordinary profile `HUMAN_RUNTIME_OBSERVATION`; ID19 bass-heavy A/B oracle `HUMAN_RUNTIME_OBSERVATION` |
 | Normal qualified Mercedes frontend `GALOCAL UNKNOWN` | none observed |
 
 The full-stage report does not by itself claim a frontend return test. No human
@@ -48,11 +50,11 @@ not changed or qualified for ID26.
 
 ## Roadmap
 
-After human validation closes G.2, the next vehicle phase is **R5V-H — AI
-Opponent Vehicle Pools**. Later phases are R5V-I multi-slot registry expansion
+The next vehicle phase is **R5V-H — AI Opponent Vehicle Pools**. It has not
+started in this closeout. Later phases are R5V-I multi-slot registry expansion
 with a real additional T2 vehicle, then R5V-J generic Addon Vehicle SDK.
 Catalog/order refinement is deferred until multiple add-on vehicles make it
-useful. Configurable audio-family identity and T2 qualification remain
+useful. Configurable stock audio profile identity and T2 qualification remain
 prerequisites for calling the generic SDK complete.
 
 G.2 does not start AI pool, T2 expansion, ID27+, or SDK work.

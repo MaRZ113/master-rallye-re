@@ -35,10 +35,12 @@ The research candidate redirects only the five-byte getter call at
 
 1. forwards the original slot argument and ECX to `FUN_004AC660`;
 2. returns the original CarID for every value except 26;
-3. substitutes the selected stock donor ID only for the audio constructor's
-   returned selector; and
+3. substitutes the selected `stock_audio_profile_id` only for the audio
+   constructor's returned selector; and
 4. preserves the original four-byte argument cleanup (`RET 4`).
 
 No warning check, warning string, race Broker path, physical registry field,
-or VehicleRecord identity is changed. The warning should disappear only
-because the donor's actual tuned switch branch ran.
+or VehicleRecord identity is changed. Static control-flow and exact candidate
+identity show that the selected tuned switch branch should avoid the untuned
+warning arm. The literal warning's absence was not directly recaptured:
+Observatory supplied Broker dumps, not DebugView warning logs.

@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-G.2",
+  "status": "FULL PASS / CLOSED",
+  "capture_integrity": [
+    {
+      "label": "audio-id26-donor0",
+      "capture_file": "20261006-204108_audio-id26-donor0.json",
+      "raw_sidecar": "20261006-204108_audio-id26-donor0.dump.bin",
+      "raw_byte_length": 1019129,
+      "raw_sha256_metadata": "47f66586022926ee41360fcbae28a2f7e6a79531c26d7726304ae972460d9ac6",
+      "raw_sha256_actual": "47f66586022926ee41360fcbae28a2f7e6a79531c26d7726304ae972460d9ac6",
+      "raw_sidecar_status": "RAW_SIDECAR_VERIFIED",
+      "exe_sha256": "636422d0a21b5f75abd3d6233ab0fcbae26cb0dce79c1a8d40d60ad2e8ca488f",
+      "image_sha256": "636422d0a21b5f75abd3d6233ab0fcbae26cb0dce79c1a8d40d60ad2e8ca488f",
+      "exe_size": 3121214,
+      "candidate_identity": "DONOR0 CANDIDATE / CONFIRMED_BY_RUNTIME",
+      "vehicle_identity": {
+        "physical_vehicle_id": 26,
+        "car_class": 0,
+        "class_name": "T1",
+        "car_type": "Mercedes",
+        "wheel_type": "Mercedes",
+        "vehicle_select_car_model": 26,
+        "quick_race_vehicle_string": "MERCEDES ML-320",
+        "evidence": "CONFIRMED_BY_RUNTIME"
+      },
+      "audible_result": "ordinary / normal stock-style engine sound",
+      "audible_evidence": "HUMAN_RUNTIME_OBSERVATION"
+    },
+    {
+      "label": "audio-id26-donor19",
+      "capture_file": "20261006-204228_audio-id26-donor19.json",
+      "raw_sidecar": "20261006-204228_audio-id26-donor19.dump.bin",
+      "raw_byte_length": 1019127,
+      "raw_sha256_metadata": "1a779f8c6482a4dd028ff203a67db9c8708a0458e12c2fc45e979acd13a36ad0",
+      "raw_sha256_actual": "1a779f8c6482a4dd028ff203a67db9c8708a0458e12c2fc45e979acd13a36ad0",
+      "raw_sidecar_status": "RAW_SIDECAR_VERIFIED",
+      "exe_sha256": "fb11754c0c6d56b02c175a261e36d0768a72bba6d5a0fd74cbd7c7ad9d34be7b",
+      "image_sha256": "fb11754c0c6d56b02c175a261e36d0768a72bba6d5a0fd74cbd7c7ad9d34be7b",
+      "exe_size": 3121214,
+      "candidate_identity": "DONOR19 CANDIDATE / CONFIRMED_BY_RUNTIME",
+      "vehicle_identity": {
+        "physical_vehicle_id": 26,
+        "car_class": 0,
+        "class_name": "T1",
+        "car_type": "Mercedes",
+        "wheel_type": "Mercedes",
+        "vehicle_select_car_model": 26,
+        "quick_race_vehicle_string": "MERCEDES ML-320",
+        "evidence": "CONFIRMED_BY_RUNTIME"
+      },
+      "audible_result": "clear change; bass-heavy buggy sound",
+      "audible_evidence": "HUMAN_RUNTIME_OBSERVATION"
+    }
+  ],
+  "semantic_comparison": {
+    "equal_identity_fields": [
+      "Race/Car0/CarID = 26",
+      "Race/Car0/CarClass = 0 / T1",
+      "Race/Car0/CarType = Mercedes",
+      "Race/Car0/WheelType = Mercedes",
+      "Frontend/VehicleSelect/CarModel = 26",
+      "Frontend/QuickRace/CurrentVehicleString = MERCEDES ML-320"
+    ],
+    "vehicles_car0_path_count_each": 157,
+    "vehicles_car0_path_sets_match": true,
+    "stable_config_subset": "Vehicles/Car0/Dimensions, Engine, Suspension, Chassis",
+    "stable_config_path_count_each": 114,
+    "stable_config_values_match": true,
+    "physics_car0_path_count_each": 9,
+    "physics_wheel_transform_note": "Transforms differ between separate driving moments and are runtime pose/state, not donor identity.",
+    "donor_identity_leak_into_physical_state": "NO SEMANTIC DIFFERENCE OBSERVED"
+  },
+  "causal_binary_ab": {
+    "candidate_size_each": 3121214,
+    "differing_byte_count": 1,
+    "differing_file_offset": "0x28E688",
+    "wrapper_va": "0x0068E679",
+    "wrapper_immediate_offset": 15,
+    "donor0_instruction": "B8 00 00 00 00 / MOV EAX, 0",
+    "donor19_instruction": "B8 13 00 00 00 / MOV EAX, 19",
+    "classification": "AUDIO A/B CAUSAL ISOLATION / CONFIRMED_BY_BINARY_DIFF"
+  },
+  "warning_evidence": {
+    "normal_tuned_profile_path": "RUNTIME-CONFIRMED BY EXACT CANDIDATE IDENTITY AND CAUSAL AUDIBLE A/B",
+    "literal_untuned_warning": "NOT DIRECTLY RECAPTURED",
+    "note": "The Observatory files are Broker dumps, not DebugView warning logs. Static switch flow shows the selected 0/19 profile takes a normal tuned arm."
+  },
+  "final_mercedes_policy": {
+    "physical_vehicle_id": 26,
+    "stock_audio_profile_id": 0,
+    "profile_vehicle": "Landcruiser",
+    "sample_family": "vehicles/rev9",
+    "classification": "HISTORICAL-COMPATIBLE STOCK TUNED PROFILE",
+    "donor19_role": "DIAGNOSTIC / HUMAN-RUNTIME A-B ORACLE"
+  },
+  "profile_coverage": {
+    "static_supported_stock_audio_profile_ids": "0..24",
+    "human_runtime_qualified_ids_on_physical_id26": [0, 19],
+    "other_tuned_profiles": "STATICALLY_SUPPORTED / NOT INDIVIDUALLY HUMAN-TESTED",
+    "rejected_profile_ids": [25, 26],
+    "ids_27_plus": "REJECTED / NOT PRESENT AS TUNED RETAIL PROFILES"
+  },
+  "runtime_scope": "Short player-car audio A/B. This closeout does not claim a completed stage/results lifecycle or AI-pool support."
+}

@@ -7,13 +7,17 @@ Retail registry and audio constructor mapping:
 | Simmbugghini | 15 | T3 / 1 | `vehicles/engine9` | `3fbae148` | `3f87ae14` | A |
 | Mattserati | 19 | T3 / 5 | `vehicles/engine9` | `3fc7ae14` | `3f8147ae` | A |
 
-The human reports both are noticeably bass-heavy. Static evidence explains a
-shared sample family and shared curve-table pair, but their raw scalar settings
-differ. They are therefore **not one byte-identical tuned profile**. The
-audible contribution of the shared `engine9` sample versus the differing
-scalars has not been isolated by an A/B runtime test.
+Earlier listening notes describe both as bass-heavy. The G.2 A/B now directly
+confirms that ID19/Mattserati sounds clearly bass-heavy on physical Mercedes
+ID26. Static evidence explains a shared sample family and curve-table pair,
+but the raw scalar settings differ, so they are **not one byte-identical tuned
+profile**. The separate audible contributions of the shared `engine9` sample
+and differing scalars have not been isolated.
 
-Candidate B uses ID19/Mattserati. Candidate A uses ordinary ID0. The two G.2
-executables differ only in the one immediate byte encoding their donor IDs;
-the candidate builder verifies this relation. No sound asset is added or
-modified.
+Candidate B used ID19/Mattserati; canonical Candidate A uses ordinary ID0.
+Their exact executable outputs differ at only the byte encoding the selected
+profile immediate. The generalized builder verifies this relation. No sound
+asset is added or modified.
+
+ID19's bass-heavy character is `HUMAN_RUNTIME_CONFIRMED`; it does not establish
+that ID15 has an identical complete profile or sound.

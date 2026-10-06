@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Build exact-hash R5V-G.2 ID26 audio-selector research candidates.
+"""Build exact-hash R5V-G.2 ID26 stock-audio-profile research candidates.
 
 The builder starts from pristine retail, reproduces the committed G.1 Mercedes
-profile, then redirects only the CarID value consumed by the per-participant
-audio constructor. Physical participant and vehicle identity remain native.
-Generated executables belong under ignored research-output directories.
+profile, then redirects only the profile key consumed by the per-participant
+audio constructor. The key must be an explicit tuned retail profile in the
+hash-pinned matrix (IDs 0..24). Physical participant and vehicle identity
+remain native. Generated executables belong under ignored research-output.
 """
 from __future__ import annotations
 
@@ -26,36 +27,18 @@ except ImportError:  # pragma: no cover - package-style import for tests
 
 
 RETAIL_SHA256 = "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+RETAIL_SIZE = 3_121_214
 G1_SHA256 = "722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7"
+STOCK_AUDIO_MATRIX_SHA256 = "1aa17c4c28a5f35e6017c2c9b3442dd33ea56952b7905c699492db88f108c189"
+STOCK_AUDIO_MATRIX_PATH = (
+    Path(__file__).resolve().parents[1] / "research" / "vehicles" / "audio" / "stock-audio-matrix.json"
+)
+SUPPORTED_STOCK_AUDIO_PROFILE_IDS = tuple(range(25))
 TEXT_VIRTUAL_SIZE_ORIGINAL = 0x0028D294
 ID26_AUDIO_LOOKUP_CALL_VA = 0x00408FB4
 RACE_CAR_ID_GETTER_VA = 0x004AC660
 ID26_PHYSICAL_ID = 26
 ID26_PROFILE_CODE_CAVE_VA = registry.STUB_VA
-
-DONORS: dict[int, dict[str, Any]] = {
-    0: {
-        "vehicle": "Landcruiser",
-        "class": "T1",
-        "class_local_index": 0,
-        "sample_family": "vehicles/rev9",
-        "primary_sample_scalar_bits": "3fc00000",
-        "tuning_field_0x14_bits": "3f733333",
-        "curve_table_group": "A",
-        "selection_basis": "ordinary stock profile; historical demo Mercedes ID2 shares this constructor branch",
-    },
-    19: {
-        "vehicle": "Mattserati",
-        "class": "T3",
-        "class_local_index": 5,
-        "sample_family": "vehicles/engine9",
-        "primary_sample_scalar_bits": "3fc7ae14",
-        "tuning_field_0x14_bits": "3f8147ae",
-        "curve_table_group": "A",
-        "selection_basis": "human-reported bass-heavy buggy oracle; distinct raw tuning from Simmbugghini",
-    },
-}
-
 
 class CandidateError(ValueError):
     """The build identity, original bytes, or patch layout was not exact."""
@@ -63,6 +46,77 @@ class CandidateError(ValueError):
 
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def load_stock_audio_profiles(
+    matrix_path: Path | None = None,
+    *,
+    expected_matrix_sha256: str = STOCK_AUDIO_MATRIX_SHA256,
+) -> tuple[dict[str, Any], dict[int, dict[str, Any]]]:
+    """Load the pinned retail matrix and require its proven tuned profile set."""
+    path = matrix_path or STOCK_AUDIO_MATRIX_PATH
+    try:
+        raw = path.read_bytes()
+    except OSError as exc:
+        raise CandidateError(f"cannot read stock audio matrix: {path}") from exc
+    if sha256(raw) != expected_matrix_sha256.lower():
+        raise CandidateError("stock audio matrix SHA256 does not match the pinned evidence")
+    try:
+        matrix = json.loads(raw)
+    except (json.JSONDecodeError, UnicodeError) as exc:
+        raise CandidateError("stock audio matrix is not valid UTF-8 JSON") from exc
+    build = matrix.get("build") if isinstance(matrix, dict) else None
+    matrix_retail_hash = build.get("exe_sha256") if isinstance(build, dict) else None
+    if not isinstance(matrix_retail_hash, str) or matrix_retail_hash.lower() != RETAIL_SHA256:
+        raise CandidateError("stock audio matrix retail hash does not match supported retail build")
+    if build.get("size") != RETAIL_SIZE:
+        raise CandidateError("stock audio matrix retail size does not match supported retail build")
+
+    vehicles = matrix.get("vehicles")
+    if not isinstance(vehicles, list):
+        raise CandidateError("stock audio matrix has no vehicle profile list")
+    rows: dict[int, dict[str, Any]] = {}
+    for row in vehicles:
+        if not isinstance(row, dict) or type(row.get("id")) is not int:
+            raise CandidateError("stock audio matrix contains an invalid vehicle row")
+        if row["id"] in rows:
+            raise CandidateError(f"duplicate stock audio matrix ID: {row['id']}")
+        rows[row["id"]] = row
+
+    tuned_ids = {
+        vehicle_id for vehicle_id, row in rows.items()
+        if row.get("explicit_tuned_case") is True
+    }
+    if tuned_ids != set(SUPPORTED_STOCK_AUDIO_PROFILE_IDS):
+        raise CandidateError("stock audio matrix tuned-case set differs from retail IDs 0..24")
+    for vehicle_id in SUPPORTED_STOCK_AUDIO_PROFILE_IDS:
+        row = rows.get(vehicle_id)
+        if row is None or row.get("explicit_tuned_case") is not True:
+            raise CandidateError(f"stock audio profile {vehicle_id} is not an explicit tuned case")
+        if row.get("profile") is None:
+            raise CandidateError(f"stock audio profile {vehicle_id} has no profile record")
+    return matrix, rows
+
+
+def get_stock_audio_profile(
+    stock_audio_profile_id: int,
+    matrix_path: Path | None = None,
+    *,
+    expected_matrix_sha256: str = STOCK_AUDIO_MATRIX_SHA256,
+) -> dict[str, Any]:
+    if type(stock_audio_profile_id) is not int:
+        raise CandidateError(f"invalid stock_audio_profile_id: {stock_audio_profile_id!r}")
+    _matrix, rows = load_stock_audio_profiles(
+        matrix_path, expected_matrix_sha256=expected_matrix_sha256
+    )
+    profile = rows.get(stock_audio_profile_id)
+    if profile is None:
+        raise CandidateError(f"stock_audio_profile_id {stock_audio_profile_id} is absent from the matrix")
+    if profile.get("explicit_tuned_case") is not True:
+        raise CandidateError(f"stock_audio_profile_id {stock_audio_profile_id} is not explicitly tuned")
+    if profile.get("profile") is None:
+        raise CandidateError(f"stock_audio_profile_id {stock_audio_profile_id} has a null profile")
+    return profile
 
 
 def _call_rel32(source_va: int, target_va: int) -> bytes:
@@ -96,27 +150,28 @@ def _operation(name: str, category: str, offset: int, original: bytes,
     return result
 
 
-def audio_wrapper_bytes(donor_id: int, wrapper_va: int) -> bytes:
-    """Forward the original slot lookup; substitute only returned CarID 26."""
-    if donor_id not in DONORS:
-        raise CandidateError(f"unsupported donor CarID: {donor_id}")
+def audio_wrapper_bytes(stock_audio_profile_id: int, wrapper_va: int) -> bytes:
+    """Forward the original slot lookup; substitute only returned physical ID26."""
+    get_stock_audio_profile(stock_audio_profile_id)
     # push [esp+4]; call original thiscall getter; cmp eax,26; jne over mov;
-    # mov eax,donor; ret 4. ECX and all non-EAX registers remain untouched.
+    # mov eax,profile ID; ret 4. ECX/non-EAX registers remain untouched.
     body = bytearray(b"\xFF\x74\x24\x04")
     body.extend(_call_rel32(wrapper_va + len(body), RACE_CAR_ID_GETTER_VA))
     body.extend(b"\x83\xF8\x1A\x75\x05\xB8")
-    body.extend(struct.pack("<I", donor_id))
+    body.extend(struct.pack("<I", stock_audio_profile_id))
     body.extend(b"\xC2\x04\x00")
     if len(body) != 22:
         raise CandidateError("unexpected audio wrapper size")
     return bytes(body)
 
 
-def resolve_audio_profile_id(car_id: int, donor_id: int) -> int:
-    """Model the bounded selector policy for deterministic synthetic tests."""
-    if donor_id not in DONORS:
-        raise CandidateError(f"unsupported donor CarID: {donor_id}")
-    return donor_id if car_id == ID26_PHYSICAL_ID else car_id
+def resolve_audio_profile_id(
+    physical_vehicle_id: int,
+    stock_audio_profile_id: int,
+) -> int:
+    """Model audio-only identity selection; physical vehicle identity is untouched."""
+    get_stock_audio_profile(stock_audio_profile_id)
+    return stock_audio_profile_id if physical_vehicle_id == ID26_PHYSICAL_ID else physical_vehicle_id
 
 
 def _validate_operations(source: bytes, operations: list[dict[str, Any]]) -> None:
@@ -134,14 +189,13 @@ def _validate_operations(source: bytes, operations: list[dict[str, Any]]) -> Non
         prior_end = start + len(original)
 
 
-def make_candidate(data: bytes, donor_id: int, *,
+def make_candidate(data: bytes, stock_audio_profile_id: int, *,
                    expected_source_sha256: str = RETAIL_SHA256,
                    expected_g1_sha256: str = G1_SHA256) -> tuple[bytes, dict[str, Any]]:
     source_digest = sha256(data)
     if source_digest != expected_source_sha256.lower():
         raise CandidateError(f"unsupported pristine retail SHA256: {source_digest}")
-    if donor_id not in DONORS:
-        raise CandidateError(f"unsupported donor CarID: {donor_id}")
+    stock_audio_profile = get_stock_audio_profile(stock_audio_profile_id)
 
     g1_base, g1_manifest = registry.make_candidate(
         data,
@@ -170,7 +224,7 @@ def make_candidate(data: bytes, donor_id: int, *,
 
     g1_payload = bytes.fromhex(payload_op["replacement_bytes"])
     wrapper_va = ID26_PROFILE_CODE_CAVE_VA + len(g1_payload)
-    wrapper = audio_wrapper_bytes(donor_id, wrapper_va)
+    wrapper = audio_wrapper_bytes(stock_audio_profile_id, wrapper_va)
     hook_offset = _file_offset(pe, ID26_AUDIO_LOOKUP_CALL_VA, 5)
     expected_getter_call = _call_rel32(ID26_AUDIO_LOOKUP_CALL_VA, RACE_CAR_ID_GETTER_VA)
     actual_call = g1_base[hook_offset:hook_offset + 5]
@@ -211,7 +265,7 @@ def make_candidate(data: bytes, donor_id: int, *,
         "id26_audio_profile_selector_wrapper", "audio-profile-selection",
         wrapper_offset, bytes(len(wrapper)), wrapper,
         (f"forward Race/CarN/CarID unchanged except physical ID 26, whose audio selector "
-         f"uses stock donor ID {donor_id}; return convention matches original RET 4"),
+         f"uses stock_audio_profile_id {stock_audio_profile_id}; return convention matches original RET 4"),
         va=wrapper_va,
     ))
     _validate_operations(data, operations)
@@ -238,10 +292,10 @@ def make_candidate(data: bytes, donor_id: int, *,
 
     manifest = copy.deepcopy(g1_manifest)
     manifest.update({
-        "phase": "R5V-G.2 bounded physical-ID26 tuned audio identity candidate",
-        "profile": f"id26-audio-donor-{donor_id}",
+        "phase": "R5V-G.2 bounded physical-ID26 stock audio profile selector candidate",
+        "profile": f"id26-stock-audio-profile-{stock_audio_profile_id}",
         "g1_base_sha256": g1_digest,
-        "donor_id": donor_id,
+        "stock_audio_profile_id": stock_audio_profile_id,
         "patched_sha256": sha256(candidate),
         "file_size": len(candidate),
         "text_virtual_size": {
@@ -258,7 +312,10 @@ def make_candidate(data: bytes, donor_id: int, *,
         "structural_self_check": copy.deepcopy(g1_manifest["structural_self_check"]),
         "operations": operations,
         "operation_counts_by_category": dict(Counter(op["category"] for op in operations)),
-        "runtime_validation": "STATIC CANDIDATE — WAITING FOR HUMAN AUDIO A/B",
+        "runtime_validation": (
+            "Runtime qualification is keyed by exact output SHA in "
+            "research/vehicles/audio/runtime-results.json; profile reuse alone is not runtime proof."
+        ),
         "audio_identity": {
             "physical_vehicle_id": ID26_PHYSICAL_ID,
             "class": "T1",
@@ -267,11 +324,11 @@ def make_candidate(data: bytes, donor_id: int, *,
             "consumer": "FUN_00408F20 gaAiVehicleSound constructor",
             "intercept_va": f"0x{ID26_AUDIO_LOOKUP_CALL_VA:08X}",
             "wrapper_va": f"0x{wrapper_va:08X}",
-            "donor_id": donor_id,
-            "donor": copy.deepcopy(DONORS[donor_id]),
+            "stock_audio_profile_id": stock_audio_profile_id,
+            "stock_audio_profile": copy.deepcopy(stock_audio_profile),
             "physical_identity_changed": False,
             "class_model_wheel_physics_registry_changed": False,
-            "warning_behavior": "ID26 takes the selected donor's existing tuned switch branch; warning string/code is not modified",
+            "warning_behavior": "ID26 takes the selected stock profile's tuned switch branch; warning string/code is not modified",
             "applies_to_any_participant_slot": True,
         },
         "risks": [
@@ -322,8 +379,12 @@ def _verify_structure(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise CandidateError("patched candidate image base differs from retail")
     candidate_layout = {"image_base": 0x400000, "sections": sections}
     audio = manifest["audio_identity"]
+    stock_audio_profile_id = audio.get("stock_audio_profile_id")
+    if stock_audio_profile_id is None:  # pre-generalization manifest compatibility
+        stock_audio_profile_id = audio.get("donor_id")
+    get_stock_audio_profile(stock_audio_profile_id)
     wrapper_va = int(audio["wrapper_va"], 16)
-    wrapper = audio_wrapper_bytes(audio["donor_id"], wrapper_va)
+    wrapper = audio_wrapper_bytes(stock_audio_profile_id, wrapper_va)
     hook_offset = registry.va_to_file_offset(candidate_layout, ID26_AUDIO_LOOKUP_CALL_VA, 5)
     wrapper_offset = registry.va_to_file_offset(candidate_layout, wrapper_va, len(wrapper))
     if candidate[hook_offset:hook_offset + 5] != _call_rel32(ID26_AUDIO_LOOKUP_CALL_VA, wrapper_va):
@@ -338,14 +399,30 @@ def _verify_structure(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise CandidateError(f"G.1 structural regression: {exc}") from exc
 
 
+def _legacy_manifest_matches(stored: dict[str, Any], expected: dict[str, Any],
+                             stock_audio_profile_id: int) -> bool:
+    """Allow an explicit manifest refresh only for the already verified A/B bytes."""
+    audio = stored.get("audio_identity")
+    return (
+        stored.get("source_sha256") == expected.get("source_sha256")
+        and stored.get("g1_base_sha256") == expected.get("g1_base_sha256")
+        and stored.get("patched_sha256") == expected.get("patched_sha256")
+        and stored.get("file_size") == expected.get("file_size")
+        and stored.get("donor_id") == stock_audio_profile_id
+        and isinstance(audio, dict)
+        and audio.get("donor_id") == stock_audio_profile_id
+    )
+
+
 def verify_existing(source: Path, output: Path, manifest_path: Path,
-                    donor_id: int) -> dict[str, Any]:
+                    stock_audio_profile_id: int, *,
+                    refresh_manifest: bool = False) -> dict[str, Any]:
     source = source.resolve(strict=True)
     output = output.resolve(strict=True)
     manifest_path = manifest_path.resolve(strict=True)
     if source == output or os.path.samefile(source, output):
         raise CandidateError("candidate must not overwrite pristine retail")
-    expected, manifest = make_candidate(source.read_bytes(), donor_id)
+    expected, manifest = make_candidate(source.read_bytes(), stock_audio_profile_id)
     if output.read_bytes() != expected:
         raise CandidateError("candidate differs from deterministic pristine-to-G.1 rebuild")
     try:
@@ -353,13 +430,20 @@ def verify_existing(source: Path, output: Path, manifest_path: Path,
     except (json.JSONDecodeError, UnicodeError) as exc:
         raise CandidateError("invalid candidate manifest") from exc
     if stored != manifest:
-        raise CandidateError("stored manifest differs from deterministic rebuild")
-    _verify_structure(output.read_bytes(), stored)
+        if not refresh_manifest:
+            raise CandidateError(
+                "stored manifest differs from deterministic rebuild; use --refresh-manifest only "
+                "after the candidate bytes have verified"
+            )
+        if not _legacy_manifest_matches(stored, manifest, stock_audio_profile_id):
+            raise CandidateError("old manifest does not identify this exact candidate/profile")
+        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    _verify_structure(output.read_bytes(), manifest)
     return manifest
 
 
 def write_candidate(source: Path, output: Path, manifest_path: Path,
-                    donor_id: int) -> dict[str, Any]:
+                    stock_audio_profile_id: int) -> dict[str, Any]:
     source = source.resolve(strict=True)
     output = output.resolve(strict=False)
     manifest_path = manifest_path.resolve(strict=False)
@@ -372,7 +456,7 @@ def write_candidate(source: Path, output: Path, manifest_path: Path,
     if len({str(source).casefold(), str(output).casefold(), str(manifest_path).casefold()}) != 3:
         raise CandidateError("source, candidate, and manifest paths must be distinct")
     source_before = sha256(source.read_bytes())
-    candidate, manifest = make_candidate(source.read_bytes(), donor_id)
+    candidate, manifest = make_candidate(source.read_bytes(), stock_audio_profile_id)
     if source_before != manifest["source_sha256"]:
         raise CandidateError("source changed during candidate build")
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -388,16 +472,31 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", type=Path, help="exact supported pristine retail MRallye.exe")
     parser.add_argument("output", type=Path, help="new output path under research-output")
-    parser.add_argument("--donor-id", type=int, choices=tuple(DONORS), required=True)
+    parser.add_argument(
+        "--stock-audio-profile-id", "--donor-id",
+        dest="stock_audio_profile_id", type=int, required=True,
+        help="proven tuned retail audio profile ID (0..24); --donor-id is a legacy alias",
+    )
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--verify-existing", action="store_true")
+    parser.add_argument(
+        "--refresh-manifest", action="store_true",
+        help="rewrite a legacy A/B manifest only after exact candidate bytes verify",
+    )
     args = parser.parse_args(argv)
+    if args.refresh_manifest and not args.verify_existing:
+        parser.error("--refresh-manifest requires --verify-existing")
     manifest_path = args.manifest or args.output.with_name(f"{args.output.stem}.manifest.json")
     try:
         if args.verify_existing:
-            manifest = verify_existing(args.source, args.output, manifest_path, args.donor_id)
+            manifest = verify_existing(
+                args.source, args.output, manifest_path, args.stock_audio_profile_id,
+                refresh_manifest=args.refresh_manifest,
+            )
         else:
-            manifest = write_candidate(args.source, args.output, manifest_path, args.donor_id)
+            manifest = write_candidate(
+                args.source, args.output, manifest_path, args.stock_audio_profile_id
+            )
     except (CandidateError, registry.PatchError, OSError, struct.error) as exc:
         parser.exit(2, f"vehicle audio candidate refused: {exc}\n")
     print(json.dumps({
@@ -406,7 +505,7 @@ def main(argv: list[str] | None = None) -> int:
         "g1_base_sha256": manifest["g1_base_sha256"],
         "candidate_sha256": manifest["patched_sha256"],
         "size": manifest["file_size"],
-        "donor_id": args.donor_id,
+        "stock_audio_profile_id": args.stock_audio_profile_id,
         "output": str(args.output),
     }, indent=2))
     return 0
