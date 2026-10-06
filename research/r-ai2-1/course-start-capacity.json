@@ -1,0 +1,1043 @@
+{
+  "phase": "R-AI2.1",
+  "stock_course_count": 36,
+  "all_stock_courses_audited": true,
+  "all_structurally_ready_for_eight": true,
+  "courses": [
+    {
+      "course": "France1",
+      "path": "DataScene/RaceTest/France1.xml",
+      "sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 16.116010672619915,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "France2",
+      "path": "DataScene/RaceTest/France2.xml",
+      "sha256": "f7acc4cfcdc4f7d33f3ffecf84e9642440838ea269473693ae5217ac43cdfc4c",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.593987641600984,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "France_M",
+      "path": "DataScene/RaceTest/FranceM.xml",
+      "sha256": "016ce125fa72cb1294769e19062f6f7a32c8a250da2b2c463319daa087728a35",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.410530871553622,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "France_S1",
+      "path": "DataScene/RaceTest/FranceS1.xml",
+      "sha256": "8251fc03fb9e8e98745004b18527be9d7b1df168f36c142ec50ac9b481ac369e",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 15.683535953349292,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "France_S2",
+      "path": "DataScene/RaceTest/FranceS2.xml",
+      "sha256": "8bc149747d07b4da7dfecaaa7e6f9c1d32328f67bc69a6a3b82aa87633d20dc0",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.29085776012966,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "France_W",
+      "path": "DataScene/RaceTest/FranceW.xml",
+      "sha256": "8bb17a1c62957fa3bcf72f9b818ce1d750e7982354b11e4f2c97b347e140c200",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.476107902333421,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "France_W_flip",
+      "path": "DataScene/RaceTest/FranceWFlip.xml",
+      "sha256": "0329f91b035114cfdd7b2723e4f2fad1992ec7d3ab3ffe5dd85c19e568f012a4",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.178782189565165,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy1",
+      "path": "DataScene/RaceTest/Italy1.xml",
+      "sha256": "216c0b7c332058cd82ac0883e5e94482559db0570a2ef711e8d7e665dda02bc4",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.937051338070084,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy2",
+      "path": "DataScene/RaceTest/Italy2.xml",
+      "sha256": "3373926815b05480887968518c0eec3a4d1fa82d09c5d91dd739846af6ddd1d0",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.593928791927688,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy3",
+      "path": "DataScene/RaceTest/Italy3.xml",
+      "sha256": "19158249bd8ab37ab12a5ec5fe54c91eac467a369f8a43d9964f3f298695ad52",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.099624108464651,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_M1",
+      "path": "DataScene/RaceTest/ItalyM1.xml",
+      "sha256": "e8407781de37fc546f566247e3f850d6015f55b2e0956d135246594581de4d94",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.205115275843408,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_M1_flip",
+      "path": "DataScene/RaceTest/ItalyM1Flip.xml",
+      "sha256": "da0908ea5dce8d1edb45c21349eb8c34121f71471f40bb4550d0b56daf1325ed",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.235747051073494,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_M2",
+      "path": "DataScene/RaceTest/ItalyM2.xml",
+      "sha256": "bd7cfd5d92e7310d72bafd62883802a7962cc881cefd35b48dad49675f1c2c47",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 15.69404027011527,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_S1",
+      "path": "DataScene/RaceTest/ItalyS1.xml",
+      "sha256": "009cec2b253e012fbd4c948b79dc6d8837943736e1ba6747b00a215611115e66",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 12.614158711543187,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_S2",
+      "path": "DataScene/RaceTest/ItalyS2.xml",
+      "sha256": "603269076c3d065f9e105bd1eb61c6639b60846f7d3f7be7887bcb5e75773afc",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.24661466186737,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_S3",
+      "path": "DataScene/RaceTest/ItalyS3.xml",
+      "sha256": "2a2254c599bb7f37099fc09f0e25975d0cb6037781dddc191df647233eb3e888",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 12.185269795946212,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_S3_flip",
+      "path": "DataScene/RaceTest/ItalyS3Flip.xml",
+      "sha256": "5221e4dd0bca21d26d0fe8f59e6a9afe916d7524a4d10abe0d8e0d2aa548000f",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.417872409588679,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_S4",
+      "path": "DataScene/RaceTest/ItalyS4.xml",
+      "sha256": "ad3519dd7600eeef584b5ec557207aaecfcd556ef0f27549bbfd1b6f77dc4db0",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 17.08650344570233,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_W1",
+      "path": "DataScene/RaceTest/ItalyW1.xml",
+      "sha256": "cd5b35097fb17f81947633a0eafd3603c8365adab80573979625893988696c4f",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 15.170823972348982,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Italy_W2",
+      "path": "DataScene/RaceTest/ItalyW2.xml",
+      "sha256": "0b60d81eba3e23f3fc44ef4ebecf46b4f735f29f8b81f061c404773b8bae6b9f",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.313879975424188,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Spain1",
+      "path": "DataScene/RaceTest/Spain1.xml",
+      "sha256": "ae116c3633c469cef836697ade4dfbeefd9e66b415cf2e187c28e5a1094ce173",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.548472238595757,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Spain2",
+      "path": "DataScene/RaceTest/Spain2.xml",
+      "sha256": "bbde61e4ca25e6d61051d91656a8c554c5483ea0858c09410e53be07ecc6ff62",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 15.326636943570005,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Spain_M",
+      "path": "DataScene/RaceTest/SpainM.xml",
+      "sha256": "2821ec4c16e16cc5946fe14d07d485920e342222afb386de3d2c9b78c14b3a6b",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.577770748643385,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Spain_S1",
+      "path": "DataScene/RaceTest/SpainS1.xml",
+      "sha256": "47396c2f1e593e3d5dbf8d3bbf194a40e39aa9a4bfc7c3bee1eec38dd33547f3",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.827545312694209,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Spain_S1_flip",
+      "path": "DataScene/RaceTest/SpainS1Flip.xml",
+      "sha256": "7d7536df6b3959245d42d90d4c5548fbd6e6c8e20bb3a2e3692528247bef8b8d",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.401670042047174,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Spain_S2",
+      "path": "DataScene/RaceTest/SpainS2.xml",
+      "sha256": "5dfe27bbab86353b2095a238cbb28bbabf9a2bfd6e6617ca07da757c716cafd6",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.781371484725272,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Spain_W",
+      "path": "DataScene/RaceTest/SpainW.xml",
+      "sha256": "701ee0818edbf13c1d120d4bda8ff06292fe61bdee0a29321ade34d4a7b2e1ed",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 15.759800125636113,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Spain_W_flip",
+      "path": "DataScene/RaceTest/SpainWFlip.xml",
+      "sha256": "edeeb559631dcb07cfe0251abe06dd08e5a52bb2160c4af2e69acc2865125cdd",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 12.747725287281664,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Turkey1",
+      "path": "DataScene/RaceTest/Turkey1.xml",
+      "sha256": "8cca8bfe54672f8fa070c2ebfa097cfe0e842a57af675c7bae892c203ad30277",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.347435310883965,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Turkey2",
+      "path": "DataScene/RaceTest/Turkey2.xml",
+      "sha256": "da1c7362d7c7793f12cf69f60c9c7e597083f82a6f853fbeb87d98257464ad05",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 17.78850752592809,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Turkey3",
+      "path": "DataScene/RaceTest/Turkey3.xml",
+      "sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.20265503601441,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Turkey_m",
+      "path": "DataScene/RaceTest/TurkeyM.xml",
+      "sha256": "ddcf92c5dd43992529162fe2aac11b149185e3b310bb2ed3df58d800552dba38",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.193706351760154,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Turkey_s1",
+      "path": "DataScene/RaceTest/TurkeyS1.xml",
+      "sha256": "a378feeeccf7f8225b49f873268e03b312d550f4004fcadbc0112de1119c4f6f",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.468310198499118,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Turkey_s2",
+      "path": "DataScene/RaceTest/TurkeyS2.xml",
+      "sha256": "45e5e24b2e15f5b429da67439c458365d10f44a4da4e5798c8f1e06e3a183856",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.51758484345484,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Turkey_s2_flip",
+      "path": "DataScene/RaceTest/TurkeyS2Flip.xml",
+      "sha256": "44201c3da6182727f6f6a5ecbfe97fd000e47c21eac3a84049910c9024ee74f2",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 13.265522982528825,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    },
+    {
+      "course": "Turkey_w",
+      "path": "DataScene/RaceTest/TurkeyW.xml",
+      "sha256": "af2595e48d36c2f18fb41bea4f7d123e0347e8eae3c1e6c1fddf6a9b7287229b",
+      "authored_actor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "contiguous_actor_capacity": 8,
+      "start_marker_count": 4,
+      "start_edge_length": 14.626400787616962,
+      "grid": "DYNAMIC_N / 0x48EB40",
+      "static_viable_total": 8,
+      "structurally_ready_for_eight": true,
+      "terrain_clearance_runtime": "UNKNOWN",
+      "evidence": "CONFIRMED_BY_CORPUS + CONFIRMED_BY_EXE"
+    }
+  ],
+  "limit": "Templates and a nondegenerate StartArea permit the native count-based grid; geometry clearance and eight actual spawns are not runtime-proven.",
+  "native_scene_registration": {
+    "owner": "4598D0 ->45A330",
+    "registered_scene_ids": [
+      {
+        "race_scene_id": 0,
+        "course": "France1",
+        "corpus_course": "France1"
+      },
+      {
+        "race_scene_id": 1,
+        "course": "France2",
+        "corpus_course": "France2"
+      },
+      {
+        "race_scene_id": 2,
+        "course": "Italy1",
+        "corpus_course": "Italy1"
+      },
+      {
+        "race_scene_id": 3,
+        "course": "Italy2",
+        "corpus_course": "Italy2"
+      },
+      {
+        "race_scene_id": 4,
+        "course": "Italy3",
+        "corpus_course": "Italy3"
+      },
+      {
+        "race_scene_id": 5,
+        "course": "Spain1",
+        "corpus_course": "Spain1"
+      },
+      {
+        "race_scene_id": 6,
+        "course": "Spain2",
+        "corpus_course": "Spain2"
+      },
+      {
+        "race_scene_id": 7,
+        "course": "Turkey1",
+        "corpus_course": "Turkey1"
+      },
+      {
+        "race_scene_id": 8,
+        "course": "Turkey2",
+        "corpus_course": "Turkey2"
+      },
+      {
+        "race_scene_id": 9,
+        "course": "Turkey3",
+        "corpus_course": "Turkey3"
+      },
+      {
+        "race_scene_id": 10,
+        "course": "ItalyS4",
+        "corpus_course": "Italy_S4"
+      },
+      {
+        "race_scene_id": 11,
+        "course": "FranceS2",
+        "corpus_course": "France_S2"
+      },
+      {
+        "race_scene_id": 12,
+        "course": "ItalyS2",
+        "corpus_course": "Italy_S2"
+      },
+      {
+        "race_scene_id": 13,
+        "course": "TurkeyS2",
+        "corpus_course": "Turkey_s2"
+      },
+      {
+        "race_scene_id": 14,
+        "course": "ItalyW2",
+        "corpus_course": "Italy_W2"
+      },
+      {
+        "race_scene_id": 15,
+        "course": "FranceW",
+        "corpus_course": "France_W"
+      },
+      {
+        "race_scene_id": 16,
+        "course": "SpainS1",
+        "corpus_course": "Spain_S1"
+      },
+      {
+        "race_scene_id": 17,
+        "course": "TurkeyW",
+        "corpus_course": "Turkey_w"
+      },
+      {
+        "race_scene_id": 18,
+        "course": "ItalyS1",
+        "corpus_course": "Italy_S1"
+      },
+      {
+        "race_scene_id": 19,
+        "course": "ItalyM2",
+        "corpus_course": "Italy_M2"
+      },
+      {
+        "race_scene_id": 20,
+        "course": "TurkeyM",
+        "corpus_course": "Turkey_m"
+      },
+      {
+        "race_scene_id": 21,
+        "course": "SpainW",
+        "corpus_course": "Spain_W"
+      },
+      {
+        "race_scene_id": 22,
+        "course": "FranceM",
+        "corpus_course": "France_M"
+      },
+      {
+        "race_scene_id": 23,
+        "course": "ItalyW1",
+        "corpus_course": "Italy_W1"
+      },
+      {
+        "race_scene_id": 24,
+        "course": "FranceS1",
+        "corpus_course": "France_S1"
+      },
+      {
+        "race_scene_id": 25,
+        "course": "ItalyS3",
+        "corpus_course": "Italy_S3"
+      },
+      {
+        "race_scene_id": 26,
+        "course": "SpainM",
+        "corpus_course": "Spain_M"
+      },
+      {
+        "race_scene_id": 27,
+        "course": "TurkeyS1",
+        "corpus_course": "Turkey_s1"
+      },
+      {
+        "race_scene_id": 28,
+        "course": "SpainS2",
+        "corpus_course": "Spain_S2"
+      },
+      {
+        "race_scene_id": 29,
+        "course": "ItalyM1",
+        "corpus_course": "Italy_M1"
+      },
+      {
+        "race_scene_id": 30,
+        "course": "FranceWFlip",
+        "corpus_course": "France_W_flip"
+      },
+      {
+        "race_scene_id": 31,
+        "course": "TurkeyS2Flip",
+        "corpus_course": "Turkey_s2_flip"
+      },
+      {
+        "race_scene_id": 32,
+        "course": "SpainS1Flip",
+        "corpus_course": "Spain_S1_flip"
+      },
+      {
+        "race_scene_id": 33,
+        "course": "ItalyM1Flip",
+        "corpus_course": "Italy_M1_flip"
+      },
+      {
+        "race_scene_id": 34,
+        "course": "SpainWFlip",
+        "corpus_course": "Spain_W_flip"
+      },
+      {
+        "race_scene_id": 35,
+        "course": "ItalyS3Flip",
+        "corpus_course": "Italy_S3_flip"
+      },
+      {
+        "race_scene_id": 36,
+        "course": "FranceS1",
+        "corpus_course": "France_S1"
+      },
+      {
+        "race_scene_id": 37,
+        "course": "Turkey3",
+        "corpus_course": "Turkey3"
+      },
+      {
+        "race_scene_id": 38,
+        "course": "ItalyM1",
+        "corpus_course": "Italy_M1"
+      }
+    ],
+    "count": 39,
+    "unique_courses": 36,
+    "all_registered_courses_in_audit": true,
+    "alias_mapping": "Exact case/underscore normalization of registered RaceTest resource name to corpus course directory; all39 registrations map to36 corpus courses."
+  },
+  "human_closeout_caveat": "Eight-car engine pass exposed unsafe player spawn near physical course geometry; all-course clearance not proven",
+  "all_courses_physically_safe_for_eight": "UNKNOWN / REQUIRES R-GRID8"
+}

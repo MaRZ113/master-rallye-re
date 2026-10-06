@@ -1,0 +1,12 @@
+{
+  "status": "STATIC_CAPACITY_6_7_8_MATCH_ONLY",
+  "passed": 91,
+  "failed": 0,
+  "skipped": 0,
+  "runtime_full_pass": false,
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "limits": "Controlled typed Broker/heap/scene/body/ranking boundaries; no collision/damage/rendering/AI driving simulation",
+  "project_saved": false,
+  "raw_report_sha256": "ab82e7c8761a23192bee337b45bfb47bbec0c6cb0f8aff25ccd17d81ec2ee376",
+  "raw_report_committed": false
+}

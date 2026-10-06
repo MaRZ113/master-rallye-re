@@ -36,6 +36,17 @@ entries. This is **CAPACITY CLUE â€” NOT RUNTIME PARTICIPANT-CAPACITY PROOF**,
 now characterized statically in R-AI2. It proves neither engine/physics/HUD capacity8 nor eight valid
 result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
 
+## R-AI2.1 six/seven/eight capacity research
+
+CLOSED / CONFIRMED_BY_RUNTIME for normal Quick Race6/7/8.9+UNKNOWN. Exact pristine-source guarded
+candidates use stock mixed roster prefixes with unchanged visible Three, no DLL.
+Existing storage paths and native bounded enumeration support static indices5..7;
+Network inline flags, HUD markers and Results images provide an eight-slot
+conservative boundary, not engine-wide unlimited storage. All36 stock course
+XML files contain actor0..7 templates and StartArea; terrain clearance is UNKNOWN.
+91 bounded native cases pass. Human order SIX -> SEVEN -> EIGHT, full lifecycle.
+See research/r-ai2-1/findings.md and capacity-8-map.md. No UI integration or9.
+
 ## R-AI2 five-car participant capacity
 
 **CLOSED / CONFIRMED_BY_RUNTIME — EXACT FIVE-CAR TARGET.** Ordinary offline
@@ -59,7 +70,7 @@ NULL-safe empty PointsList output does not distinguish NULL from allocated-empty
 Stock heap-reclamation caveats remain; stable tested teardown is not proof of
 complete reclamation or long-run generic-N safety.
 
-Six/seven/eight/generic-N remain UNKNOWN. Public deployment still targets a
+Six/seven/eight are separately runtime-confirmed in R-AI2.1;9+/generic-N remain UNKNOWN. Public deployment still targets a
 removable fail-closed exact-build runtime mod leaving the original EXE unchanged.
 [Earlier design notes](../research/r-ai2/randomizer-follow-up.md) remain historical
 R-AI2 closeout notes. R-AI1.2 implementation is tracked separately below;
