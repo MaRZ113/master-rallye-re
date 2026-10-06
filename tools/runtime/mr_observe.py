@@ -24,16 +24,20 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Sequence
 
+# Explicitly add only this tool's own directory so `python -I` clean-extraction
+# checks work without accepting PYTHONPATH or a repository checkout.
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
 import broker_observatory as core
 import dev_command_trigger as commands
 from observatory_version import VERSION, TOOL_NAME
-from observatory_build_profiles import PROFILES, RETAIL_PRISTINE, match_profile
+from observatory_build_profiles import PROFILES
 
-SCRIPT_DIR = Path(__file__).resolve().parent
 PORTABLE = not (SCRIPT_DIR.name == "runtime" and SCRIPT_DIR.parent.name == "tools")
 REPO = SCRIPT_DIR if PORTABLE else SCRIPT_DIR.parents[1]
-if not PORTABLE:
-    from observatory_profile_resolver import resolve_executable_profile
+from observatory_profile_resolver import resolve_executable_profile
 DATA_ROOT = REPO / "observatory-data" if PORTABLE else REPO / "research-output/general-re"
 DEFAULT_CAPTURE_ROOT = DATA_ROOT / "captures" if PORTABLE else DATA_ROOT / "broker-observatory/captures"
 DEFAULT_CONFIG = DATA_ROOT / "config.json" if PORTABLE else DATA_ROOT / "runtime-config.json"
@@ -116,12 +120,10 @@ def verify_executable(path: Path):
     if path.name.casefold() != "mrallye.exe" or not path.is_file():
         raise UserError("MRallye.exe was not found. Select the installed retail MRallye.exe.", str(path))
     try:
-        if PORTABLE:
-            return match_profile(core.sha256_file(path), path.stat().st_size)
-        cache_root = REPO / ".research-output/general-re/observatory/build-profiles"
+        cache_root = DATA_ROOT / "build-profiles"
         return resolve_executable_profile(path, cache_root=cache_root)
     except ValueError as exc:
-        raise UserError("Unsupported Master Rallye executable. arbitrary patched EXEs are rejected unless an exact profile or safe Broker read core is proven.",
+        raise UserError("This executable does not match a supported Broker layout. Observatory did not connect.",
                         f"Known exact profiles: {', '.join(p.id + ': ' + p.sha256 for p in PROFILES)}\nSelected: {path}\n{exc}") from exc
 
 
@@ -186,7 +188,10 @@ def select_process(candidates: Sequence[ProcessCandidate], pid: int | None = Non
     if input_fn is None:
         raise core.ObservatoryError("Multiple Master Rallye processes found. Close extra instances, use --pid, or select one in the interactive menu.")
     for i, process in enumerate(candidates, 1):
-        print(f"[{i}] {process.profile.id} [{process.profile.profile_origin}; {process.profile.compatibility_family or 'exact profile'}] — PID {process.pid}: {process.image_path}")
+        profile = process.profile
+        print(f"[{i}] Master Rallye — PID {process.pid}: {process.image_path}")
+        if VERBOSE:
+            print(f"    Build: {profile.id}; {profile.profile_origin}; {profile.compatibility_family or 'exact profile'}")
     choice = input_fn("Select instance (0 cancels): ").strip()
     if choice == "0":
         return None
@@ -534,28 +539,34 @@ def status(root: Path, process: ProcessCandidate | None, rejected: Sequence[str]
         print("Game: not running. Launch a supported retail-family build or select its installation with [C].")
     else:
         profile = process.profile
-        print(f"Game: PID {process.pid}\nBuild: {profile.id}")
-        print(f"Profile origin: {profile.profile_origin}")
-        print(f"Broker family: {profile.compatibility_family or 'exact-profile-only'}")
+        print(f"Game: PID {process.pid}")
         if profile.profile_origin == "committed_exact":
-            print("Retail verified (committed exact profile)")
+            print("Master Rallye executable verified.")
         else:
-            print("Broker read core verified; optional capabilities remain separately gated")
-        print(f"Vehicle registry: {profile.vehicle_registry_profile}")
-        print("Capabilities:")
-        for label, capability in (
-            ("Broker read", "broker_read"),
-            ("Native Dump", "native_dump"),
-            ("Results Dump safe", "post_results_native_dump_safe"),
-            ("Broker Editor", "open_broker_editor"),
-            ("Flow Builder", "flow_builder"),
-        ):
-            value = profile.capabilities.get(capability)
-            rendered = "UNKNOWN" if value is None else "YES" if value else "NO"
-            print(f"    {label:<20} {rendered}")
-        attract = profile.capabilities.get("legacy_loading_attract_present")
-        print("    Legacy Attract      " + ("UNKNOWN" if attract is None else "PRESENT" if attract else "NEUTRALIZED"))
+            print("Master Rallye executable verified. Broker layout: compatible.")
+        results_dump_safe = profile.capabilities.get("post_results_native_dump_safe")
+        if results_dump_safe is True:
+            print("Native Dump from Race Results: verified safe.")
+        elif results_dump_safe is False:
+            print("Native Dump from Race Results: unsafe on this build; do not use there.")
+        else:
+            print("Native Dump from Race Results: safety not verified; avoid that screen.")
         if detailed or VERBOSE:
+            print(f"Build: {profile.id}\nProfile origin: {profile.profile_origin}")
+            print(f"Broker family: {profile.compatibility_family or 'exact-profile-only'}")
+            print(f"Vehicle registry: {profile.vehicle_registry_profile}\nCapabilities:")
+            for label, capability in (
+                ("Broker read", "broker_read"),
+                ("Native Dump", "native_dump"),
+                ("Results Dump safe", "post_results_native_dump_safe"),
+                ("Broker Editor", "open_broker_editor"),
+                ("Flow Builder", "flow_builder"),
+            ):
+                value = profile.capabilities.get(capability)
+                rendered = "UNKNOWN" if value is None else "YES" if value else "NO"
+                print(f"    {label:<20} {rendered}")
+            attract = profile.capabilities.get("legacy_loading_attract_present")
+            print("    Legacy Attract      " + ("UNKNOWN" if attract is None else "PRESENT" if attract else "NEUTRALIZED"))
             print(f"EXE: {process.image_path}\nSHA256: {process.sha256}")
             if profile.audit_version:
                 print(f"Audit: {profile.audit_version}; fingerprint: {profile.audit_fingerprint}")
@@ -720,7 +731,7 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
             rejected = [*rejected, f"No running MRallye.exe matches the selected path and resolved profile: {args.exe}"]
     process = select_process(candidates, args.pid, input_fn)
     if command == "status":
-        status(root, process, rejected, detailed=not getattr(args, "compact", False))
+        status(root, process, rejected, detailed=bool(args.verbose or args.debug))
         return 0
     if process is None:
         raise UserError("Master Rallye was not found. Launch pristine retail, then try again or select an installation with config set.", "\n".join(rejected))

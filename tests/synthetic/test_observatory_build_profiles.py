@@ -127,15 +127,16 @@ class KnownBuildProfileTests(unittest.TestCase):
                 self.assertEqual(source['sink_vtable'],f'0x{state["vtable"]:08X}')
                 self.assertTrue(all(call.args[-1] is p for call in read_state.call_args_list))
 
-    def test_multiple_known_processes_require_selection_and_show_profiles(self):
+    def test_multiple_known_processes_require_selection_without_internal_profile_names(self):
         candidates = [observe.ProcessCandidate(i,Path('MRallye.exe'),p.sha256)
                       for i,p in enumerate(profiles.PROFILES,1)]
         with self.assertRaises(core.ObservatoryError):
             observe.select_process(candidates)
         with contextlib.redirect_stdout(io.StringIO()) as out:
             self.assertIs(observe.select_process(candidates,input_fn=lambda _: '2'),candidates[1])
+        self.assertIn("Master Rallye",out.getvalue())
         for p in profiles.PROFILES:
-            self.assertIn(p.id,out.getvalue())
+            self.assertNotIn(p.id,out.getvalue())
 
     def test_old_snapshot_without_profile_metadata_remains_readable(self):
         old = core.parse_dump_bytes(dump([row('Test/X','1')]), {'image_sha256':core.RETAIL_SHA256})

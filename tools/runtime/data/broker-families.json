@@ -1,0 +1,369 @@
+{
+  "anchors": [
+    {
+      "length": 544,
+      "name": "resource_file_open",
+      "section": ".text",
+      "semantics": "Resource file opening owner, CreateFileA wrapper unchanged",
+      "sha256": "fe4cef790b0089966278a64a625a3cdc8ca4afb2c4fd58793df7aa5d4c556680",
+      "va": 6608176,
+      "zero_filled_tail": false
+    },
+    {
+      "length": 384,
+      "name": "broker_editor_dump_route",
+      "section": ".text",
+      "semantics": "Command2 ->4D8EC0 Broker singleton ->601D00 Dump",
+      "sha256": "264525cbe46ec3c1ea2e9c85b107864a49f9e82f107b924c0df056c5a764fd77",
+      "va": 6679616,
+      "zero_filled_tail": false
+    },
+    {
+      "length": 144,
+      "name": "broker_singleton_accessor",
+      "section": ".text",
+      "semantics": "Native Dump entry / lazy Broker singleton accessor at6F9410",
+      "sha256": "d02519fc43a42d595ccd39fa02772e68e28eb4a29d0b9f6deead6e4c05043128",
+      "va": 5082816,
+      "zero_filled_tail": false
+    },
+    {
+      "length": 272,
+      "name": "debug_logger",
+      "section": ".text",
+      "semantics": "Debug dispatch via active sink global6F7B7C",
+      "sha256": "3ee9a71942cee5360de435da99138122f17a5440f70ee8893ec55f2248e24a12",
+      "va": 5047840,
+      "zero_filled_tail": false
+    },
+    {
+      "approved_variants": [
+        {
+          "id": "native-hardened-r-ai1-v1",
+          "sha256": "3283672b6c8d16d3c46d7ffe712d7f9b3bf39bc4f3e7de494dd58a940dd89fc2"
+        }
+      ],
+      "length": 1536,
+      "name": "native_dump_walker",
+      "section": ".text",
+      "semantics": "Entry iteration and native StringList/xmlData formatter; exact stock or approved NULL-safe hardening variant",
+      "sha256": "27a0c5e3329ea58c7f9d573b33d1f86feeb3d39eea28177ac4c13ce7392d7c53",
+      "va": 6298880,
+      "zero_filled_tail": false
+    },
+    {
+      "length": 320,
+      "name": "main_loop",
+      "section": ".text",
+      "semantics": "Native main loop entry unchanged",
+      "sha256": "75a45dc2cce2b45fbb3730825615c7eeeaba25de0dfdae8816b7e207239a6483",
+      "va": 5963312,
+      "zero_filled_tail": false
+    },
+    {
+      "length": 32,
+      "name": "debug_sink_vtable",
+      "section": ".rdata",
+      "semantics": "Expected read-only Debug sink vtable",
+      "sha256": "13e9a268f984faae8c3064eabc7b9f744118849e13bec11d7f8fb1a45ac2001a",
+      "va": 6934184,
+      "zero_filled_tail": false
+    },
+    {
+      "length": 4,
+      "name": "debug_sink_global",
+      "section": ".data",
+      "semantics": "BSS pointer slot: runtime pointer remains independently validated",
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "va": 7306108,
+      "zero_filled_tail": true
+    },
+    {
+      "length": 4,
+      "name": "broker_manager_global",
+      "section": ".data",
+      "semantics": "BSS pointer slot: native owner proven by accessor",
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "va": 7312400,
+      "zero_filled_tail": true
+    },
+    {
+      "approved_variants": [
+        {
+          "continuation_va": 4607814,
+          "id": "r-ai2-loading-false-trigger-neutralization-v1",
+          "original_hex": "68841f6b00",
+          "patch_va": 4607849,
+          "replacement_hex": "e9d8ffffff",
+          "semantics": "Exact 5-byte jump to the normal success continuation; every other byte in this 32-byte anchor stays identical",
+          "sha256": "ed1ec9730d5b18c69a2544185e38828f4b0d72ba2d67fa1455fb53c56e105a52"
+        }
+      ],
+      "length": 32,
+      "name": "loading_legacy_failure",
+      "section": ".text",
+      "semantics": "Legacy SETUP.DLL loading failure->Attract path; stock or one exact approved false-trigger neutralization",
+      "sha256": "ac7ebea2514ba820039a5171a388886abf87ad7c12247b9053fb5bc9999da1c7",
+      "va": 4607841,
+      "zero_filled_tail": false
+    }
+  ],
+  "families": {
+    "retail-broker-v1": {
+      "anchor_names": [
+        "resource_file_open",
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "native_dump_walker",
+        "main_loop",
+        "debug_sink_vtable",
+        "debug_sink_global",
+        "broker_manager_global",
+        "loading_legacy_failure"
+      ],
+      "anchor_policy": "all listed bounded exact fingerprints or explicitly enumerated exact variants required; no fuzzy matching",
+      "audit_version": "retail-broker-v1.1",
+      "capabilities": {
+        "active_race_native_dump_safe": true,
+        "broker_read": true,
+        "flow_builder": false,
+        "hardened_dump": false,
+        "legacy_loading_attract_present": true,
+        "native_dump": true,
+        "open_broker_editor": true,
+        "post_results_native_dump_safe": false
+      },
+      "display_name": "Retail Broker / Debug v1",
+      "layout_policy": "same x86 PE32 ImageBase/SizeOfImage/entry point and section table; .text VirtualSize may vary within its raw section without overlap",
+      "limitations": [
+        "Native stock Results Dump is unsafe for NULL StringList payloads.",
+        "The main-window Broker Editor opener (WM_COMMAND 0x27) has no standalone anchor; it is enabled only for a complete family match with the Dump route anchor. Degraded profiles may use an already-open, signature-checked editor.",
+        "Flow Builder is not audited by this family.",
+        "Vehicle registry semantics are resolved independently."
+      ],
+      "observatory_layout_profile": "retail-pristine",
+      "pe_reference": "retail_pe",
+      "registry_detector": "independent bounded mapping fingerprints in registry-profile.json"
+    }
+  },
+  "profiles": [
+    {
+      "broker_capture_active_race": true,
+      "broker_dump_variant": "native_stock",
+      "capabilities": {
+        "active_race_native_dump_safe": true,
+        "broker_capture_active_race": true,
+        "broker_dump_variant": "native_stock",
+        "broker_read": true,
+        "flow_builder": false,
+        "hardened_dump": false,
+        "legacy_loading_attract_present": true,
+        "native_dump": true,
+        "open_broker_editor": true,
+        "post_results_native_dump_safe": false,
+        "vehicle_registry_profile": "pristine"
+      },
+      "compatibility_family": "retail-broker-v1",
+      "legacy_loading_attract_present": true,
+      "native_dump_post_results_safe": false,
+      "observatory": {
+        "active_log_sink_rva": 3111804,
+        "broker_editor_command": 2,
+        "broker_editor_dump_route_rva": 2485312,
+        "broker_manager_rva": 3118096,
+        "debug_sink_fields": {
+          "buffer_base": 40,
+          "capacity_end": 36,
+          "helper": 12,
+          "hwnd_from_helper": 4,
+          "visible_start": 32,
+          "write_end": 44
+        },
+        "debug_sink_object_size": 48,
+        "debug_sink_vtable_rva": 2739880,
+        "image_base": 4194304,
+        "native_dump_entry_rva": 888512,
+        "native_dump_walker_rva": 2104576
+      },
+      "pe": {
+        "entry_rva": 1852930,
+        "image_base": 4194304,
+        "machine": 332,
+        "pe_header_sha256": "d446afee6d26be6ba5c5b2b3ce048029a079fbb66d9130a80b2e4ff3e45015e6",
+        "sections": [
+          {
+            "characteristics": 1610612768,
+            "name": ".text",
+            "raw_offset": 4096,
+            "raw_size": 2678784,
+            "rva": 4096,
+            "virtual_size": 2675348
+          },
+          {
+            "characteristics": 1073741888,
+            "name": ".rdata",
+            "raw_offset": 2682880,
+            "raw_size": 126976,
+            "rva": 2682880,
+            "virtual_size": 123954
+          },
+          {
+            "characteristics": 3221225536,
+            "name": ".data",
+            "raw_offset": 2809856,
+            "raw_size": 294912,
+            "rva": 2809856,
+            "virtual_size": 386568
+          },
+          {
+            "characteristics": 1073741888,
+            "name": ".rsrc",
+            "raw_offset": 3104768,
+            "raw_size": 16384,
+            "rva": 3198976,
+            "virtual_size": 15032
+          }
+        ],
+        "size_of_image": 3215360,
+        "timestamp": 1006791005
+      },
+      "profile": "retail-pristine",
+      "profile_origin": "committed_exact",
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "size": 3121214,
+      "support_scope": "exact pristine structural reference",
+      "vehicle_registry_profile": "pristine"
+    },
+    {
+      "broker_capture_active_race": true,
+      "broker_dump_variant": "native_stock",
+      "capabilities": {
+        "active_race_native_dump_safe": true,
+        "broker_capture_active_race": true,
+        "broker_dump_variant": "native_stock",
+        "broker_read": true,
+        "flow_builder": false,
+        "hardened_dump": false,
+        "legacy_loading_attract_present": true,
+        "native_dump": true,
+        "open_broker_editor": true,
+        "post_results_native_dump_safe": false,
+        "vehicle_registry_profile": "merc-id26"
+      },
+      "compatibility_family": "retail-broker-v1",
+      "legacy_loading_attract_present": true,
+      "native_dump_post_results_safe": false,
+      "observatory": {
+        "active_log_sink_rva": 3111804,
+        "broker_editor_command": 2,
+        "broker_editor_dump_route_rva": 2485312,
+        "broker_manager_rva": 3118096,
+        "debug_sink_fields": {
+          "buffer_base": 40,
+          "capacity_end": 36,
+          "helper": 12,
+          "hwnd_from_helper": 4,
+          "visible_start": 32,
+          "write_end": 44
+        },
+        "debug_sink_object_size": 48,
+        "debug_sink_vtable_rva": 2739880,
+        "image_base": 4194304,
+        "native_dump_entry_rva": 888512,
+        "native_dump_walker_rva": 2104576
+      },
+      "pe": {
+        "entry_rva": 1852930,
+        "image_base": 4194304,
+        "machine": 332,
+        "pe_header_sha256": "d6a76bfec460e4ea2c2704f19c1155c970d100fcf55d03398ff399a098a5a99d",
+        "sections": [
+          {
+            "characteristics": 1610612768,
+            "name": ".text",
+            "raw_offset": 4096,
+            "raw_size": 2678784,
+            "rva": 4096,
+            "virtual_size": 2675977
+          },
+          {
+            "characteristics": 1073741888,
+            "name": ".rdata",
+            "raw_offset": 2682880,
+            "raw_size": 126976,
+            "rva": 2682880,
+            "virtual_size": 123954
+          },
+          {
+            "characteristics": 3221225536,
+            "name": ".data",
+            "raw_offset": 2809856,
+            "raw_size": 294912,
+            "rva": 2809856,
+            "virtual_size": 386568
+          },
+          {
+            "characteristics": 1073741888,
+            "name": ".rsrc",
+            "raw_offset": 3104768,
+            "raw_size": 16384,
+            "rva": 3198976,
+            "virtual_size": 15032
+          }
+        ],
+        "size_of_image": 3215360,
+        "timestamp": 1006791005
+      },
+      "profile": "retail-merc-id26",
+      "profile_origin": "committed_exact",
+      "sha256": "1fb0a1f1ba02cd05fa25f0c94558cf1b281fd12affcdc37bb3c1ca538e6c65af",
+      "size": 3121214,
+      "support_scope": "INTERNAL RESEARCH / HUMAN CAPTURE PENDING",
+      "vehicle_registry_profile": "merc-id26"
+    }
+  ],
+  "retail_pe": {
+    "entry_rva": 1852930,
+    "image_base": 4194304,
+    "machine": 332,
+    "pe_header_sha256": "d446afee6d26be6ba5c5b2b3ce048029a079fbb66d9130a80b2e4ff3e45015e6",
+    "sections": [
+      {
+        "characteristics": 1610612768,
+        "name": ".text",
+        "raw_offset": 4096,
+        "raw_size": 2678784,
+        "rva": 4096,
+        "virtual_size": 2675348
+      },
+      {
+        "characteristics": 1073741888,
+        "name": ".rdata",
+        "raw_offset": 2682880,
+        "raw_size": 126976,
+        "rva": 2682880,
+        "virtual_size": 123954
+      },
+      {
+        "characteristics": 3221225536,
+        "name": ".data",
+        "raw_offset": 2809856,
+        "raw_size": 294912,
+        "rva": 2809856,
+        "virtual_size": 386568
+      },
+      {
+        "characteristics": 1073741888,
+        "name": ".rsrc",
+        "raw_offset": 3104768,
+        "raw_size": 16384,
+        "rva": 3198976,
+        "virtual_size": 15032
+      }
+    ],
+    "size_of_image": 3215360,
+    "timestamp": 1006791005
+  },
+  "schema_version": 1
+}

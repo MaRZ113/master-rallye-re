@@ -122,7 +122,7 @@ class DiscoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder, \
              patch.object(observe.core,"capture_debug_buffer",return_value=(b"",{"debug_buffer_used_bytes":0,"debug_buffer_capacity_bytes":1})) as read, \
              contextlib.redirect_stdout(io.StringIO()) as out:
-            observe.status(Path(folder),process)
+            observe.status(Path(folder),process,detailed=True)
         rendered=out.getvalue()
         self.assertIn("Broker read          YES",rendered)
         self.assertIn("Native Dump          NO",rendered)

@@ -6,7 +6,6 @@ capabilities remain independently disabled when their own anchors do not match.
 """
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -15,14 +14,7 @@ from observatory_build_profiles import (
     ObservatoryBuildProfile,
     match_profile,
 )
-
-
-def _research_auditor():
-    tools_root = Path(__file__).resolve().parents[1]
-    if str(tools_root) not in sys.path:
-        sys.path.insert(0, str(tools_root))
-    import research_build_profiles
-    return research_build_profiles
+import observatory_compatibility as compatibility
 
 
 def _from_audit(audit: dict[str, Any], *, exact: ObservatoryBuildProfile | None = None
@@ -88,16 +80,15 @@ def resolve_executable_profile(path: Path, *, cache_root: Path | None = None,
     if path.name.casefold() != "mrallye.exe" or not path.is_file():
         raise ValueError("Expected a readable MRallye.exe file")
     data = path.read_bytes()
-    image_hash = _research_auditor().digest(data)
+    image_hash = compatibility.digest(data)
     size = len(data)
     try:
         exact = match_profile(image_hash, size)
     except ValueError:
         exact = None
 
-    auditor = _research_auditor()
     try:
-        resolved = auditor.resolve_build(
+        resolved = compatibility.resolve_build(
             data, cache_root=cache_root,
             write_local_profile=write_local_profile,
             allow_degraded=True,
@@ -110,7 +101,7 @@ def resolve_executable_profile(path: Path, *, cache_root: Path | None = None,
             # Exact profiles remain valid even when an unrelated family anchor
             # (such as Attract or resource loading) is outside this audit.
             try:
-                audit = auditor.audit_build(data)
+                audit = compatibility.audit_build(data)
             except ValueError:
                 return exact
             if audit.get("capabilities", {}).get("broker_read"):

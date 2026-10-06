@@ -63,8 +63,8 @@ class PublicUXTests(unittest.TestCase):
                 observe.verify_executable(path)
         with contextlib.redirect_stderr(io.StringIO()) as out:
             observe.report_error(caught.exception)
-        self.assertIn("Unsupported Master Rallye executable", out.getvalue())
-        self.assertIn("arbitrary patched EXEs are rejected", out.getvalue())
+        self.assertIn("does not match a supported Broker layout", out.getvalue())
+        self.assertIn("did not connect", out.getvalue())
         self.assertNotIn(core.RETAIL_SHA256, out.getvalue())
         with patch.object(observe, "VERBOSE", True), contextlib.redirect_stderr(io.StringIO()) as detail:
             observe.report_error(caught.exception)
@@ -137,7 +137,8 @@ class PublicUXTests(unittest.TestCase):
                  "debug_buffer_used_bytes": 5_000_000, "debug_buffer_capacity_bytes": 8_000_000})):
             with contextlib.redirect_stdout(io.StringIO()) as normal:
                 observe.status(Path(folder), self.process)
-            self.assertIn("Retail verified", normal.getvalue())
+            self.assertIn("Master Rallye executable verified", normal.getvalue())
+            self.assertIn("Native Dump from Race Results: unsafe on this build",normal.getvalue())
             self.assertNotIn(core.RETAIL_SHA256, normal.getvalue())
             with contextlib.redirect_stdout(io.StringIO()) as detail:
                 observe.status(Path(folder), self.process, detailed=True)
