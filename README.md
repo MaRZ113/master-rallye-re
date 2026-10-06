@@ -128,6 +128,27 @@ course writer or standard Blender importer change was added. See
 
 ## Blender add-on
 
+R5V-D adds vehicle-folder and single-resource import for observed DX revisions
+127, 131, and 135. Revision-135 index-order divergences are accepted for
+import only after per-draw oriented topology checks; all existing writers
+remain exact-sequence and revision-135 gated. Demo legacy material prefixes
+are preserved raw with conservative preview behavior. See
+[`docs/vehicle-importer.md`](docs/vehicle-importer.md),
+[`docs/vehicle-multirevision.md`](docs/vehicle-multirevision.md), and
+[`research/r5v_d/findings.md`](research/r5v_d/findings.md).
+
+**R5V-D: PASS — vehicle Blender baseline frozen.** Project-owner manual
+validation reports vehicle-folder imports passed for Demo 8.4.1 and 9.3.1,
+and cooked vehicle import passed for Demo 9.10.0, including an
+index-ordering-divergence resource; no Blender crashes were observed.
+**LEGACY MATERIAL SEMANTICS PARTIAL:** revision-127/revision-131 geometry
+imports are supported and texture lookup/UV are supported where proven, but
+alpha, alpha-test, and environment semantics are not fully decoded. Do not
+claim visual Direct3D 8 material parity for legacy demo DX. Revision 125
+remains unsupported and uninvestigated. The project-level SDK is not ready
+for public release until course/track support reaches its intended usable
+state; existing add-on build artifacts are development artifacts only.
+
 Build the installable local ZIP with:
 
 ```powershell

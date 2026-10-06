@@ -52,6 +52,10 @@ def _draw_metadata(draw):
         "unknown_0x1c_float": draw.unknown_0x1c_float,
         "flags_0x20_hex": draw.flags_0x20.hex(),
         "unknown_0x24": draw.unknown_0x24,
+        "raw_revision_prefix_hex": (
+            draw.raw_revision_prefix.hex() if draw.raw_revision_prefix is not None else None
+        ),
+        "material_semantics": draw.material_semantics,
         "texture_slots": [slot.value for slot in draw.texture_slots],
         "material_candidates": [
             {"number": item.number, "name": item.name}
@@ -111,13 +115,15 @@ def build_metadata(
         },
     }
     return {
-        "schema_version": 3,
+        "schema_version": 4,
         "phase": "R4E",
         "importer_version": IMPORTER_VERSION,
         "format_status": FORMAT_STATUS,
+        "vehicle_import_status": "R5V_D_MULTIREVISION_VEHICLE_IMPORT",
         "source": {
             "path": str(source_path.resolve()),
             "name": source_path.name,
+            "dx_revision": model.dx_revision,
             "sha256": hashlib.sha256(source_path.read_bytes()).hexdigest(),
             "byte_size": model.byte_size,
         },
@@ -171,6 +177,19 @@ def build_metadata(
         },
         "validation": {
             "validated": model.diagnostics.validated,
+            "exact_generated_valid": model.diagnostics.exact_generated_valid,
+            "structural_import_valid": model.diagnostics.import_validated,
+            "writer_revision_supported": model.diagnostics.writer_revision_supported,
+            "validation_profile": model.diagnostics.validation_profile,
+            "index_sequence_equal": model.diagnostics.index_sequence_equal,
+            "oriented_triangle_sets_equal_per_draw": (
+                model.diagnostics.oriented_triangle_sets_equal_per_draw
+            ),
+            "mismatch_position_count": model.diagnostics.mismatch_position_count,
+            "first_mismatch_position": model.diagnostics.first_mismatch_position,
+            "compared_index_count": model.diagnostics.compared_index_count,
+            "index_coverage": model.diagnostics.index_coverage,
+            "vertex_coverage": model.diagnostics.vertex_coverage,
             "global_indices_match": (
                 model.global_index_table.reconstructed_match
                 if model.global_index_table else False

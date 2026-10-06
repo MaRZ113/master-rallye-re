@@ -1,0 +1,191 @@
+{
+  "status": "PASS",
+  "blender_version": "5.2.2 LTS",
+  "demo_folder_imports": [
+    {
+      "folder": "8.4.1_Trooper",
+      "resources": [
+        {
+          "source": "8.4.1_Trooper/car.dx",
+          "revision": 127,
+          "role": "RACE BODY",
+          "vertices": 2310,
+          "triangles": 1911,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "8.4.1_Trooper/complete.dx",
+          "revision": 127,
+          "role": "PRESENTATION",
+          "vertices": 2500,
+          "triangles": 2375,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "8.4.1_Trooper/wheel.dx",
+          "revision": 127,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 127 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.3.1_Trooper",
+      "resources": [
+        {
+          "source": "9.3.1_Trooper/car.dx",
+          "revision": 131,
+          "role": "RACE BODY",
+          "vertices": 2310,
+          "triangles": 1911,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults",
+            "draw 2: missing texture 'whitesuit32-tga'"
+          ]
+        },
+        {
+          "source": "9.3.1_Trooper/complete.dx",
+          "revision": 131,
+          "role": "PRESENTATION",
+          "vertices": 2500,
+          "triangles": 2375,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        },
+        {
+          "source": "9.3.1_Trooper/wheel.dx",
+          "revision": 131,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "validation_profile": "EXACT",
+          "warnings": [
+            "revision 131 raw material prefix retained; material flags use conservative preview defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "folder": "9.10.0_dxForester",
+      "resources": [
+        {
+          "source": "9.10.0_dxForester/car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2459,
+          "triangles": 1864,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 5449 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'lights64-tga'",
+            "draw 2: missing texture 'chair2-tga'",
+            "draw 3: missing texture 'whitesuit-tga'",
+            "draw 4: missing texture 'dcambell-tga'",
+            "draw 6: missing texture 'fhelmet32-tga'",
+            "draw 7: missing texture 'drichard-tga'",
+            "draw 8: missing texture 'mastersticker216-tga'",
+            "draw 9: missing texture 'lights64-tga'",
+            "draw 10: missing texture 'rear128-tga'",
+            "draw 11: missing texture 'forestside128-tga'",
+            "draw 12: missing texture 'forestgrill64-tga'",
+            "draw 13: missing texture 'shade16-tga'",
+            "draw 14: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "9.10.0_dxForester/complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2649,
+          "triangles": 2328,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 6644 covered positions; first 0x0; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'underdash-tga'",
+            "draw 1: missing texture 'lights64-tga'",
+            "draw 2: missing texture 'chair2-tga'",
+            "draw 3: missing texture 'mastersticker216-tga'",
+            "draw 4: missing texture 'lights64-tga'",
+            "draw 5: missing texture 'rear128-tga'",
+            "draw 6: missing texture 'forestside128-tga'",
+            "draw 7: missing texture 'forestgrill64-tga'",
+            "draw 8: missing texture 'shade16-tga'",
+            "draw 9: missing texture 'forestwheel64-tga'",
+            "draw 10: missing texture 'foresttread-tga'",
+            "draw 11: missing texture 'forestwheel643-tga'",
+            "draw 12: missing texture 'forestwheel64-tga'",
+            "draw 13: missing texture 'fwheelrim-tga'",
+            "draw 14: missing texture 'windscreen32-tga'"
+          ]
+        },
+        {
+          "source": "9.10.0_dxForester/wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "validation_profile": "VALID_WITH_INDEX_ORDERING_DIVERGENCE",
+          "warnings": [
+            "stored global indices differ at 675 covered positions; first 0x3; per-draw oriented triangle topology is equivalent (VALID_WITH_INDEX_ORDERING_DIVERGENCE)",
+            "draw 0: missing texture 'forestwheel64-tga'",
+            "draw 1: missing texture 'foresttread-tga'",
+            "draw 2: missing texture 'forestwheel643-tga'",
+            "draw 3: missing texture 'forestwheel64-tga'",
+            "draw 4: missing texture 'fwheelrim-tga'"
+          ]
+        }
+      ]
+    }
+  ],
+  "retail_folder_imports": [
+    {
+      "folder": "Astero",
+      "resources": [
+        {
+          "source": "Astero/car.dx",
+          "revision": 135,
+          "role": "RACE BODY",
+          "vertices": 2543,
+          "triangles": 2021,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "Astero/complete.dx",
+          "revision": 135,
+          "role": "PRESENTATION",
+          "vertices": 2657,
+          "triangles": 2423,
+          "validation_profile": "EXACT",
+          "warnings": []
+        },
+        {
+          "source": "Astero/wheel.dx",
+          "revision": 135,
+          "role": "WHEEL TEMPLATE",
+          "vertices": 220,
+          "triangles": 252,
+          "validation_profile": "EXACT",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "uv_policy": "direct-v",
+  "custom_normal_api_applied": false
+}

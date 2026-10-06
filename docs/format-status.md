@@ -21,6 +21,24 @@ added. See [R-MAT1](../research/r-mat1/findings.md),
 Earlier milestone sections below are historical and are refined by this
 closeout where they describe unresolved material stages or Preview V2.
 
+# R5V-D multi-revision vehicle import
+
+R5V-D enables structural vehicle import for revisions 127 and 131 alongside
+the existing revision-135 reader. See the multi-revision entry near the end
+of this document and `docs/vehicle-multirevision.md`. Writer and authoring
+support remains the strict exact revision-135 profile.
+
+**R5V-D: PASS — VEHICLE BLENDER BASELINE FROZEN.** Project-owner manual
+validation reports Demo 8.4.1 and 9.3.1 vehicle-folder imports passed, as did
+Demo 9.10.0 cooked vehicle import including the index-ordering-divergence
+case; no Blender crashes were observed. **LEGACY MATERIAL SEMANTICS PARTIAL:**
+revision-127/revision-131 geometry import is supported; texture lookup and UV
+are supported where proven, while alpha, alpha-test, and environment semantics
+are not fully decoded. Do not claim visual Direct3D 8 material parity for
+legacy demo DX. Revision 125 remains unsupported and uninvestigated. This
+vehicle-only freeze does not make the project-level SDK ready for public
+release while course/track support remains incomplete.
+
 R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
 | Family | Current interpretation | Confidence | Evidence / limit |
@@ -414,7 +432,7 @@ opaque collision prefix; it did not perform broad executable analysis.
 - **CONFIRMED_BY_CORPUS:** 1,478/1,478 physical vehicle draws inventoried; 18 neutral structural signatures. Current evidence-scored sidecar resolver yields 1,365 unique, 99 multiple, and 14 unmatched draw matches. These counts reflect the current resolver.
 - **CONFIRMED_BY_EXECUTABLE:** original PE imports Direct3D 8; registered shader families include base, alpha, alphatest, environment, noise, water, and particle.
 - **HIGH_CONFIDENCE_INFERENCE:** inspected COM wrappers correspond to SetRenderState and SetTextureStageState; vehicle-specific stage mapping and operations remain UNKNOWN.
-- **PARTIAL:** Blender material preview remains first non-Null texture because the DX-to-runtime shader linkage is unresolved. No material writer was added.
+- **PARTIAL AT R4D CHECKPOINT (superseded by R-MAT1):** Blender preview used the first non-Null texture while the DX-to-runtime shader linkage remained unresolved. R-MAT1 later closed the observed vehicle material runtime model and documented the Blender Preview V3 approximation; no material writer was added.
 - **R4D VERDICT: MORE WORK NEEDED; next phase R4D.1.** See docs/vehicle-materials.md and research/r4d/findings.md.
 
 ## R4D.1 material update
@@ -470,3 +488,16 @@ The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE
 ## R5T-F.2.1 tree/tag1400 causal isolation — PASS
 
 **PASS — TREE_CARRIER_CONFIRMED.** The T-only modified hybrid produced the NEW tested collision; the U-only modified hybrid retained OLD. The visible support and FinishArea completion remained unchanged. Tag1400 is neither sufficient nor required for this tested translation; its broader runtime role remains unknown. F.1 remains the full-suffix result, F.2 the bounded parser/plane-correlation result, and F.2.1 the tree-only runtime proof. See `research/r5t_f21/runtime-results.md` and `research/r5t_f21/findings.md`. No course writer or EXE patch was added.
+
+## R5V-D multi-revision vehicle import
+
+The canonical vehicle reader and Blender add-on accept the observed revision
+127, 131, and 135 grammars. The supplied 52-file demo set has 9 revision-127,
+26 revision-131, 15 revision-135, and two unsupported revision-125 resources;
+the retail corpus adds 78 revision-135 resources. The legacy flat tag-2 prefix
+is retained raw, with preview material semantics left unknown. For revision
+135, exact global-index sequence comparison is separate from per-draw oriented
+triangle equivalence: 12 demo resources have safe ordering divergence and the
+78 retail resources remain exact. Structural import does not broaden any
+writer gate, which still requires the exact revision-135 profile. See
+`docs/vehicle-multirevision.md` and `research/r5v_d/`.

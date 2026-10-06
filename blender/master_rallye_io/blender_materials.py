@@ -234,15 +234,25 @@ class PreviewMaterialCache:
 
         helper_name = draw.texture_slots[1].value if len(draw.texture_slots)>1 else "Null"
         helper_source = self.resolver.resolve_texture(helper_name) if self.load_textures and helper_name.casefold()!="null" else None
-        show_helper = bool(helper_source and draw.unknown_0x24 & 4 and helper_name.casefold() in {"whitepaint-tga", "chrome-tga"})
+        show_helper = bool(
+            not legacy_material_fields
+            and helper_source
+            and draw.unknown_0x24 is not None
+            and draw.unknown_0x24 & 4
+            and helper_name.casefold() in {"whitepaint-tga", "chrome-tga"}
+        )
         image = None
         transparent = False
         if source is not None:
             image, transparent = self._decode_image(source)
         # Serialized byte order was traced through the executable loader:
         # flag byte 0 -> runtime +0x22, byte 1 -> +0x23.
-        alpha_enabled = bool(draw.flags_0x20[0])
-        alpha_test = bool(draw.flags_0x20[1])
+        alpha_enabled = bool(
+            not legacy_material_fields and draw.flags_0x20 and draw.flags_0x20[0]
+        )
+        alpha_test = bool(
+            not legacy_material_fields and len(draw.flags_0x20) > 1 and draw.flags_0x20[1]
+        )
         slots = tuple(slot.value for slot in draw.texture_slots)
         key = (str(source.resolve()).casefold() if source else None,
                slots, draw.flags_0x20, draw.unknown_0x24)
@@ -253,7 +263,10 @@ class PreviewMaterialCache:
         material = bpy.data.materials.new(name=f"MR Preview - {_safe(label)}")
         material.use_nodes = True
         material.diffuse_color = (1.0, 1.0, 1.0, 1.0)
-        material["mr_preview_semantics"] = "R4D1_PRIMARY_SLOT_ALPHA_ONLY"
+        material["mr_preview_semantics"] = (
+            "LEGACY_TEXTURES_CONSERVATIVE"
+            if legacy_material_fields else "R4D1_PRIMARY_SLOT_ALPHA_ONLY"
+        )
         material["mr_texture_slots_json"] = json.dumps(slots)
         material["mr_serialized_flags_0x20_hex"] = draw.flags_0x20.hex()
         material["mr_serialized_texture_mask"] = draw.unknown_0x24
@@ -265,11 +278,14 @@ class PreviewMaterialCache:
         )
         material["mr_environment_helper"] = helper_name
         material["mr_environment_confidence"] = (
-            "CONFIRMED_BY_RUNTIME_M1_M3" if helper_name.casefold() in
+            "UNKNOWN_LEGACY_FIELDS"
+            if legacy_material_fields
+            else "CONFIRMED_BY_RUNTIME_M1_M3" if helper_name.casefold() in
             {"whitepaint-tga", "chrome-tga"} else "CONFIRMED_BY_EXECUTABLE_PATH"
         )
         material["mr_primary_texture_slot"] = primary or "Null"
-        material["mr_runtime_blending_known"] = True
+        material["mr_runtime_blending_known"] = not legacy_material_fields
+        material["mr_legacy_material_fields"] = legacy_material_fields
         material["mr_preview_source_slot"] = next(
             (slot.slot for slot in draw.texture_slots if slot.value.casefold() != "null"), -1
         )

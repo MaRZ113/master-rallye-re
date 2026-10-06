@@ -20,7 +20,11 @@ class IMPORT_SCENE_OT_master_rallye_dx(bpy.types.Operator, ImportHelper):
     filter_glob: StringProperty(default="*.dx", options={"HIDDEN"})
     import_sidecar: BoolProperty(name="Import TXT sidecar metadata", default=True)
     load_textures: BoolProperty(name="Load DXT preview textures", default=True)
-    strict_validation: BoolProperty(name="Require validated geometry", default=True)
+    strict_validation: BoolProperty(
+        name="Require structurally validated geometry",
+        description="Reject invalid draw, index, and topology structure; accept proven ordering divergence",
+        default=True,
+    )
     show_collision: BoolProperty(name="Show collision overlay", default=True)
     collection_name: StringProperty(name="Collection name", default="")
 
@@ -48,6 +52,7 @@ class IMPORT_SCENE_OT_master_rallye_dx(bpy.types.Operator, ImportHelper):
         self.report(
             {"WARNING"} if result.warnings else {"INFO"},
             f"Imported {source.name}: {len(result.object.data.vertices)} vertices, "
-            f"{len(result.object.data.polygons)} triangles, {len(result.warnings)} warnings",
+            f"{len(result.object.data.polygons)} triangles, {len(result.warnings)} warnings "
+            f"(revision {result.model.dx_revision}; {result.model.diagnostics.validation_profile})",
         )
         return {"FINISHED"}
