@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "evidence_limit": "Broker capture state does not prove what was visibly rendered or whether a selected actor is active.",
+  "capture_integrity": "Each recorded raw dump SHA256 was recomputed and matched its JSON source metadata.",
+  "captures": [
+    {
+      "id": "20261006-125506_merc_vehicle-setup-menu",
+      "role": "prior F.2f Vehicle Setup baseline",
+      "exe_sha256": "1fbb3489208de9bc0af3802902a8611ea9a149c245031d1563960bd91b430c14",
+      "raw_sha256": "150691911bc30235be21ba129f26aa8e2a159a670a96a3dbd04e4716e92ce0fd",
+      "observed": {
+        "Frontend/VehicleSelect/CarModel": 26,
+        "Frontend/VehicleSelect/ManufacturerName": "MERCEDES",
+        "Frontend/VehicleSelect/ModelName": "ML-320",
+        "Frontend/VehicleSetup/CarName": "GALOCAL UNKNOWN",
+        "FrontEnd/Network/selectedCar": 26,
+        "Race/Car0/CarID": 26
+      },
+      "evidence": "BROKER_CAPTURE_ONLY"
+    },
+    {
+      "id": "20261006-125819_merc_notlocked",
+      "role": "G.1 locked ID26 Vehicle Select",
+      "exe_sha256": "ceb003aff00ee15d45d11fe838fbddfb4aa79baaaecce9a0068bf8b62cd40b8e",
+      "raw_sha256": "36646bea4141189f4e83baf53115e82e176a04f51bc136fa88fec0c4fb42c891",
+      "observed": {
+        "Progress/UnlockedCars/T1CupCar1": false,
+        "Progress/Cheats/UnlockCars": false,
+        "Progress/Cheats/UnlockAll": false,
+        "Frontend/VehicleSelect/CarModel": -1,
+        "Frontend/VehicleSelect/ManufacturerName": "CAR LOCKED",
+        "Frontend/VehicleSelect/ModelName": "CAR LOCKED",
+        "FrontEnd/Network/selectedCar": 26,
+        "Race/Car0/CarID": 26,
+        "Race/Car0/CarClass": 0
+      },
+      "evidence": "BROKER_CAPTURE_ONLY",
+      "interpretation": "Native availability/locked-text branch ran. selectedCar is cursor/highlight publication and is not proof of accept; the owner separately reported that the old widget could proceed."
+    },
+    {
+      "id": "20261006-125851_merc_vehiclesetup-menu",
+      "role": "G.1 locked ID26 Vehicle Setup state",
+      "exe_sha256": "ceb003aff00ee15d45d11fe838fbddfb4aa79baaaecce9a0068bf8b62cd40b8e",
+      "raw_sha256": "789cf3c31d9f16d744857ae61766dbe0670c27146e99c9148f67fae6f00b9c10",
+      "observed": {
+        "Progress/UnlockedCars/T1CupCar1": false,
+        "Progress/Cheats/UnlockCars": false,
+        "Progress/Cheats/UnlockAll": false,
+        "Frontend/VehicleSelect/CarModel": 26,
+        "Frontend/VehicleSelect/ManufacturerName": "CAR LOCKED",
+        "Frontend/VehicleSelect/ModelName": "CAR LOCKED",
+        "Frontend/VehicleSetup/CarName": "GALOCAL UNKNOWN",
+        "FrontEnd/Network/selectedCar": 26,
+        "Race/Car0/CarID": 26,
+        "Race/Car0/CarClass": 0
+      },
+      "evidence": "BROKER_CAPTURE_ONLY",
+      "interpretation": "The old flow published the selected ID26 into Vehicle Setup while locked; this correction makes the slot's native control gate match ID3."
+    },
+    {
+      "id": "20261006-130029_merc_unlocked",
+      "role": "G.1 unlocked ID26 Vehicle Select control",
+      "exe_sha256": "ceb003aff00ee15d45d11fe838fbddfb4aa79baaaecce9a0068bf8b62cd40b8e",
+      "raw_sha256": "6d633a83d47d583505861c4f6ac06a018ecddfa4da91101f4c4bcdb419e18a17",
+      "observed": {
+        "Progress/UnlockedCars/T1CupCar1": true,
+        "Progress/Cheats/UnlockCars": false,
+        "Progress/Cheats/UnlockAll": false,
+        "Frontend/VehicleSelect/CarModel": 26,
+        "Frontend/VehicleSelect/ManufacturerName": "MERCEDES",
+        "Frontend/VehicleSelect/ModelName": "ML-320",
+        "FrontEnd/Network/selectedCar": 26
+      },
+      "evidence": "BROKER_CAPTURE_ONLY"
+    }
+  ]
+}

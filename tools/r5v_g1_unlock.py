@@ -38,6 +38,24 @@ QUICK_RACE_CLASS_PATHS = {
     "unlock_cups": "Progress/Cheats/UnlockCups",
     "unlock_all": "Progress/Cheats/UnlockAll",
 }
+LOCK_REASON_SELECTOR_BY_ID = {
+    3: 9,
+    4: 10,
+    5: 11,
+    6: 19,
+    10: 12,
+    11: 13,
+    12: 14,
+    13: 20,
+    18: 15,
+    19: 16,
+    20: 17,
+    21: 21,
+    22: 23,
+    23: 22,
+    24: 25,
+    25: 26,
+}
 GLOBAL_CAR_CHEAT_PATHS = (
     "Progress/Cheats/UnlockAll",
     "Progress/Cheats/UnlockCars",
@@ -83,6 +101,16 @@ def id26_stock_mirror_gate(record_id: int, unlocked: dict[str, Any],
                            cheats: dict[str, Any]) -> bool | None:
     """Model the G.1 hook: only ID26 substitutes stock gate input ID3."""
     return stock_vehicle_gate(3 if record_id == 26 else record_id, unlocked, cheats)
+
+
+def stock_locked_reason_selector(vehicle_id: int) -> int:
+    """Return the selector from retail's ID-3..25 jump table (default is 8)."""
+    return LOCK_REASON_SELECTOR_BY_ID.get(vehicle_id, 8)
+
+
+def id26_locked_reason_selector(vehicle_id: int) -> int:
+    """Model the G.1 presentation hook: ID26 uses stock ID3's group-6 reason."""
+    return stock_locked_reason_selector(3 if vehicle_id == 26 else vehicle_id)
 
 
 def quickrace_reachable_classes(progress: dict[str, Any]) -> list[str] | None:

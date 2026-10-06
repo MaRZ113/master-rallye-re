@@ -55,11 +55,13 @@ def retail_layout_fixture() -> bytes:
         0x481E50: bytes.fromhex("8b44240456"),
         0x45A282: bytes.fromhex("6a0fe887"),
         0x4819CE: patcher._rel32_call(0x4819CE, 0x45A150),
+        0x481ACF: bytes.fromhex("83f8167775"),
         0x4819BD: bytes.fromhex("8bf8e8fc89fdff"),
         0x481A0E: bytes.fromhex("8b10576a338bc8ff520c"),
         0x481A4B: bytes.fromhex("8b10576a348bc8ff520c"),
         0x47A65F: bytes.fromhex("8b10566a338bc8ff520c"),
         0x47A6C4: bytes.fromhex("8b10566a348bc8ff520c"),
+        0x44FA29: bytes.fromhex("8b10576a358bc8ff520c"),
         0x481A10: b"\x57",
         0x481A4D: b"\x57",
         0x458D3F: patcher._rel32_call(0x458D3F, patcher.ORIGINAL_SECONDARY_INITIALIZER_VA),
@@ -94,6 +96,11 @@ def retail_layout_fixture() -> bytes:
 
 
 class VehicleRegistryId26PatcherTests(unittest.TestCase):
+    def test_candidates_accept_dot_research_output_root(self) -> None:
+        self.assertTrue(patcher._is_research_output(Path(".research-output/MRallye.exe")))
+        self.assertTrue(patcher._is_research_output(Path("research-output/MRallye.exe")))
+        self.assertFalse(patcher._is_research_output(Path("output/MRallye.exe")))
+
     def test_expands_storage_construction_destruction_and_secondary_array(self) -> None:
         source = retail_layout_fixture()
         candidate, manifest = patcher.make_candidate(source, expected_sha256=patcher.sha256(source))

@@ -11,7 +11,9 @@ import patch_vehicle_registry_id26 as patcher
 from r5v_g1_unlock import (
     UNLOCK_PATH_BY_ID,
     id26_stock_mirror_gate,
+    id26_locked_reason_selector,
     quickrace_reachable_classes,
+    stock_locked_reason_selector,
     stock_vehicle_gate,
     summarize_capture,
 )
@@ -48,6 +50,20 @@ class R5vG1UnlockModelTests(unittest.TestCase):
         self.assertTrue(id26_stock_mirror_gate(0, unlocked, cheats))
         self.assertFalse(id26_stock_mirror_gate(3, unlocked, cheats))
 
+    def test_locked_reason_table_is_complete_and_id26_mirrors_id3_only(self) -> None:
+        expected = {
+            3: 9, 4: 10, 5: 11, 6: 19, 7: 8, 8: 8, 9: 8,
+            10: 12, 11: 13, 12: 14, 13: 20, 14: 8, 15: 8,
+            16: 8, 17: 8, 18: 15, 19: 16, 20: 17, 21: 21,
+            22: 23, 23: 22, 24: 25, 25: 26,
+        }
+        for vehicle_id, selector in expected.items():
+            self.assertEqual(stock_locked_reason_selector(vehicle_id), selector)
+            self.assertEqual(id26_locked_reason_selector(vehicle_id), selector)
+        self.assertEqual(stock_locked_reason_selector(26), 8)
+        self.assertEqual(id26_locked_reason_selector(26), 9)
+        self.assertEqual(id26_locked_reason_selector(0), 8)
+
     def test_missing_progress_is_unknown_not_locked(self) -> None:
         self.assertIsNone(stock_vehicle_gate(3, {}, {}))
 
@@ -65,7 +81,7 @@ class R5vG1UnlockModelTests(unittest.TestCase):
 
     def test_machine_matrix_covers_every_native_slot_0_through_25(self) -> None:
         root = Path(__file__).resolve().parents[2]
-        matrix = json.loads((root / "research/r5v_g1/stock-unlock-matrix.json").read_text(
+        matrix = json.loads((root / "research/vehicles/unlock/stock-unlock-matrix.json").read_text(
             encoding="utf-8"))
         vehicles = matrix["vehicles"]
         self.assertEqual([entry["id"] for entry in vehicles], list(range(26)))
@@ -79,12 +95,13 @@ class R5vG1UnlockModelTests(unittest.TestCase):
 
     def test_matrix_and_candidate_profile_keep_physical_id26_separate(self) -> None:
         root = Path(__file__).resolve().parents[2]
-        profile = json.loads((root / "research/r5v_g1/id26-unlock-profile.json").read_text(
+        profile = json.loads((root / "research/vehicles/unlock/id26-policy.json").read_text(
             encoding="utf-8"))
         self.assertEqual(profile["physical_vehicle"]["id"], 26)
         self.assertTrue(profile["physical_vehicle"]["preserve_physical_id"])
-        self.assertEqual(profile["unlock_policy"]["stock_oracle_id"], 3)
-        self.assertFalse(profile["unlock_policy"]["registry_id_or_class_substituted"])
+        self.assertEqual(profile["availability_policy"]["oracle_id"], 3)
+        self.assertTrue(profile["availability_policy"]["physical_car_id_remains_26"])
+        self.assertFalse(profile["scope"]["registry_or_class_mapping_changed"])
 
 
 class R5vG1CandidateTests(unittest.TestCase):
@@ -133,6 +150,68 @@ class R5vG1CandidateTests(unittest.TestCase):
         self.assertEqual(structural["id26"]["class"], 0)
         self.assertEqual(structural["id26"]["class_local_index"], 7)
 
+        locked = structural["locked_presentation"]
+        self.assertEqual(locked["physical_id"], 26)
+        self.assertEqual(locked["availability_oracle_id"], 3)
+        self.assertEqual(locked["locked_requirement_group"], 6)
+        self.assertEqual(locked["stock_id3_selector"], 9)
+        self.assertEqual(locked["id26_selector"], 9)
+        self.assertTrue(locked["generic_locked_line_unchanged"])
+
+        by_name = {item["name"]: item for item in manifest["operations"]}
+        reason_patch = by_name["id26_locked_reason_selector_id3_mirror"]
+        self.assertEqual(reason_patch["virtual_address"], 0x481ACF)
+        self.assertEqual(reason_patch["original_bytes"], "83f8167775")
+        setup_patch = by_name["vehicle_setup_name_string_override_id26"]
+        self.assertEqual(setup_patch["virtual_address"], 0x44FA29)
+        self.assertEqual(setup_patch["original_bytes"], "8b10576a358bc8ff520c")
+        self.assertEqual(setup_patch["replacement_bytes"][10:], "9090909090")
+
+        # Verify native-wrapper control flow: ID26 takes selector 9; every
+        # other ID replays the stock compare, default, and original jump table.
+        lock_entry = int(structural["code_entrypoints"]["id26_locked_reason_lookup"], 16)
+        lock_stock = int(structural["code_entrypoints"]["id26_locked_reason_lookup_stock"], 16)
+        payload_offset = lock_entry - patcher.STUB_VA
+        self.assertEqual(payload[payload_offset:payload_offset + 3], bytes.fromhex("83f817"))
+        jne_delta = struct.unpack_from("<i", payload, payload_offset + 5)[0]
+        self.assertEqual(lock_entry + 9 + jne_delta, lock_stock)
+        self.assertEqual(payload[payload_offset + 9:payload_offset + 17],
+                         bytes.fromhex("83f816bb09000000"))
+        id26_jump_delta = struct.unpack_from("<i", payload, payload_offset + 18)[0]
+        self.assertEqual(lock_entry + 22 + id26_jump_delta, 0x481B49)
+        self.assertEqual(payload[lock_stock - patcher.STUB_VA:lock_stock - patcher.STUB_VA + 3],
+                         bytes.fromhex("83f816"))
+        table_dispatch = lock_stock - patcher.STUB_VA + 9
+        self.assertEqual(payload[table_dispatch:table_dispatch + 7],
+                         bytes.fromhex("ff2485941d4800"))
+        ja_delta = struct.unpack_from("<i", payload, lock_stock - patcher.STUB_VA + 5)[0]
+        self.assertEqual(lock_stock + 9 + ja_delta, 0x481B49)
+
+        # Vehicle Setup branches on physical ID26 to the existing combined
+        # string, but its stock group-0x35 call remains byte-for-byte in the
+        # non-ID26 leg.
+        setup_entry = int(structural["code_entrypoints"]["vehicle_setup_name_lookup"], 16)
+        setup_stock = int(structural["code_entrypoints"]["vehicle_setup_name_lookup_stock"], 16)
+        setup_id26 = int(structural["code_entrypoints"]["vehicle_setup_name_lookup_id26"], 16)
+        setup_offset = setup_entry - patcher.STUB_VA
+        self.assertEqual(payload[setup_offset:setup_offset + 6],
+                         bytes.fromhex("81ff1a000000"))
+        setup_je_delta = struct.unpack_from("<i", payload, setup_offset + 8)[0]
+        self.assertEqual(setup_entry + 12 + setup_je_delta, setup_id26)
+        self.assertEqual(payload[setup_stock - patcher.STUB_VA:setup_stock - patcher.STUB_VA + 10],
+                         bytes.fromhex("8b10576a358bc8ff520c"))
+        setup_stock_jump = setup_stock - patcher.STUB_VA + 10
+        stock_resume_delta = struct.unpack_from("<i", payload, setup_stock_jump + 1)[0]
+        self.assertEqual(setup_stock + 15 + stock_resume_delta, 0x44FA33)
+        self.assertEqual(payload[setup_id26 - patcher.STUB_VA], 0xB8)
+        direct_string = struct.unpack_from("<I", payload, setup_id26 - patcher.STUB_VA + 1)[0]
+        self.assertEqual(direct_string,
+                         int(structural["code_entrypoints"]["quickrace_display_text"], 16))
+        id26_resume_delta = struct.unpack_from(
+            "<i", payload, setup_id26 - patcher.STUB_VA + 6)[0]
+        self.assertEqual(setup_id26 + 10 + id26_resume_delta, 0x44FA33)
+        self.assertNotEqual(structural["id26"]["id"], 0)
+
     def test_g1_candidate_retains_f2f_frontend_string_hooks(self) -> None:
         _candidate, manifest = patcher.make_candidate(
             retail_layout_fixture(),
@@ -143,6 +222,8 @@ class R5vG1CandidateTests(unittest.TestCase):
         self.assertIn("race_options_manufacturer_lookup_id26_string_override", names)
         self.assertIn("race_options_model_lookup_id26_string_override", names)
         self.assertIn("quickrace_name_string_override_0", names)
+        self.assertIn("vehicle_setup_name_string_override_id26", names)
+        self.assertIn("id26_locked_reason_selector_id3_mirror", names)
 
 
 class R5vG1CaptureSummaryTests(unittest.TestCase):

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "source_build": "retail",
+  "ghidra_version": "12.1.4",
+  "evidence_limit": "Function/string xrefs and Broker captures identify writer paths; they do not substitute for visible UI validation.",
+  "broker_keys": {
+    "Frontend/QuickRace/CurrentManufacturerString": {
+      "writer_function": "0x0047A540",
+      "caller": "0x00479BB0",
+      "lookup_va": "0x0047A65F",
+      "source_id": "FUN_004ADFB0 result retained in ESI",
+      "group": "0x33",
+      "stock_id26_result": "GALOCAL UNKNOWN",
+      "id26_f2f_result": "MERCEDES"
+    },
+    "Frontend/QuickRace/CurrentVehicleString": {
+      "writers": [
+        {
+          "function": "0x0047A540",
+          "caller": "0x00479BB0",
+          "lookup_va": "0x0047A6C4",
+          "source_id": "FUN_004ADFB0 result retained in ESI",
+          "group": "0x34",
+          "stock_id26_result": "GALOCAL UNKNOWN",
+          "id26_f2f_result": "ML-320"
+        },
+        {
+          "function": "0x0047B040",
+          "caller": "0x0047AB30",
+          "lookup_vas": ["0x0047B0B4", "0x0047B13F", "0x0047B1BF"],
+          "group": "0x35",
+          "id26_f2e_result": "MERCEDES ML-320",
+          "manufacturer_key_written": false
+        }
+      ]
+    }
+  },
+  "other_confirmed_vehicle_name_consumers_group_35": [
+    {
+      "function": "0x0044F8E0",
+      "lookup_va": "0x0044FA29",
+      "path": "Frontend/VehicleSetup/CarName",
+      "source_id": "EDI physical Vehicle ID",
+      "id26_old_result": "GALOCAL UNKNOWN",
+      "id26_g1_result": "MERCEDES ML-320",
+      "stock_ids": "original gaLocal group-0x35 lookup"
+    },
+    {
+      "function": "0x0045EB30",
+      "lookup_vas": ["0x0045EC5A", "0x0045ECBF"],
+      "paths": ["Frontend/Challenge/Car1Text", "Frontend/Challenge/Car2Text"],
+      "source_id": "RaceTest identity fields",
+      "scope": "unchanged"
+    },
+    {
+      "function": "0x0047C080",
+      "lookup_vas": ["0x0047C0F6", "0x0047C182", "0x0047C201"],
+      "path": "Frontend/RaceDetails/CurrentVehicleString",
+      "scope": "unchanged"
+    },
+    {
+      "function": "0x004803A0",
+      "lookup_va": "0x004805E6",
+      "path": "Frontend/Trophy/CarUnlockedText2",
+      "source_id": "unlock reward / vehicle identity",
+      "scope": "unchanged"
+    }
+  ],
+  "unrelated_group_35_pushes": [
+    "0x00460E50",
+    "0x00465F53",
+    "0x00481612",
+    "0x004817D9",
+    "0x00482D5E",
+    "0x004837FE",
+    "0x0048423E",
+    "0x0048505E",
+    "0x004AF87A",
+    "0x005CFB68"
+  ],
+  "vehicle_select": {
+    "function": "0x004819B0",
+    "manufacturer_group": "0x33",
+    "model_group": "0x34",
+    "id26_values": ["MERCEDES", "ML-320"]
+  },
+  "locked_requirement": {
+    "function": "0x004819B0",
+    "group": 6,
+    "generic_locked_selector": 8,
+    "id3_and_id26_requirement_selector": 9
+  },
+  "intervention_scope": {
+    "vehicle_setup_hook": "ID26 only at 0x0044FA29",
+    "locked_reason_hook": "ID26 only at 0x00481ACF",
+    "global_gaLocal_changed": false,
+    "physical_vehicle_id_changed": false
+  }
+}

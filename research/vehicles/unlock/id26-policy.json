@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-G.1 locked-state integration correction",
+  "status": "READY_FOR_HUMAN_RUNTIME",
+  "source_executable": {
+    "profile": "retail-pristine",
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214
+  },
+  "candidate": {
+    "profile": "mercedes-g1-stock-t1-cup-car1-unlock-locked-state-correction",
+    "sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+    "size": 3121214,
+    "patch_operations": 75,
+    "code_cave_va": "0x0068E2A0",
+    "code_cave_payload_size": 841,
+    "new_patch_sites": [
+      {
+        "va": "0x00481ACF",
+        "file_offset": "0x81ACF",
+        "original_bytes": "83f8167775",
+        "replacement_bytes": "e95cca2000",
+        "purpose": "ID26-only locked-reason selector 9; replay stock table/default for all other IDs"
+      },
+      {
+        "va": "0x0044FA29",
+        "file_offset": "0x4FA29",
+        "original_bytes": "8b10576a358bc8ff520c",
+        "replacement_bytes": "e9d2ea23009090909090",
+        "purpose": "ID26-only Vehicle Setup combined-name override; preserve stock group-0x35 lookup for all other IDs"
+      }
+    ],
+    "runtime_status": "READY_FOR_HUMAN_RUNTIME"
+  },
+  "physical_vehicle": {
+    "id": 26,
+    "class": "T1",
+    "class_local_index": 7,
+    "internal_name": "Mercedes",
+    "manufacturer": "MERCEDES",
+    "model": "ML-320",
+    "runtime_family": "Mercedes",
+    "preserve_physical_id": true
+  },
+  "availability_policy": {
+    "kind": "mirror-stock-vehicle-id-3",
+    "oracle_id": 3,
+    "stock_progress_path": "Progress/UnlockedCars/T1CupCar1",
+    "bypass_paths": [
+      "Progress/Cheats/UnlockCars",
+      "Progress/Cheats/UnlockAll"
+    ],
+    "native_gate_va": "0x0045A150",
+    "vehicle_select_call_va": "0x004819CE",
+    "only_temporary_gate_input_is_mirrored": true,
+    "physical_car_id_remains_26": true
+  },
+  "locked_presentation": {
+    "owner": "FUN_004819B0",
+    "localization_group": 6,
+    "generic_first_line_selector": 8,
+    "stock_id3_requirement_selector": 9,
+    "id26_requirement_selector": 9,
+    "hook_va": "0x00481ACF",
+    "localization_data_modified": false
+  },
+  "vehicle_select_slot": {
+    "source_scene_sha256": "ec7fd6372fe5008b1039eb8e09890ef3b37396dad1581568af439cbb611b58e1",
+    "output_scene_sha256": "6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d",
+    "output_scene_size": 151995,
+    "template_widget": "T1_Car4",
+    "target_widget": "T1_Car8",
+    "normal_frame": 3,
+    "locked_frame": 15,
+    "unlocker_controls_xy_ai": 2,
+    "unlock_paths_match_id3": true
+  },
+  "vehicle_setup_name": {
+    "writer": "FUN_0044F8E0",
+    "lookup_va": "0x0044FA29",
+    "group": 53,
+    "selector_register": "EDI physical Vehicle ID",
+    "id26_text": "MERCEDES ML-320",
+    "stock_ids_replay_native_lookup": true
+  },
+  "runtime_evidence": {
+    "predicate_and_locked_branch": "CONFIRMED_BY_RUNTIME",
+    "fresh_locked_id26_commit_block": "FAILED_BEFORE_CORRECTION",
+    "corrected_locked_slot_art_and_commit_block": "PENDING_HUMAN_RUNTIME",
+    "corrected_locked_requirement_text": "PENDING_HUMAN_RUNTIME",
+    "corrected_vehicle_setup_name": "PENDING_HUMAN_RUNTIME",
+    "unlocked_id26_core_gameplay_regression": "PENDING_HUMAN_RUNTIME"
+  },
+  "scope": {
+    "registry_or_class_mapping_changed": false,
+    "physical_vehicle_id_changed": false,
+    "unlock_policy_changed": false,
+    "global_localization_behavior_changed": false,
+    "id25_bonus2_gate_preserved": true
+  }
+}
