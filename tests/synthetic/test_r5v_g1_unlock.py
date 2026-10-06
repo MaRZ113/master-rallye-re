@@ -255,6 +255,7 @@ class R5vG1CaptureSummaryTests(unittest.TestCase):
         self.assertEqual(result["stock_vehicle_id3_gate_expected"], "UNKNOWN")
         self.assertEqual(result["progress"]["T1CupCar1"]["status"], "UNKNOWN")
         self.assertEqual(result["observed_state"]["vehicle_select_car_model"]["status"], "UNKNOWN")
+        self.assertEqual(result["locked_slot_oracle"]["button"], "UNKNOWN")
 
     def test_duplicate_capture_paths_are_ambiguous(self) -> None:
         capture = {"entries": [
@@ -264,6 +265,51 @@ class R5vG1CaptureSummaryTests(unittest.TestCase):
         result = summarize_capture(capture)
         self.assertEqual(result["progress"]["T1CupCar1"]["status"], "AMBIGUOUS")
         self.assertEqual(result["stock_vehicle_id3_gate_expected"], "UNKNOWN")
+
+    def test_locked_oracle_distinguishes_highlight_from_disabled_commit_control(self) -> None:
+        def capture(vehicle_id: int, enabled: bool) -> dict[str, object]:
+            values = {
+                "Progress/UnlockedCars/T1CupCar1": False,
+                "Progress/Cheats/UnlockCars": False,
+                "Progress/Cheats/UnlockAll": False,
+                "Frontend/VehicleSelect/CarModel": -1,
+                "Frontend/VehicleSelect/ManufacturerName": "CAR LOCKED",
+                "Frontend/VehicleSelect/ModelName": "UNLOCK BY WINNING 2 T1 CUPS",
+                "FrontEnd/Network/selectedCar": vehicle_id,
+                "UI/Enabled": enabled,
+            }
+            return {"entries": [{"path": path, "value": value}
+                                for path, value in values.items()]}
+
+        id3 = summarize_capture(capture(3, False))
+        self.assertEqual(id3["locked_slot_oracle"], {
+            "highlighted_vehicle_id": 3,
+            "lock_text": "LOCK_TEXT_OK",
+            "button": "BUTTON_LOCKED",
+            "commit_behavior": "UNKNOWN_NOT_PROVEN_BY_BROKER",
+        })
+        id26 = summarize_capture(capture(26, True))
+        self.assertEqual(id26["locked_slot_oracle"], {
+            "highlighted_vehicle_id": 26,
+            "lock_text": "LOCK_TEXT_OK",
+            "button": "BUTTON_NOT_LOCKED",
+            "commit_behavior": "UNKNOWN_NOT_PROVEN_BY_BROKER",
+        })
+        self.assertIn("highlighted/current frontend identity", id26["evidence_limit"])
+
+    def test_race_details_oracle_records_both_modes_without_claiming_visible_render(self) -> None:
+        for mode, race_string in (("MASTER RALLYE", "LEG 1/10 - FRANCE"),
+                                  ("RALLYE CUP", "RACE 1/3")):
+            capture = {"entries": [
+                {"path": "Race/Car0/CarID", "value": 26},
+                {"path": "Frontend/RaceDetails/Race", "value": mode},
+                {"path": "Frontend/RaceDetails/CurrentRaceString", "value": race_string},
+                {"path": "Frontend/RaceDetails/CurrentVehicleString", "value": "GALOCAL UNKNOWN"},
+            ]}
+            result = summarize_capture(capture)
+            self.assertEqual(result["race_details_oracle"]["status"], "RACE_DETAILS_NAME_UNKNOWN")
+            self.assertEqual(result["race_details_oracle"]["mode"]["value"], mode)
+            self.assertEqual(result["race_details_oracle"]["race_car0_id"]["value"], 26)
 
 
 if __name__ == "__main__":

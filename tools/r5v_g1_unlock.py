@@ -62,11 +62,17 @@ GLOBAL_CAR_CHEAT_PATHS = (
 )
 OBSERVATORY_SUMMARY_PATHS = {
     "vehicle_select_car_model": "Frontend/VehicleSelect/CarModel",
+    "vehicle_select_manufacturer": "Frontend/VehicleSelect/ManufacturerName",
+    "vehicle_select_model_name": "Frontend/VehicleSelect/ModelName",
     "vehicle_select_class": "Frontend/VehicleSelect/VehicleText",
     "vehicle_select_class_index": "Frontend/VehicleSelect/Vehicle",
     "network_selected_car": "FrontEnd/Network/selectedCar",
+    "ui_enabled": "UI/Enabled",
     "race_car0_id": "Race/Car0/CarID",
     "race_car0_class": "Race/Car0/CarClass",
+    "race_details_vehicle_string": "Frontend/RaceDetails/CurrentVehicleString",
+    "race_details_race_string": "Frontend/RaceDetails/CurrentRaceString",
+    "race_details_mode": "Frontend/RaceDetails/Race",
 }
 
 
@@ -199,9 +205,52 @@ def summarize_capture(capture: Any) -> dict[str, Any]:
     source = capture.get("source") if isinstance(capture.get("source"), dict) else {}
     summary = {name: _observed(path, values, ambiguous)
                for name, path in OBSERVATORY_SUMMARY_PATHS.items()}
+    selected = summary["network_selected_car"]
+    highlighted_id = selected["value"] if selected["status"] == "OBSERVED" else None
+    t1_locked = bool_value("T1CupCar1") is False
+    unlock_cheats_off = (bool_value("UnlockCars") is False
+                         and bool_value("UnlockAll") is False)
+    locked_context = (highlighted_id in (3, 26) and t1_locked and unlock_cheats_off
+                      and summary["vehicle_select_car_model"] == {"status": "OBSERVED", "value": -1})
+    if locked_context:
+        manufacturer = summary["vehicle_select_manufacturer"]
+        model_name = summary["vehicle_select_model_name"]
+        if (manufacturer == {"status": "OBSERVED", "value": "CAR LOCKED"}
+                and model_name == {"status": "OBSERVED", "value": "UNLOCK BY WINNING 2 T1 CUPS"}):
+            lock_text_status = "LOCK_TEXT_OK"
+        elif manufacturer["status"] == "OBSERVED" and model_name["status"] == "OBSERVED":
+            lock_text_status = "LOCK_TEXT_MISMATCH"
+        else:
+            lock_text_status = "UNKNOWN"
+        button = summary["ui_enabled"]
+        if button == {"status": "OBSERVED", "value": False}:
+            button_status = "BUTTON_LOCKED"
+        elif button == {"status": "OBSERVED", "value": True}:
+            button_status = "BUTTON_NOT_LOCKED"
+        else:
+            button_status = "UNKNOWN"
+    else:
+        if highlighted_id is None:
+            lock_text_status = "UNKNOWN"
+            button_status = "UNKNOWN"
+        elif highlighted_id not in (3, 26):
+            lock_text_status = "NOT_APPLICABLE"
+            button_status = "NOT_APPLICABLE"
+        else:
+            lock_text_status = "UNKNOWN"
+            button_status = "UNKNOWN"
+
+    race_car0 = summary["race_car0_id"]
+    details_name = summary["race_details_vehicle_string"]
+    details_mode = summary["race_details_mode"]
+    if race_car0 == {"status": "OBSERVED", "value": 26} and details_name["status"] == "OBSERVED":
+        details_status = ("RACE_DETAILS_NAME_UNKNOWN" if details_name["value"] == "GALOCAL UNKNOWN"
+                          else "RACE_DETAILS_ID26_NAME_OBSERVED")
+    else:
+        details_status = "UNKNOWN"
     return {
         "status": "UNLOCK_STATE_SUMMARY_ONLY",
-        "evidence_limit": "Broker state does not prove rendered visibility, native hook execution, or runtime selectability.",
+        "evidence_limit": "Broker state does not prove rendered visibility, loaded XML provenance, native hook execution, or runtime selectability; selectedCar is only the highlighted/current frontend identity.",
         "capture": {
             "label": source.get("label"),
             "build": source.get("build"),
@@ -212,6 +261,20 @@ def summarize_capture(capture: Any) -> dict[str, Any]:
         "stock_vehicle_id3_gate_expected": id3_expected if id3_expected is not None else "UNKNOWN",
         "progress": progress,
         "observed_state": summary,
+        "locked_slot_oracle": {
+            "highlighted_vehicle_id": highlighted_id if highlighted_id is not None else "UNKNOWN",
+            "lock_text": lock_text_status,
+            "button": button_status,
+            "commit_behavior": "UNKNOWN_NOT_PROVEN_BY_BROKER",
+        },
+        "race_details_oracle": {
+            "mode": details_mode,
+            "vehicle_string": details_name,
+            "current_race_string": summary["race_details_race_string"],
+            "race_car0_id": race_car0,
+            "status": details_status,
+            "evidence_limit": "Broker values establish state only, not visible text rendering.",
+        },
     }
 
 

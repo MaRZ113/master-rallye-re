@@ -11,7 +11,7 @@ Vehicle Select changes; each consumer has its own owner and timing.
 | `FUN_0044F8E0` | `0x0044FA29` | Vehicle Setup `CarName`; EDI is physical ID | new ID26-only combined string wrapper |
 | `FUN_0045EB30` | `0x0045EC5A`, `0x0045ECBF` | Challenge preview `Car1Text` / `Car2Text` | unchanged; Challenge opponent pool is out of scope |
 | `FUN_0047B040` | `0x0047B0B4`, `0x0047B13F`, `0x0047B1BF` | Quick Race summary strings | existing ID26-only direct string wrappers |
-| `FUN_0047C080` | `0x0047C0F6`, `0x0047C182`, `0x0047C201` | Race Details vehicle-name fields | unchanged in this phase |
+| `FUN_0047C080` | `0x0047C0F6`, `0x0047C182`, `0x0047C201` | Race Details `CurrentVehicleString` | prior bounded xref map: group `0x35`; ID26 override pending; mode-specific caller/input not revalidated in this pass |
 | `FUN_004803A0` | `0x004805E6` | Trophy `VehicleUnlockedText2` | unchanged; reward presentation is separate |
 
 These ten sites are the vehicle-name group-0x35 consumers found in the bounded
@@ -36,6 +36,13 @@ They are not patched.
   model group `0x34` at `0x0047A6C4`; existing hooks keep the split semantics.
 * Vehicle Setup `FUN_0044F8E0`: combined group `0x35` name; the new wrapper
   returns the exact existing `MERCEDES ML-320` spelling.
+* Race Details `Frontend/RaceDetails/CurrentVehicleString`: two new runtime
+  captures show `GALOCAL UNKNOWN` while `Race/Car0/CarID=26`. Master Rallye
+  reports `Race="MASTER RALLYE"`; Rallye Cup reports `Race="RALLYE CUP"`.
+  `CurrentRaceString` is respectively `LEG 1/10 - FRANCE` and `RACE 1/3`.
+  Existing static xref inventory names `FUN_0047C080` and three group-0x35
+  sites, but the mode-specific entry and identity input are not established by
+  these captures. Do not infer direct use of `Race/Car0/CarID` from co-presence.
 * Runtime `CarType` and `WheelType` remain registry/runtime identity and are
   not localization selectors.
 
@@ -71,6 +78,17 @@ not a stale Quick Race field: `FUN_0044F8E0` passes the physical ID into the
 group-0x35 table and receives `GALOCAL UNKNOWN` at `0x0044FA29`. The G.1
 correction adds an ID26-only return at that consumer and leaves all unrelated
 group-0x35 calls unchanged.
+
+## Race Details failure and scope gate
+
+The Master Rallye and Rallye Cup captures independently show the correct
+physical `CarID=26` at Race Details while their shared Broker output path says
+`GALOCAL UNKNOWN`. This confirms a separate presentation failure, not a
+physical ID alias. No Race Details patch was added: the same captures show the
+running Root lacked the generated loose VehicleSelect scene, so this correction
+first fixes staging and requires a postlaunch Root-header check. After that
+deployment gate, revalidate the static `FUN_0047C080` consumers and trace the
+mode-specific source before implementing a bounded ID26 display fix.
 
 The proven screen order is therefore: Vehicle Select writes its own identity;
 the Quick Race summary refresh writes the combined string; Quick Mode Select /

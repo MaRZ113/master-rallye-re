@@ -1,71 +1,61 @@
 # R5V-G.1 — locked-state integration correction
 
-## Status
+## Current status
 
-**READY FOR HUMAN RUNTIME.** The correction candidate is deterministic and
-fail-closed against the exact pristine retail EXE. The stock-locked ID3 oracle,
-ID26 locked visuals/commit gate, and naturally unlocked ID26 regression still
-need human validation on this exact EXE-plus-XML pair.
+**RUNTIME RETEST REQUIRED.** Human testing confirmed the ID26 stock-like gate,
+native locked branch, and ID3 requirement string. The prior runtime process used
+the exact candidate EXE, but its captured resource Root did not contain the
+generated VehicleSelect overlay. The ID26 slot-art and commit-control behavior
+therefore remains untested with the corrected XML. A pinned resource package
+and prelaunch verifier now stage the same semantic candidate under a new root.
 
-## Runtime evidence carried forward
+## Runtime correction #2 evidence
 
-The new captures confirm the stock-like predicate itself is working:
+The raw sidecars for `20261006-143000_merc_not-locked`,
+`20261006-143558_id3-locked`, `20261006-143842_merc-masterrallye-mode`, and
+`20261006-144257_merc-rallyecup-mode` hash-match their JSON metadata.
 
-* With `Progress/UnlockedCars/T1CupCar1=False` and both car cheats false,
-  Vehicle Select reports `CarModel=-1`, `ManufacturerName=CAR LOCKED`, and
-  `ModelName=CAR LOCKED` for the highlighted ID26.
-* With `T1CupCar1=True` and cheats false, it reports physical `CarModel=26`,
-  `MERCEDES`, and `ML-320`.
-* The locked-state capture also contains `selectedCar=26` and `Race/Car0/CarID=26`.
-  Those Broker values do not by themselves prove that the user committed the
-  car; `selectedCar` is published by the highlight/cursor path. The owner also
-  reported that the old ID26 widget could be committed, which is the defect to
-  correct.
-* Vehicle Setup currently reports `GALOCAL UNKNOWN` for ID26, with the native
-  diagnostic `gaLocal: Can't find id [53]`. Decimal 53 is group `0x35`.
+Fresh locked state:
 
-Capture IDs and JSON/raw hashes are in `runtime-captures.json`. The F.2f setup
-capture is kept distinct from the three G.1 locked/unlocked snapshots.
+* ID3: `CarModel=-1`, `CAR LOCKED`, `UNLOCK BY WINNING 2 T1 CUPS`,
+  `selectedCar=3`, `UI/Enabled=False`.
+* ID26: same locked text, `CarModel=-1`, `selectedCar=26`,
+  `UI/Enabled=True`.
 
-## Static result
+The owner observed ID26 accepted into a race, where `CarID=26` and
+`CarClass=0`. This separates the actual interaction result from `selectedCar`.
+The latter is only the highlighted/current frontend identity: stock locked ID3
+also publishes its ID before acceptance.
 
-The native vehicle gate `FUN_0045A150` reads the absolute record ID and applies
-the stock progress and cheat rules. The current wrapper supplies ID3 only as a
-temporary gate input for physical ID26. The ID3 rule is
-`Progress/UnlockedCars/T1CupCar1`; ID25 retains its `Bonus2` predicate.
+Race Details separately fails in both captured modes: `Race/Car0/CarID=26`,
+but `Frontend/RaceDetails/CurrentVehicleString="GALOCAL UNKNOWN"`. The capture
+records correct mode and event text. This pass does not trace or patch that
+producer until the scene deployment gate is met.
 
-The first slot-control divergence is in the scene data. Locked-capable stock
-T1 local3 / ID3 is `T1_Car4`. It has a `gaFrontendDisablerAI` that selects normal
-frame 27 or the common locked frame 15, plus a
-`gaFrontendButtonUnlockerAI` that controls the `Enabled` field of its XY button
-AI. The previous ID26 `T1_Car8` extension used an always-unlocked template and
-omitted both controls. The corrected overlay raw-clones `T1_Car4`, preserving
-the native unlock gate, then changes only the new slot's name, normal frame,
-and horizontal button binding.
+## Native and scene model
 
-The generic positive-action path checks `UI/Enabled`; the locked button path
-returns the stock disabled result rather than continuing the positive action.
-The current failure and candidate correction are static/code evidence. The
-human ID3/ID26 interaction comparison remains the acceptance oracle.
+The G.1 executable hook mirrors ID3 only as the temporary input to the stock
+availability predicate and locked-reason selector. Physical registry ID26,
+T1 local7 mapping, model, wheel, physics, and runtime ID remain unchanged.
+ID25 keeps its stock `Bonus2` gate.
 
-The locked requirement text is an ID switch in `FUN_004819B0`, not a missing
-localization entry. Group 6 selector 8 is the generic `CAR LOCKED` line. Stock
-ID3 uses selector 9 for its requirement line; ID26 previously fell through to
-selector 8. The new hook maps only ID26 to selector 9 and replays the retail
-table/default path for all other IDs.
-
-Finally, Vehicle Setup's writer `FUN_0044F8E0` makes a separate group-0x35
-lookup at `0x0044FA29`. The new wrapper returns the existing combined
-`MERCEDES ML-320` string only for physical ID26 and replays the original
-`gaLocal` call for every other vehicle.
+Stock locked ID3 is `T1_Car4`; it contains both the disabler AI that chooses
+normal/locked image frames and the unlocker AI that disables its XY button. The
+corrected overlay clones this widget into `T1_Car8`. Its structure and exact
+hash are statically verified, but the last human process did not load that
+loose file from the active Root. The previous visible unlocked art and enabled
+button cannot be attributed to a native AI defect until the exact staged scene
+is runtime-proven.
 
 ## Candidate boundary
 
-The exact candidate does not change the unlock policy, ID26 record, class map,
-or runtime identity. It keeps the F.2f manufacturer/model and Quick Race
-overrides, adds the locked-reason and Vehicle Setup wrappers, and must be
-staged with the XML overlay. There is no global localization fallback and no
-asset change.
+The candidate remains the exact deterministic G.1 EXE plus the existing
+Vehicle Select overlay. The new packaging helper creates an isolated runtime
+Root with pinned `Data.sma`, audio/video, options, and qualified Mercedes DX/DXT
+assets; it omits old profile state and refuses mismatched hashes. It does not
+modify the captured historical resource tree, retail source, Mercedes assets,
+or any native selection/commit handlers.
 
 See `locked-selection.md`, `locked-presentation.md`,
-`../localization/frontend-consumers.md`, and `runtime-handoff.md`.
+`runtime-correction-2.md`, `runtime-handoff.md`, and
+`../localization/frontend-consumers.md`.

@@ -1,46 +1,56 @@
-# R5V-G.1 correction validation
+# R5V-G.1 runtime correction #2 validation
 
-## Baseline
+## Runtime evidence audit
 
-At the start of this correction, the repository suite passed **255 tests** when
-run with the project source path set. Running it without `PYTHONPATH=src`
-produced two import errors in the DX revision-upgrade tests; that was an
-invocation issue, not a code failure.
+The four supplied JSON captures were parsed, and their raw sidecar SHA256
+values were recomputed and matched the JSON metadata. The locked-state checker
+classifies the captures as:
 
-The initial focused run found a missing canonical profile file after the stock
-matrix was migrated; the file and test path were corrected before final
-verification.
+* ID3: `LOCK_TEXT_OK`, `BUTTON_LOCKED`, highlighted ID `3`.
+* ID26: `LOCK_TEXT_OK`, `BUTTON_NOT_LOCKED`, highlighted ID `26`.
+* Master Rallye and Rallye Cup: Race Details name state
+  `RACE_DETAILS_NAME_UNKNOWN` with `Race/Car0/CarID=26`.
 
-## Candidate verification
+The human report confirms ID26 was accepted into a race. `selectedCar` is not
+used as a commit assertion. The captures' candidate EXE SHA matches the G.1
+candidate, while the captured Root had no loose VehicleSelect XML. The prior
+thumbnail/button outcome is therefore not a valid runtime evaluation of the
+corrected XML.
 
-The EXE builder verifies the exact source SHA, every original byte range,
-non-overlap, deterministic output, output hash, and structural manifest. The
-XML overlay tool verifies the exact source scene SHA, the stock locked-capable
-template controls, deterministic output, and that removing the appended
-`T1_Car8` block restores the source text byte-for-byte.
+## Candidate and package
 
-Synthetic tests validate the native ID3 locked-reason table, the ID26-only
-selector substitution, the retained stock gaLocal call for non-ID26 Vehicle
-Setup names, and the stock slot's same-path unlocker/disabler configuration.
-They do not execute the game or prove visible UI behavior.
-
-## Runtime status
-
-The current candidate is **READY FOR HUMAN RUNTIME**. Await the ID3 locked
-oracle, ID26 locked visual/commit check, unlocked Vehicle Setup name, and short
-race smoke in `runtime-handoff.md` before marking the correction runtime-pass.
-
-## Final static verification
-
-* Synthetic suite: **263 passed, 0 failed, 0 skipped** (`PYTHONPATH=src`).
-* Focused G.1 tests: **20 passed**; ID26 patcher regression tests: **11 passed**.
-* `python -m compileall src tools tests`: passed.
-* EXE candidate: deterministic rebuild and patch-manifest verification passed;
-  75 operations, source SHA256
+* EXE deterministic rebuild and manifest verification: passed; source SHA256
   `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`, output
-  SHA256 `3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055`.
-* Vehicle Select overlay: deterministic rebuild and source-restoration audit
+  SHA256 `3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055`,
+  3,121,214 bytes, 75 operations.
+* VehicleSelect overlay deterministic rebuild and source-restoration audit:
   passed; source SHA256
   `ec7fd6372fe5008b1039eb8e09890ef3b37396dad1581568af439cbb611b58e1`, output
   SHA256 `6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d`.
-* `git diff --check` and `git diff --cached --check`: passed before commit.
+* Runtime root profile pins the captured `Data.sma`, DataAudio, options,
+  qualified Mercedes DX/DXT, and DataVideo file inventories. Staging omits
+  `PlayerState.xml` and backup state for a fresh profile.
+* Runtime package staging and exact-tree verification: `PASS`; 145 files under
+  `.research-output/vehicles/unlock/runtime-package/`. The verifier confirms
+  the on-disk candidate and loose scene hashes; a postlaunch Root capture is
+  still required to prove the process selected that root.
+
+## Tests
+
+* Synthetic suite: **271 passed, 0 failed, 0 skipped** (`PYTHONPATH=src`).
+* Focused runtime-package tests: **6 passed**.
+* G.1 unlock/capture checker tests: **16 passed**.
+* `python -m compileall src tools tests`: passed.
+* Candidate EXE verifier: passed.
+* Vehicle Select overlay verifier: passed.
+* Runtime package verifier: passed.
+* JSON evidence/profile parsing: passed.
+* `git diff --check`: passed for the working tree and staged index.
+
+## Runtime boundary
+
+No runtime pass is claimed for the corrected overlay or package. The immediate
+human gate is to run the verifier, launch from the printed package root, and
+confirm the new capture header reports that same Root before comparing ID3 and
+ID26. Do not investigate appended AI/control instantiation or patch Race
+Details until that deployment gate is satisfied.

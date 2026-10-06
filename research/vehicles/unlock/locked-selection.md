@@ -1,6 +1,25 @@
 # Locked selection and commit gate
 
-## Stock ID3 control
+## Runtime oracle correction
+
+The fresh-profile comparison captures are `20261006-143000_merc_not-locked`
+and `20261006-143558_id3-locked`. Both report `T1CupCar1=False` and both
+unlock-cheat flags false. The raw sidecar hashes were recomputed and match the
+JSON metadata.
+
+| State | CarModel | Manufacturer | Model/reason | selectedCar | UI/Enabled |
+|---|---:|---|---|---:|---|
+| stock locked ID3 | `-1` | `CAR LOCKED` | `UNLOCK BY WINNING 2 T1 CUPS` | `3` | `False` |
+| locked ID26 in prior test | `-1` | `CAR LOCKED` | `UNLOCK BY WINNING 2 T1 CUPS` | `26` | `True` |
+
+This disproves the prior interpretation that `FrontEnd/Network/selectedCar`
+means the selected vehicle was committed. Stock locked ID3 publishes `3` while
+`UI/Enabled=False`. Treat `selectedCar` as highlighted/current frontend
+identity. For a locked slot, `UI/Enabled` plus observed normal-accept behavior
+is the stronger commit oracle. The human separately reported accepting ID26
+into a race; the resulting participant was `CarID=26`, `CarClass=0`.
+
+## Static stock control
 
 Retail `VehicleSelect.xml` defines stock T1 local3 / physical ID3 as `T1_Car4`.
 Its AI list contains:
@@ -10,46 +29,31 @@ Its AI list contains:
 * AI 3 `gaFrontendButtonUnlockerAI`, with the same three paths and
   `Control AI ID=2`.
 
-Ghidra analysis of pristine retail maps the unlocker constructor/configuration
-to `FUN_0044BEC0`; its availability callback is `FUN_0044C060` (vtable slot 5
-at `0x006901F4`). The callback evaluates the configured OR gates and writes
-the controlled button's `Enabled` field. `FUN_0045D0B0` publishes the current
-XY button state as `UI/Enabled`; the generic positive-action handler
-`FUN_0045D930` checks that state and returns the stock `Frontend/ButtonDisabled`
-result instead of taking the disabled positive action.
+Earlier Ghidra analysis maps the unlocker constructor/configuration to
+`FUN_0044BEC0`, its availability callback to `FUN_0044C060` (vtable slot 5 at
+`0x006901F4`), `FUN_0045D0B0` to publishing the XY button state as `UI/Enabled`,
+and `FUN_0045D930` to the positive-action gate. This correction pass does not
+reopen those handlers.
 
-This is the native Vehicle Select commit blocker. The relevant participant
-fields are not used as a substitute for this control path.
+## Why the previous runtime result does not test the appended XML
 
-## ID26 divergence
+The new captures pin the candidate EXE, but their dump header's resource Root
+was the captured `.../r5v_f_2e/runtime/` directory. That directory had no loose
+`DataScene/FrontendScreens/VehicleSelect.xml`; the generated correction scene
+was stored in another output directory. The Root did contain `Data.sma` and
+the qualified Mercedes runtime package. Therefore `UI/Enabled=True` and the
+normal thumbnail are not evidence that the cloned XML controls fail: the exact
+generated scene was not under the Root used by the process.
 
-The previous `T1_Car8` extension was based on an always-unlocked widget. It did
-not carry `gaFrontendDisablerAI` or `gaFrontendButtonUnlockerAI`; its XY control
-therefore remained enabled and its image did not switch to locked art. This is
-the earliest proven semantic difference from stock `T1_Car4`.
+The corrected XML still clones locked-capable `T1_Car4` into `T1_Car8`, keeps
+the three gates and false frame 15, sets the unlocked frame to 3, and binds the
+unlocker to XY AI 2. The new package builder stages it beside the captured
+resource files in an isolated root. Only if that exact root is confirmed in a
+new capture and the mismatch persists should AI construction/ticking be traced.
 
-The locked capture's `FrontEnd/Network/selectedCar=26` is produced by the
-highlight/cursor publication path (identified as `FUN_004AD840`). It can be
-published before a commit. The coexisting `Race/Car0/CarID=26` value is likewise
-not, by itself, proof of a currently instantiated or accepted vehicle. The
-owner's interaction report establishes that the old UI could continue to Setup
-and race; the corrected candidate still needs an ID3-vs-ID26 human check.
+## Evidence limit
 
-## Correction
-
-The new `T1_Car8` overlay clones the locked-capable stock `T1_Car4` controls and
-retains their three Broker paths and OR booleans. It binds AI 3 to XY AI 2,
-which disables the ID26 button when ID3 would be locked. No race-launch guard
-is added. Runtime acceptance requires both locked slots to reject the same
-normal commit action and both to prevent Vehicle Setup/race entry.
-
-## Test boundary
-
-Synthetic tests inspect the actual stock-shaped XML control binding and the
-candidate manifest. They do not execute the game's native event handler. The
-human runtime oracle is:
-
-1. on a fresh profile, highlight locked ID3 and try the normal accept action;
-2. repeat with locked ID26;
-3. confirm neither commits or enters Vehicle Setup;
-4. repeat on a naturally unlocked profile and confirm ID26 is accepted.
+The Broker pair establishes the on-screen state values but not rendered art or
+input handling. The previous interaction report establishes that ID26 could
+be accepted before the corrected overlay was deployed. No conclusion about the
+corrected `T1_Car8` widget's runtime AI instantiation is made yet.

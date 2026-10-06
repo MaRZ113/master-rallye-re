@@ -72,6 +72,88 @@
         "FrontEnd/Network/selectedCar": 26
       },
       "evidence": "BROKER_CAPTURE_ONLY"
+    },
+    {
+      "id": "20261006-143000_merc_not-locked",
+      "role": "G.1 fresh-profile locked ID26 capture before overlay deployment correction",
+      "exe_sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+      "raw_sha256": "0ff25ce1bb46eb5f157aa39318cf909b26eaa5b4a3e5452b6585b4f992bbff40",
+      "root_suffix": ".research-output/retired-worktrees/e0.1/research-output/r5v_f_2e/runtime/",
+      "observed": {
+        "Progress/UnlockedCars/T1CupCar1": false,
+        "Progress/Cheats/UnlockCars": false,
+        "Progress/Cheats/UnlockAll": false,
+        "Frontend/VehicleSelect/CarModel": -1,
+        "Frontend/VehicleSelect/ManufacturerName": "CAR LOCKED",
+        "Frontend/VehicleSelect/ModelName": "UNLOCK BY WINNING 2 T1 CUPS",
+        "FrontEnd/Network/selectedCar": 26,
+        "UI/Enabled": true,
+        "Race/Car0/CarID": 26
+      },
+      "evidence": "CONFIRMED_BY_RUNTIME_BROKER_CAPTURE",
+      "interpretation": "EXE fixes were active, but the active Root had no loose correction VehicleSelect.xml. selectedCar records the highlighted identity, not committed acceptance; the owner separately observed that ID26 could be accepted into a race."
+    },
+    {
+      "id": "20261006-143558_id3-locked",
+      "role": "stock locked ID3 control in the same research executable profile",
+      "exe_sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+      "raw_sha256": "786d684301b00e5b0dd0d2848bab63602630d31620e098da403b605794437c1a",
+      "root_suffix": ".research-output/retired-worktrees/e0.1/research-output/r5v_f_2e/runtime/",
+      "observed": {
+        "Progress/UnlockedCars/T1CupCar1": false,
+        "Progress/Cheats/UnlockCars": false,
+        "Progress/Cheats/UnlockAll": false,
+        "Frontend/VehicleSelect/CarModel": -1,
+        "Frontend/VehicleSelect/ManufacturerName": "CAR LOCKED",
+        "Frontend/VehicleSelect/ModelName": "UNLOCK BY WINNING 2 T1 CUPS",
+        "FrontEnd/Network/selectedCar": 3,
+        "UI/Enabled": false
+      },
+      "evidence": "CONFIRMED_BY_RUNTIME_BROKER_CAPTURE",
+      "interpretation": "selectedCar=3 coexists with UI/Enabled=False before accepting; selectedCar alone is therefore only current/highlighted identity evidence."
+    },
+    {
+      "id": "20261006-143842_merc-masterrallye-mode",
+      "role": "Mercedes ID26 Master Rallye Race Details",
+      "exe_sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+      "raw_sha256": "b1f66dbf6379af5e1040e2d6b11d2f334bce5e7f8b508aaff1c6a42c7a87f802",
+      "root_suffix": ".research-output/retired-worktrees/e0.1/research-output/r5v_f_2e/runtime/",
+      "observed": {
+        "Frontend/RaceDetails/CurrentVehicleString": "GALOCAL UNKNOWN",
+        "Frontend/RaceDetails/CurrentRaceString": "LEG 1/10 - FRANCE",
+        "Frontend/RaceDetails/Race": "MASTER RALLYE",
+        "Race/Car0/CarID": 26
+      },
+      "evidence": "CONFIRMED_BY_RUNTIME_BROKER_CAPTURE"
+    },
+    {
+      "id": "20261006-144257_merc-rallyecup-mode",
+      "role": "Mercedes ID26 Rallye Cup Race Details",
+      "exe_sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+      "raw_sha256": "0486611ef3a9dcd38197b6a9492641ecb3eb4cfc7c715cd89bf55def3adfc9a3",
+      "root_suffix": ".research-output/retired-worktrees/e0.1/research-output/r5v_f_2e/runtime/",
+      "observed": {
+        "Frontend/RaceDetails/CurrentVehicleString": "GALOCAL UNKNOWN",
+        "Frontend/RaceDetails/CurrentRaceString": "RACE 1/3",
+        "Frontend/RaceDetails/Race": "RALLYE CUP",
+        "Race/Car0/CarID": 26
+      },
+      "evidence": "CONFIRMED_BY_RUNTIME_BROKER_CAPTURE"
     }
-  ]
+  ],
+  "locked_state_semantics": {
+    "selectedCar": "highlighted/current frontend vehicle identity; insufficient by itself to prove accepted vehicle",
+    "button_commit_oracle": "UI/Enabled plus observed normal-accept behavior",
+    "id3_control": {"selectedCar": 3, "UI/Enabled": false},
+    "id26_failing_state": {"selectedCar": 26, "UI/Enabled": true},
+    "human_acceptance_observation": "The human accepted locked ID26 into a race; active participant state was CarID=26, CarClass=0. This is a human observation, not inferred from selectedCar."
+  },
+  "scene_deployment_audit": {
+    "candidate_exe_active": "CONFIRMED_BY_RUNTIME; all new captures pin the exact candidate SHA256",
+    "captured_root_contains_candidate_exe": true,
+    "captured_root_loose_vehicle_select_xml": false,
+    "correction_overlay_location_before_retest": ".research-output/vehicles/unlock/overlay/DataScene/FrontendScreens/VehicleSelect.xml, outside the captured resource Root",
+    "data_sma_sha256_in_captured_root": "131d61ee8241df9cee4885db046e4e68d4df8177df40638bab01662ee12dc736",
+    "effective_scene_source": "NOT_PROVEN; a loose overlay was absent under Root, so the tested process could not have consumed the generated loose correction scene from that root. Archive/fallback priority is not inferred from Broker evidence."
+  }
 }

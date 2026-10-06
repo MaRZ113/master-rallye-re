@@ -6,21 +6,24 @@ are historical evidence; this correction does not edit them.
 
 ## Current phase
 
-**R5V-G.1 locked-state integration correction — READY FOR HUMAN RUNTIME.** The
-stock-like ID26 availability predicate and native locked branch were observed
-in the supplied captures. The current deterministic candidate now carries the
-ID3 lock-reason selector, the stock locked slot controls, and a bounded Vehicle
-Setup name path. The corrected visual and interaction behavior still needs the
-human comparison described in `unlock/runtime-handoff.md`.
+**R5V-G.1 locked-state integration correction — RUNTIME RETEST REQUIRED.** The
+candidate EXE's locked predicate and locked requirement text passed human
+testing. The first retest did not deploy the generated VehicleSelect overlay
+under the resource Root named by the captures, so the slot-art and commit
+control result is not a valid test of the appended XML controls. A corrected,
+hash-verified runtime package is being staged; follow
+`unlock/runtime-handoff.md`.
 
 | Behavior | Current evidence |
 |---|---|
 | ID26 mirrors ID3 / `T1CupCar1` availability | `CONFIRMED_BY_RUNTIME` |
 | Native ID26 locked branch runs when progress and cheats are false | `CONFIRMED_BY_RUNTIME` |
-| ID26 locked requirement text equals stock ID3 | `READY_FOR_HUMAN_RUNTIME` |
-| ID26 locked thumbnail and disabled commit control | `READY_FOR_HUMAN_RUNTIME` |
-| Vehicle Setup displays `MERCEDES ML-320` | `READY_FOR_HUMAN_RUNTIME` |
-| Physical ID26 Mercedes model and core gameplay | prior `CORE GAMEPLAY PASS`; candidate regression pending |
+| ID26 locked requirement text equals stock ID3 | `CONFIRMED_BY_RUNTIME` |
+| ID26 locked thumbnail and disabled commit control | `NOT_VALIDLY_TESTED`; tested resource Root lacked the overlay |
+| Vehicle Setup displays `MERCEDES ML-320` | prior channel remains passed; not reopened here |
+| Quick Race Mercedes localization | prior channel remains passed; not reopened here |
+| Race Details Mercedes localization | `FAIL_OBSERVED` in Master Rallye and Rallye Cup; producer tracing deferred until scene deployment is proven |
+| Physical ID26 Mercedes model and core gameplay | prior `CORE GAMEPLAY PASS`; exact G.1 package regression pending |
 | Full stage/results/return on this exact candidate | `UNKNOWN` |
 
 No vehicle ordering, audio, AI pool, T2 expansion, ID27+, or generic SDK work is
@@ -28,14 +31,16 @@ included.
 
 ## Candidate
 
-The exact pristine-retail candidate and the XML overlay are built under the
-ignored `.research-output/vehicles/unlock/` directory. Their source/output
-hashes and patch operations are recorded in `unlock/id26-policy.json` and in
-the generated manifests. The EXE and overlay are not committed.
+The exact EXE, overlay, and coherent staged runtime tree are built under the
+ignored `.research-output/vehicles/unlock/` directory. Their hashes and patch
+operations are recorded in `unlock/id26-policy.json`,
+`unlock/runtime-root-profile.json`, and generated manifests. No candidate EXE,
+archive, asset, profile save, or raw capture is committed.
 
 ## Next gate
 
-Complete the fresh-profile locked ID3/ID26 comparison, then the naturally
-unlocked ID26 Vehicle Select, Vehicle Setup, and short-race regression. Only
-after that runtime pass should the phase be closed and catalog/ordering work be
-considered.
+Run `vehicle_unlock_runtime_package.py verify` and launch only from the staged
+package root. Confirm the capture's `Root` equals that root, then repeat the
+fresh-profile ID3/ID26 comparison and unlocked short-race smoke. Once the exact
+scene is proven active, address the observed Race Details name path. G.1 is not
+closed and catalog/ordering work has not started.

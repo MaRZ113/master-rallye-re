@@ -56,7 +56,11 @@
       "function": "0x0047C080",
       "lookup_vas": ["0x0047C0F6", "0x0047C182", "0x0047C201"],
       "path": "Frontend/RaceDetails/CurrentVehicleString",
-      "scope": "unchanged"
+      "group": "0x35",
+      "source_id": "UNKNOWN from retained call-flow evidence; Race/Car0/CarID=26 is present in both mode captures, but direct consumption is not proven",
+      "mode_specific_call_site": "UNKNOWN; both captured modes expose the same Broker field",
+      "runtime_id26_result": "GALOCAL UNKNOWN in Master Rallye and Rallye Cup",
+      "scope": "observed failure; producer/source path revalidation pending runtime scene provenance"
     },
     {
       "function": "0x004803A0",
@@ -89,6 +93,25 @@
     "group": 6,
     "generic_locked_selector": 8,
     "id3_and_id26_requirement_selector": 9
+  },
+  "race_details_runtime_observations": {
+    "broker_field": "Frontend/RaceDetails/CurrentVehicleString",
+    "master_rallye": {
+      "mode": "MASTER RALLYE",
+      "current_race_string": "LEG 1/10 - FRANCE",
+      "race_car0_id": 26,
+      "vehicle_string": "GALOCAL UNKNOWN"
+    },
+    "rallye_cup": {
+      "mode": "RALLYE CUP",
+      "current_race_string": "RACE 1/3",
+      "race_car0_id": 26,
+      "vehicle_string": "GALOCAL UNKNOWN"
+    },
+    "producer_shared_between_modes": "NOT PROVEN",
+    "identity_input": "UNKNOWN",
+    "static_candidate_consumer": "FUN_0047C080, group 0x35, three lookup sites as recorded by the prior bounded xref inventory",
+    "fix": "DEFERRED until the corrected loose VehicleSelect scene is confirmed under the running process Root"
   },
   "intervention_scope": {
     "vehicle_setup_hook": "ID26 only at 0x0044FA29",

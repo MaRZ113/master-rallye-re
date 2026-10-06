@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "profile": "captured-g1-mercedes-runtime-root",
+  "provenance": {
+    "capture_ids": [
+      "20261006-143000_merc_not-locked",
+      "20261006-143558_id3-locked",
+      "20261006-143842_merc-masterrallye-mode",
+      "20261006-144257_merc-rallyecup-mode"
+    ],
+    "observed_root_suffix": ".research-output/retired-worktrees/e0.1/research-output/r5v_f_2e/runtime/",
+    "exe_sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+    "loose_vehicle_select_scene_present": false
+  },
+  "components": [
+    {
+      "root": "Data.sma",
+      "kind": "file",
+      "file_count": 1,
+      "total_bytes": 282687977,
+      "inventory_sha256": "13e4d0f25242e9226fc83ca61282b90828a9a15e08305447a04f6d092d64d79f"
+    },
+    {
+      "root": "DataAudio",
+      "kind": "tree",
+      "file_count": 109,
+      "total_bytes": 66583166,
+      "inventory_sha256": "24e3a755eb63eba800d96e46f8eedc6f6266a01581f14bfdc5d3f41d0d82c747"
+    },
+    {
+      "root": "DataGame/options.xml",
+      "kind": "file",
+      "file_count": 1,
+      "total_bytes": 15043,
+      "inventory_sha256": "6c3ac5b757a57ca4d7d5545b329b8a454c6f88e5a317438950a082c9136e23c6"
+    },
+    {
+      "root": "DataGx/Vehicles/Mercedes",
+      "kind": "tree",
+      "file_count": 28,
+      "total_bytes": 612111,
+      "inventory_sha256": "96ba8c2c8806d7bc5da5e375a1505b8c52101d7838d6b59e271d277eaab9e4b6"
+    },
+    {
+      "root": "DataVideo",
+      "kind": "tree",
+      "file_count": 3,
+      "total_bytes": 9426196,
+      "inventory_sha256": "07ee995892669c9d164381e7ea6170a130fadd9c71b2ce7a0e7703d6429d1b63"
+    }
+  ],
+  "not_staged": {
+    "MRallye.exe": "replaced by the exact G.1 correction candidate",
+    "!b/**": "historical executable backup directory",
+    "DataGame/PlayerState.xml": "excluded so first launch uses a fresh profile",
+    "DataGame/PlayerState.xml#": "excluded profile backup",
+    "DataGame/options.xml#": "excluded configuration backup"
+  }
+}
