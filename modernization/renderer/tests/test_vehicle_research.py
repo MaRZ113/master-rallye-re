@@ -58,7 +58,7 @@ class LightingInputsTests(unittest.TestCase):
         matched=[]
         for p in captures:
             with p.open() as stream:rows=[json.loads(line) for line in stream]
-            if rows[0].get('proxy_version')=='R-GFX4-3' and rows[0].get('exe_sha256')==current_sha:matched.extend(r for r in rows if r.get('type')=='draw')
+            if rows[0].get('proxy_version')=='R-GFX4-4' and rows[0].get('exe_sha256')==current_sha:matched.extend(r for r in rows if r.get('type')=='draw')
         self.assertTrue(matched,'Run native contracts before Python trace checks')
         modified=[d for d in matched if d.get('native_override_applied')]
         self.assertTrue(modified,'Native reflection integration must produce a bounded positive capture')
@@ -77,7 +77,7 @@ class LightingInputsTests(unittest.TestCase):
         current_sha=hashlib.sha256((release/'reflection_tests.exe').read_bytes()).hexdigest()
         for p in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             rows=[json.loads(line) for line in p.read_text(encoding='utf-8').splitlines()]
-            if rows[0].get('proxy_version')!='R-GFX4-3' or rows[0].get('exe_sha256')!=current_sha:continue
+            if rows[0].get('proxy_version')!='R-GFX4-4' or rows[0].get('exe_sha256')!=current_sha:continue
             hud=[r['sequence'] for r in rows if r.get('method')=='SetTransform' and r.get('arguments',[0])[0]==3 and len(r.get('payload_bits',[]))==16 and r['payload_bits'][11]==0]
             draws=[r for r in rows if r.get('type')=='draw']
             if not hud or not any(r.get('native_override_applied') for r in draws):continue

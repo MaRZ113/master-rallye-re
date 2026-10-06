@@ -1,3 +1,47 @@
+# R-GFX4-4 — stable vehicle identity and current draw materials
+
+**READY_FOR_HUMAN_RUNTIME.** R-GFX4-3 human inputs prove FOV/culling and real ViewDependent2D execution; this new candidate's stationary/brake behavior remains untested in the game. [Hashed input digest](continuation3-runtime-evidence.json) records17 complete captures. Raw logs remain external. Exact retail SHA, source90 race context, shared indexed owner VA00576970 /RVA00176970, COM return VA0057707E /RVA0017707E and finite rigid WORLD remain mandatory. Classification reads D3D state/resource generations only; no Broker, Car0, participants, gameplay memory, texture names or session serial constants.
+
+The old body predicate required `body_draws == draws`; a0x102 lamp layer invalidated the whole vehicle even though its track survived. A second predicate required chassis motion. In both cam2 and cam0, sampled brake pairs retain33 signatures, remove1 and add2, with body34→35 draws; these are evidence, not production thresholds. The added families are opaque0x102/10 triangles and blended0x102/28 triangles. Tata car.txt materials60/61 use breaklightson and breaklightsonglow, supporting a conditional base/glow interpretation; no additive/emissive meaning is inferred. Snapshot pairs are human-correlated and do not replay intervening frames.
+
+## Identity and material boundaries
+
+Temporal matching uses mutual unique nearest WORLD continuity within the unchanged distance²100/basis-difference²2 bounds, with overlapping observed **immutable resource families** (VB generation, IB generation, stride, FVF). Material/draw signatures remain diagnostic and per-draw proof. If family metadata is absent in legacy synthetic callers, the old signature-overlap fallback applies. Texture/combiner changes do not erase a transform track; disjoint generation/layout families cannot inherit one. This avoids an exact body-set or Jaccard definition of identity.
+
+A separately monotonic device-local `constellation_id` identifies each admitted chassis/wheel relationship. It is no longer numerically defined by the chassis track or current material set. Retention keeps the ID across ordinary material mutation. New admissions after demotion/reset receive a fresh ID. Body and wheels remain separate transform tracks.
+
+Per-draw signatures are always recalculated from current logical states. A uniquely matching previous body can annotate an unseen material at the identical WORLD, or after a current chassis anchor establishes its changed WORLD. This annotation alone never grants reflection: an unseen material signature must first appear in a completed valid frame. Existing eligible body signatures continue immediately. A returning env lamp may remain Stock for one verification frame; that local delay never disables the other body draws. Prediction never retroactively modifies/replays a draw. New resources/layouts without a draw proof remain Stock even if spatially associated with a known body.
+
+## Admission
+
+**STRONG_DYNAMIC:** original motion route retained: age>=4, at least2 significant motion observations, >=2 recognized body draws/signatures including opaque env0x152, all local body layouts drawn from142/152/242/252 or102, and a unique four-wheel rectangle. Older synthetic body-only callers remain compatible. Wheel motion is not required.
+
+**STRONG_STRUCTURAL:** no chassis movement is required. Need age>=4, >=4 recognized body draws, >=3 signatures, diffuse/base142/242 plus opaque normal/env152, only known vehicle-local layouts, **exactly four** qualifying wheel groups, a common nonzero observed wheel resource/layout family, and the same unambiguous rectangle for **four consecutive completed frames**. This is a count of observations, not time/GPU/texture warm-up. First eligible override is in the next frame;1–2 seconds should readily cover it at normal rendering rates.
+
+Wheel qualification remains >=2 draws, exclusively112 + stock env + opaque/depth-write. No exact model name, draw/triangle count, Tata width or fixed four-car limit is encoded. Rectangle predicate/bounds remain unchanged: |X|.35–2.5, |Z|.5–4, Y−2–1.5, bilateral/axle/width/center symmetry and Y spread<=.5. Slots are X/Z sign quadrants, not recovered authored wheel names. Structural proof permits cold wheel tracks but requires repeated spatial/resource agreement.
+
+## Retention and invalidation
+
+Once admitted, the same uniquely matched chassis with observed body geometry and four compatible wheel slots retains identity regardless of body signature-set equality. Slots must stay within0.35 units of their admission local centers, supported by track or immutable wheel family/signature. A rotating wheel may acquire a fresh track; full observed proof refreshes its slot ID without changing the vehicle ID. Material mutation is a diagnostic event, not a brake-name detector.
+
+A previously admitted object may retain identity with **three** compatible observed slots for at most **three completed frames**. It keeps the original four-ID proof and exposes `identity_grace_frames`; cold initial three-wheel objects never qualify. Draw-time authorization still uses the previous completed frame, so a demotion at Present cannot undo that just-submitted frame. The fourth unresolved incomplete frame ends retention; returning ambiguous/cold wheel evidence must settle before a new full proof. No partial observation renews grace indefinitely.
+
+Immediate revocation: successful Reset, complete chassis disappearance, definite menu/scene transition, failed Present, pointer generation replacement/capacity invalidation, loss/ambiguity of the chassis track, incompatible wheel slots, competing fifth-wheel rectangles or shared-wheel assignment. An unresolved temporal wheel competing for an already observed slot is negative evidence, not silently ignored. Fresh and retained proposals share a simultaneous conflict pass. All capacity limits fail closed:128 groups,64 material signatures/group,8 immutable families/group,8 nearby wheel candidates. FrameBuffer remains<=32MiB; identity support arrays live in bounded transform groups rather than repeated per-draw capture records.
+
+## Trace and material eligibility
+
+F10 remains schema1-additive. Draw fields: `constellation_id`, separate draw-time/frame-end IDs, `object_identity_source` (dynamic/structural/retained/none), `identity_reason_mask`, `identity_grace_frames`, `geometry_resource_family`, `material_class`, `reflection_eligible`, `reflection_modified`. Reason bits:1 dynamic admission,2 structural admission,4 same chassis,8 wheel association,16 body-material mutation,32 missing-wheel grace. Admission proof remains `dynamic_chassis` or `structural_chassis` plus all six common structural reasons; retained provenance is explicit. A late F10 typically says retained even for a structurally admitted stationary object: inspect structural_chassis proof and transform_dynamic=false.
+
+Summary counters are **per completed frame**, not totals: structural/dynamic admissions, retained identities, demotions and body_material_mutations. An admission counter can already be0 at a later capture. Existing Reset/relearn and reflection counters remain.
+
+Reflection target is unchanged: proven BODY, opaque/depth-writing0x152, NORMAL+DIFFUSE, stock stage1 env and requested CAMERASPACENORMAL.0x102 opaque is UNKNOWN_VEHICLE_MATERIAL; blended0x102 is VEHICLE_ALPHA_UNLIT, not a hard-coded brake label. Both remain Stock. Wheels, alpha/glass, scenery, preview and HUD remain excluded. Native NORMAL→REFLECTIONVECTOR→exact restore, env texture/matrix/combine and appearance are unchanged.
+
+The D3D-only model cannot distinguish a hypothetical static object producing the exact same full vehicle geometry/state stream. Tests reject weak bodies, unrelated wheel families, three-wheel starts, competing rectangles and shared associations; they do not establish universal scenery exclusion. New runtime acceptance still needs stationary player admission, stable brake-off/on IDs, healthy lamps/wheels/world, Reset relearn and practical CPU cost. See [handoff](runtime-handoff.md).
+
+---
+
+The following R-GFX4-2/3 description is retained as historical design. Its dynamic-only admission, exact signature prediction and one-incomplete-frame demotion are superseded above; the geometric rectangle, caller provenance and reflection material target remain applicable.
+
 > R-GFX4-3 correction: projection/context changes now gate only the current draw. A late HUD projection preserves the completed-frame history; a genuine menu-only frame expires it. See [classifier frame lifetime](classifier-frame-lifetime.md). The constellation algorithm described below is unchanged, and this native candidate still requires human Stage A.
 
 # D3D-only vehicle constellation classifier

@@ -1,23 +1,19 @@
-# Master Rallye renderer — R-GFX4-3
+# Master Rallye renderer — R-GFX4-4
 
-**READY_FOR_HUMAN_RUNTIME.** This continuation separates draw context from temporal frame lifetime and synchronizes gameplay FOV with CPU side planes before common entity submission. R-GFX3 stays CLOSED. Reflection remains the same opt-in, body-only ViewDependent2D prototype; its new game runtime execution and appearance are pending.
+**READY_FOR_HUMAN_RUNTIME.** Continuation #3 fixes D3D-side vehicle semantics: stable object identity across body material mutations and conservative stationary four-wheel admission. R-GFX4-3 FOV/culling and native reflection execution have now passed human observation; this candidate's stationary/brake acceptance is pending.
 
-Canonical repository master-rallye-re-general, branch research/general-re; starting HEAD25cb58d. Work stays inside modernization/renderer. Frozen reconnaissance/proxy, other research and retired trees are read-only. The user's untracked modernization/renderer.zip is preserved separately.
+Canonical master-rallye-re-general, branch research/general-re, starting HEAD69822af. All work stays inside modernization/renderer; no branch/worktree/push/deployment. Retail SHA bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4 gates semantics, FOV and effects; unknown builds forward/trace with Stock effects. R-GFX3 stays CLOSED.
 
-[Findings](research/r-gfx4/findings.md), [frame lifetime](research/r-gfx4/classifier-frame-lifetime.md), [FOV/culling](research/r-gfx4/fov-culling.md), [classifier](research/r-gfx4/vehicle-classification.md), [Reset](research/r-gfx4/reset-resource-lifetime.md), [reflection](research/r-gfx4/reflection-prototype.md), [human handoff](research/r-gfx4/runtime-handoff.md), [validation](research/r-gfx4/validation.md).
+[Findings](research/r-gfx4/findings.md), [classification](research/r-gfx4/vehicle-classification.md), [reflection](research/r-gfx4/reflection-prototype.md), [runtime evidence](research/r-gfx4/continuation3-runtime-evidence.json), [handoff](research/r-gfx4/runtime-handoff.md), [validation](research/r-gfx4/validation.md), [machine summary](research/r-gfx4/runtime-summary.json).
 
-MRRRenderer.ini beside DLL is read once. ConfigVersion1; missing/invalid/unknown version is Stock. AF is stage0 MIN-only, preview source45 remains excluded, Shadow Stock/Off stays intact. VehicleReflections.Mode defaults Stock. Exact EXE SHA bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4 gates camera/culling, semantics and reflections; unknown builds only forward/generically trace.
-
-GameplayFOV=true now requires a verified runtime-only CALL seam and matching camera side-plane proof. Disabled FOV installs no hook; missing/failed proof keeps stock projection. The approved in-memory hook changes one5-byte CALL and temporarily four side normals, restoring normals before Present/Reset. It never patches an EXE file or changes source FOV, pose, near/far, visibility radii or individual wheel decisions. No new effects or backend were added.
+Admission can use the existing dynamic path or four repeated full stationary structures. Proven chassis/wheel identity tolerates material-set changes and bounded one-wheel occlusion. Current materials are independently classified;0x102/alpha/wheels stay Stock. ViewDependent2D remains opt-in, opaque0x152 body-only with exact native TCI restoration. Appearance, AF MIN-only, shadow Stock/Off, source45 exclusion, FOV/CPU culling and pool-aware Reset are preserved. ConfigVersion1 is read once; restart after configuration changes.
 
 ```powershell
 python modernization/renderer/tools/build.py
 python modernization/renderer/tools/verify_proxy.py modernization/renderer/.build-msvc/Release/d3d8.dll
 python -m unittest discover -s modernization/renderer/tests -q
 python -m compileall modernization/renderer
-python modernization/renderer/tools/inspect_fov_culling.py "..\corpora\retail\MRallye.exe"
+python modernization/renderer/tools/analyze_vehicle_identity.py <F10 files>
 ```
 
-F10 schema1 is additive: completed-frame and draw-time identity, material/constellation, TCI/native restore, classifier epoch/race-seen, and FOV/culling synchronization. No per-object cull spam or GPU getter was added. Build/raw logs/Ghidra output remain ignored. No game deployment or archive replacement was done.
-
-Human order: A Stock classifier → B VFOV80 edges → C default/cam1..4 and lookback → D successful Reset/relearn → E ViewDependent2D. **Do not start E until A–D pass, and do not judge appearance until candidate/modified/native-write counters are positive.**
+F10 schema1 adds identity source/reason/grace, immutable resource family and independent material/reflection fields. Raw logs/build products stay ignored. Human order: stationary start without movement → brake off cam2 → brake on cam2 with stable IDs and positive modifications → optional cam0/Reset. Stop and return evidence; no reflection tuning or later graphics phase.

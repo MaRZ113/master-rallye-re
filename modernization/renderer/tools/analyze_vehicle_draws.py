@@ -75,9 +75,15 @@ def reflection_audit(records,known):
         if not known:errors.append('modified draw without exact complete canonical capture')
         if d.get('method')!='DrawIndexedPrimitive' or d.get('object_class_at_draw')!='VEHICLE_BODY' or state.get('vertex_shader')!=0x152 or not d.get('constellation_id_at_draw'):errors.append('unqualified draw/object/layout')
         if rs.get('27')!=0 or rs.get('14')!=1 or stage.get('1')!=18 or stage.get('2')!=1 or stage.get('3')!=2 or stage.get('4')!=4 or stage.get('5')!=1 or stage.get('6')!=2 or stage.get('24')!=2:errors.append('unqualified material combine')
-        reasons={'dynamic_chassis','body_draw_cluster','wheel_signature','four_wheel_match','bilateral_symmetry','axle_pairing','unambiguous_assignment'}
+        reasons={'body_draw_cluster','wheel_signature','four_wheel_match','bilateral_symmetry','axle_pairing','unambiguous_assignment'}
         wheels=d.get('associated_wheel_track_ids',[])
-        if d.get('classifier_confidence')!='STRONG_FOUR_WHEEL' or not reasons.issubset(d.get('classifier_reasons',[])) or len(wheels)!=4 or len(set(wheels))!=4 or not all(wheels):errors.append('missing strong four-wheel evidence')
+        if d.get('classifier_confidence') not in ('STRONG_FOUR_WHEEL','STRONG_STRUCTURAL_FOUR_WHEEL') or not reasons.issubset(d.get('classifier_reasons',[])) or not {'dynamic_chassis','structural_chassis'}.intersection(d.get('classifier_reasons',[])) or len(wheels)!=4 or len(set(wheels))!=4 or not all(wheels):errors.append('missing strong four-wheel evidence')
+        if 'object_identity_source' in d:
+            source=d.get('object_identity_source_at_draw',d['object_identity_source']);mask=d.get('identity_reason_mask',0)
+            if source not in ('dynamic','structural','retained') or not isinstance(mask,int) or not isinstance(d.get('identity_grace_frames'),int) or not 0<=d['identity_grace_frames']<=3:errors.append('invalid identity source/grace')
+            elif source=='retained' and mask&12!=12:errors.append('missing chassis/wheel retention proof')
+            elif source=='structural' and not (mask&2):errors.append('missing structural admission proof')
+            if d.get('reflection_eligible') is not True or d.get('reflection_modified') is not True:errors.append('inconsistent current-draw reflection eligibility')
         requested=d.get('requested_stage1_tci');effective=d.get('effective_stage1_tci_for_draw')
         if not isinstance(requested,int) or not isinstance(effective,int) or requested&0xffff0000!=0x10000 or effective!=(requested&0xffff)|0x30000:errors.append('TCI or low-index mismatch')
         if not d.get('native_restore_success'):errors.append('native restore failed or unavailable')

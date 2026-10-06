@@ -1,3 +1,15 @@
+# R-GFX4-4 continuation #3 — current findings
+
+**READY_FOR_HUMAN_RUNTIME.** R-GFX4-3 FOV/culling, frame lifetime and real ViewDependent2D execution are confirmed by the new human report and17 locally validated complete captures. Normal39/2735/78 and backview17/1623/34 modifications/triangles/writes have no restore errors. This is previous-DLL evidence, not a pass for this candidate.
+
+Both cam0/cam2 brake pairs show a persistent body track with34→35 draws and33 shared signatures, one removal/two new0x102 base/glow draws. The old `body_draws == draws` predicate destroys semantics despite that continuity. Stationary restart contains an old non-dynamic chassis and four compatible wheel groups; dynamic-only admission blocks it. [Input digest](continuation3-runtime-evidence.json) preserves hashes, relevant sampled matrices/material families and separately labeled human correlation.
+
+Current implementation separates immutable object anchors from current materials, admits repeated strong stationary structure, preserves a monotonic constellation ID through benign mutations and applies bounded three-frame missing-wheel retention. Ambiguity, incompatible evidence and real lifecycle invalidation still revoke proof. Per-draw reflection eligibility is checked independently. No reflection appearance, native override, FOV/culling, AF, shadows or pool-aware Reset changes. See [classifier](vehicle-classification.md), [handoff](runtime-handoff.md) and [validation](validation.md).
+
+---
+
+Earlier findings below describe their original preparation-time state; their pending R-GFX4-3 runtime status is superseded by the new evidence above. R-GFX3 remains CLOSED.
+
 # R-GFX4 continuation #2 findings — R-GFX4-3
 
 READY_FOR_HUMAN_RUNTIME; new human A–E retest is pending. Starting branch research/general-re, HEAD25cb58d. R-GFX3 remains CLOSED. All edits are renderer-local; EXE/assets, frozen research and user renderer.zip remain unchanged.

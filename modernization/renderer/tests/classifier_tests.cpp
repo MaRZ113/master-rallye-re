@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cmath>
+#include <memory>
 #define CHECK(x) do{if(!(x))throw std::runtime_error(#x);}while(0)
 using namespace gfx2;
 D3DMATRIX world(float x=0,float z=0,float yaw=0){D3DMATRIX m{};m._11=m._33=std::cos(yaw);m._13=std::sin(yaw);m._31=-m._13;m._22=m._44=1;m._41=x;m._43=z;return m;}
@@ -17,7 +18,7 @@ void temporal(){
  for(int i=0;i<5;++i)c=frame(t,world(i*.2f),1);c=frame(t,world(1),2);CHECK(c.age==1&&!c.dynamic);
 }
 void instances_and_order(){
- TransformTracker a,b;uint64_t id_a=0,id_b=0;
+ auto aa=std::make_unique<TransformTracker>(),bb=std::make_unique<TransformTracker>();auto& a=*aa;auto& b=*bb;uint64_t id_a=0,id_b=0;
  for(int frame_index=0;frame_index<6;++frame_index){
   auto w1=world(frame_index*.2f),w2=world(20+frame_index*.2f);
   auto i1=a.observe(w1,77),i2=a.observe(w2,77); // Same geometry, two instances.
@@ -28,14 +29,14 @@ void instances_and_order(){
   id_a=a.result(i1)->track;id_b=a.result(i2)->track;a.next_frame();b.next_frame();
  }
  CHECK(id_a!=id_b);
- TransformTracker ambiguous;ambiguous.observe(world(-1),1);ambiguous.observe(world(1),1);ambiguous.finish_frame();ambiguous.next_frame();auto i=ambiguous.observe(world(),1);ambiguous.finish_frame();CHECK(ambiguous.result(i)->ambiguous&&!ambiguous.result(i)->dynamic);
- TransformTracker full;for(int i=0;i<129;++i)full.observe(world(static_cast<float>(i)*2),1);full.finish_frame();CHECK(full.overflowed()&&full.result(0)==nullptr);
+ auto ambiguous_ptr=std::make_unique<TransformTracker>();auto& ambiguous=*ambiguous_ptr;ambiguous.observe(world(-1),1);ambiguous.observe(world(1),1);ambiguous.finish_frame();ambiguous.next_frame();auto i=ambiguous.observe(world(),1);ambiguous.finish_frame();CHECK(ambiguous.result(i)->ambiguous&&!ambiguous.result(i)->dynamic);
+ auto full_ptr=std::make_unique<TransformTracker>();auto& full=*full_ptr;for(int i=0;i<129;++i)full.observe(world(static_cast<float>(i)*2),1);full.finish_frame();CHECK(full.overflowed()&&full.result(0)==nullptr);
  // A huge static identity-WORLD group is left unknown without poisoning car tracks.
- TransformTracker saturated;for(int k=1;k<=65;++k)saturated.observe(world(),k);auto car=saturated.observe(world(50),100);saturated.finish_frame();CHECK(saturated.result(0)->track==0&&saturated.result(car)->age==1&&!saturated.overflowed());
+ auto saturated_ptr=std::make_unique<TransformTracker>();auto& saturated=*saturated_ptr;for(int k=1;k<=65;++k)saturated.observe(world(),k);auto car=saturated.observe(world(50),100);saturated.finish_frame();CHECK(saturated.result(0)->track==0&&saturated.result(car)->age==1&&!saturated.overflowed());
  auto malformed=world();malformed._11=NAN;CHECK(full.observe(malformed,1)==UINT32_MAX);
 }
 void wheel_order(){
- TransformTracker a,b;
+ auto aa=std::make_unique<TransformTracker>(),bb=std::make_unique<TransformTracker>();auto& a=*aa;auto& b=*bb;
  for(int frame_index=0;frame_index<6;++frame_index){
   std::array<D3DMATRIX,4> wheels={world(-1,frame_index*.2f-1,frame_index*.03f),world(1,frame_index*.2f-1,frame_index*.03f),world(-1,frame_index*.2f+1,frame_index*.03f),world(1,frame_index*.2f+1,frame_index*.03f)};
   std::array<uint32_t,4> x{},y{};for(int i=0;i<4;++i)x[i]=a.observe(wheels[i],77);for(int i:{2,0,3,1})y[i]=b.observe(wheels[i],77);

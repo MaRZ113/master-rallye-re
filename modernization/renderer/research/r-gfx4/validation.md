@@ -1,4 +1,36 @@
-# R-GFX4-3 automated validation — continuation #2
+# R-GFX4-4 automated validation — continuation #3
+
+**READY_FOR_HUMAN_RUNTIME.** New stationary/brake visuals are pending. Repository master-rallye-re-general, branch research/general-re; starting HEAD69822af6bc7e3bc7a889d06994d621ef9506fba7, working tree clean at preflight. No untracked user files then. All edits inside modernization/renderer; no new branch/worktree/push/deployment, EXE/asset modification or retired-tree/Ghidra database change.
+
+| Check | Result |
+|---|---|
+| Win32 x86 Release `tools/build.py` | PASS |
+| Native / visual / classifier / reflection / FOV-culling / identity CTest suites | **6/6 PASS** |
+| Full renderer Python discovery | **69 PASS**, no skips |
+| `python -m compileall -q modernization/renderer` | PASS |
+| Generated16/97-method COM interfaces | Identical bytes on rerun |
+| PE/import/export verifier | PE32/I386 DLL, exactly3 required exports, no recursive d3d8 import |
+| Scoped Git diff check | PASS |
+
+DLL SHA256: `862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873`. Size: **1096192 bytes**. Ignored candidate `.build-msvc/Release/d3d8.dll`, not committed/deployed. Exports Direct3DCreate8@5, ValidateVertexShader@3, ValidatePixelShader@2; imports bcrypt.dll, USER32.dll, KERNEL32.dll. See [build.json](../../data/build.json). No byte-identical rebuild or new GPU/visual runtime guarantee.
+
+New native identity contracts cover stationary four-frame structural admission, unchanged WORLD/zero motion, stable independent constellation ID, N-signature mutation (one removed/two0x102 layers added), full material mutation with immutable-family continuity, new-resource draw quarantine, Stock brake/no-normal/alpha, order permutation, three-wheel startup rejection, weak static body/unrelated wheel-family rejection, competing fifth-wheel immediate demotion, bounded three-complete-frame missing-wheel retention, grace expiry/fresh-ID relearn, resource-family replacement, Reset and chassis disappearance.
+
+The real wrapper/mock integration proves positive body reflection before any movement, continued positive native writes after the brake mutation, and no writes for0x102 opaque/glow, wheels or HUD. Remaining eligible counts decrease locally when the env lamp is replaced; the whole body does not turn off. A returning env signature is verified for one complete frame before becoming eligible again. Captured normal and shuffled brake frames have stable IDs, retained provenance, independent material eligibility and successful native restores; Python audits current-producer EXE hashes so preserved stale synthetic captures cannot contaminate results. Original draw/HRESULT/failure/repair and exact-TCI contracts remain passing. Native override code and visual parameters are unchanged.
+
+Python additionally runs `identity_tests.exe --replay` on compact matrix/layout/resource/signature data derived from the **real** brake-off/on cam2 and stationary restart captures. Controlled repeated sampled frames admit structurally;34→35 mutation preserves IDs and positive eligible draws. This is a native software replay fixture, not execution of intervening game frames or a human pass for this DLL. Read-only evidence-tool tests cover unknown/incomplete/truncated/count-mismatched inputs, pair epoch/provenance rejection, immutable family generation versus material changes and output scope guards.
+
+All previous AF MIN-only/MAG/MIP/stage1, caps/config, FOV/depth/aspect/preview45, CPU planes/hook/ABI/FP restoration, shadows, COM forwarding, race→HUD lifetime, menu invalidation and pool-aware Reset tests remain passing. Git byte comparisons confirm game_fov.cpp, reflection_scope.cpp, visual_policy.cpp, visual_wrappers.cpp and the exact culling map unchanged from starting HEAD. FrameBuffer's existing32MiB allocation bound still passes; expanded identity support stays in bounded transform groups. Tests with multiple trackers use heap-owned fixtures to preserve the normal native stack limit.
+
+Canonical corpus and current pristine test EXE both rehash to bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4. Seventeen R-GFX4-3 human captures are complete/untruncated with matching previous proxy SHA0669…8942; normal39/2735/78 and lookback17/1623/34 native modifications/triangles/writes restore successfully. FOV/culling is supported by human acceptance plus capture metadata. Both brake sample pairs have33 shared signatures, one removal/two additions; actual stationary restart has a non-dynamic chassis and four compatible wheels. [Input digest](continuation3-runtime-evidence.json) keeps hashes and compact derived data; raw runtime logs/assets remain external. No hard-coded observed counts, dimensions, texture serials or material names enter production.
+
+**Human still required:** A stationary player before first movement, B/C same-cam2 brake-off/on with stable IDs and positive modifications, healthy stock lamps/wheels/scenery, optional cam0 and actual successful Reset/fresh-ID relearn, unchanged FOV/culling and acceptable CPU cost. Synthetic negatives do not prove universal scenery rejection. [Human handoff](runtime-handoff.md). R-GFX3 remains CLOSED; stop and await evidence.
+
+---
+
+The earlier validation below is preserved in its original context. Its starting HEAD, DLL hashes, then-current test counts and pending statuses are historical; new R-GFX4-3 human evidence above supersedes that preparation-time runtime status.
+
+# Historical R-GFX4-3 automated validation — continuation #2
 
 **READY_FOR_HUMAN_RUNTIME.** Static analysis and synthetic execution support this candidate; A–E human results for this DLL are pending. Starting branch `research/general-re`, HEAD `25cb58dcf5ce652ae0b0a5e808ccc879596dd40b`, tracked tree clean. The only pre-existing untracked file, `modernization/renderer.zip`, is preserved and excluded from staging. No branch/worktree creation, push, game deployment, EXE/asset disk change or Ghidra database save. Every task file is inside `modernization/renderer/`.
 

@@ -1,3 +1,11 @@
+# R-GFX4-4 reflection ownership update
+
+R-GFX4-3 supplied human captures prove actual native execution: E-normal-view39 modifications/2735 triangles/78 writes; E-backview17/1623/34, with successful per-draw restoration. Brake-off cam2 has22/1304/44; brake-on falls to0 because the old whole-body semantic predicate rejects a0x102 mutation. The native reflection implementation and appearance are unchanged in continuation #3.
+
+Object proof now accepts dynamic or repeated structural four-wheel admission and bounded retained identity. [Vehicle classification](vehicle-classification.md) specifies the anchors, grace, conflicts and invalidation. Current draw gating remains opaque BODY0x152 + NORMAL/DIFFUSE + stock stage1 env/NORMAL TCI. Unseen signatures need one complete-frame draw proof;0x102 brake base/glow, wheels and alpha always stay Stock. No texture matrix, texture, intensity, UV, combine, lighting or shader changes. New candidate's brake/start visuals remain pending human runtime.
+
+The earlier prototype description below is historical where it requires a dynamic-only chassis; native TCI behavior and exclusions remain applicable.
+
 # ViewDependent2D prototype boundary
 
 R-GFX4-1 deliberately blocked this feature. R-GFX4-2 recognizes ViewDependent2D as an opt-in draw-local experiment; Stock remains default. Unknown EXE hash forces Stock and disables semantic classification. ConfigVersion/missing/invalid behavior and AF/FOV/shadow policy retain closed R-GFX3 contracts.

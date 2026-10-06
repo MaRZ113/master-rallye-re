@@ -102,6 +102,35 @@ void integration(){
  CHECK(w.DrawPrimitive(D3DPT_TRIANGLELIST,0,10)==E_FAIL&&raw.draws==draws+1);raw.fail_restore=false;CHECK(w.DrawPrimitive(D3DPT_TRIANGLELIST,0,10)==S_OK&&!t.reflection_restore_pending.known&&raw.tci==got);
  auto preview=world();preview._22=static_cast<float>(1./std::tan(45./(4./3.)*3.14159265358979323846/360.));preview._11=preview._22/(4.f/3.f);preview._33=1.00020003f;preview._34=1;preview._43=-.200040013f;preview._44=0;t.after(37,pack(D3DTS_PROJECTION,&preview),S_OK,0x400000+GAMEPLAY_PROJECTION_RETURN_RVA);CHECK(!t.race_context());
 }
+void stationary_brake_frame(Device8& w,bool brake,bool shuffled){
+ auto draw=[&](D3DMATRIX matrix,uint32_t fvf,int start,bool alpha=false){
+  auto& t=w.trace;t.shadow.matrices[256].set(matrix);t.shadow.bindings.vertex_shader.set(fvf);t.effective_shadow.bindings.vertex_shader.set(fvf);
+  t.shadow.rs[27].set(alpha?1:0);t.shadow.rs[14].set(alpha?0:1);t.effective_shadow.rs[27]=t.shadow.rs[27];t.effective_shadow.rs[14]=t.shadow.rs[14];
+  CHECK(w.draw_indexed_at(D3DPT_TRIANGLELIST,0,20,start,start==180?28:10,0x400000+SHARED_WORLD_RETURN_RVA)==S_OK);
+ };
+ auto body=[&]{if(brake&&shuffled)draw(world(),0x102,150);draw(world(),0x152,0);draw(world(),0x152,30);draw(world(),0x142,120);
+  if(brake){if(!shuffled)draw(world(),0x102,150);draw(world(),0x102,180,true);}else draw(world(),0x152,150);
+ };
+ auto wheels=[&]{for(int k:{2,0,3,1}){auto m=world(k&1?.9f:-.9f,k&2?1.4f:-1.4f);draw(m,0x112,60);draw(m,0x112,90);}};
+ if(shuffled){wheels();body();}else{body();wheels();}
+ w.trace.shadow.rs[27].set(0);w.trace.shadow.rs[14].set(1);w.trace.effective_shadow.rs[27]=w.trace.shadow.rs[27];w.trace.effective_shadow.rs[14]=w.trace.shadow.rs[14];
+ hud(w);
+}
+void stationary_brake_reflection(){
+ MockRootBase rr;Raw raw;Root8 root(&rr);Device8 w(&raw,&root);auto& t=w.trace;t.configure_classifier(true,0x400000);t.enabled=false;
+ w.visuals.configure(parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode","ViewDependent2D"}},true),true,nullptr,E_FAIL);
+ t.resources.add(100,23,pack(512,0,0,D3DPOOL_MANAGED,0));t.resources.add(200,24,pack(512,0,101,D3DPOOL_MANAGED,0));t.resources.add(300,20,pack(8,8,1,0,21,D3DPOOL_MANAGED,0));setup(t);
+ for(uint32_t f=0;f<STRUCTURAL_OBSERVATIONS;++f){race(t);auto n=raw.writes.size();stationary_brake_frame(w,false,false);CHECK(raw.writes.size()==n);t.after(15,pack(),S_OK,0);}
+ // No chassis/wheel movement: the first post-proof frame already modifies eligible body draws.
+ race(t);auto n=raw.writes.size();stationary_brake_frame(w,false,false);CHECK(raw.writes.size()==n+6);t.after(15,pack(),S_OK,0);
+ for(bool shuffled:{false,true}){
+  t.enabled=true;t.control.pending=true;race(t);stationary_brake_frame(w,false,false);t.after(15,pack(),S_OK,0);
+  race(t);n=raw.writes.size();stationary_brake_frame(w,true,shuffled);CHECK(raw.writes.size()==n+4); // One env removed; both 0x102 layers stay stock.
+  t.after(15,pack(),S_OK,0);t.enabled=false;
+  race(t);n=raw.writes.size();stationary_brake_frame(w,false,shuffled);CHECK(raw.writes.size()==n+4);t.after(15,pack(),S_OK,0); // Returning env signature is verified by a complete frame first.
+  race(t);n=raw.writes.size();stationary_brake_frame(w,false,shuffled);CHECK(raw.writes.size()==n+6);t.after(15,pack(),S_OK,0);
+ }
+}
 void gating(){
  Trace t;t.enabled=false;Raw raw;VisualPolicy p;p.configure(parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode","ViewDependent2D"}},true),true,nullptr,E_FAIL);setup(t);
  DrawClassification c;c.reasons=255;c.fvf=0x152;c.transform.track=1;c.transform.constellation=1;c.transform.object=ObjectClass::Body;c.transform.vehicle_reasons=127;c.transform.wheels={2,3,4,5};
@@ -111,4 +140,4 @@ void gating(){
  auto d=c;d.transform.wheels[3]=0;check(d,false);d=c;d.transform.wheels[3]=d.transform.wheels[2];check(d,false);d=c;d.transform.object=ObjectClass::Wheel;check(d,false);d.transform.object=ObjectClass::Unknown;check(d,false);d=c;d.transform.ambiguous=true;check(d,false);
  p.configure(p.requested,false,nullptr,E_FAIL);check(c,false);p.configure(parse_visual_config({},false),true,nullptr,E_FAIL);check(c,false);
 }
-int main(){try{gating();integration();full_frame_lifetime();std::cout<<"Native reflection / full race-HUD-Present lifetime / menu transition / Reset relearn / fail-closed gates: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{gating();integration();full_frame_lifetime();stationary_brake_reflection();std::cout<<"Native reflection / full race-HUD-Present lifetime / menu transition / Reset relearn / fail-closed gates: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

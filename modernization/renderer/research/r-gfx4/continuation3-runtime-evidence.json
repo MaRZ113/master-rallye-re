@@ -1,0 +1,3497 @@
+{
+  "schema_version": 1,
+  "input_directory": "D:\\Game\\Master Rallye Pristine\\MRRRenderer\\logs",
+  "source": "Human continuation #3 prompt plus locally rehashed complete F10 inputs",
+  "frames": [
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 8217
+      },
+      "classifier": {
+        "dynamic_tracks": 3,
+        "chassis_candidates": 2,
+        "vehicle_constellations": 2,
+        "vehicle_body_draws": 62,
+        "vehicle_wheel_draws": 36,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 40,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": false,
+        "synchronized": false,
+        "restored": true,
+        "width": 0,
+        "height": 0,
+        "source_angle": 0,
+        "vfov": 0,
+        "hfov": 0,
+        "synchronized_frames": 0,
+        "failures": 0,
+        "reason": "disabled"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "A-classifier.jsonl",
+      "sha256": "1b1d4edb5aeced9490933fb2ab1a4382c7495b0100e3811983f80239d68d3818",
+      "size": 4394480
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 6982
+      },
+      "classifier": {
+        "dynamic_tracks": 16,
+        "chassis_candidates": 4,
+        "vehicle_constellations": 2,
+        "vehicle_body_draws": 62,
+        "vehicle_wheel_draws": 36,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 39,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 6448,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "B-edge-640.jsonl",
+      "sha256": "5f757796e215da11b4be35a90a3d657a788c1f982b837cac686358361c5c64d4",
+      "size": 4026940
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 11289
+      },
+      "classifier": {
+        "dynamic_tracks": 18,
+        "chassis_candidates": 3,
+        "vehicle_constellations": 2,
+        "vehicle_body_draws": 62,
+        "vehicle_wheel_draws": 36,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 39,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 1,
+        "relearn_count": 1,
+        "epoch": 2,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 1920,
+        "height": 1027,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 114.968,
+        "synchronized_frames": 10755,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "B-edge-1920.jsonl",
+      "sha256": "8abb7c0636fa2b98f7633a3c169fde41a4b9a31aa102ac01af083af277602160",
+      "size": 3903440
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 3720
+      },
+      "classifier": {
+        "dynamic_tracks": 15,
+        "chassis_candidates": 4,
+        "vehicle_constellations": 3,
+        "vehicle_body_draws": 89,
+        "vehicle_wheel_draws": 52,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 52,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 2742,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "C-cameras1.jsonl",
+      "sha256": "2a3d555331b82ae79c6088c4bf9d07b67fae40a8f5b9d02f9cc8af95d37bd32f",
+      "size": 4044457
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 6667
+      },
+      "classifier": {
+        "dynamic_tracks": 15,
+        "chassis_candidates": 3,
+        "vehicle_constellations": 3,
+        "vehicle_body_draws": 89,
+        "vehicle_wheel_draws": 52,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 52,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 5689,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "C-cameras2.jsonl",
+      "sha256": "3e63e0cb10075dab5cd2fa346bfa196fad8e0e7d1bf3bc66356d52b1a3d92be6",
+      "size": 3759234
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 15668
+      },
+      "classifier": {
+        "dynamic_tracks": 6,
+        "chassis_candidates": 2,
+        "vehicle_constellations": 1,
+        "vehicle_body_draws": 28,
+        "vehicle_wheel_draws": 20,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 17,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 14690,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "C-cameras3.jsonl",
+      "sha256": "fd7e718d27f523eb780e14869360b15add85c1b4ade7e6155b5653761855d757",
+      "size": 3130789
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 21634
+      },
+      "classifier": {
+        "dynamic_tracks": 10,
+        "chassis_candidates": 2,
+        "vehicle_constellations": 2,
+        "vehicle_body_draws": 55,
+        "vehicle_wheel_draws": 36,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 30,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 20656,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "C-cameras4.jsonl",
+      "sha256": "fdd55932b98099823e4adf298b388dcb4325fe2e4b1022efe6e281de81fcdb4f",
+      "size": 3621776
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 31988
+      },
+      "classifier": {
+        "dynamic_tracks": 0,
+        "chassis_candidates": 0,
+        "vehicle_constellations": 0,
+        "vehicle_body_draws": 0,
+        "vehicle_wheel_draws": 0,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 0,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 31010,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "C-backview-.jsonl",
+      "sha256": "c9abe31532d92058c4638d8c61783a0b98f8b9217a201f1df8d15435648ede5a",
+      "size": 2475481
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 49039
+      },
+      "classifier": {
+        "dynamic_tracks": 15,
+        "chassis_candidates": 3,
+        "vehicle_constellations": 3,
+        "vehicle_body_draws": 90,
+        "vehicle_wheel_draws": 56,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 56,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 48061,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "D-before-reset.jsonl",
+      "sha256": "300f2f3b188adc8c5df8b6e152e02e14ca7cbcbb2bb3db0175d27a4b67398bcf",
+      "size": 3564120
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 64926
+      },
+      "classifier": {
+        "dynamic_tracks": 10,
+        "chassis_candidates": 2,
+        "vehicle_constellations": 2,
+        "vehicle_body_draws": 62,
+        "vehicle_wheel_draws": 36,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 39,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 2,
+        "relearn_count": 2,
+        "epoch": 3,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 63948,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "D-after-reset.jsonl",
+      "sha256": "0a9c29f7ad5d67addf1ca1054f51803527aa2f5bf8d8f2e6869e860f04c2d98b",
+      "size": 3862080
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 18205
+      },
+      "classifier": {
+        "dynamic_tracks": 9,
+        "chassis_candidates": 3,
+        "vehicle_constellations": 2,
+        "vehicle_body_draws": 62,
+        "vehicle_wheel_draws": 36,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 39,
+        "reflection_modified_draws": 39,
+        "reflection_modified_triangles": 2735,
+        "reflection_native_writes": 78,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 14463,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 39,
+        "errors": [],
+        "status": "AUTOMATED_TRACE_PASS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "E-normal-view.jsonl",
+      "sha256": "3ea422b0623504ddb2bc767155100781f96ce76d9814a485fd5b58a57dd5dc72",
+      "size": 3964462
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 24863
+      },
+      "classifier": {
+        "dynamic_tracks": 4,
+        "chassis_candidates": 1,
+        "vehicle_constellations": 1,
+        "vehicle_body_draws": 28,
+        "vehicle_wheel_draws": 20,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 17,
+        "reflection_modified_draws": 17,
+        "reflection_modified_triangles": 1623,
+        "reflection_native_writes": 34,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": true,
+        "synchronized": true,
+        "restored": true,
+        "width": 640,
+        "height": 480,
+        "source_angle": 90,
+        "vfov": 80,
+        "hfov": 96.4183,
+        "synchronized_frames": 21121,
+        "failures": 0,
+        "reason": "matched_side_planes"
+      },
+      "reflection_audit": {
+        "modified_draws": 17,
+        "errors": [],
+        "status": "AUTOMATED_TRACE_PASS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "E-backview.jsonl",
+      "sha256": "82ecee487dc492ee66e1c015eec5f35f670e2250a5f82fa01dc74201c6ffb85c",
+      "size": 3248270
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 27596
+      },
+      "classifier": {
+        "dynamic_tracks": 5,
+        "chassis_candidates": 1,
+        "vehicle_constellations": 1,
+        "vehicle_body_draws": 34,
+        "vehicle_wheel_draws": 16,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 22,
+        "reflection_modified_draws": 22,
+        "reflection_modified_triangles": 1304,
+        "reflection_native_writes": 44,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 287,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": false,
+        "synchronized": false,
+        "restored": true,
+        "width": 0,
+        "height": 0,
+        "source_angle": 0,
+        "vfov": 0,
+        "hfov": 0,
+        "synchronized_frames": 0,
+        "failures": 0,
+        "reason": "disabled"
+      },
+      "groups": [
+        {
+          "world": [
+            0.795037866,
+            0.00382428244,
+            -0.606547773,
+            0,
+            0.0246700402,
+            0.998948812,
+            0.0386348478,
+            0,
+            0.606057882,
+            -0.0456797257,
+            0.794107795,
+            0,
+            -1090.19666,
+            -35.6367188,
+            95.8460693,
+            1
+          ],
+          "track": 5,
+          "age": 20427,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 17503734955945163345,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 166
+            },
+            {
+              "signature": 16710763965015253731,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 104
+            },
+            {
+              "signature": 2342448050630880039,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 60
+            },
+            {
+              "signature": 11528556195229697503,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 26
+            },
+            {
+              "signature": 3436668602115919567,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 38
+            },
+            {
+              "signature": 3510071210322174762,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 200
+            },
+            {
+              "signature": 15962472939876230695,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 9675670507820461175,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 15468551043200341984,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 28
+            },
+            {
+              "signature": 12107282141123794243,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 8
+            },
+            {
+              "signature": 16604935618044529765,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 72
+            },
+            {
+              "signature": 2976584106090553820,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 14399542626936581884,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 10
+            },
+            {
+              "signature": 15552294955057686569,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 42
+            },
+            {
+              "signature": 3885816460683071908,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 112
+            },
+            {
+              "signature": 4355534579346223295,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 39
+            },
+            {
+              "signature": 13373397686125077764,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 40
+            },
+            {
+              "signature": 18188263790180050118,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 20
+            },
+            {
+              "signature": 10269726325102486537,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 5627466961772391287,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 55
+            },
+            {
+              "signature": 4423150706480161747,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 30
+            },
+            {
+              "signature": 14675586911251427361,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 11
+            },
+            {
+              "signature": 13269822347456519640,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 10
+            },
+            {
+              "signature": 3267492188532234168,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 196
+            },
+            {
+              "signature": 17267480112282311167,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 262
+            },
+            {
+              "signature": 5213000061047358770,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 4747823842276722119,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 68
+            },
+            {
+              "signature": 5069923121416267786,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 3968820499728591091,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 33
+            },
+            {
+              "signature": 5407313787860543306,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 148
+            },
+            {
+              "signature": 4954345173230727381,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 15925280688014323030,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 18157472860362111256,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 13972546046173354574,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            }
+          ]
+        },
+        {
+          "world": [
+            0.795364439,
+            0.022941703,
+            -0.605697155,
+            0,
+            -0.0587442927,
+            -0.991661727,
+            -0.114700109,
+            0,
+            -0.603278041,
+            0.126809627,
+            -0.787384808,
+            0,
+            -1091.73206,
+            -35.5952148,
+            95.2762375,
+            1
+          ],
+          "track": 754,
+          "age": 5285,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.794404685,
+            0.0156405289,
+            0.60718739,
+            0,
+            -0.606347144,
+            -0.078943707,
+            -0.791271925,
+            0,
+            0.0355576873,
+            -0.996756315,
+            0.0721967816,
+            0,
+            -1090.34094,
+            -35.5898399,
+            94.2147369,
+            1
+          ],
+          "track": 2,
+          "age": 20427,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.804664493,
+            0.0210373998,
+            0.593357027,
+            0,
+            -0.382496387,
+            0.745986819,
+            -0.545160592,
+            0,
+            -0.454105258,
+            -0.665628433,
+            -0.592222393,
+            0,
+            -1088.66162,
+            -35.7006645,
+            96.4150162,
+            1
+          ],
+          "track": 1,
+          "age": 20427,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            0.784708142,
+            0.0289794058,
+            -0.619187891,
+            0,
+            -0.125337303,
+            -0.970856011,
+            -0.20428054,
+            0,
+            -0.607062161,
+            0.237907916,
+            -0.758206427,
+            0,
+            -1090.0531,
+            -35.7084846,
+            97.4764404,
+            1
+          ],
+          "track": 761,
+          "age": 5169,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        }
+      ],
+      "structural_candidates": [
+        {
+          "chassis_track": 5,
+          "chassis_dynamic": true,
+          "wheel_tracks": [
+            754,
+            2,
+            1,
+            761
+          ],
+          "local_centers": [
+            [
+              -0.8749122071634126,
+              -0.018433373094435483,
+              -1.3849450375771246
+            ],
+            [
+              0.8749522490903515,
+              -0.01975605092240125,
+              -1.3850372215841165
+            ],
+            [
+              0.8750769042567474,
+              -0.004027805651124029,
+              1.3850492814520488
+            ],
+            [
+              -0.8750367765143521,
+              -0.0051595903751007685,
+              1.384974310851277
+            ]
+          ],
+          "four_wheel_geometry": true,
+          "symmetry_error": 0.015990589399595734,
+          "native_temporal_admission": "NOT_REPLAYED_BY_THIS_TOOL"
+        }
+      ],
+      "reflection_audit": {
+        "modified_draws": 22,
+        "errors": [],
+        "status": "AUTOMATED_TRACE_PASS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "brake-off-cam2.jsonl",
+      "sha256": "c1bfa9e4753090d11121ea2c80eda98805cd9ca3cdb171e538e00e8d9e4ff317",
+      "size": 2946685
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 39285
+      },
+      "classifier": {
+        "dynamic_tracks": 5,
+        "chassis_candidates": 0,
+        "vehicle_constellations": 0,
+        "vehicle_body_draws": 0,
+        "vehicle_wheel_draws": 0,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 0,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 287,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": false,
+        "synchronized": false,
+        "restored": true,
+        "width": 0,
+        "height": 0,
+        "source_angle": 0,
+        "vfov": 0,
+        "hfov": 0,
+        "synchronized_frames": 0,
+        "failures": 0,
+        "reason": "disabled"
+      },
+      "groups": [
+        {
+          "world": [
+            0.793377936,
+            0.00546401739,
+            -0.608705044,
+            0,
+            0.0241138525,
+            0.998892725,
+            0.0403961949,
+            0,
+            0.60825175,
+            -0.0467276722,
+            0.792367697,
+            0,
+            -1089.16699,
+            -35.7042274,
+            97.1516571,
+            1
+          ],
+          "track": 5,
+          "age": 32116,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 17503734955945163345,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 166
+            },
+            {
+              "signature": 16710763965015253731,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 104
+            },
+            {
+              "signature": 2342448050630880039,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 60
+            },
+            {
+              "signature": 11528556195229697503,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 26
+            },
+            {
+              "signature": 3436668602115919567,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 38
+            },
+            {
+              "signature": 3510071210322174762,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 200
+            },
+            {
+              "signature": 15962472939876230695,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 9675670507820461175,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 8073623272479127269,
+              "resource_family": 4703107668855007037,
+              "fvf": 258,
+              "reasons": 128,
+              "triangles": 10
+            },
+            {
+              "signature": 15468551043200341984,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 28
+            },
+            {
+              "signature": 12107282141123794243,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 8
+            },
+            {
+              "signature": 16604935618044529765,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 72
+            },
+            {
+              "signature": 2976584106090553820,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15552294955057686569,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 42
+            },
+            {
+              "signature": 3885816460683071908,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 112
+            },
+            {
+              "signature": 4355534579346223295,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 39
+            },
+            {
+              "signature": 13373397686125077764,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 40
+            },
+            {
+              "signature": 18188263790180050118,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 20
+            },
+            {
+              "signature": 10269726325102486537,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 5627466961772391287,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 55
+            },
+            {
+              "signature": 4423150706480161747,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 30
+            },
+            {
+              "signature": 14675586911251427361,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 11
+            },
+            {
+              "signature": 13269822347456519640,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 10
+            },
+            {
+              "signature": 3267492188532234168,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 196
+            },
+            {
+              "signature": 17267480112282311167,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 262
+            },
+            {
+              "signature": 5213000061047358770,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 4747823842276722119,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 68
+            },
+            {
+              "signature": 5069923121416267786,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 3968820499728591091,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 33
+            },
+            {
+              "signature": 5407313787860543306,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 148
+            },
+            {
+              "signature": 2896858641624779173,
+              "resource_family": 4703107668855007037,
+              "fvf": 258,
+              "reasons": 0,
+              "triangles": 28
+            },
+            {
+              "signature": 4954345173230727381,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 15925280688014323030,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 18157472860362111256,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 13972546046173354574,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            }
+          ]
+        },
+        {
+          "world": [
+            0.793692172,
+            0.0243517235,
+            -0.607832432,
+            0,
+            0.3598876,
+            0.786781967,
+            0.501453221,
+            0,
+            0.490442693,
+            -0.616750658,
+            0.615698695,
+            0,
+            -1090.70398,
+            -35.6618309,
+            96.5861435,
+            1
+          ],
+          "track": 754,
+          "age": 16974,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.792737722,
+            0.0144560812,
+            0.60939151,
+            0,
+            0.544109404,
+            -0.433897734,
+            0.718107343,
+            0,
+            0.274794638,
+            0.900846362,
+            0.336101383,
+            0,
+            -1089.31567,
+            -35.6562004,
+            95.5207443,
+            1
+          ],
+          "track": 2,
+          "age": 32116,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.803070426,
+            0.01910346,
+            0.595577836,
+            0,
+            0.100798815,
+            -0.980727196,
+            0.1673733,
+            0,
+            0.587296784,
+            0.194446102,
+            0.7856673,
+            0,
+            -1087.63037,
+            -35.7669945,
+            97.7163544,
+            1
+          ],
+          "track": 1,
+          "age": 32116,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            0.782998204,
+            0.0308972392,
+            -0.621256232,
+            0,
+            0.414522707,
+            0.71874702,
+            0.558188081,
+            0,
+            0.463772416,
+            -0.694584966,
+            0.549969912,
+            0,
+            -1089.01892,
+            -35.7798805,
+            98.781456,
+            1
+          ],
+          "track": 761,
+          "age": 16858,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        }
+      ],
+      "structural_candidates": [
+        {
+          "chassis_track": 5,
+          "chassis_dynamic": true,
+          "wheel_tracks": [
+            754,
+            2,
+            1,
+            761
+          ],
+          "local_centers": [
+            [
+              -0.8749513178688207,
+              -0.01755779234271173,
+              -1.3849526558411338
+            ],
+            [
+              0.8750478365228564,
+              -0.021494098019832042,
+              -1.384961679446571
+            ],
+            [
+              0.8750433486471018,
+              -0.002832149340499003,
+              1.3850326636617805
+            ],
+            [
+              -0.8750047100061766,
+              -0.00616111906181405,
+              1.3849989308463326
+            ]
+          ],
+          "four_wheel_geometry": true,
+          "symmetry_error": 0.01887879517898154,
+          "native_temporal_admission": "NOT_REPLAYED_BY_THIS_TOOL"
+        }
+      ],
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "brake-on-cam2.jsonl",
+      "sha256": "fe656ad4a7f51a67f6f37d4f0aa061c5b2b5339f065f363add6b8e8b5596792f",
+      "size": 2935419
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 99599
+      },
+      "classifier": {
+        "dynamic_tracks": 5,
+        "chassis_candidates": 1,
+        "vehicle_constellations": 1,
+        "vehicle_body_draws": 34,
+        "vehicle_wheel_draws": 16,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 22,
+        "reflection_modified_draws": 22,
+        "reflection_modified_triangles": 1304,
+        "reflection_native_writes": 44,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 307,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": false,
+        "synchronized": false,
+        "restored": true,
+        "width": 0,
+        "height": 0,
+        "source_angle": 0,
+        "vfov": 0,
+        "hfov": 0,
+        "synchronized_frames": 0,
+        "failures": 0,
+        "reason": "disabled"
+      },
+      "groups": [
+        {
+          "world": [
+            0.612167597,
+            -0.0403559506,
+            -0.789697826,
+            0,
+            0.0394315347,
+            0.999012351,
+            -0.0204855371,
+            0,
+            0.789744437,
+            -0.0185984094,
+            0.613154173,
+            0,
+            -1075.25867,
+            -28.23736,
+            -0.284229696,
+            1
+          ],
+          "track": 1709,
+          "age": 26758,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 17503734955945163345,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 166
+            },
+            {
+              "signature": 16710763965015253731,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 104
+            },
+            {
+              "signature": 2342448050630880039,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 60
+            },
+            {
+              "signature": 11528556195229697503,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 26
+            },
+            {
+              "signature": 3436668602115919567,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 38
+            },
+            {
+              "signature": 3510071210322174762,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 200
+            },
+            {
+              "signature": 15962472939876230695,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 9675670507820461175,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 15468551043200341984,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 28
+            },
+            {
+              "signature": 12107282141123794243,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 8
+            },
+            {
+              "signature": 16604935618044529765,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 72
+            },
+            {
+              "signature": 2976584106090553820,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 14399542626936581884,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 10
+            },
+            {
+              "signature": 15552294955057686569,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 42
+            },
+            {
+              "signature": 3885816460683071908,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 112
+            },
+            {
+              "signature": 4355534579346223295,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 39
+            },
+            {
+              "signature": 13373397686125077764,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 40
+            },
+            {
+              "signature": 18188263790180050118,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 20
+            },
+            {
+              "signature": 10269726325102486537,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 5627466961772391287,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 55
+            },
+            {
+              "signature": 4423150706480161747,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 30
+            },
+            {
+              "signature": 14675586911251427361,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 11
+            },
+            {
+              "signature": 13269822347456519640,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 10
+            },
+            {
+              "signature": 3267492188532234168,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 196
+            },
+            {
+              "signature": 17267480112282311167,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 262
+            },
+            {
+              "signature": 5213000061047358770,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 4747823842276722119,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 68
+            },
+            {
+              "signature": 5069923121416267786,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 3968820499728591091,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 33
+            },
+            {
+              "signature": 5407313787860543306,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 148
+            },
+            {
+              "signature": 4954345173230727381,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 15925280688014323030,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 18157472860362111256,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 13972546046173354574,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.611315966,
+            0.0591309331,
+            0.789174438,
+            0,
+            0.0270595104,
+            -0.995060086,
+            0.0955184698,
+            0,
+            0.790924072,
+            0.0797466412,
+            0.60669601,
+            0,
+            -1075.8175,
+            -28.2640419,
+            -1.82408237,
+            1
+          ],
+          "track": 1984,
+          "age": 3067,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            0.61282289,
+            -0.0207656194,
+            -0.789947629,
+            0,
+            0.754517913,
+            0.312460154,
+            0.577123642,
+            0,
+            0.234842762,
+            -0.949704111,
+            0.207150742,
+            0,
+            -1076.88892,
+            -28.196476,
+            -0.442048907,
+            1
+          ],
+          "track": 1986,
+          "age": 3067,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            0.5990839,
+            -0.0152911413,
+            -0.800540209,
+            0,
+            0.694637656,
+            0.507179797,
+            0.510144114,
+            0,
+            0.398217201,
+            -0.861704588,
+            0.314465076,
+            0,
+            -1074.70068,
+            -28.2343426,
+            1.25610805,
+            1
+          ],
+          "track": 1985,
+          "age": 3067,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.624731481,
+            0.0645855665,
+            0.778164089,
+            0,
+            -0.384553373,
+            0.841889143,
+            -0.378604591,
+            0,
+            -0.679580331,
+            -0.535771847,
+            -0.501118064,
+            0,
+            -1073.62927,
+            -28.3019142,
+            -0.125925273,
+            1
+          ],
+          "track": 1983,
+          "age": 3067,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        }
+      ],
+      "structural_candidates": [
+        {
+          "chassis_track": 1709,
+          "chassis_dynamic": true,
+          "wheel_tracks": [
+            1984,
+            1986,
+            1985,
+            1983
+          ],
+          "local_centers": [
+            [
+              0.8749974642247862,
+              -0.017146363102793247,
+              -1.3850037356973837
+            ],
+            [
+              -0.875006649865943,
+              -0.02020662718436572,
+              -1.3850087535935034
+            ],
+            [
+              -0.8749397419172396,
+              -0.006537824127054864,
+              1.3850778963504344
+            ],
+            [
+              0.875058369968758,
+              -0.0034836515992033978,
+              1.385075208654722
+            ]
+          ],
+          "four_wheel_geometry": true,
+          "symmetry_error": 0.016964020654037525,
+          "native_temporal_admission": "NOT_REPLAYED_BY_THIS_TOOL"
+        }
+      ],
+      "reflection_audit": {
+        "modified_draws": 22,
+        "errors": [],
+        "status": "AUTOMATED_TRACE_PASS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "brake-off-cam0.jsonl",
+      "sha256": "a38b96c7cce5656d0b2abf1872548f2bbb183330c945ff3c7f1dab4b51798d51",
+      "size": 2909999
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 101591
+      },
+      "classifier": {
+        "dynamic_tracks": 5,
+        "chassis_candidates": 0,
+        "vehicle_constellations": 0,
+        "vehicle_body_draws": 0,
+        "vehicle_wheel_draws": 0,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 0,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 307,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": false,
+        "synchronized": false,
+        "restored": true,
+        "width": 0,
+        "height": 0,
+        "source_angle": 0,
+        "vfov": 0,
+        "hfov": 0,
+        "synchronized_frames": 0,
+        "failures": 0,
+        "reason": "disabled"
+      },
+      "groups": [
+        {
+          "world": [
+            0.612854302,
+            -0.0403091088,
+            -0.789167404,
+            0,
+            0.0394707881,
+            0.999013066,
+            -0.0203752536,
+            0,
+            0.789209723,
+            -0.0186619926,
+            0.613840342,
+            0,
+            -1074.83008,
+            -28.2447758,
+            0.0402974896,
+            1
+          ],
+          "track": 1709,
+          "age": 28750,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 17503734955945163345,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 166
+            },
+            {
+              "signature": 16710763965015253731,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 104
+            },
+            {
+              "signature": 2342448050630880039,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 60
+            },
+            {
+              "signature": 11528556195229697503,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 26
+            },
+            {
+              "signature": 3436668602115919567,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 38
+            },
+            {
+              "signature": 3510071210322174762,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 200
+            },
+            {
+              "signature": 15962472939876230695,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 9675670507820461175,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 8073623272479127269,
+              "resource_family": 4703107668855007037,
+              "fvf": 258,
+              "reasons": 128,
+              "triangles": 10
+            },
+            {
+              "signature": 15468551043200341984,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 28
+            },
+            {
+              "signature": 12107282141123794243,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 8
+            },
+            {
+              "signature": 16604935618044529765,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 72
+            },
+            {
+              "signature": 2976584106090553820,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15552294955057686569,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 42
+            },
+            {
+              "signature": 3885816460683071908,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 112
+            },
+            {
+              "signature": 4355534579346223295,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 39
+            },
+            {
+              "signature": 13373397686125077764,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 40
+            },
+            {
+              "signature": 18188263790180050118,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 20
+            },
+            {
+              "signature": 10269726325102486537,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 5627466961772391287,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 55
+            },
+            {
+              "signature": 4423150706480161747,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 30
+            },
+            {
+              "signature": 14675586911251427361,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 11
+            },
+            {
+              "signature": 13269822347456519640,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 10
+            },
+            {
+              "signature": 3267492188532234168,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 196
+            },
+            {
+              "signature": 17267480112282311167,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 262
+            },
+            {
+              "signature": 5213000061047358770,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 4747823842276722119,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 68
+            },
+            {
+              "signature": 5069923121416267786,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 3968820499728591091,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 33
+            },
+            {
+              "signature": 5407313787860543306,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 148
+            },
+            {
+              "signature": 2896858641624779173,
+              "resource_family": 4703107668855007037,
+              "fvf": 258,
+              "reasons": 0,
+              "triangles": 28
+            },
+            {
+              "signature": 4954345173230727381,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 15925280688014323030,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 18157472860362111256,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 13972546046173354574,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.611996472,
+            0.0591875054,
+            0.788642645,
+            0,
+            -0.622504413,
+            -0.651118457,
+            -0.434204787,
+            0,
+            0.4878003,
+            -0.756665289,
+            0.435326636,
+            0,
+            -1075.3877,
+            -28.2717228,
+            -1.50003529,
+            1
+          ],
+          "track": 1984,
+          "age": 5059,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            0.613511801,
+            -0.020657165,
+            -0.789415479,
+            0,
+            0.634044409,
+            -0.583014786,
+            0.508017898,
+            0,
+            -0.470735133,
+            -0.812199473,
+            -0.344588846,
+            0,
+            -1076.46021,
+            -28.2040768,
+            -0.118933536,
+            1
+          ],
+          "track": 1986,
+          "age": 5059,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            0.59978044,
+            -0.0152521469,
+            -0.800019264,
+            0,
+            0.720706582,
+            -0.424069971,
+            0.548403859,
+            0,
+            -0.347628534,
+            -0.905501127,
+            -0.243356556,
+            0,
+            -1074.27356,
+            -28.241848,
+            1.58112025,
+            1
+          ],
+          "track": 1985,
+          "age": 5059,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.625405967,
+            0.0645714253,
+            0.777623355,
+            0,
+            0.338488042,
+            0.920372844,
+            0.195805117,
+            0,
+            -0.703060031,
+            0.385673881,
+            -0.59746331,
+            0,
+            -1073.20093,
+            -28.309494,
+            0.200018421,
+            1
+          ],
+          "track": 1983,
+          "age": 5059,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        }
+      ],
+      "structural_candidates": [
+        {
+          "chassis_track": 1709,
+          "chassis_dynamic": true,
+          "wheel_tracks": [
+            1984,
+            1986,
+            1985,
+            1983
+          ],
+          "local_centers": [
+            [
+              0.8749268146466036,
+              -0.017545434937082608,
+              -1.3850946412481762
+            ],
+            [
+              -0.8750127886293068,
+              -0.020439310504731197,
+              -1.3850163974021388
+            ],
+            [
+              -0.8750194387087697,
+              -0.0065034610477622355,
+              1.3849755266672386
+            ],
+            [
+              0.8749937662710288,
+              -0.0036048474573916306,
+              1.3849919419500551
+            ]
+          ],
+          "four_wheel_geometry": true,
+          "symmetry_error": 0.01709164527858611,
+          "native_temporal_admission": "NOT_REPLAYED_BY_THIS_TOOL"
+        }
+      ],
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "brake-on-cam0.jsonl",
+      "sha256": "ba82fd11c54e86e8f4169953a98fc14c07e249f90017659e4a28041d0448afb2",
+      "size": 2901433
+    },
+    {
+      "exact_complete": true,
+      "header": {
+        "proxy_version": "R-GFX4-3",
+        "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "device": 1,
+        "frame": 78075
+      },
+      "classifier": {
+        "dynamic_tracks": 4,
+        "chassis_candidates": 0,
+        "vehicle_constellations": 0,
+        "vehicle_body_draws": 0,
+        "vehicle_wheel_draws": 0,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 0,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 307,
+        "race_seen_this_frame": true
+      },
+      "fov_culling": {
+        "installed": false,
+        "synchronized": false,
+        "restored": true,
+        "width": 0,
+        "height": 0,
+        "source_angle": 0,
+        "vfov": 0,
+        "hfov": 0,
+        "synchronized_frames": 0,
+        "failures": 0,
+        "reason": "disabled"
+      },
+      "groups": [
+        {
+          "world": [
+            0.852095664,
+            -0.0101327747,
+            -0.52328831,
+            0,
+            -0.00150024949,
+            0.999761283,
+            -0.0218019616,
+            0,
+            0.523384213,
+            0.019362418,
+            0.851876915,
+            0,
+            -1135.05176,
+            -33.1137581,
+            -61.9219055,
+            1
+          ],
+          "track": 1709,
+          "age": 5234,
+          "dynamic": false,
+          "draws": [
+            {
+              "signature": 17503734955945163345,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 166
+            },
+            {
+              "signature": 16710763965015253731,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 104
+            },
+            {
+              "signature": 2342448050630880039,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 60
+            },
+            {
+              "signature": 11528556195229697503,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 26
+            },
+            {
+              "signature": 3436668602115919567,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 38
+            },
+            {
+              "signature": 3510071210322174762,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 200
+            },
+            {
+              "signature": 15962472939876230695,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 9675670507820461175,
+              "resource_family": 12961240041183793801,
+              "fvf": 322,
+              "reasons": 128,
+              "triangles": 29
+            },
+            {
+              "signature": 15468551043200341984,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 28
+            },
+            {
+              "signature": 12107282141123794243,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 8
+            },
+            {
+              "signature": 16604935618044529765,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 72
+            },
+            {
+              "signature": 2976584106090553820,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 14399542626936581884,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 10
+            },
+            {
+              "signature": 15552294955057686569,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 42
+            },
+            {
+              "signature": 3885816460683071908,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 112
+            },
+            {
+              "signature": 4355534579346223295,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 39
+            },
+            {
+              "signature": 13373397686125077764,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 40
+            },
+            {
+              "signature": 18188263790180050118,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 20
+            },
+            {
+              "signature": 10269726325102486537,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 5627466961772391287,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 55
+            },
+            {
+              "signature": 4423150706480161747,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 30
+            },
+            {
+              "signature": 14675586911251427361,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 11
+            },
+            {
+              "signature": 13269822347456519640,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 10
+            },
+            {
+              "signature": 3267492188532234168,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 196
+            },
+            {
+              "signature": 17267480112282311167,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 262
+            },
+            {
+              "signature": 5213000061047358770,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 4747823842276722119,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 68
+            },
+            {
+              "signature": 5069923121416267786,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 6
+            },
+            {
+              "signature": 3968820499728591091,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 33
+            },
+            {
+              "signature": 5407313787860543306,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 192,
+              "triangles": 148
+            },
+            {
+              "signature": 4954345173230727381,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 15925280688014323030,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 18157472860362111256,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            },
+            {
+              "signature": 13972546046173354574,
+              "resource_family": 2335328279978903901,
+              "fvf": 338,
+              "reasons": 64,
+              "triangles": 4
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.851973712,
+            0.0287909005,
+            0.52279222,
+            0,
+            -0.0990347639,
+            -0.989324331,
+            -0.106909543,
+            0,
+            0.514133155,
+            -0.142858729,
+            0.845729709,
+            0,
+            -1135.03113,
+            -33.1660652,
+            -63.559269,
+            1
+          ],
+          "track": 1706,
+          "age": 5234,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            0.851906657,
+            0.00923633203,
+            -0.52361244,
+            0,
+            -0.0515062585,
+            -0.993520141,
+            -0.101324968,
+            0,
+            -0.521155298,
+            0.113288715,
+            -0.845910668,
+            0,
+            -1136.52222,
+            -33.1510353,
+            -62.6434555,
+            1
+          ],
+          "track": 1717,
+          "age": 2553,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            0.842555761,
+            0.013390936,
+            -0.538442969,
+            0,
+            0.498625875,
+            -0.397375017,
+            0.770367384,
+            0,
+            -0.203647912,
+            -0.917559028,
+            -0.341487676,
+            0,
+            -1135.07251,
+            -33.081234,
+            -60.2841072,
+            1
+          ],
+          "track": 1721,
+          "age": 2488,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        },
+        {
+          "world": [
+            -0.860883057,
+            0.0339857414,
+            0.507666945,
+            0,
+            0.507669389,
+            -0.00920252223,
+            0.861503184,
+            0,
+            0.0339505076,
+            0.999380231,
+            -0.00933127105,
+            0,
+            -1133.5813,
+            -33.1002579,
+            -61.1998329,
+            1
+          ],
+          "track": 1705,
+          "age": 5234,
+          "dynamic": true,
+          "draws": [
+            {
+              "signature": 2660772165446443179,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 90
+            },
+            {
+              "signature": 5324765476046970262,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 36
+            },
+            {
+              "signature": 9299599566318353936,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 54
+            },
+            {
+              "signature": 15521269810724439277,
+              "resource_family": 13269419363917440772,
+              "fvf": 274,
+              "reasons": 192,
+              "triangles": 72
+            }
+          ]
+        }
+      ],
+      "structural_candidates": [
+        {
+          "chassis_track": 1709,
+          "chassis_dynamic": false,
+          "wheel_tracks": [
+            1706,
+            1717,
+            1721,
+            1705
+          ],
+          "local_centers": [
+            [
+              0.8749219283785004,
+              -0.016627827400746552,
+              -1.3850475427339888
+            ],
+            [
+              -0.8750161885358954,
+              -0.01933103904110053,
+              -1.3850091145945016
+            ],
+            [
+              -0.8750512489334141,
+              -0.003159749523811337,
+              1.3849720859958166
+            ],
+            [
+              0.8749836450491294,
+              -0.004451678689925312,
+              1.3849939252574976
+            ]
+          ],
+          "four_wheel_geometry": true,
+          "symmetry_error": 0.016393657999954972,
+          "native_temporal_admission": "NOT_REPLAYED_BY_THIS_TOOL"
+        }
+      ],
+      "reflection_audit": {
+        "modified_draws": 0,
+        "errors": [],
+        "status": "NO_MODIFICATIONS"
+      },
+      "evidence_grade": "RECORDED_RUNTIME_INPUT_NOT_NEW_RUNTIME_PASS",
+      "file": "onstart_race_restart.jsonl",
+      "sha256": "05b600c78c59f19d9c043ff70cf864875bfeefc7ba9df279fbcb8fbbe332750f",
+      "size": 2780959
+    }
+  ],
+  "brake_pairs": [
+    {
+      "camera": "cam2",
+      "track": 5,
+      "draws_before": 34,
+      "draws_after": 35,
+      "shared_signatures": 33,
+      "removed_signatures": 1,
+      "added_signatures": 2,
+      "new_draw_families": [
+        {
+          "signature": 8073623272479127269,
+          "resource_family": 4703107668855007037,
+          "fvf": 258,
+          "reasons": 128,
+          "triangles": 10
+        },
+        {
+          "signature": 2896858641624779173,
+          "resource_family": 4703107668855007037,
+          "fvf": 258,
+          "reasons": 0,
+          "triangles": 28
+        }
+      ],
+      "join": "EXPLICIT_HUMAN_CORRELATED_SAMPLES; intervening frames not replayed",
+      "brake_semantics": "HUMAN_OBSERVATION; generic mutation in production"
+    },
+    {
+      "camera": "cam0",
+      "track": 1709,
+      "draws_before": 34,
+      "draws_after": 35,
+      "shared_signatures": 33,
+      "removed_signatures": 1,
+      "added_signatures": 2,
+      "new_draw_families": [
+        {
+          "signature": 8073623272479127269,
+          "resource_family": 4703107668855007037,
+          "fvf": 258,
+          "reasons": 128,
+          "triangles": 10
+        },
+        {
+          "signature": 2896858641624779173,
+          "resource_family": 4703107668855007037,
+          "fvf": 258,
+          "reasons": 0,
+          "triangles": 28
+        }
+      ],
+      "join": "EXPLICIT_HUMAN_CORRELATED_SAMPLES; intervening frames not replayed",
+      "brake_semantics": "HUMAN_OBSERVATION; generic mutation in production"
+    }
+  ],
+  "asset_support": {
+    "path": "corpora/retail/Data.sma_unpacked/DataGx/Vehicles/Tata/car.txt",
+    "sha256": "48313935e4ccb0178afdb148f5f8f0c27e38742900dfa4ce191528a824ebdaa3",
+    "materials": [
+      {
+        "number": 60,
+        "lines": [
+          172,
+          173
+        ],
+        "texture": "breaklightson.tga",
+        "alpha_flags": "No/No"
+      },
+      {
+        "number": 61,
+        "lines": [
+          174,
+          175
+        ],
+        "texture": "breaklightsonglow.tga",
+        "alpha_flags": "Yes/Yes"
+      }
+    ],
+    "production_names_used": false,
+    "inference": "Consistent with brake base/glow; no invented emissive/additive meaning"
+  },
+  "previous_runtime": {
+    "proxy_version": "R-GFX4-3",
+    "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+    "fov_culling": "CONFIRMED_BY_HUMAN_REPORT_AND_CAPTURE_METADATA",
+    "reflection_execution": "CONFIRMED_BY_RUNTIME_TRACE",
+    "static_world_false_positives": "NONE_REPORTED_IN_SUPPLIED_CAPTURE_SCOPE; not universal proof"
+  },
+  "new_candidate_runtime": "PENDING"
+}

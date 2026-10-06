@@ -1,0 +1,11 @@
+{
+  "branch": "research/general-re",
+  "starting_head": "69822af6bc7e3bc7a889d06994d621ef9506fba7",
+  "tracked_working_tree": "CLEAN_AT_PREFLIGHT",
+  "untracked_at_preflight": [],
+  "scope": "modernization/renderer/",
+  "canonical_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "new_branch": false,
+  "new_worktree": false,
+  "push": false
+}
