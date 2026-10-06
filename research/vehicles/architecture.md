@@ -47,3 +47,12 @@ The group-6 locked message and group-0x35 vehicle-name paths are also separate.
 The generic locked line remains retail text, while ID26's second locked line
 reuses ID3's existing selector. Vehicle Setup uses the already-established
 combined string rather than changing `gaLocal` globally.
+
+## AI opponent vehicle identity
+
+R5V-H confirms statically that the Quick Race AI chooser builds class pools
+from absolute Vehicle IDs. Its stock T1 list is IDs 0–6; the player-facing
+T1-local7 mapping to ID26 is not used there. A gated proof candidate changes
+only the selected Car1 absolute ID after driver selection, allowing native
+registry code to derive T1 `CarClass` from physical ID26. See
+[R5V-H architecture](ai/architecture.md) and [pool map](ai/stock-ai-pools.md).

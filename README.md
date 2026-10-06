@@ -32,9 +32,11 @@ The final candidate's Race Details identity is runtime-confirmed in Master
 Rallye and Rallye Cup; the stock ID0 display regression and full stage/Results
 are owner-reported PASS. Physical ID26 remains unchanged. See
 `research/vehicles/unlock/closeout.md` and
-`research/vehicles/localization/frontend-consumers.md`. The next phase is
-R5V-G.2 Vehicle Audio Identity / Sound Family Architecture; catalog ordering
-is deferred.
+`research/vehicles/localization/frontend-consumers.md`. R5V-G.2 Vehicle Audio
+Identity / Sound Family Architecture is also **FULL PASS / CLOSED**. R5V-H is
+now in progress: the Quick Race AI pool is mapped, and a guarded Car1=ID26
+candidate is ready for a human runtime proof before any natural T1-pool change.
+Catalog ordering remains deferred.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

@@ -50,11 +50,22 @@ not changed or qualified for ID26.
 
 ## Roadmap
 
-The next vehicle phase is **R5V-H — AI Opponent Vehicle Pools**. It has not
-started in this closeout. Later phases are R5V-I multi-slot registry expansion
-with a real additional T2 vehicle, then R5V-J generic Addon Vehicle SDK.
-Catalog/order refinement is deferred until multiple add-on vehicles make it
-useful. Configurable stock audio profile identity and T2 qualification remain
-prerequisites for calling the generic SDK complete.
+## Current phase: R5V-H — AI Opponent Vehicle Pools
 
-G.2 does not start AI pool, T2 expansion, ID27+, or SDK work.
+**Static Quick Race pool map: CONFIRMED_BY_EXE.** The retail pool uses absolute
+CarIDs; T1 enumerates 0–6 and does not include sparse frontend mapping
+`T1 local7 -> ID26`. Player availability and AI pool eligibility are separate.
+
+**Forced Car1=ID26 materialization proof: READY_FOR_HUMAN_RUNTIME.** The exact
+candidate composes closed G.1 and G.2 profile-0 builds, overrides only the
+final AI CarID before native publication, and preserves participant count,
+player identity, other AI identities, CarClass derivation, and DriverID. See
+[R5V-H findings](ai/findings.md) and [runtime plan](ai/runtime-plan.md).
+
+**Natural T1 pool inclusion: NOT STARTED; gated on forced runtime pass.** The
+next candidate will append ID26 to the explicit T1 pool only after the forced
+participant proves model, wheels, physics, AI, collision, and damage behavior.
+
+Later phases are R5V-I multi-slot registry expansion with a real additional T2
+vehicle, then R5V-J generic Addon Vehicle SDK. Catalog/order refinement remains
+deferred. Do not begin ID27+, T2 expansion, or SDK work during this H gate.

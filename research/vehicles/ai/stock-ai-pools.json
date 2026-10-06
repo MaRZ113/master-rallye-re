@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-H",
+  "status": {
+    "quickrace_pool_map": "CONFIRMED_BY_EXE",
+    "forced_id26_ai_candidate": "READY_FOR_HUMAN_RUNTIME",
+    "natural_t1_id26_membership": "NOT_STARTED_GATED_ON_FORCED_RUNTIME_PASS"
+  },
+  "build": {
+    "name": "retail",
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "ghidra": "12.1.4_PUBLIC current branch export, cross-checked against raw retail bytes"
+  },
+  "quick_race_pipeline": {
+    "setup_function": "0x0047B780",
+    "pool_function": "0x00458090",
+    "direct_call_sites": [
+      {
+        "va": "0x0047B93D",
+        "kind": "split-screen",
+        "evidence": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x0047B96E",
+        "kind": "single-player",
+        "return_va": "0x0047B973",
+        "evidence": "CONFIRMED_BY_EXE"
+      }
+    ],
+    "selection_representation": "explicit absolute VehicleRecord IDs stored in a candidate vector",
+    "class_local_mapping_called": false,
+    "player_availability_gate_called": false,
+    "driver_selected_after_vehicle_choice": true,
+    "participant_count_changed_by_pool_builder": false,
+    "selection_semantics": {
+      "excludes_player_vehicle_id": true,
+      "excludes_second_human_vehicle_id_when_present": true,
+      "selection_without_replacement_until_working_pool_exhaustion": true,
+      "working_pool_refilled_from_class_candidates_when_empty": true,
+      "evidence": "CONFIRMED_BY_EXE"
+    }
+  },
+  "class_pools": [
+    {
+      "class_code": 0,
+      "class_name": "T1",
+      "physical_vehicle_ids": [0, 1, 2, 3, 4, 5, 6],
+      "candidate_count": 7,
+      "construction": "inclusive absolute-ID loop 0 through 6",
+      "class_local_mapping_used": false,
+      "conditional_ids": [],
+      "exclusions": ["param_4 player ID", "param_5 second human ID when not -1"],
+      "source": "FUN_00458090 switch arm at 0x00458127; loop bound at 0x00458162",
+      "evidence": "CONFIRMED_BY_EXE"
+    },
+    {
+      "class_code": 1,
+      "class_name": "T2",
+      "physical_vehicle_ids": [7, 8, 9, 10, 11, 12, 13],
+      "candidate_count": 7,
+      "construction": "inclusive absolute-ID loop 7 through 13",
+      "class_local_mapping_used": false,
+      "conditional_ids": [],
+      "exclusions": ["param_4 player ID", "param_5 second human ID when not -1"],
+      "source": "FUN_00458090 switch arm at 0x0045816C; loop bound at 0x004581AC",
+      "evidence": "CONFIRMED_BY_EXE"
+    },
+    {
+      "class_code": 2,
+      "class_name": "T3",
+      "physical_vehicle_ids": [14, 15, 16, 17, 18, 19, 20],
+      "candidate_count": 7,
+      "construction": "inclusive absolute-ID loop 14 through 20 plus separately gated entries",
+      "class_local_mapping_used": false,
+      "conditional_ids": [
+        {"physical_vehicle_id": 22, "progress_index": 12, "retail_name": "ChallengeCar"},
+        {"physical_vehicle_id": 23, "progress_index": 13, "retail_name": "Invitation"},
+        {"physical_vehicle_id": 24, "progress_index": 14, "retail_name": "Bonus1"},
+        {"physical_vehicle_id": 21, "progress_index": 11, "retail_name": "T3MasterRallyeCar"}
+      ],
+      "exclusions": ["param_4 player ID", "param_5 second human ID when not -1"],
+      "source": "FUN_00458090 switch arms 2/4 at 0x004581B9 and progress-gated appends 0x00458201..0x004582D0",
+      "evidence": "CONFIRMED_BY_EXE"
+    },
+    {
+      "class_code": 4,
+      "class_name": "UNKNOWN_ALIAS",
+      "physical_vehicle_ids": [14, 15, 16, 17, 18, 19, 20],
+      "candidate_count": 7,
+      "construction": "shares class-code-2 switch arm and its gated additions",
+      "class_local_mapping_used": false,
+      "conditional_ids": "same as class code 2",
+      "evidence": "CONFIRMED_BY_EXE"
+    }
+  ],
+  "vehicle_specific_findings": {
+    "physical_id25_trooper": {
+      "quickrace_ai_pool_status": "EXCLUDED_BY_EXE",
+      "reason": "T3 candidate list contains base IDs 14..20 and conditional IDs 21..24; no ID25 append exists"
+    },
+    "physical_id26_mercedes": {
+      "quickrace_ai_pool_status": "NOT_PRESENT_IN_STOCK_POOL",
+      "class": "T1 / code 0",
+      "frontend_t1_local_index": 7,
+      "ai_eligibility_distinct_from_player_unlock": true,
+      "natural_pool_change": "NOT_STARTED; gated on forced AI human runtime pass"
+    }
+  },
+  "evidence_boundary": {
+    "static_pool_model": "CONFIRMED_BY_EXE",
+    "forced_id26_ai_candidate": "READY_FOR_HUMAN_RUNTIME",
+    "ai_model_physics_collision_or_driving": "NOT_YET_CONFIRMED_BY_RUNTIME",
+    "natural_id26_selection": "NOT_YET_CONFIRMED_BY_RUNTIME",
+    "other_mode_pool_consumers": "UNKNOWN unless separately stated in mode-consumers.md"
+  }
+}
