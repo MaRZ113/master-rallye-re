@@ -1,0 +1,31 @@
+{
+  "observed_system_path": "C:/Windows/SysWOW64/d3d8.dll",
+  "system_sha256": "d61d6c890592e992804fb5a1ed5fc2ce3413177c9ee67f9babaf1d4955884bb4",
+  "architecture": "I386/PE32",
+  "exports": [
+    {
+      "name": "Direct3DCreate8",
+      "ordinal": 5,
+      "forwarding_target": "explicit system d3d8 module GetProcAddress by name",
+      "signature_source": "Wine dlls/d3d8/d3d8.spec; d3d8_main.c + vendored d3d8.h",
+      "direct_game_import": true,
+      "dynamic_helper_request": false
+    },
+    {
+      "name": "ValidatePixelShader",
+      "ordinal": 2,
+      "forwarding_target": "explicit system d3d8 module GetProcAddress by name",
+      "signature_source": "Wine dlls/d3d8/d3d8.spec; d3d8_main.c + vendored d3d8.h",
+      "direct_game_import": false,
+      "dynamic_helper_request": true
+    },
+    {
+      "name": "ValidateVertexShader",
+      "ordinal": 3,
+      "forwarding_target": "explicit system d3d8 module GetProcAddress by name",
+      "signature_source": "Wine dlls/d3d8/d3d8.spec; d3d8_main.c + vendored d3d8.h",
+      "direct_game_import": false,
+      "dynamic_helper_request": true
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+LIBRARY d3d8
+EXPORTS
+ Direct3DCreate8=_ProxyDirect3DCreate8@4 @5
+ ValidatePixelShader=_ProxyValidatePixelShader@16 @2
+ ValidateVertexShader=_ProxyValidateVertexShader@20 @3

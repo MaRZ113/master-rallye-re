@@ -1,0 +1,67 @@
+{
+  "filename": "MRallye.exe",
+  "size": 3121214,
+  "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "image_base": "0x00400000",
+  "entry_point_rva": "0x001C4602",
+  "entry_point_va": "0x005C4602",
+  "pe_timestamp": 1006791005,
+  "pe_timestamp_utc": "2001-11-26T16:10:05+00:00",
+  "machine": "0x0000014C",
+  "sections": [
+    {
+      "name": ".text",
+      "va": "0x00401000",
+      "rva": "0x00001000",
+      "virtual_size": 2675348,
+      "raw_offset": 4096,
+      "raw_size": 2678784,
+      "characteristics": "0x60000020"
+    },
+    {
+      "name": ".rdata",
+      "va": "0x0068F000",
+      "rva": "0x0028F000",
+      "virtual_size": 123954,
+      "raw_offset": 2682880,
+      "raw_size": 126976,
+      "characteristics": "0x40000040"
+    },
+    {
+      "name": ".data",
+      "va": "0x006AE000",
+      "rva": "0x002AE000",
+      "virtual_size": 386568,
+      "raw_offset": 2809856,
+      "raw_size": 294912,
+      "characteristics": "0xC0000040"
+    },
+    {
+      "name": ".rsrc",
+      "va": "0x0070D000",
+      "rva": "0x0030D000",
+      "virtual_size": 15032,
+      "raw_offset": 3104768,
+      "raw_size": 16384,
+      "characteristics": "0x40000040"
+    }
+  ],
+  "imported_dlls": [
+    "KERNEL32.dll",
+    "DDRAW.dll",
+    "WINMM.dll",
+    "d3d8.dll",
+    "DSOUND.dll",
+    "DINPUT8.dll",
+    "USER32.dll",
+    "GDI32.dll",
+    "ADVAPI32.dll",
+    "ole32.dll",
+    "OLEAUT32.dll",
+    "WS2_32.dll",
+    "comdlg32.dll",
+    "COMCTL32.dll"
+  ],
+  "evidence_grade": "CONFIRMED_BY_EXE",
+  "source": "PE headers and SHA256"
+}

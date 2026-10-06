@@ -1,0 +1,20 @@
+[
+  {
+    "file": "d3d8.h",
+    "sha256": "e93563a03f30a83dae6afe20ad0061558f6a56fe7d101b3d883749b47d1edeef",
+    "source": "installed MSYS2 ucrt64 include; upstream mingw-w64/Wine",
+    "license": "LGPL-2.1-or-later"
+  },
+  {
+    "file": "d3d8types.h",
+    "sha256": "6443383135f69c8199f4c9c1b81717b94ade16ae625f760f198d7c49d864353d",
+    "source": "installed MSYS2 ucrt64 include; upstream mingw-w64/Wine",
+    "license": "LGPL-2.1-or-later"
+  },
+  {
+    "file": "d3d8caps.h",
+    "sha256": "242b785317aece7fe477e82fa4dcd293a7f482452e04256cd0082b08703351a2",
+    "source": "installed MSYS2 ucrt64 include; upstream mingw-w64/Wine",
+    "license": "LGPL-2.1-or-later"
+  }
+]

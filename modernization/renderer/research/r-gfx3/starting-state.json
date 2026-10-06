@@ -1,0 +1,175 @@
+{
+  "starting_branch": "research/general-re",
+  "starting_head": "7ef461057c32ba1ab700d67f976ac90db553d14f",
+  "starting_status": "clean",
+  "branch_policy": "User explicitly required research/general-re; no new branch/worktree",
+  "frozen_seed": "modernization/d3d8-proxy",
+  "seed_files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "b40b7cb77bfc148b2fc98d9d4a14f6725022869de05710a8a1e5cc80fbae42e1"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "8cb872d4be7fee1d6ecde396cba7213aae5176e6e32312631f4537de5dd705be"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "a6857e810f0f4a20e20fd7460404324635628a05654feda4cd06b600f4b0cda0"
+    },
+    {
+      "path": "data/header-provenance.json",
+      "sha256": "ec16e17a6b348959f19eb809081cebaf2c5cd01cd3f29c9641f2611922c2666d"
+    },
+    {
+      "path": "data/interface-map.json",
+      "sha256": "36974259d856a00043afebfc253e49d4ffd73946beefe6bb5c59ec3e73ea7d34"
+    },
+    {
+      "path": "data/required-exports.json",
+      "sha256": "f4873e692fb03089fc66fa1dac1f5733eed9303e1db3eb80e47f4ed5d6f318f1"
+    },
+    {
+      "path": "data/target-build.json",
+      "sha256": "9ab53f5867f4ba32eca187cb4c8af7a3edfac5281f3d0cca4691c3d10696886f"
+    },
+    {
+      "path": "exports.def",
+      "sha256": "380105992394ca30e7225f402108f1e8921f653ce3efb407f158237772186769"
+    },
+    {
+      "path": "include/method_names.hpp",
+      "sha256": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84"
+    },
+    {
+      "path": "include/provenance.hpp",
+      "sha256": "4816e49279e2237f95e2fdacdfc6e52866ede460a6c2a3cc1ba73d05bd82190b"
+    },
+    {
+      "path": "include/sdk.hpp",
+      "sha256": "329115fb00a1ed5c18c566abbe4b67d22149b026e2eb9b25812226951b0d0f2f"
+    },
+    {
+      "path": "include/state_tracker.hpp",
+      "sha256": "44b560bdec96599cb6eda3e4d7dcbaf2e713adc33f54cc9583ac66d70f96963a"
+    },
+    {
+      "path": "include/trace.hpp",
+      "sha256": "c8f2a682f7b357691eb84c76f7fe72525814f17015b5bc9c168b42fafda3212d"
+    },
+    {
+      "path": "include/wrappers.hpp",
+      "sha256": "1d15e2c979ae5fb8759ea5489949117a35a815fe976917fdbff501b91b5eaea6"
+    },
+    {
+      "path": "src/dllmain.cpp",
+      "sha256": "aa1922d4b4400e8c92eac1964dd472ee8eaf8804df3c159498f59db694ab472f"
+    },
+    {
+      "path": "src/forwarders.cpp",
+      "sha256": "8a3125aa9683f60029b346deaf5429cb338827232d7a7801aed76fab87db05ba"
+    },
+    {
+      "path": "src/guids.cpp",
+      "sha256": "98697734a59e90af4efe8e6fbf91d040e91860ba90746ec4dc17b54bbf345d35"
+    },
+    {
+      "path": "src/provenance.cpp",
+      "sha256": "54c8db56e8a65a9a3b2e95e7d172b10de78e04c8a2fa1ef0c5e28dd3219ee45c"
+    },
+    {
+      "path": "src/real_d3d8.cpp",
+      "sha256": "37ba2c47fb4a921228a8d362685e01fba14b1f5ef10e35a6a3d5a2a64fac04c5"
+    },
+    {
+      "path": "src/state_tracker.cpp",
+      "sha256": "ecebb7a9522458f01b53c2a9ac01e4e6cbeedacb502aa56aca0325816ad0aeeb"
+    },
+    {
+      "path": "src/trace.cpp",
+      "sha256": "48959d11302d915cbd6fe1f84f30554d78f285e23665d7f27dbbca70ba358435"
+    },
+    {
+      "path": "src/wrappers.cpp",
+      "sha256": "c2711da0ed948ccf36d57b7eb12d79aac10b389b2ddff3601d90bfb76d2d517d"
+    },
+    {
+      "path": "tests/mock_interfaces.hpp",
+      "sha256": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+    },
+    {
+      "path": "tests/native_tests.cpp",
+      "sha256": "f6b54e9c0423163ef6c34b1a2b1b7c6c21e7809813bd3b89fbd1ca3e2d6d4bf2"
+    },
+    {
+      "path": "tests/test_native_capture.py",
+      "sha256": "53d5c41ba4c139889fbc94f436c31b6db42900127dcca0a50c33f25269aa649f"
+    },
+    {
+      "path": "tests/test_tools.py",
+      "sha256": "44ffef8a634e760a6e0110d57d19e5cddda1b985b2b1166a42e4add86d495fc1"
+    },
+    {
+      "path": "tools/annotate_trace.py",
+      "sha256": "46227e23343230702a8b228d54a19287c34f0ab1bd110096c0e96d275d134119"
+    },
+    {
+      "path": "tools/build.py",
+      "sha256": "ca49676362ba78254b87e96c86e4a2a188d22f53c255898b73585b0b1eeb33ee"
+    },
+    {
+      "path": "tools/generate_interfaces.py",
+      "sha256": "e207c45161ead78461d7e0358b9d1bb40a9bcbb40741d7fd7f8f1ecb2e90f87e"
+    },
+    {
+      "path": "tools/ghidra_readonly.py",
+      "sha256": "51159144fa36d9cbac39053776b9f5af4e568cd3d369daedd846b0b908a7df9c"
+    },
+    {
+      "path": "tools/summarize_trace.py",
+      "sha256": "4e46c07a76644d2d8dce6311775bc54dcc6d74c300bb78d24dbe64d7d685d551"
+    },
+    {
+      "path": "tools/trace_common.py",
+      "sha256": "edf2de72d3f52a61363b8e3874a356e7a16f3c8d7549965310540c2ec5e73af0"
+    },
+    {
+      "path": "tools/verify_proxy.py",
+      "sha256": "67f998741edb3fda5ce577fd872634c8dca20b26bab54471ed4f026e7a99a2aa"
+    },
+    {
+      "path": "vendor/README.md",
+      "sha256": "16934e0b7cf5c697cfd95907b290d50a586dc5e89755e366a238a2ec73e3cc24"
+    },
+    {
+      "path": "vendor/d3d8/d3d8.h",
+      "sha256": "e93563a03f30a83dae6afe20ad0061558f6a56fe7d101b3d883749b47d1edeef"
+    },
+    {
+      "path": "vendor/d3d8/d3d8caps.h",
+      "sha256": "242b785317aece7fe477e82fa4dcd293a7f482452e04256cd0082b08703351a2"
+    },
+    {
+      "path": "vendor/d3d8/d3d8types.h",
+      "sha256": "6443383135f69c8199f4c9c1b81717b94ade16ae625f760f198d7c49d864353d"
+    },
+    {
+      "path": "vendor/licenses/COPYING",
+      "sha256": "99a69660981156c21336fdb5661f89341b013c94e4bf9e1c7467b4745718397f"
+    },
+    {
+      "path": "vendor/licenses/COPYING.MinGW-w64-runtime.txt",
+      "sha256": "1db8da07b436c68833c0673ffee3d9fcb2526047f3820b81661865dfedc79a1f"
+    },
+    {
+      "path": "vendor/licenses/COPYING.MinGW-w64.txt",
+      "sha256": "f38e6194bd3bfa1b654f118e5acefe0aead437bbe669eee43957ccc65a7127f1"
+    },
+    {
+      "path": "vendor/licenses/LGPL-2.1.txt",
+      "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+    }
+  ],
+  "preserved_closeout_commit": "5861ed2",
+  "retired_git_metadata": ".research-output/retired-worktrees/graphics/git-metadata"
+}
