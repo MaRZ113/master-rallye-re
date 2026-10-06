@@ -38,18 +38,29 @@ result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
 
 ## R-AI2.1 six/seven/eight capacity research
 
-CLOSED / CONFIRMED_BY_RUNTIME for normal Quick Race6/7/8.9+UNKNOWN. Exact pristine-source guarded
+CLOSED / CONFIRMED_BY_RUNTIME for normal Quick Race 6/7/8. 9+ UNKNOWN. Exact pristine-source guarded
 candidates use stock mixed roster prefixes with unchanged visible Three, no DLL.
-Existing storage paths and native bounded enumeration support static indices5..7;
+Existing storage paths and native bounded enumeration support static indices 5..7;
 Network inline flags, HUD markers and Results images provide an eight-slot
-conservative boundary, not engine-wide unlimited storage. All36 stock course
-XML files contain actor0..7 templates and StartArea; terrain clearance is UNKNOWN.
+conservative boundary, not engine-wide unlimited storage. All 36 stock course
+XML files contain actor 0..7 templates and StartArea; terrain clearance is UNKNOWN.
 91 bounded native cases pass. Human order SIX -> SEVEN -> EIGHT, full lifecycle.
-See research/r-ai2-1/findings.md and capacity-8-map.md. No UI integration or9.
+See research/r-ai2-1/findings.md and capacity-8-map.md.
+
+## R-UI1 native opponent-count frontend
+
+CLOSED / CONFIRMED_BY_RUNTIME. Native gaLocal bank 0x40 already contains One..Seven in
+six retail languages. The UI candidate appends four labels to its native StringList
+and changes only the Opponents right-arrow maximum index from 2 to 6. Navigation is
+bounded by actual list length; Next publishes index+1 and preserves native
+PlayerState persistence. 107 bounded native cases pass, including original Three
+-> 3 AI and visible Four -> 4 AI/5 total. The R-UI1 candidate's Five..Seven entries
+were menu-only; no combined UI/capacity candidate is built. Stock T1 pool exhaustion
+is separate from capacity. See research/r-ui1/opponents-ui-map.md and runtime-handoff.md.
 
 ## R-AI2 five-car participant capacity
 
-**CLOSED / CONFIRMED_BY_RUNTIME — EXACT FIVE-CAR TARGET.** Ordinary offline
+**CLOSED / CONFIRMED_BY_RUNTIME ï¿½ EXACT FIVE-CAR TARGET.** Ordinary offline
 Quick Race / Race, ID0/T1 human plus four T1 AI, Track10/ItalyS4, ghost off.
 Exact candidate SHA256 `806ebedcd6d174682fcc4619fb75eaabca2a1281eda4d4d784807b3583f5f2e2`.
 Captured IDs0/3/6/2/4; Car4 Chevyblazer independently materialized and completed

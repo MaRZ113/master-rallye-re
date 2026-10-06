@@ -1,0 +1,510 @@
+{
+  "phase": "R-UI1",
+  "common_base": "8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "frontend_owner": "479BB0 constructor /479A90 factory /47A070 tick",
+  "localized_lookup": "485CF0 ->virtual+0C ->485BB0 ->485C20",
+  "native_list_builder": "479BB0 unrolled indices0..2 of bank0x40, patched post-third append to append3..6",
+  "widget_owner": "gaFrontendMultistateAI /454290 XML load,454610 control dispatch,454730 decrement,454870 increment,454920 CurrentText update",
+  "paths": {
+    "list": "Frontend/QuickModeSelect/NumOpponentsList",
+    "index": "Frontend/QuickModeSelect/NumOpponents",
+    "text": "Frontend/QuickModeSelect/NumOpponentsText",
+    "numeric": "Frontend/QuickRace/NumOpponents",
+    "confirmation_text": "Frontend/QuickRace/NumOpponentsString"
+  },
+  "mapping": [
+    {
+      "label": "ONE",
+      "selection_index": 0,
+      "ai_count": 1
+    },
+    {
+      "label": "TWO",
+      "selection_index": 1,
+      "ai_count": 2
+    },
+    {
+      "label": "THREE",
+      "selection_index": 2,
+      "ai_count": 3
+    },
+    {
+      "label": "FOUR",
+      "selection_index": 3,
+      "ai_count": 4
+    },
+    {
+      "label": "FIVE",
+      "selection_index": 4,
+      "ai_count": 5
+    },
+    {
+      "label": "SIX",
+      "selection_index": 5,
+      "ai_count": 6
+    },
+    {
+      "label": "SEVEN",
+      "selection_index": 6,
+      "ai_count": 7
+    }
+  ],
+  "guards": [
+    {
+      "owner": "454730",
+      "rule": "index>0 and (index-1)<actual StringList length",
+      "change": "NONE"
+    },
+    {
+      "owner": "454870",
+      "rule": "index<actual StringList length-1",
+      "change": "NONE"
+    },
+    {
+      "owner": "47A120 /47A32C",
+      "rule": "right-arrow visible/enabled when mode1 and index<2",
+      "change": "index<6"
+    },
+    {
+      "owner": "47A540",
+      "rule": "zero stored numeric count ->default1; then index=count-1",
+      "change": "NONE"
+    },
+    {
+      "owner": "47A8C0",
+      "rule": "only Race mode1 publishes index+1 to numeric count",
+      "change": "NONE"
+    },
+    {
+      "owner": "47B780",
+      "rule": "normal one-human setup reads numeric opponents twice and publishes NumCars=count+1",
+      "change": "NONE"
+    }
+  ],
+  "persistence": {
+    "source": "DataGame/frontend.xml",
+    "default": 1,
+    "SaveOptions": false,
+    "SavePlayerState": true,
+    "entry_owner": "47A540",
+    "commit_owner": "47A8C0 ->522D80/5229B0 PlayerState3",
+    "cancel": "47A070 -3 exit skips47A8C0",
+    "new_persistence_added": false,
+    "process_restart": "Existing native save/load flags and restored count read are statically supported; new1..7 runtime persistence human pending",
+    "invalid_saved_value": "Stock only repairs zero. Negative or >7 manually corrupted save values remain outside validated UI inputs; no new save validation introduced.",
+    "restore_note": "Restore original isolated profile with original EXE; do not carry saved5..7 counts into stock three-label UI."
+  },
+  "localization": [
+    {
+      "language_id": 0,
+      "language": "English",
+      "table_va": 7117408,
+      "labels": [
+        {
+          "index": 0,
+          "ai_count": 1,
+          "row_va": 7125592,
+          "string_va": 7134376,
+          "native_string_sha256": "2192e8955d5e1ad1651f2f0c637e6f1ac82855747a5f42f978db28669595dc21",
+          "native_string_length": 3
+        },
+        {
+          "index": 1,
+          "ai_count": 2,
+          "row_va": 7125604,
+          "string_va": 7134372,
+          "native_string_sha256": "a1a8a8cbbed4eb53ae62ee4fb0787504087232c29aa4d817757d06b68d0501ca",
+          "native_string_length": 3
+        },
+        {
+          "index": 2,
+          "ai_count": 3,
+          "row_va": 7125616,
+          "string_va": 7134364,
+          "native_string_sha256": "1d79bf60835eb5cd16cdef124413a7552857e09ff50f62c40eb09ddc55d25829",
+          "native_string_length": 5
+        },
+        {
+          "index": 3,
+          "ai_count": 4,
+          "row_va": 7125628,
+          "string_va": 7134356,
+          "native_string_sha256": "edf9e3630fb7305a562d35bf4cb20afb879c8d4dcf16e2c21fa05107999c7f6c",
+          "native_string_length": 4
+        },
+        {
+          "index": 4,
+          "ai_count": 5,
+          "row_va": 7125640,
+          "string_va": 7134348,
+          "native_string_sha256": "b35cf1ba111bbcf3a6f24755f22ed1346a8302aa62b9cf8ce82f8b5f2854eb83",
+          "native_string_length": 4
+        },
+        {
+          "index": 5,
+          "ai_count": 6,
+          "row_va": 7125652,
+          "string_va": 7208876,
+          "native_string_sha256": "cfe3fe67e0e78bf0d4fc0180eac41c69894ed1488c37e4ed36c56cac5a40a8e0",
+          "native_string_length": 3
+        },
+        {
+          "index": 6,
+          "ai_count": 7,
+          "row_va": 7125664,
+          "string_va": 7134340,
+          "native_string_sha256": "0358875b6f6eef6d84969ba66bd418f5e6d06eaf6398b62f9bf0d98d5beab667",
+          "native_string_length": 5
+        }
+      ]
+    },
+    {
+      "language_id": 1,
+      "language": "German",
+      "table_va": 7059592,
+      "labels": [
+        {
+          "index": 0,
+          "ai_count": 1,
+          "row_va": 7067872,
+          "string_va": 7191224,
+          "native_string_sha256": "13e56a9b5cb2f498d09d92808a86f08de1487713ca8ab582fc25b0ad9ef8a91a",
+          "native_string_length": 5
+        },
+        {
+          "index": 1,
+          "ai_count": 2,
+          "row_va": 7067884,
+          "string_va": 7191216,
+          "native_string_sha256": "b64a80d72f922b0ee96526f7759493d467b6b101f4e25e0fe00d7878eaeadc1e",
+          "native_string_length": 4
+        },
+        {
+          "index": 2,
+          "ai_count": 3,
+          "row_va": 7067896,
+          "string_va": 7191208,
+          "native_string_sha256": "391f10a27b30699d89338c6bd5130dbcb32db1879a31908047ea65e8f6ebc69b",
+          "native_string_length": 4
+        },
+        {
+          "index": 3,
+          "ai_count": 4,
+          "row_va": 7067908,
+          "string_va": 7191200,
+          "native_string_sha256": "a41f68fa4c7996663be15920a1537841e1065850c0014a5417bef9c7295bb0fa",
+          "native_string_length": 4
+        },
+        {
+          "index": 4,
+          "ai_count": 5,
+          "row_va": 7067920,
+          "string_va": 7191192,
+          "native_string_sha256": "0b1028bfbdcb874aaa743867ea84f17f51a1e16a407b97f67765ac6374f45ffb",
+          "native_string_length": 4
+        },
+        {
+          "index": 5,
+          "ai_count": 6,
+          "row_va": 7067932,
+          "string_va": 7191184,
+          "native_string_sha256": "0adfd84183113fe81dcc51037cecf35814b360acb6b49419d67df1e0c6283ce2",
+          "native_string_length": 5
+        },
+        {
+          "index": 6,
+          "ai_count": 7,
+          "row_va": 7067944,
+          "string_va": 7191176,
+          "native_string_sha256": "f325556dff4df177cfaf6d01b3ec8b278f53e2495815e298c3a2a4237631517c",
+          "native_string_length": 6
+        }
+      ]
+    },
+    {
+      "language_id": 2,
+      "language": "French",
+      "table_va": 7045120,
+      "labels": [
+        {
+          "index": 0,
+          "ai_count": 1,
+          "row_va": 7053400,
+          "string_va": 7208912,
+          "native_string_sha256": "4482340af284d720d5c13f501fb8d31ffc82f7e193a8e83a2213bb9e5f6e4658",
+          "native_string_length": 2
+        },
+        {
+          "index": 1,
+          "ai_count": 2,
+          "row_va": 7053412,
+          "string_va": 7208904,
+          "native_string_sha256": "633faaf03f8433c7931df4016a68b01e570e0fb59fbb359e36ab83489ec54955",
+          "native_string_length": 4
+        },
+        {
+          "index": 2,
+          "ai_count": 3,
+          "row_va": 7053424,
+          "string_va": 7208896,
+          "native_string_sha256": "87d9a5c0919de95ed19a65256700d031b25d37a048682a1fb3421a5818b7956f",
+          "native_string_length": 5
+        },
+        {
+          "index": 3,
+          "ai_count": 4,
+          "row_va": 7053436,
+          "string_va": 7208888,
+          "native_string_sha256": "e6967f2042fb98a07f90d94386e9e9091a51a7a2d01f146af6918a662f63a70a",
+          "native_string_length": 6
+        },
+        {
+          "index": 4,
+          "ai_count": 5,
+          "row_va": 7053448,
+          "string_va": 7208880,
+          "native_string_sha256": "88f26e4107a11face57185302604490dd37ac3cd72cd4e3789a69a7f7640100c",
+          "native_string_length": 4
+        },
+        {
+          "index": 5,
+          "ai_count": 6,
+          "row_va": 7053460,
+          "string_va": 7208876,
+          "native_string_sha256": "cfe3fe67e0e78bf0d4fc0180eac41c69894ed1488c37e4ed36c56cac5a40a8e0",
+          "native_string_length": 3
+        },
+        {
+          "index": 6,
+          "ai_count": 7,
+          "row_va": 7053472,
+          "string_va": 7208868,
+          "native_string_sha256": "56d99bdf9a7d1e9698094e842ac0ca73fc4f4fa9c8153bc623eb70a94a5c8650",
+          "native_string_length": 4
+        }
+      ]
+    },
+    {
+      "language_id": 3,
+      "language": "Italian",
+      "table_va": 7088536,
+      "labels": [
+        {
+          "index": 0,
+          "ai_count": 1,
+          "row_va": 7096816,
+          "string_va": 7161476,
+          "native_string_sha256": "623e7bd038ba0758dfb131ca1c55207cc222320d0542e73af115b8c2a74d59ba",
+          "native_string_length": 3
+        },
+        {
+          "index": 1,
+          "ai_count": 2,
+          "row_va": 7096828,
+          "string_va": 7161472,
+          "native_string_sha256": "e98ea19c3234e42556ae7c9e2ef80ed5f2a792f1b90a911977848b5a8b616d0d",
+          "native_string_length": 3
+        },
+        {
+          "index": 2,
+          "ai_count": 3,
+          "row_va": 7096840,
+          "string_va": 7161468,
+          "native_string_sha256": "1039edbbaefd70d489db28e17f185f14171ad54268496033aafdf116648d1824",
+          "native_string_length": 3
+        },
+        {
+          "index": 3,
+          "ai_count": 4,
+          "row_va": 7096852,
+          "string_va": 7161460,
+          "native_string_sha256": "596d51c7765b34caae74ce9652697587d8cf4f113ce870b11dc40fa2d57150f0",
+          "native_string_length": 7
+        },
+        {
+          "index": 4,
+          "ai_count": 5,
+          "row_va": 7096864,
+          "string_va": 7161452,
+          "native_string_sha256": "e40e6c87af0e5df5fd67f044cb6f5e8d41d4b789a6f34d1c667be54527b1f173",
+          "native_string_length": 6
+        },
+        {
+          "index": 5,
+          "ai_count": 6,
+          "row_va": 7096876,
+          "string_va": 7161448,
+          "native_string_sha256": "c4d99488387916dccf2f5716c013db78930eb748f3ec399a5beecd93bcb29554",
+          "native_string_length": 3
+        },
+        {
+          "index": 6,
+          "ai_count": 7,
+          "row_va": 7096888,
+          "string_va": 7161440,
+          "native_string_sha256": "aec163e370a54c2a4d01934705a097ef8e414a7114f6209ac395556ae7eaeff6",
+          "native_string_length": 5
+        }
+      ]
+    },
+    {
+      "language_id": 4,
+      "language": "Spanish",
+      "table_va": 7074064,
+      "labels": [
+        {
+          "index": 0,
+          "ai_count": 1,
+          "row_va": 7082344,
+          "string_va": 7208912,
+          "native_string_sha256": "4482340af284d720d5c13f501fb8d31ffc82f7e193a8e83a2213bb9e5f6e4658",
+          "native_string_length": 2
+        },
+        {
+          "index": 1,
+          "ai_count": 2,
+          "row_va": 7082356,
+          "string_va": 7176068,
+          "native_string_sha256": "49771fa114d455f473d45f63aeeb9b3e745495130a9ff3bb0ea7c2b6960c240d",
+          "native_string_length": 3
+        },
+        {
+          "index": 2,
+          "ai_count": 3,
+          "row_va": 7082368,
+          "string_va": 7176060,
+          "native_string_sha256": "67384de9773c61a6bfad12aded00809dbdf2f1042ab41a44ff16ba9eb39cdad6",
+          "native_string_length": 4
+        },
+        {
+          "index": 3,
+          "ai_count": 4,
+          "row_va": 7082380,
+          "string_va": 7176052,
+          "native_string_sha256": "e63520e45692c698289371f7d2fc616671ecbe247abf0464749d7bd5f7618851",
+          "native_string_length": 6
+        },
+        {
+          "index": 4,
+          "ai_count": 5,
+          "row_va": 7082392,
+          "string_va": 7176044,
+          "native_string_sha256": "f2038234658c04e19ded6f7efc7196ef761257357b57e38d261729dc7c7bfffb",
+          "native_string_length": 5
+        },
+        {
+          "index": 5,
+          "ai_count": 6,
+          "row_va": 7082404,
+          "string_va": 7176036,
+          "native_string_sha256": "de97147dc5800a832c4d6d051424a43cb929a803720258e641c24e31f22c8000",
+          "native_string_length": 4
+        },
+        {
+          "index": 6,
+          "ai_count": 7,
+          "row_va": 7082416,
+          "string_va": 7176028,
+          "native_string_sha256": "b719d9c0ad6bc54fe22dbf7a57bf17f438c8275643f083080884b3a210dec0b8",
+          "native_string_length": 5
+        }
+      ]
+    },
+    {
+      "language_id": 5,
+      "language": "Portuguese",
+      "table_va": 7103008,
+      "labels": [
+        {
+          "index": 0,
+          "ai_count": 1,
+          "row_va": 7111216,
+          "string_va": 7147276,
+          "native_string_sha256": "d3cd6808507f255a88d698c45f9157e3c8c06af391a5575d72606a752d79c4e7",
+          "native_string_length": 2
+        },
+        {
+          "index": 1,
+          "ai_count": 2,
+          "row_va": 7111228,
+          "string_va": 7147268,
+          "native_string_sha256": "cb5ae0c5c0ba650ebf787c4637844c27fe68f4909ce799c20579cadd2bbde257",
+          "native_string_length": 4
+        },
+        {
+          "index": 2,
+          "ai_count": 3,
+          "row_va": 7111240,
+          "string_va": 7147260,
+          "native_string_sha256": "73c1bb93f9795414a026103592d9fa6130b515b2c4fa77d481800a35484c5eda",
+          "native_string_length": 4
+        },
+        {
+          "index": 3,
+          "ai_count": 4,
+          "row_va": 7111252,
+          "string_va": 7147252,
+          "native_string_sha256": "df3ee57c050327bbb928808d4695a0f52f543619367a2334b822978afb8d2faa",
+          "native_string_length": 6
+        },
+        {
+          "index": 4,
+          "ai_count": 5,
+          "row_va": 7111264,
+          "string_va": 7176044,
+          "native_string_sha256": "f2038234658c04e19ded6f7efc7196ef761257357b57e38d261729dc7c7bfffb",
+          "native_string_length": 5
+        },
+        {
+          "index": 5,
+          "ai_count": 6,
+          "row_va": 7111276,
+          "string_va": 7176036,
+          "native_string_sha256": "de97147dc5800a832c4d6d051424a43cb929a803720258e641c24e31f22c8000",
+          "native_string_length": 4
+        },
+        {
+          "index": 6,
+          "ai_count": 7,
+          "row_va": 7111288,
+          "string_va": 7147244,
+          "native_string_sha256": "183c7e7ca1f9dc04d1c66db7b050b3328d1a75e35940cfcd64020324ae165758",
+          "native_string_length": 4
+        }
+      ]
+    }
+  ],
+  "data_sources": {
+    "widget": {
+      "path": "DataScene/FrontendScreens/QuickModeSelect.xml",
+      "sha256": "85bf47d6fc5e34082b166e3dec704080858eb2c4b7c495ddfb8ee953b14d54b7"
+    },
+    "persistence": {
+      "path": "DataGame/frontend.xml",
+      "sha256": "72ccf7b4d4a9eca7702f82a65bcb8508dbb85ec63ffd734b7db4b9f25bc7025d"
+    }
+  },
+  "mode_other_guards_unchanged": true,
+  "hidden_count_shim": false,
+  "capacity_branch_merged": false,
+  "randomizer_dependency": false,
+  "human_start_allowed_ai": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "human_menu_only_ai": [
+    5,
+    6,
+    7
+  ],
+  "integration_contract": "UI publishes numeric AI count without class-policy knowledge; randomizer later consumes active AI count separately. Capacity pass alone does not solve T1 pool exhaustion at7 AI; no combined mod here.",
+  "common_base_reason": "R-AI1.2a implemented but awaiting human validation, therefore committed R-AI1.2 closeout is the shared base; unfinished/new preview work is excluded.",
+  "runtime_closeout": "runtime-summary.json",
+  "standalone_five_six_seven_race": "NOT TESTED",
+  "automated_checker_runtime_full_pass": false,
+  "human_runtime_scope": "One..Seven frontend and one-human Four->5 total full lifecycle"
+}

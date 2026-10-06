@@ -46,9 +46,17 @@ and [capacity map](research/r-ai2/capacity-map.md).
 
 R-AI2.1 independent capacity research is **CLOSED / CONFIRMED_BY_RUNTIME** for exact
 6/7/8 totals, using deterministic stock mixed roster prefixes and unchanged
-One/Two/Three UI. All36 retail RaceTest courses contain Car0..7 templates and
-native StartArea data. Human full lifecycle passed6/7/8; physical start clearance remains a separate R-GRID8 audit. See [findings](research/r-ai2-1/findings.md) and
-[ordered handoff](research/r-ai2-1/runtime-handoff.md). No R-UI1 integration.
+One/Two/Three UI. All 36 retail RaceTest courses contain Car0..7 templates and
+native StartArea data. Human full lifecycle passed 6/7/8; physical start clearance remains a separate R-GRID8 audit. See [findings](research/r-ai2-1/findings.md) and
+[ordered handoff](research/r-ai2-1/runtime-handoff.md).
+
+R-UI1 independent opponent selector is **CLOSED / CONFIRMED_BY_RUNTIME**: native
+localized One..Seven list and numeric index+1 publication, without a hidden count
+shim or randomizer DLL. Human one-human Four -> five total passed the full
+race/results lifecycle; the R-UI1 candidate's Five..Seven entries were menu-only.
+A combined UI/capacity candidate has not been built; Stock T1 pool exhaustion is
+separate from capacity. See [UI map](research/r-ui1/opponents-ui-map.md) and
+[handoff](research/r-ui1/runtime-handoff.md).
 
 R-AI1.2 is **CLOSED / CONFIRMED_BY_RUNTIME**: Stock/Mixed/Diverse, Quick Race
 1..4 AI, config reload at new-roster boundaries, Challenge opt-in completion,

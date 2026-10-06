@@ -22,6 +22,7 @@ from r_ai1_2a_preview import PROFILE_SHA256 as AI12A_SHA256, verify as verify_ai
 from research_build_profiles import (MERC_SHA256, PRISTINE_SHA256, identify,
                                      resolve_build)
 from r_ai2_1_capacity import PROFILE_SHA256 as CAP8_SHA256, verify as verify_cap8
+from r_ui1_opponents import CANDIDATE_SHA256 as UI1_SHA256, verify as verify_ui1
 
 OBSERVATORY_FILES = {
     "broker_observatory.py": "d1a07eab330ef3d8b825ef3320b458d20ced11df99d75250a72e9c7701c4ba7d",
@@ -95,6 +96,8 @@ def load_profile(directory: Path, candidate: Path):
     elif image_hash in CAP8_SHA256.values():
         total = next(n for n, digest in CAP8_SHA256.items() if digest == image_hash)
         verifier, phase = lambda data: verify_cap8(data, total), "r-ai2-1"
+    elif image_hash == UI1_SHA256:
+        verifier, phase = verify_ui1, "r-ui1"
     elif image_hash in (MERC_SHA256,PRISTINE_SHA256):
         family_profile = resolve_build(data)
         manifest, phase = family_profile, "r-obs2-compatible-builds"
