@@ -6,6 +6,15 @@ active branch `research/vehicles` in `master-rallye-re-vehicles`. Older
 
 ## Current phase
 
+**R5V-G.2 Vehicle Audio Identity / Sound Family — STATIC COMPLETE; READY FOR
+HUMAN AUDIO A/B.** Retail sound selection is keyed by each active participant's
+physical `Race/CarN/CarID`; ID26 currently reaches the stock untuned fallback.
+Two fail-closed, deterministic candidates select either the ID0 Landcruiser
+profile or the ID19 Mattserati profile only for the audio constructor's ID26
+lookup. Candidate hashes, patch details, and the human test are in
+[G.2 findings](audio/findings.md) and [runtime plan](audio/runtime-plan.md).
+Audibility and donor preference remain untested until the human A/B run.
+
 **R5V-G.1 Vehicle Unlock + Frontend Identity Architecture — FULL PASS / CLOSED.**
 Mercedes ID26 remains a distinct physical T1 vehicle at local index 7, mirrors
 the native ID3/T1 Cup unlock gate, displays native locked presentation, and
@@ -39,14 +48,11 @@ not changed or qualified for ID26.
 
 ## Roadmap
 
-The immediate next phase is **R5V-G.2 — Vehicle Audio Identity / Sound Family
-Architecture**. A previously observed `gaAiVehicleSound` warning for CarID 26
-is the entry point; no audio tracing or implementation is included in G.1.
+After human validation closes G.2, the next vehicle phase is **R5V-H — AI
+Opponent Vehicle Pools**. Later phases are R5V-I multi-slot registry expansion
+with a real additional T2 vehicle, then R5V-J generic Addon Vehicle SDK.
 Catalog/order refinement is deferred until multiple add-on vehicles make it
-useful. Later phases are R5V-H AI opponent pools, R5V-I multi-slot registry
-expansion with a real additional T2 vehicle, and R5V-J generic Addon Vehicle
-SDK. Audio-family configurability and T2 qualification remain prerequisites
-for calling the generic SDK complete.
+useful. Configurable audio-family identity and T2 qualification remain
+prerequisites for calling the generic SDK complete.
 
-No ordering, audio, AI pool, T2 expansion, ID27+, or SDK work is included in
-the G.1 closeout.
+G.2 does not start AI pool, T2 expansion, ID27+, or SDK work.

@@ -1,0 +1,142 @@
+{
+  "phase": "R5V-G.2",
+  "build": {
+    "profile": "pristine retail",
+    "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214
+  },
+  "selector": {
+    "component": "gaAiVehicleSound",
+    "constructor_va": "0x00408F20",
+    "input_broker_key": "Race/CarN/CarID",
+    "input_getter_va": "0x004AC660",
+    "sample_selector": "native switch over the absolute CarID; explicit tuned cases 0..24",
+    "curve_selector": "separate native switch over the same absolute CarID",
+    "untuned_default": "IDs without explicit tuned cases, including 25+, construct the vehicles/rev9 fallback and emit the warning"
+  },
+  "field_evidence": [
+    {
+      "field": "sample_resource_object+0x1C",
+      "type": "32-bit float bits",
+      "evidence": "per-ID constructor immediates; FUN_004F6B50 supplies 0x3FC00000 when no case override is written",
+      "semantic_name": "UNKNOWN"
+    },
+    {
+      "field": "engine tuning object+0x14",
+      "type": "32-bit float bits",
+      "evidence": "per-ID constructor immediates on tuned branches",
+      "semantic_name": "UNKNOWN"
+    },
+    {
+      "field": "curve table pair",
+      "type": "two arrays of 60 16-bit values",
+      "evidence": "selected by the second native switch and consumed during construction/update",
+      "semantic_name": "UNKNOWN"
+    }
+  ],
+  "curve_table_groups": {
+    "A": {
+      "first_va": "0x0068F99C",
+      "second_va": "0x0068FA14",
+      "values_per_array": 60,
+      "sha256_concatenated": "c948e26ed1b204204a62aa06e4a6f5f7f57d2c5bf23fe02971fc3923406defd6"
+    },
+    "B": {
+      "first_va": "0x0068FB7C",
+      "second_va": "0x0068FBF4",
+      "values_per_array": 60,
+      "sha256_concatenated": "91d46ab209f67df94ed87b95ca47baa1b284525466815468f8db0a97f83f3448"
+    },
+    "C": {
+      "first_va": "0x0068FA8C",
+      "second_va": "0x0068FB04",
+      "values_per_array": 60,
+      "sha256_concatenated": "66f993ec68a70d5e6b9e4b6393519c7bb6dd8caea7447b2df107b8a4173709e7"
+    },
+    "D": {
+      "first_va": "0x0068FC6C",
+      "second_va": "0x0068FCE4",
+      "values_per_array": 60,
+      "sha256_concatenated": "e99a97d0d6295eeaf90f3067ac7372830c94cd9b3a460e6a470a8824a532eadd"
+    }
+  },
+  "sample_resources": {
+    "vehicles/rev9": {
+      "retail_file": "corpora/retail/DataAudio/vehicles/rev9.wav",
+      "sha256": "3599c1a9cc9cc02e1475bc8bb7e6855b42f5b18b0421f2295b3496b30ec5c435",
+      "size": 69564,
+      "format": "mono PCM, 48 kHz, 16-bit"
+    },
+    "vehicles/engine3": {
+      "retail_file": "corpora/retail/DataAudio/vehicles/engine3.wav",
+      "sha256": "b451dc06678ca073fd107eb768561d4a164f02f035e83bc7371a09a630068635",
+      "size": 69152,
+      "format": "mono PCM, 48 kHz, 16-bit"
+    },
+    "vehicles/engine4": {
+      "retail_file": "corpora/retail/DataAudio/vehicles/engine4.wav",
+      "sha256": "53900362b930ed1e90ad76e75a28d246a100e58a6dc3d110348f5996268d9b8a",
+      "size": 65868,
+      "format": "mono PCM, 48 kHz, 16-bit"
+    },
+    "vehicles/engine9": {
+      "retail_file": "corpora/retail/DataAudio/vehicles/engine9.wav",
+      "sha256": "fe794d4b36d097bb99d822b7fc35f7a90247cbd7f2e079ec3b3bccb607fd5b0e",
+      "size": 56976,
+      "format": "mono PCM, 22.05 kHz, 16-bit"
+    },
+    "vehicles/icecream": {
+      "retail_file": "corpora/retail/DataAudio/vehicles/icecream.wav",
+      "sha256": "d20155e156381f85eb8e101f4c62093996fe9f6043b503b2096c942233ab8517",
+      "size": 145876,
+      "format": "mono PCM, 22.05 kHz, 8-bit"
+    },
+    "vehicles/ufo": {
+      "retail_file": "corpora/retail/DataAudio/vehicles/ufo.wav",
+      "sha256": "5e586a76d7019b7fc6984ee0ee92f47f4187ff20cbdd635ac1a499194e509dd2",
+      "size": 71378,
+      "format": "mono PCM, 22.05 kHz, 16-bit"
+    }
+  },
+  "vehicles": [
+    {"id":0,"class":"T1","class_local_index":0,"name":"Landcruiser","profile":"tuned-00","sample_family":"vehicles/rev9","sample_scalar_bits":"3fc00000","tuning_field_0x14_bits":"3f733333","curve_group":"A"},
+    {"id":1,"class":"T1","class_local_index":1,"name":"Pajero","profile":"tuned-01","sample_family":"vehicles/rev9","sample_scalar_bits":"3fcccccd","tuning_field_0x14_bits":"3f733333","curve_group":"B"},
+    {"id":2,"class":"T1","class_local_index":2,"name":"Tata","profile":"tuned-02","sample_family":"vehicles/engine3","sample_scalar_bits":"3fb33333","tuning_field_0x14_bits":"3f6b851f","curve_group":"C"},
+    {"id":3,"class":"T1","class_local_index":3,"name":"Terrano","profile":"tuned-03","sample_family":"vehicles/rev9","sample_scalar_bits":"3fcccccd","tuning_field_0x14_bits":"3f866666","curve_group":"D"},
+    {"id":4,"class":"T1","class_local_index":4,"name":"Chevyblazer","profile":"tuned-04","sample_family":"vehicles/engine4","sample_scalar_bits":"3fcccccd","tuning_field_0x14_bits":"3f7d70a4","curve_group":"B"},
+    {"id":5,"class":"T1","class_local_index":5,"name":"Xtrail","profile":"tuned-05","sample_family":"vehicles/rev9","sample_scalar_bits":"3fc00000","tuning_field_0x14_bits":"3f83d70a","curve_group":"A"},
+    {"id":6,"class":"T1","class_local_index":6,"name":"Frontera","profile":"tuned-06","sample_family":"vehicles/rev9","sample_scalar_bits":"3fb9999a","tuning_field_0x14_bits":"3f87ae14","curve_group":"B"},
+    {"id":7,"class":"T2","class_local_index":0,"name":"Navara","profile":"tuned-07","sample_family":"vehicles/rev9","sample_scalar_bits":"3fc66666","tuning_field_0x14_bits":"3f851eb8","curve_group":"A"},
+    {"id":8,"class":"T2","class_local_index":1,"name":"Forester","profile":"tuned-08","sample_family":"vehicles/engine3","sample_scalar_bits":"3fcccccd","tuning_field_0x14_bits":"3f8147ae","curve_group":"A"},
+    {"id":9,"class":"T2","class_local_index":2,"name":"Jump","profile":"tuned-09","sample_family":"vehicles/rev9","sample_scalar_bits":"3fcccccd","tuning_field_0x14_bits":"3f800000","curve_group":"B"},
+    {"id":10,"class":"T2","class_local_index":3,"name":"Rmonster","profile":"tuned-10","sample_family":"vehicles/engine3","sample_scalar_bits":"3fb33333","tuning_field_0x14_bits":"3f8a3d71","curve_group":"B"},
+    {"id":11,"class":"T2","class_local_index":4,"name":"Patrol","profile":"tuned-11","sample_family":"vehicles/engine3","sample_scalar_bits":"3fd9999a","tuning_field_0x14_bits":"3f8147ae","curve_group":"A"},
+    {"id":12,"class":"T2","class_local_index":5,"name":"Newrav","profile":"tuned-12","sample_family":"vehicles/rev9","sample_scalar_bits":"3fd47ae1","tuning_field_0x14_bits":"3f88f5c3","curve_group":"B"},
+    {"id":13,"class":"T2","class_local_index":6,"name":"Kiasportage","profile":"tuned-13","sample_family":"vehicles/rev9","sample_scalar_bits":"3fbae148","tuning_field_0x14_bits":"3f8147ae","curve_group":"C"},
+    {"id":14,"class":"T3","class_local_index":0,"name":"Wildcat","profile":"tuned-14","sample_family":"vehicles/rev9","sample_scalar_bits":"3fbae148","tuning_field_0x14_bits":"3f8147ae","curve_group":"A"},
+    {"id":15,"class":"T3","class_local_index":1,"name":"Simmbugghini","profile":"tuned-15","sample_family":"vehicles/engine9","sample_scalar_bits":"3fbae148","tuning_field_0x14_bits":"3f87ae14","curve_group":"A"},
+    {"id":16,"class":"T3","class_local_index":2,"name":"Astero","profile":"tuned-16","sample_family":"vehicles/rev9","sample_scalar_bits":"3fae147b","tuning_field_0x14_bits":"3f851eb8","curve_group":"A"},
+    {"id":17,"class":"T3","class_local_index":3,"name":"Kangoo","profile":"tuned-17","sample_family":"vehicles/rev9","sample_scalar_bits":"3fc7ae14","tuning_field_0x14_bits":"3f83d70a","curve_group":"A"},
+    {"id":18,"class":"T3","class_local_index":4,"name":"Megane","profile":"tuned-18","sample_family":"vehicles/engine3","sample_scalar_bits":"3fbae148","tuning_field_0x14_bits":"3f8147ae","curve_group":"C"},
+    {"id":19,"class":"T3","class_local_index":5,"name":"Mattserati","profile":"tuned-19","sample_family":"vehicles/engine9","sample_scalar_bits":"3fc7ae14","tuning_field_0x14_bits":"3f8147ae","curve_group":"A"},
+    {"id":20,"class":"T3","class_local_index":6,"name":"Bruno","profile":"tuned-20","sample_family":"vehicles/engine3","sample_scalar_bits":"3fae147b","tuning_field_0x14_bits":"3f8147ae","curve_group":"D"},
+    {"id":21,"class":"T3","class_local_index":7,"name":"SeatBuggy","profile":"tuned-21","sample_family":"vehicles/engine3","sample_scalar_bits":"3fbae148","tuning_field_0x14_bits":"3f8147ae","curve_group":"B"},
+    {"id":22,"class":"T3","class_local_index":8,"name":"Kamaz","profile":"tuned-22","sample_family":"vehicles/engine3","sample_scalar_bits":"3fae147b","tuning_field_0x14_bits":"3f333333","curve_group":"A"},
+    {"id":23,"class":"T3","class_local_index":9,"name":"Icecream","profile":"tuned-23","sample_family":"vehicles/engine3","sample_scalar_bits":"3fbae148","tuning_field_0x14_bits":"3f333333","curve_group":"A","special_audio":"separate vehicles/icecream object"},
+    {"id":24,"class":"T3","class_local_index":10,"name":"Ufo","profile":"tuned-24","sample_family":"vehicles/ufo","sample_scalar_bits":"3fae147b","tuning_field_0x14_bits":"3f333333","curve_group":"A","special_audio":"constructor flag at object+0xB5"},
+    {"id":25,"class":null,"class_local_index":null,"name":null,"profile":null,"sample_family":"vehicles/rev9 fallback at runtime if physical ID25 is passed","sample_scalar_bits":"3fc00000 default","tuning_field_0x14_bits":null,"curve_group":"A fallback","explicit_tuned_case":false,"stock_record_initialized":false,"project_note":"The G.1 candidate uses this slot for Trooper; this does not add an audio tuning case."}
+  ],
+  "profile_counts": {
+    "explicit_tuned_stock_ids": 25,
+    "distinct_composite_profiles_0_to_24": 25,
+    "distinct_sample_families_0_to_24": 5,
+    "exactly_identical_composite_profiles": [],
+    "fallback_ids_in_scope": [25, 26]
+  },
+  "evidence_labels": {
+    "retail_constructor_and_switches": "CONFIRMED_BY_EXE",
+    "vehicle_names_and_class_local_mapping": "CONFIRMED_BY_EXE / CONFIRMED_BY_CORPUS",
+    "sample_resource_hashes": "CONFIRMED_BY_CORPUS",
+    "human_audible_results": "NOT TESTED IN R5V-G.2"
+  }
+}

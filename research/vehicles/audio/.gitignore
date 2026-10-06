@@ -1,0 +1,13 @@
+# Local Ghidra projects, exports, logs, and generated runtime candidates.
+ghidra-project/
+ghidra-exports/
+ghidra-exports-*/
+ghidra-scratch/
+ghidra-scripts/
+ghidra-bridge.local.yaml
+ghidra-bridge-*.local.yaml
+ghidra-*.log
+*.exe
+*.wav
+*.raw
+*.bin
