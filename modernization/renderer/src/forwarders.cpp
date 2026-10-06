@@ -332,29 +332,12 @@ HRESULT STDMETHODCALLTYPE Device8::Clear(DWORD rect_count, const D3DRECT *rects,
  trace.after(36, args, static_cast<uint32_t>(result), pc);
  return result;
 }
-HRESULT STDMETHODCALLTYPE Device8::SetTransform(D3DTRANSFORMSTATETYPE state, const D3DMATRIX *matrix) {
- auto guard = trace.guard();
- const auto args = pack(state, matrix);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(37, args, pc);
- HRESULT result = real_->SetTransform(state, matrix);
- trace.after(37, args, static_cast<uint32_t>(result), pc);
- return result;
-}
-HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE State,D3DMATRIX * pMatrix) {
- auto guard = trace.guard();
- const auto args = pack(State, pMatrix);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(38, args, pc);
- HRESULT result = real_->GetTransform(State, pMatrix);
- trace.after(38, args, static_cast<uint32_t>(result), pc);
- return result;
-}
 HRESULT STDMETHODCALLTYPE Device8::MultiplyTransform(D3DTRANSFORMSTATETYPE state, const D3DMATRIX *matrix) {
  auto guard = trace.guard();
  const auto args = pack(state, matrix);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(39, args, pc);
+ if(state==D3DTS_PROJECTION){HRESULT safe=stock_for_unmapped("MultiplyTransform_PROJECTION");if(FAILED(safe)){trace.after(39,args,static_cast<uint32_t>(safe),pc);return safe;}}
  HRESULT result = real_->MultiplyTransform(state, matrix);
  trace.after(39, args, static_cast<uint32_t>(result), pc);
  return result;
@@ -472,6 +455,8 @@ HRESULT STDMETHODCALLTYPE Device8::BeginStateBlock() {
  const auto args = pack();
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(52, args, pc);
+ HRESULT safe = stock_for_unmapped("BeginStateBlock");
+ if(FAILED(safe)){ trace.after(52, args, static_cast<uint32_t>(safe), pc); return safe; }
  HRESULT result = real_->BeginStateBlock();
  trace.after(52, args, static_cast<uint32_t>(result), pc);
  return result;
@@ -490,6 +475,8 @@ HRESULT STDMETHODCALLTYPE Device8::ApplyStateBlock(DWORD Token) {
  const auto args = pack(Token);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(54, args, pc);
+ HRESULT safe = stock_for_unmapped("ApplyStateBlock");
+ if(FAILED(safe)){ trace.after(54, args, static_cast<uint32_t>(safe), pc); return safe; }
  HRESULT result = real_->ApplyStateBlock(Token);
  trace.after(54, args, static_cast<uint32_t>(result), pc);
  return result;
@@ -499,6 +486,8 @@ HRESULT STDMETHODCALLTYPE Device8::CaptureStateBlock(DWORD Token) {
  const auto args = pack(Token);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(55, args, pc);
+ HRESULT safe = stock_for_unmapped("CaptureStateBlock");
+ if(FAILED(safe)){ trace.after(55, args, static_cast<uint32_t>(safe), pc); return safe; }
  HRESULT result = real_->CaptureStateBlock(Token);
  trace.after(55, args, static_cast<uint32_t>(result), pc);
  return result;
@@ -517,6 +506,8 @@ HRESULT STDMETHODCALLTYPE Device8::CreateStateBlock(D3DSTATEBLOCKTYPE Type,DWORD
  const auto args = pack(Type, pToken);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(57, args, pc);
+ HRESULT safe = stock_for_unmapped("CreateStateBlock");
+ if(FAILED(safe)){ trace.after(57, args, static_cast<uint32_t>(safe), pc); return safe; }
  HRESULT result = real_->CreateStateBlock(Type, pToken);
  trace.after(57, args, static_cast<uint32_t>(result), pc);
  return result;
@@ -555,24 +546,6 @@ HRESULT STDMETHODCALLTYPE Device8::SetTexture(DWORD Stage,IDirect3DBaseTexture8 
  trace.before(61, args, pc);
  HRESULT result = real_->SetTexture(Stage, pTexture);
  trace.after(61, args, static_cast<uint32_t>(result), pc);
- return result;
-}
-HRESULT STDMETHODCALLTYPE Device8::GetTextureStageState(DWORD Stage,D3DTEXTURESTAGESTATETYPE Type,DWORD * pValue) {
- auto guard = trace.guard();
- const auto args = pack(Stage, Type, pValue);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(62, args, pc);
- HRESULT result = real_->GetTextureStageState(Stage, Type, pValue);
- trace.after(62, args, static_cast<uint32_t>(result), pc);
- return result;
-}
-HRESULT STDMETHODCALLTYPE Device8::SetTextureStageState(DWORD Stage,D3DTEXTURESTAGESTATETYPE Type,DWORD Value) {
- auto guard = trace.guard();
- const auto args = pack(Stage, Type, Value);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(63, args, pc);
- HRESULT result = real_->SetTextureStageState(Stage, Type, Value);
- trace.after(63, args, static_cast<uint32_t>(result), pc);
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::ValidateDevice(DWORD * pNumPasses) {
@@ -627,15 +600,6 @@ HRESULT STDMETHODCALLTYPE Device8::GetCurrentTexturePalette(UINT * PaletteNumber
  trace.before(69, args, pc);
  HRESULT result = real_->GetCurrentTexturePalette(PaletteNumber);
  trace.after(69, args, static_cast<uint32_t>(result), pc);
- return result;
-}
-HRESULT STDMETHODCALLTYPE Device8::DrawPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount) {
- auto guard = trace.guard();
- const auto args = pack(PrimitiveType, StartVertex, PrimitiveCount);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(70, args, pc);
- HRESULT result = real_->DrawPrimitive(PrimitiveType, StartVertex, PrimitiveCount);
- trace.after(70, args, static_cast<uint32_t>(result), pc);
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT minIndex,UINT NumVertices,UINT startIndex,UINT primCount) {

@@ -1,0 +1,17 @@
+[Renderer]
+ConfigVersion=1
+
+[Filtering]
+AnisotropicFiltering=false
+MaxAnisotropy=16
+
+[Camera]
+GameplayFOV=false
+VerticalFOVDegrees=75.0
+
+[Shadows]
+Mode=Stock
+
+[Trace]
+Enabled=true
+FrameSummaries=true

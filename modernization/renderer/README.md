@@ -1,3 +1,18 @@
-# Master Rallye renderer runtime
+# Master Rallye renderer — R-GFX3-1
 
-Seeded from frozen R-GFX2 native forwarding source on research/general-re. Historical R-GFX1/R-GFX2 remain read-only. This directory owns the evolving runtime and phase-specific research/r-gfx3 evidence. Generated builds, DLLs and captures remain ignored; no game patch or backend translation.
+Status: **READY_FOR_HUMAN_RUNTIME**. Native D3D8 forwarding with independently configurable, default-off Classic+ experiments. Human visual/default-off parity and pristine Reset are pending.
+
+Work in `master-rallye-re-general`, branch `research/general-re`. Historical `modernization/renderer-recon` and `modernization/d3d8-proxy` are frozen. [Implementation](research/r-gfx3/implementation.md), [validation](research/r-gfx3/validation.md), [human handoff](research/r-gfx3/runtime-handoff.md).
+
+`MRRRenderer.ini` is read beside the proxy DLL once per process. Copy `MRRRenderer.ini.example` and change individual features between game launches. Missing/unsupported-version config means Stock. Unknown EXE always means Stock forwarding with optional tracing. Supported EXE SHA256: bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4.
+
+Features: stage0 LINEAR anisotropy with device caps; vertical FOV30..110 on the observed race projection seam; dedicated stock shadow Stock/Off. Stage1 environment mapping, mip filtering and point filtering stay stock. No backend translation, lighting, freecam, texture replacement or EXE patches.
+
+```powershell
+python modernization/renderer/tools/build.py
+python modernization/renderer/tools/verify_proxy.py modernization/renderer/.build-msvc/Release/d3d8.dll
+python -m unittest discover -s modernization/renderer/tests -v
+python -m compileall modernization/renderer
+```
+
+Build products/captures are ignored. Logs are beside the DLL under `MRRRenderer/logs`. F10 retains one complete frame. [Trace/state conventions](research/r-gfx3/state-virtualization.md) explain logical state and effective overlays. Offline R-GFX2 readers remain available; `tools/summarize_visual_trace.py` reconstructs both versions.

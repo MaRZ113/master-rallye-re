@@ -7,8 +7,10 @@
 namespace gfx2 {
 inline constexpr size_t MAX_DRAWS=8192,MAX_EVENTS=16384,MAX_BUFFER_BYTES=32*1024*1024;
 struct Event {uint32_t slot=0,result=0;Args args;uintptr_t pc=0;uint32_t draw=UINT32_MAX;
+ bool suppressed=false,native_only=false;uint32_t feature=0;Args effective_args{};uint32_t effective_payload[16]{};uint32_t effective_words=0;
  uint32_t payload[32]{};uint32_t payload_words=0;};
-struct Draw { Snapshot state;std::array<uint64_t,8> texture_generation{};
+struct EffectiveDraw {Known<uint32_t> filtering[4];Known<D3DMATRIX> projection;};
+struct Draw { Snapshot state;EffectiveDraw effective;std::array<uint64_t,8> texture_generation{};
  std::array<uint64_t,16> stream_generation{};uint64_t index_generation=0; };
 struct FrameBuffer {std::array<Event,MAX_EVENTS> events;std::array<Draw,MAX_DRAWS> draws;
  size_t event_count=0,draw_count=0;bool truncated=false;uint64_t dropped=0;};
@@ -23,10 +25,10 @@ public:
  };
  Guard guard() noexcept {return Guard(*this);}
  void before(uint32_t slot,const Args& args,uintptr_t pc) noexcept;
- void after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc) noexcept;
+ void after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,const Args* effective=nullptr,uint32_t feature=0,bool suppressed=false,bool native_only=false) noexcept;
  void shutdown(uint32_t real_refs) noexcept;
  std::atomic<bool> enabled{false};
- Shadow shadow;
+ Shadow shadow,effective_shadow;
  CaptureControl control;
  ResourceRegistry resources;
 private:

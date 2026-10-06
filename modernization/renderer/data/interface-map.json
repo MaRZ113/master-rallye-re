@@ -725,7 +725,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3 gated override or logical getter virtualization"
       },
       {
         "slot": 38,
@@ -738,7 +738,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3 gated override or logical getter virtualization"
       },
       {
         "slot": 39,
@@ -751,7 +751,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; active visual state restored before unreviewed operation"
       },
       {
         "slot": 40,
@@ -913,7 +913,7 @@
         "arguments": [],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; active visual state restored before unreviewed operation"
       },
       {
         "slot": 53,
@@ -937,7 +937,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; active visual state restored before unreviewed operation"
       },
       {
         "slot": 55,
@@ -949,7 +949,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; active visual state restored before unreviewed operation"
       },
       {
         "slot": 56,
@@ -974,7 +974,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; active visual state restored before unreviewed operation"
       },
       {
         "slot": 58,
@@ -1038,7 +1038,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3 gated override or logical getter virtualization"
       },
       {
         "slot": 63,
@@ -1052,7 +1052,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3 gated override or logical getter virtualization"
       },
       {
         "slot": 64,
@@ -1142,7 +1142,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3 gated override or logical getter virtualization"
       },
       {
         "slot": 71,

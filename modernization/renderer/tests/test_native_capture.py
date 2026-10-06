@@ -8,10 +8,14 @@ from trace_common import read_jsonl, annotate, DEFAULT_MAP
 from summarize_trace import summarize
 import json
 
+def capture_executable(path):
+    with path.open(encoding='utf-8') as stream:
+        return json.loads(stream.readline())['exe_path'].casefold()
+
 class NativeCaptureTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        files=list((ROOT/'.build-msvc/Release/MRRGFX2/logs').glob('frame-*-d2-*.jsonl'))
+        files=[p for p in (ROOT/'.build-msvc/Release/MRRRenderer/logs').glob('frame-*-d2-*.jsonl') if capture_executable(p).endswith('native_tests.exe')]
         if not files:raise unittest.SkipTest('Run tools/build.py native tests first')
         # Two output frames share PID; choose newest test run only.
         newest=max(files,key=lambda p:p.stat().st_mtime_ns)
@@ -36,7 +40,7 @@ class NativeCaptureTests(unittest.TestCase):
         out=annotate(frame,json.loads(DEFAULT_MAP.read_text()))
         self.assertTrue(all(not r['annotation']['matched'] for r in out if 'annotation' in r))
     def test_actual_wrapper_return_address(self):
-        files=list((ROOT/'.build-msvc/Release/MRRGFX2/logs').glob('frame-*-d1-*.jsonl'))
+        files=[p for p in (ROOT/'.build-msvc/Release/MRRRenderer/logs').glob('frame-*-d1-*.jsonl') if capture_executable(p).endswith('native_tests.exe')]
         if not files:raise unittest.SkipTest('Rebuild native wrapper capture test')
         frame=read_jsonl(max(files,key=lambda p:p.stat().st_mtime_ns))
         draw=next(r for r in frame if r['type']=='draw');caller=draw['caller']

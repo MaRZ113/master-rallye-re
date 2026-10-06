@@ -1,0 +1,39 @@
+{
+  "phase": "R-GFX3",
+  "status": "READY_FOR_HUMAN_RUNTIME",
+  "runtime_version": "R-GFX3-1",
+  "repository": "master-rallye-re-general",
+  "branch": "research/general-re",
+  "starting_head": "7ef461057c32ba1ab700d67f976ac90db553d14f",
+  "canonical_target_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "frozen_baseline": "modernization/d3d8-proxy",
+  "tested_baseline_sha256": "b21ae8c587f6d6a14809c5c4715e557307e045a5db6d147d460d1f1537c6a5d5",
+  "build_sha256": "307a5fe4c83d95bd14d460cf767aa751e94b7f0a8e962c8c29c67681f2c17313",
+  "build_size": 1015808,
+  "config": "MRRRenderer.ini beside DLL; lifetime immutable",
+  "features": {
+    "anisotropy": "stage0 LINEAR, native caps, min(request,cap), POINT/MIP/stage1 unchanged",
+    "fov": "main EXE return RVA0x0013FA75, finite symmetric LH, XY only; VFOV30..110",
+    "shadow": "Stock/Off; DrawPrimitive return RVA0x001881EB + state sanity; opacity deferred"
+  },
+  "caps_observed_on_gpu": false,
+  "checks": {
+    "native": "2/2 PASS",
+    "python": "40 PASS",
+    "compileall": "PASS",
+    "pe_exports_imports": "PASS",
+    "source_abi": "16/97 complete"
+  },
+  "human_stages": {
+    "A_stock": "PENDING_HUMAN",
+    "B_AF": "PENDING_HUMAN",
+    "C_FOV": "PENDING_HUMAN",
+    "D_combined": "PENDING_HUMAN",
+    "E_shadow": "PENDING_HUMAN",
+    "F_pristine_Reset": "PENDING_HUMAN"
+  },
+  "game_patch": false,
+  "deployment_performed": false,
+  "push_performed": false,
+  "next_phase_started": false
+}

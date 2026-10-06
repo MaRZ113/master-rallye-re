@@ -55,13 +55,15 @@ Session::Session(){
  auto own=module_path(proxy_module),exe=module_path(nullptr);uint64_t exe_size=0;
  proxy_path=utf8(own);exe_path=utf8(exe);proxy_sha=sha256_file(own);exe_sha=sha256_file(exe,&exe_size);target=exe_sha==TARGET_SHA;
  auto base=own.substr(0,own.find_last_of(L"\\/"));
- auto ini=base+L"\\MRRGFX2.ini";
+ auto ini=base+L"\\MRRRenderer.ini";config_path=ini;visual_config=read_visual_config(ini);
  auto boolean=[&](const wchar_t* key){wchar_t b[16];GetPrivateProfileStringW(L"Trace",key,L"true",b,16,ini.c_str());return _wcsicmp(b,L"false")!=0&&wcscmp(b,L"0")!=0;};
  enabled=boolean(L"Enabled");summaries=boolean(L"FrameSummaries");
- CreateDirectoryW((base+L"\\MRRGFX2").c_str(),nullptr);directory=base+L"\\MRRGFX2\\logs";CreateDirectoryW(directory.c_str(),nullptr);
+ CreateDirectoryW((base+L"\\MRRRenderer").c_str(),nullptr);directory=base+L"\\MRRRenderer\\logs";CreateDirectoryW(directory.c_str(),nullptr);
  SYSTEMTIME t;GetSystemTime(&t);wchar_t name[128];swprintf_s(name,L"\\session-%04u%02u%02u-%02u%02u%02u-%lu.jsonl",t.wYear,t.wMonth,t.wDay,t.wHour,t.wMinute,t.wSecond,GetCurrentProcessId());
  file_=CreateFileW((directory+name).c_str(),GENERIC_WRITE,FILE_SHARE_READ,nullptr,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,nullptr);
- std::ostringstream o;o<<"{\"type\":\"session\",\"schema_version\":1,\"proxy_version\":\"R-GFX2-1\",\"architecture\":\"I386/PE32\",\"exe_path\":"<<quote(exe_path)<<",\"exe_size\":"<<exe_size<<",\"exe_sha256\":"<<quote(exe_sha)<<",\"proxy_path\":"<<quote(proxy_path)<<",\"proxy_sha256\":"<<quote(proxy_sha)<<",\"build\":"<<quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")<<",\"trace_enabled\":"<<(enabled?"true":"false")<<"}";write(o.str());
+ std::ostringstream o;o<<"{\"type\":\"session\",\"schema_version\":1,\"proxy_version\":\"R-GFX3-1\",\"architecture\":\"I386/PE32\",\"exe_path\":"<<quote(exe_path)<<",\"exe_size\":"<<exe_size<<",\"exe_sha256\":"<<quote(exe_sha)<<",\"proxy_path\":"<<quote(proxy_path)<<",\"proxy_sha256\":"<<quote(proxy_sha)<<",\"build\":"<<quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")<<",\"trace_enabled\":"<<(enabled?"true":"false")<<"}";write(o.str());
+ auto effective=visual_config;if(!target){effective.anisotropy=effective.fov=effective.shadow_off=false;effective.reason="unsupported_build";}
+ write("{\"type\":\"renderer_config\",\"version\":\"R-GFX3-1\",\"config_path\":"+quote(utf8(config_path))+",\"build\":"+quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"requested\":"+config_json(visual_config)+",\"effective_before_caps\":"+config_json(effective)+"}");
 }
 Session& session(){static Session* s=new Session();return *s;}
 uint64_t Session::device_serial() noexcept {EnterCriticalSection(&lock_);auto n=++serial_;LeaveCriticalSection(&lock_);return n;}
@@ -69,10 +71,10 @@ void Session::write(const std::string& s) noexcept {
  try {std::string line=s+'\n';EnterCriticalSection(&lock_);
   if(file_!=INVALID_HANDLE_VALUE && bytes_+line.size()<=16*1024*1024){
    DWORD done=0;if(!WriteFile(file_,line.data(),static_cast<DWORD>(line.size()),&done,nullptr)||done!=line.size()){
-    LARGE_INTEGER at;at.QuadPart=bytes_;SetFilePointerEx(file_,at,nullptr,FILE_BEGIN);SetEndOfFile(file_);CloseHandle(file_);file_=INVALID_HANDLE_VALUE;OutputDebugStringA("R-GFX2 logging failed; forwarding remains active\n");
+    LARGE_INTEGER at;at.QuadPart=bytes_;SetFilePointerEx(file_,at,nullptr,FILE_BEGIN);SetEndOfFile(file_);CloseHandle(file_);file_=INVALID_HANDLE_VALUE;OutputDebugStringA("R-GFX3 logging failed; forwarding remains active\n");
    }else bytes_+=done;
   }LeaveCriticalSection(&lock_);
- }catch(...){OutputDebugStringA("R-GFX2 log allocation failure\n");}
+ }catch(...){OutputDebugStringA("R-GFX3 log allocation failure\n");}
 }
 void note_real_runtime(HMODULE m,const std::wstring& requested) noexcept {
  try{auto& s=session();s.real_path=utf8(module_path(m));s.write("{\"type\":\"real_runtime\",\"requested_path\":"+quote(utf8(requested))+",\"actual_path\":"+quote(s.real_path)+",\"loaded\":"+(m?"true":"false")+"}");}catch(...){}

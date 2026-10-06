@@ -9,3 +9,5 @@ MRRGFX2/
 *.lib
 *.exp
 *.map
+
+MRRRenderer/

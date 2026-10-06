@@ -36,6 +36,8 @@ public:
  ~Device8();
  void adopt() noexcept { ++refs_; }
  Trace trace;
+ VisualPolicy visuals;
+ HRESULT stock_for_unmapped(const char* reason) noexcept;
  __declspec(noinline) HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void** ppvObject) override;
  __declspec(noinline) ULONG STDMETHODCALLTYPE AddRef() override;
  __declspec(noinline) ULONG STDMETHODCALLTYPE Release() override;

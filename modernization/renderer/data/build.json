@@ -1,0 +1,79 @@
+{
+  "valid": true,
+  "errors": [],
+  "sha256": "307a5fe4c83d95bd14d460cf767aa751e94b7f0a8e962c8c29c67681f2c17313",
+  "size": 1015808,
+  "machine": 332,
+  "pe_type": "PE32",
+  "dll": true,
+  "image_base": 268435456,
+  "timestamp": 2962748414,
+  "entry_rva": 467821,
+  "exports": {
+    "Direct3DCreate8": {
+      "ordinal": 5,
+      "rva": 16208,
+      "forwarder": null
+    },
+    "ValidatePixelShader": {
+      "ordinal": 2,
+      "rva": 17584,
+      "forwarder": null
+    },
+    "ValidateVertexShader": {
+      "ordinal": 3,
+      "rva": 17616,
+      "forwarder": null
+    }
+  },
+  "imported_dlls": [
+    "bcrypt.dll",
+    "USER32.dll",
+    "KERNEL32.dll"
+  ],
+  "sections": [
+    {
+      "name": ".text",
+      "rva": 4096,
+      "virtual_size": 860944,
+      "raw_size": 861184,
+      "raw_offset": 1024
+    },
+    {
+      "name": ".rdata",
+      "rva": 868352,
+      "virtual_size": 119662,
+      "raw_size": 119808,
+      "raw_offset": 862208
+    },
+    {
+      "name": ".data",
+      "rva": 991232,
+      "virtual_size": 11628,
+      "raw_size": 7168,
+      "raw_offset": 982016
+    },
+    {
+      "name": ".fptable",
+      "rva": 1003520,
+      "virtual_size": 128,
+      "raw_size": 512,
+      "raw_offset": 989184
+    },
+    {
+      "name": ".rsrc",
+      "rva": 1007616,
+      "virtual_size": 480,
+      "raw_size": 512,
+      "raw_offset": 989696
+    },
+    {
+      "name": ".reloc",
+      "rva": 1011712,
+      "virtual_size": 25124,
+      "raw_size": 25600,
+      "raw_offset": 990208
+    }
+  ],
+  "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
+}

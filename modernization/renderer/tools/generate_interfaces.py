@@ -24,6 +24,11 @@ def interfaces(header):
                 'logging_category':'COM' if name in ('QueryInterface','AddRef','Release','GetDirect3D','CreateDevice') else 'observational' if interface.endswith('Device8') else 'forward_only',
                 'forwarding_status':'unchanged except documented COM pointer plumbing'})
         result[interface] = methods
+    for method in result['IDirect3DDevice8']:
+        if method['method'] in ('SetTextureStageState','SetTransform','GetTextureStageState','GetTransform','DrawPrimitive'):
+            method['forwarding_status']='default-off unchanged; documented R-GFX3 gated override or logical getter virtualization'
+        elif method['method'] in ('BeginStateBlock','ApplyStateBlock','CreateStateBlock','CaptureStateBlock','MultiplyTransform'):
+            method['forwarding_status']='default-off unchanged; active visual state restored before unreviewed operation'
     if [len(result[x]) for x in result] != [16,97]:
         raise ValueError('Pinned header interface counts changed')
     return result
@@ -46,7 +51,7 @@ def generate():
         'class Device8 final : public IDirect3DDevice8 {','public:',
         ' Device8(IDirect3DDevice8* p, Root8* parent) noexcept;',
         ' ~Device8();',
-        ' void adopt() noexcept { ++refs_; }',' Trace trace;']
+        ' void adopt() noexcept { ++refs_; }',' Trace trace;',' VisualPolicy visuals;',' HRESULT stock_for_unmapped(const char* reason) noexcept;']
     for m in methods['IDirect3DDevice8']:
         declarations.append(f' __declspec(noinline) {m["return_type"]} STDMETHODCALLTYPE {m["method"]}({m["parameters"]}) override;')
     declarations += ['private: IDirect3DDevice8* real_; Root8* parent_; std::atomic<ULONG> refs_{1};','};','}']
@@ -56,12 +61,13 @@ def generate():
     for interface, owner in [('IDirect3D8','Root8'),('IDirect3DDevice8','Device8')]:
         for m in methods[interface]:
             ret,name,params,args = m['return_type'],m['method'],m['parameters'],', '.join(m['arguments'])
-            if name in ('QueryInterface','AddRef','Release','CreateDevice','GetDirect3D'):continue
+            if name in ('QueryInterface','AddRef','Release','CreateDevice','GetDirect3D') or owner=='Device8' and name in ('SetTextureStageState','GetTextureStageState','SetTransform','GetTransform','DrawPrimitive'):continue
             lines.append(f'{ret} STDMETHODCALLTYPE {owner}::{name}({params}) {{')
             if owner == 'Root8':
                 lines.append(f' {"return " if ret!="void" else ""}real_->{name}({args});')
             else:
                 lines += [' auto guard = trace.guard();',f' const auto args = pack({args});',f' const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());',f' trace.before({m["slot"]}, args, pc);',
+                    *([f' HRESULT safe = stock_for_unmapped("{name}");', ' if(FAILED(safe)){ trace.after('+str(m['slot'])+', args, static_cast<uint32_t>(safe), pc); return safe; }'] if name in ('BeginStateBlock','ApplyStateBlock','CreateStateBlock','CaptureStateBlock') else [f' if(state==D3DTS_PROJECTION){{HRESULT safe=stock_for_unmapped("MultiplyTransform_PROJECTION");if(FAILED(safe)){{trace.after({m["slot"]},args,static_cast<uint32_t>(safe),pc);return safe;}}}}'] if name=='MultiplyTransform' else []),
                     f' {ret+" result = " if ret!="void" else ""}real_->{name}({args});',
                     f' trace.after({m["slot"]}, args, {"static_cast<uint32_t>(result)" if ret!="void" else "0"}, pc);']
                 if ret != 'void':lines.append(' return result;')

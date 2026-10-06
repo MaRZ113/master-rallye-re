@@ -1,5 +1,6 @@
 #pragma once
 #include "sdk.hpp"
+#include "visual_policy.hpp"
 #include <string>
 #include <cstdint>
 namespace gfx2 {
@@ -17,6 +18,7 @@ public:
  std::wstring directory;
  std::string exe_sha,exe_path,proxy_sha,proxy_path,real_path;
  bool target=false;
+ VisualConfig visual_config;std::wstring config_path;
  void write(const std::string& record) noexcept;
  uint64_t device_serial() noexcept;
 private:

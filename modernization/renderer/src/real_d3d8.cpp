@@ -15,10 +15,10 @@ BOOL CALLBACK initialize(PINIT_ONCE,void*,void**){
  if(system==gfx2::proxy_module){if(system)FreeLibrary(system);system=nullptr;}
  if(system){factory=reinterpret_cast<Factory>(GetProcAddress(system,"Direct3DCreate8"));vertex=reinterpret_cast<VertexValidator>(GetProcAddress(system,"ValidateVertexShader"));pixel=reinterpret_cast<PixelValidator>(GetProcAddress(system,"ValidatePixelShader"));}
  gfx2::note_real_runtime(system,full); // DLL remains pinned for live raw resources.
- }catch(...){OutputDebugStringA("R-GFX2 system runtime initialization failed\n");}
+ }catch(...){OutputDebugStringA("R-GFX3 system runtime initialization failed\n");}
  return TRUE;
 }
-void ensure() noexcept {try{InitOnceExecuteOnce(&once,initialize,nullptr,nullptr);}catch(...){OutputDebugStringA("R-GFX2 system runtime initialization failed\n");}}
+void ensure() noexcept {try{InitOnceExecuteOnce(&once,initialize,nullptr,nullptr);}catch(...){OutputDebugStringA("R-GFX3 system runtime initialization failed\n");}}
 }
 extern "C" IDirect3D8* WINAPI ProxyDirect3DCreate8(UINT sdk){
  ensure();if(!factory)return nullptr;

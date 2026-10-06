@@ -40,7 +40,7 @@ Trace::Trace() noexcept {
  try {auto& s=session();enabled=lock_ok_&&s.enabled;device_=s.device_serial();}catch(...){enabled=false;}
 }
 Trace::~Trace(){if(lock_ok_)DeleteCriticalSection(&lock_);}
-Trace::Guard::Guard(Trace& t) noexcept :t_(t),held_(t.lock_ok_&&t.enabled){if(held_)EnterCriticalSection(&t.lock_);}
+Trace::Guard::Guard(Trace& t) noexcept :t_(t),held_(t.lock_ok_){if(held_)EnterCriticalSection(&t.lock_);}
 Trace::Guard::~Guard(){if(held_)LeaveCriticalSection(&t_.lock_);}
 void Trace::before(uint32_t slot,const Args& a,uintptr_t) noexcept {
  if(!enabled)return;
@@ -55,6 +55,7 @@ void Trace::before(uint32_t slot,const Args& a,uintptr_t) noexcept {
    if(control.active&&capture_&&!capture_->truncated){
     if(capture_->draw_count==MAX_DRAWS){capture_->truncated=true;++capture_->dropped;}
     else {pending_draw_=static_cast<uint32_t>(capture_->draw_count++);auto& d=capture_->draws[pending_draw_];d.state=shadow.snapshot();
+     for(int i=0;i<4;++i)d.effective.filtering[i]=effective_shadow.tss[0][i==3?21:16+i];d.effective.projection=effective_shadow.matrices[3];
      for(int i=0;i<8;++i)d.texture_generation[i]=d.state.textures[i].known?resources.generation(d.state.textures[i].value):0;
      for(int i=0;i<16;++i)d.stream_generation[i]=d.state.streams[i].known?resources.generation(d.state.streams[i].value.pointer):0;
      d.index_generation=d.state.indices.known?resources.generation(d.state.indices.value.pointer):0;
@@ -70,14 +71,17 @@ void Trace::resource(uint32_t slot,const Args& a,uint32_t result){
  auto r=resources.add(p,slot,a);std::ostringstream o;o<<"{\"type\":\"resource_create\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[slot])<<",\"pointer\":"<<p<<",\"serial\":"<<r.serial<<",\"arguments\":[";
  for(int i=0;i<8;++i){if(i)o<<',';o<<a.a[i];}o<<"],\"lifetime_observed\":false}";session().write(o.str());
 }
-void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc) noexcept {
+void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,const Args* effective,uint32_t feature,bool suppressed,bool native_only) noexcept {
+ const Args& native=effective?*effective:args;
+ if(!native_only)shadow.update(slot,args,result);effective_shadow.update(slot,native,result);
  if(!enabled)return;
  FloatEnvironment fp;
  try {
   if(control.active&&capture_){
    if(capture_->event_count==MAX_EVENTS){capture_->truncated=true;++capture_->dropped;}
-   else if(!capture_->truncated){auto& e=capture_->events[capture_->event_count++];e=Event{};e.slot=slot;e.result=result;e.args=args;e.pc=pc;
-    if(slot>=70&&slot<=73)e.draw=pending_draw_;
+   else if(!capture_->truncated){auto& e=capture_->events[capture_->event_count++];e=Event{};e.slot=slot;e.result=result;e.args=args;e.pc=pc;e.effective_args=native;e.feature=feature;e.suppressed=suppressed;e.native_only=native_only;
+    if((slot==37||slot==38)&&safe_copy(e.effective_payload,(void*)native.a[1],64))e.effective_words=16;
+    if(slot>=70&&slot<=73){e.draw=pending_draw_;if(e.draw!=UINT32_MAX){const auto& d=capture_->draws[e.draw];for(int j=0;j<4;++j){const auto& l=d.state.tss[0][j==3?20:15+j];const auto& n=d.effective.filtering[j];if(l.known&&n.known&&l.value!=n.value)e.feature|=1;}if(d.state.matrices[2].known&&d.effective.projection.known&&std::memcmp(&d.state.matrices[2].value,&d.effective.projection.value,sizeof(D3DMATRIX)))e.feature|=2;}}
     if((slot==37||slot==38)&&safe_copy(e.payload,(void*)args.a[1],64))e.payload_words=16;
     else if(slot==40&&safe_copy(e.payload,(void*)args.a[0],24))e.payload_words=6;
     else if(slot==42&&safe_copy(e.payload,(void*)args.a[0],sizeof(D3DMATERIAL8)))e.payload_words=sizeof(D3DMATERIAL8)/4;
@@ -86,14 +90,14 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc) n
     else if(slot==15){if(args.a[0]&&safe_copy(e.payload,(void*)args.a[0],16))e.payload_words=4;if(args.a[1]&&safe_copy(e.payload+4,(void*)args.a[1],16))e.payload_words=8;}
    }else ++capture_->dropped;
   }
-  shadow.update(slot,args,result);resource(slot,args,result);
+  resource(slot,args,result);
   if(slot==14){if(static_cast<int32_t>(result)>=0)resources.items.clear();D3DPRESENT_PARAMETERS p{};bool valid=safe_copy(&p,(void*)args.a[0],sizeof(p));
    session().write("{\"type\":\"reset\",\"device\":"+std::to_string(device_)+",\"hresult\":"+std::to_string(result)+",\"parameters_before\":"+(reset_before_.known?pp_json(reset_before_.value):"null")+",\"parameters_after\":"+(valid?pp_json(p):"null")+"}");
    if(control.active)finish(result,false,"reset");control.abort();control.boundary=false;
   }
   if(slot==3&&(!last_cooperative_.known||last_cooperative_.value!=result)){last_cooperative_.set(result);session().write("{\"type\":\"cooperative_level\",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+",\"hresult\":"+std::to_string(result)+"}");}
   if(slot==15){finish(result,control.boundary,"present");++frame_;counts_.fill(0);primitives_=0;control.finish_present();if(control.active)start_capture();}
- }catch(...){enabled=false;control.abort();OutputDebugStringA("R-GFX2 trace disabled after instrumentation failure\n");}
+ }catch(...){enabled=false;control.abort();OutputDebugStringA("R-GFX3 trace disabled after instrumentation failure\n");}
 }
 void Trace::start_capture() noexcept {
  if(!capture_)capture_.reset(new(std::nothrow)FrameBuffer);
@@ -116,18 +120,20 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
    if(written+text.size()>64*1024*1024||!WriteFile(f,text.data(),static_cast<DWORD>(text.size()),&n,nullptr)||n!=text.size()){
     okay=false;LARGE_INTEGER at;at.QuadPart=written;SetFilePointerEx(f,at,nullptr,FILE_BEGIN);SetEndOfFile(f);return;
    }written+=n;};
-  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX2-1\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+"}");
+  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX3-1\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+"}");
   for(size_t i=0;i<capture_->event_count;++i){const auto& e=capture_->events[i];std::ostringstream o;
-   o<<"{\"type\":"<<quote(e.draw==UINT32_MAX?"event":"draw")<<",\"sequence\":"<<i<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[e.slot])<<",\"slot\":"<<e.slot<<",\"result\":"<<e.result<<",\"caller\":";caller(o,e.pc);o<<",\"arguments\":[";
+   o<<"{\"type\":"<<quote(e.draw==UINT32_MAX?(e.native_only?"native_override":"event"):"draw")<<",\"sequence\":"<<i<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[e.slot])<<",\"slot\":"<<e.slot<<",\"result\":"<<e.result<<",\"caller\":";caller(o,e.pc);o<<",\"arguments\":[";
    for(int j=0;j<8;++j){if(j)o<<',';o<<e.args.a[j];}o<<"],\"payload_bits\":[";
    for(uint32_t j=0;j<e.payload_words;++j){if(j)o<<',';o<<e.payload[j];}o<<']';
-   if(e.draw!=UINT32_MAX){o<<",\"draw_index\":"<<e.draw<<",\"primitive_type\":"<<e.args.a[0]<<",\"primitive_count\":"<<e.args.a[e.slot==70?2:e.slot==71?4:e.slot==72?1:3]<<",\"state\":";state(o,capture_->draws[e.draw]);}o<<'}';line(o.str());
+   o<<",\"native_only\":"<<(e.native_only?"true":"false")<<",\"feature_mask\":"<<e.feature<<",\"forwarded\":"<<(e.suppressed?"false":"true")<<",\"effective_arguments\":[";for(int j=0;j<8;++j){if(j)o<<',';o<<e.effective_args.a[j];}o<<"],\"effective_payload_bits\":[";for(uint32_t j=0;j<e.effective_words;++j){if(j)o<<',';o<<e.effective_payload[j];}o<<']';
+   if(e.feature&2 && e.slot==37 && e.payload_words==16 && e.effective_words==16){D3DMATRIX original{},effective{};std::memcpy(&original,e.payload,64);std::memcpy(&effective,e.effective_payload,64);if(symmetric_lh(original)&&symmetric_lh(effective))o<<",\"projection_override\":{\"original_vfov\":"<<vertical_fov(original)<<",\"effective_vfov\":"<<vertical_fov(effective)<<",\"configured_vfov\":"<<s.visual_config.vfov<<",\"original_aspect\":"<<original._22/original._11<<'}';}
+   if(e.draw!=UINT32_MAX){o<<",\"draw_index\":"<<e.draw<<",\"primitive_type\":"<<e.args.a[0]<<",\"primitive_count\":"<<e.args.a[e.slot==70?2:e.slot==71?4:e.slot==72?1:3]<<",\"state\":";state(o,capture_->draws[e.draw]);const auto& eff=capture_->draws[e.draw].effective;o<<",\"state_semantics\":\"logical\",\"effective_state\":{\"inherits_logical\":true,\"stage0\":{";for(int j=0;j<4;++j){if(j)o<<',';o<<'"'<<(j==3?21:16+j)<<"\":";scalar(o,eff.filtering[j]);}o<<"},\"projection\":";matrix(o,eff.projection);o<<'}';}o<<'}';line(o.str());
   }
   line(summary.str());line("{\"type\":\"frame_end\",\"frame\":"+std::to_string(frame_)+",\"complete\":"+(complete?"true":"false")+",\"reason\":"+quote(reason)+",\"truncated\":"+(capture_->truncated?"true":"false")+",\"dropped_records\":"+std::to_string(capture_->dropped)+",\"draw_records\":"+std::to_string(capture_->draw_count)+"}");
   if(!FlushFileBuffers(f))okay=false;CloseHandle(f);file.value=INVALID_HANDLE_VALUE;
   if(okay&&!MoveFileExW(tmp.c_str(),final.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH))okay=false;
   s.write("{\"type\":\"capture_written\",\"path\":"+quote(utf8(okay?final:tmp))+",\"complete_file\":"+(okay?"true":"false")+"}");
- }catch(...){OutputDebugStringA("R-GFX2 capture output failed; forwarding unchanged\n");}
+ }catch(...){OutputDebugStringA("R-GFX3 capture output failed; forwarding unchanged\n");}
 }
 void Trace::shutdown(uint32_t refs) noexcept {
  if(!enabled)return;FloatEnvironment fp;try{auto g=guard();if(control.active)finish(0,false,"release");control.abort();session().write("{\"type\":\"device_release\",\"device\":"+std::to_string(device_)+",\"native_refcount\":"+std::to_string(refs)+"}");}catch(...){}
