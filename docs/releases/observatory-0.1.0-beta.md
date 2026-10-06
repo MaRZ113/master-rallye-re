@@ -1,6 +1,19 @@
 # Master Rallye Observatory v0.1.0-beta
 
-First public beta of the runtime-confirmed observability workflow. **RELEASE READY**.
+First public beta of the runtime-confirmed observability workflow.
+
+## Quick Start
+
+1. Extract the release ZIP to a writable folder.
+2. In your own `DataGame/dev.xml`, set `Menues/Enabled=True`.
+3. Start pristine retail Master Rallye.
+4. Run `MRallye-Observatory.cmd`.
+5. Capture a game state, then compare snapshots with `Diff Last Two`.
+
+This v0.1.0-beta release supports pristine retail only. It is not replaced by
+the unpublished v0.2.1-beta candidate.
+
+## What it includes
 
 - Automatic discovery and exact verification of pristine retail.
 - Broker Editor opening/reopening and original Debug→Dump automation.

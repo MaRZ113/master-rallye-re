@@ -1,330 +1,82 @@
 # Master Rallye RE
 
-Clean-room interoperability and preservation research for *Master Rallye* (2001).
+Master Rallye RE is an open reverse-engineering and modding project for the
+2001 PC game *Master Rallye*. It provides tools and documentation for vehicle
+and course editing, runtime inspection, asset conversion, and experimental
+gameplay extensions. Original game files are not distributed here.
 
-The repository contains only tools, documentation, machine-readable forensic
-metadata, and synthetic test data. Original game resources remain external and
-read-only.
+## Downloads
 
-## Observatory build compatibility
+Stable and beta packages are published on [GitHub Releases](https://github.com/MaRZ113/master-rallye-re/releases).
 
-The compatible-family live-capture workflow was already
-`CONFIRMED_BY_RUNTIME` across multiple locally audited executable hashes.
-R-OBS3 extends the internal Research Observatory with adaptive, fail-closed
-build resolution. It tries committed exact profiles, then the audited
-`retail-broker-v1` family, then a degraded profile only when the PE layout and
-passive Broker-read core match, and otherwise rejects the executable. SHA256
-and size are always checked; local caches are re-audited and do not grant trust
-by themselves. Broker read, native Dump, post-Results Dump safety, Broker
-Editor opening, and Flow Builder are separate capabilities. The public
-Observatory v0.1.0-beta remains unchanged and pristine-oriented. The separate
-ignored Research package includes a CMD launcher and no game executable. The
-new degraded-capability route and supplied forced-ID26 AI build are
-**READY FOR HUMAN RUNTIME**; static and synthetic checks do not count as a new
-live capture. See [R-OBS3 findings](research/general-re/observatory-compatible-builds/findings.md)
-and the [runtime handoff](research/general-re/observatory-compatible-builds/runtime-handoff.md).
+### Master Rallye Observatory
 
-Independent R-AI1.2a, R-AI2.1 normal Quick Race6/7/8, and R-UI1 One..Seven/Four
-end-to-end are now closed by human evidence. See the cross-branch
-[closeout index](research/r-observatory-modded-builds/feature-closeouts.json).
-No feature merge;9+ UNKNOWN. Eight-car physical start clearance needs R-GRID8.
-Standalone UI Five/Six/Seven race composition remains NOT TESTED.
+Read-only inspection of the game's live Broker state. [Download v0.1.0-beta](https://github.com/MaRZ113/master-rallye-re/releases/tag/v0.1.0-beta) (pristine retail executable only). The standalone v0.2.1-beta candidate is being prepared and is not published.
 
-## Current scope
+**Quick Start:** extract the release ZIP, enable `Menues/Enabled=True` in your own `DataGame/dev.xml`, start the game, then run `MRallye-Observatory.cmd`. See the [Observatory guide](docs/releases/observatory-quickstart.md).
 
-R-AI1 and R-AI1.1 are **CLOSED / CONFIRMED_BY_RUNTIME** for four existing
-participants: fixed cross-class AI, player-independent selection in all three
-AI slots and repeated fresh-race class/ID variation. Loading/Dump research
-hardening and Replay lifecycle passed. See the bounded
-[runtime closeout](research/r-ai1-1/runtime-closeout.md); uniform RNG and
-participant-capacity expansion are not proven.
-See [findings](research/r-ai1-1/findings.md) and
-[completed handoff](research/r-ai1-1/runtime-handoff.md).
+### Master Rallye DX Upgrader
 
-R-AI2 five-car target is **CLOSED / CONFIRMED_BY_RUNTIME**: one human + four
-AI, independent Car4 actor/physics/collision/damage, HUD, five finishers/results,
-hardened Dump, Replay and stable frontend return. The guarded setup intervention
-uses existing engine storage; no physical participant array expansion was needed.
-R-AI2 five-car scope does not claim higher counts; R-AI2.1 separately confirms
-6/7/8, while 9+/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
-and [capacity map](research/r-ai2/capacity-map.md).
+Converts supported vehicle DX revision-131 files to revision 135. [Download v0.1.0](https://github.com/MaRZ113/master-rallye-re/releases/tag/dx-upgrader-v0.1.0). Retail testing covered the listed Trooper and Forester resources; see the [Quick Start and limits](docs/releases/dx-upgrader-v0.1.0.md).
 
-R-AI2.1 independent capacity research is **CLOSED / CONFIRMED_BY_RUNTIME** for exact
-6/7/8 totals, using deterministic stock mixed roster prefixes and unchanged
-One/Two/Three UI. All 36 retail RaceTest courses contain Car0..7 templates and
-native StartArea data. Human full lifecycle passed 6/7/8; physical start clearance remains a separate R-GRID8 audit. See [findings](research/r-ai2-1/findings.md) and
-[ordered handoff](research/r-ai2-1/runtime-handoff.md).
+### Master Rallye Vehicle Composer
 
-R-GRID8 is **READY FOR HUMAN AUDIT**: a track-agnostic guarded eight-car
-candidate, exact registered-scene gate, native grid predictions for all 36
-RaceTest resources, and a per-course runtime checklist are prepared. Physical
-clearance remains untested until the human course sweep. See
-[R-GRID8 handoff](research/general-re/grid8/runtime-checklist.md).
+Combines a retail vehicle carrier with a selected physics family and model donor, with compatibility limits that depend on the assets. [Download v0.1.0](https://github.com/MaRZ113/master-rallye-re/releases/tag/v0.1.0). Start with the [Vehicle Composer Quick Start](docs/releases/vehicle-composer-v0.1.0.md).
 
-R-UI1 independent opponent selector is **CLOSED / CONFIRMED_BY_RUNTIME**: native
-localized One..Seven list and numeric index+1 publication, without a hidden count
-shim or randomizer DLL. Human one-human Four -> five total passed the full
-race/results lifecycle; the R-UI1 candidate's Five..Seven entries were menu-only.
-A combined UI/capacity candidate has not been built; Stock T1 pool exhaustion is
-separate from capacity. See [UI map](research/r-ui1/opponents-ui-map.md) and
-[handoff](research/r-ui1/runtime-handoff.md).
+## What is already possible
 
-R-AI1.2 is **CLOSED / CONFIRMED_BY_RUNTIME**: Stock/Mixed/Diverse, Quick Race
-1..4 AI, config reload at new-roster boundaries, Challenge opt-in completion,
-Cup/Invitation stage reuse and Master native fresh-process persistence. No
-sidecar required for tested V1. Challenge preview sync is non-blocking polish;
-exact stock DriverID preservation is not confirmed. Original-EXE-unchanged
-loader is deferred. See [runtime closeout](research/r-ai1-2/runtime-closeout.md).
-Six+ capacity was not tested.
+- **Vehicle editing:** a Blender add-on imports vehicle DX files and supports tested same-topology edits to positions, UVs, vertex colors, normals, selected material state, and collision data. See the [Blender importer](docs/blender-importer.md), [vehicle materials](docs/blender-materials.md), and [DX writer](docs/dx-writer.md).
+- **Course editing:** selected RaceTest logic fields, including StartArea and FinishArea data, can be edited and exported from Blender. Those edits were tested in-game. See [course race-logic authoring](docs/course-race-logic-authoring.md).
+- **Runtime inspection:** Observatory captures and compares read-only Broker state. See the [Observatory documentation](docs/broker-observatory.md).
+- **Asset conversion and inspection:** the library and CLI inspect supported game formats and convert selected resources; formats and writer limits are documented under [docs/formats](docs/formats/).
 
-R-AI1.2a Challenge preview synchronization is **CLOSED / CONFIRMED_BY_RUNTIME**:
-one transient opponent selection feeds the native localized name/model and
-actual race. Stock remains authored; Start reuses the selected identity. Retry was not applicable in the tested completion flow.
-See [findings](research/r-ai1-2a/findings.md) and
-[human handoff](research/r-ai1-2a/runtime-handoff.md). Visible preview/race
-equality is CONFIRMED_BY_RUNTIME.
+## Experimental work
 
-Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
+These results are documented in the repository but are not combined into a public gameplay package.
 
-Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
-Blender add-on with single-resource and vehicle-folder import, editable meshes,
-preview materials, preserved draw/group/source metadata, and a fail-closed
-same-topology **positions-only** DX export. All 78 vehicle resources produce a
-byte-identical zero-edit result and pass an in-memory single-position patch.
-On 2026-09-22, human testing in the original game runtime confirmed visible,
-artifact-free same-topology position edits in `complete.dx` (presentation/menu)
-and `car.dx` (race). General DX serialization remains out of scope; R5T-A adds
-a separate read-only course research and import path, summarized below.
+- **Eight-car Quick Race:** manual in-game testing confirmed normal operation with 6, 7, and 8 total cars, including AI, physics, collisions, damage, HUD/progress, results, Replay, and return to the frontend. Support above eight is not established. Several courses need start-grid adjustments for clean eight-car starts.
+- **Vehicle registry:** research builds have demonstrated additional vehicle identities, including a Mercedes ML-320. This is not a general-purpose vehicle-slot expansion release.
+- **AI opponents:** research builds support mixed vehicle classes and Stock, Mixed, and Diverse opponent policies across tested modes and counts. No public randomizer package is available.
+- **Quick Race opponent selector:** One through Seven can be selected in a research build. The full engine/UI combination is not a public release; higher counts require the separately tested capacity work.
+- **Course start grids:** an eight-car audit is documenting course-specific start positions and clearances. It does not imply that every course is ready for eight cars without adjustment.
 
-**FIRST CONFIRMED WRITABLE MASTER RALLYE VEHICLE GEOMETRY — 2026-09-22.**
-That R3 milestone confirmed position writing. Subsequent E1, E3 and E4 human tests confirmed same-topology UV, vertex-color, and alpha-flag edits. The stronger R4E.1 normal test confirmed normal writing; topology writing remains outside the same-topology baseline.
+## For testers
 
-Phase R4A has mapped the three vehicle resource roles across all 26 vehicle
-folders: `complete.dx` is the assembled presentation resource, `car.dx` is the
-race body/chassis resource, and `wheel.dx` is a separately instantiated race
-visual template. Static `$chull`, collision XML, draw-group, and trailing-data
-links are documented without claiming that collision is wholly stored in
-`car.dx`. See `docs/vehicle-runtime-roles.md` and `research/r4a/`.
+Use GitHub Releases for public packages. Research builds may contain newer work, but they are separate from the released tools and may have narrower compatibility or test coverage. Eight-car racing is confirmed in development builds; a public tester package has not been published.
 
-Phase R4B reconstructs the exact vehicle tag-101 collision-hull structure.
-All 78 vehicle DX resources parse; tag 101 occurs in 28, with 27 finite,
-non-empty validated hulls and one explicitly retained Forklift non-finite
-outlier. Representation A is an AABB helper and representation B is a closed
-convex polyhedron at **HIGH** confidence. The Blender add-on can display both
-as read-only overlays. R3 remains positions-only; R4B adds no collision writer.
-See `docs/formats/dx-collision.md` and `docs/blender-collision.md`.
+Review Broker captures before sharing them. They may contain game state, paths, or other local values.
 
-Phase R4C adds an exact tag-101 serializer and conservative template-preserving
-rigid translation. All 28 tag-101 sections and complete DX templates round-trip
-byte-identically at zero edit; all 27 validated finite hulls pass in-memory
-translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
-collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. R4C itself did not add scale, rotation, topology, BSP, cylinder, or Blender collision
-export; R4G per-axis scale is confirmed by the C1 human wall-contact test. See `docs/collision-writer.md` and `research/r4c/`.
+## Blender and modding tools
 
-Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Its M1/M3 reflection, M2 glass source-alpha and M4 active brake-glow human results retain their tested scope; see research/r4d_1/runtime-results.md.
+The Blender add-on and command-line tools are built from this repository. See the [Blender importer](docs/blender-importer.md), [Vehicle SDK](docs/vehicle-sdk.md), and [format documentation](docs/formats/). The public Vehicle Composer package is a separate, retail-hash-locked tool; its release notes describe its tested combinations and limitations.
 
-R-MAT1 closes the observed vehicle material runtime model with non-blocking
-unknowns: exact slot0/stage0 and slot1/stage1 bindings, no NULL-slot promotion,
-byte2 diffuse and byte3 UV gates, all stock feature bits and the transparent
-queue's bound-depth sort key. Blender Preview V3 uses generic slot1 semantics
-with explicit approximation limits; 1478/1478 draws classify and 78/78 loaded
-Blender zero-edit exports are byte-identical. No new runtime result or material
-writer capability is claimed. See [research/r-mat1/findings.md](research/r-mat1/findings.md)
-and [docs/vehicle-materials.md](docs/vehicle-materials.md).
+## Documentation
 
-Phase R4E adds same-topology attribute authoring, same-size DXT replacement, exact
-vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human testing confirms E1 UV, E3 vertex color, E4 alpha flag, and E5 full-tree Python Data.sma packing. E2 normal was inconclusive; stronger R4E.1 N1 and M1 human tests confirmed normal and environment-feature writing. The SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is now frozen. See
-`docs/vehicle-authoring.md`, `docs/texture-authoring.md`, and
-`docs/vehicle-packaging.md`.
+- [`docs/`](docs/) contains user and modder-facing technical documentation.
+- [`docs/releases/`](docs/releases/) contains public tool guides and the release-page style convention.
+- [`research/`](research/) contains detailed evidence, experiments, and historical findings. Research status does not by itself mean a feature is included in a public release.
+- Cross-subsystem executable, Broker, AI, UI, and runtime research is kept in the relevant research areas; detailed evidence remains separate from public tool documentation.
 
-Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
+## Development
 
-## Course resources and RaceTest authoring (G0)
-
-The Vehicle SDK v1 baseline remains frozen. The read-only revision-135 course
-DX parser and Italy1/France1 Blender imports remain validated. R5T-C confirms
-that moving the old GXM `startpoint` candidate changes tag100 deterministically,
-but its +3 translation did not change the visible grid. Cross-runtime controls
-separate runtime participant ordering from physical slot geometry.
-
-R5T-D.0 runtime edits confirm that France1 `MarkerLists/StartArea` controls
-physical grid translation, orientation, spacing, and heading; `FinishArea`
-contributes to race completion. R5T-D.1 closes the France1 SplitTime0 center:
-its main Egg `en3d Matrix` Row3 drives both the yellow sign and gameplay
-trigger center, while `gaRaceSplitTimeAI/Radius` defines a 3D spherical
-proximity test. The executable reads center XYZ through
-`[context+0x50]+0x4C/+0x50/+0x54`; baseline and moved-position debugger captures
-match the Egg Row3, and a separate on-road edit triggered early at its new
-position. Per-car one-shot state explains the earlier StartArea false negative:
-all four cars had already activated the moved sphere during race startup.
-`SplitTimeN-0..3` remain separate visual checkpoint objects; ExtraTime's exact
-meaning is unknown. The initializer derives a RaceLine percentage from the
-split center, not the reverse. `src/master_rallye/course_sdk.py` now composes
-render DX, semantic RaceTest logic, HNT dependencies, structural SFL, and
-optional TXT/GXM source metadata without replacing the forensic parsers. The
-existing Blender add-on consumes this model and displays the split trigger as
-a wire sphere driven by its explicit Radius property, while keeping visual
-checkpoint companions separate. Course tag100 is surfaced as a neutral opaque
-region with unknown semantics. `$bsp -> tag100` and tag100 physical meaning
-remain unknown. See
-[`docs/course-sdk.md`](docs/course-sdk.md), `research/r5t_d1/`, and
-`docs/course-importer.md`.
-
-G0 adds bounded RaceTest authoring; human runtime testing through Blender
-export passed for StartArea, FinishArea, and the SplitTime0 trigger center.
-Combined StartArea + FinishArea editing loaded normally. G0.1 adds exact
-SplitTime visual-companion Row3 editing, a translation-only checkpoint group,
-semantic manifest roles, int32 ID bounds, quieter area transforms, and a
-Blender 5.2 panel-draw smoke that validates icons against Blender RNA. Retail
-validation remains 36/36 byte-identical no-op XML files, 110 main split
-records, and 440/440 visual-companion positions supported. The two 5-marker
-FinishAreas remain read-only. **G0: PASS — RUNTIME AUTHORING CONFIRMED.**
-**G0.1: PASS — BLENDER/CORPUS VALIDATED.** Visual-companion XML edits have not
-been separately runtime-tested. No course geometry/physical writer or EXE
-patch exists. See
-[`docs/course-race-logic-authoring.md`](docs/course-race-logic-authoring.md),
-[`research/g0/runtime-results.md`](research/g0/runtime-results.md), and
-[`research/course_marker_backlog.md`](research/course_marker_backlog.md).
-
-See
-[`docs/course-assets.md`](docs/course-assets.md),
-[`docs/course-importer.md`](docs/course-importer.md),
-[`research/r5t_b1/findings.md`](research/r5t_b1/findings.md),
-[`research/r5t_c/findings.md`](research/r5t_c/findings.md), and
-[`research/r5t_c/whole-x3-closeout.md`](research/r5t_c/whole-x3-closeout.md).
-
-R5T-E.1 closes read-only version-7 GXM topology: the Demo 9.3.1 loader's
-52-byte triangle grammar is implemented and cross-validated on France1,
-Italy1, Boinds, and Demo 9.10 AI Track. France1's source `startpoint` resolves
-to a closed 12-triangle box. The Course SDK now exposes literal source meshes
-and position bounds without assigning gameplay semantics to node names. No
-course writer or standard Blender importer change was added. See
-[`docs/formats/gxm-course.md`](docs/formats/gxm-course.md) and
-[`research/r5t_e/findings.md`](research/r5t_e/findings.md).
-
-## Blender add-on
-
-Build the installable local ZIP with:
+Run the synthetic test suite from the repository root:
 
 ```powershell
-py -3 tools/build_blender_addon.py
+python -m unittest discover -s tests\synthetic -v
 ```
 
-Install the ignored `dist/master_rallye_io.zip` from Blender preferences.
-The add-on provides **File > Import > Master Rallye DX (.dx)** and **Import
-Master Rallye Vehicle Folder**. It was tested with Blender 5.2.2 LTS; Blender
-4.3+ is the expected API baseline, but other versions were not tested.
-
-The importer creates one normally editable mesh per DX, retains physical draw
-membership, source vertex/triangle IDs, and exact source-normal provenance as
-mesh attributes, and stores group, texture-slot, material-candidate,
-validation, and trailing-layout metadata on the object. Blender preview UVs use
-direct source V; this is intentionally independent from the unchanged glTF
-`flip-v` policy. Blender-calculated display normals avoid known Blender 5.2.2
-native custom-normal crashes while the source values remain preserved. The original-template exporter now patches same-topology positions, source-space normals, UVs, raw vertex colors and selected fixed material-state bytes. E1, E3, E4, and E5 are runtime-confirmed; the stronger R4E.1 N1 resolved the earlier inconclusive E2 normal probe. The environment feature-bit writer and R4F topology writing have runtime confirmation in their tested contexts. See
-`docs/blender-importer.md`, `docs/blender-collision.md`, and
-`docs/dx-writer.md`.
-
-## Library and research CLI
-
-The package lives in `src/master_rallye`. Run the CLI from the repository root:
+Build the local Blender add-on ZIP:
 
 ```powershell
-py -3 tools/mrtool.py inspect "..\Data.sma_unpacked\DataGx\Vehicles\Astero\complete.dx" --json ".research-output\r1\astero-inspect.json"
-
-py -3 tools/mrtool.py export `
-  "..\Data.sma_unpacked\DataGx\Vehicles\Astero\complete.dx" `
-  --format gltf `
-  --output ".research-output\r1\astero-complete" `
-  --flip-v --strict
-
-py -3 tools/mrtool.py scan-vehicles `
-  "..\Data.sma_unpacked\DataGx\Vehicles" `
-  --report research/r1/vehicle-coverage.json `
-  --markdown research/r1/vehicle-coverage.md `
-  --unknown-records research/r1/unknown-records.json
-
-py -3 tools/mrtool.py vehicle-roles `
-  "..\Data.sma_unpacked\DataGx\Vehicles" `
-  --report research/r4a/vehicle-resource-matrix.json `
-  --markdown research/r4a/vehicle-resource-matrix.md `
-  --comparison research/r4a/car-vs-complete.md
-
-py -3 tools/mrtool.py scan-collision `
-  "..\Data.sma_unpacked\DataGx\Vehicles" `
-  --report research/r4b/tag101-corpus.json `
-  --markdown research/r4b/tag101-corpus.md
-
-py -3 tools/scanner/validate_collision_writer.py `
-  "..\Data.sma_unpacked\DataGx\Vehicles" `
-  --json research/r4c/tag101-writer-corpus.json `
-  --markdown research/r4c/tag101-writer-corpus.md
+python tools/build_blender_addon.py
 ```
 
-Exports are local validation artifacts under ignored `.research-output/` and
-must not be committed. DXT parsing preserves raw stored BGRA rows; PNG export
-explicitly uses the `flip-vertical` presentation policy. The evidenced glTF
-vehicle preview uses `--flip-v` as a separate UV-coordinate transform. The
-legacy glTF material preview uses the first non-`Null` texture only; all original ordered
-slots and candidates remain metadata.
-Vehicle Blender Preview V3 uses fixed runtime slot semantics instead; see
-`docs/blender-materials.md`.
+For library and CLI commands, run `python tools/mrtool.py --help` from the repository root.
 
-## Reproduce R0 metadata
+## Game files and repository scope
 
-```powershell
-py -3 tools/scanner/inventory.py `
-  --source "..\Data.sma_unpacked" `
-  --inventory research/r0/inventory.json `
-  --relationships research/r0/relationships.json
+Original executables, archives, assets, saves, and runtime captures are not included. Use your own game installation and keep generated research candidates outside the public package. Compatibility statements apply only to the builds and assets named in each tool's documentation.
 
-py -3 tools/scanner/text_map.py `
-  --source "..\Data.sma_unpacked" `
-  --relationships research/r0/relationships.json
+## License
 
-py -3 tools/scanner/probe_dxt.py `
-  research/r0/inventory.json `
-  --output research/r0/dxt-probe.json
-```
-
-The generated paths are archive-relative; the external source location is not
-embedded in reports. Earlier forensic tools remain under `tools/prototypes`
-and `tools/scanner` for reproducibility.
-
-Run the synthetic-only suite with:
-
-```powershell
-py -3 -m unittest discover -s tests\synthetic -v
-```
-
-## R2.5 legacy evidence consolidation
-
-The recovered texFinder project was treated as non-authoritative historical
-evidence. Its useful DXT writer model was independently reproduced: all 1,143
-vehicle DXT resources round-trip byte-identically through the new conservative
-same-size, exact-header-preserving encoder. Legacy DX v1 demonstrates a safe
-positions-only template patch; legacy v3 fails modern draw/index validation and
-was rejected. Evidence-scored TXT discovery now handles nonstandard filenames,
-and nullable `HasAlpha` / `UsesAlpha` / `IsNoise` values survive into Blender
-metadata. The read-only audit is available as:
-
-```powershell
-py -3 tools/mrtool.py audit-textures `
-  "..\Data.sma_unpacked\DataGx\Vehicles" `
-  --report ".research-output\r2_5\texture-audit.json"
-```
-
-See `research/r2_5/findings.md` for legacy consolidation and
-`research/r3/findings.md` / `docs/dx-writer.md` for the safe writer.
-
-## MASTER RALLYE VEHICLE SDK v1 — RUNTIME-CONFIRMED BASELINE
-
-R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) were generated under ignored local output and then tested in-game. B1, C1, P1 and W1 each passed original-game testing. The full existing-donor Vehicle SDK v1 baseline is frozen; see research/r4g/runtime-results.md for the separate human evidence. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.
-
-## R5V-B dormant retail vehicle slot audit
-
-Targeted Ghidra analysis found that retail record 25 is allocated but its ID, class and stat integers are unwritten; the class-2 vehicle selector has an independent hardcoded limit of 11. `Frontend/VehicleSelect/VehicleList` is the class-label list, not a dynamic car registry. A case-25 unlock branch exists, but resource/physics and quick-race safety remain unproved. No patch or runtime candidate was produced; see `research/r5v_b/findings.md`.
-
-## R5V-C duplicate-Astero ID25 runtime proof
-
-A hash-locked patcher now creates an ignored retail EXE copy that initializes the allocated ID25 through the original owned-string initializer, raises class-2 navigation capacity to 12 and overrides only ID25's locked flag for testing. Automated PE, instruction, byte-diff and synthetic checks pass. **RUNTIME VALIDATION: WAITING FOR HUMAN P0** (menu/preview only); P1 Quick Race is gated on the owner's P0 report. No game assets or original EXE were changed. See research/r5v_c/findings.md and research/r5v_c/runtime-test-plan.md.
+Original project code and documentation are licensed under the [MIT License](LICENSE). This license does not cover *Master Rallye*, its names, or its proprietary game files and assets.

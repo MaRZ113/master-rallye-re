@@ -1,87 +1,45 @@
-# Master Rallye Observatory — Quickstart
+# Master Rallye Observatory v0.1.0-beta
+
+Read-only capture and comparison of the game's live Broker state.
+
+## Quick Start
+
+1. Extract the v0.1.0-beta ZIP to a writable folder.
+2. In your own `DataGame/dev.xml`, set `Menues/Enabled=True`, preserving the rest of the file.
+3. Start pristine retail Master Rallye.
+4. Run `MRallye-Observatory.cmd` and select the installation if prompted.
+5. Capture the active state, then use **Diff Last Two** to compare captures.
+
+## What it does
+
+Observatory reads the game's existing Debug text buffer and stores checked JSON/raw capture pairs. It can show and compare captured state offline. It does not edit game state or upload captures.
 
 ## Requirements
 
-- Windows and Python **3.11 or newer** (standard library only).
-- Pristine PC retail `MRallye.exe`. Demo and patched builds are rejected.
-- Extract the Observatory ZIP into a writable folder, separate from the game.
+- Windows
+- Python 3.11 or newer, standard library only
+- Pristine PC retail `MRallye.exe`
+- The game's developer menu enabled as described above
 
-## Capture → capture → diff
+## Compatibility
 
-1. With the game stopped, back up your installation's `DataGame/dev.xml`.
-   Set the existing Bool value **`Menues/Enabled` to `True`**, preserving the
-   XML structure and other values. This enables the native developer/Debug
-   window. `DebugWindow/Enabled` is not the verified startup gate. Use a test
-   installation; no game XML is supplied or edited by Observatory.
-   If no loose `dev.xml` exists, extract that file from your own Data.sma with
-   Master Rallye-compatible asset tools first, then use the loose DataGame
-   override. Do not modify the archive or use another build's XML.
-2. Double-click **MRallye-Observatory.cmd**. It uses the Windows Python launcher
-   `py -3`. Alternatively run `python mr_observe.py` from the extracted folder.
-3. Select your retail installation on first run. Choose **Launch Game**, or
-   launch it manually and choose **Recheck**. Retail verification is mandatory.
-4. Choose **Capture Snapshot** and enter a label (Enter accepts `snapshot`).
-   The Broker opens automatically if needed. Large Dumps normally display
-   “Broker Dump is still processing...” — wait for “Fresh Broker Dump captured.”
-   The command is never automatically resent.
-5. Change game state using normal game controls, then capture again.
-6. Choose **Diff Last Two**. Revision-only changes remain visible by default;
-   the menu offers to hide them.
-7. **Capture Folder** opens your results. **Status** shows full paths/hash.
+This immutable v0.1.0-beta release supports only pristine retail with SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`. Patched and demo builds are rejected.
 
-Leave editor Edit/Remove/Save/Build actions alone. Observatory does not automate
-gameplay or developer editing.
+## Known limitations
 
-## Results and installation settings
+The original native Broker Dump can crash on the Race Results screen when a StringList has a NULL payload. Do not request a native Dump from Results. Captures can contain local paths and game state; review them before sharing.
 
-The portable ZIP stores config in `observatory-data/config.json` and captures in
-`observatory-data/captures/<date>/`. Each capture is a JSON + `.dump.bin` pair.
-Keep both files unchanged. In the source repository, the existing ignored
-`research-output/general-re/` storage is retained.
+## Troubleshooting
 
-Use **Installation** to show/change/clear the selected game. Corrupt config can
-be reset from the startup prompt or `python mr_observe.py config reset`.
+- **Game not found:** start retail Master Rallye and run the launcher again.
+- **Developer menu unavailable:** verify `Menues/Enabled=True` in your own `DataGame/dev.xml`, then restart the game.
+- **Executable rejected:** use the pristine retail build supported by this release.
+- **Cannot write captures:** extract the package to a folder where your account can create files.
 
-```text
-python mr_observe.py --version
-python mr_observe.py capture frontend
-python mr_observe.py show --last
-python mr_observe.py diff --last
-python mr_observe.py --verbose status
-python mr_observe.py --debug capture diagnostic
-```
+## Technical details
 
-If a previous Dump completed but publishing failed, use
-`python mr_observe.py recover salvaged-session`. Recovery sends no commands,
-saves the latest complete block/full raw buffer and clearly marks freshness as
-**NOT command-proven**. It may salvage an older Dump. Do not retry Capture while
-it is still waiting. A missing/incomplete Dump produces no pair.
+Each capture is a JSON file and raw `.dump.bin` sidecar under `observatory-data/captures/`. Observatory does not use WriteProcessMemory, inject code, attach a debugger, suspend the game, or patch the executable. It uses the original game UI to request the Broker's native Dump.
 
-## Safety and privacy
+## License
 
-Observatory reads Master Rallye process memory and sends original window
-commands for reviewed tool opening and Broker Debug→Dump. It does not inject
-code, use WriteProcessMemory, patch MRallye.exe, change Broker values or
-automatically save Game/Options/PlayerState. Opening Broker may register its
-reserved in-memory SaveFile names.
-
-Captures can contain runtime configuration, race state, filesystem paths and
-value strings emitted by the original Broker. **Review captures before sharing
-them publicly.** Nothing is uploaded automatically.
-
-This is an observability/research tool, not a gameplay trainer or save editor.
-It captures the original diagnostic text: empty slots are omitted and ordinary
-numeric values have limited printed precision. The two files are checked and
-published without overwriting earlier captures; they are not one atomic OS
-transaction. Incomplete/corrupt pairs are excluded from history.
-
-Supported retail SHA256:
-`bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
-No unsupported-build bypass is provided.
-
-## License and release status
-
-Project code and documentation use the MIT License (included LICENSE).
-Version 0.1.0-beta is RELEASE READY; portable Windows live capture and diff have
-passed against pristine retail. Windows and Python 3.11+ remain required.
-The launcher checks Python before loading the tool and explains how to upgrade.
+Project code and documentation are MIT licensed. No game files are included.
