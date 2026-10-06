@@ -1,0 +1,48 @@
+{
+  "phase": "R-GFX4",
+  "status": "READY_FOR_HUMAN_RUNTIME",
+  "scope": "Stock classification A/B",
+  "vehicle_identity": "MORE_RUNTIME_CLASSIFICATION_NEEDED",
+  "reflection_prototype": "BLOCKED_BY_CLASSIFICATION",
+  "reflection_native_writes": false,
+  "r_gfx3_status": "CLOSED_CONFIRMED_BY_RUNTIME",
+  "branch": "research/general-re",
+  "starting_head": "d46ebdce5477ebfd08e049c25cea2801572fbb97",
+  "canonical_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "dll_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
+  "dll_size": 1036800,
+  "checks": {
+    "native": "3/3 PASS",
+    "python": "55 PASS",
+    "compileall": "PASS",
+    "pe_exports_imports": "PASS",
+    "diff_check": "PASS"
+  },
+  "source_analysis": {
+    "representative_models": [
+      "Tata",
+      "Astero",
+      "KiaSportage",
+      "Pajero",
+      "Forester",
+      "Kamaz"
+    ],
+    "hashed_assets": 12,
+    "diffuse_enabled_draws": 187,
+    "variable_rgb_draws": 174,
+    "median_max_abs_normal_luma_correlation": 0.9535410087534312,
+    "semantic_verdict": "DOUBLE_LIGHT_RISK_NOT_PROVEN_BAKED_SUN"
+  },
+  "human_stages": {
+    "A_Stock_regression": "PENDING_HUMAN",
+    "B_warm_tracker": "PENDING_HUMAN",
+    "C_ViewDependent2D": "BLOCKED_BY_CLASSIFICATION",
+    "Reset": "OPTIONAL_AFTER_AB",
+    "second_vehicle": "OPTIONAL"
+  },
+  "new_lighting": false,
+  "game_files_modified": false,
+  "push_performed": false,
+  "next_phase_started": false,
+  "next_decision": "Validate runtime-only vehicle identity first; reflection path more plausible than new lighting until prelight is understood"
+}

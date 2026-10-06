@@ -1,3 +1,5 @@
+> Closed by the user's final short retest on DLL44a76a3a…; see ../r-gfx4/r-gfx3-final-baseline.json. The following records the preceding preparation and remains historical.
+
 # Short retest for the final R-GFX3 fixes
 
 Status READY_FOR_SHORT_RETEST. Do not repeat the full A–F protocol. Previous observations belong to DLL307a5fe4c83d95bd14d460cf767aa751e94b7f0a8e962c8c29c67681f2c17313; final candidate SHA25644a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef, size1016320, PE32/I386. Candidate: modernization/renderer/.build-msvc/Release/d3d8.dll. No deployment was performed by this task. Preserve existing game EXE/assets and use the already established human test installation; verify the session header matches this candidate hash before accepting results.

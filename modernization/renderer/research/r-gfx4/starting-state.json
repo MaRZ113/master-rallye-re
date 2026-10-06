@@ -1,0 +1,9 @@
+{
+  "branch": "research/general-re",
+  "head": "d46ebdce5477ebfd08e049c25cea2801572fbb97",
+  "tracked_status": "clean",
+  "primary_file": "D:\\Game\\Master Rallye\\corpora\\retail\\MRallye.exe",
+  "primary_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "runtime_install_current_exe_sha256": "75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac",
+  "notes": "Current install changed after historical captures; no address equivalence asserted. All overrides require canonical SHA. Retired files read-only."
+}

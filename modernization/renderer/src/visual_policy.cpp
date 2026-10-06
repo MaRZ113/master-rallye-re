@@ -25,6 +25,8 @@ VisualConfig parse_visual_config(const std::unordered_map<std::string,std::strin
  if(!boolean(get("Camera.GameplayFOV","false"),c.fov)){c.fov=false;c.fov_reason="invalid_boolean";}
  if(!number(get("Camera.VerticalFOVDegrees","75"),n)||n<30||n>110){c.fov=false;c.fov_reason="invalid_vertical_fov";}else c.vfov=static_cast<float>(n);
  auto mode=trim(get("Shadows.Mode","Stock"));if(mode=="Off")c.shadow_off=true;else if(mode!="Stock")c.shadow_reason="invalid_shadow_mode";
+ auto reflection=trim(get("VehicleReflections.Mode","Stock"));
+ if(reflection=="Stock"||reflection=="ViewDependent2D")c.reflection_mode=reflection;else c.reflection_reason="invalid_reflection_mode_stock";
  return c;
 }
 VisualConfig read_visual_config(const std::wstring& path){
@@ -32,15 +34,16 @@ VisualConfig read_visual_config(const std::wstring& path){
  std::unordered_map<std::string,std::string> fields;
  if(found){
   struct Key{const wchar_t* section;const wchar_t* key;const char* name;};
-  const Key keys[]={{L"Renderer",L"ConfigVersion","Renderer.ConfigVersion"},{L"Filtering",L"AnisotropicFiltering","Filtering.AnisotropicFiltering"},{L"Filtering",L"MaxAnisotropy","Filtering.MaxAnisotropy"},{L"Camera",L"GameplayFOV","Camera.GameplayFOV"},{L"Camera",L"VerticalFOVDegrees","Camera.VerticalFOVDegrees"},{L"Shadows",L"Mode","Shadows.Mode"}};
+  const Key keys[]={{L"Renderer",L"ConfigVersion","Renderer.ConfigVersion"},{L"Filtering",L"AnisotropicFiltering","Filtering.AnisotropicFiltering"},{L"Filtering",L"MaxAnisotropy","Filtering.MaxAnisotropy"},{L"Camera",L"GameplayFOV","Camera.GameplayFOV"},{L"Camera",L"VerticalFOVDegrees","Camera.VerticalFOVDegrees"},{L"Shadows",L"Mode","Shadows.Mode"},{L"VehicleReflections",L"Mode","VehicleReflections.Mode"}};
   for(const auto& k:keys){wchar_t b[256];DWORD n=GetPrivateProfileStringW(k.section,k.key,L"__ABSENT__",b,256,path.c_str());if(n>=255)fields[k.name]="__TRUNCATED_INVALID__";else if(wcscmp(b,L"__ABSENT__"))fields[k.name]=utf8(b);}
  }
  return parse_visual_config(fields,found);
 }
-std::string config_json(const VisualConfig& c){std::ostringstream o;o<<"{\"config_found\":"<<(c.found?"true":"false")<<",\"ConfigVersion\":"<<(c.version_ok?"1":"null")<<",\"anisotropy\":"<<(c.anisotropy?"true":"false")<<",\"max_anisotropy\":"<<c.max_anisotropy<<",\"gameplay_fov\":"<<(c.fov?"true":"false")<<",\"vfov\":"<<c.vfov<<",\"shadow\":"<<quote(c.shadow_off?"Off":"Stock")<<",\"reason\":"<<quote(c.reason)<<",\"af_reason\":"<<quote(c.af_reason)<<",\"fov_reason\":"<<quote(c.fov_reason)<<",\"shadow_reason\":"<<quote(c.shadow_reason)<<",\"raw_fields\":{";bool first=true;for(const auto& entry:c.raw_fields){if(!first)o<<',';first=false;o<<quote(entry.first)<<':'<<quote(entry.second);}o<<"}}";return o.str();}
+std::string config_json(const VisualConfig& c){std::ostringstream o;o<<"{\"config_found\":"<<(c.found?"true":"false")<<",\"ConfigVersion\":"<<(c.version_ok?"1":"null")<<",\"anisotropy\":"<<(c.anisotropy?"true":"false")<<",\"max_anisotropy\":"<<c.max_anisotropy<<",\"gameplay_fov\":"<<(c.fov?"true":"false")<<",\"vfov\":"<<c.vfov<<",\"shadow\":"<<quote(c.shadow_off?"Off":"Stock")<<",\"reason\":"<<quote(c.reason)<<",\"af_reason\":"<<quote(c.af_reason)<<",\"fov_reason\":"<<quote(c.fov_reason)<<",\"shadow_reason\":"<<quote(c.shadow_reason)<<",\"vehicle_reflections\":"<<quote(c.reflection_mode)<<",\"reflection_reason\":"<<quote(c.reflection_reason)<<",\"raw_fields\":{";bool first=true;for(const auto& entry:c.raw_fields){if(!first)o<<',';first=false;o<<quote(entry.first)<<':'<<quote(entry.second);}o<<"}}";return o.str();}
 void VisualPolicy::configure(const VisualConfig& c,bool known,const D3DCAPS8* caps,HRESULT hr){
  requested=c;effective=c;caps_result=hr;
- if(!known){effective.anisotropy=effective.fov=effective.shadow_off=false;effective.reason="unsupported_build";return;}
+ if(c.reflection_mode=="ViewDependent2D"){effective.reflection_mode="Stock";effective.reflection_reason="BLOCKED_BY_CLASSIFICATION";}
+ if(!known){effective.anisotropy=effective.fov=effective.shadow_off=false;effective.reason="unsupported_build";effective.reflection_mode="Stock";effective.reflection_reason="unsupported_build";return;}
  if(effective.anisotropy){
   if(caps&&SUCCEEDED(hr)){caps_max=caps->MaxAnisotropy;min_supported=(caps->TextureFilterCaps&D3DPTFILTERCAPS_MINFANISOTROPIC)!=0;mag_supported=(caps->TextureFilterCaps&D3DPTFILTERCAPS_MAGFANISOTROPIC)!=0;}
   if(!caps||FAILED(hr)||caps_max<2||!min_supported){effective.anisotropy=false;effective.af_reason="unsupported_min_anisotropy_or_caps_query_failed";}

@@ -1,0 +1,11 @@
+# R-GFX4 findings
+
+READY_FOR_HUMAN_RUNTIME for **Stock classification stages A/B**. The visual prototype is BLOCKED_BY_CLASSIFICATION; runtime vehicle identity remains MORE_RUNTIME_CLASSIFICATION_NEEDED. This is the explicitly permitted conservative outcome in section35 of the task. No reflection, lighting, texture or geometry changes were introduced by R-GFX4.
+
+R-GFX3 is CLOSED / CONFIRMED_BY_RUNTIME on DLL44a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef. User confirmation is preserved separately from the live file inventory: three matching sessions contain398 summaries, zero Present failures/bypass flags; two F10 files are complete and untruncated. See r-gfx3-final-baseline.json. Current D:/Game/Master Rallye Pristine/MRallye.exe has changed to SHA75942c0b…; pristine corpus MRallye.exe is independently rehashed as bf8aef32…. Current install is not treated as the historical capture image or as a supported override build.
+
+CONFIRMED_BY_EXISTING_RESEARCH and independently reproduced OFFLINE_RUNTIME_CORRELATION: Car0 body34 draws/1972 triangles, four wheels16/1008, total50/2980. Normals appear in2328 triangles (78.1%) in this Tata snapshot; this is not a fleet-wide percentage. Broker validates this snapshot only; production tracker reads no Broker or EXE data structures. Material/FVF/texture-stage signature and motion do not uniquely establish vehicle identity.
+
+CONFIRMED_BY_ASSET_PARSER: twelve car/wheel resources across Tata,Astero,KiaSportage,Pajero,Forester,Kamaz. Of187 diffuse-enabled physical draws,174 have variable RGB. Median strongest absolute normal/luma Pearson correlation among those174 is0.95354; median R-squared over171 nonsingular directional fits is0.92565. These are descriptive source-color statistics, not proof of a baking light direction. Diffuse-enabled sampled colors all have alpha255. Engine damage-time edits, texture alpha and texture-baked shading are separate unknowns.
+
+New bounded online tracker exposes UNKNOWN/CANDIDATE/DYNAMIC_ENV_OBJECT in F10. It never converts motion into vehicle certainty. Repeated resources/instances, rotation, permutations, ambiguity, generation reuse, Reset, capacity and scene boundaries are tested. No positive VEHICLE_REFLECTION_CANDIDATE rule has been proven independent of Broker; reflection selection therefore remains Stock.

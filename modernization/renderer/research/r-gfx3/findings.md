@@ -1,3 +1,5 @@
+> Closed by the user's final short retest on DLL44a76a3a…; see ../r-gfx4/r-gfx3-final-baseline.json. The following records the preceding preparation and remains historical.
+
 # R-GFX3 findings
 
 **READY_FOR_SHORT_RETEST.** Human results for DLL307a5fe4… establish default-off parity, usable AF/race FOV, isolated shadow Off and pristine Reset. They also expose a frontend 3D preview FOV leak. The final fixes keep MAG stock and add the source90 camera-family gate. New DLL runtime is pending; see closeout.md and runtime-handoff.md.

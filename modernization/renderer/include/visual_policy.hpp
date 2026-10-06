@@ -12,6 +12,7 @@ struct VisualConfig {
  unsigned max_anisotropy=16;float vfov=75.f;
  std::map<std::string,std::string> raw_fields;
  std::string reason,af_reason,fov_reason,shadow_reason;
+ std::string reflection_mode="Stock",reflection_reason;
 };
 VisualConfig parse_visual_config(const std::unordered_map<std::string,std::string>& fields,bool found);
 VisualConfig read_visual_config(const std::wstring& path);

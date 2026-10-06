@@ -1,0 +1,472 @@
+{
+  "objects": [
+    {
+      "broker_path": "Physics/Car0/Transform",
+      "matches": [
+        {
+          "draws": 34,
+          "triangles": 1972,
+          "draw_indices": [
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
+            156,
+            157,
+            158,
+            171,
+            172,
+            173,
+            174,
+            175,
+            176,
+            177,
+            178,
+            289,
+            290,
+            291,
+            292
+          ],
+          "errors": {
+            "translation_error": 0.2710314234880391,
+            "orientation_error": 4.297599318104364,
+            "orientation_metric": "max_basis_angle_degrees",
+            "full_basis_orientation_error": 4.297599318104364,
+            "basis_angles_degrees": [
+              3.6178005763518226,
+              4.297599318104364,
+              2.253339370811855
+            ]
+          },
+          "families": [
+            {
+              "alpha_blend": 0,
+              "alpha_test": 0,
+              "layout": {
+                "diffuse": true,
+                "fvf": "0x142",
+                "known_layout": true,
+                "normal": false,
+                "position": "XYZ",
+                "stride": 24,
+                "uv_count": 1,
+                "uv_dimensions": [
+                  2
+                ]
+              },
+              "lighting": 0,
+              "stage0": {
+                "1": 4,
+                "11": 0,
+                "2": 2,
+                "24": 0,
+                "3": 0,
+                "4": 4,
+                "5": 2,
+                "6": 0
+              },
+              "stage1": {
+                "1": 1,
+                "11": 1,
+                "2": 2,
+                "24": 0,
+                "3": 1,
+                "4": 1,
+                "5": 0,
+                "6": 1
+              },
+              "z_write": 1,
+              "draws": 8,
+              "triangles": 652
+            },
+            {
+              "alpha_blend": 0,
+              "alpha_test": 0,
+              "layout": {
+                "diffuse": true,
+                "fvf": "0x152",
+                "known_layout": true,
+                "normal": true,
+                "position": "XYZ",
+                "stride": 36,
+                "uv_count": 1,
+                "uv_dimensions": [
+                  2
+                ]
+              },
+              "lighting": 0,
+              "stage0": {
+                "1": 4,
+                "11": 0,
+                "2": 2,
+                "24": 0,
+                "3": 0,
+                "4": 4,
+                "5": 2,
+                "6": 0
+              },
+              "stage1": {
+                "1": 18,
+                "11": 65536,
+                "2": 1,
+                "24": 2,
+                "3": 2,
+                "4": 4,
+                "5": 1,
+                "6": 2
+              },
+              "z_write": 1,
+              "draws": 22,
+              "triangles": 1304
+            },
+            {
+              "alpha_blend": 1,
+              "alpha_test": 0,
+              "layout": {
+                "diffuse": true,
+                "fvf": "0x152",
+                "known_layout": true,
+                "normal": true,
+                "position": "XYZ",
+                "stride": 36,
+                "uv_count": 1,
+                "uv_dimensions": [
+                  2
+                ]
+              },
+              "lighting": 0,
+              "stage0": {
+                "1": 4,
+                "11": 0,
+                "2": 2,
+                "24": 0,
+                "3": 0,
+                "4": 4,
+                "5": 2,
+                "6": 0
+              },
+              "stage1": {
+                "1": 18,
+                "11": 65536,
+                "2": 1,
+                "24": 2,
+                "3": 2,
+                "4": 4,
+                "5": 1,
+                "6": 2
+              },
+              "z_write": 1,
+              "draws": 4,
+              "triangles": 16
+            }
+          ]
+        }
+      ],
+      "confidence": "UNIQUE_TRANSFORM_GROUP"
+    },
+    {
+      "broker_path": "Physics/Car0/Wheel0/Transform",
+      "matches": [
+        {
+          "draws": 4,
+          "triangles": 252,
+          "draw_indices": [
+            161,
+            163,
+            168,
+            281
+          ],
+          "errors": {
+            "translation_error": 0.25753730868572905,
+            "orientation_error": 4.78008148594738,
+            "orientation_metric": "directed_local_X_axle_angle_degrees",
+            "full_basis_orientation_error": 5.3943070610787895,
+            "basis_angles_degrees": [
+              4.78008148594738,
+              5.3943070610787895,
+              2.7925269349717707
+            ]
+          },
+          "families": [
+            {
+              "alpha_blend": 0,
+              "alpha_test": 0,
+              "layout": {
+                "diffuse": false,
+                "fvf": "0x112",
+                "known_layout": true,
+                "normal": true,
+                "position": "XYZ",
+                "stride": 32,
+                "uv_count": 1,
+                "uv_dimensions": [
+                  2
+                ]
+              },
+              "lighting": 0,
+              "stage0": {
+                "1": 4,
+                "11": 0,
+                "2": 2,
+                "24": 0,
+                "3": 0,
+                "4": 4,
+                "5": 2,
+                "6": 0
+              },
+              "stage1": {
+                "1": 18,
+                "11": 65536,
+                "2": 1,
+                "24": 2,
+                "3": 2,
+                "4": 4,
+                "5": 1,
+                "6": 2
+              },
+              "z_write": 1,
+              "draws": 4,
+              "triangles": 252
+            }
+          ]
+        }
+      ],
+      "confidence": "UNIQUE_TRANSFORM_GROUP"
+    },
+    {
+      "broker_path": "Physics/Car0/Wheel1/Transform",
+      "matches": [
+        {
+          "draws": 4,
+          "triangles": 252,
+          "draw_indices": [
+            159,
+            165,
+            170,
+            280
+          ],
+          "errors": {
+            "translation_error": 0.2741506295395619,
+            "orientation_error": 2.2408226100984927,
+            "orientation_metric": "directed_local_X_axle_angle_degrees",
+            "full_basis_orientation_error": 3.328713830637694,
+            "basis_angles_degrees": [
+              2.2408226100984927,
+              3.328713830637694,
+              2.2871478487881767
+            ]
+          },
+          "families": [
+            {
+              "alpha_blend": 0,
+              "alpha_test": 0,
+              "layout": {
+                "diffuse": false,
+                "fvf": "0x112",
+                "known_layout": true,
+                "normal": true,
+                "position": "XYZ",
+                "stride": 32,
+                "uv_count": 1,
+                "uv_dimensions": [
+                  2
+                ]
+              },
+              "lighting": 0,
+              "stage0": {
+                "1": 4,
+                "11": 0,
+                "2": 2,
+                "24": 0,
+                "3": 0,
+                "4": 4,
+                "5": 2,
+                "6": 0
+              },
+              "stage1": {
+                "1": 18,
+                "11": 65536,
+                "2": 1,
+                "24": 2,
+                "3": 2,
+                "4": 4,
+                "5": 1,
+                "6": 2
+              },
+              "z_write": 1,
+              "draws": 4,
+              "triangles": 252
+            }
+          ]
+        }
+      ],
+      "confidence": "UNIQUE_TRANSFORM_GROUP"
+    },
+    {
+      "broker_path": "Physics/Car0/Wheel2/Transform",
+      "matches": [
+        {
+          "draws": 4,
+          "triangles": 252,
+          "draw_indices": [
+            160,
+            166,
+            169,
+            279
+          ],
+          "errors": {
+            "translation_error": 0.25616349338054056,
+            "orientation_error": 2.963981605125278,
+            "orientation_metric": "directed_local_X_axle_angle_degrees",
+            "full_basis_orientation_error": 3.818106973433963,
+            "basis_angles_degrees": [
+              2.963981605125278,
+              3.818106973433963,
+              2.253339370811855
+            ]
+          },
+          "families": [
+            {
+              "alpha_blend": 0,
+              "alpha_test": 0,
+              "layout": {
+                "diffuse": false,
+                "fvf": "0x112",
+                "known_layout": true,
+                "normal": true,
+                "position": "XYZ",
+                "stride": 32,
+                "uv_count": 1,
+                "uv_dimensions": [
+                  2
+                ]
+              },
+              "lighting": 0,
+              "stage0": {
+                "1": 4,
+                "11": 0,
+                "2": 2,
+                "24": 0,
+                "3": 0,
+                "4": 4,
+                "5": 2,
+                "6": 0
+              },
+              "stage1": {
+                "1": 18,
+                "11": 65536,
+                "2": 1,
+                "24": 2,
+                "3": 2,
+                "4": 4,
+                "5": 1,
+                "6": 2
+              },
+              "z_write": 1,
+              "draws": 4,
+              "triangles": 252
+            }
+          ]
+        }
+      ],
+      "confidence": "UNIQUE_TRANSFORM_GROUP"
+    },
+    {
+      "broker_path": "Physics/Car0/Wheel3/Transform",
+      "matches": [
+        {
+          "draws": 4,
+          "triangles": 252,
+          "draw_indices": [
+            162,
+            164,
+            167,
+            278
+          ],
+          "errors": {
+            "translation_error": 0.2592305671346693,
+            "orientation_error": 2.8357768666798404,
+            "orientation_metric": "directed_local_X_axle_angle_degrees",
+            "full_basis_orientation_error": 3.979744836675093,
+            "basis_angles_degrees": [
+              2.8357768666798404,
+              3.979744836675093,
+              2.2533516293193916
+            ]
+          },
+          "families": [
+            {
+              "alpha_blend": 0,
+              "alpha_test": 0,
+              "layout": {
+                "diffuse": false,
+                "fvf": "0x112",
+                "known_layout": true,
+                "normal": true,
+                "position": "XYZ",
+                "stride": 32,
+                "uv_count": 1,
+                "uv_dimensions": [
+                  2
+                ]
+              },
+              "lighting": 0,
+              "stage0": {
+                "1": 4,
+                "11": 0,
+                "2": 2,
+                "24": 0,
+                "3": 0,
+                "4": 4,
+                "5": 2,
+                "6": 0
+              },
+              "stage1": {
+                "1": 18,
+                "11": 65536,
+                "2": 1,
+                "24": 2,
+                "3": 2,
+                "4": 4,
+                "5": 1,
+                "6": 2
+              },
+              "z_write": 1,
+              "draws": 4,
+              "triangles": 252
+            }
+          ]
+        }
+      ],
+      "confidence": "UNIQUE_TRANSFORM_GROUP"
+    }
+  ],
+  "same_frame_atomicity": false,
+  "wheel_metric": "directed_X_axle_plus_translation",
+  "production_uses_broker": false,
+  "inputs": [
+    {
+      "file": "20261006-165332_gfx3-c_racefov-80.json",
+      "sha256": "821347086411c2a16ddcbbcf0a0dc07d4fb7bfcad4c953286907300380418420"
+    },
+    {
+      "file": "frame-43240-d1-00034271_C-race_80.jsonl",
+      "sha256": "26d08bed76965a79d1e4dcfe4d2ae89cbbf4a1ea31875b0bf43f3a18757ef177"
+    }
+  ]
+}

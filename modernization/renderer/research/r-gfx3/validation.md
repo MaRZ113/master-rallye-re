@@ -1,3 +1,5 @@
+> Closed by the user's final short retest on DLL44a76a3a…; see ../r-gfx4/r-gfx3-final-baseline.json. The following records the preceding preparation and remains historical.
+
 # Final-fix automated validation
 
 READY_FOR_SHORT_RETEST, not CLOSED. Starting clean research/general-re HEAD2e6eaea; prior implementation097bb22. All edits are under modernization/renderer; frozen phases/retired worktrees/game files untouched.

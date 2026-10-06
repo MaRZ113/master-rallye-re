@@ -1,0 +1,15 @@
+# R-GFX4 human handoff — classification first
+
+Build status READY_FOR_HUMAN_RUNTIME (A/B only); reflection prototype BLOCKED_BY_CLASSIFICATION. Do not request StageC on this build: ViewDependent2D deliberately stays Stock with a reason. No game files were deployed or modified by Codex.
+
+Use canonical retail SHA bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4. The current D:/Game/Master Rallye Pristine/MRallye.exe was observed as75942c0b65147b96b8b2254ee536f6aefc7f3a501c23d12be640f85a562680ac; a new session there will fail closed and cannot validate the canonical classifier. The independently verified original is D:/Game/Master Rallye/corpora/retail/MRallye.exe. The human should choose the existing canonical test setup before installing the candidate; this task did not restore/replace any EXE. Verify session header build and DLL SHA against validation.md.
+
+Keep VehicleReflections.Mode=Stock, Shadows.Mode=Stock, Trace.Enabled=true and FrameSummaries=true. AF/FOV may stay at your closed Classic+ settings and must remain unchanged between comparisons. Stock frontend preview and HUD remain expected. The tracker currently needs tracing enabled; when instrumentation fails/is disabled, it has no active classification or visual effect.
+
+1. **A, stock regression:** same Tata/track where practical. Start Quick Race; check preview, race, default/cam1/cam2 and HUD. F10 after cars move. PASS: existing appearance remains normal; file complete/untruncated, no Present failures/bypass.
+2. **B, warm-up:** allow player/AI movement10–20 seconds, then pause with the car visible and F10. Return session log and warmed frame; one earlier frame is useful for comparison but not mandatory. Offline analyzer should report nonzero unambiguous dynamic tracks, normal/env/opaque reasons on a body/wheel subset, and static env scenery absent from dynamic tracks. UNKNOWN and saturated static groups are legitimate fail-closed results. Missing generations, group overflow or all tracks cold after warm-up are specific diagnosis targets, not a visual PASS.
+3. Optional after A/B: minimize/restore once, move again and F10; expect new cold tracks that relearn, no stale IDs and healthy AF/FOV. Optional second visually different car establishes scope beyond Tata.
+
+No Broker dump initially. If dynamic tracks cannot be tied to visible vehicles or a moving nonvehicle is suspected, request one precisely labeled paused Broker snapshot paired with its F10 (matching process/module/hash). Validate body via full basis+translation and wheels via translation+directed X axle; no draw index/order assumptions. Only after this evidence supports a runtime-only body/wheel identity rule should StageC be prepared.
+
+Report stock visual regression yes/no, nonzero warm tracks yes/no, static-world false positives yes/no/unknown, track cap/unknown reasons, Reset survived yes/no/not tested, exact car/model. Use tools/analyze_vehicle_draws.py on captured files; validate_vehicle_correlation.py is optional offline evidence only. This handoff does not begin R-GFX5.

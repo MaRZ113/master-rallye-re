@@ -1,0 +1,1469 @@
+{
+  "captures": [
+    {
+      "exact_build_and_complete": true,
+      "header": {
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "proxy_sha256": "44a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef",
+        "device": 1,
+        "frame": 7346
+      },
+      "families": [
+        {
+          "layout": {
+            "fvf": "0x102",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": false,
+            "diffuse": false,
+            "uv_count": 1,
+            "stride": 20,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 1,
+            "2": 2,
+            "3": 1,
+            "4": 1,
+            "5": 0,
+            "6": 1,
+            "11": 1,
+            "24": 0
+          },
+          "alpha_test": 0,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 3,
+          "triangles": 1236,
+          "texture_generations": [
+            [
+              706,
+              0
+            ],
+            [
+              754,
+              0
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x102",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": false,
+            "diffuse": false,
+            "uv_count": 1,
+            "stride": 20,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 1,
+            "2": 2,
+            "3": 1,
+            "4": 1,
+            "5": 0,
+            "6": 1,
+            "11": 1,
+            "24": 0
+          },
+          "alpha_test": 0,
+          "alpha_blend": 1,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 1,
+          "triangles": 180,
+          "texture_generations": [
+            [
+              755,
+              0
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x142",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": false,
+            "diffuse": true,
+            "uv_count": 1,
+            "stride": 24,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 1,
+            "2": 2,
+            "3": 1,
+            "4": 1,
+            "5": 0,
+            "6": 1,
+            "11": 1,
+            "24": 0
+          },
+          "alpha_test": 0,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 42,
+          "triangles": 4993,
+          "texture_generations": [
+            [
+              626,
+              753
+            ],
+            [
+              627,
+              753
+            ],
+            [
+              628,
+              753
+            ],
+            [
+              629,
+              753
+            ],
+            [
+              707,
+              0
+            ],
+            [
+              711,
+              0
+            ],
+            [
+              718,
+              0
+            ],
+            [
+              719,
+              0
+            ],
+            [
+              723,
+              0
+            ],
+            [
+              724,
+              0
+            ],
+            [
+              725,
+              0
+            ],
+            [
+              726,
+              0
+            ],
+            [
+              762,
+              753
+            ],
+            [
+              763,
+              753
+            ],
+            [
+              765,
+              753
+            ],
+            [
+              771,
+              753
+            ],
+            [
+              772,
+              753
+            ],
+            [
+              781,
+              753
+            ],
+            [
+              785,
+              753
+            ],
+            [
+              795,
+              753
+            ],
+            [
+              796,
+              753
+            ],
+            [
+              804,
+              753
+            ],
+            [
+              813,
+              753
+            ],
+            [
+              816,
+              753
+            ],
+            [
+              817,
+              753
+            ],
+            [
+              818,
+              753
+            ],
+            [
+              819,
+              753
+            ],
+            [
+              821,
+              753
+            ],
+            [
+              834,
+              753
+            ],
+            [
+              842,
+              753
+            ],
+            [
+              846,
+              753
+            ],
+            [
+              847,
+              753
+            ],
+            [
+              848,
+              753
+            ],
+            [
+              849,
+              753
+            ],
+            [
+              852,
+              753
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x142",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": false,
+            "diffuse": true,
+            "uv_count": 1,
+            "stride": 24,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 1,
+            "2": 2,
+            "3": 1,
+            "4": 1,
+            "5": 0,
+            "6": 1,
+            "11": 1,
+            "24": 0
+          },
+          "alpha_test": 1,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 8,
+          "triangles": 1172,
+          "texture_generations": [
+            [
+              706,
+              0
+            ],
+            [
+              712,
+              0
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x242",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": false,
+            "diffuse": true,
+            "uv_count": 2,
+            "stride": 32,
+            "uv_dimensions": [
+              2,
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 5,
+            "2": 1,
+            "3": 2,
+            "4": 5,
+            "5": 1,
+            "6": 2,
+            "11": 1,
+            "24": 0
+          },
+          "alpha_test": 0,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 79,
+          "triangles": 2540,
+          "texture_generations": [
+            [
+              695,
+              697
+            ],
+            [
+              698,
+              697
+            ],
+            [
+              699,
+              697
+            ],
+            [
+              700,
+              697
+            ],
+            [
+              701,
+              697
+            ],
+            [
+              702,
+              697
+            ],
+            [
+              703,
+              697
+            ],
+            [
+              704,
+              697
+            ],
+            [
+              705,
+              697
+            ],
+            [
+              708,
+              697
+            ],
+            [
+              709,
+              697
+            ],
+            [
+              710,
+              697
+            ],
+            [
+              713,
+              697
+            ],
+            [
+              714,
+              697
+            ],
+            [
+              715,
+              697
+            ],
+            [
+              716,
+              697
+            ],
+            [
+              720,
+              697
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x252",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": true,
+            "diffuse": true,
+            "uv_count": 2,
+            "stride": 44,
+            "uv_dimensions": [
+              2,
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 3,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 7,
+            "2": 1,
+            "3": 2,
+            "4": 2,
+            "5": 1,
+            "6": 2,
+            "11": 1,
+            "24": 0
+          },
+          "alpha_test": 0,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 1,
+          "triangles": 132,
+          "texture_generations": [
+            [
+              717,
+              753
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x152",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": true,
+            "diffuse": true,
+            "uv_count": 1,
+            "stride": 36,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 18,
+            "2": 1,
+            "3": 2,
+            "4": 4,
+            "5": 1,
+            "6": 2,
+            "11": 65536,
+            "24": 2
+          },
+          "alpha_test": 0,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 73,
+          "triangles": 5463,
+          "texture_generations": [
+            [
+              630,
+              631
+            ],
+            [
+              632,
+              633
+            ],
+            [
+              634,
+              635
+            ],
+            [
+              636,
+              635
+            ],
+            [
+              637,
+              638
+            ],
+            [
+              642,
+              643
+            ],
+            [
+              644,
+              643
+            ],
+            [
+              645,
+              643
+            ],
+            [
+              646,
+              638
+            ],
+            [
+              649,
+              635
+            ],
+            [
+              650,
+              643
+            ],
+            [
+              652,
+              643
+            ],
+            [
+              653,
+              633
+            ],
+            [
+              659,
+              638
+            ],
+            [
+              756,
+              635
+            ],
+            [
+              757,
+              635
+            ],
+            [
+              758,
+              633
+            ],
+            [
+              759,
+              643
+            ],
+            [
+              760,
+              635
+            ],
+            [
+              761,
+              643
+            ],
+            [
+              764,
+              643
+            ],
+            [
+              772,
+              773
+            ],
+            [
+              774,
+              775
+            ],
+            [
+              776,
+              777
+            ],
+            [
+              778,
+              779
+            ],
+            [
+              780,
+              779
+            ],
+            [
+              782,
+              773
+            ],
+            [
+              783,
+              773
+            ],
+            [
+              784,
+              775
+            ],
+            [
+              786,
+              777
+            ],
+            [
+              787,
+              777
+            ],
+            [
+              788,
+              777
+            ],
+            [
+              789,
+              777
+            ],
+            [
+              790,
+              777
+            ],
+            [
+              791,
+              777
+            ],
+            [
+              792,
+              793
+            ],
+            [
+              794,
+              777
+            ],
+            [
+              805,
+              806
+            ],
+            [
+              807,
+              808
+            ],
+            [
+              809,
+              808
+            ],
+            [
+              810,
+              808
+            ],
+            [
+              811,
+              806
+            ],
+            [
+              812,
+              808
+            ],
+            [
+              814,
+              806
+            ],
+            [
+              815,
+              806
+            ],
+            [
+              820,
+              808
+            ],
+            [
+              822,
+              823
+            ],
+            [
+              822,
+              826
+            ],
+            [
+              824,
+              823
+            ],
+            [
+              825,
+              823
+            ],
+            [
+              827,
+              826
+            ],
+            [
+              828,
+              806
+            ],
+            [
+              835,
+              836
+            ],
+            [
+              835,
+              839
+            ],
+            [
+              837,
+              836
+            ],
+            [
+              838,
+              839
+            ],
+            [
+              840,
+              836
+            ],
+            [
+              841,
+              836
+            ],
+            [
+              842,
+              836
+            ],
+            [
+              843,
+              839
+            ],
+            [
+              844,
+              839
+            ],
+            [
+              845,
+              839
+            ],
+            [
+              850,
+              851
+            ],
+            [
+              853,
+              854
+            ],
+            [
+              853,
+              857
+            ],
+            [
+              855,
+              854
+            ],
+            [
+              856,
+              854
+            ],
+            [
+              858,
+              857
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x112",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": true,
+            "diffuse": false,
+            "uv_count": 1,
+            "stride": 32,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 18,
+            "2": 1,
+            "3": 2,
+            "4": 4,
+            "5": 1,
+            "6": 2,
+            "11": 65536,
+            "24": 2
+          },
+          "alpha_test": 0,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 71,
+          "triangles": 3780,
+          "texture_generations": [
+            [
+              654,
+              655
+            ],
+            [
+              657,
+              631
+            ],
+            [
+              658,
+              631
+            ],
+            [
+              770,
+              631
+            ],
+            [
+              778,
+              779
+            ],
+            [
+              780,
+              779
+            ],
+            [
+              782,
+              773
+            ],
+            [
+              783,
+              773
+            ],
+            [
+              803,
+              773
+            ],
+            [
+              822,
+              823
+            ],
+            [
+              822,
+              826
+            ],
+            [
+              824,
+              823
+            ],
+            [
+              825,
+              823
+            ],
+            [
+              827,
+              826
+            ],
+            [
+              853,
+              854
+            ],
+            [
+              853,
+              857
+            ],
+            [
+              855,
+              854
+            ],
+            [
+              856,
+              854
+            ],
+            [
+              858,
+              857
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x152",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": true,
+            "diffuse": true,
+            "uv_count": 1,
+            "stride": 36,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 18,
+            "2": 1,
+            "3": 2,
+            "4": 4,
+            "5": 1,
+            "6": 2,
+            "11": 65536,
+            "24": 2
+          },
+          "alpha_test": 0,
+          "alpha_blend": 1,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 17,
+          "triangles": 108,
+          "texture_generations": [
+            [
+              659,
+              638
+            ],
+            [
+              768,
+              638
+            ],
+            [
+              797,
+              775
+            ],
+            [
+              802,
+              793
+            ],
+            [
+              815,
+              829
+            ],
+            [
+              830,
+              829
+            ],
+            [
+              845,
+              859
+            ],
+            [
+              860,
+              859
+            ]
+          ]
+        }
+      ],
+      "transform_groups": [
+        {
+          "draws": 1,
+          "triangles": 196,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 1,
+          "triangles": 180,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 104,
+          "triangles": 7179,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 34,
+          "triangles": 1972,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 28,
+          "triangles": 2143,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 28,
+          "triangles": 2027,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 28,
+          "triangles": 2127,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 4,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 4,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 4,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 4,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        },
+        {
+          "draws": 5,
+          "triangles": 252,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        }
+      ],
+      "classification_counts": {
+        "UNAVAILABLE_LEGACY": 574
+      },
+      "reflection_modified_draws": 0,
+      "vehicle_semantics": "UNPROVEN_UNLESS_SEPARATELY_CORRELATED",
+      "legacy_temporal_status": "UNAVAILABLE",
+      "file": "frame-4848-d1-00007346_race.jsonl",
+      "sha256": "f2ee3cde9cdcdd27cc6ecf7fabcb66fa3aa9489701c6b1be8600f6948ffa7cb1"
+    },
+    {
+      "exact_build_and_complete": true,
+      "header": {
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "proxy_sha256": "44a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef",
+        "device": 1,
+        "frame": 5189
+      },
+      "families": [
+        {
+          "layout": {
+            "fvf": "0x142",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": false,
+            "diffuse": true,
+            "uv_count": 1,
+            "stride": 24,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 1,
+            "2": 2,
+            "3": 1,
+            "4": 1,
+            "5": 0,
+            "6": 1,
+            "11": 1,
+            "24": 0
+          },
+          "alpha_test": 0,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 5,
+          "triangles": 256,
+          "texture_generations": [
+            [
+              626,
+              0
+            ],
+            [
+              627,
+              0
+            ],
+            [
+              628,
+              0
+            ],
+            [
+              629,
+              0
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x152",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": true,
+            "diffuse": true,
+            "uv_count": 1,
+            "stride": 36,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 18,
+            "2": 1,
+            "3": 2,
+            "4": 4,
+            "5": 1,
+            "6": 2,
+            "11": 65536,
+            "24": 2
+          },
+          "alpha_test": 0,
+          "alpha_blend": 0,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 24,
+          "triangles": 2198,
+          "texture_generations": [
+            [
+              630,
+              631
+            ],
+            [
+              632,
+              633
+            ],
+            [
+              634,
+              635
+            ],
+            [
+              636,
+              635
+            ],
+            [
+              637,
+              638
+            ],
+            [
+              639,
+              635
+            ],
+            [
+              640,
+              635
+            ],
+            [
+              641,
+              633
+            ],
+            [
+              642,
+              643
+            ],
+            [
+              644,
+              643
+            ],
+            [
+              645,
+              643
+            ],
+            [
+              646,
+              638
+            ],
+            [
+              647,
+              643
+            ],
+            [
+              648,
+              635
+            ],
+            [
+              649,
+              635
+            ],
+            [
+              650,
+              643
+            ],
+            [
+              651,
+              643
+            ],
+            [
+              652,
+              643
+            ],
+            [
+              653,
+              633
+            ],
+            [
+              654,
+              655
+            ],
+            [
+              656,
+              631
+            ],
+            [
+              657,
+              631
+            ],
+            [
+              658,
+              631
+            ],
+            [
+              659,
+              638
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "fvf": "0x152",
+            "known_layout": true,
+            "position": "XYZ",
+            "normal": true,
+            "diffuse": true,
+            "uv_count": 1,
+            "stride": 36,
+            "uv_dimensions": [
+              2
+            ]
+          },
+          "stage0": {
+            "1": 4,
+            "2": 2,
+            "3": 0,
+            "4": 4,
+            "5": 2,
+            "6": 0,
+            "11": 0,
+            "24": 0
+          },
+          "stage1": {
+            "1": 18,
+            "2": 1,
+            "3": 2,
+            "4": 4,
+            "5": 1,
+            "6": 2,
+            "11": 65536,
+            "24": 2
+          },
+          "alpha_test": 0,
+          "alpha_blend": 1,
+          "z_write": 1,
+          "lighting": 0,
+          "draws": 2,
+          "triangles": 16,
+          "texture_generations": [
+            [
+              659,
+              638
+            ],
+            [
+              660,
+              638
+            ]
+          ]
+        }
+      ],
+      "transform_groups": [
+        {
+          "draws": 31,
+          "triangles": 2470,
+          "tracks": [
+            0
+          ],
+          "dynamic": false
+        }
+      ],
+      "classification_counts": {
+        "UNAVAILABLE_LEGACY": 459
+      },
+      "reflection_modified_draws": 0,
+      "vehicle_semantics": "UNPROVEN_UNLESS_SEPARATELY_CORRELATED",
+      "legacy_temporal_status": "UNAVAILABLE",
+      "file": "frame-4848-d1-00005189_menu.jsonl",
+      "sha256": "97d698589b26bc507a76a1f41d39911093aa1457869c4d705de6775f2ec0fa44"
+    }
+  ],
+  "cross_capture_temporal_inference": false
+}

@@ -1,6 +1,6 @@
 {
   "phase": "R-GFX3",
-  "status": "READY_FOR_SHORT_RETEST",
+  "status": "CLOSED",
   "runtime_version": "R-GFX3-1",
   "repository": "master-rallye-re-general",
   "branch": "research/general-re",
@@ -39,8 +39,8 @@
   "pre_fix_human_tested_sha256": "307a5fe4c83d95bd14d460cf767aa751e94b7f0a8e962c8c29c67681f2c17313",
   "closeout_starting_head": "2e6eaeaa5d86dbd54b4bf6a2e2b9c8e4da855b54",
   "short_retest": {
-    "A_AF_MIN_only": "PENDING_HUMAN",
-    "B_preview_and_five_cameras": "PENDING_HUMAN"
+    "A_AF_MIN_only": "HUMAN_PASS_FINAL_BUILD",
+    "B_preview_and_five_cameras": "HUMAN_PASS_FINAL_BUILD"
   },
   "runtime_counts": {
     "primary_sessions": 12,
@@ -50,5 +50,6 @@
     "present_failures": 0,
     "bypass_suspected": 0,
     "reset_S_OK": 27
-  }
+  },
+  "closure_source": "R-GFX4 user request + r-gfx4/r-gfx3-final-baseline.json"
 }

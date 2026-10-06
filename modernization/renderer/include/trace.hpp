@@ -1,6 +1,7 @@
 #pragma once
 #include "state_tracker.hpp"
 #include "provenance.hpp"
+#include "vehicle_classifier.hpp"
 #include <mutex>
 #include <memory>
 #include <atomic>
@@ -10,7 +11,7 @@ struct Event {uint32_t slot=0,result=0;Args args;uintptr_t pc=0;uint32_t draw=UI
  bool suppressed=false,native_only=false;uint32_t feature=0;Args effective_args{};uint32_t effective_payload[16]{};uint32_t effective_words=0;
  uint32_t payload[32]{};uint32_t payload_words=0;};
 struct EffectiveDraw {Known<uint32_t> filtering[4];Known<D3DMATRIX> projection;};
-struct Draw { Snapshot state;EffectiveDraw effective;std::array<uint64_t,8> texture_generation{};
+struct Draw { DrawClassification classification;Snapshot state;EffectiveDraw effective;std::array<uint64_t,8> texture_generation{};
  std::array<uint64_t,16> stream_generation{};uint64_t index_generation=0; };
 struct FrameBuffer {std::array<Event,MAX_EVENTS> events;std::array<Draw,MAX_DRAWS> draws;
  size_t event_count=0,draw_count=0;bool truncated=false;uint64_t dropped=0;};
@@ -32,6 +33,7 @@ public:
  CaptureControl control;
  ResourceRegistry resources;
 private:
+ TransformTracker tracker_;bool classifier_known_=false,race_context_=false;uintptr_t exe_base_=0;
  CRITICAL_SECTION lock_{};bool lock_ok_=false;
  uint64_t device_=0,frame_=1,primitives_=0;
  std::array<uint64_t,97> counts_{};

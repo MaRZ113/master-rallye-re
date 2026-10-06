@@ -1,0 +1,44 @@
+{
+  "phase": "R-GFX3",
+  "status": "CLOSED",
+  "evidence_grade": "CONFIRMED_BY_RUNTIME",
+  "human_source": "User R-GFX4 request and attached final short retest results",
+  "dll_sha256": "44a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef",
+  "sessions": [
+    {
+      "file": "session-20261006-080645-35772.jsonl",
+      "sha256": "be911938bd9c52103cfe1e4ae10c7508cc5d579d2c90b70dc13764598b16152c",
+      "summaries": 103,
+      "present_failures": 0,
+      "bypass_suspected": 0
+    },
+    {
+      "file": "session-20261006-080703-4848.jsonl",
+      "sha256": "fc77eedae71baf71a7c2fb141788319fdbc773d05d2431ce2fa3313802be68bc",
+      "summaries": 145,
+      "present_failures": 0,
+      "bypass_suspected": 0
+    },
+    {
+      "file": "session-20261006-080900-41044.jsonl",
+      "sha256": "be6f75cf53886dbe8bb5ec5060ea0e71fa529dc2ad571419471e390abb77b2e1",
+      "summaries": 150,
+      "present_failures": 0,
+      "bypass_suspected": 0
+    }
+  ],
+  "frames": [
+    {
+      "file": "frame-4848-d1-00005189_menu.jsonl",
+      "sha256": "97d698589b26bc507a76a1f41d39911093aa1457869c4d705de6775f2ec0fa44",
+      "complete": true,
+      "truncated": false
+    },
+    {
+      "file": "frame-4848-d1-00007346_race.jsonl",
+      "sha256": "f2ee3cde9cdcdd27cc6ecf7fabcb66fa3aa9489701c6b1be8600f6948ffa7cb1",
+      "complete": true,
+      "truncated": false
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+> Closed by the user's final short retest on DLL44a76a3a…; see ../r-gfx4/r-gfx3-final-baseline.json. The following records the preceding preparation and remains historical.
+
 # R-GFX3 final fix and closeout gate
 
 **READY_FOR_SHORT_RETEST.** Repository D:/Game/Master Rallye/master-rallye-re-general, branch research/general-re, starting HEAD2e6eaea (clean). No new branch/worktree or push. Final candidate SHA25644a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef, 1016320 bytes, PE32/I386.
