@@ -52,7 +52,6 @@ DWORD VisualPolicy::filter(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD value
  if(type==D3DTSS_MAXANISOTROPY&&value>0)return effective.max_anisotropy;
  if(value!=D3DTEXF_LINEAR)return value;
  if(type==D3DTSS_MINFILTER&&min_supported)return D3DTEXF_ANISOTROPIC;
- if(type==D3DTSS_MAGFILTER&&mag_supported)return D3DTEXF_ANISOTROPIC;
  return value;
 }
 bool symmetric_lh(const D3DMATRIX& p) noexcept {
@@ -60,9 +59,16 @@ bool symmetric_lh(const D3DMATRIX& p) noexcept {
  return p._11>0.f&&p._22>0.f&&p._33>1.f&&p._34==1.f&&p._43<0.f;
 }
 float vertical_fov(const D3DMATRIX& p) noexcept {PolicyFP fp;return static_cast<float>(2.*std::atan(1./p._22)*180./3.14159265358979323846);}
+double source_camera_angle(const D3DMATRIX& p) noexcept {
+ PolicyFP fp;if(!symmetric_lh(p))return 0.;
+ const double aspect=static_cast<double>(p._22)/p._11;
+ // Original helper 004F2350 scales authored angle by H/W only for landscape.
+ return 2.*std::atan(1./p._22)*180./3.14159265358979323846*std::max(1.,aspect);
+}
 bool VisualPolicy::projection(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,D3DMATRIX& out,bool exe_caller,uint32_t rva) const noexcept {
  PolicyFP fp;
  if(!effective.fov||type!=D3DTS_PROJECTION||!exe_caller||rva!=GAMEPLAY_PROJECTION_RETURN_RVA||!input||!safe_copy(&out,input,sizeof(out))||!symmetric_lh(out))return false;
+ if(std::abs(source_camera_angle(out)-90.)>SOURCE_CAMERA_TOLERANCE_DEGREES)return false;
  double aspect=static_cast<double>(out._22)/out._11;double y=1./std::tan(effective.vfov*3.14159265358979323846/360.);
  if(!std::isfinite(aspect)||aspect<=0||!std::isfinite(y))return false;
  out._11=static_cast<float>(y/aspect);out._22=static_cast<float>(y);return std::isfinite(out._11)&&out._11>0&&std::isfinite(out._22)&&out._22>0;

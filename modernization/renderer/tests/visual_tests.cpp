@@ -24,7 +24,7 @@ void config_contracts(){
 void policy_contracts(){
  VisualPolicy p;auto c=enabled();auto cap=caps();p.configure(c,true,&cap,S_OK);
  CHECK(p.effective.max_anisotropy==8);CHECK(p.filter(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR)==D3DTEXF_ANISOTROPIC);
- CHECK(p.filter(0,D3DTSS_MAGFILTER,D3DTEXF_LINEAR)==D3DTEXF_ANISOTROPIC);
+ CHECK(p.filter(0,D3DTSS_MAGFILTER,D3DTEXF_LINEAR)==D3DTEXF_LINEAR);
  CHECK(p.filter(0,D3DTSS_MIPFILTER,D3DTEXF_LINEAR)==D3DTEXF_LINEAR);
  CHECK(p.filter(0,D3DTSS_MINFILTER,D3DTEXF_POINT)==D3DTEXF_POINT);
  CHECK(p.filter(1,D3DTSS_MINFILTER,D3DTEXF_LINEAR)==D3DTEXF_LINEAR);
@@ -44,6 +44,20 @@ void policy_contracts(){
  c.vfov=80;p.configure(c,true,&cap,S_OK);CHECK(p.projection(D3DTS_PROJECTION,&original,out,true,GAMEPLAY_PROJECTION_RETURN_RVA));
  CHECK(std::abs(vertical_fov(out)-80)<.0001f);CHECK(std::abs(out._22/out._11-original._22/original._11)<.000001f);
  for(int i=0;i<16;++i)if(i!=0&&i!=5)CHECK(!std::memcmp(&out.m[0][0]+i,&original.m[0][0]+i,4));
+ // Authored angle families at both observed aspect ratios, independent of resolution.
+ for(double aspect:{640./480.,1920./1027.,.75}){
+  for(double angle:{90.,45.,70.,89.98,90.02}){
+   auto m=perspective();double vfov=angle/std::max(1.,aspect);
+   m._22=static_cast<float>(1./std::tan(vfov*3.14159265358979323846/360.));m._11=static_cast<float>(m._22/aspect);
+   CHECK(std::abs(source_camera_angle(m)-angle)<.00002);
+   auto before=m;bool accepted=p.projection(D3DTS_PROJECTION,&m,out,true,GAMEPLAY_PROJECTION_RETURN_RVA);
+   CHECK(accepted==(angle==90.));CHECK(!std::memcmp(&m,&before,sizeof(m)));
+   if(accepted){CHECK(std::abs(vertical_fov(out)-80)<.0001);CHECK(std::abs(out._22/out._11-m._22/m._11)<.000001);
+    for(int i=0;i<16;++i)if(i!=0&&i!=5)CHECK(!std::memcmp(&out.m[0][0]+i,&m.m[0][0]+i,4));}
+   p.configure(c,false,&cap,S_OK);CHECK(!p.projection(D3DTS_PROJECTION,&m,out,true,GAMEPLAY_PROJECTION_RETURN_RVA));
+   p.configure(parse_visual_config({},false),true,&cap,S_OK);CHECK(!p.projection(D3DTS_PROJECTION,&m,out,true,GAMEPLAY_PROJECTION_RETURN_RVA));p.configure(c,true,&cap,S_OK);
+  }
+ }
  Shadow s;s.rs[27].set(1);s.rs[28].set(0);s.rs[14].set(0);s.bindings.vertex_shader.set(0x142);
  CHECK(p.suppress(70,true,STOCK_SHADOW_RETURN_RVA,s,D3DPT_TRIANGLELIST));CHECK(!p.suppress(71,true,STOCK_SHADOW_RETURN_RVA,s,D3DPT_TRIANGLELIST));
  CHECK(!p.suppress(70,false,STOCK_SHADOW_RETURN_RVA,s,D3DPT_TRIANGLELIST));CHECK(!p.suppress(70,true,99,s,D3DPT_TRIANGLELIST));
@@ -77,6 +91,12 @@ void wrapper_contracts(){
  CHECK(w->Reset(nullptr)==E_FAIL&&w->trace.shadow.tss[0][17].known);
  raw.result=S_OK;CHECK(w->Reset(nullptr)==S_OK);CHECK(!w->trace.shadow.tss[0][17].known&&!w->trace.effective_shadow.tss[0][17].known&&w->visuals.effective.anisotropy);
  CHECK(w->SetTextureStageState(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR)==S_OK&&raw.tss[0][17]==3&&raw.tss[0][21]==8);
+ for(DWORD filter:{static_cast<DWORD>(D3DTEXF_POINT),static_cast<DWORD>(D3DTEXF_LINEAR)}){
+  CHECK(w->SetTextureStageState(0,D3DTSS_MAGFILTER,filter)==S_OK&&raw.tss[0][16]==filter);
+  CHECK(w->GetTextureStageState(0,D3DTSS_MAGFILTER,&value)==S_OK&&value==filter);
+  CHECK(w->trace.shadow.tss[0][16].value==w->trace.effective_shadow.tss[0][16].value);
+ }
+ CHECK(w->SetTextureStageState(0,D3DTSS_MIPFILTER,D3DTEXF_LINEAR)==S_OK&&raw.tss[0][18]==2);
  CHECK(w->SetTextureStageState(1,D3DTSS_MINFILTER,D3DTEXF_LINEAR)==S_OK);CHECK(raw.tss[1][17]==2&&raw.tss[0][17]==3); // stage1 stays LINEAR; stage0 remains independently overridden.
  CHECK(w->SetTextureStageState(0,D3DTSS_MINFILTER,D3DTEXF_POINT)==S_OK&&raw.tss[0][17]==1);
  raw.matrix_value=original;raw.matrix_value._11=.8f;w->trace.shadow.matrices[3].set(original);w->trace.effective_shadow.matrices[3].set(raw.matrix_value);

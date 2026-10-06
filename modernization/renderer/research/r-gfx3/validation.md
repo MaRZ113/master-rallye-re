@@ -1,10 +1,14 @@
-# Codex-side validation — 2026-10-06
+# Final-fix automated validation
 
-- Win32 Release MSVC build PASS; CTest native_contracts and visual_contracts2/2 PASS. Original ABI105 ordinary forwarding invocation contracts plus root/device identity/lifetime remain active, not weakened.
-- Native new coverage: config/version/invalid field independence, exact D3D8 caps and MIN/MAG scope,16->8 cap, POINT/MIP/stage1 preservation, unknown build, exact projection gate, ortho/invalid shape rejection,80-degree VFOV with exact14 remaining float bits, exact shadow policy, actual wrapper default-off arguments, unrelated indexed forwarding, dual getters, failed getter/setter/Reset, successful Reset re-establishment, active state-block normalization and failed MAX fallback.
-- 40 Python tests PASS: inherited32 plus8 visual trace tests, including actual native mock capture effective overlay. Test capture selection distinguishes native_tests.exe from visual_tests.exe; original assertions remain unchanged.
-- compileall PASS; PE32/I386/DLL/required exports5/3/2/no recursive d3d8 import PASS; bounded FrameBuffer assertion and existing overflow contract PASS.
-- SHA identity in ../../data/build.json. Source reproducibility verified by deterministic ABI regeneration; no deterministic byte equality to historical DLL claimed.
-- Historical baseline and external pristine EXE rehashed; R-GFX1/R-GFX2 file changes excluded by Git audit. No EXE, asset, raw capture, DLL/PDB/OBJ/build tree staged.
+READY_FOR_SHORT_RETEST, not CLOSED. Starting clean research/general-re HEAD2e6eaea; prior implementation097bb22. All edits are under modernization/renderer; frozen phases/retired worktrees/game files untouched.
 
-No GPU/game runs were performed. Actual device capabilities, default-off game parity, AF improvement, gameplay FOV isolation, exact shadow disappearance and pristine Reset remain PENDING_HUMAN. Synthetic support cannot replace that gate.
+- Win32 Release build via tools/build.py: PASS; both native_contracts and visual_contracts PASS.
+- Python unittest discovery:44 PASS, no skips.
+- python -m compileall modernization/renderer: PASS.
+- PE verifier: valid PE32/I386, exports Direct3DCreate8@5, ValidateVertexShader@3, ValidatePixelShader@2; no d3d8 self-import.
+- DLL SHA256: 44a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef; size1016320.
+- git diff --check: PASS. Generated ABI remains16/97 complete and deterministic.
+
+Native policy coverage: MAG LINEAR/POINT unchanged even when MAG caps supported; stage0 eligible MIN, MIP/stage1/POINT, caps and getters; failed setters/native retries and Reset. Source90 vs45 vsunknown70/89.98/90.02 at both observed aspects and synthetic portrait; default-off/unknown-build/module/caller/ortho/nonfinite/off-center;80 output, preserved aspect and14 exact float bits. Shadow and forwarding regression contracts pass. Actual known-EXE callsite positive FOV behavior still requires the human game retest.
+
+Compiler warnings from pinned anonymous vendor unions and mock unused parameters remain unchanged. Build identity is recorded per binary; no deterministic byte-for-byte rebuild claim is made.

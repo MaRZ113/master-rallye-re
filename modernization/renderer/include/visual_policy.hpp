@@ -5,6 +5,7 @@
 #include <map>
 namespace gfx2 {
 inline constexpr uint32_t GAMEPLAY_PROJECTION_RETURN_RVA=0x0013FA75;
+inline constexpr double SOURCE_CAMERA_TOLERANCE_DEGREES=0.01;
 inline constexpr uint32_t STOCK_SHADOW_RETURN_RVA=0x001881EB;
 struct VisualConfig {
  bool found=false,version_ok=false,anisotropy=false,fov=false,shadow_off=false;
@@ -25,5 +26,6 @@ struct VisualPolicy {
  bool active() const noexcept {return effective.anisotropy||effective.fov||effective.shadow_off;}
 };
 bool symmetric_lh(const D3DMATRIX& p) noexcept;
+double source_camera_angle(const D3DMATRIX& p) noexcept;
 float vertical_fov(const D3DMATRIX& p) noexcept;
 }

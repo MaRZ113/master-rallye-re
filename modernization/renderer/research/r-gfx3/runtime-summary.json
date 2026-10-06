@@ -1,6 +1,6 @@
 {
   "phase": "R-GFX3",
-  "status": "READY_FOR_HUMAN_RUNTIME",
+  "status": "READY_FOR_SHORT_RETEST",
   "runtime_version": "R-GFX3-1",
   "repository": "master-rallye-re-general",
   "branch": "research/general-re",
@@ -8,32 +8,47 @@
   "canonical_target_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "frozen_baseline": "modernization/d3d8-proxy",
   "tested_baseline_sha256": "b21ae8c587f6d6a14809c5c4715e557307e045a5db6d147d460d1f1537c6a5d5",
-  "build_sha256": "307a5fe4c83d95bd14d460cf767aa751e94b7f0a8e962c8c29c67681f2c17313",
-  "build_size": 1015808,
+  "build_sha256": "44a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef",
+  "build_size": 1016320,
   "config": "MRRRenderer.ini beside DLL; lifetime immutable",
   "features": {
-    "anisotropy": "stage0 LINEAR, native caps, min(request,cap), POINT/MIP/stage1 unchanged",
-    "fov": "main EXE return RVA0x0013FA75, finite symmetric LH, XY only; VFOV30..110",
+    "anisotropy": "stage0 LINEAR MIN only; MAG/MIP/stage1/POINT unchanged; caps clamp",
+    "fov": "exact build/module/returnRVA + symmetric LH + source90 within0.01deg; XY only",
     "shadow": "Stock/Off; DrawPrimitive return RVA0x001881EB + state sanity; opacity deferred"
   },
-  "caps_observed_on_gpu": false,
+  "caps_observed_on_gpu": true,
   "checks": {
     "native": "2/2 PASS",
-    "python": "40 PASS",
+    "python": "44 PASS",
     "compileall": "PASS",
     "pe_exports_imports": "PASS",
     "source_abi": "16/97 complete"
   },
   "human_stages": {
-    "A_stock": "PENDING_HUMAN",
-    "B_AF": "PENDING_HUMAN",
-    "C_FOV": "PENDING_HUMAN",
-    "D_combined": "PENDING_HUMAN",
-    "E_shadow": "PENDING_HUMAN",
-    "F_pristine_Reset": "PENDING_HUMAN"
+    "A_stock": "HUMAN_PASS_PRE_FIX",
+    "B_AF": "HUMAN_PASS_PRE_FIX_MAG_REFINEMENT",
+    "C_FOV": "RACE_PASS_PREVIEW_FAIL_PRE_FIX",
+    "D_combined": "PASS_EXCEPT_PREVIEW_PRE_FIX",
+    "E_shadow": "HUMAN_PASS_PRE_FIX",
+    "F_pristine_Reset": "HUMAN_PASS_PRE_FIX"
   },
   "game_patch": false,
   "deployment_performed": false,
   "push_performed": false,
-  "next_phase_started": false
+  "next_phase_started": false,
+  "pre_fix_human_tested_sha256": "307a5fe4c83d95bd14d460cf767aa751e94b7f0a8e962c8c29c67681f2c17313",
+  "closeout_starting_head": "2e6eaeaa5d86dbd54b4bf6a2e2b9c8e4da855b54",
+  "short_retest": {
+    "A_AF_MIN_only": "PENDING_HUMAN",
+    "B_preview_and_five_cameras": "PENDING_HUMAN"
+  },
+  "runtime_counts": {
+    "primary_sessions": 12,
+    "primary_summaries": 10189,
+    "all_sessions": 14,
+    "all_summaries": 10583,
+    "present_failures": 0,
+    "bypass_suspected": 0,
+    "reset_S_OK": 27
+  }
 }

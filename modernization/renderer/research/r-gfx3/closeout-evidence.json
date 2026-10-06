@@ -1,0 +1,1155 @@
+{
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "pre_fix_dll_sha256": "307a5fe4c83d95bd14d460cf767aa751e94b7f0a8e962c8c29c67681f2c17313",
+  "sessions": [
+    {
+      "file": "session-20261006-063348-42740.jsonl",
+      "sha256": "d1048470d0106eb50a9525755ef17f1c60f1b98a576cfb8c12b4a873699e6c9f",
+      "summaries": 71,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 0,
+      "reset_failures": 0,
+      "reset_dimensions": []
+    },
+    {
+      "file": "session-20261006-063642-20772.jsonl",
+      "sha256": "1e6d78f83c53406576ef01a09e994a232b10876e44667253339e0f4aade66918",
+      "summaries": 447,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 0,
+      "reset_failures": 0,
+      "reset_dimensions": []
+    },
+    {
+      "file": "session-20261006-063830-23772.jsonl",
+      "sha256": "27a04e412eb74eabd8ad80d45270b8c0263d9475a87d8c4f2a101a7601132222",
+      "summaries": 145,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 0,
+      "reset_failures": 0,
+      "reset_dimensions": []
+    },
+    {
+      "file": "session-20261006-063915-46040.jsonl",
+      "sha256": "d975f05a7862444b01c67157dc5ec3dc0c7f8e979549cef401e56b64990989da",
+      "summaries": 825,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 2,
+      "reset_failures": 0,
+      "reset_dimensions": [
+        [
+          640,
+          480
+        ],
+        [
+          1920,
+          1027
+        ]
+      ]
+    },
+    {
+      "file": "session-20261006-064242-30924.jsonl",
+      "sha256": "ad92791d029c0bf4a6b5f71233bbe44612ad3f7343c2bf28ffe9bbd4d60061ad",
+      "summaries": 2027,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 8,
+      "reset_failures": 0,
+      "reset_dimensions": [
+        [
+          640,
+          480
+        ],
+        [
+          1920,
+          1027
+        ]
+      ]
+    },
+    {
+      "file": "session-20261006-064750-14160.jsonl",
+      "sha256": "82b8dff4aaaeb36934fed92b439ea8eff4631f722f634a0e20fb8e6b1e3654a5",
+      "summaries": 1345,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 0,
+      "reset_failures": 0,
+      "reset_dimensions": []
+    },
+    {
+      "file": "session-20261006-065130-43240.jsonl",
+      "sha256": "658332fde406eb936af3501c019f3f9b4699a76a0d528ef78480153ae7abfeb1",
+      "summaries": 3471,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 7,
+      "reset_failures": 0,
+      "reset_dimensions": [
+        [
+          640,
+          480
+        ],
+        [
+          1920,
+          1027
+        ]
+      ]
+    },
+    {
+      "file": "session-20261006-070230-37232.jsonl",
+      "sha256": "bba858417eec346a25d8f46f7b6d492c90977438e444eb9dd4849f641e8da091",
+      "summaries": 550,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 5,
+      "reset_failures": 0,
+      "reset_dimensions": [
+        [
+          640,
+          480
+        ],
+        [
+          1920,
+          1027
+        ]
+      ]
+    },
+    {
+      "file": "session-20261006-070416-45172.jsonl",
+      "sha256": "478986fc4e24f46b145852af86080f3abde93ea886a5539a1b6b50ddb3ec23c9",
+      "summaries": 34,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 0,
+      "reset_failures": 0,
+      "reset_dimensions": []
+    },
+    {
+      "file": "session-20261006-070430-44100.jsonl",
+      "sha256": "cd851f1a6510d70c1a12ceba4eb5c926b98161561c4e74f1055c4631d501232d",
+      "summaries": 185,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 1,
+      "reset_failures": 0,
+      "reset_dimensions": [
+        [
+          1920,
+          1027
+        ]
+      ]
+    },
+    {
+      "file": "session-20261006-070525-24300.jsonl",
+      "sha256": "acc5336394e8d267b72e979661601573a0dde94520d66a03651861d8d40b6531",
+      "summaries": 514,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 2,
+      "reset_failures": 0,
+      "reset_dimensions": [
+        [
+          640,
+          480
+        ],
+        [
+          1920,
+          1027
+        ]
+      ]
+    },
+    {
+      "file": "session-20261006-070742-15368.jsonl",
+      "sha256": "67ad55a43d71faba875676f75a35c7701c31d39882c758048a3e6b4a9c5d7fe7",
+      "summaries": 575,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 2,
+      "reset_failures": 0,
+      "reset_dimensions": [
+        [
+          640,
+          480
+        ],
+        [
+          1920,
+          1027
+        ]
+      ]
+    },
+    {
+      "file": "session-20261006-071604-23648.jsonl",
+      "sha256": "8d11b339efbe5bbe092cc093ccfb1d4fab8bb0debcff5c1bd73107a9a672761a",
+      "summaries": 40,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 0,
+      "reset_failures": 0,
+      "reset_dimensions": []
+    },
+    {
+      "file": "session-20261006-071620-13264.jsonl",
+      "sha256": "5861e46396383c9c12bb6b7fd3fce5df60aad939e377f06c94c7c60c37e069cf",
+      "summaries": 354,
+      "present_failures": 0,
+      "bypass_suspected": 0,
+      "reset_success": 0,
+      "reset_failures": 0,
+      "reset_dimensions": []
+    }
+  ],
+  "projections": [
+    {
+      "file": "frame-14160-d1-00017190_C-racefov_75.jsonl",
+      "sha256": "41c086605f08c5eb673170378d2acb7a420beb2870d0345ee465c9aec6042f72",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-14160-d1-00073390_C-racemenufov_75.jsonl",
+      "sha256": "2a38fbaf1629c90b9a5648dc8ef0ab7e19b56d7b9d7775385d4dceb39f222929",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-15368-d1-00005010_F-race.jsonl",
+      "sha256": "ce3b1160b5b7a49c753dfc0edb5ef0b19359b119090fe365e230c4050d78e6aa",
+      "values": [
+        {
+          "vfov": 48.14062243661883,
+          "aspect": 1.8695229244453249,
+          "source_angle": 89.99999724232585
+        }
+      ]
+    },
+    {
+      "file": "frame-15368-d1-00024813_F-quickracemenu.jsonl",
+      "sha256": "fc3954501637e9afc47a3f4adeb587d64ba60426c70108218fcfac04874a9676",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-23772-d1-00001075.jsonl",
+      "sha256": "29a7c79362a7dee4c32721663eb67a8a784a80885b08b9f5d4bc6a667b4fa43d",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-24300-d1-00002768_E-quickracemenu.jsonl",
+      "sha256": "80ccb62eb92a14c191b6e6303bbd2403c6efe7509fea428ad1ef16ccd34665e2",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-24300-d1-00016881_E-race.jsonl",
+      "sha256": "5e39c108712e22a51c5305f1f5275e749efd5b7d50c79fdc6e819c3f489664f1",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-30924-d1-00001576.jsonl",
+      "sha256": "d1ad3abe3298f935d8371483e095e45f3d915dfdbbff4e56fd65a8dba9873bfe",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-30924-d1-00036661_B-quickrace-menu.jsonl",
+      "sha256": "05135ad6152180d609c3970f5bcb758dcddde398434031f242452c07d33de30f",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-30924-d1-00057222_B-racestart.jsonl",
+      "sha256": "02f2217b77ec6708ca4ad88acc01d8e1c7e7cf1f08c950cb06cab734dfbc4242",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-30924-d1-00090129_B-racemid_1920.jsonl",
+      "sha256": "48cf8a2cbc00a2a8b0a3b0ede9f796f5feeb94f0de98bffcf32e069426153414",
+      "values": [
+        {
+          "vfov": 48.14062243661883,
+          "aspect": 1.8695229244453249,
+          "source_angle": 89.99999724232585
+        }
+      ]
+    },
+    {
+      "file": "frame-37232-d1-00006091_D-quickracemenu.jsonl",
+      "sha256": "5fbdb57b27ffb9b4d5310c7b931be0456f1352bb74683df851575dbbec56476f",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-37232-d1-00016845_D-race.jsonl",
+      "sha256": "3d2e1d27eb9655aadf46727092941ddfe72920abf55fa06f7064c8e169f81d55",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-37232-d1-00023968_D-race_1920.jsonl",
+      "sha256": "7bd44f9d4b32055f6440cc21e431fc36a52177cae5725728fe693068a86a2ef2",
+      "values": [
+        {
+          "vfov": 48.14062243661883,
+          "aspect": 1.8695229244453249,
+          "source_angle": 89.99999724232585
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00005469_C-modeselectmenu_80.jsonl",
+      "sha256": "a3d7a1f393365b5b8eec6bf969c63653d4cc5d3d8f7feca33575c4a15e9a6a0f",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00015882_C-quickracemenu_80.jsonl",
+      "sha256": "a0cfdd0df388eb07386092fc09366f9176a03d7ca99da17bb228c78ee48ddc4d",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00034271_C-race_80.jsonl",
+      "sha256": "26d08bed76965a79d1e4dcfe4d2ae89cbbf4a1ea31875b0bf43f3a18757ef177",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00065494_C-race_80_1920.jsonl",
+      "sha256": "3567a11211909894b9b303dc9a707b22c3101c52620ef04e59454158be1ddd8c",
+      "values": [
+        {
+          "vfov": 48.14062243661883,
+          "aspect": 1.8695229244453249,
+          "source_angle": 89.99999724232585
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00076520_C-race_80-cam1.jsonl",
+      "sha256": "d9a076484238d4e8ced99bc684849a3c288aa197e7762e5bd0e6c614573cc958",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00089683_C-race_80-cam2.jsonl",
+      "sha256": "67457c8d5d5379441675a827739c340bf493b23a61633d45707d8f50231d7ed0",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00155394_C-race_80-cam3.jsonl",
+      "sha256": "553263f243f5b620c16906d59423a9d6cbdd6dcd64d864fbbbf42a7c07ec44ae",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00160993_C-race_80-cam4.jsonl",
+      "sha256": "b92b841fe7914e98fdfd8f6cc4ff9f8b07a85125a0b6849333b5b68b188ab8e1",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    },
+    {
+      "file": "frame-43240-d1-00190635_C_quickracemenu_80_1920.jsonl",
+      "sha256": "9ea6eb30f557a8993183d5cf570c9d59a40879178f5e585c5d14a9fcf13f2e42",
+      "values": [
+        {
+          "vfov": 24.07031241489259,
+          "aspect": 1.8695229958081971,
+          "source_angle": 45.00000257592924
+        }
+      ]
+    },
+    {
+      "file": "frame-46040-d1-00004213.jsonl",
+      "sha256": "c61085fa0ffc6dcbc5e1f750bc8658a301f3b3d25790e3c59034646c82376ccc",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-46040-d1-00015484.jsonl",
+      "sha256": "6a2874770305e281438f06e3db61151444cf42d5534a46a837354cdcffe057d6",
+      "values": [
+        {
+          "vfov": 33.74999834698896,
+          "aspect": 1.3333333333333333,
+          "source_angle": 44.99999779598528
+        }
+      ]
+    },
+    {
+      "file": "frame-46040-d1-00047420_race.jsonl",
+      "sha256": "91d88e8a3911866488b6d45d8c999e94036c1f791a89c17774af279ac046ed09",
+      "values": [
+        {
+          "vfov": 67.50000031008092,
+          "aspect": 1.3333333687347126,
+          "source_angle": 90.00000280303435
+        }
+      ]
+    }
+  ],
+  "broker_camera_setup": [
+    {
+      "file": "20261006-163731_gfx3-mainmenu.json",
+      "sha256": "90da96920b3ea8851e9026465836c96810f965106cb3a0de8fae50b7d3cef247",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-163803_a-gfx3_mainmenu.json",
+      "sha256": "e833807a6ae9ac0db5f2ecb7085a6d23d79f3c451df876a4a82ba48c6ee1f6f5",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-163956_a-gfx3_quickrace-menu.json",
+      "sha256": "c90c4a18a213c0f9cb13566d66b7a4381debe8e448b2882fc3b20f4c74b4905d",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-164038_a-gfx3_vehselect-menu.json",
+      "sha256": "5d1e23a458822e2b2837c535461931d1fad2306c2fec6e1b4a02036cce5447db",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-164919_gfx3-b_racefov.json",
+      "sha256": "699d84084596fbb2b27a3aa8c3738fd3cc70e0954692230bd8223f7b3ddf0bfa",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-165008_gfx3-c_racefov-75.json",
+      "sha256": "fbbe5ca643c01c0454c221ac4ec22774e681957e671407dd443399abf34df0a5",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-165332_gfx3-c_racefov-80.json",
+      "sha256": "821347086411c2a16ddcbbcf0a0dc07d4fb7bfcad4c953286907300380418420",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-165543_gfx3-c_racefov-80-cam1.json",
+      "sha256": "5cde380e68fdaac3ae2fddb0e8a05095316e006f593eea4a3319c43b166ee7bf",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-165634_gfx3-c_racefov-80-cam2.json",
+      "sha256": "c701458b77217ab3487665b76c2c2355bc6675fbf6866018294f5a1ec3cefb39",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-165933_gfx3-c_racefov-80-cam3.json",
+      "sha256": "4c935d7cd2b945ff6f0f1f913d1b1ceaf6368b52e197ef955db88f8b3bbfa9d7",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-170026_gfx3-c_racefov-80-cam4.json",
+      "sha256": "825cfa415712f9fa9dd1d2c34bc54b44ba9071fc6fdc53decba9a2769784d371",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    },
+    {
+      "file": "20261006-170658_gfx3-e_race.json",
+      "sha256": "9672ee74cd33f2e83dde1e8f72553e5a7e9e608a042eb3e61dce101b1a023fcf",
+      "values": {
+        "No Follow Cameras": "3",
+        "No Fixed Cameras": "2",
+        "FollowCamera 0  Dist Front": "14.00000",
+        "FollowCamera 0  Dist Back": "3.50000",
+        "FollowCamera 0  Dist Up": "0.65000",
+        "FollowCamera 0  Min Rot deg": "0.10000",
+        "FollowCamera 0  Max Rot deg": "5.00000",
+        "FollowCamera 0  UsePitchSystem": "False",
+        "FollowCamera 0  Pitch Limit deg": "50.00000",
+        "FollowCamera 0  Smooth Camera Multi": "0.30000",
+        "FollowCamera 0  Body Dir Multi": "0.30000",
+        "FollowCamera 0  FOV": "90.00000",
+        "FollowCamera 0  Accel": "True",
+        "FollowCamera 1  Dist Front": "14.00000",
+        "FollowCamera 1  Dist Back": "4.00000",
+        "FollowCamera 1  Dist Up": "0.65000",
+        "FollowCamera 1  Min Rot deg": "0.10000",
+        "FollowCamera 1  Max Rot deg": "5.00000",
+        "FollowCamera 1  UsePitchSystem": "True",
+        "FollowCamera 1  Pitch Limit deg": "80.00000",
+        "FollowCamera 1  Smooth Camera Multi": "0.70000",
+        "FollowCamera 1  Body Dir Multi": "0.30000",
+        "FollowCamera 1  FOV": "90.00000",
+        "FollowCamera 1  Accel": "True",
+        "FollowCamera 2  Dist Front": "10.00000",
+        "FollowCamera 2  Dist Back": "3.50000",
+        "FollowCamera 2  Dist Up": "0.70000",
+        "FollowCamera 2  Min Rot deg": "0.10000",
+        "FollowCamera 2  Max Rot deg": "5.00000",
+        "FollowCamera 2  UsePitchSystem": "False",
+        "FollowCamera 2  Pitch Limit deg": "50.00000",
+        "FollowCamera 2  Smooth Camera Multi": "0.30000",
+        "FollowCamera 2  Body Dir Multi": "0.30000",
+        "FollowCamera 2  FOV": "90.00000",
+        "FollowCamera 2  Accel": "False",
+        "FixedCamera 0  Type": "0",
+        "FixedCamera 0  Dist forward/back": "4.00000",
+        "FixedCamera 0  Dist up/down": "0.50000",
+        "FixedCamera 0  Dist right/left": "0.00000",
+        "FixedCamera 0  InvertLook": "False",
+        "FixedCamera 0  FlattenDir": "False",
+        "FixedCamera 0  FOV": "90.00000",
+        "FixedCamera 1  Type": "1",
+        "FixedCamera 1  Dist forward/back": "4.00000",
+        "FixedCamera 1  Dist up/down": "0.50000",
+        "FixedCamera 1  Dist right/left": "0.00000",
+        "FixedCamera 1  InvertLook": "False",
+        "FixedCamera 1  FlattenDir": "False",
+        "FixedCamera 1  FOV": "90.00000"
+      }
+    }
+  ]
+}

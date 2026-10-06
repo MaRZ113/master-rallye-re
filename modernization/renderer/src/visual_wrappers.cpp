@@ -12,7 +12,7 @@ bool site(uintptr_t pc,uint32_t& rva) noexcept {
 HRESULT STDMETHODCALLTYPE Device8::SetTextureStageState(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD value){
  auto guard=trace.guard();auto args=pack(stage,type,value);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(63,args,pc);
  DWORD effective=visuals.filter(stage,type,value);
- if(effective!=value&&(type==D3DTSS_MINFILTER||type==D3DTSS_MAGFILTER)){
+ if(effective!=value&&type==D3DTSS_MINFILTER){
   auto& max=trace.effective_shadow.tss[0][D3DTSS_MAXANISOTROPY];
   if(!max.known||max.value!=visuals.effective.max_anisotropy){
    DWORD requested_max=visuals.effective.max_anisotropy;HRESULT extra=real_->SetTextureStageState(0,D3DTSS_MAXANISOTROPY,requested_max);

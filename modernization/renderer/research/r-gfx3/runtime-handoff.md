@@ -1,26 +1,12 @@
-# Human R-GFX3 test â€” A through F
+# Short retest for the final R-GFX3 fixes
 
-Use an isolated stock installation with pristine EXE SHA256 bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4. Preserve the historical R-GFX2 DLL and original assets; use the new renderer/.build-msvc/Release/d3d8.dll for this test. Its identity is in data/build.json. No installation/deployment was performed by Codex. Config MRRRenderer.ini goes beside this DLL, logs in MRRRenderer/logs. Completely restart the game between config changes; no hot reload. F10 remains a complete-frame capture with the previously accepted brief hitch.
+Status READY_FOR_SHORT_RETEST. Do not repeat the full A–F protocol. Previous observations belong to DLL307a5fe4c83d95bd14d460cf767aa751e94b7f0a8e962c8c29c67681f2c17313; final candidate SHA25644a76a3a3e96573393b7ee1e492734b62d9c2ef8baae369711ce7c419615efef, size1016320, PE32/I386. Candidate: modernization/renderer/.build-msvc/Release/d3d8.dll. No deployment was performed by this task. Preserve existing game EXE/assets and use the already established human test installation; verify the session header matches this candidate hash before accepting results.
 
-For each config copy the full MRRRenderer.ini.example, set only the values in the table, and keep Trace.Enabled=true. Keep ConfigVersion=1.
+Read MRRRenderer.ini beside DLL once at startup; ConfigVersion=1, tracing and frame summaries enabled. Restart between A and B.
 
-| Run | AnisotropicFiltering / MaxAnisotropy | GameplayFOV / VerticalFOVDegrees | Shadows.Mode | Required observation |
-|---|---|---|---|---|
-| A Stock | false /16 (or no INI) | false /75 | Stock | boot/menu/Quick Race/results/return frontend; no visible difference from R-GFX2; one active F10 frame |
-| B AF | true /16 | false /75 | Stock | oblique road/terrain improvement, caps respected; no significant HUD/menu/vegetation artifacts; session+active F10 |
-| C FOV | false /16 | true /80 | Stock | wider gameplay; unchanged HUD/menu640x480, sky placement; session+race F10+menu F10 |
-| D Combined | true /16 | true /80 | Stock | several minutes, race/frontend transitions; no filter/projection leaks; session+frame |
-| E Shadow | false /16 | false /75 | Off | only projected car shadow disappears; vehicle, trails, particles, world and HUD remain; restore Stock after restart and compare; session+frame |
-| F Pristine Reset | true /16 | true /80 | Stock | safe minimize/restore while racing; S_OK Reset and continuing AF/FOV/HUD, session+post-reset F10 |
+1. **A — AF MIN-only:** AnisotropicFiltering=true, MaxAnisotropy=16, GameplayFOV=false, Shadows.Mode=Stock. Visit Quick Race menu and race; one F10 in race. PASS: eligible stage0 LINEAR MIN becomes ANISOTROPIC (caps clamped); MAG logical==effective for every observed setter/draw, MIP and stage1 unchanged; POINT MIN unchanged. Inspect textures, menu and alpha cards for regression. FAIL: any MAG override, stage1 change or visual regression. MAX may differ for eligible AF MIN.
+2. **B — preview exclusion and five race cameras:** AF=false, GameplayFOV=true, VerticalFOVDegrees=80.0, shadowStock. Compare Quick Race 3D preview with Stock: it must remain unchanged. In race cycle default,cam1,cam2,cam3,cam4: all should use80 VFOV; HUD unchanged. One menu F10 and one race F10 suffice; no five separate captures unless a camera fails. PASS trace: preview original/effective matrices identical and no FOV feature bit; race original90 source-family receives80 effective VFOV, original aspect retained and all14 other coefficients bit-identical. FAIL: preview changes, race camera misses override, HUD/Z/aspect changes.
 
-F is mandatory coverage: if minimize/restore produces no actual Reset, report NOT_OBSERVED; do not treat a resize or recovered window as Reset proof. Earlier R-GFX2 Reset was UNKNOWN_BUILD only.
+Optional lightweight1920x1027 check: preview remains source45 stock, race source90 becomes80. Existing pristine Reset and shadow validation remain recorded against the pre-fix hash; full rerun is not required. The native regression suite covers unchanged contracts, but does not constitute a new human visual PASS.
 
-Return each session/frame pair with labels A..F and brief visible observations (road sharper, artifacts, UI change, FOV/culling, shadow-only disappearance, recovery). Screenshots aid A/B but traces can be checked without them. Check frontend3D preview/replay/split-screen if accessible: the projection setter is shared, and those consumers are not fully covered by existing evidence. Report exposed upstream culling at wider FOV explicitly.
-
-PASS requires trace and human observations: requested/effective AF matches caps, stage1/MIP/POINT remain stock; projection changes only recognized symmetric perspective X/Y and preserves Z, UI ortho remains unchanged; Off suppresses only exact shadow call and Stock restores it; default-off has no visible regression; pristine Reset is actually observed and preserves features. Any unexpected draw disappearance, projection/filter leakage, crash, broken alpha/UI or failed recovery is FAIL. Do not close R-GFX3 or start R-GFX4 until the human acceptance set is evaluated.
-
-Offline check from repository root:
-```powershell
-python modernization/renderer/tools/summarize_visual_trace.py <frame.jsonl> --output modernization/renderer/.analysis/<label>-summary.json
-```
-Raw captures/screenshots/DLLs stay external or ignored; commit compact hashes and derived findings only.
+Record new DLL hash, config, menu/race observations and F10 filenames. CLOSED only after A and B human PASS. After that, next proposed phase is R-GFX4 — Vehicle Reflection / Lighting Inputs; it is not started here.
