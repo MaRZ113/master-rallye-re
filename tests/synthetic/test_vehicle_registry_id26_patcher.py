@@ -73,6 +73,8 @@ def retail_layout_fixture() -> bytes:
         fixed[call_va] = patcher._rel32_call(call_va, patcher.QUICKRACE_SELECTOR_GETTER_VA)
     for call_va in patcher.QUICKRACE_LOCALIZATION_CALLS:
         fixed[call_va] = bytes.fromhex("506a358bceff570c")
+    for hook_va, _slot, _label, _group_va, _call_va, _resume_va in patcher.RACE_DETAILS_LOCALIZATION_CALLS:
+        fixed[hook_va] = bytes.fromhex("506a358bceff570c")
     for va, raw in fixed.items():
         put(va, raw)
     for va, disp in patcher.SECONDARY_INIT_LEAS:
@@ -401,6 +403,137 @@ class VehicleRegistryId26PatcherTests(unittest.TestCase):
         self.assertEqual(len(f2e_manifest["operations"]), 72)
         self.assertFalse(any(op["category"] == "race-options-display-string-override"
                              for op in f2e_manifest["operations"]))
+
+    def test_g1_race_details_wraps_all_three_carid_group35_branches(self) -> None:
+        source = retail_layout_fixture()
+        candidate, manifest = patcher.make_candidate(
+            source, expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_G1_STOCK_UNLOCK,
+        )
+        rebuilt, rebuilt_manifest = patcher.make_candidate(
+            source, expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_G1_STOCK_UNLOCK,
+        )
+        self.assertEqual(candidate, rebuilt)
+        self.assertEqual(manifest, rebuilt_manifest)
+        self.assertEqual(len(manifest["operations"]), 78)
+
+        structural = manifest["structural_self_check"]
+        self.assertEqual(structural["display_selector"]["race_id_unchanged"], 26)
+        self.assertEqual(structural["display_selector"]["id26_string_by_context"][
+            "0x35_race_details"], "MERCEDES ML-320")
+        writer = structural["frontend_writer_hooks"]["RaceDetailsCurrentVehicleString"]
+        self.assertEqual(writer["writer"], "0x0047C080")
+        self.assertEqual(writer["broker_field"], "Frontend/RaceDetails/CurrentVehicleString")
+        self.assertEqual(writer["selector_source"],
+                         "RaceData/CompetitorN/CarID via FUN_004B0AF0/FUN_004B0630")
+        self.assertEqual(writer["shared_modes"], ["MASTER RALLYE", "RALLYE CUP"])
+        self.assertEqual(len(writer["lookup_sites"]), 3)
+
+        operations = {item["name"]: item for item in manifest["operations"]}
+        payload = bytes.fromhex(operations["id26_code_cave_payload"]["replacement_bytes"])
+        expected_original = bytes.fromhex("506a358bceff570c")
+        for hook_va, slot, label, group_va, call_va, resume_va in patcher.RACE_DETAILS_LOCALIZATION_CALLS:
+            operation = operations[f"race_details_name_string_override_{label}"]
+            self.assertEqual(operation["virtual_address"], hook_va)
+            self.assertEqual(operation["original_bytes"], expected_original.hex())
+            replacement = bytes.fromhex(operation["replacement_bytes"])
+            self.assertEqual(len(replacement), 8)
+            self.assertEqual(replacement[5:], b"\x90" * 3)
+            wrapper_va = int(structural["code_entrypoints"][
+                f"race_details_name_lookup_{label}"], 16)
+            self.assertEqual(hook_va + 5 + struct.unpack_from("<i", replacement, 1)[0],
+                             wrapper_va)
+
+            wrapper = payload[wrapper_va - patcher.STUB_VA:]
+            self.assertEqual(wrapper[:5], bytes.fromhex("3d1a000000"))
+            self.assertEqual(wrapper[5:7], b"\x0f\x84")
+            id26_branch_va = wrapper_va + 11 + struct.unpack_from("<i", wrapper, 7)[0]
+            self.assertEqual(wrapper[11:19], expected_original)
+            self.assertEqual(wrapper[19], 0xE9)
+            stock_resume_delta = struct.unpack_from("<i", wrapper, 20)[0]
+            self.assertEqual(wrapper_va + 24 + stock_resume_delta, resume_va)
+
+            id26_offset = id26_branch_va - patcher.STUB_VA
+            self.assertEqual(payload[id26_offset], 0xB8)
+            string_va = struct.unpack_from("<I", payload, id26_offset + 1)[0]
+            self.assertEqual(string_va, int(structural["code_entrypoints"]["quickrace_display_text"], 16))
+            self.assertEqual(payload[string_va - patcher.STUB_VA:].split(b"\x00", 1)[0],
+                             b"MERCEDES ML-320")
+            self.assertEqual(payload[id26_offset + 5], 0xE9)
+            id26_resume_delta = struct.unpack_from("<i", payload, id26_offset + 6)[0]
+            self.assertEqual(id26_branch_va + 10 + id26_resume_delta, resume_va)
+            self.assertIn({
+                "branch": label,
+                "participant_slot": slot,
+                "hook_va": f"0x{hook_va:08X}",
+                "group_push_va": f"0x{group_va:08X}",
+                "lookup_call_va": f"0x{call_va:08X}",
+                "resume_va": f"0x{resume_va:08X}",
+            }, writer["lookup_sites"])
+
+        self.assertEqual(structural["id26"]["id"], 26)
+        self.assertEqual(structural["id26"]["class"], 0)
+        self.assertEqual(len([item for item in manifest["operations"]
+                              if item["category"] == "race-details-display-string-override"]), 3)
+
+    def test_g1_race_details_wrapper_bounded_x86_control_flow(self) -> None:
+        source = retail_layout_fixture()
+        _candidate, manifest = patcher.make_candidate(
+            source, expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_G1_STOCK_UNLOCK,
+        )
+        structural = manifest["structural_self_check"]
+        operations = {item["name"]: item for item in manifest["operations"]}
+        payload = bytes.fromhex(operations["id26_code_cave_payload"]["replacement_bytes"])
+        expected_lookup = bytes.fromhex("506a358bceff570c")
+        text_va = int(structural["code_entrypoints"]["quickrace_display_text"], 16)
+
+        for _hook, _slot, label, _group, _call, resume_va in patcher.RACE_DETAILS_LOCALIZATION_CALLS:
+            helper_va = int(structural["code_entrypoints"][f"race_details_name_lookup_{label}"], 16)
+            helper = payload[helper_va - patcher.STUB_VA:]
+            self.assertEqual(helper[:5], bytes.fromhex("3d1a000000"))  # cmp eax, 26
+            self.assertEqual(helper[5:7], b"\x0f\x84")              # je id26
+            id26_va = helper_va + 11 + struct.unpack_from("<i", helper, 7)[0]
+            self.assertEqual(helper[11:19], expected_lookup)
+            stock_jump = helper_va + 24 + struct.unpack_from("<i", helper, 20)[0]
+            self.assertEqual(stock_jump, resume_va)
+
+            # Bounded x86 path model: execute the cmp/je decision, then decode
+            # either the preserved stock gaLocal call sequence or ID26 return.
+            def emulate(selector: int) -> dict[str, object]:
+                if selector == 26:
+                    branch = payload[id26_va - patcher.STUB_VA:]
+                    self.assertEqual(branch[0], 0xB8)  # mov eax, Mercedes string
+                    result_eax = struct.unpack_from("<I", branch, 1)[0]
+                    self.assertEqual(branch[5], 0xE9)
+                    jump_to = id26_va + 10 + struct.unpack_from("<i", branch, 6)[0]
+                    return {"branch": "id26", "lookup_calls": 0,
+                            "eax": result_eax, "resume": jump_to}
+                self.assertEqual(helper[11:19], expected_lookup)
+                return {"branch": "stock", "lookup_calls": 1,
+                        "group": 0x35, "selector": selector,
+                        "eax": 0x12345678, "resume": stock_jump}
+
+            mercedes = emulate(26)
+            self.assertEqual(mercedes, {"branch": "id26", "lookup_calls": 0,
+                                        "eax": text_va, "resume": resume_va})
+            for stock_id in (0, 3, 25):
+                stock = emulate(stock_id)
+                self.assertEqual(stock, {"branch": "stock", "lookup_calls": 1,
+                                         "group": 0x35, "selector": stock_id,
+                                         "eax": 0x12345678, "resume": resume_va})
+
+    def test_non_g1_profiles_do_not_gain_race_details_hooks(self) -> None:
+        source = retail_layout_fixture()
+        _candidate, manifest = patcher.make_candidate(
+            source, expected_sha256=patcher.sha256(source),
+            id26_profile=patcher.ID26_MERCEDES_F2F,
+        )
+        self.assertFalse(any(item["category"] == "race-details-display-string-override"
+                             for item in manifest["operations"]))
+        self.assertNotIn("RaceDetailsCurrentVehicleString",
+                         manifest["structural_self_check"]["frontend_writer_hooks"])
 
     def test_frontend_identity_writer_order_keeps_model_and_manufacturer_split(self) -> None:
         # Deterministic semantic model of the independently verified native

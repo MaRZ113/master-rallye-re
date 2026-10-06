@@ -1,101 +1,46 @@
 # Frontend vehicle identity writers
 
-The same vehicle can pass through several independent presentation writers.
-The string already present in a Broker path is not guaranteed to refresh when
-Vehicle Select changes; each consumer has its own owner and timing.
+Vehicle identity presentation uses separate writers. A correct value in
+Vehicle Select, Quick Race, or runtime race state does not guarantee that a
+different screen refreshes its own Broker string correctly.
 
-## Confirmed vehicle-name consumers using group `0x35`
+## Consumer map
 
-| Owner | Lookup VA(s) | Consumer | ID26 handling in this correction |
-|---|---|---|---|
-| `FUN_0044F8E0` | `0x0044FA29` | Vehicle Setup `CarName`; EDI is physical ID | new ID26-only combined string wrapper |
-| `FUN_0045EB30` | `0x0045EC5A`, `0x0045ECBF` | Challenge preview `Car1Text` / `Car2Text` | unchanged; Challenge opponent pool is out of scope |
-| `FUN_0047B040` | `0x0047B0B4`, `0x0047B13F`, `0x0047B1BF` | Quick Race summary strings | existing ID26-only direct string wrappers |
-| `FUN_0047C080` | `0x0047C0F6`, `0x0047C182`, `0x0047C201` | Race Details `CurrentVehicleString` | prior bounded xref map: group `0x35`; ID26 override pending; mode-specific caller/input not revalidated in this pass |
-| `FUN_004803A0` | `0x004805E6` | Trophy `VehicleUnlockedText2` | unchanged; reward presentation is separate |
+| Channel | Broker output | Producer / lookup | Input identity | ID26 presentation | Current status |
+|---|---|---|---|---|---|
+| Vehicle Select manufacturer | `Frontend/VehicleSelect/ManufacturerName` | `FUN_004819B0`, group `0x33` | selected registry vehicle / absolute ID | `MERCEDES` | runtime confirmed |
+| Vehicle Select model | `Frontend/VehicleSelect/ModelName` | `FUN_004819B0`, group `0x34` | selected registry vehicle / absolute ID | `ML-320` | runtime confirmed |
+| Quick Race combined name | `Frontend/QuickRace/CurrentVehicleString` | `FUN_0047B040`, group `0x35`, three lookup sites | selected absolute vehicle ID | `MERCEDES ML-320` | runtime confirmed |
+| Race Options manufacturer | `Frontend/QuickRace/CurrentManufacturerString` | `FUN_0047A540`, lookup `0x0047A65F`, group `0x33` | selected ID from `FUN_004ADFB0`, retained in ESI | `MERCEDES` | runtime confirmed |
+| Race Options model | `Frontend/QuickRace/CurrentVehicleString` | `FUN_0047A540`, lookup `0x0047A6C4`, group `0x34` | selected ID from `FUN_004ADFB0`, retained in ESI | `ML-320` | runtime confirmed |
+| Vehicle Setup combined name | `Frontend/VehicleSetup/CarName` | `FUN_0044F8E0`, lookup `0x0044FA29`, group `0x35` | EDI physical Vehicle ID | `MERCEDES ML-320` | prior channel pass |
+| Race Details combined name | `Frontend/RaceDetails/CurrentVehicleString` | `FUN_0047C080`, group `0x35`, three lookup sites | absolute `RaceData/CompetitorN/CarID` via `FUN_004B0AF0` / `FUN_004B0630` | `MERCEDES ML-320` | final G.1 candidate ready for human runtime |
 
-These ten sites are the vehicle-name group-0x35 consumers found in the bounded
-retail xref inventory. The Vehicle Setup bug was the uncovered consumer in the
-current ID26 frontend flow. No global `gaLocal` behavior is changed.
+The Race Details writer is shared by Master Rallye and Rallye Cup. The normal
+single-player path looks up Competitor0; the same writer also has split-screen
+Competitor0 and Competitor1 branches. Their exact instruction spans and
+resume addresses are in `../unlock/racedetails-localization.md` and the G.1
+candidate manifest.
 
-## Other retail pushes of group `0x35`
+The Race Details pre-fix captures had `RaceData/Competitor0/CarID=26` and
+`Race/Car0/CarID=26`, but the Broker output was `GALOCAL UNKNOWN` in both
+modes. This was an independent group-`0x35` lookup, not a wrong mode or physical
+ID alias. The final candidate returns the existing combined Mercedes string
+only when the absolute selector is 26; every other ID executes the original
+group-`0x35` lookup unchanged. Both modes use this same semantic fix.
 
-The other ten static pushes in the bounded xref inventory are not vehicle-name
-lookups: `0x00460E50` routes through progress helpers; `0x00465F53`,
-`0x00481612`, `0x004817D9`, `0x00482D5E`, `0x004837FE`, `0x0048423E`, and
-`0x0048505E` route through menu/action-index handling; `0x004AF87A` routes
-through an indexed helper; and `0x005CFB68` is a generic storage/helper path.
-They are not patched.
+The Vehicle Select lock-requirement text is a separate group-6 channel:
+`FUN_004819B0` uses the generic `CAR LOCKED` selector and an ID-dependent
+requirement selector. ID26 mirrors stock ID3's requirement selector 9. This
+does not change any vehicle-name localization group.
 
-## Other vehicle identity channels
+`Race/CarN/CarID`, `CarType`, and `WheelType` describe physical/runtime
+identity, not localization selectors. The fixes are presentation-only and
+retain physical CarID 26 and the Mercedes runtime family. No global `gaLocal`
+behavior or donor localization entry is changed.
 
-* Vehicle Select `FUN_004819B0`: manufacturer group `0x33`, model group
-  `0x34`; the existing ID26 wrappers return `MERCEDES` / `ML-320`.
-* Quick Race summary: group `0x35`; existing hooks return `MERCEDES ML-320`.
-* Race Options `FUN_0047A540`: manufacturer group `0x33` at `0x0047A65F`,
-  model group `0x34` at `0x0047A6C4`; existing hooks keep the split semantics.
-* Vehicle Setup `FUN_0044F8E0`: combined group `0x35` name; the new wrapper
-  returns the exact existing `MERCEDES ML-320` spelling.
-* Race Details `Frontend/RaceDetails/CurrentVehicleString`: two new runtime
-  captures show `GALOCAL UNKNOWN` while `Race/Car0/CarID=26`. Master Rallye
-  reports `Race="MASTER RALLYE"`; Rallye Cup reports `Race="RALLYE CUP"`.
-  `CurrentRaceString` is respectively `LEG 1/10 - FRANCE` and `RACE 1/3`.
-  Existing static xref inventory names `FUN_0047C080` and three group-0x35
-  sites, but the mode-specific entry and identity input are not established by
-  these captures. Do not infer direct use of `Race/Car0/CarID` from co-presence.
-* Runtime `CarType` and `WheelType` remain registry/runtime identity and are
-  not localization selectors.
-
-## Writer chronology relevant to ID26
-
-Vehicle Select writes its own manufacturer/model state. The Quick Race summary
-path has three group-0x35 lookups and may leave its prior Broker value until
-that screen refreshes. Race Options independently writes the manufacturer and
-model fields. Vehicle Setup then independently computes `CarName` from the
-selected physical ID and was the path that emitted `GALOCAL UNKNOWN` for ID26.
-The correction addresses this last writer without changing the earlier
-consumers or physical identity.
-
-## Failure classification from the captures
-
-* **Stale value — confirmed:** after Vehicle Select reports ID26, the Quick
-  Race key can still contain prior donor text until its own screen refresh runs.
-* **Independent lookup — confirmed:** the Race Options refresh
-  `FUN_0047A540` sends physical ID26 into groups `0x33` and `0x34`. The earlier
-  F.2e candidate therefore produced `GALOCAL UNKNOWN`; F.2f added bounded
-  ID26-only manufacturer/model wrappers.
-* **Post-override overwrite — not supported:** the capture/reference sequence
-  did not show a correct Race Options string being written and then replaced by
-  `GALOCAL UNKNOWN`.
-* **Split identity path — confirmed:** the manufacturer key is written only by
-  the group-0x33 path, while the combined group-0x35 Quick Race writer can
-  refresh `CurrentVehicleString` later without touching the manufacturer key.
-  This explains how a combined Mercedes value could coexist with a stale
-  manufacturer value in the earlier capture.
-
-Vehicle Setup is another independent group-0x35 lookup. Its ID26 failure is
-not a stale Quick Race field: `FUN_0044F8E0` passes the physical ID into the
-group-0x35 table and receives `GALOCAL UNKNOWN` at `0x0044FA29`. The G.1
-correction adds an ID26-only return at that consumer and leaves all unrelated
-group-0x35 calls unchanged.
-
-## Race Details failure and scope gate
-
-The Master Rallye and Rallye Cup captures independently show the correct
-physical `CarID=26` at Race Details while their shared Broker output path says
-`GALOCAL UNKNOWN`. This confirms a separate presentation failure, not a
-physical ID alias. No Race Details patch was added: the same captures show the
-running Root lacked the generated loose VehicleSelect scene, so this correction
-first fixes staging and requires a postlaunch Root-header check. After that
-deployment gate, revalidate the static `FUN_0047C080` consumers and trace the
-mode-specific source before implementing a bounded ID26 display fix.
-
-The proven screen order is therefore: Vehicle Select writes its own identity;
-the Quick Race summary refresh writes the combined string; Quick Mode Select /
-Race Options independently writes manufacturer and model; returning to the
-Quick Race summary invokes its own refresh again. The active-race capture shows
-the combined-name path can refresh while the separate manufacturer key remains
-from its prior writer. No distinct race-launch-only writer for these keys was
-isolated, and the new G.1 candidate has not yet been captured on frontend
-return; those states should not be assigned a separate writer without new
-evidence.
+The failed first lock-control run used a Root without the generated
+VehicleSelect scene. That deployment issue is resolved: corrected-root runtime
+testing confirmed locked art, disabled acceptance, and natural unlock. It is
+recorded separately from the still-pending Race Details visual test in
+`../unlock/runtime-captures.json`.

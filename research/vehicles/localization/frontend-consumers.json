@@ -27,7 +27,11 @@
         {
           "function": "0x0047B040",
           "caller": "0x0047AB30",
-          "lookup_vas": ["0x0047B0B4", "0x0047B13F", "0x0047B1BF"],
+          "lookup_vas": [
+            "0x0047B0B4",
+            "0x0047B13F",
+            "0x0047B1BF"
+          ],
           "group": "0x35",
           "id26_f2e_result": "MERCEDES ML-320",
           "manufacturer_key_written": false
@@ -47,20 +51,33 @@
     },
     {
       "function": "0x0045EB30",
-      "lookup_vas": ["0x0045EC5A", "0x0045ECBF"],
-      "paths": ["Frontend/Challenge/Car1Text", "Frontend/Challenge/Car2Text"],
+      "lookup_vas": [
+        "0x0045EC5A",
+        "0x0045ECBF"
+      ],
+      "paths": [
+        "Frontend/Challenge/Car1Text",
+        "Frontend/Challenge/Car2Text"
+      ],
       "source_id": "RaceTest identity fields",
       "scope": "unchanged"
     },
     {
       "function": "0x0047C080",
-      "lookup_vas": ["0x0047C0F6", "0x0047C182", "0x0047C201"],
+      "lookup_vas": [
+        "0x0047C0F6",
+        "0x0047C182",
+        "0x0047C201"
+      ],
       "path": "Frontend/RaceDetails/CurrentVehicleString",
       "group": "0x35",
-      "source_id": "UNKNOWN from retained call-flow evidence; Race/Car0/CarID=26 is present in both mode captures, but direct consumption is not proven",
-      "mode_specific_call_site": "UNKNOWN; both captured modes expose the same Broker field",
+      "source_id": "absolute CarID from RaceData/CompetitorN/CarID; accessor initialized by FUN_004B0AF0 and read by FUN_004B0630",
+      "mode_specific_call_site": "one shared writer FUN_0047C080 for MASTER RALLYE and RALLYE CUP; single-player competitor0 plus split-screen competitor0/competitor1 branches",
       "runtime_id26_result": "GALOCAL UNKNOWN in Master Rallye and Rallye Cup",
-      "scope": "observed failure; producer/source path revalidation pending runtime scene provenance"
+      "scope": "three exact ID26-only hooks; physical participant ID is unchanged",
+      "runtime_id26_result_before_fix": "GALOCAL UNKNOWN in Master Rallye and Rallye Cup",
+      "g1_final_candidate_id26_result": "MERCEDES ML-320; READY_FOR_HUMAN_RUNTIME",
+      "stock_ids": "original group-0x35 lookup replayed unchanged"
     },
     {
       "function": "0x004803A0",
@@ -86,7 +103,10 @@
     "function": "0x004819B0",
     "manufacturer_group": "0x33",
     "model_group": "0x34",
-    "id26_values": ["MERCEDES", "ML-320"]
+    "id26_values": [
+      "MERCEDES",
+      "ML-320"
+    ]
   },
   "locked_requirement": {
     "function": "0x004819B0",
@@ -96,27 +116,108 @@
   },
   "race_details_runtime_observations": {
     "broker_field": "Frontend/RaceDetails/CurrentVehicleString",
-    "master_rallye": {
+    "master_rallye_before_fix": {
       "mode": "MASTER RALLYE",
       "current_race_string": "LEG 1/10 - FRANCE",
-      "race_car0_id": 26,
+      "RaceData/Competitor0/CarID": 26,
+      "Race/Car0/CarID": 26,
       "vehicle_string": "GALOCAL UNKNOWN"
     },
-    "rallye_cup": {
+    "rallye_cup_before_fix": {
       "mode": "RALLYE CUP",
       "current_race_string": "RACE 1/3",
-      "race_car0_id": 26,
+      "RaceData/Competitor0/CarID": 26,
+      "Race/Car0/CarID": 26,
       "vehicle_string": "GALOCAL UNKNOWN"
     },
-    "producer_shared_between_modes": "NOT PROVEN",
-    "identity_input": "UNKNOWN",
-    "static_candidate_consumer": "FUN_0047C080, group 0x35, three lookup sites as recorded by the prior bounded xref inventory",
-    "fix": "DEFERRED until the corrected loose VehicleSelect scene is confirmed under the running process Root"
+    "producer_shared_between_modes": true,
+    "writer": "FUN_0047C080",
+    "identity_accessor": "FUN_004B0AF0 / FUN_004B0630",
+    "identity_input": "absolute RaceData/CompetitorN/CarID returned in EAX",
+    "localization_group": "0x35",
+    "fix": "ID26-only string return; original lookup replayed for all other IDs",
+    "candidate_status": "READY_FOR_HUMAN_RUNTIME"
   },
   "intervention_scope": {
     "vehicle_setup_hook": "ID26 only at 0x0044FA29",
     "locked_reason_hook": "ID26 only at 0x00481ACF",
     "global_gaLocal_changed": false,
-    "physical_vehicle_id_changed": false
-  }
+    "physical_vehicle_id_changed": false,
+    "race_details_hook_sites": [
+      "0x0047C0F5",
+      "0x0047C181",
+      "0x0047C200"
+    ],
+    "race_details_physical_vehicle_id_changed": false
+  },
+  "localization_channel_matrix": [
+    {
+      "channel": "Vehicle Select manufacturer",
+      "broker_output": "Frontend/VehicleSelect/ManufacturerName",
+      "producer": "FUN_004819B0",
+      "group": "0x33",
+      "identity_input": "absolute Vehicle ID / selected registry record",
+      "id26": "MERCEDES",
+      "fix": "bounded ID26 display wrapper"
+    },
+    {
+      "channel": "Vehicle Select model",
+      "broker_output": "Frontend/VehicleSelect/ModelName",
+      "producer": "FUN_004819B0",
+      "group": "0x34",
+      "identity_input": "absolute Vehicle ID / selected registry record",
+      "id26": "ML-320",
+      "fix": "bounded ID26 display wrapper"
+    },
+    {
+      "channel": "Quick Race combined vehicle display",
+      "broker_output": "Frontend/QuickRace/CurrentVehicleString",
+      "producer": "FUN_0047B040",
+      "group": "0x35",
+      "identity_input": "selected absolute vehicle ID",
+      "id26": "MERCEDES ML-320",
+      "fix": "existing ID26-only wrapper"
+    },
+    {
+      "channel": "Race Options manufacturer",
+      "broker_output": "Frontend/QuickRace/CurrentManufacturerString",
+      "producer": "FUN_0047A540",
+      "group": "0x33",
+      "identity_input": "FUN_004ADFB0 selected absolute ID retained in ESI",
+      "id26": "MERCEDES",
+      "fix": "existing ID26-only bounded wrapper"
+    },
+    {
+      "channel": "Race Options model",
+      "broker_output": "Frontend/QuickRace/CurrentVehicleString",
+      "producer": "FUN_0047A540",
+      "group": "0x34",
+      "identity_input": "FUN_004ADFB0 selected absolute ID retained in ESI",
+      "id26": "ML-320",
+      "fix": "existing ID26-only bounded wrapper"
+    },
+    {
+      "channel": "Vehicle Setup vehicle name",
+      "broker_output": "Frontend/VehicleSetup/CarName",
+      "producer": "FUN_0044F8E0",
+      "group": "0x35",
+      "identity_input": "EDI absolute physical Vehicle ID",
+      "id26": "MERCEDES ML-320",
+      "fix": "G.1 ID26-only wrapper"
+    },
+    {
+      "channel": "Race Details combined vehicle name",
+      "broker_output": "Frontend/RaceDetails/CurrentVehicleString",
+      "producer": "FUN_0047C080",
+      "group": "0x35",
+      "identity_input": "absolute RaceData/CompetitorN/CarID via FUN_004B0AF0/FUN_004B0630",
+      "id26": "MERCEDES ML-320",
+      "fix": "final G.1 candidate: three ID26-only wrappers; non-ID26 native lookup replayed",
+      "candidate_status": "READY_FOR_HUMAN_RUNTIME",
+      "shared_modes": [
+        "MASTER RALLYE",
+        "RALLYE CUP"
+      ]
+    }
+  ]
 }

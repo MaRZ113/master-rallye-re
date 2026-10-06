@@ -24,10 +24,14 @@ R5V-F established physical retail ID26 at sparse T1 local7. The owner reports
 F.2f closed for Mercedes frontend identity and core gameplay: Race Options now
 shows the split `MERCEDES` / `ML-320` identity across re-entry, and active-race
 CarID/runtime family remain ID26/Mercedes. No full stage/results/return claim
-was made. R5V-G.1 maps the separate class-reachability and per-vehicle
-availability layers and prepares an ID26 policy that mirrors the stock T1
-CupCar1 predicate. Its fresh-versus-progressed runtime comparison is pending.
-See `research/r5v_f_2f/findings.md` and `research/r5v_g1/`.
+was made. R5V-G.1 maps class reachability separately from per-vehicle
+availability. Human runtime testing confirms the Mercedes stays locked, shows
+stock locked art, and cannot be committed until the T1 Cup requirement is met;
+it then unlocks and becomes selectable. The final G.1 candidate adds a bounded
+Race Details group-`0x35` display fix for Master Rallye and Rallye Cup. That
+last display check and a short race regression are ready for human runtime;
+G.1 is not closed. See `research/vehicles/unlock/` and
+`research/vehicles/localization/frontend-consumers.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

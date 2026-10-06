@@ -1,100 +1,111 @@
-# G.1 locked-state correction — staged runtime handoff
+# R5V-G.1 final Race Details runtime handoff
 
-## Why the previous retest is inconclusive for XML behavior
+The locked-state and natural-unlock tests have passed on the corrected staged
+Vehicle Select scene. This handoff tests the new display-only Race Details
+hooks and a short ID26 race regression. It does not require replaying the cup
+unlock.
 
-The candidate EXE was active in the supplied captures: its SHA256 was
-`3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055`. The
-native dump's `Root` header and executable image path both resolve to the
-captured `.../.research-output/retired-worktrees/e0.1/research-output/r5v_f_2e/runtime/`
-directory. That directory had `Data.sma` and the qualified loose Mercedes
-assets, but no `DataScene/FrontendScreens/VehicleSelect.xml`. The generated
-correction overlay was elsewhere in `.research-output/vehicles/unlock/overlay/`.
-Thus the prior run tested the EXE half, but could not have consumed the
-generated loose XML from its active Root. The archive/loose-file precedence is
-not inferred from that absence.
+## Candidate and exact runtime provenance
 
-The path above is only a read-only source for the captured resource files. The
-new package is materialized under the canonical checkout's ignored
-`.research-output/vehicles/unlock/runtime-package/`; the historical tree is not
-modified or used as an active source checkout. The packager omits prior
-`PlayerState.xml` files so the new package starts with a fresh profile.
+Run commands from the `master-rallye-re-vehicles` checkout. The currently
+staged runtime tree is:
 
-## Stage and verify before launch
+```text
+effective executable:
+D:\Game\Master Rallye\master-rallye-re-vehicles\.research-output\vehicles\unlock\runtime-package\MRallye.exe
 
-From the `master-rallye-re-vehicles` checkout, stage the one coherent package:
+effective resource Root:
+D:\Game\Master Rallye\master-rallye-re-vehicles\.research-output\vehicles\unlock\runtime-package\
 
-```powershell
-python tools\vehicle_unlock_runtime_package.py stage `
-  --resource-root ".research-output\retired-worktrees\e0.1\research-output\r5v_f_2e\runtime" `
-  --candidate-exe ".research-output\vehicles\unlock\candidate\MRallye_g1_locked_state_correction.exe" `
-  --scene-overlay ".research-output\vehicles\unlock\overlay\DataScene\FrontendScreens\VehicleSelect.xml" `
-  --output-root ".research-output\vehicles\unlock\runtime-package"
+effective Vehicle Select scene:
+D:\Game\Master Rallye\master-rallye-re-vehicles\.research-output\vehicles\unlock\runtime-package\DataScene\FrontendScreens\VehicleSelect.xml
+
+expected executable SHA256:
+722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7
+
+expected VehicleSelect.xml SHA256:
+6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d
 ```
 
-Then run this verification command immediately before launch:
+The source retail EXE SHA256 is
+`bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`;
+the final candidate is 3,121,214 bytes and has 78 verified patch operations.
+Three ID26-only wrappers cover all group-`0x35` Race Details branches. The
+runtime package updater replaces only `MRallye.exe` and its package manifest;
+it preserves existing profile and options state without reading or writing
+those state files.
+
+If the package still contains the preceding G.1 EXE, close the game and update
+only that file and the package manifest with:
 
 ```powershell
-$root = (Resolve-Path ".research-output\vehicles\unlock\runtime-package").Path
-python tools\vehicle_unlock_runtime_package.py verify --package-root $root
+python tools\vehicle_unlock_runtime_package.py install-candidate `
+  --package-root ".research-output\vehicles\unlock\runtime-package" `
+  --candidate-exe ".research-output\vehicles\unlock\candidate\MRallye_g1_final_racedetails.exe"
+```
+
+Immediately before launch, verify the full package:
+
+```powershell
+python tools\vehicle_unlock_runtime_package.py verify `
+  --package-root ".research-output\vehicles\unlock\runtime-package" `
+  --allow-runtime-state
 if ($LASTEXITCODE -ne 0) { throw "G.1 runtime package verification failed" }
 ```
 
-Proceed only when the verifier prints `PASS`. It prints the exact staged paths:
-
-* effective executable: `<package root>\MRallye.exe`
-* intended resource Root: `<package root>`
-* staged scene: `<package root>\DataScene\FrontendScreens\VehicleSelect.xml`
-* expected EXE SHA256: `3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055`
-* expected scene SHA256: `6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d`
-
-Launch that executable with the package root as its working directory:
+Continue only on `PASS`. Launch the verified copy with the package as working
+directory so its active resource Root remains unambiguous:
 
 ```powershell
+$root = (Resolve-Path ".research-output\vehicles\unlock\runtime-package").Path
 Start-Process -FilePath (Join-Path $root "MRallye.exe") -WorkingDirectory $root
 ```
 
-After launch, the next Observatory capture's raw header must report `Root` as
-that same package root. The prelaunch verifier proves the on-disk tree; the
-capture header proves which root the process selected. If they differ, stop.
+The previous capture header reported this exact package Root, and the human
+confirmed locked slot art and disabled acceptance there. After launch, confirm
+the next capture still reports the same Root.
 
-## Fresh-profile locked comparison
+## Human checks
 
-Use the new package's fresh profile, with `UnlockCars` and `UnlockAll` off.
-Compare ID3 first, then ID26:
+Use the already-unlocked profile in the staged package (`T1CupCar1=True`). Do
+not reset or replace its PlayerState.
 
-| Oracle | Locked ID3 control | Locked ID26 expected |
-|---|---:|---:|
-| `Progress/UnlockedCars/T1CupCar1` | `False` | `False` |
-| `Frontend/VehicleSelect/CarModel` | `-1` | `-1` |
-| `Frontend/VehicleSelect/ManufacturerName` | `CAR LOCKED` | `CAR LOCKED` |
-| `Frontend/VehicleSelect/ModelName` | `UNLOCK BY WINNING 2 T1 CUPS` | same |
-| `FrontEnd/Network/selectedCar` | `3` | `26` |
-| `UI/Enabled` | `False` | `False` |
+1. Enter **Master Rallye → Race Details** with Mercedes ID26. Confirm the
+   visible vehicle line reads `MERCEDES ML-320`, `GALOCAL UNKNOWN` is absent,
+   and the current leg/country text remains correct. Capture as
+   `g1-racedetails-masterrallye`.
+2. Enter **Rallye Cup → Race Details** with the same vehicle. Confirm the same
+   Mercedes name and normal race number text. Capture as
+   `g1-racedetails-rallyecup`.
+3. Switch to stock ID0 and visit Race Details in either mode. Confirm its stock
+   vehicle name is unchanged.
+4. With ID26 selected, run one short race smoke. Confirm the Mercedes model and
+   textures still load and steering/physics remain normal. Capture
+   `Race/Car0/CarID=26`, `Race/Car0/CarClass=0`, `Race/Car0/CarType=Mercedes`,
+   `Race/Car0/WheelType=Mercedes`, and the established red colour canary if
+   available.
 
-`selectedCar` is the highlighted/current frontend identity; it is not a commit
-oracle. Confirm visually that the locked thumbnail is shown and normal accept
-does not enter Vehicle Setup or a race. The previous ID26 interaction was
-accepted into a race (`Race/Car0/CarID=26`, class `0`), so this interaction
-check is required.
+Broker evidence for each Race Details capture should include:
 
-The corrected package has not yet received a human runtime test. Do not trace
-the appended AI/control path unless the capture confirms the package Root and
-the expected scene hash was staged, and the UI still differs from the ID3
-control.
+```text
+Frontend/RaceDetails/CurrentVehicleString = MERCEDES ML-320
+Frontend/RaceDetails/CurrentRaceString    = mode-appropriate current event text
+Frontend/RaceDetails/Race                 = MASTER RALLYE or RALLYE CUP
+RaceData/Competitor0/CarID                = 26
+Race/Car0/CarID                           = 26
+```
 
-## Separate known Race Details issue
+The Broker proves the published string and participant identity; the human
+visual check proves the rendered name. The current race string naturally
+varies by event and should not be matched to a fixed literal.
 
-The two additional Broker captures show ID26 (`Race/Car0/CarID=26`) while
-`Frontend/RaceDetails/CurrentVehicleString` is `GALOCAL UNKNOWN` in both
-Master Rallye and Rallye Cup. Their race-description fields are respectively
-`LEG 1/10 - FRANCE` and `RACE 1/3`. This is a separate, observed display defect;
-its producer has not been traced in this correction pass because the tested
-scene deployment was not proven. Do not claim a Race Details fix or start a
-commit-handler investigation from these captures.
+## Already confirmed separately
 
-After scene provenance and locked behavior are confirmed, continue the bounded
-G.1 check: test naturally unlocked ID26 for normal thumbnail, `MERCEDES` /
-`ML-320`, Vehicle Setup `MERCEDES ML-320`, existing Quick Race identity, both
-Race Details modes, and one short Mercedes race regression. Preserve
-`Race/Car0/CarID=26`, `CarClass=0`, `CarType=Mercedes`, and
-`WheelType=Mercedes`. This is not a full stage/results lifecycle test.
+The exact preceding G.1 candidate and corrected active Root passed the human
+locked-state gate: fresh state showed `CAR LOCKED`,
+`UNLOCK BY WINNING 2 T1 CUPS`, locked slot art, `UI/Enabled=False`, and normal
+accept did not select ID26. After fulfilling the T1 Cup requirement, ID26
+became selectable with its normal Mercedes thumbnail and `UI/Enabled=True`.
+The new Race Details candidate preserves those hooks and the physical ID26
+record. A full stage/results/frontend-return lifecycle is not required or
+claimed by this handoff.

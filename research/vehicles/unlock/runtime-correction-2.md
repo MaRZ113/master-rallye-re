@@ -1,6 +1,28 @@
 # G.1 locked-state runtime correction #2
 
-## Runtime evidence
+## Follow-up result: corrected deployment and final localization candidate
+
+The earlier XML deployment mismatch is resolved. New Observatory captures
+`20261006-150942_merc-locked` and `20261006-151258_merc-unlocked` report the
+active Root as
+`.research-output/vehicles/unlock/runtime-package/`. The exact overlay hash
+`6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d` was
+staged there and verified before the human test. Human testing confirmed locked
+ID26 shows the locked slot art, `UI/Enabled=False`, and cannot be accepted; once
+the T1 Cup requirement is met, it unlocks and becomes selectable normally.
+Both raw capture hashes match their metadata. Full values are appended to
+`runtime-captures.json`.
+
+Race Details is now statically traced. Master Rallye and Rallye Cup converge on
+`FUN_0047C080`, whose group-`0x35` selector is the absolute
+`RaceData/CompetitorN/CarID`. The deterministic final candidate returns the
+existing `MERCEDES ML-320` string only for ID26 and replays the original lookup
+for every other ID. It is installed in the same verified runtime package.
+This new Race Details result remains **READY FOR HUMAN RUNTIME** until both
+modes and a short ID26 race smoke are tested. See
+`racedetails-localization.md` and `runtime-handoff.md`.
+
+## Earlier runtime evidence before corrected scene deployment
 
 All four supplied JSON captures were parsed. Their four raw `.dump.bin`
 sidecars were rehashed and matched their JSON `source.raw_sha256` metadata.
@@ -17,7 +39,7 @@ ID26 widget could be accepted and driven: race state became `CarID=26`,
 `CarClass=0`. This is separate from Broker `selectedCar`, which is now
 classified only as highlighted/current frontend identity.
 
-## Deployment provenance finding
+## Historical deployment provenance finding
 
 The EXE image path and the raw Broker dump's `Root` header agree on the runtime
 root suffix:
@@ -57,7 +79,7 @@ The package is a complete isolated launch tree under
 checks hashes and exact file inventory. It proves the on-disk tree; a postlaunch
 capture Root header is still required to establish the process-selected Root.
 
-## Race Details issue
+## Race Details pre-fix captures
 
 The two mode captures independently show:
 
@@ -67,8 +89,7 @@ The two mode captures independently show:
 * Rallye Cup: `CurrentRaceString="RACE 1/3"`, `Race="RALLYE CUP"`,
   `Car0/CarID=26`, vehicle display `GALOCAL UNKNOWN`.
 
-This proves a separate Race Details presentation defect, not a wrong runtime
-vehicle ID. Its producer/group has not been retraced in this correction pass:
-the deployment mismatch is handled first, and Race Details code changes are
-deferred until the exact loose scene path is validated. Do not infer Quick Race
-group 0x35 as its owner from the symptom.
+This proved a separate Race Details presentation defect, not a wrong runtime
+vehicle ID. At that point the producer had not yet been traced. The static
+follow-up above now identifies its shared writer and independent group-`0x35`
+lookup; the final candidate still needs its own human runtime check.

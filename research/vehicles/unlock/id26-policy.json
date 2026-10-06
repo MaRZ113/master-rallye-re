@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "phase": "R5V-G.1 locked-state integration correction",
+  "phase": "R5V-G.1 final Mercedes natural-unlock and Race Details localization candidate",
   "status": "READY_FOR_HUMAN_RUNTIME",
   "source_executable": {
     "profile": "retail-pristine",
@@ -8,29 +8,52 @@
     "size": 3121214
   },
   "candidate": {
-    "profile": "mercedes-g1-stock-t1-cup-car1-unlock-locked-state-correction",
-    "sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+    "profile": "mercedes-g1-final-racedetails-localization",
+    "sha256": "722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7",
     "size": 3121214,
-    "patch_operations": 75,
+    "patch_operations": 78,
     "code_cave_va": "0x0068E2A0",
-    "code_cave_payload_size": 841,
+    "code_cave_payload_size": 985,
     "new_patch_sites": [
       {
         "va": "0x00481ACF",
         "file_offset": "0x81ACF",
+        "purpose": "ID26-only locked-reason selector 9; replay stock table/default for other IDs",
         "original_bytes": "83f8167775",
-        "replacement_bytes": "e95cca2000",
-        "purpose": "ID26-only locked-reason selector 9; replay stock table/default for all other IDs"
+        "replacement_bytes": "e95cca2000"
       },
       {
         "va": "0x0044FA29",
         "file_offset": "0x4FA29",
+        "purpose": "ID26-only Vehicle Setup group-0x35 combined-name wrapper",
         "original_bytes": "8b10576a358bc8ff520c",
-        "replacement_bytes": "e9d2ea23009090909090",
-        "purpose": "ID26-only Vehicle Setup combined-name override; preserve stock group-0x35 lookup for all other IDs"
+        "replacement_bytes": "e9d2ea23009090909090"
+      },
+      {
+        "va": "0x0047C0F5",
+        "file_offset": "0x7C0F5",
+        "original_bytes": "506a358bceff570c",
+        "purpose": "ID26-only Race Details split-screen Competitor0 name; native lookup replayed for all other IDs",
+        "replacement_bytes": "e906242100909090"
+      },
+      {
+        "va": "0x0047C181",
+        "file_offset": "0x7C181",
+        "original_bytes": "506a358bceff570c",
+        "purpose": "ID26-only Race Details split-screen Competitor1 name; native lookup replayed for all other IDs",
+        "replacement_bytes": "e9aa232100909090"
+      },
+      {
+        "va": "0x0047C200",
+        "file_offset": "0x7C200",
+        "original_bytes": "506a358bceff570c",
+        "purpose": "ID26-only Race Details single-player Competitor0 name; native lookup replayed for all other IDs",
+        "replacement_bytes": "e95b232100909090"
       }
     ],
-    "runtime_status": "READY_FOR_HUMAN_RUNTIME"
+    "runtime_status": "READY_FOR_HUMAN_RUNTIME",
+    "manifest_path": ".research-output/vehicles/unlock/candidate/MRallye_g1_final_racedetails-manifest.json",
+    "binary_diff_path": ".research-output/vehicles/unlock/candidate/MRallye_g1_final_racedetails-diff.txt"
   },
   "physical_vehicle": {
     "id": 26,
@@ -73,7 +96,8 @@
     "normal_frame": 3,
     "locked_frame": 15,
     "unlocker_controls_xy_ai": 2,
-    "unlock_paths_match_id3": true
+    "unlock_paths_match_id3": true,
+    "runtime_locked_art_and_commit_gate": "CONFIRMED_BY_RUNTIME with active package Root"
   },
   "vehicle_setup_name": {
     "writer": "FUN_0044F8E0",
@@ -84,18 +108,50 @@
     "stock_ids_replay_native_lookup": true
   },
   "runtime_evidence": {
-    "predicate_and_locked_branch": "CONFIRMED_BY_RUNTIME",
-    "fresh_locked_id26_commit_block": "FAILED_BEFORE_CORRECTION",
-    "corrected_locked_slot_art_and_commit_block": "PENDING_HUMAN_RUNTIME",
-    "corrected_locked_requirement_text": "PENDING_HUMAN_RUNTIME",
-    "corrected_vehicle_setup_name": "PENDING_HUMAN_RUNTIME",
-    "unlocked_id26_core_gameplay_regression": "PENDING_HUMAN_RUNTIME"
+    "id26_availability_predicate": "CONFIRMED_BY_RUNTIME",
+    "id26_native_locked_branch": "CONFIRMED_BY_RUNTIME",
+    "id26_locked_requirement_text": "CONFIRMED_BY_RUNTIME",
+    "id26_locked_slot_art": "CONFIRMED_BY_RUNTIME on corrected runtime Root",
+    "id26_locked_button_disabled": "CONFIRMED_BY_RUNTIME; UI/Enabled=False",
+    "id26_locked_commit_block": "CONFIRMED_BY_RUNTIME; normal accept did not commit ID26",
+    "id26_natural_unlock": "CONFIRMED_BY_RUNTIME after satisfying T1 Cup condition",
+    "corrected_vehicle_setup_name": "prior channel remains passed; latest locked/unlocked capture was not a Vehicle Setup retest",
+    "race_details_master_rallye": "PENDING_HUMAN_RUNTIME for final candidate",
+    "race_details_rallye_cup": "PENDING_HUMAN_RUNTIME for final candidate",
+    "unlocked_id26_short_race_regression": "PENDING_HUMAN_RUNTIME for final candidate",
+    "full_stage_results_frontend_return": "NOT_CLAIMED",
+    "corrected_locked_requirement_text": "CONFIRMED_BY_RUNTIME"
   },
   "scope": {
     "registry_or_class_mapping_changed": false,
     "physical_vehicle_id_changed": false,
     "unlock_policy_changed": false,
     "global_localization_behavior_changed": false,
-    "id25_bonus2_gate_preserved": true
+    "id25_bonus2_gate_preserved": true,
+    "race_details_display_only_hooks_added": true,
+    "runtime_car_type_or_wheel_type_changed": false
+  },
+  "prior_locked_state_candidate": {
+    "profile": "mercedes-g1-stock-t1-cup-car1-unlock-locked-state-correction",
+    "sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+    "runtime_result": "LOCKED_ART_AND_COMMIT_BLOCK_CONFIRMED_BY_RUNTIME; NATURAL_UNLOCK_CONFIRMED_BY_RUNTIME"
+  },
+  "race_details_localization": {
+    "writer": "FUN_0047C080",
+    "broker_field": "Frontend/RaceDetails/CurrentVehicleString",
+    "shared_modes": [
+      "MASTER RALLYE",
+      "RALLYE CUP"
+    ],
+    "group": "0x35",
+    "identity_source": "absolute RaceData/CompetitorN/CarID via FUN_004B0AF0/FUN_004B0630",
+    "id26_presentation": "MERCEDES ML-320",
+    "hooks": [
+      "0x0047C0F5",
+      "0x0047C181",
+      "0x0047C200"
+    ],
+    "stock_fallback": "original eight-byte group-0x35 lookup replayed for every non-ID26 selector",
+    "runtime_status": "READY_FOR_HUMAN_RUNTIME"
   }
 }

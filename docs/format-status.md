@@ -297,11 +297,15 @@ stage/results/frontend-return pass was reported for F.2f. See
 R5V-G.1 statically separates Quick Race class reachability from per-vehicle
 availability. `FUN_00480B60` builds T1/T2/T3 reachability from
 `Progress/OpenedModes` and cup-cheat state; `FUN_0045A150` evaluates an absolute
-vehicle ID against the named `Progress/UnlockedCars` flags. The G.1 research
-candidate mirrors ID26's Vehicle Select availability input to stock T1 ID3's
-`T1CupCar1` predicate while retaining physical ID26 and the Mercedes runtime
-record. This is **READY FOR HUMAN RUNTIME**, not yet a progression pass. See
-`research/r5v_g1/`.
+vehicle ID against the named `Progress/UnlockedCars` flags. Human runtime
+testing confirms ID26 mirrors the stock T1 `T1CupCar1` gate while retaining
+physical ID26 and the Mercedes runtime record: locked art and requirement text
+appear, the commit control is disabled, normal accept is blocked, and the
+vehicle becomes selectable after the cup condition is met. A final candidate
+adds an ID26-only Race Details group-`0x35` name path shared by Master Rallye
+and Rallye Cup. That localization and a short race regression are
+**READY FOR HUMAN RUNTIME**; G.1 is not closed. See
+`research/vehicles/unlock/` and `research/vehicles/localization/`.
 
 The forward vehicle roadmap is R5V-G.1 unlock architecture, R5V-G.2 audio
 identity/sound-family architecture, R5V-H AI pools, R5V-I multi-slot registry

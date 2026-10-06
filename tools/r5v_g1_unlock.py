@@ -70,6 +70,7 @@ OBSERVATORY_SUMMARY_PATHS = {
     "ui_enabled": "UI/Enabled",
     "race_car0_id": "Race/Car0/CarID",
     "race_car0_class": "Race/Car0/CarClass",
+    "race_details_competitor0_id": "RaceData/Competitor0/CarID",
     "race_details_vehicle_string": "Frontend/RaceDetails/CurrentVehicleString",
     "race_details_race_string": "Frontend/RaceDetails/CurrentRaceString",
     "race_details_mode": "Frontend/RaceDetails/Race",
@@ -241,11 +242,17 @@ def summarize_capture(capture: Any) -> dict[str, Any]:
             button_status = "UNKNOWN"
 
     race_car0 = summary["race_car0_id"]
+    details_selector = summary["race_details_competitor0_id"]
     details_name = summary["race_details_vehicle_string"]
     details_mode = summary["race_details_mode"]
-    if race_car0 == {"status": "OBSERVED", "value": 26} and details_name["status"] == "OBSERVED":
-        details_status = ("RACE_DETAILS_NAME_UNKNOWN" if details_name["value"] == "GALOCAL UNKNOWN"
-                          else "RACE_DETAILS_ID26_NAME_OBSERVED")
+    if (details_selector == {"status": "OBSERVED", "value": 26}
+            and details_name["status"] == "OBSERVED"):
+        if details_name["value"] == "GALOCAL UNKNOWN":
+            details_status = "RACE_DETAILS_NAME_UNKNOWN"
+        elif details_name["value"] == "MERCEDES ML-320":
+            details_status = "RACE_DETAILS_ID26_NAME_MATCH"
+        else:
+            details_status = "RACE_DETAILS_ID26_OTHER_NAME"
     else:
         details_status = "UNKNOWN"
     return {
@@ -272,8 +279,9 @@ def summarize_capture(capture: Any) -> dict[str, Any]:
             "vehicle_string": details_name,
             "current_race_string": summary["race_details_race_string"],
             "race_car0_id": race_car0,
+            "selector_car_id": details_selector,
             "status": details_status,
-            "evidence_limit": "Broker values establish state only, not visible text rendering.",
+            "evidence_limit": "The native single-player Race Details lookup reads RaceData/Competitor0/CarID; Broker values establish state only, not visible text rendering.",
         },
     }
 

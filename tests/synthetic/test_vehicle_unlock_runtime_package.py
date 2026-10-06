@@ -164,6 +164,77 @@ class VehicleUnlockRuntimePackageTests(unittest.TestCase):
             with self.assertRaisesRegex(package.PackageError, "file set differs|not fresh-profile clean"):
                 package.verify_package(self.output, self.profile, repo_root=self.repo)
 
+    def test_verify_allows_runtime_state_only_when_explicitly_requested(self) -> None:
+        self._stage()
+        state = self.output / "DataGame/PlayerState.xml"
+        state.write_bytes(b"user progress; verifier must not read or rewrite")
+        options_backup = self.output / "DataGame/options.xml#"
+        options_backup.write_bytes(b"user options backup")
+        with mock.patch.multiple(package, EXPECTED_EXE_SHA256=self.exe_sha,
+                                 EXPECTED_SCENE_SHA256=self.scene_sha,
+                                 EXPECTED_PROFILE_SHA256=self.profile_sha):
+            with self.assertRaisesRegex(package.PackageError, "file set differs"):
+                package.verify_package(self.output, self.profile, repo_root=self.repo)
+            checked = package.verify_package(
+                self.output, self.profile, repo_root=self.repo, allow_runtime_state=True)
+        self.assertEqual(checked["status"], "PASS")
+        self.assertEqual(checked["fresh_player_state"], "existing PlayerState.xml preserved")
+        self.assertEqual(state.read_bytes(), b"user progress; verifier must not read or rewrite")
+        self.assertEqual(options_backup.read_bytes(), b"user options backup")
+
+    def test_install_final_candidate_updates_only_exe_and_manifest(self) -> None:
+        self._stage()
+        state = self.output / "DataGame/PlayerState.xml"
+        state.write_bytes(b"unlocked campaign save")
+        state_before = state.read_bytes()
+        options_backup = self.output / "DataGame/options.xml#"
+        options_backup.write_bytes(b"options backup")
+        options_before = options_backup.read_bytes()
+        final_bytes = b"F" * 3121214
+        final_sha = _sha(final_bytes)
+        candidate = self.repo / ".research-output" / "MRallye_g1_final_racedetails.exe"
+        candidate.parent.mkdir(parents=True, exist_ok=True)
+        candidate.write_bytes(final_bytes)
+
+        with mock.patch.multiple(
+            package,
+            EXPECTED_EXE_SHA256=self.exe_sha,
+            FINAL_RACE_DETAILS_EXE_SHA256=final_sha,
+            EXPECTED_SCENE_SHA256=self.scene_sha,
+            EXPECTED_PROFILE_SHA256=self.profile_sha,
+        ):
+            result = package.install_candidate(
+                self.output, candidate, self.profile, repo_root=self.repo)
+            self.assertEqual(result["status"], "PASS_INSTALLED")
+            self.assertEqual(result["executable_sha256"], final_sha)
+            self.assertEqual(result["candidate_profile"],
+                             "mercedes-g1-final-racedetails-localization")
+            self.assertEqual(result["player_state"], "preserved without reading or modification")
+            self.assertEqual((self.output / "MRallye.exe").read_bytes(), final_bytes)
+            self.assertEqual(state.read_bytes(), state_before)
+            self.assertEqual(options_backup.read_bytes(), options_before)
+            manifest = json.loads((self.output / package.PACKAGE_MANIFEST_NAME).read_text())
+            self.assertEqual(manifest["candidate_executable"]["sha256"], final_sha)
+            self.assertEqual(manifest["runtime_update"]["physical_car_id"], 26)
+            verified = package.verify_package(
+                self.output, self.profile, repo_root=self.repo, allow_runtime_state=True)
+            self.assertEqual(verified["status"], "PASS")
+
+    def test_install_rejects_wrong_final_candidate_without_mutating_package(self) -> None:
+        self._stage()
+        original_exe = (self.output / "MRallye.exe").read_bytes()
+        original_manifest = (self.output / package.PACKAGE_MANIFEST_NAME).read_bytes()
+        candidate = self.repo / ".research-output" / "wrong.exe"
+        candidate.parent.mkdir(parents=True, exist_ok=True)
+        candidate.write_bytes(b"wrong candidate")
+        with mock.patch.multiple(package, EXPECTED_EXE_SHA256=self.exe_sha,
+                                 EXPECTED_SCENE_SHA256=self.scene_sha,
+                                 EXPECTED_PROFILE_SHA256=self.profile_sha):
+            with self.assertRaisesRegex(package.PackageError, "not the exact final G.1"):
+                package.install_candidate(self.output, candidate, self.profile, repo_root=self.repo)
+        self.assertEqual((self.output / "MRallye.exe").read_bytes(), original_exe)
+        self.assertEqual((self.output / package.PACKAGE_MANIFEST_NAME).read_bytes(), original_manifest)
+
     def test_output_must_be_inside_research_output(self) -> None:
         with self.assertRaisesRegex(package.PackageError, "inside this checkout"):
             package.validate_output_root(self.repo / "runtime-package", self.repo)

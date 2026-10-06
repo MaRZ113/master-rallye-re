@@ -112,7 +112,10 @@ class R5vG1CandidateTests(unittest.TestCase):
             expected_sha256=patcher.sha256(source),
             id26_profile=patcher.ID26_MERCEDES_G1_STOCK_UNLOCK,
         )
-        self.assertEqual(manifest["phase"], "R5V-G.1 Mercedes stock-like T1 unlock candidate")
+        self.assertEqual(
+            manifest["phase"],
+            "R5V-G.1 final Mercedes stock-like T1 unlock and Race Details localization candidate",
+        )
         self.assertIn("READY FOR HUMAN RUNTIME", manifest["runtime_validation"])
         operations = {item["name"]: item for item in manifest["operations"]}
         self.assertNotIn("id25_test_unlock", operations)
@@ -302,6 +305,7 @@ class R5vG1CaptureSummaryTests(unittest.TestCase):
                                   ("RALLYE CUP", "RACE 1/3")):
             capture = {"entries": [
                 {"path": "Race/Car0/CarID", "value": 26},
+                {"path": "RaceData/Competitor0/CarID", "value": 26},
                 {"path": "Frontend/RaceDetails/Race", "value": mode},
                 {"path": "Frontend/RaceDetails/CurrentRaceString", "value": race_string},
                 {"path": "Frontend/RaceDetails/CurrentVehicleString", "value": "GALOCAL UNKNOWN"},
@@ -310,6 +314,32 @@ class R5vG1CaptureSummaryTests(unittest.TestCase):
             self.assertEqual(result["race_details_oracle"]["status"], "RACE_DETAILS_NAME_UNKNOWN")
             self.assertEqual(result["race_details_oracle"]["mode"]["value"], mode)
             self.assertEqual(result["race_details_oracle"]["race_car0_id"]["value"], 26)
+            self.assertEqual(result["race_details_oracle"]["selector_car_id"]["value"], 26)
+
+    def test_race_details_id26_expected_value_is_state_match_only(self) -> None:
+        capture = {"entries": [
+            {"path": "Race/Car0/CarID", "value": 26},
+            {"path": "RaceData/Competitor0/CarID", "value": 26},
+            {"path": "RaceData/Competitor0/CarClass", "value": 0},
+            {"path": "Frontend/RaceDetails/Race", "value": "MASTER RALLYE"},
+            {"path": "Frontend/RaceDetails/CurrentRaceString", "value": "LEG 2/10 - ITALY"},
+            {"path": "Frontend/RaceDetails/CurrentVehicleString", "value": "MERCEDES ML-320"},
+        ]}
+        result = summarize_capture(capture)["race_details_oracle"]
+        self.assertEqual(result["status"], "RACE_DETAILS_ID26_NAME_MATCH")
+        self.assertEqual(result["selector_car_id"], {"status": "OBSERVED", "value": 26})
+        self.assertEqual(result["race_car0_id"], {"status": "OBSERVED", "value": 26})
+        self.assertIn("not visible text rendering", result["evidence_limit"])
+
+    def test_race_details_does_not_infer_lookup_selector_from_race_car0_alone(self) -> None:
+        capture = {"entries": [
+            {"path": "Race/Car0/CarID", "value": 26},
+            {"path": "Frontend/RaceDetails/Race", "value": "RALLYE CUP"},
+            {"path": "Frontend/RaceDetails/CurrentVehicleString", "value": "MERCEDES ML-320"},
+        ]}
+        result = summarize_capture(capture)["race_details_oracle"]
+        self.assertEqual(result["status"], "UNKNOWN")
+        self.assertEqual(result["selector_car_id"]["status"], "UNKNOWN")
 
 
 if __name__ == "__main__":

@@ -65,6 +65,13 @@ CAPACITY_INIT_CONTINUATION_VA = 0x480A55
 QUICKRACE_SELECTOR_CALLS = (0x47B0AF, 0x47B13A, 0x47B1BA)
 QUICKRACE_LOCALIZATION_CALLS = (0x47B0B4, 0x47B13F, 0x47B1BF)
 QUICKRACE_LOCALIZATION_GROUP = 0x35
+RACE_DETAILS_LOCALIZATION_CALLS = (
+    # Hook starts at PUSH EAX; the following group-0x35 request consumes the
+    # participant CarID returned by the RaceData/Competitor identity helper.
+    (0x47C0F5, 0, "split_screen_competitor0", 0x47C0F6, 0x47C0FA, 0x47C0FD),
+    (0x47C181, 1, "split_screen_competitor1", 0x47C182, 0x47C186, 0x47C189),
+    (0x47C200, 0, "single_player_competitor0", 0x47C201, 0x47C205, 0x47C208),
+)
 RACE_OPTIONS_LOCALIZATION_CALLS = (
     (0x47A65F, 0x33, "race_options_manufacturer_lookup",
      "vehicle_select_manufacturer_text", 0x47A669),
@@ -358,9 +365,9 @@ def _emit_vehicle_select_string_lookup(code: _CodeImage, *, label: str, group: i
     code.jump(resume_va)
 
 
-def _emit_quickrace_string_lookup(code: _CodeImage, *, label: str,
-                                  string_label: str, resume_va: int) -> None:
-    """Wrap the group-0x35 lookup with its verified thiscall stack contract."""
+def _emit_group35_string_lookup(code: _CodeImage, *, label: str,
+                                string_label: str, resume_va: int) -> None:
+    """Wrap one group-0x35 lookup with its verified thiscall stack contract."""
     code.label(label)
     code.emit(b"\x3D" + struct.pack("<I", 26))  # EAX is the selected physical ID
     code.je(label + "_id26")
@@ -477,7 +484,7 @@ def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
             string_label="vehicle_select_model_text", resume_va=0x481A55)
         for index, call_va in enumerate(QUICKRACE_LOCALIZATION_CALLS):
             code.align()
-            _emit_quickrace_string_lookup(
+            _emit_group35_string_lookup(
                 code, label=f"quickrace_name_lookup_{index}",
                 string_label="quickrace_display_text", resume_va=call_va + 8)
         if _has_f2f_frontend_writers(id26_profile):
@@ -487,6 +494,11 @@ def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
                     code, label=label, group=group,
                     string_label=string_label, resume_va=resume_va)
         if _has_g1_locked_state_correction(id26_profile):
+            for _hook_va, _slot, label, _group_va, _call_va, resume_va in RACE_DETAILS_LOCALIZATION_CALLS:
+                code.align()
+                _emit_group35_string_lookup(
+                    code, label=f"race_details_name_lookup_{label}",
+                    string_label="quickrace_display_text", resume_va=resume_va)
             code.align()
             _emit_vehicle_setup_name_lookup(
                 code, label="vehicle_setup_name_lookup",
@@ -806,6 +818,22 @@ def build_operations(data: bytes, pe: dict, *,
                              f"Race Options group 0x{group:02X}; replay stock lookup for every other ID"),
                 )
         if _has_g1_locked_state_correction(id26_profile):
+            original = bytes.fromhex("506a358bceff570c")
+            for hook_va, slot, label, group_va, call_va, _resume_va in RACE_DETAILS_LOCALIZATION_CALLS:
+                _add_va_patch(
+                    data, pe, operations,
+                    name=f"race_details_name_string_override_{label}",
+                    category="race-details-display-string-override",
+                    va=hook_va, original=original,
+                    replacement=_rel32_jump(
+                        hook_va, entrypoints[f"race_details_name_lookup_{label}"])
+                    + b"\x90" * 3,
+                    purpose=(
+                        f"return the existing MERCEDES ML-320 presentation only for physical "
+                        f"CarID 26 in Race Details participant slot {slot}; preserve the original "
+                        f"group-0x35 lookup for every other participant ID (group push at "
+                        f"0x{group_va:08X}, call at 0x{call_va:08X})"),
+                )
             original = bytes.fromhex("8b10576a358bc8ff520c")
             call_va = 0x44FA29
             _add_va_patch(
@@ -990,6 +1018,33 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
             "quickrace_summary_writer": "0x0047B040 / group 0x35 remains unchanged",
         }
     if is_mercedes_g1:
+        structural["display_selector"]["scope"] += (
+            "; Race Details group-0x35 combined name in the single-player participant-0 "
+            "branch and both split-screen participant branches, ID26 only")
+        structural["display_selector"]["id26_string_by_context"][
+            "0x35_race_details"] = id26_profile.display_quickrace
+        structural["frontend_writer_hooks"]["RaceDetailsCurrentVehicleString"] = {
+            "writer": "0x0047C080",
+            "broker_field": "Frontend/RaceDetails/CurrentVehicleString",
+            "shared_modes": ["MASTER RALLYE", "RALLYE CUP"],
+            "group": "0x35",
+            "selector_source": "RaceData/CompetitorN/CarID via FUN_004B0AF0/FUN_004B0630",
+            "selector_register": "EAX absolute participant Vehicle ID",
+            "id26_value": "MERCEDES ML-320",
+            "lookup_sites": [
+                {
+                    "branch": label,
+                    "participant_slot": slot,
+                    "hook_va": f"0x{hook_va:08X}",
+                    "group_push_va": f"0x{group_va:08X}",
+                    "lookup_call_va": f"0x{call_va:08X}",
+                    "resume_va": f"0x{resume_va:08X}",
+                }
+                for hook_va, slot, label, group_va, call_va, resume_va
+                in RACE_DETAILS_LOCALIZATION_CALLS
+            ],
+            "stock_ids": "original group-0x35 lookup replayed unchanged",
+        }
         structural["frontend_writer_hooks"]["VehicleSetupCarName"] = {
             "writer": "0x0044F8E0",
             "call_va": "0x0044FA29",
@@ -1007,7 +1062,7 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
             "generic_locked_line": "group 6 selector 8 unchanged",
         }
     manifest = {
-        "phase": ("R5V-G.1 Mercedes stock-like T1 unlock candidate" if is_mercedes_g1
+        "phase": ("R5V-G.1 final Mercedes stock-like T1 unlock and Race Details localization candidate" if is_mercedes_g1
                   else "R5V-F.2f Mercedes Race Options frontend identity candidate" if is_mercedes_f2f
                   else "R5V-F.2e final Mercedes ML-320 ID26 acceptance candidate" if is_mercedes_final
                   else "R5V-F.2b isolated retail cook harness" if is_mercedes_cook_harness
@@ -1024,18 +1079,18 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
         "structural_self_check": structural,
         "operation_counts_by_category": _operation_counts(operations),
         "operations": operations,
-        "runtime_validation": ("READY FOR HUMAN RUNTIME — locked ID3/ID26 and unlocked ID26 UX comparison required" if is_mercedes_g1
+        "runtime_validation": ("READY FOR HUMAN RUNTIME — verify Race Details in Master Rallye and Rallye Cup plus short ID26 race smoke; locked/unlocked gate already confirmed on prior G.1 candidate" if is_mercedes_g1
                                else "STATIC F.2f CANDIDATE — WAITING FOR HUMAN P0 FRONTEND" if is_mercedes_f2f
                                else "STATIC ACCEPTANCE CANDIDATE — WAITING FOR HUMAN P0/P1" if is_mercedes_final
                                else "NOT RUN — isolated cook trigger only" if is_mercedes_cook_harness
                                else "WAITING FOR CLEANUP P0"),
         "risks": ([
-            "The stock-like availability mirror is runtime-observed, but the corrected locked selection, art, requirement text, and Vehicle Setup string need a new human pass.",
+            "The stock-like locked/unlocked gate, locked slot art, disabled commit control, and requirement text are runtime-confirmed on the preceding G.1 candidate; this candidate still needs Race Details and short-race regression validation.",
             "The class-reachability layer is separate and remains governed by native Vehicle Select progression logic.",
             "ID26 remains physical CarID 26; only the ID used as input to the per-vehicle availability gate is mirrored to stock ID3.",
             "The new slot overlay must be installed with this candidate; the executable alone does not add its XML unlock/disabler controls.",
             "ID25 keeps its native Bonus2 gate in this profile; unlike earlier F.2f test candidates it is not forced selectable.",
-            "Campaign-save serialization details and non-Vehicle-Select mode consumers are only partially established.",
+            "Campaign-save serialization and group-0x35 consumers outside the audited vehicle screens remain out of scope.",
         ] if is_mercedes_g1 else [
             "Race Options frontend P0 has not been performed with this exact F.2f candidate.",
             "P1 gameplay regression smoke remains required after frontend P0.",
@@ -1170,6 +1225,38 @@ def _verify_structural(candidate: bytes, manifest: dict[str, Any]) -> None:
             raise PatchError("structural self-check: Vehicle Setup ID26 name wrapper is missing")
         if "id26_locked_reason_lookup" not in structural.get("code_entrypoints", {}):
             raise PatchError("structural self-check: ID26 locked-reason wrapper is missing")
+        details = structural.get("frontend_writer_hooks", {}).get(
+            "RaceDetailsCurrentVehicleString", {})
+        if (details.get("writer") != "0x0047C080"
+                or details.get("group") != "0x35"
+                or details.get("selector_source") !=
+                "RaceData/CompetitorN/CarID via FUN_004B0AF0/FUN_004B0630"
+                or details.get("id26_value") != "MERCEDES ML-320"
+                or details.get("shared_modes") != ["MASTER RALLYE", "RALLYE CUP"]):
+            raise PatchError("structural self-check: Race Details identity writer map is incomplete")
+        details_operations = {
+            item.get("name"): item for item in manifest.get("operations", [])
+            if item.get("category") == "race-details-display-string-override"
+        }
+        if len(RACE_DETAILS_LOCALIZATION_CALLS) != 3 or len(details_operations) != 3:
+            raise PatchError("structural self-check: all three Race Details branches must be covered")
+        expected_original = "506a358bceff570c"
+        for hook_va, slot, label, group_va, call_va, resume_va in RACE_DETAILS_LOCALIZATION_CALLS:
+            op_name = f"race_details_name_string_override_{label}"
+            operation = details_operations.get(op_name)
+            helper_name = f"race_details_name_lookup_{label}"
+            if (operation is None or operation.get("virtual_address") != hook_va
+                    or operation.get("original_bytes") != expected_original
+                    or helper_name not in structural.get("code_entrypoints", {})):
+                raise PatchError(f"structural self-check: missing Race Details hook {op_name}")
+            if (not any(row.get("branch") == label
+                        and row.get("participant_slot") == slot
+                        and row.get("hook_va") == f"0x{hook_va:08X}"
+                        and row.get("group_push_va") == f"0x{group_va:08X}"
+                        and row.get("lookup_call_va") == f"0x{call_va:08X}"
+                        and row.get("resume_va") == f"0x{resume_va:08X}"
+                        for row in details.get("lookup_sites", []))):
+                raise PatchError(f"structural self-check: Race Details branch map mismatch for {label}")
     if structural["registry_capacity"] != 27 or structural["record26_offset"] != 0x54C:
         raise PatchError("structural self-check: ID26 record layout mismatch")
     if structural["record26_end_offset"] > structural["racetest"]["new_base"]:
@@ -1199,6 +1286,8 @@ def _verify_structural(candidate: bytes, manifest: dict[str, Any]) -> None:
             "0x33_vehicle_select_manufacturer": "MERCEDES",
             "0x34_vehicle_select_model": "ML-320",
             "0x35_quickrace": "MERCEDES ML-320",
+            **({"0x35_race_details": "MERCEDES ML-320"}
+               if profile.get("profile_id") == ID26_MERCEDES_G1_STOCK_UNLOCK.profile_id else {}),
     }:
         raise PatchError("structural self-check: final ID26 display strings are incomplete")
     if len(QUICKRACE_SELECTOR_CALLS) != 3:

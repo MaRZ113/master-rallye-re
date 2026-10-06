@@ -1,13 +1,21 @@
 # R5V-G.1 — locked-state integration correction
 
+## Current result
+
+The active-root lock test is now a human runtime pass: locked ID26 displays the
+locked thumbnail and native requirement, `UI/Enabled=False`, and normal accept
+does not commit it. After the native T1 Cup condition is completed, ID26 is
+selectable and its unlocked Mercedes presentation returns. Race Details has a
+separate static fix ready for a two-mode human check; that final check is still
+pending. Current phase status is therefore **READY FOR HUMAN RUNTIME**, not
+closed.
+
 ## Current status
 
-**RUNTIME RETEST REQUIRED.** Human testing confirmed the ID26 stock-like gate,
-native locked branch, and ID3 requirement string. The prior runtime process used
-the exact candidate EXE, but its captured resource Root did not contain the
-generated VehicleSelect overlay. The ID26 slot-art and commit-control behavior
-therefore remains untested with the corrected XML. A pinned resource package
-and prelaunch verifier now stage the same semantic candidate under a new root.
+The initial overlay deployment test was invalid because its Root did not
+contain the generated VehicleSelect scene. That packaging defect is fixed; the
+corrected-root runtime result is documented in `runtime-correction-2.md` and
+`runtime-captures.json`.
 
 ## Runtime correction #2 evidence
 
