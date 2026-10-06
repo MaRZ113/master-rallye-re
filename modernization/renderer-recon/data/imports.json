@@ -1,0 +1,2050 @@
+[
+  {
+    "dll": "KERNEL32.dll",
+    "name": "ResetEvent",
+    "iat_va": "0x0068F070",
+    "iat_rva": "0x0028F070",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InitializeCriticalSection",
+    "iat_va": "0x0068F074",
+    "iat_rva": "0x0028F074",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LeaveCriticalSection",
+    "iat_va": "0x0068F078",
+    "iat_rva": "0x0028F078",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "MulDiv",
+    "iat_va": "0x0068F07C",
+    "iat_rva": "0x0028F07C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "EnterCriticalSection",
+    "iat_va": "0x0068F080",
+    "iat_rva": "0x0028F080",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "DeleteCriticalSection",
+    "iat_va": "0x0068F084",
+    "iat_rva": "0x0028F084",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedDecrement",
+    "iat_va": "0x0068F088",
+    "iat_rva": "0x0028F088",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateEventA",
+    "iat_va": "0x0068F08C",
+    "iat_rva": "0x0028F08C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "WaitForMultipleObjects",
+    "iat_va": "0x0068F090",
+    "iat_rva": "0x0028F090",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCurrentThreadId",
+    "iat_va": "0x0068F094",
+    "iat_rva": "0x0028F094",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedIncrement",
+    "iat_va": "0x0068F098",
+    "iat_rva": "0x0028F098",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCurrentProcess",
+    "iat_va": "0x0068F09C",
+    "iat_rva": "0x0028F09C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateSemaphoreA",
+    "iat_va": "0x0068F0A0",
+    "iat_rva": "0x0028F0A0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "ReleaseSemaphore",
+    "iat_va": "0x0068F0A4",
+    "iat_rva": "0x0028F0A4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CloseHandle",
+    "iat_va": "0x0068F0A8",
+    "iat_rva": "0x0028F0A8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetSystemInfo",
+    "iat_va": "0x0068F0AC",
+    "iat_rva": "0x0028F0AC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "VirtualAlloc",
+    "iat_va": "0x0068F0B0",
+    "iat_rva": "0x0028F0B0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FreeLibrary",
+    "iat_va": "0x0068F0B4",
+    "iat_rva": "0x0028F0B4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LoadLibraryA",
+    "iat_va": "0x0068F0B8",
+    "iat_rva": "0x0028F0B8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "InterlockedExchange",
+    "iat_va": "0x0068F0BC",
+    "iat_rva": "0x0028F0BC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetProcAddress",
+    "iat_va": "0x0068F0C0",
+    "iat_rva": "0x0028F0C0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "WaitForSingleObject",
+    "iat_va": "0x0068F0C4",
+    "iat_rva": "0x0028F0C4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "DuplicateHandle",
+    "iat_va": "0x0068F0C8",
+    "iat_rva": "0x0028F0C8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "WideCharToMultiByte",
+    "iat_va": "0x0068F0CC",
+    "iat_rva": "0x0028F0CC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "VirtualFree",
+    "iat_va": "0x0068F0D0",
+    "iat_rva": "0x0028F0D0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetThreadPriority",
+    "iat_va": "0x0068F0D4",
+    "iat_rva": "0x0028F0D4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetTickCount",
+    "iat_va": "0x0068F0D8",
+    "iat_rva": "0x0028F0D8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetLastError",
+    "iat_va": "0x0068F0DC",
+    "iat_rva": "0x0028F0DC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "RtlUnwind",
+    "iat_va": "0x0068F0E0",
+    "iat_rva": "0x0028F0E0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindClose",
+    "iat_va": "0x0068F0E4",
+    "iat_rva": "0x0028F0E4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FileTimeToSystemTime",
+    "iat_va": "0x0068F0E8",
+    "iat_rva": "0x0028F0E8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FileTimeToLocalFileTime",
+    "iat_va": "0x0068F0EC",
+    "iat_rva": "0x0028F0EC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetDriveTypeA",
+    "iat_va": "0x0068F0F0",
+    "iat_rva": "0x0028F0F0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateThread",
+    "iat_va": "0x0068F0F4",
+    "iat_rva": "0x0028F0F4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "RaiseException",
+    "iat_va": "0x0068F0F8",
+    "iat_rva": "0x0028F0F8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetFileAttributesA",
+    "iat_va": "0x0068F0FC",
+    "iat_rva": "0x0028F0FC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFileAttributesA",
+    "iat_va": "0x0068F100",
+    "iat_rva": "0x0028F100",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "DeleteFileA",
+    "iat_va": "0x0068F104",
+    "iat_rva": "0x0028F104",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetStartupInfoA",
+    "iat_va": "0x0068F108",
+    "iat_rva": "0x0028F108",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCommandLineA",
+    "iat_va": "0x0068F10C",
+    "iat_rva": "0x0028F10C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetVersion",
+    "iat_va": "0x0068F110",
+    "iat_rva": "0x0028F110",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "ExitProcess",
+    "iat_va": "0x0068F114",
+    "iat_rva": "0x0028F114",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapAlloc",
+    "iat_va": "0x0068F118",
+    "iat_rva": "0x0028F118",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapFree",
+    "iat_va": "0x0068F11C",
+    "iat_rva": "0x0028F11C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindNextFileA",
+    "iat_va": "0x0068F120",
+    "iat_rva": "0x0028F120",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetEnvironmentVariableA",
+    "iat_va": "0x0068F124",
+    "iat_rva": "0x0028F124",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFullPathNameA",
+    "iat_va": "0x0068F128",
+    "iat_rva": "0x0028F128",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "MultiByteToWideChar",
+    "iat_va": "0x0068F12C",
+    "iat_rva": "0x0028F12C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetACP",
+    "iat_va": "0x0068F130",
+    "iat_rva": "0x0028F130",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LCMapStringA",
+    "iat_va": "0x0068F134",
+    "iat_rva": "0x0028F134",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LCMapStringW",
+    "iat_va": "0x0068F138",
+    "iat_rva": "0x0028F138",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCPInfo",
+    "iat_va": "0x0068F13C",
+    "iat_rva": "0x0028F13C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindFirstFileA",
+    "iat_va": "0x0068F140",
+    "iat_rva": "0x0028F140",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetThreadPriority",
+    "iat_va": "0x0068F144",
+    "iat_rva": "0x0028F144",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetEvent",
+    "iat_va": "0x0068F148",
+    "iat_rva": "0x0028F148",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapSize",
+    "iat_va": "0x0068F14C",
+    "iat_rva": "0x0028F14C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "TlsSetValue",
+    "iat_va": "0x0068F150",
+    "iat_rva": "0x0028F150",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "TlsAlloc",
+    "iat_va": "0x0068F154",
+    "iat_rva": "0x0028F154",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "TlsFree",
+    "iat_va": "0x0068F158",
+    "iat_rva": "0x0028F158",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetLastError",
+    "iat_va": "0x0068F15C",
+    "iat_rva": "0x0028F15C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "TlsGetValue",
+    "iat_va": "0x0068F160",
+    "iat_rva": "0x0028F160",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetConsoleCtrlHandler",
+    "iat_va": "0x0068F164",
+    "iat_rva": "0x0028F164",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetUnhandledExceptionFilter",
+    "iat_va": "0x0068F168",
+    "iat_rva": "0x0028F168",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "WriteFile",
+    "iat_va": "0x0068F16C",
+    "iat_rva": "0x0028F16C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "ReadFile",
+    "iat_va": "0x0068F170",
+    "iat_rva": "0x0028F170",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "UnhandledExceptionFilter",
+    "iat_va": "0x0068F174",
+    "iat_rva": "0x0028F174",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetModuleFileNameA",
+    "iat_va": "0x0068F178",
+    "iat_rva": "0x0028F178",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FreeEnvironmentStringsA",
+    "iat_va": "0x0068F17C",
+    "iat_rva": "0x0028F17C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FreeEnvironmentStringsW",
+    "iat_va": "0x0068F180",
+    "iat_rva": "0x0028F180",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetEnvironmentStrings",
+    "iat_va": "0x0068F184",
+    "iat_rva": "0x0028F184",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CompareStringA",
+    "iat_va": "0x0068F188",
+    "iat_rva": "0x0028F188",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetHandleCount",
+    "iat_va": "0x0068F18C",
+    "iat_rva": "0x0028F18C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetStdHandle",
+    "iat_va": "0x0068F190",
+    "iat_rva": "0x0028F190",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFileType",
+    "iat_va": "0x0068F194",
+    "iat_rva": "0x0028F194",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetEnvironmentVariableA",
+    "iat_va": "0x0068F198",
+    "iat_rva": "0x0028F198",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetVersionExA",
+    "iat_va": "0x0068F19C",
+    "iat_rva": "0x0028F19C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapDestroy",
+    "iat_va": "0x0068F1A0",
+    "iat_rva": "0x0028F1A0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapCreate",
+    "iat_va": "0x0068F1A4",
+    "iat_rva": "0x0028F1A4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsBadWritePtr",
+    "iat_va": "0x0068F1A8",
+    "iat_rva": "0x0028F1A8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsValidLocale",
+    "iat_va": "0x0068F1AC",
+    "iat_rva": "0x0028F1AC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsValidCodePage",
+    "iat_va": "0x0068F1B0",
+    "iat_rva": "0x0028F1B0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetLocaleInfoA",
+    "iat_va": "0x0068F1B4",
+    "iat_rva": "0x0028F1B4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "EnumSystemLocalesA",
+    "iat_va": "0x0068F1B8",
+    "iat_rva": "0x0028F1B8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetUserDefaultLCID",
+    "iat_va": "0x0068F1BC",
+    "iat_rva": "0x0028F1BC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetTimeZoneInformation",
+    "iat_va": "0x0068F1C0",
+    "iat_rva": "0x0028F1C0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetStringTypeA",
+    "iat_va": "0x0068F1C4",
+    "iat_rva": "0x0028F1C4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetStringTypeW",
+    "iat_va": "0x0068F1C8",
+    "iat_rva": "0x0028F1C8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsBadReadPtr",
+    "iat_va": "0x0068F1CC",
+    "iat_rva": "0x0028F1CC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "IsBadCodePtr",
+    "iat_va": "0x0068F1D0",
+    "iat_rva": "0x0028F1D0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetFilePointer",
+    "iat_va": "0x0068F1D4",
+    "iat_rva": "0x0028F1D4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetStdHandle",
+    "iat_va": "0x0068F1D8",
+    "iat_rva": "0x0028F1D8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FlushFileBuffers",
+    "iat_va": "0x0068F1DC",
+    "iat_rva": "0x0028F1DC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateFileA",
+    "iat_va": "0x0068F1E0",
+    "iat_rva": "0x0028F1E0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetOEMCP",
+    "iat_va": "0x0068F1E4",
+    "iat_rva": "0x0028F1E4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetEndOfFile",
+    "iat_va": "0x0068F1E8",
+    "iat_rva": "0x0028F1E8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetLocaleInfoW",
+    "iat_va": "0x0068F1EC",
+    "iat_rva": "0x0028F1EC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFileSize",
+    "iat_va": "0x0068F1F0",
+    "iat_rva": "0x0028F1F0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "MapViewOfFile",
+    "iat_va": "0x0068F1F4",
+    "iat_rva": "0x0028F1F4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateFileMappingA",
+    "iat_va": "0x0068F1F8",
+    "iat_rva": "0x0028F1F8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateFileW",
+    "iat_va": "0x0068F1FC",
+    "iat_rva": "0x0028F1FC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "UnmapViewOfFile",
+    "iat_va": "0x0068F200",
+    "iat_rva": "0x0028F200",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LockResource",
+    "iat_va": "0x0068F204",
+    "iat_rva": "0x0028F204",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LoadResource",
+    "iat_va": "0x0068F208",
+    "iat_rva": "0x0028F208",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SizeofResource",
+    "iat_va": "0x0068F20C",
+    "iat_rva": "0x0028F20C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindResourceA",
+    "iat_va": "0x0068F210",
+    "iat_rva": "0x0028F210",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FindResourceW",
+    "iat_va": "0x0068F214",
+    "iat_rva": "0x0028F214",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetProcessHeap",
+    "iat_va": "0x0068F218",
+    "iat_rva": "0x0028F218",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "OutputDebugStringA",
+    "iat_va": "0x0068F21C",
+    "iat_rva": "0x0028F21C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCurrentThread",
+    "iat_va": "0x0068F220",
+    "iat_rva": "0x0028F220",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "QueryPerformanceFrequency",
+    "iat_va": "0x0068F224",
+    "iat_rva": "0x0028F224",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "QueryPerformanceCounter",
+    "iat_va": "0x0068F228",
+    "iat_rva": "0x0028F228",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "SetCurrentDirectoryA",
+    "iat_va": "0x0068F22C",
+    "iat_rva": "0x0028F22C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetCurrentDirectoryA",
+    "iat_va": "0x0068F230",
+    "iat_rva": "0x0028F230",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "Sleep",
+    "iat_va": "0x0068F234",
+    "iat_rva": "0x0028F234",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetModuleHandleA",
+    "iat_va": "0x0068F238",
+    "iat_rva": "0x0028F238",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "LocalFree",
+    "iat_va": "0x0068F23C",
+    "iat_rva": "0x0028F23C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "PeekNamedPipe",
+    "iat_va": "0x0068F240",
+    "iat_rva": "0x0028F240",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetFileInformationByHandle",
+    "iat_va": "0x0068F244",
+    "iat_rva": "0x0028F244",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CompareStringW",
+    "iat_va": "0x0068F248",
+    "iat_rva": "0x0028F248",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FormatMessageA",
+    "iat_va": "0x0068F24C",
+    "iat_rva": "0x0028F24C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "TerminateProcess",
+    "iat_va": "0x0068F250",
+    "iat_rva": "0x0028F250",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "HeapReAlloc",
+    "iat_va": "0x0068F254",
+    "iat_rva": "0x0028F254",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "FatalAppExitA",
+    "iat_va": "0x0068F258",
+    "iat_rva": "0x0028F258",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetEnvironmentStringsW",
+    "iat_va": "0x0068F25C",
+    "iat_rva": "0x0028F25C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "MoveFileA",
+    "iat_va": "0x0068F260",
+    "iat_rva": "0x0028F260",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "GetSystemTime",
+    "iat_va": "0x0068F264",
+    "iat_rva": "0x0028F264",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CreateDirectoryA",
+    "iat_va": "0x0068F268",
+    "iat_rva": "0x0028F268",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "ExitThread",
+    "iat_va": "0x0068F26C",
+    "iat_rva": "0x0028F26C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "KERNEL32.dll",
+    "name": "CopyFileA",
+    "iat_va": "0x0068F270",
+    "iat_rva": "0x0028F270",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "DDRAW.dll",
+    "name": "DirectDrawCreate",
+    "iat_va": "0x0068F018",
+    "iat_rva": "0x0028F018",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WINMM.dll",
+    "name": "timeGetTime",
+    "iat_va": "0x0068F3A0",
+    "iat_rva": "0x0028F3A0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WINMM.dll",
+    "name": "timeSetEvent",
+    "iat_va": "0x0068F3A4",
+    "iat_rva": "0x0028F3A4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WINMM.dll",
+    "name": "timeKillEvent",
+    "iat_va": "0x0068F3A8",
+    "iat_rva": "0x0028F3A8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WINMM.dll",
+    "name": "timeBeginPeriod",
+    "iat_va": "0x0068F3AC",
+    "iat_rva": "0x0028F3AC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WINMM.dll",
+    "name": "timeEndPeriod",
+    "iat_va": "0x0068F3B0",
+    "iat_rva": "0x0028F3B0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "d3d8.dll",
+    "name": "Direct3DCreate8",
+    "iat_va": "0x0068F414",
+    "iat_rva": "0x0028F414",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "DSOUND.dll",
+    "name": "ordinal:11",
+    "iat_va": "0x0068F028",
+    "iat_rva": "0x0028F028",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "DINPUT8.dll",
+    "name": "DirectInput8Create",
+    "iat_va": "0x0068F020",
+    "iat_rva": "0x0028F020",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetForegroundWindow",
+    "iat_va": "0x0068F284",
+    "iat_rva": "0x0028F284",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "MsgWaitForMultipleObjects",
+    "iat_va": "0x0068F288",
+    "iat_rva": "0x0028F288",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "wvsprintfA",
+    "iat_va": "0x0068F28C",
+    "iat_rva": "0x0028F28C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "wsprintfA",
+    "iat_va": "0x0068F290",
+    "iat_rva": "0x0028F290",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "RegisterWindowMessageA",
+    "iat_va": "0x0068F294",
+    "iat_rva": "0x0028F294",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetQueueStatus",
+    "iat_va": "0x0068F298",
+    "iat_rva": "0x0028F298",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "PeekMessageA",
+    "iat_va": "0x0068F29C",
+    "iat_rva": "0x0028F29C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DrawTextA",
+    "iat_va": "0x0068F2A0",
+    "iat_rva": "0x0028F2A0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DrawTextW",
+    "iat_va": "0x0068F2A4",
+    "iat_rva": "0x0028F2A4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DestroyMenu",
+    "iat_va": "0x0068F2A8",
+    "iat_rva": "0x0028F2A8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DestroyWindow",
+    "iat_va": "0x0068F2AC",
+    "iat_rva": "0x0028F2AC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DispatchMessageA",
+    "iat_va": "0x0068F2B0",
+    "iat_rva": "0x0028F2B0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "MessageBoxA",
+    "iat_va": "0x0068F2B4",
+    "iat_rva": "0x0028F2B4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetCursorPos",
+    "iat_va": "0x0068F2B8",
+    "iat_rva": "0x0028F2B8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "PostThreadMessageA",
+    "iat_va": "0x0068F2BC",
+    "iat_rva": "0x0028F2BC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetWindowPos",
+    "iat_va": "0x0068F2C0",
+    "iat_rva": "0x0028F2C0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetActiveWindow",
+    "iat_va": "0x0068F2C4",
+    "iat_rva": "0x0028F2C4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "LoadCursorA",
+    "iat_va": "0x0068F2C8",
+    "iat_rva": "0x0028F2C8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "RegisterClassA",
+    "iat_va": "0x0068F2CC",
+    "iat_rva": "0x0028F2CC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetRect",
+    "iat_va": "0x0068F2D0",
+    "iat_rva": "0x0028F2D0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "AdjustWindowRect",
+    "iat_va": "0x0068F2D4",
+    "iat_rva": "0x0028F2D4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CreateWindowExA",
+    "iat_va": "0x0068F2D8",
+    "iat_rva": "0x0028F2D8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetWindowLongA",
+    "iat_va": "0x0068F2DC",
+    "iat_rva": "0x0028F2DC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindowLongA",
+    "iat_va": "0x0068F2E0",
+    "iat_rva": "0x0028F2E0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindowRect",
+    "iat_va": "0x0068F2E4",
+    "iat_rva": "0x0028F2E4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetClientRect",
+    "iat_va": "0x0068F2E8",
+    "iat_rva": "0x0028F2E8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ScreenToClient",
+    "iat_va": "0x0068F2EC",
+    "iat_rva": "0x0028F2EC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SendMessageA",
+    "iat_va": "0x0068F2F0",
+    "iat_rva": "0x0028F2F0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ShowWindow",
+    "iat_va": "0x0068F2F4",
+    "iat_rva": "0x0028F2F4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetClassLongA",
+    "iat_va": "0x0068F2F8",
+    "iat_rva": "0x0028F2F8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetCursor",
+    "iat_va": "0x0068F2FC",
+    "iat_rva": "0x0028F2FC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "PostQuitMessage",
+    "iat_va": "0x0068F300",
+    "iat_rva": "0x0028F300",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetMenu",
+    "iat_va": "0x0068F304",
+    "iat_rva": "0x0028F304",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetAsyncKeyState",
+    "iat_va": "0x0068F308",
+    "iat_rva": "0x0028F308",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DefWindowProcA",
+    "iat_va": "0x0068F30C",
+    "iat_rva": "0x0028F30C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "MoveWindow",
+    "iat_va": "0x0068F310",
+    "iat_rva": "0x0028F310",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetTimer",
+    "iat_va": "0x0068F314",
+    "iat_rva": "0x0028F314",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "PostMessageA",
+    "iat_va": "0x0068F318",
+    "iat_rva": "0x0028F318",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "FillRect",
+    "iat_va": "0x0068F31C",
+    "iat_rva": "0x0028F31C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "EnableWindow",
+    "iat_va": "0x0068F320",
+    "iat_rva": "0x0028F320",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "EndDialog",
+    "iat_va": "0x0068F324",
+    "iat_rva": "0x0028F324",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetWindowTextA",
+    "iat_va": "0x0068F328",
+    "iat_rva": "0x0028F328",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetDialogBaseUnits",
+    "iat_va": "0x0068F32C",
+    "iat_rva": "0x0028F32C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ScrollWindowEx",
+    "iat_va": "0x0068F330",
+    "iat_rva": "0x0028F330",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetDlgItem",
+    "iat_va": "0x0068F334",
+    "iat_rva": "0x0028F334",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CheckMenuItem",
+    "iat_va": "0x0068F338",
+    "iat_rva": "0x0028F338",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetMenuItemCount",
+    "iat_va": "0x0068F33C",
+    "iat_rva": "0x0028F33C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "InsertMenuItemA",
+    "iat_va": "0x0068F340",
+    "iat_rva": "0x0028F340",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetMenu",
+    "iat_va": "0x0068F344",
+    "iat_rva": "0x0028F344",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CreateMenu",
+    "iat_va": "0x0068F348",
+    "iat_rva": "0x0028F348",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetMessageA",
+    "iat_va": "0x0068F34C",
+    "iat_rva": "0x0028F34C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "TranslateMessage",
+    "iat_va": "0x0068F350",
+    "iat_rva": "0x0028F350",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "WaitMessage",
+    "iat_va": "0x0068F354",
+    "iat_rva": "0x0028F354",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "BeginPaint",
+    "iat_va": "0x0068F358",
+    "iat_rva": "0x0028F358",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetWindowTextA",
+    "iat_va": "0x0068F35C",
+    "iat_rva": "0x0028F35C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetSystemMetrics",
+    "iat_va": "0x0068F360",
+    "iat_rva": "0x0028F360",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetFocus",
+    "iat_va": "0x0068F364",
+    "iat_rva": "0x0028F364",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "DialogBoxParamA",
+    "iat_va": "0x0068F368",
+    "iat_rva": "0x0028F368",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "CreateDialogParamA",
+    "iat_va": "0x0068F36C",
+    "iat_rva": "0x0028F36C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetActiveWindow",
+    "iat_va": "0x0068F370",
+    "iat_rva": "0x0028F370",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "KillTimer",
+    "iat_va": "0x0068F374",
+    "iat_rva": "0x0028F374",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ReleaseDC",
+    "iat_va": "0x0068F378",
+    "iat_rva": "0x0028F378",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetDC",
+    "iat_va": "0x0068F37C",
+    "iat_rva": "0x0028F37C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "ClientToScreen",
+    "iat_va": "0x0068F380",
+    "iat_rva": "0x0028F380",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "InvalidateRect",
+    "iat_va": "0x0068F384",
+    "iat_rva": "0x0028F384",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "EndPaint",
+    "iat_va": "0x0068F388",
+    "iat_rva": "0x0028F388",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetScrollPos",
+    "iat_va": "0x0068F38C",
+    "iat_rva": "0x0028F38C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetScrollRange",
+    "iat_va": "0x0068F390",
+    "iat_rva": "0x0028F390",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "SetParent",
+    "iat_va": "0x0068F394",
+    "iat_rva": "0x0028F394",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "USER32.dll",
+    "name": "GetDesktopWindow",
+    "iat_va": "0x0068F398",
+    "iat_rva": "0x0028F398",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetObjectA",
+    "iat_va": "0x0068F030",
+    "iat_rva": "0x0028F030",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateFontA",
+    "iat_va": "0x0068F034",
+    "iat_rva": "0x0028F034",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetTextExtentPoint32A",
+    "iat_va": "0x0068F038",
+    "iat_rva": "0x0028F038",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "DeleteDC",
+    "iat_va": "0x0068F03C",
+    "iat_rva": "0x0028F03C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SelectObject",
+    "iat_va": "0x0068F040",
+    "iat_rva": "0x0028F040",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateFontIndirectA",
+    "iat_va": "0x0068F044",
+    "iat_rva": "0x0028F044",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetBkColor",
+    "iat_va": "0x0068F048",
+    "iat_rva": "0x0028F048",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetBkMode",
+    "iat_va": "0x0068F04C",
+    "iat_rva": "0x0028F04C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "SetTextColor",
+    "iat_va": "0x0068F050",
+    "iat_rva": "0x0028F050",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateCompatibleDC",
+    "iat_va": "0x0068F054",
+    "iat_rva": "0x0028F054",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "CreateDIBSection",
+    "iat_va": "0x0068F058",
+    "iat_rva": "0x0028F058",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetStockObject",
+    "iat_va": "0x0068F05C",
+    "iat_rva": "0x0028F05C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "DeleteObject",
+    "iat_va": "0x0068F060",
+    "iat_rva": "0x0028F060",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "TextOutA",
+    "iat_va": "0x0068F064",
+    "iat_rva": "0x0028F064",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "GDI32.dll",
+    "name": "GetTextMetricsA",
+    "iat_va": "0x0068F068",
+    "iat_rva": "0x0028F068",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegCloseKey",
+    "iat_va": "0x0068F000",
+    "iat_rva": "0x0028F000",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegQueryValueExA",
+    "iat_va": "0x0068F004",
+    "iat_rva": "0x0028F004",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ADVAPI32.dll",
+    "name": "RegOpenKeyExA",
+    "iat_va": "0x0068F008",
+    "iat_rva": "0x0028F008",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoCreateInstance",
+    "iat_va": "0x0068F41C",
+    "iat_rva": "0x0028F41C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoUninitialize",
+    "iat_va": "0x0068F420",
+    "iat_rva": "0x0028F420",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoInitialize",
+    "iat_va": "0x0068F424",
+    "iat_rva": "0x0028F424",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoTaskMemAlloc",
+    "iat_va": "0x0068F428",
+    "iat_rva": "0x0028F428",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoFreeUnusedLibraries",
+    "iat_va": "0x0068F42C",
+    "iat_rva": "0x0028F42C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "ole32.dll",
+    "name": "CoTaskMemFree",
+    "iat_va": "0x0068F430",
+    "iat_rva": "0x0028F430",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SysAllocString",
+    "iat_va": "0x0068F278",
+    "iat_rva": "0x0028F278",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "OLEAUT32.dll",
+    "name": "SysFreeString",
+    "iat_va": "0x0068F27C",
+    "iat_rva": "0x0028F27C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "connect",
+    "iat_va": "0x0068F3B8",
+    "iat_rva": "0x0028F3B8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "select",
+    "iat_va": "0x0068F3BC",
+    "iat_rva": "0x0028F3BC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "__WSAFDIsSet",
+    "iat_va": "0x0068F3C0",
+    "iat_rva": "0x0028F3C0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "accept",
+    "iat_va": "0x0068F3C4",
+    "iat_rva": "0x0028F3C4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "recvfrom",
+    "iat_va": "0x0068F3C8",
+    "iat_rva": "0x0028F3C8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "WSACleanup",
+    "iat_va": "0x0068F3CC",
+    "iat_rva": "0x0028F3CC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "inet_addr",
+    "iat_va": "0x0068F3D0",
+    "iat_rva": "0x0028F3D0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "listen",
+    "iat_va": "0x0068F3D4",
+    "iat_rva": "0x0028F3D4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "bind",
+    "iat_va": "0x0068F3D8",
+    "iat_rva": "0x0028F3D8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "send",
+    "iat_va": "0x0068F3DC",
+    "iat_rva": "0x0028F3DC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "socket",
+    "iat_va": "0x0068F3E0",
+    "iat_rva": "0x0028F3E0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "htonl",
+    "iat_va": "0x0068F3E4",
+    "iat_rva": "0x0028F3E4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "htons",
+    "iat_va": "0x0068F3E8",
+    "iat_rva": "0x0028F3E8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "setsockopt",
+    "iat_va": "0x0068F3EC",
+    "iat_rva": "0x0028F3EC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "sendto",
+    "iat_va": "0x0068F3F0",
+    "iat_rva": "0x0028F3F0",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "gethostname",
+    "iat_va": "0x0068F3F4",
+    "iat_rva": "0x0028F3F4",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "closesocket",
+    "iat_va": "0x0068F3F8",
+    "iat_rva": "0x0028F3F8",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "gethostbyname",
+    "iat_va": "0x0068F3FC",
+    "iat_rva": "0x0028F3FC",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "WS2_32.dll",
+    "name": "WSAStartup",
+    "iat_va": "0x0068F400",
+    "iat_rva": "0x0028F400",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "comdlg32.dll",
+    "name": "GetOpenFileNameA",
+    "iat_va": "0x0068F408",
+    "iat_rva": "0x0028F408",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "comdlg32.dll",
+    "name": "GetSaveFileNameA",
+    "iat_va": "0x0068F40C",
+    "iat_rva": "0x0028F40C",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  },
+  {
+    "dll": "COMCTL32.dll",
+    "name": "ordinal:17",
+    "iat_va": "0x0068F010",
+    "iat_rva": "0x0028F010",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE import directory"
+  }
+]

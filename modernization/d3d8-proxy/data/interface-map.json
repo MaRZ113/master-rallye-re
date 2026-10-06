@@ -1,0 +1,1507 @@
+{
+  "schema_version": 1,
+  "source": "vendor/d3d8/d3d8.h",
+  "interfaces": {
+    "IDirect3D8": [
+      {
+        "slot": 0,
+        "method": "QueryInterface",
+        "return_type": "HRESULT",
+        "parameters": "REFIID riid, void** ppvObject",
+        "arguments": [
+          "riid",
+          "ppvObject"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "COM",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 1,
+        "method": "AddRef",
+        "return_type": "ULONG",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "COM",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 2,
+        "method": "Release",
+        "return_type": "ULONG",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "COM",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 3,
+        "method": "RegisterSoftwareDevice",
+        "return_type": "HRESULT",
+        "parameters": "void * pInitializeFunction",
+        "arguments": [
+          "pInitializeFunction"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 4,
+        "method": "GetAdapterCount",
+        "return_type": "UINT",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 5,
+        "method": "GetAdapterIdentifier",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, DWORD Flags, D3DADAPTER_IDENTIFIER8 * pIdentifier",
+        "arguments": [
+          "Adapter",
+          "Flags",
+          "pIdentifier"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 6,
+        "method": "GetAdapterModeCount",
+        "return_type": "UINT",
+        "parameters": "UINT Adapter",
+        "arguments": [
+          "Adapter"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 7,
+        "method": "EnumAdapterModes",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, UINT Mode, D3DDISPLAYMODE * pMode",
+        "arguments": [
+          "Adapter",
+          "Mode",
+          "pMode"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 8,
+        "method": "GetAdapterDisplayMode",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, D3DDISPLAYMODE * pMode",
+        "arguments": [
+          "Adapter",
+          "pMode"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 9,
+        "method": "CheckDeviceType",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, D3DDEVTYPE CheckType, D3DFORMAT DisplayFormat, D3DFORMAT BackBufferFormat, WINBOOL Windowed",
+        "arguments": [
+          "Adapter",
+          "CheckType",
+          "DisplayFormat",
+          "BackBufferFormat",
+          "Windowed"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 10,
+        "method": "CheckDeviceFormat",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, D3DDEVTYPE DeviceType, D3DFORMAT AdapterFormat, DWORD Usage, D3DRESOURCETYPE RType, D3DFORMAT CheckFormat",
+        "arguments": [
+          "Adapter",
+          "DeviceType",
+          "AdapterFormat",
+          "Usage",
+          "RType",
+          "CheckFormat"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 11,
+        "method": "CheckDeviceMultiSampleType",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, D3DDEVTYPE DeviceType, D3DFORMAT SurfaceFormat, WINBOOL Windowed, D3DMULTISAMPLE_TYPE MultiSampleType",
+        "arguments": [
+          "Adapter",
+          "DeviceType",
+          "SurfaceFormat",
+          "Windowed",
+          "MultiSampleType"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 12,
+        "method": "CheckDepthStencilMatch",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, D3DDEVTYPE DeviceType, D3DFORMAT AdapterFormat, D3DFORMAT RenderTargetFormat, D3DFORMAT DepthStencilFormat",
+        "arguments": [
+          "Adapter",
+          "DeviceType",
+          "AdapterFormat",
+          "RenderTargetFormat",
+          "DepthStencilFormat"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 13,
+        "method": "GetDeviceCaps",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, D3DDEVTYPE DeviceType, D3DCAPS8 * pCaps",
+        "arguments": [
+          "Adapter",
+          "DeviceType",
+          "pCaps"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 14,
+        "method": "GetAdapterMonitor",
+        "return_type": "HMONITOR",
+        "parameters": "UINT Adapter",
+        "arguments": [
+          "Adapter"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "forward_only",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 15,
+        "method": "CreateDevice",
+        "return_type": "HRESULT",
+        "parameters": "UINT Adapter, D3DDEVTYPE DeviceType,HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS * pPresentationParameters, struct IDirect3DDevice8 ** ppReturnedDeviceInterface",
+        "arguments": [
+          "Adapter",
+          "DeviceType",
+          "hFocusWindow",
+          "BehaviorFlags",
+          "pPresentationParameters",
+          "ppReturnedDeviceInterface"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "COM",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      }
+    ],
+    "IDirect3DDevice8": [
+      {
+        "slot": 0,
+        "method": "QueryInterface",
+        "return_type": "HRESULT",
+        "parameters": "REFIID riid, void** ppvObject",
+        "arguments": [
+          "riid",
+          "ppvObject"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "COM",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 1,
+        "method": "AddRef",
+        "return_type": "ULONG",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "COM",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 2,
+        "method": "Release",
+        "return_type": "ULONG",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "COM",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 3,
+        "method": "TestCooperativeLevel",
+        "return_type": "HRESULT",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 4,
+        "method": "GetAvailableTextureMem",
+        "return_type": "UINT",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 5,
+        "method": "ResourceManagerDiscardBytes",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Bytes",
+        "arguments": [
+          "Bytes"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 6,
+        "method": "GetDirect3D",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3D8 ** ppD3D8",
+        "arguments": [
+          "ppD3D8"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "COM",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 7,
+        "method": "GetDeviceCaps",
+        "return_type": "HRESULT",
+        "parameters": "D3DCAPS8 * pCaps",
+        "arguments": [
+          "pCaps"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 8,
+        "method": "GetDisplayMode",
+        "return_type": "HRESULT",
+        "parameters": "D3DDISPLAYMODE * pMode",
+        "arguments": [
+          "pMode"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 9,
+        "method": "GetCreationParameters",
+        "return_type": "HRESULT",
+        "parameters": "D3DDEVICE_CREATION_PARAMETERS * pParameters",
+        "arguments": [
+          "pParameters"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 10,
+        "method": "SetCursorProperties",
+        "return_type": "HRESULT",
+        "parameters": "UINT XHotSpot, UINT YHotSpot, IDirect3DSurface8 * pCursorBitmap",
+        "arguments": [
+          "XHotSpot",
+          "YHotSpot",
+          "pCursorBitmap"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 11,
+        "method": "SetCursorPosition",
+        "return_type": "void",
+        "parameters": "UINT XScreenSpace, UINT YScreenSpace,DWORD Flags",
+        "arguments": [
+          "XScreenSpace",
+          "YScreenSpace",
+          "Flags"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 12,
+        "method": "ShowCursor",
+        "return_type": "WINBOOL",
+        "parameters": "WINBOOL bShow",
+        "arguments": [
+          "bShow"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 13,
+        "method": "CreateAdditionalSwapChain",
+        "return_type": "HRESULT",
+        "parameters": "D3DPRESENT_PARAMETERS * pPresentationParameters, IDirect3DSwapChain8 ** pSwapChain",
+        "arguments": [
+          "pPresentationParameters",
+          "pSwapChain"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 14,
+        "method": "Reset",
+        "return_type": "HRESULT",
+        "parameters": "D3DPRESENT_PARAMETERS * pPresentationParameters",
+        "arguments": [
+          "pPresentationParameters"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 15,
+        "method": "Present",
+        "return_type": "HRESULT",
+        "parameters": "const RECT *src_rect, const RECT *dst_rect, HWND dst_window_override, const RGNDATA *dirty_region",
+        "arguments": [
+          "src_rect",
+          "dst_rect",
+          "dst_window_override",
+          "dirty_region"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 16,
+        "method": "GetBackBuffer",
+        "return_type": "HRESULT",
+        "parameters": "UINT BackBuffer,D3DBACKBUFFER_TYPE Type,IDirect3DSurface8 ** ppBackBuffer",
+        "arguments": [
+          "BackBuffer",
+          "Type",
+          "ppBackBuffer"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 17,
+        "method": "GetRasterStatus",
+        "return_type": "HRESULT",
+        "parameters": "D3DRASTER_STATUS * pRasterStatus",
+        "arguments": [
+          "pRasterStatus"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 18,
+        "method": "SetGammaRamp",
+        "return_type": "void",
+        "parameters": "DWORD flags, const D3DGAMMARAMP *ramp",
+        "arguments": [
+          "flags",
+          "ramp"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 19,
+        "method": "GetGammaRamp",
+        "return_type": "void",
+        "parameters": "D3DGAMMARAMP * pRamp",
+        "arguments": [
+          "pRamp"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 20,
+        "method": "CreateTexture",
+        "return_type": "HRESULT",
+        "parameters": "UINT Width,UINT Height,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DTexture8 ** ppTexture",
+        "arguments": [
+          "Width",
+          "Height",
+          "Levels",
+          "Usage",
+          "Format",
+          "Pool",
+          "ppTexture"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 21,
+        "method": "CreateVolumeTexture",
+        "return_type": "HRESULT",
+        "parameters": "UINT Width,UINT Height,UINT Depth,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DVolumeTexture8 ** ppVolumeTexture",
+        "arguments": [
+          "Width",
+          "Height",
+          "Depth",
+          "Levels",
+          "Usage",
+          "Format",
+          "Pool",
+          "ppVolumeTexture"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 22,
+        "method": "CreateCubeTexture",
+        "return_type": "HRESULT",
+        "parameters": "UINT EdgeLength,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DCubeTexture8 ** ppCubeTexture",
+        "arguments": [
+          "EdgeLength",
+          "Levels",
+          "Usage",
+          "Format",
+          "Pool",
+          "ppCubeTexture"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 23,
+        "method": "CreateVertexBuffer",
+        "return_type": "HRESULT",
+        "parameters": "UINT Length,DWORD Usage,DWORD FVF,D3DPOOL Pool,IDirect3DVertexBuffer8 ** ppVertexBuffer",
+        "arguments": [
+          "Length",
+          "Usage",
+          "FVF",
+          "Pool",
+          "ppVertexBuffer"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 24,
+        "method": "CreateIndexBuffer",
+        "return_type": "HRESULT",
+        "parameters": "UINT Length,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DIndexBuffer8 ** ppIndexBuffer",
+        "arguments": [
+          "Length",
+          "Usage",
+          "Format",
+          "Pool",
+          "ppIndexBuffer"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 25,
+        "method": "CreateRenderTarget",
+        "return_type": "HRESULT",
+        "parameters": "UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,WINBOOL Lockable,IDirect3DSurface8 ** ppSurface",
+        "arguments": [
+          "Width",
+          "Height",
+          "Format",
+          "MultiSample",
+          "Lockable",
+          "ppSurface"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 26,
+        "method": "CreateDepthStencilSurface",
+        "return_type": "HRESULT",
+        "parameters": "UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,IDirect3DSurface8 ** ppSurface",
+        "arguments": [
+          "Width",
+          "Height",
+          "Format",
+          "MultiSample",
+          "ppSurface"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 27,
+        "method": "CreateImageSurface",
+        "return_type": "HRESULT",
+        "parameters": "UINT Width,UINT Height,D3DFORMAT Format,IDirect3DSurface8 ** ppSurface",
+        "arguments": [
+          "Width",
+          "Height",
+          "Format",
+          "ppSurface"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 28,
+        "method": "CopyRects",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3DSurface8 *src_surface, const RECT *src_rects, UINT rect_count, IDirect3DSurface8 *dst_surface, const POINT *dst_points",
+        "arguments": [
+          "src_surface",
+          "src_rects",
+          "rect_count",
+          "dst_surface",
+          "dst_points"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 29,
+        "method": "UpdateTexture",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3DBaseTexture8 * pSourceTexture,IDirect3DBaseTexture8 * pDestinationTexture",
+        "arguments": [
+          "pSourceTexture",
+          "pDestinationTexture"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 30,
+        "method": "GetFrontBuffer",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3DSurface8 * pDestSurface",
+        "arguments": [
+          "pDestSurface"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 31,
+        "method": "SetRenderTarget",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3DSurface8 * pRenderTarget,IDirect3DSurface8 * pNewZStencil",
+        "arguments": [
+          "pRenderTarget",
+          "pNewZStencil"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 32,
+        "method": "GetRenderTarget",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3DSurface8 ** ppRenderTarget",
+        "arguments": [
+          "ppRenderTarget"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 33,
+        "method": "GetDepthStencilSurface",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3DSurface8 ** ppZStencilSurface",
+        "arguments": [
+          "ppZStencilSurface"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 34,
+        "method": "BeginScene",
+        "return_type": "HRESULT",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 35,
+        "method": "EndScene",
+        "return_type": "HRESULT",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 36,
+        "method": "Clear",
+        "return_type": "HRESULT",
+        "parameters": "DWORD rect_count, const D3DRECT *rects, DWORD flags, D3DCOLOR color, float z, DWORD stencil",
+        "arguments": [
+          "rect_count",
+          "rects",
+          "flags",
+          "color",
+          "z",
+          "stencil"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 37,
+        "method": "SetTransform",
+        "return_type": "HRESULT",
+        "parameters": "D3DTRANSFORMSTATETYPE state, const D3DMATRIX *matrix",
+        "arguments": [
+          "state",
+          "matrix"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 38,
+        "method": "GetTransform",
+        "return_type": "HRESULT",
+        "parameters": "D3DTRANSFORMSTATETYPE State,D3DMATRIX * pMatrix",
+        "arguments": [
+          "State",
+          "pMatrix"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 39,
+        "method": "MultiplyTransform",
+        "return_type": "HRESULT",
+        "parameters": "D3DTRANSFORMSTATETYPE state, const D3DMATRIX *matrix",
+        "arguments": [
+          "state",
+          "matrix"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 40,
+        "method": "SetViewport",
+        "return_type": "HRESULT",
+        "parameters": "const D3DVIEWPORT8 *viewport",
+        "arguments": [
+          "viewport"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 41,
+        "method": "GetViewport",
+        "return_type": "HRESULT",
+        "parameters": "D3DVIEWPORT8 * pViewport",
+        "arguments": [
+          "pViewport"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 42,
+        "method": "SetMaterial",
+        "return_type": "HRESULT",
+        "parameters": "const D3DMATERIAL8 *material",
+        "arguments": [
+          "material"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 43,
+        "method": "GetMaterial",
+        "return_type": "HRESULT",
+        "parameters": "D3DMATERIAL8 *pMaterial",
+        "arguments": [
+          "pMaterial"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 44,
+        "method": "SetLight",
+        "return_type": "HRESULT",
+        "parameters": "DWORD index, const D3DLIGHT8 *light",
+        "arguments": [
+          "index",
+          "light"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 45,
+        "method": "GetLight",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Index,D3DLIGHT8 * pLight",
+        "arguments": [
+          "Index",
+          "pLight"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 46,
+        "method": "LightEnable",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Index,WINBOOL Enable",
+        "arguments": [
+          "Index",
+          "Enable"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 47,
+        "method": "GetLightEnable",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Index,WINBOOL * pEnable",
+        "arguments": [
+          "Index",
+          "pEnable"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 48,
+        "method": "SetClipPlane",
+        "return_type": "HRESULT",
+        "parameters": "DWORD index, const float *plane",
+        "arguments": [
+          "index",
+          "plane"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 49,
+        "method": "GetClipPlane",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Index,float * pPlane",
+        "arguments": [
+          "Index",
+          "pPlane"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 50,
+        "method": "SetRenderState",
+        "return_type": "HRESULT",
+        "parameters": "D3DRENDERSTATETYPE State,DWORD Value",
+        "arguments": [
+          "State",
+          "Value"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 51,
+        "method": "GetRenderState",
+        "return_type": "HRESULT",
+        "parameters": "D3DRENDERSTATETYPE State,DWORD * pValue",
+        "arguments": [
+          "State",
+          "pValue"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 52,
+        "method": "BeginStateBlock",
+        "return_type": "HRESULT",
+        "parameters": "",
+        "arguments": [],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 53,
+        "method": "EndStateBlock",
+        "return_type": "HRESULT",
+        "parameters": "DWORD * pToken",
+        "arguments": [
+          "pToken"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 54,
+        "method": "ApplyStateBlock",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Token",
+        "arguments": [
+          "Token"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 55,
+        "method": "CaptureStateBlock",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Token",
+        "arguments": [
+          "Token"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 56,
+        "method": "DeleteStateBlock",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Token",
+        "arguments": [
+          "Token"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 57,
+        "method": "CreateStateBlock",
+        "return_type": "HRESULT",
+        "parameters": "D3DSTATEBLOCKTYPE Type,DWORD * pToken",
+        "arguments": [
+          "Type",
+          "pToken"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 58,
+        "method": "SetClipStatus",
+        "return_type": "HRESULT",
+        "parameters": "const D3DCLIPSTATUS8 *clip_status",
+        "arguments": [
+          "clip_status"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 59,
+        "method": "GetClipStatus",
+        "return_type": "HRESULT",
+        "parameters": "D3DCLIPSTATUS8 * pClipStatus",
+        "arguments": [
+          "pClipStatus"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 60,
+        "method": "GetTexture",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Stage,IDirect3DBaseTexture8 ** ppTexture",
+        "arguments": [
+          "Stage",
+          "ppTexture"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 61,
+        "method": "SetTexture",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Stage,IDirect3DBaseTexture8 * pTexture",
+        "arguments": [
+          "Stage",
+          "pTexture"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 62,
+        "method": "GetTextureStageState",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Stage,D3DTEXTURESTAGESTATETYPE Type,DWORD * pValue",
+        "arguments": [
+          "Stage",
+          "Type",
+          "pValue"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 63,
+        "method": "SetTextureStageState",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Stage,D3DTEXTURESTAGESTATETYPE Type,DWORD Value",
+        "arguments": [
+          "Stage",
+          "Type",
+          "Value"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 64,
+        "method": "ValidateDevice",
+        "return_type": "HRESULT",
+        "parameters": "DWORD * pNumPasses",
+        "arguments": [
+          "pNumPasses"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 65,
+        "method": "GetInfo",
+        "return_type": "HRESULT",
+        "parameters": "DWORD DevInfoID,void * pDevInfoStruct,DWORD DevInfoStructSize",
+        "arguments": [
+          "DevInfoID",
+          "pDevInfoStruct",
+          "DevInfoStructSize"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 66,
+        "method": "SetPaletteEntries",
+        "return_type": "HRESULT",
+        "parameters": "UINT palette_idx, const PALETTEENTRY *entries",
+        "arguments": [
+          "palette_idx",
+          "entries"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 67,
+        "method": "GetPaletteEntries",
+        "return_type": "HRESULT",
+        "parameters": "UINT PaletteNumber,PALETTEENTRY * pEntries",
+        "arguments": [
+          "PaletteNumber",
+          "pEntries"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 68,
+        "method": "SetCurrentTexturePalette",
+        "return_type": "HRESULT",
+        "parameters": "UINT PaletteNumber",
+        "arguments": [
+          "PaletteNumber"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 69,
+        "method": "GetCurrentTexturePalette",
+        "return_type": "HRESULT",
+        "parameters": "UINT * PaletteNumber",
+        "arguments": [
+          "PaletteNumber"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 70,
+        "method": "DrawPrimitive",
+        "return_type": "HRESULT",
+        "parameters": "D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount",
+        "arguments": [
+          "PrimitiveType",
+          "StartVertex",
+          "PrimitiveCount"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 71,
+        "method": "DrawIndexedPrimitive",
+        "return_type": "HRESULT",
+        "parameters": "D3DPRIMITIVETYPE PrimitiveType,UINT minIndex,UINT NumVertices,UINT startIndex,UINT primCount",
+        "arguments": [
+          "PrimitiveType",
+          "minIndex",
+          "NumVertices",
+          "startIndex",
+          "primCount"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 72,
+        "method": "DrawPrimitiveUP",
+        "return_type": "HRESULT",
+        "parameters": "D3DPRIMITIVETYPE primitive_type, UINT primitive_count, const void *data, UINT stride",
+        "arguments": [
+          "primitive_type",
+          "primitive_count",
+          "data",
+          "stride"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 73,
+        "method": "DrawIndexedPrimitiveUP",
+        "return_type": "HRESULT",
+        "parameters": "D3DPRIMITIVETYPE primitive_type, UINT min_vertex_idx, UINT vertex_count, UINT primitive_count, const void *index_data, D3DFORMAT index_format, const void *data, UINT stride",
+        "arguments": [
+          "primitive_type",
+          "min_vertex_idx",
+          "vertex_count",
+          "primitive_count",
+          "index_data",
+          "index_format",
+          "data",
+          "stride"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 74,
+        "method": "ProcessVertices",
+        "return_type": "HRESULT",
+        "parameters": "UINT SrcStartIndex,UINT DestIndex,UINT VertexCount,IDirect3DVertexBuffer8 * pDestBuffer,DWORD Flags",
+        "arguments": [
+          "SrcStartIndex",
+          "DestIndex",
+          "VertexCount",
+          "pDestBuffer",
+          "Flags"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 75,
+        "method": "CreateVertexShader",
+        "return_type": "HRESULT",
+        "parameters": "const DWORD *declaration, const DWORD *byte_code, DWORD *shader, DWORD usage",
+        "arguments": [
+          "declaration",
+          "byte_code",
+          "shader",
+          "usage"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 76,
+        "method": "SetVertexShader",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Handle",
+        "arguments": [
+          "Handle"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 77,
+        "method": "GetVertexShader",
+        "return_type": "HRESULT",
+        "parameters": "DWORD * pHandle",
+        "arguments": [
+          "pHandle"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 78,
+        "method": "DeleteVertexShader",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Handle",
+        "arguments": [
+          "Handle"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 79,
+        "method": "SetVertexShaderConstant",
+        "return_type": "HRESULT",
+        "parameters": "DWORD reg_idx, const void *data, DWORD count",
+        "arguments": [
+          "reg_idx",
+          "data",
+          "count"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 80,
+        "method": "GetVertexShaderConstant",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Register,void * pConstantData,DWORD ConstantCount",
+        "arguments": [
+          "Register",
+          "pConstantData",
+          "ConstantCount"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 81,
+        "method": "GetVertexShaderDeclaration",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Handle,void * pData,DWORD * pSizeOfData",
+        "arguments": [
+          "Handle",
+          "pData",
+          "pSizeOfData"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 82,
+        "method": "GetVertexShaderFunction",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Handle,void * pData,DWORD * pSizeOfData",
+        "arguments": [
+          "Handle",
+          "pData",
+          "pSizeOfData"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 83,
+        "method": "SetStreamSource",
+        "return_type": "HRESULT",
+        "parameters": "UINT StreamNumber,IDirect3DVertexBuffer8 * pStreamData,UINT Stride",
+        "arguments": [
+          "StreamNumber",
+          "pStreamData",
+          "Stride"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 84,
+        "method": "GetStreamSource",
+        "return_type": "HRESULT",
+        "parameters": "UINT StreamNumber,IDirect3DVertexBuffer8 ** ppStreamData,UINT * pStride",
+        "arguments": [
+          "StreamNumber",
+          "ppStreamData",
+          "pStride"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 85,
+        "method": "SetIndices",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3DIndexBuffer8 * pIndexData,UINT BaseVertexIndex",
+        "arguments": [
+          "pIndexData",
+          "BaseVertexIndex"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 86,
+        "method": "GetIndices",
+        "return_type": "HRESULT",
+        "parameters": "IDirect3DIndexBuffer8 ** ppIndexData,UINT * pBaseVertexIndex",
+        "arguments": [
+          "ppIndexData",
+          "pBaseVertexIndex"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 87,
+        "method": "CreatePixelShader",
+        "return_type": "HRESULT",
+        "parameters": "const DWORD *byte_code, DWORD *shader",
+        "arguments": [
+          "byte_code",
+          "shader"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 88,
+        "method": "SetPixelShader",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Handle",
+        "arguments": [
+          "Handle"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 89,
+        "method": "GetPixelShader",
+        "return_type": "HRESULT",
+        "parameters": "DWORD * pHandle",
+        "arguments": [
+          "pHandle"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 90,
+        "method": "DeletePixelShader",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Handle",
+        "arguments": [
+          "Handle"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 91,
+        "method": "SetPixelShaderConstant",
+        "return_type": "HRESULT",
+        "parameters": "DWORD reg_idx, const void *data, DWORD count",
+        "arguments": [
+          "reg_idx",
+          "data",
+          "count"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 92,
+        "method": "GetPixelShaderConstant",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Register,void * pConstantData,DWORD ConstantCount",
+        "arguments": [
+          "Register",
+          "pConstantData",
+          "ConstantCount"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 93,
+        "method": "GetPixelShaderFunction",
+        "return_type": "HRESULT",
+        "parameters": "DWORD Handle,void * pData,DWORD * pSizeOfData",
+        "arguments": [
+          "Handle",
+          "pData",
+          "pSizeOfData"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 94,
+        "method": "DrawRectPatch",
+        "return_type": "HRESULT",
+        "parameters": "UINT handle, const float *segment_count, const D3DRECTPATCH_INFO *patch_info",
+        "arguments": [
+          "handle",
+          "segment_count",
+          "patch_info"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 95,
+        "method": "DrawTriPatch",
+        "return_type": "HRESULT",
+        "parameters": "UINT handle, const float *segment_count, const D3DTRIPATCH_INFO *patch_info",
+        "arguments": [
+          "handle",
+          "segment_count",
+          "patch_info"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      },
+      {
+        "slot": 96,
+        "method": "DeletePatch",
+        "return_type": "HRESULT",
+        "parameters": "UINT Handle",
+        "arguments": [
+          "Handle"
+        ],
+        "implemented_wrapper": true,
+        "logging_category": "observational",
+        "forwarding_status": "unchanged except documented COM pointer plumbing"
+      }
+    ]
+  }
+}

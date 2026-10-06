@@ -1,0 +1,263 @@
+{
+  "source_root": "external protected retail Data.sma_unpacked/DataGx/Misc/Sky",
+  "parser": "existing read-only src/master_rallye/dx.py; run with -B",
+  "evidence_grade": "CONFIRMED_BY_EXISTING_RESEARCH",
+  "scope": "external asset structure; not direct runtime draw proof",
+  "resources": [
+    {
+      "resource": "cloud0\\clouds0.dx",
+      "sha256": "87f249e0ae5bd2c6c27a789ba3fbc8ffeb7c521875044c312f8290ad6301b142",
+      "validated": true,
+      "vertex_count": 134,
+      "draws": [
+        {
+          "flags_0x20": "00000001",
+          "mask": 1,
+          "textures": [
+            "clouds0-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud0\\layer0.dx",
+      "sha256": "b92ab207c3bc979546134a7e3d49a032c91e65d9f07797cfdec0b844533ce818",
+      "validated": true,
+      "vertex_count": 114,
+      "draws": [
+        {
+          "flags_0x20": "01000001",
+          "mask": 1,
+          "textures": [
+            "layer0-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud1\\clouds1.dx",
+      "sha256": "f2de5e82b17770a5cc6430c62a5f7ccb50b74957380b5ea8e4430e175bc9c37b",
+      "validated": true,
+      "vertex_count": 134,
+      "draws": [
+        {
+          "flags_0x20": "00000001",
+          "mask": 1,
+          "textures": [
+            "cloud1-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud1\\layer1.dx",
+      "sha256": "4495b13115580b2a405159dc6ee357d53cb6f62d32a14ed931376d78f775d179",
+      "validated": true,
+      "vertex_count": 114,
+      "draws": [
+        {
+          "flags_0x20": "01000001",
+          "mask": 1,
+          "textures": [
+            "layer1-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud2\\clouds2.dx",
+      "sha256": "38c268f880454f9396dd3d5e0c45c2033686c28608add75a6f68d46179a925ad",
+      "validated": true,
+      "vertex_count": 134,
+      "draws": [
+        {
+          "flags_0x20": "00000001",
+          "mask": 1,
+          "textures": [
+            "cloud2-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud2\\layer2.dx",
+      "sha256": "f3d8709bd91c3a29fcc2d9e321ff69dd888697cb22a05dddde4a20e3ecaa6ae5",
+      "validated": true,
+      "vertex_count": 114,
+      "draws": [
+        {
+          "flags_0x20": "01000001",
+          "mask": 1,
+          "textures": [
+            "layer2-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud3\\clouds3.dx",
+      "sha256": "7679fd58911f3efc1d8cfed9054edbf6073929831e5ffc16b81450c1b64b9293",
+      "validated": true,
+      "vertex_count": 134,
+      "draws": [
+        {
+          "flags_0x20": "00000001",
+          "mask": 1,
+          "textures": [
+            "cloud3-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud3\\layer3.dx",
+      "sha256": "2ff5c34ca20fdb14d1ff9c2bdf63da8c53362b3d14ee504bdf85928d162bcbbb",
+      "validated": true,
+      "vertex_count": 114,
+      "draws": [
+        {
+          "flags_0x20": "01000001",
+          "mask": 1,
+          "textures": [
+            "layer3-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud4\\clouds4.dx",
+      "sha256": "eb6d45f350052bc5d0c396e2edcbc408de388f50fc5f692f57ee2bd67805b330",
+      "validated": true,
+      "vertex_count": 134,
+      "draws": [
+        {
+          "flags_0x20": "00000001",
+          "mask": 1,
+          "textures": [
+            "cloud4-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud4\\layer4.dx",
+      "sha256": "f47b348583147ad08c76e8414a4b85b7a389dec7dcc91a0b0c4240dabe7604da",
+      "validated": true,
+      "vertex_count": 114,
+      "draws": [
+        {
+          "flags_0x20": "01000001",
+          "mask": 1,
+          "textures": [
+            "layer4-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud5\\cloud5.dx",
+      "sha256": "2cd71e1209782db96fd00fe1ea6bd6898f1a8a138d5ed9d1df256901d860be51",
+      "validated": true,
+      "vertex_count": 134,
+      "draws": [
+        {
+          "flags_0x20": "00000001",
+          "mask": 1,
+          "textures": [
+            "cloud5-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud5\\clouds5.dx",
+      "sha256": "2cd71e1209782db96fd00fe1ea6bd6898f1a8a138d5ed9d1df256901d860be51",
+      "validated": true,
+      "vertex_count": 134,
+      "draws": [
+        {
+          "flags_0x20": "00000001",
+          "mask": 1,
+          "textures": [
+            "cloud5-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud5\\layer5.dx",
+      "sha256": "6d60335f959ee96eb59c9271239c09b164961b7d297eb2efcbf7d0f0f2e77ee7",
+      "validated": true,
+      "vertex_count": 114,
+      "draws": [
+        {
+          "flags_0x20": "01000001",
+          "mask": 1,
+          "textures": [
+            "layer5-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud6\\clouds6.dx",
+      "sha256": "3f1331c2f02348d03ba260f5bd0ed95ec79c4903cfdd380d5bdf8e516a623845",
+      "validated": true,
+      "vertex_count": 134,
+      "draws": [
+        {
+          "flags_0x20": "01000001",
+          "mask": 1,
+          "textures": [
+            "clouds6-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    },
+    {
+      "resource": "cloud6\\layer6.dx",
+      "sha256": "650ec38320678e66367e1c37987c6db0d921d82c816d9d6e2b4e874f6d15b8d9",
+      "validated": true,
+      "vertex_count": 114,
+      "draws": [
+        {
+          "flags_0x20": "01000001",
+          "mask": 1,
+          "textures": [
+            "layer6-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ]
+    }
+  ]
+}

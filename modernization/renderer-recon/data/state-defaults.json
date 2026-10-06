@@ -1,0 +1,1005 @@
+[
+  {
+    "va": "0x006EA8B0",
+    "rva": "0x002EA8B0",
+    "count_va": "0x006EA9E0",
+    "states": [
+      {
+        "state": 27,
+        "value": 0
+      },
+      {
+        "state": 25,
+        "value": 8
+      },
+      {
+        "state": 20,
+        "value": 1
+      },
+      {
+        "state": 19,
+        "value": 1
+      },
+      {
+        "state": 7,
+        "value": 1
+      },
+      {
+        "state": 23,
+        "value": 4
+      },
+      {
+        "state": 14,
+        "value": 1
+      },
+      {
+        "state": 24,
+        "value": 0
+      },
+      {
+        "state": 15,
+        "value": 0
+      },
+      {
+        "state": 171,
+        "value": 1
+      },
+      {
+        "state": 168,
+        "value": 15
+      },
+      {
+        "state": 26,
+        "value": 0
+      },
+      {
+        "state": 40,
+        "value": 0
+      },
+      {
+        "state": 8,
+        "value": 3
+      },
+      {
+        "state": 38,
+        "value": null,
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 37,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 37,
+          "expression": "0x25",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 36,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 36,
+          "expression": "0x24",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a4",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 16,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 16,
+          "expression": "0x10",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 10,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 10,
+          "expression": "10",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006f9e54",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 9,
+        "value": 2,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 9,
+          "expression": "9",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 2,
+          "expression": "2",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 52,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 52,
+          "expression": "0x34",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 53,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 53,
+          "expression": "0x35",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 56,
+        "value": 8,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 56,
+          "expression": "0x38",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 8,
+          "expression": "8",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 58,
+        "value": 4294967295,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 58,
+          "expression": "0x3a",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 4294967295,
+          "expression": "0xffffffff",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 55,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 55,
+          "expression": "0x37",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 57,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 57,
+          "expression": "0x39",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 59,
+        "value": 4294967295,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 59,
+          "expression": "0x3b",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 4294967295,
+          "expression": "0xffffffff",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 54,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 54,
+          "expression": "0x36",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 60,
+        "value": 4294967295,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 60,
+          "expression": "0x3c",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 4294967295,
+          "expression": "0xffffffff",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 128,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 128,
+          "expression": "0x80",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 129,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 129,
+          "expression": "0x81",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 130,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 130,
+          "expression": "0x82",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 131,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 131,
+          "expression": "0x83",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 132,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 132,
+          "expression": "0x84",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 133,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 133,
+          "expression": "0x85",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 134,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 134,
+          "expression": "0x86",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 135,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 135,
+          "expression": "0x87",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      },
+      {
+        "state": 47,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 47,
+          "expression": "0x2f",
+          "writer_va": "0x0058E6E0"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E6E0"
+        }
+      }
+    ],
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE seed plus Ghidra CRT writes 0058E6E0 / 0058E870; symbolic memory-source values remain unresolved"
+  },
+  {
+    "va": "0x006EA9E8",
+    "rva": "0x002EA9E8",
+    "count_va": "0x006EAAF0",
+    "states": [
+      {
+        "state": 38,
+        "value": null,
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 37,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 37,
+          "expression": "0x25",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 36,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 36,
+          "expression": "0x24",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a4",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 139,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 139,
+          "expression": "0x8b",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 147,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 147,
+          "expression": "0x93",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 136,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 136,
+          "expression": "0x88",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 152,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 152,
+          "expression": "0x98",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 141,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 141,
+          "expression": "0x8d",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 145,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 145,
+          "expression": "0x91",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 148,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 148,
+          "expression": "0x94",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 35,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 35,
+          "expression": "0x23",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 140,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 140,
+          "expression": "0x8c",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 167,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 167,
+          "expression": "0xa7",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 137,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 137,
+          "expression": "0x89",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 142,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 142,
+          "expression": "0x8e",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 161,
+        "value": 1,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 161,
+          "expression": "0xa1",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 1,
+          "expression": "1",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 162,
+        "value": 4294967295,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 162,
+          "expression": "0xa2",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 4294967295,
+          "expression": "0xffffffff",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 143,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 143,
+          "expression": "0x8f",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 163,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 163,
+          "expression": "0xa3",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 164,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 164,
+          "expression": "0xa4",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 158,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 158,
+          "expression": "0x9e",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 159,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 159,
+          "expression": "0x9f",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a4",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 160,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 160,
+          "expression": "0xa0",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a4",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 157,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 157,
+          "expression": "0x9d",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 154,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 154,
+          "expression": "0x9a",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 166,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 166,
+          "expression": "0xa6",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a8",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 155,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 155,
+          "expression": "0x9b",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 156,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 156,
+          "expression": "0x9c",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 48,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 48,
+          "expression": "0x30",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 153,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 153,
+          "expression": "0x99",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 146,
+        "value": 2,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 146,
+          "expression": "0x92",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 2,
+          "expression": "2",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 170,
+        "value": null,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 170,
+          "expression": "0xaa",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": null,
+          "expression": "DAT_006ea8a4",
+          "writer_va": "0x0058E870"
+        }
+      },
+      {
+        "state": 151,
+        "value": 0,
+        "pe_seed_state": 0,
+        "state_initialization": {
+          "value": 151,
+          "expression": "0x97",
+          "writer_va": "0x0058E870"
+        },
+        "pe_seed_value": 0,
+        "value_initialization": {
+          "value": 0,
+          "expression": "0",
+          "writer_va": "0x0058E870"
+        }
+      }
+    ],
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE seed plus Ghidra CRT writes 0058E6E0 / 0058E870; symbolic memory-source values remain unresolved"
+  },
+  {
+    "va": "0x006EAAF8",
+    "rva": "0x002EAAF8",
+    "count_va": "0x006EAB20",
+    "states": [
+      {
+        "state": 22,
+        "value": 3
+      },
+      {
+        "state": 165,
+        "value": 0
+      },
+      {
+        "state": 28,
+        "value": 0
+      },
+      {
+        "state": 34,
+        "value": 0
+      },
+      {
+        "state": 29,
+        "value": 0
+      }
+    ],
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "source": "PE seed plus Ghidra CRT writes 0058E6E0 / 0058E870; symbolic memory-source values remain unresolved"
+  }
+]

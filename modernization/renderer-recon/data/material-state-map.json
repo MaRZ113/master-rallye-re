@@ -1,0 +1,602 @@
+{
+  "build_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "flags_source": {
+    "value": "DX core bytes0/1/2/3 -> runtime+22/+23/+20/+21; word+24 -> runtime+34; ordered slots+38/+3C/+40",
+    "evidence_grade": "CONFIRMED_BY_EXISTING_RESEARCH",
+    "source": "research/r-mat1/runtime-material-map.md",
+    "va": "0x005528B0",
+    "rva": "0x001528B0"
+  },
+  "selector": {
+    "value": "mask/options select base/env/noise/water variants",
+    "evidence_grade": "CONFIRMED_BY_EXISTING_RESEARCH",
+    "source": "research/r-mat1/runtime-material-map.md",
+    "va": "0x00580360",
+    "rva": "0x00180360"
+  },
+  "families": [
+    {
+      "name": "base",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005867A0",
+      "owner_rva": "0x001867A0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 1,
+          "ALPHAOP": 1
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_alpha",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005867A0",
+      "owner_rva": "0x001867A0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 1,
+          "ALPHAOP": 1
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_alphatest",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005867A0",
+      "owner_rva": "0x001867A0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6,
+        "ALPHATESTENABLE": 1,
+        "ALPHAREF": 128,
+        "ALPHAFUNC": 5
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 1,
+          "ALPHAOP": 1
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_env",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00586150",
+      "owner_rva": "0x00186150",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 18,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": 65536,
+          "TEXTURETRANSFORMFLAGS": 2
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_env_alpha",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00586150",
+      "owner_rva": "0x00186150",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 18,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": 65536,
+          "TEXTURETRANSFORMFLAGS": 2
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_env_alphatest",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00586150",
+      "owner_rva": "0x00186150",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6,
+        "ALPHATESTENABLE": 1,
+        "ALPHAREF": 128,
+        "ALPHAFUNC": 5
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 18,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": 65536,
+          "TEXTURETRANSFORMFLAGS": 2
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_noise",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00585AC0",
+      "owner_rva": "0x00185AC0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 5,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 5,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_noise_alpha",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00585AC0",
+      "owner_rva": "0x00185AC0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 5,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 5,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_noise_alphatest",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00585AC0",
+      "owner_rva": "0x00185AC0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6,
+        "ALPHATESTENABLE": 1,
+        "ALPHAREF": 128,
+        "ALPHAFUNC": 5
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 5,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 5,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_water",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005854D0",
+      "owner_rva": "0x001854D0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 3,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 7,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 2,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "base_water_alpha",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x005854D0",
+      "owner_rva": "0x001854D0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 3,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0,
+          "TEXCOORDINDEX": "pass UV selector; base main branch0"
+        },
+        {
+          "COLOROP": 7,
+          "COLORARG1": 1,
+          "COLORARG2": 2,
+          "ALPHAOP": 2,
+          "ALPHAARG1": 1,
+          "ALPHAARG2": 2,
+          "TEXCOORDINDEX": "second UV selector",
+          "TEXTURETRANSFORMFLAGS": "not set here"
+        }
+      ],
+      "slots": "compiled ordered slot0/slot1; Null preserved",
+      "final_depth_override": "00576970 instance+A8 ZENABLE / +A9 ZWRITE after shader",
+      "cull_mode": "inherited unless common draw forces NONE; no per-family claim",
+      "material_diffuse_specular": "no SetMaterial in reviewed family; vertex diffuse is a combiner input",
+      "transparent_order": "alpha family queue; alpha-test opaque queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00565DA0 + exact family setup; R-MAT1 corroborates base/env/ordering"
+    },
+    {
+      "name": "particle_solid",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 1,
+        "ALPHABLENDENABLE": 0,
+        "SRCBLEND": null,
+        "DESTBLEND": null
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    },
+    {
+      "name": "particle_blend",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 5,
+        "DESTBLEND": 6
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    },
+    {
+      "name": "particle_add",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 2,
+        "DESTBLEND": 2
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    },
+    {
+      "name": "particle_colorabsorb",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 2,
+        "DESTBLEND": 4
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    },
+    {
+      "name": "particle_densityabsorb",
+      "pipeline": "FIXED_FUNCTION",
+      "owner_va": "0x00584EA0",
+      "owner_rva": "0x00184EA0",
+      "render_states_at_shader_setup": {
+        "LIGHTING": 0,
+        "ZENABLE": 1,
+        "ZWRITEENABLE": 0,
+        "ALPHABLENDENABLE": 1,
+        "SRCBLEND": 1,
+        "DESTBLEND": 4
+      },
+      "texture_stages": [
+        {
+          "COLOROP": 4,
+          "COLORARG1": 2,
+          "COLORARG2": 0,
+          "ALPHAOP": 4,
+          "ALPHAARG1": 2,
+          "ALPHAARG2": 0
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "00584EA0 mode switch; no weather attribution"
+    }
+  ]
+}

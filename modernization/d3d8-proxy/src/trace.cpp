@@ -1,0 +1,135 @@
+#include "trace.hpp"
+#include "method_names.hpp"
+#include <sstream>
+#include <iomanip>
+#include <cmath>
+#include <cfenv>
+#include <cstdio>
+namespace gfx2 {
+namespace {
+struct FloatEnvironment { fenv_t f;FloatEnvironment(){fegetenv(&f);}~FloatEnvironment(){fesetenv(&f);} };
+struct FileHandle { HANDLE value;~FileHandle(){if(value!=INVALID_HANDLE_VALUE)CloseHandle(value);} };
+template<class T> void scalar(std::ostream& o,const Known<T>& k){if(k.known)o<<k.value;else o<<"null";}
+void matrix(std::ostream& o,const Known<D3DMATRIX>& k){
+ if(!k.known){o<<"null";return;}o<<"{\"values\":[";const float* f=&k.value.m[0][0];
+ for(int i=0;i<16;++i){if(i)o<<',';if(std::isfinite(f[i]))o<<std::setprecision(9)<<f[i];else o<<"null";}
+ o<<"],\"bits\":[";for(int i=0;i<16;++i){uint32_t b;std::memcpy(&b,f+i,4);if(i)o<<',';o<<b;}o<<"]}";
+}
+void viewport(std::ostream& o,const Known<D3DVIEWPORT8>& k){
+ if(!k.known){o<<"null";return;}const auto& v=k.value;o<<"["<<v.X<<','<<v.Y<<','<<v.Width<<','<<v.Height<<',';
+ if(std::isfinite(v.MinZ))o<<std::setprecision(9)<<v.MinZ;else o<<"null";o<<',';
+ if(std::isfinite(v.MaxZ))o<<std::setprecision(9)<<v.MaxZ;else o<<"null";o<<']';
+}
+void caller(std::ostream& o,uintptr_t pc){
+ auto c=caller_info(pc);o<<"{\"address\":"<<pc<<",\"module\":"<<(c.known?quote(c.module):"null")<<",\"base\":";
+ if(c.known)o<<c.base;else o<<"null";o<<",\"return_rva\":";if(c.known)o<<pc-c.base;else o<<"null";o<<"}";
+}
+void state(std::ostream& o,const Draw& d){
+ const auto& s=d.state;o<<"{\"viewport\":";viewport(o,s.viewport);o<<",\"vertex_shader\":";scalar(o,s.vertex_shader);o<<",\"pixel_shader\":";scalar(o,s.pixel_shader);
+ o<<",\"render_states\":{";for(int i=0;i<24;++i){if(i)o<<',';o<<'"'<<RS_KEYS[i]<<"\":";scalar(o,s.rs[i]);}o<<"},\"texture_stage_states\":[";
+ for(int i=0;i<8;++i){if(i)o<<',';o<<'{';for(int j=0;j<32;++j){if(j)o<<',';o<<'"'<<j+1<<"\":";scalar(o,s.tss[i][j]);}o<<'}';}o<<"],\"matrices\":{";
+ for(int i=0;i<5;++i){if(i)o<<',';o<<'"'<<MATRIX_KEYS[i]<<"\":";matrix(o,s.matrices[i]);}o<<"},\"textures\":[";
+ for(int i=0;i<8;++i){if(i)o<<',';o<<"{\"pointer\":";scalar(o,s.textures[i]);o<<",\"last_creation_serial\":"<<d.texture_generation[i]<<'}';}o<<"],\"streams\":[";
+ for(int i=0;i<16;++i){if(i)o<<',';if(s.streams[i].known)o<<"{\"pointer\":"<<s.streams[i].value.pointer<<",\"stride\":"<<s.streams[i].value.stride<<",\"last_creation_serial\":"<<d.stream_generation[i]<<'}';else o<<"null";}o<<"],\"indices\":";
+ if(s.indices.known)o<<"{\"pointer\":"<<s.indices.value.pointer<<",\"base\":"<<s.indices.value.base<<",\"last_creation_serial\":"<<d.index_generation<<'}';else o<<"null";
+ o<<",\"render_target\":";scalar(o,s.target);o<<",\"depth_target\":";scalar(o,s.depth);o<<'}';
+}
+}
+Trace::Trace() noexcept {
+ lock_ok_=InitializeCriticalSectionEx(&lock_,2000,0)!=FALSE;
+ try {auto& s=session();enabled=lock_ok_&&s.enabled;device_=s.device_serial();}catch(...){enabled=false;}
+}
+Trace::~Trace(){if(lock_ok_)DeleteCriticalSection(&lock_);}
+Trace::Guard::Guard(Trace& t) noexcept :t_(t),held_(t.lock_ok_&&t.enabled){if(held_)EnterCriticalSection(&t.lock_);}
+Trace::Guard::~Guard(){if(held_)LeaveCriticalSection(&t_.lock_);}
+void Trace::before(uint32_t slot,const Args& a,uintptr_t) noexcept {
+ if(!enabled)return;
+ FloatEnvironment fp;
+ try {
+  if(slot==15||slot==34){bool down=(GetAsyncKeyState(VK_F10)&0x8000)!=0;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
+   if(pid==GetCurrentProcessId())control.poll(down);else control.key_down=down;}
+  if(slot<97)++counts_[slot];
+  if(slot==14)reset_before_.read(reinterpret_cast<const D3DPRESENT_PARAMETERS*>(a.a[0]));
+  if(slot>=70&&slot<=73){primitives_+=a.a[slot==70?2:slot==71?4:slot==72?1:3];
+   pending_draw_=UINT32_MAX;
+   if(control.active&&capture_&&!capture_->truncated){
+    if(capture_->draw_count==MAX_DRAWS){capture_->truncated=true;++capture_->dropped;}
+    else {pending_draw_=static_cast<uint32_t>(capture_->draw_count++);auto& d=capture_->draws[pending_draw_];d.state=shadow.snapshot();
+     for(int i=0;i<8;++i)d.texture_generation[i]=d.state.textures[i].known?resources.generation(d.state.textures[i].value):0;
+     for(int i=0;i<16;++i)d.stream_generation[i]=d.state.streams[i].known?resources.generation(d.state.streams[i].value.pointer):0;
+     d.index_generation=d.state.indices.known?resources.generation(d.state.indices.value.pointer):0;
+    }
+   }
+  }
+ }catch(...){enabled=false;}
+}
+void Trace::resource(uint32_t slot,const Args& a,uint32_t result){
+ if(static_cast<int32_t>(result)<0||slot<20||slot>27)return;
+ const uint32_t output[]={6,7,5,4,4,5,4,3};uintptr_t p=0;
+ if(!safe_copy(&p,reinterpret_cast<const void*>(a.a[output[slot-20]]),4)||!p)return;
+ auto r=resources.add(p,slot,a);std::ostringstream o;o<<"{\"type\":\"resource_create\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[slot])<<",\"pointer\":"<<p<<",\"serial\":"<<r.serial<<",\"arguments\":[";
+ for(int i=0;i<8;++i){if(i)o<<',';o<<a.a[i];}o<<"],\"lifetime_observed\":false}";session().write(o.str());
+}
+void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc) noexcept {
+ if(!enabled)return;
+ FloatEnvironment fp;
+ try {
+  if(control.active&&capture_){
+   if(capture_->event_count==MAX_EVENTS){capture_->truncated=true;++capture_->dropped;}
+   else if(!capture_->truncated){auto& e=capture_->events[capture_->event_count++];e=Event{};e.slot=slot;e.result=result;e.args=args;e.pc=pc;
+    if(slot>=70&&slot<=73)e.draw=pending_draw_;
+    if((slot==37||slot==38)&&safe_copy(e.payload,(void*)args.a[1],64))e.payload_words=16;
+    else if(slot==40&&safe_copy(e.payload,(void*)args.a[0],24))e.payload_words=6;
+    else if(slot==42&&safe_copy(e.payload,(void*)args.a[0],sizeof(D3DMATERIAL8)))e.payload_words=sizeof(D3DMATERIAL8)/4;
+    else if(slot==44&&safe_copy(e.payload,(void*)args.a[1],sizeof(D3DLIGHT8)))e.payload_words=sizeof(D3DLIGHT8)/4;
+    else if(slot==14&&reset_before_.known){std::memcpy(e.payload,&reset_before_.value,52);e.payload_words=13;if(safe_copy(e.payload+13,(void*)args.a[0],52))e.payload_words=26;}
+    else if(slot==15){if(args.a[0]&&safe_copy(e.payload,(void*)args.a[0],16))e.payload_words=4;if(args.a[1]&&safe_copy(e.payload+4,(void*)args.a[1],16))e.payload_words=8;}
+   }else ++capture_->dropped;
+  }
+  shadow.update(slot,args,result);resource(slot,args,result);
+  if(slot==14){if(static_cast<int32_t>(result)>=0)resources.items.clear();D3DPRESENT_PARAMETERS p{};bool valid=safe_copy(&p,(void*)args.a[0],sizeof(p));
+   session().write("{\"type\":\"reset\",\"device\":"+std::to_string(device_)+",\"hresult\":"+std::to_string(result)+",\"parameters_before\":"+(reset_before_.known?pp_json(reset_before_.value):"null")+",\"parameters_after\":"+(valid?pp_json(p):"null")+"}");
+   if(control.active)finish(result,false,"reset");control.abort();control.boundary=false;
+  }
+  if(slot==3&&(!last_cooperative_.known||last_cooperative_.value!=result)){last_cooperative_.set(result);session().write("{\"type\":\"cooperative_level\",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+",\"hresult\":"+std::to_string(result)+"}");}
+  if(slot==15){finish(result,control.boundary,"present");++frame_;counts_.fill(0);primitives_=0;control.finish_present();if(control.active)start_capture();}
+ }catch(...){enabled=false;control.abort();OutputDebugStringA("R-GFX2 trace disabled after instrumentation failure\n");}
+}
+void Trace::start_capture() noexcept {
+ if(!capture_)capture_.reset(new(std::nothrow)FrameBuffer);
+ if(!capture_){control.abort();return;}capture_->event_count=0;capture_->draw_count=0;capture_->truncated=false;capture_->dropped=0;
+}
+void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
+ try {
+  auto& s=session();std::ostringstream summary;summary<<"{\"type\":\"frame_summary\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"complete_interval\":"<<(complete?"true":"false")<<",\"present_hresult\":"<<result<<",\"primitive_total\":"<<primitives_<<",\"counts\":{";
+  for(int i=0;i<97;++i){if(i)summary<<',';summary<<quote(METHOD_NAMES[i])<<':'<<counts_[i];}summary<<"},\"bypass_suspected\":"<<((counts_[15]&&(!counts_[34]||!counts_[35]))?"true":"false")<<"}";
+  if(s.summaries&&(frame_==1||frame_%60==0||control.active))s.write(summary.str());
+  if(!control.active||!capture_)return;
+  wchar_t name[100];swprintf_s(name,L"\\frame-%lu-d%llu-%08llu.jsonl",GetCurrentProcessId(),device_,frame_);
+  auto final=s.directory+name,tmp=final+L".tmp";
+  HANDLE f=CreateFileW(tmp.c_str(),GENERIC_WRITE,FILE_SHARE_READ,nullptr,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,nullptr);
+  if(f==INVALID_HANDLE_VALUE)return;
+  FileHandle file{f};
+  uint64_t written=0;bool okay=true;
+  auto line=[&](const std::string& record){std::string text=record+'\n';DWORD n=0;
+   if(!okay)return;
+   if(written+text.size()>64*1024*1024||!WriteFile(f,text.data(),static_cast<DWORD>(text.size()),&n,nullptr)||n!=text.size()){
+    okay=false;LARGE_INTEGER at;at.QuadPart=written;SetFilePointerEx(f,at,nullptr,FILE_BEGIN);SetEndOfFile(f);return;
+   }written+=n;};
+  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX2-1\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+"}");
+  for(size_t i=0;i<capture_->event_count;++i){const auto& e=capture_->events[i];std::ostringstream o;
+   o<<"{\"type\":"<<quote(e.draw==UINT32_MAX?"event":"draw")<<",\"sequence\":"<<i<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[e.slot])<<",\"slot\":"<<e.slot<<",\"result\":"<<e.result<<",\"caller\":";caller(o,e.pc);o<<",\"arguments\":[";
+   for(int j=0;j<8;++j){if(j)o<<',';o<<e.args.a[j];}o<<"],\"payload_bits\":[";
+   for(uint32_t j=0;j<e.payload_words;++j){if(j)o<<',';o<<e.payload[j];}o<<']';
+   if(e.draw!=UINT32_MAX){o<<",\"draw_index\":"<<e.draw<<",\"primitive_type\":"<<e.args.a[0]<<",\"primitive_count\":"<<e.args.a[e.slot==70?2:e.slot==71?4:e.slot==72?1:3]<<",\"state\":";state(o,capture_->draws[e.draw]);}o<<'}';line(o.str());
+  }
+  line(summary.str());line("{\"type\":\"frame_end\",\"frame\":"+std::to_string(frame_)+",\"complete\":"+(complete?"true":"false")+",\"reason\":"+quote(reason)+",\"truncated\":"+(capture_->truncated?"true":"false")+",\"dropped_records\":"+std::to_string(capture_->dropped)+",\"draw_records\":"+std::to_string(capture_->draw_count)+"}");
+  if(!FlushFileBuffers(f))okay=false;CloseHandle(f);file.value=INVALID_HANDLE_VALUE;
+  if(okay&&!MoveFileExW(tmp.c_str(),final.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH))okay=false;
+  s.write("{\"type\":\"capture_written\",\"path\":"+quote(utf8(okay?final:tmp))+",\"complete_file\":"+(okay?"true":"false")+"}");
+ }catch(...){OutputDebugStringA("R-GFX2 capture output failed; forwarding unchanged\n");}
+}
+void Trace::shutdown(uint32_t refs) noexcept {
+ if(!enabled)return;FloatEnvironment fp;try{auto g=guard();if(control.active)finish(0,false,"release");control.abort();session().write("{\"type\":\"device_release\",\"device\":"+std::to_string(device_)+",\"native_refcount\":"+std::to_string(refs)+"}");}catch(...){}
+}
+}

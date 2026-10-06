@@ -1,0 +1,11 @@
+.build*/
+.analysis/
+__pycache__/
+*.py[cod]
+MRRGFX2/
+*.dll
+*.obj
+*.pdb
+*.lib
+*.exp
+*.map
