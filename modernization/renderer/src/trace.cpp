@@ -53,6 +53,7 @@ DrawClassification Trace::before(uint32_t slot,const Args& a,uintptr_t pc) noexc
   if(slot==71){uint32_t rva=pc>=exe_base_&&pc-exe_base_<=UINT32_MAX?static_cast<uint32_t>(pc-exe_base_):0;
    bool owner=classifier_known_&&rva==SHARED_WORLD_RETURN_RVA;classification.reasons=draw_reasons(shadow,classifier_known_,race_context_,owner);classification.fvf=shadow.bindings.vertex_shader.known?shadow.bindings.vertex_shader.value:0;classification.alpha_blended=shadow.rs[27].known&&shadow.rs[27].value!=0;
    if(owner&&race_context_&&a.a[0]==D3DPT_TRIANGLELIST&&(classification.reasons&RIGID_WORLD)){
+    race_seen_this_frame_=true; // A cached perspective may remain active across Present.
     classification.signature=geometry_signature(shadow,resources,a,rva);
     if(classification.signature){classification.reasons|=KNOWN_GEOMETRY;classification.group=tracker_.observe(shadow.matrices[256].value,classification.signature,{classification.fvf,classification.reasons,static_cast<uint32_t>(a.a[4])});classification.epoch=tracker_.epoch();classification.transform=tracker_.predict(shadow.matrices[256].value,classification.signature);}
    }
@@ -93,14 +94,18 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
   if(slot==63&&args.a[0]==1&&args.a[1]==11&&static_cast<int32_t>(result)>=0&&reflection_restore_pending.known&&native.a[2]==reflection_restore_pending.value)reflection_restore_pending.known=false;
   if(slot==37&&!native_only&&args.a[0]==D3DTS_PROJECTION&&static_cast<int32_t>(result)>=0){
    bool race=classifier_known_&&pc==exe_base_+GAMEPLAY_PROJECTION_RETURN_RVA&&shadow.matrices[3].known&&symmetric_lh(shadow.matrices[3].value)&&std::abs(source_camera_angle(shadow.matrices[3].value)-90.)<=SOURCE_CAMERA_TOLERANCE_DEGREES;
-   if(race_context_&&!race)tracker_.reset();race_context_=race;
+   race_context_=race;if(race)race_seen_this_frame_=true;
   }
-  if(slot==15){if(static_cast<int32_t>(result)>=0)tracker_.finish_frame();else tracker_.reset();if(waiting_relearn_&&tracker_.stats().constellations){++relearn_count_;waiting_relearn_=false;}}
-  if(slot==14&&static_cast<int32_t>(result)>=0){reset_removed_=resources.successful_reset();tracker_.reset();race_context_=false;++reset_count_;waiting_relearn_=true;reflection_restore_pending.known=false;}
-  if(!enabled){if(slot==15){tracker_.next_frame();++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;}return;}
+  if(slot==15){
+   if(static_cast<int32_t>(result)>=0&&race_seen_this_frame_){tracker_.finish_frame();race_history_=true;}
+   else if(race_history_||race_seen_this_frame_){tracker_.reset();race_history_=false;}
+   if(waiting_relearn_&&tracker_.stats().constellations){++relearn_count_;waiting_relearn_=false;}
+  }
+  if(slot==14&&static_cast<int32_t>(result)>=0){reset_removed_=resources.successful_reset();tracker_.reset();race_context_=race_seen_this_frame_=race_history_=false;++reset_count_;waiting_relearn_=true;reflection_restore_pending.known=false;}
+  if(!enabled){if(slot==15){tracker_.next_frame();race_seen_this_frame_=false;++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;}return;}
   if(control.active&&capture_){
    if(capture_->event_count==MAX_EVENTS){capture_->truncated=true;++capture_->dropped;}
-   else if(!capture_->truncated){auto& e=capture_->events[capture_->event_count++];e=Event{};e.slot=slot;e.result=result;e.args=args;e.pc=pc;e.effective_args=native;e.feature=feature;e.suppressed=suppressed;e.native_only=native_only;
+   else if(!capture_->truncated){auto& e=capture_->events[capture_->event_count++];e=Event{};e.slot=slot;e.result=result;e.args=args;e.pc=pc;e.effective_args=native;e.feature=feature;e.suppressed=suppressed;e.native_only=native_only;e.culling_synchronized=culling.synchronized;
     if((slot==37||slot==38)&&safe_copy(e.effective_payload,(void*)native.a[1],64))e.effective_words=16;
     if(slot>=70&&slot<=73){e.draw=pending_draw_;if(e.draw!=UINT32_MAX){const auto& d=capture_->draws[e.draw];for(int j=0;j<4;++j){const auto& l=d.state.tss[0][j==3?20:15+j];const auto& n=d.effective.filtering[j];if(l.known&&n.known&&l.value!=n.value)e.feature|=1;}if(d.state.matrices[2].known&&d.effective.projection.known&&std::memcmp(&d.state.matrices[2].value,&d.effective.projection.value,sizeof(D3DMATRIX)))e.feature|=2;}}
     if((slot==37||slot==38)&&safe_copy(e.payload,(void*)args.a[1],64))e.payload_words=16;
@@ -116,7 +121,7 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
    if(control.active)finish(result,false,"reset");control.abort();control.boundary=false;
   }
   if(slot==3&&(!last_cooperative_.known||last_cooperative_.value!=result)){last_cooperative_.set(result);session().write("{\"type\":\"cooperative_level\",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+",\"hresult\":"+std::to_string(result)+"}");}
-  if(slot==15){finish(result,control.boundary,"present");tracker_.next_frame();++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;control.finish_present();if(control.active)start_capture();}
+  if(slot==15){finish(result,control.boundary,"present");tracker_.next_frame();race_seen_this_frame_=false;++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;control.finish_present();if(control.active)start_capture();}
  }catch(...){enabled=false;control.abort();OutputDebugStringA("R-GFX3 trace disabled after instrumentation failure\n");}
 }
 void Trace::start_capture() noexcept {
@@ -126,7 +131,7 @@ void Trace::start_capture() noexcept {
 void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
  try {
   auto stats=tracker_.stats();
-  auto& s=session();std::ostringstream summary;summary<<"{\"type\":\"frame_summary\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"complete_interval\":"<<(complete?"true":"false")<<",\"present_hresult\":"<<result<<",\"primitive_total\":"<<primitives_<<",\"classifier\":{\"dynamic_tracks\":"<<stats.dynamic<<",\"chassis_candidates\":"<<stats.chassis<<",\"vehicle_constellations\":"<<stats.constellations<<",\"vehicle_body_draws\":"<<stats.body_draws<<",\"vehicle_wheel_draws\":"<<stats.wheel_draws<<",\"ambiguities\":"<<stats.ambiguities<<",\"reflection_candidate_draws\":"<<reflection_candidates_<<",\"reflection_modified_draws\":"<<reflection_draws_<<",\"reflection_modified_triangles\":"<<reflection_triangles_<<",\"reflection_native_writes\":"<<reflection_writes_<<",\"reset_count\":"<<reset_count_<<",\"relearn_count\":"<<relearn_count_<<"},\"counts\":{";
+  auto& s=session();std::ostringstream summary;summary<<"{\"type\":\"frame_summary\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"complete_interval\":"<<(complete?"true":"false")<<",\"present_hresult\":"<<result<<",\"primitive_total\":"<<primitives_<<",\"classifier\":{\"dynamic_tracks\":"<<stats.dynamic<<",\"chassis_candidates\":"<<stats.chassis<<",\"vehicle_constellations\":"<<stats.constellations<<",\"vehicle_body_draws\":"<<stats.body_draws<<",\"vehicle_wheel_draws\":"<<stats.wheel_draws<<",\"ambiguities\":"<<stats.ambiguities<<",\"reflection_candidate_draws\":"<<reflection_candidates_<<",\"reflection_modified_draws\":"<<reflection_draws_<<",\"reflection_modified_triangles\":"<<reflection_triangles_<<",\"reflection_native_writes\":"<<reflection_writes_<<",\"reset_count\":"<<reset_count_<<",\"relearn_count\":"<<relearn_count_<<",\"epoch\":"<<tracker_.epoch()<<",\"race_seen_this_frame\":"<<(race_seen_this_frame_?"true":"false")<<"},\"fov_culling\":{\"installed\":"<<(culling.installed?"true":"false")<<",\"synchronized\":"<<(culling.synchronized?"true":"false")<<",\"restored\":"<<(culling.restored?"true":"false")<<",\"width\":"<<culling.width<<",\"height\":"<<culling.height<<",\"source_angle\":"<<culling.source<<",\"vfov\":"<<culling.vfov<<",\"hfov\":"<<culling.hfov<<",\"synchronized_frames\":"<<culling.synchronized_frames<<",\"failures\":"<<culling.failures<<",\"reason\":"<<quote(culling.reason)<<"},\"counts\":{";
   for(int i=0;i<97;++i){if(i)summary<<',';summary<<quote(METHOD_NAMES[i])<<':'<<counts_[i];}summary<<"},\"bypass_suspected\":"<<((counts_[15]&&(!counts_[34]||!counts_[35]))?"true":"false")<<"}";
   if(s.summaries&&(frame_==1||frame_%60==0||control.active))s.write(summary.str());
   if(!control.active||!capture_)return;
@@ -141,13 +146,13 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
    if(written+text.size()>64*1024*1024||!WriteFile(f,text.data(),static_cast<DWORD>(text.size()),&n,nullptr)||n!=text.size()){
     okay=false;LARGE_INTEGER at;at.QuadPart=written;SetFilePointerEx(f,at,nullptr,FILE_BEGIN);SetEndOfFile(f);return;
    }written+=n;};
-  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX4-2\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+"}");
+  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX4-3\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+"}");
   for(size_t i=0;i<capture_->event_count;++i){const auto& e=capture_->events[i];std::ostringstream o;
    o<<"{\"type\":"<<quote(e.draw==UINT32_MAX?(e.native_only?"native_override":"event"):"draw")<<",\"sequence\":"<<i<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[e.slot])<<",\"slot\":"<<e.slot<<",\"result\":"<<e.result<<",\"caller\":";caller(o,e.pc);o<<",\"arguments\":[";
    for(int j=0;j<8;++j){if(j)o<<',';o<<e.args.a[j];}o<<"],\"payload_bits\":[";
    for(uint32_t j=0;j<e.payload_words;++j){if(j)o<<',';o<<e.payload[j];}o<<']';
    o<<",\"native_only\":"<<(e.native_only?"true":"false")<<",\"feature_mask\":"<<(e.feature|(e.draw!=UINT32_MAX&&capture_->draws[e.draw].reflection.applied?8u:0u))<<",\"forwarded\":"<<(e.suppressed?"false":"true")<<",\"effective_arguments\":[";for(int j=0;j<8;++j){if(j)o<<',';o<<e.effective_args.a[j];}o<<"],\"effective_payload_bits\":[";for(uint32_t j=0;j<e.effective_words;++j){if(j)o<<',';o<<e.effective_payload[j];}o<<']';
-   if(e.feature&2 && e.slot==37 && e.payload_words==16 && e.effective_words==16){D3DMATRIX original{},effective{};std::memcpy(&original,e.payload,64);std::memcpy(&effective,e.effective_payload,64);if(symmetric_lh(original)&&symmetric_lh(effective))o<<",\"projection_override\":{\"original_vfov\":"<<vertical_fov(original)<<",\"effective_vfov\":"<<vertical_fov(effective)<<",\"configured_vfov\":"<<s.visual_config.vfov<<",\"original_aspect\":"<<original._22/original._11<<'}';}
+   if(e.feature&2 && e.slot==37 && e.payload_words==16 && e.effective_words==16){D3DMATRIX original{},effective{};std::memcpy(&original,e.payload,64);std::memcpy(&effective,e.effective_payload,64);if(symmetric_lh(original)&&symmetric_lh(effective))o<<",\"projection_override\":{\"original_vfov\":"<<vertical_fov(original)<<",\"effective_vfov\":"<<vertical_fov(effective)<<",\"configured_vfov\":"<<s.visual_config.vfov<<",\"original_aspect\":"<<original._22/original._11<<",\"culling_synchronized\":"<<(e.culling_synchronized?"true":"false")<<'}';}
    if(e.draw!=UINT32_MAX){auto classification=capture_->draws[e.draw].classification;auto result=tracker_.result(classification.group);if(result&&classification.epoch==tracker_.epoch())classification.transform=*result;
     o<<",\"object_classification\":"<<quote(object_classification(classification))<<",\"classification_confidence\":"<<quote(object_classification(classification))<<",\"classification_evidence\":\"D3D_TEMPORAL_ONLY\",\"classification_reasons\":[";bool first_reason=true;
     const char* reasons[]={"exact_build","race_projection","shared_world_owner","known_resource_generations","rigid_world","normal_fvf","stock_env_stage","opaque"};

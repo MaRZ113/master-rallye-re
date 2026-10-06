@@ -34,6 +34,44 @@ void geometry(Device8& w,float x){
  draw(world(x),0x152,0);draw(world(x),0x152,30);
  for(int k:{2,0,3,1}){auto m=world(x+(k&1?.9f:-.9f),k&2?1.4f:-1.4f);draw(m,0x112,60);draw(m,0x112,90);}
 }
+void hud(Device8& w){
+ auto& t=w.trace;auto epoch=t.classifier_epoch();D3DMATRIX p{};p._11=2.f/640;p._22=-2.f/480;p._33=.0005f;p._44=1;
+ t.after(37,pack(D3DTS_PROJECTION,&p),S_OK,0x400000+GAMEPLAY_PROJECTION_RETURN_RVA);
+ CHECK(!t.race_context()&&t.classifier_epoch()==epoch);
+ if(!t.enabled){auto c=t.before(71,pack(D3DPT_TRIANGLELIST,0,20,0,10),0x400000+SHARED_WORLD_RETURN_RVA);
+  CHECK(c.signature==0&&c.transform.track==0&&!(c.reasons&RACE_PROJECTION));}
+ auto n=w.trace.effective_shadow.tss[1][11].value;
+ CHECK(w.draw_indexed_at(D3DPT_TRIANGLELIST,0,20,0,10,0x400000+SHARED_WORLD_RETURN_RVA)==S_OK);
+ CHECK(w.trace.effective_shadow.tss[1][11].value==n);
+}
+void full_frame_lifetime(){
+ MockRootBase rr;Raw raw;Root8 root(&rr);Device8 w(&raw,&root);auto& t=w.trace;t.configure_classifier(true,0x400000);t.enabled=false;setup(t);
+ t.resources.add(100,23,pack(128,0,0,D3DPOOL_MANAGED,0));t.resources.add(200,24,pack(128,0,101,D3DPOOL_MANAGED,0));t.resources.add(300,20,pack(8,8,1,0,21,D3DPOOL_MANAGED,0));
+ w.visuals.configure(parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode","ViewDependent2D"}},true),true,nullptr,E_FAIL);
+ auto epoch=t.classifier_epoch();uint64_t track=0;uint32_t age=0;
+ for(int f=0;f<9;++f){
+  race(t);geometry(w,f*.2f);
+  t.shadow.matrices[256].set(world(f*.2f));t.shadow.bindings.vertex_shader.set(0x152);
+  auto c=t.before(71,pack(D3DPT_TRIANGLELIST,0,20,0,10),0x400000+SHARED_WORLD_RETURN_RVA);
+  if(f>=5){CHECK(c.transform.object==ObjectClass::Body&&c.transform.track&&c.transform.age>age);if(track)CHECK(track==c.transform.track);track=c.transform.track;age=c.transform.age;}
+  auto n=raw.writes.size();hud(w);CHECK(raw.writes.size()==n);t.after(15,pack(),S_OK,0);CHECK(t.classifier_epoch()==epoch);
+ }
+ CHECK(track&&age>=7&&!raw.writes.empty());
+ // First menu-only frame expires the previous-frame lease; repeated menus do not churn epochs.
+ hud(w);t.after(15,pack(),S_OK,0);CHECK(t.classifier_epoch()==epoch+1);epoch=t.classifier_epoch();
+ hud(w);t.after(15,pack(),S_OK,0);CHECK(t.classifier_epoch()==epoch);
+ race(t);t.shadow.matrices[256].set(world(1.8f));t.shadow.bindings.vertex_shader.set(0x152);
+ auto c=t.before(71,pack(D3DPT_TRIANGLELIST,0,20,0,10),0x400000+SHARED_WORLD_RETURN_RVA);CHECK(!c.transform.track&&!c.transform.constellation);
+ // A HUD-ending race frame still loses tracks on a real successful Reset and relearns managed buffers.
+ auto serial=t.resources.generation(100);CHECK(w.Reset(nullptr)==S_OK&&t.resources.generation(100)==serial&&t.classifier_epoch()==epoch+1);
+ setup(t);
+ auto n=raw.writes.size();
+ for(int f=0;f<8;++f){race(t);geometry(w,2.f+f*.2f);hud(w);t.after(15,pack(),S_OK,0);}
+ CHECK(raw.writes.size()>n);
+ // Exercise the serialized full interval, including its late HUD projection.
+ t.enabled=true;t.control.pending=true;race(t);geometry(w,3.4f);hud(w);t.after(15,pack(),S_OK,0);
+ race(t);geometry(w,3.6f);hud(w);t.after(15,pack(),S_OK,0);t.enabled=false;
+}
 void integration(){
  MockRootBase rr;Raw raw;Root8 root(&rr);Device8 w(&raw,&root);auto& t=w.trace;t.configure_classifier(true,0x400000);t.enabled=false;setup(t);
  t.resources.add(100,23,pack(128,0,0,D3DPOOL_MANAGED,0));t.resources.add(200,24,pack(128,0,101,D3DPOOL_MANAGED,0));t.resources.add(300,20,pack(8,8,1,0,21,D3DPOOL_MANAGED,0));t.resources.add(400,23,pack(128,0,0,D3DPOOL_DEFAULT,0));
@@ -73,4 +111,4 @@ void gating(){
  auto d=c;d.transform.wheels[3]=0;check(d,false);d=c;d.transform.wheels[3]=d.transform.wheels[2];check(d,false);d=c;d.transform.object=ObjectClass::Wheel;check(d,false);d.transform.object=ObjectClass::Unknown;check(d,false);d=c;d.transform.ambiguous=true;check(d,false);
  p.configure(p.requested,false,nullptr,E_FAIL);check(c,false);p.configure(parse_visual_config({},false),true,nullptr,E_FAIL);check(c,false);
 }
-int main(){try{gating();integration();std::cout<<"Native draw-local reflection / failure restore / pool-aware Reset relearn / trace-off / VIEW / fail-closed gates: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{gating();integration();full_frame_lifetime();std::cout<<"Native reflection / full race-HUD-Present lifetime / menu transition / Reset relearn / fail-closed gates: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

@@ -2,13 +2,14 @@
 #include "state_tracker.hpp"
 #include "provenance.hpp"
 #include "vehicle_classifier.hpp"
+#include "game_fov.hpp"
 #include <mutex>
 #include <memory>
 #include <atomic>
 namespace gfx2 {
 inline constexpr size_t MAX_DRAWS=8192,MAX_EVENTS=16384,MAX_BUFFER_BYTES=32*1024*1024;
 struct Event {uint32_t slot=0,result=0;Args args;uintptr_t pc=0;uint32_t draw=UINT32_MAX;
- bool suppressed=false,native_only=false;uint32_t feature=0;Args effective_args{};uint32_t effective_payload[16]{};uint32_t effective_words=0;
+ bool suppressed=false,native_only=false,culling_synchronized=false;uint32_t feature=0;Args effective_args{};uint32_t effective_payload[16]{};uint32_t effective_words=0;
  uint32_t payload[32]{};uint32_t payload_words=0;};
 struct ReflectionOutcome {
  Known<uint32_t> requested_tci,effective_tci;
@@ -32,7 +33,7 @@ public:
  Guard guard() noexcept {return Guard(*this);}
  DrawClassification before(uint32_t slot,const Args& args,uintptr_t pc) noexcept;
  void reflection_result(const ReflectionOutcome& outcome,uint32_t triangles) noexcept;
- void configure_classifier(bool known,uintptr_t base) noexcept {classifier_known_=known;exe_base_=base;tracker_.reset();race_context_=false;}
+ void configure_classifier(bool known,uintptr_t base) noexcept {classifier_known_=known;exe_base_=base;tracker_.reset();race_context_=race_seen_this_frame_=race_history_=false;}
  bool race_context() const noexcept {return race_context_;}
  uint64_t classifier_epoch() const noexcept {return tracker_.epoch();}
  Known<uint32_t> reflection_restore_pending;bool reflection_disabled=false;
@@ -40,10 +41,11 @@ public:
  void shutdown(uint32_t real_refs) noexcept;
  std::atomic<bool> enabled{false};
  Shadow shadow,effective_shadow;
+ FovCullStatus culling;
  CaptureControl control;
  ResourceRegistry resources;
 private:
- TransformTracker tracker_;bool classifier_known_=false,race_context_=false;uintptr_t exe_base_=0;
+ TransformTracker tracker_;bool classifier_known_=false,race_context_=false,race_seen_this_frame_=false,race_history_=false;uintptr_t exe_base_=0;
  CRITICAL_SECTION lock_{};bool lock_ok_=false;
  uint64_t device_=0,frame_=1,primitives_=0;
  std::array<uint64_t,97> counts_{};

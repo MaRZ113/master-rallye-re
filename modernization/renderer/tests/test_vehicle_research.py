@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 import sys
 import unittest
@@ -51,11 +52,13 @@ class LightingInputsTests(unittest.TestCase):
     def test_broker_mismatch(self):
         with self.assertRaises(ValueError):correlate({'entries':[],'source':{'image_sha256':'unknown'}},[{'exe_sha256':TARGET_SHA},{'complete':True}])
     def test_actual_trace_additive_fields(self):
-        captures=list((Path(__file__).resolve().parents[1]/'.build-msvc/Release/MRRRenderer/logs').glob('frame*.jsonl'))
+        release=Path(__file__).resolve().parents[1]/'.build-msvc/Release'
+        current_sha=hashlib.sha256((release/'reflection_tests.exe').read_bytes()).hexdigest()
+        captures=list((release/'MRRRenderer/logs').glob('frame*.jsonl'))
         matched=[]
         for p in captures:
             with p.open() as stream:rows=[json.loads(line) for line in stream]
-            if rows[0].get('proxy_version')=='R-GFX4-2':matched.extend(r for r in rows if r.get('type')=='draw')
+            if rows[0].get('proxy_version')=='R-GFX4-3' and rows[0].get('exe_sha256')==current_sha:matched.extend(r for r in rows if r.get('type')=='draw')
         self.assertTrue(matched,'Run native contracts before Python trace checks')
         modified=[d for d in matched if d.get('native_override_applied')]
         self.assertTrue(modified,'Native reflection integration must produce a bounded positive capture')
@@ -67,6 +70,26 @@ class LightingInputsTests(unittest.TestCase):
             self.assertTrue(d['feature_mask']&8)
         for d in matched:
             self.assertIn('object_classification',d);self.assertIn('transform_track_id',d);self.assertIn('object_class',d);self.assertIn('native_restore_success',d);self.assertIn('effective_stage1_tci_for_draw',d)
+
+    def test_actual_full_race_hud_capture(self):
+        verified=[]
+        release=Path(__file__).resolve().parents[1]/'.build-msvc/Release'
+        current_sha=hashlib.sha256((release/'reflection_tests.exe').read_bytes()).hexdigest()
+        for p in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
+            rows=[json.loads(line) for line in p.read_text(encoding='utf-8').splitlines()]
+            if rows[0].get('proxy_version')!='R-GFX4-3' or rows[0].get('exe_sha256')!=current_sha:continue
+            hud=[r['sequence'] for r in rows if r.get('method')=='SetTransform' and r.get('arguments',[0])[0]==3 and len(r.get('payload_bits',[]))==16 and r['payload_bits'][11]==0]
+            draws=[r for r in rows if r.get('type')=='draw']
+            if not hud or not any(r.get('native_override_applied') for r in draws):continue
+            summary=next(r for r in rows if r.get('type')=='frame_summary')['classifier']
+            self.assertTrue(summary['race_seen_this_frame']);self.assertGreater(summary['vehicle_body_draws'],0);self.assertGreater(summary['vehicle_wheel_draws'],0)
+            late=[r for r in draws if r['sequence']>max(hud)]
+            self.assertTrue(late)
+            for d in late:
+                self.assertFalse(d['race_context']);self.assertFalse(d['geometry_signature']);self.assertFalse(d['native_override_applied'])
+            self.assertEqual(rows[-1]['draw_records'],len(draws))
+            verified.append(p)
+        self.assertTrue(verified,'Native full-frame test must capture mature world then unclassified HUD')
 
 class ContinuationAnalysisTests(unittest.TestCase):
     def test_rectangle_models_and_rejection(self):

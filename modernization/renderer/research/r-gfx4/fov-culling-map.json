@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "build": {
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "image_base": "0x00400000"
+  },
+  "sites": [
+    {
+      "va": "0x004F2350",
+      "rva": "0x000F2350",
+      "role": "SourceVerticalAngle",
+      "expected_bytes": "83ec088b81840000008b9180000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F2380",
+      "rva": "0x000F2380",
+      "role": "SphereVisibility",
+      "expected_bytes": "d9442410d81d3cf5680083ec0c56",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F2620",
+      "rva": "0x000F2620",
+      "role": "BuildSidePlanes",
+      "expected_bytes": "83ec785355568bf1578b8684000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00561537",
+      "rva": "0x00161537",
+      "role": "ProjectionAngleCall",
+      "expected_bytes": "e8140ef9ff",
+      "call_target": "0x004F2350",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0054CA9B",
+      "rva": "0x0014CA9B",
+      "role": "ModelBoundsVisibilityCall",
+      "expected_bytes": "e8e058faff",
+      "call_target": "0x004F2380",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004B7027",
+      "rva": "0x000B7027",
+      "role": "BodyModelBind",
+      "expected_bytes": "e844eb0300",
+      "call_target": "0x004F5B70",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004B71E1",
+      "rva": "0x000B71E1",
+      "role": "WheelModelBind",
+      "expected_bytes": "e88ae90300",
+      "call_target": "0x004F5B70",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532D1",
+      "rva": "0x002532D1",
+      "role": "SubmitScheduleContext",
+      "expected_bytes": "8b40203bfb0f94c151578bc8e89e63ebff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532DD",
+      "rva": "0x002532DD",
+      "role": "PreSubmitCallHook",
+      "expected_bytes": "e89e63ebff",
+      "call_target": "0x00509680",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    }
+  ],
+  "ghidra_evidence": [
+    {
+      "va": "0x004F2350",
+      "rva": "0x000F2350",
+      "instructions": 15,
+      "assembly_sha256": "ca97ecf9376f85bfe7b5091ed13dcc0aa112ac268bc431cd8d0cefafb19b0c9c",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x004F2380",
+      "rva": "0x000F2380",
+      "instructions": 90,
+      "assembly_sha256": "52228e7bdc0b7013d47f41b19fe11c40019b3752e4cfc60889b3882acbefed46",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x004F2620",
+      "rva": "0x000F2620",
+      "instructions": 282,
+      "assembly_sha256": "cbe3c69475bd22fe335b4ff3245cdd72f9d29c94bfd903cc1bac300e6512129c",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x004E3DA0",
+      "rva": "0x000E3DA0",
+      "instructions": 20,
+      "assembly_sha256": "3458b71302b536c5bfa58afe11fecd828e7eb125cea87b72faa03f048ab4ed4c",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x00522600",
+      "rva": "0x00122600",
+      "instructions": 32,
+      "assembly_sha256": "c81d3cb45b80b3e53f683f8ff4e196729ada9d39e4a79b38eaffdbdd62eb9f05",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x00653080",
+      "rva": "0x00253080",
+      "instructions": 234,
+      "assembly_sha256": "515513f3047512ab91da49b767cd3963c295715f569c5a2018fa9592c8472d7d",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x00509680",
+      "rva": "0x00109680",
+      "instructions": 36,
+      "assembly_sha256": "d9c40ef64b3f19352faaf74092703f96dd91bdc1c0738711c9ffe3a9f3985362",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x0054C9D0",
+      "rva": "0x0014C9D0",
+      "instructions": 127,
+      "assembly_sha256": "88bc47dbe8089eb8c5ad35f05ce70469d20a3d45b5e90b5366153c236b58f690",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x0056BBC0",
+      "rva": "0x0016BBC0",
+      "instructions": 364,
+      "assembly_sha256": "108827f68401c52eafbf6563009213c63518d38253c3a27da600cf138ae72c57",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x004B6A00",
+      "rva": "0x000B6A00",
+      "instructions": 845,
+      "assembly_sha256": "b60442ea647be0c44829586f0590685356b3f062b0421e8c305cc634ba955c98",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x00431FB0",
+      "rva": "0x00031FB0",
+      "instructions": 87,
+      "assembly_sha256": "42ef55824448ec0a037b9e100491e00eb087d33c3e69cff2e53a161bc0e88936",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x004C4E90",
+      "rva": "0x000C4E90",
+      "instructions": 36,
+      "assembly_sha256": "6d4ad8bbde399ea3b07f44097c52bf9dfb7859d2cfe1f0d19b2eea1a5d98226c",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x00509810",
+      "rva": "0x00109810",
+      "instructions": 129,
+      "assembly_sha256": "82d1d4e675d1ce13755211d6b53cd03c5a0f478b4b84fb39d3fcd120ce6fda60",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x00509970",
+      "rva": "0x00109970",
+      "instructions": 109,
+      "assembly_sha256": "67078726909fdce8d8bcb581f7e2a9233030501d44b66a2f6cc5e549038ecd7f",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "decompiler_types_authoritative": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    }
+  ],
+  "camera": {
+    "owner": "CameraManager+4*index",
+    "manager_pointer_va": "0x006F94DC",
+    "source_angle_offset": "0x00",
+    "plane_offsets": [
+      "0x08",
+      "0x14",
+      "0x20",
+      "0x2C"
+    ],
+    "viewport_offsets": [
+      "0x78",
+      "0x7C",
+      "0x80",
+      "0x84"
+    ],
+    "old_pose_offset": "0x38",
+    "current_pose_offset": "0x88",
+    "position_offset": "0xB8",
+    "forward": "negative current_pose row2",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "models": [
+    {
+      "width": 640,
+      "height": 480,
+      "aspect": 1.3333333333333333,
+      "stock_vfov": 67.5,
+      "stock_cpu_hfov": 90,
+      "target_vfov": 80,
+      "target_hfov": 96.41834296940107,
+      "linear_source_if_used": 106.66666666666666,
+      "linear_source_safe": true,
+      "policy": "side planes use actual perspective HFOV; source angle remains90",
+      "evidence_grade": "STATIC_MODEL_NOT_RUNTIME"
+    },
+    {
+      "width": 1920,
+      "height": 1027,
+      "aspect": 1.86952288218111,
+      "stock_vfov": 48.140625,
+      "stock_cpu_hfov": 90,
+      "target_vfov": 80,
+      "target_hfov": 114.96790950671168,
+      "linear_source_if_used": 149.5618305744888,
+      "linear_source_safe": true,
+      "policy": "side planes use actual perspective HFOV; source angle remains90",
+      "evidence_grade": "STATIC_MODEL_NOT_RUNTIME"
+    },
+    {
+      "width": 1920,
+      "height": 1027,
+      "aspect": 1.86952288218111,
+      "stock_vfov": 48.140625,
+      "stock_cpu_hfov": 90,
+      "target_vfov": 110,
+      "target_hfov": 138.93432138740903,
+      "linear_source_if_used": 205.64751703992212,
+      "linear_source_safe": false,
+      "policy": "side planes use actual perspective HFOV; source angle remains90",
+      "evidence_grade": "STATIC_MODEL_NOT_RUNTIME"
+    }
+  ],
+  "runtime_status": "PENDING_HUMAN_EDGE_AND_CAMERA_RETEST"
+}

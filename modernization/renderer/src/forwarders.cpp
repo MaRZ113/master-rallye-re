@@ -132,6 +132,7 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS * pPresentationPa
  const auto args = pack(pPresentationParameters);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(14, args, pc);
+ game_fov.finish_frame();
  HRESULT result = real_->Reset(pPresentationParameters);
  trace.after(14, args, static_cast<uint32_t>(result), pc);
  return result;
@@ -141,6 +142,7 @@ HRESULT STDMETHODCALLTYPE Device8::Present(const RECT *src_rect, const RECT *dst
  const auto args = pack(src_rect, dst_rect, dst_window_override, dirty_region);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(15, args, pc);
+ trace.culling=game_fov.status(); game_fov.finish_frame(); trace.culling.restored=game_fov.status().restored;
  HRESULT result = real_->Present(src_rect, dst_rect, dst_window_override, dirty_region);
  trace.after(15, args, static_cast<uint32_t>(result), pc);
  return result;

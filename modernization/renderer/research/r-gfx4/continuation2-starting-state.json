@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "branch": "research/general-re",
+  "starting_head": "25cb58dcf5ce652ae0b0a5e808ccc879596dd40b",
+  "tracked_working_tree": "CLEAN",
+  "untracked_user_files": [
+    "modernization/renderer.zip"
+  ],
+  "user_archive_policy": "Preserved; not staged, modified or deleted",
+  "scope": "modernization/renderer/",
+  "worktree_created": false,
+  "branch_created": false,
+  "push": false,
+  "canonical_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+}

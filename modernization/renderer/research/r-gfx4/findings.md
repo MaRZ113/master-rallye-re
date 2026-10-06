@@ -1,4 +1,22 @@
-# R-GFX4 continuation findings
+# R-GFX4 continuation #2 findings — R-GFX4-3
+
+READY_FOR_HUMAN_RUNTIME; new human A–E retest is pending. Starting branch research/general-re, HEAD25cb58d. R-GFX3 remains CLOSED. All edits are renderer-local; EXE/assets, frozen research and user renderer.zip remain unchanged.
+
+**CONFIRMED_BY_CODE_AND_RUNTIME_TRACE:** R-GFX4-2's race→HUD projection transition reset temporal history before Present. The four new captures have positive known signatures but zero tracks/reflection modifications. Managed metadata survived two Resets, with epochs21170/21598 despite only two Resets. The new explicit race-seen frame state preserves history across HUD, expires it once on a menu-only frame and retains pool-aware Reset. [Lifetime correction](classifier-frame-lifetime.md), [hashed inputs](continuation2-runtime-evidence.json).
+
+**CONFIRMED_BY_EXE:** CPU sphere visibility004F2380 uses four normals built by004F2620 from camera source/dimensions; final perspective uses004F2350→005614A0→0053F9E0 separately. Old linear CPU angles differ from a widened final projection. Separate body/four-wheel entities pass through common model bounds and can be rejected independently. The described X-Trail omission remains STRONG_HYPOTHESIS until the candidate's human edge test resolves it.
+
+The approved narrow hook replaces the5-byte CALL006532DD→00509680 after current viewport dimensions are assigned. Source90 single-camera family gets four finite outward normals matching configured VFOV and actual perspective HFOV; source degrees, poses and distance/near/far remain stock. Planes restore before Present/Reset; final D3D override requires matching live proof. Disabled/unknown/failed signature or proof is stock, with no D3D-only fallback. [Static map and runtime constraints](fov-culling.md).
+
+At640x480, VFOV80 corresponds to HFOV96.418343; at1920x1027 to114.967910. A linear source rewrite would require106.666667/149.561831; VFOV110 widescreen would exceed180, so the candidate never supplies those unsafe source values to the stock builder. Source45 preview and ortho remain excluded. Generic rotated/lookback contracts pass; actual five presets and edge behavior are pending human validation.
+
+No constellation/material gate or reflection aesthetics changed. Only a mature unambiguous Body, opaque FVF152 and exact stock env stage qualifies for temporary NORMAL→REFLECTIONVECTOR→NORMAL high bits. Wheels, glass, static world, frontend and HUD stay excluded. Prior no-change screenshots on R-GFX4-2 do not evaluate the prototype because modified draws were0.
+
+Corpus and current pristine test-install EXEs both rehashed to canonical bf8aef32… in this continuation, superseding the previous current-install warning below. Native contracts and build verification are separate from human runtime acceptance. The new handoff requires Stock A, then FOV edges/cameras/Reset B–D, before reflection E. Stop after preparing that retest; no later effects phase begins.
+
+---
+
+# R-GFX4-2 recorded findings (superseded candidate)
 
 R-GFX4-2 is READY_FOR_HUMAN_RUNTIME. Reset fix and body-only ViewDependent2D are implemented and synthetically tested; the new DLL has no human runtime pass yet. R-GFX3 remains CLOSED / CONFIRMED_BY_RUNTIME. Previous R-GFX4-1 at HEAD 9c3a353 was deliberately classifier-only/BLOCKED_BY_CLASSIFICATION; the supplied runtime evidence now supports a bounded four-wheel structural classifier.
 

@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "source": "D:\\Game\\Master Rallye Pristine\\MRRRenderer\\logs",
+  "scope": "R-GFX4-2 failure evidence; not a pass for R-GFX4-3",
+  "frames": [
+    {
+      "file": "A-before-reset.jsonl",
+      "sha256": "ad6c0b3bde32a993b2d61e1f62aaf3733b8e5d1f3abef35e8a9cd186b644c4ea",
+      "size": 3898576,
+      "frame": 16827,
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "ff8a95bdb80961fbba65f41f16e0686792aae98d60740c7a3e9f480c16d852c3",
+      "proxy_version": "R-GFX4-2",
+      "draws": 585,
+      "known_geometry": 252,
+      "race_context_draws": 254,
+      "tracked_draws": 0,
+      "modified_draws": 0,
+      "projection_events": [
+        {
+          "sequence": 3,
+          "perspective_w_bit": 1065353216
+        },
+        {
+          "sequence": 989,
+          "perspective_w_bit": 0
+        }
+      ],
+      "last_race_draw": 913,
+      "frame_summary": {
+        "dynamic_tracks": 0,
+        "chassis_candidates": 0,
+        "vehicle_constellations": 0,
+        "vehicle_body_draws": 0,
+        "vehicle_wheel_draws": 0,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 0,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0
+      },
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE"
+    },
+    {
+      "file": "A-after-reset.jsonl",
+      "sha256": "c1df567bcc7bcdaaf5c1283dc49ce1a7cadbaf885a99ca4546397c68e4323c8a",
+      "size": 4060773,
+      "frame": 36040,
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "ff8a95bdb80961fbba65f41f16e0686792aae98d60740c7a3e9f480c16d852c3",
+      "proxy_version": "R-GFX4-2",
+      "draws": 609,
+      "known_geometry": 286,
+      "race_context_draws": 288,
+      "tracked_draws": 0,
+      "modified_draws": 0,
+      "projection_events": [
+        {
+          "sequence": 3,
+          "perspective_w_bit": 1065353216
+        },
+        {
+          "sequence": 1030,
+          "perspective_w_bit": 0
+        }
+      ],
+      "last_race_draw": 952,
+      "frame_summary": {
+        "dynamic_tracks": 0,
+        "chassis_candidates": 0,
+        "vehicle_constellations": 0,
+        "vehicle_body_draws": 0,
+        "vehicle_wheel_draws": 0,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 0,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 2,
+        "relearn_count": 0
+      },
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE"
+    },
+    {
+      "file": "B-normal-view.jsonl",
+      "sha256": "82b3ea85bf8e50d08c80ee839a2f4fbc000e87eeb2635386e96d26fe0468da0f",
+      "size": 3442655,
+      "frame": 11944,
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "ff8a95bdb80961fbba65f41f16e0686792aae98d60740c7a3e9f480c16d852c3",
+      "proxy_version": "R-GFX4-2",
+      "draws": 524,
+      "known_geometry": 190,
+      "race_context_draws": 192,
+      "tracked_draws": 0,
+      "modified_draws": 0,
+      "projection_events": [
+        {
+          "sequence": 3,
+          "perspective_w_bit": 1065353216
+        },
+        {
+          "sequence": 738,
+          "perspective_w_bit": 0
+        }
+      ],
+      "last_race_draw": 663,
+      "frame_summary": {
+        "dynamic_tracks": 0,
+        "chassis_candidates": 0,
+        "vehicle_constellations": 0,
+        "vehicle_body_draws": 0,
+        "vehicle_wheel_draws": 0,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 0,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0
+      },
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE"
+    },
+    {
+      "file": "C-backview.jsonl",
+      "sha256": "2db058418d731c7a795d82037f9d7b31eb5385098dec768620dc9b910e5013d3",
+      "size": 3479945,
+      "frame": 25530,
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "ff8a95bdb80961fbba65f41f16e0686792aae98d60740c7a3e9f480c16d852c3",
+      "proxy_version": "R-GFX4-2",
+      "draws": 535,
+      "known_geometry": 203,
+      "race_context_draws": 205,
+      "tracked_draws": 0,
+      "modified_draws": 0,
+      "projection_events": [
+        {
+          "sequence": 3,
+          "perspective_w_bit": 1065353216
+        },
+        {
+          "sequence": 706,
+          "perspective_w_bit": 0
+        }
+      ],
+      "last_race_draw": 633,
+      "frame_summary": {
+        "dynamic_tracks": 0,
+        "chassis_candidates": 0,
+        "vehicle_constellations": 0,
+        "vehicle_body_draws": 0,
+        "vehicle_wheel_draws": 0,
+        "ambiguities": 0,
+        "reflection_candidate_draws": 0,
+        "reflection_modified_draws": 0,
+        "reflection_modified_triangles": 0,
+        "reflection_native_writes": 0,
+        "reset_count": 0,
+        "relearn_count": 0
+      },
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE"
+    }
+  ],
+  "sessions": [
+    {
+      "file": "session-20261006-114726-4884.jsonl",
+      "sha256": "6d767aaa96320ac00123b61a565f5c3ae53f367c8ccc4897421349c7afa54e20",
+      "size": 2190590,
+      "resets": [
+        {
+          "hresult": 0,
+          "frame": 31394,
+          "classifier_epoch": 21170,
+          "metadata_retained": 1510,
+          "metadata_removed": 1
+        },
+        {
+          "hresult": 0,
+          "frame": 31821,
+          "classifier_epoch": 21598,
+          "metadata_retained": 1510,
+          "metadata_removed": 1
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE"
+    },
+    {
+      "file": "session-20261006-115022-32608.jsonl",
+      "sha256": "b0b51aed7503ad951b7c839bb0806002027d0412d83a8cbe218511b1256000b7",
+      "size": 2468554,
+      "resets": [
+        {
+          "hresult": 0,
+          "frame": 37571,
+          "classifier_epoch": 35137,
+          "metadata_retained": 962,
+          "metadata_removed": 1
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE"
+    }
+  ],
+  "fov_artifact": {
+    "source": "human continuation prompt: side X-Trail missing wheel geometry near widened view edge",
+    "cause": "projection vs CPU side-plane mismatch",
+    "evidence_grade": "STRONG_HYPOTHESIS",
+    "candidate_runtime_validation": "PENDING"
+  }
+}

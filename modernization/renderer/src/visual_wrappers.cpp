@@ -39,8 +39,10 @@ HRESULT STDMETHODCALLTYPE Device8::GetTextureStageState(DWORD stage,D3DTEXTUREST
 HRESULT STDMETHODCALLTYPE Device8::SetTransform(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input){
  auto guard=trace.guard();auto args=pack(type,input);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(37,args,pc);
  D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);bool rewritten=visuals.effective.fov&&visuals.projection(type,input,changed,exe,rva);
+ if(rewritten){D3DMATRIX original{};rewritten=safe_copy(&original,input,sizeof(original))&&game_fov.allows(original);} // No D3D-only widening fallback.
+ trace.culling=game_fov.status();
  const D3DMATRIX* forwarded=rewritten?&changed:input;auto native=pack(type,forwarded);
- HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&rewritten){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,2,false,true);native=args;hr=real_->SetTransform(type,input);rewritten=false;}trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:0);return hr;
+ HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&rewritten){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,2,false,true);game_fov.disable("native_projection_rejected");visuals.effective.fov=false;native=args;hr=real_->SetTransform(type,input);rewritten=false;}trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:0);return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
  auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
@@ -91,6 +93,7 @@ HRESULT Device8::stock_for_unmapped(const char* reason) noexcept {
  auto& logical=trace.shadow.matrices[3];auto& native=trace.effective_shadow.matrices[3];
  if(logical.known&&native.known&&std::memcmp(&logical.value,&native.value,sizeof(D3DMATRIX))){auto args=pack(D3DTS_PROJECTION,&logical.value);HRESULT hr=real_->SetTransform(D3DTS_PROJECTION,&logical.value);trace.after(37,args,static_cast<uint32_t>(hr),0,&args,2,false,true);if(FAILED(hr))return hr;}
  visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;visuals.effective.reflection_mode="Stock";
+ game_fov.disable(reason);
  try{session().write("{\"type\":\"visual_fallback_stock\",\"reason\":"+quote(reason)+"}");}catch(...){}
  return S_OK;
 }
