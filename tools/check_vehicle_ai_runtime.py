@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import ntpath
 from pathlib import Path
 from typing import Any
 
@@ -56,8 +57,24 @@ def _pass_if(condition: bool | None) -> str:
     return "PASS" if condition else "FAIL"
 
 
-def summarize_capture(capture: Any, *, expected_exe_sha256: str | None = None) -> dict[str, Any]:
-    """Report the four-car forced proof state without claiming runtime behavior."""
+def _normalized_windows_path(value: Any) -> str | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    normalized = ntpath.normcase(ntpath.normpath(value.strip().replace("/", "\\")))
+    if not ntpath.isabs(normalized):
+        return None
+    return normalized.rstrip("\\")
+
+
+def summarize_capture(capture: Any, *, expected_exe_sha256: str,
+                      expected_image_path: str, expected_active_root: str) -> dict[str, Any]:
+    """Classify package provenance and Broker state; never claim human AI behavior."""
+    if (len(expected_exe_sha256) != 64
+            or any(char not in "0123456789abcdefABCDEF" for char in expected_exe_sha256)):
+        raise ValueError("expected executable SHA256 must be exactly 64 hexadecimal characters")
+    if (_normalized_windows_path(expected_image_path) is None
+            or _normalized_windows_path(expected_active_root) is None):
+        raise ValueError("expected image path and active Root must be absolute paths")
     if not isinstance(capture, dict) or not isinstance(capture.get("entries"), list):
         raise ValueError("capture must be an Observatory JSON object with an entries array")
     values, ambiguous = _unique_entry_values(capture["entries"])
@@ -143,24 +160,47 @@ def summarize_capture(capture: Any, *, expected_exe_sha256: str | None = None) -
     }
 
     source = capture.get("source") if isinstance(capture.get("source"), dict) else {}
-    observed_hash = source.get("image_sha256") or source.get("exe_sha256")
+    observed_hash = source.get("image_sha256")
     if isinstance(observed_hash, str):
         observed_hash = observed_hash.lower()
-    if expected_exe_sha256 is None:
-        candidate_identity = "NOT_REQUESTED"
-    elif not isinstance(observed_hash, str):
-        candidate_identity = "UNKNOWN"
-    else:
-        candidate_identity = "MATCH" if observed_hash == expected_exe_sha256.lower() else "MISMATCH"
+    observed_image_path = source.get("image_path")
+    observed_active_root = source.get("active_root")
+    hash_match = isinstance(observed_hash, str) and observed_hash == expected_exe_sha256.lower()
+    image_path_match = (
+        _normalized_windows_path(observed_image_path)
+        == _normalized_windows_path(expected_image_path)
+        and _normalized_windows_path(observed_image_path) is not None
+    )
+    active_root_match = (
+        _normalized_windows_path(observed_active_root)
+        == _normalized_windows_path(expected_active_root)
+        and _normalized_windows_path(observed_active_root) is not None
+    )
+    provenance_complete = all((
+        isinstance(observed_hash, str),
+        _normalized_windows_path(observed_image_path) is not None,
+        _normalized_windows_path(observed_active_root) is not None,
+    ))
+    candidate_identity = "MATCH" if hash_match and image_path_match and active_root_match else (
+        "MISMATCH" if provenance_complete else "INCOMPLETE"
+    )
 
+    forced_identity_pass = all(classifications[key] == "PASS" for key in (
+        "ID26_IS_PHYSICAL_26", "ID26_CLASS_IS_T1", "ID26_MERCEDES_FAMILY",
+    ))
     all_state_pass = all(value == "PASS" for value in classifications.values())
-    candidate_identity_pass = expected_exe_sha256 is None or candidate_identity == "MATCH"
-    if candidate_identity == "MISMATCH":
-        status = "CANDIDATE_IDENTITY_MISMATCH"
-    elif all_state_pass and candidate_identity_pass:
-        status = "BROKER_STATE_MATCH_ONLY"
+    if candidate_identity != "MATCH":
+        status = "RUNTIME_PACKAGE_MISMATCH"
+        force_classification = "NOT_ASSESSED"
+    elif not forced_identity_pass:
+        status = "FORCED_ID26_NOT_OBSERVED"
+        force_classification = "FORCED_ID26_NOT_OBSERVED"
+    elif all_state_pass:
+        status = "HUMAN_AI_CONFIRMATION_REQUIRED"
+        force_classification = "FORCED_ID26_BROKER_MATCH"
     else:
         status = "BROKER_STATE_INCOMPLETE_OR_MISMATCH"
+        force_classification = "FORCED_ID26_BROKER_MATCH"
 
     compact_participants = []
     for slot_index, slot in participants.items():
@@ -179,7 +219,17 @@ def summarize_capture(capture: Any, *, expected_exe_sha256: str | None = None) -
             "status": candidate_identity,
             "expected_exe_sha256": expected_exe_sha256,
             "capture_image_sha256": observed_hash,
+            "expected_image_path": expected_image_path,
+            "capture_image_path": observed_image_path,
+            "expected_active_root": expected_active_root,
+            "capture_active_root": observed_active_root,
+            "checks": {
+                "sha256": "MATCH" if hash_match else "MISMATCH_OR_MISSING",
+                "image_path": "MATCH" if image_path_match else "MISMATCH_OR_MISSING",
+                "active_root": "MATCH" if active_root_match else "MISMATCH_OR_MISSING",
+            },
         },
+        "forced_id26_classification": force_classification,
         "observed_race_state": observed,
         "participants": compact_participants,
         "ai_control_type_comparison": ai_type_evidence,
@@ -193,15 +243,22 @@ def summarize_capture(capture: Any, *, expected_exe_sha256: str | None = None) -
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("capture", type=Path, help="Read-only Broker Observatory JSON snapshot")
-    parser.add_argument("--expected-exe-sha256", help="optional exact candidate hash to compare with capture metadata")
+    parser.add_argument("--expected-exe-sha256", required=True, help="exact verified H candidate SHA256")
+    parser.add_argument("--expected-image-path", required=True, help="exact runtime-package MRallye.exe path")
+    parser.add_argument("--expected-active-root", required=True, help="exact verified H runtime package root")
     args = parser.parse_args(argv)
     try:
         capture = json.loads(args.capture.read_text(encoding="utf-8-sig"))
-        result = summarize_capture(capture, expected_exe_sha256=args.expected_exe_sha256)
+        result = summarize_capture(
+            capture,
+            expected_exe_sha256=args.expected_exe_sha256,
+            expected_image_path=args.expected_image_path,
+            expected_active_root=args.expected_active_root,
+        )
     except (OSError, json.JSONDecodeError, ValueError) as exc:
         parser.exit(2, f"vehicle AI capture check refused: {exc}\n")
     print(json.dumps(result, indent=2, ensure_ascii=False))
-    return 0 if result["status"] == "BROKER_STATE_MATCH_ONLY" else 1
+    return 0 if result["status"] == "HUMAN_AI_CONFIRMATION_REQUIRED" else 1
 
 
 if __name__ == "__main__":

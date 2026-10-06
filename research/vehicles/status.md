@@ -56,11 +56,14 @@ not changed or qualified for ID26.
 CarIDs; T1 enumerates 0–6 and does not include sparse frontend mapping
 `T1 local7 -> ID26`. Player availability and AI pool eligibility are separate.
 
-**Forced Car1=ID26 materialization proof: READY_FOR_HUMAN_RUNTIME.** The exact
-candidate composes closed G.1 and G.2 profile-0 builds, overrides only the
-final AI CarID before native publication, and preserves participant count,
-player identity, other AI identities, CarClass derivation, and DriverID. See
-[R5V-H findings](ai/findings.md) and [runtime plan](ai/runtime-plan.md).
+**Forced Car1=ID26 materialization proof: WAITING_FOR_CORRECTED_HUMAN_RUNTIME.**
+The first H run failed: the locked thumbnail/commit behavior regressed in that
+test environment and forced Car1=ID26 was not observed; missing runtime
+provenance leaves the cause unresolved. H.0 now has a hash-verified package
+composing the closed G.1 resources and G.2 profile-0 build, plus a minimal
+Car1/T1/three-AI publication guard. The corrected package still requires the
+fresh-profile lock canary and human AI test. See [H runtime results](ai/runtime-results.md),
+[findings](ai/findings.md), and [runtime plan](ai/runtime-plan.md).
 
 **Natural T1 pool inclusion: NOT STARTED; gated on forced runtime pass.** The
 next candidate will append ID26 to the explicit T1 pool only after the forced

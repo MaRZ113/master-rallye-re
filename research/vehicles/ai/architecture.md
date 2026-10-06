@@ -37,17 +37,31 @@
 
 ## Diagnostic proof hook
 
-The forced candidate hooks the five retail bytes at `0x00458428`:
+The H.0 forced candidate hooks the five retail bytes at `0x00458428`:
 
 ```text
 8B 44 24 14 50    mov eax,[esp+14h]; push eax
 ```
 
-The replacement jump enters a small code stub at `0x0068E690`. The stub checks
-the return address for the one-human Quick Race call (`0x0047B973`), ESI for
-Car1, EBP for end slot 4, class argument 0, player CarID 0, and second excluded
-CarID -1. On a match, it changes only the selected-ID local `[ESP+0x14]` to 26.
-All paths replay the original five bytes and jump to `0x0045842D`.
+The replacement jump enters a small code stub at `0x0068E690`. Reanalysis with
+Ghidra 12.1.4 headless found exactly two references to `FUN_00458090`, both in
+`FUN_0047B780`: the single-human branch at `0x0047B96E` passes start slot 1,
+and the split-screen branch at `0x0047B93D` passes start slot 2. Thus an
+iteration with ESI==1 is single-human-only for the mapped Quick Race owner.
+The setup computes EBP as `start + active AI count`; EBP==4 selects exactly
+three AI slots beginning at Car1. The retained class argument is at
+`[ESP+0x8C]` at publication and is read for pool construction; no write to that
+argument slot appears in the function listing. The other exclusion inputs are
+not stable at publication: the function copies them into registers and later
+reuses those registers for shuffle/loop state. The caller return address is
+redundant once the live slot, end slot, and class guards are combined.
+
+The corrected stub therefore has only three guards: ESI==1, EBP==4, and class
+0/T1. On a match, it changes only the selected-ID local `[ESP+0x14]` to 26.
+All paths replay the original five bytes and jump to `0x0045842D`. It does not
+require Car0 ID0, although ID0 remains the human runtime-test control. This is
+static call-graph/frame evidence; the corrected hook remains unproven at
+runtime until the new package passes its human test.
 
 The native publication and class derivation then consume physical ID26. H does
 not separately write CarClass, DriverID, participant count, model, wheel,

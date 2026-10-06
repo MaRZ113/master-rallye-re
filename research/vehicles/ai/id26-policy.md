@@ -13,7 +13,7 @@ unlock, audio, or asset change is part of the H proof.
 |---|---|---|
 | Player unlock | Mirrors the stock T1 Cup ID3 gate | `CONFIRMED_BY_RUNTIME` in G.1; unchanged |
 | Stock Quick Race T1 membership | ID26 absent from retail IDs 0–6 | `CONFIRMED_BY_EXE` |
-| Diagnostic forced proof | Car1 physical CarID becomes 26 after normal selection | `READY_FOR_HUMAN_RUNTIME` |
+| Diagnostic forced proof | Car1 physical CarID becomes 26 after normal selection | `WAITING_FOR_CORRECTED_HUMAN_RUNTIME` |
 | Natural T1 AI eligibility | Append physical ID26 to the explicit T1 absolute-ID list | `NOT STARTED`, gated on forced AI runtime pass |
 | Natural selection in other modes | No inference | `UNKNOWN` |
 

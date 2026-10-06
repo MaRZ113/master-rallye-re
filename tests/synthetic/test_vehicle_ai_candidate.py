@@ -97,16 +97,14 @@ def emulate_generated_stub(stub: bytes, context: dict[str, int]) -> dict[str, in
 
 
 class VehicleAICandidateTests(unittest.TestCase):
-    def _run_stub(self, *, esi: int = 1, ebp: int = 4, call_return: int | None = None,
+    def _run_stub(self, *, esi: int = 1, ebp: int = 4,
                   class_id: int = 0, player_id: int = 0, second_id: int = -1,
                   original_choice: int = 5, driver_id: int = 8) -> dict[str, int]:
         stub = ai.forced_proof_stub_bytes()
         stack = {
-            ai.STACK_RETURN_ADDRESS: (call_return if call_return is not None
-                                      else ai.SINGLE_PLAYER_RETURN_VA),
             ai.STACK_CLASS_ARGUMENT: class_id,
-            ai.STACK_PLAYER_CAR_ID_ARGUMENT: player_id,
-            ai.STACK_SECOND_CAR_ID_ARGUMENT: second_id,
+            0x90: player_id,
+            0x94: second_id,
             ai.STACK_SELECTED_CAR_ID: original_choice,
             0x18: driver_id,
         }
@@ -127,9 +125,6 @@ class VehicleAICandidateTests(unittest.TestCase):
             {"ebp": 3},
             {"ebp": 5},
             {"class_id": 1},
-            {"player_id": 1},
-            {"second_id": 7},
-            {"call_return": ai.SPLIT_SCREEN_CALL_VA + 5},
         ]
         for overrides in cases:
             with self.subTest(overrides=overrides):
@@ -140,11 +135,18 @@ class VehicleAICandidateTests(unittest.TestCase):
                 self.assertEqual(result["resume_va"], ai.AI_PUBLICATION_RESUME_VA)
                 self.assertEqual(result["driver_id"], 8)
 
+    def test_player_car_id_and_exclusion_slots_are_not_guard_inputs(self) -> None:
+        for player_id, second_id in ((0, -1), (26, 7), (6, 1234)):
+            with self.subTest(player_id=player_id, second_id=second_id):
+                result = self._run_stub(player_id=player_id, second_id=second_id)
+                self.assertEqual(result["selected_id"], 26)
+                self.assertEqual(result["driver_id"], 8)
+
     def test_guard_branch_targets_all_land_at_replayed_retail_instructions(self) -> None:
         stub = ai.forced_proof_stub_bytes()
         jne_offsets = [offset for offset in range(len(stub) - 1)
                        if stub[offset:offset + 2] == b"\x0F\x85"]
-        self.assertEqual(len(jne_offsets), 6)
+        self.assertEqual(len(jne_offsets), 3)
         restore_offset = stub.index(bytes.fromhex("C74424141A000000")) + 8
         for offset in jne_offsets:
             displacement = struct.unpack_from("<i", stub, offset + 2)[0]
@@ -176,6 +178,14 @@ class VehicleAICandidateTests(unittest.TestCase):
         self.assertEqual(manifest["ai_proof"]["participant_count_changed"], False)
         self.assertEqual(manifest["ai_proof"]["CarClass_written_by_H"], False)
         self.assertEqual(manifest["ai_proof"]["driver_selection_changed"], False)
+        self.assertEqual(manifest["ai_proof"]["guard"], {
+            "current_slot_esi": 1,
+            "end_slot_ebp": 4,
+            "class_argument": 0,
+            "player_car_id_required": False,
+            "caller_return_required": False,
+            "exclusion_argument_slots_read": False,
+        })
         self.assertEqual(manifest["structural_self_check"]["id26"]["id"], 26)
         self.assertEqual(manifest["structural_self_check"]["id26"]["class"], 0)
 
@@ -244,6 +254,24 @@ class VehicleAICandidateTests(unittest.TestCase):
                 bad_manifest["patched_sha256"] = ai.sha256(bytes(mutated))
                 with self.assertRaises(ai.CandidateError):
                     ai._verify_structure(bytes(mutated), bad_manifest)
+
+    def test_candidate_structural_verifier_rejects_manifest_guard_drift(self) -> None:
+        source = synthetic_pristine()
+        source_hash, g1_hash, g2_hash = synthetic_composition_hashes(source)
+        candidate, manifest = ai.make_candidate(
+            source,
+            expected_source_sha256=source_hash,
+            expected_g1_sha256=g1_hash,
+            expected_g2_sha256=g2_hash,
+        )
+        bad_manifest = dict(manifest)
+        bad_proof = dict(manifest["ai_proof"])
+        bad_guard = dict(bad_proof["guard"])
+        bad_guard["player_car_id_required"] = True
+        bad_proof["guard"] = bad_guard
+        bad_manifest["ai_proof"] = bad_proof
+        with self.assertRaisesRegex(ai.CandidateError, "bounded minimal H guard"):
+            ai._verify_structure(candidate, bad_manifest)
 
 
 if __name__ == "__main__":

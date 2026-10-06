@@ -1,82 +1,97 @@
-# R5V-H validation — Stage 1 preparation
+# R5V-H.0 validation record
 
-## Baseline
+## Starting point
 
-Starting commit: `596e705` (`research: close R5V-G.2 and generalize stock audio profiles`).
-Branch: `research/vehicles`.
+* Checkout: `master-rallye-re-vehicles`.
+* Branch: `research/vehicles`.
+* H.0 correction base: `bd7caf4` (`feat: add ID26 AI materialization proof`).
+* The first H runtime run is recorded as a failure in
+  [runtime-results.md](runtime-results.md); this correction does not promote
+  it to a pass.
 
-* Synthetic suite with `PYTHONPATH=src`: 291 passed, 0 failed, 0 skipped.
-* `python -m compileall src tools tests`: PASS.
-* `git diff --check`: PASS.
+## Preserved stock-pool evidence
 
-The first local invocation omitted `PYTHONPATH=src`; 260 tests passed and two
-modules failed import because `master_rallye` was not on the import path. The
-documented baseline invocation with the source path then passed all 291 tests.
+Ghidra 12.1.4 analysis of exact pristine retail `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
+found two `FUN_00458090` callers in `FUN_0047B780`: split-screen at
+`0x0047B93D`, starting AI at slot 2, and single-player at `0x0047B96E`,
+starting AI at slot 1. No natural pool edit is part of H.0.
 
-## Static and binary validation
+At the publication seam `0x00458428`, the live values support a minimal guard:
 
-* Pristine retail SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
-* Deterministic G.1 intermediate: `722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`.
-* Deterministic G.2 profile-0 intermediate: `636422d0a21b5f75abd3d6233ab0fcbae26cb0dce79c1a8d40d60ad2e8ca488f`.
-* H forced candidate: `688653245b916ae7aae2a8e22fd47e76963f3afb1c23936b47b57bb40c76f0c5`, 3,121,214 bytes.
-* H hook: VA `0x00458428`, file offset `0x58428`, replaces five bytes
-  `8B44241450` with a relative jump to `0x0068E690`.
-* H stub: VA `0x0068E690`, file offset `0x28E690`, size 95 bytes, exclusive
-  end `0x0068E6EF`. It is one byte after the 22-byte G.2 wrapper ending at
-  `0x0068E68F`; it remains inside `.text` raw bytes and ends before `.rdata`
-  at RVA `0x28F000`.
-* `.text` VirtualSize at file offset `0x218`: retail `0x28D294`; G.1
-  `0x28D679`; G.2 `0x28D68F`; H `0x28D6EF`.
-* The return guard is the one-human Quick Race call return at `0x0047B973`.
-  Other required guard values are Car1/ESI=1, end slot/EBP=4, class=0,
-  player CarID=0, and second excluded ID=-1.
-* Only the final selected CarID local is changed. DriverID is already chosen
-  and remains untouched; native code publishes CarID and derives CarClass.
-* G.2 audio selector hook and profile0 wrapper remain present in the H
-  candidate. Participant CarID is still the input to that wrapper.
-* Candidate builder verification: PASS; exact existing output and manifest
-  reproduce from pristine retail.
-* Latest Ghidra 12.1.4 headless import/analysis: PASS. The candidate hook at
-  `0x00458428` decodes as `JMP 0x0068E690`; the stub has six expected guards,
-  writes `0x1A` only to `[ESP+0x14]` on the match path, replays the original
-  `MOV/PUSH`, and jumps back to `0x0045842D`. The first post-script formatting
-  attempt failed before producing output; the corrected script completed
-  successfully. The generated Ghidra project remains temporary and is not
-  evidence committed as a database.
+| Guard/input | Value | Evidence |
+|---|---:|---|
+| ESI, current AI slot | 1 / Car1 | Re-derived from the chooser loop and both mapped callers |
+| EBP, exclusive end slot | 4 / Car0..Car3 | `start + active AI count` at `0x0045836E` |
+| class argument `[ESP+0x8C]` | 0 / T1 | Read for pool construction; no write to this slot in the analyzed function |
+| selected CarID local `[ESP+0x14]` | normal chooser result, replaced with 26 on guard match | Read and used at the publication seam |
 
-The code cave/payload and exact original/replacement bytes are recorded in the
-ignored generated manifest at
-`.research-output/vehicles/ai/forced-id26-proof/MRallye.manifest.json`; the
-patched executable is not committed.
+The chooser frame is 0x80 bytes below its incoming return address at the
+publication point. The driver-selection helper preserves ESI and EBP and
+returns the stack to the expected baseline before the hook. The player
+exclusion and second-exclusion inputs are copied/reused as scratch and are not
+late guard inputs. The caller return address is unnecessary after the call
+graph, slot, end-slot, and class are checked. These claims are grounded in the
+latest Ghidra listing and raw retail bytes; see the ignored
+`.research-output/vehicles/ai/ghidra-h0-stack-evidence.txt`.
 
-## Tests added for the H preparation
+## Corrected candidate
 
-The forced-stub test interpreter executes the emitted x86 instruction subset
-and checks positive and negative guards, branches, preserved DriverID, replayed
-MOV/PUSH, and the resume target. This is static instruction-level emulation;
-it is not execution inside Master Rallye and does not replace Ghidra/runtime
-validation. Two new Broker-checker tests ensure missing PlayerType or player
-CarID evidence remains `UNKNOWN` rather than becoming a false failure/pass.
+* G.1 base: `722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`.
+* G.2 profile-0 base: `636422d0a21b5f75abd3d6233ab0fcbae26cb0dce79c1a8d40d60ad2e8ca488f`.
+* H.0 candidate: `dc821c096dea1db00c91ddf41e85cfac1f5369eaf56bd821ed0b904cbe246e13`, 3,121,214 bytes.
+* Patch manifest: `68ee11ae153daf4a48974676dd9f1bb31245cb774a4beee53ec165134d537fca`.
+* Hook: VA `0x00458428`, file offset `0x58428`, retail bytes
+  `8B44241450` replaced by a five-byte relative jump.
+* Stub: VA `0x0068E690`, file offset `0x28E690`, 50 bytes, ending at
+  `0x0068E6C2`; original cave bytes were zero-filled.
+* Stub guards: ESI==1, EBP==4, and class==0. Match changes only
+  `[ESP+0x14]` to physical ID26, then replays `MOV EAX,[ESP+0x14]; PUSH EAX`
+  and resumes at `0x0045842D`.
+* The stub does not require player CarID 0, caller return address, or either
+  exclusion argument. It does not change `NumCars`, `CarClass`, `DriverID`,
+  Car0/Car2/Car3, or natural pool membership.
+* `.text` VirtualSize is `0x28D6C2`; `.rdata` begins at RVA `0x28F000`.
+  The payload remains inside `.text` raw data and has no overlap with the G.1
+  or G.2 payloads.
 
-The Broker checker tests use arbitrary PlayerType values and compare the target
-AI with Car2/Car3 while distinguishing Car0. Missing PlayerType, player CarID,
-or requested candidate-hash evidence remains `UNKNOWN`/incomplete. The checker
-does not hardcode an unverified numeric AI enum and never reports a human
-runtime pass.
+The corrected candidate was deterministically rebuilt and its candidate
+manifest and patched ranges verified. Ghidra 12.1.4 decoded the hook and all
+three guards from the output candidate in
+`.research-output/vehicles/ai/ghidra-h0-candidate-evidence.txt`.
 
-## Final local verification
+## Runtime package and checker
 
-* Synthetic suite: **307 passed, 0 failed, 0 skipped**.
-* Focused forced-candidate tests: **7 passed**.
-* Focused Broker-checker tests: **9 passed**.
-* `python -m compileall src tools tests`: PASS.
-* Forced candidate builder `--verify-existing`: PASS; output hash and size
-  match the values above.
-* Latest Ghidra 12.1.4 candidate disassembly: PASS.
-* `git diff --cached --check`: PASS.
+The ignored runtime package at
+`.research-output/vehicles/ai/forced-id26-proof/runtime-package/` contains
+the exact candidate, the verified G.1 resource profile, VehicleSelect XML
+SHA256 `6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d`,
+and 28 Mercedes asset files. It excludes generated PlayerState and backups.
+The prelaunch verifier passed all five checks: EXE, Root layout, VehicleSelect
+XML, Mercedes assets, and mode/audio profile. This verifies staged files, not
+which root a launched process actually uses.
 
-## Human runtime status
+The capture checker requires `source.image_sha256`, `source.image_path`, and
+`source.active_root`, each matching the exact H package. Its highest automated
+result is `HUMAN_AI_CONFIRMATION_REQUIRED`; a wrong Car1 is classified
+`FORCED_ID26_NOT_OBSERVED`, while executable/root provenance mismatches are
+`RUNTIME_PACKAGE_MISMATCH`. It cannot claim visible rendering or gameplay.
 
-**NOT TESTED.** No H runtime capture is present. Mercedes AI visual identity,
-controller behavior, physics, collision, damage, race progression, results,
-and audio remain open until the exact candidate is tested by a human.
+## Synthetic/static verification
+
+* Forced-stub x86 interpreter tests cover the positive Car1/T1/three-AI case,
+  each rejected slot/count/class guard, changed player/exclusion values,
+  unchanged DriverID, replayed instructions, and preserved control flow.
+* Runtime-package tests cover missing/wrong VehicleSelect XML, wrong EXE,
+  missing Mercedes assets, mismatched candidate identity, and staging without
+  PlayerState.
+* Broker-checker tests cover exact provenance, missing/mismatched source
+  metadata, forced identity agreement, and incomplete state.
+* Full-suite and compile counts are recorded after the final closeout checks.
+
+## Runtime status
+
+**WAITING_FOR_CORRECTED_HUMAN_RUNTIME.** The failed first H run remains a
+separate failure with unknown effective resource root and unknown Car0 ID.
+The corrected candidate/package has not yet been tested in the game. The first
+human gate is the fresh-profile G.1 locked-state canary; if it fails, stop
+before Quick Race. Natural T1 pool inclusion remains **NOT STARTED**.

@@ -34,9 +34,11 @@ are owner-reported PASS. Physical ID26 remains unchanged. See
 `research/vehicles/unlock/closeout.md` and
 `research/vehicles/localization/frontend-consumers.md`. R5V-G.2 Vehicle Audio
 Identity / Sound Family Architecture is also **FULL PASS / CLOSED**. R5V-H is
-now in progress: the Quick Race AI pool is mapped, and a guarded Car1=ID26
-candidate is ready for a human runtime proof before any natural T1-pool change.
-Catalog ordering remains deferred.
+now in progress: the Quick Race AI pool is mapped, but the first forced
+Car1=ID26 runtime attempt failed with resource provenance unresolved. H.0 has
+a corrected minimal guard and verified self-contained package; the fresh
+profile canary and human AI test are still required before any natural T1-pool
+change. Catalog ordering remains deferred.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

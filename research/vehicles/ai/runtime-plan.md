@@ -1,99 +1,103 @@
-# R5V-H human runtime plan — Stage 1
+# R5V-H.0 runtime handoff — corrected forced ID26 proof
 
-## Candidate
+## Current gate
 
-Use only the forced proof candidate for this first test. It was rebuilt from
-the exact pristine retail executable through the closed G.1 and G.2 profile-0
-builders:
+**WAITING_FOR_CORRECTED_RUNTIME.** The first human run failed: the G.1 locked
+thumbnail/commit behavior regressed in the test environment, and Car1 was not
+observed as ID26. That run did not carry enough provenance to separate a
+resource-root mismatch from a hook guard miss. Preserve it in
+[runtime-results.md](runtime-results.md); do not reuse its candidate or handoff.
 
-* Retail source SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
-* G.1 intermediate SHA256: `722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`
-* G.2 profile-0 intermediate SHA256: `636422d0a21b5f75abd3d6233ab0fcbae26cb0dce79c1a8d40d60ad2e8ca488f`
-* H candidate: `688653245b916ae7aae2a8e22fd47e76963f3afb1c23936b47b57bb40c76f0c5`
-* Size: 3,121,214 bytes
-* Candidate: `.research-output/vehicles/ai/forced-id26-proof/MRallye.exe`
+The static pool map remains `CONFIRMED_BY_EXE`. Natural T1 pool inclusion is
+still **NOT STARTED**.
 
-Before staging, run from the `master-rallye-re-vehicles` checkout:
+## Exact corrected package
 
-```powershell
-python tools/build_vehicle_ai_candidate.py `
-  '..\corpora\retail\MRallye.exe' `
-  '.research-output\vehicles\ai\forced-id26-proof\MRallye.exe' `
-  --mode forced-id26-proof --verify-existing
-if ($LASTEXITCODE -ne 0) { throw 'R5V-H candidate verification failed' }
-```
+The candidate was deterministically rebuilt from:
 
-Use the same isolated runtime install and qualified G.1 Mercedes resource Root
-used for the G.2 test. Stage this exact executable into that isolated install;
-keep the qualified `DataGx/Vehicles/Mercedes` resources and all other game
-data unchanged. Do not launch the candidate from a folder that is not already
-a complete working runtime root. Immediately before launch, hash the effective
-installed `MRallye.exe` and require the exact H candidate SHA above. Do not use
-a general mixed-class randomizer or a participant-count patch.
+* pristine retail SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
+* G.1 intermediate: `722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`
+* G.2 profile-0 intermediate: `636422d0a21b5f75abd3d6233ab0fcbae26cb0dce79c1a8d40d60ad2e8ca488f`
+* corrected H candidate SHA256: `dc821c096dea1db00c91ddf41e85cfac1f5369eaf56bd821ed0b904cbe246e13`
+* candidate size: 3,121,214 bytes
+* patch-manifest SHA256: `68ee11ae153daf4a48974676dd9f1bb31245cb774a4beee53ec165134d537fca`
+* mode: `forced-id26-proof`; G.2 `stock_audio_profile_id=0`
 
-In PowerShell, replace the example root with the known isolated G.1/G.2 game
-install, then verify the staged executable before launch:
+Generated paths in this checkout:
 
-```powershell
-$runtimeExe = Join-Path '<isolated-runtime-root>' 'MRallye.exe'
-$expected = '688653245b916ae7aae2a8e22fd47e76963f3afb1c23936b47b57bb40c76f0c5'
-$actual = (Get-FileHash -LiteralPath $runtimeExe -Algorithm SHA256).Hash.ToLowerInvariant()
-if ($actual -ne $expected) { throw "Wrong R5V-H candidate: $actual" }
-"PASS $actual"
-```
+* candidate: `.research-output/vehicles/ai/forced-id26-proof/candidate/MRallye.exe`
+* complete runtime root: `.research-output/vehicles/ai/forced-id26-proof/runtime-package/`
+* prelaunch instructions: `.research-output/vehicles/ai/forced-id26-proof/VERIFY_RUNTIME.txt`
 
-Only proceed when the command prints `PASS` and the G.1/G.2 vehicle resource
-Root is the already-qualified one. The research EXE itself is at
-`.research-output/vehicles/ai/forced-id26-proof/MRallye.exe`; its generated
-manifest is beside it. Neither the EXE nor game assets belong in Git.
+The runtime package was staged from the verified final G.1 package and contains
+all profile-pinned retail/G.1 resources, the exact VehicleSelect overlay, and
+28 Mercedes runtime asset files. It excludes the source package's generated
+PlayerState and backup files. No manual copying from a historical or retired
+runtime root is part of this handoff.
 
-The research candidate changes no participant count and should work with
-either fresh or already-progressed PlayerState because the proof guard bypasses
-only AI pool membership; it does not ask the player to select or unlock ID26.
-For the cleanest read, choose normal player ID0.
-
-## Test setup
-
-1. Launch the verified H executable in the isolated G.1/G.2 runtime root.
-2. Start a normal, single-human Quick Race.
-3. Select stock player T1 ID0 / Landcruiser.
-4. Keep the stock opponent count at Three, so the normal race has one human and
-   three AI. Select any ordinary course and difficulty; do not change race
-   rules.
-5. Capture the active race as `forced-id26-ai-race`.
-6. Confirm one visible Mercedes opponent occupies Car1; it has correct wheels
-   and textures, is AI-controlled, drives through normal progress, and behaves
-   sensibly in steering, acceleration, braking, collisions, and damage.
-7. If practical, finish the race and capture `forced-id26-ai-results`.
-
-## Broker oracle
-
-Run the read-only checker on the active-race JSON:
+Before launch, run this from the `master-rallye-re-vehicles` checkout, using
+the project's configured Python:
 
 ```powershell
-python tools/check_vehicle_ai_runtime.py '<capture.json>' `
-  --expected-exe-sha256 688653245b916ae7aae2a8e22fd47e76963f3afb1c23936b47b57bb40c76f0c5
+$env:PYTHONPATH = (Resolve-Path 'src').Path
+python tools\vehicle_ai_runtime_package.py verify `
+  --runtime-root '.research-output\vehicles\ai\forced-id26-proof\runtime-package' `
+  --candidate-manifest '.research-output\vehicles\ai\forced-id26-proof\candidate\patch-manifest.json' `
+  --retail-exe 'D:\Game\Master Rallye\corpora\retail\MRallye.exe'
+if ($LASTEXITCODE -ne 0) { throw 'R5V-H.0 runtime package verification failed' }
 ```
 
-Expected state:
+Proceed only if it prints `EXE PASS`, `ROOT PASS`, `VEHICLESELECT XML PASS`,
+`MERCEDES ASSETS PASS`, and `MODE PASS`. The effective paths are the package's
+`MRallye.exe`, the package root itself, and
+`DataScene/FrontendScreens/VehicleSelect.xml` with SHA256
+`6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d`.
+Launch `MRallye.exe` with this package directory as the working directory.
+The later Observatory raw-dump Root header must equal this exact package root;
+the prelaunch verifier cannot assert which directory a running process chose.
 
-* `Race/NumCars=4`, `Race/NumPlayers=1`.
-* Car0: ID0, class0/T1, player.
-* Car1: ID26, class0/T1, AI, `CarType=Mercedes`, `WheelType=Mercedes`.
-* Car2 and Car3: different valid stock T1 IDs 1–6, AI.
-* Car1–Car3 use the same observed `PlayerType`, distinct from Car0. The
-  checker compares these values rather than assuming a numeric enum.
-* Car1 DriverID remains a native selected ID; no specific driver is required.
-* The G.2 audio path should select profile0 because the physical CarID is 26;
-  this is a supporting hypothesis, not a separate blocking audio gate.
+## Test sequence
 
-The checker returns only `BROKER_STATE_MATCH_ONLY`. Human observation is still
-required for model visibility, AI movement, physics, collisions, damage,
-progress, finish, and cleanup.
+1. Start the verified package with a genuinely fresh profile. Do not copy
+   PlayerState files into it.
+2. In Vehicle Select, highlight Mercedes ID26. Confirm the locked text, the
+   native locked thumbnail, `CarModel=-1`, `UI/Enabled=False`, and that normal
+   accept is blocked. **Stop if any check fails; do not enter Quick Race.**
+3. Select stock T1 ID0 / Landcruiser.
+4. Start an ordinary single-human Quick Race with Opponents=Three, Class=T1,
+   and otherwise stock rules.
+5. Capture the active race as `h0-forced-id26-ai`. Preserve Observatory source
+   metadata with exactly `image_sha256`, `image_path`, and `active_root`.
+6. Confirm Broker Car0 remains the human ID0 and Car1 is ID26/T1/Mercedes.
+   Human-observe the Mercedes model, wheels/textures, movement under AI,
+   progress, collision and damage. One clean race is enough; finishing and
+   Results are useful but not required for this proof.
 
-## Gate
+Run the evidence-limited checker against the capture, supplying the exact
+absolute paths returned by the verifier:
 
-After a human pass, close the forced materialization proof and only then design
-the natural T1 pool candidate. A passing forced test does not prove natural
-selection. If the AI Mercedes fails to materialize or drive, stop and diagnose
-that downstream issue before touching the pool.
+```powershell
+python tools\check_vehicle_ai_runtime.py '<capture.json>' `
+  --expected-exe-sha256 dc821c096dea1db00c91ddf41e85cfac1f5369eaf56bd821ed0b904cbe246e13 `
+  --expected-image-path '<verified-root>\MRallye.exe' `
+  --expected-active-root '<verified-root>'
+```
+
+The checker rejects missing or mismatched EXE hash, image path, or active Root
+as `RUNTIME_PACKAGE_MISMATCH`. A correct package with a non-ID26 Car1 is
+`FORCED_ID26_NOT_OBSERVED`. Broker agreement is at most
+`HUMAN_AI_CONFIRMATION_REQUIRED`; it does not establish visible rendering,
+AI behavior, physics, collision, damage, or progression by itself.
+
+Expected race state: four total participants, one human; Car0 ID0/T1; Car1
+ID26/T1/Mercedes and AI; Car2/Car3 distinct stock T1 AI IDs 1–6. Their exact
+DriverIDs are not constrained. The corrected hook does not require Car0 ID0,
+but ID0 remains the controlled human test player.
+
+## Stop rule
+
+If the package verifier or fresh-profile locked-state canary fails, stop and
+report the package/root evidence. If both pass but Car1 is not ID26, stop at
+the publication seam and gather focused runtime diagnostics. Do not modify the
+natural AI pool, add ID26 to a roster, or continue to R5V-H.1 until this forced
+proof receives a human pass.

@@ -38,7 +38,6 @@ AI_POOL_FUNCTION_VA = 0x00458090
 QUICK_RACE_SETUP_FUNCTION_VA = 0x0047B780
 SPLIT_SCREEN_CALL_VA = 0x0047B93D
 SINGLE_PLAYER_CALL_VA = 0x0047B96E
-SINGLE_PLAYER_RETURN_VA = SINGLE_PLAYER_CALL_VA + 5
 
 AI_PUBLICATION_HOOK_VA = 0x00458428
 AI_PUBLICATION_RESUME_VA = 0x0045842D
@@ -46,17 +45,12 @@ AI_PROOF_STUB_VA = 0x0068E690
 AI_PROOF_SLOT = 1
 AI_PROOF_END_SLOT = 4
 AI_PROOF_CLASS = 0
-AI_PROOF_PLAYER_CAR_ID = 0
-AI_PROOF_SECOND_EXCLUDED_CAR_ID = -1
 AI_PROOF_PHYSICAL_CAR_ID = 26
 
 # FUN_00458090 entry frame is 0x80 bytes below its incoming return address at
 # the publication hook. These parameter offsets were rechecked against the
 # current retail Ghidra export and raw retail instruction bytes.
-STACK_RETURN_ADDRESS = 0x80
 STACK_CLASS_ARGUMENT = 0x8C
-STACK_PLAYER_CAR_ID_ARGUMENT = 0x90
-STACK_SECOND_CAR_ID_ARGUMENT = 0x94
 STACK_SELECTED_CAR_ID = 0x14
 
 EXPECTED_PUBLICATION_BYTES = bytes.fromhex("8B44241450")
@@ -85,11 +79,13 @@ def _cmp_stack_imm8(offset: int, value: int) -> bytes:
 
 
 def forced_proof_stub_bytes(stub_va: int = AI_PROOF_STUB_VA) -> bytes:
-    """Encode a fail-closed exact-single-player-Car1 publication guard.
+    """Encode the statically bounded Car1/T1/three-AI publication guard.
 
-    Every failed comparison branches to the replayed retail instructions. Only
-    the normal Quick Race one-human call at 0x0047B96E with T1 class, Car0=ID0,
-    three AI slots, and current slot Car1 substitutes stack local CarID=26.
+    The only mapped callers of FUN_00458090 are the single-human and split-
+    screen branches in FUN_0047B780. The split-screen branch starts AI slots
+    after both humans, so ESI==1 excludes it. The selected class and exclusive
+    end slot are stable at this point; overwritten exclusion arguments and a
+    deep caller-return sentinel are deliberately not consulted.
     """
     code = bytearray()
     conditional_fixups: list[int] = []
@@ -99,24 +95,11 @@ def forced_proof_stub_bytes(stub_va: int = AI_PROOF_STUB_VA) -> bytes:
         conditional_fixups.append(len(code))
         code.extend(bytes(4))
 
-    # The caller-return guard makes the one-human Quick Race path explicit and
-    # excludes the split-screen call site even if its arguments later overlap.
-    code.extend(b"\x81\xBC\x24")
-    code.extend(struct.pack("<I", STACK_RETURN_ADDRESS))
-    code.extend(struct.pack("<I", SINGLE_PLAYER_RETURN_VA))
-    jne_restore()
-
     code.extend(bytes.fromhex("83FE01"))  # cmp esi, Car1
     jne_restore()
     code.extend(bytes.fromhex("83FD04"))  # cmp ebp, end slot Car4 (3 AI)
     jne_restore()
     code.extend(_cmp_stack_imm8(STACK_CLASS_ARGUMENT, AI_PROOF_CLASS))
-    jne_restore()
-    code.extend(_cmp_stack_imm8(STACK_PLAYER_CAR_ID_ARGUMENT, AI_PROOF_PLAYER_CAR_ID))
-    jne_restore()
-    code.extend(_cmp_stack_imm8(
-        STACK_SECOND_CAR_ID_ARGUMENT, AI_PROOF_SECOND_EXCLUDED_CAR_ID
-    ))
     jne_restore()
 
     code.extend(b"\xC7\x44\x24")
@@ -270,7 +253,7 @@ def make_candidate(data: bytes, *, mode: str = AI_PROOF_MODE,
         bytes(len(stub)),
         stub,
         ("substitute final local CarID with physical ID26 only for the exact "
-         "single-player Quick Race call, Car1, T1, Car0 ID0, and three-AI setup"),
+         "bounded Car1/T1/three-AI Quick Race publication iteration"),
         va=AI_PROOF_STUB_VA,
     ))
     operations.sort(key=lambda op: op["file_offset"])
@@ -313,17 +296,17 @@ def make_candidate(data: bytes, *, mode: str = AI_PROOF_MODE,
             "mode": mode,
             "quick_race_pool_function": f"0x{AI_POOL_FUNCTION_VA:08X}",
             "single_player_call_site": f"0x{SINGLE_PLAYER_CALL_VA:08X}",
-            "single_player_return_guard": f"0x{SINGLE_PLAYER_RETURN_VA:08X}",
+            "split_screen_call_site": f"0x{SPLIT_SCREEN_CALL_VA:08X}",
             "publication_hook": f"0x{AI_PUBLICATION_HOOK_VA:08X}",
             "resume_va": f"0x{AI_PUBLICATION_RESUME_VA:08X}",
             "stub_va": f"0x{AI_PROOF_STUB_VA:08X}",
             "guard": {
-                "return_address": SINGLE_PLAYER_RETURN_VA,
                 "current_slot_esi": AI_PROOF_SLOT,
                 "end_slot_ebp": AI_PROOF_END_SLOT,
                 "class_argument": AI_PROOF_CLASS,
-                "player_car_id_argument": AI_PROOF_PLAYER_CAR_ID,
-                "second_excluded_car_id_argument": AI_PROOF_SECOND_EXCLUDED_CAR_ID,
+                "player_car_id_required": False,
+                "caller_return_required": False,
+                "exclusion_argument_slots_read": False,
             },
             "substituted_selected_absolute_car_id": AI_PROOF_PHYSICAL_CAR_ID,
             "participant_count_changed": False,
@@ -339,7 +322,7 @@ def make_candidate(data: bytes, *, mode: str = AI_PROOF_MODE,
             "before natural T1 pool membership is implemented."
         ),
         "risks": list(g2_manifest.get("risks", [])) + [
-            "The H proof guard is limited to the exact one-human, three-AI, T1 Quick Race call with Car0 ID0.",
+            "The H proof guard matches Car1, the exclusive end slot Car4, and T1 class in the two statically mapped Quick Race callers; split-screen begins at Car2.",
             "The forced proof does not add ID26 to the natural AI pool and does not establish natural eligibility.",
             "Broker state and static bytes cannot prove a visible model, AI driving, collision, damage, or race completion.",
         ],
@@ -378,6 +361,16 @@ def _verify_structure(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise CandidateError("candidate manifest does not preserve participant count")
     if proof.get("CarClass_written_by_H") is not False or proof.get("driver_selection_changed") is not False:
         raise CandidateError("candidate manifest claims a forbidden participant-field change")
+    expected_guard = {
+        "current_slot_esi": AI_PROOF_SLOT,
+        "end_slot_ebp": AI_PROOF_END_SLOT,
+        "class_argument": AI_PROOF_CLASS,
+        "player_car_id_required": False,
+        "caller_return_required": False,
+        "exclusion_argument_slots_read": False,
+    }
+    if proof.get("guard") != expected_guard:
+        raise CandidateError("candidate manifest does not use the bounded minimal H guard")
 
 
 def verify_existing(source: Path, output: Path, manifest_path: Path, *,
