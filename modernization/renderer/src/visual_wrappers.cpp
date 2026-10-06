@@ -1,4 +1,5 @@
 #include "wrappers.hpp"
+#include "reflection_scope.hpp"
 #include <intrin.h>
 #include <cstring>
 namespace gfx2 {
@@ -54,10 +55,32 @@ HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMA
 HRESULT STDMETHODCALLTYPE Device8::DrawPrimitive(D3DPRIMITIVETYPE type,UINT start,UINT count){
  auto guard=trace.guard();auto args=pack(type,start,count);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(70,args,pc);
  uint32_t rva=0;bool exe=site(pc,rva);bool skip=visuals.suppress(70,exe,rva,trace.shadow,type);
+ HRESULT repair=repair_reflection();if(FAILED(repair)){trace.after(70,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
  HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
  trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:0,skip);return hr;
 }
+HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitive(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count){
+ return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
+}
+HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc){
+ auto guard=trace.guard();auto args=pack(type,min_index,vertices,start,count);
+ auto classification=trace.before(71,args,pc);HRESULT repair=repair_reflection();
+ if(FAILED(repair)){trace.after(71,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
+ HRESULT hr;
+ {ReflectionScope reflection(*real_,trace,visuals,classification,pc,count);
+  hr=real_->DrawIndexedPrimitive(type,min_index,vertices,start,count); // Exactly once; original HRESULT survives restoration.
+  trace.after(71,args,static_cast<uint32_t>(hr),pc);
+ }
+ return hr;
+}
+HRESULT Device8::repair_reflection() noexcept {
+ if(!trace.reflection_restore_pending.known)return S_OK;
+ auto args=pack(1,D3DTSS_TEXCOORDINDEX,trace.reflection_restore_pending.value);
+ HRESULT hr=real_->SetTextureStageState(1,D3DTSS_TEXCOORDINDEX,static_cast<DWORD>(args.a[2]));
+ trace.after(63,args,static_cast<uint32_t>(hr),0,&args,8,false,true);return hr;
+}
 HRESULT Device8::stock_for_unmapped(const char* reason) noexcept {
+ HRESULT repair=repair_reflection();if(FAILED(repair))return repair;
  if(!visuals.active())return S_OK;
  // Canonical tested path uses no state blocks. Restore before entering an unreviewed block/multiply path,
  // then keep this device stock. If restoration fails, report that real HRESULT rather than hide leakage.
@@ -67,7 +90,7 @@ HRESULT Device8::stock_for_unmapped(const char* reason) noexcept {
  }
  auto& logical=trace.shadow.matrices[3];auto& native=trace.effective_shadow.matrices[3];
  if(logical.known&&native.known&&std::memcmp(&logical.value,&native.value,sizeof(D3DMATRIX))){auto args=pack(D3DTS_PROJECTION,&logical.value);HRESULT hr=real_->SetTransform(D3DTS_PROJECTION,&logical.value);trace.after(37,args,static_cast<uint32_t>(hr),0,&args,2,false,true);if(FAILED(hr))return hr;}
- visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;
+ visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;visuals.effective.reflection_mode="Stock";
  try{session().write("{\"type\":\"visual_fallback_stock\",\"reason\":"+quote(reason)+"}");}catch(...){}
  return S_OK;
 }

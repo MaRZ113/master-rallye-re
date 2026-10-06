@@ -1,0 +1,101 @@
+{
+  "exact_build": true,
+  "segments": [
+    {
+      "after_successful_reset": 0,
+      "resource_creations": {
+        "CreateIndexBuffer:MANAGED": 6,
+        "CreateTexture:MANAGED": 2095,
+        "CreateVertexBuffer:DEFAULT": 1,
+        "CreateVertexBuffer:MANAGED": 11
+      },
+      "ending_reset_hresult": 0
+    },
+    {
+      "after_successful_reset": 1,
+      "resource_creations": {
+        "CreateVertexBuffer:DEFAULT": 1
+      },
+      "ending_reset_hresult": 0
+    },
+    {
+      "after_successful_reset": 2,
+      "resource_creations": {
+        "CreateVertexBuffer:DEFAULT": 1
+      }
+    }
+  ],
+  "resets": [
+    {
+      "hresult": 0,
+      "parameters_before": {
+        "width": 1920,
+        "height": 1027,
+        "format": 22,
+        "count": 1,
+        "multisample": 0,
+        "swap_effect": 3,
+        "device_window": 24910358,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      },
+      "parameters_after": {
+        "width": 1920,
+        "height": 1027,
+        "format": 22,
+        "count": 1,
+        "multisample": 0,
+        "swap_effect": 3,
+        "device_window": 24910358,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      }
+    },
+    {
+      "hresult": 0,
+      "parameters_before": {
+        "width": 640,
+        "height": 480,
+        "format": 22,
+        "count": 1,
+        "multisample": 0,
+        "swap_effect": 3,
+        "device_window": 24910358,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      },
+      "parameters_after": {
+        "width": 640,
+        "height": 480,
+        "format": 22,
+        "count": 1,
+        "multisample": 0,
+        "swap_effect": 3,
+        "device_window": 24910358,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      }
+    }
+  ],
+  "resource_release_observed": false,
+  "source": {
+    "path": "D:\\Game\\Master Rallye Pristine\\MRRRenderer\\logs\\session-20261006-102420-42928.jsonl",
+    "sha256": "1699e1da0bf876a3379a49e9b9003b20e598301ecd62ce3a1e3b7625aad8d0a8"
+  }
+}

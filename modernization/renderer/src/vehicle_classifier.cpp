@@ -16,11 +16,16 @@ double orientation(const D3DMATRIX& a,const D3DMATRIX& b){double d=0;for(int i=0
 bool same(const D3DMATRIX& a,const D3DMATRIX& b){return distance(a,b)<1.e-6&&orientation(a,b)<1.e-8;}
 bool overlap(const TransformGroup& a,const TransformGroup& b){size_t i=0,j=0;while(i<a.size&&j<b.size){if(a.signatures[i]==b.signatures[j])return true;if(a.signatures[i]<b.signatures[j])++i;else ++j;}return false;}
 }
-uint32_t TransformTracker::observe(const D3DMATRIX& world,uint64_t signature) noexcept {
+uint32_t TransformTracker::observe(const D3DMATRIX& world,uint64_t signature,GroupDraw draw) noexcept {
  FP fp;if(overflow_||!signature||!rigid(world))return UINT32_MAX;
  size_t i=0;for(;i<current_size_;++i)if(same(current_[i].world,world))break;
  if(i==current_size_){if(i==MAX_TRANSFORM_GROUPS){overflow_=true;return UINT32_MAX;}current_[i]=TransformGroup{};current_[i].world=world;++current_size_;}
- auto& g=current_[i];for(size_t j=0;j<g.size;++j)if(g.signatures[j]==signature)return static_cast<uint32_t>(i);
+ auto& g=current_[i];
+ ++g.draws;g.triangles+=draw.triangles;
+ if(draw.fvf==0x142||draw.fvf==0x152||draw.fvf==0x242||draw.fvf==0x252)++g.body_draws;
+ if(draw.fvf==0x152&&(draw.reasons&(ENV_STAGE|CL_OPAQUE))==(ENV_STAGE|CL_OPAQUE))++g.body_env_draws;
+ if(draw.fvf==0x112&&(draw.reasons&(ENV_STAGE|CL_OPAQUE))==(ENV_STAGE|CL_OPAQUE))++g.wheel_draws;
+ for(size_t j=0;j<g.size;++j)if(g.signatures[j]==signature)return static_cast<uint32_t>(i);
  if(g.size==MAX_GROUP_SIGNATURES){g.saturated=true;return UINT32_MAX;}g.signatures[g.size++]=signature;return static_cast<uint32_t>(i);
 }
 void TransformTracker::reset() noexcept {current_size_=previous_size_=0;overflow_=false;++epoch_;} // Monotonic IDs never reused.
@@ -47,10 +52,77 @@ void TransformTracker::finish_frame() noexcept {
    g.result.dynamic=g.result.age>=4&&g.motion>=2;
   }else {g.result={++next_id_,1,false,j>=0};g.motion=0;}
  }
+ classify_constellations(current_.data(),current_size_);
  previous_size_=current_size_;for(size_t i=0;i<current_size_;++i)previous_[i]=current_[i];
  // Current results remain available until the next observation starts a new frame.
 }
 const Classification* TransformTracker::result(uint32_t group) const noexcept {return !overflow_&&group<current_size_?&current_[group].result:nullptr;}
+Classification TransformTracker::predict(const D3DMATRIX& w,uint64_t signature) const noexcept {
+ FP fp;Classification out{};if(overflow_||!signature||!rigid(w))return out;
+ double best=1.e100;int index=-1;bool tie=false;
+ for(size_t i=0;i<previous_size_;++i){const auto& g=previous_[i];
+  if(g.saturated||!std::binary_search(g.signatures.begin(),g.signatures.begin()+g.size,signature))continue;
+  double d=distance(w,g.world),o=orientation(w,g.world);if(d>100.||o>2.)continue;
+  double score=d+o;if(score+1.e-6<best){best=score;index=static_cast<int>(i);tie=false;}else if(std::abs(score-best)<=1.e-6)tie=true;
+ }
+ if(index>=0&&!tie)out=previous_[index].result;
+ // Duplicate current instances mapping to one previous track are rejected as soon as observed.
+ if(out.track)for(size_t i=0;i<current_size_;++i){const auto& g=current_[i];if(same(w,g.world)){if(g.saturated)return Classification{};continue;}
+  if(std::find(g.signatures.begin(),g.signatures.begin()+g.size,signature)!=g.signatures.begin()+g.size&&distance(g.world,previous_[index].world)<=best+1.e-6)return Classification{};
+ }
+ return out;
+}
+bool wheel_rectangle(const std::array<LocalWheel,4>& p,float& error) noexcept {
+ FP fp;std::array<LocalWheel,4> q{};unsigned mask=0;
+ for(auto a:p){if(!std::isfinite(a.x)||!std::isfinite(a.y)||!std::isfinite(a.z)||std::abs(a.x)<.35||std::abs(a.x)>2.5||std::abs(a.z)<.5||std::abs(a.z)>4.||a.y<-2.||a.y>1.5)return false;
+  unsigned k=(a.x>0?1:0)+(a.z>0?2:0);if(mask&(1u<<k))return false;mask|=1u<<k;q[k]=a;
+ }
+ if(mask!=15)return false;
+ double halfwidth=0,halfbase=0,ymin=q[0].y,ymax=ymin;for(auto a:q){halfwidth+=std::abs(a.x)/4.;halfbase+=std::abs(a.z)/4.;ymin=std::min(ymin,static_cast<double>(a.y));ymax=std::max(ymax,static_cast<double>(a.y));}
+ double bilateral=std::max(std::abs(q[0].x+q[1].x),std::abs(q[2].x+q[3].x));
+ double axle=std::max(std::abs(q[0].z-q[1].z),std::abs(q[2].z-q[3].z));
+ double width=std::max(std::abs(q[0].x-q[2].x),std::abs(q[1].x-q[3].x));
+ double centered=std::abs((q[0].z+q[1].z+q[2].z+q[3].z)/4.);
+ if(bilateral>.15+.15*halfwidth||axle>.15+.15*halfbase||width>.15+.15*halfwidth||centered>.2+.2*halfbase||ymax-ymin>.5)return false;
+ error=static_cast<float>(bilateral/halfwidth+axle/halfbase+width/halfwidth+centered/halfbase+(ymax-ymin));return true;
+}
+void classify_constellations(TransformGroup* g,size_t count) noexcept {
+ FP fp;if(count>MAX_TRANSFORM_GROUPS)return;
+ std::array<ConstellationProposal,MAX_TRANSFORM_GROUPS> proposals{};
+ for(size_t i=0;i<count;++i){auto& c=g[i].result;c.object=ObjectClass::Unknown;c.constellation=0;c.vehicle_reasons=0;c.wheels={};c.symmetry_error=0;}
+ for(size_t i=0;i<count;++i){auto& body=g[i];auto& prop=proposals[i];
+  if(body.saturated||!body.result.track||body.result.ambiguous||!body.result.dynamic||body.body_draws<2||body.size<2||!body.body_env_draws||body.body_draws!=body.draws)continue;
+  std::array<uint32_t,MAX_NEAR_WHEELS> candidates{};std::array<LocalWheel,MAX_NEAR_WHEELS> local{};size_t n=0;bool full=false;
+  for(size_t j=0;j<count;++j){const auto& wheel=g[j];if(wheel.saturated||!wheel.result.track||wheel.result.ambiguous||wheel.wheel_draws<2||wheel.wheel_draws!=wheel.draws)continue;
+   std::array<float,3> coordinates{};for(int a=0;a<3;++a){double v=0;for(int k=0;k<3;++k)v+=(static_cast<double>(wheel.world.m[3][k])-body.world.m[3][k])*body.world.m[a][k];coordinates[a]=static_cast<float>(v);}LocalWheel p{coordinates[0],coordinates[1],coordinates[2]};
+   if(std::abs(p.x)<.35||std::abs(p.x)>2.5||std::abs(p.z)<.5||std::abs(p.z)>4.||p.y<-2.||p.y>1.5)continue;
+   if(n==MAX_NEAR_WHEELS){full=true;break;}candidates[n]=static_cast<uint32_t>(j);local[n++]=p;
+  }
+  if(full){prop.ambiguous=true;continue;}
+  unsigned matches=0;for(size_t a=0;a<n;++a)for(size_t b=a+1;b<n;++b)for(size_t c=b+1;c<n;++c)for(size_t d=c+1;d<n;++d){float error=0;
+   if(wheel_rectangle({local[a],local[b],local[c],local[d]},error)){++matches;prop.wheels={candidates[a],candidates[b],candidates[c],candidates[d]};prop.error=error;}
+  }
+  prop.accepted=matches==1;prop.ambiguous=matches>1;
+ }
+ // Conflict pass is simultaneous: traversal order cannot win a shared wheel.
+ std::array<unsigned,MAX_TRANSFORM_GROUPS> uses{};
+ for(size_t i=0;i<count;++i)if(proposals[i].accepted)for(auto w:proposals[i].wheels)++uses[w];
+ for(size_t i=0;i<count;++i){auto& p=proposals[i];auto& c=g[i].result;
+  if(p.accepted)for(auto w:p.wheels)if(uses[w]!=1){p.accepted=false;p.ambiguous=true;}
+  if(p.ambiguous){c.vehicle_reasons=DYNAMIC_CHASSIS|BODY_CLUSTER;continue;}
+  if(!p.accepted)continue;c.object=ObjectClass::Body;c.constellation=c.track;c.vehicle_reasons=127;c.symmetry_error=p.error;
+  std::sort(p.wheels.begin(),p.wheels.end(),[&](uint32_t a,uint32_t b){return g[a].result.track<g[b].result.track;});
+  for(size_t k=0;k<4;++k){auto& wheel=g[p.wheels[k]].result;c.wheels[k]=wheel.track;wheel.object=ObjectClass::Wheel;wheel.constellation=c.track;wheel.vehicle_reasons=127;wheel.symmetry_error=p.error;}
+ }
+}
+ClassifierStats TransformTracker::stats() const noexcept {
+ ClassifierStats out{};if(overflow_)return out;
+ for(size_t i=0;i<current_size_;++i){const auto& g=current_[i];const auto& c=g.result;out.dynamic+=c.dynamic;
+  out.chassis+=c.dynamic&&!c.ambiguous&&g.body_draws>=2&&g.body_draws==g.draws&&g.body_env_draws>0;
+  out.constellations+=c.object==ObjectClass::Body;out.body_draws+=c.object==ObjectClass::Body?g.draws:0;out.wheel_draws+=c.object==ObjectClass::Wheel?g.draws:0;
+  out.ambiguities+=c.ambiguous||c.vehicle_reasons==3;
+ }return out;
+}
 uint64_t geometry_signature(const Shadow& s,const ResourceRegistry& resources,const Args& args,uint32_t rva) noexcept {
  if(!s.bindings.streams[0].known||!s.bindings.indices.known||!s.bindings.vertex_shader.known)return 0;
  auto vb=resources.generation(s.bindings.streams[0].value.pointer),ib=resources.generation(s.bindings.indices.value.pointer);
@@ -72,7 +144,30 @@ uint32_t draw_reasons(const Shadow& s,bool known,bool race,bool owner) noexcept 
 const char* object_classification(const DrawClassification& c) noexcept {
  constexpr uint32_t required=EXACT_BUILD|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD;
  if((c.reasons&required)!=required||!c.transform.track||c.transform.ambiguous)return "UNKNOWN";
+ if(c.transform.object==ObjectClass::Body&&c.transform.constellation)return "VEHICLE_BODY";
+ if(c.transform.object==ObjectClass::Wheel&&c.transform.constellation)return "VEHICLE_WHEEL";
  if(c.transform.dynamic&&(c.reasons&ENV_STAGE))return "DYNAMIC_ENV_OBJECT";
  return "CANDIDATE"; // Motion alone never proves vehicle identity.
+}
+
+const char* material_classification(const DrawClassification& c) noexcept {
+ if(c.transform.object==ObjectClass::Wheel)return (c.reasons&ENV_STAGE)?"VEHICLE_WHEEL_ENV":"UNKNOWN_VEHICLE_MATERIAL";
+ if(c.transform.object!=ObjectClass::Body)return "UNKNOWN_VEHICLE_MATERIAL";
+ if(c.reasons&ENV_STAGE)return (c.reasons&CL_OPAQUE)?"VEHICLE_BODY_ENV_OPAQUE":c.alpha_blended?"VEHICLE_BODY_ALPHA_ENV":"UNKNOWN_VEHICLE_MATERIAL";
+ return "VEHICLE_BODY_BASE";
+}
+const char* reflection_exclusion(const DrawClassification& c) noexcept {
+ constexpr uint32_t required=EXACT_BUILD|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD;
+ if(!(c.reasons&EXACT_BUILD))return "unknown_build";
+ if(!(c.reasons&RACE_PROJECTION))return "non_race_context";
+ if((c.reasons&required)!=required)return "unmapped_or_unknown_geometry";
+ if(c.transform.object==ObjectClass::Wheel)return "vehicle_wheel_stock";
+ if(c.transform.object==ObjectClass::Unknown&&c.transform.track&&c.transform.age>=4&&!c.transform.dynamic&&!c.transform.ambiguous)return "static_transform_without_vehicle_proof";
+ if(c.transform.object!=ObjectClass::Body||!c.transform.constellation||c.transform.vehicle_reasons!=127||c.transform.ambiguous)return "unproven_object";
+ for(size_t i=0;i<4;++i){if(!c.transform.wheels[i])return "incomplete_constellation";for(size_t j=0;j<i;++j)if(c.transform.wheels[i]==c.transform.wheels[j])return "incomplete_constellation";}
+ if(c.fvf!=0x152)return "excluded_fvf";
+ if(!(c.reasons&CL_OPAQUE))return "alpha_or_no_depth_write";
+ if(!(c.reasons&ENV_STAGE))return "non_stock_env_stage";
+ return "eligible";
 }
 }

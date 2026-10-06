@@ -47,9 +47,16 @@ void Shadow::update(uint32_t slot,const Args& args,uint32_t result) noexcept {
  }
 }
 Resource ResourceRegistry::add(uintptr_t p,uint32_t method,const Args& args){
- Resource r{++next_serial,method,args};
+ Resource r{};r.serial=++next_serial;r.method=method;r.args=args;
+ int index=method==20?5:method==21?6:method==22?4:(method==23||method==24)?3:-1;
+ if(index>=0)r.pool.set(static_cast<uint32_t>(args.a[index]));
+ else if(method==27)r.pool.set(D3DPOOL_SYSTEMMEM); // CreateImageSurface is system memory.
+ r.reset_survivor=r.pool.known&&(r.pool.value==D3DPOOL_MANAGED||r.pool.value==D3DPOOL_SYSTEMMEM||r.pool.value==D3DPOOL_SCRATCH);
  if(items.size()>=8192 && items.find(p)==items.end())items.clear();
  items[p]=r;return r;
+}
+size_t ResourceRegistry::successful_reset() noexcept {
+ size_t removed=0;for(auto it=items.begin();it!=items.end();)if(!it->second.reset_survivor){it=items.erase(it);++removed;}else ++it;return removed;
 }
 uint64_t ResourceRegistry::generation(uintptr_t p) const noexcept {
  auto it=items.find(p);return it==items.end()?0:it->second.serial;

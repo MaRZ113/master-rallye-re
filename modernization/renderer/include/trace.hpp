@@ -10,8 +10,13 @@ inline constexpr size_t MAX_DRAWS=8192,MAX_EVENTS=16384,MAX_BUFFER_BYTES=32*1024
 struct Event {uint32_t slot=0,result=0;Args args;uintptr_t pc=0;uint32_t draw=UINT32_MAX;
  bool suppressed=false,native_only=false;uint32_t feature=0;Args effective_args{};uint32_t effective_payload[16]{};uint32_t effective_words=0;
  uint32_t payload[32]{};uint32_t payload_words=0;};
+struct ReflectionOutcome {
+ Known<uint32_t> requested_tci,effective_tci;
+ bool candidate=false,applied=false,restore_attempted=false,restore_success=false;
+ uint32_t native_writes=0;const char* mode="Stock";const char* reason="not_evaluated";
+};
 struct EffectiveDraw {Known<uint32_t> filtering[4];Known<D3DMATRIX> projection;};
-struct Draw { DrawClassification classification;Snapshot state;EffectiveDraw effective;std::array<uint64_t,8> texture_generation{};
+struct Draw { DrawClassification classification;Classification at_draw;ReflectionOutcome reflection;Snapshot state;EffectiveDraw effective;std::array<uint64_t,8> texture_generation{};
  std::array<uint64_t,16> stream_generation{};uint64_t index_generation=0; };
 struct FrameBuffer {std::array<Event,MAX_EVENTS> events;std::array<Draw,MAX_DRAWS> draws;
  size_t event_count=0,draw_count=0;bool truncated=false;uint64_t dropped=0;};
@@ -25,7 +30,12 @@ public:
  public:explicit Guard(Trace& t) noexcept;~Guard();Guard(const Guard&)=delete;
  };
  Guard guard() noexcept {return Guard(*this);}
- void before(uint32_t slot,const Args& args,uintptr_t pc) noexcept;
+ DrawClassification before(uint32_t slot,const Args& args,uintptr_t pc) noexcept;
+ void reflection_result(const ReflectionOutcome& outcome,uint32_t triangles) noexcept;
+ void configure_classifier(bool known,uintptr_t base) noexcept {classifier_known_=known;exe_base_=base;tracker_.reset();race_context_=false;}
+ bool race_context() const noexcept {return race_context_;}
+ uint64_t classifier_epoch() const noexcept {return tracker_.epoch();}
+ Known<uint32_t> reflection_restore_pending;bool reflection_disabled=false;
  void after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,const Args* effective=nullptr,uint32_t feature=0,bool suppressed=false,bool native_only=false) noexcept;
  void shutdown(uint32_t real_refs) noexcept;
  std::atomic<bool> enabled{false};
@@ -37,6 +47,8 @@ private:
  CRITICAL_SECTION lock_{};bool lock_ok_=false;
  uint64_t device_=0,frame_=1,primitives_=0;
  std::array<uint64_t,97> counts_{};
+ uint64_t reset_count_=0,relearn_count_=0;size_t reset_removed_=0;bool waiting_relearn_=false;
+ uint64_t reflection_candidates_=0,reflection_draws_=0,reflection_triangles_=0,reflection_writes_=0;
  std::unique_ptr<FrameBuffer> capture_;
  uint32_t pending_draw_=UINT32_MAX;
  Known<uint32_t> last_cooperative_;

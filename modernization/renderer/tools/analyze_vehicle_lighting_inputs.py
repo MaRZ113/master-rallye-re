@@ -7,6 +7,7 @@ import math
 from pathlib import Path
 import statistics
 import sys
+sys.dont_write_bytecode=True  # Read-only imports must not create caches in frozen src/.
 sys.path.insert(0,str(Path(__file__).resolve().parents[3]/'src'))
 from master_rallye.dx import parse_dx
 from master_rallye.material_semantics import MaterialSemantics

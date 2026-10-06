@@ -17,4 +17,5 @@ Enabled=true
 FrameSummaries=true
 
 [VehicleReflections]
+; Test Stock Reset/relearn first. Opt-in experiment afterward: ViewDependent2D.
 Mode=Stock

@@ -50,10 +50,12 @@ struct CaptureControl {
  void finish_present() noexcept {boundary=true;active=pending;pending=false;}
  void abort() noexcept {active=false;pending=false;}
 };
-struct Resource {uint64_t serial=0; uint32_t method=0; Args args;};
+struct Resource {uint64_t serial=0; uint32_t method=0; Args args;
+ Known<uint32_t> pool;bool reset_survivor=false;};
 struct ResourceRegistry {
  uint64_t next_serial=0; std::unordered_map<uintptr_t,Resource> items;
  Resource add(uintptr_t pointer,uint32_t method,const Args& args);
  uint64_t generation(uintptr_t pointer) const noexcept;
+ size_t successful_reset() noexcept;
 };
 }

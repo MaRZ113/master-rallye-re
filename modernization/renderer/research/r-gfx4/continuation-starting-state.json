@@ -1,0 +1,16 @@
+{
+  "branch": "research/general-re",
+  "starting_head": "9c3a353a4838f6b19c2ab50d663b389acc64531c",
+  "working_tree_before": "clean",
+  "required_preflight": [
+    "git status",
+    "git branch --show-current",
+    "git log --oneline --decorate -20",
+    "git diff --check"
+  ],
+  "primary_file": "D:\\Game\\Master Rallye\\corpora\\retail\\MRallye.exe",
+  "primary_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "current_test_install_exe_sha256": "fb11754c0c6d56b02c175a261e36d0768a72bba6d5a0fd74cbd7c7ad9d34be7b",
+  "current_install_supported": false,
+  "notes": "Captured historical runtime header remains canonical; current installation differs. No game file changes or deployment. No branch/worktree/push."
+}

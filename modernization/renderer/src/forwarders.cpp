@@ -602,20 +602,13 @@ HRESULT STDMETHODCALLTYPE Device8::GetCurrentTexturePalette(UINT * PaletteNumber
  trace.after(69, args, static_cast<uint32_t>(result), pc);
  return result;
 }
-HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT minIndex,UINT NumVertices,UINT startIndex,UINT primCount) {
- auto guard = trace.guard();
- const auto args = pack(PrimitiveType, minIndex, NumVertices, startIndex, primCount);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(71, args, pc);
- HRESULT result = real_->DrawIndexedPrimitive(PrimitiveType, minIndex, NumVertices, startIndex, primCount);
- trace.after(71, args, static_cast<uint32_t>(result), pc);
- return result;
-}
 HRESULT STDMETHODCALLTYPE Device8::DrawPrimitiveUP(D3DPRIMITIVETYPE primitive_type, UINT primitive_count, const void *data, UINT stride) {
  auto guard = trace.guard();
  const auto args = pack(primitive_type, primitive_count, data, stride);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(72, args, pc);
+ HRESULT repair=repair_reflection();
+ if(FAILED(repair)){trace.after(72,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
  HRESULT result = real_->DrawPrimitiveUP(primitive_type, primitive_count, data, stride);
  trace.after(72, args, static_cast<uint32_t>(result), pc);
  return result;
@@ -625,6 +618,8 @@ HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitiveUP(D3DPRIMITIVETYPE primi
  const auto args = pack(primitive_type, min_vertex_idx, vertex_count, primitive_count, index_data, index_format, data, stride);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(73, args, pc);
+ HRESULT repair=repair_reflection();
+ if(FAILED(repair)){trace.after(73,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
  HRESULT result = real_->DrawIndexedPrimitiveUP(primitive_type, min_vertex_idx, vertex_count, primitive_count, index_data, index_format, data, stride);
  trace.after(73, args, static_cast<uint32_t>(result), pc);
  return result;

@@ -42,7 +42,7 @@ VisualConfig read_visual_config(const std::wstring& path){
 std::string config_json(const VisualConfig& c){std::ostringstream o;o<<"{\"config_found\":"<<(c.found?"true":"false")<<",\"ConfigVersion\":"<<(c.version_ok?"1":"null")<<",\"anisotropy\":"<<(c.anisotropy?"true":"false")<<",\"max_anisotropy\":"<<c.max_anisotropy<<",\"gameplay_fov\":"<<(c.fov?"true":"false")<<",\"vfov\":"<<c.vfov<<",\"shadow\":"<<quote(c.shadow_off?"Off":"Stock")<<",\"reason\":"<<quote(c.reason)<<",\"af_reason\":"<<quote(c.af_reason)<<",\"fov_reason\":"<<quote(c.fov_reason)<<",\"shadow_reason\":"<<quote(c.shadow_reason)<<",\"vehicle_reflections\":"<<quote(c.reflection_mode)<<",\"reflection_reason\":"<<quote(c.reflection_reason)<<",\"raw_fields\":{";bool first=true;for(const auto& entry:c.raw_fields){if(!first)o<<',';first=false;o<<quote(entry.first)<<':'<<quote(entry.second);}o<<"}}";return o.str();}
 void VisualPolicy::configure(const VisualConfig& c,bool known,const D3DCAPS8* caps,HRESULT hr){
  requested=c;effective=c;caps_result=hr;
- if(c.reflection_mode=="ViewDependent2D"){effective.reflection_mode="Stock";effective.reflection_reason="BLOCKED_BY_CLASSIFICATION";}
+ if(c.reflection_mode=="ViewDependent2D")effective.reflection_reason="requires_strong_body_constellation_per_draw";
  if(!known){effective.anisotropy=effective.fov=effective.shadow_off=false;effective.reason="unsupported_build";effective.reflection_mode="Stock";effective.reflection_reason="unsupported_build";return;}
  if(effective.anisotropy){
   if(caps&&SUCCEEDED(hr)){caps_max=caps->MaxAnisotropy;min_supported=(caps->TextureFilterCaps&D3DPTFILTERCAPS_MINFANISOTROPIC)!=0;mag_supported=(caps->TextureFilterCaps&D3DPTFILTERCAPS_MAGFANISOTROPIC)!=0;}

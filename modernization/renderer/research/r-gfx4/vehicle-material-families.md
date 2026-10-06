@@ -20,3 +20,7 @@ Stage0 color/alpha MODULATE4, ARG1 TEXTURE2, ARG2 DIFFUSE0. Env stage1 color op1
 For stock env: C0=texture0.rgb*diffuse.rgb; A0=texture0.a*diffuse.a; C1=C0+A0*texture1.rgb; A1=A0*texture1.a, followed by native saturation/blending. The op18 expression is also documented in [Microsoft's texture-operation definition](https://learn.microsoft.com/en-us/windows/win32/direct3d9/d3dtextureop); actual D3D8 IDs/arguments are verified from pinned headers and trace, not inferred from D3D9 compatibility.
 
 Raw slot0/slot1/Null identity is preserved. Source flag byte2 controls diffuse descriptor consumption; source normal arrays do not guarantee a NORMAL-containing compiled FVF. The six-model source analysis is not a six-model runtime FVF validation. Unknown families and inherited states remain explicit.
+
+## Continuation scope
+
+Object-level BODY/WHEEL identity is independent of the family table. All seven supplied pre-Reset chassis groups pass the four-wheel predicate. Opaque 0x152 body subset is the sole modifier target. In the Tata 34-draw/1972-triangle group, 26 FVF152 draws total1320 triangles include **22 opaque draws/1304 triangles and4 alpha draws/16 triangles**; the latter remain stock. The task's approximate 26/1320 example must not be interpreted as 26 opaque candidates. Other observed chassis have17/13/18 opaque152 draws; coverage is model-dependent. See constellation-runtime-evidence.json for structural evidence and the existing matched Broker snapshot for material attribution.

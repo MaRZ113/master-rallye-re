@@ -1,48 +1,115 @@
 {
-  "phase": "R-GFX4",
+  "phase": "R-GFX4 CONTINUATION",
+  "proxy_version": "R-GFX4-2",
   "status": "READY_FOR_HUMAN_RUNTIME",
-  "scope": "Stock classification A/B",
-  "vehicle_identity": "MORE_RUNTIME_CLASSIFICATION_NEEDED",
-  "reflection_prototype": "BLOCKED_BY_CLASSIFICATION",
-  "reflection_native_writes": false,
-  "r_gfx3_status": "CLOSED_CONFIRMED_BY_RUNTIME",
   "branch": "research/general-re",
-  "starting_head": "d46ebdce5477ebfd08e049c25cea2801572fbb97",
-  "canonical_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-  "dll_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
-  "dll_size": 1036800,
-  "checks": {
-    "native": "3/3 PASS",
-    "python": "55 PASS",
-    "compileall": "PASS",
-    "pe_exports_imports": "PASS",
-    "diff_check": "PASS"
+  "starting_head": "9c3a353a4838f6b19c2ab50d663b389acc64531c",
+  "target_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "build": {
+    "sha256": "ff8a95bdb80961fbba65f41f16e0686792aae98d60740c7a3e9f480c16d852c3",
+    "size": 1067520,
+    "pe": "PE32/I386",
+    "deployed": false,
+    "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
   },
-  "source_analysis": {
-    "representative_models": [
-      "Tata",
-      "Astero",
-      "KiaSportage",
-      "Pajero",
-      "Forester",
-      "Kamaz"
+  "r_gfx3": "CLOSED_CONFIRMED_BY_RUNTIME",
+  "prior_stock_runtime": {
+    "proxy_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
+    "human_observation": "no artifacts or unexpected changes",
+    "offline_accepted_rectangles": [
+      4,
+      3
     ],
-    "hashed_assets": 12,
-    "diffuse_enabled_draws": 187,
+    "post_reset": "all UNKNOWN in later captures",
+    "evidence_grade": "OFFLINE_GEOMETRY_ON_RECORDED_RUNTIME_TRACKS"
+  },
+  "resource_reset": {
+    "preserve": [
+      "MANAGED",
+      "SYSTEMMEM",
+      "SCRATCH",
+      "CreateImageSurface"
+    ],
+    "remove": [
+      "DEFAULT",
+      "render_target",
+      "depth_surface",
+      "unknown_pool"
+    ],
+    "temporal_state": "CLEAR",
+    "surviving_serials": "UNCHANGED",
+    "failed_reset": "NO_MUTATION",
+    "relearn": "SYNTHETIC_PASS"
+  },
+  "classifier": {
+    "input": "D3D_ONLY",
+    "strong_rule": "dynamic multi-draw chassis + unique four-wheel rectangle + unambiguous assignment",
+    "wheel_independent_motion_required": false,
+    "body_wheel_identity_separate": true,
+    "max_transform_groups": 128,
+    "max_signatures_per_group": 64,
+    "max_near_wheel_candidates": 8,
+    "max_cars_fixed_to_four": false,
+    "draw_time_proof": "previous complete frame matching current WORLD/signature, one-frame lease"
+  },
+  "reflection": {
+    "default": "Stock",
+    "opt_in": "ViewDependent2D",
+    "target": "VEHICLE_BODY opaque FVF0x152 stock env mapped indexed draw",
+    "normal_tci": 65536,
+    "reflection_tci": 196608,
+    "low_16_bits": "PRESERVED",
+    "draw_once": true,
+    "logical": "STOCK",
+    "restore": "RAII_NATIVE_ONLY",
+    "restore_failure": "reported; feature disabled; pending repair; later draws fail closed until repair",
+    "excluded": [
+      "WHEEL",
+      "alpha/glass",
+      "no-normal",
+      "frontend",
+      "static world",
+      "terrain/road",
+      "vegetation",
+      "particles",
+      "HUD/UI"
+    ],
+    "human_status": "PENDING"
+  },
+  "backview": {
+    "semantic": "active race camera look-back",
+    "extra_preset": false,
+    "normal_presets": 5,
+    "view_change_clears_context": false
+  },
+  "lighting": {
+    "diffuse_draws": 187,
     "variable_rgb_draws": 174,
-    "median_max_abs_normal_luma_correlation": 0.9535410087534312,
-    "semantic_verdict": "DOUBLE_LIGHT_RISK_NOT_PROVEN_BAKED_SUN"
+    "normal_luma_abs_correlation_median": 0.9535410087534312,
+    "directional_fit_count": 171,
+    "directional_fit_r2_median": 0.9256522457919937,
+    "conclusion": "DOUBLE_LIGHT_RISK; not a uniquely recovered sun",
+    "new_lighting": false,
+    "reproduction": "MATCHES_TRACKED_DATA"
   },
-  "human_stages": {
-    "A_Stock_regression": "PENDING_HUMAN",
-    "B_warm_tracker": "PENDING_HUMAN",
-    "C_ViewDependent2D": "BLOCKED_BY_CLASSIFICATION",
-    "Reset": "OPTIONAL_AFTER_AB",
-    "second_vehicle": "OPTIONAL"
+  "validation": {
+    "python_tests": 59,
+    "native_suites": 4,
+    "compileall": "PASS",
+    "pe_verifier": "PASS",
+    "diff_check": "PASS",
+    "generator": "DETERMINISTIC"
   },
-  "new_lighting": false,
-  "game_files_modified": false,
-  "push_performed": false,
-  "next_phase_started": false,
-  "next_decision": "Validate runtime-only vehicle identity first; reflection path more plausible than new lighting until prelight is understood"
+  "human_handoff": {
+    "A_reset_stock": "PENDING_REQUIRED_BEFORE_B",
+    "B_view_dependent": "PENDING",
+    "C_backview": "PENDING",
+    "D_static_world": "PENDING",
+    "E_multi_car": "PENDING"
+  },
+  "tools": {
+    "created": "tools/analyze_resource_lifetime.py",
+    "extended": "tools/analyze_vehicle_draws.py"
+  },
+  "next": "WAIT_FOR_HUMAN_RUNTIME_EVIDENCE"
 }

@@ -1,16 +1,18 @@
-# Master Rallye renderer — R-GFX4-1
+# Master Rallye renderer â€” R-GFX4-2
 
-Status: **READY_FOR_HUMAN_RUNTIME for Stock classification A/B**. R-GFX3 is CLOSED by the user's final short retest. R-GFX4 adds bounded WORLD tracking and lighting-input research; ViewDependent2D is **BLOCKED_BY_CLASSIFICATION** and forwards Stock even when requested.
+**READY_FOR_HUMAN_RUNTIME.** R-GFX3 stays CLOSED. R-GFX4 continuation fixes pool-aware Reset, classifies dynamic chassis/four-wheel constellations and adds opt-in opaque FVF152 body reflection-vector lookup. Stock remains default; the new candidate has no human runtime pass yet.
 
-Canonical repository master-rallye-re-general, branch research/general-re. All graphics edits stay in modernization/renderer. Frozen R-GFX1/R-GFX2 and retired worktrees are read-only. [Findings](research/r-gfx4/findings.md), [classification](research/r-gfx4/vehicle-classification.md), [lighting decision](research/r-gfx4/lighting-input-decision.md), [human handoff](research/r-gfx4/runtime-handoff.md).
+Canonical repo master-rallye-re-general, branch research/general-re. Edits only modernization/renderer; frozen reconnaissance/proxy and retired trees stay read-only. [Findings](research/r-gfx4/findings.md), [classifier](research/r-gfx4/vehicle-classification.md), [Reset](research/r-gfx4/reset-resource-lifetime.md), [reflection](research/r-gfx4/reflection-prototype.md), [handoff](research/r-gfx4/runtime-handoff.md), [validation](research/r-gfx4/validation.md).
 
-MRRRenderer.ini beside DLL is read once. ConfigVersion1, missing/unknown version=Stock. AF MIN-only, gameplay source90 FOV and Shadow Stock/Off retain R-GFX3 behavior. VehicleReflections.Mode defaults Stock; recognized ViewDependent2D currently logs BLOCKED_BY_CLASSIFICATION. Invalid mode=Stock with reason. Only canonical EXE SHA bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4 supports game-specific policy; unknown builds forward and expose unknown classifications.
+MRRRenderer.ini beside DLL is read once. ConfigVersion1; missing/invalid/unknown version=Stock. AF stage0 MIN-only, source90 gameplay FOV/preview45 exclusion and Shadow Stock/Off retain tested R-GFX3 behavior. VehicleReflections.Mode=Stock or ViewDependent2D. Only exact EXE SHA bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4 supports target-specific behavior; unknown builds forward/generically trace with no semantic classification/reflection.
 
 ```powershell
 python modernization/renderer/tools/build.py
 python modernization/renderer/tools/verify_proxy.py modernization/renderer/.build-msvc/Release/d3d8.dll
-python -m unittest discover -s modernization/renderer/tests -v
+python -m unittest discover -s modernization/renderer/tests -q
 python -m compileall modernization/renderer
 ```
 
-F10 records classification fields additively, preserving legacy logical/effective state. Normal gameplay keeps compact tracking only; no per-draw GPU getters or continuous draw JSON. Builds/logs remain ignored. Analyze tools read external inputs and print derived JSON without changing the game/research inputs. No new reflection state, lighting, resource wrapper, backend, weather, postFX or freecam is implemented.
+F10 schema1 fields are additive: draw-time and completed-frame identity, material/constellation, requested/effective TCI, temporary native setter and restore result. Normal gameplay keeps bounded state/tracking/counters without per-draw GPU queries or draw JSON. Classifier and restore remain independent of trace recording availability. Tools read external logs/assets and print derived summaries. Build/log products are ignored; no game deployment, new lighting, resource wrapping, vertex rewrite, shader, backend, cubemap, weather, postFX or freecam is included.
+
+Human sequence: Stock A Reset/relearn **must pass first**; then opt-in B normal-view, C look-back, D unchanged scenery, E multiple cars. Do not tune reflection aesthetics before recording evidence.

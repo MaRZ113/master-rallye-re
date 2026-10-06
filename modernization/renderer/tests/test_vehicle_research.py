@@ -4,7 +4,7 @@ import sys
 import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from analyze_vehicle_lighting_inputs import pearson,directional_fit,vertex_stats
-from analyze_vehicle_draws import decode_fvf,analyze
+from analyze_vehicle_draws import decode_fvf,analyze,rectangle,constellations,reflection_audit
 from validate_vehicle_correlation import metrics,correlate
 from trace_common import TARGET_SHA
 
@@ -55,7 +55,46 @@ class LightingInputsTests(unittest.TestCase):
         matched=[]
         for p in captures:
             with p.open() as stream:rows=[json.loads(line) for line in stream]
-            if rows[0].get('proxy_version')=='R-GFX4-1':matched.extend(r for r in rows if r.get('type')=='draw')
+            if rows[0].get('proxy_version')=='R-GFX4-2':matched.extend(r for r in rows if r.get('type')=='draw')
         self.assertTrue(matched,'Run native contracts before Python trace checks')
+        modified=[d for d in matched if d.get('native_override_applied')]
+        self.assertTrue(modified,'Native reflection integration must produce a bounded positive capture')
+        for d in modified:
+            self.assertEqual(d['object_class_at_draw'],'VEHICLE_BODY');self.assertEqual(d['state']['vertex_shader'],0x152)
+            self.assertTrue(d['native_restore_success']);self.assertEqual(d['requested_stage1_tci']&0xffff0000,0x10000)
+            self.assertEqual(d['effective_stage1_tci_for_draw']&0xffff0000,0x30000)
+            self.assertEqual(d['effective_state']['stage1']['11'],d['effective_stage1_tci_for_draw'])
+            self.assertTrue(d['feature_mask']&8)
         for d in matched:
-            self.assertIn('object_classification',d);self.assertIn('transform_track_id',d);self.assertEqual(d['reflection_feature'],'Stock')
+            self.assertIn('object_classification',d);self.assertIn('transform_track_id',d);self.assertIn('object_class',d);self.assertIn('native_restore_success',d);self.assertIn('effective_stage1_tci_for_draw',d)
+
+class ContinuationAnalysisTests(unittest.TestCase):
+    def test_rectangle_models_and_rejection(self):
+        for x,z in ((.75,1.225),(.875,1.385),(1,1.375),(.825,1.2),(1.5,2.3)):
+            p=[(-x,0,-z),(x,0,-z),(-x,0,z),(x,0,z)]
+            self.assertEqual(rectangle(p),0);self.assertEqual(rectangle(list(reversed(p))),0)
+            self.assertIsNone(rectangle(p[:3]));self.assertIsNone(rectangle(p[:3]+[p[0]]))
+        self.assertIsNone(rectangle([(float('nan'),0,1)]*4))
+    def test_offline_no_independent_wheel_motion(self):
+        def group(x,z,body=False,track=1):
+            return {'world':[1,0,0,0,0,1,0,0,0,0,1,0,x,0,z,1],'draws':4,'triangles':252,'tracks':[track],'dynamic':body,'ambiguous':False,'body_draws':4 if body else 0,'body_env_draws':2 if body else 0,'wheel_draws':0 if body else 4}
+        gs=[group(0,0,True,100)]+[group(x,z,track=i+1) for i,(x,z) in enumerate(((-1,-1),(1,-1),(-1,1),(1,1)))]
+        p=constellations(gs)[0];self.assertTrue(p['accepted']);self.assertEqual(p['wheels_independently_dynamic'],[False]*4)
+        self.assertFalse(constellations(gs[:4])[0]['accepted']);self.assertFalse(constellations(gs+[group(-1.01,-1,track=99)])[0]['accepted'])
+    def test_resource_segments(self):
+        from analyze_resource_lifetime import analyze as lifetime
+        rows=[{'exe_sha256':TARGET_SHA},{'type':'resource_create','method':'CreateTexture','arguments':[8,8,1,0,21,1]},
+              {'type':'reset','hresult':0},{'type':'resource_create','method':'CreateVertexBuffer','arguments':[720000,0,0,0]}]
+        result=lifetime(rows);self.assertEqual(result['segments'][0]['resource_creations'],{'CreateTexture:MANAGED':1});self.assertEqual(result['segments'][1]['resource_creations'],{'CreateVertexBuffer:DEFAULT':1})
+        rows[0]['exe_sha256']='unknown';self.assertFalse(lifetime(rows)['exact_build'])
+
+    def test_reflection_provenance_audit(self):
+        setter=lambda value:{'type':'native_override','method':'SetTextureStageState','arguments':[1,11,value],'result':0}
+        draw={'type':'draw','native_override_applied':True,'native_restore_success':True,'object_class_at_draw':'VEHICLE_BODY','constellation_id_at_draw':1,'method':'DrawIndexedPrimitive',
+              'requested_stage1_tci':0x10001,'effective_stage1_tci_for_draw':0x30001,'state':{'vertex_shader':0x152,'render_states':{'27':0,'14':1},'texture_stage_states':[{}, {'1':18,'2':1,'3':2,'4':4,'5':1,'6':2,'24':2}]}}
+        draw.update(classifier_confidence='STRONG_FOUR_WHEEL',classifier_reasons=['dynamic_chassis','body_draw_cluster','wheel_signature','four_wheel_match','bilateral_symmetry','axle_pairing','unambiguous_assignment'],associated_wheel_track_ids=[2,3,4,5])
+        rows=[setter(0x30001),draw,setter(0x10001)]
+        self.assertEqual(reflection_audit(rows,True)['status'],'AUTOMATED_TRACE_PASS')
+        self.assertEqual(reflection_audit(rows,False)['status'],'FAIL')
+        draw['native_restore_success']=False;self.assertEqual(reflection_audit(rows,True)['status'],'FAIL')
+        draw['native_restore_success']=True;draw['object_class_at_draw']='VEHICLE_WHEEL';self.assertEqual(reflection_audit(rows,True)['status'],'FAIL')

@@ -1,0 +1,437 @@
+{
+  "prior_proxy_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
+  "evidence_grade": "OFFLINE_GEOMETRY_ON_RECORDED_RUNTIME_TRACKS",
+  "cross_capture_temporal_inference": false,
+  "captures": [
+    {
+      "file": "frame-42928-d1-00022806_A-race.jsonl",
+      "sha256": "615f5439832e211267dec4fd2f2edad80313c396b9251f489381dd812ea0c715",
+      "header": {
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "proxy_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
+        "device": 1,
+        "frame": 22806
+      },
+      "exact_build_and_complete": true,
+      "classification_counts": {
+        "UNKNOWN": 417,
+        "CANDIDATE": 31,
+        "DYNAMIC_ENV_OBJECT": 158
+      },
+      "constellation_analysis": [
+        {
+          "chassis_tracks": [
+            16
+          ],
+          "body_draws": 28,
+          "body_triangles": 2261,
+          "near_wheel_candidates": 4,
+          "valid_rectangles": 1,
+          "accepted": true,
+          "reason": "unique_four_wheel",
+          "wheel_tracks": [
+            1,
+            141,
+            8,
+            140
+          ],
+          "local_wheels": [
+            [
+              0.7500376444046145,
+              -0.09871194111466425,
+              1.2251306446563046
+            ],
+            [
+              -0.749870790949758,
+              -0.09883468062658812,
+              -1.2247376308842026
+            ],
+            [
+              0.7499838621669456,
+              -0.044084784885238364,
+              -1.2249571054671617
+            ],
+            [
+              -0.7499888255414199,
+              -0.1447622220751652,
+              1.224932395140456
+            ]
+          ],
+          "symmetry_error": 0.10123992994535332,
+          "wheel_triangles": [
+            252,
+            252,
+            252,
+            252
+          ],
+          "wheels_independently_dynamic": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "chassis_tracks": [
+            12
+          ],
+          "body_draws": 34,
+          "body_triangles": 1972,
+          "near_wheel_candidates": 4,
+          "valid_rectangles": 1,
+          "accepted": true,
+          "reason": "unique_four_wheel",
+          "wheel_tracks": [
+            9,
+            7,
+            4,
+            10
+          ],
+          "local_wheels": [
+            [
+              -0.8748678873977997,
+              -0.0046187796664297655,
+              1.385140003284119
+            ],
+            [
+              0.8750790991073701,
+              -0.014120059127395265,
+              -1.3849781755103066
+            ],
+            [
+              0.8750843841811381,
+              0.0009646512790446782,
+              1.3851495306963093
+            ],
+            [
+              -0.8748445185784149,
+              -0.016439111877804072,
+              -1.3848319502729542
+            ]
+          ],
+          "symmetry_error": 0.017890682974579578,
+          "wheel_triangles": [
+            252,
+            252,
+            252,
+            252
+          ],
+          "wheels_independently_dynamic": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "chassis_tracks": [
+            13
+          ],
+          "body_draws": 27,
+          "body_triangles": 2012,
+          "near_wheel_candidates": 4,
+          "valid_rectangles": 1,
+          "accepted": true,
+          "reason": "unique_four_wheel",
+          "wheel_tracks": [
+            68,
+            138,
+            137,
+            2
+          ],
+          "local_wheels": [
+            [
+              1.0000076165762477,
+              0.008925285533392975,
+              -1.374973010913439
+            ],
+            [
+              -1.0000079652221276,
+              0.016690081728083693,
+              -1.3750495764736228
+            ],
+            [
+              -1.0000704693175577,
+              0.011317997770586005,
+              1.374890990522472
+            ],
+            [
+              1.0000740955301652,
+              0.01714579865423553,
+              1.3751645931515515
+            ]
+          ],
+          "symmetry_error": 0.00849559562247851,
+          "wheel_triangles": [
+            252,
+            252,
+            252,
+            252
+          ],
+          "wheels_independently_dynamic": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "chassis_tracks": [
+            14
+          ],
+          "body_draws": 28,
+          "body_triangles": 2143,
+          "near_wheel_candidates": 4,
+          "valid_rectangles": 1,
+          "accepted": true,
+          "reason": "unique_four_wheel",
+          "wheel_tracks": [
+            126,
+            3,
+            5,
+            130
+          ],
+          "local_wheels": [
+            [
+              -0.8249576577525861,
+              -0.07601205866392222,
+              1.2001751017573137
+            ],
+            [
+              0.8250041110768809,
+              -0.07129011002388341,
+              1.1999807684322656
+            ],
+            [
+              0.8250337347279186,
+              -0.03501107826631303,
+              -1.1999406180218926
+            ],
+            [
+              -0.8251028397979324,
+              -0.03343737501270899,
+              -1.200091989156093
+            ]
+          ],
+          "symmetry_error": 0.04302203473351774,
+          "wheel_triangles": [
+            252,
+            252,
+            252,
+            252
+          ],
+          "wheels_independently_dynamic": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "file": "frame-42928-d1-00060310_B-race.jsonl",
+      "sha256": "5c039c8372f79c10240018c4a5e4f9c6a4130f46c07d021d110ae807d5bb962f",
+      "header": {
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "proxy_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
+        "device": 1,
+        "frame": 60310
+      },
+      "exact_build_and_complete": true,
+      "classification_counts": {
+        "UNKNOWN": 616,
+        "CANDIDATE": 63,
+        "DYNAMIC_ENV_OBJECT": 78
+      },
+      "constellation_analysis": [
+        {
+          "chassis_tracks": [
+            1777
+          ],
+          "body_draws": 34,
+          "body_triangles": 1972,
+          "near_wheel_candidates": 4,
+          "valid_rectangles": 1,
+          "accepted": true,
+          "reason": "unique_four_wheel",
+          "wheel_tracks": [
+            2572,
+            2576,
+            2573,
+            2577
+          ],
+          "local_wheels": [
+            [
+              0.8750996220732234,
+              -0.00901192204153304,
+              -1.3850521541663223
+            ],
+            [
+              -0.8750022191939121,
+              0.07000545007407906,
+              -1.3849921769750653
+            ],
+            [
+              0.8752131794469291,
+              -0.009000399742347225,
+              1.3848648644360662
+            ],
+            [
+              -0.8750959064408457,
+              0.07004845421874091,
+              1.3850612833270326
+            ]
+          ],
+          "symmetry_error": 0.07948730374234629,
+          "wheel_triangles": [
+            252,
+            252,
+            252,
+            252
+          ],
+          "wheels_independently_dynamic": [
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "chassis_tracks": [
+            994
+          ],
+          "body_draws": 27,
+          "body_triangles": 2012,
+          "near_wheel_candidates": 4,
+          "valid_rectangles": 1,
+          "accepted": true,
+          "reason": "unique_four_wheel",
+          "wheel_tracks": [
+            2549,
+            2575,
+            2543,
+            2574
+          ],
+          "local_wheels": [
+            [
+              -1.000035008395155,
+              0.06575811428256419,
+              1.375029386557756
+            ],
+            [
+              0.999966187635405,
+              0.09487865954767277,
+              1.3750753673405667
+            ],
+            [
+              -1.000009388216957,
+              0.04675165855707194,
+              -1.3749642896850558
+            ],
+            [
+              0.9999089056217672,
+              0.06816417837354574,
+              -1.3748754177370959
+            ]
+          ],
+          "symmetry_error": 0.04839759432657617,
+          "wheel_triangles": [
+            252,
+            252,
+            252,
+            252
+          ],
+          "wheels_independently_dynamic": [
+            true,
+            false,
+            true,
+            false
+          ]
+        },
+        {
+          "chassis_tracks": [
+            892
+          ],
+          "body_draws": 28,
+          "body_triangles": 2143,
+          "near_wheel_candidates": 4,
+          "valid_rectangles": 1,
+          "accepted": true,
+          "reason": "unique_four_wheel",
+          "wheel_tracks": [
+            2569,
+            2570,
+            2571,
+            2578
+          ],
+          "local_wheels": [
+            [
+              -0.8249392355521338,
+              0.23456691704407942,
+              -1.1999767546431057
+            ],
+            [
+              0.8249167599061439,
+              0.02302376784263748,
+              1.1999951975195193
+            ],
+            [
+              0.8250475794269367,
+              -0.057848270938456195,
+              -1.1999473566190415
+            ],
+            [
+              -0.8247866266870781,
+              0.1835040973026978,
+              1.1999629867102897
+            ]
+          ],
+          "symmetry_error": 0.2927918795453012,
+          "wheel_triangles": [
+            252,
+            252,
+            252,
+            252
+          ],
+          "wheels_independently_dynamic": [
+            true,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "file": "frame-42928-d1-00061896_B-1920.jsonl",
+      "sha256": "ce441bba92204b53967f27ef60edf08338479a94c6dbfd4cba15493a982cecbb",
+      "header": {
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "proxy_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
+        "device": 1,
+        "frame": 61896
+      },
+      "exact_build_and_complete": true,
+      "classification_counts": {
+        "UNKNOWN": 757
+      },
+      "constellation_analysis": []
+    },
+    {
+      "file": "frame-42928-d1-00099676_B-backview.jsonl",
+      "sha256": "9c47a2962cb8373a48f82bb5a1521ad202f88d5169c347e7b8301e487f3b54fa",
+      "header": {
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "proxy_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
+        "device": 1,
+        "frame": 99676
+      },
+      "exact_build_and_complete": true,
+      "classification_counts": {
+        "UNKNOWN": 505
+      },
+      "constellation_analysis": []
+    }
+  ]
+}

@@ -24,7 +24,7 @@ struct VisualPolicy {
  DWORD filter(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD value) const noexcept;
  bool projection(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,D3DMATRIX& output,bool exe_caller,uint32_t rva) const noexcept;
  bool suppress(uint32_t slot,bool exe_caller,uint32_t rva,const Shadow& state,D3DPRIMITIVETYPE primitive) const noexcept;
- bool active() const noexcept {return effective.anisotropy||effective.fov||effective.shadow_off;}
+ bool active() const noexcept {return effective.anisotropy||effective.fov||effective.shadow_off||effective.reflection_mode=="ViewDependent2D";}
 };
 bool symmetric_lh(const D3DMATRIX& p) noexcept;
 double source_camera_angle(const D3DMATRIX& p) noexcept;
