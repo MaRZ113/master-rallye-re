@@ -153,8 +153,8 @@ def validate_object(obj, expected):
     )
     for material in mesh.materials:
         require(
-            material.get("mr_preview_semantics") == "R4D1_PRIMARY_SLOT_ALPHA_ONLY",
-            "Preview V2 did not load",
+            material.get("mr_preview_semantics") == "R_MAT1_RUNTIME_STAGES_V3",
+            "Preview V3 did not load",
         )
         flags = material.get("mr_serialized_flags_0x20_hex")
         slots = json.loads(material.get("mr_texture_slots_json", "null"))
@@ -475,7 +475,7 @@ def main():
     )
     require(
         all(
-            Path(image.filepath).exists()
+            Path(bpy.path.abspath(image.filepath)).exists()
             for image in bpy.data.images
             if image.get("mr_dxt_source")
         ),

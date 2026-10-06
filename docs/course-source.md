@@ -1,6 +1,7 @@
 # Course source resources
 
-Status: **read-only; version-7 mesh topology decoded** (R5T-E.1 PASS).
+Status: **GXM/source topology read-only; bounded RaceTest XML authoring v0**
+(R5T-E.1 and G0 PASS).
 Vehicle source-format conclusions are not carried over unless a course
 source/compiled pair confirms them.
 
@@ -196,7 +197,10 @@ Retail France1's RaceTest XML contains one `gaRaceSplitTimeAI` Egg for each ID
 Their Row3 positions form repeated point groups, but moving the four
 `SplitTime0-0..3` checkpoint objects did not move SplitTime0's gameplay center.
 Those sibling transforms are **NOT_SUPPORTED** as the direct center for
-SplitTime0; SplitTime1/2 equivalents were not independently tested.
+SplitTime0. Their visible role is runtime-confirmed, and G0.1 allows their
+Row3 XYZ positions as separate visual-companion edits; those new writer edits
+have not been separately runtime-tested. SplitTime1/2 visual companions were
+not independently moved in the original runtime probe.
 
 For France1 SplitTime0, the main Egg `en3d Matrix` Row3 is now confirmed as
 both the yellow-sign position and the gameplay trigger center. Baseline and
@@ -222,6 +226,28 @@ centers; moving RaceLine[112] is **NOT_SUPPORTED** as the direct SplitTime0
 center. Radius is a 3D spherical threshold (`distance < Radius`); ExtraTime's
 semantics remain **UNKNOWN**. See `research/r5t_d1/` for debugger details and
 the canonical evidence ledger.
+
+## G0 RaceTest authoring v0
+
+The core `CourseRaceLogicAuthoring` transaction and Blender export path support
+four-marker StartArea/FinishArea positions, main SplitTime Row3 XYZ/Radius/ID,
+and exact sibling visual-companion Row3 XYZ. A translation-only group moves the
+split center and companions together; independent companion edits do not move
+the trigger. There is no generic XML setter or geometry exporter. The guarded
+writer preserves original bytes outside modified attributes and rejects
+non-allowlisted semantic changes. Retail principal-project no-op export is
+byte-identical in 36/36 files; all 110 main SplitTimes and 440 visual
+companions are structurally supported. Two five-marker FinishAreas remain
+read-only.
+
+Human runtime tests through Blender export passed for StartArea, FinishArea,
+and SplitTime0 center. Combined StartArea + FinishArea editing also loaded
+normally. G0 is **PASS — RUNTIME AUTHORING CONFIRMED**. G0.1 companion editing
+has synthetic, corpus, and Blender smoke coverage, but no separate runtime
+authoring test. The [marker backlog](../research/course_marker_backlog.md)
+records RaceLine, Cameras, and limit-marker inventory as read-only/unknown.
+See [`research/g0/findings.md`](../research/g0/findings.md) and
+[`research/g0/runtime-results.md`](../research/g0/runtime-results.md).
 
 ## R5T-F.0 France1 named-mesh spatial correlation
 
@@ -262,10 +288,17 @@ Render-prefix bytes vary within cohorts. The in-game visual/physical response
 was then tested: the visible banner/right support stayed at its old location,
 the old support became pass-through, and physical collision was encountered
 at the expected +20 runtime-X location. Race completion remained at the
-unchanged RaceTest FinishArea. This confirms the tested source geometry's
-physical effect, but does not isolate tag100 as its carrier; that is the
-R5T-F.1 reciprocal-swap question. Exact primitive shape and broader tag100
-semantics remain unknown. The experiment is not a general GXM writer. See
+unchanged RaceTest FinishArea. At the R5T-F.0 checkpoint this confirmed the
+tested source geometry's physical effect but had not isolated its compiled
+carrier. R5T-F.1 later showed that the physical state follows the reciprocal
+tag100-starting suffix swap; R5T-F.2 correlated its source face planes with
+records inside the parsed tag100 tree. The F.1 runtime test did not isolate
+that tree from following tag1400 bytes. Exact primitive ownership and broader
+tag100 semantics remain unknown. The experiment is not a general GXM writer. See
 [`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md) and the focused
 region-swap handoff in
 [`research/r5t_f1/runtime-handoff.md`](../research/r5t_f1/runtime-handoff.md).
+
+## R5T-F.2.1 tag100 tree carrier closeout
+
+The reciprocal T/U runtime hybrids confirm that the tested `COLLIDE_finishline03` physical location follows the tag100 tree donor. The modified tree with baseline tag1400 produced the NEW collision; baseline tree with modified tag1400 retained OLD. This closes the tree-versus-tag1400 question for this controlled translation only. Broader tag100 semantics, BSP identity, exact source-object mapping, and tag1400's runtime role remain unknown. See `research/r5t_f21/runtime-results.md`.

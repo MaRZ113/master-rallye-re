@@ -1,0 +1,34 @@
+{
+  "schema": "course-race-logic-authoring-france1-edit-validation-v1",
+  "evidence": "STATIC_ALLOWLIST_VALIDATION; no runtime claim",
+  "source": "DataScene/RaceTest/France1.xml",
+  "source_sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+  "edited_game_files_written": false,
+  "scenarios": [
+    {
+      "scenario": "StartArea rigid +3 runtime X",
+      "status": "PASS",
+      "changed_fields": 4,
+      "output_sha256": "c44194011a4bd448554ccbce66bb5869fa98a2e695f842dea7a2de0bdd0381f6"
+    },
+    {
+      "scenario": "FinishArea X/Z scale 2 around centroid",
+      "status": "PASS",
+      "changed_fields": 4,
+      "output_sha256": "78c82bd16af9a342691ff4a4cef7f168a65429966a74a6ead98dd2716ee12f7d"
+    },
+    {
+      "scenario": "SplitTime0 center move",
+      "status": "PASS",
+      "changed_fields": 1,
+      "output_sha256": "0a92333c3ccc414e9609c8f795542d3840dc1fdbfed0786d03ca7899c007b75f"
+    },
+    {
+      "scenario": "SplitTime0 Radius edit",
+      "status": "PASS",
+      "changed_fields": 1,
+      "output_sha256": "bab8d66c8943da290211a76a628bd0f95100ca5411ff7a816e7939a20be08442"
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-05",
+  "base": "4afcf52143c9b53a61ae5f59f1bdaabceb713594",
+  "merged": false,
+  "integration_candidate_built": false,
+  "closeouts": [
+    {
+      "phase": "R-AI1.2a",
+      "branch": "research/r-ai1-2a",
+      "previous_head": "4498b08e2c33d7e77629072df85b85d9aedd9bb2",
+      "closeout_commit": "4afcf52143c9b53a61ae5f59f1bdaabceb713594",
+      "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+      "synthetic_passed": 353,
+      "failed": 0,
+      "skipped": 0,
+      "retry": "NOT APPLICABLE IN TESTED FLOW"
+    },
+    {
+      "phase": "R-AI2.1",
+      "branch": "research/r-ai2-1",
+      "previous_head": "74e68dc27fc10d452a77991d9c29963b11566131",
+      "closeout_commit": "33ee9042a64135791edbb13182fbccf8fc36259b",
+      "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+      "synthetic_passed": 351,
+      "failed": 0,
+      "skipped": 0,
+      "totals": {
+        "6": "CONFIRMED_BY_RUNTIME",
+        "7": "CONFIRMED_BY_RUNTIME",
+        "8": "CONFIRMED_BY_RUNTIME"
+      },
+      "higher": "9+ UNKNOWN",
+      "course_grid_safety": "REQUIRES PER-COURSE AUDIT / R-GRID8"
+    },
+    {
+      "phase": "R-UI1",
+      "branch": "research/r-ui1",
+      "previous_head": "bd27cc1c12099b7062d251fa476fe62586ac4444",
+      "closeout_commit": "a3a60f5e636a8f7c0a83b5e42bf87dce0e77b1d3",
+      "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+      "synthetic_passed": 351,
+      "failed": 0,
+      "skipped": 0,
+      "ui": "One..Seven CONFIRMED_BY_RUNTIME",
+      "visible_four_to_five_total": "CONFIRMED_BY_RUNTIME",
+      "standalone_five_six_seven_race": "NOT TESTED"
+    }
+  ]
+}

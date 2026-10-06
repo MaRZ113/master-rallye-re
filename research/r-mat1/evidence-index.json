@@ -1,0 +1,436 @@
+{
+  "phase": "R-MAT1",
+  "executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "ghidra_version": "12.1.4 PUBLIC",
+  "bridge_exporter": "ghidra_ai_bridge.exporters.runner.export_single_function",
+  "project_saved": false,
+  "temporary_transaction": "ROLLED_BACK",
+  "raw_evidence_location": ".research-output/r-mat1/ghidra (ignored)",
+  "functions": [
+    {
+      "address": "00419150",
+      "name": "FUN_00419150",
+      "sha256": "2fceac8d51aa59e59de4eeeae3ba83112aa8c0f2ac3464db2b2247522296ad05",
+      "assembly_instructions": 216,
+      "callers": 14,
+      "callees": 2
+    },
+    {
+      "address": "0054acd0",
+      "name": "FUN_0054acd0",
+      "sha256": "f1bc009dccd6992f86fc9b484a3e468d3747ed259858438572148a504e55d43a",
+      "assembly_instructions": 5,
+      "callers": 12,
+      "callees": 1
+    },
+    {
+      "address": "0054c9d0",
+      "name": "FUN_0054c9d0",
+      "sha256": "1fcd4852ebc33596e92eb7cdba449f00a91c56a7a7d736aab79304101d072be7",
+      "assembly_instructions": 127,
+      "callers": 2,
+      "callees": 5
+    },
+    {
+      "address": "0054d3e0",
+      "name": "FUN_0054d3e0",
+      "sha256": "a3cc1a0ad12afc9b2fb8bf90af3fb06dfc31197eef90503a1b5cd48b3ff95e7e",
+      "assembly_instructions": 44,
+      "callers": 2,
+      "callees": 6
+    },
+    {
+      "address": "0054d450",
+      "name": "FUN_0054d450",
+      "sha256": "80d677aff71738664c47458d6478bdb274a613d3212e81cedbbb2f7bba2b26f0",
+      "assembly_instructions": 43,
+      "callers": 2,
+      "callees": 4
+    },
+    {
+      "address": "0054d4c0",
+      "name": "FUN_0054d4c0",
+      "sha256": "37e232abd4cde5231fb1c39627369b223ce6faca3b79c73e2ff93628c73b2e5b",
+      "assembly_instructions": 50,
+      "callers": 2,
+      "callees": 4
+    },
+    {
+      "address": "005528b0",
+      "name": "FUN_005528b0",
+      "sha256": "0f3d33782713e42eb9579a7b27033df8b93d3e2f3dbf095348cd78f3be62d5b9",
+      "assembly_instructions": 750,
+      "callers": 1,
+      "callees": 32
+    },
+    {
+      "address": "00562430",
+      "name": "FUN_00562430",
+      "sha256": "fed16135ece110591d80ae38f315ee2ba2bf2871a397f7cbc3326ddd606d95d8",
+      "assembly_instructions": 92,
+      "callers": 1,
+      "callees": 2
+    },
+    {
+      "address": "00562560",
+      "name": "FUN_00562560",
+      "sha256": "9a7b66fe7ddc4042ef103c692b1f55f11ad589ff7cde94dd9779b68a0b0f5e4f",
+      "assembly_instructions": 254,
+      "callers": 0,
+      "callees": 11
+    },
+    {
+      "address": "00562810",
+      "name": "FUN_00562810",
+      "sha256": "0d2679492826ae4f652f3b4d949536cf8ed69cb84c6167c71156a704f9ac32b4",
+      "assembly_instructions": 223,
+      "callers": 2,
+      "callees": 11
+    },
+    {
+      "address": "00562a80",
+      "name": "FUN_00562a80",
+      "sha256": "3830dc19301699f11512180910107ef22923603f1036395c4e33a36ed1673323",
+      "assembly_instructions": 163,
+      "callers": 1,
+      "callees": 7
+    },
+    {
+      "address": "00562f70",
+      "name": "FUN_00562f70",
+      "sha256": "db1790e913ec43ddbacddb70cd2a8b701961d92a10b0b1850b2b1189df5aa5b8",
+      "assembly_instructions": 216,
+      "callers": 1,
+      "callees": 2
+    },
+    {
+      "address": "00563320",
+      "name": "FUN_00563320",
+      "sha256": "395ed49417223c23365a73e006d67f36d32824c2e6f0d4191ce5d5070d401ce2",
+      "assembly_instructions": 258,
+      "callers": 1,
+      "callees": 1
+    },
+    {
+      "address": "005635a0",
+      "name": "FUN_005635a0",
+      "sha256": "334b6e89a0e9fab4326fff6410bd57fda06e52fbfafca74442169648faa6c8bf",
+      "assembly_instructions": 361,
+      "callers": 3,
+      "callees": 1
+    },
+    {
+      "address": "00563950",
+      "name": "FUN_00563950",
+      "sha256": "32424c1465a597cb80f86fbb3071934399e26002ed7f6b50454535239b037610",
+      "assembly_instructions": 56,
+      "callers": 2,
+      "callees": 0
+    },
+    {
+      "address": "005641c0",
+      "name": "FUN_005641c0",
+      "sha256": "79886c5ea8d2dc785be460914adc67a007919078447fd9e11488466320ea3465",
+      "assembly_instructions": 898,
+      "callers": 1,
+      "callees": 18
+    },
+    {
+      "address": "00564ee0",
+      "name": "FUN_00564ee0",
+      "sha256": "e30a0f4f9e9d8c1a5aa528f6dfe36f21218cc621ee8a1d2198a02f320dc7f9e9",
+      "assembly_instructions": 50,
+      "callers": 10,
+      "callees": 1
+    },
+    {
+      "address": "00565da0",
+      "name": "FUN_00565da0",
+      "sha256": "89c823d7e20adc5762b3cf1699f1af38fc90a99702e3e021f415c5fbc407e439",
+      "assembly_instructions": 262,
+      "callers": 1,
+      "callees": 9
+    },
+    {
+      "address": "0056b680",
+      "name": "FUN_0056b680",
+      "sha256": "6a089a1879938c1b28ce5cd813daf9beffcc848bec776d9853281e4ae9ab0179",
+      "assembly_instructions": 93,
+      "callers": 1,
+      "callees": 9
+    },
+    {
+      "address": "0056d110",
+      "name": "FUN_0056d110",
+      "sha256": "63a5c031c31f842d55c85ae4148887b6010de0c9b57a0172fcdc830d2750dc89",
+      "assembly_instructions": 799,
+      "callers": 1,
+      "callees": 34
+    },
+    {
+      "address": "00570b10",
+      "name": "FUN_00570b10",
+      "sha256": "3bc4f7e65546481f3b5f1a52cc86eb5efae53a73ac36f1b8cb15c2a234e79ce5",
+      "assembly_instructions": 57,
+      "callers": 5,
+      "callees": 4
+    },
+    {
+      "address": "00571ec0",
+      "name": "FUN_00571ec0",
+      "sha256": "cd58e366230854b7b1c127c7ef9eaeb970ca348e412c9c5d5165f899b53956ce",
+      "assembly_instructions": 369,
+      "callers": 2,
+      "callees": 18
+    },
+    {
+      "address": "00575cc0",
+      "name": "FUN_00575cc0",
+      "sha256": "bb4328274ca8d34fd6078a81cffaddbd0da33cb1318d8f60400b9dba857046f5",
+      "assembly_instructions": 6,
+      "callers": 1,
+      "callees": 0
+    },
+    {
+      "address": "00575cd0",
+      "name": "FUN_00575cd0",
+      "sha256": "f83dc4139fdde0b02a2387529496382946c2be3136f4230224f20d05237159a5",
+      "assembly_instructions": 21,
+      "callers": 9,
+      "callees": 0
+    },
+    {
+      "address": "00575d50",
+      "name": "FUN_00575d50",
+      "sha256": "9755b9b01f245a8b514ea0c6f5197a60c46823a999bca3e9b9a6d6a96f3a102b",
+      "assembly_instructions": 107,
+      "callers": 8,
+      "callees": 0
+    },
+    {
+      "address": "00575e70",
+      "name": "FUN_00575e70",
+      "sha256": "dfefc5dfe7048f0bce1aa5557b222afa724c9e505989e4f0a8a6faf58ce6805d",
+      "assembly_instructions": 87,
+      "callers": 1,
+      "callees": 1
+    },
+    {
+      "address": "00576570",
+      "name": "FUN_00576570",
+      "sha256": "38c9db670af577b7a2c02a4f1dd4d9d012ce8563c649c4be0dfae540c7644f8d",
+      "assembly_instructions": 23,
+      "callers": 1,
+      "callees": 0
+    },
+    {
+      "address": "00576910",
+      "name": "R_MAT1_00576910",
+      "sha256": "df28246a9999f982061efa9c22dad4fe5e7fbb54a04f882a923813311741fbbb",
+      "assembly_instructions": 36,
+      "callers": 0,
+      "callees": 3
+    },
+    {
+      "address": "00576970",
+      "name": "FUN_00576970",
+      "sha256": "7dd618b3fc70fc8db29fb1009ba7db2e5c24f95eeb5ceaa942260466c72e4d06",
+      "assembly_instructions": 532,
+      "callers": 2,
+      "callees": 20
+    },
+    {
+      "address": "00577620",
+      "name": "FUN_00577620",
+      "sha256": "c4733e629d9782ccf14663ff54d72a68cce68d372da276e206d66f9de8eebd11",
+      "assembly_instructions": 467,
+      "callers": 1,
+      "callees": 22
+    },
+    {
+      "address": "00577d20",
+      "name": "FUN_00577d20",
+      "sha256": "b5a9e528b2a397c241469a69d475f1e0325eeaa29dc52c216288e8193035488e",
+      "assembly_instructions": 71,
+      "callers": 1,
+      "callees": 7
+    },
+    {
+      "address": "00577dd0",
+      "name": "FUN_00577dd0",
+      "sha256": "1ab10921beaf8f8686ab07ed647193863acea7e6629082a5002eb6879d404791",
+      "assembly_instructions": 162,
+      "callers": 1,
+      "callees": 0
+    },
+    {
+      "address": "00577fb0",
+      "name": "FUN_00577fb0",
+      "sha256": "41469200dab79dba0ecc8016fd23730f9f7fbef07a250816bf53b08aee5a3763",
+      "assembly_instructions": 179,
+      "callers": 1,
+      "callees": 7
+    },
+    {
+      "address": "005781b0",
+      "name": "FUN_005781b0",
+      "sha256": "8baf481201da5037a90467918ba7d5e2993df37abb0daa1a28adee15b3fedd58",
+      "assembly_instructions": 46,
+      "callers": 1,
+      "callees": 3
+    },
+    {
+      "address": "0057f7e0",
+      "name": "FUN_0057f7e0",
+      "sha256": "7c5b6016e23e71eb80b6d678bf2a3e8b37b1b5e8342038080e240859af0858fd",
+      "assembly_instructions": 31,
+      "callers": 2,
+      "callees": 1
+    },
+    {
+      "address": "0057f8b0",
+      "name": "FUN_0057f8b0",
+      "sha256": "5ce0dd062aba6601064862d191bafa4b9628cea8e386f38a2009a5f5ca155054",
+      "assembly_instructions": 83,
+      "callers": 0,
+      "callees": 2
+    },
+    {
+      "address": "00580360",
+      "name": "FUN_00580360",
+      "sha256": "8f4e919455505499c3d14ba5c9d4a1c595c1929593c173abb1b115c2d40fa284",
+      "assembly_instructions": 355,
+      "callers": 1,
+      "callees": 14
+    },
+    {
+      "address": "00583820",
+      "name": "FUN_00583820",
+      "sha256": "3cfe926b1927884d2b1d88971c31ad973a623feaab61f6c6d47ba6e88504dd6d",
+      "assembly_instructions": 36,
+      "callers": 1,
+      "callees": 1
+    },
+    {
+      "address": "00583880",
+      "name": "FUN_00583880",
+      "sha256": "35ec9cfcb841ea76b119b5ddb437f972b19d38e286fa5170add315eb711427c3",
+      "assembly_instructions": 67,
+      "callers": 1,
+      "callees": 3
+    },
+    {
+      "address": "005845b0",
+      "name": "FUN_005845b0",
+      "sha256": "5a9f47bcc41432543fe3fbe4fceb319d2da7068af79be5f74566a2404833522e",
+      "assembly_instructions": 26,
+      "callers": 1,
+      "callees": 3
+    },
+    {
+      "address": "00585eb0",
+      "name": "FUN_00585eb0",
+      "sha256": "d6b561f2d7f28248960dd46ad738a48fa8b9f3f4e220fcc78a9619427348d515",
+      "assembly_instructions": 197,
+      "callers": 3,
+      "callees": 8
+    },
+    {
+      "address": "005860a0",
+      "name": "FUN_005860a0",
+      "sha256": "89e4d10782eccc4b51d92234ab08d17a5427a56f0f116b7201430feb30d87b83",
+      "assembly_instructions": 37,
+      "callers": 1,
+      "callees": 1
+    },
+    {
+      "address": "00586150",
+      "name": "R_MAT1_00586150",
+      "sha256": "65b5c393ddf40716ac909e11b783390fc5913f689fb8f1c3f0c1fdd04d6cbacb",
+      "assembly_instructions": 321,
+      "callers": 0,
+      "callees": 4
+    },
+    {
+      "address": "00586560",
+      "name": "FUN_00586560",
+      "sha256": "fc1989253b2e0f1b31e281fb0f892c17a6e32007bf28f1f668d6598551b5ba21",
+      "assembly_instructions": 186,
+      "callers": 4,
+      "callees": 7
+    },
+    {
+      "address": "005867a0",
+      "name": "R_MAT1_005867a0",
+      "sha256": "7028dd27a21d67a193984d4bc74a9aa08037eb115d65650f4ec34b24bf275312",
+      "assembly_instructions": 282,
+      "callers": 0,
+      "callees": 3
+    },
+    {
+      "address": "00586c60",
+      "name": "FUN_00586c60",
+      "sha256": "4090a9bff2e6e40da38eb0eca06a702ac3ca92ce39823d48bc7c3707c01ebc44",
+      "assembly_instructions": 198,
+      "callers": 1,
+      "callees": 9
+    },
+    {
+      "address": "00587db0",
+      "name": "FUN_00587db0",
+      "sha256": "368953af8379aa86e3ee6680653147c872d91aca6de3e2c065e4d2c6518805b3",
+      "assembly_instructions": 345,
+      "callers": 1,
+      "callees": 25
+    },
+    {
+      "address": "00589110",
+      "name": "FUN_00589110",
+      "sha256": "70e04a7b2da66dc7295334cbc52a8e033b1e2217f04897dd7b29d99079928942",
+      "assembly_instructions": 47,
+      "callers": 1,
+      "callees": 1
+    },
+    {
+      "address": "0058c100",
+      "name": "FUN_0058c100",
+      "sha256": "7c1b0180f00278291f671cbdedbc620554f81f7e7ebfd7ace3d83f24a4a06d9c",
+      "assembly_instructions": 95,
+      "callers": 1,
+      "callees": 2
+    },
+    {
+      "address": "0058c4c0",
+      "name": "FUN_0058c4c0",
+      "sha256": "93690f7712b47c6237f8ab078151578f75d98606fab67b3cf2d2dd4c2a0f7700",
+      "assembly_instructions": 53,
+      "callers": 4,
+      "callees": 1
+    },
+    {
+      "address": "005a29f0",
+      "name": "FUN_005a29f0",
+      "sha256": "a9d154f80883b75a9826260b46d9f28ad7e7f64d06ef71ecfdc68cc6d92cce25",
+      "assembly_instructions": 10,
+      "callers": 5,
+      "callees": 0
+    },
+    {
+      "address": "005c2e5c",
+      "name": "__ftol",
+      "sha256": "c9101e177079a83d6b2d95bcc872699f3957aca60a3c94c3bd4d756f2a5c4b6a",
+      "assembly_instructions": 15,
+      "callers": 227,
+      "callees": 0
+    },
+    {
+      "address": "005c4df0",
+      "name": "__allmul",
+      "sha256": "e6ad35dcac1493ab5af17c1f815e170aab84456e289f85bd6b78fa9be43e0773",
+      "assembly_instructions": 19,
+      "callers": 8,
+      "callees": 0
+    }
+  ],
+  "data_words_sha256": "b53222498436232b7404c2550af1d8f9f595c06ac0583d093ee1b89937d05313"
+}

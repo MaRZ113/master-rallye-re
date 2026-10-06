@@ -1,0 +1,413 @@
+{
+  "phase": "R-AI2",
+  "evidence": "SOURCE_EVIDENCE",
+  "status": "STATIC_FIVE_CAR_EMULATION_PASS",
+  "runtime_game_test": false,
+  "project_saved": false,
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "candidate_sha256": "806ebedcd6d174682fcc4619fb75eaabca2a1281eda4d4d784807b3583f5f2e2",
+  "passed": 44,
+  "failed": 0,
+  "skipped": 0,
+  "chooser_cases": 16,
+  "direct_guard_cases": 11,
+  "setup_cases": 10,
+  "storage_cases": 7,
+  "storage": [
+    {
+      "owner": "43BB70",
+      "lengths": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "allocation_sizes": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "redzones_intact": true
+    },
+    {
+      "owner": "43E020",
+      "destroyed_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "redzones_intact": true,
+      "container_freed": true
+    },
+    {
+      "owner": "42A6B0",
+      "destroyed_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "redzones_intact": true,
+      "container_freed": true
+    },
+    {
+      "owner": "48B520/48ADC0",
+      "num_cars": 4,
+      "indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "allocation_sizes": [
+        4,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ],
+      "redzones_intact": true,
+      "freed_blocks": 5,
+      "stock_retained_key_arrays": 2
+    },
+    {
+      "owner": "48B520/48ADC0",
+      "num_cars": 5,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "allocation_sizes": [
+        5,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "redzones_intact": true,
+      "freed_blocks": 5,
+      "stock_retained_key_arrays": 2
+    },
+    {
+      "owner": "47D6D0/47C6C0/47DBE0",
+      "num_cars": 4,
+      "indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rank_publication": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "allocation_sizes": [
+        28,
+        4,
+        28,
+        8,
+        28,
+        16,
+        28
+      ],
+      "redzones_intact": true,
+      "finish_time_sort_boundary": true,
+      "result_record_cleanup_not_emulated": true
+    },
+    {
+      "owner": "47D6D0/47C6C0/47DBE0",
+      "num_cars": 5,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "rank_publication": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "allocation_sizes": [
+        28,
+        4,
+        28,
+        8,
+        28,
+        16,
+        28,
+        28,
+        32
+      ],
+      "redzones_intact": true,
+      "finish_time_sort_boundary": true,
+      "result_record_cleanup_not_emulated": true
+    }
+  ],
+  "stock_control_seeds": [
+    {
+      "seed": 1,
+      "car_ids": [
+        0,
+        1,
+        2,
+        6,
+        4
+      ],
+      "driver_ids": [
+        30,
+        0,
+        5,
+        3,
+        4
+      ],
+      "player_unchanged": true,
+      "first_three_vehicle_draws_unchanged": true,
+      "publication_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "car5_touched": false
+    },
+    {
+      "seed": 2,
+      "car_ids": [
+        0,
+        3,
+        4,
+        2,
+        5
+      ],
+      "driver_ids": [
+        30,
+        5,
+        4,
+        3,
+        9
+      ],
+      "player_unchanged": true,
+      "first_three_vehicle_draws_unchanged": true,
+      "publication_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "car5_touched": false
+    },
+    {
+      "seed": 3,
+      "car_ids": [
+        0,
+        4,
+        3,
+        2,
+        1
+      ],
+      "driver_ids": [
+        30,
+        5,
+        3,
+        9,
+        7
+      ],
+      "player_unchanged": true,
+      "first_three_vehicle_draws_unchanged": true,
+      "publication_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "car5_touched": false
+    },
+    {
+      "seed": 7,
+      "car_ids": [
+        0,
+        5,
+        1,
+        6,
+        4
+      ],
+      "driver_ids": [
+        30,
+        0,
+        4,
+        9,
+        5
+      ],
+      "player_unchanged": true,
+      "first_three_vehicle_draws_unchanged": true,
+      "publication_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "car5_touched": false
+    },
+    {
+      "seed": 42,
+      "car_ids": [
+        0,
+        1,
+        6,
+        3,
+        5
+      ],
+      "driver_ids": [
+        30,
+        2,
+        5,
+        0,
+        4
+      ],
+      "player_unchanged": true,
+      "first_three_vehicle_draws_unchanged": true,
+      "publication_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "car5_touched": false
+    },
+    {
+      "seed": 12345,
+      "car_ids": [
+        0,
+        1,
+        6,
+        5,
+        2
+      ],
+      "driver_ids": [
+        30,
+        2,
+        7,
+        0,
+        4
+      ],
+      "player_unchanged": true,
+      "first_three_vehicle_draws_unchanged": true,
+      "publication_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "car5_touched": false
+    },
+    {
+      "seed": 65535,
+      "car_ids": [
+        0,
+        1,
+        2,
+        3,
+        6
+      ],
+      "driver_ids": [
+        30,
+        8,
+        2,
+        4,
+        5
+      ],
+      "player_unchanged": true,
+      "first_three_vehicle_draws_unchanged": true,
+      "publication_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "car5_touched": false
+    },
+    {
+      "seed": 2147483646,
+      "car_ids": [
+        0,
+        2,
+        4,
+        6,
+        1
+      ],
+      "driver_ids": [
+        30,
+        5,
+        7,
+        4,
+        8
+      ],
+      "player_unchanged": true,
+      "first_three_vehicle_draws_unchanged": true,
+      "publication_indices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "car5_touched": false
+    }
+  ],
+  "legacy_generalized_regression": {
+    "passed": 94,
+    "failed": 0,
+    "skipped": 0
+  },
+  "hardening_regression": {
+    "passed": 52,
+    "loading_cases": 40,
+    "dump_cases": 12,
+    "failed": 0,
+    "skipped": 0
+  },
+  "limits": "CPU setup/chooser/vector/progress-init/destruction/result allocation and rank loop with explicit Broker/heap/scene/finish-time-sort boundaries; no game physics or rendering"
+}

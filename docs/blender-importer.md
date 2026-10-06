@@ -130,18 +130,21 @@ Preview shading is secondary to process stability and provenance.
 
 ## Preview materials
 
-A Blender material is created from the first non-`Null` binary texture slot
-and connected to Principled BSDF Base Color. A neutral material is used when no
-usable preview texture exists. Materials with the same supported visual
-definition may be reused, while each draw's full Master Rallye binding remains
-separate in object metadata. A folder-wide material cache retains aggregate
-diagnostics, but each resource result reports only warnings created while that
-resource was imported; earlier missing-texture warnings are not repeated.
+Vehicle Preview V3 uses the executable-backed `MaterialSemantics` model:
+slot0 is the base texture, slot1 is a generic camera-normal environment stage.
+NULL slot0 never promotes its helper. Raw alpha bytes select blend/test preview
+independently of decoded pixel alpha; byte2/byte3 gate vertex diffuse/source UV.
+Structured runtime annotations sit beside the unchanged canonical draw fields.
+Materials with the same supported visual definition may be reused, while each
+draw's full binding remains separate in object metadata. Folder-wide caches
+retain aggregate diagnostics; each resource reports its own current warnings.
 
-Decoded alpha is connected conservatively and marked provisional. Exact
-runtime blend/test behavior, chrome/reflection/environment semantics, secondary
-slot blending, and unusual flags remain **UNKNOWN**. The Blender shader is a
-preview, not a claim about the original DirectX renderer.
+The preview is **APPROXIMATE WITH DOCUMENTED LIMITATIONS**: Principled shading,
+display normals, coordinate conventions, composite runtime ordering and instance
+depth states differ from D3D8. Unknown optional variants have explicit reasons;
+missing images remain warnings. Preview nodes are not a source of export bytes.
+See [blender-materials.md](blender-materials.md) and
+[R-MAT1 findings](../research/r-mat1/findings.md).
 
 ## Inspection and authoring status
 
@@ -212,7 +215,9 @@ Nonstandard files such as `ForesterWheel.txt`, `PajeroWheel.txt`, and
 
 Sidecar material metadata now includes nullable `has_alpha`, `uses_alpha`, and
 `is_noise` for every texture entry. These fields are preserved for future
-research only; the preview shader remains conservative after R4D corpus analysis because exact stage and alpha-state mapping is unresolved. See docs/blender-materials.md. Folder
+research and inspection; raw DX flags select runtime alpha and the R-MAT1
+projection supplies exact stage bindings with labelled preview approximations.
+See docs/blender-materials.md. Folder
 warnings are printed as `resource -> warning` lines before the aggregate
 summary. All R2.2 raster, direct-V Blender UV, normal-provenance, and safe
 display-normal policies remain unchanged.

@@ -1,16 +1,17 @@
-# Read-only Course SDK foundation
+# Course SDK: read model and bounded RaceTest authoring
 
-R5T-SDK1 composes the existing format readers into a typed, read-only course
-model. It is a foundation for inspection and Blender visualization, not a
-complete authoring SDK. No XML, DX, GXM, RaceLine, SFL, surface, or course writer
-is provided.
+R5T-SDK1 composes the existing format readers into a typed course read model.
+G0 adds a deliberately narrow RaceTest XML authoring transaction for runtime-
+confirmed race-logic fields. This is not a general course authoring SDK: no DX,
+GXM, RaceLine, SFL, surface, physical-data, or course-geometry writer is
+provided.
 
 ## Public entry point
 
 The Python package exports `CourseProject`, the race-logic and render model
-types, and the existing `parse_course_dx`, `parse_course_xml`, `parse_hnt`, and
-`parse_sfl` readers. To discover exact-stem resources from a directory or a
-given course resource path:
+types, `CourseRaceLogicAuthoring`, and the existing `parse_course_dx`,
+`parse_course_xml`, `parse_hnt`, and `parse_sfl` readers. To discover exact-stem
+resources from a directory or a given course resource path:
 
 ```python
 from pathlib import Path
@@ -113,31 +114,108 @@ Course SDK surface uses neutral names.
 ## Blender helpers
 
 The existing add-on consumes `CourseRaceLogic` for RaceTest helper creation.
-It creates source-ordered StartArea and FinishArea point/outline collections,
-the procedural split sign, a separate three-ring wire sphere for each complete
-split, and a `Visual Checkpoint Objects` collection for associated sibling
-Eggs. Center and radius use the established course-to-Blender transform and
-scale. The sphere stores ID, radius, source XML paths, semantic-rule evidence,
-record-evidence metadata, raw ExtraTime, and `ExtraTime` semantic status. No
-gameplay data is edited.
+It creates source-ordered StartArea and FinishArea marker-point collections,
+a separate three-ring wire sphere for each complete split, and a
+`Visual Checkpoint Objects` collection for associated sibling Eggs. The main
+SplitTime center stays visually simple; the procedural sign cards and direction
+rays are attached to each sibling visual companion and use that companion's own
+source matrix. A translation-only checkpoint group parents the main Egg helper
+and visual companions while preserving their initial world transforms. Center
+and radius use the established course-to-Blender transform and scale. The sphere
+stores ID, radius, source XML paths, semantic-rule evidence, record-evidence
+metadata, raw ExtraTime, and `ExtraTime` semantic status.
+`CourseRaceLogicAuthoring` provides setters for four-marker StartArea and
+FinishArea positions, main SplitTime Row3 XYZ/Radius/ID, and exact visual
+companion Egg Row3 XYZ. Its source-span writer preserves original bytes outside
+changed attributes, returns source bytes unchanged on no-op, applies a
+semantic diff guard, and refuses in-place overwrite. ExtraTime, matrix rows
+0–2, Row3 W, and all unallowlisted properties remain unchanged.
 
-RaceLine remains an ordered marker list. The executable-supported direction is
-split center to nearest RaceLine sample/percentage; no marker is relabeled as a
-special trigger center. The add-on package version is 4.5.1 and retains its
-Blender 4.3 minimum.
+RaceLine remains an ordered marker list. Retail executable analysis confirms
+that `gaRaceLineAI` consumes its `Marker Pos` sequence for nearest per-car
+sample, normalized Progress and Rank updates. A controlled runtime edit to
+France1 samples 265–268 produced a localized visible progress-indicator change
+as the player passed that region (`CONFIRMED_BY_RUNTIME_EDIT`). No obvious AI
+steering change was observed in that probe; AI use is not ruled out globally.
+The separate SplitTime path still runs from split center to nearest RaceLine
+sample/percentage; no RaceLine marker is treated as a split trigger center.
+The source-order corpus median spacing is about 20 world units, with variation;
+this is guidance for a future bounded authoring phase, not a format constant.
+RaceLine remains read-only in the stable writer. The add-on package is version
+4.6.0 and retains its Blender 4.3 minimum.
 
-## Read-only boundary and open questions
+G1 adds read-only Blender source-order polylines and marker helpers for
+RaceLine and the four exact limit lists. Retail executable analysis confirms
+`gaLimitsAI` loads `LeftInnerLimit`, `RightInnerLimit`, `LeftOuterLimit`, and
+`RightOuterLimit` and publishes per-car `LimitState`; it does not establish all
+downstream reset behavior. The first LeftInnerLimit edit was inconclusive; an
+isolated LeftOuterLimit probe is prepared but not runtime-tested. `Marker Dir`
+is preserved and visualized as an optional diagnostic ray, not promoted to
+gameplay semantics. The XML `Cameras` list remains read-only; its linkage to
+camera parameters is unknown. See [`research/g1`](../research/g1/findings.md)
+for executable anchors, corpus geometry, and runtime results. None of these G1
+fields were added to the stable G0 XML writer.
+
+Tracked corpus reports and findings live under repository `research/`.
+Hash-guarded human runtime probe XML/manifests default to the untracked runtime
+root `D:\Game\Master Rallye\research-output\g1\probes`; the probe tool prints
+the resolved absolute paths and accepts `--output-root <path>` to select
+another destination.
+
+## Authoring boundary and open questions
 
 Supported reads include revision-135 course render geometry, RaceTest
 hierarchy and the proven StartArea/FinishArea/SplitTime interpretations, HNT
 dependencies, structural SFL data, TXT hierarchy, version-7 GXM source
-topology, and opaque tag100 metadata. The read model does not support course
-writing, physical/collision authoring, arbitrary layouts, full RaceLine or AI
-semantics, or surface authoring.
+topology, and raw tag100 metadata. A standalone read-only tag100 parser now
+decodes the loader-confirmed recursive wire shape; a separate probe correlates
+some optional float4/code records with the tested source planes. The higher-level
+`CourseProject` physical API remains unimplemented. G0 does not support course
+geometry writing, physical/collision authoring, arbitrary layouts, RaceLine AI
+steering authoring, limit authoring, camera authoring, or surface authoring.
 
 Still unknown are ExtraTime's exact meaning, StartArea interpolation, the exact
-FinishArea algorithm, broad RaceLine semantics, SFL meaning, tag100 meaning,
-`$bsp -> tag100`, and source-node gameplay semantics. R5T-E.1 closes the
+FinishArea algorithm, RaceLine steering/route semantics beyond executable
+progress/rank tracking, limit downstream reset behavior, Cameras XML linkage,
+SFL meaning, most tag100
+semantics, `$bsp -> tag100`, and source-node gameplay semantics. For the one
+tested France1 source mesh, face-plane records in the tag100 tree correlate
+with the moved physical state, but F.1 swapped the complete tag100-starting
+suffix and did not isolate later tag1400 bytes at runtime. R5T-E.1 closes the
 version-7 `moMesh` triangle-to-position binding; it does not infer gameplay
 meaning from names such as `COLLIDE_finishline`, `_raceline`, `$boinds`, or
 `$bsp`.
+
+## G0 RaceTest authoring v0
+
+`CourseRaceLogicAuthoring` exposes semantic setters rather than generic XML
+mutation. Export changes only allowlisted values after resolving each target
+against the canonical `CourseRaceLogic` projection. Ambiguous or unsupported
+records remain readable and are refused for authoring. The Blender add-on edits
+helper world positions and supported SplitTime properties, then calls this core
+transaction to write a new XML copy and a `.mr-race-edit.json` manifest. It
+does not alter a source archive or any compiled course resource.
+
+G0 runtime authoring passed for StartArea, FinishArea, and SplitTime0 center;
+combined StartArea + FinishArea editing loaded normally. G0 is **PASS —
+RUNTIME AUTHORING CONFIRMED**. Runtime hashes were not included with the human
+result. G0.1 is **PASS — BLENDER/CORPUS VALIDATED** and additionally allows
+exact visual-companion Row3 XYZ positions and adds a translation-only
+checkpoint group. Those newly editable visual-companion fields have
+corpus/Blender validation but no separate human runtime authoring test.
+
+The SplitTime viewport keeps the main trigger center and 3D Radius sphere
+visually simple. Procedural sign cards and direction rays sit at each
+`SplitTimeN-i` visual companion and follow that companion's own imported
+matrix. They are editor-only diagnostics, not new gameplay semantics or writer
+fields. The generic visualization helpers are intended for future read-only
+RaceLine, Camera, and limit-marker views.
+
+The curated Retail validation passes no-op export for 36/36 principal course
+projects. StartArea authoring is supported in 36/36; FinishArea in 34/36; 110
+main SplitTime records and 440/440 visual companions are structurally
+supported. ItalyS4 and TurkeyS1 have five FinishArea markers, so those two
+lists are preserved and shown read-only rather than truncated to four. See
+[`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md),
+[`research/g0/findings.md`](../research/g0/findings.md), and
+[`research/g0/runtime-results.md`](../research/g0/runtime-results.md).

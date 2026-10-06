@@ -1,0 +1,451 @@
+{
+  "phase": "R-MAT1",
+  "date": "2026-10-03",
+  "status": "PASS",
+  "baseline_synthetic": {
+    "passed": 245,
+    "failed": 0,
+    "skipped": 0
+  },
+  "final_synthetic": {
+    "passed": 254,
+    "failed": 0,
+    "skipped": 0
+  },
+  "compileall": "PASS",
+  "corpus": "1478 CLASSIFIED; 0 UNKNOWN",
+  "standard_blender_import": "PASS",
+  "standard_blender_attribute_export": "PASS",
+  "addon_zip_install_vendored_import_export": "PASS",
+  "addon_zip_sha256": "222CE99F58FC5E99FA3124FD2A9FED4A2BD0981D38786FB68DE52C363A9DA7D0",
+  "blender_material_audit": {
+    "status": "PASS",
+    "blender_version": "5.2.2 LTS",
+    "resource_count": 78,
+    "counts": {
+      "draws": 1478,
+      "OPAQUE": 1241,
+      "base_bound": 1473,
+      "environment_bound": 1092,
+      "environment_preview": 1089,
+      "null_base": 5,
+      "ALPHA_BLEND": 237
+    },
+    "helper_preview_draws": {
+      "whitepaint-tga": 222,
+      "chrome-tga": 145,
+      "perspex-tga": 219,
+      "rubber-tga": 220,
+      "glass-tga": 219,
+      "silverpaint-tga": 60,
+      "lightshine-tga": 2,
+      "lights-tga": 2
+    },
+    "raw_metadata": "PASS",
+    "save_reload": "PASS",
+    "zero_edit_exports": 78,
+    "preview_nodes_edited_export": "BYTE_IDENTICAL",
+    "synthetic_alphatest": "PASS",
+    "synthetic_diffuse_uv_gates": "PASS",
+    "reflections_off": "PASS",
+    "unknown_warning": "PASS",
+    "resources": [
+      {
+        "resource": "Astero/car.dx",
+        "draws": 32,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Astero/complete.dx",
+        "draws": 24,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Astero/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Bruno/car.dx",
+        "draws": 21,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Bruno/complete.dx",
+        "draws": 16,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Bruno/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "ChevyBlazer/car.dx",
+        "draws": 36,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "ChevyBlazer/complete.dx",
+        "draws": 24,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "ChevyBlazer/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Forester/car.dx",
+        "draws": 27,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Forester/complete.dx",
+        "draws": 17,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Forester/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "forklift/car.dx",
+        "draws": 10,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "forklift/complete.dx",
+        "draws": 12,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "forklift/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Frontera/car.dx",
+        "draws": 34,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Frontera/complete.dx",
+        "draws": 24,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Frontera/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "IceCream/car.dx",
+        "draws": 29,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "IceCream/complete.dx",
+        "draws": 23,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "IceCream/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Jump/car.dx",
+        "draws": 30,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Jump/complete.dx",
+        "draws": 19,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Jump/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Kamaz/car.dx",
+        "draws": 33,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Kamaz/complete.dx",
+        "draws": 26,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Kamaz/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Kangoo/car.dx",
+        "draws": 29,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Kangoo/complete.dx",
+        "draws": 21,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Kangoo/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "KiaSportage/car.dx",
+        "draws": 35,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "KiaSportage/complete.dx",
+        "draws": 26,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "KiaSportage/wheel.dx",
+        "draws": 4,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "LandCruiser/car.dx",
+        "draws": 33,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "LandCruiser/complete.dx",
+        "draws": 24,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "LandCruiser/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Mattserati/car.dx",
+        "draws": 26,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Mattserati/complete.dx",
+        "draws": 20,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Mattserati/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "megane/car.dx",
+        "draws": 33,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "megane/complete.dx",
+        "draws": 26,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "megane/sus.dx",
+        "draws": 1,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "megane/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Navara/car.dx",
+        "draws": 37,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Navara/complete.dx",
+        "draws": 26,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Navara/wheel.dx",
+        "draws": 4,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "NewRav/car.dx",
+        "draws": 35,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "NewRav/complete.dx",
+        "draws": 20,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "NewRav/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Pajero/car.dx",
+        "draws": 33,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Pajero/complete.dx",
+        "draws": 25,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Pajero/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Patrol/car.dx",
+        "draws": 34,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Patrol/complete.dx",
+        "draws": 26,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Patrol/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "RMonster/car.dx",
+        "draws": 33,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "RMonster/complete.dx",
+        "draws": 24,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "RMonster/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "SeatBuggy/car.dx",
+        "draws": 33,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "SeatBuggy/complete.dx",
+        "draws": 25,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "SeatBuggy/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Simmbugghini/car.dx",
+        "draws": 26,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Simmbugghini/complete.dx",
+        "draws": 22,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Simmbugghini/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Tata/car.dx",
+        "draws": 39,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Tata/complete.dx",
+        "draws": 31,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Tata/wheel.dx",
+        "draws": 4,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Terrano/car.dx",
+        "draws": 33,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Terrano/complete.dx",
+        "draws": 20,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Terrano/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Ufo/car.dx",
+        "draws": 12,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Ufo/complete.dx",
+        "draws": 6,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "WildCat/car.dx",
+        "draws": 29,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "WildCat/complete.dx",
+        "draws": 21,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "WildCat/wheel.dx",
+        "draws": 5,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Xtrail/car.dx",
+        "draws": 32,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Xtrail/complete.dx",
+        "draws": 24,
+        "zero_edit": "BYTE_IDENTICAL"
+      },
+      {
+        "resource": "Xtrail/wheel.dx",
+        "draws": 4,
+        "zero_edit": "BYTE_IDENTICAL"
+      }
+    ]
+  },
+  "diff_check": "PASS",
+  "course_test_mode": "NOT_RUN_OUT_OF_SCOPE",
+  "new_human_runtime_tests": 0,
+  "runtime_probes_required": false,
+  "writer_source_modified": false,
+  "standard_material_hardening_assertions": "PASS"
+}

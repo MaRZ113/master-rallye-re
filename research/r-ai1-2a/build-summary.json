@@ -1,0 +1,562 @@
+{
+  "phase": "R-AI1.2a",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "module": {
+    "sha256": "055c0f73a10e169ce03c8671c12be19914c1651125d9bff7805fb94d5ebb9e1f",
+    "size": 118272,
+    "source_hashes": {
+      "src/native/challenge_preview/roster.h": "e5aa900c14a2efe7af7203c199b90f9fc7934e600b928be20cfa5084e2fc947b",
+      "src/native/challenge_preview/runtime.cpp": "d6109252d3645a0f5fe9ed4a05458736805a49854385f35d0ea58ae9be8115cc",
+      "src/native/randomizer/exports.def": "a1b4bb97cde5b75c2b462f3f2231de484066ff65a160c982970789c2aa9a217d",
+      "src/native/randomizer/policy.h": "3bddb171c84d78b69822ea7fb4bd31ca60d8823d2646bec45c99960afbc4c79f",
+      "src/native/randomizer/runtime.cpp": "1f8c8a69b2e8ae57cf2968232a0a20d81a80668993e495a1111cdab16c73d96f"
+    }
+  },
+  "profiles": [
+    {
+      "phase": "R-AI1.2a",
+      "profile": "retail-r-ai1-2a-four-hardened",
+      "status": "CONFIRMED_BY_RUNTIME",
+      "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "output_sha256": "185900aa1cb0fd1ce4dbac4bfa48196fb0b3753b7dddcbb5418a965e812d9980",
+      "size": 3121214,
+      "randomizer_changes_count": false,
+      "capacity_composed": false,
+      "max_supported_total": 5,
+      "policy_version": 1,
+      "broker_dump_variant": "native_hardened",
+      "ranges": [
+        {
+          "offset": 536,
+          "va": null,
+          "rva": null,
+          "purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "length": 4,
+          "original_sha256": "154b25bf31b9b6073fd369724b4580023ff893043eccb5639521775a84474ee7",
+          "replacement_sha256": "2662ff5fd7a5a56564c86800dd61366a60703200f7189ca34e443a599adb78f2"
+        },
+        {
+          "offset": 327950,
+          "va": 4522254,
+          "purpose": "Challenge AI ID before stock registry-derived class; one-human branch only",
+          "length": 7,
+          "original_sha256": "faec5be248248b03d61023df3d154be6433308db3c7bac983f33313057c71566",
+          "replacement_sha256": "b4e8c49cdb41184abca0973275c72c4c0dda96226637f282f72bc0f070b601f0"
+        },
+        {
+          "offset": 335504,
+          "va": 4529808,
+          "purpose": "MasterRallye: native pool init",
+          "length": 7,
+          "original_sha256": "4a2a334b126eaf7ef5b77f34fcf2e86e601ff4ad2a4c70418d1c03180ca00813",
+          "replacement_sha256": "4007ce9a0af329970f895eead9db0ade9662f2bfd3e95a33271bca394c18f2f4"
+        },
+        {
+          "offset": 335917,
+          "va": 4530221,
+          "purpose": "MasterRallye: native pool pool_end",
+          "length": 7,
+          "original_sha256": "1133b9b0f9cb8c4dde2a4ec4a1ab644ab2f7e4f53f23c20a61affd47a0fed07c",
+          "replacement_sha256": "f3b64853678ef308bd58caf8224b1995fcc02d4f43ae02883b51048f0ef774b5"
+        },
+        {
+          "offset": 336082,
+          "va": 4530386,
+          "purpose": "MasterRallye: native pool loop",
+          "length": 6,
+          "original_sha256": "7faac27897e5851549db475395a00558ce3a72d035977aa5e87fefe8d5052777",
+          "replacement_sha256": "7bc6f0029defcb6112a0725b914874d116e3294386b632203911838874b2e77e"
+        },
+        {
+          "offset": 360715,
+          "va": 4555019,
+          "purpose": "QuickRace: native pool init",
+          "length": 7,
+          "original_sha256": "ee4dee6e225a5c267b56e627a9a335e73fcf14f1a300c3e3d335c7d8f6b7c4da",
+          "replacement_sha256": "87f028364178a3ec266b6170f779928f934aa106089057858bb5db98fe83a385"
+        },
+        {
+          "offset": 361173,
+          "va": 4555477,
+          "purpose": "QuickRace: native pool pool_end",
+          "length": 7,
+          "original_sha256": "4cc4cbc034c435a07e83d816a4de280afb39c1b10bf1898a27e69dc81a70dcea",
+          "replacement_sha256": "d38de8dbefb7dbddf1518b5ba7220f5658fbca4e813c2d1a37772ce83e49b942"
+        },
+        {
+          "offset": 361337,
+          "va": 4555641,
+          "purpose": "QuickRace: native pool loop",
+          "length": 9,
+          "original_sha256": "80d157b61280790bd9c65e4a7696ef0f5d9dc2e27365f46777fb6c87f7096ff5",
+          "replacement_sha256": "c93786ac1684c3ed2dd171012a0bb40207020f9c1fa6aba32e8bb95e635cda4c"
+        },
+        {
+          "offset": 371833,
+          "va": 4566137,
+          "purpose": "RallyeCup/Invitation: native pool init",
+          "length": 5,
+          "original_sha256": "e560d6dff14d62c1c98e29046f6c3e93ed491331af8f71acc4ec0f916773032b",
+          "replacement_sha256": "b84e3674d9b8f7885f1408984c3271648c90466fc28953f1988e8236d1ceb69f"
+        },
+        {
+          "offset": 372326,
+          "va": 4566630,
+          "purpose": "RallyeCup/Invitation: native pool pool_end",
+          "length": 7,
+          "original_sha256": "dd8bcfd34af0f7b122a0779b9ffb86f90ce39c439098454e46d69f2cea6e1532",
+          "replacement_sha256": "c12897a805abb9880116f5de90cfe573d23b80bfc737ad9a8a1383f19d115136"
+        },
+        {
+          "offset": 372495,
+          "va": 4566799,
+          "purpose": "RallyeCup/Invitation: native pool loop",
+          "length": 6,
+          "original_sha256": "495c2cc08c6ffee8a2c162ef274f610021d85a2d7db0fe65e4362685488c15f8",
+          "replacement_sha256": "ee4d0ee6100066bbd0116c33b673e20a5de28ccf938e9b083cacfb21772c50e0"
+        },
+        {
+          "va": 4580625,
+          "offset": 386321,
+          "purpose": "Challenge screen initialization invalidates transient selection",
+          "length": 5,
+          "original_sha256": "92d815baa56879e98bbbbc3cef6b8412ad68f8fa32a25c8581c09cb3bd545a2d",
+          "replacement_sha256": "c5fd2eb85b421ec9448e7fbaa8712c1016d3a6a04148d04cddf0b2a101b2be17"
+        },
+        {
+          "va": 4582042,
+          "offset": 387738,
+          "purpose": "Challenge Back invalidates; original frontend transition and arguments preserved",
+          "length": 5,
+          "original_sha256": "2efc67cdeb2ec2692ee4a1e7367ffe95be3a5dcc0b3de64365b81700021d4f60",
+          "replacement_sha256": "dc44697835d5a83368c2f15013965eeb5b34bb36877f7cc8c915829764164ae0"
+        },
+        {
+          "va": 4582453,
+          "offset": 388149,
+          "purpose": "One opponent ID feeds native localized name and 3D preview model",
+          "length": 7,
+          "original_sha256": "faec5be248248b03d61023df3d154be6433308db3c7bac983f33313057c71566",
+          "replacement_sha256": "f2b9cead96b34174268f6548f8c01ff13d0be49e494641e74ded38435ae583db"
+        },
+        {
+          "offset": 413545,
+          "va": 4607849,
+          "rva": 413545,
+          "purpose": "loading_attract_legacy_media_check_neutralization",
+          "continuation": 4607814,
+          "evidence": "464E40 odd counter -> stat/size failure -> 464F69; stock success sets Starter1",
+          "length": 5,
+          "original_sha256": "ac2eada1e8b2d562a513d4a266301e3b0aff31eebbefe5c50050bb9cce288280",
+          "replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2"
+        },
+        {
+          "offset": 2105374,
+          "va": 6299678,
+          "rva": 2105374,
+          "purpose": "broker_dump_null_stringlist_guard",
+          "continuation": 6873760,
+          "evidence": "4DE1C0 accepts NULL; 47D340/47D400 set NULL lists; Dump dereferences EBX",
+          "length": 6,
+          "original_sha256": "3867f4ec94ea89a368812c6fc6b33023dbe7d5b88a46d0926d82215c247bec1a",
+          "replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0"
+        },
+        {
+          "offset": 2105683,
+          "va": 6299987,
+          "rva": 2105683,
+          "purpose": "broker_dump_null_xmldata_guard",
+          "continuation": 6873792,
+          "evidence": "4DDA10 explicitly returns NULL; 4DE480/4D84C0 accept it, editor forwards getter",
+          "length": 7,
+          "original_sha256": "82dfbc8e7b717dc51edf77e2ec0f5e6ad90be1553b3cb399b3cfb79b059fe0fb",
+          "replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d"
+        },
+        {
+          "offset": 2679456,
+          "va": 6873760,
+          "rva": 2679456,
+          "purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "continuation": 6299684,
+          "evidence": "NULL -> 602040 closes brace, restores indent and continues next entry",
+          "length": 19,
+          "original_sha256": "d6fd62f5ce537d90ea3ea45841b17f34d727bcbc4128748cba14fb87c0ffd9d1",
+          "replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5"
+        },
+        {
+          "offset": 2679488,
+          "va": 6873792,
+          "rva": 2679488,
+          "purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "continuation": 6299994,
+          "evidence": "NULL -> 60218E; preserve flags; no text grammar change",
+          "length": 28,
+          "original_sha256": "3addfb141cd7c9c4c6543a82191a3707ac29c7a041217782e61d4d91c691aee8",
+          "replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171"
+        },
+        {
+          "offset": 2679808,
+          "va": 6874112,
+          "purpose": "QuickRace: active-count policy/class-pool reuse",
+          "length": 283,
+          "original_sha256": "876eb94eda163a736242d2016646da450f404e198337e2dc1cdf57e6d3eedc15",
+          "replacement_sha256": "a038b9b61a0abd8c876e438f113ed48e263499f55b2f9cc13d396178f1dce505"
+        },
+        {
+          "offset": 2680576,
+          "va": 6874880,
+          "purpose": "MasterRallye: active-count policy/class-pool reuse",
+          "length": 274,
+          "original_sha256": "cd44619967a5086f75a37213c003869c58443285731e65a17eacadbe1d00819e",
+          "replacement_sha256": "23864ce4705f482891e94669259ea633c5e19cd31862ff7f8b06eb6bba281087"
+        },
+        {
+          "offset": 2681344,
+          "va": 6875648,
+          "purpose": "RallyeCup/Invitation: active-count policy/class-pool reuse",
+          "length": 314,
+          "original_sha256": "5ac19cf6919b95ba1f59248a47bd88b2c4c855db62ccf5a26326a6a2f02eeefe",
+          "replacement_sha256": "575c9cc017bacdc45551513f02dfc62f7aaf5576176c2f762f85281e776de3db"
+        },
+        {
+          "offset": 2682112,
+          "va": 6876416,
+          "purpose": "Bounded adjacent-DLL loader; absent module => Stock",
+          "length": 211,
+          "original_sha256": "a8e63d1668da80b7902494cbbfe1313ef5c5fe3c455435e316b48072c8f4b52d",
+          "replacement_sha256": "d4645c58083a84864516b582bdaaabdf73561da6a31900abc4572e51ce13e527"
+        },
+        {
+          "offset": 2682368,
+          "va": 6876672,
+          "purpose": "Challenge fixed-ID load always executes",
+          "length": 42,
+          "original_sha256": "094c4931fdb2f2af417c9e0322a9716006e8211fe9017f671ac6e3251300acca",
+          "replacement_sha256": "f80caca389d46a6d3f7b8de6726520421943815babec437b7f75e11bce89386f"
+        },
+        {
+          "offset": 2682496,
+          "va": 6876800,
+          "purpose": "Relative DLL/export names",
+          "length": 78,
+          "original_sha256": "5552748b5aeb500f57b3d1f4a56e4e9789198918c663e712314ea999026eb896",
+          "replacement_sha256": "d3e788a0ce3df95e449d084414f005e7125f0a5589b78da65294e3ae87b08e9c"
+        },
+        {
+          "va": 6876928,
+          "offset": 2682624,
+          "purpose": "Generate once or reuse cached Challenge identity; no native registry mutation",
+          "length": 45,
+          "original_sha256": "8a1020634191c27b63d3c2aa45b723f696ddf2743ca8996a33ed0e47ddd7fc07",
+          "replacement_sha256": "52a2d869188b66b78565bdfb15c311cd233bdcde1552b0e5f4fb0b1f9a1f7b3c"
+        },
+        {
+          "va": 6877024,
+          "offset": 2682720,
+          "purpose": "Challenge screen initialization invalidates transient selection / bounded bridge",
+          "length": 22,
+          "original_sha256": "6a4875ddaceaa91fb3369f0f6d962f77442daf1b1d97733457d12bcabdf79441",
+          "replacement_sha256": "266c78ef713e3bb627ea9514bfb75a9cad0adcd8c6392611921cdfb6556fb680"
+        },
+        {
+          "va": 6877072,
+          "offset": 2682768,
+          "purpose": "Challenge Back invalidates; original frontend transition and arguments preserved / bounded bridge",
+          "length": 22,
+          "original_sha256": "6a4875ddaceaa91fb3369f0f6d962f77442daf1b1d97733457d12bcabdf79441",
+          "replacement_sha256": "bba419eb443dc5629511d34c99573c4febc7867088508b7b55e451baf0afcf95"
+        }
+      ],
+      "runtime_scope": "Challenge preview/race tested four-car profile"
+    },
+    {
+      "phase": "R-AI1.2a",
+      "profile": "retail-r-ai1-2a-five-hardened",
+      "status": "PREPARED_RUNTIME_UNTESTED",
+      "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "output_sha256": "e5257d991e434b63466ac08373d63e9e320af9bc11825a16dc0f01ee41d94343",
+      "size": 3121214,
+      "randomizer_changes_count": false,
+      "capacity_composed": true,
+      "max_supported_total": 5,
+      "policy_version": 1,
+      "broker_dump_variant": "native_hardened",
+      "ranges": [
+        {
+          "offset": 536,
+          "va": null,
+          "rva": null,
+          "purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "length": 4,
+          "original_sha256": "154b25bf31b9b6073fd369724b4580023ff893043eccb5639521775a84474ee7",
+          "replacement_sha256": "2662ff5fd7a5a56564c86800dd61366a60703200f7189ca34e443a599adb78f2"
+        },
+        {
+          "offset": 327950,
+          "va": 4522254,
+          "purpose": "Challenge AI ID before stock registry-derived class; one-human branch only",
+          "length": 7,
+          "original_sha256": "faec5be248248b03d61023df3d154be6433308db3c7bac983f33313057c71566",
+          "replacement_sha256": "b4e8c49cdb41184abca0973275c72c4c0dda96226637f282f72bc0f070b601f0"
+        },
+        {
+          "offset": 335504,
+          "va": 4529808,
+          "purpose": "MasterRallye: native pool init",
+          "length": 7,
+          "original_sha256": "4a2a334b126eaf7ef5b77f34fcf2e86e601ff4ad2a4c70418d1c03180ca00813",
+          "replacement_sha256": "4007ce9a0af329970f895eead9db0ade9662f2bfd3e95a33271bca394c18f2f4"
+        },
+        {
+          "offset": 335917,
+          "va": 4530221,
+          "purpose": "MasterRallye: native pool pool_end",
+          "length": 7,
+          "original_sha256": "1133b9b0f9cb8c4dde2a4ec4a1ab644ab2f7e4f53f23c20a61affd47a0fed07c",
+          "replacement_sha256": "f3b64853678ef308bd58caf8224b1995fcc02d4f43ae02883b51048f0ef774b5"
+        },
+        {
+          "offset": 336082,
+          "va": 4530386,
+          "purpose": "MasterRallye: native pool loop",
+          "length": 6,
+          "original_sha256": "7faac27897e5851549db475395a00558ce3a72d035977aa5e87fefe8d5052777",
+          "replacement_sha256": "7bc6f0029defcb6112a0725b914874d116e3294386b632203911838874b2e77e"
+        },
+        {
+          "offset": 360715,
+          "va": 4555019,
+          "purpose": "QuickRace: native pool init",
+          "length": 7,
+          "original_sha256": "ee4dee6e225a5c267b56e627a9a335e73fcf14f1a300c3e3d335c7d8f6b7c4da",
+          "replacement_sha256": "87f028364178a3ec266b6170f779928f934aa106089057858bb5db98fe83a385"
+        },
+        {
+          "offset": 361173,
+          "va": 4555477,
+          "purpose": "QuickRace: native pool pool_end",
+          "length": 7,
+          "original_sha256": "4cc4cbc034c435a07e83d816a4de280afb39c1b10bf1898a27e69dc81a70dcea",
+          "replacement_sha256": "d38de8dbefb7dbddf1518b5ba7220f5658fbca4e813c2d1a37772ce83e49b942"
+        },
+        {
+          "offset": 361337,
+          "va": 4555641,
+          "purpose": "QuickRace: native pool loop",
+          "length": 9,
+          "original_sha256": "80d157b61280790bd9c65e4a7696ef0f5d9dc2e27365f46777fb6c87f7096ff5",
+          "replacement_sha256": "c93786ac1684c3ed2dd171012a0bb40207020f9c1fa6aba32e8bb95e635cda4c"
+        },
+        {
+          "offset": 371833,
+          "va": 4566137,
+          "purpose": "RallyeCup/Invitation: native pool init",
+          "length": 5,
+          "original_sha256": "e560d6dff14d62c1c98e29046f6c3e93ed491331af8f71acc4ec0f916773032b",
+          "replacement_sha256": "b84e3674d9b8f7885f1408984c3271648c90466fc28953f1988e8236d1ceb69f"
+        },
+        {
+          "offset": 372326,
+          "va": 4566630,
+          "purpose": "RallyeCup/Invitation: native pool pool_end",
+          "length": 7,
+          "original_sha256": "dd8bcfd34af0f7b122a0779b9ffb86f90ce39c439098454e46d69f2cea6e1532",
+          "replacement_sha256": "c12897a805abb9880116f5de90cfe573d23b80bfc737ad9a8a1383f19d115136"
+        },
+        {
+          "offset": 372495,
+          "va": 4566799,
+          "purpose": "RallyeCup/Invitation: native pool loop",
+          "length": 6,
+          "original_sha256": "495c2cc08c6ffee8a2c162ef274f610021d85a2d7db0fe65e4362685488c15f8",
+          "replacement_sha256": "ee4d0ee6100066bbd0116c33b673e20a5de28ccf938e9b083cacfb21772c50e0"
+        },
+        {
+          "va": 4580625,
+          "offset": 386321,
+          "purpose": "Challenge screen initialization invalidates transient selection",
+          "length": 5,
+          "original_sha256": "92d815baa56879e98bbbbc3cef6b8412ad68f8fa32a25c8581c09cb3bd545a2d",
+          "replacement_sha256": "c5fd2eb85b421ec9448e7fbaa8712c1016d3a6a04148d04cddf0b2a101b2be17"
+        },
+        {
+          "va": 4582042,
+          "offset": 387738,
+          "purpose": "Challenge Back invalidates; original frontend transition and arguments preserved",
+          "length": 5,
+          "original_sha256": "2efc67cdeb2ec2692ee4a1e7367ffe95be3a5dcc0b3de64365b81700021d4f60",
+          "replacement_sha256": "dc44697835d5a83368c2f15013965eeb5b34bb36877f7cc8c915829764164ae0"
+        },
+        {
+          "va": 4582453,
+          "offset": 388149,
+          "purpose": "One opponent ID feeds native localized name and 3D preview model",
+          "length": 7,
+          "original_sha256": "faec5be248248b03d61023df3d154be6433308db3c7bac983f33313057c71566",
+          "replacement_sha256": "f2b9cead96b34174268f6548f8c01ff13d0be49e494641e74ded38435ae583db"
+        },
+        {
+          "offset": 413545,
+          "va": 4607849,
+          "rva": 413545,
+          "purpose": "loading_attract_legacy_media_check_neutralization",
+          "continuation": 4607814,
+          "evidence": "464E40 odd counter -> stat/size failure -> 464F69; stock success sets Starter1",
+          "length": 5,
+          "original_sha256": "ac2eada1e8b2d562a513d4a266301e3b0aff31eebbefe5c50050bb9cce288280",
+          "replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2"
+        },
+        {
+          "offset": 505994,
+          "va": 4700298,
+          "rva": 505994,
+          "purpose": "Quick Race effective opponent read: guarded 3 -> 4",
+          "evidence": "47B780 consumes both count reads; ordinary chooser and NumCars increment retained",
+          "length": 5,
+          "original_sha256": "cccd7914fab039b68a129b2df4eafb6cec7d6067f98bf9ee92693903504797bc",
+          "replacement_sha256": "3e130b279055434b510d8ceab287365085d265f163b5ce9b1aa168d13544b792"
+        },
+        {
+          "offset": 506077,
+          "va": 4700381,
+          "rva": 506077,
+          "purpose": "Quick Race effective opponent read: guarded 3 -> 4",
+          "evidence": "47B780 consumes both count reads; ordinary chooser and NumCars increment retained",
+          "length": 5,
+          "original_sha256": "040f50fcd18ccee3ed30759db85cfa9abd122b7ac6d035626e25d4fea04acfc6",
+          "replacement_sha256": "b302a21ee8ce8c6c76d718d53aff0fd274a751401ca9144352dba2d2994c2a67"
+        },
+        {
+          "offset": 2105374,
+          "va": 6299678,
+          "rva": 2105374,
+          "purpose": "broker_dump_null_stringlist_guard",
+          "continuation": 6873760,
+          "evidence": "4DE1C0 accepts NULL; 47D340/47D400 set NULL lists; Dump dereferences EBX",
+          "length": 6,
+          "original_sha256": "3867f4ec94ea89a368812c6fc6b33023dbe7d5b88a46d0926d82215c247bec1a",
+          "replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0"
+        },
+        {
+          "offset": 2105683,
+          "va": 6299987,
+          "rva": 2105683,
+          "purpose": "broker_dump_null_xmldata_guard",
+          "continuation": 6873792,
+          "evidence": "4DDA10 explicitly returns NULL; 4DE480/4D84C0 accept it, editor forwards getter",
+          "length": 7,
+          "original_sha256": "82dfbc8e7b717dc51edf77e2ec0f5e6ad90be1553b3cb399b3cfb79b059fe0fb",
+          "replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d"
+        },
+        {
+          "offset": 2679456,
+          "va": 6873760,
+          "rva": 2679456,
+          "purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "continuation": 6299684,
+          "evidence": "NULL -> 602040 closes brace, restores indent and continues next entry",
+          "length": 19,
+          "original_sha256": "d6fd62f5ce537d90ea3ea45841b17f34d727bcbc4128748cba14fb87c0ffd9d1",
+          "replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5"
+        },
+        {
+          "offset": 2679488,
+          "va": 6873792,
+          "rva": 2679488,
+          "purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "continuation": 6299994,
+          "evidence": "NULL -> 60218E; preserve flags; no text grammar change",
+          "length": 28,
+          "original_sha256": "3addfb141cd7c9c4c6543a82191a3707ac29c7a041217782e61d4d91c691aee8",
+          "replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171"
+        },
+        {
+          "offset": 2679552,
+          "va": 6873856,
+          "rva": 2679552,
+          "purpose": "Original getter, exact one-human T1 ID0 / Track10 / Race / ghost-off guard",
+          "evidence": "Register/flags/stack preservation checked by native emulation",
+          "length": 131,
+          "original_sha256": "d367e8be9eb342df9fd9f890c99b1a955f774f74183a2adf81b238bcb9527c05",
+          "replacement_sha256": "df6ee1e185db821c5416edf021313004cd224b6989bfb8a7d56e124e7086cb4c"
+        },
+        {
+          "offset": 2679808,
+          "va": 6874112,
+          "purpose": "QuickRace: active-count policy/class-pool reuse",
+          "length": 283,
+          "original_sha256": "876eb94eda163a736242d2016646da450f404e198337e2dc1cdf57e6d3eedc15",
+          "replacement_sha256": "a038b9b61a0abd8c876e438f113ed48e263499f55b2f9cc13d396178f1dce505"
+        },
+        {
+          "offset": 2680576,
+          "va": 6874880,
+          "purpose": "MasterRallye: active-count policy/class-pool reuse",
+          "length": 274,
+          "original_sha256": "cd44619967a5086f75a37213c003869c58443285731e65a17eacadbe1d00819e",
+          "replacement_sha256": "23864ce4705f482891e94669259ea633c5e19cd31862ff7f8b06eb6bba281087"
+        },
+        {
+          "offset": 2681344,
+          "va": 6875648,
+          "purpose": "RallyeCup/Invitation: active-count policy/class-pool reuse",
+          "length": 314,
+          "original_sha256": "5ac19cf6919b95ba1f59248a47bd88b2c4c855db62ccf5a26326a6a2f02eeefe",
+          "replacement_sha256": "575c9cc017bacdc45551513f02dfc62f7aaf5576176c2f762f85281e776de3db"
+        },
+        {
+          "offset": 2682112,
+          "va": 6876416,
+          "purpose": "Bounded adjacent-DLL loader; absent module => Stock",
+          "length": 211,
+          "original_sha256": "a8e63d1668da80b7902494cbbfe1313ef5c5fe3c455435e316b48072c8f4b52d",
+          "replacement_sha256": "d4645c58083a84864516b582bdaaabdf73561da6a31900abc4572e51ce13e527"
+        },
+        {
+          "offset": 2682368,
+          "va": 6876672,
+          "purpose": "Challenge fixed-ID load always executes",
+          "length": 42,
+          "original_sha256": "094c4931fdb2f2af417c9e0322a9716006e8211fe9017f671ac6e3251300acca",
+          "replacement_sha256": "f80caca389d46a6d3f7b8de6726520421943815babec437b7f75e11bce89386f"
+        },
+        {
+          "offset": 2682496,
+          "va": 6876800,
+          "purpose": "Relative DLL/export names",
+          "length": 78,
+          "original_sha256": "5552748b5aeb500f57b3d1f4a56e4e9789198918c663e712314ea999026eb896",
+          "replacement_sha256": "d3e788a0ce3df95e449d084414f005e7125f0a5589b78da65294e3ae87b08e9c"
+        },
+        {
+          "va": 6876928,
+          "offset": 2682624,
+          "purpose": "Generate once or reuse cached Challenge identity; no native registry mutation",
+          "length": 45,
+          "original_sha256": "8a1020634191c27b63d3c2aa45b723f696ddf2743ca8996a33ed0e47ddd7fc07",
+          "replacement_sha256": "52a2d869188b66b78565bdfb15c311cd233bdcde1552b0e5f4fb0b1f9a1f7b3c"
+        },
+        {
+          "va": 6877024,
+          "offset": 2682720,
+          "purpose": "Challenge screen initialization invalidates transient selection / bounded bridge",
+          "length": 22,
+          "original_sha256": "6a4875ddaceaa91fb3369f0f6d962f77442daf1b1d97733457d12bcabdf79441",
+          "replacement_sha256": "266c78ef713e3bb627ea9514bfb75a9cad0adcd8c6392611921cdfb6556fb680"
+        },
+        {
+          "va": 6877072,
+          "offset": 2682768,
+          "purpose": "Challenge Back invalidates; original frontend transition and arguments preserved / bounded bridge",
+          "length": 22,
+          "original_sha256": "6a4875ddaceaa91fb3369f0f6d962f77442daf1b1d97733457d12bcabdf79441",
+          "replacement_sha256": "bba419eb443dc5629511d34c99573c4febc7867088508b7b55e451baf0afcf95"
+        }
+      ]
+    }
+  ],
+  "reproduction": "python tools/r_ai1_2_build_native.py --source <exact-pristine-MRallye.exe> --output .research-output/r-ai1-2a/package --challenge-preview",
+  "runtime_game_test": false,
+  "runtime_closeout": "runtime-summary.json"
+}

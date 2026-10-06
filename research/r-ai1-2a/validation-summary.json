@@ -1,0 +1,90 @@
+{
+  "phase": "R-AI1.2a",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "runtime_game_test": false,
+  "starting_head": "8a17f2ddf59d81dd8f4f75e8c7601d61becc4c10",
+  "branch": "research/r-ai1-2a",
+  "baseline": {
+    "passed": 334,
+    "failed": 0,
+    "skipped": 0
+  },
+  "checks": {
+    "synthetic": {
+      "passed": 353,
+      "failed": 0,
+      "skipped": 0
+    },
+    "native_policy_config_abi": {
+      "cases": 2534,
+      "passed": 2534,
+      "failed": 0,
+      "skipped": 0
+    },
+    "native_preview_cache": {
+      "cases": 345,
+      "passed": 345,
+      "failed": 0,
+      "skipped": 0
+    },
+    "challenge_x86": {
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0
+    },
+    "r_ai1_2_x86_regression": {
+      "passed": 824,
+      "failed": 0,
+      "skipped": 0
+    },
+    "r_ai2_five_car_x86_regression": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0
+    },
+    "exact_candidate_verifications": 8,
+    "exact_module_verifications": 2,
+    "new_four_five_dll_rebuild_byte_equal": true,
+    "compileall": "PASS",
+    "diff_check": "PASS",
+    "missing_fixtures": []
+  },
+  "report_hashes": [
+    {
+      "path": ".research-output/r-ai1-2a/final-tests.log",
+      "sha256": "ed4cbd3ed1c6d2e028ee64f0251dd9adca7e4c6633321fe2166bc86d0c25906c"
+    },
+    {
+      "path": ".research-output/r-ai1-2a/package/native-policy-tests.json",
+      "sha256": "ac3dfd8d541874e13701a36ad8c5c269f15ea3a5980b71edc632838599ebacda"
+    },
+    {
+      "path": ".research-output/r-ai1-2a/package/native-preview-tests.json",
+      "sha256": "8853b9d5dcfa5375260ea82b5c16c0ddefcdc4b48e4898cbc3aa5a13ccb50d00"
+    },
+    {
+      "path": ".research-output/r-ai1-2a/emulation.json",
+      "sha256": "357936b90e8818d9514ad71af255359d042ba29e34e6d9ae19381116ee713815"
+    },
+    {
+      "path": ".research-output/r-ai1-2a/five-car-regression.json",
+      "sha256": "8118c195e94b28cd106cb4c0c091655206d49826fda4b73ab1ed1c982d06937c"
+    },
+    {
+      "path": ".research-output/r-ai1-2a/verifier-summary.json",
+      "sha256": "32eaa1dfcf4aa8f43f51d4da5a574cbb5f2b819e73307f16fab73282a4a25adc"
+    },
+    {
+      "path": ".research-output/r-ai1-2a/compileall.log",
+      "sha256": "cc0183cafbe58c567339d96bd1e7924441e3fbf0903fd2ef35928532a2e41c82"
+    }
+  ],
+  "limits": [
+    "Native x86 exercises controlled typed Broker/heap/scene/string/DLL-result boundaries, not actual rendering/physics.",
+    "Compiled Roster and unchanged policy are tested separately; full Windows game and DLL are not co-executed by emulator.",
+    "Pair checker reports state match only; no human visual or gameplay proof yet."
+  ],
+  "proprietary_payloads_committed": false,
+  "project_saved": false,
+  "runtime_closeout": "runtime-summary.json"
+}

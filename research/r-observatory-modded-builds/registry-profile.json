@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "detection_fingerprints": {
+    "merc-id26": [
+      {
+        "name": "t1_local7_forward_hook",
+        "va": 4726304,
+        "length": 16,
+        "section": ".text",
+        "sha256": "64d8b40ff298b7c7e2387f77b062cc5efe2a961bca0039ca92182611c45656bf",
+        "semantics": "Hook branches T1/local7 through the bounded ID26 forward mapping."
+      },
+      {
+        "name": "id26_reverse_hook",
+        "va": 4726352,
+        "length": 16,
+        "section": ".text",
+        "sha256": "b5c267c6eb024316ffcd861c9c182a1600612f21bbff037b769cc6513be2cda6",
+        "semantics": "Hook branches physical ID26 through the bounded class/local reverse mapping."
+      },
+      {
+        "name": "t1_local7_forward_body",
+        "va": 6873920,
+        "length": 48,
+        "section": ".text",
+        "sha256": "2e6261fc62caa776cba498285e17715736091116708560529e6ffe8612eb7d72",
+        "semantics": "Forward mapping body returns absolute ID26 for class 0/local index 7."
+      },
+      {
+        "name": "id26_reverse_body",
+        "va": 6873968,
+        "length": 48,
+        "section": ".text",
+        "sha256": "f99384fadf6290f5a2a77a6ebf18b7a9ee3bc9a2e198d96c1d79adf0d6d866fb",
+        "semantics": "Reverse mapping body returns class 0/local index 7 for ID26."
+      }
+    ]
+  },
+  "registries": {
+    "pristine": {
+      "physical_record_count": 26,
+      "named_valid_record_count": 25,
+      "reserved_uninitialized_ids": [
+        25
+      ],
+      "additional_records": []
+    },
+    "merc-id26": {
+      "physical_record_count": 27,
+      "named_valid_record_count": 27,
+      "reserved_uninitialized_ids": [],
+      "additional_records": [
+        {
+          "id": 25,
+          "class": 2,
+          "tier": "T3",
+          "local_index": 11,
+          "identity": "Trooper",
+          "CarType": "Trooper",
+          "WheelType": "Trooper",
+          "availability": "UNKNOWN for fresh profile",
+          "evidence": "CONFIRMED_BY_EXE / appended initializer68E2A0 ->45A0B0"
+        },
+        {
+          "id": 26,
+          "class": 0,
+          "tier": "T1",
+          "local_index": 7,
+          "identity": "MERCEDES ML-320",
+          "CarType": "Mercedes",
+          "WheelType": "Mercedes",
+          "availability": "UNKNOWN for fresh profile; registry validity != frontend access",
+          "evidence": "CONFIRMED_BY_EXE / initializer68E2A0 and unchanged44A510 family publication; runtime family pending"
+        }
+      ]
+    }
+  },
+  "stock_source": "research/r-ai1/vehicle-class-map.json",
+  "stock_source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+}

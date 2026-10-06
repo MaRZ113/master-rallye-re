@@ -1,0 +1,225 @@
+{
+  "phase": "R-AI2",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "target": {
+    "num_cars": 5,
+    "humans": 1,
+    "ai": 4
+  },
+  "candidate": {
+    "profile": "retail-r-ai2-five-car-hardened",
+    "output_sha256": "806ebedcd6d174682fcc4619fb75eaabca2a1281eda4d4d784807b3583f5f2e2",
+    "image_size": 3121214,
+    "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+  },
+  "captures": [
+    {
+      "identifier": "20261004-214059_five-race",
+      "json_sha256": "c3af0f096c85c06f568b4420d193075addac6d8fd79512e34af2553688ff9a12",
+      "raw_sha256": "00473c65fbee556235806b59ba3bf1cd388c5722348a2f955ce0e015307bf060",
+      "selected_block_sha256": "b305fad24c37e0d94fd5ea922a62c41975d142182cc2f956ac3507f8f4478884",
+      "selected_block_offset": 1137999,
+      "selected_block_length": 1071748,
+      "freshness": "post_baseline_complete_dump_proven"
+    },
+    {
+      "identifier": "20261004-214833_five-results",
+      "json_sha256": "0f60ef3a96fc0665e377eb58c29d078c0ed1b8d5ab94086648e0ebc9f4d783cf",
+      "raw_sha256": "2c27b0a7585d98f731cbaddc47ad371cf472299420e49e02f4e84bb561bda0e4",
+      "selected_block_sha256": "a94774eb1715e0f63529b401723807a054ff5edff77c7de2c2022d0e9306ba5d",
+      "selected_block_offset": 2211007,
+      "selected_block_length": 1076064,
+      "freshness": "post_baseline_complete_dump_proven"
+    }
+  ],
+  "participants": [
+    {
+      "CarID": 0,
+      "CarClass": 0,
+      "PlayerType": 1,
+      "DriverID": 30,
+      "CarType": "Landcruiser",
+      "WheelType": "Landcruiser"
+    },
+    {
+      "CarID": 3,
+      "CarClass": 0,
+      "PlayerType": 2,
+      "DriverID": 4,
+      "CarType": "Terrano",
+      "WheelType": "Terrano"
+    },
+    {
+      "CarID": 6,
+      "CarClass": 0,
+      "PlayerType": 2,
+      "DriverID": 0,
+      "CarType": "Frontera",
+      "WheelType": "Frontera"
+    },
+    {
+      "CarID": 2,
+      "CarClass": 0,
+      "PlayerType": 2,
+      "DriverID": 8,
+      "CarType": "Tata",
+      "WheelType": "Tata"
+    },
+    {
+      "CarID": 4,
+      "CarClass": 0,
+      "PlayerType": 2,
+      "DriverID": 7,
+      "CarType": "Chevyblazer",
+      "WheelType": "Chevyblazer"
+    }
+  ],
+  "car4_named_physics": {
+    "Dimensions/WheelBase": 2.75,
+    "Dimensions/TrackWidthFront": 1.7,
+    "Engine/GearRatioDiff": 3.5
+  },
+  "results": {
+    "PositionList": [
+      "\"1\"",
+      "\"2\"",
+      "\"3\"",
+      "\"4\"",
+      "\"5\""
+    ],
+    "NameList": [
+      "\"TESSA BAMFORD\"",
+      "\"BRUNO SELLIER\"",
+      "\"BAMBOS KOUYIOUNTA\"",
+      "\"ALAIN PEACOCK\"",
+      "\"1P\""
+    ],
+    "TimeList": [
+      "\"04:07:55\"",
+      "\"04:09:35\"",
+      "\"04:45:04\"",
+      "\"04:49:82\"",
+      "\"04:51:32\""
+    ]
+  },
+  "result_image_ids": [
+    22,
+    20,
+    15,
+    1,
+    9,
+    12,
+    12,
+    12
+  ],
+  "race_data": [
+    {
+      "competitor": 0,
+      "RacePosition": 5,
+      "RaceTime": 291.32,
+      "TotalTime": 291.32,
+      "grade": "CONFIRMED_BY_RUNTIME",
+      "basis": "JSON/raw-bound completed-race capture"
+    },
+    {
+      "competitor": 1,
+      "RacePosition": 3,
+      "RaceTime": 285.04,
+      "TotalTime": 285.04,
+      "grade": "CONFIRMED_BY_RUNTIME",
+      "basis": "JSON/raw-bound completed-race capture"
+    },
+    {
+      "competitor": 2,
+      "RacePosition": 2,
+      "RaceTime": 249.36,
+      "TotalTime": 249.36,
+      "grade": "CONFIRMED_BY_RUNTIME",
+      "basis": "JSON/raw-bound completed-race capture"
+    },
+    {
+      "competitor": 3,
+      "RacePosition": 1,
+      "RaceTime": 247.56,
+      "TotalTime": 247.56,
+      "grade": "CONFIRMED_BY_RUNTIME",
+      "basis": "JSON/raw-bound completed-race capture"
+    },
+    {
+      "competitor": 4,
+      "RacePosition": 4,
+      "RaceTime": 289.82,
+      "TotalTime": 289.82,
+      "grade": "CONFIRMED_BY_RUNTIME",
+      "basis": "JSON/raw-bound completed-race capture"
+    }
+  ],
+  "automated_checks": [
+    {
+      "status": "BROKER_STATE_MATCH_ONLY",
+      "runtime_full_pass": false
+    },
+    {
+      "status": "BROKER_RESULTS_MATCH_ONLY",
+      "runtime_full_pass": false
+    }
+  ],
+  "human_report_source": "Owner final runtime closeout instruction in this conversation",
+  "human_runtime_evidence": {
+    "independent_fifth_actor_model_wheels_spawn": "CONFIRMED_BY_RUNTIME",
+    "four_ai_drive": "CONFIRMED_BY_RUNTIME",
+    "independent_physics": "CONFIRMED_BY_RUNTIME",
+    "collision": "CONFIRMED_BY_RUNTIME",
+    "damage": "CONFIRMED_BY_RUNTIME",
+    "progress": "CONFIRMED_BY_RUNTIME",
+    "five_finishers": "CONFIRMED_BY_RUNTIME",
+    "timing_ranking": "CONFIRMED_BY_RUNTIME",
+    "hud_fifth_place_and_markers": "CONFIRMED_BY_RUNTIME",
+    "five_rendered_result_rows": "CONFIRMED_BY_RUNTIME",
+    "native_dump_survival": "CONFIRMED_BY_RUNTIME",
+    "replay_lifecycle": "CONFIRMED_BY_RUNTIME",
+    "frontend_return_cleanup": "CONFIRMED_BY_RUNTIME",
+    "no_observed_alias_or_corruption": "CONFIRMED_BY_RUNTIME"
+  },
+  "network_mirror": {
+    "paths_car4": [
+      "Network/Car4/IpAddress",
+      "Network/Car4/Finished",
+      "Network/Car4/FinishTime",
+      "Network/Car4/MaxTime"
+    ],
+    "grade": "CONFIRMED_BY_RUNTIME",
+    "scope": "captured offline state only; no multiplayer protocol proof"
+  },
+  "dump": {
+    "points_list": [],
+    "following_entries": 24,
+    "first_following_path": "Frontend/RaceResults/Car0",
+    "human_survival": "CONFIRMED_BY_RUNTIME",
+    "empty_representation_does_not_distinguish_null_from_allocated_empty": true
+  },
+  "higher_capacity": {
+    "6": "UNKNOWN",
+    "7": "UNKNOWN",
+    "8": "UNKNOWN",
+    "generic_N": "UNKNOWN"
+  },
+  "closeout_verification": {
+    "synthetic": {
+      "passed": 316,
+      "failed": 0,
+      "skipped": 0
+    },
+    "five_car_native_emulation": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0
+    },
+    "compileall": "PASS",
+    "candidate_verifier": "PASS",
+    "hardened_base_verifier": "PASS",
+    "race_checker": "BROKER_STATE_MATCH_ONLY",
+    "results_checker": "BROKER_RESULTS_MATCH_ONLY",
+    "missing_fixtures": []
+  }
+}

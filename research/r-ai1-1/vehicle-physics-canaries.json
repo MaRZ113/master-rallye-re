@@ -1,0 +1,231 @@
+{
+  "source_sha256": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+  "evidence": "CONFIRMED_BY_CORPUS",
+  "vehicles": [
+    {
+      "id": 0,
+      "family": "Landcruiser",
+      "values": {
+        "Dimensions/WheelBase": 2.45,
+        "Dimensions/TrackWidthFront": 1.5,
+        "Engine/GearRatioDiff": 3.95
+      }
+    },
+    {
+      "id": 1,
+      "family": "Pajero",
+      "values": {
+        "Dimensions/WheelBase": 2.4,
+        "Dimensions/TrackWidthFront": 1.65,
+        "Engine/GearRatioDiff": 3.42
+      }
+    },
+    {
+      "id": 2,
+      "family": "Tata",
+      "values": {
+        "Dimensions/WheelBase": 2.77,
+        "Dimensions/TrackWidthFront": 1.75,
+        "Engine/GearRatioDiff": 3.7
+      }
+    },
+    {
+      "id": 3,
+      "family": "Terrano",
+      "values": {
+        "Dimensions/WheelBase": 2.65,
+        "Dimensions/TrackWidthFront": 1.6,
+        "Engine/GearRatioDiff": 3.9
+      }
+    },
+    {
+      "id": 4,
+      "family": "Chevyblazer",
+      "values": {
+        "Dimensions/WheelBase": 2.75,
+        "Dimensions/TrackWidthFront": 1.7,
+        "Engine/GearRatioDiff": 3.5
+      }
+    },
+    {
+      "id": 5,
+      "family": "Xtrail",
+      "values": {
+        "Dimensions/WheelBase": 2.75,
+        "Dimensions/TrackWidthFront": 2.0,
+        "Engine/GearRatioDiff": 3.8
+      }
+    },
+    {
+      "id": 6,
+      "family": "Frontera",
+      "values": {
+        "Dimensions/WheelBase": 2.7,
+        "Dimensions/TrackWidthFront": 1.7,
+        "Engine/GearRatioDiff": 3.8
+      }
+    },
+    {
+      "id": 7,
+      "family": "Navara",
+      "values": {
+        "Dimensions/WheelBase": 2.8,
+        "Dimensions/TrackWidthFront": 1.7,
+        "Engine/GearRatioDiff": 3.92
+      }
+    },
+    {
+      "id": 8,
+      "family": "Forester",
+      "values": {
+        "Dimensions/WheelBase": 2.9,
+        "Dimensions/TrackWidthFront": 1.6,
+        "Engine/GearRatioDiff": 3.72
+      }
+    },
+    {
+      "id": 9,
+      "family": "Jump",
+      "values": {
+        "Dimensions/WheelBase": 2.5,
+        "Dimensions/TrackWidthFront": 1.6,
+        "Engine/GearRatioDiff": 3.62
+      }
+    },
+    {
+      "id": 10,
+      "family": "Rmonster",
+      "values": {
+        "Dimensions/WheelBase": 2.85,
+        "Dimensions/TrackWidthFront": 1.6,
+        "Engine/GearRatioDiff": 3.82
+      }
+    },
+    {
+      "id": 11,
+      "family": "Patrol",
+      "values": {
+        "Dimensions/WheelBase": 3.2,
+        "Dimensions/TrackWidthFront": 1.6,
+        "Engine/GearRatioDiff": 3.92
+      }
+    },
+    {
+      "id": 12,
+      "family": "Newrav",
+      "values": {
+        "Dimensions/WheelBase": 2.45,
+        "Dimensions/TrackWidthFront": 1.6,
+        "Engine/GearRatioDiff": 3.72
+      }
+    },
+    {
+      "id": 13,
+      "family": "Kiasportage",
+      "values": {
+        "Dimensions/WheelBase": 2.75,
+        "Dimensions/TrackWidthFront": 1.8,
+        "Engine/GearRatioDiff": 3.82
+      }
+    },
+    {
+      "id": 14,
+      "family": "Wildcat",
+      "values": {
+        "Dimensions/WheelBase": 2.77,
+        "Dimensions/TrackWidthFront": 1.66,
+        "Engine/GearRatioDiff": 3.72
+      }
+    },
+    {
+      "id": 15,
+      "family": "Simmbugghini",
+      "values": {
+        "Dimensions/WheelBase": 2.77,
+        "Dimensions/TrackWidthFront": 1.7,
+        "Engine/GearRatioDiff": 3.82
+      }
+    },
+    {
+      "id": 16,
+      "family": "Astero",
+      "values": {
+        "Dimensions/WheelBase": 2.5,
+        "Dimensions/TrackWidthFront": 1.65,
+        "Engine/GearRatioDiff": 3.82
+      }
+    },
+    {
+      "id": 17,
+      "family": "Kangoo",
+      "values": {
+        "Dimensions/WheelBase": 2.77,
+        "Dimensions/TrackWidthFront": 1.7,
+        "Engine/GearRatioDiff": 3.62
+      }
+    },
+    {
+      "id": 18,
+      "family": "Megane",
+      "values": {
+        "Dimensions/WheelBase": 2.77,
+        "Dimensions/TrackWidthFront": 2.06,
+        "Engine/GearRatioDiff": 3.4
+      }
+    },
+    {
+      "id": 19,
+      "family": "Mattserati",
+      "values": {
+        "Dimensions/WheelBase": 2.5,
+        "Dimensions/TrackWidthFront": 1.65,
+        "Engine/GearRatioDiff": 3.72
+      }
+    },
+    {
+      "id": 20,
+      "family": "Bruno",
+      "values": {
+        "Dimensions/WheelBase": 3.1,
+        "Dimensions/TrackWidthFront": 1.7,
+        "Engine/GearRatioDiff": 3.82
+      }
+    },
+    {
+      "id": 21,
+      "family": "SeatBuggy",
+      "values": {
+        "Dimensions/WheelBase": 2.77,
+        "Dimensions/TrackWidthFront": 2.06,
+        "Engine/GearRatioDiff": 3.5
+      }
+    },
+    {
+      "id": 22,
+      "family": "Kamaz",
+      "values": {
+        "Dimensions/WheelBase": 4.1,
+        "Dimensions/TrackWidthFront": 2.4,
+        "Engine/GearRatioDiff": 3.5
+      }
+    },
+    {
+      "id": 23,
+      "family": "Icecream",
+      "values": {
+        "Dimensions/WheelBase": 2.68,
+        "Dimensions/TrackWidthFront": 1.8,
+        "Engine/GearRatioDiff": 3.9
+      }
+    },
+    {
+      "id": 24,
+      "family": "Ufo",
+      "values": {
+        "Dimensions/WheelBase": 2.77,
+        "Dimensions/TrackWidthFront": 1.7,
+        "Engine/GearRatioDiff": 4.8
+      }
+    }
+  ]
+}

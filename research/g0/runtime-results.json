@@ -1,0 +1,45 @@
+{
+  "schema": "course-sdk-g0-runtime-authoring-results-v1",
+  "phase": "Course SDK G0",
+  "status": "PASS — RUNTIME AUTHORING CONFIRMED",
+  "evidence_source": "USER_REPORTED_HUMAN_RUNTIME_TEST",
+  "runtime_build": null,
+  "runtime_executable_sha256": null,
+  "exported_xml_hashes_supplied": false,
+  "tests": [
+    {
+      "test": "StartArea authoring",
+      "path": "Blender -> RaceTest XML export -> runtime",
+      "status": "PASS",
+      "observation": "Expected start-grid transformation reproduced; matched earlier direct XML experiment.",
+      "evidence": "CONFIRMED_BY_RUNTIME_AUTHORING_TEST",
+      "unexpected_anomalies_reported": false
+    },
+    {
+      "test": "FinishArea authoring",
+      "path": "Blender -> RaceTest XML export -> runtime",
+      "status": "PASS",
+      "observation": "Completion region changed as expected and RACE COMPLETE behavior remained predictable; matched earlier direct XML experiment.",
+      "evidence": "CONFIRMED_BY_RUNTIME_AUTHORING_TEST",
+      "unexpected_anomalies_reported": false
+    },
+    {
+      "test": "SplitTime center authoring",
+      "path": "Blender -> RaceTest XML export -> runtime",
+      "status": "PASS",
+      "observation": "Main SplitTime0 gameplay trigger center moved as expected; matched earlier direct XML experiment.",
+      "evidence": "CONFIRMED_BY_RUNTIME_AUTHORING_TEST",
+      "unexpected_anomalies_reported": false
+    },
+    {
+      "test": "Combined StartArea and FinishArea authoring",
+      "path": "Blender -> RaceTest XML export -> runtime",
+      "status": "PASS",
+      "observation": "Runtime loaded normally with no unexpected behavior reported; not exhaustive combinatorial validation.",
+      "evidence": "CONFIRMED_BY_RUNTIME_AUTHORING_TEST",
+      "unexpected_anomalies_reported": false
+    }
+  ],
+  "unexpected_race_logic_behavior_reported": false,
+  "game_asset_or_runtime_artifact_committed": false
+}

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 try:
     from master_rallye.assets import AssetResolver
+    from master_rallye.material_semantics import MaterialSemantics
     from master_rallye.coords import (
         BLENDER_PREVIEW_UV_POLICY,
         GLTF_PREVIEW_UV_POLICY,
@@ -13,6 +14,7 @@ try:
         geometry_fingerprint,
         prepare_display_normals,
         position_to_blender,
+        blender_position_to_source,
         transform_blender_normals,
         transform_blender_positions,
         transform_blender_positions_to_source,
@@ -37,6 +39,7 @@ try:
         discover_course_resources,
         load_course_project,
     )
+    from master_rallye.course_race_authoring import load_course_race_logic_authoring
     from master_rallye.course_gxm import parse_course_gxm_model_v7
     from master_rallye.course_source import parse_course_txt
     from master_rallye.course_xml import parse_course_xml
@@ -59,6 +62,7 @@ try:
     )
 except ModuleNotFoundError:
     from .vendor.master_rallye.assets import AssetResolver
+    from .vendor.master_rallye.material_semantics import MaterialSemantics
     from .vendor.master_rallye.coords import (
         BLENDER_PREVIEW_UV_POLICY,
         GLTF_PREVIEW_UV_POLICY,
@@ -69,6 +73,7 @@ except ModuleNotFoundError:
         geometry_fingerprint,
         prepare_display_normals,
         position_to_blender,
+        blender_position_to_source,
         transform_blender_normals,
         transform_blender_positions,
         transform_blender_positions_to_source,
@@ -93,6 +98,7 @@ except ModuleNotFoundError:
         discover_course_resources,
         load_course_project,
     )
+    from .vendor.master_rallye.course_race_authoring import load_course_race_logic_authoring
     from .vendor.master_rallye.course_gxm import parse_course_gxm_model_v7
     from .vendor.master_rallye.course_source import parse_course_txt
     from .vendor.master_rallye.course_xml import parse_course_xml

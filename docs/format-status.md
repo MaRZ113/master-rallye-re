@@ -1,10 +1,128 @@
-# Format status (Phase R4D.1 vehicle-material hardening)
+# Format status
+
+## R-AI1 mixed-class opponents
+
+R-AI1: **CLOSED / CONFIRMED_BY_RUNTIME**, fixed existing-participant mixed-class proof,
+ID0/T1 human + ID14/T3 AI + two T1 AI, NumCars4. Captured IDs0/14/4/1 and human
+driving/collision/damage/progress/finish/results observations are recorded in
+[R-AI1 result](../research/r-ai1/runtime-result.md). A matched fixed-selection stock
+control was not separately supplied (non-blocking); clean-stock reproduction
+of the native Dump crash is confirmed in the final report.
+
+R-AI1.1: **CLOSED / CONFIRMED_BY_RUNTIME**, generalized existing-participant gameplay with
+[one full race](../research/r-ai1-1/runtime-validation.md), IDs0/15/17/7,
+classes0/2/2/1. Repeated fresh-race class/ID variation, all three player-independent
+AI slots and simultaneous T1/T2/T3 are runtime-confirmed. Five active captures
+include four fresh generations and one Restart reuse, not five fresh draws.
+Uniform RNG/exact probabilities are unproven. Stock Attract uses a
+broad absolute-ID pool and derives class; its chooser is partially reusable.
+Quick Race generalization selects class independently per AI and retains native
+class pools/driver/publication, four participants and normal player balance.
+The exact [hardened research candidate](../research/r-ai1-1/hardening.md) is
+**CONFIRMED_BY_RUNTIME** in the composed image: Loading media failure redirects
+to Starter1; native Dump guards nullable StringList/XmlData while retaining idle
+Attract and original MIXED chooser. Human post-results Dump survived, continuing
+through21 entries, and Restart loaded a normal race without Attract contamination.
+Idle Attract preservation is static; the particular NULL-XmlData trigger was
+not isolated. Replay lifecycle passed, exact patch causality remains unknown.
+Base-only EXE was not separately launched. No-EXE deployment requires a future external runtime mod;
+none is implemented. See [findings](../research/r-ai1-1/findings.md) and
+[handoff](../research/r-ai1-1/runtime-handoff.md). Pristine/old post-results native Dump is
+[UNSAFE](../research/r-ai1-1/observatory-limitations.md). No capacity/registry
+expansion or material/Blender changes are claimed.
+
+The Results Dump exports Frontend/RaceResults/Car0..7 with four actual result
+entries. This is **CAPACITY CLUE — NOT RUNTIME PARTICIPANT-CAPACITY PROOF**,
+now characterized statically in R-AI2. It proves neither engine/physics/HUD capacity8 nor eight valid
+result rows. [Final runtime closeout](../research/r-ai1-1/runtime-closeout.md).
+
+## R-AI2 five-car participant capacity
+
+**CLOSED / CONFIRMED_BY_RUNTIME � EXACT FIVE-CAR TARGET.** Ordinary offline
+Quick Race / Race, ID0/T1 human plus four T1 AI, Track10/ItalyS4, ghost off.
+Exact candidate SHA256 `806ebedcd6d174682fcc4619fb75eaabca2a1281eda4d4d784807b3583f5f2e2`.
+Captured IDs0/3/6/2/4; Car4 Chevyblazer independently materialized and completed
+AI/physics/collision/damage/progress/finish. Five-participant HUD, five logical
+and rendered Results rows, RaceData Competitor0..4, native hardened Dump,
+Replay and stable frontend return are confirmed. Automated checkers retain
+BROKER_STATE_MATCH_ONLY / BROKER_RESULTS_MATCH_ONLY and runtime_full_pass=false;
+human behavior supplies the runtime proof. See [closeout](../research/r-ai2/runtime-closeout.md)
+and [capacity matrix](../research/r-ai2/capacity-map.md).
+
+Two effective opponent getter calls in47B780 relax the stock setup policy;
+no physical participant storage expansion, participant-loop widening, table
+relocation, Broker/HUD/Results patch was required. Five cars flow through the
+existing audited pipeline. Static eight-slot scene/HUD/Results resources and
+offline Network mirrors do not prove eight active participants. Results image
+values22/20/15/1/9 are registry image IDs; slots5..7 contain blank image12.
+NULL-safe empty PointsList output does not distinguish NULL from allocated-empty.
+Stock heap-reclamation caveats remain; stable tested teardown is not proof of
+complete reclamation or long-run generic-N safety.
+
+Six/seven/eight/generic-N remain UNKNOWN. Public deployment still targets a
+removable fail-closed exact-build runtime mod leaving the original EXE unchanged.
+[Earlier design notes](../research/r-ai2/randomizer-follow-up.md) remain historical
+R-AI2 closeout notes. R-AI1.2 implementation is tracked separately below;
+higher-capacity work has not started.
+
+## R-AI1.2 mode coverage and roster persistence
+
+**CLOSED / CONFIRMED_BY_RUNTIME**. Quick Race1..4 AI, Stock/Mixed/Diverse,
+new-race generation and Restart identity reuse passed human validation. Config
+reload occurs at future roster-generation boundaries, not during an active race.
+Cup/Invitation stage persistence and Master native save -> full process exit ->
+fresh-process Resume -> next-stage reuse are confirmed; no sidecar required
+for tested V1 lifetimes. [Runtime evidence](../research/r-ai1-2/runtime-closeout.md).
+
+Challenge11 opt-in randomization/completion passed. Exact stock DriverID
+preservation is NOT IMPLEMENTED / NOT CONFIRMED. Authored Challenge preview
+can differ from actual opponent in the closed R-AI1.2 build; R-AI1.2a preview
+synchronization is now CLOSED / CONFIRMED_BY_RUNTIME.
+The audited research EXE bridge/DLL supports four active AI in the existing
+five-car setup; randomizer never writes participant count. Original-EXE-unchanged
+external loader remains NOT YET COMPLETE. Independent R-AI2.1 confirms6/7/8;9+/generic-N UNKNOWN.
+[Future items](../research/r-ai1-2/future-items.md) distinguish prepared preview
+work from deferred deployment/capacity/UI design notes.
+
+## R-AI1.2a Challenge preview sync
+
+**CLOSED / CONFIRMED_BY_RUNTIME**. Native details owner45EB30 publishes the same
+opponent ID into localized vehicle name and 3D model. The research DLL resolves
+one roster at selection, then Start consumes it. Static redraw/Retry routing is unchanged; Retry was not applicable in the tested completion flow.
+Config edits take effect at a later new-selection boundary. Driver remains native;
+no driver-name/class widget exists in this preview. Stock is pass-through.
+Exact-build module/EXE pinning and audited Observatory integrity remain enforced.
+No six+ capacity, general policy redesign, save sidecar or public loader work.
+[Findings](../research/r-ai1-2a/findings.md),
+[validation](../research/r-ai1-2a/validation.md),
+[human handoff](../research/r-ai1-2a/runtime-handoff.md).
+
+## R-MAT1 current vehicle material closeout
+
+Vehicle runtime model: **CLOSED WITH NON-BLOCKING UNKNOWNS**. Blender vehicle
+Preview V3: **APPROXIMATE WITH DOCUMENTED LIMITATIONS**. Loader/compiled/pass/
+SetTexture evidence proves fixed slot0->stage0 and slot1->stage1, including
+NULL bindings without promotion. Byte2 gates pass vertex diffuse and byte3
+source UV; all stock masks01/02/04 are mapped. Alpha draws use a separate
+queue with a composite per-pass key and descending shared bound depth.
+Observed sticker/glow layers use ordinary base/env and source-alpha families.
+
+Fresh protected retail audit classifies 1478/1478 draws across 78 DX. All 1092
+slot1 bindings use generic semantics; 1089 have effective env node previews,
+with three NULL-base cases explicitly suppressed under the cascade inference.
+Raw metadata and 78/78 Blender zero-edit exports remain identical. Unknown
+variant/control fields, inherited state, scene grouping and damage fade retain
+documented boundaries; no new human runtime result or writer capability was
+added. See [R-MAT1](../research/r-mat1/findings.md),
+[vehicle materials](vehicle-materials.md) and [Blender preview](blender-materials.md).
+Earlier milestone sections below are historical and are refined by this
+closeout where they describe unresolved material stages or Preview V2.
 
 R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology writer: +3 serialized vertices and +1 triangle are visible in-game, with normal collision, damage, glass and wheels. This confirmation is limited to the tested `car.dx` candidate; see `research/r4f/runtime-results.md`.
 
 | Family | Current interpretation | Confidence | Evidence / limit |
 |---|---|---|---|
-| `.dx` | Shared header/vertex/normal/color/UV/local-index prefix, followed by resource/build-specific draw and tail grammars. | **HIGH** vehicle grammar; **CONFIRMED_BY_CORPUS** retail course render grammar | All 78 vehicle DX files reconstruct stored global indices exactly. The revision-135 course reader validates render geometry in all 36 retail files and both Demo 9.10.0 targets; tag100 tails remain opaque. See `docs/formats/dx-common.md` and `docs/formats/dx-course.md`. |
+| `.dx` | Shared header/vertex/normal/color/UV/local-index prefix, followed by resource/build-specific draw and tail grammars. | **HIGH** vehicle grammar; **CONFIRMED_BY_CORPUS** retail course render grammar; **PARTIAL** tag100 wire grammar | All 78 vehicle DX files reconstruct stored global indices exactly. The revision-135 course reader validates render geometry in all 36 retail files; the standalone F.2 reader parses each tag100 tree, while later regions and most semantics remain unresolved. See `docs/formats/dx-common.md`, `docs/formats/dx-course.md`, and `research/r5t_f2/`. |
 | `.dxt` | Custom 20-byte wrapper around one uncompressed 32-bit BGRA pixel plane. It is not DDS or DXT1/3/5 block compression. | **CONFIRMED** structure / **HIGH** BGRA | All 6,960 files satisfy `20 + W*H*4`; synthetic channel tests and directional Astero body textures support the interpretation. |
 | `.dxb` | Compiled 2D/font/sprite-batch-like resource. | **LOW** | All 113 begin `0x0000F001, 125`; record layout is not mapped. |
 | `.hnt` | Plain-text dependency manifest, including course model/texture declarations. | **CONFIRMED** as a text/resource list; runtime necessity is unresolved | Retail course graph: 36 manifests, 2,842 exact resolutions, one unresolved reference, no ambiguous paths. |
@@ -12,8 +130,8 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 | `.fl` / `.sf` | Historical 20-byte-header fields with four payload bytes per cell in scanned Demo 8.4.1 candidates. | **CONFIRMED** structure / **UNKNOWN** semantic | Ten candidates satisfy `20 + W*H*4`; direct semantic equivalence to SFL is not established. |
 | `.txt` adjacent to `.dx` | Optional export/diagnostic sidecar carrying material, texture, hierarchy, and source mesh-span metadata. | **HIGH** | Vehicle DX parses without it; Evidence-scored resolution selects a TXT candidate for all 78 vehicle resources, including 12 non-exact filenames. |
 | `.xml` | Human-readable scene/config broker data and asset identifiers. | **CONFIRMED** | All 122 XML files parse successfully. |
-| Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, and split-time records. | **CONFIRMED_BY_CORPUS** structure; SplitTime0 center **CONFIRMED_BY_RUNTIME_EDIT / DEBUGGER** | All 41 retail RaceTest XML files parse. In France1, `SplitTime0` Egg Row3 drives both the visual sign and gameplay center; `gaRaceSplitTimeAI/Radius` is the 3D sphere radius. SplitTime1/2 have matching structure but were not independently moved in runtime tests. See `docs/course-importer.md` and `research/r5t_d1/`. |
-| Read-only Course SDK | Typed `CourseProject` composition over DX, XML, HNT, SFL, TXT, and version-7 GXM topology; per-record race-logic evidence; neutral tag100 wrapper. | **IMPLEMENTED; READ_ONLY** | `source_geometry` and `source_meshes` expose literal names, hierarchy, validated triangle slices, position indices, and bounds. Gameplay roles remain **UNKNOWN** unless independently established. Tag100 and SFL semantics remain **UNKNOWN**. See `docs/course-sdk.md`. |
+| Course RaceTest `.xml` | Ordered MarkerLists and Egg/AI component hierarchy; typed projections for StartArea, FinishArea, matrices, split-time records, and exact visual companion Eggs. | **CONFIRMED_BY_CORPUS** structure; StartArea/FinishArea/SplitTime0 authoring path **CONFIRMED_BY_RUNTIME_AUTHORING_TEST** | Main SplitTime Egg Row3 drives the sign and gameplay center; Radius is the 3D sphere radius. G0 Blender exports passed the reported runtime tests. G0.1 visual companion edits remain static/Blender-validated, not newly runtime-tested. See `docs/course-importer.md`, `research/r5t_d1/`, and `research/g0/runtime-results.md`. |
+| Course SDK | Typed `CourseProject` composition, read-only compiled/source geometry, and bounded RaceTest XML authoring. | **G0 PASS — RUNTIME AUTHORING CONFIRMED; G0.1 PASS — BLENDER/CORPUS VALIDATED** | Exports StartArea/FinishArea marker positions, main SplitTime Row3 XYZ/Radius/ID, and exact split visual-companion Row3 XYZ. Companion authoring has not been separately human-runtime-tested. No geometry/physical writer exists. The standalone tag100 parser remains structural, with broader physical semantics **PARTIAL/UNKNOWN**. See `docs/course-sdk.md`, `docs/course-race-logic-authoring.md`, and `research/g0/`. |
 | Course `.gxm` | Demo 8.4.1 / 9.10.0 paired version-7 source models, fixed attribute/triangle/position banks, and TXT-cross-validated node table. | Triangle grammar and `moMesh` spans **CONFIRMED_BY_EXECUTABLE / BINARY_STRUCTURE**; color-like / texcoord-like semantics conservative. | France1, Italy1, Boinds, and Demo 9.10 AI Track pass all five independent reference-domain checks and complete mesh-span coverage. France1 `startpoint` resolves to a closed 12-triangle box. Gameplay meaning of node names remains **UNKNOWN**. See `docs/formats/gxm-course.md` and `research/r5t_e/`. |
 
 ## Course status (R5T-C evidence closeout)
@@ -102,9 +220,12 @@ R4F human runtime testing confirmed the Astero `car.dx` existing-draw topology w
 - The small complete developer Boinds pair has no `$bsp` node and uses revision
   125, unsupported by the current course parser. Other local small `$bsp`
   sources lack matching TXT/DX, so no isolated `$bsp` edit is prepared.
-- The tag100 payload remains structurally opaque. Physical collision, helper
-  ownership, and gameplay semantics remain unknown. Course parsing/diagnostics
-  are read-only; no course writer exists.
+- The tag100-starting suffix has a loader-guided read-only structural parser
+  from R5T-F.2. The tested source collider's plane records are inside the
+  parsed tree, but runtime swaps included later tag1339/tag1400 data. `$bsp ->
+  tag100`, broader physical semantics, and helper ownership remain unresolved.
+  Compiled course parsing and diagnostics remain read-only; G0 later adds a
+  bounded RaceTest XML writer without changing this geometry boundary.
 
 ## Course SDK foundation (R5T-SDK1)
 
@@ -119,8 +240,36 @@ evidence from record-specific evidence.
 HNT entries, structural SFL statistics, source TXT/GXM probes, and neutral
 tag100 offsets/hash/status are available from partial `CourseProject` objects.
 The existing Blender add-on consumes the semantic model and draws split sphere
-helpers and separate visual companions. No course writer or exporter was
-introduced. See `docs/course-sdk.md` and `docs/course-importer.md`.
+helpers and separate visual companions. G0 adds a bounded RaceTest XML
+exporter; it does not write compiled or source geometry. See `docs/course-sdk.md`
+and `docs/course-importer.md`.
+
+## Course SDK G0 / G0.1 — RaceTest authoring
+
+**G0 PASS — RUNTIME AUTHORING CONFIRMED.** Human tests through Blender export
+passed for StartArea, FinishArea, and the SplitTime0 main Egg center. Combined
+StartArea + FinishArea editing loaded normally with no unexpected behavior
+reported. These observations are in `research/g0/runtime-results.md`; runtime
+binary/output hashes were not supplied with the report.
+
+**G0.1 PASS — BLENDER/CORPUS VALIDATED.** It adds bounded visual-companion Row3 XYZ authoring and UX safeguards.
+The source-span writer returns original bytes on no-op, preserves bytes outside
+allowlisted attributes, applies a parsed-tree semantic diff guard, and writes
+to a new XML path with a provenance manifest. The 36 principal Retail XML files
+remain byte-identical at no-op. 36/36 StartAreas, 34/36 FinishAreas, all 110
+main SplitTimes, and all 440 visual-companion Egg Row3 positions pass the
+structural gate. Each split has four visual companions in this corpus. ItalyS4
+and TurkeyS1 have five-marker FinishAreas and are safely refused.
+
+Blender 5.2.2 smoke executes Course and Race Logic panel draw callbacks with
+icon validation against Blender RNA, then tests no-op export, area point
+transforms, checkpoint-group and individual companion translation, Radius
+warnings, and semantic manifest roles. Visual-companion XML authoring has not
+been separately human-runtime-tested. No geometry/physical writer, custom
+layout, or EXE patch is included. See
+[`docs/course-race-logic-authoring.md`](course-race-logic-authoring.md),
+[`research/g0/findings.md`](../research/g0/findings.md), and
+[`research/g0/runtime-results.md`](../research/g0/runtime-results.md).
 
 ## R5T-E.1 GXM source topology closeout
 
@@ -138,7 +287,7 @@ gameplay inference from node names was added. See `docs/formats/gxm-course.md`, 
 `research/r5t_e/findings.md`, `research/r5t_e/course-gxm-v7.json`, and
 `research/r5t_e/startpoint-proof.json`.
 
-## R5T-F.0 named source geometry (source physical effect confirmed; tag100 carrier pending)
+## R5T-F.0 named source geometry (historical checkpoint; tag100 carrier later confirmed in F.1)
 
 The four Demo 8.4.1 France1 `COLLIDE_finishline*` meshes decode to 24
 triangles and 14 unique positions each. The `01`/unnumbered pair is strongly
@@ -154,21 +303,47 @@ common prefix, plus a 3,404-byte baseline-only tail. Full DX render prefixes
 vary within both cohorts. A human runtime test confirmed that the source edit
 moved physical collision about +20 runtime X while visible support geometry
 stayed at its old location; the unchanged RaceTest FinishArea still completed
-the race. R5T-F.1 is isolating the compiled carrier with reciprocal region
-swaps. Whether `tag100` carries the tested physical state remains **UNKNOWN**
-until those hybrids are tested. See
+the race. At the F.0 checkpoint the compiled carrier was still under test; the
+later reciprocal F.1 result is recorded below. See
 [`research/r5t_f0/findings.md`](../research/r5t_f0/findings.md).
 
-## R5T-F.1 reciprocal tag100 swap (static ready; runtime test pending)
+## R5T-F.1 reciprocal tag100-starting suffix swap (PASS)
 
 Baseline-03 and modified-03 France1 DX files were split at their parser-derived
-tag100 offsets and reciprocally combined. Both hybrids parse as validated
-revision-135 courses, retain byte-exact prefix/tag100 donor provenance, and
+tag100 offsets and reciprocally combined through end-of-file. Both hybrids
+parse as validated revision-135 courses, retain byte-exact prefix/suffix donor provenance, and
 were installed into runtime clones whose only difference is `france1.dx`.
-Static status is **READY_FOR_RUNTIME_SWAP_TEST**. Runtime observations are
-required before assigning physical sufficiency to tag100. See
+The human runtime result was reciprocal: Hybrid A (baseline prefix, modified
+tag100) lost the old support collision and gained collision at the translated
+location; Hybrid B (modified prefix, baseline suffix) retained the old
+collision and had no translated collision. Visible finish geometry and
+FinishArea completion stayed at their original locations in both. This is
+**CONFIRMED_BY_SOURCE_RUNTIME_EDIT**, **CONFIRMED_BY_COOKER_DIFFERENTIAL**,
+**CONFIRMED_BY_RECIPROCAL_REGION_SWAP**, and **CONFIRMED_BY_RUNTIME_TEST** for
+the tested `COLLIDE_finishline03` state only. The runtime test did not isolate
+the tag100 tree from following tag1339/tag1400 records. Do not generalize this
+to all tag100 data, all `COLLIDE_*` objects, or a complete tag100 grammar. See
 [`research/r5t_f1/findings.md`](../research/r5t_f1/findings.md) and the
 [runtime handoff](../research/r5t_f1/runtime-handoff.md).
+
+## R5T-F.2 tag100 physical grammar archaeology (PASS, bounded)
+
+Retail executable SHA256
+`bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4` dispatches
+tag 100 to a recursive reader at `0x0057E2D0` / `0x0057E550`. The read-only
+parser validates its 24-byte header, variable-length child/sibling records,
+20-byte float4/code records, and optional 20-byte list items. In the France1
+baseline/modified source pair, 12 unique planes from the 24-triangle
+`COLLIDE_finishline03` mesh match records in the tree; under the `+20 X` source
+translation, matched plane `d` values follow `d' = d - 20*n.x` within
+`4.15e-05` maximum residual. Repeated records prevent one-to-one triangle
+mapping. This geometry binding is **HIGH_CONFIDENCE_INFERENCE**; the F.1
+runtime result remains suffix-level because a later tag1400 region also differs
+in 64 byte positions. `$bsp -> tag100`, complete tree semantics, and tag1400
+meaning remain **UNKNOWN**. The parser is read-only and has no writer API. See
+[`research/r5t_f2/tag100-physical-grammar.md`](../research/r5t_f2/tag100-physical-grammar.md),
+[`research/r5t_f2/tag100-layout.json`](../research/r5t_f2/tag100-layout.json),
+and [`research/r5t_f2/collide-finishline03-binding.json`](../research/r5t_f2/collide-finishline03-binding.json).
 
 ## R1 vehicle-corpus evidence
 
@@ -331,7 +506,7 @@ opaque collision prefix; it did not perform broad executable analysis.
 - Scale, rotation, individual hull editing, topology changes, BSP/tag-100 and
   cylinder/tag-102 writing remain unsupported.
 
-## R4D material-semantics status
+## R4D material-semantics status (historical; refined by R4D.1 and R-MAT1)
 
 - **CONFIRMED_BY_CORPUS:** 1,478/1,478 physical vehicle draws inventoried; 18 neutral structural signatures. Current evidence-scored sidecar resolver yields 1,365 unique, 99 multiple, and 14 unmatched draw matches. These counts reflect the current resolver.
 - **CONFIRMED_BY_EXECUTABLE:** original PE imports Direct3D 8; registered shader families include base, alpha, alphatest, environment, noise, water, and particle.
@@ -388,3 +563,18 @@ Two baseline and two modified Demo 9.10 cooks verified a rigid +3 source-X trans
 ## R5V-C ID25 experimental runtime status
 
 The allocated retail ID25 now has an automated, hash-locked duplicate-Astero EXE-copy candidate. Static patch validation passes; **RUNTIME VALIDATION: WAITING FOR HUMAN P0**. There is no confirmed 26th playable vehicle yet, and P1 race testing must wait for a human P0 menu/preview pass. See research/r5v_c/validation.md.
+
+## R5T-F.2.1 tree/tag1400 causal isolation — PASS
+
+**PASS — TREE_CARRIER_CONFIRMED.** The T-only modified hybrid produced the NEW tested collision; the U-only modified hybrid retained OLD. The visible support and FinishArea completion remained unchanged. Tag1400 is neither sufficient nor required for this tested translation; its broader runtime role remains unknown. F.1 remains the full-suffix result, F.2 the bounded parser/plane-correlation result, and F.2.1 the tree-only runtime proof. See `research/r5t_f21/runtime-results.md` and `research/r5t_f21/findings.md`. No course writer or EXE patch was added.
+
+## Exact modded-build Observatory / registry profiles
+
+R-OBS2 defines an internal `retail-broker-v1` family. Exact PE/layout and all required anchor fingerprints are mandatory; a passing unknown SHA receives a local SHA-bound profile only after audit. Registry recognition remains an independent fingerprint decision, and public v0.1.0-beta remains pristine-only. The expected mercv2/F.2f binary passed direct family and registry audit; human Observatory captures remain pending. See [R-OBS2 findings](../research/r-obs2/findings.md).
+
+Independent feature closeouts: Challenge preview/race identity is runtime-confirmed
+(Retry not applicable after tested completion); normal Quick Race6/7/8 lifecycle
+is runtime-confirmed,9+UNKNOWN; One..Seven UI and visibleFour->five total passed.
+Standalone UI Five/Six/Seven races await later composition proof. Eight-car course
+start safety remains separate R-GRID8 work. No merge or integration candidate.
+See [commit index](../research/r-observatory-modded-builds/feature-closeouts.json).

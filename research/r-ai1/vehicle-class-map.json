@@ -1,0 +1,290 @@
+{
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "record_stride": 52,
+  "class_populations": [
+    7,
+    7,
+    11
+  ],
+  "conversion_functions": [
+    "0x481E20",
+    "0x481E50"
+  ],
+  "records": [
+    {
+      "id": 0,
+      "class": 0,
+      "class_name": "T1",
+      "local_index": 0,
+      "family": "Landcruiser",
+      "display_name": "TOMMEK DIRTBEAST",
+      "folder": "DataGx/Vehicles/LandCruiser",
+      "constructor_call_va": "0x00458ED8",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 1,
+      "class": 0,
+      "class_name": "T1",
+      "local_index": 1,
+      "family": "Pajero",
+      "display_name": "DRAGHOV IMAGINO",
+      "folder": "DataGx/Vehicles/Pajero",
+      "constructor_call_va": "0x00458F3F",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 2,
+      "class": 0,
+      "class_name": "T1",
+      "local_index": 2,
+      "family": "Tata",
+      "display_name": "TATA SAFARI",
+      "folder": "DataGx/Vehicles/Tata",
+      "constructor_call_va": "0x00458FA6",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 3,
+      "class": 0,
+      "class_name": "T1",
+      "local_index": 3,
+      "family": "Terrano",
+      "display_name": "NISSAN TERRANO II",
+      "folder": "DataGx/Vehicles/Terrano",
+      "constructor_call_va": "0x00459010",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 4,
+      "class": 0,
+      "class_name": "T1",
+      "local_index": 4,
+      "family": "Chevyblazer",
+      "display_name": "CHEVROLET BLAZER",
+      "folder": "DataGx/Vehicles/ChevyBlazer",
+      "constructor_call_va": "0x0045907A",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 5,
+      "class": 0,
+      "class_name": "T1",
+      "local_index": 5,
+      "family": "Xtrail",
+      "display_name": "NISSAN X-TRAIL",
+      "folder": "DataGx/Vehicles/Xtrail",
+      "constructor_call_va": "0x004590E4",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 6,
+      "class": 0,
+      "class_name": "T1",
+      "local_index": 6,
+      "family": "Frontera",
+      "display_name": "VAUXHALL FRONTERA SPORT",
+      "folder": "DataGx/Vehicles/Frontera",
+      "constructor_call_va": "0x0045914E",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 7,
+      "class": 1,
+      "class_name": "T2",
+      "local_index": 0,
+      "family": "Navara",
+      "display_name": "NISSAN NAVARA",
+      "folder": "DataGx/Vehicles/Navara",
+      "constructor_call_va": "0x004591B8",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 8,
+      "class": 1,
+      "class_name": "T2",
+      "local_index": 1,
+      "family": "Forester",
+      "display_name": "SUBPELKA WOOLDAND",
+      "folder": "DataGx/Vehicles/Forester",
+      "constructor_call_va": "0x00459222",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 9,
+      "class": 1,
+      "class_name": "T2",
+      "local_index": 2,
+      "family": "Jump",
+      "display_name": "DRAGON JUMP JEEP",
+      "folder": "DataGx/Vehicles/Jump",
+      "constructor_call_va": "0x0045928C",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 10,
+      "class": 1,
+      "class_name": "T2",
+      "local_index": 3,
+      "family": "Rmonster",
+      "display_name": "RUSSIAN MONSTER",
+      "folder": "DataGx/Vehicles/RMonster",
+      "constructor_call_va": "0x004592F6",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 11,
+      "class": 1,
+      "class_name": "T2",
+      "local_index": 4,
+      "family": "Patrol",
+      "display_name": "NISSAN PATROL",
+      "folder": "DataGx/Vehicles/Patrol",
+      "constructor_call_va": "0x00459360",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 12,
+      "class": 1,
+      "class_name": "T2",
+      "local_index": 5,
+      "family": "Newrav",
+      "display_name": "REECE PICKUP",
+      "folder": "DataGx/Vehicles/NewRav",
+      "constructor_call_va": "0x004593CA",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 13,
+      "class": 1,
+      "class_name": "T2",
+      "local_index": 6,
+      "family": "Kiasportage",
+      "display_name": "KIA SPORTAGE",
+      "folder": "DataGx/Vehicles/KiaSportage",
+      "constructor_call_va": "0x00459434",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 14,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 0,
+      "family": "Wildcat",
+      "display_name": "BOWLER WILDCAT",
+      "folder": "DataGx/Vehicles/WildCat",
+      "constructor_call_va": "0x0045949E",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 15,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 1,
+      "family": "Simmbugghini",
+      "display_name": "SIMMONITE SIMMBUGGHINI",
+      "folder": "DataGx/Vehicles/Simmbugghini",
+      "constructor_call_va": "0x00459508",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 16,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 2,
+      "family": "Astero",
+      "display_name": "DRAGON ASTERO",
+      "folder": "DataGx/Vehicles/Astero",
+      "constructor_call_va": "0x00459572",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 17,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 3,
+      "family": "Kangoo",
+      "display_name": "SCHLESSER KANGOO",
+      "folder": "DataGx/Vehicles/Kangoo",
+      "constructor_call_va": "0x004595DC",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 18,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 4,
+      "family": "Megane",
+      "display_name": "SCHLESSER MEGANE 2001",
+      "folder": "DataGx/Vehicles/megane",
+      "constructor_call_va": "0x00459646",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 19,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 5,
+      "family": "Mattserati",
+      "display_name": "LEE MATTSERATI",
+      "folder": "DataGx/Vehicles/Mattserati",
+      "constructor_call_va": "0x004596B0",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 20,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 6,
+      "family": "Bruno",
+      "display_name": "FORD ASM PRO-TRUCK",
+      "folder": "DataGx/Vehicles/Bruno",
+      "constructor_call_va": "0x0045971A",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 21,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 7,
+      "family": "SeatBuggy",
+      "display_name": "SCHLESSER BUGGY 1997",
+      "folder": "DataGx/Vehicles/SeatBuggy",
+      "constructor_call_va": "0x00459784",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 22,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 8,
+      "family": "Kamaz",
+      "display_name": "KAMAZ TRUCK",
+      "folder": "DataGx/Vehicles/Kamaz",
+      "constructor_call_va": "0x004597EE",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 23,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 9,
+      "family": "Icecream",
+      "display_name": "PRIVATEER ICE CREAM VAN",
+      "folder": "DataGx/Vehicles/IceCream",
+      "constructor_call_va": "0x00459858",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    },
+    {
+      "id": 24,
+      "class": 2,
+      "class_name": "T3",
+      "local_index": 10,
+      "family": "Ufo",
+      "display_name": "STEEL MONKEYS UFO",
+      "folder": "DataGx/Vehicles/Ufo",
+      "constructor_call_va": "0x004598C2",
+      "evidence": "CONFIRMED_BY_EXE + CONFIRMED_BY_CORPUS"
+    }
+  ]
+}

@@ -1,4 +1,18 @@
-# R5T-F.1 reciprocal tag100 swap — runtime handoff
+# R5T-F.1 reciprocal tag100 swap — completed runtime handoff
+
+**Historical F.1 test handoff:** F.1 was completed; the F.2.1 T-only/U-only runtime test is also complete. Any pre-test launch or decision instructions retained below are superseded by the final outcomes in `../r5t_f21/runtime-results.md`.
+
+**Status: COMPLETED.** The user ran both hybrids. The visible finish geometry
+stayed at its original location in both. Hybrid A (baseline prefix + modified
+tag100) had no collision at the old support and collision at the new translated
+position. Hybrid B (modified prefix + baseline tag100) had the old collision
+and no collision at the new position. `RACE COMPLETE` remained at the original
+unchanged FinishArea in both runs. The tested physical state therefore followed
+the selected suffix donor beginning at the tag100 marker. F.2 later established
+that the swapped suffix also contains a tag1339 record and a tag1400 region;
+the runtime test did not isolate the parsed tag100 tree from that later region.
+The original instructions below are retained as the handoff record; they are
+no longer pending actions.
 
 ## Test setup
 
@@ -37,7 +51,7 @@ Record the same six observations at the same locations and FinishArea.
 
 ## Interpretation after recording both runs
 
-- If A has collision at NEW and B at OLD, the tested physical state follows the selected tag100 donor for these compatible rev135 prefixes.
+- If A has collision at NEW and B at OLD, the tested physical state follows the selected tag100-starting suffix donor for these compatible rev135 prefixes. F.2 later showed that the suffix extends through tag1339 and tag1400; this test did not isolate the parsed tree alone.
 - If A has collision at OLD and B at NEW, the tested state follows the prefix donor instead.
 - If either build fails or the result is neither donor state, report the exact behavior without assigning sufficiency; region coupling may remain.
 - If A and B show the same state, stop and verify which executable/course was loaded, that the two runtime folders were distinct, and that no stale files replaced the hybrid DX.
@@ -53,3 +67,7 @@ python tools\r5t_f1_tag100_swap.py verify
 ```
 
 If it fails because a runtime rewrote either DX, preserve the changed file and report its hash; do not silently rebuild or restore the hybrid before review.
+
+## F.2.1 final result
+
+The ‘1,824,828-byte tag1400 region’ wording in this historical handoff referred to U+R together. The parser-bounded split is U=1,809,324-byte tag1400 and R=15,504-byte tag1500, with all 64 changed byte positions in U and R identical. The completed T-only/U-only runtime hybrids show the tested collision follows the tag100 tree. See [`../r5t_f21/runtime-results.md`](../r5t_f21/runtime-results.md).

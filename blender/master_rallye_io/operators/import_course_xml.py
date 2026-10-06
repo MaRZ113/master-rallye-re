@@ -1,4 +1,4 @@
-"""Read-only RaceTest XML race-logic helpers for imported course scenes."""
+"""RaceTest XML race-logic helpers with bounded, allowlist-only authoring."""
 from __future__ import annotations
 
 import hashlib
@@ -6,12 +6,26 @@ import json
 from pathlib import Path
 
 import bpy
-from bpy.props import StringProperty
+from bpy.props import BoolProperty, StringProperty
 from bpy_extras.io_utils import ImportHelper
-from mathutils import Matrix
+from mathutils import Matrix, Vector
 
 from ..blender_mesh import create_collection
-from ..library import load_course_project, position_to_blender
+from ..course_diagnostics import create_direction_ray, create_marker_billboard
+from ..library import load_course_project, load_course_race_logic_authoring, position_to_blender
+
+
+G1_ROUTE_LISTS = {"RaceLine"}
+G1_LIMIT_LISTS = {"LeftInnerLimit", "LeftOuterLimit", "RightInnerLimit", "RightOuterLimit"}
+G1_CAMERA_LISTS = {"Cameras"}
+G1_MARKER_COLORS = {
+    "RaceLine": (0.95, 0.78, 0.08, 1.0),
+    "LeftInnerLimit": (0.18, 0.75, 0.40, 1.0),
+    "LeftOuterLimit": (0.10, 0.45, 0.27, 1.0),
+    "RightInnerLimit": (0.22, 0.60, 0.95, 1.0),
+    "RightOuterLimit": (0.12, 0.34, 0.72, 1.0),
+    "Cameras": (0.85, 0.25, 0.92, 1.0),
+}
 
 
 def _walk_collections(collection):
@@ -86,7 +100,7 @@ def _set_marker_metadata(obj, source, course_name, marker):
 
 def _create_marker_point(
     collection, source, course_name, marker, area_kind=None,
-    semantic_rule_evidence=(), record_evidence=(),
+    semantic_rule_evidence=(), record_evidence=(), area_supported=False, source_sha256="",
 ):
     label = marker.marker_type or "unknown"
     list_name = marker.marker_list_name or "Unlisted"
@@ -100,6 +114,16 @@ def _create_marker_point(
     obj.location = position_to_blender(marker.position)
     _set_marker_metadata(obj, source, course_name, marker)
     _set_evidence_metadata(obj, semantic_rule_evidence, record_evidence)
+    if area_kind in {"StartArea", "FinishArea"}:
+        obj["mr_race_logic_editable"] = bool(area_supported)
+        obj["mr_race_logic_object_type"] = "area_marker"
+        obj["mr_race_logic_area"] = area_kind
+        obj["mr_source_xml_sha256"] = source_sha256
+        obj["mr_initial_blender_position_json"] = json.dumps([float(value) for value in obj.location])
+        obj["mr_initial_blender_rotation_json"] = json.dumps([float(value) for value in obj.rotation_euler])
+        obj["mr_initial_blender_scale_json"] = json.dumps([float(value) for value in obj.scale])
+        obj["mr_semantics_status"] = "CONFIRMED_BY_RUNTIME_EDIT" if area_supported else "read-only: ambiguous or incomplete source area"
+        obj["mr_read_only"] = not area_supported
     return obj
 
 
@@ -141,6 +165,79 @@ def _create_area_outline(
     return obj
 
 
+def _create_marker_list_polyline(collection, source, course_name, marker_list):
+    """Display literal source marker order without sorting or closing the line."""
+    markers = [item for item in marker_list.markers if item.position is not None]
+    if len(markers) < 2:
+        return None
+    curve = bpy.data.curves.new(f"{marker_list.name} source-order polyline", type="CURVE")
+    curve.dimensions = "3D"
+    curve.resolution_u = 1
+    curve.bevel_depth = 0.055 if marker_list.name == "RaceLine" else 0.035
+    curve.bevel_resolution = 1
+    spline = curve.splines.new("POLY")
+    spline.points.add(len(markers) - 1)
+    for point, marker in zip(spline.points, markers):
+        point.co = (*position_to_blender(marker.position), 1.0)
+    obj = bpy.data.objects.new(f"{marker_list.name} source-order polyline", curve)
+    collection.objects.link(obj)
+    obj.show_in_front = True
+    obj.color = G1_MARKER_COLORS.get(marker_list.name, (0.75, 0.75, 0.75, 1.0))
+    obj["mr_resource_kind"] = "course"
+    obj["mr_read_only"] = True
+    obj["mr_editor_only"] = True
+    obj["mr_course_helper_kind"] = "RaceTest MarkerList source-order diagnostic polyline"
+    obj["mr_course_identity"] = course_name
+    obj["mr_xml_source"] = source
+    obj["mr_xml_path"] = marker_list.xml_path
+    obj["mr_marker_list_name"] = marker_list.name or ""
+    obj["mr_source_list_ordinal"] = marker_list.ordinal
+    obj["mr_source_order_preserved"] = True
+    obj["mr_marker_count"] = len(markers)
+    obj["mr_marker_ordinals"] = [marker.index_in_list for marker in markers]
+    obj["mr_semantics_status"] = "READ_ONLY_DIAGNOSTIC; runtime role not inferred from list name"
+    return obj
+
+
+def _apply_marker_direction_preview(helper, marker):
+    if marker.direction is None:
+        return None
+    direction = Vector(position_to_blender(marker.direction))
+    if direction.length_squared < 1.0e-12:
+        return None
+    direction.normalize()
+    helper.rotation_mode = "QUATERNION"
+    helper.rotation_quaternion = direction.to_track_quat("Z", "Y")
+    helper.lock_rotation = (True, True, True)
+    helper["mr_direction_preview_source"] = "Marker Dir transformed by shared source-to-Blender axes"
+    helper["mr_direction_preview_blender_xyz"] = list(direction)
+    helper["mr_rotation_is_read_only_preview"] = True
+    return direction
+
+
+def _create_marker_direction_ray(collection, course_name, source, marker, helper):
+    color = G1_MARKER_COLORS.get(marker.marker_list_name, (0.8, 0.8, 0.8, 1.0))
+    ray = create_direction_ray(
+        collection,
+        f"{marker.marker_list_name}_Marker_{marker.index_in_list:04d}_Direction",
+        helper,
+        local_direction=(0.0, 0.0, 1.0),
+        length=5.0,
+        color=color,
+        thickness=0.025,
+    )
+    ray["mr_course_identity"] = course_name
+    ray["mr_xml_source"] = source
+    ray["mr_xml_path"] = marker.record.xml_path
+    ray["mr_marker_list_name"] = marker.marker_list_name or ""
+    ray["mr_marker_list_ordinal"] = marker.marker_list_ordinal if marker.marker_list_ordinal is not None else -1
+    ray["mr_marker_index_in_list"] = marker.index_in_list
+    ray["mr_source_direction_xyz"] = list(marker.direction)
+    ray["mr_direction_basis"] = "parent marker's own Marker Dir; visual direction only"
+    ray["mr_semantics_status"] = "READ_ONLY_DIAGNOSTIC; no gameplay direction semantics asserted"
+    return ray
+
+
 def _matrix_rotation(matrix):
     """Convert the serialized row-basis orientation through the shared axes."""
     rows = [matrix.row(index) for index in range(3)]
@@ -174,6 +271,21 @@ def _split_sign_material():
             strength = principled.inputs.get("Emission Strength")
             if strength is not None:
                 strength.default_value = 0.25
+    return material
+
+
+def _split_sign_text_material():
+    name = "MR Race Logic Helper - Split Sign Text"
+    material = bpy.data.materials.get(name)
+    if material is None:
+        material = bpy.data.materials.new(name)
+        material.diffuse_color = (0.035, 0.025, 0.01, 1.0)
+        material.use_nodes = True
+        principled = material.node_tree.nodes.get("Principled BSDF") if material.node_tree else None
+        if principled is not None:
+            color = principled.inputs.get("Base Color")
+            if color is not None:
+                color.default_value = (0.035, 0.025, 0.01, 1.0)
     return material
 
 
@@ -212,35 +324,25 @@ def _source_egg_metadata(egg):
     }
 
 
-def _create_split_visual(collection, source, course_name, split):
+def _create_split_center(collection, source, course_name, split, split_status, source_sha256):
     egg = split.source_egg
     matrix = egg.matrix("en3d Matrix")
     if matrix is None or split.center is None:
         return None
     label = str(split.split_id) if split.split_id is not None else (egg.name or str(egg.index_in_list))
-
-    # A small, original arrow-board icon. This is a procedural visualization,
-    # not a copied game model or texture.
-    vertices = [
-        (-1.10, 0.0, -0.28), (0.18, 0.0, -0.28), (0.18, 0.0, -0.62),
-        (0.95, 0.0, 0.0), (0.18, 0.0, 0.62), (0.18, 0.0, 0.28),
-        (-1.10, 0.0, 0.28), (-0.07, 0.0, -0.28), (0.07, 0.0, -0.28),
-        (0.07, 0.0, -1.25), (-0.07, 0.0, -1.25),
-    ]
-    mesh = bpy.data.meshes.new(f"MR split visual icon {label}")
-    mesh.from_pydata(vertices, [], [(0, 1, 2, 3, 4, 5, 6), (7, 8, 9, 10)])
-    mesh.materials.append(_split_sign_material())
-    obj = bpy.data.objects.new(f"MR_SplitTime{label}_Visual", mesh)
+    obj = bpy.data.objects.new(f"MR_SplitTime{label}_Center", None)
     collection.objects.link(obj)
+    obj.empty_display_type = "SPHERE"
+    obj.empty_display_size = 0.24
     obj.location = position_to_blender(split.center)
     rotation = _matrix_rotation(matrix)
     if rotation is not None:
         obj.rotation_euler = rotation
     obj.show_in_front = True
-    obj.color = (1.0, 0.72, 0.05, 1.0)
+    obj.color = (1.0, 0.26, 0.04, 1.0)
     obj["mr_resource_kind"] = "course"
-    obj["mr_read_only"] = True
-    obj["mr_course_helper_kind"] = "RaceTest split-time visual sign icon"
+    obj["mr_read_only"] = not split_status.supported
+    obj["mr_course_helper_kind"] = "split_center"
     obj["mr_course_identity"] = course_name
     obj["mr_xml_source"] = source
     obj["mr_xml_path"] = egg.xml_path
@@ -250,6 +352,8 @@ def _create_split_visual(collection, source, course_name, split):
     obj["mr_split_time_id_raw"] = split.split_id_raw or ""
     if split.split_id is not None:
         obj["mr_split_time_id"] = split.split_id
+        obj["mr_source_split_time_id"] = split.split_id
+        obj.id_properties_ui("mr_split_time_id").update(min=-(2 ** 31), max=2 ** 31 - 1)
     obj["mr_split_visual_position_xyz"] = list(split.center)
     obj["mr_split_visual_matrix_json"] = json.dumps(
         {"attributes": dict(matrix.attributes), "rows": [list(row) if row is not None else None for row in matrix.rows]},
@@ -259,6 +363,7 @@ def _create_split_visual(collection, source, course_name, split):
     obj["mr_split_extra_time_raw"] = split.extra_time_raw or ""
     if split.radius is not None:
         obj["mr_split_radius"] = split.radius
+        obj["mr_source_split_radius"] = split.radius
     if split.extra_time is not None:
         obj["mr_split_extra_time"] = split.extra_time
     obj["mr_source_egg_metadata_json"] = json.dumps(
@@ -272,11 +377,111 @@ def _create_split_visual(collection, source, course_name, split):
     _set_evidence_metadata(obj, split.center_rule_evidence, split.record_evidence)
     obj["mr_extra_time_semantics"] = split.extra_time_semantics
     obj["mr_source_component_xml_path"] = split.source_component.xml_path
-    obj["mr_icon_status"] = "procedural helper icon; not a game asset or exact render reproduction"
+    obj["mr_icon_status"] = "trigger center and Radius sphere; visual companion signs are shown at their own Egg positions"
+    obj["mr_race_logic_editable"] = bool(split_status.supported)
+    obj["mr_race_logic_object_type"] = "split_center"
+    obj["mr_split_source_identity"] = split_status.identity
+    obj["mr_source_xml_sha256"] = source_sha256
+    obj["mr_initial_blender_position_json"] = json.dumps([float(value) for value in obj.location])
+    obj["mr_initial_blender_rotation_json"] = json.dumps([float(value) for value in obj.rotation_euler])
+    obj["mr_initial_blender_scale_json"] = json.dumps([float(value) for value in obj.scale])
+    obj["mr_semantics_status"] = "CONFIRMED_BY_EXECUTABLE; runtime edit confirmed for France1 SplitTime0" if split_status.supported else "read-only: ambiguous or incomplete split source"
+    obj.lock_rotation = (True, True, True)
+    obj.lock_scale = (True, True, True)
     return obj
 
 
-def _create_split_trigger(collection, source, course_name, split):
+def _create_companion_diagnostics(collection, source, course_name, split, companion, source_sha256, helper):
+    egg = companion.source_egg
+    matrix = egg.matrix("en3d Matrix")
+    if matrix is None:
+        return None
+    label = egg.name or f"{split.egg_name or 'SplitTime'} companion {egg.index_in_list}"
+    panel, text_obj = create_marker_billboard(
+        collection,
+        f"MR_{label}_Billboard",
+        helper,
+        label,
+        panel_material=_split_sign_material(),
+        text_material=_split_sign_text_material(),
+        # These axes are local to this companion's imported matrix, not the
+        # main SplitTime trigger matrix.
+        local_right=(1.0, 0.0, 0.0),
+        local_up=(0.0, 1.0, 0.0),
+        local_offset=(0.0, 0.15, 0.0),
+    )
+    ray = create_direction_ray(
+        collection,
+        f"MR_{label}_DirectionRay",
+        helper,
+        local_direction=(0.0, 0.0, 1.0),
+        length=4.0,
+        color=(0.05, 0.82, 1.0, 1.0),
+    )
+    for obj in (panel, text_obj, ray):
+        obj["mr_course_identity"] = course_name
+        obj["mr_xml_source"] = source
+        obj["mr_xml_path"] = egg.xml_path
+        obj["mr_source_xml_sha256"] = source_sha256
+        obj["mr_split_source_identity"] = helper.get("mr_split_source_identity", "")
+        obj["mr_split_source"] = split.egg_name or ""
+        obj["mr_source_egg"] = egg.name or ""
+        obj["mr_source_xml_identity"] = helper.get("mr_source_xml_identity", "")
+        obj["mr_visual_companion_source_identity"] = helper.get("mr_visual_companion_source_identity", "")
+        obj["mr_race_logic_editable"] = False
+        obj["mr_editor_only"] = True
+        obj["mr_read_only"] = True
+        obj["mr_orientation_source"] = "this companion en3d Matrix Rows 0..2 mapped to helper basis; visualization only"
+        obj["mr_semantics_status"] = "VIEWPORT_ONLY; no runtime-forward semantics asserted"
+    panel["mr_billboard_style"] = "procedural companion diagnostic fallback; no game texture/model"
+    text_obj["mr_billboard_label"] = label
+    ray["mr_direction_basis"] = "this companion en3d Matrix local +Z (Row2)"
+    return panel, text_obj, ray
+
+
+def _create_split_checkpoint_group(collection, source, course_name, split, split_status):
+    if split.center is None:
+        return None
+    label = split.egg_name or str(split.split_id if split.split_id is not None else "Unknown")
+    obj = bpy.data.objects.new(f"{label}_Group", None)
+    collection.objects.link(obj)
+    obj.empty_display_type = "PLAIN_AXES"
+    obj.empty_display_size = 2.0
+    obj.show_in_front = True
+    obj.location = position_to_blender(split.center)
+    obj.color = (0.18, 0.72, 0.95, 1.0)
+    obj["mr_resource_kind"] = "course"
+    obj["mr_read_only"] = not split_status.supported
+    obj["mr_course_helper_kind"] = "split_checkpoint_group"
+    obj["mr_course_identity"] = course_name
+    obj["mr_xml_source"] = source
+    obj["mr_xml_path"] = split.egg_xml_path
+    obj["mr_race_logic_object_type"] = "split_checkpoint_group"
+    obj["mr_race_logic_editable"] = bool(split_status.supported)
+    obj["mr_split_source_identity"] = split_status.identity
+    obj["mr_split_source"] = split.egg_name or ""
+    obj["mr_group_transform_rule"] = "translation only; child final world positions are exported"
+    obj["mr_semantics_status"] = "CONFIRMED_BY_RUNTIME_EDIT: SplitTime center and visual companions remain separate editable points"
+    obj.lock_rotation = (True, True, True)
+    obj.lock_scale = (True, True, True)
+    return obj
+
+
+def _parent_preserving_world_transform(obj, parent):
+    """Parent an imported helper while keeping its current world matrix exact."""
+    bpy.context.view_layer.update()
+    world = obj.matrix_world.copy()
+    obj.parent = parent
+    obj.matrix_parent_inverse = parent.matrix_world.inverted()
+    obj.matrix_world = world
+    bpy.context.view_layer.update()
+    if "mr_initial_blender_position_json" in obj:
+        obj["mr_initial_blender_position_json"] = json.dumps(
+            [float(value) for value in obj.matrix_world.translation]
+        )
+
+
+def _create_split_trigger(collection, source, course_name, split, center_object):
     if not split.trigger_complete:
         return None
     radius = float(split.radius)
@@ -284,7 +489,7 @@ def _create_split_trigger(collection, source, course_name, split):
     curve = bpy.data.curves.new(f"MR split trigger sphere {label}", type="CURVE")
     curve.dimensions = "3D"
     curve.resolution_u = 1
-    curve.bevel_depth = max(radius * 0.0025, 0.025)
+    curve.bevel_depth = 0.025 / radius
     curve.bevel_resolution = 1
     steps = 40
     for axis in range(3):
@@ -292,8 +497,8 @@ def _create_split_trigger(collection, source, course_name, split):
         spline.points.add(steps - 1)
         for index, point in enumerate(spline.points):
             angle = 2.0 * 3.141592653589793 * index / steps
-            cosine = radius * __import__("math").cos(angle)
-            sine = radius * __import__("math").sin(angle)
+            cosine = __import__("math").cos(angle)
+            sine = __import__("math").sin(angle)
             if axis == 0:
                 co = (cosine, sine, 0.0, 1.0)
             elif axis == 1:
@@ -304,11 +509,18 @@ def _create_split_trigger(collection, source, course_name, split):
         spline.use_cyclic_u = True
     obj = bpy.data.objects.new(f"MR_SplitTime{label}_TriggerSphere", curve)
     collection.objects.link(obj)
-    obj.location = position_to_blender(split.center)
+    obj.parent = center_object
+    obj.location = (0.0, 0.0, 0.0)
+    obj.rotation_euler = (0.0, 0.0, 0.0)
+    obj.scale = (radius, radius, radius)
+    obj.lock_location = (True, True, True)
+    obj.lock_rotation = (True, True, True)
+    obj.lock_scale = (True, True, True)
     obj.show_in_front = True
     obj.color = (0.95, 0.22, 0.08, 1.0)
     obj["mr_resource_kind"] = "course"
     obj["mr_read_only"] = True
+    obj["mr_editor_only"] = True
     obj["mr_course_helper_kind"] = "split_trigger"
     obj["mr_course_identity"] = course_name
     obj["mr_split_time_id_raw"] = split.split_id_raw or ""
@@ -328,10 +540,22 @@ def _create_split_trigger(collection, source, course_name, split):
     obj["mr_radius_rule_evidence"] = "; ".join(split.radius_rule_evidence)
     _set_evidence_metadata(obj, split.center_rule_evidence, split.record_evidence)
     obj["mr_coordinate_space_note"] = "center converted with canonical course source-to-Blender transform; radius unchanged"
+    obj["mr_radius_visual_driver"] = "unit wire sphere scaled by its parent SplitTime Radius custom property"
+    for axis in range(3):
+        driver = obj.driver_add("scale", axis).driver
+        driver.type = "SCRIPTED"
+        driver.expression = "radius"
+        variable = driver.variables.new()
+        variable.name = "radius"
+        variable.type = "SINGLE_PROP"
+        variable.targets[0].id = center_object
+        variable.targets[0].data_path = '["mr_split_radius"]'
     return obj
 
 
-def _create_visual_companion(collection, source, course_name, companion):
+def _create_visual_companion(
+    collection, source, course_name, split, companion, companion_status, source_sha256,
+):
     egg = companion.source_egg
     if companion.position is None:
         return None
@@ -341,31 +565,71 @@ def _create_visual_companion(collection, source, course_name, companion):
     obj.empty_display_size = 0.8
     obj.show_in_front = True
     obj.location = position_to_blender(companion.position)
+    matrix = egg.matrix("en3d Matrix")
+    rotation = _matrix_rotation(matrix) if matrix is not None else None
+    if rotation is not None:
+        obj.rotation_euler = rotation
     obj["mr_resource_kind"] = "course"
-    obj["mr_read_only"] = True
+    obj["mr_read_only"] = not bool(companion_status and companion_status.supported)
     obj["mr_course_helper_kind"] = "split_visual_companion"
     obj["mr_course_identity"] = course_name
+    obj["mr_xml_source"] = source
     obj["mr_source_xml_path"] = egg.xml_path
+    obj["mr_xml_path"] = egg.xml_path
     obj["mr_egg_list_name"] = egg.list_name or ""
     obj["mr_egg_index_in_list"] = egg.index_in_list
     obj["mr_egg_name"] = egg.name or ""
     obj["mr_model_name"] = egg.model_name or ""
     obj["mr_source_position_xyz"] = list(companion.position)
-    _set_evidence_metadata(obj, companion.semantic_rule_evidence, companion.record_evidence)
+    obj["mr_source_xml_sha256"] = source_sha256
+    obj["mr_race_logic_object_type"] = "split_visual_companion"
+    obj["mr_race_logic_editable"] = bool(companion_status and companion_status.supported)
+    obj["mr_split_source_identity"] = companion_status.split_identity if companion_status else ""
+    source_identity = companion_status.source_identity if companion_status else ""
+    obj["mr_visual_companion_source_identity"] = source_identity
+    obj["mr_role"] = "split_visual_companion"
+    obj["mr_split_source"] = split.egg_name or ""
+    obj["mr_source_egg"] = egg.name or ""
+    obj["mr_source_xml_identity"] = f"{course_name}:{source_identity}"
+    obj["mr_initial_blender_position_json"] = json.dumps([float(value) for value in obj.location])
+    obj["mr_initial_blender_rotation_json"] = json.dumps([float(value) for value in obj.rotation_euler])
+    obj["mr_initial_blender_scale_json"] = json.dumps([float(value) for value in obj.scale])
+    obj["mr_source_matrix_json"] = json.dumps(
+        {"attributes": dict(matrix.attributes), "rows": [list(row) if row is not None else None for row in matrix.rows]},
+        separators=(",", ":"),
+    ) if matrix is not None else ""
+    obj["mr_orientation_preview_source"] = "own en3d Matrix Rows 0..2; read-only viewport basis"
+    obj["mr_orientation_export_policy"] = "rotation is preserved from source and not authored"
+    _set_evidence_metadata(
+        obj,
+        tuple(companion.semantic_rule_evidence) + ("CONFIRMED_BY_RUNTIME_EDIT",),
+        companion.record_evidence,
+    )
     obj["mr_is_trigger_center_source"] = False
     obj["mr_semantic_role"] = "visual checkpoint object; no trigger-center meaning assigned"
     obj["mr_source_egg_metadata_json"] = json.dumps(_source_egg_metadata(egg), ensure_ascii=False, separators=(",", ":"))
+    obj.lock_rotation = (True, True, True)
+    obj.lock_scale = (True, True, True)
     return obj
 
 
 class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, ImportHelper):
     bl_idname = "import_scene.master_rallye_course_xml_markers"
-    bl_label = "Import RaceTest XML Race Logic"
-    bl_description = "Add hierarchy-aware, read-only RaceTest marker and split visual helpers"
+    bl_label = "Load Course Race Logic"
+    bl_description = "Load RaceTest helpers and enable only runtime-confirmed StartArea, FinishArea, and SplitTime edits"
     bl_options = {"REGISTER", "UNDO"}
 
     filename_ext = ".xml"
     filter_glob: StringProperty(default="*.xml", options={"HIDDEN"})
+    show_marker_direction_rays: BoolProperty(
+        name="Show Marker Dir Rays",
+        description="Add read-only arrows for RaceLine, Cameras, and limit Marker Dir fields",
+        default=False,
+    )
+
+    def draw(self, context):
+        self.layout.prop(self, "show_marker_direction_rays")
+        self.layout.label(text="RaceLine, Limits, and Cameras stay read-only")
 
     def execute(self, context):
         source = Path(self.filepath).resolve()
@@ -375,6 +639,8 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             if race_logic is None:
                 raise ValueError("Course SDK could not parse the selected RaceTest XML")
             document = race_logic.source_document
+            authoring = load_course_race_logic_authoring(source)
+            area_status = {item.name: item for item in authoring.area_status}
             positioned = [marker for marker in document.markers if marker.position is not None]
             if not positioned and not race_logic.split_times:
                 raise ValueError("XML contains no positioned Marker records or split-time visual eggs")
@@ -402,7 +668,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 root["mr_resource_kind"] = "course"
                 root["mr_course_identity"] = source.stem
                 root["mr_read_only"] = True
-                root["mr_import_note"] = "Created for read-only RaceTest XML diagnostics; course render DX not imported"
+                root["mr_import_note"] = "Created for RaceTest race-logic authoring; course render DX not imported"
             elif root.get("mr_resource_kind") != "course":
                 raise ValueError(f"collection {root_name!r} exists but is not marked as a course")
 
@@ -420,6 +686,7 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             logic["mr_xml_collection_kind"] = "race_logic_root"
             logic["mr_xml_source"] = source_path
             logic["mr_xml_sha256"] = hashlib.sha256(payload).hexdigest()
+            logic["mr_authoring_schema"] = "master-rallye-race-logic-edit-v1"
             logic["mr_course_identity"] = source.stem
             logic["mr_read_only"] = True
             logic["mr_marker_count"] = len(document.markers)
@@ -427,20 +694,48 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             logic["mr_split_trigger_count"] = sum(item.trigger_complete for item in race_logic.split_times)
             logic["mr_hierarchy_preserved"] = True
             logic["mr_semantics_source"] = "master_rallye.course_sdk CourseRaceLogic"
-            logic["mr_read_only_semantics"] = True
+            logic["mr_read_only_semantics"] = False
+            logic["mr_race_logic_authoring"] = True
 
             marker_lists_collection = _get_child_collection(logic, "MarkerLists - Other", "marker_lists_root")
+            route_research = None
+            limits_research = None
             semantic_areas = {
                 "StartArea": race_logic.start_area,
                 "FinishArea": race_logic.finish_area,
             }
             for marker_list in document.marker_lists:
                 semantic_area = semantic_areas.get(marker_list.name or "")
+                route_family = False
+                direction_collection = None
                 if semantic_area is not None:
                     group = create_collection(marker_list.name or f"MarkerList {marker_list.ordinal}", logic)
                     kind = marker_list.name
+                    marker_collection = group
                 else:
-                    group = create_collection(marker_list.name or f"MarkerList {marker_list.ordinal}", marker_lists_collection)
+                    list_name = marker_list.name or f"MarkerList {marker_list.ordinal}"
+                    if list_name in G1_ROUTE_LISTS | G1_LIMIT_LISTS | G1_CAMERA_LISTS:
+                        if route_research is None:
+                            route_research = _get_child_collection(logic, "Route Research", "route_research_root")
+                            route_research["mr_read_only"] = True
+                            route_research["mr_semantics_status"] = "STATIC/EXECUTABLE RESEARCH VIEW; no authoring enabled"
+                        if list_name in G1_LIMIT_LISTS:
+                            if limits_research is None:
+                                limits_research = _get_child_collection(route_research, "Limits", "route_limits_root")
+                                limits_research["mr_read_only"] = True
+                            parent = limits_research
+                        else:
+                            parent = route_research
+                        group = create_collection(list_name, parent)
+                        marker_collection = _get_child_collection(group, "Markers", "route_marker_points")
+                        marker_collection["mr_read_only"] = True
+                        direction_collection = _get_child_collection(group, "Marker Dir Rays", "route_marker_directions")
+                        direction_collection["mr_read_only"] = True
+                        direction_collection["mr_editor_only"] = True
+                        route_family = True
+                    else:
+                        group = create_collection(list_name, marker_lists_collection)
+                        marker_collection = group
                     kind = None
                 group["mr_xml_collection_kind"] = f"marker_list:{marker_list.ordinal}"
                 group["mr_source_list_name"] = marker_list.name or ""
@@ -453,30 +748,41 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                     group["mr_centroid_xyz"] = list(semantic_area.centroid) if semantic_area.centroid else []
                     group["mr_local_xz_bounds"] = list(semantic_area.local_xz_bounds) if semantic_area.local_xz_bounds else []
                     group["mr_source_order_preserved"] = True
+                    status = area_status[kind]
+                    group["mr_authoring_supported"] = status.supported
+                    group["mr_authoring_issues_json"] = json.dumps(list(status.issues), ensure_ascii=False)
+                    group["mr_authoring_evidence"] = "CONFIRMED_BY_RUNTIME_EDIT"
                 else:
                     group["mr_semantics_status"] = "UNKNOWN; ordered RaceTest markers preserved"
+                if route_family:
+                    group["mr_read_only"] = True
+                    group["mr_editor_only"] = True
+                    group["mr_semantics_status"] = "READ_ONLY_DIAGNOSTIC; executable/corpus evidence recorded separately"
+                    group["mr_source_order_preserved"] = True
+                    group["mr_visualization_note"] = "Literal source-order curve; no nearest-neighbor reorder; marker semantics remain evidence-bounded"
                 for marker in marker_list.markers:
                     if marker.position is None:
                         continue
-                    _create_marker_point(
-                        group,
+                    helper = _create_marker_point(
+                        marker_collection,
                         source_path,
                         source.stem,
                         marker,
                         kind,
                         semantic_area.semantic_rule_evidence if semantic_area is not None else (),
                         semantic_area.record_evidence if semantic_area is not None else (),
+                        area_status[kind].supported if semantic_area is not None else False,
+                        authoring.source_sha256,
                     )
-                if kind == "StartArea":
-                    _create_area_outline(
-                        group, source_path, source.stem, marker_list, semantic_area.semantic_role,
-                        semantic_area.semantic_rule_evidence, semantic_area.record_evidence,
-                    )
-                elif kind == "FinishArea":
-                    _create_area_outline(
-                        group, source_path, source.stem, marker_list, semantic_area.semantic_role,
-                        semantic_area.semantic_rule_evidence, semantic_area.record_evidence,
-                    )
+                    if route_family:
+                        helper["mr_marker_preview_read_only"] = True
+                        helper["mr_editor_only"] = True
+                        helper["mr_source_list_semantics_status"] = "UNKNOWN; source name and Marker Dir retained only"
+                        _apply_marker_direction_preview(helper, marker)
+                        if self.show_marker_direction_rays and marker.direction is not None:
+                            _create_marker_direction_ray(direction_collection, source.stem, source_path, marker, helper)
+                if route_family and marker_list.name in G1_ROUTE_LISTS | G1_LIMIT_LISTS:
+                    _create_marker_list_polyline(group, source_path, source.stem, marker_list)
 
             eggs_root = create_collection("EggLists_Version4", logic)
             eggs_root["mr_xml_collection_kind"] = "egg_lists_root"
@@ -484,8 +790,15 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
             split_visuals["mr_xml_collection_kind"] = "egg_list:SplitTimes"
             split_visuals["mr_xml_path"] = "/Scene/EggLists_Version4/List[@Name='SplitTimes']"
 
-            for split in race_logic.split_times:
+            if len(race_logic.split_times) != len(authoring.split_status):
+                raise ValueError("Course SDK and Race Logic authoring split inventories disagree")
+            companion_status = {
+                item.source_identity: item for item in authoring.visual_companion_status
+            }
+            for split, split_edit_status in zip(race_logic.split_times, authoring.split_status):
                 egg = split.source_egg
+                if split_edit_status.source_xml_path != split.egg_xml_path or split_edit_status.egg_name != split.egg_name:
+                    raise ValueError(f"Course SDK and authoring source order disagree at {split.egg_xml_path}")
                 split_label = str(split.split_id) if split.split_id is not None else (egg.name or str(egg.index_in_list))
                 split_collection = create_collection(egg.name or f"SplitTime{split_label}", split_visuals)
                 split_collection["mr_xml_collection_kind"] = f"split_egg:{split_label}"
@@ -501,19 +814,53 @@ class IMPORT_SCENE_OT_master_rallye_course_xml_markers(bpy.types.Operator, Impor
                 split_collection["mr_extra_time_semantics"] = split.extra_time_semantics
                 split_collection["mr_sdk_issues_json"] = json.dumps(list(split.issues), ensure_ascii=False)
 
-                _create_split_visual(split_collection, source_path, source.stem, split)
-                _create_split_trigger(split_collection, source_path, source.stem, split)
+                group = _create_split_checkpoint_group(
+                    split_collection, source_path, source.stem, split, split_edit_status
+                )
+                center = _create_split_center(split_collection, source_path, source.stem, split, split_edit_status, authoring.source_sha256)
+                if center is not None:
+                    if group is not None:
+                        _parent_preserving_world_transform(center, group)
+                    _create_split_trigger(split_collection, source_path, source.stem, split, center)
 
                 companions_collection = create_collection("Visual Checkpoint Objects", split_collection)
                 companions_collection["mr_xml_collection_kind"] = "split_visual_companions"
                 companions_collection["mr_semantic_role"] = "visual checkpoint objects; not trigger-center sources"
                 _set_evidence_metadata(companions_collection, split.companions_rule_evidence)
+                diagnostics = create_collection("Companion Diagnostic Previews", split_collection)
+                diagnostics["mr_xml_collection_kind"] = "split_companion_diagnostics"
+                diagnostics["mr_editor_only"] = True
+                diagnostics["mr_semantic_role"] = "viewport-only companion billboards and each companion's imported orientation basis"
                 for companion in split.companions:
-                    _create_visual_companion(companions_collection, source_path, source.stem, companion)
+                    egg_identity = (
+                        f"list[{companion.source_egg.list_ordinal}]"
+                        f"/egg[{companion.source_egg.index_in_list}]"
+                        f"/{companion.source_egg.name or '<unnamed>'}"
+                    )
+                    created = _create_visual_companion(
+                        companions_collection,
+                        source_path,
+                        source.stem,
+                        split,
+                        companion,
+                        companion_status.get(egg_identity),
+                        authoring.source_sha256,
+                    )
+                    if created is not None and group is not None:
+                        _parent_preserving_world_transform(created, group)
+                        _create_companion_diagnostics(
+                            diagnostics,
+                            source_path,
+                            source.stem,
+                            split,
+                            companion,
+                            authoring.source_sha256,
+                            created,
+                        )
 
             self.report(
                 {"INFO"},
-                f"Imported {len(positioned)} hierarchy-grouped markers, {len(race_logic.split_times)} split records, and {logic['mr_split_trigger_count']} trigger spheres (read-only)",
+                f"Loaded {len(positioned)} markers, {len(race_logic.split_times)} split records; new route marker lists are read-only",
             )
             return {"FINISHED"}
         except Exception as error:

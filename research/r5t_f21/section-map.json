@@ -1,0 +1,324 @@
+{
+  "schema": "r5t-f21-section-map-v1",
+  "boundary_note": "F.1 swapped tag100 marker through EOF. This report splits that suffix into T (tag100 tree), S (44-byte tag1339), U (parsed tag1400), and R (separate tag1500 region).",
+  "baselines": {
+    "baseline": {
+      "path": "research-output\\r5t_f0\\cooker-lab\\baseline\\snapshots\\baseline-03\\DataGx\\Course\\France1\\france1.dx",
+      "sha256": "b7820fe13c5ef7eb53593bcee4e54943cf97780244b47f6fe7cb549d5c5ee7f2",
+      "size_bytes": 14795948,
+      "revision": 135,
+      "sections": {
+        "P": {
+          "start_offset": 0,
+          "end_offset_exclusive": 4677700,
+          "size_bytes": 4677700,
+          "sha256": "4c9aef8897b9f368d34fcb88c6b3f628f5c308475ae38de697afbef657472316"
+        },
+        "T": {
+          "start_offset": 4677700,
+          "end_offset_exclusive": 12971076,
+          "size_bytes": 8293376,
+          "sha256": "61137e87426d4b31ebafe1724d79d4e074b4eb813b1a9d746bb9bf14fae10ec9"
+        },
+        "S": {
+          "start_offset": 12971076,
+          "end_offset_exclusive": 12971120,
+          "size_bytes": 44,
+          "sha256": "6d1b2294af455aa0f8dbfa5501cf8750fade73caee96a4a1d14eb74bbb374c84"
+        },
+        "U": {
+          "start_offset": 12971120,
+          "end_offset_exclusive": 14780444,
+          "size_bytes": 1809324,
+          "sha256": "c0fbfeea9cc247f6f5024ce41a2f8b29befeabe899dd650dbf944d9d3e9b6e63"
+        },
+        "R": {
+          "start_offset": 14780444,
+          "end_offset_exclusive": 14795948,
+          "size_bytes": 15504,
+          "sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680"
+        }
+      },
+      "tag1339_values_neutral": [
+        1339,
+        -1973.004638671875,
+        259.85321044921875,
+        456.5860595703125,
+        1760.1221923828125,
+        -3705.40234375,
+        -45.389556884765625,
+        -644.5362548828125,
+        -240.6068115234375,
+        565.095947265625,
+        1557.7083740234375
+      ]
+    },
+    "modified": {
+      "path": "research-output\\r5t_f0\\cooker-lab\\modified\\snapshots\\modified-03\\DataGx\\Course\\France1\\france1.dx",
+      "sha256": "01289e705750fa257037b65f55f7b469db795b4c649f74b45777da0a8d08bac2",
+      "size_bytes": 14803389,
+      "revision": 135,
+      "sections": {
+        "P": {
+          "start_offset": 0,
+          "end_offset_exclusive": 4688545,
+          "size_bytes": 4688545,
+          "sha256": "133ba62271dded14b2075546028290be3eca595f6b3ede492730be53bbd10b36"
+        },
+        "T": {
+          "start_offset": 4688545,
+          "end_offset_exclusive": 12978517,
+          "size_bytes": 8289972,
+          "sha256": "eec48f80aa462c30c103b4d0d4fcd7f561d272b9ba1e15064f2d32dc2d520d70"
+        },
+        "S": {
+          "start_offset": 12978517,
+          "end_offset_exclusive": 12978561,
+          "size_bytes": 44,
+          "sha256": "6d1b2294af455aa0f8dbfa5501cf8750fade73caee96a4a1d14eb74bbb374c84"
+        },
+        "U": {
+          "start_offset": 12978561,
+          "end_offset_exclusive": 14787885,
+          "size_bytes": 1809324,
+          "sha256": "a01be211ab6a14a04930d4fdcda431b45cb5b780bcdb59fc9808fdae3af334ba"
+        },
+        "R": {
+          "start_offset": 14787885,
+          "end_offset_exclusive": 14803389,
+          "size_bytes": 15504,
+          "sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680"
+        }
+      },
+      "tag1339_values_neutral": [
+        1339,
+        -1973.004638671875,
+        259.85321044921875,
+        456.5860595703125,
+        1760.1221923828125,
+        -3705.40234375,
+        -45.389556884765625,
+        -644.5362548828125,
+        -240.6068115234375,
+        565.095947265625,
+        1557.7083740234375
+      ]
+    }
+  },
+  "tag100_tree": {
+    "baseline": {
+      "header_words": [
+        75556,
+        104735,
+        180290,
+        180290,
+        0
+      ],
+      "node_count": 360581,
+      "plane_bearing_count": 180290,
+      "terminal_like_count": 180291,
+      "list_item_count": 0,
+      "list_block_count": 0,
+      "tree_size_bytes": 8293376,
+      "expected_wire_size_bytes": 8293376,
+      "wire_size_formula_matches": true,
+      "count_invariants": {
+        "word0_plus_word1_eq_word2_plus_one": true,
+        "word2_eq_word3": true,
+        "node_count_eq_word0_plus_word1_plus_word2": true,
+        "plane_bearing_count_eq_word2": true,
+        "terminal_count_eq_plane_count_plus_one": true,
+        "node_count_eq_twice_plane_count_plus_one": true,
+        "wire_size_formula_matches_consumed_size": true
+      },
+      "allocation_role_counts": {
+        "root": 1,
+        "pool8_child": 75556,
+        "pool8_sibling": 104735,
+        "pool36": 180289
+      },
+      "max_depth": 30
+    },
+    "modified": {
+      "header_words": [
+        75515,
+        104702,
+        180216,
+        180216,
+        0
+      ],
+      "node_count": 360433,
+      "plane_bearing_count": 180216,
+      "terminal_like_count": 180217,
+      "list_item_count": 0,
+      "list_block_count": 0,
+      "tree_size_bytes": 8289972,
+      "expected_wire_size_bytes": 8289972,
+      "wire_size_formula_matches": true,
+      "count_invariants": {
+        "word0_plus_word1_eq_word2_plus_one": true,
+        "word2_eq_word3": true,
+        "node_count_eq_word0_plus_word1_plus_word2": true,
+        "plane_bearing_count_eq_word2": true,
+        "terminal_count_eq_plane_count_plus_one": true,
+        "node_count_eq_twice_plane_count_plus_one": true,
+        "wire_size_formula_matches_consumed_size": true
+      },
+      "allocation_role_counts": {
+        "root": 1,
+        "pool8_child": 75515,
+        "pool8_sibling": 104702,
+        "pool36": 180215
+      },
+      "max_depth": 30
+    }
+  },
+  "tag1400": {
+    "baseline": {
+      "source": "france1.dx",
+      "tag_offset": 0,
+      "byte_size": 1824828,
+      "consumed_size": 1809324,
+      "trailing_size": 15504,
+      "scalar": 20.0,
+      "dimension_0": 167,
+      "dimension_1": 105,
+      "cell_count": 17535,
+      "cell_entry_count": 97072,
+      "max_cell_entry_count": 95,
+      "string_count": 7,
+      "string_byte_count": 380,
+      "record_count": 24115,
+      "record_stride": 56
+    },
+    "modified": {
+      "source": "france1.dx",
+      "tag_offset": 0,
+      "byte_size": 1824828,
+      "consumed_size": 1809324,
+      "trailing_size": 15504,
+      "scalar": 20.0,
+      "dimension_0": 167,
+      "dimension_1": 105,
+      "cell_count": 17535,
+      "cell_entry_count": 97072,
+      "max_cell_entry_count": 95,
+      "string_count": 7,
+      "string_byte_count": 380,
+      "record_count": 24115,
+      "record_stride": 56
+    }
+  },
+  "tag1339_byte_identical": true,
+  "tag1500_byte_identical": true,
+  "runtime_result": {
+    "schema": "r5t-f21-runtime-results-v1",
+    "evidence_source": "human-reported runtime observations",
+    "runtime": "Demo 9.10.0",
+    "course": "France1",
+    "source_mesh": {
+      "name": "COLLIDE_finishline03",
+      "index": 47083,
+      "triangle_count": 24,
+      "unique_position_count": 14,
+      "unique_coplanar_plane_group_count": 12,
+      "controlled_edit": "translate all unique source positions by +20.0 on GXM X"
+    },
+    "runtime_positions": {
+      "old": [
+        -1471.7653,
+        68.4258,
+        352.5542
+      ],
+      "new": [
+        -1451.7653,
+        68.4258,
+        352.5542
+      ],
+      "expected_delta": [
+        20.0,
+        0.0,
+        0.0
+      ]
+    },
+    "hybrids": {
+      "T": {
+        "description": "baseline prefix, modified tag100 tree, baseline tag1339, baseline tag1400, fixed later region",
+        "tree_donor": "modified",
+        "tag1339_donor": "baseline",
+        "tag1400_donor": "baseline",
+        "later_region_donor": "baseline",
+        "old_collision": "absent",
+        "new_collision": "present",
+        "finish_support_render_position": "original",
+        "finish_area_race_complete": "normal at original unchanged region",
+        "finish_line_visual_anomaly": "none observed",
+        "texture_anomaly": "none observed",
+        "runtime_stability": "normal in tested scenario"
+      },
+      "U": {
+        "description": "baseline prefix, baseline tag100 tree, baseline tag1339, modified tag1400, fixed later region",
+        "tree_donor": "baseline",
+        "tag1339_donor": "baseline",
+        "tag1400_donor": "modified",
+        "later_region_donor": "baseline",
+        "old_collision": "present",
+        "new_collision": "absent",
+        "finish_support_render_position": "original",
+        "finish_area_race_complete": "normal at original unchanged region",
+        "finish_line_visual_anomaly": "none observed",
+        "texture_anomaly": "none observed",
+        "runtime_stability": "normal in tested scenario"
+      }
+    },
+    "conclusion": {
+      "status": "PASS — TREE_CARRIER_CONFIRMED",
+      "tested_physical_state_carrier": "tag100 tree",
+      "tag100_tree_sufficient_for_tested_translation": true,
+      "modified_tag1400_sufficient_for_tested_translation": false,
+      "modified_tag1400_required_for_tested_translation": false,
+      "bounded_scope": "Only the tested COLLIDE_finishline03 physical collision translation in this controlled baseline/modified pairing",
+      "tag100_full_semantics": "UNKNOWN",
+      "tag100_bsp_semantics": "UNKNOWN",
+      "tag1400_broader_runtime_role": "UNKNOWN",
+      "source_bsp_to_tag100_relation": "UNKNOWN",
+      "other_collision_source_classes": "UNKNOWN"
+    },
+    "evidence": [
+      "CONFIRMED_BY_SOURCE_RUNTIME_EDIT",
+      "CONFIRMED_BY_COOKER_DIFFERENTIAL",
+      "CONFIRMED_BY_FULL_SUFFIX_REGION_SWAP",
+      "CONFIRMED_BY_TREE_ONLY_REGION_SWAP",
+      "CONFIRMED_BY_RUNTIME_TEST"
+    ],
+    "post_test_snapshot_note": {
+      "staging_time_non_target_files": 2862,
+      "staging_time_non_target_files_byte_identical": true,
+      "post_test_non_target_differences": [
+        {
+          "relative_path": "DataGame/playerstate.xml#",
+          "hybrid_t": {
+            "size_bytes": 30907,
+            "sha256": "350f93b4787874396f7bb67c51f9c1b9bdd0088eea5a15595d91c5157914a9e5"
+          },
+          "hybrid_u": {
+            "size_bytes": 30906,
+            "sha256": "5fd9eb80bcb15b376c1be5870ffd76c7ea41442abab06bfb8f5bec990a660851"
+          }
+        },
+        {
+          "relative_path": "resources.hnt",
+          "hybrid_t": {
+            "size_bytes": 30819,
+            "sha256": "988b774e22d879b9ac785cddb4026fb7aab92079e67b8ae19ef16a8f719deccf"
+          },
+          "hybrid_u": {
+            "size_bytes": 31176,
+            "sha256": "d4fbb2588ad8a430817c4d645251932d36a67a3f4e9478d5f01f9efa096aea00"
+          }
+        }
+      ],
+      "origin": "UNKNOWN; recorded from post-test folder snapshots and not attributed to the runtime or course data"
+    }
+  }
+}

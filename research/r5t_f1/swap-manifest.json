@@ -1,7 +1,7 @@
 {
   "schema": "r5t-f1-tag100-reciprocal-swap-v1",
   "phase": "R5T-F.1",
-  "status": "READY_FOR_RUNTIME_SWAP_TEST",
+  "status": "RUNTIME_CONFIRMED_PASS",
   "research_only": true,
   "course_writing": "NOT_IMPLEMENTED",
   "source_probe": {
@@ -204,8 +204,57 @@
       "non_dx_files_byte_identical_to_shared_template": true
     }
   },
+  "runtime_result": {
+    "evidence": [
+      "CONFIRMED_BY_SOURCE_RUNTIME_EDIT",
+      "CONFIRMED_BY_COOKER_DIFFERENTIAL",
+      "CONFIRMED_BY_RECIPROCAL_REGION_SWAP",
+      "CONFIRMED_BY_RUNTIME_TEST"
+    ],
+    "hybrid_a": {
+      "prefix_donor": "baseline",
+      "tag100_donor": "modified",
+      "visible_finish_geometry": "original_location",
+      "old_right_support_collision": "absent",
+      "new_translated_collision": "present",
+      "race_complete": "original_unchanged_FinishArea"
+    },
+    "hybrid_b": {
+      "prefix_donor": "modified",
+      "tag100_donor": "baseline",
+      "visible_finish_geometry": "original_location",
+      "old_right_support_collision": "present",
+      "new_translated_collision": "absent",
+      "race_complete": "original_unchanged_FinishArea"
+    },
+    "bounded_conclusion": "For tested source mesh COLLIDE_finishline03, compiled physical collision state follows the selected suffix beginning at the tag100 marker; no claim is made that all tag100 data is physical or fully decoded."
+  },
+  "f2_boundary_clarification": {
+    "swap_extent": "from the tag100 marker through end-of-file",
+    "tag100_tree_only_runtime_isolation": false,
+    "baseline_tag100_tree_bytes": 8293376,
+    "modified_tag100_tree_bytes": 8289972,
+    "post_tree": {
+      "tag1339_record_bytes": 44,
+      "tag1339_record_identical": true,
+      "tag1400_region_bytes_each": 1809324,
+      "tag1400_changed_byte_positions": 64,
+      "tag1400_changed_ranges": 47,
+      "tag1400_runtime_role": "Broader role UNKNOWN; not sufficient and not required for the tested COLLIDE_finishline03 translation",
+      "post_tag1339_remainder_bytes_each": 1824828,
+      "tag1500_later_region_bytes_each": 15504,
+      "tag1500_later_region_identical": true,
+      "tag1500_runtime_role": "UNKNOWN",
+      "tag1400_baseline_sha256": "c0fbfeea9cc247f6f5024ce41a2f8b29befeabe899dd650dbf944d9d3e9b6e63",
+      "tag1400_modified_sha256": "a01be211ab6a14a04930d4fdcda431b45cb5b780bcdb59fc9808fdae3af334ba",
+      "tag1500_sha256": "39b8c55ad30d931bf459df380a05cecf72db0b2c805a86b6efc18e68d22df680",
+      "post_tag1339_remainder_sha256_baseline": "59fd940f2bdf732b59fd38689dfbccde9741d361b1accdbef73549d0b87e5a21",
+      "post_tag1339_remainder_sha256_modified": "4783ce7c189150335d92e4c567c028c600131a3a6a986d9d70e1120d9598ddda"
+    },
+    "geometric_binding": "HIGH_CONFIDENCE_INFERENCE: all 12 unique source face-plane groups match float4/code records inside the parsed tag100 tree in both cooks and follow the expected +20 X plane translation"
+  },
   "interpretation": {
-    "tag100_physical_carrier": "UNKNOWN until reciprocal runtime observations",
+    "tag100_physical_carrier": "F.1 confirmed the complete tag100-starting suffix; F.2.1 tree-only region swap confirmed that the tag100 tree determines the tested COLLIDE_finishline03 physical translation. No global tag100/collision/BSP semantics are implied.",
     "tag100_semantics": "UNKNOWN",
     "tag100_name": "trailing tag100 structure",
     "literal_region_swap": "both hybrids parsed as rev135 with validated render sections"

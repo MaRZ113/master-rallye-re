@@ -1,0 +1,430 @@
+{
+  "phase": "R-AI1.2",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
+  "implementation_version": 1,
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "source_size": 3121214,
+  "randomizer_changes_participant_count": false,
+  "max_active_total": 5,
+  "reproducibility": {
+    "two_separate_output_directories_byte_identical": [
+      "MRallyeRandomizer.dll",
+      "four/MRallye.exe",
+      "five/MRallye.exe"
+    ],
+    "compiler": "14.50.35717"
+  },
+  "module": {
+    "sha256": "517c4aa20e8dc80f2d51a64a79e59183d3ae27d47dbb3e0334ab458695c366f4",
+    "size": 89600,
+    "source_hashes": {
+      "src/native/randomizer/exports.def": "a1b4bb97cde5b75c2b462f3f2231de484066ff65a160c982970789c2aa9a217d",
+      "src/native/randomizer/policy.h": "3bddb171c84d78b69822ea7fb4bd31ca60d8823d2646bec45c99960afbc4c79f",
+      "src/native/randomizer/runtime.cpp": "1f8c8a69b2e8ae57cf2968232a0a20d81a80668993e495a1111cdab16c73d96f"
+    },
+    "machine": "PE32/x86",
+    "exports": [
+      "MRChallengeV1",
+      "MRChooseV1"
+    ],
+    "imports": [
+      "ADVAPI32.dll",
+      "KERNEL32.dll"
+    ]
+  },
+  "profiles": [
+    {
+      "profile": "retail-r-ai1-2-four-hardened",
+      "output_sha256": "60946990b685390032510c4bbed448674faebf33c929a46f52bc527e219dfc85",
+      "size": 3121214,
+      "capacity_composed": false,
+      "ranges": [
+        {
+          "offset": 536,
+          "va": null,
+          "length": 4,
+          "purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "original_sha256": "154b25bf31b9b6073fd369724b4580023ff893043eccb5639521775a84474ee7",
+          "replacement_sha256": "91b8a83091b594130da282f2bc0220a5868fcdbf3755c0e9d9b8df91b3000db5"
+        },
+        {
+          "offset": 327950,
+          "va": 4522254,
+          "length": 7,
+          "purpose": "Challenge AI ID before stock registry-derived class; one-human branch only",
+          "original_sha256": "faec5be248248b03d61023df3d154be6433308db3c7bac983f33313057c71566",
+          "replacement_sha256": "b4e8c49cdb41184abca0973275c72c4c0dda96226637f282f72bc0f070b601f0"
+        },
+        {
+          "offset": 335504,
+          "va": 4529808,
+          "length": 7,
+          "purpose": "MasterRallye: native pool init",
+          "original_sha256": "4a2a334b126eaf7ef5b77f34fcf2e86e601ff4ad2a4c70418d1c03180ca00813",
+          "replacement_sha256": "4007ce9a0af329970f895eead9db0ade9662f2bfd3e95a33271bca394c18f2f4"
+        },
+        {
+          "offset": 335917,
+          "va": 4530221,
+          "length": 7,
+          "purpose": "MasterRallye: native pool pool_end",
+          "original_sha256": "1133b9b0f9cb8c4dde2a4ec4a1ab644ab2f7e4f53f23c20a61affd47a0fed07c",
+          "replacement_sha256": "f3b64853678ef308bd58caf8224b1995fcc02d4f43ae02883b51048f0ef774b5"
+        },
+        {
+          "offset": 336082,
+          "va": 4530386,
+          "length": 6,
+          "purpose": "MasterRallye: native pool loop",
+          "original_sha256": "7faac27897e5851549db475395a00558ce3a72d035977aa5e87fefe8d5052777",
+          "replacement_sha256": "7bc6f0029defcb6112a0725b914874d116e3294386b632203911838874b2e77e"
+        },
+        {
+          "offset": 360715,
+          "va": 4555019,
+          "length": 7,
+          "purpose": "QuickRace: native pool init",
+          "original_sha256": "ee4dee6e225a5c267b56e627a9a335e73fcf14f1a300c3e3d335c7d8f6b7c4da",
+          "replacement_sha256": "87f028364178a3ec266b6170f779928f934aa106089057858bb5db98fe83a385"
+        },
+        {
+          "offset": 361173,
+          "va": 4555477,
+          "length": 7,
+          "purpose": "QuickRace: native pool pool_end",
+          "original_sha256": "4cc4cbc034c435a07e83d816a4de280afb39c1b10bf1898a27e69dc81a70dcea",
+          "replacement_sha256": "d38de8dbefb7dbddf1518b5ba7220f5658fbca4e813c2d1a37772ce83e49b942"
+        },
+        {
+          "offset": 361337,
+          "va": 4555641,
+          "length": 9,
+          "purpose": "QuickRace: native pool loop",
+          "original_sha256": "80d157b61280790bd9c65e4a7696ef0f5d9dc2e27365f46777fb6c87f7096ff5",
+          "replacement_sha256": "c93786ac1684c3ed2dd171012a0bb40207020f9c1fa6aba32e8bb95e635cda4c"
+        },
+        {
+          "offset": 371833,
+          "va": 4566137,
+          "length": 5,
+          "purpose": "RallyeCup/Invitation: native pool init",
+          "original_sha256": "e560d6dff14d62c1c98e29046f6c3e93ed491331af8f71acc4ec0f916773032b",
+          "replacement_sha256": "b84e3674d9b8f7885f1408984c3271648c90466fc28953f1988e8236d1ceb69f"
+        },
+        {
+          "offset": 372326,
+          "va": 4566630,
+          "length": 7,
+          "purpose": "RallyeCup/Invitation: native pool pool_end",
+          "original_sha256": "dd8bcfd34af0f7b122a0779b9ffb86f90ce39c439098454e46d69f2cea6e1532",
+          "replacement_sha256": "c12897a805abb9880116f5de90cfe573d23b80bfc737ad9a8a1383f19d115136"
+        },
+        {
+          "offset": 372495,
+          "va": 4566799,
+          "length": 6,
+          "purpose": "RallyeCup/Invitation: native pool loop",
+          "original_sha256": "495c2cc08c6ffee8a2c162ef274f610021d85a2d7db0fe65e4362685488c15f8",
+          "replacement_sha256": "ee4d0ee6100066bbd0116c33b673e20a5de28ccf938e9b083cacfb21772c50e0"
+        },
+        {
+          "offset": 413545,
+          "va": 4607849,
+          "length": 5,
+          "purpose": "loading_attract_legacy_media_check_neutralization",
+          "original_sha256": "ac2eada1e8b2d562a513d4a266301e3b0aff31eebbefe5c50050bb9cce288280",
+          "replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2"
+        },
+        {
+          "offset": 2105374,
+          "va": 6299678,
+          "length": 6,
+          "purpose": "broker_dump_null_stringlist_guard",
+          "original_sha256": "3867f4ec94ea89a368812c6fc6b33023dbe7d5b88a46d0926d82215c247bec1a",
+          "replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0"
+        },
+        {
+          "offset": 2105683,
+          "va": 6299987,
+          "length": 7,
+          "purpose": "broker_dump_null_xmldata_guard",
+          "original_sha256": "82dfbc8e7b717dc51edf77e2ec0f5e6ad90be1553b3cb399b3cfb79b059fe0fb",
+          "replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d"
+        },
+        {
+          "offset": 2679456,
+          "va": 6873760,
+          "length": 19,
+          "purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "original_sha256": "d6fd62f5ce537d90ea3ea45841b17f34d727bcbc4128748cba14fb87c0ffd9d1",
+          "replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5"
+        },
+        {
+          "offset": 2679488,
+          "va": 6873792,
+          "length": 28,
+          "purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "original_sha256": "3addfb141cd7c9c4c6543a82191a3707ac29c7a041217782e61d4d91c691aee8",
+          "replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171"
+        },
+        {
+          "offset": 2679808,
+          "va": 6874112,
+          "length": 283,
+          "purpose": "QuickRace: active-count policy/class-pool reuse",
+          "original_sha256": "876eb94eda163a736242d2016646da450f404e198337e2dc1cdf57e6d3eedc15",
+          "replacement_sha256": "a038b9b61a0abd8c876e438f113ed48e263499f55b2f9cc13d396178f1dce505"
+        },
+        {
+          "offset": 2680576,
+          "va": 6874880,
+          "length": 274,
+          "purpose": "MasterRallye: active-count policy/class-pool reuse",
+          "original_sha256": "cd44619967a5086f75a37213c003869c58443285731e65a17eacadbe1d00819e",
+          "replacement_sha256": "23864ce4705f482891e94669259ea633c5e19cd31862ff7f8b06eb6bba281087"
+        },
+        {
+          "offset": 2681344,
+          "va": 6875648,
+          "length": 314,
+          "purpose": "RallyeCup/Invitation: active-count policy/class-pool reuse",
+          "original_sha256": "5ac19cf6919b95ba1f59248a47bd88b2c4c855db62ccf5a26326a6a2f02eeefe",
+          "replacement_sha256": "575c9cc017bacdc45551513f02dfc62f7aaf5576176c2f762f85281e776de3db"
+        },
+        {
+          "offset": 2682112,
+          "va": 6876416,
+          "length": 211,
+          "purpose": "Bounded adjacent-DLL loader; absent module => Stock",
+          "original_sha256": "a8e63d1668da80b7902494cbbfe1313ef5c5fe3c455435e316b48072c8f4b52d",
+          "replacement_sha256": "d4645c58083a84864516b582bdaaabdf73561da6a31900abc4572e51ce13e527"
+        },
+        {
+          "offset": 2682368,
+          "va": 6876672,
+          "length": 42,
+          "purpose": "Challenge fixed-ID load always executes",
+          "original_sha256": "094c4931fdb2f2af417c9e0322a9716006e8211fe9017f671ac6e3251300acca",
+          "replacement_sha256": "f80caca389d46a6d3f7b8de6726520421943815babec437b7f75e11bce89386f"
+        },
+        {
+          "offset": 2682496,
+          "va": 6876800,
+          "length": 78,
+          "purpose": "Relative DLL/export names",
+          "original_sha256": "5552748b5aeb500f57b3d1f4a56e4e9789198918c663e712314ea999026eb896",
+          "replacement_sha256": "d3e788a0ce3df95e449d084414f005e7125f0a5589b78da65294e3ae87b08e9c"
+        }
+      ]
+    },
+    {
+      "profile": "retail-r-ai1-2-five-hardened",
+      "output_sha256": "32a09c466b9bb40513d8a801e0e9f420e902d6486ceb7ae76b243c7408404629",
+      "size": 3121214,
+      "capacity_composed": true,
+      "ranges": [
+        {
+          "offset": 536,
+          "va": null,
+          "length": 4,
+          "purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "original_sha256": "154b25bf31b9b6073fd369724b4580023ff893043eccb5639521775a84474ee7",
+          "replacement_sha256": "91b8a83091b594130da282f2bc0220a5868fcdbf3755c0e9d9b8df91b3000db5"
+        },
+        {
+          "offset": 327950,
+          "va": 4522254,
+          "length": 7,
+          "purpose": "Challenge AI ID before stock registry-derived class; one-human branch only",
+          "original_sha256": "faec5be248248b03d61023df3d154be6433308db3c7bac983f33313057c71566",
+          "replacement_sha256": "b4e8c49cdb41184abca0973275c72c4c0dda96226637f282f72bc0f070b601f0"
+        },
+        {
+          "offset": 335504,
+          "va": 4529808,
+          "length": 7,
+          "purpose": "MasterRallye: native pool init",
+          "original_sha256": "4a2a334b126eaf7ef5b77f34fcf2e86e601ff4ad2a4c70418d1c03180ca00813",
+          "replacement_sha256": "4007ce9a0af329970f895eead9db0ade9662f2bfd3e95a33271bca394c18f2f4"
+        },
+        {
+          "offset": 335917,
+          "va": 4530221,
+          "length": 7,
+          "purpose": "MasterRallye: native pool pool_end",
+          "original_sha256": "1133b9b0f9cb8c4dde2a4ec4a1ab644ab2f7e4f53f23c20a61affd47a0fed07c",
+          "replacement_sha256": "f3b64853678ef308bd58caf8224b1995fcc02d4f43ae02883b51048f0ef774b5"
+        },
+        {
+          "offset": 336082,
+          "va": 4530386,
+          "length": 6,
+          "purpose": "MasterRallye: native pool loop",
+          "original_sha256": "7faac27897e5851549db475395a00558ce3a72d035977aa5e87fefe8d5052777",
+          "replacement_sha256": "7bc6f0029defcb6112a0725b914874d116e3294386b632203911838874b2e77e"
+        },
+        {
+          "offset": 360715,
+          "va": 4555019,
+          "length": 7,
+          "purpose": "QuickRace: native pool init",
+          "original_sha256": "ee4dee6e225a5c267b56e627a9a335e73fcf14f1a300c3e3d335c7d8f6b7c4da",
+          "replacement_sha256": "87f028364178a3ec266b6170f779928f934aa106089057858bb5db98fe83a385"
+        },
+        {
+          "offset": 361173,
+          "va": 4555477,
+          "length": 7,
+          "purpose": "QuickRace: native pool pool_end",
+          "original_sha256": "4cc4cbc034c435a07e83d816a4de280afb39c1b10bf1898a27e69dc81a70dcea",
+          "replacement_sha256": "d38de8dbefb7dbddf1518b5ba7220f5658fbca4e813c2d1a37772ce83e49b942"
+        },
+        {
+          "offset": 361337,
+          "va": 4555641,
+          "length": 9,
+          "purpose": "QuickRace: native pool loop",
+          "original_sha256": "80d157b61280790bd9c65e4a7696ef0f5d9dc2e27365f46777fb6c87f7096ff5",
+          "replacement_sha256": "c93786ac1684c3ed2dd171012a0bb40207020f9c1fa6aba32e8bb95e635cda4c"
+        },
+        {
+          "offset": 371833,
+          "va": 4566137,
+          "length": 5,
+          "purpose": "RallyeCup/Invitation: native pool init",
+          "original_sha256": "e560d6dff14d62c1c98e29046f6c3e93ed491331af8f71acc4ec0f916773032b",
+          "replacement_sha256": "b84e3674d9b8f7885f1408984c3271648c90466fc28953f1988e8236d1ceb69f"
+        },
+        {
+          "offset": 372326,
+          "va": 4566630,
+          "length": 7,
+          "purpose": "RallyeCup/Invitation: native pool pool_end",
+          "original_sha256": "dd8bcfd34af0f7b122a0779b9ffb86f90ce39c439098454e46d69f2cea6e1532",
+          "replacement_sha256": "c12897a805abb9880116f5de90cfe573d23b80bfc737ad9a8a1383f19d115136"
+        },
+        {
+          "offset": 372495,
+          "va": 4566799,
+          "length": 6,
+          "purpose": "RallyeCup/Invitation: native pool loop",
+          "original_sha256": "495c2cc08c6ffee8a2c162ef274f610021d85a2d7db0fe65e4362685488c15f8",
+          "replacement_sha256": "ee4d0ee6100066bbd0116c33b673e20a5de28ccf938e9b083cacfb21772c50e0"
+        },
+        {
+          "offset": 413545,
+          "va": 4607849,
+          "length": 5,
+          "purpose": "loading_attract_legacy_media_check_neutralization",
+          "original_sha256": "ac2eada1e8b2d562a513d4a266301e3b0aff31eebbefe5c50050bb9cce288280",
+          "replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2"
+        },
+        {
+          "offset": 505994,
+          "va": 4700298,
+          "length": 5,
+          "purpose": "Quick Race effective opponent read: guarded 3 -> 4",
+          "original_sha256": "cccd7914fab039b68a129b2df4eafb6cec7d6067f98bf9ee92693903504797bc",
+          "replacement_sha256": "3e130b279055434b510d8ceab287365085d265f163b5ce9b1aa168d13544b792"
+        },
+        {
+          "offset": 506077,
+          "va": 4700381,
+          "length": 5,
+          "purpose": "Quick Race effective opponent read: guarded 3 -> 4",
+          "original_sha256": "040f50fcd18ccee3ed30759db85cfa9abd122b7ac6d035626e25d4fea04acfc6",
+          "replacement_sha256": "b302a21ee8ce8c6c76d718d53aff0fd274a751401ca9144352dba2d2994c2a67"
+        },
+        {
+          "offset": 2105374,
+          "va": 6299678,
+          "length": 6,
+          "purpose": "broker_dump_null_stringlist_guard",
+          "original_sha256": "3867f4ec94ea89a368812c6fc6b33023dbe7d5b88a46d0926d82215c247bec1a",
+          "replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0"
+        },
+        {
+          "offset": 2105683,
+          "va": 6299987,
+          "length": 7,
+          "purpose": "broker_dump_null_xmldata_guard",
+          "original_sha256": "82dfbc8e7b717dc51edf77e2ec0f5e6ad90be1553b3cb399b3cfb79b059fe0fb",
+          "replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d"
+        },
+        {
+          "offset": 2679456,
+          "va": 6873760,
+          "length": 19,
+          "purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "original_sha256": "d6fd62f5ce537d90ea3ea45841b17f34d727bcbc4128748cba14fb87c0ffd9d1",
+          "replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5"
+        },
+        {
+          "offset": 2679488,
+          "va": 6873792,
+          "length": 28,
+          "purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "original_sha256": "3addfb141cd7c9c4c6543a82191a3707ac29c7a041217782e61d4d91c691aee8",
+          "replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171"
+        },
+        {
+          "offset": 2679552,
+          "va": 6873856,
+          "length": 131,
+          "purpose": "Original getter, exact one-human T1 ID0 / Track10 / Race / ghost-off guard",
+          "original_sha256": "d367e8be9eb342df9fd9f890c99b1a955f774f74183a2adf81b238bcb9527c05",
+          "replacement_sha256": "df6ee1e185db821c5416edf021313004cd224b6989bfb8a7d56e124e7086cb4c"
+        },
+        {
+          "offset": 2679808,
+          "va": 6874112,
+          "length": 283,
+          "purpose": "QuickRace: active-count policy/class-pool reuse",
+          "original_sha256": "876eb94eda163a736242d2016646da450f404e198337e2dc1cdf57e6d3eedc15",
+          "replacement_sha256": "a038b9b61a0abd8c876e438f113ed48e263499f55b2f9cc13d396178f1dce505"
+        },
+        {
+          "offset": 2680576,
+          "va": 6874880,
+          "length": 274,
+          "purpose": "MasterRallye: active-count policy/class-pool reuse",
+          "original_sha256": "cd44619967a5086f75a37213c003869c58443285731e65a17eacadbe1d00819e",
+          "replacement_sha256": "23864ce4705f482891e94669259ea633c5e19cd31862ff7f8b06eb6bba281087"
+        },
+        {
+          "offset": 2681344,
+          "va": 6875648,
+          "length": 314,
+          "purpose": "RallyeCup/Invitation: active-count policy/class-pool reuse",
+          "original_sha256": "5ac19cf6919b95ba1f59248a47bd88b2c4c855db62ccf5a26326a6a2f02eeefe",
+          "replacement_sha256": "575c9cc017bacdc45551513f02dfc62f7aaf5576176c2f762f85281e776de3db"
+        },
+        {
+          "offset": 2682112,
+          "va": 6876416,
+          "length": 211,
+          "purpose": "Bounded adjacent-DLL loader; absent module => Stock",
+          "original_sha256": "a8e63d1668da80b7902494cbbfe1313ef5c5fe3c455435e316b48072c8f4b52d",
+          "replacement_sha256": "d4645c58083a84864516b582bdaaabdf73561da6a31900abc4572e51ce13e527"
+        },
+        {
+          "offset": 2682368,
+          "va": 6876672,
+          "length": 42,
+          "purpose": "Challenge fixed-ID load always executes",
+          "original_sha256": "094c4931fdb2f2af417c9e0322a9716006e8211fe9017f671ac6e3251300acca",
+          "replacement_sha256": "f80caca389d46a6d3f7b8de6726520421943815babec437b7f75e11bce89386f"
+        },
+        {
+          "offset": 2682496,
+          "va": 6876800,
+          "length": 78,
+          "purpose": "Relative DLL/export names",
+          "original_sha256": "5552748b5aeb500f57b3d1f4a56e4e9789198918c663e712314ea999026eb896",
+          "replacement_sha256": "d3e788a0ce3df95e449d084414f005e7125f0a5589b78da65294e3ae87b08e9c"
+        }
+      ]
+    }
+  ],
+  "runtime_closeout": "runtime-closeout-summary.json"
+}

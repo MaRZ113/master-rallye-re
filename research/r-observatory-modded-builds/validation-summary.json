@@ -1,0 +1,52 @@
+{
+  "status": "READY FOR HUMAN RUNTIME",
+  "base": "4afcf52143c9b53a61ae5f59f1bdaabceb713594",
+  "synthetic": {
+    "passed": 392,
+    "failed": 0,
+    "skipped": 0
+  },
+  "new_groups": {
+    "ProfileAudit": {
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    "RegistryOracle": {
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    "RuntimeOracle": {
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    "AuditedAdapter": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "native": {
+    "merc": 56,
+    "ai12": 824,
+    "five": 44,
+    "hardening": 52,
+    "failed": 0,
+    "skipped": 0
+  },
+  "compileall": "PASS",
+  "diff_check": "PASS",
+  "missing_fixtures": [],
+  "reports": {
+    "five-regression.json": "8118c195e94b28cd106cb4c0c091655206d49826fda4b73ab1ed1c982d06937c",
+    "hardening-regression.json": "f678e6e88d4ceffa098bb0067e206088cec538ac53b0044dd24f27790ade1f4c",
+    "native-registry-reproduction.json": "d6555ee6d27c813fcfd22c4c2e2416d9feebb90516747b9816586574a593ddb0",
+    "r-ai1-2-regression.json": "f6da92ece3134543ef8efd0caf2d798055b7f00479ccd4d272f61b66bc437406"
+  },
+  "source_unchanged": true,
+  "public_observatory_unchanged": true,
+  "runtime_capture_pending": true,
+  "full_test_log_sha256": "3c6e1b7a413c47407b59d346f1f67674f2a49919cdd7370ac44f01c6d964e948"
+}

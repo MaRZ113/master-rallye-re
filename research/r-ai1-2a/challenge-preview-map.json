@@ -1,0 +1,97 @@
+{
+  "phase": "R-AI1.2a",
+  "evidence": "CONFIRMED_BY_EXE",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "owner": "0x45EB30",
+  "preview_seam": "0x45EC35",
+  "native_selected_event": "gaFEScreenChallengeAI instance +0x10",
+  "name": {
+    "path": "Frontend/Challenge/Car2Text",
+    "source": "language bank53, absolute ID in EDI"
+  },
+  "model": {
+    "path": "Frontend/Challenge/OpponentCar",
+    "source": "EDI absolute ID -> 0x44C4C0 -> registry+0x24+ID*0x34 -> Vehicles/<family>/complete"
+  },
+  "driver_preview_visible": false,
+  "class_indicator_visible": false,
+  "events": [
+    {
+      "event": 0,
+      "race_id": 25,
+      "human": 6,
+      "opponent": 2,
+      "constructor_site": "00459d81"
+    },
+    {
+      "event": 1,
+      "race_id": 26,
+      "human": 4,
+      "opponent": 3,
+      "constructor_site": "00459daf"
+    },
+    {
+      "event": 2,
+      "race_id": 27,
+      "human": 2,
+      "opponent": 6,
+      "constructor_site": "00459ddd"
+    },
+    {
+      "event": 3,
+      "race_id": 28,
+      "human": 5,
+      "opponent": 9,
+      "constructor_site": "00459e0b"
+    },
+    {
+      "event": 4,
+      "race_id": 29,
+      "human": 9,
+      "opponent": 10,
+      "constructor_site": "00459e39"
+    },
+    {
+      "event": 5,
+      "race_id": 30,
+      "human": 13,
+      "opponent": 7,
+      "constructor_site": "00459e67"
+    },
+    {
+      "event": 6,
+      "race_id": 31,
+      "human": 12,
+      "opponent": 17,
+      "constructor_site": "00459e95"
+    },
+    {
+      "event": 7,
+      "race_id": 32,
+      "human": 19,
+      "opponent": 15,
+      "constructor_site": "00459ec3"
+    },
+    {
+      "event": 8,
+      "race_id": 33,
+      "human": 13,
+      "opponent": 14,
+      "constructor_site": "00459ef1"
+    },
+    {
+      "event": 9,
+      "race_id": 34,
+      "human": 21,
+      "opponent": 18,
+      "constructor_site": "00459f1f"
+    },
+    {
+      "event": 10,
+      "race_id": 35,
+      "human": 18,
+      "opponent": 23,
+      "constructor_site": "00459f4d"
+    }
+  ]
+}

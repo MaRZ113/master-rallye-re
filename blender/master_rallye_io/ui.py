@@ -1,4 +1,4 @@
-"""Small read-only inspection panel for imported Master Rallye objects."""
+"""Inspection panels and bounded authoring controls for Master Rallye assets."""
 from __future__ import annotations
 
 import json
@@ -413,28 +413,71 @@ class VIEW3D_PT_master_rallye_course(bpy.types.Panel):
         grid.label(text="Texture previews")
         grid.label(text=f"{loaded_textures} materials")
         box = layout.box()
-        box.label(text="Read-only render and RaceTest helpers", icon="INFO")
+        box.label(text="Course render is read-only; RaceTest logic has a bounded XML exporter", icon="INFO")
         box.label(text="tag100 meaning, full RaceLine, surfaces, and physical collision remain unknown.")
         box.operator(
             "import_scene.master_rallye_course_xml_markers",
-            text="Import RaceTest XML Race Logic",
+            text="Load Course Race Logic",
             icon="EMPTY_AXIS",
         )
+        box.operator("export_scene.master_rallye_race_logic_xml", text="Export Race Logic XML", icon="EXPORT")
         box.operator(
             "import_scene.master_rallye_course_gxm_startpoint",
             text="Import GXM Startpoint Point Candidate",
-            icon="EMPTY_SPHERE",
+            icon="SPHERE",
         )
         box.label(text="RaceTest XML import adds StartArea, FinishArea, split signs, and split trigger spheres.")
         box.label(text="Split sign and trigger share Egg Row3; companion checkpoints stay separate visuals.")
         box.label(text="GXM startpoint overlay shows points only; connectivity is unknown.")
-        box.label(text="No course writer is available.")
+        box.label(text="Race Logic export supports area points and bounded SplitTime edits.")
         warnings = metadata.get("blender", {}).get("import_warnings", [])
         if warnings:
             warning_box = layout.box()
             warning_box.label(text=f"Import warnings: {len(warnings)}", icon="ERROR")
             for warning in warnings[:4]:
                 warning_box.label(text=str(warning)[:96])
+
+
+class VIEW3D_PT_master_rallye_course_race_logic(bpy.types.Panel):
+    bl_label = "Course Race Logic"
+    bl_idname = "VIEW3D_PT_master_rallye_course_race_logic"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "Master Rallye"
+
+    @classmethod
+    def poll(cls, context):
+        obj = context.object
+        return obj is not None and obj.get("mr_xml_source") and obj.get("mr_race_logic_object_type")
+
+    def draw(self, context):
+        obj = context.object
+        layout = self.layout
+        kind = obj.get("mr_race_logic_object_type")
+        if not obj.get("mr_race_logic_editable"):
+            layout.label(text="This source item is read-only or ambiguous", icon="INFO")
+        elif kind == "area_marker":
+            layout.label(text=f"{obj.get('mr_race_logic_area')} marker {obj.get('mr_marker_index_in_list')}", icon="EMPTY_AXIS")
+            layout.label(text="Runtime-confirmed area point; move with Blender transforms")
+            layout.label(text="Export reads its world-space position")
+        elif kind == "split_center":
+            layout.label(text="Runtime-confirmed spherical split trigger", icon="SPHERE")
+            layout.prop(obj, '["mr_split_time_id"]', text="Split Time ID")
+            layout.prop(obj, '["mr_split_radius"]', text="Radius")
+            layout.label(text=f"ExtraTime preserved: {obj.get('mr_split_extra_time_raw', '')} (meaning UNKNOWN)")
+            layout.label(text="Move center to move trigger; visual companions are shown at their own positions")
+            layout.label(text="Source orientation is preserved; rotation is not authored; scale does not change Radius")
+        elif kind == "split_checkpoint_group":
+            layout.label(text="Split checkpoint translation controller", icon="EMPTY_AXIS")
+            layout.label(text="Move to translate trigger and visual companions together")
+            layout.label(text="Radius remains explicit; rotation and scale are not exported")
+        elif kind == "split_visual_companion":
+            layout.label(text="Visual checkpoint companion; not a trigger center", icon="MESH_DATA")
+            layout.label(text="Move this object alone, or move its checkpoint group")
+            layout.label(text="Its own source orientation is preview-only; export writes final world position only")
+        layout.operator("export_scene.master_rallye_race_logic_xml", text="Export Race Logic XML", icon="EXPORT")
+        layout.label(text="Exports a new XML copy and a provenance manifest")
+        layout.label(text="Route/Limit/Camera diagnostics are read-only; runtime probes are separate.")
 
 
 CLASSES = (
@@ -448,4 +491,5 @@ CLASSES = (
     OBJECT_OT_master_rallye_collision_visibility,
     VIEW3D_PT_master_rallye_resource,
     VIEW3D_PT_master_rallye_course,
+    VIEW3D_PT_master_rallye_course_race_logic,
 )

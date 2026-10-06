@@ -1,0 +1,6 @@
+# Keep exact native source hashes stable under Windows core.autocrlf.
+src/native/randomizer/exports.def text eol=lf
+src/native/randomizer/policy.h text eol=lf
+src/native/randomizer/runtime.cpp text eol=lf
+src/native/challenge_preview/roster.h text eol=lf
+src/native/challenge_preview/runtime.cpp text eol=lf

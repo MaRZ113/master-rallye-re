@@ -58,6 +58,11 @@ if fixture is not None:
         raise AssertionError("packaged add-on created wrong object count")
     obj = objects[0]
     metadata = json.loads(obj["mr_metadata_json"])
+    if metadata.get("vehicle_material_semantics_version") != "R_MAT1_V3":
+        raise AssertionError("vendored vehicle semantics model missing")
+    if any(material.get("mr_preview_semantics") != "R_MAT1_RUNTIME_STAGES_V3"
+           for material in obj.data.materials):
+        raise AssertionError("vendored vehicle preview is stale")
     if len(obj.data.vertices) != 4 or len(obj.data.polygons) != 2:
         raise AssertionError("vendored parser geometry mismatch")
     if [draw["record_tag"] for draw in metadata["draws"]] != [7, 8]:

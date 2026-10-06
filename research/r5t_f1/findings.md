@@ -1,10 +1,45 @@
 # R5T-F.1 — tag100 reciprocal region swap
 
-**Status: READY_FOR_RUNTIME_SWAP_TEST.** Both hybrids were built from the
-accepted R5T-F.0 run-03 outputs using parser-derived boundaries. Their literal
-region swaps pass the current revision-135 course parser, preserve exact byte
-provenance, and have isolated runtime copies. Runtime behavior has not yet been
-observed; tag100's physical role remains **UNKNOWN**.
+**Status: PASS.** The reciprocal runtime swap completed after the static
+preparation below. For the tested France1 `COLLIDE_finishline03` state, runtime
+physical collision followed the selected donor region beginning at tag 100.
+R5T-F.2 later parsed that region as a tag100 tree followed by separate 1339
+and 1400 records. The tested source-plane family is found in the tag100 tree,
+but F.1 did not independently hold the later 1400 region fixed. The runtime
+result is therefore bounded to the whole tag100-starting suffix and this
+tested source state; it does not establish a general tag100/BSP identity.
+
+## Final reciprocal-swap runtime result
+
+Both hybrids loaded with the visible finish geometry at its original location,
+and `RACE COMPLETE` still triggered at the unchanged FinishArea.
+
+| Hybrid | Prefix donor | tag100-starting suffix donor | Old right-support collision | New translated collision | FinishArea |
+|---|---|---|---|---|---|
+| A | baseline | modified | absent | present | unchanged; race completed at original area |
+| B | modified | baseline | present | absent | unchanged; race completed at original area |
+
+The reciprocal suffix result is **CONFIRMED_BY_SOURCE_RUNTIME_EDIT**,
+**CONFIRMED_BY_COOKER_DIFFERENTIAL**, **CONFIRMED_BY_RECIPROCAL_REGION_SWAP**,
+and **CONFIRMED_BY_RUNTIME_TEST**. For this tested source mesh, the selected
+tag100-starting suffix carries the compiled physical state that moved by
+runtime X +20. F.2 identifies matching translated face-plane records inside
+the tag100 tree. The reciprocal runtime test itself did not isolate that tree
+from the following tag1400 region. It does not show that all tag100 data is
+physical, that the full tag100 grammar is known, or that every source
+`COLLIDE_*` object uses the same compilation rules.
+
+## R5T-F.2 loader-boundary clarification
+
+The original F.1 operation swapped each byte from the parser-derived tag100
+offset through end-of-file. The F.2 Retail loader-guided parser finds that the
+recursive tag100 tree ends before a 44-byte tag1339 record and a distinct
+tag1400 region. In the controlled baseline/modified pair, the 1339 record is
+byte-identical; the later tag1400 region has the same size and 64 changed byte
+positions. The F.1 result must therefore be read as a reciprocal swap of the
+tag100-starting suffix. F.2's source-plane correlation locates the tested
+collider's geometric plane records in the tag100 tree, while the independent
+runtime contribution of the changed tag1400 bytes remains unisolated.
 
 ## Accepted R5T-F.0 result
 
@@ -18,17 +53,18 @@ remained at the unchanged RaceTest FinishArea. This is
 **CONFIRMED_BY_RUNTIME_EDIT** for the tested physical effect and its movement.
 
 This establishes a runtime physical effect for the source edit, not its
-compiled carrier. R5T-F.0 independently established a stable source-to-tag100
-change across three cold cooks per cohort. The reciprocal swap below tests
-whether the tested physical state follows tag100 or the render/pre-tag100
-prefix. Do not generalize to all tag100 content or call tag100 a BSP.
+compiled carrier. R5T-F.0 independently established a stable source-to-tag100-
+starting-suffix change across three cold cooks per cohort. The reciprocal swap
+below tests whether the tested physical state follows that suffix or the
+render/pre-tag100 prefix. Do not generalize to all tag100 content or call
+tag100 a BSP.
 
 ## Donors and parser-derived regions
 
 The exact files are baseline-03 and modified-03, both from the retained Demo
 9.10.0 run-03 runtime and its captured snapshot. Snapshot and retained-runtime
-DX hashes match. Both parse as revision 135 with validated render geometry and
-no unparsed collision bytes.
+DX hashes match. Both parse as revision 135 with validated render geometry;
+the tag100-starting suffix is preserved exactly as raw bytes.
 
 | Donor | DX SHA-256 | DX bytes | Prefix `[0, tag100.offset)` | Prefix SHA-256 | tag100 bytes | tag100 SHA-256 |
 |---|---|---:|---:|---|---:|---|
@@ -41,14 +77,15 @@ fixed file offset and does not patch header fields.
 
 ## Reciprocal hybrids
 
-| Hybrid | Prefix donor | tag100 donor | Total bytes | Full SHA-256 | Parsed tag100 offset | Parser result |
+| Hybrid | Prefix donor | tag100-starting suffix donor | Total bytes | Full SHA-256 | Parsed tag100 offset | Parser result |
 |---|---|---|---:|---|---:|---|
 | A | baseline-03 | modified-03 | 14,792,544 | `d6c05253ffdf7587dd8b8fa3b58897b2b030565aca9be256b01554111246aff4` | 4,677,700 | rev135; render validated; tag100 hash matches modified; no parser errors/unparsed bytes |
 | B | modified-03 | baseline-03 | 14,806,793 | `3f3b347d4550b979e0c82f6f82bf267f1b00ca8bdd4758d8ebf027f4292731bc` | 4,688,545 | rev135; render validated; tag100 hash matches baseline; no parser errors/unparsed bytes |
 
 Byte provenance was checked for both: each hybrid prefix is byte-identical to
-its selected donor and each tag100 byte slice is byte-identical to its selected
-donor. Total sizes equal the selected region sizes. Render parsing produces
+its selected donor and each byte from the tag100 marker through EOF is
+byte-identical to its selected suffix donor. Total sizes equal the selected
+region sizes. Render parsing produces
 the exact diagnostics of the selected prefix donor: Hybrid A has the baseline
 prefix's 84,774 vertices / 75,138 triangles / 4,629 draws; Hybrid B has the
 modified prefix's 84,946 vertices / 75,311 triangles / 4,647 draws. In both,
@@ -66,13 +103,13 @@ The machine-readable identities and checks are in
 [`tools/r5t_f1_tag100_swap.py`](../../tools/r5t_f1_tag100_swap.py). Full runtime
 copies and hybrid game assets remain ignored under `research-output/`.
 
-## Runtime interpretation gate
+## Runtime interpretation gate (pre-runtime prediction; superseded below)
 
 No physical-carrier conclusion is made before the human tests.
 
 | Observation | Bounded conclusion |
 |---|---|
-| A has NEW collision and B has OLD collision; FinishArea stays normal | Tested physical state follows the tag100 donor; confirm only for this tested state and these compatible rev135 prefixes. |
+| A has NEW collision and B has OLD collision; FinishArea stays normal | Tested physical state follows the selected tag100-starting suffix donor; confirm only for this tested state and these compatible rev135 prefixes. |
 | A has OLD collision and B has NEW collision | Tested physical state follows the prefix donor; the stable tag100 change is not the direct independent carrier. |
 | Either hybrid fails to load or physical response is neither donor state | Region coupling or another compatibility issue remains; no independent-sufficiency claim. |
 | A and B show the same state | First verify loaded paths, hashes, stale caches, and selected course before interpreting. |
@@ -91,15 +128,20 @@ are unchanged in both runtime copies. The exact tests and launch paths are in
   bytes across 3+3 cold cooks.
 - **CONFIRMED_BY_BINARY:** donor identities, parser boundaries, hybrid sizes,
   hashes, and byte provenance.
-- **UNKNOWN:** whether tag100 alone carries the tested physical state; broader
-  tag100 semantics and physical primitives.
+- **CONFIRMED_BY_SOURCE_RUNTIME_EDIT / CONFIRMED_BY_RUNTIME_TEST:** for the
+  tested `COLLIDE_finishline03` edit, the reciprocal hybrids show the physical
+  state follows the selected suffix beginning at tag100. The later tag1400
+  region was not held fixed, so this does not isolate the tag100 tree alone.
+- **UNKNOWN:** the full tag100 grammar, semantics of other tag100 structures,
+  and whether other source collision classes compile identically.
 
 ## Current gate
 
 `python tools\r5t_f1_tag100_swap.py inspect`, `build`, and `verify` completed.
-The static status is **READY_FOR_RUNTIME_SWAP_TEST**. R5T-F.1 remains open
-until both reciprocal runtime observations are returned. Do not begin tag100
-grammar analysis or R5T-F.2 before review of those results.
+The independent static verification and the human runtime result both passed.
+R5T-F.1 is closed as **PASS**. The pre-runtime outcome table above is retained
+as history and is superseded by the final observations at the start of this
+document.
 
 ## Validation
 
@@ -111,3 +153,7 @@ grammar analysis or R5T-F.2 before review of those results.
   parse as JSON and the two F1 manifests are equal.
 - Blender smoke was not run: this phase changed no Blender/add-on files.
 - `git diff --check` — passed before commit.
+
+## R5T-F.2.1 final boundary refinement — supersedes pending note
+
+F.1's completed reciprocal swap proves the tested physical state followed the complete tag100-through-EOF suffix. F.2's source-plane binding was high-confidence but not yet tree-only runtime proof. F.2.1's two hybrids held the remaining sections fixed and show the tested `COLLIDE_finishline03` physical location follows the tag100 tree donor. Modified tag1400 was neither sufficient nor required for this translation. Its broader role remains UNKNOWN. Full outcomes and hashes: [`../r5t_f21/runtime-results.md`](../r5t_f21/runtime-results.md).

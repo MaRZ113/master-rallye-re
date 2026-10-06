@@ -28,7 +28,7 @@ def main():
         sys.path.insert(0, str(path))
 
     import master_rallye_io
-    from master_rallye_io.library import load_course_project, position_to_blender
+    from master_rallye_io.library import load_course_project, position_to_blender, load_course_race_logic_authoring
 
     master_rallye_io.register()
     project = load_course_project(xml_path, search_roots=(dx_path.parent,))
@@ -36,6 +36,9 @@ def main():
     if race_logic is None:
         raise AssertionError("Course SDK did not create semantic RaceTest model")
     doc = race_logic.source_document
+    authoring = load_course_race_logic_authoring(xml_path)
+    if not all(item.supported for item in authoring.area_status) or not all(item.supported for item in authoring.split_status):
+        raise AssertionError("Retail France1 should expose supported StartArea, FinishArea, and SplitTime authoring fields")
     dx_status = bpy.ops.import_scene.master_rallye_course(
         "EXEC_DEFAULT", filepath=str(dx_path), load_textures=False
     )
@@ -80,11 +83,10 @@ def main():
         area_markers = [obj for obj in area.objects if obj.get("mr_course_helper_kind") == "RaceTest XML Marker"]
         if len(area_markers) != len([item for item in semantic_area.markers if item.position is not None]):
             raise AssertionError(f"{semantic_area.source_list_name} marker count mismatch")
-        outline = [obj for obj in area.objects if obj.type == "CURVE"]
-        if len(outline) != 1 or outline[0].get("mr_semantics") != semantic_area.semantic_role:
-            raise AssertionError(f"{semantic_area.source_list_name} semantic outline is missing")
-        if outline[0].get("mr_filled_area_created") is not False:
-            raise AssertionError("area helper must remain a non-filled source-order outline")
+        if len(area_markers) == 4 and not all(obj.get("mr_race_logic_editable") for obj in area_markers):
+            raise AssertionError(f"{semantic_area.source_list_name} runtime-confirmed markers are not authorable")
+        if sorted(int(obj["mr_marker_index_in_list"]) for obj in area_markers) != list(range(len(area_markers))):
+            raise AssertionError(f"{semantic_area.source_list_name} marker order was not preserved")
 
     signs = [
         obj for collection in descendants for obj in collection.objects
@@ -114,7 +116,7 @@ def main():
     for split in expected_triggers:
         trigger = trigger_by_id[split.split_id]
         expected_center = position_to_blender(split.center)
-        if not _close3(trigger.location, expected_center):
+        if not _close3(trigger.matrix_world.translation, expected_center):
             raise AssertionError(f"SplitTime{split.split_id} trigger center conversion differs")
         if abs(float(trigger["mr_split_radius"]) - split.radius) > 1.0e-5:
             raise AssertionError(f"SplitTime{split.split_id} trigger radius differs")
@@ -124,11 +126,17 @@ def main():
             raise AssertionError("ExtraTime semantics were overclaimed")
         if not trigger.get("mr_read_only") or not trigger.show_in_front:
             raise AssertionError("split trigger must be a visible read-only helper")
+        if not trigger.parent or trigger.parent.get("mr_race_logic_object_type") != "split_center":
+            raise AssertionError("trigger sphere is not attached to its editable SplitTime center helper")
         sign = sign_by_id[split.split_id]
         if sign.get("mr_gameplay_center_source") != "same en3d Matrix Row3 as visual sign":
             raise AssertionError("split sign helper does not preserve the confirmed center relation")
         if sign.get("mr_center_rule_evidence") != "; ".join(split.center_rule_evidence):
             raise AssertionError("sign semantic-rule evidence differs from the Course SDK model")
+        if not sign.get("mr_race_logic_editable") or sign.get("mr_read_only"):
+            raise AssertionError("runtime-confirmed SplitTime sign/center helper is not editable")
+        if len(trigger.animation_data.drivers) != 3:
+            raise AssertionError("trigger wire sphere Radius is not driven by the editable Radius field")
         if trigger.get("mr_center_rule_evidence") != "; ".join(split.center_rule_evidence):
             raise AssertionError("trigger semantic-rule evidence differs from the Course SDK model")
         if trigger.get("mr_radius_rule_evidence") != "; ".join(split.radius_rule_evidence):
@@ -158,7 +166,8 @@ def main():
         "split_trigger_sphere_count": len(triggers),
         "visual_companion_count": len(companions),
         "semantic_model": "master_rallye.course_sdk.CourseRaceLogic",
-        "writer_available": False,
+        "writer_available": True,
+        "race_logic_writer": "allowlist-constrained RaceTest XML only",
     }
     output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))

@@ -6,7 +6,57 @@ The repository contains only tools, documentation, machine-readable forensic
 metadata, and synthetic test data. Original game resources remain external and
 read-only.
 
+## Observatory build compatibility
+
+R-OBS2 adds an internal, fail-closed `retail-broker-v1` structural compatibility
+family. A new executable SHA is accepted only after its PE layout and every
+required exact Broker/debug anchor pass; the exact SHA and derived capabilities
+are then cached locally under ignored `.research-output`. Vehicle registry
+recognition is independent and requires its own bounded fingerprints. Public
+Observatory v0.1.0-beta remains pristine-only. Native post-Results Dump remains
+unsafe for this family. The expected Mercedes F.2f binary passed the direct
+family and registry audit; human Observatory captures remain pending. See
+[R-OBS2 findings](research/r-obs2/findings.md)
+and the [compatibility-family audit](research/r-obs2/compatibility-family.md).
+
+Independent R-AI1.2a, R-AI2.1 normal Quick Race6/7/8, and R-UI1 One..Seven/Four
+end-to-end are now closed by human evidence. See the cross-branch
+[closeout index](research/r-observatory-modded-builds/feature-closeouts.json).
+No feature merge;9+ UNKNOWN. Eight-car physical start clearance needs R-GRID8.
+Standalone UI Five/Six/Seven race composition remains NOT TESTED.
+
 ## Current scope
+
+R-AI1 and R-AI1.1 are **CLOSED / CONFIRMED_BY_RUNTIME** for four existing
+participants: fixed cross-class AI, player-independent selection in all three
+AI slots and repeated fresh-race class/ID variation. Loading/Dump research
+hardening and Replay lifecycle passed. See the bounded
+[runtime closeout](research/r-ai1-1/runtime-closeout.md); uniform RNG and
+participant-capacity expansion are not proven.
+See [findings](research/r-ai1-1/findings.md) and
+[completed handoff](research/r-ai1-1/runtime-handoff.md).
+
+R-AI2 five-car target is **CLOSED / CONFIRMED_BY_RUNTIME**: one human + four
+AI, independent Car4 actor/physics/collision/damage, HUD, five finishers/results,
+hardened Dump, Replay and stable frontend return. The guarded setup intervention
+uses existing engine storage; no physical participant array expansion was needed.
+R-AI2 five-car scope does not claim higher counts; separate R-AI2.1 closes6/7/8.9+/generic-N remain UNKNOWN. See the [runtime closeout](research/r-ai2/runtime-closeout.md)
+and [capacity map](research/r-ai2/capacity-map.md).
+
+R-AI1.2 is **CLOSED / CONFIRMED_BY_RUNTIME**: Stock/Mixed/Diverse, Quick Race
+1..4 AI, config reload at new-roster boundaries, Challenge opt-in completion,
+Cup/Invitation stage reuse and Master native fresh-process persistence. No
+sidecar required for tested V1. Challenge preview sync is non-blocking polish;
+exact stock DriverID preservation is not confirmed. Original-EXE-unchanged
+loader is deferred. See [runtime closeout](research/r-ai1-2/runtime-closeout.md).
+Six+ capacity was not tested.
+
+R-AI1.2a Challenge preview synchronization is **CLOSED / CONFIRMED_BY_RUNTIME**:
+one transient opponent selection feeds the native localized name/model and
+actual race. Stock remains authored; Start reuses the selected identity. Retry was not applicable in the tested completion flow.
+See [findings](research/r-ai1-2a/findings.md) and
+[human handoff](research/r-ai1-2a/runtime-handoff.md). Visible preview/race
+equality is CONFIRMED_BY_RUNTIME.
 
 Optional R5V-A vehicle-slot archaeology maps the final EXE registry and two PC demos without patching the game. The final build has 25 explicitly named vehicle IDs (0-24) in a fixed 26-record heap array; the trailing record and extra-slot safety remain unresolved. Forklift has assets and localized text but no initialized registry entry or physics block. See `research/r5v_a/findings.md` and `research/r5v_a/vehicle-slot-feasibility.md`.
 
@@ -45,7 +95,16 @@ translation and full-DX reparse. An ignored Astero `(+0.40, 0, 0)` lateral
 collision-only translation is **CONFIRMED_BY_RUNTIME** per the project owner's 2026-09-23 status update; the detailed observation log remains external. R4C itself did not add scale, rotation, topology, BSP, cylinder, or Blender collision
 export; R4G per-axis scale is confirmed by the C1 human wall-contact test. See `docs/collision-writer.md` and `research/r4c/`.
 
-Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Blender Preview V2 uses only the verified alpha mapping. Four isolated DXT probes now have human in-game results: M1/M3 reflection helpers, M2 glass source-alpha, and M4 active brake-glow alpha. See research/r4d_1/runtime-results.md. See docs/vehicle-materials.md and research/r4d_1/findings.md.
+Phase R4D.1 traced the serialized DX draw through its material loader to Direct3D 8: the draw mask copies to runtime +0x34; flag bytes 0/1 select alpha blend/test; the base and environment shaders expose concrete render and texture-stage states. Its M1/M3 reflection, M2 glass source-alpha and M4 active brake-glow human results retain their tested scope; see research/r4d_1/runtime-results.md.
+
+R-MAT1 closes the observed vehicle material runtime model with non-blocking
+unknowns: exact slot0/stage0 and slot1/stage1 bindings, no NULL-slot promotion,
+byte2 diffuse and byte3 UV gates, all stock feature bits and the transparent
+queue's bound-depth sort key. Blender Preview V3 uses generic slot1 semantics
+with explicit approximation limits; 1478/1478 draws classify and 78/78 loaded
+Blender zero-edit exports are byte-identical. No new runtime result or material
+writer capability is claimed. See [research/r-mat1/findings.md](research/r-mat1/findings.md)
+and [docs/vehicle-materials.md](docs/vehicle-materials.md).
 
 Phase R4E adds same-topology attribute authoring, same-size DXT replacement, exact
 vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human testing confirms E1 UV, E3 vertex color, E4 alpha flag, and E5 full-tree Python Data.sma packing. E2 normal was inconclusive; stronger R4E.1 N1 and M1 human tests confirmed normal and environment-feature writing. The SAME-TOPOLOGY VEHICLE SDK V1 BASELINE is now frozen. See
@@ -54,7 +113,7 @@ vehicle texture-user manifests, staging, and ZIP-compatible SMA helpers. Human t
 
 Phase R4F reconstructs existing-draw render topology while preserving material identities and collision bytes. The protected 78-file vehicle corpus rebuilds byte-identically at zero edit; the Astero +3-vertex/+1-triangle F1 candidate is **CONFIRMED_BY_RUNTIME**: its new triangle is visible and collision, damage, glass, wheels and general vehicle function remain normal. The old same-topology patch exporter remains the frozen SDK v1 path. See `docs/topology-authoring.md`, `docs/dx-render-rebuilder.md`, and `research/r4f/findings.md`.
 
-## Course resources (R5T-SDK1 read-only foundation)
+## Course resources and RaceTest authoring (G0)
 
 The Vehicle SDK v1 baseline remains frozen. The read-only revision-135 course
 DX parser and Italy1/France1 Blender imports remain validated. R5T-C confirms
@@ -77,14 +136,31 @@ meaning is unknown. The initializer derives a RaceLine percentage from the
 split center, not the reverse. `src/master_rallye/course_sdk.py` now composes
 render DX, semantic RaceTest logic, HNT dependencies, structural SFL, and
 optional TXT/GXM source metadata without replacing the forensic parsers. The
-existing Blender add-on consumes this model and draws the split trigger as a
-read-only wire sphere while keeping the visual sign and checkpoint companions
-separate. Course tag100 is surfaced as a neutral opaque region with unknown
-semantics. `$bsp -> tag100` and tag100 physical meaning remain unknown. See
+existing Blender add-on consumes this model and displays the split trigger as
+a wire sphere driven by its explicit Radius property, while keeping visual
+checkpoint companions separate. Course tag100 is surfaced as a neutral opaque
+region with unknown semantics. `$bsp -> tag100` and tag100 physical meaning
+remain unknown. See
 [`docs/course-sdk.md`](docs/course-sdk.md), `research/r5t_d1/`, and
 `docs/course-importer.md`.
 
-No course writer, custom layout, or EXE change exists. See
+G0 adds bounded RaceTest authoring; human runtime testing through Blender
+export passed for StartArea, FinishArea, and the SplitTime0 trigger center.
+Combined StartArea + FinishArea editing loaded normally. G0.1 adds exact
+SplitTime visual-companion Row3 editing, a translation-only checkpoint group,
+semantic manifest roles, int32 ID bounds, quieter area transforms, and a
+Blender 5.2 panel-draw smoke that validates icons against Blender RNA. Retail
+validation remains 36/36 byte-identical no-op XML files, 110 main split
+records, and 440/440 visual-companion positions supported. The two 5-marker
+FinishAreas remain read-only. **G0: PASS — RUNTIME AUTHORING CONFIRMED.**
+**G0.1: PASS — BLENDER/CORPUS VALIDATED.** Visual-companion XML edits have not
+been separately runtime-tested. No course geometry/physical writer or EXE
+patch exists. See
+[`docs/course-race-logic-authoring.md`](docs/course-race-logic-authoring.md),
+[`research/g0/runtime-results.md`](research/g0/runtime-results.md), and
+[`research/course_marker_backlog.md`](research/course_marker_backlog.md).
+
+See
 [`docs/course-assets.md`](docs/course-assets.md),
 [`docs/course-importer.md`](docs/course-importer.md),
 [`research/r5t_b1/findings.md`](research/r5t_b1/findings.md),
@@ -163,8 +239,10 @@ Exports are local validation artifacts under ignored `.research-output/` and
 must not be committed. DXT parsing preserves raw stored BGRA rows; PNG export
 explicitly uses the `flip-vertical` presentation policy. The evidenced glTF
 vehicle preview uses `--flip-v` as a separate UV-coordinate transform. The
-material preview uses the first non-`Null` texture only; all original ordered
+legacy glTF material preview uses the first non-`Null` texture only; all original ordered
 slots and candidates remain metadata.
+Vehicle Blender Preview V3 uses fixed runtime slot semantics instead; see
+`docs/blender-materials.md`.
 
 ## Reproduce R0 metadata
 

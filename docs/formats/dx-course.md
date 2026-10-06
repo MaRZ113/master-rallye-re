@@ -1,6 +1,6 @@
 # Course DX render grammar (R5T-A)
 
-Status: **CONFIRMED_BY_CORPUS** for the parsed revision-135 course render regions. Course physical/BSP, route, and surface meanings remain **UNKNOWN**.
+Status: **CONFIRMED_BY_CORPUS** for the parsed revision-135 course render regions. The tested France1 `COLLIDE_finishline03` state follows the tag100 tree donor (**CONFIRMED_BY_TREE_ONLY_REGION_SWAP**), refining F.1's whole-suffix result. F.2 structurally parsed the tree and correlated its plane records to source geometry. The full tag100 grammar and broader physical, route, and surface meanings remain **UNKNOWN**.
 
 ## Observed structure
 
@@ -8,7 +8,7 @@ After the shared prefix described in [`dx-common.md`](dx-common.md), the common 
 
 Existing tag-2, tag-7, and tag-8 render records reuse the proven common DX draw parser. Course-only container tags 1, 4, 5, and 6 are traversed using their observed child counts and retained raw prefix bytes. Their remaining control/prefix values are not assigned semantic names. No heuristic byte scanning is used.
 
-After the parsed render records, the shared optional-section boundary parser recognizes tag 100 in all 36 retail course DX files. The offset is the exact end of the validated render batches. The tag-100 payload boundary/length is unresolved and its bytes are not decoded or rendered. Its physical meaning remains unknown.
+After the parsed render records, the shared optional-section boundary parser recognizes tag 100 in all 36 retail course DX files. The offset is the exact end of the validated render batches. The general reader still preserves the tag-100-starting suffix raw. F.1 runtime region swaps establish that the tested `COLLIDE_finishline03` compiled physical state follows this suffix; they do not establish that every byte is physical.
 
 ## Corpus validation
 
@@ -20,7 +20,30 @@ After the parsed render records, the shared optional-section boundary parser rec
 
 France1 and Italy1 details, per-resource divergence offsets, draw counts, and validation status are in [`research/r5t_a/dx-course-probe.md`](../../research/r5t_a/dx-course-probe.md) and [`research/r5t_a/tag100-inventory.md`](../../research/r5t_a/tag100-inventory.md).
 
-This is a render read model only. It does not implement or imply a course DX writer, a BSP decoder/writer, or full accounting of bytes after tag 100.
+The course DX render model remains separate from the loader-guided,
+read-only tag100 parser in `master_rallye.course_tag100`. It does not implement
+a course DX writer or a tag100 writer. The F.2 parser stops at the end of the
+tag100 tree; F.2.1 separately parses tag1400 U and records the later tag1500 R
+region as opaque. Neither parser provides a writer or assigns those later
+regions a complete runtime meaning.
+
+## R5T-F.1 tested physical state follows the tag100-starting suffix
+
+The reciprocal France1 hybrids kept the visible finish geometry and RaceTest
+FinishArea unchanged. Baseline render prefix + modified tag100-starting suffix
+produced no collision at the old right support and collision at the translated
+location; modified render prefix + baseline suffix produced the opposite. Thus, for the
+tested `COLLIDE_finishline03` source state, the selected suffix carries its
+compiled physical state. This remains a bounded runtime conclusion: tag100 is not
+declared globally to be collision data or a fully decoded spatial tree. Cooker
+render-sort BSP generation remains a separate pipeline from this trailing
+tag100 region.
+
+The runtime test swapped bytes from the tag100 marker through EOF. F.2 found a 44-byte tag1339 record after the parsed tree. F.2.1 then separated the following bytes into tag1400 U (1,809,324 bytes) and tag1500 R (15,504 bytes) in the controlled France1 pair. The earlier 1,824,828-byte ‘tag1400 region’ label referred to the combined U+R remainder; 64 changed byte positions are all in U, while R is byte-identical. Runtime isolation therefore still applies to the complete suffix. The source-matching plane records themselves are inside the parsed tag100 tree, a **HIGH_CONFIDENCE_INFERENCE** geometric binding; the independent runtime contribution of U remains unknown pending the staged hybrids.
+
+Loader entry points, wire grammar, plane matching, corpus coverage, and
+remaining unknowns are recorded in
+[`research/r5t_f2/tag100-physical-grammar.md`](../../research/r5t_f2/tag100-physical-grammar.md).
 
 ## R5T-B cooked-source variation
 
@@ -33,10 +56,11 @@ and 977 draws. Both parse through the same render parser. Therefore revision
 
 Two forced France1 recooks from identical source produced different render DX
 prefixes (the output hashes, vertex counts, triangle counts, and draw counts
-differ). Their raw tag100 payloads were byte-identical at 10,118,248 bytes.
-The render section is validated; tag100's internal length/semantics remain
-unresolved. Cooker render-sort BSP generation is a separate observed pipeline
-and is not identified with tag100.
+differ). Their raw tag100-starting suffixes were byte-identical at 10,118,248
+bytes. At this R5T-B checkpoint, the render section was validated and the
+suffix's internal tree length/semantics were unresolved. R5T-F.2 later parsed
+the tree grammar. Cooker render-sort BSP generation is a separate observed
+pipeline and is not identified with tag100.
 
 ## R5T-B.1 controlled source response
 
@@ -56,12 +80,12 @@ observation followed a one-corner tracer and is not a whole-volume test.
 
 ## R5T-C tag100 byte differential
 
-`master_rallye.tag100_diff` extracts the exact suffix beginning at the
-validated render boundary; it does not scan for tag values or guess the
-tag100's internal length. All 36 current retail course DX files pass the
-existing render parser and structurally reach tag100. Their opaque suffix
-sizes vary from 5,634,127 to 10,975,471 bytes. Retail France1 has 10,145,749
-bytes; retail Italy1 has 7,517,509 bytes.
+At the R5T-C checkpoint, `master_rallye.tag100_diff` extracted the exact
+suffix beginning at the validated render boundary; it did not scan for tag
+values or guess the tag100 tree length. All 36 retail files passed the render
+parser and reached tag100. The suffix sizes ranged from 5,634,127 to
+10,975,471 bytes (retail France1 10,145,749; Italy1 7,517,509). R5T-F.2 later
+decoded the tag100 tree while leaving following sections distinct.
 
 For the earlier controlled one-point France1 source tracer, the equal-sized
 10,118,248-byte cooked tag100 regions differ at 452 bytes in 253 ranges. Eleven
@@ -74,3 +98,7 @@ startpoint box, physical collision, or a runtime trigger. Full offsets, values,
 neighbor windows and residual evidence are in
 [`research/r5t_c/findings.md`](../../research/r5t_c/findings.md) and
 [`research/r5t_c/tag100-diff-france1-one-point.md`](../../research/r5t_c/tag100-diff-france1-one-point.md).
+
+## R5T-F.2.1 tree-only runtime closeout
+
+The controlled Demo 9.10.0 France1 hybrids establish that the tested `COLLIDE_finishline03` translation follows the tag100 tree donor. Modified tree + baseline tag1400 moved the tested collision from OLD to NEW; baseline tree + modified tag1400 retained OLD and lacked NEW. Visible finish geometry and RaceTest FinishArea completion stayed unchanged. This conclusion is specific to the tested collider and baseline/modified pairing. Modified tag1400 is neither sufficient nor required for this translation; its broader role remains UNKNOWN. Tag100 is not thereby identified as a BSP or globally as collision data. See [`../../research/r5t_f21/runtime-results.md`](../../research/r5t_f21/runtime-results.md).

@@ -42,6 +42,14 @@ from .course_sdk import (
 )
 from .dx_course import parse_course_dx, parse_course_dx_bytes
 from .course_xml import parse_course_xml, parse_course_xml_bytes
+from .course_race_authoring import (
+    CourseRaceLogicAuthoring,
+    RaceLogicAreaStatus,
+    RaceLogicExportReport,
+    RaceLogicSplitStatus,
+    RaceLogicVisualCompanionStatus,
+    load_course_race_logic_authoring,
+)
 from .course_gxm import (
     CourseGxmBank,
     CourseGxmModelV7,
@@ -115,6 +123,11 @@ __all__ = [
     "parse_course_dx_bytes",
     "parse_course_xml",
     "parse_course_xml_bytes",
+    "CourseRaceLogicAuthoring",
+    "RaceLogicAreaStatus",
+    "RaceLogicSplitStatus",
+    "RaceLogicExportReport",
+    "load_course_race_logic_authoring",
     "parse_course_gxm",
     "parse_course_gxm_bytes",
     "parse_course_gxm_model_v7",
