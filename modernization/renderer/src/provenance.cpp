@@ -61,9 +61,9 @@ Session::Session(){
  CreateDirectoryW((base+L"\\MRRRenderer").c_str(),nullptr);directory=base+L"\\MRRRenderer\\logs";CreateDirectoryW(directory.c_str(),nullptr);
  SYSTEMTIME t;GetSystemTime(&t);wchar_t name[128];swprintf_s(name,L"\\session-%04u%02u%02u-%02u%02u%02u-%lu.jsonl",t.wYear,t.wMonth,t.wDay,t.wHour,t.wMinute,t.wSecond,GetCurrentProcessId());
  file_=CreateFileW((directory+name).c_str(),GENERIC_WRITE,FILE_SHARE_READ,nullptr,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,nullptr);
- std::ostringstream o;o<<"{\"type\":\"session\",\"schema_version\":1,\"proxy_version\":\"R-GFX4-4\",\"architecture\":\"I386/PE32\",\"exe_path\":"<<quote(exe_path)<<",\"exe_size\":"<<exe_size<<",\"exe_sha256\":"<<quote(exe_sha)<<",\"proxy_path\":"<<quote(proxy_path)<<",\"proxy_sha256\":"<<quote(proxy_sha)<<",\"build\":"<<quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")<<",\"trace_enabled\":"<<(enabled?"true":"false")<<"}";write(o.str());
+ std::ostringstream o;o<<"{\"type\":\"session\",\"schema_version\":1,\"proxy_version\":\"R-GFX4-5\",\"architecture\":\"I386/PE32\",\"exe_path\":"<<quote(exe_path)<<",\"exe_size\":"<<exe_size<<",\"exe_sha256\":"<<quote(exe_sha)<<",\"proxy_path\":"<<quote(proxy_path)<<",\"proxy_sha256\":"<<quote(proxy_sha)<<",\"build\":"<<quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")<<",\"trace_enabled\":"<<(enabled?"true":"false")<<"}";write(o.str());
  auto effective=visual_config;if(!target){effective.anisotropy=effective.fov=effective.shadow_off=false;effective.reason="unsupported_build";}
- write("{\"type\":\"renderer_config\",\"version\":\"R-GFX4-4\",\"config_path\":"+quote(utf8(config_path))+",\"build\":"+quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"requested\":"+config_json(visual_config)+",\"effective_before_caps\":"+config_json(effective)+"}");
+ write("{\"type\":\"renderer_config\",\"version\":\"R-GFX4-5\",\"config_path\":"+quote(utf8(config_path))+",\"build\":"+quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"requested\":"+config_json(visual_config)+",\"effective_before_caps\":"+config_json(effective)+"}");
 }
 Session& session(){static Session* s=new Session();return *s;}
 uint64_t Session::device_serial() noexcept {EnterCriticalSection(&lock_);auto n=++serial_;LeaveCriticalSection(&lock_);return n;}

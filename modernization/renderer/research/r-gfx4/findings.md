@@ -1,3 +1,14 @@
+# R-GFX4 continuation #4 findings
+
+R-GFX4-5 separates conservative VEHICLE_CONSTELLATION discovery from persistent-in-race PROVEN_VEHICLE_BODY_ENV draw semantics. AI object proof churn no longer has to switch an already proven submitted body draw back to Stock. The input session independently recomputes79/560 sampled four-chassis summaries below four constellations; no claim about every blink's wheel/culling cause is made. [Evidence](continuation4-runtime-evidence.json).
+
+Native reflection, FOV/CPU culling, AF, shadows and appearance remain unchanged. Current material gates and generation lifetime still apply. Reset/scene clears proof and needs discovery again. New visual acceptance remains pending; R-GFX3 stays CLOSED. Stop before R-GFX5.
+
+
+---
+
+## Historical continuation #3 and earlier evidence
+
 # R-GFX4-4 continuation #3 — current findings
 
 **READY_FOR_HUMAN_RUNTIME.** R-GFX4-3 FOV/culling, frame lifetime and real ViewDependent2D execution are confirmed by the new human report and17 locally validated complete captures. Normal39/2735/78 and backview17/1623/34 modifications/triangles/writes have no restore errors. This is previous-DLL evidence, not a pass for this candidate.

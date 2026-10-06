@@ -1,28 +1,37 @@
 {
-  "phase": "R-GFX4 CONTINUATION #3",
-  "proxy_version": "R-GFX4-4",
+  "phase": "R-GFX4 CONTINUATION #4",
+  "proxy_version": "R-GFX4-5",
   "status": "READY_FOR_HUMAN_RUNTIME",
   "branch": "research/general-re",
-  "starting_head": "69822af6bc7e3bc7a889d06994d621ef9506fba7",
+  "starting_head": "a6fc83d245902458019262b6574175c7eda3391a",
+  "resume_head": "91ecac6b4e63138ea32ed06c3f893b5b0f8a47e6",
   "scope": "modernization/renderer/",
   "target_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "build": {
-    "sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
-    "size": 1096192,
+    "sha256": "d171d03c0fca176b1909a6babc76ede83baf22b830760d388dcc75e0fa7fa87c",
+    "size": 1105920,
     "pe": "PE32/I386",
     "deployed": false,
     "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
   },
   "r_gfx3": "CLOSED_CONFIRMED_BY_RUNTIME",
   "previous_runtime": {
-    "proxy_version": "R-GFX4-3",
-    "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
-    "evidence": "continuation3-runtime-evidence.json",
-    "fov_culling": "CONFIRMED_BY_HUMAN_REPORT_AND_CAPTURE_METADATA",
-    "native_reflection": "CONFIRMED_BY_RUNTIME_TRACE",
+    "proxy_version": "R-GFX4-4",
+    "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+    "evidence": "continuation4-runtime-evidence.json",
+    "four_chassis_samples": 560,
+    "below_four_constellations": 79,
+    "distribution": {
+      "4": 481,
+      "3": 61,
+      "2": 16,
+      "1": 2
+    },
+    "summary_sampling_is_not_full_frame_flicker_rate": true,
+    "accepted_fixes": "User reports ViewDependent2D, FOV/culling, stationary admission, brake identity and Reset working; AI whole-body reflection instability remains",
     "new_candidate_runtime": "PENDING"
   },
-  "classifier": {
+  "discovery": {
     "input": "D3D_ONLY",
     "admission_modes": [
       "dynamic",
@@ -61,22 +70,37 @@
     },
     "evidence_grade": "CONFIRMED_BY_SYNTHETIC_TEST; NEW_HUMAN_RUNTIME_PENDING"
   },
-  "brake_mutation": {
-    "evidence": "continuation3-runtime-evidence.json",
-    "observed_body_draws": [
-      34,
-      35
+  "semantic_registry": {
+    "input": "D3D_ONLY_EXACT_RETAIL",
+    "key": "existing geometry_signature hash plus equality of53 canonical words; method/caller RVA, VB/IB generations, stride/FVF/base/draw ranges, textures/stages/env transform bits, current ZWRITE/ALPHATEST/ALPHABLEND; WORLD absent",
+    "dependencies": "VB/IB/texture0/texture1 creation generations, not raw-pointer identity",
+    "states": [
+      "UNKNOWN_SIGNATURE (implicit)",
+      "OBSERVED_ON_VEHICLE (live trace before registration)",
+      "PROVEN_VEHICLE_BODY_ENV"
     ],
-    "observed_overlap": 33,
-    "observed_removed": 1,
-    "observed_added": 2,
-    "production_counts_or_serials_hardcoded": false,
-    "semantic_brake_detection": false,
-    "added_material_classes": [
-      "UNKNOWN_VEHICLE_MATERIAL",
-      "VEHICLE_ALPHA_UNLIT"
+    "promotion": "successful indexed native candidate draw + successful completed race Present + strong body/four distinct wheels/zero grace + strict current material gate",
+    "reflection_after_learning": "strict current context/material plus exact valid key; live wheels not required",
+    "object_identity_separate": true,
+    "shared_exact_vehicle_asset_reusable": true,
+    "bounds": {
+      "proven_entries": 512,
+      "pending_observations": 1024,
+      "capture_bytes_max": 33554432
+    },
+    "saturation": "fail closed for new learning; existing proof not evicted",
+    "invalidation": [
+      "referenced generation replacement",
+      "successful Reset",
+      "non-race-only scene/menu Present",
+      "failed Present",
+      "unknown-build reconfiguration",
+      "instrumentation failure"
     ],
-    "new_0x102_draws": "STOCK"
+    "unrelated_resource_churn": "object epoch can advance while exact valid asset proof survives; origin epoch <= current object epoch, not mandatory equality",
+    "resource_release_observed": false,
+    "release_limit": "Existing raw-child metadata model observes creation/replacement/Reset, not Release notifications",
+    "evidence_grade": "CONFIRMED_BY_SYNTHETIC_TEST; HUMAN_VISUAL_PENDING"
   },
   "reflection": {
     "default": "Stock",
@@ -103,7 +127,7 @@
     "human_status": "NEW_CANDIDATE_PENDING",
     "appearance_changed": false,
     "native_override_changed": false,
-    "current_material_gate": "BODY strong dynamic/structural/retained proof + opaque/depth-write FVF0x152 + stock stage1 env/NORMAL TCI + completed per-draw proof"
+    "current_material_gate": "exact retail/race/mapped indexed known geometry/rigid WORLD + opaque/depth-write FVF0x152 NORMAL DIFFUSE TEX1 + stock stage1 env/NORMAL TCI + live strong proof OR learned exact-key proof"
   },
   "reset": {
     "preserve": [
@@ -121,7 +145,10 @@
     "temporal_state": "CLEAR",
     "surviving_serials": "UNCHANGED",
     "failed_reset": "NO_MUTATION",
-    "relearn": "SYNTHETIC_PASS"
+    "relearn": "SYNTHETIC_PASS",
+    "semantic_registry": "CLEAR_ALL_EVEN_MANAGED; failed Reset preserves",
+    "scene_policy": "CLEAR_ALL_ON_NON_RACE_ONLY_OR_FAILED_PRESENT",
+    "relearn_window": "Fresh full four-wheel discovery; stationary needs four completed observations; partial visibility can delay"
   },
   "preserved": [
     "AF MIN-only",
@@ -132,111 +159,153 @@
     "pool-aware Reset",
     "race-HUD frame lifetime",
     "native TCI restore",
-    "exact-build fail-closed"
+    "exact-build fail-closed",
+    "stationary structural admission",
+    "brake material mutation identity",
+    "FVF0x102 Stock"
   ],
+  "lighting_changed": false,
+  "appearance_changed": false,
+  "native_override_changed": false,
   "trace": {
     "schema_version": 1,
     "new_draw_fields": [
-      "object_identity_source",
-      "object_identity_source_at_draw",
-      "identity_reason_mask",
-      "identity_grace_frames",
-      "geometry_resource_family",
-      "reflection_eligible",
-      "reflection_modified"
+      "vehicle_semantic_source",
+      "semantic_signature_id",
+      "semantic_signature_state",
+      "object_constellation_id",
+      "semantic_owner_return_rva"
     ],
-    "reason_bits": {
-      "admitted_dynamic": 1,
-      "admitted_structural": 2,
-      "same_chassis_track": 4,
-      "same_wheel_constellation": 8,
-      "body_material_mutation": 16,
-      "missing_wheel_grace": 32
-    },
+    "semantic_sources": [
+      "live_constellation",
+      "learned_signature",
+      "none"
+    ],
+    "discovery_provenance_record": "vehicle_semantic_signature: first learning frame/object epoch, origin constellation/mask/grace/four wheel IDs, generations and full key",
     "new_summary_counters": [
-      "vehicle_structural_admissions",
-      "vehicle_dynamic_admissions",
-      "vehicle_retained_identities",
-      "vehicle_identity_demotions",
-      "body_material_mutations"
+      "learned_vehicle_body_signatures",
+      "live_vehicle_body_draws",
+      "learned_signature_reflection_draws",
+      "live_constellation_reflection_draws",
+      "vehicle_signature_promotions",
+      "vehicle_signature_invalidations",
+      "unproven_semantic_observations"
     ],
-    "summary_counters_scope": "per completed frame, not cumulative"
+    "summary_scope": "learned signatures is current registry size; draws/promotions/invalidations/rejections per frame; rejections include cold unproven candidates"
   },
   "validation": {
     "native_suites": 6,
     "native": "PASS",
-    "python_tests": 69,
+    "python_tests": 75,
     "python": "PASS",
     "compileall": "PASS",
     "pe_verifier": "PASS",
-    "generator": "IDENTICAL_ON_RERUN",
-    "diff_check": "PASS"
+    "diff_check": "PASS",
+    "generator": "Not rerun this continuation; interface generation unchanged",
+    "native_seconds": 2.78,
+    "python_seconds": 91.553
   },
   "human_handoff": {
-    "A_stationary_start": "PENDING; no movement",
-    "B_brake_off_cam2": "PENDING",
-    "C_brake_on_cam2": "PENDING; same IDs and positive modifications",
-    "D_Reset": "PENDING; fresh ID and relearn"
+    "A_multi_car": "PENDING; four cars20-30s, center/edges/overtaking",
+    "B_F10": "PENDING; B-ai-multicar player plus2AI",
+    "C_edge": "PENDING; C-ai-edge partial wheel coverage",
+    "D_brake": "PENDING; quick Tata regression",
+    "E_Reset": "PENDING; actual successful Reset then relearn/stability"
   },
   "tools": {
-    "created": "tools/analyze_vehicle_identity.py",
     "extended": "tools/analyze_vehicle_draws.py",
-    "native_fixture_replay": "identity_tests.exe --replay (sampled input software contract only)"
+    "native_regression": "tests/reflection_tests.cpp",
+    "new_python_contracts": "tests/test_vehicle_semantics.py"
   },
-  "next": "WAIT_FOR_HUMAN_RUNTIME_EVIDENCE",
-  "historical_published_r_gfx4_2_summary": {
-    "phase": "R-GFX4 CONTINUATION",
-    "proxy_version": "R-GFX4-2",
+  "git_hygiene": {
+    "initial_tracked_tree": "CLEAN",
+    "untracked_user_zip": "modernization/renderer.zip preserved/excluded",
+    "interruption": "Unrelated Observatory edits appeared during work; stopped. User resumed after commits57a0985 and91ecac6 completed",
+    "new_branch": false,
+    "new_worktree": false,
+    "push": false,
+    "proprietary_binary_commit": false
+  },
+  "next": "WAIT_FOR_HUMAN_RUNTIME_EVIDENCE; NO_R_GFX5",
+  "historical_continuation3_preparation": {
+    "phase": "R-GFX4 CONTINUATION #3",
+    "proxy_version": "R-GFX4-4",
     "status": "READY_FOR_HUMAN_RUNTIME",
     "branch": "research/general-re",
-    "starting_head": "9c3a353a4838f6b19c2ab50d663b389acc64531c",
+    "starting_head": "69822af6bc7e3bc7a889d06994d621ef9506fba7",
+    "scope": "modernization/renderer/",
     "target_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
     "build": {
-      "sha256": "ff8a95bdb80961fbba65f41f16e0686792aae98d60740c7a3e9f480c16d852c3",
-      "size": 1067520,
+      "sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+      "size": 1096192,
       "pe": "PE32/I386",
       "deployed": false,
       "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
     },
     "r_gfx3": "CLOSED_CONFIRMED_BY_RUNTIME",
-    "prior_stock_runtime": {
-      "proxy_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
-      "human_observation": "no artifacts or unexpected changes",
-      "offline_accepted_rectangles": [
-        4,
-        3
-      ],
-      "post_reset": "all UNKNOWN in later captures",
-      "evidence_grade": "OFFLINE_GEOMETRY_ON_RECORDED_RUNTIME_TRACKS"
-    },
-    "resource_reset": {
-      "preserve": [
-        "MANAGED",
-        "SYSTEMMEM",
-        "SCRATCH",
-        "CreateImageSurface"
-      ],
-      "remove": [
-        "DEFAULT",
-        "render_target",
-        "depth_surface",
-        "unknown_pool"
-      ],
-      "temporal_state": "CLEAR",
-      "surviving_serials": "UNCHANGED",
-      "failed_reset": "NO_MUTATION",
-      "relearn": "SYNTHETIC_PASS"
+    "previous_runtime": {
+      "proxy_version": "R-GFX4-3",
+      "proxy_sha256": "0669d8ac986088735d4f01fe545c3490a379db8eaf147fa247cf4d2b391c8942",
+      "evidence": "continuation3-runtime-evidence.json",
+      "fov_culling": "CONFIRMED_BY_HUMAN_REPORT_AND_CAPTURE_METADATA",
+      "native_reflection": "CONFIRMED_BY_RUNTIME_TRACE",
+      "new_candidate_runtime": "PENDING"
     },
     "classifier": {
       "input": "D3D_ONLY",
-      "strong_rule": "dynamic multi-draw chassis + unique four-wheel rectangle + unambiguous assignment",
-      "wheel_independent_motion_required": false,
-      "body_wheel_identity_separate": true,
-      "max_transform_groups": 128,
-      "max_signatures_per_group": 64,
-      "max_near_wheel_candidates": 8,
-      "max_cars_fixed_to_four": false,
-      "draw_time_proof": "previous complete frame matching current WORLD/signature, one-frame lease"
+      "admission_modes": [
+        "dynamic",
+        "structural"
+      ],
+      "stationary_movement_required": false,
+      "structural_completed_frames": 4,
+      "structural_body": "age>=4; >=4 body draws; >=3 signatures; base/diffuse plus opaque normal-env; known local layouts",
+      "initial_wheels": "exactly4 unambiguous compatible wheel groups with common generation/layout family and repeated local rectangle",
+      "retention": "same uniquely matched chassis and compatible spatial wheel association; material set equality not required",
+      "missing_wheel_grace_completed_frames": 3,
+      "complete_chassis_disappearance_grace": 0,
+      "hard_conflicts": "incompatible or shared association; competing fifth wheel; unresolved duplicate wheel slot",
+      "identity": "separate monotonic device-local constellation ID",
+      "object_material_separated": true,
+      "immutable_family": "VB generation + IB generation + stride + FVF",
+      "draw_material_signature": "current states; unchanged algorithm; unseen signature Stock until completed valid frame",
+      "invalidation": [
+        "successful Reset",
+        "menu/scene boundary",
+        "failed Present",
+        "complete chassis disappearance",
+        "transform track replacement/ambiguity",
+        "disjoint resource generations",
+        "pointer-generation replacement",
+        "capacity overflow",
+        "invalid wheel association",
+        "grace expiration"
+      ],
+      "bounds": {
+        "transform_groups": 128,
+        "signatures_per_group": 64,
+        "resource_families_per_group": 8,
+        "near_wheel_candidates": 8,
+        "capture_bytes_max": 33554432
+      },
+      "evidence_grade": "CONFIRMED_BY_SYNTHETIC_TEST; NEW_HUMAN_RUNTIME_PENDING"
+    },
+    "brake_mutation": {
+      "evidence": "continuation3-runtime-evidence.json",
+      "observed_body_draws": [
+        34,
+        35
+      ],
+      "observed_overlap": 33,
+      "observed_removed": 1,
+      "observed_added": 2,
+      "production_counts_or_serials_hardcoded": false,
+      "semantic_brake_detection": false,
+      "added_material_classes": [
+        "UNKNOWN_VEHICLE_MATERIAL",
+        "VEHICLE_ALPHA_UNLIT"
+      ],
+      "new_0x102_draws": "STOCK"
     },
     "reflection": {
       "default": "Stock",
@@ -260,43 +329,204 @@
         "particles",
         "HUD/UI"
       ],
-      "human_status": "PENDING"
+      "human_status": "NEW_CANDIDATE_PENDING",
+      "appearance_changed": false,
+      "native_override_changed": false,
+      "current_material_gate": "BODY strong dynamic/structural/retained proof + opaque/depth-write FVF0x152 + stock stage1 env/NORMAL TCI + completed per-draw proof"
     },
-    "backview": {
-      "semantic": "active race camera look-back",
-      "extra_preset": false,
-      "normal_presets": 5,
-      "view_change_clears_context": false
+    "reset": {
+      "preserve": [
+        "MANAGED",
+        "SYSTEMMEM",
+        "SCRATCH",
+        "CreateImageSurface"
+      ],
+      "remove": [
+        "DEFAULT",
+        "render_target",
+        "depth_surface",
+        "unknown_pool"
+      ],
+      "temporal_state": "CLEAR",
+      "surviving_serials": "UNCHANGED",
+      "failed_reset": "NO_MUTATION",
+      "relearn": "SYNTHETIC_PASS"
     },
-    "lighting": {
-      "diffuse_draws": 187,
-      "variable_rgb_draws": 174,
-      "normal_luma_abs_correlation_median": 0.9535410087534312,
-      "directional_fit_count": 171,
-      "directional_fit_r2_median": 0.9256522457919937,
-      "conclusion": "DOUBLE_LIGHT_RISK; not a uniquely recovered sun",
-      "new_lighting": false,
-      "reproduction": "MATCHES_TRACKED_DATA"
+    "preserved": [
+      "AF MIN-only",
+      "MAG/MIP/stage1 stock",
+      "gameplay FOV and frontend45 exclusion",
+      "FOV/CPU culling seam",
+      "shadow Stock/Off",
+      "pool-aware Reset",
+      "race-HUD frame lifetime",
+      "native TCI restore",
+      "exact-build fail-closed"
+    ],
+    "trace": {
+      "schema_version": 1,
+      "new_draw_fields": [
+        "object_identity_source",
+        "object_identity_source_at_draw",
+        "identity_reason_mask",
+        "identity_grace_frames",
+        "geometry_resource_family",
+        "reflection_eligible",
+        "reflection_modified"
+      ],
+      "reason_bits": {
+        "admitted_dynamic": 1,
+        "admitted_structural": 2,
+        "same_chassis_track": 4,
+        "same_wheel_constellation": 8,
+        "body_material_mutation": 16,
+        "missing_wheel_grace": 32
+      },
+      "new_summary_counters": [
+        "vehicle_structural_admissions",
+        "vehicle_dynamic_admissions",
+        "vehicle_retained_identities",
+        "vehicle_identity_demotions",
+        "body_material_mutations"
+      ],
+      "summary_counters_scope": "per completed frame, not cumulative"
     },
     "validation": {
-      "python_tests": 59,
-      "native_suites": 4,
+      "native_suites": 6,
+      "native": "PASS",
+      "python_tests": 69,
+      "python": "PASS",
       "compileall": "PASS",
       "pe_verifier": "PASS",
-      "diff_check": "PASS",
-      "generator": "DETERMINISTIC"
+      "generator": "IDENTICAL_ON_RERUN",
+      "diff_check": "PASS"
     },
     "human_handoff": {
-      "A_reset_stock": "PENDING_REQUIRED_BEFORE_B",
-      "B_view_dependent": "PENDING",
-      "C_backview": "PENDING",
-      "D_static_world": "PENDING",
-      "E_multi_car": "PENDING"
+      "A_stationary_start": "PENDING; no movement",
+      "B_brake_off_cam2": "PENDING",
+      "C_brake_on_cam2": "PENDING; same IDs and positive modifications",
+      "D_Reset": "PENDING; fresh ID and relearn"
     },
     "tools": {
-      "created": "tools/analyze_resource_lifetime.py",
-      "extended": "tools/analyze_vehicle_draws.py"
+      "created": "tools/analyze_vehicle_identity.py",
+      "extended": "tools/analyze_vehicle_draws.py",
+      "native_fixture_replay": "identity_tests.exe --replay (sampled input software contract only)"
     },
-    "next": "WAIT_FOR_HUMAN_RUNTIME_EVIDENCE"
+    "next": "WAIT_FOR_HUMAN_RUNTIME_EVIDENCE",
+    "historical_published_r_gfx4_2_summary": {
+      "phase": "R-GFX4 CONTINUATION",
+      "proxy_version": "R-GFX4-2",
+      "status": "READY_FOR_HUMAN_RUNTIME",
+      "branch": "research/general-re",
+      "starting_head": "9c3a353a4838f6b19c2ab50d663b389acc64531c",
+      "target_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "build": {
+        "sha256": "ff8a95bdb80961fbba65f41f16e0686792aae98d60740c7a3e9f480c16d852c3",
+        "size": 1067520,
+        "pe": "PE32/I386",
+        "deployed": false,
+        "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
+      },
+      "r_gfx3": "CLOSED_CONFIRMED_BY_RUNTIME",
+      "prior_stock_runtime": {
+        "proxy_sha256": "b3a52962d3bb56678690f92ce4d1f7e97d4719dbdeecdd60f0847fcde429902d",
+        "human_observation": "no artifacts or unexpected changes",
+        "offline_accepted_rectangles": [
+          4,
+          3
+        ],
+        "post_reset": "all UNKNOWN in later captures",
+        "evidence_grade": "OFFLINE_GEOMETRY_ON_RECORDED_RUNTIME_TRACKS"
+      },
+      "resource_reset": {
+        "preserve": [
+          "MANAGED",
+          "SYSTEMMEM",
+          "SCRATCH",
+          "CreateImageSurface"
+        ],
+        "remove": [
+          "DEFAULT",
+          "render_target",
+          "depth_surface",
+          "unknown_pool"
+        ],
+        "temporal_state": "CLEAR",
+        "surviving_serials": "UNCHANGED",
+        "failed_reset": "NO_MUTATION",
+        "relearn": "SYNTHETIC_PASS"
+      },
+      "classifier": {
+        "input": "D3D_ONLY",
+        "strong_rule": "dynamic multi-draw chassis + unique four-wheel rectangle + unambiguous assignment",
+        "wheel_independent_motion_required": false,
+        "body_wheel_identity_separate": true,
+        "max_transform_groups": 128,
+        "max_signatures_per_group": 64,
+        "max_near_wheel_candidates": 8,
+        "max_cars_fixed_to_four": false,
+        "draw_time_proof": "previous complete frame matching current WORLD/signature, one-frame lease"
+      },
+      "reflection": {
+        "default": "Stock",
+        "opt_in": "ViewDependent2D",
+        "target": "VEHICLE_BODY opaque FVF0x152 stock env mapped indexed draw",
+        "normal_tci": 65536,
+        "reflection_tci": 196608,
+        "low_16_bits": "PRESERVED",
+        "draw_once": true,
+        "logical": "STOCK",
+        "restore": "RAII_NATIVE_ONLY",
+        "restore_failure": "reported; feature disabled; pending repair; later draws fail closed until repair",
+        "excluded": [
+          "WHEEL",
+          "alpha/glass",
+          "no-normal",
+          "frontend",
+          "static world",
+          "terrain/road",
+          "vegetation",
+          "particles",
+          "HUD/UI"
+        ],
+        "human_status": "PENDING"
+      },
+      "backview": {
+        "semantic": "active race camera look-back",
+        "extra_preset": false,
+        "normal_presets": 5,
+        "view_change_clears_context": false
+      },
+      "lighting": {
+        "diffuse_draws": 187,
+        "variable_rgb_draws": 174,
+        "normal_luma_abs_correlation_median": 0.9535410087534312,
+        "directional_fit_count": 171,
+        "directional_fit_r2_median": 0.9256522457919937,
+        "conclusion": "DOUBLE_LIGHT_RISK; not a uniquely recovered sun",
+        "new_lighting": false,
+        "reproduction": "MATCHES_TRACKED_DATA"
+      },
+      "validation": {
+        "python_tests": 59,
+        "native_suites": 4,
+        "compileall": "PASS",
+        "pe_verifier": "PASS",
+        "diff_check": "PASS",
+        "generator": "DETERMINISTIC"
+      },
+      "human_handoff": {
+        "A_reset_stock": "PENDING_REQUIRED_BEFORE_B",
+        "B_view_dependent": "PENDING",
+        "C_backview": "PENDING",
+        "D_static_world": "PENDING",
+        "E_multi_car": "PENDING"
+      },
+      "tools": {
+        "created": "tools/analyze_resource_lifetime.py",
+        "extended": "tools/analyze_vehicle_draws.py"
+      },
+      "next": "WAIT_FOR_HUMAN_RUNTIME_EVIDENCE"
+    }
   }
 }

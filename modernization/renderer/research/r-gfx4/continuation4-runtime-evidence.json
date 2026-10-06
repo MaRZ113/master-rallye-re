@@ -1,0 +1,409 @@
+{
+  "phase": "R-GFX4 CONTINUATION #4 INPUT EVIDENCE",
+  "evidence_grade": "RUNTIME_TRACE_PREVIOUS_CANDIDATE; HUMAN_VISUAL_REPORT",
+  "session": {
+    "file": "session-20261006-215743-16688.jsonl",
+    "size": 4111977,
+    "sha256": "a7d5ae6604aaf708587575959625944249e33f101a6123d1f167de22c39a775f",
+    "header": {
+      "type": "session",
+      "schema_version": 1,
+      "proxy_version": "R-GFX4-4",
+      "architecture": "I386/PE32",
+      "exe_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+      "exe_size": 3121214,
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_path": "D:\\Game\\Master Rallye Pristine\\d3d8.dll",
+      "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+      "build": "PRISTINE_RETAIL",
+      "trace_enabled": true
+    }
+  },
+  "four_chassis_samples": {
+    "total": 560,
+    "constellation_distribution": {
+      "1": 2,
+      "2": 16,
+      "3": 61,
+      "4": 481
+    },
+    "below_four": 79
+  },
+  "frames": [
+    {
+      "file": "frame-16688-d1-00077219.jsonl",
+      "size": 4363923,
+      "sha256": "fde98d1c48de92aa901d2b722c5ddae87ca500f44207aa6398ac6b2950a88d6b",
+      "header": {
+        "type": "frame_begin",
+        "schema_version": 1,
+        "proxy_version": "R-GFX4-4",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "exe_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+        "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+        "real_d3d8_path": "C:\\WINDOWS\\system32\\d3d8.dll",
+        "build": "PRISTINE_RETAIL",
+        "device": 1,
+        "frame": 77219
+      },
+      "classifier": {
+        "dynamic_tracks": 14,
+        "chassis_candidates": 4,
+        "vehicle_constellations": 3,
+        "vehicle_body_draws": 93,
+        "vehicle_wheel_draws": 56,
+        "ambiguities": 0,
+        "vehicle_structural_admissions": 0,
+        "vehicle_dynamic_admissions": 0,
+        "vehicle_retained_identities": 3,
+        "vehicle_identity_demotions": 0,
+        "body_material_mutations": 0,
+        "reflection_candidate_draws": 55,
+        "reflection_modified_draws": 55,
+        "reflection_modified_triangles": 3926,
+        "reflection_native_writes": 110,
+        "reset_count": 3,
+        "relearn_count": 3,
+        "epoch": 6,
+        "race_seen_this_frame": true
+      },
+      "end": {
+        "type": "frame_end",
+        "frame": 77219,
+        "complete": true,
+        "reason": "present",
+        "truncated": false,
+        "dropped_records": 0,
+        "draw_records": 621
+      },
+      "modified_draws": 55,
+      "body_constellation_ids": [
+        4491,
+        4579,
+        4638
+      ]
+    },
+    {
+      "file": "frame-16688-d1-00076806.jsonl",
+      "size": 4185152,
+      "sha256": "ad656f801c41839df961ddfbb03dcaa4e5a02f573517cd0bd89ad0cf24bb86df",
+      "header": {
+        "type": "frame_begin",
+        "schema_version": 1,
+        "proxy_version": "R-GFX4-4",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "exe_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+        "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+        "real_d3d8_path": "C:\\WINDOWS\\system32\\d3d8.dll",
+        "build": "PRISTINE_RETAIL",
+        "device": 1,
+        "frame": 76806
+      },
+      "classifier": {
+        "dynamic_tracks": 15,
+        "chassis_candidates": 3,
+        "vehicle_constellations": 3,
+        "vehicle_body_draws": 93,
+        "vehicle_wheel_draws": 56,
+        "ambiguities": 0,
+        "vehicle_structural_admissions": 0,
+        "vehicle_dynamic_admissions": 0,
+        "vehicle_retained_identities": 3,
+        "vehicle_identity_demotions": 0,
+        "body_material_mutations": 0,
+        "reflection_candidate_draws": 55,
+        "reflection_modified_draws": 55,
+        "reflection_modified_triangles": 3926,
+        "reflection_native_writes": 110,
+        "reset_count": 3,
+        "relearn_count": 3,
+        "epoch": 6,
+        "race_seen_this_frame": true
+      },
+      "end": {
+        "type": "frame_end",
+        "frame": 76806,
+        "complete": true,
+        "reason": "present",
+        "truncated": false,
+        "dropped_records": 0,
+        "draw_records": 600
+      },
+      "modified_draws": 55,
+      "body_constellation_ids": [
+        4491,
+        4495,
+        4545
+      ]
+    },
+    {
+      "file": "frame-16688-d1-00074437.jsonl",
+      "size": 3706598,
+      "sha256": "62b6fc191540137cab17559e41e8a8ab11a5a3512667f95f66c09f09b7f09300",
+      "header": {
+        "type": "frame_begin",
+        "schema_version": 1,
+        "proxy_version": "R-GFX4-4",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "exe_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+        "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+        "real_d3d8_path": "C:\\WINDOWS\\system32\\d3d8.dll",
+        "build": "PRISTINE_RETAIL",
+        "device": 1,
+        "frame": 74437
+      },
+      "classifier": {
+        "dynamic_tracks": 15,
+        "chassis_candidates": 3,
+        "vehicle_constellations": 3,
+        "vehicle_body_draws": 93,
+        "vehicle_wheel_draws": 56,
+        "ambiguities": 0,
+        "vehicle_structural_admissions": 0,
+        "vehicle_dynamic_admissions": 0,
+        "vehicle_retained_identities": 3,
+        "vehicle_identity_demotions": 0,
+        "body_material_mutations": 0,
+        "reflection_candidate_draws": 55,
+        "reflection_modified_draws": 55,
+        "reflection_modified_triangles": 3926,
+        "reflection_native_writes": 110,
+        "reset_count": 3,
+        "relearn_count": 3,
+        "epoch": 6,
+        "race_seen_this_frame": true
+      },
+      "end": {
+        "type": "frame_end",
+        "frame": 74437,
+        "complete": true,
+        "reason": "present",
+        "truncated": false,
+        "dropped_records": 0,
+        "draw_records": 528
+      },
+      "modified_draws": 55,
+      "body_constellation_ids": [
+        4463,
+        4470,
+        4491
+      ]
+    },
+    {
+      "file": "D-after-reset (2).jsonl",
+      "size": 3473746,
+      "sha256": "ce3acb27921d5d7ea37c77e41cf00b64a11564acf5083759d5b2f8bb3ef620a0",
+      "header": {
+        "type": "frame_begin",
+        "schema_version": 1,
+        "proxy_version": "R-GFX4-4",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "exe_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+        "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+        "real_d3d8_path": "C:\\WINDOWS\\system32\\d3d8.dll",
+        "build": "PRISTINE_RETAIL",
+        "device": 1,
+        "frame": 65158
+      },
+      "classifier": {
+        "dynamic_tracks": 4,
+        "chassis_candidates": 1,
+        "vehicle_constellations": 1,
+        "vehicle_body_draws": 34,
+        "vehicle_wheel_draws": 16,
+        "ambiguities": 0,
+        "vehicle_structural_admissions": 0,
+        "vehicle_dynamic_admissions": 0,
+        "vehicle_retained_identities": 1,
+        "vehicle_identity_demotions": 0,
+        "body_material_mutations": 0,
+        "reflection_candidate_draws": 22,
+        "reflection_modified_draws": 22,
+        "reflection_modified_triangles": 1304,
+        "reflection_native_writes": 44,
+        "reset_count": 2,
+        "relearn_count": 2,
+        "epoch": 3,
+        "race_seen_this_frame": true
+      },
+      "end": {
+        "type": "frame_end",
+        "frame": 65158,
+        "complete": true,
+        "reason": "present",
+        "truncated": false,
+        "dropped_records": 0,
+        "draw_records": 520
+      },
+      "modified_draws": 22,
+      "body_constellation_ids": [
+        1383
+      ]
+    },
+    {
+      "file": "C-brake-on-cam2.jsonl",
+      "size": 3374703,
+      "sha256": "bde4aa8af0a505e298b123d7c7e94b8270f86e7ebeca9a33501d0531802093f0",
+      "header": {
+        "type": "frame_begin",
+        "schema_version": 1,
+        "proxy_version": "R-GFX4-4",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "exe_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+        "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+        "real_d3d8_path": "C:\\WINDOWS\\system32\\d3d8.dll",
+        "build": "PRISTINE_RETAIL",
+        "device": 1,
+        "frame": 57203
+      },
+      "classifier": {
+        "dynamic_tracks": 5,
+        "chassis_candidates": 1,
+        "vehicle_constellations": 1,
+        "vehicle_body_draws": 35,
+        "vehicle_wheel_draws": 16,
+        "ambiguities": 0,
+        "vehicle_structural_admissions": 0,
+        "vehicle_dynamic_admissions": 0,
+        "vehicle_retained_identities": 1,
+        "vehicle_identity_demotions": 0,
+        "body_material_mutations": 0,
+        "reflection_candidate_draws": 21,
+        "reflection_modified_draws": 21,
+        "reflection_modified_triangles": 1294,
+        "reflection_native_writes": 42,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "end": {
+        "type": "frame_end",
+        "frame": 57203,
+        "complete": true,
+        "reason": "present",
+        "truncated": false,
+        "dropped_records": 0,
+        "draw_records": 502
+      },
+      "modified_draws": 21,
+      "body_constellation_ids": [
+        1
+      ]
+    },
+    {
+      "file": "B-brake-off-cam2.jsonl",
+      "size": 4534224,
+      "sha256": "59613edb8f62db73385a2d2b1c057fe370fb5e6f34b55f7e464ac79445f71708",
+      "header": {
+        "type": "frame_begin",
+        "schema_version": 1,
+        "proxy_version": "R-GFX4-4",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "exe_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+        "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+        "real_d3d8_path": "C:\\WINDOWS\\system32\\d3d8.dll",
+        "build": "PRISTINE_RETAIL",
+        "device": 1,
+        "frame": 51018
+      },
+      "classifier": {
+        "dynamic_tracks": 20,
+        "chassis_candidates": 4,
+        "vehicle_constellations": 4,
+        "vehicle_body_draws": 121,
+        "vehicle_wheel_draws": 76,
+        "ambiguities": 0,
+        "vehicle_structural_admissions": 0,
+        "vehicle_dynamic_admissions": 0,
+        "vehicle_retained_identities": 4,
+        "vehicle_identity_demotions": 0,
+        "body_material_mutations": 0,
+        "reflection_candidate_draws": 71,
+        "reflection_modified_draws": 71,
+        "reflection_modified_triangles": 5263,
+        "reflection_native_writes": 142,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "end": {
+        "type": "frame_end",
+        "frame": 51018,
+        "complete": true,
+        "reason": "present",
+        "truncated": false,
+        "dropped_records": 0,
+        "draw_records": 648
+      },
+      "modified_draws": 71,
+      "body_constellation_ids": [
+        1,
+        1373,
+        1377,
+        1378
+      ]
+    },
+    {
+      "file": "A-start-stationary.jsonl",
+      "size": 5243438,
+      "sha256": "1addc564426fc42085c3a6488a208ef5644cf1ee3beadd5482e7c557a8528a34",
+      "header": {
+        "type": "frame_begin",
+        "schema_version": 1,
+        "proxy_version": "R-GFX4-4",
+        "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "exe_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+        "proxy_sha256": "862a9d15687a4b5d121641326354e71b7a0d9f04195da1faea5695c2b9c1b873",
+        "real_d3d8_path": "C:\\WINDOWS\\system32\\d3d8.dll",
+        "build": "PRISTINE_RETAIL",
+        "device": 1,
+        "frame": 31518
+      },
+      "classifier": {
+        "dynamic_tracks": 9,
+        "chassis_candidates": 4,
+        "vehicle_constellations": 4,
+        "vehicle_body_draws": 121,
+        "vehicle_wheel_draws": 76,
+        "ambiguities": 0,
+        "vehicle_structural_admissions": 0,
+        "vehicle_dynamic_admissions": 0,
+        "vehicle_retained_identities": 4,
+        "vehicle_identity_demotions": 0,
+        "body_material_mutations": 0,
+        "reflection_candidate_draws": 71,
+        "reflection_modified_draws": 71,
+        "reflection_modified_triangles": 5263,
+        "reflection_native_writes": 142,
+        "reset_count": 0,
+        "relearn_count": 0,
+        "epoch": 1,
+        "race_seen_this_frame": true
+      },
+      "end": {
+        "type": "frame_end",
+        "frame": 31518,
+        "complete": true,
+        "reason": "present",
+        "truncated": false,
+        "dropped_records": 0,
+        "draw_records": 780
+      },
+      "modified_draws": 71,
+      "body_constellation_ids": [
+        1,
+        1141,
+        1362,
+        1364
+      ]
+    }
+  ],
+  "limitations": [
+    "Summaries are sampled; 79/560 is not a full-frame flicker rate.",
+    "F10 samples are independent; no cross-capture object association invented.",
+    "Body-ID churn supports semantic instability, but exact wheel-culling cause per blink is unproven.",
+    "No R-GFX4-5 human validation is claimed."
+  ]
+}

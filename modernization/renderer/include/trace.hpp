@@ -2,6 +2,7 @@
 #include "state_tracker.hpp"
 #include "provenance.hpp"
 #include "vehicle_classifier.hpp"
+#include "vehicle_semantics.hpp"
 #include "game_fov.hpp"
 #include <mutex>
 #include <memory>
@@ -33,7 +34,8 @@ public:
  Guard guard() noexcept {return Guard(*this);}
  DrawClassification before(uint32_t slot,const Args& args,uintptr_t pc) noexcept;
  void reflection_result(const ReflectionOutcome& outcome,uint32_t triangles) noexcept;
- void configure_classifier(bool known,uintptr_t base) noexcept {classifier_known_=known;exe_base_=base;tracker_.reset();race_context_=race_seen_this_frame_=race_history_=false;}
+ void configure_classifier(bool known,uintptr_t base) noexcept {classifier_known_=known;exe_base_=base;tracker_.reset();if(semantics_)semantics_->clear();race_context_=race_seen_this_frame_=race_history_=false;}
+ size_t learned_signatures() const noexcept {return semantics_?semantics_->size():0;}
  bool race_context() const noexcept {return race_context_;}
  uint64_t classifier_epoch() const noexcept {return tracker_.epoch();}
  Known<uint32_t> reflection_restore_pending;bool reflection_disabled=false;
@@ -45,7 +47,9 @@ public:
  CaptureControl control;
  ResourceRegistry resources;
 private:
- TransformTracker tracker_;bool classifier_known_=false,race_context_=false,race_seen_this_frame_=false,race_history_=false;uintptr_t exe_base_=0;
+ TransformTracker tracker_;std::unique_ptr<VehicleSemantics> semantics_;uint32_t pending_semantic_=UINT32_MAX;
+ VehicleSemanticSource pending_semantic_source_=VehicleSemanticSource::None;
+ uint64_t live_body_draws_=0,learned_reflection_draws_=0,live_reflection_draws_=0;bool classifier_known_=false,race_context_=false,race_seen_this_frame_=false,race_history_=false;uintptr_t exe_base_=0;
  CRITICAL_SECTION lock_{};bool lock_ok_=false;
  uint64_t device_=0,frame_=1,primitives_=0;
  std::array<uint64_t,97> counts_{};

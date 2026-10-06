@@ -36,6 +36,7 @@ void state(std::ostream& o,const Draw& d){
 }
 }
 Trace::Trace() noexcept {
+ semantics_.reset(new(std::nothrow)VehicleSemantics);
  lock_ok_=InitializeCriticalSectionEx(&lock_,2000,0)!=FALSE;
  try {auto& s=session();enabled=lock_ok_&&s.enabled;device_=s.device_serial();classifier_known_=s.target;exe_base_=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));}catch(...){enabled=false;}
 }
@@ -50,12 +51,25 @@ DrawClassification Trace::before(uint32_t slot,const Args& a,uintptr_t pc) noexc
    if(pid==GetCurrentProcessId())control.poll(down);else control.key_down=down;}
   if(slot<97)++counts_[slot];
   if(slot==14)reset_before_.read(reinterpret_cast<const D3DPRESENT_PARAMETERS*>(a.a[0]));
+  if(slot>=70&&slot<=73){pending_semantic_=UINT32_MAX;pending_semantic_source_=VehicleSemanticSource::None;}
   if(slot==71){uint32_t rva=pc>=exe_base_&&pc-exe_base_<=UINT32_MAX?static_cast<uint32_t>(pc-exe_base_):0;
    bool owner=classifier_known_&&rva==SHARED_WORLD_RETURN_RVA;classification.reasons=draw_reasons(shadow,classifier_known_,race_context_,owner);classification.fvf=shadow.bindings.vertex_shader.known?shadow.bindings.vertex_shader.value:0;classification.alpha_blended=shadow.rs[27].known&&shadow.rs[27].value!=0;
    if(owner&&race_context_&&a.a[0]==D3DPT_TRIANGLELIST&&(classification.reasons&RIGID_WORLD)){
     race_seen_this_frame_=true; // A cached perspective may remain active across Present.
     classification.signature=geometry_signature(shadow,resources,a,rva);
     if(classification.signature){classification.reasons|=KNOWN_GEOMETRY;classification.resource_family=geometry_resource_family(shadow,resources);classification.group=tracker_.observe(shadow.matrices[256].value,classification.signature,{classification.fvf,classification.reasons,static_cast<uint32_t>(a.a[4]),classification.resource_family});classification.epoch=tracker_.epoch();classification.transform=tracker_.predict(shadow.matrices[256].value,classification.signature,classification.resource_family);}
+   }
+   if(classification.transform.object==ObjectClass::Body&&classification.transform.constellation&&strong_vehicle_proof(classification.transform))++live_body_draws_;
+   if(semantics_&&classification.signature&&std::strcmp(reflection_material_exclusion(classification),"eligible")==0){
+    auto key=vehicle_signature_key(shadow,resources,a,rva);
+    const auto* entry=semantics_->find(key,resources);
+    bool live=std::strcmp(reflection_exclusion(classification),"eligible")==0;
+    bool material=std::strcmp(reflection_material_exclusion(classification),"eligible")==0;
+    if(live){classification.semantic_source=VehicleSemanticSource::Live;}
+    else if(entry&&material)classification.semantic_source=VehicleSemanticSource::Learned;
+    if(entry&&material)classification.semantic_id=entry->id;
+    pending_semantic_=entry?UINT32_MAX:semantics_->observe(key,classification);
+    pending_semantic_source_=classification.semantic_source;
    }
   }
   if(slot>=70&&slot<=73){primitives_+=a.a[slot==70?2:slot==71?4:slot==72?1:3];
@@ -70,10 +84,11 @@ DrawClassification Trace::before(uint32_t slot,const Args& a,uintptr_t pc) noexc
     }
    }
   }
- }catch(...){enabled=false;tracker_.reset();classification={};}
+ }catch(...){enabled=false;tracker_.reset();if(semantics_)semantics_->clear();classification={};}
  return classification;
 }
 void Trace::reflection_result(const ReflectionOutcome& outcome,uint32_t triangles) noexcept {
+ if(outcome.applied){learned_reflection_draws_+=pending_semantic_source_==VehicleSemanticSource::Learned;live_reflection_draws_+=pending_semantic_source_==VehicleSemanticSource::Live;}
  reflection_candidates_+=outcome.candidate;reflection_draws_+=outcome.applied;reflection_triangles_+=outcome.applied?triangles:0;reflection_writes_+=outcome.native_writes;
  if(enabled&&capture_&&pending_draw_!=UINT32_MAX&&pending_draw_<capture_->draw_count)capture_->draws[pending_draw_].reflection=outcome;
 }
@@ -81,7 +96,7 @@ void Trace::resource(uint32_t slot,const Args& a,uint32_t result){
  if(static_cast<int32_t>(result)<0||slot<20||slot>27)return;
  const uint32_t output[]={6,7,5,4,4,5,4,3};uintptr_t p=0;
  if(!safe_copy(&p,reinterpret_cast<const void*>(a.a[output[slot-20]]),4)||!p)return;
- if(resources.items.find(p)!=resources.items.end()||resources.items.size()>=8192)tracker_.reset();auto r=resources.add(p,slot,a);if(!enabled)return;std::ostringstream o;o<<"{\"type\":\"resource_create\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[slot])<<",\"pointer\":"<<p<<",\"serial\":"<<r.serial<<",\"arguments\":[";
+ if(resources.items.find(p)!=resources.items.end()||resources.items.size()>=8192)tracker_.reset();auto r=resources.add(p,slot,a);if(semantics_)semantics_->prune(resources);if(!enabled)return;std::ostringstream o;o<<"{\"type\":\"resource_create\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[slot])<<",\"pointer\":"<<p<<",\"serial\":"<<r.serial<<",\"arguments\":[";
  for(int i=0;i<8;++i){if(i)o<<',';o<<a.a[i];}o<<"],\"pool\":";scalar(o,r.pool);o<<",\"survives_reset\":"<<(r.reset_survivor?"true":"false")<<",\"lifetime_observed\":false}";session().write(o.str());
 }
 void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,const Args* effective,uint32_t feature,bool suppressed,bool native_only) noexcept {
@@ -91,18 +106,19 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
  try {
   // Classification/lifetime state is independent of capture and logger availability.
   resource(slot,args,result);
+  if(slot==71&&semantics_)semantics_->submitted(pending_semantic_,static_cast<int32_t>(result)>=0);
   if(slot==63&&args.a[0]==1&&args.a[1]==11&&static_cast<int32_t>(result)>=0&&reflection_restore_pending.known&&native.a[2]==reflection_restore_pending.value)reflection_restore_pending.known=false;
   if(slot==37&&!native_only&&args.a[0]==D3DTS_PROJECTION&&static_cast<int32_t>(result)>=0){
    bool race=classifier_known_&&pc==exe_base_+GAMEPLAY_PROJECTION_RETURN_RVA&&shadow.matrices[3].known&&symmetric_lh(shadow.matrices[3].value)&&std::abs(source_camera_angle(shadow.matrices[3].value)-90.)<=SOURCE_CAMERA_TOLERANCE_DEGREES;
    race_context_=race;if(race)race_seen_this_frame_=true;
   }
   if(slot==15){
-   if(static_cast<int32_t>(result)>=0&&race_seen_this_frame_){tracker_.finish_frame();race_history_=true;}
-   else if(race_history_||race_seen_this_frame_){tracker_.reset();race_history_=false;}
+   if(static_cast<int32_t>(result)>=0&&race_seen_this_frame_){tracker_.finish_frame();if(semantics_)semantics_->learn(tracker_,resources,frame_);race_history_=true;}
+   else if(race_history_||race_seen_this_frame_){tracker_.reset();if(semantics_)semantics_->clear();race_history_=false;}
    if(waiting_relearn_&&tracker_.stats().constellations){++relearn_count_;waiting_relearn_=false;}
   }
-  if(slot==14&&static_cast<int32_t>(result)>=0){reset_removed_=resources.successful_reset();tracker_.reset();race_context_=race_seen_this_frame_=race_history_=false;++reset_count_;waiting_relearn_=true;reflection_restore_pending.known=false;}
-  if(!enabled){if(slot==15){tracker_.next_frame();race_seen_this_frame_=false;++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;}return;}
+  if(slot==14&&static_cast<int32_t>(result)>=0){reset_removed_=resources.successful_reset();tracker_.reset();if(semantics_)semantics_->clear();race_context_=race_seen_this_frame_=race_history_=false;++reset_count_;waiting_relearn_=true;reflection_restore_pending.known=false;}
+  if(!enabled){if(slot==15){tracker_.next_frame();if(semantics_)semantics_->next_frame();live_body_draws_=learned_reflection_draws_=live_reflection_draws_=0;race_seen_this_frame_=false;++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;}return;}
   if(control.active&&capture_){
    if(capture_->event_count==MAX_EVENTS){capture_->truncated=true;++capture_->dropped;}
    else if(!capture_->truncated){auto& e=capture_->events[capture_->event_count++];e=Event{};e.slot=slot;e.result=result;e.args=args;e.pc=pc;e.effective_args=native;e.feature=feature;e.suppressed=suppressed;e.native_only=native_only;e.culling_synchronized=culling.synchronized;
@@ -121,8 +137,8 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
    if(control.active)finish(result,false,"reset");control.abort();control.boundary=false;
   }
   if(slot==3&&(!last_cooperative_.known||last_cooperative_.value!=result)){last_cooperative_.set(result);session().write("{\"type\":\"cooperative_level\",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+",\"hresult\":"+std::to_string(result)+"}");}
-  if(slot==15){finish(result,control.boundary,"present");tracker_.next_frame();race_seen_this_frame_=false;++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;control.finish_present();if(control.active)start_capture();}
- }catch(...){enabled=false;control.abort();OutputDebugStringA("R-GFX3 trace disabled after instrumentation failure\n");}
+  if(slot==15){finish(result,control.boundary,"present");tracker_.next_frame();if(semantics_)semantics_->next_frame();live_body_draws_=learned_reflection_draws_=live_reflection_draws_=0;race_seen_this_frame_=false;++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;control.finish_present();if(control.active)start_capture();}
+ }catch(...){enabled=false;tracker_.reset();if(semantics_)semantics_->clear();control.abort();OutputDebugStringA("R-GFX3 trace disabled after instrumentation failure\n");}
 }
 void Trace::start_capture() noexcept {
  if(!capture_)capture_.reset(new(std::nothrow)FrameBuffer);
@@ -131,7 +147,7 @@ void Trace::start_capture() noexcept {
 void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
  try {
   auto stats=tracker_.stats();
-  auto& s=session();std::ostringstream summary;summary<<"{\"type\":\"frame_summary\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"complete_interval\":"<<(complete?"true":"false")<<",\"present_hresult\":"<<result<<",\"primitive_total\":"<<primitives_<<",\"classifier\":{\"dynamic_tracks\":"<<stats.dynamic<<",\"chassis_candidates\":"<<stats.chassis<<",\"vehicle_constellations\":"<<stats.constellations<<",\"vehicle_body_draws\":"<<stats.body_draws<<",\"vehicle_wheel_draws\":"<<stats.wheel_draws<<",\"ambiguities\":"<<stats.ambiguities<<",\"vehicle_structural_admissions\":"<<stats.structural_admissions<<",\"vehicle_dynamic_admissions\":"<<stats.dynamic_admissions<<",\"vehicle_retained_identities\":"<<stats.retained<<",\"vehicle_identity_demotions\":"<<stats.demotions<<",\"body_material_mutations\":"<<stats.mutations<<",\"reflection_candidate_draws\":"<<reflection_candidates_<<",\"reflection_modified_draws\":"<<reflection_draws_<<",\"reflection_modified_triangles\":"<<reflection_triangles_<<",\"reflection_native_writes\":"<<reflection_writes_<<",\"reset_count\":"<<reset_count_<<",\"relearn_count\":"<<relearn_count_<<",\"epoch\":"<<tracker_.epoch()<<",\"race_seen_this_frame\":"<<(race_seen_this_frame_?"true":"false")<<"},\"fov_culling\":{\"installed\":"<<(culling.installed?"true":"false")<<",\"synchronized\":"<<(culling.synchronized?"true":"false")<<",\"restored\":"<<(culling.restored?"true":"false")<<",\"width\":"<<culling.width<<",\"height\":"<<culling.height<<",\"source_angle\":"<<culling.source<<",\"vfov\":"<<culling.vfov<<",\"hfov\":"<<culling.hfov<<",\"synchronized_frames\":"<<culling.synchronized_frames<<",\"failures\":"<<culling.failures<<",\"reason\":"<<quote(culling.reason)<<"},\"counts\":{";
+  auto& s=session();std::ostringstream summary;summary<<"{\"type\":\"frame_summary\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"complete_interval\":"<<(complete?"true":"false")<<",\"present_hresult\":"<<result<<",\"primitive_total\":"<<primitives_<<",\"classifier\":{\"dynamic_tracks\":"<<stats.dynamic<<",\"chassis_candidates\":"<<stats.chassis<<",\"vehicle_constellations\":"<<stats.constellations<<",\"vehicle_body_draws\":"<<stats.body_draws<<",\"vehicle_wheel_draws\":"<<stats.wheel_draws<<",\"ambiguities\":"<<stats.ambiguities<<",\"vehicle_structural_admissions\":"<<stats.structural_admissions<<",\"vehicle_dynamic_admissions\":"<<stats.dynamic_admissions<<",\"vehicle_retained_identities\":"<<stats.retained<<",\"vehicle_identity_demotions\":"<<stats.demotions<<",\"body_material_mutations\":"<<stats.mutations<<",\"reflection_candidate_draws\":"<<reflection_candidates_<<",\"reflection_modified_draws\":"<<reflection_draws_<<",\"reflection_modified_triangles\":"<<reflection_triangles_<<",\"reflection_native_writes\":"<<reflection_writes_<<",\"learned_vehicle_body_signatures\":"<<learned_signatures()<<",\"live_vehicle_body_draws\":"<<live_body_draws_<<",\"learned_signature_reflection_draws\":"<<learned_reflection_draws_<<",\"live_constellation_reflection_draws\":"<<live_reflection_draws_<<",\"vehicle_signature_promotions\":"<<(semantics_?semantics_->promotions:0)<<",\"vehicle_signature_invalidations\":"<<(semantics_?semantics_->invalidations:0)<<",\"unproven_semantic_observations\":"<<(semantics_?semantics_->rejections:0)<<",\"reset_count\":"<<reset_count_<<",\"relearn_count\":"<<relearn_count_<<",\"epoch\":"<<tracker_.epoch()<<",\"race_seen_this_frame\":"<<(race_seen_this_frame_?"true":"false")<<"},\"fov_culling\":{\"installed\":"<<(culling.installed?"true":"false")<<",\"synchronized\":"<<(culling.synchronized?"true":"false")<<",\"restored\":"<<(culling.restored?"true":"false")<<",\"width\":"<<culling.width<<",\"height\":"<<culling.height<<",\"source_angle\":"<<culling.source<<",\"vfov\":"<<culling.vfov<<",\"hfov\":"<<culling.hfov<<",\"synchronized_frames\":"<<culling.synchronized_frames<<",\"failures\":"<<culling.failures<<",\"reason\":"<<quote(culling.reason)<<"},\"counts\":{";
   for(int i=0;i<97;++i){if(i)summary<<',';summary<<quote(METHOD_NAMES[i])<<':'<<counts_[i];}summary<<"},\"bypass_suspected\":"<<((counts_[15]&&(!counts_[34]||!counts_[35]))?"true":"false")<<"}";
   if(s.summaries&&(frame_==1||frame_%60==0||control.active))s.write(summary.str());
   if(!control.active||!capture_)return;
@@ -146,7 +162,12 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
    if(written+text.size()>64*1024*1024||!WriteFile(f,text.data(),static_cast<DWORD>(text.size()),&n,nullptr)||n!=text.size()){
     okay=false;LARGE_INTEGER at;at.QuadPart=written;SetFilePointerEx(f,at,nullptr,FILE_BEGIN);SetEndOfFile(f);return;
    }written+=n;};
-  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX4-4\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+"}");
+  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX4-5\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+"}");
+  if(semantics_)for(size_t i=0;i<semantics_->size();++i){const auto& e=semantics_->entry(i);std::ostringstream o;
+   o<<"{\"type\":\"vehicle_semantic_signature\",\"semantic_signature_id\":"<<e.id<<",\"semantic_signature_state\":\"PROVEN_VEHICLE_BODY_ENV\",\"geometry_signature\":"<<e.key.hash<<",\"learned_frame\":"<<e.learned_frame<<",\"learned_epoch\":"<<e.epoch<<",\"origin_constellation_id\":"<<e.origin.constellation<<",\"origin_reason_mask\":"<<e.origin.vehicle_reasons<<",\"origin_grace_frames\":"<<e.origin.grace<<",\"origin_identity_source\":"<<quote(identity_source(e.origin.source))<<",\"origin_wheel_track_ids\":[";
+   for(int j=0;j<4;++j){if(j)o<<',';o<<e.origin.wheels[j];}o<<"],\"resource_generations\":[";for(int j=0;j<4;++j){if(j)o<<',';o<<e.key.generations[j];}
+   o<<"],\"canonical_key_words\":[";for(size_t j=0;j<e.key.words.size();++j){if(j)o<<',';o<<e.key.words[j];}o<<"]}";line(o.str());
+  }
   for(size_t i=0;i<capture_->event_count;++i){const auto& e=capture_->events[i];std::ostringstream o;
    o<<"{\"type\":"<<quote(e.draw==UINT32_MAX?(e.native_only?"native_override":"event"):"draw")<<",\"sequence\":"<<i<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[e.slot])<<",\"slot\":"<<e.slot<<",\"result\":"<<e.result<<",\"caller\":";caller(o,e.pc);o<<",\"arguments\":[";
    for(int j=0;j<8;++j){if(j)o<<',';o<<e.args.a[j];}o<<"],\"payload_bits\":[";
@@ -164,6 +185,10 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
      <<",\"classifier_confidence\":"<<quote(decision.transform.constellation?(decision.transform.vehicle_reasons&STRUCTURAL_CHASSIS?"STRONG_STRUCTURAL_FOUR_WHEEL":"STRONG_FOUR_WHEEL"):"UNPROVEN")<<",\"classifier_reasons\":[";
     const char* vehicle_reasons[]={"dynamic_chassis","body_draw_cluster","wheel_signature","four_wheel_match","bilateral_symmetry","axle_pairing","unambiguous_assignment","structural_chassis"};
     bool first=true;for(int j=0;j<8;++j)if(decision.transform.vehicle_reasons&(1u<<j)){if(!first)o<<',';first=false;o<<quote(vehicle_reasons[j]);}o<<"]";
+    o<<",\"semantic_owner_return_rva\":"<<((d.classification.reasons&SHARED_OWNER)?SHARED_WORLD_RETURN_RVA:0);
+    o<<",\"vehicle_semantic_source\":"<<quote(vehicle_semantic_source(d.classification.semantic_source))<<",\"semantic_signature_id\":"<<d.classification.semantic_id
+     <<",\"semantic_signature_state\":"<<quote(d.classification.semantic_id?"PROVEN_VEHICLE_BODY_ENV":d.classification.semantic_source==VehicleSemanticSource::Live?"OBSERVED_ON_VEHICLE":"UNKNOWN_SIGNATURE")
+     <<",\"object_constellation_id\":"<<d.at_draw.constellation;
     o<<",\"object_identity_source\":"<<quote(identity_source(decision.transform.source))<<",\"object_identity_source_at_draw\":"<<quote(identity_source(d.at_draw.source))
      <<",\"identity_reason_mask\":"<<decision.transform.identity_reasons<<",\"identity_grace_frames\":"<<decision.transform.grace
      <<",\"reflection_eligible\":"<<(std::strcmp(reflection_exclusion(at_draw),"eligible")==0?"true":"false")<<",\"reflection_modified\":"<<(refl.applied?"true":"false");

@@ -54,9 +54,11 @@ private:
  size_t current_size_=0,previous_size_=0;uint64_t next_id_=0,next_vehicle_id_=0,epoch_=1;bool overflow_=false;
  ClassifierStats events_{};
 };
+enum class VehicleSemanticSource : uint8_t {None,Live,Learned};
 struct DrawClassification {
  uint32_t group=UINT32_MAX;uint64_t signature=0,epoch=0,resource_family=0;Classification transform{};
  uint32_t reasons=0,fvf=0;bool alpha_blended=false;
+ uint64_t semantic_id=0;VehicleSemanticSource semantic_source=VehicleSemanticSource::None;
 };
 enum ClassificationReason : uint32_t {EXACT_BUILD=1,RACE_PROJECTION=2,SHARED_OWNER=4,
  KNOWN_GEOMETRY=8,RIGID_WORLD=16,NORMAL_FVF=32,ENV_STAGE=64,CL_OPAQUE=128};
@@ -67,5 +69,6 @@ const char* identity_source(IdentitySource) noexcept;
 uint32_t draw_reasons(const Shadow& s,bool known,bool race,bool owner) noexcept;
 const char* object_classification(const DrawClassification& c) noexcept;
 const char* material_classification(const DrawClassification& c) noexcept;
+const char* reflection_material_exclusion(const DrawClassification& c) noexcept;
 const char* reflection_exclusion(const DrawClassification& c) noexcept;
 }

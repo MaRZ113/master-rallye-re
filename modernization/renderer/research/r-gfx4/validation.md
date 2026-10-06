@@ -1,3 +1,34 @@
+# R-GFX4-5 automated validation — continuation #4
+
+**READY_FOR_HUMAN_RUNTIME.** New AI center/edge visual stability remains pending. Starting branch research/general-re, HEAD a6fc83d245902458019262b6574175c7eda3391a; tracked tree clean, user modernization/renderer.zip preserved. Concurrent Observatory edits appeared during work, causing a STOP; user resumed after unrelated commits57a0985 and91ecac6b4e63138ea32ed06c3f893b5b0f8a47e6. Final graphics changes remain exclusively in modernization/renderer. No branch/worktree/push/deployment, game EXE/asset mutation or retired-tree/Ghidra project writes.
+
+| Check | Result |
+|---|---|
+| Win32 x86 Release tools/build.py | PASS |
+| Native / visual / classifier / reflection / FOV-culling / identity suites | **6/6 PASS** |
+| Full current renderer Python discovery | **75 PASS**, no skips (91.553s) |
+| python -m compileall -q modernization | PASS |
+| PE/import/export verifier | PE32/I386,3 direct exports, no recursive d3d8 import |
+| Git scoped/whole diff-check | PASS |
+
+DLL SHA256: `d171d03c0fca176b1909a6babc76ede83baf22b830760d388dcc75e0fa7fa87c`. Size: **1105920 bytes**. Ignored candidate `.build-msvc/Release/d3d8.dll`, not committed or deployed. Exports Direct3DCreate8@5,ValidateVertexShader@3,ValidatePixelShader@2; imports bcrypt.dll,USER32.dll,KERNEL32.dll. [Build manifest](../../data/build.json). No GPU/visual or byte-identical-rebuild claim.
+
+Native mock wrapper tests exercise real production draw authorization and unchanged ReflectionScope setters/restores. Strong four-wheel proof learns two body signatures; twelve successive two-wheel frames revoke live constellation proof while keeping positive ViewDependent2D draws. Captured draws have learned_signature provenance with current object_constellation_id=0, strict material and successful exact native restore. Full wheels return without a reflection gap. An unrelated resource pointer-generation replacement resets object epoch while valid asset proof survives; its capture verifies origin/current epoch separation. Shared identical geometry at another instance works; distinct static/damage/LOD/range/VB signatures remain Stock. Wheels0x112,brakes0x102,alpha,no-depth-write and nonstock TCI stay excluded. Unknown build remains fail closed.
+
+New unseen failed native draws cannot promote; successful Reset clears semantic/object proof while retaining MANAGED metadata; failed Reset preserves both; scene/non-race-only/failed Present clears proof; later complete discovery relearns. Same-pointer new generation cannot inherit old semantics. Stock mode has zero native reflection writes even with proven signatures. Existing stationary dynamic/structural object identity, brake mutation, bounded grace, native HRESULT/temp-set/restore failure and repair contracts remain passing. The initial implementation hit the old returning-env one-frame Stock assertion; the new assertion demands immediate reflection for an already proven exact signature, while unchanged brake-on checks still demand zero writes for both0x102 layers. No safety assertion was relaxed.
+
+Python tests audit native-generated current-producer captures, first learning four-wheel mask/IDs, exact53-word key and original geometry hash, current geometry/resource generations/material, monotonic origin object epoch and adjacent successful temporary/native restore. Missing/corrupted origin,current range/hash/generation,unknown/incomplete capture and expired/future epoch fail. Existing live four-wheel audit assertions remain; learned draws are separately checked against their recorded discovery origin. The existing full-world/HUD suite retains its live assertions, with independent new lost-proof/HUD/wheel capture contracts. Existing sampled brake/stationary replay remains a software fixture only.
+
+Byte comparison against starting HEAD verifies reflection_scope.cpp,game_fov.cpp,visual_policy.cpp,visual_wrappers.cpp,wrappers.cpp,state_tracker.cpp and identity_tests.cpp unchanged. Existing32MiB F10 allocation bound passes. Registry allocations and observation capacities are bounded; saturation stops new promotions without evicting valid proof. Interface generator/COM ABI files are unchanged; generator was not rerun this continuation. Canonical corpus and current pristine EXE rehashed to bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4.
+
+Read-only input runtime traces are from R-GFX4-4 proxy862a…b873, not this candidate. The current session recomputes560 sampled four-chassis summaries with481×4,61×3,16×2,2×1 constellations (79 below4). Seven complete/untruncated F10 digests retain exact provenance and body-ID churn. This supports semantic gating instability but does not identify every blink's wheel/culling cause or continuous frame flicker rate. [Input evidence](continuation4-runtime-evidence.json). User confirms previous FOV/culling,stationary/brake/Reset/native reflection fixes; R-GFX3 remains CLOSED.
+
+**Human still required:** four-car20–30s center/edge/turn/overtake stability,B-ai-multicar andC-ai-edge F10,quick Tata brakes and actual Reset/relearn. Resource Release is still unobserved under the existing raw-child model; generation replacement is checked at intercepted creation/lookup. CPU cost, universal scenery exclusion, unseen LOD/damage coverage and hardware visual stability remain human/runtime unknowns. A short Reset/scene relearn window is explicit; permanent blinking is FAIL. [Handoff](runtime-handoff.md). Stop before R-GFX5.
+
+---
+
+## Historical continuation #3 and earlier validation
+
 # R-GFX4-4 automated validation — continuation #3
 
 **READY_FOR_HUMAN_RUNTIME.** New stationary/brake visuals are pending. Repository master-rallye-re-general, branch research/general-re; starting HEAD69822af6bc7e3bc7a889d06994d621ef9506fba7, working tree clean at preflight. No untracked user files then. All edits inside modernization/renderer; no new branch/worktree/push/deployment, EXE/asset modification or retired-tree/Ghidra database change.

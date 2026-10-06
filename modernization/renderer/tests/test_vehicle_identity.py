@@ -53,7 +53,7 @@ class IdentityEvidenceTests(unittest.TestCase):
         release=ROOT/'.build-msvc/Release';digest=hashlib.sha256((release/'reflection_tests.exe').read_bytes()).hexdigest();verified=0
         for p in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines()]
-            if rows[0].get('proxy_version')!='R-GFX4-4' or rows[0].get('exe_sha256')!=digest:continue
+            if rows[0].get('proxy_version')!='R-GFX4-5' or rows[0].get('exe_sha256')!=digest:continue
             draws=[d for d in rows if d.get('type')=='draw'];brakes=[d for d in draws if d.get('race_context') and d['state']['vertex_shader']==0x102]
             if not brakes:continue
             self.assertEqual(len(brakes),2)

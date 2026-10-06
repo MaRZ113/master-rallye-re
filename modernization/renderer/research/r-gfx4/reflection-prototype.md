@@ -1,3 +1,22 @@
+# R-GFX4-5 continuation #4: stable semantic authorization
+
+The native ReflectionScope implementation is unchanged: requested NORMAL TCI → draw-local REFLECTIONVECTOR retaining low16 bits → one original draw → exact native restore. No reflection intensity, texture, matrix, vertex color, lighting or shader change.
+
+Authorization now accepts either unchanged strong live body proof or a full-key `PROVEN_VEHICLE_BODY_ENV` entry learned by that oracle. Every draw still passes exact-build/race/mapped geometry/rigid WORLD/material validation. Targets remain opaque Z-writing FVF0x152 with stock stage1 env and CAMERASPACENORMAL. Wheels0x112,brake0x102,alpha/glass,unproven static env and unknown resource/material/LOD keys remain Stock. Similar material alone cannot seed the registry. An identical proven vehicle asset intentionally works on another instance without that instance's current four-wheel proof.
+
+Synthetic wrapper regression sustains two-wheel frames beyond object grace and captures positive learned reflection while live constellation_id=0. Full wheels returning produces no reflection gap. Previously learned brake-off body signatures now return immediately, strengthening the former one-frame Stock expectation; both brake layers still produce zero writes. Stock mode performs no native reflection writes even with registered proof. Failed temporary/restore/native draw contracts and logical/native TCI restoration remain unchanged.
+
+F10 adds `vehicle_semantic_source`, `semantic_signature_id/state`, `object_constellation_id` at draw time and `semantic_owner_return_rva`. Bounded `vehicle_semantic_signature` rows record first learning frame/epoch, origin constellation/four wheel IDs/reason mask/grace and full canonical words/resource generations. This provenance is separate from current object classification, which may legitimately be CANDIDATE/UNKNOWN for a modified learned draw. Frame-end proof never retroactively replaces the draw-time source.
+
+Frame counters expose learned signatures,live body draws,learned/live modified reflection draws,promotions,invalidations and unproven eligible-material observations. Rejections include cold/unproven candidates, not a proven static-world taxonomy. No semantic-toggle-rate claim is made from sampled summaries. The analyzer validates discovery provenance, exact canonical key/hash/generations, learning lifetime and current material plus adjacent native setters/restores; it preserves legacy/live four-wheel audit requirements.
+
+Successful Reset and scene/non-race-only/failed Present clear the registry; surviving MANAGED resources require relearning. This conservative policy preserves established Reset/menu contracts. Within a continuing race, transient object proof loss does not clear shared asset proof. See [classification](vehicle-classification.md) and [human handoff](runtime-handoff.md).
+
+
+---
+
+## Historical continuation #3 and earlier evidence
+
 # R-GFX4-4 reflection ownership update
 
 R-GFX4-3 supplied human captures prove actual native execution: E-normal-view39 modifications/2735 triangles/78 writes; E-backview17/1623/34, with successful per-draw restoration. Brake-off cam2 has22/1304/44; brake-on falls to0 because the old whole-body semantic predicate rejects a0x102 mutation. The native reflection implementation and appearance are unchanged in continuation #3.

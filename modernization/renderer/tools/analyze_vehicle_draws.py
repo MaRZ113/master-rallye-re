@@ -67,23 +67,64 @@ def constellations(groups):
         if p['accepted'] and any(uses[t]!=1 for t in p['wheel_tracks']):p.update(accepted=False,reason='shared_wheel_conflict')
     return proposals
 
+def canonical_semantic_words(draw):
+    """Reconstruct the full collision-checked key from logical D3D capture state."""
+    state=draw.get('state',{});streams=state.get('streams') or [];indices=state.get('indices') or {}
+    stream=streams[0] if streams else {};textures=state.get('textures') or [];stages=state.get('texture_stage_states') or []
+    args=draw.get('arguments',[]);rva=draw.get('caller',{}).get('return_rva')
+    if rva is None:rva=draw.get('semantic_owner_return_rva')
+    if not stream or len(textures)<2 or len(stages)<2 or len(args)!=8:return None
+    words=[71,rva,stream.get('last_creation_serial'),indices.get('last_creation_serial'),stream.get('stride'),indices.get('base'),state.get('vertex_shader'),*args]
+    for texture,stage in zip(textures[:2],stages[:2]):words.extend([texture.get('last_creation_serial'),*[stage.get(str(k)) for k in (1,2,3,4,5,6,11,24)]])
+    transformed=stages[1].get('24')!=0
+    bits=(state.get('matrices',{}).get('17') or {}).get('bits',[]) if transformed else [0]*16
+    if len(bits)!=16:return None
+    words.extend([int(transformed),*bits,*[state.get('render_states',{}).get(str(k)) for k in (14,15,27)]])
+    if len(words)!=53 or not all(isinstance(w,int) and 0<=w<2**64 for w in words):return None
+    return words
+
+def learned_proof_errors(draw,proof,records):
+    errors=[];words=canonical_semantic_words(draw)
+    if not proof:return ['missing signature discovery provenance']
+    wheels=proof.get('origin_wheel_track_ids',[]);mask=proof.get('origin_reason_mask',0)
+    if proof.get('semantic_signature_state')!='PROVEN_VEHICLE_BODY_ENV' or not proof.get('origin_constellation_id') or not isinstance(mask,int) or mask&126!=126 or not mask&129 or len(wheels)!=4 or len(set(wheels))!=4 or not all(wheels) or proof.get('origin_grace_frames')!=0 or proof.get('origin_identity_source') not in ('dynamic','structural','retained'):errors.append('invalid signature discovery proof')
+    if draw.get('semantic_signature_state')!='PROVEN_VEHICLE_BODY_ENV' or not words or proof.get('canonical_key_words')!=words or proof.get('geometry_signature')!=draw.get('geometry_signature'):errors.append('signature key differs from current geometry/material')
+    if words:
+        h=14695981039346656037
+        hashed=words[:33]+(words[34:50] if words[33] else [])+words[50:]
+        for word in hashed:
+            for b in word.to_bytes(8,'little'):h=((h^b)*1099511628211)&(2**64-1)
+        if (h or 1)!=draw.get('geometry_signature'):errors.append('signature hash differs from canonical key')
+    if words and proof.get('resource_generations')!=[words[2],words[3],words[15],words[24]]:errors.append('signature generation mismatch')
+    summary=next((r.get('classifier',{}) for r in records if r.get('type')=='frame_summary'),{})
+    frame=draw.get('frame',0)
+    # Object epochs may advance after unrelated resource churn; valid asset proof survives.
+    if not isinstance(proof.get('learned_frame'),int) or not 0<proof['learned_frame']<=frame or not isinstance(proof.get('learned_epoch'),int) or not isinstance(summary.get('epoch'),int) or not 0<proof['learned_epoch']<=summary['epoch']:errors.append('signature lifetime/epoch mismatch')
+    if not draw.get('race_context') or draw.get('semantic_owner_return_rva')!=0x17707e or (draw.get('caller',{}).get('return_rva') not in (None,0x17707e)):errors.append('learned signature outside mapped race owner')
+    return errors
+
 def reflection_audit(records,known):
     errors=[];modified=0
+    proofs={r.get('semantic_signature_id'):r for r in records if r.get('type')=='vehicle_semantic_signature'}
     for i,d in enumerate(records):
         if d.get('type')!='draw' or not d.get('native_override_applied',False):continue
         modified+=1;state=d.get('state',{});rs=state.get('render_states',{});stage=state.get('texture_stage_states',[{},{}])[1]
         if not known:errors.append('modified draw without exact complete canonical capture')
-        if d.get('method')!='DrawIndexedPrimitive' or d.get('object_class_at_draw')!='VEHICLE_BODY' or state.get('vertex_shader')!=0x152 or not d.get('constellation_id_at_draw'):errors.append('unqualified draw/object/layout')
+        learned=d.get('vehicle_semantic_source')=='learned_signature'
+        if learned:errors.extend(learned_proof_errors(d,proofs.get(d.get('semantic_signature_id')),records))
+        if d.get('method')!='DrawIndexedPrimitive' or state.get('vertex_shader')!=0x152 or (not learned and (d.get('object_class_at_draw')!='VEHICLE_BODY' or not d.get('constellation_id_at_draw'))):errors.append('unqualified draw/object/layout')
         if rs.get('27')!=0 or rs.get('14')!=1 or stage.get('1')!=18 or stage.get('2')!=1 or stage.get('3')!=2 or stage.get('4')!=4 or stage.get('5')!=1 or stage.get('6')!=2 or stage.get('24')!=2:errors.append('unqualified material combine')
         reasons={'body_draw_cluster','wheel_signature','four_wheel_match','bilateral_symmetry','axle_pairing','unambiguous_assignment'}
         wheels=d.get('associated_wheel_track_ids',[])
-        if d.get('classifier_confidence') not in ('STRONG_FOUR_WHEEL','STRONG_STRUCTURAL_FOUR_WHEEL') or not reasons.issubset(d.get('classifier_reasons',[])) or not {'dynamic_chassis','structural_chassis'}.intersection(d.get('classifier_reasons',[])) or len(wheels)!=4 or len(set(wheels))!=4 or not all(wheels):errors.append('missing strong four-wheel evidence')
-        if 'object_identity_source' in d:
+        if not learned and (d.get('classifier_confidence') not in ('STRONG_FOUR_WHEEL','STRONG_STRUCTURAL_FOUR_WHEEL') or not reasons.issubset(d.get('classifier_reasons',[])) or not {'dynamic_chassis','structural_chassis'}.intersection(d.get('classifier_reasons',[])) or len(wheels)!=4 or len(set(wheels))!=4 or not all(wheels)):errors.append('missing strong four-wheel evidence')
+        if not learned and 'object_identity_source' in d:
             source=d.get('object_identity_source_at_draw',d['object_identity_source']);mask=d.get('identity_reason_mask',0)
             if source not in ('dynamic','structural','retained') or not isinstance(mask,int) or not isinstance(d.get('identity_grace_frames'),int) or not 0<=d['identity_grace_frames']<=3:errors.append('invalid identity source/grace')
             elif source=='retained' and mask&12!=12:errors.append('missing chassis/wheel retention proof')
             elif source=='structural' and not (mask&2):errors.append('missing structural admission proof')
             if d.get('reflection_eligible') is not True or d.get('reflection_modified') is not True:errors.append('inconsistent current-draw reflection eligibility')
+        if 'vehicle_semantic_source' in d:
+            if d['vehicle_semantic_source'] not in ('live_constellation','learned_signature') or d.get('reflection_eligible') is not True or d.get('reflection_modified') is not True:errors.append('invalid semantic provenance/eligibility')
         requested=d.get('requested_stage1_tci');effective=d.get('effective_stage1_tci_for_draw')
         if not isinstance(requested,int) or not isinstance(effective,int) or requested&0xffff0000!=0x10000 or effective!=(requested&0xffff)|0x30000:errors.append('TCI or low-index mismatch')
         if not d.get('native_restore_success'):errors.append('native restore failed or unavailable')
@@ -91,6 +132,14 @@ def reflection_audit(records,known):
         for event,value in ((prev,effective),(nxt,requested)):
             if event.get('type')!='native_override' or event.get('method')!='SetTextureStageState' or event.get('arguments',[])[:3]!=[1,11,value] or not isinstance(event.get('result'),int) or event['result']&0x80000000:errors.append('missing successful draw-local setter/restore')
     return {'modified_draws':modified,'errors':errors,'status':'FAIL' if errors else 'AUTOMATED_TRACE_PASS' if modified else 'NO_MODIFICATIONS'}
+
+def semantic_report(records):
+    proofs=[r for r in records if r.get('type')=='vehicle_semantic_signature']
+    draws=[r for r in records if r.get('type')=='draw']
+    return {'proven_vehicle_body_signatures':[dict(p) for p in proofs],
+            'draw_provenance_counts':dict(Counter(d.get('vehicle_semantic_source','legacy') for d in draws)),
+            'modified_provenance_counts':dict(Counter(d.get('vehicle_semantic_source','legacy') for d in draws if d.get('reflection_modified'))),
+            'unproven_env_draws':sum('stock_env_stage' in d.get('classification_reasons',[]) and d.get('vehicle_semantic_source')=='none' for d in draws)}
 
 def analyze(records):
     header=records[0] if records else {};end=records[-1] if records else {}
@@ -117,7 +166,7 @@ def analyze(records):
             g['wheel_draws']+=fvf==0x112 and env and opaque
     for v in families.values():v['texture_generations']=sorted(v['texture_generations'])
     for v in groups.values():v['tracks']=sorted(t for t in v['tracks'] if t)
-    return {'exact_build_and_complete':known,'header':{k:header.get(k) for k in ('exe_sha256','proxy_sha256','device','frame')},'families':list(families.values()),'transform_groups':list(groups.values()),'constellation_analysis':constellations([g for g in groups.values() if len(g['world'])==16]) if known else [],'classification_counts':dict(classifications),'reflection_modified_draws':reflections,'reflection_validation':reflection_audit(records,known),'vehicle_semantics':'UNPROVEN_UNLESS_SEPARATELY_CORRELATED','legacy_temporal_status':'UNAVAILABLE' if not any('transform_dynamic' in d for d in records) else 'RECORDED_RUNTIME_TRACKER'}
+    return {'exact_build_and_complete':known,'header':{k:header.get(k) for k in ('exe_sha256','proxy_sha256','device','frame')},'families':list(families.values()),'transform_groups':list(groups.values()),'constellation_analysis':constellations([g for g in groups.values() if len(g['world'])==16]) if known else [],'classification_counts':dict(classifications),'reflection_modified_draws':reflections,'reflection_validation':reflection_audit(records,known),'vehicle_semantics':'DISCOVERY_AND_LEARNED_RENDER_SEMANTICS' if known and any(r.get('type')=='vehicle_semantic_signature' for r in records) else 'UNPROVEN_UNLESS_SEPARATELY_CORRELATED','semantic_registry':semantic_report(records),'legacy_temporal_status':'UNAVAILABLE' if not any('transform_dynamic' in d for d in records) else 'RECORDED_RUNTIME_TRACKER'}
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('captures',type=Path,nargs='+');a=ap.parse_args()

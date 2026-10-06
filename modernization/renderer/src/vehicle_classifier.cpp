@@ -265,7 +265,18 @@ const char* material_classification(const DrawClassification& c) noexcept {
  if(c.reasons&ENV_STAGE)return (c.reasons&CL_OPAQUE)?"VEHICLE_BODY_ENV_OPAQUE":c.alpha_blended?"VEHICLE_BODY_ALPHA_ENV":"UNKNOWN_VEHICLE_MATERIAL";
  return "VEHICLE_BODY_BASE";
 }
+const char* reflection_material_exclusion(const DrawClassification& c) noexcept {
+ constexpr uint32_t required=EXACT_BUILD|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD|NORMAL_FVF;
+ if(!(c.reasons&EXACT_BUILD))return "unknown_build";
+ if(!(c.reasons&RACE_PROJECTION))return "non_race_context";
+ if((c.reasons&required)!=required)return "unmapped_or_unknown_geometry";
+ if(c.fvf!=0x152)return "excluded_fvf";
+ if(!(c.reasons&CL_OPAQUE)||c.alpha_blended)return "alpha_or_no_depth_write";
+ if(!(c.reasons&ENV_STAGE))return "non_stock_env_stage";
+ return "eligible";
+}
 const char* reflection_exclusion(const DrawClassification& c) noexcept {
+ if(c.semantic_source==VehicleSemanticSource::Learned&&c.semantic_id)return reflection_material_exclusion(c);
  constexpr uint32_t required=EXACT_BUILD|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD;
  if(!(c.reasons&EXACT_BUILD))return "unknown_build";
  if(!(c.reasons&RACE_PROJECTION))return "non_race_context";

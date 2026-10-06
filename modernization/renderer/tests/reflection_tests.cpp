@@ -127,7 +127,7 @@ void stationary_brake_reflection(){
   t.enabled=true;t.control.pending=true;race(t);stationary_brake_frame(w,false,false);t.after(15,pack(),S_OK,0);
   race(t);n=raw.writes.size();stationary_brake_frame(w,true,shuffled);CHECK(raw.writes.size()==n+4); // One env removed; both 0x102 layers stay stock.
   t.after(15,pack(),S_OK,0);t.enabled=false;
-  race(t);n=raw.writes.size();stationary_brake_frame(w,false,shuffled);CHECK(raw.writes.size()==n+4);t.after(15,pack(),S_OK,0); // Returning env signature is verified by a complete frame first.
+  race(t);n=raw.writes.size();stationary_brake_frame(w,false,shuffled);CHECK(raw.writes.size()==n+6);t.after(15,pack(),S_OK,0); // Previously proven exact env signature returns immediately; 0x102 never learns.
   race(t);n=raw.writes.size();stationary_brake_frame(w,false,shuffled);CHECK(raw.writes.size()==n+6);t.after(15,pack(),S_OK,0);
  }
 }
@@ -140,4 +140,65 @@ void gating(){
  auto d=c;d.transform.wheels[3]=0;check(d,false);d=c;d.transform.wheels[3]=d.transform.wheels[2];check(d,false);d=c;d.transform.object=ObjectClass::Wheel;check(d,false);d.transform.object=ObjectClass::Unknown;check(d,false);d=c;d.transform.ambiguous=true;check(d,false);
  p.configure(p.requested,false,nullptr,E_FAIL);check(c,false);p.configure(parse_visual_config({},false),true,nullptr,E_FAIL);check(c,false);
 }
-int main(){try{gating();integration();full_frame_lifetime();stationary_brake_reflection();std::cout<<"Native reflection / full race-HUD-Present lifetime / menu transition / Reset relearn / fail-closed gates: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+
+void learned_semantics(){
+ MockRootBase rr;Raw raw;Root8 root(&rr);Device8 w(&raw,&root);auto& t=w.trace;t.configure_classifier(true,0x400000);t.enabled=false;setup(t);
+ t.resources.add(100,23,pack(128,0,0,D3DPOOL_MANAGED,0));t.resources.add(200,24,pack(128,0,101,D3DPOOL_MANAGED,0));t.resources.add(300,20,pack(8,8,1,0,21,D3DPOOL_MANAGED,0));
+ auto configure=[&](const char* mode){w.visuals.configure(parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode",mode}},true),true,nullptr,E_FAIL);};configure("ViewDependent2D");
+ auto draw=[&](float x,float z,uint32_t fvf,int start){t.shadow.matrices[256].set(world(x,z));t.shadow.bindings.vertex_shader.set(fvf);t.effective_shadow.bindings.vertex_shader.set(fvf);auto n=raw.writes.size();CHECK(w.draw_indexed_at(D3DPT_TRIANGLELIST,0,20,start,10,0x400000+SHARED_WORLD_RETURN_RVA)==S_OK);return raw.writes.size()-n;};
+ auto partial=[&](float x){CHECK(draw(x,0,0x152,0)==2);CHECK(draw(x,0,0x152,30)==2);for(int k:{0,1}){CHECK(draw(x+(k&1?.9f:-.9f),-1.4f,0x112,60)==0);CHECK(draw(x+(k&1?.9f:-.9f),-1.4f,0x112,90)==0);}};
+ // Discovery still takes the unchanged four-wheel dynamic or stationary oracle.
+ for(int f=0;f<8;++f){race(t);geometry(w,f*.2f);t.after(15,pack(),S_OK,0);}
+ CHECK(t.learned_signatures()==2);
+ // B: sustained two-wheel submission, well beyond the 3-frame object grace.
+ for(int f=0;f<12;++f){race(t);partial(1.6f+f*.2f);hud(w);t.after(15,pack(),S_OK,0);}
+ race(t);t.shadow.matrices[256].set(world(4.f));t.shadow.bindings.vertex_shader.set(0x152);
+ auto c=t.before(71,pack(D3DPT_TRIANGLELIST,0,20,0,10),0x400000+SHARED_WORLD_RETURN_RVA);
+ CHECK(c.transform.object!=ObjectClass::Body&&!c.transform.constellation&&c.semantic_id&&c.semantic_source==VehicleSemanticSource::Learned&&std::strcmp(reflection_exclusion(c),"eligible")==0);
+ // Capture the learned draw without any live proof; HUD and wheels remain stock.
+ t.enabled=true;t.control.pending=true;partial(4.f);hud(w);t.after(15,pack(),S_OK,0);
+ race(t);partial(4.2f);hud(w);t.after(15,pack(),S_OK,0);t.enabled=false;
+ // An unrelated pointer reuse resets object tracking but must not revoke valid asset proof.
+ t.resources.add(900,20,pack(8,8,1,0,21,D3DPOOL_MANAGED,0));auto epoch=t.classifier_epoch();uintptr_t recreated=900;
+ t.after(20,pack(8,8,1,0,21,D3DPOOL_MANAGED,&recreated),S_OK,0);
+ CHECK(t.classifier_epoch()>epoch&&t.learned_signatures()==2);
+ t.enabled=true;t.control.pending=true;race(t);partial(4.2f);hud(w);t.after(15,pack(),S_OK,0);
+ race(t);partial(4.4f);hud(w);t.after(15,pack(),S_OK,0);t.enabled=false;
+ // C: full proof returns; native reflection did not toggle during its absence.
+ for(int f=0;f<6;++f){race(t);auto n=raw.writes.size();geometry(w,4.4f+f*.05f);CHECK(raw.writes.size()==n+4);t.after(15,pack(),S_OK,0);}
+ // A failed unseen draw is never promoted, despite complete live vehicle support.
+ race(t);raw.draw_hr=E_FAIL;t.shadow.matrices[256].set(world(4.5f));t.shadow.bindings.vertex_shader.set(0x152);CHECK(w.draw_indexed_at(D3DPT_TRIANGLELIST,0,20,360,10,0x400000+SHARED_WORLD_RETURN_RVA)==E_FAIL);raw.draw_hr=S_OK;geometry(w,4.5f);t.after(15,pack(),S_OK,0);CHECK(t.learned_signatures()==2);
+ // Shared exact asset on a distant, cold second instance is intentionally eligible.
+ race(t);CHECK(draw(40,0,0x152,0)==2);CHECK(draw(40,0,0x152,30)==2);
+ // Same env material but distinct geometry/LOD/resource signature must remain unproven.
+ CHECK(draw(80,0,0x152,300)==0);CHECK(draw(40,0,0x152,330)==0);
+ CHECK(draw(40,0,0x102,0)==0);CHECK(draw(40,0,0x112,0)==0);
+ t.shadow.rs[27].set(1);CHECK(draw(40,0,0x152,0)==0);t.shadow.rs[27].set(0);
+ t.shadow.rs[14].set(0);CHECK(draw(40,0,0x152,0)==0);t.shadow.rs[14].set(1);
+ auto saved=t.shadow.tss[1][11];t.shadow.tss[1][11].set(0x30001);CHECK(draw(40,0,0x152,0)==0);t.shadow.tss[1][11]=saved;
+ auto serial=t.resources.generation(100);t.resources.add(400,23,pack(128,0,0,D3DPOOL_MANAGED,0));t.shadow.bindings.streams[0].set({400,36});CHECK(draw(80,0,0x152,0)==0);t.shadow.bindings.streams[0].set({100,36});
+ // Failed draw does not add new semantic knowledge; failed Reset preserves it.
+ raw.reset_hr=E_FAIL;CHECK(w.Reset(nullptr)==E_FAIL&&t.learned_signatures()==2);raw.reset_hr=S_OK;
+ // Stock is a hard no-write policy even with a learned asset.
+ configure("Stock");CHECK(draw(40,0,0x152,0)==0);configure("ViewDependent2D");CHECK(draw(40,0,0x152,0)==2);
+ // Generation reuse cannot inherit proof, regardless of raw pointer equality.
+ t.resources.add(100,23,pack(128,0,0,D3DPOOL_MANAGED,0));CHECK(t.resources.generation(100)!=serial);CHECK(draw(40,0,0x152,0)==0);t.after(15,pack(),S_OK,0);CHECK(t.learned_signatures()==0);
+ // Relearn then a real successful Reset: managed metadata survives, ALL semantics/tracks clear.
+ for(int f=0;f<8;++f){race(t);geometry(w,f*.2f);t.after(15,pack(),S_OK,0);}CHECK(t.learned_signatures()==2);
+ serial=t.resources.generation(100);CHECK(w.Reset(nullptr)==S_OK&&t.resources.generation(100)==serial&&t.learned_signatures()==0);setup(t);race(t);CHECK(draw(40,0,0x152,0)==0);t.after(15,pack(),S_OK,0);
+ for(int f=0;f<8;++f){race(t);geometry(w,f*.2f);t.after(15,pack(),S_OK,0);}CHECK(t.learned_signatures()==2);
+ hud(w);t.after(15,pack(),S_OK,0);CHECK(t.learned_signatures()==0);race(t);CHECK(draw(40,0,0x152,0)==0);
+ for(int f=0;f<8;++f){race(t);geometry(w,f*.2f);t.after(15,pack(),S_OK,0);}CHECK(t.learned_signatures()==2);
+ t.after(15,pack(),E_FAIL,0);CHECK(t.learned_signatures()==0);
+ t.configure_classifier(false,0x400000);CHECK(!t.learned_signatures());CHECK(draw(40,0,0x152,0)==0);
+}
+void semantic_key_contracts(){
+ Trace t;t.enabled=false;setup(t);t.shadow.bindings.vertex_shader.set(0x152);
+ t.resources.add(100,23,pack(128,0,0,D3DPOOL_MANAGED,0));t.resources.add(200,24,pack(128,0,101,D3DPOOL_MANAGED,0));t.resources.add(300,20,pack(8,8,1,0,21,D3DPOOL_MANAGED,0));
+ auto a=pack(D3DPT_TRIANGLELIST,0,20,0,10);auto key=vehicle_signature_key(t.shadow,t.resources,a,SHARED_WORLD_RETURN_RVA);CHECK(key.valid(t.resources));
+ t.shadow.matrices[256].set(world(100));CHECK(vehicle_signature_key(t.shadow,t.resources,a,SHARED_WORLD_RETURN_RVA)==key);
+ a.a[3]=30;CHECK(!(vehicle_signature_key(t.shadow,t.resources,a,SHARED_WORLD_RETURN_RVA)==key));
+ auto collision=key;collision.words[18]^=1;CHECK(!(collision==key));
+ t.resources.add(300,20,pack(8,8,1,0,21,D3DPOOL_MANAGED,0));CHECK(!key.valid(t.resources));
+}
+int main(){try{gating();integration();full_frame_lifetime();stationary_brake_reflection();learned_semantics();semantic_key_contracts();std::cout<<"Native reflection / full race-HUD-Present lifetime / menu transition / Reset relearn / fail-closed gates: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

@@ -1,3 +1,25 @@
+# R-GFX4-5 continuation #4 human handoff
+
+**READY_FOR_HUMAN_RUNTIME.** Candidate `.build-msvc/Release/d3d8.dll`; verify SHA/size in [validation](validation.md) and [build manifest](../../data/build.json). No deployment/archive replacement performed. Preserve rollback DLL and old logs. Use pristine retail SHA bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4. Session must show PRISTINE_RETAIL,R-GFX4-5 and this candidate's proxy hash. Keep normal Classic+ AF/FOV/shadow settings unchanged during comparison.
+
+ConfigVersion1,Trace.Enabled=true,FrameSummaries=true,VehicleReflections.Mode=ViewDependent2D. Restart after changes. Do not change reflection appearance to judge stability.
+
+1. **A — multi-car stability.** Prefer four total cars. Drive20–30 seconds. Watch several AI bodies in screen center,at edges,overtaking and turning. PASS: no whole-body reflection/light-like blinking from semantic reclassification. Player remains stable; static world,wheels/glass unaffected. Initial unseen assets can remain Stock until first full discovery; judge stability after that proof.
+2. **B — F10 with AI coverage.** Capture player and at least two visible AI, label `B-ai-multicar`. Expect multiple proven body signatures and positive reflection_modified_draws. Both live_constellation and learned_signature sources are valid. The latter has a matching PROVEN_VEHICLE_BODY_ENV row even if live object_constellation_id is0. Source is the actual draw-time decision, not later frame-end proof.
+3. **C — edge/partial visibility.** Put an AI partly near left/right edge; four comfortably visible wheels are not required. Capture `C-ai-edge`. If the previously learned body draw is submitted and its current material qualifies, it should remain reflective through missing live proof. PASS trace: learned_signature modification with strict material and successful restore. If body geometry is absent, no draw is synthesized and missing rendering is not a semantic-toggle failure.
+4. **D — brake regression.** Brief Tata brake-off/on check. Whole-body reflection stable; brake lamps normal. FVF0x102 lamps,0x112 wheels,alpha/glass produce no reflection override. A replaced lamp may reduce the body env draw count locally.
+5. **E — Reset.** Minimize/restore once, verify actual successful Reset in session, continue driving. All semantic proof/object tracks clear; managed metadata retains generations,DEFAULT invalidates. A short Stock relearn window is expected until fresh completed four-wheel proof (stationary discovery needs four complete observations; partial visibility can delay it). Reflections must then stabilize again. Crash,stale proof or permanent blinking is FAIL. Capture `E-after-reset` if useful.
+
+Return session and complete/untruncated B/C F10 (+E when possible) and report: player reflection stable yes/no; AI center stable yes/no; AI edges stable yes/no; brake regression yes/no; static world changed yes/no; wheels changed yes/no; Reset survived yes/no. Labels belong in filenames/notes, not edited raw JSONL. Log provenance must match this candidate. Optional screenshot/video supports the human visual verdict.
+
+Analyzer: `python modernization/renderer/tools/analyze_vehicle_draws.py <B/C/E files>` audits native setters/restores and origin/current-signature proof, reports first learning frames and live/learned sources. Session counters help show learned reflection continuing despite constellation churn. Sampled F10/session summaries alone do not prove continuous visual stability. Current strong object proof is still required for learning new signatures, not for every later eligible draw. Reset/scene intentionally relearns; capacity or unobserved new LOD/material keys fail closed.
+
+R-GFX3 and prior runtime fixes remain accepted. This candidate's multi-car visual test is pending. Return evidence and stop; do not begin R-GFX5.
+
+---
+
+## Historical continuation #3 handoff
+
 # R-GFX4-4 continuation #3 human handoff
 
 **READY_FOR_HUMAN_RUNTIME.** This DLL fixes only semantic ownership: stationary structural admission and stability across body/material mutation. Previous R-GFX4-3 FOV/culling and real native reflection execution are accepted as human/runtime evidence. Appearance and all existing renderer settings stay unchanged; no new graphics effect. Candidate `.build-msvc/Release/d3d8.dll`; verify current SHA/size in validation.md and data/build.json. No deployment or archive replacement was performed.
