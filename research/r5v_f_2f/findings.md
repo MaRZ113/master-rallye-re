@@ -2,7 +2,7 @@
 
 ## Status
 
-**STATIC FIX READY FOR HUMAN P0.** The F.2e Mercedes model and core race behavior passed the owner's runtime check. This phase adds two ID26-only Race Options display hooks. The exact F.2f candidate has not yet been run; it is not a runtime pass.
+**CLOSED / CONFIRMED_BY_RUNTIME.** The owner reports the exact F.2f frontend test passed. Race Options displayed `MERCEDES` and `ML-320`; leaving and re-entering the screen preserved both fields, and no `GALOCAL UNKNOWN` returned. The candidate preserves the Mercedes physical identity and its already-confirmed core gameplay path.
 
 ## F.2e runtime evidence carried forward
 
@@ -17,6 +17,22 @@ The three paired Broker captures below all identify executable SHA-256 `1fb0a1f1
 | `20261005-233755_merc-id26-race` | `CarModel=26`; `CurrentVehicleString=MERCEDES ML-320`; manufacturer remains unknown; `Race/Car0/CarID=26`, class 0, `CarType=Mercedes`, `WheelType=Mercedes`, colour `[1,0,0,1]` | CONFIRMED_BY_RUNTIME / CORPUS |
 
 The last capture proves that the red record-colour canary and runtime identity still belong to physical ID26. The Race Options display defect is presentation-only; changing CarID, class, runtime type, wheel type, or the registry record would regress the proven vehicle.
+
+## F.2f owner runtime closeout
+
+The owner subsequently confirmed that the F.2f candidate showed the correct
+manufacturer/model identity in Vehicle Select, Quick Race, and Race Options,
+including after a second Race Options entry. The stock-vehicle switchback and
+ID25/Trooper selection remained correct. The existing capture set establishes
+`CarModel=26`, active selected ID26, `CarType=Mercedes`, `WheelType=Mercedes`,
+class 0, and the red ID26 colour canary. The owner did not report a full
+stage/results/frontend-return run for this exact candidate, so F.2f is closed
+for frontend identity and core gameplay only; it is not a full lifecycle claim.
+
+Exact candidate recorded by the preceding R5V-F.2f validation: SHA-256
+`1fbb3489208de9bc0af3802902a8611ea9a149c245031d1563960bd91b430c14`,
+3,121,214 bytes. The later R5V-G.1 profile derives from the same pristine
+retail source and carries this presentation fix forward.
 
 ## Writer result
 

@@ -178,12 +178,32 @@ ID26_MERCEDES_F2F = replace(
     profile_id="mercedes-f2f-frontend-writers",
 )
 
+# R5V-G.1 keeps the complete, runtime-confirmed F.2f Mercedes presentation
+# profile and replaces its unconditional test unlock with the stock T1
+# CupCar1 availability predicate (the native predicate for physical ID3).
+ID26_MERCEDES_G1_STOCK_UNLOCK = replace(
+    ID26_MERCEDES_F2F,
+    profile_id="mercedes-g1-stock-t1-cup-car1-unlock",
+    unlock_policy="mirror-stock-vehicle-id-3",
+)
+
+ID26_STOCK_MIRROR_POLICY = "mirror-stock-vehicle-id-3"
+F2F_FRONTEND_PROFILE_IDS = frozenset({
+    ID26_MERCEDES_F2F.profile_id,
+    ID26_MERCEDES_G1_STOCK_UNLOCK.profile_id,
+})
+
 ID26_PROFILES = {
     "donor-cleanup": ID26_DONOR_CLEANUP,
     "mercedes-cook-harness": ID26_MERCEDES_COOK_HARNESS,
     "mercedes-final": ID26_MERCEDES_FINAL,
     "mercedes-f2f": ID26_MERCEDES_F2F,
+    "mercedes-g1-stock-unlock": ID26_MERCEDES_G1_STOCK_UNLOCK,
 }
+
+
+def _has_f2f_frontend_writers(profile: VehicleRecordProfile) -> bool:
+    return profile.profile_id in F2F_FRONTEND_PROFILE_IDS
 
 
 def sha256(data: bytes) -> str:
@@ -289,7 +309,8 @@ def _has_display_string_override(profile: VehicleRecordProfile) -> bool:
 def _id26_display_selectors(profile: VehicleRecordProfile) -> dict[int, int]:
     if profile.slot_id != 26 or profile.vehicle_class != 0 or profile.local_index != 7:
         raise PatchError("R5V-F.1 profile must retain physical ID26 / T1 local7")
-    if profile.unlock_policy != "test-only Vehicle Select gate":
+    if profile.unlock_policy not in {
+            "test-only Vehicle Select gate", ID26_STOCK_MIRROR_POLICY}:
         raise PatchError("unsupported ID26 unlock policy for this bounded patcher")
     if not profile.internal_name or "\x00" in profile.internal_name or not profile.internal_name.isascii():
         raise PatchError("ID26 profile needs a non-empty ASCII NUL-free internal name")
@@ -297,6 +318,7 @@ def _id26_display_selectors(profile: VehicleRecordProfile) -> dict[int, int]:
         if profile.profile_id not in {
                 ID26_MERCEDES_FINAL.profile_id,
                 ID26_MERCEDES_F2F.profile_id,
+                ID26_MERCEDES_G1_STOCK_UNLOCK.profile_id,
         }:
             raise PatchError("direct display-string override is reserved for the final Mercedes profile")
         return {}
@@ -416,7 +438,7 @@ def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
             _emit_quickrace_string_lookup(
                 code, label=f"quickrace_name_lookup_{index}",
                 string_label="quickrace_display_text", resume_va=call_va + 8)
-        if id26_profile.profile_id == ID26_MERCEDES_F2F.profile_id:
+        if _has_f2f_frontend_writers(id26_profile):
             for _call_va, group, label, string_label, resume_va in RACE_OPTIONS_LOCALIZATION_CALLS:
                 code.align()
                 _emit_race_options_string_lookup(
@@ -425,13 +447,31 @@ def build_code_payload(id26_profile: VehicleRecordProfile = ID26_DONOR_CLEANUP
 
     code.align()
     code.label("id26_unlock")
-    code.emit(b"\x51")  # preserve registry-record pointer across original unlock call
-    code.call(0x45A150)
-    code.emit(b"\x59\x83\x79\x04" + bytes((id26_profile.slot_id,)))
-    code.jne("unlock_return")
-    code.emit(b"\xB0\x01")
-    code.label("unlock_return")
-    code.emit(b"\xC3")
+    if id26_profile.unlock_policy == ID26_STOCK_MIRROR_POLICY:
+        # FUN_0045A150 reads only the record's physical ID at [ECX+4] before
+        # applying its normal Progress/Cheats and UnlockedCars checks. Give it
+        # a temporary 8-byte record containing oracle ID3 only for physical
+        # ID26. ECX and the helper's AL result are preserved across cleanup.
+        code.emit(b"\x51")  # preserve original VehicleRecord pointer
+        code.emit(b"\x83\x79\x04" + bytes((id26_profile.slot_id,)))  # cmp dword ptr [ECX+4], imm8
+        code.jne("id26_unlock_stock")
+        code.emit(b"\x83\xEC\x08")  # temporary record, [ESP+4] = ID3
+        code.emit(b"\xC7\x04\x24\x00\x00\x00\x00")
+        code.emit(b"\xC7\x44\x24\x04\x03\x00\x00\x00")
+        code.emit(b"\x8D\x0C\x24")
+        code.call(0x45A150)
+        code.emit(b"\x83\xC4\x08\x59\xC3")
+        code.label("id26_unlock_stock")
+        code.call(0x45A150)  # every other ID uses its original record unchanged
+        code.emit(b"\x59\xC3")
+    else:
+        code.emit(b"\x51")  # preserve registry-record pointer across original unlock call
+        code.call(0x45A150)
+        code.emit(b"\x59\x83\x79\x04" + bytes((id26_profile.slot_id,)))
+        code.jne("unlock_return")
+        code.emit(b"\xB0\x01")
+        code.label("unlock_return")
+        code.emit(b"\xC3")
 
     code.align()
     code.label("capacity_init")
@@ -644,14 +684,17 @@ def build_operations(data: bytes, pe: dict, *,
                   replacement=_rel32_jump(0x481E50, entrypoints["reverse_class_map"]),
                   purpose="map absolute ID26 to T1/local7 and replay original reverse mapping otherwise")
 
-    _add_va_patch(data, pe, operations, name="id25_test_unlock", category="unlock-policy",
-                  va=0x45A282, original=bytes.fromhex("6a0fe887"),
-                  replacement=bytes.fromhex("b0015ec3"),
-                  purpose="preserve the established test-selectable ID25 Trooper profile")
+    if id26_profile.unlock_policy != ID26_STOCK_MIRROR_POLICY:
+        _add_va_patch(data, pe, operations, name="id25_test_unlock", category="unlock-policy",
+                      va=0x45A282, original=bytes.fromhex("6a0fe887"),
+                      replacement=bytes.fromhex("b0015ec3"),
+                      purpose="preserve the established test-selectable ID25 Trooper profile")
     _add_va_patch(data, pe, operations, name="id26_narrow_unlock_call", category="unlock-policy",
                   va=0x4819CE, original=_rel32_call(0x4819CE, 0x45A150),
                   replacement=_rel32_call(0x4819CE, entrypoints["id26_unlock"]),
-                  purpose="force only selected ID26 unlocked after the original gate")
+                  purpose=("pass physical ID26 through the native ID3/T1CupCar1 predicate while retaining ID26"
+                           if id26_profile.unlock_policy == ID26_STOCK_MIRROR_POLICY
+                           else "force only selected ID26 unlocked after the original gate"))
 
     _add_va_patch(data, pe, operations, name="display_identity_selector_hook", category="display-localization",
                   va=0x4819BD, original=bytes.fromhex("8bf8e8fc89fdff"),
@@ -687,7 +730,7 @@ def build_operations(data: bytes, pe: dict, *,
                 purpose=("return the historic MERCEDES ML-320 string only when the queried Quick Race "
                          "physical vehicle ID is 26; retain the stock group-0x35 lookup otherwise"),
             )
-        if id26_profile.profile_id == ID26_MERCEDES_F2F.profile_id:
+        if _has_f2f_frontend_writers(id26_profile):
             for call_va, group, label, _string_label, _resume_va in RACE_OPTIONS_LOCALIZATION_CALLS:
                 original = (b"\x8B\x10\x56\x6A" + bytes((group,))
                             + b"\x8B\xC8\xFF\x52\x0C")
@@ -801,8 +844,20 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
             "T3": {"local_0_to_11": "absolute IDs 14..25", "capacity": 12},
             "reverse_id26": {"class": 0, "local_index": 7},
         },
-        "unlock": {"id25": "test-selectable (existing R5V-E profile)",
-                   "id26": "test-selectable at VehicleSelect gate only"},
+        "unlock": {
+            "id25": ("native Progress/UnlockedCars/Bonus2 predicate retained"
+                     if id26_profile.unlock_policy == ID26_STOCK_MIRROR_POLICY
+                     else "test-selectable (existing R5V-E profile)"),
+            "id26": ({
+                "policy": "mirror native physical ID3 gate",
+                "oracle_id": 3,
+                "progress_path": "Progress/UnlockedCars/T1CupCar1",
+                "native_gate_va": "0x0045A150",
+                "call_site_va": "0x004819CE",
+                "physical_record_id_preserved": 26,
+            } if id26_profile.unlock_policy == ID26_STOCK_MIRROR_POLICY
+                else "test-selectable at VehicleSelect gate only"),
+        },
         "display_selector": {
             "mode": ("direct ID26 string override" if _has_display_string_override(id26_profile)
                      else "ID26-only numeric localization alias"),
@@ -828,7 +883,8 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
     }
     is_mercedes_cook_harness = id26_profile.profile_id == ID26_MERCEDES_COOK_HARNESS.profile_id
     is_mercedes_final = id26_profile.profile_id == ID26_MERCEDES_FINAL.profile_id
-    is_mercedes_f2f = id26_profile.profile_id == ID26_MERCEDES_F2F.profile_id
+    is_mercedes_f2f = _has_f2f_frontend_writers(id26_profile)
+    is_mercedes_g1 = id26_profile.profile_id == ID26_MERCEDES_G1_STOCK_UNLOCK.profile_id
     if is_mercedes_f2f:
         structural["display_selector"]["scope"] = (
             "Vehicle Select manufacturer/model; Quick Race group-0x35 summary; "
@@ -851,7 +907,8 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
             "quickrace_summary_writer": "0x0047B040 / group 0x35 remains unchanged",
         }
     manifest = {
-        "phase": ("R5V-F.2f Mercedes Race Options frontend identity candidate" if is_mercedes_f2f
+        "phase": ("R5V-G.1 Mercedes stock-like T1 unlock candidate" if is_mercedes_g1
+                  else "R5V-F.2f Mercedes Race Options frontend identity candidate" if is_mercedes_f2f
                   else "R5V-F.2e final Mercedes ML-320 ID26 acceptance candidate" if is_mercedes_final
                   else "R5V-F.2b isolated retail cook harness" if is_mercedes_cook_harness
                   else "R5V-F.1 cleanup"),
@@ -867,11 +924,18 @@ def make_candidate(data: bytes, *, expected_sha256: str = SOURCE_SHA256,
         "structural_self_check": structural,
         "operation_counts_by_category": _operation_counts(operations),
         "operations": operations,
-        "runtime_validation": ("STATIC F.2f CANDIDATE — WAITING FOR HUMAN P0 FRONTEND" if is_mercedes_f2f
+        "runtime_validation": ("READY FOR HUMAN RUNTIME — fresh/progressed T1CupCar1 comparison required" if is_mercedes_g1
+                               else "STATIC F.2f CANDIDATE — WAITING FOR HUMAN P0 FRONTEND" if is_mercedes_f2f
                                else "STATIC ACCEPTANCE CANDIDATE — WAITING FOR HUMAN P0/P1" if is_mercedes_final
                                else "NOT RUN — isolated cook trigger only" if is_mercedes_cook_harness
                                else "WAITING FOR CLEANUP P0"),
         "risks": ([
+            "The ID26 stock-like availability mirror is statically prepared; fresh and naturally progressed profile comparison is not runtime-confirmed.",
+            "The class-reachability layer is separate and remains governed by native Vehicle Select progression logic.",
+            "ID26 remains physical CarID 26; only the ID used as input to the per-vehicle availability gate is mirrored to stock ID3.",
+            "ID25 keeps its native Bonus2 gate in this profile; unlike earlier F.2f test candidates it is not forced selectable.",
+            "Campaign-save serialization details and non-Vehicle-Select mode consumers are only partially established.",
+        ] if is_mercedes_g1 else [
             "Race Options frontend P0 has not been performed with this exact F.2f candidate.",
             "P1 gameplay regression smoke remains required after frontend P0.",
             "ID26 physical identity, Vehicle Select, Quick Race group-0x35 and resource paths are preserved by design; verify at runtime.",
@@ -954,7 +1018,11 @@ def _verify_structural(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise PatchError("structural self-check: .text VirtualSize mismatch")
     structural = manifest["structural_self_check"]
     profile = structural["id26"]
-    if profile["profile_id"] in {ID26_MERCEDES_FINAL.profile_id, ID26_MERCEDES_F2F.profile_id}:
+    if profile["profile_id"] in {
+            ID26_MERCEDES_FINAL.profile_id,
+            ID26_MERCEDES_F2F.profile_id,
+            ID26_MERCEDES_G1_STOCK_UNLOCK.profile_id,
+    }:
         expected_final = {
             "id": 26,
             "class": 0,
@@ -972,6 +1040,14 @@ def _verify_structural(candidate: bytes, manifest: dict[str, Any]) -> None:
         for field, expected in expected_final.items():
             if profile.get(field) != expected:
                 raise PatchError(f"structural self-check: final Mercedes profile {field} mismatch")
+    if profile["profile_id"] == ID26_MERCEDES_G1_STOCK_UNLOCK.profile_id:
+        unlock = structural.get("unlock", {})
+        if unlock.get("id26", {}).get("oracle_id") != 3:
+            raise PatchError("structural self-check: G.1 ID26 oracle must remain stock ID3")
+        if unlock.get("id26", {}).get("physical_record_id_preserved") != 26:
+            raise PatchError("structural self-check: G.1 must preserve physical ID26")
+        if any(item.get("name") == "id25_test_unlock" for item in manifest.get("operations", [])):
+            raise PatchError("structural self-check: G.1 must retain ID25's native Bonus2 gate")
     if structural["registry_capacity"] != 27 or structural["record26_offset"] != 0x54C:
         raise PatchError("structural self-check: ID26 record layout mismatch")
     if structural["record26_end_offset"] > structural["racetest"]["new_base"]:

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "profile": "mercedes-g1-stock-unlock",
+  "phase": "R5V-G.1",
+  "runtime_status": "READY_FOR_HUMAN_RUNTIME",
+  "source_executable": {
+    "build": "retail-pristine",
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214
+  },
+  "candidate_executable": {
+    "path": "research-output/r5v_g1/candidate/MRallye_id26_t1_cupcar1_unlock.exe",
+    "sha256": "ceb003aff00ee15d45d11fe838fbddfb4aa79baaaecce9a0068bf8b62cd40b8e",
+    "size": 3121214,
+    "manifest": "research-output/r5v_g1/candidate/patch-manifest.json",
+    "declared_patch_operations": 73,
+    "verified_rebuild": true
+  },
+  "physical_vehicle": {
+    "id": 26,
+    "class": "T1",
+    "class_index": 7,
+    "internal_name": "Mercedes",
+    "manufacturer": "MERCEDES",
+    "model": "ML-320",
+    "runtime_family": "Mercedes",
+    "preserve_physical_id": true
+  },
+  "unlock_policy": {
+    "kind": "mirror-stock-vehicle-id-3",
+    "stock_oracle_id": 3,
+    "stock_oracle_class": "T1",
+    "progress_path": "Progress/UnlockedCars/T1CupCar1",
+    "native_gate": "0x0045A150",
+    "vehicle_select_call": "0x004819CE",
+    "global_bypass_flags": [
+      "Progress/Cheats/UnlockCars",
+      "Progress/Cheats/UnlockAll"
+    ],
+    "only_id26_gate_input_changes": true,
+    "id25_native_bonus2_gate_retained": true,
+    "registry_id_or_class_substituted": false
+  },
+  "expected_behavior": {
+    "fresh_t1cupcar1_false_no_cheats": "ID3 and ID26 locked",
+    "t1cupcar1_true_no_cheats": "ID3 and ID26 selectable",
+    "unlockcars_or_unlockall": "native helper bypass makes ID3 and ID26 available"
+  },
+  "presentation_regressions_to_check": [
+    "Vehicle Select MERCEDES / ML-320",
+    "Quick Race MERCEDES ML-320",
+    "Race Options MERCEDES / ML-320",
+    "no GALOCAL UNKNOWN"
+  ],
+  "runtime_proof": "pending human fresh/progressed profile comparison"
+}

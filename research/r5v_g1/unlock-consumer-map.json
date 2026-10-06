@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "source_build": "retail",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "functions": {
+    "vehicle_availability": {
+      "address": "0x0045A150",
+      "input": "ECX -> VehicleRecord; absolute ID at +0x04",
+      "result": "AL bool",
+      "direct_xrefs_found": 1,
+      "direct_consumer": "0x004819CE / generic Vehicle Select path"
+    },
+    "quickrace_class_reachability": {
+      "address": "0x00480B60",
+      "quickrace_mode_check": "Frontend/InQuickRaceMode",
+      "progress_inputs": [
+        "Progress/OpenedModes/T2Cup",
+        "Progress/OpenedModes/T3Cup",
+        "Progress/Cheats/UnlockCups",
+        "Progress/Cheats/UnlockAll"
+      ]
+    },
+    "unlock_flag_read": {"address":"0x004AFB70","semantic":"indexed Progress/UnlockedCars reader"},
+    "unlock_flag_write": {"address":"0x004AFAF0","semantic":"indexed Progress/UnlockedCars writer"},
+    "cup_progress_award": {"address":"0x0045B5B0","win_counter":"0x0045BA50"},
+    "master_vehicle_award": {"address":"0x00453D10","exact_threshold":"UNKNOWN"},
+    "challenge_vehicle_award": {"address":"0x00450310","challenge_winstatus_ordinal":104,"flag":"Progress/UnlockedCars/ChallengeCar"},
+    "bonus1_recompute": {"address":"0x00480B60","completion_scan":"0x00481FD0","flag":"Progress/UnlockedCars/Bonus1"},
+    "bonus2_writer": {"status":"UNKNOWN","evidence":"no direct setter caller found in bounded xref audit"},
+    "quickrace_ai_pool": {"address":"0x00458090","status":"MAP_ONLY","notes":"consumes class and selected unlock flags; no behavior change in G.1"}
+  },
+  "mode_consumers": [
+    {"mode":"Vehicle Select / Quick Race","class_gate":"CONFIRMED_BY_EXE","vehicle_gate":"direct call at 0x004819CE","eligibility":"Quick Race state"},
+    {"mode":"Practice","class_gate":"UNKNOWN; separate dispatch not isolated","vehicle_gate":"no distinct direct xref","eligibility":"UNKNOWN"},
+    {"mode":"Rallye Cup","class_gate":"stored RaceData/RallyeCup class context","vehicle_gate":"UNKNOWN","eligibility":"mode-specific saved car fields"},
+    {"mode":"Invitation","class_gate":"opened-mode and invitation progress fields exist","vehicle_gate":"UNKNOWN","eligibility":"event-specific"},
+    {"mode":"Master Rallye","class_gate":"MasterRallye/VehicleClass","vehicle_gate":"UNKNOWN","eligibility":"class-specific stored car fields"},
+    {"mode":"Challenge","class_gate":"event context","vehicle_gate":"UNKNOWN","eligibility":"authored event vehicle context"},
+    {"mode":"AI","class_gate":"class-filtered pool","vehicle_gate":"separate direct Progress/UnlockedCars reads in 0x00458090","eligibility":"MAP_ONLY"},
+    {"mode":"Network / multiplayer","class_gate":"UNKNOWN","vehicle_gate":"UNKNOWN","eligibility":"not runtime tested"}
+  ],
+  "scope_note": "A missing direct xref is not proof that indirect or mode-specific validation does not exist."
+}

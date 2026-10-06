@@ -285,17 +285,23 @@ and `research/r5v_f_2a/findings.md`.
 
 ### Current R5V-F.2 / F.2f status
 
-The later F.2e owner runtime report confirms the Mercedes ID26 Vehicle Select
-presentation and core race behavior (model, textures, handling, physics,
-collision and damage); it does not establish a full stage/results/return
-lifecycle. Three paired Broker Observatory captures show the remaining defect
-is frontend-only: `FUN_0047A540` sends physical ID26 to Race Options localization
-groups `0x33` (manufacturer) and `0x34` (model), while the separate
-`FUN_0047B040` group-`0x35` Quick Race writer already produces the combined
-`MERCEDES ML-320` string. F.2f adds two ID26-only wrappers at `0x0047A65F` and
-`0x0047A6C4`; all other IDs retain the original lookup and physical ID26 is
-unchanged. The candidate is **READY FOR HUMAN P0**, not runtime-confirmed.
-See `research/r5v_f_2f/`.
+The owner reports F.2f frontend identity closure: Vehicle Select, Quick Race,
+Race Options, and a second Race Options entry show the expected Mercedes
+identity without `GALOCAL UNKNOWN`; the stock-vehicle switchback and ID25/Trooper
+remain intact. The owner also confirms the existing ID26 core gameplay result.
+Active-race evidence preserves `CarID=26`, class 0, `CarType=Mercedes`,
+`WheelType=Mercedes`, and the red ID26 colour canary. No full
+stage/results/frontend-return pass was reported for F.2f. See
+`research/r5v_f_2f/`.
+
+R5V-G.1 statically separates Quick Race class reachability from per-vehicle
+availability. `FUN_00480B60` builds T1/T2/T3 reachability from
+`Progress/OpenedModes` and cup-cheat state; `FUN_0045A150` evaluates an absolute
+vehicle ID against the named `Progress/UnlockedCars` flags. The G.1 research
+candidate mirrors ID26's Vehicle Select availability input to stock T1 ID3's
+`T1CupCar1` predicate while retaining physical ID26 and the Mercedes runtime
+record. This is **READY FOR HUMAN RUNTIME**, not yet a progression pass. See
+`research/r5v_g1/`.
 
 The forward vehicle roadmap is R5V-G.1 unlock architecture, R5V-G.2 audio
 identity/sound-family architecture, R5V-H AI pools, R5V-I multi-slot registry

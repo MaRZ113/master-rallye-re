@@ -20,16 +20,14 @@ Astero frame 5. No registry or executable limits changed. See
 `research/r5v_e0_2/findings.md` and
 `research/r5v_e0_2/trooper-icon-search.md`.
 
-R5V-F established a physical retail ID26 at sparse T1 local7, and the owner
-reports successful Mercedes Vehicle Select and core race behavior on F.2e.
-Three paired Observatory captures show that Race Options uses a separate
-manufacturer/model lookup path: both fields say `GALOCAL UNKNOWN` there even
-though active-race ID26, Mercedes CarType/WheelType and the group-0x35 combined
-name remain correct. R5V-F.2f adds two ID26-only hooks for groups 0x33/0x34;
-its exact candidate is ready for human frontend P0 and is not yet runtime
-accepted. The unlock policy remains test-only and audio family architecture
-remains unresolved. See `research/r5v_f_2f/findings.md`,
-`research/r5v_f_2f/runtime-handoff.md`, and `research/r5v_f_2f/roadmap.md`.
+R5V-F established physical retail ID26 at sparse T1 local7. The owner reports
+F.2f closed for Mercedes frontend identity and core gameplay: Race Options now
+shows the split `MERCEDES` / `ML-320` identity across re-entry, and active-race
+CarID/runtime family remain ID26/Mercedes. No full stage/results/return claim
+was made. R5V-G.1 maps the separate class-reachability and per-vehicle
+availability layers and prepares an ID26 policy that mirrors the stock T1
+CupCar1 predicate. Its fresh-versus-progressed runtime comparison is pending.
+See `research/r5v_f_2f/findings.md` and `research/r5v_g1/`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
