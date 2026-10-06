@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "evidence_limit": "Broker capture state does not prove what was visibly rendered or whether a selected actor is active.",
-  "capture_integrity": "Each recorded raw dump SHA256 was recomputed and matched its JSON source metadata.",
+  "capture_integrity": "Raw dump hashes for all recorded captures were recomputed and match their JSON source metadata; the two corrected-root lock captures are recorded by path, EXE hash, and raw hash.",
   "captures": [
     {
       "id": "20261006-125506_merc_vehicle-setup-menu",
@@ -139,21 +139,87 @@
         "Race/Car0/CarID": 26
       },
       "evidence": "CONFIRMED_BY_RUNTIME_BROKER_CAPTURE"
+    },
+    {
+      "id": "20261006-150942_merc-locked",
+      "role": "ID26 fresh-profile locked state with corrected overlay under active package Root",
+      "exe_sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+      "raw_sha256": "42ad8613564144a4fc84eab8655c1762f8f0d2e56a2d3d5f2fad9934e0076d18",
+      "root_suffix": ".research-output/vehicles/unlock/runtime-package/",
+      "observed": {
+        "Progress/UnlockedCars/T1CupCar1": false,
+        "Progress/Cheats/UnlockCars": false,
+        "Progress/Cheats/UnlockAll": false,
+        "Frontend/VehicleSelect/CarModel": -1,
+        "Frontend/VehicleSelect/ManufacturerName": "CAR LOCKED",
+        "Frontend/VehicleSelect/ModelName": "UNLOCK BY WINNING 2 T1 CUPS",
+        "FrontEnd/Network/selectedCar": 26,
+        "UI/Enabled": false
+      },
+      "evidence": "CONFIRMED_BY_RUNTIME_BROKER_CAPTURE",
+      "human_observation": "Locked slot art was visible; normal accept did not commit ID26 or leave Vehicle Select.",
+      "interpretation": "Corrected locked state matches the native ID3 behavior. selectedCar remains highlighted/current identity, while UI/Enabled and interaction establish the lock."
+    },
+    {
+      "id": "20261006-151258_merc-unlocked",
+      "role": "ID26 after naturally meeting the T1 Cup unlock condition",
+      "exe_sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+      "raw_sha256": "2df2695536a8778017637429eb15bdf912cde3a6272c7c824590a3fbe27d3e10",
+      "root_suffix": ".research-output/vehicles/unlock/runtime-package/",
+      "observed": {
+        "Progress/UnlockedCars/T1CupCar1": true,
+        "Progress/Cheats/UnlockCars": false,
+        "Progress/Cheats/UnlockAll": false,
+        "Frontend/VehicleSelect/CarModel": 26,
+        "Frontend/VehicleSelect/ManufacturerName": "MERCEDES",
+        "Frontend/VehicleSelect/ModelName": "ML-320",
+        "FrontEnd/Network/selectedCar": 26,
+        "UI/Enabled": true
+      },
+      "evidence": "CONFIRMED_BY_RUNTIME_BROKER_CAPTURE",
+      "human_observation": "After meeting the required conditions, the Mercedes became selectable with its normal thumbnail/presentation.",
+      "interpretation": "Native progression changes the ID26 slot from the locked state to the normal selectable vehicle; no cheat bypass was active."
     }
   ],
   "locked_state_semantics": {
     "selectedCar": "highlighted/current frontend vehicle identity; insufficient by itself to prove accepted vehicle",
     "button_commit_oracle": "UI/Enabled plus observed normal-accept behavior",
-    "id3_control": {"selectedCar": 3, "UI/Enabled": false},
-    "id26_failing_state": {"selectedCar": 26, "UI/Enabled": true},
-    "human_acceptance_observation": "The human accepted locked ID26 into a race; active participant state was CarID=26, CarClass=0. This is a human observation, not inferred from selectedCar."
+    "id3_locked_control": {
+      "selectedCar": 3,
+      "UI/Enabled": false
+    },
+    "id26_locked_corrected_overlay": {
+      "selectedCar": 26,
+      "UI/Enabled": false
+    },
+    "id26_naturally_unlocked": {
+      "selectedCar": 26,
+      "UI/Enabled": true
+    },
+    "historical_pre_overlay_failure": "On the earlier wrong-root run ID26 had UI/Enabled=True and could be accepted; this was a deployment failure and is superseded by the corrected-root human test.",
+    "corrected_human_result": "Locked art visible and accept blocked while T1CupCar1=False; after meeting the cup condition, the same ID26 slot became selectable."
   },
   "scene_deployment_audit": {
-    "candidate_exe_active": "CONFIRMED_BY_RUNTIME; all new captures pin the exact candidate SHA256",
-    "captured_root_contains_candidate_exe": true,
-    "captured_root_loose_vehicle_select_xml": false,
-    "correction_overlay_location_before_retest": ".research-output/vehicles/unlock/overlay/DataScene/FrontendScreens/VehicleSelect.xml, outside the captured resource Root",
-    "data_sma_sha256_in_captured_root": "131d61ee8241df9cee4885db046e4e68d4df8177df40638bab01662ee12dc736",
-    "effective_scene_source": "NOT_PROVEN; a loose overlay was absent under Root, so the tested process could not have consumed the generated loose correction scene from that root. Archive/fallback priority is not inferred from Broker evidence."
+    "historical_wrong_root_run": {
+      "root_suffix": ".research-output/retired-worktrees/e0.1/research-output/r5v_f_2e/runtime/",
+      "loose_vehicle_select_xml_present": false,
+      "outcome": "Overlay was absent from that active Root; art/commit result was invalid for judging the generated scene."
+    },
+    "corrected_root_run": {
+      "root_suffix": ".research-output/vehicles/unlock/runtime-package/",
+      "candidate_exe_sha256": "3346eb00442b88cca3f76f7a65606ca56006c5b981acdbf0ee4ad16412e5b055",
+      "overlay_relative_path": "DataScene/FrontendScreens/VehicleSelect.xml",
+      "overlay_sha256": "6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d",
+      "root_header": "CONFIRMED_BY_RUNTIME in both new capture diagnostics",
+      "overlay_behavior": "CONFIRMED_BY_RUNTIME by the corrected locked-art/disabled-accept and natural-unlock behavior"
+    },
+    "final_race_details_candidate": {
+      "exe_sha256": "722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7",
+      "status": "READY_FOR_HUMAN_RUNTIME",
+      "race_details_modes_pending": [
+        "MASTER RALLYE",
+        "RALLYE CUP"
+      ]
+    }
   }
 }

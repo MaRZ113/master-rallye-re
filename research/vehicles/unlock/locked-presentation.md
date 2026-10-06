@@ -36,9 +36,9 @@ For the current G.1 policy, ID26 mirrors ID3's availability and therefore must
 also use selector 9. The candidate replaces the five-byte bound-check sequence
 at `0x00481ACF` with a narrow trampoline. ID26 selects group 6/selector 9; all
 other IDs reproduce the original compare, default, and jump-table dispatch.
-The generic `CAR LOCKED` line is untouched. The owner has now confirmed by
-human runtime test that ID26 displays `CAR LOCKED` and
-`UNLOCK BY WINNING 2 T1 CUPS` on a genuinely fresh profile.
+The generic `CAR LOCKED` line is untouched. The owner has confirmed on a
+genuinely fresh profile that ID26 displays `CAR LOCKED` and
+`UNLOCK BY WINNING 2 T1 CUPS`.
 
 ## Slot art
 
@@ -47,8 +47,11 @@ its disabler AI. The ID26 slot uses its established Mercedes frame 3 while
 unlocked and frame 15 while locked. The overlay also sets the base image-bank
 index to 3. No image-bank payload or authored asset is changed.
 
-The XML values are statically verified. The requirement line is
-`CONFIRMED_BY_RUNTIME`. The previous process did not have this XML under its
-captured resource Root, so locked-frame switching remains `NOT VALIDLY TESTED`
-with the correction overlay. See `runtime-correction-2.md` and
-`runtime-handoff.md`.
+The XML values are statically verified. Runtime now confirms both locked and
+unlocked states with the correction overlay under the active Root: locked ID26
+shows frame 15 and disables its control; after natural unlock it shows the
+normal Mercedes frame and is selectable. `UI/Enabled` reports false/true in
+the corresponding states. The first failed lock-art/button observation came
+from an earlier process whose Root lacked the overlay and is superseded.
+Race Details localization remains a separate pending runtime check; see
+`racedetails-localization.md` and `runtime-handoff.md`.
