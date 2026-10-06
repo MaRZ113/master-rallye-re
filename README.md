@@ -27,11 +27,14 @@ CarID/runtime family remain ID26/Mercedes. No full stage/results/return claim
 was made. R5V-G.1 maps class reachability separately from per-vehicle
 availability. Human runtime testing confirms the Mercedes stays locked, shows
 stock locked art, and cannot be committed until the T1 Cup requirement is met;
-it then unlocks and becomes selectable. The final G.1 candidate adds a bounded
-Race Details group-`0x35` display fix for Master Rallye and Rallye Cup. That
-last display check and a short race regression are ready for human runtime;
-G.1 is not closed. See `research/vehicles/unlock/` and
-`research/vehicles/localization/frontend-consumers.md`.
+it then unlocks and becomes selectable. R5V-G.1 is now **FULL PASS / CLOSED**.
+The final candidate's Race Details identity is runtime-confirmed in Master
+Rallye and Rallye Cup; the stock ID0 display regression and full stage/Results
+are owner-reported PASS. Physical ID26 remains unchanged. See
+`research/vehicles/unlock/closeout.md` and
+`research/vehicles/localization/frontend-consumers.md`. The next phase is
+R5V-G.2 Vehicle Audio Identity / Sound Family Architecture; catalog ordering
+is deferred.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

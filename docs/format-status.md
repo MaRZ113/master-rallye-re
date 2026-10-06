@@ -294,21 +294,18 @@ Active-race evidence preserves `CarID=26`, class 0, `CarType=Mercedes`,
 stage/results/frontend-return pass was reported for F.2f. See
 `research/r5v_f_2f/`.
 
-R5V-G.1 statically separates Quick Race class reachability from per-vehicle
-availability. `FUN_00480B60` builds T1/T2/T3 reachability from
-`Progress/OpenedModes` and cup-cheat state; `FUN_0045A150` evaluates an absolute
-vehicle ID against the named `Progress/UnlockedCars` flags. Human runtime
-testing confirms ID26 mirrors the stock T1 `T1CupCar1` gate while retaining
-physical ID26 and the Mercedes runtime record: locked art and requirement text
-appear, the commit control is disabled, normal accept is blocked, and the
-vehicle becomes selectable after the cup condition is met. A final candidate
-adds an ID26-only Race Details group-`0x35` name path shared by Master Rallye
-and Rallye Cup. That localization and a short race regression are
-**READY FOR HUMAN RUNTIME**; G.1 is not closed. See
-`research/vehicles/unlock/` and `research/vehicles/localization/`.
-
-The forward vehicle roadmap is R5V-G.1 unlock architecture, R5V-G.2 audio
-identity/sound-family architecture, R5V-H AI pools, R5V-I multi-slot registry
-expansion qualified by a T2 vehicle, then R5V-J generic addon tool/SDK. T2
-qualification and independently configurable add-on sound family are required
-before claiming the generic SDK complete; these are not part of F.2f.
+R5V-G.1 Vehicle Unlock + Frontend Identity Architecture is **FULL PASS / CLOSED**.
+The native T1 cup vehicle gate is separate from class reachability. ID26 mirrors
+the stock ID3 / `T1CupCar1` availability and requirement while preserving
+physical CarID 26 and Mercedes runtime identity. Human runtime evidence confirms
+locked thumbnail, disabled commit, blocked normal accept, and natural unlock.
+The final 78-operation candidate (`722d1a59...`) also displays `MERCEDES ML-320`
+in both Master Rallye and Rallye Cup Race Details; stock ID0 Race Details
+regression and full stage/Results are owner-reported PASS. See
+`research/vehicles/unlock/closeout.md`, `runtime-captures.json`, and
+`research/vehicles/localization/frontend-consumers.md`. The next phase is
+R5V-G.2 Vehicle Audio Identity / Sound Family Architecture. Catalog ordering is
+deferred; later work includes R5V-H AI pools, R5V-I multi-slot registry
+expansion plus a real T2 addon qualification, and R5V-J generic Addon Vehicle
+SDK. Do not infer a frontend return, split-screen Race Details, or unqualified
+Challenge/Trophy identity pass from this closeout.

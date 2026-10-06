@@ -53,5 +53,5 @@ shows frame 15 and disables its control; after natural unlock it shows the
 normal Mercedes frame and is selectable. `UI/Enabled` reports false/true in
 the corresponding states. The first failed lock-art/button observation came
 from an earlier process whose Root lacked the overlay and is superseded.
-Race Details localization remains a separate pending runtime check; see
-`racedetails-localization.md` and `runtime-handoff.md`.
+Race Details localization is now runtime-confirmed for single-player Master
+Rallye and Rallye Cup; see `racedetails-localization.md` and `closeout.md`.

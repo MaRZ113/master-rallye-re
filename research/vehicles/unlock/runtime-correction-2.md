@@ -1,5 +1,9 @@
 # G.1 locked-state runtime correction #2
 
+> Historical correction record. The pending Race Details text below reflects
+> the state at the time of this note and is superseded by the final captures in
+> `runtime-captures.json` and the status in `closeout.md`.
+
 ## Follow-up result: corrected deployment and final localization candidate
 
 The earlier XML deployment mismatch is resolved. New Observatory captures
@@ -18,8 +22,8 @@ Race Details is now statically traced. Master Rallye and Rallye Cup converge on
 `RaceData/CompetitorN/CarID`. The deterministic final candidate returns the
 existing `MERCEDES ML-320` string only for ID26 and replays the original lookup
 for every other ID. It is installed in the same verified runtime package.
-This new Race Details result remains **READY FOR HUMAN RUNTIME** until both
-modes and a short ID26 race smoke are tested. See
+At the time of this correction, the Race Details result remained pending. It
+was subsequently confirmed in both modes. See
 `racedetails-localization.md` and `runtime-handoff.md`.
 
 ## Earlier runtime evidence before corrected scene deployment
@@ -76,8 +80,9 @@ not write into the captured root.
 
 The package is a complete isolated launch tree under
 `.research-output/vehicles/unlock/runtime-package/`. The prelaunch verifier
-checks hashes and exact file inventory. It proves the on-disk tree; a postlaunch
-capture Root header is still required to establish the process-selected Root.
+checks hashes and exact file inventory. At the time of this correction, a
+postlaunch Root header was still needed; the later final Race Details captures
+now report this exact Root.
 
 ## Race Details pre-fix captures
 
@@ -92,4 +97,5 @@ The two mode captures independently show:
 This proved a separate Race Details presentation defect, not a wrong runtime
 vehicle ID. At that point the producer had not yet been traced. The static
 follow-up above now identifies its shared writer and independent group-`0x35`
-lookup; the final candidate still needs its own human runtime check.
+lookup. The final candidate was subsequently checked in both modes; see
+`racedetails-localization.md`.

@@ -1,4 +1,9 @@
-# R5V-G.1 final Race Details runtime handoff
+# R5V-G.1 final Race Details runtime handoff — COMPLETED
+
+> Historical test instructions retained for provenance. The final candidate
+> passed Race Details in Master Rallye and Rallye Cup, the stock ID0 regression,
+> and full stage/Results. See `closeout.md` and `runtime-captures.json` for the
+> final evidence. No further runtime handoff is pending.
 
 The locked-state and natural-unlock tests have passed on the corrected staged
 Vehicle Select scene. This handoff tests the new display-only Race Details
@@ -106,6 +111,7 @@ locked-state gate: fresh state showed `CAR LOCKED`,
 `UNLOCK BY WINNING 2 T1 CUPS`, locked slot art, `UI/Enabled=False`, and normal
 accept did not select ID26. After fulfilling the T1 Cup requirement, ID26
 became selectable with its normal Mercedes thumbnail and `UI/Enabled=True`.
-The new Race Details candidate preserves those hooks and the physical ID26
-record. A full stage/results/frontend-return lifecycle is not required or
-claimed by this handoff.
+The new Race Details candidate preserved those hooks and the physical ID26
+record. When this handoff was written, a full stage/results/frontend-return
+lifecycle was neither required nor claimed. The later owner report records
+full stage and Results as PASS; frontend return remains unreported.

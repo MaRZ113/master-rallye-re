@@ -1,75 +1,58 @@
 # G.1 Mercedes Race Details localization
 
-## Status
+## Final status
 
-The native producer and selector source are statically traced. The bounded
-ID26-only candidate is built and installed in the verified runtime package.
-Human verification of both Race Details modes and a short race regression is
-still required; do not call this localization fix runtime-confirmed yet.
+**CONFIRMED_BY_RUNTIME** for single-player Master Rallye and Rallye Cup on the
+final candidate (`722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`).
+Human observation confirms that `MERCEDES ML-320` is visibly rendered in both
+Race Details screens. The two Broker snapshots agree and preserve physical
+CarID 26 / T1. The stock ID0 Race Details regression and full stage/Results are
+also PASS by the owner's human runtime report. Frontend return was not
+specifically reported.
 
 ## Producer and identity source
 
-Both Master Rallye and Rallye Cup use the shared writer `FUN_0047C080` for
-`Frontend/RaceDetails/CurrentVehicleString`. The function reads participant
-identity through the existing `RaceData/CompetitorN` accessors initialized by
-`FUN_004B0AF0`; `FUN_004B0630` reads the `CarID` field and returns the absolute
-vehicle ID in EAX. The value is passed to localization group `0x35`. This is
-not a direct read of `Race/Car0/CarID`, nor a class-local selector.
+Master Rallye and Rallye Cup share writer `FUN_0047C080` for
+`Frontend/RaceDetails/CurrentVehicleString`. It reads an absolute vehicle ID
+from `RaceData/CompetitorN/CarID` through `FUN_004B0AF0` and `FUN_004B0630`,
+then queries localization group `0x35`. It does not read
+`Race/Car0/CarID` directly and does not use a class-local selector.
 
-The writer has three equivalent lookup sites:
-
-| Branch | Participant | Hook begins | Group push | gaLocal call | Resume |
+| Branch | Participant | Hook starts | Group push | `gaLocal` call | Resume |
 |---|---:|---:|---:|---:|---:|
 | Split-screen first participant | Competitor0 | `0x0047C0F5` | `0x0047C0F6` | `0x0047C0FA` | `0x0047C0FD` |
 | Split-screen second participant | Competitor1 | `0x0047C181` | `0x0047C182` | `0x0047C186` | `0x0047C189` |
 | Single-player | Competitor0 | `0x0047C200` | `0x0047C201` | `0x0047C205` | `0x0047C208` |
 
-The ordinary single-player Master Rallye/Rallye Cup path uses the third site.
-The other two branches are covered by the same ID26-only presentation rule.
+The final implementation checks the display selector. ID26 returns the
+existing `MERCEDES ML-320` presentation; every other ID replays the exact
+original group-`0x35` lookup. It changes neither the physical CarID nor global
+`gaLocal` behavior and does not remap a donor ID.
 
-## Observed failure and correction
+## Runtime before and after
 
-The pre-fix Master Rallye and Rallye Cup captures both had
-`Race/Car0/CarID=26`, `RaceData/Competitor0/CarID=26`, and
-`Frontend/RaceDetails/CurrentVehicleString="GALOCAL UNKNOWN"`. Their mode and
-event-description fields were otherwise populated normally. This is an
-independent group-`0x35` lookup, not an ID alias or race-mode error.
+| Mode | Before | Final candidate |
+|---|---|---|
+| Master Rallye | `GALOCAL UNKNOWN` | `MERCEDES ML-320` |
+| Rallye Cup | `GALOCAL UNKNOWN` | `MERCEDES ML-320` |
 
-The G.1 final candidate compares the absolute selector with 26. For ID26 it
-returns the existing shared presentation string `MERCEDES ML-320`. For every
-other ID it replays the original eight-byte group-`0x35` lookup sequence and
-resumes at the original continuation. The same implementation covers both
-modes through their shared writer; it does not change challenge rules, event
-text, class, physical registry state, or save identity.
+The final captures are `20261006-173146_g1-racedetails-masterrallye` and
+`20261006-173057_g1-racedetails-rallyecup`. Both report the exact final EXE
+hash and active `runtime-package` Root. Raw sidecars match metadata:
 
-The change is added only to the G.1 profile. The earlier F.2f candidate and
-other vehicle profiles do not receive these hooks. All three original byte
-sequences are checked before patching and by deterministic candidate
-verification.
+* Master Rallye: `6ca9ebf726c1be8f871091a5704fa45fef22a6d8122a3af1a1f2b39b5c0d16a7`.
+* Rallye Cup: `ec88c4c88c7517929b71e091fe433a195c97c550e5fa203f17c352d4aeffad02`.
 
-## Candidate and deployment
+Master Rallye capture values: `LEG 1/10 - FRANCE`, mode `MASTER RALLYE`,
+`RaceData/Competitor0/CarID=26`, `Race/Car0/CarID=26`, and
+`Race/Car0/CarClass=0`. Rallye Cup values: `RACE 1/3`, mode `RALLYE CUP`, and
+the same participant identity/class. Race-description strings are capture-
+specific, not fixed invariants. The human saw the correct rendered Mercedes
+name in both screens; Broker text alone is not visual proof.
 
-* Source: pristine retail `MRallye.exe`, SHA256
-  `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
-* Candidate: `MRallye_g1_final_racedetails.exe`, 3,121,214 bytes, SHA256
-  `722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`.
-* Three added hooks: `0x0047C0F5`, `0x0047C181`, and `0x0047C200`; 78 total
-  patch operations in the final G.1 manifest.
-* Existing Vehicle Select scene overlay SHA256 remains
-  `6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d`.
-* The candidate is staged at the effective executable and resource Root in
-  `.research-output/vehicles/unlock/runtime-package/`. The package verifier
-  allows existing runtime state only when explicitly requested and does not
-  include save contents in its manifest.
+No human split-screen Race Details test is claimed. The two split-screen
+branches are **STATICALLY COVERED BY THE SAME BOUNDED ID26 WRAPPER**. Challenge
+and Trophy consumers were not modified or qualified for ID26.
 
-## Runtime gate
-
-The human test must visibly check `MERCEDES ML-320` on Race Details in both
-Master Rallye and Rallye Cup, and confirm each mode's current race text still
-looks correct. Include one stock ID0 display control. A Broker capture should
-show the relevant mode, `RaceData/Competitor0/CarID=26`,
-`Race/Car0/CarID=26`, and the new Race Details string. Broker values establish
-state only; the visible screen establishes rendered presentation. One short
-ID26 race smoke checks that `CarID=26`, T1 class, Mercedes `CarType` and
-`WheelType`, and the known colour canary remain intact. A complete
-stage/results/return lifecycle is not required or claimed here.
+See [runtime captures](runtime-captures.json), [validation](validation.md), and
+[G.1 closeout](closeout.md).

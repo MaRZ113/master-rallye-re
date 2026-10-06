@@ -1,52 +1,52 @@
 # Vehicle research status
 
-Canonical vehicle research lives under `research/vehicles/` on branch
-`research/vehicles`. Earlier `research/r5v-*` documents and the `e0.1` checkout
-are historical evidence; this correction does not edit them.
+Canonical vehicle research lives under `research/vehicles/` on the single
+active branch `research/vehicles` in `master-rallye-re-vehicles`. Older
+`research/r5v-*`, `e0.1`, and retired-worktree material is historical evidence.
 
 ## Current phase
 
-**R5V-G.1 finalization — Race Details localization candidate ready for runtime.**
-The corrected staged package has passed the human locked-state test: ID26
-shows the stock locked art and requirement, `UI/Enabled=False`, and normal
-accept cannot commit it. After satisfying the native unlock requirement, ID26
-becomes selectable and shows its normal Mercedes presentation. The remaining
-work is the new display-only Race Details fix for Master Rallye and Rallye Cup.
-The candidate is staged in the same verified runtime Root; follow
-`unlock/runtime-handoff.md` for the final two-mode UI check and race smoke.
+**R5V-G.1 Vehicle Unlock + Frontend Identity Architecture — FULL PASS / CLOSED.**
+Mercedes ID26 remains a distinct physical T1 vehicle at local index 7, mirrors
+the native ID3/T1 Cup unlock gate, displays native locked presentation, and
+cannot be committed while locked. Natural unlock enables the normal Mercedes
+slot. Qualified frontend identity channels, including Master Rallye and Rallye
+Cup Race Details, show the correct Mercedes strings. The final candidate is
+`722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`; final
+capture integrity and results are in [runtime-captures.json](unlock/runtime-captures.json)
+and the architecture is frozen in [G.1 closeout](unlock/closeout.md).
 
-| Behavior | Current evidence |
+| Behavior | Final evidence |
 |---|---|
-| ID26 mirrors ID3 / `T1CupCar1` availability | `CONFIRMED_BY_RUNTIME` |
-| Native ID26 locked branch runs when progress and cheats are false | `CONFIRMED_BY_RUNTIME` |
-| ID26 locked requirement text equals stock ID3 | `CONFIRMED_BY_RUNTIME` |
-| ID26 locked thumbnail and disabled commit control | `CONFIRMED_BY_RUNTIME` with corrected package Root and overlay |
-| ID26 normal accept blocked while locked | `CONFIRMED_BY_RUNTIME` |
-| ID26 unlocks after native T1 Cup requirement | `CONFIRMED_BY_RUNTIME` |
-| Vehicle Setup displays `MERCEDES ML-320` | prior channel remains passed; not reopened here |
-| Quick Race Mercedes localization | prior channel remains passed; not reopened here |
-| Race Details producer | shared `FUN_0047C080`, group `0x35`, absolute `RaceData/CompetitorN/CarID`; static trace complete |
-| Race Details Mercedes localization | old failure captured in both modes; new candidate `READY FOR HUMAN RUNTIME` |
-| Physical ID26 Mercedes model and core gameplay | prior `CORE GAMEPLAY PASS`; short regression smoke is part of this candidate handoff |
-| Full stage/results/return on this exact candidate | `UNKNOWN` |
+| ID26 availability mirrors `Progress/UnlockedCars/T1CupCar1` | `CONFIRMED_BY_RUNTIME` |
+| Native locked branch and requirement text | `CONFIRMED_BY_RUNTIME` |
+| Locked slot art | `HUMAN_RUNTIME_PASS` |
+| Disabled commit control / normal accept blocked | `CONFIRMED_BY_RUNTIME` |
+| Natural unlock and selectable Mercedes state | `CONFIRMED_BY_RUNTIME` |
+| Vehicle Select / Quick Race / Race Options identity | `CONFIRMED_BY_RUNTIME` |
+| Vehicle Setup identity | `CONFIRMED_BY_RUNTIME` (prior qualified channel) |
+| Master Rallye Race Details | `CONFIRMED_BY_RUNTIME` |
+| Rallye Cup Race Details | `CONFIRMED_BY_RUNTIME` |
+| Stock ID0 Race Details regression | `PASS` (owner-reported human runtime) |
+| Full stage and Results on final candidate | `PASS` (owner-reported human runtime) |
+| Physical identity | CarID 26, T1, Mercedes runtime family preserved |
+| Normal qualified Mercedes frontend `GALOCAL UNKNOWN` | none observed |
 
-No vehicle ordering, audio, AI pool, T2 expansion, ID27+, or generic SDK work is
-included.
+The full-stage report does not by itself claim a frontend return test. No human
+split-screen Race Details test is claimed; all three bounded ID26 writer
+branches are statically covered. Challenge and Trophy identity consumers were
+not changed or qualified for ID26.
 
-## Candidate
+## Roadmap
 
-The final Race Details EXE, overlay, and coherent staged runtime tree are under
-ignored `.research-output/vehicles/unlock/`. Their hashes and patch operations
-are recorded in `unlock/id26-policy.json`, `unlock/runtime-root-profile.json`,
-and generated manifests. The package updater replaces only `MRallye.exe` and
-the package manifest; it preserves existing PlayerState/options state. No
-candidate EXE, archive, asset, profile save, or raw capture is committed.
+The immediate next phase is **R5V-G.2 — Vehicle Audio Identity / Sound Family
+Architecture**. A previously observed `gaAiVehicleSound` warning for CarID 26
+is the entry point; no audio tracing or implementation is included in G.1.
+Catalog/order refinement is deferred until multiple add-on vehicles make it
+useful. Later phases are R5V-H AI opponent pools, R5V-I multi-slot registry
+expansion with a real additional T2 vehicle, and R5V-J generic Addon Vehicle
+SDK. Audio-family configurability and T2 qualification remain prerequisites
+for calling the generic SDK complete.
 
-## Next gate
-
-Run the package verifier with `--allow-runtime-state`, launch from the staged
-package root, and visit Race Details in Master Rallye and Rallye Cup using the
-already unlocked profile. Confirm `MERCEDES ML-320`, preserve each mode's
-normal race text, check one stock-vehicle control, then do a short ID26 race
-smoke. G.1 remains open until this exact candidate passes; catalog/ordering
-work has not started.
+No ordering, audio, AI pool, T2 expansion, ID27+, or SDK work is included in
+the G.1 closeout.

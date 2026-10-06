@@ -1,69 +1,51 @@
-# R5V-G.1 — locked-state integration correction
+# R5V-G.1 vehicle unlock findings
 
-## Current result
+## Final result
 
-The active-root lock test is now a human runtime pass: locked ID26 displays the
-locked thumbnail and native requirement, `UI/Enabled=False`, and normal accept
-does not commit it. After the native T1 Cup condition is completed, ID26 is
-selectable and its unlocked Mercedes presentation returns. Race Details has a
-separate static fix ready for a two-mode human check; that final check is still
-pending. Current phase status is therefore **READY FOR HUMAN RUNTIME**, not
-closed.
+**R5V-G.1 Vehicle Unlock + Frontend Identity Architecture: FULL PASS / CLOSED.**
+ID26 mirrors the native ID3/T1 Cup availability condition while remaining
+physical ID26. Locked text, art, disabled accept, natural unlock, and Mercedes
+identity are runtime-confirmed. Final Race Details captures and human visual
+checks confirm `MERCEDES ML-320` in Master Rallye and Rallye Cup. The owner also
+reports a stock ID0 Race Details regression PASS and full stage/Results PASS
+on the final candidate. See `closeout.md`, `runtime-captures.json`, and
+`validation.md` for evidence and limits.
 
-## Current status
+## Architecture
 
-The initial overlay deployment test was invalid because its Root did not
-contain the generated VehicleSelect scene. That packaging defect is fixed; the
-corrected-root runtime result is documented in `runtime-correction-2.md` and
-`runtime-captures.json`.
+Quick Race class reachability is separate from per-vehicle availability.
+`FUN_00480B60` constructs class reachability; `FUN_0045A150` evaluates an
+absolute vehicle ID against `Progress/UnlockedCars` and cheat bypasses. The
+G.1 candidate mirrors ID3 only as temporary input to the stock availability
+predicate and locked-reason selector. This allows ID26 to use
+`Progress/UnlockedCars/T1CupCar1` without changing the physical registry,
+T1-local7 mapping, Mercedes resources, or race identity.
 
-## Runtime correction #2 evidence
+Correct locked behavior includes all of the following: unavailable model
+state, stock requirement text, locked thumbnail, disabled frontend commit
+control, and blocked normal accept. `FrontEnd/Network/selectedCar` is the
+highlighted/current vehicle identity and is not proof of commit; the runtime
+oracle combines `UI/Enabled` with actual interaction.
 
-The raw sidecars for `20261006-143000_merc_not-locked`,
-`20261006-143558_id3-locked`, `20261006-143842_merc-masterrallye-mode`, and
-`20261006-144257_merc-rallyecup-mode` hash-match their JSON metadata.
+Frontend vehicle identity has independent consumers. The qualified ID26
+channels are Vehicle Select, Quick Race, Race Options, Vehicle Setup, and Race
+Details. The Race Details writer is `FUN_0047C080`, group `0x35`, consuming
+absolute `RaceData/CompetitorN/CarID`. Its three ID26-only wrappers preserve
+the original lookup for all other IDs. No global `gaLocal` change or donor-ID
+remap is used.
 
-Fresh locked state:
+## Historical deployment correction
 
-* ID3: `CarModel=-1`, `CAR LOCKED`, `UNLOCK BY WINNING 2 T1 CUPS`,
-  `selectedCar=3`, `UI/Enabled=False`.
-* ID26: same locked text, `CarModel=-1`, `selectedCar=26`,
-  `UI/Enabled=True`.
+The first lock-art/control test used a runtime Root without the generated
+VehicleSelect scene, so that observation did not evaluate the corrected XML.
+The package staging and verification fix is preserved in
+`runtime-correction-2.md`. A later corrected-Root run confirmed locked art,
+disabled acceptance, and natural unlock. This deployment history is not a
+current blocker.
 
-The owner observed ID26 accepted into a race, where `CarID=26` and
-`CarClass=0`. This separates the actual interaction result from `selectedCar`.
-The latter is only the highlighted/current frontend identity: stock locked ID3
-also publishes its ID before acceptance.
+## Scope boundary
 
-Race Details separately fails in both captured modes: `Race/Car0/CarID=26`,
-but `Frontend/RaceDetails/CurrentVehicleString="GALOCAL UNKNOWN"`. The capture
-records correct mode and event text. This pass does not trace or patch that
-producer until the scene deployment gate is met.
-
-## Native and scene model
-
-The G.1 executable hook mirrors ID3 only as the temporary input to the stock
-availability predicate and locked-reason selector. Physical registry ID26,
-T1 local7 mapping, model, wheel, physics, and runtime ID remain unchanged.
-ID25 keeps its stock `Bonus2` gate.
-
-Stock locked ID3 is `T1_Car4`; it contains both the disabler AI that chooses
-normal/locked image frames and the unlocker AI that disables its XY button. The
-corrected overlay clones this widget into `T1_Car8`. Its structure and exact
-hash are statically verified, but the last human process did not load that
-loose file from the active Root. The previous visible unlocked art and enabled
-button cannot be attributed to a native AI defect until the exact staged scene
-is runtime-proven.
-
-## Candidate boundary
-
-The candidate remains the exact deterministic G.1 EXE plus the existing
-Vehicle Select overlay. The new packaging helper creates an isolated runtime
-Root with pinned `Data.sma`, audio/video, options, and qualified Mercedes DX/DXT
-assets; it omits old profile state and refuses mismatched hashes. It does not
-modify the captured historical resource tree, retail source, Mercedes assets,
-or any native selection/commit handlers.
-
-See `locked-selection.md`, `locked-presentation.md`,
-`runtime-correction-2.md`, `runtime-handoff.md`, and
-`../localization/frontend-consumers.md`.
+No human split-screen Race Details test is claimed; those two paths are
+statically covered. Challenge and Trophy/unlock-reward consumers were not
+changed or qualified for ID26. Audio, AI pool eligibility, catalog ordering,
+ID27+, T2 expansion, and generic SDK behavior remain outside G.1.

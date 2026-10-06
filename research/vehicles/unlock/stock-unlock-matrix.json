@@ -58,6 +58,6 @@
     "function_and_case_mapping": "CONFIRMED_BY_EXE",
     "field_names_defaults_and_save_metadata": "CONFIRMED_BY_CORPUS",
     "fresh_class_reachability": "CONFIRMED_BY_RUNTIME (owner report); corroborating capture values are profile-specific",
-    "id26_t1cupcar1_behavior": "READY_FOR_HUMAN_RUNTIME"
+    "id26_t1cupcar1_behavior": "CONFIRMED_BY_RUNTIME"
   }
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "phase": "R5V-G.1 final Mercedes natural-unlock and Race Details localization candidate",
-  "status": "READY_FOR_HUMAN_RUNTIME",
+  "phase": "R5V-G.1 closed: Mercedes stock-like unlock and frontend identity",
+  "status": "CLOSED / CONFIRMED_BY_RUNTIME",
   "source_executable": {
     "profile": "retail-pristine",
     "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
@@ -51,9 +51,10 @@
         "replacement_bytes": "e95b232100909090"
       }
     ],
-    "runtime_status": "READY_FOR_HUMAN_RUNTIME",
+    "runtime_status": "CONFIRMED_BY_RUNTIME",
     "manifest_path": ".research-output/vehicles/unlock/candidate/MRallye_g1_final_racedetails-manifest.json",
-    "binary_diff_path": ".research-output/vehicles/unlock/candidate/MRallye_g1_final_racedetails-diff.txt"
+    "binary_diff_path": ".research-output/vehicles/unlock/candidate/MRallye_g1_final_racedetails-diff.txt",
+    "runtime_validation": "CONFIRMED_BY_RUNTIME"
   },
   "physical_vehicle": {
     "id": 26,
@@ -111,16 +112,17 @@
     "id26_availability_predicate": "CONFIRMED_BY_RUNTIME",
     "id26_native_locked_branch": "CONFIRMED_BY_RUNTIME",
     "id26_locked_requirement_text": "CONFIRMED_BY_RUNTIME",
-    "id26_locked_slot_art": "CONFIRMED_BY_RUNTIME on corrected runtime Root",
+    "id26_locked_slot_art": "HUMAN_RUNTIME_PASS",
     "id26_locked_button_disabled": "CONFIRMED_BY_RUNTIME; UI/Enabled=False",
     "id26_locked_commit_block": "CONFIRMED_BY_RUNTIME; normal accept did not commit ID26",
     "id26_natural_unlock": "CONFIRMED_BY_RUNTIME after satisfying T1 Cup condition",
     "corrected_vehicle_setup_name": "prior channel remains passed; latest locked/unlocked capture was not a Vehicle Setup retest",
-    "race_details_master_rallye": "PENDING_HUMAN_RUNTIME for final candidate",
-    "race_details_rallye_cup": "PENDING_HUMAN_RUNTIME for final candidate",
-    "unlocked_id26_short_race_regression": "PENDING_HUMAN_RUNTIME for final candidate",
-    "full_stage_results_frontend_return": "NOT_CLAIMED",
-    "corrected_locked_requirement_text": "CONFIRMED_BY_RUNTIME"
+    "race_details_master_rallye": "CONFIRMED_BY_RUNTIME; final capture 20261006-173146_g1-racedetails-masterrallye and visible UI report",
+    "race_details_rallye_cup": "CONFIRMED_BY_RUNTIME; final capture 20261006-173057_g1-racedetails-rallyecup and visible UI report",
+    "unlocked_id26_short_race_regression": "PASS as part of owner-reported full-stage/results run on final candidate",
+    "full_stage_results_frontend_return": "full stage and Results PASS by owner report; frontend return not reported",
+    "corrected_locked_requirement_text": "CONFIRMED_BY_RUNTIME",
+    "stock_id0_racedetails_regression": "PASS; owner-reported human runtime on final candidate"
   },
   "scope": {
     "registry_or_class_mapping_changed": false,
@@ -152,6 +154,17 @@
       "0x0047C200"
     ],
     "stock_fallback": "original eight-byte group-0x35 lookup replayed for every non-ID26 selector",
-    "runtime_status": "READY_FOR_HUMAN_RUNTIME"
+    "runtime_status": "CONFIRMED_BY_RUNTIME",
+    "final_capture_ids": [
+      "20261006-173057_g1-racedetails-rallyecup",
+      "20261006-173146_g1-racedetails-masterrallye"
+    ]
+  },
+  "closeout": {
+    "classification": "FULL PASS / CLOSED",
+    "stock_id0_race_details_regression": "PASS (owner-reported runtime)",
+    "full_stage_and_results": "PASS (owner-reported runtime)",
+    "frontend_return": "NOT_REPORTED",
+    "audio": "NOT INVESTIGATED; next phase R5V-G.2"
   }
 }

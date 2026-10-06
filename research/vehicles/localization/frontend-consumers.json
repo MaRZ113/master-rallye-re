@@ -73,11 +73,12 @@
       "group": "0x35",
       "source_id": "absolute CarID from RaceData/CompetitorN/CarID; accessor initialized by FUN_004B0AF0 and read by FUN_004B0630",
       "mode_specific_call_site": "one shared writer FUN_0047C080 for MASTER RALLYE and RALLYE CUP; single-player competitor0 plus split-screen competitor0/competitor1 branches",
-      "runtime_id26_result": "GALOCAL UNKNOWN in Master Rallye and Rallye Cup",
+      "runtime_id26_result": "MERCEDES ML-320 in Master Rallye and Rallye Cup final captures",
       "scope": "three exact ID26-only hooks; physical participant ID is unchanged",
       "runtime_id26_result_before_fix": "GALOCAL UNKNOWN in Master Rallye and Rallye Cup",
-      "g1_final_candidate_id26_result": "MERCEDES ML-320; READY_FOR_HUMAN_RUNTIME",
-      "stock_ids": "original group-0x35 lookup replayed unchanged"
+      "g1_final_candidate_id26_result": "MERCEDES ML-320; CONFIRMED_BY_RUNTIME",
+      "stock_ids": "original group-0x35 lookup replayed unchanged",
+      "candidate_status": "CONFIRMED_BY_RUNTIME"
     },
     {
       "function": "0x004803A0",
@@ -136,7 +137,28 @@
     "identity_input": "absolute RaceData/CompetitorN/CarID returned in EAX",
     "localization_group": "0x35",
     "fix": "ID26-only string return; original lookup replayed for all other IDs",
-    "candidate_status": "READY_FOR_HUMAN_RUNTIME"
+    "candidate_status": "CONFIRMED_BY_RUNTIME",
+    "master_rallye_after_fix": {
+      "Frontend/RaceDetails/CurrentVehicleString": "MERCEDES ML-320",
+      "Frontend/RaceDetails/CurrentRaceString": "LEG 1/10 - FRANCE",
+      "Frontend/RaceDetails/Race": "MASTER RALLYE",
+      "RaceData/Competitor0/CarID": 26,
+      "Race/Car0/CarID": 26,
+      "Race/Car0/CarClass": 0
+    },
+    "rallye_cup_after_fix": {
+      "Frontend/RaceDetails/CurrentVehicleString": "MERCEDES ML-320",
+      "Frontend/RaceDetails/CurrentRaceString": "RACE 1/3",
+      "Frontend/RaceDetails/Race": "RALLYE CUP",
+      "RaceData/Competitor0/CarID": 26,
+      "Race/Car0/CarID": 26,
+      "Race/Car0/CarClass": 0
+    },
+    "final_candidate_sha256": "722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7",
+    "visible_rendering": "HUMAN_RUNTIME_PASS in Master Rallye and Rallye Cup",
+    "stock_id0_regression": "PASS (owner-reported human runtime)",
+    "full_stage_and_results": "PASS (owner-reported human runtime)",
+    "frontend_return": "NOT_REPORTED"
   },
   "intervention_scope": {
     "vehicle_setup_hook": "ID26 only at 0x0044FA29",
@@ -213,11 +235,25 @@
       "identity_input": "absolute RaceData/CompetitorN/CarID via FUN_004B0AF0/FUN_004B0630",
       "id26": "MERCEDES ML-320",
       "fix": "final G.1 candidate: three ID26-only wrappers; non-ID26 native lookup replayed",
-      "candidate_status": "READY_FOR_HUMAN_RUNTIME",
+      "candidate_status": "CONFIRMED_BY_RUNTIME",
       "shared_modes": [
+        "MASTER RALLYE",
+        "RALLYE CUP"
+      ],
+      "runtime_modes": [
         "MASTER RALLYE",
         "RALLYE CUP"
       ]
     }
-  ]
+  ],
+  "qualification_boundary": {
+    "Vehicle Select": "CONFIRMED_BY_RUNTIME",
+    "Quick Race": "CONFIRMED_BY_RUNTIME",
+    "Race Options": "CONFIRMED_BY_RUNTIME",
+    "Vehicle Setup": "CONFIRMED_BY_RUNTIME (prior runtime-qualified channel)",
+    "Master Rallye Race Details": "CONFIRMED_BY_RUNTIME",
+    "Rallye Cup Race Details": "CONFIRMED_BY_RUNTIME",
+    "Challenge": "NOT_CHANGED / NOT_QUALIFIED_FOR_ID26",
+    "Trophy/unlock reward": "NOT_CHANGED / NOT_QUALIFIED_FOR_ID26"
+  }
 }

@@ -1,68 +1,58 @@
-# R5V-G.1 finalization validation
+# R5V-G.1 validation
 
-## Human runtime evidence recorded
+## Final runtime gate passed
 
-The corrected-root Vehicle Select test is complete. The capture pair
-`20261006-150942_merc-locked` and `20261006-151258_merc-unlocked` reports the
-active package Root and exact preceding G.1 executable SHA. Their raw dump
-SHA256 values match the Observatory metadata.
+The final candidate is the deterministic 78-operation patch of pristine
+retail. It preserves the physical ID26 record and adds bounded frontend
+presentation and stock-like availability behavior. Final runtime captures
+report candidate SHA256
+`722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`, size
+3,121,214 bytes, and the staged `runtime-package` Root.
 
-* Locked state: `T1CupCar1=False`; cheats false; `CarModel=-1`; manufacturer
-  `CAR LOCKED`; model/reason `UNLOCK BY WINNING 2 T1 CUPS`; `UI/Enabled=False`.
-  The human saw locked slot art and confirmed normal accept could not commit
-  ID26 or leave Vehicle Select.
-* Natural unlock: `T1CupCar1=True`; cheats false; `CarModel=26`; manufacturer
-  `MERCEDES`; model `ML-320`; `UI/Enabled=True`. The human confirms ID26 became
-  selectable after meeting the T1 Cup condition.
-* The effective Root in both captures is
-  `.research-output/vehicles/unlock/runtime-package/`. The exact correction
-  overlay was installed there and its prelaunch SHA was verified. This closes
-  the earlier wrong-Root deployment failure; no deeper AI/commit-handler RE was
-  needed.
+* Locked ID26: fresh progress with cheats false; `CarModel=-1`; native
+  `CAR LOCKED` / `UNLOCK BY WINNING 2 T1 CUPS`; locked thumbnail; `UI/Enabled=False`;
+  normal accept blocked.
+* Naturally unlocked ID26: `T1CupCar1=True`; `CarModel=26`; `MERCEDES` /
+  `ML-320`; normal thumbnail and `UI/Enabled=True`.
+* Race Details: final Master Rallye and Rallye Cup snapshots both contain
+  `MERCEDES ML-320` and preserve `RaceData/Competitor0/CarID=26`,
+  `Race/Car0/CarID=26`, and class 0. Their raw sidecars hash-match their JSON
+  metadata. Human observation confirms both strings were visibly rendered.
+* Stock ID0 Race Details regression: PASS by owner-reported human runtime.
+* Full stage and Results on the final candidate: PASS by owner-reported human
+  runtime. The available report does not separately claim frontend return.
+* No human split-screen Race Details test is claimed; the two split-screen
+  hook sites are statically covered. Challenge and Trophy localization remain
+  unmodified and unqualified for ID26.
 
-The older pre-fix Race Details captures remain evidence of the original defect:
-both Master Rallye and Rallye Cup showed `GALOCAL UNKNOWN` while the absolute
-participant ID was 26. The shared producer is now traced to `FUN_0047C080` and
-group `0x35`, with the selector read from `RaceData/CompetitorN/CarID`.
+## Candidate and package verification
 
-## Static candidate and package verification
-
-* Deterministic build verification passed from pristine retail source
+* Source retail SHA256:
   `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
-* Final candidate SHA256: `722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`,
-  size 3,121,214 bytes, 78 operations. The three new Race Details hooks are
-  `0x0047C0F5`, `0x0047C181`, and `0x0047C200`; expected original bytes at each
-  site are `506a358bceff570c`.
-* The final hook returns `MERCEDES ML-320` only for ID26 and preserves the
-  original group-`0x35` lookup for all other IDs. The physical vehicle record,
-  CarID, class, class mapping, assets, and race family are unchanged.
-* Overlay deterministic rebuild verification passed; output SHA256 remains
+* Candidate SHA256:
+  `722d1a59a9c11cb0c181751c17674e6a04587e2c7b3b8c225c2e93754a438da7`;
+  3,121,214 bytes; 78 patch operations.
+* Vehicle Select overlay SHA256:
   `6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d`.
-* The package updater installed the final EXE and updated only the package
-  manifest. It preserves runtime-generated PlayerState/options files. The
-  package contains 145 pinned payload files plus the candidate, scene, and
-  package manifest; post-install verification passes with explicit
-  `--allow-runtime-state`.
+* Race Details sites: `0x0047C0F5`, `0x0047C181`, `0x0047C200`.
+* The final Root and overlay are pinned by the ignored runtime package manifest.
+  The post-capture verifier reported PASS.
 
-## Automated checks
+## Automated validation
 
-* Synthetic suite (`PYTHONPATH=src python -m unittest discover -s tests/synthetic -v`):
-  **279 passed, 0 failed, 0 skipped**.
-* Race Details patcher/control-flow tests: **14 passed**.
-* Runtime-package tests: **9 passed**.
+Final closeout verification on 2026-10-06:
+
+* Synthetic suite: **279 passed, 0 failed, 0 skipped**.
+* Bounded Race Details wrapper tests: **14 passed** (included in the suite).
+* Runtime package tests: **9 passed** (included in the suite).
 * `python -m compileall src tools tests`: passed.
-* Candidate `--verify-existing`: passed; exact retail source, generated EXE,
-  manifest, and binary diff match the deterministic rebuild.
-* Vehicle Select overlay `--verify-existing`: passed.
-* Final runtime package verification: passed; exact candidate and scene hashes
-  match the pinned manifest.
-* JSON evidence files parse; `git diff --check`: passed.
+* Final candidate deterministic `--verify-existing`: passed.
+* Vehicle Select overlay deterministic `--verify-existing`: passed.
+* Runtime package verify with `--allow-runtime-state`: passed.
+* JSON capture parsing and raw sidecar verification: passed for both final
+  captures.
+* `git diff --check`: passed at final review.
 
-## Remaining runtime gate
-
-The final candidate has not yet been human-tested on Race Details. Required
-checks are the visible Mercedes identity in Master Rallye and Rallye Cup, one
-unchanged stock ID0 display, and a short ID26 race regression. Broker values
-can confirm state but cannot prove visible rendering. No full stage/results/
-frontend-return lifecycle is claimed. G.1 remains open; catalog/ordering has
-not started.
+Historical test logs with earlier fixture errors remain historical; the
+current synthetic retail fixture includes the Race Details sites and the
+final run above is clean.
