@@ -49,20 +49,15 @@ public:
  bool remove(PatchMemory&) noexcept;
  bool installed() const noexcept {return installed_;}
 };
-// Frame-owned coordinate edits, independently tested; never persistent packet identity.
-class MarginFrame {
- struct Edit {float* x=nullptr;float original=0,effective=0,y=0,z=0;uintptr_t owner=0;uint32_t mode=0;uintptr_t storage=0;};std::array<Edit,512> edits_{};size_t count_=0;
-public:
- uint64_t changed=0,failures=0,overflow=0;
- bool shift(float* xyz,float half,uintptr_t owner=0) noexcept;
- bool shift_direction(float* xyz,float half,int direction,uintptr_t owner=0,uint32_t mode=0,uintptr_t storage=0) noexcept;
- bool logical_point(float* xyz,uintptr_t owner,float (&point)[3],uint32_t mode=0,uintptr_t storage=0) const noexcept;
- bool restore() noexcept;
- size_t size() const noexcept{return count_;}
-};
+class Trace;
+struct MarginDrawDecision {MarginIdentity key{};MarginAnchorDecision anchor{};float native_x=0,native_y=0,margin=0;bool valid=false;};
+inline constexpr uint32_t UI_DRAW_RETURN_RVA=0x0016d7c4;
 class UiMargins {
  friend struct detail::UiMarginsContract;
- UiPacketPatch patch_;MarginFrame frame_;MarginAnchors anchors_;
+ UiPacketPatch patch_;MarginAnchors anchors_;
+ struct Scope {MarginIdentity key{};MarginAnchorDecision anchor{};bool valid=false;};
+ std::array<Scope,16> scopes_{};unsigned scope_depth_=0;
+ D3DMATRIX pending_world_{};bool restore_pending_=false;
  struct Observation {uintptr_t entity=0,point=0,packet=0,storage=0;uint64_t id=0,first=0,last=0,restored=0;float logical=0,effective=0;unsigned visits=0;int rule=0;};
  std::array<Observation,64> observations_{};uint64_t frame_id_=1,next_id_=0;unsigned records_=0,diagnostic_frames_=0;bool capturing_=false;DWORD thread_=0;float half_=0;bool enabled_=false;
 public:
@@ -74,10 +69,28 @@ public:
  void reset_diagnostics() noexcept;
  void reset_anchors(const char* reason) noexcept;
  void scene_context(bool race) noexcept;
- void before_consume(uintptr_t entity) noexcept;
- void before_sort(uintptr_t entity,uintptr_t coordinates) noexcept;
+ bool enter_consume(uintptr_t entity) noexcept;
+ void leave_consume() noexcept;
+ MarginDrawDecision draw_decision() noexcept;
+ void observe_draw(const MarginDrawDecision&,float native_world_x,float effective_world_x,HRESULT restore) noexcept;
+ HRESULT repair_world(IDirect3DDevice8&,Trace&,uintptr_t) noexcept;
+ void native_reset_succeeded() noexcept {restore_pending_=false;}
+ void failed_restore(const D3DMATRIX&) noexcept;
+ uint64_t render_draws=0,native_writes=0,restore_exact=0,restore_failures=0,world_read_failed=0,temporary_set_failed=0,scope_failures=0;
  bool finish_frame() noexcept;
  void disable(const char*) noexcept;
  std::string json() const;
+};
+}
+
+namespace gfx2 {
+class UiWorldScope {
+ IDirect3DDevice8& native_;Trace& trace_;UiMargins& ui_;uintptr_t pc_;
+ MarginDrawDecision decision_{};D3DMATRIX original_{},effective_{};bool changed_=false;
+public:
+ UiWorldScope(IDirect3DDevice8&,Trace&,UiMargins&,uintptr_t,bool allowed) noexcept;
+ ~UiWorldScope() noexcept;
+ bool changed() const noexcept{return changed_;}
+ UiWorldScope(const UiWorldScope&)=delete;
 };
 }

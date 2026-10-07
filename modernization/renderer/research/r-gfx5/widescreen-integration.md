@@ -1,3 +1,11 @@
+# R-GFX5-6 current widescreen architecture
+
+PreserveMargins v2 is a render-local candidate awaiting manual acceptance. Persistent packet-coordinate mutation and post-Present coordinate restoration are removed. Historical coordinates admit a stable semantic direction; the exact current UI draw temporarily translates a local native WORLD copy and restores it immediately. Current animation is read, never frozen. Centered4x3 and widened UI projection remain unchanged. [Static seam, source immutability, lifetime and diagnostics](render-local-ui.md).
+
+The prior R-GFX5-5 experimental-closeout decision is historical and superseded. No native cross-packet widget root has been invented; the new seam removes a demonstrated persistent-mutation risk independently of group ownership. Full identity/context/gap reuse limits remain explicit and require menu/screen retest. Backdrop remains BACKDROP_ASSET_EXTENSION_REQUIRED.
+
+## Historical record (superseded where noted above)
+
 # R-GFX5-5 widescreen decision
 
 **Centered4x3 = STABLE / RECOMMENDED. PreserveMargins = EXPERIMENTAL / LEGACY COMPATIBILITY.** R-GFX5-4 packet retention works according to the user and counters; composite HUD/menu defects remain. The final consumer stays the interception owner. No return to SortPerCamera or wider historical XY ranges.

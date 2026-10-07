@@ -1,3 +1,11 @@
+# R-GFX5-6 — current architecture retest
+
+**READY_FOR_HUMAN_RUNTIME.** Current mandatory P1–P4, D1–D6 and Combined instructions are in [architecture runtime handoff](architecture-runtime-handoff.md). The new DLL has not been deployed by the agent. PreserveMargins v2 and true Exclusive must receive manual acceptance; prior experimental-closeout advice below is superseded.
+
+HUD uses zero persistent packet/cache coordinate writes and immediate draw-local native WORLD restoration. Exclusive preserves a capability-validated display target and native window ownership. [Build identity](../../data/build.json), [UI](render-local-ui.md), [display](exclusive-lifecycle.md). Backdrop remains BACKDROP_ASSET_EXTENSION_REQUIRED. No next phase is started.
+
+## Historical handoff (superseded by the linked current instructions)
+
 # R-GFX5-5 — narrow pass / экспериментальный PreserveMargins
 
 **READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS.** Надёжный нативный владелец группы виджета не доказан, групповое наследование не включено. PreserveMargins (`InterfaceMode=2`) остаётся экспериментальным режимом совместимости; рекомендуемый стабильный режим — Centered4x3 (`InterfaceMode=1`). Остаточное разделение компонентов HUD/декораций не объявлено исправленным. Прежний consumer hook и подтверждённые maximize/restore сохраняются.

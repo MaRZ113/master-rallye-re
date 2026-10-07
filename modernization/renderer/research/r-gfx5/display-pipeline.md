@@ -1,3 +1,11 @@
+# R-GFX5-6 Exclusive ownership fix
+
+True Exclusive preserves configured/initial accepted display-mode dimensions through Create/Reset. It validates dimension/format/refresh/depth, negotiates AA with WindowedFALSE and rejects unsupported modes explicitly. No Exclusive popup/style/menu/placement commit or Stock/Borderless display alias remains. Native D3D8/game owns focus/display switching; lost-device returns and pool-aware Reset policy remain bounded. [Exact old failure, parameters and replacement policy](exclusive-lifecycle.md).
+
+Windowed configured size continues to be a NORMAL target. Genuine maximize uses actual CLIENT dimensions without replacing that target or committing placement; Restore returns to configured centered normal size. Borderless and normal commit-echo suppression remain unchanged. All modes now expose bounded pre/post native descriptors and HRESULT, with cooperative transitions for Alt+Tab diagnosis.
+
+## Historical record (superseded where noted above)
+
 # R-GFX5-4 Windowed normal/maximized ownership
 
 WindowState snapshot now includes native IsZoomed. Windowed retains configured/pinned NORMAL target (e.g.1280x720). In normal state existing AdjustWindowRectEx/rcWork centering and manual-drag pinned policy remain. While genuinely maximized, select_display uses actual client width/height for native presentation, without replacing normal target. apply_window skips all style/menu/SetWindowPos operations: maximized placement is OS-owned. Restore follows the original centered normal commit; it does not adopt the previous maximized dimensions.

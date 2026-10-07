@@ -44,6 +44,7 @@ HRESULT STDMETHODCALLTYPE Device8::TestCooperativeLevel() {
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(3, args, pc);
  HRESULT result = real_->TestCooperativeLevel();
+ if(quality)quality->cooperative_result(result);
  trace.after(3, args, static_cast<uint32_t>(result), pc);
  return result;
 }

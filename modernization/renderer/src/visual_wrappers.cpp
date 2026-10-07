@@ -40,7 +40,7 @@ HRESULT STDMETHODCALLTYPE Device8::SetTransform(D3DTRANSFORMSTATETYPE type,const
  return set_transform_at(type,input,reinterpret_cast<uintptr_t>(_ReturnAddress()));
 }
 HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
- auto guard=trace.guard();auto args=pack(type,input);trace.before(37,args,pc);
+ auto guard=trace.guard();HRESULT repair=ui_margins.repair_world(*real_,trace,pc);if(FAILED(repair))return repair;auto args=pack(type,input);trace.before(37,args,pc);
  D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);bool rewritten=visuals.effective.fov&&visuals.projection(type,input,changed,exe,rva);
  if(quality&&quality->preview_capability.supported()&&type==D3DTS_PROJECTION&&exe&&rva==quality->preview_capability.candidate_rva){
   D3DMATRIX source{};if(safe_copy(&source,input,sizeof(source))){int family=camera_scene_family(source);if(family>=0)ui_margins.scene_context(family==1);}
@@ -70,11 +70,16 @@ HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMA
  trace.after(38,args,static_cast<uint32_t>(hr),pc,&effective_args,virtualized?2:0);return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::DrawPrimitive(D3DPRIMITIVETYPE type,UINT start,UINT count){
- auto guard=trace.guard();auto args=pack(type,start,count);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(70,args,pc);
+ return draw_primitive_at(type,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
+}
+HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,uintptr_t pc){
+ auto guard=trace.guard();auto args=pack(type,start,count);
  uint32_t rva=0;bool exe=site(pc,rva);bool skip=visuals.suppress(70,exe,rva,trace.shadow,type);
- HRESULT repair=repair_reflection();if(FAILED(repair)){trace.after(70,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
- HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
- trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:0,skip);return hr;
+ HRESULT repair=repair_reflection();if(FAILED(repair)){trace.before(70,args,pc);trace.after(70,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
+ const auto& view=trace.effective_shadow.matrices[D3DTS_VIEW];D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
+ bool allowed=!skip&&quality&&quality->config.interface_mode=="PreserveMargins"&&quality->ui_projection_live&&exe&&rva==UI_DRAW_RETURN_RVA&&type==D3DPT_TRIANGLELIST&&trace.shadow.bindings.vertex_shader.known&&trace.shadow.bindings.vertex_shader.value==0x142&&view.known&&!std::memcmp(&view.value,&identity,sizeof(identity));
+ UiWorldScope ui(*real_,trace,ui_margins,pc,allowed);trace.before(70,args,pc);HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
+ trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:ui.changed()?128:0,skip);return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitive(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count){
  return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
@@ -91,6 +96,7 @@ HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT verti
  return hr;
 }
 HRESULT Device8::repair_reflection() noexcept {
+ HRESULT world=ui_margins.repair_world(*real_,trace,0);if(FAILED(world))return world;
  if(!trace.reflection_restore_pending.known)return S_OK;
  auto args=pack(1,D3DTSS_TEXCOORDINDEX,trace.reflection_restore_pending.value);
  HRESULT hr=real_->SetTextureStageState(1,D3DTSS_TEXCOORDINDEX,static_cast<DWORD>(args.a[2]));

@@ -1,3 +1,9 @@
+# R-GFX5-6 superseding architecture
+
+The group investigation below remains valid: no native sibling/widget root was proven and no grouping/inheritance was added. Its experimental-closeout decision has been superseded by the requested [render-local v2 fix](render-local-ui.md). Persistent packet editing is removed; the existing conservative individual anchor registry only supplies direction to the final native UI draw. Human jitter and menu/reuse validation are still required.
+
+## Historical record (superseded where noted above)
+
 # R-GFX5-5: UI ownership decision
 
 **READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS.** No robust native widget owner was established at the final consumer. Group inheritance is not implemented. PreserveMargins remains **EXPERIMENTAL / LEGACY COMPATIBILITY**; **Centered4x3 is the stable recommended production mode**. This is the clean fallback explicitly authorized by the narrow-pass prompt, not a claim that remaining HUD/menu splitting is fixed.

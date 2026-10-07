@@ -1,6 +1,6 @@
 {
   "phase": "R-GFX5 FINAL NARROW PASS",
-  "decision": "READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS",
+  "decision": "GROUP_OWNER_NOT_PROVEN_RENDER_LOCAL_V2_PENDING_RUNTIME",
   "proven_native_widget_owner": null,
   "group_inheritance": false,
   "owner_absence_claim": false,
@@ -320,5 +320,7 @@
     "Centered4x3": "STABLE_RECOMMENDED_PRIOR_HUMAN_RUNTIME",
     "PreserveMargins": "EXPERIMENTAL_LEGACY_COMPATIBILITY"
   },
-  "backdrop": "BACKDROP_ASSET_EXTENSION_REQUIRED"
+  "backdrop": "BACKDROP_ASSET_EXTENSION_REQUIRED",
+  "historical_decision": "READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS",
+  "superseding_architecture": "render-local-ui.md"
 }

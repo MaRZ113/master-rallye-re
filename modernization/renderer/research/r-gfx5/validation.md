@@ -1,3 +1,30 @@
+# R-GFX5-6 architecture validation — 2026-10-07
+
+**READY_FOR_HUMAN_RUNTIME**, not runtime PASS. Current Win32 x86 Release DLL SHA256 `5bb0e5b4c39bb2253f92b1ee6e3a61a8661458f29ba0c7a4f36e5e175914ccac`, size1403904bytes. [PE report](../../data/build.json).
+
+| Check | Actual result |
+|---|---|
+| Full current renderer Python suite | 100/100 PASS,57.379s |
+| Native CTest suites | 8/8 PASS,8.60s; compatibility, forwarding/COM/resources, visual, classifier, reflection, FOV/culling, quality, identity |
+| compileall modernization | PASS, ignored task-local pycache_prefix |
+| PE verifier | PE32/I386 DLL, required direct exports at ordinals5/3/2, no recursive d3d8 import, no delay import |
+| Source integrity | Packet and separate cached-transform byte equality through animated/repeated/extreme/pause/resume native UI contracts |
+| Production seam | Native capture logical WORLD X565/effective1112, immediate original16bits restoration, next draws565; wrong caller/FVF/VIEW/projection/mode/context remain unchanged |
+| Failures | Native get/temporary-set failure unmodified; draw HRESULT retained; restore failure disables margin feature, pending repair prevents unrelated draw, recovery verified |
+| x86 ABI | Entry/return bridges, RET4 and actual RET0Ch stack cleanup, integer/flags/x87/SSE preservation |
+| Exclusive | Selected640x480 survives656x519 follow-up regardless game Windowed flag; no proxy placement; invalid mode/refresh/depth rejected before native call; AA-only fallback remains true fullscreen; bounded DEVICELOST handling |
+| Git diff-check | PASS; task paths restricted to modernization/renderer |
+
+Old restore probe ran8/8 native before mutation removal; six outcome categories were exercised. Y-only rewrite leaving X shifted with generic failures0 is synthetic evidence, not an observed game feedback-loop frequency. Its diagnostic source/executable/session hashes are preserved in [legacy-restore-diagnostics.json](legacy-restore-diagnostics.json). Raw logs, generated code databases and binaries remain ignored.
+
+The first implementation builds exposed compile errors (capture budget/naked forward declaration), and early new contracts exposed stale test assumptions about old mutation/window commit. They were corrected before the final successful build. The first100-test run also rejected the intentional native restore-failure sample as success; the final assertion now requires exactly that injected DEVICELOST plus successful normal records. No previous functional assertion was weakened: obsolete persistent-write/Present-restore contracts were replaced with stronger source-immutability/immediate-native-restoration contracts. Historical old failures remain below.
+
+Current example/preset numeric selectors and text compatibility remain. AF MIN-only, MSAA, Windowed/maximize/restore, Borderless, source45 preview, feature-local hardened GameplayFOVCulling/VehicleSemantics, MenuFreezeFix, learned reflections, exact TCI restore, race/HUD lifetime, pool Reset and COM identity suites remain passing. No whole-image hash profile was introduced.
+
+No real GPU/game run, deployment, visual jitter PASS or Exclusive Alt+Tab PASS is claimed. [Current retest](architecture-runtime-handoff.md) is required. Read-only Ghidra12.1.4 transactions rolled back, retired worktrees remained untouched. Only graphics files under modernization/renderer are included; no PS2 changes or generated DLL/PDB/OBJ/LIB/captures are committed. No new branch/worktree or push.
+
+## Historical validation (current results above supersede candidate status)
+
 # R-GFX5-5 narrow pass validation - 2026-10-07
 
 **READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS.** Win32 x86 Release build PASS,8/8 native suites PASS (3.69s). Full renderer Python96/96 PASS (45.566s), compileall modernization and git diff --check PASS. DLL PE verifier PASS: PE32/I386, direct Direct3DCreate8@5, ValidatePixelShader@2, ValidateVertexShader@3; bcrypt/USER32/KERNEL32 imports, no recursive d3d8 import.

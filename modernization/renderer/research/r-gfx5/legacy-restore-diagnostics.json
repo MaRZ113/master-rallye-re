@@ -1,0 +1,20 @@
+{
+  "starting_head": "6e8bbbb253e7c2b0a8e56e9a63123b087a465f68",
+  "diagnostic_build": "instrumented R-GFX5-5; NOT_DEPLOYED",
+  "source_sha256": "7fbb4d8a63fd844fd1fea60baee71c02a95889a706c2164aa796ce0974f26592",
+  "synthetic_session_sha256": "fc0ef4123bada3a33881f29e09e1e3580e7b68927cfc879553feefe10b288258",
+  "synthetic_exe_sha256": "9c7e0c33304fb2d046801395263eb2e3436a45406025a0e6d9b9315e50f3763f",
+  "outcomes": {
+    "type": "legacy_ui_restore_diagnostic_contract",
+    "evidence": "SYNTHETIC_NOT_GAME_RUNTIME",
+    "restore_exact": 1,
+    "restore_skip_owner_replaced": 1,
+    "restore_skip_mode_changed": 1,
+    "restore_skip_storage_changed": 1,
+    "restore_skip_engine_xyz_changed": 1,
+    "restore_read_failed": 1,
+    "engine_y_rewrite_left_offset_resident": true
+  },
+  "build_native_suites": "8/8 PASS",
+  "root_cause_boundary": "Y-only engine rewrite skips owned XYZ restore and leaves margin in X with zero generic restore failures. Confirmed synthetic mechanism; actual game occurrence/feedback loop not yet proven."
+}

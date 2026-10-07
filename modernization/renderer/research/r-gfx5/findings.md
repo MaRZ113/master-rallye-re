@@ -1,3 +1,13 @@
+# R-GFX5-6 architecture fix — 2026-10-07
+
+**READY_FOR_HUMAN_RUNTIME.** PreserveMargins no longer writes packet/cached-transform coordinates: the final proven UI draw gets a temporary native WORLD copy followed by immediate exact restore. Exclusive keeps its selected display mode across Reset and leaves window placement/style to the game and D3D8. No new visual appearance or later phase was added.
+
+[Render-local proof and limits](render-local-ui.md), [Exclusive failure and replacement](exclusive-lifecycle.md), [curated old captures/static seam](architecture-evidence.json), [old restore-risk probe](legacy-restore-diagnostics.json), [retest](runtime-handoff.md), [validation](validation.md). Human pause/jitter evidence plus the synthetic Y-only restore skip partially supports the feedback hypothesis; actual game feedback frequency is UNKNOWN. Removal of that mechanism is verified synthetically; visual stability and real Exclusive startup/Alt+Tab are pending.
+
+Repository master-rallye-re-general, branch master. Starting HEAD6e8bbbb253e7c2b0a8e56e9a63123b087a465f68; external PS2 report commit advanced HEAD toff8049b8e7f04406298f5938ecbb7eefa73eeeb5 during work, preserved without renderer overlap. Only modernization/renderer changes are included. No branch/worktree, game deployment, disk EXE/assets changes or push. Backdrop remains BACKDROP_ASSET_EXTENSION_REQUIRED. R-GFX5 closeout waits for the new P/D visual/runtime acceptance; the prior experimental-closeout proposal is superseded.
+
+## Historical record (superseded where noted above)
+
 # R-GFX5-5 narrow pass - 2026-10-07
 
 **READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS.** Branch master; starting HEAD68e5f10f51cf2d5524ac15b41787beeba1f28d44. Tracked preflight clean; untracked ps2-research preserved. Existing R-GFX5-4 Windowed/maximize/restore is human-confirmed and unchanged. Packet anchors work, but remaining logical HUD/menu splitting is still HUMAN_REPORTED_FAIL.

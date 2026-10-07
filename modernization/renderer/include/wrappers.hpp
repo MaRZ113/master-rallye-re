@@ -48,6 +48,7 @@ public:
  GameFov game_fov;
  HRESULT stock_for_unmapped(const char* reason) noexcept;
  HRESULT repair_reflection() noexcept;
+ HRESULT draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,uintptr_t pc);
  HRESULT draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc);
  __declspec(noinline) HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void** ppvObject) override;
  __declspec(noinline) ULONG STDMETHODCALLTYPE AddRef() override;

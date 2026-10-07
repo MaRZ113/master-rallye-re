@@ -1,10 +1,12 @@
 #include "ui_margins.hpp"
 #include "margin_rules.hpp"
 #include "provenance.hpp"
+#include "trace.hpp"
 #include <cmath>
 #include <cstring>
 #include <sstream>
 #include <cfenv>
+#include <exception>
 namespace gfx2 {
 namespace {struct MarginFP {fenv_t saved;MarginFP(){fegetenv(&saved);}~MarginFP(){fesetenv(&saved);}};}
 int margin_direction(float x,float y,float z) noexcept {
@@ -88,45 +90,6 @@ bool UiPacketPatch::install(PatchMemory& m,void* site,uintptr_t destination) noe
  uint32_t relative=static_cast<uint32_t>(destination)-static_cast<uint32_t>(reinterpret_cast<uintptr_t>(site)+5);std::memcpy(after_.data()+1,&relative,4);return exchange(m,UI_PACKET_BYTES,after_);
 }
 bool UiPacketPatch::remove(PatchMemory& m) noexcept{return !installed_||exchange(m,after_,UI_PACKET_BYTES);}
-bool MarginFrame::shift(float* xyz,float half,uintptr_t owner) noexcept {
- float point[3]{};if(!logical_point(xyz,owner,point))return false;
- return shift_direction(xyz,half,margin_direction(point[0],point[1],point[2]),owner);
-}
-bool MarginFrame::logical_point(float* xyz,uintptr_t owner,float (&point)[3],uint32_t mode,uintptr_t storage) const noexcept {
- if(!xyz||!safe_copy(point,xyz,sizeof(point)))return false;
- for(size_t i=0;i<count_;++i)if(edits_[i].x==xyz&&edits_[i].owner==owner&&edits_[i].mode==mode&&edits_[i].storage==storage&&point[0]==edits_[i].effective){point[0]=edits_[i].original;break;}
- return true;
-}
-bool MarginFrame::shift_direction(float* xyz,float half,int direction,uintptr_t owner,uint32_t mode,uintptr_t storage) noexcept {
- if(!std::isfinite(half)||half==0)return false;
- float point[3]{};if(!xyz||!safe_copy(point,xyz,sizeof(point))||point[2]!=0||!std::isfinite(point[0])||!std::isfinite(point[1]))return false;
- if(direction!=1&&direction!=-1)return false;
- for(size_t i=0;i<count_;++i)if(edits_[i].x==xyz){float seen[3]{};if(!safe_copy(seen,xyz,sizeof(seen)))return false;
-  if(edits_[i].owner==owner&&edits_[i].mode==mode&&edits_[i].storage==storage&&seen[0]==edits_[i].effective){
-   point[0]=edits_[i].original;
-   if(seen[0]==point[0]+half*direction&&seen[1]==edits_[i].y&&seen[2]==edits_[i].z)return false;
-  }
-  edits_[i]=edits_[--count_];break; // Intervening engine rewrite owns a new logical value.
- }
- if(count_==edits_.size()){++overflow;return false;}
- float value=point[0]+half*direction;if(!std::isfinite(value))return false;
- auto& e=edits_[count_++];e={xyz,point[0],value,point[1],point[2],owner,mode,storage};float check=0;
- if(!safe_copy(xyz,&value,4)||!safe_copy(&check,xyz,4)||std::memcmp(&check,&value,4)){
-  ++failures;safe_copy(xyz,&point[0],4);return false;
- }
- ++changed;return true;
-}
-bool MarginFrame::restore() noexcept {
- bool okay=true;for(size_t i=0;i<count_;++i){auto& e=edits_[i];float seen[3]{};
-  if(e.owner&&!eligible_ui_packet(e.owner,reinterpret_cast<uintptr_t>(e.x)-0x30))continue; // Owner replacement invalidates the edit.
-  uint32_t mode=0;if(e.mode&&(!safe_copy(&mode,reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(e.x)+0x14),4)||mode!=e.mode))continue;
-  uintptr_t storage=0;if(e.storage&&(!safe_copy(&storage,reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(e.x)-0x4c),4)||storage!=e.storage))continue;
-  if(!safe_copy(seen,e.x,sizeof(seen))){okay=false;continue;}
-  // An intervening engine write owns its new coordinates. Never overwrite it.
-  if(std::memcmp(seen,&e.effective,4)||std::memcmp(seen+1,&e.y,4)||std::memcmp(seen+2,&e.z,4))continue;
-  if(!safe_copy(e.x,&e.original,4)||!safe_copy(seen,e.x,4)||std::memcmp(seen,&e.original,4))okay=false;
- }count_=0;if(!okay)++failures;return okay;
-}
 namespace {
 class NativeMemory final:public PatchMemory {public:
  bool read(void* d,const void* s,size_t n) noexcept override{return safe_copy(d,s,n);}
@@ -137,8 +100,21 @@ class NativeMemory final:public PatchMemory {public:
 UiMargins* active=nullptr;
 bool multiple=false;
 uintptr_t sort_return=0,packet_return=0,contract_entity=0;bool contract_probe=false;
-void __stdcall consume_packet(uintptr_t entity) noexcept {if(active)active->before_consume(entity);else if(contract_probe)contract_entity=entity;}
-void __stdcall shift_packet(uintptr_t entity,uintptr_t coordinates) noexcept {if(active)active->before_sort(entity,coordinates);}
+struct ReturnScope {uintptr_t address=0;UiMargins* owner=nullptr;};
+thread_local std::array<ReturnScope,16> returns{};thread_local unsigned return_depth=0;
+void packet_end_bridge();
+void __stdcall consume_packet(uintptr_t entity,uintptr_t* return_slot) noexcept {
+ if(!active&&!contract_probe)return;
+ if(return_depth==returns.size()){if(active)active->disable("consumer_scope_overflow");return;}
+ UiMargins* owner=active;if(owner&&!owner->enter_consume(entity))return;
+ if(contract_probe)contract_entity=entity;
+ returns[return_depth++]={*return_slot,owner};*return_slot=reinterpret_cast<uintptr_t>(&packet_end_bridge);
+}
+uintptr_t __stdcall finish_packet() noexcept {
+ if(!return_depth)std::terminate();auto saved=returns[--return_depth];if(saved.owner)saved.owner->leave_consume();return saved.address;
+}
+// Old sort bridge is retained only for the existing native ABI contract; no UI action.
+void __stdcall shift_packet(uintptr_t,uintptr_t) noexcept {}
 // Preserve flags, integer registers, stack, x87 and SSE. Replay exactly the two
 // overwritten instructions with the original x87 stack before returning.
 __declspec(naked) void sort_bridge(){__asm {
@@ -175,6 +151,8 @@ __declspec(naked) void packet_bridge(){__asm {
  ldmxcsr [esp+512]
  cld
  mov eax,dword ptr [ebp+12]
+ lea edx,[eax+4]
+ push edx
  push dword ptr [eax+8]
  call consume_packet
  fxrstor [esp]
@@ -183,6 +161,27 @@ __declspec(naked) void packet_bridge(){__asm {
  popfd
  sub esp,108h
  jmp dword ptr [packet_return]
+}}
+
+__declspec(naked) void packet_end_bridge(){__asm {
+ push 0
+ pushfd
+ pushad
+ mov ebp,esp
+ and esp,-16
+ sub esp,528
+ fxsave [esp]
+ fninit
+ mov dword ptr [esp+512],01f80h
+ ldmxcsr [esp+512]
+ cld
+ call finish_packet
+ mov dword ptr [ebp+36],eax
+ fxrstor [esp]
+ mov esp,ebp
+ popad
+ popfd
+ ret
 }}
 
 }
@@ -200,28 +199,55 @@ bool UiMargins::install(bool exact,bool requested) noexcept {
 void UiMargins::dimensions(UINT w,UINT h) noexcept {MarginFP fp;half_=0;if(w&&h&&double(w)/h>=1.&&double(w)/h<=4.)half_=static_cast<float>((480.*double(w)/h-640.)*.5);}
 void UiMargins::capture_window(bool active,uint64_t frame) noexcept {frame_id_=frame;if(active&&!capturing_&&records_<256){observations_={};diagnostic_frames_=3;}capturing_=active;}
 void UiMargins::reset_diagnostics() noexcept {diagnostic_frames_=0;observations_={};capturing_=false;}
-void UiMargins::reset_anchors(const char* why) noexcept {bool okay=frame_.restore();anchors_.begin_epoch(why);if(!okay)disable("ui_epoch_restore_failed");}
-void UiMargins::scene_context(bool race) noexcept {auto epoch=anchors_.epoch();anchors_.scene_context(race);if(anchors_.epoch()!=epoch&&!frame_.restore())disable("ui_epoch_restore_failed");}
-void UiMargins::before_consume(uintptr_t entity) noexcept {
- uintptr_t packet=0;if(safe_copy(&packet,reinterpret_cast<void*>(entity+0x4c),4)&&packet)before_sort(entity,packet+0x24);
-}
-void UiMargins::before_sort(uintptr_t entity,uintptr_t coordinates) noexcept {
- if(!enabled_||GetCurrentThreadId()!=thread_)return;
- // Called by the final packet consumer; coordinates are derived from entity+4C.
- MarginIdentity identity{};if(!read_margin_identity(entity,coordinates,identity)){anchors_.reject(entity);return;}
- auto point=reinterpret_cast<float*>(identity.point);float before[3]{},engine[3]{},after[3]{};
- if(!safe_copy(before,point,sizeof(before))||!frame_.logical_point(point,entity,engine,identity.mode,identity.storage)){anchors_.reject(entity);return;}
- auto anchor=anchors_.resolve(identity,engine[0],engine[1],engine[2]);
- bool changed=frame_.shift_direction(point,half_,anchor.direction,entity,identity.mode,identity.storage);if(!safe_copy(after,point,sizeof(after)))return;
- if(!diagnostic_frames_)return;
+void UiMargins::reset_anchors(const char* why) noexcept {anchors_.begin_epoch(why);for(auto& s:scopes_)s.valid=false;}
+void UiMargins::scene_context(bool race) noexcept {auto epoch=anchors_.epoch();anchors_.scene_context(race);if(anchors_.epoch()!=epoch)for(auto& s:scopes_)s.valid=false;}
+bool UiMargins::enter_consume(uintptr_t entity) noexcept {
+ MarginFP fp;
+ if(!enabled_||GetCurrentThreadId()!=thread_)return false;
+ if(scope_depth_==scopes_.size()){++scope_failures;disable("consumer_scope_overflow");return false;}
+ auto& scope=scopes_[scope_depth_++];scope={};uintptr_t packet=0;MarginIdentity identity{};float engine[3]{};
+ if(!safe_copy(&packet,reinterpret_cast<void*>(entity+0x4c),4)||!read_margin_identity(entity,packet+0x24,identity)||!safe_copy(engine,reinterpret_cast<void*>(identity.point),sizeof(engine))){anchors_.reject(entity);return true;}
+ auto anchor=anchors_.resolve(identity,engine[0],engine[1],engine[2]);scope={identity,anchor,true};
+ if(!diagnostic_frames_)return true;
  Observation* observation=nullptr;for(auto& o:observations_)if(o.id&&o.entity==entity&&o.point==identity.point&&o.packet==identity.packet&&o.storage==identity.storage){observation=&o;break;}
  if(!observation)for(auto& o:observations_)if(!o.id){observation=&o;o.entity=entity;o.point=identity.point;o.packet=identity.packet;o.storage=identity.storage;o.id=++next_id_;o.first=frame_id_;break;}
- if(!observation)return;auto& o=*observation;auto previous=o.last;bool rewrite=o.last&&before[0]!=o.logical&&before[0]!=o.effective;
- o.logical=engine[0];o.effective=after[0];o.last=frame_id_;o.rule=anchor.current_rule;++o.visits;
- if(records_<256){++records_;try{std::ostringstream out;out<<"{\"type\":\"ui_packet_lifetime\",\"event\":\"consume\",\"packet_id\":"<<o.id<<",\"entity\":"<<entity<<",\"packet\":"<<identity.packet<<",\"point_storage\":"<<identity.point<<",\"content_storage\":"<<identity.storage<<",\"packet_mode\":"<<identity.mode<<",\"ui_epoch\":"<<anchor.epoch<<",\"anchor_id\":"<<anchor.id<<",\"anchor_direction\":"<<quote(anchor.direction<0?"left":anchor.direction>0?"right":"none")<<",\"anchor_source\":"<<quote(anchor.source)<<",\"anchor_new\":"<<(anchor.admitted?"true":"false")<<",\"anchor_retained\":"<<(anchor.retained?"true":"false")<<",\"anchor_grace_retained\":"<<(anchor.grace_retained?"true":"false")<<",\"group_id\":null,\"group_direction\":null,\"group_owner_status\":\"not_proven\",\"candidate_group_ids\":{\"entity\":"<<entity<<",\"packet\":"<<identity.packet<<",\"content_storage\":"<<identity.storage<<"}"<<",\"current_rule_match\":"<<anchor.current_rule<<",\"engine_x\":"<<engine[0]<<",\"engine_y\":"<<engine[1]<<",\"anchor_invalidated_reason\":"<<quote(anchor.invalidated)<<",\"owner_rva\":"<<UI_PACKET_RVA<<",\"first_frame\":"<<o.first<<",\"frame\":"<<frame_id_<<",\"previous_frame\":"<<previous<<",\"restored_frame\":"<<o.restored<<",\"original_x\":"<<o.logical<<",\"effective_x\":"<<o.effective<<",\"observed_x\":"<<before[0]<<",\"engine_rewrite\":"<<(rewrite?"true":"false")<<",\"shifted\":"<<(changed?"true":"false")<<",\"consume_count\":"<<o.visits<<"}";session().write(out.str());}catch(...){}}
+ if(!observation)return true;auto& o=*observation;auto previous=o.last;bool rewrite=o.last&&engine[0]!=o.logical;
+ o.logical=engine[0];o.effective=engine[0]+half_*anchor.direction;o.last=frame_id_;o.rule=anchor.current_rule;++o.visits;
+ if(records_<256){++records_;try{std::ostringstream out;out<<"{\"type\":\"ui_packet_lifetime\",\"event\":\"consume\",\"packet_id\":"<<o.id<<",\"entity\":"<<entity<<",\"packet\":"<<identity.packet<<",\"point_storage\":"<<identity.point<<",\"content_storage\":"<<identity.storage<<",\"packet_mode\":"<<identity.mode<<",\"ui_epoch\":"<<anchor.epoch<<",\"anchor_id\":"<<anchor.id<<",\"anchor_direction\":"<<quote(anchor.direction<0?"left":anchor.direction>0?"right":"none")<<",\"anchor_source\":"<<quote(anchor.source)<<",\"anchor_new\":"<<(anchor.admitted?"true":"false")<<",\"anchor_retained\":"<<(anchor.retained?"true":"false")<<",\"anchor_grace_retained\":"<<(anchor.grace_retained?"true":"false")<<",\"group_id\":null,\"group_direction\":null,\"group_owner_status\":\"not_proven\",\"candidate_group_ids\":{\"entity\":"<<entity<<",\"packet\":"<<identity.packet<<",\"content_storage\":"<<identity.storage<<"}"<<",\"current_rule_match\":"<<anchor.current_rule<<",\"engine_x\":"<<engine[0]<<",\"engine_y\":"<<engine[1]<<",\"anchor_invalidated_reason\":"<<quote(anchor.invalidated)<<",\"owner_rva\":"<<UI_PACKET_RVA<<",\"first_frame\":"<<o.first<<",\"frame\":"<<frame_id_<<",\"previous_frame\":"<<previous<<",\"restored_frame\":"<<o.restored<<",\"original_x\":"<<o.logical<<",\"effective_x\":"<<o.effective<<",\"observed_x\":"<<engine[0]<<",\"engine_rewrite\":"<<(rewrite?"true":"false")<<",\"persistent_packet_writes\":0,\"shifted\":false"<<",\"consume_count\":"<<o.visits<<"}";session().write(out.str());}catch(...){}}
 
+ return true;
 }
-bool UiMargins::finish_frame() noexcept {bool okay=frame_.restore();
+void UiMargins::leave_consume() noexcept {if(scope_depth_)scopes_[--scope_depth_]={};}
+MarginDrawDecision UiMargins::draw_decision() noexcept {
+ MarginFP fp;MarginDrawDecision d;if(!enabled_||GetCurrentThreadId()!=thread_||!scope_depth_)return d;
+ auto& s=scopes_[scope_depth_-1];if(!s.valid||s.anchor.epoch!=anchors_.epoch())return d;
+ MarginIdentity current{};float point[3]{};
+ if(!read_margin_identity(s.key.entity,s.key.packet+0x24,current)||current.packet!=s.key.packet||current.point!=s.key.point||current.storage!=s.key.storage||current.mode!=s.key.mode||!safe_copy(point,reinterpret_cast<void*>(current.point),sizeof(point))||point[2]!=0||!std::isfinite(point[0])||!std::isfinite(point[1])){anchors_.reject(s.key.entity);s.valid=false;return d;}
+ d={s.key,s.anchor,point[0],point[1],half_*s.anchor.direction,true};return d;
+}
+void UiMargins::failed_restore(const D3DMATRIX& original) noexcept {pending_world_=original;restore_pending_=true;++restore_failures;disable("native_ui_world_restore_failed");}
+HRESULT UiMargins::repair_world(IDirect3DDevice8& native,Trace& trace,uintptr_t pc) noexcept {
+ if(!restore_pending_)return S_OK;auto args=pack(D3DTS_WORLD,&pending_world_);HRESULT hr=native.SetTransform(D3DTS_WORLD,&pending_world_);++native_writes;trace.after(37,args,static_cast<uint32_t>(hr),pc,&args,128,false,true);if(SUCCEEDED(hr)){restore_pending_=false;++restore_exact;}return hr;
+}
+void UiMargins::observe_draw(const MarginDrawDecision& d,float native_x,float effective_x,HRESULT restore) noexcept {
+ MarginFP fp;if(!diagnostic_frames_||records_>=256)return;++records_;
+ try{std::ostringstream o;o<<"{\"type\":\"ui_render_local\",\"packet\":"<<d.key.packet<<",\"entity\":"<<d.key.entity<<",\"ui_epoch\":"<<d.anchor.epoch<<",\"anchor_id\":"<<d.anchor.id<<",\"anchor_direction\":"<<d.anchor.direction<<",\"native_x\":"<<d.native_x<<",\"native_y\":"<<d.native_y<<",\"native_world_x\":"<<native_x<<",\"half_extra\":"<<half_<<",\"margin\":"<<d.margin<<",\"effective_render_x\":"<<effective_x<<",\"persistent_packet_writes\":0,\"override_path\":\"draw_local_native_world_copy\",\"restore_hresult\":"<<static_cast<uint32_t>(restore)<<",\"frame\":"<<frame_id_<<"}";session().write(o.str());}catch(...){}
+}
+UiWorldScope::UiWorldScope(IDirect3DDevice8& native,Trace& trace,UiMargins& ui,uintptr_t pc,bool allowed) noexcept :native_(native),trace_(trace),ui_(ui),pc_(pc){
+ MarginFP fp;if(!allowed)return;decision_=ui.draw_decision();if(!decision_.valid||decision_.margin==0)return;
+ HRESULT hr=native_.GetTransform(D3DTS_WORLD,&original_);auto get=pack(D3DTS_WORLD,&original_);trace_.after(38,get,static_cast<uint32_t>(hr),pc_,&get,128,false,true);
+ if(FAILED(hr)){++ui_.world_read_failed;return;}
+ const float* values=&original_.m[0][0];for(int i=0;i<16;++i)if(!std::isfinite(values[i])){++ui_.world_read_failed;return;}
+ if(original_._14||original_._24||original_._34||original_._44!=1)return;
+ effective_=original_;effective_._41+=decision_.margin;if(!std::isfinite(effective_._41))return;
+ auto set=pack(D3DTS_WORLD,&effective_);hr=native_.SetTransform(D3DTS_WORLD,&effective_);++ui_.native_writes;trace_.after(37,set,static_cast<uint32_t>(hr),pc_,&set,128,false,true);
+ if(FAILED(hr)){++ui_.temporary_set_failed;return;}changed_=true;++ui_.render_draws;
+}
+UiWorldScope::~UiWorldScope() noexcept {
+ MarginFP fp;if(!changed_)return;auto args=pack(D3DTS_WORLD,&original_);HRESULT hr=native_.SetTransform(D3DTS_WORLD,&original_);++ui_.native_writes;trace_.after(37,args,static_cast<uint32_t>(hr),pc_,&args,128,false,true);
+ if(FAILED(hr))ui_.failed_restore(original_);else ++ui_.restore_exact;ui_.observe_draw(decision_,original_._41,effective_._41,hr);
+}
+bool UiMargins::finish_frame() noexcept {bool okay=!restore_pending_;
  if(diagnostic_frames_&&records_<256){++records_;try{
   // Candidate buckets use only fields already read by the verified consumer.
   // Observed sharing is evidence for investigation, never permission to inherit.
@@ -235,10 +261,10 @@ bool UiMargins::finish_frame() noexcept {bool okay=frame_.restore();
    for(const auto& v:observations_)if(v.id&&v.last==frame_id_&&value(v)==id){if(!member_first)out<<',';member_first=false;out<<v.id;}out<<"]}";
   }out<<"]}";session().write(out.str());
  }catch(...){}}
- for(auto& o:observations_)if(o.id&&o.last==frame_id_){o.restored=frame_id_;if(records_<256){++records_;try{session().write("{\"type\":\"ui_packet_lifetime\",\"event\":\"restore\",\"packet_id\":"+std::to_string(o.id)+",\"frame\":"+std::to_string(frame_id_)+",\"success\":"+(okay?"true":"false")+"}");}catch(...){}}}anchors_.next_frame();if(diagnostic_frames_)--diagnostic_frames_;++frame_id_;if(!okay)disable("ui_coordinate_restore_failed");return okay;}
-void UiMargins::disable(const char* why) noexcept {enabled_=false;half_=0;frame_.restore();anchors_.begin_epoch(why);if(active==this)active=nullptr;patch_.remove(memory);reason=why;}
-UiMargins::~UiMargins(){disable("device_release");}
-std::string UiMargins::json() const {MarginFP fp;std::ostringstream o;o<<"{\"anchor_count\":"<<anchors_.size()<<",\"ui_epoch\":"<<anchors_.epoch()<<",\"anchor_admissions\":"<<anchors_.admissions<<",\"anchor_invalidations\":"<<anchors_.invalidations<<",\"retained_anchor_without_current_rule_match\":"<<anchors_.retained_anchor_without_current_rule_match<<",\"anchor_grace_frames\":"<<MARGIN_ANCHOR_GRACE_FRAMES<<",\"anchor_grace_retained\":"<<anchors_.anchor_grace_retained<<",\"group_grace_retained\":0,\"grace_expired\":"<<anchors_.grace_expired<<",\"group_owner_status\":\"not_proven\",\"status\":\"EXPERIMENTAL_LEGACY_COMPATIBILITY\""<<",\"anchor_overflow\":"<<anchors_.overflow<<",\"installed\":"<<(patch_.installed()?"true":"false")<<",\"enabled\":"<<(enabled_?"true":"false")<<",\"reason\":"<<quote(reason)<<",\"half_extra\":"<<half_<<",\"restore_boundary\":\"post_consumer_present_or_reset\",\"bounded_lifetime_records\":"<<records_<<",\"diagnostic_frames_remaining\":"<<diagnostic_frames_<<",\"packet_shifts\":"<<frame_.changed<<",\"restore_failures\":"<<frame_.failures<<",\"overflow\":"<<frame_.overflow<<'}';return o.str();}
+ anchors_.next_frame();if(diagnostic_frames_)--diagnostic_frames_;++frame_id_;return okay;}
+void UiMargins::disable(const char* why) noexcept {enabled_=false;half_=0;anchors_.begin_epoch(why);for(auto& s:scopes_)s.valid=false;if(active==this)active=nullptr;patch_.remove(memory);reason=why;}
+UiMargins::~UiMargins(){for(auto& r:returns)if(r.owner==this)r.owner=nullptr;disable("device_release");}
+std::string UiMargins::json() const {MarginFP fp;std::ostringstream o;o<<"{\"architecture\":\"render_local_world_v2\",\"persistent_packet_writes\":0,\"anchor_count\":"<<anchors_.size()<<",\"ui_epoch\":"<<anchors_.epoch()<<",\"anchor_admissions\":"<<anchors_.admissions<<",\"anchor_invalidations\":"<<anchors_.invalidations<<",\"retained_anchor_without_current_rule_match\":"<<anchors_.retained_anchor_without_current_rule_match<<",\"anchor_grace_frames\":"<<MARGIN_ANCHOR_GRACE_FRAMES<<",\"anchor_grace_retained\":"<<anchors_.anchor_grace_retained<<",\"group_grace_retained\":0,\"grace_expired\":"<<anchors_.grace_expired<<",\"group_owner_status\":\"not_proven\",\"anchor_overflow\":"<<anchors_.overflow<<",\"installed\":"<<(patch_.installed()?"true":"false")<<",\"enabled\":"<<(enabled_?"true":"false")<<",\"reason\":"<<quote(reason)<<",\"half_extra\":"<<half_<<",\"restore_boundary\":\"immediate_native_draw_return\",\"diagnostic_frames_remaining\":"<<diagnostic_frames_<<",\"bounded_lifetime_records\":"<<records_<<",\"render_draws\":"<<render_draws<<",\"native_writes\":"<<native_writes<<",\"restore_exact\":"<<restore_exact<<",\"restore_failures\":"<<restore_failures<<",\"restore_pending\":"<<(restore_pending_?"true":"false")<<",\"world_read_failed\":"<<world_read_failed<<",\"temporary_set_failed\":"<<temporary_set_failed<<",\"scope_failures\":"<<scope_failures<<'}';return o.str();}
 uintptr_t detail::ui_packet_entity_for_contract() noexcept {return contract_entity;}
 uintptr_t detail::ui_packet_bridge_for_contract(uintptr_t address) noexcept {if(active)return 0;contract_probe=true;contract_entity=0;packet_return=address;return reinterpret_cast<uintptr_t>(&packet_bridge);}
 uintptr_t detail::ui_bridge_for_contract(uintptr_t address) noexcept {if(active)return 0;sort_return=address;return reinterpret_cast<uintptr_t>(&sort_bridge);}

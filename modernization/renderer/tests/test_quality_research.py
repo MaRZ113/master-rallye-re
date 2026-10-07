@@ -23,7 +23,7 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('session*.jsonl'):
             with path.open(encoding='utf-8-sig') as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-5':
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-6':
                 matching.append(path)
         self.assertTrue(matching,'Run current native suites before Python')
         # Anchor IDs are session-local. Repeated identical native builds must
@@ -79,6 +79,75 @@ class QualityResearchTests(unittest.TestCase):
         self.assertIsNone(conflict['group_id']);self.assertIsNone(conflict['group_direction'])
         center=next(r for r in rows if r.get('type')=='ui_packet_lifetime' and r.get('candidate_group_ids',{}).get('content_storage')==conflict['candidate_id'] and r.get('engine_x')==300)
         self.assertEqual(center['anchor_direction'],'none');self.assertEqual(center['effective_x'],300)
+
+    def test_native_render_local_ui_coordinates_and_restore(self):
+        records=[r for r in self.current_native_session() if r.get('type')=='ui_render_local']
+        self.assertTrue(records)
+        # The production wrapper contract injects one real restoration failure.
+        self.assertEqual([r['restore_hresult'] for r in records if r['restore_hresult']],[0x88760868])
+        self.assertGreaterEqual(sum(r['restore_hresult']==0 for r in records),8)
+        for r in records:
+            self.assertEqual(r['persistent_packet_writes'],0)
+            self.assertEqual(r['override_path'],'draw_local_native_world_copy')
+            self.assertAlmostEqual(r['effective_render_x']-r['native_world_x'],r['margin'],places=2)
+        self.assertTrue(any(r['half_extra']==547 and r['effective_render_x']==1112 for r in records))
+
+    def test_native_exclusive_mode_ownership_and_bounded_rejection(self):
+        rows=self.current_native_session()
+        calls=[r for r in rows if r.get('type')=='display_native_attempt' and r.get('display_requested')=='ExclusiveFullscreen']
+        self.assertTrue(calls)
+        successful=[r for r in calls if r['hresult']==0]
+        self.assertTrue(successful)
+        for r in successful:
+            self.assertEqual(r['sent']['windowed'],0)
+            self.assertEqual(r['returned']['windowed'],0)
+            self.assertEqual(r['display_effective'],'ExclusiveFullscreen')
+            self.assertEqual(r['sent']['interval'],0)
+        followup=[r for r in successful if r['operation']=='Reset' and r['requested']['width']==656]
+        self.assertGreaterEqual(len(followup),2)
+        for r in followup:
+            self.assertEqual((r['sent']['width'],r['sent']['height']),(640,480))
+        rejected=[r for r in calls if r['operation'].endswith('validation_rejected')]
+        self.assertGreaterEqual(len(rejected),4)
+        self.assertTrue(all(r['hresult']==0x8876086a for r in rejected))
+        self.assertTrue(any(r['sent']['multisample']==4 for r in successful))
+        self.assertTrue(any(r['sent']['multisample']==0 for r in successful))
+        coop=[r for r in rows if r.get('type')=='display_cooperative_transition' and r['display']=='ExclusiveFullscreen']
+        self.assertEqual([r['hresult'] for r in coop],[0,0x88760868,0x88760869,0])
+
+    def test_production_ui_draw_capture_has_native_only_world_pair(self):
+        release=ROOT/'.build-msvc/Release'
+        sha=hashlib.sha256((release/'quality_tests.exe').read_bytes()).hexdigest()
+        matches=[]
+        for path in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
+            with path.open(encoding='utf-8-sig') as f: head=json.loads(f.readline())
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-6':
+                rows=read_jsonl(path)
+                if any(r.get('type')=='draw' and r.get('feature_mask',0)&128 for r in rows):matches.append((path.stat().st_mtime_ns,rows))
+        self.assertTrue(matches)
+        rows=max(matches,key=lambda r:r[0])[1]
+        self.assertTrue(rows[-1]['complete']);self.assertFalse(rows[-1]['truncated'])
+        draws=[r for r in rows if r.get('type')=='draw']
+        self.assertEqual(len(draws),8)
+        self.assertEqual(draws[0]['caller']['return_rva'],0x16d7c4)
+        original=draws[0]['state']['matrices']['256']
+        self.assertEqual(original['values'][12],565)
+        self.assertEqual(draws[0]['effective_state']['world_translation_x'],1112)
+        self.assertTrue(all(r['effective_state']['world_translation_x']==565 and not r['feature_mask']&128 for r in draws[1:]))
+        overrides=[r for r in rows if r.get('native_only') and r.get('method')=='SetTransform' and r.get('feature_mask',0)&128]
+        self.assertEqual(len(overrides),2)
+        self.assertEqual(overrides[1]['effective_payload_bits'],original['bits'])
+        self.assertLess(overrides[0]['sequence'],draws[0]['sequence'])
+        self.assertLess(draws[0]['sequence'],overrides[1]['sequence'])
+        self.assertLess(overrides[1]['sequence'],draws[1]['sequence'])
+
+    def test_old_restore_risk_is_labeled_synthetic_not_runtime(self):
+        proof=json.loads((ROOT/'research/r-gfx5/legacy-restore-diagnostics.json').read_text())
+        self.assertEqual(proof['diagnostic_build'],'instrumented R-GFX5-5; NOT_DEPLOYED')
+        self.assertEqual(proof['outcomes']['evidence'],'SYNTHETIC_NOT_GAME_RUNTIME')
+        self.assertTrue(proof['outcomes']['engine_y_rewrite_left_offset_resident'])
+        for name in ('restore_exact','restore_skip_owner_replaced','restore_skip_mode_changed','restore_skip_storage_changed','restore_skip_engine_xyz_changed','restore_read_failed'):
+            self.assertEqual(proof['outcomes'][name],1)
 
     def test_canonical_numeric_ini_vertical_selectors(self):
         import configparser
@@ -162,9 +231,9 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             with path.open() as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-5':frames.append(read_jsonl(path))
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-6':frames.append(read_jsonl(path))
         self.assertTrue(frames,'Native production wrapper must emit its positive capture')
-        frame=next(f for f in reversed(frames) if f[0]['quality']['effective']['multisample']==4);self.assertTrue(frame[-1]['complete']);self.assertFalse(frame[-1]['truncated'])
+        frame=next(f for f in reversed(frames) if (f[0]['quality'].get('effective') or {}).get('multisample')==4);self.assertTrue(frame[-1]['complete']);self.assertFalse(frame[-1]['truncated'])
         pp=frame[0]['quality']['effective'];self.assertEqual((pp['width'],pp['height'],pp['multisample'],pp['swap_effect']),(1920,1080,4,1))
         for name in ('physical_backbuffer','physical_depth'):
             surface=frame[0]['quality'][name];self.assertEqual((surface['width'],surface['height'],surface['multisample']),(1920,1080,4))

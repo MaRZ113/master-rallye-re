@@ -1,3 +1,13 @@
+# R-GFX5-6 implementation delta
+
+MarginFrame and its persistent X mutation/delayed Present restore are removed. The unchanged fingerprint-gated0056D110 entry hook now brackets consumer identity with a transient return bridge; only actual DrawPrimitive return0056D7C4/FVF0x142/triangle-list/identity-VIEW/live-UI-projection draws can apply a native WORLD copy. Matrix acquisition, local translation and immediate restoration are native-only trace events. Logical game/cache state receives zero coordinate writes. Nested contexts are bounded; source identity/epoch is rechecked at draw. [Architecture](render-local-ui.md).
+
+Exclusive Width/Height or first accepted auto target is distinct from HWND client geometry. Invalid mode/depth pairing explicitly returns NOTAVAILABLE with no native call; native AA-only fallback preserves fullscreen, and there is no display alias/fallback into Windowed. Native D3D8/game owns exclusive window state. Current Windowed/maximize, Borderless, preview, AF MIN-only, AA, FOV/culling, freeze, cursor, COM/resources and learned vehicle reflection mechanisms remain. [Lifecycle](exclusive-lifecycle.md).
+
+Producer and native capture filters are R-GFX5-6. F10 distinguishes desired packet coordinates from actual effective WORLD at draw; bounded native attempt/cooperative transition diagnostics expose display/AA decisions. Canonical numeric enums/booleans and vertical comments remain, with legacy strings accepted. No widened XY rules, groups, old sort hook, new whole-image profile or new artwork. Source/cache byte equality, precise native restoration, failure handling and actual production gates are covered by the native suites.
+
+## Historical record (superseded where noted above)
+
 # R-GFX5-5 implementation delta
 
 This pass retains the final0056D110 consumer, frame-owned edits and successful Windowed/Borderless/Reset/preview/filtering/MSAA/FOV/vehicle mechanisms. No native widget owner is proven; group inheritance is absent. PreserveMargins is experimental, Centered4x3 recommended.

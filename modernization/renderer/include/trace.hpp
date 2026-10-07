@@ -17,7 +17,7 @@ struct ReflectionOutcome {
  bool candidate=false,applied=false,restore_attempted=false,restore_success=false;
  uint32_t native_writes=0;const char* mode="Stock";const char* reason="not_evaluated";
 };
-struct EffectiveDraw {Known<uint32_t> filtering[4];Known<D3DMATRIX> projection;};
+struct EffectiveDraw {Known<uint32_t> filtering[4];Known<D3DMATRIX> projection;Known<float> world_x;};
 struct Draw { DrawClassification classification;Classification at_draw;ReflectionOutcome reflection;Snapshot state;EffectiveDraw effective;std::array<uint64_t,8> texture_generation{};
  std::array<uint64_t,16> stream_generation{};uint64_t index_generation=0; };
 struct FrameBuffer {Known<D3DVIEWPORT8> initial_effective_viewport;std::array<Event,MAX_EVENTS> events;std::array<Draw,MAX_DRAWS> draws;

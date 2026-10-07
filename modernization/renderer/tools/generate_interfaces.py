@@ -31,7 +31,7 @@ def interfaces(header):
         if method['method'] in ('SetTextureStageState','SetTransform','GetTextureStageState','GetTransform','DrawPrimitive','DrawIndexedPrimitive','Reset','Present','SetViewport','GetViewport'):
             method['forwarding_status']='default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization'
         elif method['method'] in ('DrawPrimitiveUP','DrawIndexedPrimitiveUP'):
-            method['forwarding_status']='unchanged except fail-closed repair after a reported native reflection restore failure'
+            method['forwarding_status']='unchanged except fail-closed repair after a reported native reflection or UI WORLD restore failure'
         elif method['method'] in ('BeginStateBlock','ApplyStateBlock','CreateStateBlock','CaptureStateBlock','MultiplyTransform'):
             method['forwarding_status']='default-off unchanged; active visual state restored before unreviewed operation'
     if [len(result[x]) for x in result] != [16,97]:
@@ -56,7 +56,7 @@ def generate():
         'class Device8 final : public IDirect3DDevice8 {','public:',
         ' Device8(IDirect3DDevice8* p, Root8* parent, std::unique_ptr<QualityPipeline> quality = {}) noexcept;',
         ' ~Device8();',
-        ' void adopt() noexcept { ++refs_; }',' Trace trace;',' std::unique_ptr<QualityPipeline> quality;',' HRESULT set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc);',' UiMargins ui_margins;',' void quality_trace() noexcept;',' HRESULT stock_ui(const char* reason) noexcept;',' VisualPolicy visuals;',' GameFov game_fov;',' HRESULT stock_for_unmapped(const char* reason) noexcept;',' HRESULT repair_reflection() noexcept;',' HRESULT draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc);']
+        ' void adopt() noexcept { ++refs_; }',' Trace trace;',' std::unique_ptr<QualityPipeline> quality;',' HRESULT set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc);',' UiMargins ui_margins;',' void quality_trace() noexcept;',' HRESULT stock_ui(const char* reason) noexcept;',' VisualPolicy visuals;',' GameFov game_fov;',' HRESULT stock_for_unmapped(const char* reason) noexcept;',' HRESULT repair_reflection() noexcept;',' HRESULT draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,uintptr_t pc);',' HRESULT draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc);']
     for m in methods['IDirect3DDevice8']:
         declarations.append(f' __declspec(noinline) {m["return_type"]} STDMETHODCALLTYPE {m["method"]}({m["parameters"]}) override;')
     declarations += ['private: IDirect3DDevice8* real_; Root8* parent_; std::atomic<ULONG> refs_{1};','};','}']
@@ -76,6 +76,7 @@ def generate():
                     *([f' HRESULT safe = stock_for_unmapped("{name}");', ' if(FAILED(safe)){ trace.after('+str(m['slot'])+', args, static_cast<uint32_t>(safe), pc); return safe; }'] if name in ('BeginStateBlock','ApplyStateBlock','CreateStateBlock','CaptureStateBlock') else [f' if(state==D3DTS_PROJECTION){{HRESULT safe=stock_for_unmapped("MultiplyTransform_PROJECTION");if(FAILED(safe)){{trace.after({m["slot"]},args,static_cast<uint32_t>(safe),pc);return safe;}}}}'] if name=='MultiplyTransform' else []),
                     *([' HRESULT repair=repair_reflection();',f' if(FAILED(repair)){{trace.after({m["slot"]},args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}}'] if name in ('DrawPrimitiveUP','DrawIndexedPrimitiveUP') else []),
                     f' {ret+" result = " if ret!="void" else ""}real_->{name}({args});',
+                    *([' if(quality)quality->cooperative_result(result);'] if name=='TestCooperativeLevel' else []),
                     f' trace.after({m["slot"]}, args, {"static_cast<uint32_t>(result)" if ret!="void" else "0"}, pc);']
                 if ret != 'void':lines.append(' return result;')
             lines.append('}')

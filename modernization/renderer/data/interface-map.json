@@ -1173,7 +1173,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except fail-closed repair after a reported native reflection restore failure"
+        "forwarding_status": "unchanged except fail-closed repair after a reported native reflection or UI WORLD restore failure"
       },
       {
         "slot": 73,
@@ -1192,7 +1192,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except fail-closed repair after a reported native reflection restore failure"
+        "forwarding_status": "unchanged except fail-closed repair after a reported native reflection or UI WORLD restore failure"
       },
       {
         "slot": 74,

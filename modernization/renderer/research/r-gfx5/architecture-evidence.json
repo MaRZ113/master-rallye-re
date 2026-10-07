@@ -1,0 +1,2654 @@
+{
+  "phase": "R-GFX5-6",
+  "evidence_boundary": "Existing R-GFX5-5 game captures; no R-GFX5-6 deployment or game run",
+  "display_sessions": [
+    {
+      "name": "session-20261007-104808-22024.jsonl",
+      "sha256": "ad7eac86f3d6cd514daf860800d5cf05a6484f352e199c30ef0f1f087d5940c6",
+      "producer": "R-GFX5-5",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "812330b862c0ba14a5572eee14a76d6e7cd5d2fcf63f6fd76e6fc327fc608737",
+      "initial_accepted": {
+        "window_state": "unknown",
+        "normal_target": {
+          "width": 0,
+          "height": 0
+        },
+        "actual_client": {
+          "width": 0,
+          "height": 0
+        },
+        "effective_backbuffer": {
+          "width": 640,
+          "height": 480
+        },
+        "display_requested": "Stock",
+        "display_effective": "Stock",
+        "display_reason": "",
+        "cursor_auto_hide_effective": true,
+        "cursor_watch_installed": false,
+        "cursor_reason": "",
+        "window_commit_status": "not_required",
+        "native_reset_calls": 0,
+        "window_reset_echoes": 0,
+        "window_reset_echoes_suppressed": 0,
+        "deferred_resets": 0,
+        "windowed_target_width": 0,
+        "windowed_target_height": 0,
+        "aa_effective": "Stock",
+        "aa_effective_samples": 0,
+        "aa_requested": "Stock",
+        "aa_requested_samples": 4,
+        "aa_swap_effect": "COPY",
+        "aa_reason": "Mode_Stock_Samples_ignored",
+        "attempts": 0,
+        "requested": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 13045630,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "logical_baseline": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 13045630,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "effective": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 13045630,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "monitor_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "physical_backbuffer": null,
+        "physical_depth": null,
+        "effective_aspect": 1.33333,
+        "ui": {
+          "mode": "PreserveMargins",
+          "reason": "",
+          "logical_width": 640,
+          "logical_height": 480,
+          "virtual_width": 640,
+          "extra_width": 0,
+          "center_offset": 0
+        },
+        "dpi_policy": "game_awareness_unchanged"
+      },
+      "later_accepted": [
+        {
+          "window_state": "unknown",
+          "normal_target": {
+            "width": 0,
+            "height": 0
+          },
+          "actual_client": {
+            "width": 0,
+            "height": 0
+          },
+          "effective_backbuffer": {
+            "width": 1920,
+            "height": 1027
+          },
+          "display_requested": "Stock",
+          "display_effective": "Stock",
+          "display_reason": "",
+          "cursor_auto_hide_effective": true,
+          "cursor_watch_installed": false,
+          "cursor_reason": "",
+          "window_commit_status": "not_required",
+          "native_reset_calls": 1,
+          "window_reset_echoes": 0,
+          "window_reset_echoes_suppressed": 0,
+          "deferred_resets": 0,
+          "windowed_target_width": 0,
+          "windowed_target_height": 0,
+          "aa_effective": "Stock",
+          "aa_effective_samples": 0,
+          "aa_requested": "Stock",
+          "aa_requested_samples": 4,
+          "aa_swap_effect": "COPY",
+          "aa_reason": "Mode_Stock_Samples_ignored",
+          "attempts": 0,
+          "requested": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "logical_baseline": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "monitor_rect": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "physical_backbuffer": null,
+          "physical_depth": null,
+          "effective_aspect": 1.86952,
+          "ui": {
+            "mode": "PreserveMargins",
+            "reason": "",
+            "logical_width": 640,
+            "logical_height": 480,
+            "virtual_width": 897.371,
+            "extra_width": 257.371,
+            "center_offset": 128.685
+          },
+          "dpi_policy": "game_awareness_unchanged"
+        },
+        {
+          "window_state": "unknown",
+          "normal_target": {
+            "width": 0,
+            "height": 0
+          },
+          "actual_client": {
+            "width": 0,
+            "height": 0
+          },
+          "effective_backbuffer": {
+            "width": 640,
+            "height": 480
+          },
+          "display_requested": "Stock",
+          "display_effective": "Stock",
+          "display_reason": "",
+          "cursor_auto_hide_effective": true,
+          "cursor_watch_installed": false,
+          "cursor_reason": "",
+          "window_commit_status": "not_required",
+          "native_reset_calls": 2,
+          "window_reset_echoes": 0,
+          "window_reset_echoes_suppressed": 0,
+          "deferred_resets": 0,
+          "windowed_target_width": 0,
+          "windowed_target_height": 0,
+          "aa_effective": "Stock",
+          "aa_effective_samples": 0,
+          "aa_requested": "Stock",
+          "aa_requested_samples": 4,
+          "aa_swap_effect": "COPY",
+          "aa_reason": "Mode_Stock_Samples_ignored",
+          "attempts": 0,
+          "requested": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "logical_baseline": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "monitor_rect": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "physical_backbuffer": null,
+          "physical_depth": null,
+          "effective_aspect": 1.33333,
+          "ui": {
+            "mode": "PreserveMargins",
+            "reason": "",
+            "logical_width": 640,
+            "logical_height": 480,
+            "virtual_width": 640,
+            "extra_width": 0,
+            "center_offset": 0
+          },
+          "dpi_policy": "game_awareness_unchanged"
+        },
+        {
+          "window_state": "unknown",
+          "normal_target": {
+            "width": 0,
+            "height": 0
+          },
+          "actual_client": {
+            "width": 0,
+            "height": 0
+          },
+          "effective_backbuffer": {
+            "width": 447,
+            "height": 480
+          },
+          "display_requested": "Stock",
+          "display_effective": "Stock",
+          "display_reason": "",
+          "cursor_auto_hide_effective": true,
+          "cursor_watch_installed": false,
+          "cursor_reason": "",
+          "window_commit_status": "not_required",
+          "native_reset_calls": 3,
+          "window_reset_echoes": 0,
+          "window_reset_echoes_suppressed": 0,
+          "deferred_resets": 0,
+          "windowed_target_width": 0,
+          "windowed_target_height": 0,
+          "aa_effective": "Stock",
+          "aa_effective_samples": 0,
+          "aa_requested": "Stock",
+          "aa_requested_samples": 4,
+          "aa_swap_effect": "COPY",
+          "aa_reason": "Mode_Stock_Samples_ignored",
+          "attempts": 0,
+          "requested": {
+            "width": 447,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "logical_baseline": {
+            "width": 447,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 447,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "monitor_rect": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "physical_backbuffer": null,
+          "physical_depth": null,
+          "effective_aspect": 0.93125,
+          "ui": {
+            "mode": "PreserveMargins",
+            "reason": "",
+            "logical_width": 640,
+            "logical_height": 480,
+            "virtual_width": 447,
+            "extra_width": -193,
+            "center_offset": -96.5
+          },
+          "dpi_policy": "game_awareness_unchanged"
+        }
+      ],
+      "ordered_startup_sequence": [
+        {
+          "record_index": 990,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1331,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1339,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 447,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 447,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1350,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 508,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 508,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1359,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 533,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 533,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1367,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 1132,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1132,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1379,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 1570,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1570,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1387,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 1865,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1865,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1585,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 3084,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 3084,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1599,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 1734,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1734,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 13045630,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        }
+      ],
+      "reset_record_count": 10,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "session-20261007-084957-12128.jsonl",
+      "sha256": "b011c5e6b6a271abf4efcb90d00dacb3e7ade6e57f6e8f333a831377bbc45d60",
+      "producer": "R-GFX5-4",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "044a492a4919a009e416863d9e4753f139af007a70af1407c159dabae6fe5a65",
+      "initial_accepted": {
+        "window_state": "normal",
+        "normal_target": {
+          "width": 1280,
+          "height": 720
+        },
+        "actual_client": {
+          "width": 1280,
+          "height": 720
+        },
+        "effective_backbuffer": {
+          "width": 1280,
+          "height": 720
+        },
+        "display_requested": "Windowed",
+        "display_effective": "Windowed",
+        "display_reason": "",
+        "cursor_auto_hide_effective": true,
+        "cursor_watch_installed": false,
+        "cursor_reason": "",
+        "window_commit_status": "committed",
+        "native_reset_calls": 0,
+        "window_reset_echoes": 0,
+        "window_reset_echoes_suppressed": 0,
+        "deferred_resets": 0,
+        "windowed_target_width": 1280,
+        "windowed_target_height": 720,
+        "aa_effective": "Stock",
+        "aa_effective_samples": 0,
+        "aa_requested": "Stock",
+        "aa_requested_samples": 4,
+        "aa_swap_effect": "COPY",
+        "aa_reason": "Mode_Stock_Samples_ignored",
+        "attempts": 1,
+        "requested": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 7608112,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "logical_baseline": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 7608112,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "effective": {
+          "width": 1280,
+          "height": 720,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 7608112,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "monitor_rect": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "physical_backbuffer": {
+          "width": 1280,
+          "height": 720,
+          "format": 22,
+          "multisample": 0
+        },
+        "physical_depth": {
+          "width": 1280,
+          "height": 720,
+          "format": 77,
+          "multisample": 0
+        },
+        "effective_aspect": 1.77778,
+        "ui": {
+          "mode": "PreserveMargins",
+          "reason": "",
+          "logical_width": 640,
+          "logical_height": 480,
+          "virtual_width": 853.333,
+          "extra_width": 213.333,
+          "center_offset": 106.667
+        },
+        "dpi_policy": "game_awareness_unchanged"
+      },
+      "later_accepted": [
+        {
+          "window_state": "maximized",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1920,
+            "height": 1027
+          },
+          "effective_backbuffer": {
+            "width": 1920,
+            "height": 1027
+          },
+          "display_requested": "Windowed",
+          "display_effective": "Windowed",
+          "display_reason": "",
+          "cursor_auto_hide_effective": true,
+          "cursor_watch_installed": false,
+          "cursor_reason": "",
+          "window_commit_status": "maximized_os_owned",
+          "native_reset_calls": 1,
+          "window_reset_echoes": 0,
+          "window_reset_echoes_suppressed": 0,
+          "deferred_resets": 0,
+          "windowed_target_width": 1280,
+          "windowed_target_height": 720,
+          "aa_effective": "Stock",
+          "aa_effective_samples": 0,
+          "aa_requested": "Stock",
+          "aa_requested_samples": 4,
+          "aa_swap_effect": "COPY",
+          "aa_reason": "Mode_Stock_Samples_ignored",
+          "attempts": 1,
+          "requested": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "logical_baseline": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "monitor_rect": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "physical_backbuffer": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "multisample": 0
+          },
+          "physical_depth": {
+            "width": 1920,
+            "height": 1027,
+            "format": 77,
+            "multisample": 0
+          },
+          "effective_aspect": 1.86952,
+          "ui": {
+            "mode": "PreserveMargins",
+            "reason": "",
+            "logical_width": 640,
+            "logical_height": 480,
+            "virtual_width": 897.371,
+            "extra_width": 257.371,
+            "center_offset": 128.685
+          },
+          "dpi_policy": "game_awareness_unchanged"
+        },
+        {
+          "window_state": "normal",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1280,
+            "height": 720
+          },
+          "effective_backbuffer": {
+            "width": 1280,
+            "height": 720
+          },
+          "display_requested": "Windowed",
+          "display_effective": "Windowed",
+          "display_reason": "",
+          "cursor_auto_hide_effective": true,
+          "cursor_watch_installed": false,
+          "cursor_reason": "",
+          "window_commit_status": "committed",
+          "native_reset_calls": 2,
+          "window_reset_echoes": 0,
+          "window_reset_echoes_suppressed": 0,
+          "deferred_resets": 0,
+          "windowed_target_width": 1280,
+          "windowed_target_height": 720,
+          "aa_effective": "Stock",
+          "aa_effective_samples": 0,
+          "aa_requested": "Stock",
+          "aa_requested_samples": 4,
+          "aa_swap_effect": "COPY",
+          "aa_reason": "Mode_Stock_Samples_ignored",
+          "attempts": 1,
+          "requested": {
+            "width": 1280,
+            "height": 720,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "logical_baseline": {
+            "width": 1280,
+            "height": 720,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1280,
+            "height": 720,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "monitor_rect": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "physical_backbuffer": {
+            "width": 1280,
+            "height": 720,
+            "format": 22,
+            "multisample": 0
+          },
+          "physical_depth": {
+            "width": 1280,
+            "height": 720,
+            "format": 77,
+            "multisample": 0
+          },
+          "effective_aspect": 1.77778,
+          "ui": {
+            "mode": "PreserveMargins",
+            "reason": "",
+            "logical_width": 640,
+            "logical_height": 480,
+            "virtual_width": 853.333,
+            "extra_width": 213.333,
+            "center_offset": 106.667
+          },
+          "dpi_policy": "game_awareness_unchanged"
+        }
+      ],
+      "ordered_startup_sequence": [
+        {
+          "record_index": 9,
+          "type": "display_breadcrumb",
+          "step": "native_CreateDevice_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 10,
+          "type": "display_breadcrumb",
+          "step": "native_CreateDevice_end",
+          "hresult": 0
+        },
+        {
+          "record_index": 11,
+          "type": "display_breadcrumb",
+          "step": "window_commit_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 21,
+          "type": "display_breadcrumb",
+          "step": "window_commit_complete",
+          "hresult": 0
+        },
+        {
+          "record_index": 1037,
+          "type": "display_breadcrumb",
+          "step": "native_Reset_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 1038,
+          "type": "display_breadcrumb",
+          "step": "native_Reset_end",
+          "hresult": 0
+        },
+        {
+          "record_index": 1041,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1920,
+            "height": 1027,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        },
+        {
+          "record_index": 1050,
+          "type": "display_breadcrumb",
+          "step": "native_Reset_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 1051,
+          "type": "display_breadcrumb",
+          "step": "native_Reset_end",
+          "hresult": 0
+        },
+        {
+          "record_index": 1052,
+          "type": "display_breadcrumb",
+          "step": "window_commit_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 1062,
+          "type": "display_breadcrumb",
+          "step": "window_commit_complete",
+          "hresult": 0
+        },
+        {
+          "record_index": 1064,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 1280,
+            "height": 720,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 1280,
+            "height": 720,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 7608112,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        }
+      ],
+      "reset_record_count": 2,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "session-20261007-085206-29228.jsonl",
+      "sha256": "f28fb547b671098e7c9e12173cf9a46117b7f1ceeb735da687c2a07e04562fc5",
+      "producer": "R-GFX5-4",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "044a492a4919a009e416863d9e4753f139af007a70af1407c159dabae6fe5a65",
+      "initial_accepted": {
+        "window_state": "unknown",
+        "normal_target": {
+          "width": 0,
+          "height": 0
+        },
+        "actual_client": {
+          "width": 1920,
+          "height": 1080
+        },
+        "effective_backbuffer": {
+          "width": 1920,
+          "height": 1080
+        },
+        "display_requested": "Borderless",
+        "display_effective": "Borderless",
+        "display_reason": "borderless_uses_monitor_native_size",
+        "cursor_auto_hide_effective": true,
+        "cursor_watch_installed": true,
+        "cursor_reason": "",
+        "window_commit_status": "committed",
+        "native_reset_calls": 0,
+        "window_reset_echoes": 0,
+        "window_reset_echoes_suppressed": 0,
+        "deferred_resets": 0,
+        "windowed_target_width": 0,
+        "windowed_target_height": 0,
+        "aa_effective": "Stock",
+        "aa_effective_samples": 0,
+        "aa_requested": "Stock",
+        "aa_requested_samples": 4,
+        "aa_swap_effect": "COPY",
+        "aa_reason": "Mode_Stock_Samples_ignored",
+        "attempts": 1,
+        "requested": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 11994852,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "logical_baseline": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 11994852,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "effective": {
+          "width": 1920,
+          "height": 1080,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 11994852,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "monitor_rect": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "physical_backbuffer": {
+          "width": 1920,
+          "height": 1080,
+          "format": 22,
+          "multisample": 0
+        },
+        "physical_depth": {
+          "width": 1920,
+          "height": 1080,
+          "format": 77,
+          "multisample": 0
+        },
+        "effective_aspect": 1.77778,
+        "ui": {
+          "mode": "PreserveMargins",
+          "reason": "",
+          "logical_width": 640,
+          "logical_height": 480,
+          "virtual_width": 853.333,
+          "extra_width": 213.333,
+          "center_offset": 106.667
+        },
+        "dpi_policy": "game_awareness_unchanged"
+      },
+      "later_accepted": [],
+      "ordered_startup_sequence": [
+        {
+          "record_index": 9,
+          "type": "display_breadcrumb",
+          "step": "native_CreateDevice_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 10,
+          "type": "display_breadcrumb",
+          "step": "native_CreateDevice_end",
+          "hresult": 0
+        },
+        {
+          "record_index": 11,
+          "type": "display_breadcrumb",
+          "step": "window_commit_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 20,
+          "type": "display_breadcrumb",
+          "step": "window_commit_complete",
+          "hresult": 0
+        }
+      ],
+      "reset_record_count": 0,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "session-20261007-104709-47620.jsonl",
+      "sha256": "98a583daf1803bad93b2928eb37f28e09d98cfa46881aae29538d39fb8ebf744",
+      "producer": "R-GFX5-5",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "812330b862c0ba14a5572eee14a76d6e7cd5d2fcf63f6fd76e6fc327fc608737",
+      "initial_accepted": {
+        "window_state": "unknown",
+        "normal_target": {
+          "width": 0,
+          "height": 0
+        },
+        "actual_client": {
+          "width": 640,
+          "height": 480
+        },
+        "effective_backbuffer": {
+          "width": 640,
+          "height": 480
+        },
+        "display_requested": "ExclusiveFullscreen",
+        "display_effective": "ExclusiveFullscreen",
+        "display_reason": "",
+        "cursor_auto_hide_effective": true,
+        "cursor_watch_installed": true,
+        "cursor_reason": "",
+        "window_commit_status": "committed",
+        "native_reset_calls": 0,
+        "window_reset_echoes": 0,
+        "window_reset_echoes_suppressed": 0,
+        "deferred_resets": 0,
+        "windowed_target_width": 0,
+        "windowed_target_height": 0,
+        "aa_effective": "Stock",
+        "aa_effective_samples": 0,
+        "aa_requested": "Stock",
+        "aa_requested_samples": 4,
+        "aa_swap_effect": "COPY",
+        "aa_reason": "Mode_Stock_Samples_ignored",
+        "attempts": 1,
+        "requested": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 31855050,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "logical_baseline": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 31855050,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "effective": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 31855050,
+          "windowed": 0,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "monitor_rect": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "physical_backbuffer": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "multisample": 0
+        },
+        "physical_depth": {
+          "width": 640,
+          "height": 480,
+          "format": 77,
+          "multisample": 0
+        },
+        "effective_aspect": 1.33333,
+        "ui": {
+          "mode": "PreserveMargins",
+          "reason": "",
+          "logical_width": 640,
+          "logical_height": 480,
+          "virtual_width": 640,
+          "extra_width": 0,
+          "center_offset": 0
+        },
+        "dpi_policy": "game_awareness_unchanged"
+      },
+      "later_accepted": [
+        {
+          "window_state": "unknown",
+          "normal_target": {
+            "width": 0,
+            "height": 0
+          },
+          "actual_client": {
+            "width": 0,
+            "height": 0
+          },
+          "effective_backbuffer": {
+            "width": 656,
+            "height": 519
+          },
+          "display_requested": "ExclusiveFullscreen",
+          "display_effective": "Stock",
+          "display_reason": "exclusive_mode_format_refresh_unavailable_stock",
+          "cursor_auto_hide_effective": true,
+          "cursor_watch_installed": true,
+          "cursor_reason": "",
+          "window_commit_status": "not_required",
+          "native_reset_calls": 1,
+          "window_reset_echoes": 1,
+          "window_reset_echoes_suppressed": 0,
+          "deferred_resets": 1,
+          "windowed_target_width": 0,
+          "windowed_target_height": 0,
+          "aa_effective": "Stock",
+          "aa_effective_samples": 0,
+          "aa_requested": "Stock",
+          "aa_requested_samples": 4,
+          "aa_swap_effect": "COPY",
+          "aa_reason": "Mode_Stock_Samples_ignored",
+          "attempts": 1,
+          "requested": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 31855050,
+            "windowed": 0,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "logical_baseline": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 31855050,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 31855050,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "monitor_rect": [
+            0,
+            0,
+            640,
+            480
+          ],
+          "physical_backbuffer": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "multisample": 0
+          },
+          "physical_depth": {
+            "width": 656,
+            "height": 519,
+            "format": 77,
+            "multisample": 0
+          },
+          "effective_aspect": 1.26397,
+          "ui": {
+            "mode": "PreserveMargins",
+            "reason": "",
+            "logical_width": 640,
+            "logical_height": 480,
+            "virtual_width": 606.705,
+            "extra_width": -33.2948,
+            "center_offset": -16.6474
+          },
+          "dpi_policy": "game_awareness_unchanged"
+        }
+      ],
+      "ordered_startup_sequence": [
+        {
+          "record_index": 10,
+          "type": "display_breadcrumb",
+          "step": "native_CreateDevice_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 11,
+          "type": "display_breadcrumb",
+          "step": "native_CreateDevice_end",
+          "hresult": 0
+        },
+        {
+          "record_index": 12,
+          "type": "display_breadcrumb",
+          "step": "window_commit_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 21,
+          "type": "display_breadcrumb",
+          "step": "window_commit_complete",
+          "hresult": 0
+        },
+        {
+          "record_index": 28,
+          "type": "display_breadcrumb",
+          "step": "native_Reset_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 29,
+          "type": "display_breadcrumb",
+          "step": "native_Reset_end",
+          "hresult": 0
+        },
+        {
+          "record_index": 37,
+          "type": "reset_policy",
+          "reset_request_source": "deferred_during_commit",
+          "requested": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 31855050,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 31855050,
+            "windowed": 0,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": false,
+          "deferred_policy": "different_request_rejected_no_recursive_native_reset",
+          "result": 2289436780
+        },
+        {
+          "record_index": 41,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 31855050,
+            "windowed": 0,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 31855050,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        }
+      ],
+      "reset_record_count": 2,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "session-20261007-104717-29868.jsonl",
+      "sha256": "2721d6b77d4c6a9bb732ad85168c03c445a27cc7ef3626a96c14ff79a306d583",
+      "producer": "R-GFX5-5",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "812330b862c0ba14a5572eee14a76d6e7cd5d2fcf63f6fd76e6fc327fc608737",
+      "initial_accepted": {
+        "window_state": "unknown",
+        "normal_target": {
+          "width": 0,
+          "height": 0
+        },
+        "actual_client": {
+          "width": 640,
+          "height": 480
+        },
+        "effective_backbuffer": {
+          "width": 640,
+          "height": 480
+        },
+        "display_requested": "ExclusiveFullscreen",
+        "display_effective": "ExclusiveFullscreen",
+        "display_reason": "",
+        "cursor_auto_hide_effective": true,
+        "cursor_watch_installed": true,
+        "cursor_reason": "",
+        "window_commit_status": "committed",
+        "native_reset_calls": 0,
+        "window_reset_echoes": 0,
+        "window_reset_echoes_suppressed": 0,
+        "deferred_resets": 0,
+        "windowed_target_width": 0,
+        "windowed_target_height": 0,
+        "aa_effective": "Stock",
+        "aa_effective_samples": 0,
+        "aa_requested": "Stock",
+        "aa_requested_samples": 4,
+        "aa_swap_effect": "COPY",
+        "aa_reason": "Mode_Stock_Samples_ignored",
+        "attempts": 1,
+        "requested": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 792272,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "logical_baseline": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 792272,
+          "windowed": 1,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "effective": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "count": 1,
+          "multisample": 0,
+          "swap_effect": 3,
+          "device_window": 792272,
+          "windowed": 0,
+          "auto_depth": 1,
+          "depth_format": 77,
+          "flags": 0,
+          "refresh": 0,
+          "interval": 0
+        },
+        "monitor_rect": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "physical_backbuffer": {
+          "width": 640,
+          "height": 480,
+          "format": 22,
+          "multisample": 0
+        },
+        "physical_depth": {
+          "width": 640,
+          "height": 480,
+          "format": 77,
+          "multisample": 0
+        },
+        "effective_aspect": 1.33333,
+        "ui": {
+          "mode": "PreserveMargins",
+          "reason": "",
+          "logical_width": 640,
+          "logical_height": 480,
+          "virtual_width": 640,
+          "extra_width": 0,
+          "center_offset": 0
+        },
+        "dpi_policy": "game_awareness_unchanged"
+      },
+      "later_accepted": [
+        {
+          "window_state": "unknown",
+          "normal_target": {
+            "width": 0,
+            "height": 0
+          },
+          "actual_client": {
+            "width": 0,
+            "height": 0
+          },
+          "effective_backbuffer": {
+            "width": 656,
+            "height": 519
+          },
+          "display_requested": "ExclusiveFullscreen",
+          "display_effective": "Stock",
+          "display_reason": "exclusive_mode_format_refresh_unavailable_stock",
+          "cursor_auto_hide_effective": true,
+          "cursor_watch_installed": true,
+          "cursor_reason": "",
+          "window_commit_status": "not_required",
+          "native_reset_calls": 1,
+          "window_reset_echoes": 1,
+          "window_reset_echoes_suppressed": 0,
+          "deferred_resets": 1,
+          "windowed_target_width": 0,
+          "windowed_target_height": 0,
+          "aa_effective": "Stock",
+          "aa_effective_samples": 0,
+          "aa_requested": "Stock",
+          "aa_requested_samples": 4,
+          "aa_swap_effect": "COPY",
+          "aa_reason": "Mode_Stock_Samples_ignored",
+          "attempts": 1,
+          "requested": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 792272,
+            "windowed": 0,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "logical_baseline": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 792272,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 792272,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "monitor_rect": [
+            0,
+            0,
+            640,
+            480
+          ],
+          "physical_backbuffer": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "multisample": 0
+          },
+          "physical_depth": {
+            "width": 656,
+            "height": 519,
+            "format": 77,
+            "multisample": 0
+          },
+          "effective_aspect": 1.26397,
+          "ui": {
+            "mode": "PreserveMargins",
+            "reason": "",
+            "logical_width": 640,
+            "logical_height": 480,
+            "virtual_width": 606.705,
+            "extra_width": -33.2948,
+            "center_offset": -16.6474
+          },
+          "dpi_policy": "game_awareness_unchanged"
+        }
+      ],
+      "ordered_startup_sequence": [
+        {
+          "record_index": 10,
+          "type": "display_breadcrumb",
+          "step": "native_CreateDevice_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 11,
+          "type": "display_breadcrumb",
+          "step": "native_CreateDevice_end",
+          "hresult": 0
+        },
+        {
+          "record_index": 12,
+          "type": "display_breadcrumb",
+          "step": "window_commit_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 21,
+          "type": "display_breadcrumb",
+          "step": "window_commit_complete",
+          "hresult": 0
+        },
+        {
+          "record_index": 28,
+          "type": "display_breadcrumb",
+          "step": "native_Reset_begin",
+          "hresult": 0
+        },
+        {
+          "record_index": 29,
+          "type": "display_breadcrumb",
+          "step": "native_Reset_end",
+          "hresult": 0
+        },
+        {
+          "record_index": 37,
+          "type": "reset_policy",
+          "reset_request_source": "deferred_during_commit",
+          "requested": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 792272,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 792272,
+            "windowed": 0,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": false,
+          "deferred_policy": "different_request_rejected_no_recursive_native_reset",
+          "result": 2289436780
+        },
+        {
+          "record_index": 41,
+          "type": "reset_policy",
+          "reset_request_source": "normal",
+          "requested": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 792272,
+            "windowed": 0,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "effective": {
+            "width": 656,
+            "height": 519,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 792272,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          },
+          "echo_equivalent": false,
+          "native_reset_called": true,
+          "native_reset_attempts": 1,
+          "result": 0
+        }
+      ],
+      "reset_record_count": 2,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    }
+  ],
+  "ui_draw_samples": [
+    {
+      "name": "frame-22024-d1-00077450.jsonl",
+      "sha256": "f5f8d54e8024f17b7eb9b7e00f1c591d1484512c342798bad4ec063ce83580a6",
+      "frame": 77450,
+      "draw_return_va": "0x0056D7C4",
+      "draw_return_rva": "0x0016D7C4",
+      "count": 480,
+      "fvf_values": [
+        322
+      ],
+      "view_is_identity": true,
+      "world_examples": [
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          480,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          399.342468,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          322.191772,
+          30,
+          0,
+          1
+        ]
+      ],
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "frame-22024-d1-00079583.jsonl",
+      "sha256": "c33ebadb9760825058551c81db92114f4eb5753716b1fd191bf759082297d601",
+      "frame": 79583,
+      "draw_return_va": "0x0056D7C4",
+      "draw_return_rva": "0x0016D7C4",
+      "count": 274,
+      "fvf_values": [
+        322
+      ],
+      "view_is_identity": true,
+      "world_examples": [
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          480,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          399.342468,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          322.191772,
+          30,
+          0,
+          1
+        ]
+      ],
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "frame-22024-d1-00079596.jsonl",
+      "sha256": "3fdfbc4417be469a2c5e0b3231a76e311f790d86508ef449e84ab0776d8d7f5c",
+      "frame": 79596,
+      "draw_return_va": "0x0056D7C4",
+      "draw_return_rva": "0x0016D7C4",
+      "count": 274,
+      "fvf_values": [
+        322
+      ],
+      "view_is_identity": true,
+      "world_examples": [
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          480,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          399.342468,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          322.191772,
+          30,
+          0,
+          1
+        ]
+      ],
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "frame-22024-d1-00079711.jsonl",
+      "sha256": "b20b6b64a7a83eaf4d2073523f52546c04c350ff8f7f0ce4af14e8e3f0540787",
+      "frame": 79711,
+      "draw_return_va": "0x0056D7C4",
+      "draw_return_rva": "0x0016D7C4",
+      "count": 274,
+      "fvf_values": [
+        322
+      ],
+      "view_is_identity": true,
+      "world_examples": [
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          480,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          399.342468,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          322.191772,
+          30,
+          0,
+          1
+        ]
+      ],
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "frame-22024-d1-00079890.jsonl",
+      "sha256": "0a124cfb18d0ba583e3f79234a1a01d7a2298151d50aad816d011d6a616a9923",
+      "frame": 79890,
+      "draw_return_va": "0x0056D7C4",
+      "draw_return_rva": "0x0016D7C4",
+      "count": 274,
+      "fvf_values": [
+        322
+      ],
+      "view_is_identity": true,
+      "world_examples": [
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          480,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          399.342468,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          322.191772,
+          30,
+          0,
+          1
+        ]
+      ],
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "frame-22024-d1-00082847.jsonl",
+      "sha256": "06dca1774253378a1bd7e5866eba7eaafa6b2e51295a645d30caaa9890d8b258",
+      "frame": 82847,
+      "draw_return_va": "0x0056D7C4",
+      "draw_return_rva": "0x0016D7C4",
+      "count": 480,
+      "fvf_values": [
+        322
+      ],
+      "view_is_identity": true,
+      "world_examples": [
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          480,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          399.342468,
+          30,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          322.191772,
+          30,
+          0,
+          1
+        ]
+      ],
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    },
+    {
+      "name": "frame-22024-d1-00084952.jsonl",
+      "sha256": "c2edb2123bbf00f7281feda3617b84167b10e21bb0725e86a8d3e5389972fa24",
+      "frame": 84952,
+      "draw_return_va": "0x0056D7C4",
+      "draw_return_rva": "0x0016D7C4",
+      "count": 284,
+      "fvf_values": [
+        322
+      ],
+      "view_is_identity": true,
+      "world_examples": [
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          -100,
+          1
+        ],
+        [
+          0.216846704,
+          0,
+          0,
+          0,
+          0,
+          0.216846704,
+          0,
+          0,
+          0,
+          0,
+          0.216846704,
+          0,
+          419.708252,
+          374.179596,
+          0,
+          1
+        ],
+        [
+          0.216846704,
+          0,
+          0,
+          0,
+          0,
+          0.216846704,
+          0,
+          0,
+          0,
+          0,
+          0.216846704,
+          0,
+          419.708252,
+          352.494934,
+          0,
+          1
+        ]
+      ],
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_GAME_CAPTURE"
+    }
+  ],
+  "static_ui_seam": {
+    "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "ghidra_version": "12.1.4",
+    "read_only": true,
+    "transaction": "ROLLED_BACK",
+    "saved": false,
+    "exports": [
+      {
+        "name": "0053f9e0.json",
+        "sha256": "45ad16872d2be7ad1e3894a9076e8d99179fa952e40944c2619fb25467a42a3d",
+        "va": "0x0053F9E0",
+        "rva": "0x13f9e0"
+      },
+      {
+        "name": "00562000.json",
+        "sha256": "b3fd4fbf181b70e1da4e7b510327132a0ab5e66abdc4dd7ff74951477d96cf24",
+        "va": "0x00562000",
+        "rva": "0x162000"
+      },
+      {
+        "name": "0056d110.json",
+        "sha256": "a22c881264e96b68c3225d36a1812728fa40747b8a926504421573153d3ee853",
+        "va": "0x0056D110",
+        "rva": "0x16d110"
+      },
+      {
+        "name": "0058c740.json",
+        "sha256": "3ab82f1ad1951cc2b4037d5664e6f7ab5839148ea9d3ac34a7564e08c6a5f000",
+        "va": "0x0058C740",
+        "rva": "0x18c740"
+      }
+    ],
+    "chain": [
+      "0056D110 packet +84 cached matrix -> 0058C740 stack matrix copy",
+      "00562000 -> 0053F9E0 logical engine WORLD cache / native SetTransform +94h",
+      "0056D7BE native DrawPrimitive +118h -> return 0056D7C4"
+    ],
+    "entry_patch_rva": "0x0016D110",
+    "native_returns": [
+      "0x0056D17E RET 0Ch",
+      "0x0056DB0D RET 0Ch"
+    ],
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  }
+}

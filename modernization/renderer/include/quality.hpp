@@ -39,6 +39,7 @@ public:
  void restore_window() noexcept;
  void begin_shutdown() noexcept;
  void cursor_tick() noexcept;
+ void cooperative_result(HRESULT) noexcept;
  void cursor_watch() noexcept;
  void cursor_focus_lost() noexcept;
  bool cursor_watch_installed() const noexcept {return cursor_hook_!=nullptr;}
@@ -48,6 +49,9 @@ private:
  CursorIdle cursor_;HCURSOR saved_cursor_=nullptr;HHOOK cursor_hook_=nullptr;
  WindowApi* windows_;bool window_owned_=false,committing_=false,shutting_down_=false;D3DPRESENT_PARAMETERS fallback_{};
  WindowState committed_{};UINT pinned_width_=0,pinned_height_=0;
+ UINT exclusive_width_=0,exclusive_height_=0;bool exclusive_rejected_=false;
+ uint64_t attempt_sequence_=0;unsigned attempt_records_=0,cooperative_records_=0;Known<HRESULT> cooperative_;
+ void native_attempt(const char*,const D3DPRESENT_PARAMETERS&,const D3DPRESENT_PARAMETERS&,HRESULT) noexcept;
  std::string window_commit_status_="not_required";
  std::string window_state_="unknown";
  void window_transition(const WindowState&) noexcept;

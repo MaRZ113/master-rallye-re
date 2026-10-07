@@ -49,10 +49,10 @@ struct Device:MockDeviceBase {
  HRESULT STDMETHODCALLTYPE DrawPrimitive(D3DPRIMITIVETYPE,UINT,UINT) override{return result;}
 };
 struct Root:MockRootBase {
- Windows* order=nullptr;Device dev;std::vector<D3DPRESENT_PARAMETERS> creates;unsigned support=4,depth_support=4;bool windowed_expected=true,modes=true,depth_pair=true;HRESULT result=S_OK;bool reject_msaa=false,reject_display=false;
+ Windows* order=nullptr;Device dev;std::vector<D3DPRESENT_PARAMETERS> creates;D3DDISPLAYMODE mode{1920,1080,60,D3DFMT_X8R8G8B8};unsigned support=4,depth_support=4;bool windowed_expected=true,modes=true,depth_pair=true;HRESULT result=S_OK;bool reject_msaa=false,reject_display=false;
  HRESULT STDMETHODCALLTYPE GetAdapterDisplayMode(UINT a,D3DDISPLAYMODE* m) override{CHECK(a==2);*m={1920,1080,60,D3DFMT_X8R8G8B8};return S_OK;}
  UINT STDMETHODCALLTYPE GetAdapterModeCount(UINT) override{return modes?1:0;}
- HRESULT STDMETHODCALLTYPE EnumAdapterModes(UINT,UINT,D3DDISPLAYMODE* m) override{*m={1920,1080,60,D3DFMT_X8R8G8B8};return S_OK;}
+ HRESULT STDMETHODCALLTYPE EnumAdapterModes(UINT,UINT,D3DDISPLAYMODE* m) override{*m=mode;return S_OK;}
  HRESULT STDMETHODCALLTYPE CheckDeviceType(UINT a,D3DDEVTYPE t,D3DFORMAT,D3DFORMAT,BOOL) override{CHECK(a==2&&t==D3DDEVTYPE_HAL);return S_OK;}
  HRESULT STDMETHODCALLTYPE CheckDeviceFormat(UINT,D3DDEVTYPE,D3DFORMAT,DWORD usage,D3DRESOURCETYPE,D3DFORMAT) override{CHECK(usage==D3DUSAGE_DEPTHSTENCIL);return S_OK;}
  HRESULT STDMETHODCALLTYPE CheckDepthStencilMatch(UINT,D3DDEVTYPE,D3DFORMAT,D3DFORMAT,D3DFORMAT) override{return depth_pair?S_OK:D3DERR_NOTAVAILABLE;}
@@ -98,9 +98,7 @@ void preview_cursor_packets(){
  UiMargins diagnostics;diagnostics.capture_window(true,20);CHECK(diagnostics.json().find("\"diagnostic_frames_remaining\":3")!=std::string::npos);for(int i=0;i<3;++i)CHECK(diagnostics.finish_frame());CHECK(diagnostics.json().find("\"diagnostic_frames_remaining\":0")!=std::string::npos);diagnostics.reset_diagnostics();
  CursorIdle cursor;POINT p{10,10};CHECK(cursor.update(true,p,0,1500)==0);CHECK(cursor.update(true,p,1499,1500)==0);CHECK(cursor.update(true,p,1500,1500)==-1&&cursor.hidden);
  for(int i=0;i<100;++i)CHECK(cursor.update(true,p,1501+i,1500)==0);p.x=11;CHECK(cursor.update(true,p,2000,1500)==1&&!cursor.hidden);CHECK(cursor.update(true,p,3500,1500)==-1);CHECK(cursor.update(false,p,3501,1500)==1);CHECK(cursor.update(false,p,9000,1500)==0);CHECK(cursor.update(true,p,9001,1500)==0);
- // Every actual packet consumer gets an effective value, even if the sort walk skips it.
- MarginFrame edits;float packet[3]{565,75,0};for(int frame=0;frame<10;++frame){CHECK(edits.shift(packet,100)&&packet[0]==665);CHECK(!edits.shift(packet,100));CHECK(edits.restore()&&packet[0]==565);}packet[0]=450;packet[1]=160;CHECK(edits.shift(packet,100)&&packet[0]==550);CHECK(edits.restore()&&packet[0]==450);
- packet[0]=565;packet[1]=75;CHECK(edits.shift(packet,100));packet[0]=450;packet[1]=160;CHECK(edits.shift(packet,100)&&packet[0]==550);CHECK(edits.restore()&&packet[0]==450);
+
 }
 void displays(){
  Root root;Windows windows;QualityPipeline q(windows);VisualConfig c;auto p=stock();IDirect3DDevice8* out=nullptr;
@@ -108,9 +106,9 @@ void displays(){
  c.display_mode="Windowed";c.width=1280;c.height=720;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);p=stock();CHECK(q.create(root,0,&p,&out)==S_OK);CHECK(p.Windowed&&p.BackBufferWidth==1280&&p.BackBufferHeight==720&&windows.client&&!windows.popup&&windows.last.right-windows.last.left==1280);
  q.restore_window();c.display_mode="Borderless";c.width=c.height=0;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);p=stock();CHECK(q.create(root,0,&p,&out)==S_OK);CHECK(p.Windowed&&p.BackBufferWidth==1920&&p.BackBufferHeight==1080&&!windows.client&&windows.popup&&windows.last.left==1920&&windows.last.bottom==1080);
  c.display_mode="ExclusiveFullscreen";c.width=1920;c.height=1080;c.refresh=60;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);p=stock();CHECK(q.create(root,0,&p,&out)==S_OK);CHECK(!p.Windowed&&p.FullScreen_RefreshRateInHz==60);
- c.refresh=75;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);p=stock();CHECK(q.create(root,0,&p,&out)==S_OK&&p.Windowed&&p.BackBufferWidth==640&&q.display=="Stock");
+ c.refresh=75;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);p=stock();CHECK(q.create(root,0,&p,&out)==D3DERR_NOTAVAILABLE&&p.Windowed&&p.BackBufferWidth==640&&q.display=="ExclusiveFullscreen");
  c.display_mode="Borderless";q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(q.active()&&q.config.interface_mode=="Stock");
- q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);windows.fail=true;p=stock();CHECK(q.create(root,0,&p,&out)==S_OK&&p.BackBufferWidth==1920&&q.display=="Borderless"&&q.display_reason=="window_commit_failed_native_parameters_retained"&&windows.restores>0);
+ q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);windows.fail=true;++windows.state.outer.left;p=stock();CHECK(q.create(root,0,&p,&out)==S_OK&&p.BackBufferWidth==1920&&q.display=="Borderless"&&q.display_reason=="window_commit_failed_native_parameters_retained"&&windows.restores>0);
 }
 void display_transactions(){
  Root root;Windows window;QualityPipeline q(window);VisualConfig c;c.display_mode="Borderless";auto p=stock();IDirect3DDevice8* out=nullptr;root.order=&window;root.dev.order=&window;
@@ -159,17 +157,16 @@ void windowed_maximize_restore(){
 }
 void stable_margin_anchors(){
  for(int direction:{-1,1}){
-  MarginAnchors anchors;MarginFrame edits;float point[3]{direction>0?565.f:23.f,direction>0?75.f:370.f,0};
+  MarginAnchors anchors;float point[3]{direction>0?565.f:23.f,direction>0?75.f:370.f,0};
   MarginIdentity key{1,2,reinterpret_cast<uintptr_t>(point),3,1};uint64_t id=0;float last_engine=0,last_effective=0;
   for(int frame=0;frame<20;++frame){
    if(frame){point[0]=(direction>0?565.f:23.f)-3.f*frame;point[1]=(direction>0?75.f:370.f)+frame*.125f;}
    float engine=point[0];auto proof=anchors.resolve(key,point[0],point[1],point[2]);
    CHECK(proof.direction==direction&&(frame?proof.retained:proof.admitted));if(!frame)id=proof.id;CHECK(proof.id==id);
-   CHECK(edits.shift_direction(point,100,proof.direction)&&point[0]==engine+direction*100);
-   if(frame)CHECK(point[0]-last_effective==engine-last_engine);
-   float logical[3]{};CHECK(edits.logical_point(point,0,logical)&&logical[0]==engine);
-   auto duplicate=anchors.resolve(key,logical[0],logical[1],logical[2]);CHECK(duplicate.id==id&&!edits.shift_direction(point,100,duplicate.direction));
-   last_engine=engine;last_effective=point[0];CHECK(edits.restore()&&point[0]==engine);anchors.next_frame();
+   float effective=engine+direction*100;
+   if(frame)CHECK(effective-last_effective==engine-last_engine);
+   auto duplicate=anchors.resolve(key,point[0],point[1],point[2]);CHECK(duplicate.id==id&&effective==point[0]+direction*100);
+   last_engine=engine;last_effective=effective;CHECK(point[0]==engine);anchors.next_frame();
   }
   CHECK(anchors.admissions==1&&anchors.retained_anchor_without_current_rule_match>0&&anchors.size()==1);
  }
@@ -196,8 +193,6 @@ void stable_margin_anchors(){
  alignas(float) std::array<unsigned char,0x90> packet{};std::array<unsigned char,0x60> entity{};uintptr_t pp=reinterpret_cast<uintptr_t>(packet.data()),storage=0x1234;uint32_t mode=1;
  std::memcpy(entity.data()+0x4c,&pp,4);std::memcpy(packet.data()+8,&storage,4);std::memcpy(packet.data()+0x68,&mode,4);
  auto* point=reinterpret_cast<float*>(packet.data()+0x54);point[0]=565;point[1]=75;MarginIdentity read{};auto owner=reinterpret_cast<uintptr_t>(entity.data());CHECK(read_margin_identity(owner,pp+0x24,read)&&read.point==pp+0x54&&read.storage==storage&&read.mode==mode);
- MarginFrame edits;CHECK(edits.shift_direction(point,100,1,owner,mode));point[1]=76;CHECK(edits.shift_direction(point,100,1,owner,mode)&&point[0]==665&&edits.restore()&&point[0]==565&&point[1]==76);
- CHECK(edits.shift_direction(point,100,1,owner,mode));mode=2;std::memcpy(packet.data()+0x68,&mode,4);CHECK(edits.restore()&&point[0]==665);
  CHECK(!read_margin_identity(1,1,read));
  std::cout<<"Historical admission/stable animated anchors, center exclusion, replacement/epoch/gap/overflow and no double offset: PASS\n";
 }
@@ -238,24 +233,78 @@ void trace_numeric_configs(){
   auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{key,"97"},{"AntiAliasing.Mode","1"}},true);CHECK(c.aa_mode=="MSAA");CHECK(!(std::string(key)=="Filtering.AnisotropicFiltering"?c.anisotropy:std::string(key)=="Camera.GameplayFOV"?c.fov:std::string(key)=="Display.AutoHideCursor"?c.auto_hide_cursor:c.menu_freeze));
  }
 }
+struct UiNative:MockDeviceBase {
+ D3DMATRIX world{};unsigned sets=0,draws=0;unsigned fail_set=0;HRESULT get_hr=S_OK,draw_hr=S_OK;float observed=0;
+ UiNative(){world._11=world._22=world._33=world._44=1;}
+ HRESULT STDMETHODCALLTYPE GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* p) override {CHECK(type==D3DTS_WORLD);if(SUCCEEDED(get_hr))*p=world;return get_hr;}
+ HRESULT STDMETHODCALLTYPE SetTransform(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* p) override {CHECK(type==D3DTS_WORLD);if(++sets==fail_set)return D3DERR_DEVICELOST;world=*p;return S_OK;}
+ HRESULT STDMETHODCALLTYPE Present(const RECT*,const RECT*,HWND,const RGNDATA*) override {return S_OK;}
+ HRESULT STDMETHODCALLTYPE DrawPrimitive(D3DPRIMITIVETYPE,UINT,UINT) override {++draws;observed=world._41;return draw_hr;}
+};
+struct UiFixture {
+ alignas(float) std::array<unsigned char,0x90> packet{};std::array<unsigned char,0x60> entity{};std::array<float,16> cached_transform{};
+ uintptr_t pp=reinterpret_cast<uintptr_t>(packet.data()),owner=reinterpret_cast<uintptr_t>(entity.data()),storage=0x1234;uint32_t mode=1;
+ float* point=reinterpret_cast<float*>(packet.data()+0x54);
+ UiFixture(){auto cache=reinterpret_cast<uintptr_t>(cached_transform.data());std::memcpy(packet.data()+0x84,&cache,4);cached_transform[0]=cached_transform[5]=cached_transform[10]=cached_transform[15]=1;std::memcpy(entity.data()+0x4c,&pp,4);std::memcpy(packet.data()+8,&storage,4);std::memcpy(packet.data()+0x68,&mode,4);point[0]=565;point[1]=75;}
+};
 void margin_consumer_retention(){
- alignas(float) std::array<unsigned char,0x90> packet{};std::array<unsigned char,0x60> entity{};
- uintptr_t pp=reinterpret_cast<uintptr_t>(packet.data()),storage=0x1234,owner=reinterpret_cast<uintptr_t>(entity.data());uint32_t mode=1;
- std::memcpy(entity.data()+0x4c,&pp,4);std::memcpy(packet.data()+8,&storage,4);std::memcpy(packet.data()+0x68,&mode,4);
- auto* point=reinterpret_cast<float*>(packet.data()+0x54);point[0]=565;point[1]=75;
- UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1920,1080);ui.scene_context(false);ui.capture_window(true,30);
- ui.before_consume(owner);float offset=point[0]-565;CHECK(std::abs(offset-106.6667f)<.0001f);ui.before_consume(owner);CHECK(point[0]==565+offset&&ui.finish_frame()&&point[0]==565);
- point[0]=562;point[1]=75.125f;ui.before_consume(owner);CHECK(std::abs(point[0]-(562+offset))<.0001f&&ui.json().find("\"retained_anchor_without_current_rule_match\":1")!=std::string::npos);CHECK(ui.finish_frame()&&point[0]==562);
- point[0]=558;point[1]=75.25f;ui.before_consume(owner);CHECK(std::abs(point[0]-(558+offset))<.0001f&&ui.finish_frame()&&point[0]==558);
- ui.reset_anchors("Reset");ui.capture_window(false,33);ui.capture_window(true,33);point[0]=300;point[1]=300;ui.before_consume(owner);CHECK(point[0]==300&&ui.finish_frame());
- point[0]=565;point[1]=75;ui.before_consume(owner);CHECK(std::abs(point[0]-(565+offset))<.0001f&&ui.finish_frame());
- storage=0x5678;std::memcpy(packet.data()+8,&storage,4);point[0]=300;point[1]=300;ui.before_consume(owner);CHECK(point[0]==300&&ui.finish_frame());
- // A scene epoch ends any still-owned edit before new-screen admission.
- point[0]=565;point[1]=75;ui.before_consume(owner);CHECK(std::abs(point[0]-(565+offset))<.0001f);ui.scene_context(false);ui.scene_context(true);CHECK(point[0]==565);
- point[0]=300;point[1]=300;ui.before_consume(owner);CHECK(point[0]==300&&ui.finish_frame());
- // Storage replacement cancels stale restore even at identical XYZ bytes.
- MarginFrame stale;point[0]=565;point[1]=75;CHECK(stale.shift_direction(point,100,1,owner,mode,storage));storage=0x9999;std::memcpy(packet.data()+8,&storage,4);CHECK(stale.restore()&&point[0]==665);
- std::cout<<"Production packet consume/restore, animated engine coordinates and anchor diagnostics: PASS\n";
+ UiFixture f;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1920,1080);ui.scene_context(false);ui.capture_window(true,30);UiNative native;Trace trace;
+ auto consume=[&](float x,float y){f.point[0]=x;f.point[1]=y;auto bytes=f.packet;auto cache=f.cached_transform;CHECK(ui.enter_consume(f.owner));auto d=ui.draw_decision();float offset=d.margin;if(x==565){CHECK(ui.enter_consume(f.owner)&&ui.draw_decision().anchor.id==d.anchor.id);ui.leave_consume();}
+  for(int draw=0;draw<2;++draw){native.world._41=x;auto original=native.world;{UiWorldScope scope(native,trace,ui,0,true);CHECK(scope.changed()==(offset!=0));CHECK(native.DrawPrimitive(D3DPT_TRIANGLELIST,0,1)==S_OK&&native.observed==x+offset);CHECK(f.packet==bytes);}CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&f.packet==bytes&&f.cached_transform==cache);}
+  ui.leave_consume();CHECK(ui.finish_frame()&&f.packet==bytes);return offset;};
+ CHECK(std::abs(consume(565,75)-106.6667f)<.0001f);
+ CHECK(std::abs(consume(562,75.125f)-106.6667f)<.0001f&&ui.json().find("\"retained_anchor_without_current_rule_match\":1")!=std::string::npos);
+ CHECK(std::abs(consume(558,75.25f)-106.6667f)<.0001f);
+ ui.reset_anchors("Reset");ui.capture_window(false,33);ui.capture_window(true,33);CHECK(consume(300,300)==0);
+ CHECK(consume(565,75)>100);f.storage=0x5678;std::memcpy(f.packet.data()+8,&f.storage,4);CHECK(consume(300,300)==0);
+ CHECK(consume(565,75)>100);ui.scene_context(false);ui.scene_context(true);CHECK(consume(300,300)==0);
+ std::cout<<"Production packet read-only context / repeated native WORLD copy / immediate exact restore: PASS\n";
+}
+void render_local_ui_contracts(){
+ for(int direction:{-1,1}){UiFixture f;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1734,480);UiNative native;Trace trace;uint64_t id=0;
+  for(int frame=0;frame<30;++frame){int animation_step=frame<10?frame:frame<20?9:frame-10;f.point[0]=(direction>0?565.f:23.f)-animation_step*3.f;f.point[1]=(direction>0?75.f:370.f)+animation_step*.1f;f.cached_transform[12]=f.point[0];f.cached_transform[13]=f.point[1];auto bytes=f.packet;auto cache=f.cached_transform;
+   CHECK(ui.enter_consume(f.owner));auto decision=ui.draw_decision();CHECK(decision.anchor.direction==direction&&decision.margin==direction*547);if(!frame)id=decision.anchor.id;CHECK(id==decision.anchor.id);
+   native.world._41=f.point[0];native.world._42=f.point[1];native.world._11=2;auto original=native.world;
+   trace.shadow.matrices[D3DTS_WORLD].set(original);for(int draw=0;draw<3;++draw){{UiWorldScope scope(native,trace,ui,0,true);CHECK(scope.changed()&&native.world._41==f.point[0]+direction*547&&native.world._42==f.point[1]);CHECK(native.DrawPrimitive(D3DPT_TRIANGLELIST,0,1)==S_OK);}CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&f.packet==bytes&&f.cached_transform==cache&&!std::memcmp(&trace.shadow.matrices[D3DTS_WORLD].value,&original,sizeof(original)));}
+   ui.leave_consume();CHECK(!ui.draw_decision().valid&&ui.finish_frame()&&f.packet==bytes);
+  }CHECK(ui.render_draws==90&&ui.restore_exact==90&&ui.restore_failures==0);
+ }
+ UiFixture f,other;other.point[0]=other.point[1]=300;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1734,480);UiNative native;Trace trace;
+ CHECK(ui.enter_consume(f.owner));CHECK(ui.draw_decision().margin==547);CHECK(ui.enter_consume(other.owner)&&ui.draw_decision().margin==0);ui.leave_consume();CHECK(ui.draw_decision().margin==547);
+ auto bytes=f.packet;native.world._41=565;native.draw_hr=E_FAIL;{UiWorldScope scope(native,trace,ui,0,true);CHECK(scope.changed()&&native.DrawPrimitive(D3DPT_TRIANGLELIST,0,1)==E_FAIL);}CHECK(native.world._41==565&&f.packet==bytes);
+ f.storage=9;std::memcpy(f.packet.data()+8,&f.storage,4);CHECK(!ui.draw_decision().valid);ui.leave_consume();
+ CHECK(ui.enter_consume(f.owner));ui.reset_anchors("Reset");CHECK(!ui.draw_decision().valid);ui.leave_consume();f.point[0]=f.point[1]=300;CHECK(ui.enter_consume(f.owner)&&ui.draw_decision().margin==0);ui.leave_consume();
+ f.point[0]=565;f.point[1]=75;bytes=f.packet;CHECK(ui.enter_consume(f.owner));native.get_hr=E_FAIL;{UiWorldScope scope(native,trace,ui,0,true);CHECK(!scope.changed());}CHECK(ui.world_read_failed==1);native.get_hr=S_OK;
+ native.fail_set=native.sets+1;{UiWorldScope scope(native,trace,ui,0,true);CHECK(!scope.changed());}CHECK(ui.temporary_set_failed==1&&native.world._41==565);
+ native.fail_set=native.sets+2;{UiWorldScope scope(native,trace,ui,0,true);CHECK(scope.changed());}CHECK(ui.restore_failures==1&&!ui.finish_frame()&&!ui.draw_decision().valid&&f.packet==bytes);
+ native.fail_set=native.sets+1;CHECK(ui.repair_world(native,trace,0)==D3DERR_DEVICELOST);native.fail_set=0;CHECK(ui.repair_world(native,trace,0)==S_OK&&native.world._41==565&&ui.finish_frame());ui.leave_consume();
+ std::cout<<"Render-local UI animation/pause/extreme/repeat/nested/epoch/source immutability/failure repair: PASS\n";
+}
+// Reserve mapped synthetic EXE address space for the retail return RVA. No
+// instructions or game bytes are executed here; draw_primitive_at receives it.
+static volatile unsigned char synthetic_caller_image_extent[0x180000];
+void render_local_wrapper_contract(){
+ synthetic_caller_image_extent[0]=1;UiNative native;Root raw;auto* root=new Root8(&raw);auto policy=std::make_unique<QualityPipeline>();auto* device=new Device8(&native,root,std::move(policy));
+ device->quality->config.interface_mode="PreserveMargins";device->quality->ui_projection_live=true;detail::UiMarginsContract::enable(device->ui_margins);
+ device->trace.control.pending=true;CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);device->ui_margins.dimensions(1734,480);
+ UiFixture f;auto bytes=f.packet;CHECK(device->ui_margins.enter_consume(f.owner));D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
+ device->trace.shadow.bindings.vertex_shader.set(0x142);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);native.world._41=565;auto original=native.world;
+ device->trace.shadow.matrices[D3DTS_WORLD].set(original);device->trace.effective_shadow.matrices[D3DTS_WORLD].set(original);
+ uintptr_t pc=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+UI_DRAW_RETURN_RVA;
+ CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==S_OK&&native.observed==1112&&native.sets==2&&native.draws==1&&f.packet==bytes&&native.world._41==565);
+ auto stock=[&](uintptr_t caller,D3DPRIMITIVETYPE type){auto sets=native.sets,draws=native.draws;CHECK(device->draw_primitive_at(type,0,1,caller)==S_OK&&native.sets==sets&&native.draws==draws+1&&native.observed==565&&f.packet==bytes);};
+ stock(pc+1,D3DPT_TRIANGLELIST);stock(pc,D3DPT_LINELIST);device->trace.shadow.bindings.vertex_shader.set(0x152);stock(pc,D3DPT_TRIANGLELIST);device->trace.shadow.bindings.vertex_shader.set(0x142);
+ device->quality->ui_projection_live=false;stock(pc,D3DPT_TRIANGLELIST);device->quality->ui_projection_live=true;
+ device->trace.effective_shadow.matrices[D3DTS_VIEW].value._41=1;stock(pc,D3DPT_TRIANGLELIST);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);
+ device->quality->config.interface_mode="Centered4x3";stock(pc,D3DPT_TRIANGLELIST);device->quality->config.interface_mode="PreserveMargins";
+ device->ui_margins.leave_consume();stock(pc,D3DPT_TRIANGLELIST);CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);
+ CHECK(!std::memcmp(&device->trace.shadow.matrices[D3DTS_WORLD].value,&original,sizeof(original))&&device->ui_margins.restore_exact==1);
+ // Native draw HRESULT survives a successful immediate restore, and a failed
+// restore is repaired before the next unrelated draw.
+ CHECK(device->ui_margins.enter_consume(f.owner));native.draw_hr=E_FAIL;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==E_FAIL&&native.world._41==565);native.draw_hr=S_OK;
+ native.fail_set=native.sets+2;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==S_OK&&device->ui_margins.restore_failures==1);native.fail_set=native.sets+1;auto draws=native.draws;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc+1)==D3DERR_DEVICELOST&&native.draws==draws);
+ native.fail_set=0;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc+1)==S_OK&&native.world._41==565&&native.observed==565);device->ui_margins.leave_consume();device->Release();root->Release();
+ std::cout<<"Production DrawPrimitive UI gate, exact native restoration, failure blocks unrelated draws: PASS\n";
 }
 void margin_candidate_diagnostics(){
  alignas(float) std::array<std::array<unsigned char,0x90>,3> packets{};
@@ -265,11 +314,11 @@ void margin_candidate_diagnostics(){
  for(size_t i=0;i<3;++i){
   auto pp=reinterpret_cast<uintptr_t>(packets[i].data());std::memcpy(entities[i].data()+0x4c,&pp,4);std::memcpy(packets[i].data()+8,&storage,4);std::memcpy(packets[i].data()+0x68,&mode,4);
   auto* point=reinterpret_cast<float*>(packets[i].data()+0x54);point[0]=i==0?565.f:i==1?23.f:300.f;point[1]=i==0?75.f:i==1?370.f:300.f;
-  ui.before_consume(reinterpret_cast<uintptr_t>(entities[i].data()));CHECK(i!=2||point[0]==300);
+  CHECK(ui.enter_consume(reinterpret_cast<uintptr_t>(entities[i].data())));ui.leave_consume();CHECK(i!=2||point[0]==300);
  }
  CHECK(ui.finish_frame());CHECK(ui.finish_frame()); // One completed absent frame.
- auto* point=reinterpret_cast<float*>(packets[0].data()+0x54);point[0]=550;point[1]=76;ui.before_consume(reinterpret_cast<uintptr_t>(entities[0].data()));
- CHECK(std::abs(point[0]-656.6667f)<.0001f&&ui.json().find("\"anchor_grace_retained\":1")!=std::string::npos);
+ auto* point=reinterpret_cast<float*>(packets[0].data()+0x54);point[0]=550;point[1]=76;CHECK(ui.enter_consume(reinterpret_cast<uintptr_t>(entities[0].data())));CHECK(ui.draw_decision().margin>106);ui.leave_consume();
+ CHECK(point[0]==550&&ui.json().find("\"anchor_grace_retained\":1")!=std::string::npos);
  CHECK(ui.finish_frame()&&point[0]==550&&ui.json().find("\"group_grace_retained\":0")!=std::string::npos);
 }
 void antialiasing(){
@@ -291,6 +340,20 @@ void antialiasing(){
  // Actual Windowed argument and exclusive adapter mode are independently checked.
  root.windowed_expected=false;c.display_mode="ExclusiveFullscreen";c.width=1920;c.height=1080;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);q.aa_hazard=false;p=stock();CHECK(q.create(root,0,&p,&out)==S_OK&&!p.Windowed&&p.MultiSampleType==8);
 }
+void exclusive_lifecycle(){
+ Root root;root.mode={640,480,60,D3DFMT_X8R8G8B8};root.windowed_expected=false;Windows windows;QualityPipeline q(windows);VisualConfig c;c.display_mode="ExclusiveFullscreen";auto p=stock();p.Windowed=FALSE;IDirect3DDevice8* out=nullptr;
+ q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);q.cooperative_result(S_OK);q.cooperative_result(S_OK);q.cooperative_result(D3DERR_DEVICELOST);q.cooperative_result(D3DERR_DEVICELOST);q.cooperative_result(D3DERR_DEVICENOTRESET);q.cooperative_result(S_OK);CHECK(q.create(root,0,&p,&out)==S_OK&&!p.Windowed&&p.BackBufferWidth==640&&p.BackBufferHeight==480&&p.FullScreen_RefreshRateInHz==0&&p.FullScreen_PresentationInterval==D3DPRESENT_INTERVAL_DEFAULT&&windows.applies==0&&windows.restores==0);
+ for(bool windowed:{false,true}){auto input=stock();input.Windowed=windowed;input.BackBufferWidth=656;input.BackBufferHeight=519;windows.state.client={0,0,656,519};auto n=root.dev.resets.size();CHECK(q.reset(root,root.dev,&input)==S_OK&&root.dev.resets.size()==n+1&&!input.Windowed&&input.BackBufferWidth==640&&input.BackBufferHeight==480&&windows.applies==0&&windows.restores==0);}
+ auto accepted=q.effective;root.dev.result=D3DERR_DEVICELOST;auto input=stock();auto n=root.dev.resets.size();CHECK(q.reset(root,root.dev,&input)==D3DERR_DEVICELOST&&root.dev.resets.size()==n+1&&presentation_equivalent(q.effective,accepted)&&q.attempts==1);root.dev.result=S_OK;
+ root.modes=false;input=stock();n=root.dev.resets.size();CHECK(q.reset(root,root.dev,&input)==D3DERR_NOTAVAILABLE&&root.dev.resets.size()==n&&presentation_equivalent(q.effective,accepted)&&q.display=="ExclusiveFullscreen");root.modes=true;
+ // Explicit unsupported dimensions or refresh reject without native call or mode alias.
+ for(int invalid=0;invalid<3;++invalid){c.width=invalid==0?656:640;c.height=invalid==0?519:480;c.refresh=invalid==1?75:0;root.depth_pair=invalid!=2;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);input=stock();auto bytes=input;n=root.creates.size();CHECK(q.create(root,0,&input,&out)==D3DERR_NOTAVAILABLE&&root.creates.size()==n&&!std::memcmp(&input,&bytes,sizeof(input))&&q.display=="ExclusiveFullscreen"&&windows.applies==0&&windows.restores==0);}
+ root.depth_pair=true;c.width=640;c.height=480;c.refresh=0;c.aa_mode="MSAA";c.samples=4;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);input=stock();CHECK(q.create(root,0,&input,&out)==S_OK&&!input.Windowed&&input.MultiSampleType==4&&q.attempts==1);
+ root.reject_msaa=true;input=stock();CHECK(q.create(root,0,&input,&out)==S_OK&&!input.Windowed&&input.MultiSampleType==0&&input.SwapEffect==D3DSWAPEFFECT_COPY&&q.attempts==2);root.reject_msaa=false;
+ root.support=0;input=stock();CHECK(q.create(root,0,&input,&out)==S_OK&&!input.Windowed&&input.MultiSampleType==0&&q.attempts==1);root.support=4;
+ root.result=D3DERR_INVALIDCALL;input=stock();CHECK(q.create(root,0,&input,&out)==D3DERR_INVALIDCALL&&q.attempts==2&&q.display=="ExclusiveFullscreen");root.result=S_OK;
+ std::cout<<"Exclusive native ownership / immutable selected mode / full-screen AA / reject-no-alias / bounded loss: PASS\n";
+}
 void viewports_ui(){
  D3DVIEWPORT8 v{0,0,640,480,0,1},out{};CHECK(map_viewport(v,640,480,1920,1080,out)&&out.Width==1920&&out.Height==1080);
  v={320,0,320,480,.1f,.9f};CHECK(map_viewport(v,640,480,1920,1080,out)&&out.X==960&&out.Width==960&&out.Height==1080&&out.MinZ==.1f);
@@ -305,9 +368,7 @@ void viewports_ui(){
  CHECK(margin_direction(565,75,0)==1&&margin_direction(23,370,0)==-1&&margin_direction(565,75,1)==0);
  for(auto& r:MARGIN_RULES)CHECK(margin_direction(r.x,r.y,0)==r.direction);
  CHECK(margin_direction(25,19,0)==-1&&margin_direction(106,99.9f,0)==-1&&margin_direction(106,100,0)==0&&margin_direction(50,259,0)==-1&&margin_direction(50,340,0)==0);
- MarginFrame frame;float right[3]={565,75,0},left[3]={23,370,0},unknown[3]={300,300,0};CHECK(frame.shift(right,100)&&right[0]==665);CHECK(!frame.shift(right,100));CHECK(frame.shift(left,100)&&left[0]==-77);CHECK(!frame.shift(unknown,100));CHECK(frame.restore()&&right[0]==565&&left[0]==23);
- CHECK(frame.shift(right,100));right[0]=123;CHECK(frame.restore()&&right[0]==123); // Engine owns intervening mutations.
- right[0]=565;CHECK(frame.shift(right,100));right[1]=76;CHECK(frame.restore()&&right[0]==665); // Reused storage/changed Y is no longer our point.
+
 }
 struct Memory:PatchMemory {
  unsigned writes=0,protects=0,flushes=0;int fail_write=0,fail_protect=0,fail_flush=0;DWORD protection=PAGE_EXECUTE_READ;
@@ -330,7 +391,7 @@ void freeze_and_patch(){
  std::array<unsigned char,5> code=UI_SORT_BYTES;UiJumpPatch p;Memory m;CHECK(p.install(m,code.data(),reinterpret_cast<uintptr_t>(code.data())+100)&&code[0]==0xe9);CHECK(p.remove(m)&&code==UI_SORT_BYTES&&m.protection==PAGE_EXECUTE_READ);
  code[0]=0x90;CHECK(!p.install(m,code.data(),123));code=UI_SORT_BYTES;
  for(int f=1;f<=3;++f){Memory bad;UiJumpPatch patch;if(f==1)bad.fail_write=1;if(f==2)bad.fail_flush=1;if(f==3)bad.fail_protect=2;CHECK(!patch.install(bad,code.data(),123));CHECK(code==UI_SORT_BYTES&&!patch.installed());}
- MarginFrame edits;std::array<std::array<float,3>,513> points{};for(auto& point:points){point={565,75,0};edits.shift(point.data(),100);}CHECK(edits.size()==512&&edits.overflow==1&&points.back()[0]==565);CHECK(edits.restore());for(auto& point:points)CHECK(point[0]==565);
+
 }
 void native_window(){
  // Hidden synthetic HWND; no game or visible interactive window is launched.
@@ -414,6 +475,34 @@ void packet_consumer_abi(){
  mov ecx_after,ecx
  fstp fp_after}
  CHECK(before==after&&result==0x11223344&&ecx_after==0x12345678&&fp_after==7&&detail::ui_packet_entity_for_contract()==0x11223344);CHECK(patch.remove(memory)&&!std::memcmp(code,UI_PACKET_BYTES.data(),6));
+ // Both stock return paths use RET 0Ch. Exercise that actual cleanup size
+ // with integer/flags/x87/SSE state preserved by entry and return bridges.
+ unsigned char retail_return[]={0x81,0xec,0x08,0x01,0,0,0x8b,0x84,0x24,0x0c,0x01,0,0,0x81,0xc4,0x08,0x01,0,0,0xf9,0xc2,0x0c,0};
+ std::memcpy(code,retail_return,sizeof(retail_return));CHECK(patch.install(memory,code,detail::ui_packet_bridge_for_contract(reinterpret_cast<uintptr_t>(code)+6)));
+ float sse_in[4]{1,2,3,4},sse_out[4]{};unsigned short cw_before=0,cw_after=0;uint32_t mxcsr_before=0,mxcsr_after=0,flags_after=0;
+ __asm {fnstcw cw_before
+ stmxcsr mxcsr_before
+ lea eax,sse_in
+ movups xmm0,[eax]
+ mov before,esp
+ mov ecx,12345678h
+ fld source
+ push 3
+ push 2
+ push 11223344h
+ call code
+ mov result,eax
+ pushfd
+ pop flags_after
+ mov after,esp
+ mov ecx_after,ecx
+ fstp fp_after
+ fnstcw cw_after
+ stmxcsr mxcsr_after
+ lea eax,sse_out
+ movups [eax],xmm0}
+ CHECK(before==after&&result==0x11223344&&ecx_after==0x12345678&&fp_after==7&&cw_before==cw_after&&mxcsr_before==mxcsr_after&&(flags_after&1)&&!std::memcmp(sse_in,sse_out,sizeof(sse_in)));
+ CHECK(patch.remove(memory));
  for(int failure=1;failure<=3;++failure){Memory bad;UiPacketPatch failed;if(failure==1)bad.fail_write=1;if(failure==2)bad.fail_flush=1;if(failure==3)bad.fail_protect=2;CHECK(!failed.install(bad,code,detail::ui_packet_bridge_for_contract(reinterpret_cast<uintptr_t>(code)+6)));CHECK(!failed.installed()&&!std::memcmp(code,UI_PACKET_BYTES.data(),6));}
  CHECK(VirtualFree(code,0,MEM_RELEASE));
 }
@@ -424,4 +513,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();antialiasing();exclusive_lifecycle();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
