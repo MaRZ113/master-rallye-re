@@ -1,14 +1,19 @@
 # Master Rallye PS2 research
 
-Active filesystem work lives in `packfs/`, tools in `tools/`, tests in `tests/`.
+Active filesystem work lives in `packfs/`, content/UI work in `ui/`, tools in
+`tools/`, tests in `tests/`.
 Canonical development branch: `master`. Historical `research/general-re` and
 `research/r-*` are reference evidence; this track does not edit them.
 
 Start with [PackFS findings](packfs/findings.md) and [validation](packfs/validation.md).
+The first content pass is [PS2-UI1](ui/findings.md), with a
+[byte-accurate PSB map](ui/psb-format.md) and [closeout report](ui/final-report.md).
 Original ISO files remain external. Extracted resources, full directory images,
 Ghidra databases and raw decompilations stay under ignored `data/`.
 
-The tools use Python 3.10+ standard library only. `elf_query.py` additionally
+PackFS and PSB readers use Python 3.10+ standard library only. Diagnostic
+images and screenshot inspection additionally use Pillow. `elf_query.py` and
+`elf_ui_query.py` additionally
 requires the already installed ghidra-ai-bridge/PyGhidra environment, Ghidra
 12.1.4, and a compatible JDK. No external LZO library is required for `tngtool.py`.
 
@@ -34,3 +39,17 @@ resources such as `0.DAT` and `1.DAT`; those are not validation targets.
 Unknown hashes are rejected for directory/resource operations. Compression-only
 `info`/`decompress-pak` also accept structurally valid synthetic frames without
 asserting that they represent a supported game build.
+
+```powershell
+python ps2-research/tools/build_ui_report.py --inputs 'D:\Game\Master Rallye PS2' --screens 'D:\Game\Master Rallye PS2\PS2-userscreens'
+python ps2-research/tools/psbtool.py verify ps2-research/data/ui1/extracted/TNG/DATAPSM/HUD/HUD-TEMPLATE.PSB --texture-dir ps2-research/data/ui1/extracted/TNG/DATAPSM/HUD
+python ps2-research/tools/psbtool.py glyphs ps2-research/data/ui1/extracted/TNG/DATAPSM/HUD/HUD-NUMS.PSB
+python ps2-research/tools/ui_visuals.py ps2-research/data/ui1/extracted/TNG/DATAPSM/HUD/NEWHUD.PSB --texture-dir ps2-research/data/ui1/extracted/TNG/DATAPSM/HUD --output-dir ps2-research/data/ui1/visuals/NEWHUD
+$env:PS2_UI_CORPUS='D:\Game\Master Rallye\master-rallye-re-general\ps2-research\data\ui1\extracted\TNG\DATAPSM\HUD'
+python -m unittest discover -s ps2-research/tests -v
+```
+
+`psbtool.py` supports `info`, `dump`, `strings`, `sprites`, `glyphs`, `verify`.
+Unknown signature/version and malformed bounds fail closed. `dump` preserves
+unknown trailing bytes; `verify` refuses them. Diagnostic assembly stays in
+ignored `data/` and does not implement or replay the PS2 HUD renderer.

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "screenshots": [
+    {
+      "filename": "Master Rallye_SLES-50906_20251213155350.jpg",
+      "size": 756081,
+      "sha256": "2f65a7019f1c8fa72d821a3e888ed5ab2f970efefa64a7b24666ebfe6f0e0218",
+      "dimensions": [
+        1920,
+        1072
+      ],
+      "type": "replay",
+      "correlations": [
+        "replay mode; no full race HUD"
+      ],
+      "evidence": "SCREENSHOT_CORRELATION",
+      "build_hash_verified": false
+    },
+    {
+      "filename": "Master Rallye_SLES-50906_20251213161001.jpg",
+      "size": 809258,
+      "sha256": "f40e3a4b87c8f220e43d733154eeb3df8448e57d3023505cc373bd1eeda7b2dc",
+      "dimensions": [
+        1763,
+        984
+      ],
+      "type": "racing HUD",
+      "correlations": [
+        "tachometer outline/red band",
+        "large rank numerals",
+        "damage icon family",
+        "race progress strip",
+        "dynamic course minimap"
+      ],
+      "evidence": "SCREENSHOT_CORRELATION",
+      "build_hash_verified": false
+    },
+    {
+      "filename": "Master Rallye_SLES-50906_20251214125616.jpg",
+      "size": 788714,
+      "sha256": "22866a0a12ad4d54556cd464c0c3be6e7e73a69c9bc055376307a94e36aa9088",
+      "dimensions": [
+        1920,
+        1072
+      ],
+      "type": "replay",
+      "correlations": [
+        "replay mode; no full race HUD"
+      ],
+      "evidence": "SCREENSHOT_CORRELATION",
+      "build_hash_verified": false
+    },
+    {
+      "filename": "Master Rallye_SLES-50906_20251214125620.jpg",
+      "size": 866896,
+      "sha256": "4071e1e39bdfd2769e94fc91b1c0d830379c8ef05065359dc2c894c765b3f1bf",
+      "dimensions": [
+        1920,
+        1072
+      ],
+      "type": "replay",
+      "correlations": [
+        "replay mode; no full race HUD"
+      ],
+      "evidence": "SCREENSHOT_CORRELATION",
+      "build_hash_verified": false
+    },
+    {
+      "filename": "Master Rallye_SLES-50906_20260415224620.jpg",
+      "size": 942300,
+      "sha256": "9865d4395549e946256a7e52f7e6d0617f3c328f553cc6dbbe061f37dfa88cec",
+      "dimensions": [
+        1920,
+        1072
+      ],
+      "type": "racing HUD",
+      "correlations": [
+        "tachometer outline/red band",
+        "large rank numerals",
+        "damage icon family",
+        "race progress strip",
+        "dynamic course minimap"
+      ],
+      "evidence": "SCREENSHOT_CORRELATION",
+      "build_hash_verified": false
+    },
+    {
+      "filename": "Master Rallye_SLES-50906_20260417002511.jpg",
+      "size": 823713,
+      "sha256": "be65d6fa67b0beba0a8b3620651ad208b0c9679921aba89e445dbd1729e0502f",
+      "dimensions": [
+        1920,
+        1072
+      ],
+      "type": "replay",
+      "correlations": [
+        "replay mode; no full race HUD"
+      ],
+      "evidence": "SCREENSHOT_CORRELATION",
+      "build_hash_verified": false
+    }
+  ],
+  "limitation": "User supplied historical images; visual correlation does not prove exact runtime build, frame selection, anchors or transforms."
+}

@@ -1,0 +1,1845 @@
+{
+  "schema_version": 1,
+  "input_provenance": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "entries": [
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ENVSOURCE64X64.GXI",
+      "entry_index": 22,
+      "offset": 1036874990,
+      "stored_size": 10660,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MAP128STRIPED1-TGA.GXI",
+      "entry_index": 734,
+      "offset": 1037649919,
+      "stored_size": 15931,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RENDERTARGET64X64.GXI",
+      "entry_index": 3289,
+      "offset": 1038239869,
+      "stored_size": 14124,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\STATICRENDERTARGET64X64.GXI",
+      "entry_index": 3258,
+      "offset": 1038500358,
+      "stored_size": 15870,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERSURFACE2.GXI",
+      "entry_index": 1175,
+      "offset": 1038857243,
+      "stored_size": 16175,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN-REFLECT.GXI",
+      "entry_index": 560,
+      "offset": 1038886458,
+      "stored_size": 3318,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\CARDAMAGEBITS.PSB",
+      "entry_index": 3686,
+      "offset": 1209453381,
+      "stored_size": 781,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\CARDAMAGEBITS_000.GXI",
+      "entry_index": 1004,
+      "offset": 1209454162,
+      "stored_size": 1050,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "entry_index": 2886,
+      "offset": 1209455212,
+      "stored_size": 448,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE_000.GXI",
+      "entry_index": 1428,
+      "offset": 1209455660,
+      "stored_size": 6142,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE_001.GXI",
+      "entry_index": 1722,
+      "offset": 1209461802,
+      "stored_size": 3781,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS.PSB",
+      "entry_index": 1587,
+      "offset": 1209465583,
+      "stored_size": 1005,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL.PSB",
+      "entry_index": 2360,
+      "offset": 1209466588,
+      "stored_size": 878,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL_000.GXI",
+      "entry_index": 100,
+      "offset": 1209467466,
+      "stored_size": 4685,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL_001.GXI",
+      "entry_index": 451,
+      "offset": 1209472151,
+      "stored_size": 2537,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_000.GXI",
+      "entry_index": 965,
+      "offset": 1209474688,
+      "stored_size": 3095,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_001.GXI",
+      "entry_index": 1520,
+      "offset": 1209477783,
+      "stored_size": 3229,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_002.GXI",
+      "entry_index": 1825,
+      "offset": 1209481012,
+      "stored_size": 844,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT.PSB",
+      "entry_index": 3246,
+      "offset": 1209481856,
+      "stored_size": 1108,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_000.GXI",
+      "entry_index": 1780,
+      "offset": 1209482964,
+      "stored_size": 12010,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_001.GXI",
+      "entry_index": 2974,
+      "offset": 1209494974,
+      "stored_size": 9203,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_002.GXI",
+      "entry_index": 2794,
+      "offset": 1209504177,
+      "stored_size": 6044,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_003.GXI",
+      "entry_index": 816,
+      "offset": 1209510221,
+      "stored_size": 7387,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_004.GXI",
+      "entry_index": 3632,
+      "offset": 1209517608,
+      "stored_size": 4946,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_005.GXI",
+      "entry_index": 643,
+      "offset": 1209522554,
+      "stored_size": 2901,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "entry_index": 529,
+      "offset": 1209525455,
+      "stored_size": 1095,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_000.GXI",
+      "entry_index": 3404,
+      "offset": 1209526550,
+      "stored_size": 10862,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_001.GXI",
+      "entry_index": 88,
+      "offset": 1209537412,
+      "stored_size": 5145,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_002.GXI",
+      "entry_index": 135,
+      "offset": 1209542557,
+      "stored_size": 7281,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_003.GXI",
+      "entry_index": 2042,
+      "offset": 1209549838,
+      "stored_size": 8306,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_004.GXI",
+      "entry_index": 2613,
+      "offset": 1209558144,
+      "stored_size": 7779,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_005.GXI",
+      "entry_index": 1675,
+      "offset": 1209565923,
+      "stored_size": 9251,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_006.GXI",
+      "entry_index": 1602,
+      "offset": 1209575174,
+      "stored_size": 8517,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_007.GXI",
+      "entry_index": 2089,
+      "offset": 1209583691,
+      "stored_size": 2698,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD.PSB",
+      "entry_index": 1618,
+      "offset": 1209586389,
+      "stored_size": 937,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_000.GXI",
+      "entry_index": 2958,
+      "offset": 1209587326,
+      "stored_size": 9879,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_001.GXI",
+      "entry_index": 1607,
+      "offset": 1209597205,
+      "stored_size": 4666,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_002.GXI",
+      "entry_index": 2084,
+      "offset": 1209601871,
+      "stored_size": 7180,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_003.GXI",
+      "entry_index": 2760,
+      "offset": 1209609051,
+      "stored_size": 8494,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_004.GXI",
+      "entry_index": 3280,
+      "offset": 1209617545,
+      "stored_size": 8179,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_005.GXI",
+      "entry_index": 3117,
+      "offset": 1209625724,
+      "stored_size": 9047,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_006.GXI",
+      "entry_index": 154,
+      "offset": 1209634771,
+      "stored_size": 7670,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_007.GXI",
+      "entry_index": 385,
+      "offset": 1209642441,
+      "stored_size": 487,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE.PSB",
+      "entry_index": 2129,
+      "offset": 1209642928,
+      "stored_size": 1582,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_000.GXI",
+      "entry_index": 1441,
+      "offset": 1209644510,
+      "stored_size": 9791,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_001.GXI",
+      "entry_index": 3628,
+      "offset": 1209654301,
+      "stored_size": 4673,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_002.GXI",
+      "entry_index": 3727,
+      "offset": 1209658974,
+      "stored_size": 7221,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_003.GXI",
+      "entry_index": 437,
+      "offset": 1209666195,
+      "stored_size": 8499,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_004.GXI",
+      "entry_index": 1282,
+      "offset": 1209674694,
+      "stored_size": 8195,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_005.GXI",
+      "entry_index": 2454,
+      "offset": 1209682889,
+      "stored_size": 1660,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_006.GXI",
+      "entry_index": 3320,
+      "offset": 1209684549,
+      "stored_size": 7610,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_007.GXI",
+      "entry_index": 2368,
+      "offset": 1209692159,
+      "stored_size": 7848,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_008.GXI",
+      "entry_index": 3291,
+      "offset": 1209700007,
+      "stored_size": 1309,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_009.GXI",
+      "entry_index": 3281,
+      "offset": 1209701316,
+      "stored_size": 2642,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD.PSB",
+      "entry_index": 666,
+      "offset": 1209703958,
+      "stored_size": 4212,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_000.GXI",
+      "entry_index": 792,
+      "offset": 1209708170,
+      "stored_size": 9856,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_001.GXI",
+      "entry_index": 2076,
+      "offset": 1209718026,
+      "stored_size": 4909,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_002.GXI",
+      "entry_index": 3657,
+      "offset": 1209722935,
+      "stored_size": 7009,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_003.GXI",
+      "entry_index": 454,
+      "offset": 1209729944,
+      "stored_size": 8250,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_004.GXI",
+      "entry_index": 3716,
+      "offset": 1209738194,
+      "stored_size": 7620,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_005.GXI",
+      "entry_index": 3061,
+      "offset": 1209745814,
+      "stored_size": 6939,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_006.GXI",
+      "entry_index": 2222,
+      "offset": 1209752753,
+      "stored_size": 6217,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_007.GXI",
+      "entry_index": 246,
+      "offset": 1209758970,
+      "stored_size": 3083,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_008.GXI",
+      "entry_index": 1846,
+      "offset": 1209762053,
+      "stored_size": 5272,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_009.GXI",
+      "entry_index": 2844,
+      "offset": 1209767325,
+      "stored_size": 7952,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_010.GXI",
+      "entry_index": 1622,
+      "offset": 1209775277,
+      "stored_size": 6315,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_011.GXI",
+      "entry_index": 3540,
+      "offset": 1209781592,
+      "stored_size": 4995,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_012.GXI",
+      "entry_index": 2052,
+      "offset": 1209786587,
+      "stored_size": 3481,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_013.GXI",
+      "entry_index": 377,
+      "offset": 1209790068,
+      "stored_size": 3626,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_014.GXI",
+      "entry_index": 2810,
+      "offset": 1209793694,
+      "stored_size": 1773,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES.PSB",
+      "entry_index": 1232,
+      "offset": 1209795467,
+      "stored_size": 485,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_000.GXI",
+      "entry_index": 2314,
+      "offset": 1209795952,
+      "stored_size": 3503,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_001.GXI",
+      "entry_index": 3579,
+      "offset": 1209799455,
+      "stored_size": 3048,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_002.GXI",
+      "entry_index": 2025,
+      "offset": 1209802503,
+      "stored_size": 3352,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_003.GXI",
+      "entry_index": 1021,
+      "offset": 1209805855,
+      "stored_size": 3339,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_004.GXI",
+      "entry_index": 3288,
+      "offset": 1209809194,
+      "stored_size": 3201,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_005.GXI",
+      "entry_index": 310,
+      "offset": 1209812395,
+      "stored_size": 3284,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_006.GXI",
+      "entry_index": 3467,
+      "offset": 1209815679,
+      "stored_size": 3063,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_007.GXI",
+      "entry_index": 2781,
+      "offset": 1209818742,
+      "stored_size": 3241,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_008.GXI",
+      "entry_index": 2103,
+      "offset": 1209821983,
+      "stored_size": 2318,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_009.GXI",
+      "entry_index": 376,
+      "offset": 1209824301,
+      "stored_size": 2099,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_010.GXI",
+      "entry_index": 193,
+      "offset": 1209826400,
+      "stored_size": 1797,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_011.GXI",
+      "entry_index": 2205,
+      "offset": 1209828197,
+      "stored_size": 2956,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_012.GXI",
+      "entry_index": 1055,
+      "offset": 1209831153,
+      "stored_size": 4178,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_013.GXI",
+      "entry_index": 744,
+      "offset": 1209835331,
+      "stored_size": 2123,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_014.GXI",
+      "entry_index": 438,
+      "offset": 1209837454,
+      "stored_size": 2333,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_015.GXI",
+      "entry_index": 2595,
+      "offset": 1209839787,
+      "stored_size": 3579,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_016.GXI",
+      "entry_index": 3096,
+      "offset": 1209843366,
+      "stored_size": 3845,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_017.GXI",
+      "entry_index": 2864,
+      "offset": 1209847211,
+      "stored_size": 3973,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_018.GXI",
+      "entry_index": 946,
+      "offset": 1209851184,
+      "stored_size": 2842,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_019.GXI",
+      "entry_index": 2402,
+      "offset": 1209854026,
+      "stored_size": 3556,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_020.GXI",
+      "entry_index": 2657,
+      "offset": 1209857582,
+      "stored_size": 3444,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_021.GXI",
+      "entry_index": 612,
+      "offset": 1209861026,
+      "stored_size": 3966,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_022.GXI",
+      "entry_index": 975,
+      "offset": 1209864992,
+      "stored_size": 2205,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_023.GXI",
+      "entry_index": 3043,
+      "offset": 1209867197,
+      "stored_size": 3868,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\PARTICLES\\BUSH1.GXI",
+      "entry_index": 3086,
+      "offset": 1210621196,
+      "stored_size": 4104,
+      "storage_codec": "raw"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\PARTICLES\\GRASS1.GXI",
+      "entry_index": 2018,
+      "offset": 1210642564,
+      "stored_size": 4104,
+      "storage_codec": "raw"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\AUDIOOPTIONS.XML",
+      "entry_index": 796,
+      "offset": 1218849370,
+      "stored_size": 7877,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CHALLENGE.XML",
+      "entry_index": 380,
+      "offset": 1218857247,
+      "stored_size": 6027,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\COPYRIGHTS.XML",
+      "entry_index": 2877,
+      "offset": 1218863274,
+      "stored_size": 1982,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CREDITS.XML",
+      "entry_index": 722,
+      "offset": 1218865256,
+      "stored_size": 594,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CUPSELECT.XML",
+      "entry_index": 2828,
+      "offset": 1218865850,
+      "stored_size": 10244,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMEOPTIONS.XML",
+      "entry_index": 3375,
+      "offset": 1218876094,
+      "stored_size": 8573,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMESELECT.XML",
+      "entry_index": 1330,
+      "offset": 1218884667,
+      "stored_size": 5127,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMESELECT2.XML",
+      "entry_index": 3295,
+      "offset": 1218889794,
+      "stored_size": 4684,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LANGUAGE.XML",
+      "entry_index": 1150,
+      "offset": 1218894478,
+      "stored_size": 4342,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LOADING.XML",
+      "entry_index": 849,
+      "offset": 1218898820,
+      "stored_size": 3315,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LOADING2.XML",
+      "entry_index": 622,
+      "offset": 1218902135,
+      "stored_size": 3797,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MAINMENU.XML",
+      "entry_index": 2241,
+      "offset": 1218905932,
+      "stored_size": 3468,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARD.XML",
+      "entry_index": 2053,
+      "offset": 1218909400,
+      "stored_size": 10967,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARDBOOT.XML",
+      "entry_index": 2973,
+      "offset": 1218920367,
+      "stored_size": 2239,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARDMAIN.XML",
+      "entry_index": 3507,
+      "offset": 1218922606,
+      "stored_size": 5513,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MRALLYELEVEL.XML",
+      "entry_index": 739,
+      "offset": 1218928119,
+      "stored_size": 2558,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MRALLYESTART.XML",
+      "entry_index": 443,
+      "offset": 1218930677,
+      "stored_size": 1697,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\NAME.XML",
+      "entry_index": 2276,
+      "offset": 1218932374,
+      "stored_size": 589,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\OPTIONS.XML",
+      "entry_index": 864,
+      "offset": 1218932963,
+      "stored_size": 2555,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\PROGRESS.XML",
+      "entry_index": 1573,
+      "offset": 1218935518,
+      "stored_size": 24280,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\PS2CONTROLLEROPTIONS.XML",
+      "entry_index": 1307,
+      "offset": 1218959798,
+      "stored_size": 17308,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKMODESELECT.XML",
+      "entry_index": 233,
+      "offset": 1218977106,
+      "stored_size": 14106,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKMODESELECT2.XML",
+      "entry_index": 3221,
+      "offset": 1218991212,
+      "stored_size": 13025,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKRACE.XML",
+      "entry_index": 1508,
+      "offset": 1219004237,
+      "stored_size": 6543,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKRACE2.XML",
+      "entry_index": 2541,
+      "offset": 1219010780,
+      "stored_size": 6661,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACEDETAILS.XML",
+      "entry_index": 2680,
+      "offset": 1219017441,
+      "stored_size": 6562,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACEDETAILS2.XML",
+      "entry_index": 292,
+      "offset": 1219024003,
+      "stored_size": 8735,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACERESULTS.XML",
+      "entry_index": 1323,
+      "offset": 1219032738,
+      "stored_size": 6346,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACERETRY.XML",
+      "entry_index": 219,
+      "offset": 1219039084,
+      "stored_size": 2239,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACESELECT.XML",
+      "entry_index": 3569,
+      "offset": 1219041323,
+      "stored_size": 6152,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\REPLAYTHEATRE.XML",
+      "entry_index": 581,
+      "offset": 1219047475,
+      "stored_size": 1557,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\SCREENCENTRE.XML",
+      "entry_index": 2357,
+      "offset": 1219049032,
+      "stored_size": 4454,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TITLE.XML",
+      "entry_index": 467,
+      "offset": 1219053486,
+      "stored_size": 2079,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TRAINING.XML",
+      "entry_index": 3199,
+      "offset": 1219055565,
+      "stored_size": 1505,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TROPHY.XML",
+      "entry_index": 1918,
+      "offset": 1219057070,
+      "stored_size": 4769,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESELECT.XML",
+      "entry_index": 2394,
+      "offset": 1219061839,
+      "stored_size": 12031,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP.XML",
+      "entry_index": 2523,
+      "offset": 1219073870,
+      "stored_size": 18504,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP2.XML",
+      "entry_index": 1939,
+      "offset": 1219092374,
+      "stored_size": 18414,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP3.XML",
+      "entry_index": 2562,
+      "offset": 1219110788,
+      "stored_size": 15572,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP4.XML",
+      "entry_index": 3499,
+      "offset": 1219126360,
+      "stored_size": 12278,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\ATTRACTMODE.XML",
+      "entry_index": 1403,
+      "offset": 1219138638,
+      "stored_size": 1341,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML",
+      "entry_index": 3374,
+      "offset": 1219139979,
+      "stored_size": 17005,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML.DISABLED",
+      "entry_index": 2435,
+      "offset": 1219156984,
+      "stored_size": 16844,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\HUD1.XML",
+      "entry_index": 1366,
+      "offset": 1219173828,
+      "stored_size": 18619,
+      "storage_codec": "gz"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\HUDDEBUG.XML",
+      "entry_index": 2096,
+      "offset": 1219192447,
+      "stored_size": 19452,
+      "storage_codec": "gz"
+    }
+  ],
+  "all_psb_paths": [
+    "\\TNG\\DATAPSM\\FONTS\\ARIAL10\\ARIAL10.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\ARIALITALIC\\ARIAL_18.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\ARIALITALIC\\ARIAL_24.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\ARIALITALIC\\ARIAL_30.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\ARIALITALIC\\ARIAL_48_CENTERED.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\ARIAL\\ARIAL_12.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\ARIAL\\ARIAL_16.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\ARIAL\\ARIAL_24.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\FONT10\\FONT_SMALL.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\FONT16\\FONT_LARGE_WHITE.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\MRALLYE\\MRALLYE.PSB",
+    "\\TNG\\DATAPSM\\FONTS\\SILLY\\SILLY.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\ARROWS\\ARROWS.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\BUTTONS\\NEWARROW.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\BUTTONS\\PS2BUTTONS.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\BUTTONS\\SLIDERBUTTON.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\BUTTONS\\TILEDBUTTON.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\BUTTONS\\UPDOWNARROWS.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\FONTS\\FONT18\\FONT18.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\FONTS\\FONT20\\FONT20.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\FONTS\\FONT22\\FONT22.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\FONTS\\FONT48\\ARIAL_48_CENTERED.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\LANGUAGE\\FLAGSHEET.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\LOGO\\BOOTLOGO.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\LOGO\\MASTERLOGO.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\SMALLCARS\\SMALLCARSHEET.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TEST\\BACKDROP.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TILES\\SIMPLEBOX.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TILES\\TEXTBOX.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TILES\\TEXTBOXALPHA.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TILES\\TEXTBOXORANGE.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TITLESCREEN\\BG_TITLE.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TITLESCREEN\\NEWTITLE.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TROPHYICONS\\CHALLENGETROPHYSHEET.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TROPHYICONS\\MRTROPHYSHEET.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TROPHYICONS\\TROPHYSHEET.PSB",
+    "\\TNG\\DATAPSM\\FRONTEND\\NEW\\VEHICLESELECT\\GRADIENTBOXES.PSB",
+    "\\TNG\\DATAPSM\\HUD\\CARDAMAGEBITS.PSB",
+    "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+    "\\TNG\\DATAPSM\\HUD\\HUD-NUMS.PSB",
+    "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL.PSB",
+    "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT.PSB",
+    "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+    "\\TNG\\DATAPSM\\HUD\\HUD.PSB",
+    "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE.PSB",
+    "\\TNG\\DATAPSM\\HUD\\NEWHUD.PSB",
+    "\\TNG\\DATAPSM\\HUD\\PACENOTES.PSB",
+    "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN.PSB",
+    "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYWHITE.PSB",
+    "\\TNG\\DATAPSM\\MISC\\ATTRACT\\MASTERLOGO.PSB",
+    "\\TNG\\DATAPSM\\MISC\\ATTRACT\\SMLOGO.PSB",
+    "\\TNG\\DATAPSM\\MISC\\FADE\\BLOCK16.PSB",
+    "\\TNG\\DATAPSM\\MISC\\FADE\\BLOCK32.PSB",
+    "\\TNG\\DATAPSM\\MISC\\GO\\GO.PSB"
+  ],
+  "xml_reference_audit": [
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\AUDIOOPTIONS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\AUDIOOPTIONS.XML",
+        "offset": 1218849370,
+        "stored_size": 7877,
+        "directory_size_0x08": 7877,
+        "unpacked_size": 46373,
+        "compression": "packfs_lzo",
+        "stored_sha256": "86e308ac6537fde4d2adf8abcfbdab07adf1922fb8b6c36c25812681d2e1cc9e",
+        "payload_sha256": "1a98d3bcedfda2cfc645865c0825940f8110f63113e8bc03ff8cd2f82bbfdc49",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CHALLENGE.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CHALLENGE.XML",
+        "offset": 1218857247,
+        "stored_size": 6027,
+        "directory_size_0x08": 6027,
+        "unpacked_size": 40581,
+        "compression": "packfs_lzo",
+        "stored_sha256": "d53b02ff332ab8ef421881f57669b404b7697fcc1c6ddf623db9a6d789dcae51",
+        "payload_sha256": "da059755938e83e652d6ace915c39e5b66250994bd1016fa0942d3a2b1a51f36",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\COPYRIGHTS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\COPYRIGHTS.XML",
+        "offset": 1218863274,
+        "stored_size": 1982,
+        "directory_size_0x08": 1982,
+        "unpacked_size": 11696,
+        "compression": "packfs_lzo",
+        "stored_sha256": "083dbef436daed45b0c587391229e008230e4e85906e9483d3a85fc7f4c8f30a",
+        "payload_sha256": "20a277deb82a7827f24e11417fbb39127cea6e43588f2dda8f53f4a8ff9638c3",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CREDITS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CREDITS.XML",
+        "offset": 1218865256,
+        "stored_size": 594,
+        "directory_size_0x08": 594,
+        "unpacked_size": 2151,
+        "compression": "packfs_lzo",
+        "stored_sha256": "48d56087a79c01ace41bc015f971dbe3ec0423d50a2400063722ba9c1107c698",
+        "payload_sha256": "2a9ceadd75abe8deb95e2f83aea7d18cccdc3106585cc8c5787406487d4ff340",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CUPSELECT.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CUPSELECT.XML",
+        "offset": 1218865850,
+        "stored_size": 10244,
+        "directory_size_0x08": 10244,
+        "unpacked_size": 72607,
+        "compression": "packfs_lzo",
+        "stored_sha256": "665b849327b14a69fd6df5d8db776f0c4ca7f4979482fcc46a138ae5d2e41463",
+        "payload_sha256": "9bfd27026bf983ec98ba26467a7f713477592cd7939cdfa274cb6c8c1cce3b0d",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMEOPTIONS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMEOPTIONS.XML",
+        "offset": 1218876094,
+        "stored_size": 8573,
+        "directory_size_0x08": 8573,
+        "unpacked_size": 56540,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c5462486b145fa3bf8a3922fd7ba86e6672b6af2d882c86db928d63a53ad63ce",
+        "payload_sha256": "f5644993c0e65223bf2685d11b390ec073668fb46ad9609a76e6267b28a23b5b",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMESELECT.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMESELECT.XML",
+        "offset": 1218884667,
+        "stored_size": 5127,
+        "directory_size_0x08": 5127,
+        "unpacked_size": 33061,
+        "compression": "packfs_lzo",
+        "stored_sha256": "7f54c5126bd5758af8b4820b79651c26e091e1af0364b208e62d2a39a1ff8f06",
+        "payload_sha256": "7090ab4fe97374199f9f1dce111747d27810aea915c49cbca2b5d2bc7cdd5dad",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMESELECT2.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMESELECT2.XML",
+        "offset": 1218889794,
+        "stored_size": 4684,
+        "directory_size_0x08": 4684,
+        "unpacked_size": 28439,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c5cbdfe90430196ab24071a29dc08cd41ca260c74a770ef807455d3e53540cb2",
+        "payload_sha256": "ea64758f98c38eee60abcfff477e5343c799fe4957a1e07b282a86b7442bea91",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LANGUAGE.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LANGUAGE.XML",
+        "offset": 1218894478,
+        "stored_size": 4342,
+        "directory_size_0x08": 4342,
+        "unpacked_size": 27140,
+        "compression": "packfs_lzo",
+        "stored_sha256": "b2c390c779eff556ac5c8cdd71627a92bc7bdf003a7515d385580ddc0881e5c8",
+        "payload_sha256": "8e3336e7304a681e9df19e2405f139497fce2ffb1059fe8a9a68d6864102c6e6",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LOADING.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LOADING.XML",
+        "offset": 1218898820,
+        "stored_size": 3315,
+        "directory_size_0x08": 3315,
+        "unpacked_size": 21366,
+        "compression": "packfs_lzo",
+        "stored_sha256": "6f78d7eb2370f6c7d99697b0df4a3ef0db1b72a2071488b966ded52554dac848",
+        "payload_sha256": "7f4ee907e4fe7943427592e38300f2c77fe31e9b491d4e4d9041c6e40f401353",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LOADING2.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LOADING2.XML",
+        "offset": 1218902135,
+        "stored_size": 3797,
+        "directory_size_0x08": 3797,
+        "unpacked_size": 26463,
+        "compression": "packfs_lzo",
+        "stored_sha256": "0c908760790f93eba623239074c0d368598ba0ba591f38a958f2c4aa86e8fc30",
+        "payload_sha256": "bbccf17c76a8a8cf3cfe5849848b36afcae0d0d3e8a56ce4d1dbd160822aa0f8",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MAINMENU.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MAINMENU.XML",
+        "offset": 1218905932,
+        "stored_size": 3468,
+        "directory_size_0x08": 3468,
+        "unpacked_size": 24040,
+        "compression": "packfs_lzo",
+        "stored_sha256": "45ef2ebc13ac2c5cd31c65af39b8c1133bd7c5fd269429eefe7080c96197c2e0",
+        "payload_sha256": "f152cfdd27b19520c107762267b96425e62dc9360b3f2bd05ff51c96efe5fc69",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARD.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARD.XML",
+        "offset": 1218909400,
+        "stored_size": 10967,
+        "directory_size_0x08": 10967,
+        "unpacked_size": 67195,
+        "compression": "packfs_lzo",
+        "stored_sha256": "4ea6cd3b33979da3e285eb69c613573eae8736c94fedbb7a1269c6af22b699b7",
+        "payload_sha256": "2682a4c2d7f36e34a3c83b0ce9937d4f901312292c0828e7469e845c96777331",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARDBOOT.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARDBOOT.XML",
+        "offset": 1218920367,
+        "stored_size": 2239,
+        "directory_size_0x08": 2239,
+        "unpacked_size": 12794,
+        "compression": "packfs_lzo",
+        "stored_sha256": "5b959da6100816f401d49ed392d8d7055f481e7e5f280046f6b7353071d4a035",
+        "payload_sha256": "ab6ad16b46b1e9322639729ed8fe12a2c5bb6cbf617f07130df890b6f5a098cd",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARDMAIN.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARDMAIN.XML",
+        "offset": 1218922606,
+        "stored_size": 5513,
+        "directory_size_0x08": 5513,
+        "unpacked_size": 36917,
+        "compression": "packfs_lzo",
+        "stored_sha256": "ca3ad00dde8d72219a4f84874e66abc0f7e1ae2e1fc0b714b8a453e4bbce7987",
+        "payload_sha256": "268c1902c2bbe640d0ba4f608fd14e5fcde0f60703cdac706eb5643a77d3cc48",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MRALLYELEVEL.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MRALLYELEVEL.XML",
+        "offset": 1218928119,
+        "stored_size": 2558,
+        "directory_size_0x08": 2558,
+        "unpacked_size": 14351,
+        "compression": "packfs_lzo",
+        "stored_sha256": "59a53532e9a2e4cfeca19e0d4bc26c1db1e302ae3da6336de752e3821a6d4e72",
+        "payload_sha256": "3f23a682d2f92ce19def512c3c17b57646f418a41c5f3fe2023898f179adab75",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MRALLYESTART.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MRALLYESTART.XML",
+        "offset": 1218930677,
+        "stored_size": 1697,
+        "directory_size_0x08": 1697,
+        "unpacked_size": 9671,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e6deb2f61c12571ca1c2c9b1b3ccfea17adfd90ba7fa8283f8b31f7c679ed84b",
+        "payload_sha256": "21ef89abdc91ea31dd524363e839cdc23a8a997cb3f5ed5227f5f6615ca31fbc",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\NAME.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\NAME.XML",
+        "offset": 1218932374,
+        "stored_size": 589,
+        "directory_size_0x08": 589,
+        "unpacked_size": 2142,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e618b14d83540027ecce206219d0ca77edd3bcbfec5ed5bbf46eea4e2d492993",
+        "payload_sha256": "d0c9a11c7996317455a2ef82ebbc73176613043169da263384003b5cc405f087",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\OPTIONS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\OPTIONS.XML",
+        "offset": 1218932963,
+        "stored_size": 2555,
+        "directory_size_0x08": 2555,
+        "unpacked_size": 17125,
+        "compression": "packfs_lzo",
+        "stored_sha256": "b7057189da7526cfee0b55720fef3b991fa2aca7f47b9a157cfc0711ef59d9e1",
+        "payload_sha256": "313ec66db8e9ebbabddeed088a72ce036e1f9186a89351cfb3d28dc75ae69562",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\PROGRESS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\PROGRESS.XML",
+        "offset": 1218935518,
+        "stored_size": 24280,
+        "directory_size_0x08": 24280,
+        "unpacked_size": 187813,
+        "compression": "packfs_lzo",
+        "stored_sha256": "07a999191e043f92d69ca3b875b4278f8944e4eb843875bffe7044476e816963",
+        "payload_sha256": "8b06097c3f1c13916cacca7e3499622da4167fbc3292cb30e39bb5e50d1f9b5b",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\PS2CONTROLLEROPTIONS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\PS2CONTROLLEROPTIONS.XML",
+        "offset": 1218959798,
+        "stored_size": 17308,
+        "directory_size_0x08": 17308,
+        "unpacked_size": 121753,
+        "compression": "packfs_lzo",
+        "stored_sha256": "cbe16898d436bfb53bad1eb7dc93705a62e9021d5e149a37d5ef04988bca073c",
+        "payload_sha256": "4a99bef371ea126a9cf353434661d8093394e9b783d02002b8c769dae0ab1b31",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKMODESELECT.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKMODESELECT.XML",
+        "offset": 1218977106,
+        "stored_size": 14106,
+        "directory_size_0x08": 14106,
+        "unpacked_size": 96483,
+        "compression": "packfs_lzo",
+        "stored_sha256": "818325e90ae23f38694cb107fec30a23743805b4d044683d00d8ef998387043c",
+        "payload_sha256": "63d3107a59873fbbbf40afedc44e3d2fd4d363dde1b84efd166b81351fac565c",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKMODESELECT2.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKMODESELECT2.XML",
+        "offset": 1218991212,
+        "stored_size": 13025,
+        "directory_size_0x08": 13025,
+        "unpacked_size": 83476,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a9812407c1de99da84fa2913f8a961c632c7eedd99415d9fedadf501a78d0105",
+        "payload_sha256": "1025bd0fef8ba2fc4bcd8f1a726a8aeaf879fff119d6000f3c45aed24ddb2044",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKRACE.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKRACE.XML",
+        "offset": 1219004237,
+        "stored_size": 6543,
+        "directory_size_0x08": 6543,
+        "unpacked_size": 45923,
+        "compression": "packfs_lzo",
+        "stored_sha256": "5f8a9a2ab850ad20b255f2482d2dff45864c271c386210be91a1783bfb6b97f0",
+        "payload_sha256": "c063b8bcd41cb34a52a502b8eaecc84f3d0b709c91c1e493f285386264d4ef74",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKRACE2.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKRACE2.XML",
+        "offset": 1219010780,
+        "stored_size": 6661,
+        "directory_size_0x08": 6661,
+        "unpacked_size": 42561,
+        "compression": "packfs_lzo",
+        "stored_sha256": "7bfe6b4a745d0830d3f57859a3be0ee1aab442ced23ba50556b058d16eb5581e",
+        "payload_sha256": "45bbbef69621066906a14c418f437ccc38370b450b378b5371254a852f67cabd",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACEDETAILS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACEDETAILS.XML",
+        "offset": 1219017441,
+        "stored_size": 6562,
+        "directory_size_0x08": 6562,
+        "unpacked_size": 40766,
+        "compression": "packfs_lzo",
+        "stored_sha256": "3df8c0434f74aaa4b782574f9ac9a6aed5ac869295420c33ad621144e3a55357",
+        "payload_sha256": "77330732434ae1dbd88633006f0010e82f680f69a45aa39b73cdfdd1e272676f",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACEDETAILS2.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACEDETAILS2.XML",
+        "offset": 1219024003,
+        "stored_size": 8735,
+        "directory_size_0x08": 8735,
+        "unpacked_size": 53465,
+        "compression": "packfs_lzo",
+        "stored_sha256": "5edf063620151aac3681351fc5b307a6ee611fda09f489cecf4f2fcce038e2b3",
+        "payload_sha256": "cdf90dcd7897ff23c4023c6b7485955335a6232e90a5ee49dc4a8533182831b2",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACERESULTS.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACERESULTS.XML",
+        "offset": 1219032738,
+        "stored_size": 6346,
+        "directory_size_0x08": 6346,
+        "unpacked_size": 43915,
+        "compression": "packfs_lzo",
+        "stored_sha256": "0e1e782dd3f512dfa9aca5483fd814d5ac9e874c842519c4213f998fa46b89a9",
+        "payload_sha256": "6cfdc070b3b03877606bd6e92f0f6788ecb5fb0046b5a8e8a3000c84df1bd2e5",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACERETRY.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACERETRY.XML",
+        "offset": 1219039084,
+        "stored_size": 2239,
+        "directory_size_0x08": 2239,
+        "unpacked_size": 16068,
+        "compression": "packfs_lzo",
+        "stored_sha256": "4bc3809a4ea08810c006a658cd34cc369a4bccc3394f2090020a60bf61a5607a",
+        "payload_sha256": "9cccca31749c0e0d3fc409d52c609a48b4988ba43b7df82a9b052f01dbe0cdd8",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACESELECT.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACESELECT.XML",
+        "offset": 1219041323,
+        "stored_size": 6152,
+        "directory_size_0x08": 6152,
+        "unpacked_size": 41359,
+        "compression": "packfs_lzo",
+        "stored_sha256": "19039d06883a97ad76d631ba639835b9eed86459feb01132d86679eb1cb6fa69",
+        "payload_sha256": "0060a704ca579956dafd32c886492992e73dab176a51d5b19e07c9c4fb4e8764",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\REPLAYTHEATRE.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\REPLAYTHEATRE.XML",
+        "offset": 1219047475,
+        "stored_size": 1557,
+        "directory_size_0x08": 1557,
+        "unpacked_size": 9112,
+        "compression": "packfs_lzo",
+        "stored_sha256": "566ff10a01ab45c4b1215a7c834be8ee3f7076ca8589e200eaa1d6858c4b9ec3",
+        "payload_sha256": "e9015fa991d306ea4c40077315b946c93b68b0f734e383fa134de1b10e246d96",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\SCREENCENTRE.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\SCREENCENTRE.XML",
+        "offset": 1219049032,
+        "stored_size": 4454,
+        "directory_size_0x08": 4454,
+        "unpacked_size": 30831,
+        "compression": "packfs_lzo",
+        "stored_sha256": "ad8ba5ba0625a4eb1170d62deefba23a709e38d772e91fa08ecf41a91d2709eb",
+        "payload_sha256": "6527874376cd32b31ea924e9942666d7c5253a84c5faf90bb0a4a49599bd12bb",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TITLE.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TITLE.XML",
+        "offset": 1219053486,
+        "stored_size": 2079,
+        "directory_size_0x08": 2079,
+        "unpacked_size": 10795,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c0f91d08fdca0d843877186963535697eb94e46723d3f56bf15deb448769ef90",
+        "payload_sha256": "372edd586015b4e62727094f3ed512d384cd9422b07d3d10b64cf22be13864a4",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TRAINING.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TRAINING.XML",
+        "offset": 1219055565,
+        "stored_size": 1505,
+        "directory_size_0x08": 1505,
+        "unpacked_size": 9244,
+        "compression": "packfs_lzo",
+        "stored_sha256": "44818880b44e4bf148f45962da9b46e07dbbdb5f8e992634cf0c2c62b0380bb7",
+        "payload_sha256": "cd786d945910f0ba0c664fbb1b246a0e8f139d119fe821c5974600968ecee055",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TROPHY.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TROPHY.XML",
+        "offset": 1219057070,
+        "stored_size": 4769,
+        "directory_size_0x08": 4769,
+        "unpacked_size": 30802,
+        "compression": "packfs_lzo",
+        "stored_sha256": "fb6f12a7bedaddf9355530948195e20c2b1145e1fbbe1b96b61155b3928e87ac",
+        "payload_sha256": "5d54b306a08f7c460ff198cb681e856f5eecc8eebea7256f888486191239e36b",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESELECT.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESELECT.XML",
+        "offset": 1219061839,
+        "stored_size": 12031,
+        "directory_size_0x08": 12031,
+        "unpacked_size": 79535,
+        "compression": "packfs_lzo",
+        "stored_sha256": "92187b16e5dc0f882853515852cbc0024093f7326137fe924a0e936b957fd525",
+        "payload_sha256": "ef10d6c8131126c40f96860b455344c795ce7c464aa4fb13726529f3fd3e64e0",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP.XML",
+        "offset": 1219073870,
+        "stored_size": 18504,
+        "directory_size_0x08": 18504,
+        "unpacked_size": 112800,
+        "compression": "packfs_lzo",
+        "stored_sha256": "48fe065174f5718de18aa5681ee18603cdf03c63b6e6207e84f8592411f0edee",
+        "payload_sha256": "1eb9d0e1da752ae95710fa9492c964e5e3cb4e9c2a7a3abfd1f09a03ef46eae7",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP2.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP2.XML",
+        "offset": 1219092374,
+        "stored_size": 18414,
+        "directory_size_0x08": 18414,
+        "unpacked_size": 112773,
+        "compression": "packfs_lzo",
+        "stored_sha256": "8941ca2d68443e6b285e66b7da1c4713b4a36320102bd55f27e1650f2cb52abc",
+        "payload_sha256": "d8cdab8541b72c9e985aeb7079c7f05c9d183e9299f2e83fd147d2fa4fa54dfb",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP3.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP3.XML",
+        "offset": 1219110788,
+        "stored_size": 15572,
+        "directory_size_0x08": 15572,
+        "unpacked_size": 93898,
+        "compression": "packfs_lzo",
+        "stored_sha256": "4fff938cf2bd70e7b3a5bf21c474d1f2711952c296d79451c5a0f5046e618890",
+        "payload_sha256": "ab7298ced0c48880b3a3b0d3c15ab27d7e7827e7a8761510fd76ee5ec5a122ac",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP4.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP4.XML",
+        "offset": 1219126360,
+        "stored_size": 12278,
+        "directory_size_0x08": 12278,
+        "unpacked_size": 78768,
+        "compression": "packfs_lzo",
+        "stored_sha256": "dec96cd7783abcc8019b455e2f088f71028e49e514a9808fb6ff38a6136ed9b7",
+        "payload_sha256": "30b7b73fdc9b48ba1a338ab31911b322b20c611734faeb1ac47c34945da28157",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\HUD\\ATTRACTMODE.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\HUD\\ATTRACTMODE.XML",
+        "offset": 1219138638,
+        "stored_size": 1341,
+        "directory_size_0x08": 1341,
+        "unpacked_size": 9147,
+        "compression": "packfs_lzo",
+        "stored_sha256": "2067b4ed1a67e1a426a357ec905ea15cf36388e5c37f2bbf2a2d07faabe098c6",
+        "payload_sha256": "28c57d6ea51bb449e118063fb266df29f91fee82a8e005065c7a0b028b4228fb",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "TEXT_XML",
+        "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML",
+        "offset": 1219139979,
+        "stored_size": 17005,
+        "directory_size_0x08": 17005,
+        "unpacked_size": 133513,
+        "compression": "packfs_lzo",
+        "stored_sha256": "60ac6959070fa7ae385b1a4357e81f56fffa22ba35b86c3f8fab86390c67f6c2",
+        "payload_sha256": "faa90792c53b9fd29d122a94ff6212deb8bbe5c13b9555b4c6659589dd720ae9",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "TEXT_XML",
+        "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML.DISABLED",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML.DISABLED",
+        "offset": 1219156984,
+        "stored_size": 16844,
+        "directory_size_0x08": 16844,
+        "unpacked_size": 130886,
+        "compression": "packfs_lzo",
+        "stored_sha256": "ffcc64e2c8e48fc591f4897b615b391977200143e27f53a167262f1aab30bcf9",
+        "payload_sha256": "3557c5f229cc28a08df242f65a469be7f0ec17c31f549d874e42e9aaad393464",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "TEXT_XML",
+        "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\HUD\\HUD1.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\HUD\\HUD1.XML",
+        "offset": 1219173828,
+        "stored_size": 18619,
+        "directory_size_0x08": 18619,
+        "unpacked_size": 136177,
+        "compression": "packfs_lzo",
+        "stored_sha256": "71382abe74e214fc985ebededd7bb1b2b74b4c0797ddf854860ba7d21fb28082",
+        "payload_sha256": "99726077918828cd48eb0b00b499e7c8b4ca2c319fcdbfeb759e5ddcb86e601d",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "TEXT_XML",
+        "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    },
+    {
+      "logical_path": "\\TNG\\DATASCENE\\HUD\\HUDDEBUG.XML",
+      "provenance": {
+        "path": "\\TNG\\DATASCENE\\HUD\\HUDDEBUG.XML",
+        "offset": 1219192447,
+        "stored_size": 19452,
+        "directory_size_0x08": 19452,
+        "unpacked_size": 150084,
+        "compression": "packfs_lzo",
+        "stored_sha256": "708b4f4186f75fa7047c4a3477f2c3e3629e6665ed8702c6602227a119636262",
+        "payload_sha256": "ed3c64585abf89172f0fc3826294662e650deaa8a6b176f3a3811557b4adbcd2",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "TEXT_XML",
+        "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "format": "TEXT_XML",
+      "map128striped_references": []
+    }
+  ]
+}

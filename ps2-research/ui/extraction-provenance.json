@@ -1,0 +1,1959 @@
+{
+  "schema_version": 1,
+  "input_provenance": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "scope": "targeted HUD assets, HUD XML, and eight bonus/map textures",
+  "entries": [
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ENVSOURCE64X64.GXI",
+      "offset": 1036874990,
+      "stored_size": 10660,
+      "directory_size_0x08": 10660,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e5c53cf4f958c19d00d13eb971d2964e5031956456e02ea9a97fa40e7d4e38dd",
+      "payload_sha256": "aa15159a5f3f668244dd3b1c5c7b8322d8f41ac626c3a1741222b797252ad1e4",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MAP128STRIPED1-TGA.GXI",
+      "offset": 1037649919,
+      "stored_size": 15931,
+      "directory_size_0x08": 15931,
+      "unpacked_size": 65544,
+      "compression": "packfs_lzo",
+      "stored_sha256": "b2ee221e52257ad6fda7f2c9d17ce6d7beb2ab1053bc891c523a46e7c97db117",
+      "payload_sha256": "b4860e261664f9982327efaead5319f37e0a0e40502edbeec8c5eaede92a078b",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 128,
+        "height": 128,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RENDERTARGET64X64.GXI",
+      "offset": 1038239869,
+      "stored_size": 14124,
+      "directory_size_0x08": 14124,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "580cbf59795825feaa8735952e0a2882193dd44b8e23deadb0d58f1c46c18c46",
+      "payload_sha256": "84e84c0f338b6f351ef769c310c96c799c3a37f5b03d7c67bcecf50fef6652cc",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\STATICRENDERTARGET64X64.GXI",
+      "offset": 1038500358,
+      "stored_size": 15870,
+      "directory_size_0x08": 15870,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "101194d746bd4f9ea646718c24cfb930cade986c3a2a2bf2d2f17d901413e1b7",
+      "payload_sha256": "1bd7cc22a8bbfc27ca5781382b66201b45a701f2818d49af49697307c5846f67",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERSURFACE2.GXI",
+      "offset": 1038857243,
+      "stored_size": 16175,
+      "directory_size_0x08": 16175,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e1db176b26ddc4c176493f5fe21e272ad34c97b5dad7148237b17d009a747608",
+      "payload_sha256": "5ae7ed990a251e8960b5e0fe4c71aaff8e8571345795b04b7d9e70df1dbe9e83",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN-REFLECT.GXI",
+      "offset": 1038886458,
+      "stored_size": 3318,
+      "directory_size_0x08": 3318,
+      "unpacked_size": 4104,
+      "compression": "packfs_lzo",
+      "stored_sha256": "090ba7c5750aba1b4a4602ec49b510fc473fc153fb81421467d109db1c2d6a2d",
+      "payload_sha256": "ff3317403995248fd5c2dfe46aa3e4ef7bf7ea877070bdc0c92843c8c3e4cd54",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 32,
+        "height": 32,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\CARDAMAGEBITS.PSB",
+      "offset": 1209453381,
+      "stored_size": 781,
+      "directory_size_0x08": 781,
+      "unpacked_size": 1982,
+      "compression": "packfs_lzo",
+      "stored_sha256": "8638c6424e7d62ec0fd0889e6a1875e98ee797bd58d3487e6f20f24633166fe9",
+      "payload_sha256": "7fbb46cc7d28e316e7481b4e67a5860b06cc2b9fa9489c7bb40e6d7136e1e3fa",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\CARDAMAGEBITS_000.GXI",
+      "offset": 1209454162,
+      "stored_size": 1050,
+      "directory_size_0x08": 1050,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "8a64f8028932ae6e15db5d8342a46c5541f115773dafb444566a9555c745e4dd",
+      "payload_sha256": "9d0915ae307cf16a13e5dbd1a56342c481ffe5880f3e9703858ae24bb5373755",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "offset": 1209455212,
+      "stored_size": 448,
+      "directory_size_0x08": 448,
+      "unpacked_size": 1072,
+      "compression": "packfs_lzo",
+      "stored_sha256": "59755f51035c8278c397a59d7c816ee1f5e44d780f1c85a669d2f9f56974aeb9",
+      "payload_sha256": "84adc1ad91f5970a83b9a0367ed7ee2bc5a2022c2af4446efd929d0211c72d68",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE_000.GXI",
+      "offset": 1209455660,
+      "stored_size": 6142,
+      "directory_size_0x08": 6142,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "1008453877a754dfa7c108063ad209a32f920647f57043f5d3010f6278dfc9c6",
+      "payload_sha256": "1b11baddf6e0d414cad52f485ac79a9be1841ea012d964267381d6228c2820c6",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE_001.GXI",
+      "offset": 1209461802,
+      "stored_size": 3781,
+      "directory_size_0x08": 3781,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "3445a0768a3e21793711409bf298aa1f8292c85e5ee5f902616d6bdfaf15391a",
+      "payload_sha256": "cb58cda5f89fdeb98958b6b6e5375489ebc81a32048dd586a13cf930e965ca45",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS.PSB",
+      "offset": 1209465583,
+      "stored_size": 1005,
+      "directory_size_0x08": 1005,
+      "unpacked_size": 2656,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ee9814e6b2ad0b34e54dc5108230d4abd82af9a457362e7dea84171bb08dafed",
+      "payload_sha256": "f68b7d81d2a6c41031604cdfb745e33d105b5f85d0b5b50833269cc358256ee4",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL.PSB",
+      "offset": 1209466588,
+      "stored_size": 878,
+      "directory_size_0x08": 878,
+      "unpacked_size": 2414,
+      "compression": "packfs_lzo",
+      "stored_sha256": "2167ed4b04a74ed38d3634374751a167240e497d549ffa20829579dbd4f38d7b",
+      "payload_sha256": "95dc39ca6dc34629d33b29abfde638a76f588b245c7e926ff41dd3d1dd909395",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL_000.GXI",
+      "offset": 1209467466,
+      "stored_size": 4685,
+      "directory_size_0x08": 4685,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e447635cc17211b0cab344bc3465310b16724cc9398e1b8f6bee48b55f6ee219",
+      "payload_sha256": "8f01c5798f0acc12e8c5bca606cb5a09afc17f11440083294be43ab1bfb714e8",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL_001.GXI",
+      "offset": 1209472151,
+      "stored_size": 2537,
+      "directory_size_0x08": 2537,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "7a0ad3becd7a5e654802c6df8e7f9afce0a54b945d3b6ca531a216b9293606bd",
+      "payload_sha256": "66d2f8db9508645c0b9af919488b395d8a8f1891d314043aff179caefdb2f367",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_000.GXI",
+      "offset": 1209474688,
+      "stored_size": 3095,
+      "directory_size_0x08": 3095,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "57b2dd941220a6c938d685e9eb8cc5a8198f822394b72a0789d81d14454b0d6c",
+      "payload_sha256": "1c942e3f9f7f4b48b3b7d9d6b848d711b9525f471657e535d686f5bf3696961f",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_001.GXI",
+      "offset": 1209477783,
+      "stored_size": 3229,
+      "directory_size_0x08": 3229,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "007e4f798ffa82d218a8882408fa0e868568ca94933c9810691ca79e8480fe02",
+      "payload_sha256": "fc4113ed76507a37125f40f450fa40e7547e90508b1bad148facaa06fa1c2f24",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_002.GXI",
+      "offset": 1209481012,
+      "stored_size": 844,
+      "directory_size_0x08": 844,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "7ee87fa0bb17bc31ac50020c101e3b7c307467d3133cf745a049a2ca6ea4bece",
+      "payload_sha256": "cdcf21b16eed34c065999954278a23d4f3520cc2f07238ab55bb307a9071cbdd",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT.PSB",
+      "offset": 1209481856,
+      "stored_size": 1108,
+      "directory_size_0x08": 1108,
+      "unpacked_size": 2902,
+      "compression": "packfs_lzo",
+      "stored_sha256": "c519f2a200c72d26326d153d46f557f271646ae77183024a5d66c0b5e40e6a65",
+      "payload_sha256": "cb9967b911ea8b462610dc0b6dc1fe29fcbb7b4b93b47ac3b739a135435982e1",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_000.GXI",
+      "offset": 1209482964,
+      "stored_size": 12010,
+      "directory_size_0x08": 12010,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "086c49fcde8d9890bd91af47fdb31405a6364f74af084484bd6cae2817bbd7bf",
+      "payload_sha256": "07b7e36a6df97450acf5bc4df8c9377659c2eb88c2b7e6f139285a3ef455c678",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_001.GXI",
+      "offset": 1209494974,
+      "stored_size": 9203,
+      "directory_size_0x08": 9203,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "b52705600e91367512fab548ed8e7acd11947b5625433979348288a753d6220b",
+      "payload_sha256": "750af55c5a6612f9ec4048727846536b59e99cf41c240d999292140356c18f6e",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_002.GXI",
+      "offset": 1209504177,
+      "stored_size": 6044,
+      "directory_size_0x08": 6044,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "8893154daa6227af7ae7036f5bd9b434f89ed872d435bd252d4846c16b626cf6",
+      "payload_sha256": "acc7bec231ede26424f6fd3aa7298f52beda75ee0e435f386f284aa469d35046",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_003.GXI",
+      "offset": 1209510221,
+      "stored_size": 7387,
+      "directory_size_0x08": 7387,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ba76317ac54251e6c228a31693cc4fcb62d4c25a43825a46dfd4a128b7cc420a",
+      "payload_sha256": "39c0e074e2b74ce62ebbcf25feb301ca6bf4cd9f82bc957fdb39fc45f7c5a421",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_004.GXI",
+      "offset": 1209517608,
+      "stored_size": 4946,
+      "directory_size_0x08": 4946,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "9ed7bf3951ec86b9aea4448a247078a22fad4e30e5f555e707c68ead49f64c44",
+      "payload_sha256": "ea5e5d45db37af5a22a89ea0ec25c59cc02f491714122bb817be01a8e85e9dac",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_005.GXI",
+      "offset": 1209522554,
+      "stored_size": 2901,
+      "directory_size_0x08": 2901,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "8fdb9e6312c7b7a6a8bb489ecbd0e5c40547e5503a6ccc81d65e90d5e89e4570",
+      "payload_sha256": "c14a9759d98c2cf35e3829011d8594da9b42eb85c209d38e5bf3050cb40c7e7c",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "offset": 1209525455,
+      "stored_size": 1095,
+      "directory_size_0x08": 1095,
+      "unpacked_size": 3004,
+      "compression": "packfs_lzo",
+      "stored_sha256": "5fd880d6a947af39678ee7ce5af1263cbbad4b1047d4800cb17bdf79cd8ed4f5",
+      "payload_sha256": "c36f89c2978a98a4e3e3e4ce64204ff9cd52c3f9a81c5891cb9268859e172f9b",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_000.GXI",
+      "offset": 1209526550,
+      "stored_size": 10862,
+      "directory_size_0x08": 10862,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "53e175571847688cd2c21e8dca668549d45d687a755b19a90d3020ac88d9a9c8",
+      "payload_sha256": "79895bdb8b7f5a286fc83e281a8f0d947b3edd3a7aaa4eafc70a48bf44269849",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_001.GXI",
+      "offset": 1209537412,
+      "stored_size": 5145,
+      "directory_size_0x08": 5145,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "decce0725d0c3f1b9a7ed02c156214aa605e03a742eaf9e05659e8cf63cafbd3",
+      "payload_sha256": "7c13b266f093d34e120ed8f968089991fdf8bcfa1ed20219baa115c7c2866174",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_002.GXI",
+      "offset": 1209542557,
+      "stored_size": 7281,
+      "directory_size_0x08": 7281,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e61beb55c2519fc2f3c9d2f2204b7668da7b29fe7865f38291a0b952c3f7c74c",
+      "payload_sha256": "4e4098e5b0c61aa0438138c1fa0592d302dc61485f203d89805690ed4b0e0f6b",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_003.GXI",
+      "offset": 1209549838,
+      "stored_size": 8306,
+      "directory_size_0x08": 8306,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "1be85d5682c9eb6e1b83825f5b4a8255b0a5945b715dc7d5919a00c2ba353417",
+      "payload_sha256": "be80406032fd64bfa0ee57ad6afd2b9126a0cb850c2e6ec99c8fa37454b82831",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_004.GXI",
+      "offset": 1209558144,
+      "stored_size": 7779,
+      "directory_size_0x08": 7779,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "32228fe5916cf7addf1fae5d65114eda1b235d4fdb790794020d8124778b8677",
+      "payload_sha256": "44234b829d1850f9a440d04632d10eff3ef7eabf4cdb01012c41935236d2923b",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_005.GXI",
+      "offset": 1209565923,
+      "stored_size": 9251,
+      "directory_size_0x08": 9251,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "6fb78fff3a8a17a4199d29a0b3056ce6bc0eced0423b2eda12231a3565a10bb8",
+      "payload_sha256": "e6007b179fce229a0750302d086654d5f3138c1eb4590d2edf9a8632e20bc20f",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_006.GXI",
+      "offset": 1209575174,
+      "stored_size": 8517,
+      "directory_size_0x08": 8517,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "8f06f1f09ed6f8505610bc6c97dee0b0d466649bc2d9feb0903fae1a65499a83",
+      "payload_sha256": "8c85f21a048d724e8a6d406e86b0537f66cffb9803e33ca70dfad3c15701d9bd",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_007.GXI",
+      "offset": 1209583691,
+      "stored_size": 2698,
+      "directory_size_0x08": 2698,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "20a4bc5c61bc5c61aacd698bf090b635db887fe44d5226eea4d92226b5529711",
+      "payload_sha256": "3e810c40f9ce7ba937c908b3e642a27398367448e9f737b8af87543f8a3385ab",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD.PSB",
+      "offset": 1209586389,
+      "stored_size": 937,
+      "directory_size_0x08": 937,
+      "unpacked_size": 2446,
+      "compression": "packfs_lzo",
+      "stored_sha256": "aea399374c5dd9c9f2847f55b785b8b767f0cc606b33b22e8ef8aa762cd0830f",
+      "payload_sha256": "cc5bef3383167e79e6342a9ec829f574ce91619711c1546d9c2a30c2de75130e",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_000.GXI",
+      "offset": 1209587326,
+      "stored_size": 9879,
+      "directory_size_0x08": 9879,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "5a9b29f1dad9c438fd2cba59f1e6d20832ebd61205a9cee78ceb8c61df59b285",
+      "payload_sha256": "06e03fec85c2945b76b6038086f31095cd433cc5cbddf6a99065b844efa33b04",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_001.GXI",
+      "offset": 1209597205,
+      "stored_size": 4666,
+      "directory_size_0x08": 4666,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ac5bcc201dd7be5c0e5bb4cb82c05fdd8ea6ee5668aae8e2a0feda17d95b48d0",
+      "payload_sha256": "11a9ca1c4f96c39b2b262f0821e8e78fa84531f391c72304ff2d43f588d9441a",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_002.GXI",
+      "offset": 1209601871,
+      "stored_size": 7180,
+      "directory_size_0x08": 7180,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "23f56c57e6234e16cee6249f789f04751a0509030ee7cebed591ddd8ed0698b9",
+      "payload_sha256": "2795595af178c134c99514d0ec184d1d55a2569109d9e18a15459ef18ac1db90",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_003.GXI",
+      "offset": 1209609051,
+      "stored_size": 8494,
+      "directory_size_0x08": 8494,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "1f9fe1eeec968578fb64a847c1cc470bf0b0cdc64db46c3a3b5eaab5f1cfa5c6",
+      "payload_sha256": "78f9990211ad35a5f6f44f15b879b1f104cab13c82bccc8620d73a6ad2ac557f",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_004.GXI",
+      "offset": 1209617545,
+      "stored_size": 8179,
+      "directory_size_0x08": 8179,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "19838c6f337e9a26ca6731cc3d594f7d46b35b1abed2181b98f2742f0814f3a9",
+      "payload_sha256": "7a58d4a3fdd9f761864c26397268e158b6865847f7a8965fdaa4ea9b003e7e51",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_005.GXI",
+      "offset": 1209625724,
+      "stored_size": 9047,
+      "directory_size_0x08": 9047,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "7f763c0836796f26b3948f4c3286092d2a3cee6cdc27d57ae2174a48a175b8de",
+      "payload_sha256": "f46d25a8e276a0209b2063d6cdec01e410eebbfc4d5e633f9155d8a7801265de",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_006.GXI",
+      "offset": 1209634771,
+      "stored_size": 7670,
+      "directory_size_0x08": 7670,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "68b4bd94c990820ad22b72560d2b1bde565130eae90593d1384d9d9ad0ff117f",
+      "payload_sha256": "70b96ce0a530624a1dc381f5f63c724fd1faaca3b6380192acd708ef7724472a",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD_007.GXI",
+      "offset": 1209642441,
+      "stored_size": 487,
+      "directory_size_0x08": 487,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "72a96d1509ae0e3729de942fe1437c1a8a2d592c19a17f265aec84f945ccbf5b",
+      "payload_sha256": "62f108081c3e1cc09f037468402c29da6df32be8dfd5c31194aa08dbd316e8ad",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE.PSB",
+      "offset": 1209642928,
+      "stored_size": 1582,
+      "directory_size_0x08": 1582,
+      "unpacked_size": 4714,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ea56b724dd9c244e9279a7fd1b526c029405b70b54ac01f303519676d5d226dc",
+      "payload_sha256": "ec66ebc89de99e14aea1b778850462433182b81c8a8001ee0c12971190ff89ba",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_000.GXI",
+      "offset": 1209644510,
+      "stored_size": 9791,
+      "directory_size_0x08": 9791,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e77a388361f8187c1750eaa16d4890bd3d742656a45a5cdc2f45398f7d2b2f8c",
+      "payload_sha256": "1ae543d843143f379ac0f355185efa1b95097bd31d0bbb626a9da2f0f679554c",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_001.GXI",
+      "offset": 1209654301,
+      "stored_size": 4673,
+      "directory_size_0x08": 4673,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "fba2e5056b16af4b6f6791774f4cb5b26fe3b8cc6809b04c2102129b78595462",
+      "payload_sha256": "11a9ca1c4f96c39b2b262f0821e8e78fa84531f391c72304ff2d43f588d9441a",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_002.GXI",
+      "offset": 1209658974,
+      "stored_size": 7221,
+      "directory_size_0x08": 7221,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "aef83cb779e2c85e42264dbc5ef1b552e7b52e7e88a231ca52f69811488286f3",
+      "payload_sha256": "2795595af178c134c99514d0ec184d1d55a2569109d9e18a15459ef18ac1db90",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_003.GXI",
+      "offset": 1209666195,
+      "stored_size": 8499,
+      "directory_size_0x08": 8499,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "c83a376edd2d43d7a1bc200cbb2c9228acbb86a262b830e3a189ae5c2051cb3c",
+      "payload_sha256": "78f9990211ad35a5f6f44f15b879b1f104cab13c82bccc8620d73a6ad2ac557f",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_004.GXI",
+      "offset": 1209674694,
+      "stored_size": 8195,
+      "directory_size_0x08": 8195,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "dee6da19d380c6a76e39188da0772b0e73849a3e3c039f2dfaf925271b07acd4",
+      "payload_sha256": "7a58d4a3fdd9f761864c26397268e158b6865847f7a8965fdaa4ea9b003e7e51",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_005.GXI",
+      "offset": 1209682889,
+      "stored_size": 1660,
+      "directory_size_0x08": 1660,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "b83001862265399377e6495c2946dda7b76a8718e844350c0c3b0931ceb21491",
+      "payload_sha256": "49623dc9678f90a7d179275f5acc74ebb105fe6742a03e7b79b4ccffdc6b0071",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_006.GXI",
+      "offset": 1209684549,
+      "stored_size": 7610,
+      "directory_size_0x08": 7610,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "a37c12316132c1a36e1fcce38b49bb5ec90270bd4f942509af70ad40f042659f",
+      "payload_sha256": "89aad42eeb1ea503875e8e245409339e45362a74caf18c98ea498d4160d5caa9",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_007.GXI",
+      "offset": 1209692159,
+      "stored_size": 7848,
+      "directory_size_0x08": 7848,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "4c992e829688dc1ddc1292ea30d451abfdd1e3743e6dc2a7e68828d47a8e7174",
+      "payload_sha256": "b65df364c64712c1730e6fce89bfb453702147c3943d8bb00e023c325a1c474b",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_008.GXI",
+      "offset": 1209700007,
+      "stored_size": 1309,
+      "directory_size_0x08": 1309,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "6859116ac99b8da858bcdb060c399801b14c21cc488468d7fb6e015767bdf5f1",
+      "payload_sha256": "2910d768d7c0ce7de7eb89e5115668caf0e3cf916db3864cbdb04706ab57e56c",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_009.GXI",
+      "offset": 1209701316,
+      "stored_size": 2642,
+      "directory_size_0x08": 2642,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "8996a234497518a315f3cd2daec31af66a4b179e7dde621271d59b87c785c7f6",
+      "payload_sha256": "1dec0480fe611a9a2e750757d5cbe719f131da83e0b2e4fe3844fa2aa02960be",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD.PSB",
+      "offset": 1209703958,
+      "stored_size": 4212,
+      "directory_size_0x08": 4212,
+      "unpacked_size": 11768,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e2111b31889aa2d5af56045b6ef69efb51cee9f4405515f294472b9360525c59",
+      "payload_sha256": "131a5be359ea620182c244b99fe97e47279ef33d425f9a9791c86663dd0d648d",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_000.GXI",
+      "offset": 1209708170,
+      "stored_size": 9856,
+      "directory_size_0x08": 9856,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "017b76922c4321b7f0250fea12b4b4d62ac43dfbf4ed014cadd5743028a07ecc",
+      "payload_sha256": "427860e0df9c2431d279dd115ff15d0f2f0d15aad3f1a6d074aebff445fa655a",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_001.GXI",
+      "offset": 1209718026,
+      "stored_size": 4909,
+      "directory_size_0x08": 4909,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "001c3fa718eaca8763f1ce9aadeed4c3d3ae3c862c903ea2ba53de2942abb811",
+      "payload_sha256": "67e9728a5292ad13ea4a9c70de550a488a42e7df60023d9f3318f01f6fee8e55",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_002.GXI",
+      "offset": 1209722935,
+      "stored_size": 7009,
+      "directory_size_0x08": 7009,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "cb83b303767f5367d3507d8c17295ef08832ed77810b5e9b208a70ae267c9049",
+      "payload_sha256": "4e35d11240fa6b9ea405ed922ae8d86c9546ad48c90fcdc1722386ee4bd002f2",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_003.GXI",
+      "offset": 1209729944,
+      "stored_size": 8250,
+      "directory_size_0x08": 8250,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "2ccd4452bf49dc0e738e373680098c7dda523cda3f21b70e40c352d14c7c7a3f",
+      "payload_sha256": "67d436918ea6224a6ffee82df49f1ceb13a5d7be4a680d2c340bd791a8c9ff13",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_004.GXI",
+      "offset": 1209738194,
+      "stored_size": 7620,
+      "directory_size_0x08": 7620,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "4b5dfbe0e9bd6027e7aa541c2b326bec7057031512502721b872e4b7e93a8df8",
+      "payload_sha256": "900048d031f3782d3f3ae83560b67a3c762dc90c66348fcc7e0d0f537b8093f4",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_005.GXI",
+      "offset": 1209745814,
+      "stored_size": 6939,
+      "directory_size_0x08": 6939,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "8aa6ea2fb445b6fe49ef2acbd17029ef07f1b722a13e34710504239f63767aca",
+      "payload_sha256": "2eb3343a890dbd8c61a34bac429f36db71ed0ed3baa2b5dc11351bb0504f1824",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_006.GXI",
+      "offset": 1209752753,
+      "stored_size": 6217,
+      "directory_size_0x08": 6217,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "47b9a0e149e3888a4a1a5eba5bff551e14aa7a0533bf0757c9041cd41def247b",
+      "payload_sha256": "140b44911a88ad797bccc34f76666677b464e2e9eec1927bf198ef58510f9221",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_007.GXI",
+      "offset": 1209758970,
+      "stored_size": 3083,
+      "directory_size_0x08": 3083,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e18561172533bdeb0505946ad437c5b051f20961e51a6dfdbd9a99db86ccb1f6",
+      "payload_sha256": "a7248774d55cc0f1a47f0b404b69032f3c172272281cee069c9ea1e09400be0a",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_008.GXI",
+      "offset": 1209762053,
+      "stored_size": 5272,
+      "directory_size_0x08": 5272,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "006c4ad5d7a5dee6de610da837ee8bfe3a3a0e26b87446bcdfa68a6a1c7c9d00",
+      "payload_sha256": "d33213a5afdb2768dce4fb9481c281c5d51e76259979c1fdb3caf40aab4919bf",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_009.GXI",
+      "offset": 1209767325,
+      "stored_size": 7952,
+      "directory_size_0x08": 7952,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "9b2ec9910eced3ad478cef5348ffe50dad6142063b2042db351f287fa2bbe6e7",
+      "payload_sha256": "53cbb12e1ebed53d47ef9c61d443b010adc042c83741faf09b59ece3b0b56593",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_010.GXI",
+      "offset": 1209775277,
+      "stored_size": 6315,
+      "directory_size_0x08": 6315,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ae793ee55c48774efc98a8dc23bac58cfd95463e359836cc8908e94b89cfb87e",
+      "payload_sha256": "642f39b8efa57b5dc0e5400909c7d0f965c1be8055192a68b94e663a0b45ec98",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_011.GXI",
+      "offset": 1209781592,
+      "stored_size": 4995,
+      "directory_size_0x08": 4995,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "6a5a24234bef87d99f5a20689e81d31653c8e36a2e44f946ce4153907d8a53ce",
+      "payload_sha256": "2cd49af7fe558d9384c8e8146ee193c9d5c176a5fa5d4e08795db906eb3a8bfc",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_012.GXI",
+      "offset": 1209786587,
+      "stored_size": 3481,
+      "directory_size_0x08": 3481,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "28c4aba4fbbdf7a33666329401e527790a185fc23b051aa7a303471f7ffd60f9",
+      "payload_sha256": "2372e5455def75957ec0a57fe11b6421c19403bebc4aaed073daf172ab884995",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_013.GXI",
+      "offset": 1209790068,
+      "stored_size": 3626,
+      "directory_size_0x08": 3626,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "23909fe738aaf8ecc43c29647838b130e5215aab5756ca4b81dfa082772c6318",
+      "payload_sha256": "c254df4158ec6224e58b0f7447bde05c3c186953620159f9671c3493c0221d0d",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_014.GXI",
+      "offset": 1209793694,
+      "stored_size": 1773,
+      "directory_size_0x08": 1773,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "f12d13e86a7e2aa1336f58c57209ea3f003d51a1dbbeceb618d6f1cce188f960",
+      "payload_sha256": "48107fab3876d4597055183afdb5ef18db4e37f4881aa6ed305575555e3cb4b8",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES.PSB",
+      "offset": 1209795467,
+      "stored_size": 485,
+      "directory_size_0x08": 485,
+      "unpacked_size": 4192,
+      "compression": "packfs_lzo",
+      "stored_sha256": "d41d2d9e11f4cd0e873e98daa0254865ea872bd3746ccfd5867d14f02085bfd5",
+      "payload_sha256": "35fb0d8121634775be768366dfb61f9f453479fe86181684eba77a076d1807e7",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PS2_PSB_F001_125",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_000.GXI",
+      "offset": 1209795952,
+      "stored_size": 3503,
+      "directory_size_0x08": 3503,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "c7635ccf309911259f736b6b2f710e1d68af167be396c3fef00f6d84f357d553",
+      "payload_sha256": "79e971c08f332223eda3f6f6101604c0d77077e018ce3cfd3e7f15af7d474ad3",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_001.GXI",
+      "offset": 1209799455,
+      "stored_size": 3048,
+      "directory_size_0x08": 3048,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "db3dff244c102bd03e2f7f79e7986a0a3503ed06f3c6f4ff1910437aa1e2cf27",
+      "payload_sha256": "212fa941a46a03b1cab118050e9ca4c2a24d69bea1b32109f6e65162533aef8d",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_002.GXI",
+      "offset": 1209802503,
+      "stored_size": 3352,
+      "directory_size_0x08": 3352,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "8dfffb7e5af32d48116c5cd29be1c433165ff4c813daca77edd452cd312a7733",
+      "payload_sha256": "e56d3df550cf1f2d4a23a1c1c41898a76ec93d2661886d28b722113acab1d286",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_003.GXI",
+      "offset": 1209805855,
+      "stored_size": 3339,
+      "directory_size_0x08": 3339,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "4d51158482581134d80db28ace7f83d74c0bfe8f6dc099dde77912f4d4f21f64",
+      "payload_sha256": "c069f5092792281ac55035c11f4493139b28af2654e12639da9ab26801e0baa7",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_004.GXI",
+      "offset": 1209809194,
+      "stored_size": 3201,
+      "directory_size_0x08": 3201,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "1d858f20ef24d82c138ac7bf424a433db5954983a2aa573d7df1bcab99e71bf5",
+      "payload_sha256": "4ab6f4143e428b11540206d399b7a78c2d470d75ab43693192536a6e0ecaeb00",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_005.GXI",
+      "offset": 1209812395,
+      "stored_size": 3284,
+      "directory_size_0x08": 3284,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "b8d75dad38d3addfa16e9d62c4e284798245ed96a564250fc406456d7b2075e9",
+      "payload_sha256": "0543c36ef799af6f1ee68f9f133f757159ef4cd20646c42b65a1405d6070955a",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_006.GXI",
+      "offset": 1209815679,
+      "stored_size": 3063,
+      "directory_size_0x08": 3063,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "02a5344f2b2922a953221a7cc8cdf3ef9af79121493fc17287ebcb64f1380f80",
+      "payload_sha256": "8aa57be703233188d57e305a189a1c375c36feb9ca4350c43646a2fe5ed72cc0",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_007.GXI",
+      "offset": 1209818742,
+      "stored_size": 3241,
+      "directory_size_0x08": 3241,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ecddd19f74de04faa290276f95d862a2131d6ea00d30a5f19d36c05adf010422",
+      "payload_sha256": "2b4e8e1c03a64f420db8b5abce40a8da0d4cb777c59e24e269de83f037894f11",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_008.GXI",
+      "offset": 1209821983,
+      "stored_size": 2318,
+      "directory_size_0x08": 2318,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "d2a4a17395be9a5fdef88824358ebf22154625bf4e1bddedb6202eae588407bd",
+      "payload_sha256": "dbe77a62bd2157d07325ca8db86324672ae939e7cd0a3bfb609c0c10d02096e5",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_009.GXI",
+      "offset": 1209824301,
+      "stored_size": 2099,
+      "directory_size_0x08": 2099,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "a95e4968d969d39747b4177cbc9eb74c951147b84b5de7123d711972c12fb2b7",
+      "payload_sha256": "381e4cd3990869ac8ff34a659c3ec4b185b5ae0cba813c764c85aa3d4c25afce",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_010.GXI",
+      "offset": 1209826400,
+      "stored_size": 1797,
+      "directory_size_0x08": 1797,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "09ec04d445231d0c15998e59be95ddc202a5b6f67a57afd93ae315576c015dca",
+      "payload_sha256": "c419c73be9ed431738f1015092c592f2321b359d5cd1bc410f210f094c4e1975",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_011.GXI",
+      "offset": 1209828197,
+      "stored_size": 2956,
+      "directory_size_0x08": 2956,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "f42b024dfe45f53832a9817cd69793453dda1d89e1f9ce2c62274bd40ccc7cc2",
+      "payload_sha256": "9aa2727cd0800e4c15be642d0a8aa8b35a4441e8209da84008867d7ba29b5f45",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_012.GXI",
+      "offset": 1209831153,
+      "stored_size": 4178,
+      "directory_size_0x08": 4178,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "5ef9ab070bfdad2ca7dd93d81077a01b39fc1ab42c41aee5fc461ac6718da9bb",
+      "payload_sha256": "b78e03440fd8218980c02a6805a6f9eb87ee0eb35930c2a712ca54a492f9193b",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_013.GXI",
+      "offset": 1209835331,
+      "stored_size": 2123,
+      "directory_size_0x08": 2123,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "754c95bb51c79f8e84acd90666a73584f381134af467d3ded1f34916a97b30bf",
+      "payload_sha256": "d37c2b38549daa6ab4beffac949dc2dd4c63080972d877160313a222b2fe9fa6",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_014.GXI",
+      "offset": 1209837454,
+      "stored_size": 2333,
+      "directory_size_0x08": 2333,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "9d1f7fc37a0ad5dae1869b7227e03a9e4d8ff7c5fb4df73fb3752908d23fcccb",
+      "payload_sha256": "e62cb229f16689e9b9629246aff5b6a61a5d8f992a0582f5ebf07d26187608cb",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_015.GXI",
+      "offset": 1209839787,
+      "stored_size": 3579,
+      "directory_size_0x08": 3579,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "b424ec8c8174ff1f4a1fd0c45df90b2d2ef921f4ca8164822cf02116e74bc3e9",
+      "payload_sha256": "a6f38e7110fcec68c988b8739b14c569002e6418f08c8dec2945aaa9eb0565b3",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_016.GXI",
+      "offset": 1209843366,
+      "stored_size": 3845,
+      "directory_size_0x08": 3845,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "fc8fa769c3a17c626284d4b677e1b1c4bcf4a56e9251e905aee9c9fed9e32fb4",
+      "payload_sha256": "3b7806e2b13d01f45f0751eedd051598108dabc4e29278f3c0b4d540c5df74c0",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_017.GXI",
+      "offset": 1209847211,
+      "stored_size": 3973,
+      "directory_size_0x08": 3973,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "786712fe9b5d89ceab8f25621c60afb21603bd64c82eeda87f7dd262d24b80c8",
+      "payload_sha256": "785a46461083537f52c0161452b68fcdafe9d74739daace0bc3e6c3e749ddaf5",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_018.GXI",
+      "offset": 1209851184,
+      "stored_size": 2842,
+      "directory_size_0x08": 2842,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "aafb21def9df109e671baee75f91be9bc8ef7789a077167f4e8a21ecf667c598",
+      "payload_sha256": "aa94b54fbf8f68c8c81148f4b9f7d16017df1fed268cce864b2e2d9d60fb7079",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_019.GXI",
+      "offset": 1209854026,
+      "stored_size": 3556,
+      "directory_size_0x08": 3556,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "caae57763a2dd0a085bcb43903b78c02e1b2c32ddbcfb0979c513072a57eaa88",
+      "payload_sha256": "066bc39167dd97ebea14b8552e3afae7ad6b779f19394a12605984494ff23671",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_020.GXI",
+      "offset": 1209857582,
+      "stored_size": 3444,
+      "directory_size_0x08": 3444,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "021a88bb7b491472c91771f7dba22007ce86fe00a4748357a32d252922aeb3ad",
+      "payload_sha256": "f719dff4d251c53cd60e2b3ef4c6cba5885dbf6b220d91f355a184e401a86554",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_021.GXI",
+      "offset": 1209861026,
+      "stored_size": 3966,
+      "directory_size_0x08": 3966,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "7babb88492ffd0a0b6529974b0e7c951dbf3719dd37a96d7bfffb712abedb2f9",
+      "payload_sha256": "806e21a764c8c8a6a832beb4e25b26bf6d87055dc68f7d13cbf12a8cb4538d70",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_022.GXI",
+      "offset": 1209864992,
+      "stored_size": 2205,
+      "directory_size_0x08": 2205,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "96a5e1d7f4b30460d70956d28f0845626eea755b2094a1fd2a02fc960a849876",
+      "payload_sha256": "052becdfcc54910754b692eb317e4c065f06b5e71cb32c70baba741b0caa0cdf",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_023.GXI",
+      "offset": 1209867197,
+      "stored_size": 3868,
+      "directory_size_0x08": 3868,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e860248b9d57b0c65c91179e7c64691b367378eacf6cb15de307fbed4303a790",
+      "payload_sha256": "729873fd3d62fe7ca0258d7dee1905e53b61e603a87b60a281381bdf63623bf4",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\PARTICLES\\BUSH1.GXI",
+      "offset": 1210621196,
+      "stored_size": 4104,
+      "directory_size_0x08": 4104,
+      "unpacked_size": 4104,
+      "compression": "raw",
+      "stored_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+      "payload_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 32,
+        "height": 32,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\PARTICLES\\GRASS1.GXI",
+      "offset": 1210642564,
+      "stored_size": 4104,
+      "directory_size_0x08": 4104,
+      "unpacked_size": 4104,
+      "compression": "raw",
+      "stored_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+      "payload_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 32,
+        "height": 32,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      },
+      "packfs_format_hint": null,
+      "asset_format": "PS2_SIMPLE_GXI_13039"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\ATTRACTMODE.XML",
+      "offset": 1219138638,
+      "stored_size": 1341,
+      "directory_size_0x08": 1341,
+      "unpacked_size": 9147,
+      "compression": "packfs_lzo",
+      "stored_sha256": "2067b4ed1a67e1a426a357ec905ea15cf36388e5c37f2bbf2a2d07faabe098c6",
+      "payload_sha256": "28c57d6ea51bb449e118063fb266df29f91fee82a8e005065c7a0b028b4228fb",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "TEXT_XML",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML",
+      "offset": 1219139979,
+      "stored_size": 17005,
+      "directory_size_0x08": 17005,
+      "unpacked_size": 133513,
+      "compression": "packfs_lzo",
+      "stored_sha256": "60ac6959070fa7ae385b1a4357e81f56fffa22ba35b86c3f8fab86390c67f6c2",
+      "payload_sha256": "faa90792c53b9fd29d122a94ff6212deb8bbe5c13b9555b4c6659589dd720ae9",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "TEXT_XML",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML.DISABLED",
+      "offset": 1219156984,
+      "stored_size": 16844,
+      "directory_size_0x08": 16844,
+      "unpacked_size": 130886,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ffcc64e2c8e48fc591f4897b615b391977200143e27f53a167262f1aab30bcf9",
+      "payload_sha256": "3557c5f229cc28a08df242f65a469be7f0ec17c31f549d874e42e9aaad393464",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "TEXT_XML",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\HUD1.XML",
+      "offset": 1219173828,
+      "stored_size": 18619,
+      "directory_size_0x08": 18619,
+      "unpacked_size": 136177,
+      "compression": "packfs_lzo",
+      "stored_sha256": "71382abe74e214fc985ebededd7bb1b2b74b4c0797ddf854860ba7d21fb28082",
+      "payload_sha256": "99726077918828cd48eb0b00b499e7c8b4ca2c319fcdbfeb759e5ddcb86e601d",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "TEXT_XML",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATASCENE\\HUD\\HUDDEBUG.XML",
+      "offset": 1219192447,
+      "stored_size": 19452,
+      "directory_size_0x08": 19452,
+      "unpacked_size": 150084,
+      "compression": "packfs_lzo",
+      "stored_sha256": "708b4f4186f75fa7047c4a3477f2c3e3629e6665ed8702c6602227a119636262",
+      "payload_sha256": "ed3c64585abf89172f0fc3826294662e650deaa8a6b176f3a3811557b4adbcd2",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "TEXT_XML",
+      "packfs_format_hint": "PSB/PSM or UNKNOWN; format reverse deferred"
+    }
+  ]
+}
