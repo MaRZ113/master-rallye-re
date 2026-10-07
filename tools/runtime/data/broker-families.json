@@ -43,10 +43,54 @@
           "sha256": "3283672b6c8d16d3c46d7ffe712d7f9b3bf39bc4f3e7de494dd58a940dd89fc2"
         }
       ],
+      "semantic_variants": [
+        {
+          "id": "native-hardened-null-safe-stubs-v1",
+          "stable_segments": [
+            {
+              "offset": 0,
+              "length": 798,
+              "sha256": "e49a2f2197a2ddd34ee6404805a61b406ac579be5d521c4cd49c4c4a00e88cda"
+            },
+            {
+              "offset": 804,
+              "length": 303,
+              "sha256": "536cb088444e83a313be5a7245c9d87ee688da04e5afeeaf31e658bfe405cb3c"
+            },
+            {
+              "offset": 1114,
+              "length": 422,
+              "sha256": "98b5af45d26dcd00ce4eb9e5c856479300db1da2dcd3e47555ade7d58daf6973"
+            }
+          ],
+          "hooks": [
+            {
+              "name": "stringlist-null-guard",
+              "offset": 798,
+              "original_hex": "8b7b043b7b08",
+              "stub_length": 19,
+              "stub_prefix_hex": "85db0f84",
+              "stub_body_hex": "8b7b043b7b08",
+              "null_target_va": 6299712,
+              "resume_target_va": 6299684
+            },
+            {
+              "name": "xmldata-null-guard",
+              "offset": 1107,
+              "original_hex": "8b108bc8ff520c",
+              "stub_length": 20,
+              "stub_prefix_hex": "85c00f84",
+              "stub_body_hex": "8b108bc8ff520c",
+              "null_target_va": 6300046,
+              "resume_target_va": 6299994
+            }
+          ]
+        }
+      ],
       "length": 1536,
       "name": "native_dump_walker",
       "section": ".text",
-      "semantics": "Entry iteration and native StringList/xmlData formatter; exact stock or approved NULL-safe hardening variant",
+      "semantics": "Entry iteration and native StringList/xmlData formatter; exact stock, inline hardened, or structurally verified NULL-safe trampoline variant",
       "sha256": "27a0c5e3329ea58c7f9d573b33d1f86feeb3d39eea28177ac4c13ce7392d7c53",
       "va": 6298880,
       "zero_filled_tail": false
@@ -122,8 +166,8 @@
         "broker_manager_global",
         "loading_legacy_failure"
       ],
-      "anchor_policy": "all listed bounded exact fingerprints or explicitly enumerated exact variants required; no fuzzy matching",
-      "audit_version": "retail-broker-v1.1",
+      "anchor_policy": "all listed bounded exact fingerprints or explicitly enumerated exact/structural variants required; no fuzzy matching",
+      "audit_version": "retail-broker-v1.2",
       "capabilities": {
         "active_race_native_dump_safe": true,
         "broker_read": true,

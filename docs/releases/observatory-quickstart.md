@@ -12,7 +12,7 @@ Read-only runtime inspection for Master Rallye's internal Broker state.
 
 ### Modified executables
 
-Known builds are identified exactly. Other retail-derived builds are accepted only when their PE layout and required Broker structures pass Observatory's structural check. Incompatible builds are rejected without connecting.
+Known builds are identified exactly. Other retail-derived builds are accepted only when their PE layout and required Broker structures pass Observatory's structural check. Hardened native Dump support is separately detected from its bounded NULL-safe walker guards. Incompatible or unrecognized variants are rejected without connecting.
 
 ## What it does
 

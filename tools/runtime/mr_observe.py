@@ -191,7 +191,7 @@ def select_process(candidates: Sequence[ProcessCandidate], pid: int | None = Non
         profile = process.profile
         print(f"[{i}] Master Rallye — PID {process.pid}: {process.image_path}")
         if VERBOSE:
-            print(f"    Build: {profile.id}; {profile.profile_origin}; {profile.compatibility_family or 'exact profile'}")
+            print(f"    Build: {profile.id}; {profile.build_classification}; {profile.compatibility_family or 'exact profile'}")
     choice = input_fn("Select instance (0 cancels): ").strip()
     if choice == "0":
         return None
@@ -546,14 +546,16 @@ def status(root: Path, process: ProcessCandidate | None, rejected: Sequence[str]
             print("Master Rallye executable verified. Broker layout: compatible.")
         results_dump_safe = profile.capabilities.get("post_results_native_dump_safe")
         if results_dump_safe is True:
+            print("Build classification: hardened native Dump.")
             print("Native Dump from Race Results: verified safe.")
         elif results_dump_safe is False:
             print("Native Dump from Race Results: unsafe on this build; do not use there.")
         else:
             print("Native Dump from Race Results: safety not verified; avoid that screen.")
         if detailed or VERBOSE:
-            print(f"Build: {profile.id}\nProfile origin: {profile.profile_origin}")
+            print(f"Build: {profile.id}\nClassification: {profile.build_classification}\nProfile origin: {profile.profile_origin}")
             print(f"Broker family: {profile.compatibility_family or 'exact-profile-only'}")
+            print(f"Native Dump variant: {profile.capabilities.get('broker_dump_variant', 'unknown')}")
             print(f"Vehicle registry: {profile.vehicle_registry_profile}\nCapabilities:")
             for label, capability in (
                 ("Broker read", "broker_read"),

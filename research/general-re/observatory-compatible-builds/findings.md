@@ -67,18 +67,18 @@ independent of Observatory compatibility and may remain `unknown` without
 blocking generic Broker observation.
 
 Stock native Dump walker is recognized as `native_stock`; post-Results Dump is
-unsafe. The exact R-AI1 NULL-safe walker fingerprint is recognized as
-`native_hardened-r-ai1-v1`; only that exact bounded walker window reports
-post-Results Dump safe. Unknown walker bytes disable native Dump and remain
+unsafe. At the initial R-OBS3 audit, only the exact R-AI1 NULL-safe walker fingerprint was recognized. The v0.2.2 extension below also recognizes the separately audited two-trampoline implementation.
+`native_hardened-r-ai1-v1`; it reports post-Results Dump safe. Unknown walker
+bytes still disable native Dump and remain
 unknown for post-Results safety.
 
 ## Cache and package
 
-The local profile cache uses schema 2 and audit version `retail-broker-v1.1`.
-Every resolution rereads the executable and recomputes SHA, size, PE layout,
-anchors, capabilities, registry fingerprint, and audit fingerprint. A schema-1
-cache does not grant trust; the current audit rewrites a matching profile after
-revalidation.
+The current local profile cache uses schema 3 and audit version
+`retail-broker-v1.2`. Every resolution rereads the executable and recomputes
+SHA, size, PE layout, anchors, capabilities, registry fingerprint, and audit
+fingerprint. Older cache schemas do not grant trust; the current audit rewrites
+a matching profile after revalidation.
 
 `tools/build_observatory_research.py` creates the separate ignored
 `Master Rallye Observatory Research` package at
@@ -97,3 +97,11 @@ isolation, deterministic package construction, and static compatibility for the
 AI/GRID8 candidate files. The live process reader still requires human
 validation against a running candidate; static admission is not a capture or
 gameplay runtime pass.
+
+## Observatory v0.2.2 hardened-walker recognition
+
+The forced-ID26 hardened runtime package (`9255c9d7cb27336d0a5324bd193719c768f09f5bb7d37e30bab384031b0de0e7`, 3,121,214 bytes) initially failed full-family admission because its native Dump walker used two bounded NULL-safe trampolines rather than the already-known inline R-AI1 hardened window. Its other Broker anchors and retail PE layout matched.
+
+The v0.2.2 audit recognizes this implementation structurally. It checks hashes for every unchanged segment of the 0x600-byte walker, verifies the two exact hook locations redirect to distinct executable `.text` stubs, checks the StringList and XmlData null tests precede their stock dereference/call sequences, and requires both branches to reach the audited stock null and continuation paths. This is not an executable-SHA allowlist. A one-byte change in an unchanged segment, a malformed jump, an incomplete stub, or an unexpected target remains incompatible.
+
+On a match, the local profile is classified `hardened`, sets `hardened_dump=true` and `broker_dump_variant=native_hardened`, and enables the existing verified Broker Editor/native Dump path. The process is still re-read and its resolved native walker bytes are checked before the command is sent. Flow Builder remains disabled for locally audited builds. This is static executable verification; no live-process runtime result is claimed here.

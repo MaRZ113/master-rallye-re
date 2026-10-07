@@ -1010,6 +1010,7 @@ def capture_debug_buffer(pid: int, profile: ObservatoryBuildProfile | None = Non
         }
         metadata.update({
             "build_profile": profile.id,
+            "build_classification": profile.build_classification,
             "exact_profile_id": profile.exact_profile_id,
             "profile_origin": profile.profile_origin,
             "compatibility_family": profile.compatibility_family,

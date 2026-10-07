@@ -1,8 +1,8 @@
 {
   "phase": "R-OBS3",
   "status": "READY FOR HUMAN RUNTIME",
-  "audit_version": "retail-broker-v1.1",
-  "local_profile_cache_schema": 2,
+  "audit_version": "retail-broker-v1.2",
+  "local_profile_cache_schema": 3,
   "resolution_ladder": [
     "committed_exact_profile",
     "full_retail_broker_family",
@@ -47,7 +47,8 @@
       "native_stock": false,
       "native_hardened": true,
       "unknown_walker": null,
-      "approved_hardened_walker_sha256": "3283672b6c8d16d3c46d7ffe712d7f9b3bf39bc4f3e7de494dd58a940dd89fc2"
+      "approved_hardened_walker_sha256": "3283672b6c8d16d3c46d7ffe712d7f9b3bf39bc4f3e7de494dd58a940dd89fc2",
+      "structural_hardened_variants": ["native-hardened-null-safe-stubs-v1"]
     },
     "open_broker_editor": {
       "requires": [
@@ -91,6 +92,23 @@
       "compatibility_family": "retail-broker-v1",
       "exact_sha_required": false,
       "registry_profile": "candidate-dependent"
+    },
+    {
+      "purpose": "R5V-H.0.1 forced-ID26 hardened runtime package",
+      "sha256": "9255c9d7cb27336d0a5324bd193719c768f09f5bb7d37e30bab384031b0de0e7",
+      "exact_profile": null,
+      "profile_id": "local-hardened-9255c9d7cb27",
+      "profile_origin": "locally_audited",
+      "build_classification": "hardened",
+      "compatibility_family": "retail-broker-v1",
+      "vehicle_registry_profile": "merc-id26",
+      "all_family_anchors_match": true,
+      "broker_read": true,
+      "open_broker_editor": true,
+      "native_dump": true,
+      "broker_dump_variant": "native_hardened",
+      "post_results_native_dump_safe": true,
+      "hash_role": "evidence provenance and local cache identity; not a compatibility allowlist entry"
     }
   ],
   "public_beta": {

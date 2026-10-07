@@ -6,8 +6,8 @@ import struct
 from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
-AUDIT_VERSION = "retail-broker-v1.1"
-PROFILE_SCHEMA_VERSION = 2
+AUDIT_VERSION = "retail-broker-v1.2"
+PROFILE_SCHEMA_VERSION = 3
 PROFILE_CACHE_ROOT = Path(__file__).resolve().parent / "observatory-data" / "build-profiles"
 
 def digest(data):
@@ -81,6 +81,85 @@ def _family_layout_matches(pe, reference):
     return bool(layout_match)
 
 
+def _semantic_trampoline_variant_matches(data, pe, anchor, variant):
+    """Recognize only the audited two-hook NULL-safe native Dump wrapper.
+
+    The candidate still has to match every unchanged byte of the stock walker.
+    Each replacement must be a near JMP to a bounded x86 stub in executable,
+    file-backed .text. The stubs are accepted only when their exact instruction
+    shape checks the pointer before the original dereference/call and branches
+    to the audited stock null and continuation paths.
+    """
+    try:
+        walker, section, _ = window(data, pe, anchor["va"], anchor["length"])
+        if section != anchor["section"]:
+            return False
+
+        hooks = variant["hooks"]
+        coverage = bytearray(anchor["length"])
+        for segment in variant["stable_segments"]:
+            offset, length = segment["offset"], segment["length"]
+            if (type(offset) is not int or type(length) is not int or offset < 0 or length <= 0
+                    or offset + length > len(walker)):
+                return False
+            if any(coverage[offset:offset + length]):
+                return False
+            if digest(walker[offset:offset + length]) != segment["sha256"]:
+                return False
+            coverage[offset:offset + length] = b"\x01" * length
+
+        stub_ranges = []
+        for hook in hooks:
+            offset = hook["offset"]
+            original = bytes.fromhex(hook["original_hex"])
+            if (type(offset) is not int or len(original) < 5 or offset < 0
+                    or offset + len(original) > len(walker)
+                    or any(coverage[offset:offset + len(original)])):
+                return False
+            coverage[offset:offset + len(original)] = b"\x01" * len(original)
+            patch = walker[offset:offset + len(original)]
+            if patch[0] != 0xE9 or patch[5:] != b"\x90" * (len(patch) - 5):
+                return False
+
+            hook_va = anchor["va"] + offset
+            stub_va = hook_va + 5 + struct.unpack_from("<i", patch, 1)[0]
+            stub_length = hook["stub_length"]
+            anchor_end = anchor["va"] + anchor["length"]
+            if type(stub_length) is not int or stub_length <= 0 or stub_va < anchor_end:
+                return False
+            stub, stub_section, file_offset = window(data, pe, stub_va, stub_length)
+            section_info = next((item for item in pe["sections"] if item["name"] == stub_section), None)
+            if (stub_section != ".text" or file_offset is None or section_info is None
+                    or not (section_info["characteristics"] & 0x20000000)):
+                return False
+
+            prefix = bytes.fromhex(hook["stub_prefix_hex"])
+            body = bytes.fromhex(hook["stub_body_hex"])
+            if (len(prefix) < 4 or prefix[-2:] != b"\x0f\x84"
+                    or stub[:len(prefix)] != prefix):
+                return False
+            branch_offset = len(prefix)
+            null_target = stub_va + branch_offset + 4 + struct.unpack_from("<i", stub, branch_offset)[0]
+            body_offset = branch_offset + 4
+            if stub[body_offset:body_offset + len(body)] != body:
+                return False
+            jump_offset = body_offset + len(body)
+            if (jump_offset + 5 != stub_length or stub[jump_offset] != 0xE9
+                    or null_target != hook["null_target_va"]):
+                return False
+            resume_target = stub_va + stub_length + struct.unpack_from("<i", stub, jump_offset + 1)[0]
+            if resume_target != hook["resume_target_va"]:
+                return False
+            stub_ranges.append((stub_va, stub_va + stub_length))
+
+        if not hooks or not all(coverage):
+            return False
+        ordered = sorted(stub_ranges)
+        return all(left[1] <= right[0] for left, right in zip(ordered, ordered[1:]))
+    except (KeyError, TypeError, ValueError, struct.error):
+        return False
+
+
 def _registry_profile_for(data, pe, exact_profile):
     if exact_profile:
         return exact_profile.get('vehicle_registry_profile', 'unknown'), 'committed_exact'
@@ -118,9 +197,11 @@ def _audit_fingerprint(audit):
 
 def _profile_document(audit, *, exact_profile=None, registry_profile=None, registry_origin=None):
     origin = 'committed_exact' if exact_profile else 'locally_audited'
-    profile_id = exact_profile['profile'] if exact_profile else 'local-audited-' + audit['sha256'][:12]
     family = audit.get('compatibility_family')
     caps = dict(audit.get('capabilities', {}))
+    hardened = bool(caps.get('hardened_dump'))
+    profile_id = (exact_profile['profile'] if exact_profile else
+                  ('local-hardened-' if hardened else 'local-audited-') + audit['sha256'][:12])
     if exact_profile:
         # Exact profiles carry separately reviewed frontend tool permissions.
         # Family Dump-route fingerprints do not prove the main-window 0x27
@@ -135,6 +216,7 @@ def _profile_document(audit, *, exact_profile=None, registry_profile=None, regis
         'sha256': audit['sha256'],
         'size': audit['size'],
         'profile_id': profile_id,
+        'build_classification': 'exact' if exact_profile else 'hardened' if hardened else 'compatible',
         'profile_origin': origin,
         'compatibility_family': family,
         'audit_version': AUDIT_VERSION,
@@ -186,6 +268,11 @@ def audit_build(data):
                     if observed == variant.get('sha256'):
                         matched_variant = variant['id']
                         break
+            if matched_variant is None:
+                for variant in anchor.get('semantic_variants', []):
+                    if _semantic_trampoline_variant_matches(data, pe, anchor, variant):
+                        matched_variant = variant['id']
+                        break
             match = matched_variant is not None and section == anchor['section']
         except ValueError:
             observed, section, offset, matched_variant, match = None,None,None,None,False
@@ -225,7 +312,14 @@ def audit_build(data):
                        and manager_anchor and dump_anchor)
     walker = by_name.get('native_dump_walker', {})
     walker_variant = walker.get('matched_variant') if walker.get('compatible') else None
-    hardened_dump = walker_variant == 'native-hardened-r-ai1-v1'
+    hardened_walker = walker_variant in {
+        'native-hardened-r-ai1-v1',
+        'native-hardened-null-safe-stubs-v1',
+    }
+    # A matching walker alone is not enough to admit an executable. The
+    # hardened classification applies only when the native Dump route and its
+    # supporting Broker structures also pass the current build audit.
+    hardened_dump = bool(native_dump and hardened_walker)
     capabilities = {
         'broker_read': broker_read,
         'open_broker_editor': open_editor,
@@ -257,6 +351,8 @@ def audit_build(data):
                 capability_compatible=capability_compatible,
                 registry_profile=registry_profile,
                 registry_profile_origin=registry_origin,
+                build_classification=('hardened' if admitted and hardened_dump else
+                                      'compatible' if admitted else 'incompatible'),
                 capabilities=capabilities,
                 audit_version=AUDIT_VERSION,
                 exact_registered_profile=registered['profile'] if registered else None,

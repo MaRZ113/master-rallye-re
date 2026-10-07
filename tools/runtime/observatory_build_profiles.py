@@ -27,6 +27,17 @@ class ObservatoryBuildProfile:
     cache_reused: bool = False
     pe_identity: dict[str, Any] = field(default_factory=dict)
 
+    @property
+    def build_classification(self) -> str:
+        """Return the user-facing trust class derived from verified evidence."""
+        if self.profile_origin == "committed_exact":
+            return "exact"
+        if self.capabilities.get("hardened_dump"):
+            return "hardened"
+        if self.capabilities.get("broker_read"):
+            return "compatible"
+        return "incompatible"
+
     def __post_init__(self) -> None:
         if self.profile_origin == "committed_exact" and self.exact_profile_id is None:
             object.__setattr__(self, "exact_profile_id", self.id)

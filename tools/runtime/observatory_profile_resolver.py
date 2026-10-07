@@ -24,7 +24,7 @@ def _from_audit(audit: dict[str, Any], *, exact: ObservatoryBuildProfile | None 
     origin = "committed_exact" if exact or exact_id else "locally_audited"
     profile_id = exact.id if exact else audit.get("profile_id")
     if not profile_id:
-        profile_id = "local-audited-" + audit["sha256"][:12]
+        profile_id = ("local-hardened-" if caps.get("hardened_dump") else "local-audited-") + audit["sha256"][:12]
     family = audit.get("compatibility_family") or (exact.compatibility_family if exact else None)
     registry = audit.get("vehicle_registry_profile", "unknown")
     if registry == "unknown" and exact:
@@ -47,7 +47,7 @@ def _from_audit(audit: dict[str, Any], *, exact: ObservatoryBuildProfile | None 
     return ObservatoryBuildProfile(
         id=profile_id,
         display_name=(exact.display_name if exact else
-                      f"Master Rallye Retail family ({family or 'Broker core'})"),
+                      f"Master Rallye Retail family ({'hardened native Dump' if caps.get('hardened_dump') else family or 'Broker core'})"),
         sha256=audit["sha256"],
         file_size=audit["size"],
         active_log_sink_rva=layout.get("active_log_sink_rva", exact.active_log_sink_rva if exact else 0),
@@ -116,6 +116,7 @@ def profile_provenance(profile: ObservatoryBuildProfile) -> dict[str, Any]:
         "build_profile": profile.id,
         "exact_profile_id": profile.exact_profile_id,
         "profile_origin": profile.profile_origin,
+        "build_classification": profile.build_classification,
         "compatibility_family": profile.compatibility_family,
         "audit_version": profile.audit_version,
         "audit_fingerprint": profile.audit_fingerprint,

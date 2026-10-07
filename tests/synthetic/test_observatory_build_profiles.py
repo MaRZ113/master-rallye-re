@@ -122,6 +122,7 @@ class KnownBuildProfileTests(unittest.TestCase):
                     raw, source = core.capture_debug_buffer(123)
                 self.assertEqual(raw,b'abc')
                 self.assertEqual(source['build_profile_id'],p.id)
+                self.assertEqual(source['build_classification'],p.build_classification)
                 self.assertEqual(source['image_sha256'],p.sha256)
                 self.assertEqual(source['image_size'],p.file_size)
                 self.assertEqual(source['sink_vtable'],f'0x{state["vtable"]:08X}')
