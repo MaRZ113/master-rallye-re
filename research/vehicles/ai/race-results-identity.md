@@ -76,9 +76,11 @@ is unproven. The H.1 result display hook is at `0x0047CC71`; its 60-byte helper
 and NUL-terminated string occupy `0x0068E720..0x0068E75C`. Other AI rows still
 use the original CarID -> group-0x39 path. Native DriverID selection,
 participant DriverID, CarID26, CarClass, and vehicle family are not changed.
-This new fixed H.1 name policy is **STATICALLY VERIFIED /
-READY_FOR_HUMAN_RUNTIME**; do not promote it using the H.0.1 captures, which
-tested the earlier runtime-driver name policy.
+At initial handoff this fixed H.1 policy was marked **STATICALLY VERIFIED /
+READY_FOR_HUMAN_RUNTIME**. That historical status is superseded by the H.1
+natural Quick Race runtime closeout in [runtime-results.md](runtime-results.md);
+the completed Results capture shows the physical ID26 AI at Rank 2 with the
+fixed display name.
 
 ## Verification status
 
@@ -90,6 +92,7 @@ hashes, exact loop/hook bytes, zero-filled non-overlapping caves, PE bounds,
 deterministic output, and inverse patch reproduction.
 
 Status: H.0.1 runtime-driver policy **CONFIRMED_BY_RUNTIME** for its two
-captured names; H.1 fixed `JEAN-PIERRE STRUGO` policy **STATIC FIX VERIFIED /
-READY_FOR_HUMAN_RUNTIME**. Automated checks cannot prove the visible Results
-string or complete natural-ID26 lifecycle.
+captured names. H.1 fixed `JEAN-PIERRE STRUGO` Results identity is also
+**CONFIRMED_BY_RUNTIME** for the completed natural Quick Race capture. This
+confirms the tested Results row; it does not alter native DriverID selection
+or claim an exact ML-320 pairing.

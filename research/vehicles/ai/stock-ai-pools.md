@@ -14,8 +14,12 @@ does not call the G.1 sparse T1 local-to-physical mapper.
 | 4 / alias | same arm as code 2 | shared switch arm | same as code 2 |
 
 ID25 is absent from the stock T3 list. ID26 is absent from the stock T1 list
-in retail; H.1 appends it explicitly to the native T1 pool for testing.
-The machine-readable form is [stock-ai-pools.json](stock-ai-pools.json).
+in retail. H.1 now appends it explicitly to Quick Race's native T1 pool and
+is `CONFIRMED_BY_RUNTIME` for the supplied natural Quick Race result. H.2
+extends the T1 source at the distinct dynamic Rallye Cup/Invitation and new
+Master Rallye roster owners; those paths are
+`READY_FOR_HUMAN_RUNTIME`, not yet runtime-confirmed. The machine-readable
+form is [stock-ai-pools.json](stock-ai-pools.json).
 
 ## Selection behavior
 
@@ -28,11 +32,11 @@ vehicles during one working-pool cycle, while repeats can become possible
 after the pool is exhausted. The candidate excludes the player's selected
 vehicle when it is present in that class pool.
 
-The T1 input to the AI chooser is a direct absolute-ID list. Extending an
-ordinal loop from seven to eight would be incorrect: the neighboring absolute
-ID7 belongs to T2, while the frontend's T1 local7 maps sparsely to physical
-ID26. The future natural integration must append/map `26` explicitly while
-leaving T2 IDs 7–13 and T3 unchanged.
+Every covered T1 input is a direct absolute-ID list. Extending an ordinal loop
+from seven to eight would be incorrect: the neighboring absolute ID7 belongs
+to T2, while the frontend's T1 local7 maps sparsely to physical ID26. H.1/H.2
+append `26` explicitly at each verified dynamic T1 owner while leaving T2 IDs
+7–13 and T3 unchanged.
 
 ## Evidence
 
@@ -45,6 +49,8 @@ builder are `0x0047B93D` and `0x0047B96E`, both inside
 `FUN_0047B780`; the latter is the one-human Quick Race call used by the
 diagnostic proof.
 
-This is static executable evidence. The H.1 candidate applies the bounded T1
-append, but natural selection and AI runtime behavior still require human
-validation; see [natural-t1-pool.md](natural-t1-pool.md).
+The H.1 Quick Race natural selection and Results identity are now
+`CONFIRMED_BY_RUNTIME`. Cup, Invitation, and Master Rallye H.2 inclusion
+remain static/candidate-ready; see [natural-t1-pool.md](natural-t1-pool.md),
+[mode-aware-t1-eligibility.md](mode-aware-t1-eligibility.md), and
+[runtime-results.md](runtime-results.md).

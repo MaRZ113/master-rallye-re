@@ -7,6 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
 import build_vehicle_hardened_candidate as candidate
 import build_vehicle_natural_t1_candidate as natural
+import build_vehicle_mode_ai_candidate as mode_ai
 import vehicle_hardened_runtime_package as package
 
 
@@ -59,6 +60,34 @@ class VehicleHardenedRuntimePackageTests(unittest.TestCase):
         self.assertTrue(manifest["natural_t1_id26_pool"])
         self.assertFalse(manifest["participant_count_changed"])
         self.assertEqual(manifest["results_name_policy"]["display_name"], "JEAN-PIERRE STRUGO")
+        self.assertEqual(manifest["randomizer"], "not present")
+
+    def test_mode_aware_package_declares_creation_only_dynamic_pool_scope(self) -> None:
+        manifest = package._expected_manifest(
+            profile={"profile": "pinned-g1"},
+            profile_sha256="c" * 64,
+            candidate={
+                "profile": mode_ai.PROFILE,
+                "patched_sha256": "a" * 64,
+                "file_size": 3121214,
+                "patch_manifest_sha256": "b" * 64,
+                "forced_ai_proof": False,
+                "natural_t1_id26_pool": True,
+            },
+            rows=[],
+        )
+        self.assertEqual(manifest["status"], "R5V_H2_MODE_AWARE_T1_RUNTIME_PACKAGE_READY_FOR_HUMAN")
+        self.assertFalse(manifest["forced_ai_proof"])
+        self.assertTrue(manifest["natural_t1_id26_pool"])
+        self.assertFalse(manifest["existing_rosters_mutated"])
+        self.assertFalse(manifest["stage_reroll_added"])
+        self.assertEqual(manifest["mode_aware_dynamic_t1_pools"], {
+            "rallye_cup": "new_roster_generation_only",
+            "invitation": "shared_native_dynamic_pool",
+            "master_rallye": "new_competition_generation_only",
+            "quickrace": "preserved_from_h1",
+            "challenge": "authored_roster_unchanged",
+        })
         self.assertEqual(manifest["randomizer"], "not present")
 
 

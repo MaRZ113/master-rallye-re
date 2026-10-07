@@ -1,4 +1,10 @@
-# R5V-H.1 natural T1 ID26 runtime handoff
+# R5V-H.1 natural T1 ID26 runtime handoff — completed / historical
+
+This pre-test handoff is retained as provenance. H.1 natural Quick Race
+selection and the fixed Results name have since been
+`CONFIRMED_BY_RUNTIME`; see the closeout in
+[runtime-results.md](runtime-results.md). The active H.2 procedure is
+[mode-aware-runtime-plan.md](mode-aware-runtime-plan.md).
 
 ## Candidate and prelaunch gate
 

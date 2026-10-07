@@ -3,18 +3,22 @@
 ## Current status
 
 **Static Quick Race pool analysis: CONFIRMED_BY_EXE.**
-**Forced Car1=ID26 materialization: CONFIRMED_BY_RUNTIME** for the tested
-single-player T1 Quick Race with three AI opponents.
-**H.0.1 forced-ID26 Results-name policy: CONFIRMED_BY_RUNTIME.**
-**H.0.1 NULL StringList Dump survival: CONFIRMED_BY_RUNTIME.**
-**H.0.1 XmlData NULL guard: STATICALLY VERIFIED; isolated runtime status UNKNOWN.**
-**H.1 natural T1 ID26 pool and fixed Results label: READY_FOR_HUMAN_RUNTIME.**
+**H.0 forced Car1=ID26 materialization and H.0.1 Results/Dump behavior:
+CONFIRMED_BY_RUNTIME** for the tested paths. The XmlData NULL guard remains
+statically verified without isolated runtime attribution.
+**H.1 natural Quick Race T1 ID26 pool and fixed Results label:
+CONFIRMED_BY_RUNTIME.**
+**H.2 Rallye Cup/Invitation/Master Rallye T1 pool extension:
+STATICALLY VERIFIED / READY_FOR_HUMAN_RUNTIME.**
 
 R5V-H first proved that an existing AI participant can materialize physical
 ID26 without changing the player's vehicle or race count. H.0.1 then closed its
-tested Results display and NULL StringList Dump paths. The current H.1 phase
-adds ID26 to the natural T1 pool while preserving native driver selection and
-the existing participant count.
+tested Results display and NULL StringList Dump paths. H.1 subsequently proved
+natural Quick Race T1 selection of ID26 and its fixed display-only Results
+identity while preserving native DriverID selection and participant count.
+H.2 adds ID26 to separately owned dynamic Cup/Invitation and new Master Rallye
+T1 rosters; those modes still await human runtime validation with the H.2
+candidate.
 
 ## Stock Quick Race pool
 
@@ -49,14 +53,16 @@ Car0, Car2/Car3, `Race/NumCars`, or AI pool membership.
 H.1 removes that force and extends only the native T1 candidate vector to
 `[0,1,2,3,4,5,6,26]`, retaining native exclusions, shuffle, selection,
 DriverID chooser, participant publication, and registry-derived class. It
-does not alter participant count or other class pools. The exact candidate
-and pending human procedure are in [natural-t1-pool.md](natural-t1-pool.md)
-and [natural-t1-runtime-plan.md](natural-t1-runtime-plan.md).
+does not alter participant count or other class pools. The candidate and
+runtime evidence are in [natural-t1-pool.md](natural-t1-pool.md) and
+[runtime-results.md](runtime-results.md). The old H.1 handoff is retained as
+historical provenance only.
 
-## Race Results name defect
+## Race Results name identity and resolution
 
-The human reports `GALOCAL UNKNOWN` in the ID26 Results row. Static tracing of
-`FUN_0047C840` shows the ordinary AI result-name branch asks localization
+The H.0 forced-run human initially reported `GALOCAL UNKNOWN` in the ID26
+Results row. Static tracing of `FUN_0047C840` shows the ordinary AI result-name
+branch asks localization
 group `0x39` for selector `Competitor.CarID`; group `0x39` has no selector 26.
 The routine separately builds the result image from the physical CarID. The
 H.0.1's forced-test profile used that participant's actual DriverID as the
@@ -67,9 +73,13 @@ to selector 2, `JOSE MARIA SERCIA`; historical event tables place Servia /
 Lurquin in Schlesser T3, while the listed Mercedes T1 crews include Strugo /
 Larroque, Lansac / Jacquema, and Menguy / Menguy. The mapping is therefore a
 `DEVELOPER-PLACEHOLDER` Mercedes-T1 association, not evidence of an authentic
-Mercedes driver assignment. H.1 presents ID26 as `JEAN-PIERRE STRUGO`
-(`REAL_2001_MASTER_RALLYE_MERCEDES_DRIVER`); exact ML-320 pairing is unproven.
-Neither H.0.1 nor H.1 changes native DriverID selection. See
+Mercedes driver assignment. The mapping and historical comparison are
+documented in [historical-driver-selector.md](historical-driver-selector.md).
+H.1 presents physical ID26 as `JEAN-PIERRE STRUGO`
+(`REAL_2001_MASTER_RALLYE_MERCEDES_DRIVER`); that fixed display name is
+`CONFIRMED_BY_RUNTIME` in the natural Quick Race Results capture. Exact ML-320
+pairing remains unproven. Neither H.0.1 nor H.1 changes native DriverID
+selection. See
 [the selector audit](historical-driver-selector.md) and
 [Results identity trace](race-results-identity.md).
 
@@ -88,9 +98,11 @@ randomizer. The `forced-id26-ai-hardened` profile includes only the fixed H.0
 proof hook, not the R-AI1.2 randomizer. Both candidates and staged runtime
 packages passed deterministic build and on-disk verification. The tested
 forced profile confirmed its Results name and post-Results Dump survival. The
-natural H.1 candidate and package also pass static/on-disk verification;
-natural ID26 selection and its fixed Results label remain pending human
-runtime validation.
+natural H.1 candidate and package pass static/on-disk verification, and
+natural ID26 selection plus the fixed Results label are runtime-confirmed.
+H.2 deterministic candidate/package verification passes; Cup/Invitation/Master
+new-roster inclusion and native persistence remain pending human runtime
+validation.
 
 ## Unlock and audio axes
 
@@ -106,13 +118,14 @@ changing physical identity.
 * `CONFIRMED_BY_EXE`: stock Quick Race pool construction, absolute-ID
   representation, caller frame/guard, post-choice registry-derived class,
   group-`0x39` Results-name producer, and exact H.0.1 patch layout.
-* `CONFIRMED_BY_RUNTIME`: the tested forced Car1=ID26 actor/materialization,
-  AI movement, progress, finish, Results-row presence, H.0.1 Results identity,
-  and post-Results native Dump survival.
-* `HUMAN_RUNTIME_OBSERVATION`: the current row's `GALOCAL UNKNOWN` text; the
-  supplied capture is active-race state and has no Results NameList payload.
-* `READY_FOR_HUMAN_RUNTIME`: H.1 natural T1 pool inclusion and fixed ID26
-  Results display policy.
+* `CONFIRMED_BY_RUNTIME`: the bounded forced Car1=ID26 actor/materialization,
+  H.0.1 Results identity and post-Results Dump survival; H.1 natural Quick
+  Race ID26 selection while the player remained locked; and the fixed Strugo
+  Results display in the completed H.1 race.
+* `HUMAN_RUNTIME_OBSERVATION`: the original H.0 `GALOCAL UNKNOWN` Results
+  symptom, superseded for H.1 by the corrected fixed display identity.
+* `READY_FOR_HUMAN_RUNTIME`: H.2 mode-specific dynamic T1 pool inclusion and
+  roster persistence in Rallye Cup, Invitation, and Master Rallye.
 * `UNKNOWN`: isolated XmlData NULL-guard runtime behavior and the exact legacy
   Loading->Attract trigger correction.
 * `NOT STARTED`: ID27, T2 expansion, ordering, audio architecture changes,

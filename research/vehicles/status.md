@@ -50,7 +50,7 @@ not changed or qualified for ID26.
 
 ## Roadmap
 
-## Current phase: R5V-H.1 — Natural T1 AI Pool Inclusion
+## Current phase: R5V-H.2 — Mode-aware addon AI eligibility
 
 **Static Quick Race pool map: CONFIRMED_BY_EXE.** The retail pool uses absolute
 CarIDs; T1 originally enumerates 0–6 and does not include sparse frontend
@@ -65,21 +65,29 @@ The H.0.1 forced-ID26 Results display and post-Results NULL StringList Dump
 survival are **CONFIRMED_BY_RUNTIME**. Its separate XmlData NULL guard and the
 exact legacy Loading->Attract trigger remain unisolated/`UNKNOWN`.
 
-**Natural T1 ID26 pool inclusion: STATICALLY VERIFIED /
-READY_FOR_HUMAN_RUNTIME.** The fail-closed candidate adds physical ID26 to
-the native T1 absolute-ID pool without forcing a slot, changing `NumCars`,
-altering T2/T3, or changing native DriverID selection. For Results display,
-H.1 presents ID26 as `JEAN-PIERRE STRUGO`, classified
+**H.1 natural Quick Race T1 pool: CONFIRMED_BY_RUNTIME.** In the 2026-10-07
+capture, physical ID26 appeared naturally as AI Car2 while the player remained
+T1/ID1 and `T1CupCar1=False`. The completed Results capture shows ID26 at Rank
+2 and the fixed display-only name `JEAN-PIERRE STRUGO`, classified
 `REAL_2001_MASTER_RALLYE_MERCEDES_DRIVER`; exact ML-320 pairing is unproven.
-Demo group `0x39` maps Mercedes physical ID2 to selector 2,
-`JOSE MARIA SERCIA`, classified `DEVELOPER-PLACEHOLDER` as a Mercedes T1
-identity because historical event tables list Servia/Lurquin with Schlesser
-T3. See the [H.1 static result](ai/natural-t1-pool.md),
-[demo selector audit](ai/historical-driver-selector.md), and
-[fresh-race runtime handoff](ai/natural-t1-runtime-plan.md).
+Native DriverID selection was unchanged. See [the H.1 result](ai/natural-t1-pool.md)
+and [runtime evidence](ai/runtime-results.md).
 
-No natural-pool runtime result is claimed yet. Other modes remain unknown.
+**H.2 mode-aware T1 eligibility: STATICALLY VERIFIED / READY_FOR_HUMAN_RUNTIME.**
+The current-branch executable trace identifies a shared dynamic Rallye
+Cup/Invitation T1 generator and a separate new Master Rallye generator. A
+fail-closed candidate extends only those two T1 source-pool exits with physical
+ID26. It preserves Quick Race H.1, native exclusions/DriverID selection,
+participant counts, and existing Cup/Invitation stage and Master Rallye
+save/load roster paths. Human testing must create new Cup/Invitation rosters
+and a new Master Rallye competition; old all-stock rosters are expected to
+remain unchanged. Challenge stays authored. The bounded mode audit found no
+separate Practice AI-pool owner. See [mode map](ai/mode-consumers.md),
+[H.2 trace and patch](ai/mode-aware-t1-eligibility.md), and
+[human handoff](ai/mode-aware-runtime-plan.md).
 
-Later phases are R5V-I multi-slot registry expansion with a real additional T2
-vehicle, then R5V-J generic Addon Vehicle SDK. Catalog/order refinement remains
-deferred. Do not begin ID27+, T2 expansion, or SDK work during this H gate.
+R5V-H has not completed H.2 runtime validation. After Cup/Master (and shared
+Invitation smoke where available) validation, the next planned phase is R5V-I
+multi-slot registry expansion with a real additional T2 vehicle, then R5V-J
+generic Addon Vehicle SDK. Do not begin ID27+, T2 expansion, ordering, or SDK
+work during H.2.

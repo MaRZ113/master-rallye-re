@@ -34,8 +34,10 @@ bound/exit at `0x00458162`–`0x00458167`. The T2 loop is at
 
 No `FUN_0045A150` call or G.1 class-local-to-physical conversion occurs in this
 function. The T1 loop stores absolute IDs directly. Consequently ID7 cannot be
-used as T1 local7: it is the first T2 physical ID. The future pool design must
-append ID26 explicitly and retain the T2/T3 ranges.
+used as T1 local7: it is the first T2 physical ID. H.1 appends ID26 explicitly
+to this Quick Race pool and is now runtime-confirmed; H.2 uses separate native
+append seams for other dynamic roster owners and does not route them through
+this function.
 
 ## Selection and publication
 

@@ -310,17 +310,24 @@ registry expansion plus a real T2 addon qualification, and R5V-J generic
 Addon Vehicle SDK. Do not infer a frontend return, split-screen Race Details,
 or unqualified Challenge/Trophy identity pass from this closeout.
 
-### Current R5V-H — forced ID26 AI and research hardening
+### Current R5V-H — natural and mode-aware ID26 AI eligibility
 
-The bounded Car1/T1/three-AI forced ID26 materialization test is
-**CONFIRMED_BY_RUNTIME**. The human saw the Mercedes actor drive, progress,
-finish, and appear in Race Results. The Results row showed `GALOCAL UNKNOWN`;
-static tracing found that the native AI name path passes physical CarID to
-group `0x39`, where ID26 has no selector. A bounded DriverID-based display
-selector for ID26 AI, plus neutral Loading->Attract and native Dump null
-guards, are **READY_FOR_HUMAN_RUNTIME**. Separate forced-proof and ordinary
-Hardened EXEs are reproducibly built and staged. The ordinary candidate has no
-forced AI hook or opponent randomizer. Natural T1 pool membership remains
-**NOT STARTED** pending the Results/Dump retest; see
-`research/vehicles/ai/runtime-results.md`, `race-results-identity.md`,
-`hardening.md`, and `runtime-plan.md`.
+H.1 natural Quick Race T1 eligibility is **CONFIRMED_BY_RUNTIME**. In a new
+T1 Quick Race the player remained ID1/T1 with the native ID26 Cup lock false;
+the AI naturally selected physical ID26 as Car2, and the completed Results
+capture showed `JEAN-PIERRE STRUGO` as a display-only name. The human reports
+that new Quick Race rosters sometimes omit ID26; no probability distribution
+is claimed.
+
+H.2 statically mapped and extended separate T1 source pools for new Rallye Cup
+and Invitation rosters and new Master Rallye competitions. The candidate keeps
+the existing mode-specific exclusions, DriverID choice, participant storage,
+cup/stage persistence, and Master Rallye save/load paths intact. The candidate
+and coherent Mercedes resource package are deterministic and on-disk verified;
+Cup/Invitation/Master inclusion and persistence remain
+**READY_FOR_HUMAN_RUNTIME**, not confirmed. Challenge stays authored; no
+separate Practice AI-roster owner was found in the bounded mode audit. See
+`research/vehicles/ai/mode-consumers.md`,
+`research/vehicles/ai/mode-aware-t1-eligibility.md`,
+`research/vehicles/ai/runtime-results.md`, and
+`research/vehicles/ai/mode-aware-runtime-plan.md`.

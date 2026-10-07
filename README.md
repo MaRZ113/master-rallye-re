@@ -33,16 +33,20 @@ Rallye and Rallye Cup; the stock ID0 display regression and full stage/Results
 are owner-reported PASS. Physical ID26 remains unchanged. See
 `research/vehicles/unlock/closeout.md` and
 `research/vehicles/localization/frontend-consumers.md`. R5V-G.2 Vehicle Audio
-Identity / Sound Family Architecture is also **FULL PASS / CLOSED**. R5V-H's
-bounded forced Car1=ID26/T1 Quick Race actor proof is now
-**CONFIRMED_BY_RUNTIME**: the human observed the Mercedes AI drive, progress,
-finish, and appear in Results. The Results row displayed `GALOCAL UNKNOWN`; a
-static trace found the missing group-`0x39` selector and a narrow DriverID-based
-display fix is ready for human retest. Separate hardened candidates are staged
-for ordinary tests without a forced AI hook/randomizer and for the deterministic
-Car1 proof. The Results-name fix and neutral Dump/Loading hardening still need
-human validation. Natural T1 pool membership remains **NOT STARTED**. Catalog
-ordering remains deferred.
+Identity / Sound Family Architecture is also **FULL PASS / CLOSED**. R5V-H.1
+natural Quick Race T1 eligibility is now **CONFIRMED_BY_RUNTIME**: a new race
+selected physical ID26 as AI Car2 while the player remained T1/ID1 and locked;
+Results showed the fixed display-only name `JEAN-PIERRE STRUGO`. Native
+DriverID selection was not changed. R5V-H.2 maps separate dynamic T1 roster
+owners for Rallye Cup/Invitation and new Master Rallye competitions and
+prepares a fail-closed candidate that appends ID26 only at those roster
+creation boundaries. Existing saved rosters and stage reuse paths are
+untouched. H.2 is **READY_FOR_HUMAN_RUNTIME**; mode inclusion and persistence
+still need validation. Challenge remains authored and unchanged. See
+`research/vehicles/ai/mode-consumers.md`,
+`research/vehicles/ai/mode-aware-t1-eligibility.md`, and
+`research/vehicles/ai/mode-aware-runtime-plan.md`. Catalog ordering remains
+deferred.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

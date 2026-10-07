@@ -66,8 +66,9 @@ unproven. The ID26 Results helper supplies the literal to the existing string
 consumer; all other AI retain the original group-0x39 physical-CarID lookup.
 Human name branches remain unchanged. Native `FUN_00458980` DriverID
 selection and participant DriverID publication are unchanged. H.0.1's
-runtime-driver display behavior remains a historical, already-tested profile;
-H.1's fixed display still requires human runtime confirmation.
+runtime-driver display behavior remains a historical, already-tested profile.
+H.1's fixed `JEAN-PIERRE STRUGO` name was confirmed in the completed natural
+Quick Race Results capture; see [runtime-results.md](runtime-results.md).
 
 ## Candidate and package
 
@@ -94,7 +95,29 @@ or randomizer. This is package verification, not race-runtime proof.
   `CONFIRMED_BY_EXE` for the exact hashed demo builds.
 * Historical 2001 Mercedes T1 crews: external historical result tables, not
   game-executable evidence.
-* Natural ID26 selection, actor behavior, and fixed Results string:
-  `READY_FOR_HUMAN_RUNTIME`.
-* ID26 in other modes, further participant counts, and any probability claim:
+* The H.1 natural Quick Race capture confirms ID26 selection in Car2 while the
+  player remains T1/ID1 and locked (`T1CupCar1=False`); the completed Results
+  capture confirms physical ID26 at Rank 2 and the display-only
+  `JEAN-PIERRE STRUGO` name: `CONFIRMED_BY_RUNTIME`. The four raw sidecar hashes
+  and capture details are in [runtime-results.md](runtime-results.md).
+* H.2 Cup, Invitation, and Master Rallye T1 eligibility is prepared at their
+  native generation owners and remains `READY_FOR_HUMAN_RUNTIME`; see
+  [mode-aware-t1-eligibility.md](mode-aware-t1-eligibility.md).
+* Further participant counts and any selection-probability claim remain
   `UNKNOWN` / out of scope.
+
+## H.1 natural Quick Race runtime closeout
+
+The four 2026-10-07 Observatory 0.2.2-beta capture pairs use candidate SHA256
+`e59895776dd53acb3ac4a25e1973c8de341da815b90407ec372b696be06d363a`. Their
+raw sidecar hashes were checked against the JSON metadata. The natural T1 race
+shows player Car0 ID1 and AI IDs2, 26, and 6; Car2 is ID26/T1 with Mercedes
+`CarType` and `WheelType`. At this same point `T1CupCar1=False`, so the player
+Mercedes is still locked while AI eligibility remains active. The human
+reported ID26 does not appear on every newly generated race; this supports
+absence of a forced slot but is not a statistical probability result.
+
+The Results capture shows the ID26 AI at Rank 2 and `NameList` contains
+`JEAN-PIERRE STRUGO`. This confirms the fixed display-only name for the tested
+natural Quick Race result. Native DriverID selection remains independent and
+unchanged. Exact vehicle/audio/resource behavior remains physical ID26.

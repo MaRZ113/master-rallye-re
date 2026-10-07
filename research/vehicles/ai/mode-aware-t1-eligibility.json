@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-H.2",
+  "evidence": "CONFIRMED_BY_EXE",
+  "source_executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "quickrace_h1": {
+    "owner_va": "0x00458090",
+    "t1_physical_ids": [0, 1, 2, 3, 4, 5, 6, 26],
+    "runtime_status": "CONFIRMED_BY_RUNTIME",
+    "id26_results_display": "JEAN-PIERRE STRUGO",
+    "native_driver_id_changed": false
+  },
+  "dynamic_modes": {
+    "rallye_cup": {
+      "race_type": 6,
+      "setup_owner_va": "0x0045BE10",
+      "pool_owner_va": "0x0045ABC0",
+      "class_source": "RaceData/VehicleClass via FUN_004B04F0",
+      "creation_parameters_single_player": {"first_ai_slot": 1, "ai_count": 3},
+      "persistence_path": "native generated roster reused by later stage; no stage reroll call to pool owner",
+      "h2_t1_pool": [0, 1, 2, 3, 4, 5, 6, 26],
+      "hook_va": "0x0045AD14",
+      "append_stub_va": "0x0068E7A0",
+      "status": "READY_FOR_HUMAN_RUNTIME"
+    },
+    "invitation": {
+      "race_type": 8,
+      "setup_owner_va": "0x0045BE10",
+      "pool_owner_va": "0x0045ABC0",
+      "class_source": "RaceData/VehicleClass via FUN_004B04F0",
+      "h2_t1_pool": [0, 1, 2, 3, 4, 5, 6, 26],
+      "hook_va": "0x0045AD14",
+      "append_stub_va": "0x0068E7A0",
+      "persistence_evidence": "HISTORICAL_PARALLEL_BRANCH_RUNTIME_ORACLE",
+      "status": "READY_FOR_HUMAN_RUNTIME"
+    },
+    "master_rallye": {
+      "race_type": 5,
+      "new_competition_owner_va": "0x00452590",
+      "pool_owner_va": "0x00451DD0",
+      "class_source": "MasterRallye/VehicleClass",
+      "creation_parameters_single_player": {"first_ai_slot": 1, "ai_count": 3},
+      "roster_store_and_save_owner_va": "0x00452640",
+      "load_owner_va": "0x00452FE0",
+      "stage_owner_va": "0x00452370",
+      "h2_t1_pool": [0, 1, 2, 3, 4, 5, 6, 26],
+      "hook_va": "0x00451ED9",
+      "append_stub_va": "0x0068E7C0",
+      "status": "READY_FOR_HUMAN_RUNTIME"
+    }
+  },
+  "preserved_semantics": {
+    "t1_id7_allowed": false,
+    "t2_ids_unchanged": true,
+    "t3_ids_unchanged": true,
+    "player_unlock_gate_added": false,
+    "native_driver_id_selection_changed": false,
+    "native_roster_storage_changed": false,
+    "save_or_load_changed": false,
+    "existing_rosters_mutated": false,
+    "stage_reroll_added": false,
+    "participant_count_changed": false,
+    "class_randomization_added": false,
+    "challenge_auto_injection": false,
+    "general_randomizer_included": false,
+    "practice": "NOT_APPLICABLE_NO_SEPARATE_STOCK_AI_ROSTER_OWNER_FOUND"
+  },
+  "runtime_status": {
+    "quickrace_h1": "CONFIRMED_BY_RUNTIME",
+    "cup_h2": "PENDING_HUMAN_RUNTIME",
+    "invitation_h2": "PENDING_HUMAN_RUNTIME",
+    "master_rallye_h2": "PENDING_HUMAN_RUNTIME"
+  }
+}

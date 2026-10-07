@@ -78,9 +78,11 @@ Before finalizing the natural-pool display, exact demo group-0x39 evidence
 showed demo Mercedes ID2 maps to `JOSE MARIA SERCIA`, which does not match the
 historical Mercedes T1 crews. H.1 therefore uses the display-only literal
 `JEAN-PIERRE STRUGO` for physical ID26 while leaving native DriverID selection
-and publication untouched. That H.1 fixed-name policy is static-only pending
-its own Results runtime check; details are in
-[race-results-identity.md](race-results-identity.md).
+and publication untouched. The fixed-name policy is
+`CONFIRMED_BY_RUNTIME` in the natural H.1 Results capture; details and the
+original H.0 symptom are recorded in
+[race-results-identity.md](race-results-identity.md) and
+[runtime-results.md](runtime-results.md).
 
 The H.0 hook is only causal materialization scaffolding. The separate H.1
 candidate instead adds ID26 to the native T1 source pool and contains no

@@ -20,10 +20,12 @@ from typing import Any
 try:
     import build_vehicle_hardened_candidate as candidate_builder
     import build_vehicle_natural_t1_candidate as natural_candidate_builder
+    import build_vehicle_mode_ai_candidate as mode_ai_candidate_builder
     import vehicle_unlock_runtime_package as unlock
 except ImportError:  # pragma: no cover - package-style import for tests
     from tools import build_vehicle_hardened_candidate as candidate_builder
     from tools import build_vehicle_natural_t1_candidate as natural_candidate_builder
+    from tools import build_vehicle_mode_ai_candidate as mode_ai_candidate_builder
     from tools import vehicle_unlock_runtime_package as unlock
 
 
@@ -32,7 +34,9 @@ DEFAULT_SOURCE_ROOT = REPO_ROOT / ".research-output/vehicles/unlock/runtime-pack
 DEFAULT_RETAIL = REPO_ROOT.parent / "corpora/retail/MRallye.exe"
 PACKAGE_MANIFEST = "hardened-runtime-package.json"
 SCENE = unlock.SCENE_RELATIVE.as_posix()
-SUPPORTED_RUNTIME_PROFILES = candidate_builder.SUPPORTED_PROFILES + (natural_candidate_builder.PROFILE,)
+SUPPORTED_RUNTIME_PROFILES = (candidate_builder.SUPPORTED_PROFILES
+                              + (natural_candidate_builder.PROFILE,
+                                 mode_ai_candidate_builder.PROFILE))
 
 
 class RuntimePackageError(ValueError):
@@ -87,10 +91,15 @@ def _inventory(source_root: Path, profile: dict[str, Any]) -> list[dict[str, Any
 
 def _expected_manifest(*, profile: dict[str, Any], profile_sha256: str,
                        candidate: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, Any]:
-    natural = candidate["profile"] == natural_candidate_builder.PROFILE
+    natural = candidate["profile"] in (
+        natural_candidate_builder.PROFILE,
+        mode_ai_candidate_builder.PROFILE,
+    )
+    mode_aware = candidate["profile"] == mode_ai_candidate_builder.PROFILE
     result = {
         "schema_version": 1,
-        "status": ("R5V_H1_NATURAL_T1_RUNTIME_PACKAGE_READY_FOR_HUMAN" if natural
+        "status": ("R5V_H2_MODE_AWARE_T1_RUNTIME_PACKAGE_READY_FOR_HUMAN" if mode_aware
+                    else "R5V_H1_NATURAL_T1_RUNTIME_PACKAGE_READY_FOR_HUMAN" if natural
                     else "R5V_H0_1_HARDENED_RUNTIME_PACKAGE"),
         "profile": candidate["profile"],
         "candidate": {
@@ -120,6 +129,16 @@ def _expected_manifest(*, profile: dict[str, Any], profile_sha256: str,
             "display_name": natural_candidate_builder.RESULTS_FIXED_DISPLAY_NAME,
             "native_driver_id_selection_changed": False,
         }
+    if mode_aware:
+        result["mode_aware_dynamic_t1_pools"] = {
+            "rallye_cup": "new_roster_generation_only",
+            "invitation": "shared_native_dynamic_pool",
+            "master_rallye": "new_competition_generation_only",
+            "quickrace": "preserved_from_h1",
+            "challenge": "authored_roster_unchanged",
+        }
+        result["existing_rosters_mutated"] = False
+        result["stage_reroll_added"] = False
     return result
 
 
@@ -128,9 +147,12 @@ def _validate_candidate(exe: Path, manifest_path: Path, retail: Path,
     try:
         if profile_name == natural_candidate_builder.PROFILE:
             manifest = natural_candidate_builder.verify_existing(retail, exe, manifest_path)
+        elif profile_name == mode_ai_candidate_builder.PROFILE:
+            manifest = mode_ai_candidate_builder.verify_existing(retail, exe, manifest_path)
         else:
             manifest = candidate_builder.verify_existing(retail, exe, manifest_path, profile_name)
     except (candidate_builder.CandidateError, natural_candidate_builder.CandidateError,
+            mode_ai_candidate_builder.CandidateError,
             OSError, ValueError) as exc:
         raise RuntimePackageError(f"candidate verification failed: {exc}") from exc
     return {
@@ -142,6 +164,7 @@ def _validate_candidate(exe: Path, manifest_path: Path, retail: Path,
         "forced_ai_proof": manifest.get("forced_ai_proof", {}).get("included", False),
         "natural_t1_id26_pool": manifest.get("natural_t1_id26_pool", {}).get("included", False),
         "results_name_policy": manifest.get("results_identity", {}).get("policy"),
+        "mode_aware_dynamic_t1_pools": profile_name == mode_ai_candidate_builder.PROFILE,
     }
 
 
@@ -203,6 +226,7 @@ def verify_package(runtime_root: Path, candidate_manifest: Path, retail: Path,
         "randomizer_present": False,
         "forced_ai_proof": candidate["forced_ai_proof"],
         "natural_t1_id26_pool": candidate["natural_t1_id26_pool"],
+        "mode_aware_dynamic_t1_pools": candidate["mode_aware_dynamic_t1_pools"],
         "file_count": len(actual_paths),
         "fresh_player_state": "excluded",
     }
@@ -299,7 +323,7 @@ def main(argv: list[str] | None = None) -> int:
             result = verify_package(args.runtime_root, args.candidate_manifest,
                                     args.retail_exe, args.source_root, args.profile)
     except (RuntimePackageError, candidate_builder.CandidateError,
-            natural_candidate_builder.CandidateError,
+            natural_candidate_builder.CandidateError, mode_ai_candidate_builder.CandidateError,
             unlock.PackageError, OSError, ValueError) as exc:
         parser.exit(2, f"hardened runtime package refused: {exc}\n")
     print(json.dumps(result, indent=2, ensure_ascii=False))

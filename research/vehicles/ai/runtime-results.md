@@ -147,7 +147,11 @@ are closed for the tested Quick Race path. Natural T1 pool inclusion is the
 separate active H.1 phase; no natural pool change is part of this H.0.1
 evidence.
 
-## H.1 natural T1 candidate — static package ready; runtime pending
+## H.1 natural T1 candidate — original handoff state (superseded)
+
+The pending status in the following pre-runtime candidate notes is superseded
+by the H.1 runtime closeout at the end of this file; its build details and
+original human procedure remain historical.
 
 The natural-pool candidate is profile `natural-t1-id26`, built from exact
 pristine retail SHA256
@@ -168,7 +172,53 @@ unchanged. Demo group-`0x39` selector evidence and the historical-driver
 classification are recorded in
 [historical-driver-selector.md](historical-driver-selector.md).
 
-This is static/candidate/package evidence only. Natural AI selection,
-visible Mercedes behavior, race completion, and the new fixed Results name
-remain **READY_FOR_HUMAN_RUNTIME**, not runtime-confirmed. Use the exact test
-steps in [natural-t1-runtime-plan.md](natural-t1-runtime-plan.md).
+This was static/candidate/package evidence only at the time; its pending state
+is superseded by the current H.1 closeout below. Use the exact test steps in
+[natural-t1-runtime-plan.md](natural-t1-runtime-plan.md) only as historical
+provenance.
+
+## H.1 natural Quick Race runtime closeout — 2026-10-07
+
+The four Observatory 0.2.2-beta JSON/raw pairs below identify the same exact
+H.1 candidate SHA256
+`e59895776dd53acb3ac4a25e1973c8de341da815b90407ec372b696be06d363a`. Every
+raw sidecar SHA256 matches its JSON metadata.
+
+| Capture | Raw sidecar SHA256 | Runtime evidence |
+|---|---|---|
+| `20261007-155141_natural-t1-race-elf01` | `90fbf13b76621e4191394bbdace8d6451bb288d8ca08d01282f9d7cb170d80ce` | Quick Race active roster |
+| `20261007-155913_natural-t1-id26-results` | `6042ae73b49a86f0945c6985c3185e613cf2c269149ca43981a7370ba83eb9da` | Completed race Results identity |
+| `20261007-160617_master-rallye-mode` | `c6dfe021abf4aad282669a11575dcaf9589e9a85b2bd71584441bb20d2fa6994` | Master Rallye mode control; not an H.2 inclusion test |
+| `20261007-160804_rallye-cup-mode` | `10ca6906519bc68ac2f60b83a7b90792960f4afaf2aaa99eda06a9fff17faa95` | Rallye Cup mode control; not an H.2 inclusion test |
+
+The natural Quick Race capture has `Race/Type=2`, four total cars, one human,
+and `Progress/UnlockedCars/T1CupCar1=False`. The player remains Car0 ID1/T1;
+the AI roster is Car1 ID2, Car2 ID26, and Car3 ID6, all T1. Car2 reports
+`CarType=Mercedes` and `WheelType=Mercedes`. This confirms natural ID26
+eligibility in the H.1 Quick Race pool while the player remains locked. The
+human reports that newly generated Quick Race rosters sometimes omit Mercedes,
+supporting that no participant slot is forced; no statistical distribution is
+claimed.
+
+The Results capture records the physical ID26 AI at Rank 2 and the Results
+`NameList` contains `JEAN-PIERRE STRUGO`. This is a display-only policy;
+native DriverID selection is unchanged. Natural Quick Race ID26 selection and
+this fixed Results identity are `CONFIRMED_BY_RUNTIME`.
+
+The Master Rallye control reports RaceType 5 and AI IDs 5, 0, 1. The Rallye
+Cup control reports RaceType 6 and AI IDs 1, 3, 5. These samples establish
+their mode identity and illustrate that H.1's Quick-Race-only hook does not
+change their rosters; they are not evidence against H.2 and are not inclusion
+tests.
+
+## H.2 mode-aware candidate — static ready; human runtime pending
+
+H.2's current-branch trace found distinct native generation owners for Cup /
+Invitation and new Master Rallye competitions. The candidate extends only
+their T1 source-pool exits. It leaves existing Cup/Invitation roster
+publication, MasterRallye/CarN storage, save/load, resume, and next-stage
+reuse paths untouched. See [mode-aware-t1-eligibility.md](mode-aware-t1-eligibility.md)
+and [mode-aware-runtime-plan.md](mode-aware-runtime-plan.md). The H.2 package
+passes deterministic build and on-disk staging verification, but ID26
+inclusion and persistence with that candidate have not been observed in a
+human runtime session.

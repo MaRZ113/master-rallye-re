@@ -177,6 +177,15 @@ H.1 final verification:
   the human-tested package now contains generated `DataGame/PlayerState.xml`
   and `PlayerState.xml#`; those runtime state files were preserved.
 
-These checks establish candidate/package/static correctness, not natural
-ID26 AI selection, visible Results name, or race behavior. Those remain
-`READY_FOR_HUMAN_RUNTIME` under the handoff.
+These checks established candidate/package/static correctness at the time.
+That pre-H.1-runtime status is superseded by the H.1 runtime closeout below.
+
+## H.1 and H.2 status correction — 2026-10-07
+
+H.1 natural Quick Race ID26 selection and fixed Results display are now
+`CONFIRMED_BY_RUNTIME`; the captures, raw hashes, roster, player unlock state,
+and Rank 2 name are recorded in [runtime-results.md](runtime-results.md).
+H.2 is a separate static candidate for Cup/Invitation and new Master Rallye
+T1 pool generation. Its deterministic candidate and package verification pass,
+but these mode-specific inclusion and persistence results remain
+`READY_FOR_HUMAN_RUNTIME`.
