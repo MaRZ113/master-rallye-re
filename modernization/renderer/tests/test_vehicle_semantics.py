@@ -11,7 +11,7 @@ class LearnedSemanticCaptureTests(unittest.TestCase):
         cls.captures=[]
         for p in (ROOT/'.build-msvc/Release/MRRRenderer/logs').glob('frame*.jsonl'):
             rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines()]
-            if rows[0].get('proxy_version')=='R-GFX5-1' and rows[0].get('exe_sha256')==digest and any(d.get('vehicle_semantic_source')=='learned_signature' for d in rows):cls.captures.append(rows)
+            if rows[0].get('proxy_version')=='R-GFX5-2' and rows[0].get('exe_sha256')==digest and any(d.get('vehicle_semantic_source')=='learned_signature' for d in rows):cls.captures.append(rows)
         if not cls.captures:raise AssertionError('Run current native lost-constellation integration first')
     def test_learned_modified_without_live_identity(self):
         for rows in self.captures:

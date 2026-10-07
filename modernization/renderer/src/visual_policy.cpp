@@ -57,9 +57,9 @@ std::string config_json(const VisualConfig& c){std::ostringstream o;o<<"{\"confi
 void VisualPolicy::configure(const VisualConfig& c,bool known,const D3DCAPS8* caps,HRESULT hr){
  requested=c;effective=c;caps_result=hr;
  if(c.reflection_mode=="ViewDependent2D")effective.reflection_reason="requires_live_or_learned_body_proof_current_material";
- if(!known){effective.anisotropy=effective.fov=effective.shadow_off=false;effective.reason="unsupported_build";effective.reflection_mode="Stock";effective.reflection_reason="unsupported_build";
-  effective.display_mode=effective.interface_mode=effective.aa_mode="Stock";effective.menu_freeze=false;
-  effective.display_reason=effective.interface_reason=effective.aa_reason=effective.freeze_reason="unsupported_build";return;}
+ if(!known){effective.fov=effective.shadow_off=false;effective.reason="feature_local_compatibility";effective.reflection_mode="Stock";effective.reflection_reason="unsupported_build";}
+ // Game-specific quality capabilities are applied by the device/root owners.
+ // AF is purely D3D-generic and still goes through actual device capability checks.
  if(effective.anisotropy){
   if(caps&&SUCCEEDED(hr)){caps_max=caps->MaxAnisotropy;min_supported=(caps->TextureFilterCaps&D3DPTFILTERCAPS_MINFANISOTROPIC)!=0;mag_supported=(caps->TextureFilterCaps&D3DPTFILTERCAPS_MAGFANISOTROPIC)!=0;}
   if(!caps||FAILED(hr)||caps_max<2||!min_supported){effective.anisotropy=false;effective.af_reason="unsupported_min_anisotropy_or_caps_query_failed";}

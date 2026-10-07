@@ -25,8 +25,8 @@ void config_contracts(){
  reflection.display_mode="Borderless";reflection.interface_mode="PreserveMargins";reflection.aa_mode="MSAA";reflection.menu_freeze=true;
  blocked.configure(reflection,false,nullptr,E_FAIL);
  CHECK(blocked.requested.display_mode=="Borderless"&&blocked.requested.menu_freeze);
- CHECK(blocked.effective.display_mode=="Stock"&&blocked.effective.interface_mode=="Stock"&&blocked.effective.aa_mode=="Stock"&&!blocked.effective.menu_freeze);
- CHECK(blocked.effective.display_reason=="unsupported_build"&&blocked.effective.freeze_reason=="unsupported_build");
+ CHECK(blocked.effective.display_mode=="Borderless"&&blocked.effective.interface_mode=="PreserveMargins"&&blocked.effective.aa_mode=="MSAA"&&blocked.effective.menu_freeze);
+ CHECK(blocked.effective.reason=="feature_local_compatibility"); // root/device apply local game-owner capabilities
  auto invalid=parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode","Cubemap"}},true);CHECK(invalid.reflection_mode=="Stock"&&!invalid.reflection_reason.empty());
  std::cout<<"Config missing/version/invalid fields/independence: PASS\n";
 }
@@ -41,7 +41,7 @@ void policy_contracts(){
  cap.TextureFilterCaps=D3DPTFILTERCAPS_MINFANISOTROPIC;p.configure(c,true,&cap,S_OK);CHECK(p.filter(0,D3DTSS_MAGFILTER,D3DTEXF_LINEAR)==D3DTEXF_LINEAR);
  cap.TextureFilterCaps=0;p.configure(c,true,&cap,S_OK);CHECK(!p.effective.anisotropy&&p.effective.fov);
  p.configure(c,true,nullptr,E_FAIL);CHECK(!p.effective.anisotropy);
- cap=caps();p.configure(c,false,&cap,S_OK);CHECK(!p.active());CHECK(p.filter(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR)==D3DTEXF_LINEAR);
+ cap=caps();p.configure(c,false,&cap,S_OK);CHECK(p.active()&&p.effective.anisotropy&&!p.effective.fov&&!p.effective.shadow_off);CHECK(p.filter(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR)==D3DTEXF_ANISOTROPIC);
  p.configure(parse_visual_config({},false),true,&cap,S_OK);CHECK(!p.active());
  p.configure(c,true,&cap,S_OK);auto original=perspective();D3DMATRIX out{};
  CHECK(!p.projection(D3DTS_PROJECTION,&original,out,false,GAMEPLAY_PROJECTION_RETURN_RVA));

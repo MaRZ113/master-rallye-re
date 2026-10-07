@@ -1,0 +1,1008 @@
+{
+  "phase": "R-GFX5-1",
+  "read_only_source_directory": "D:\\Game\\Master Rallye Pristine\\MRRRenderer\\logs",
+  "human_verdict_source": "R-GFX5 continuation user prompt 2026-10-07",
+  "human_verdicts": {
+    "MSAA4": "CONFIRMED_BY_RUNTIME",
+    "MenuFreezeFix_pristine": "CONFIRMED_BY_RUNTIME",
+    "Borderless": "FAIL_STARTUP",
+    "Windowed": "FAIL_SIZE_OWNERSHIP",
+    "Centered4x3": "FAIL_NOT_APPLIED",
+    "PreserveMargins": "INVALID_TEST_STATE_WIDE_BASE_MISSING"
+  },
+  "records": [
+    {
+      "name": "session-20261007-022634-47896.jsonl",
+      "sha256": "1a638d105ddb178539995846002206dedd5a8683fa827fa84f67e819b06bec41",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "root_release",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 161,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 27988320,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          640,
+          480
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": false,
+          "applied": false,
+          "already_patched": false,
+          "ownership": false,
+          "rollback_verified": false,
+          "reason": "disabled"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Stock",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": false,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "false",
+          "Display.Height": "0",
+          "Display.Mode": "Stock",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-022925-19064.jsonl",
+      "sha256": "f428b932d3dd01a4a0ee2665411bf777ea16d29356d9590cb8024d3ea0dc127c",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "menu_freeze_fix",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 0,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": false,
+          "applied": false,
+          "already_patched": false,
+          "ownership": false,
+          "rollback_verified": false,
+          "reason": "disabled"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": false,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "false",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-022935-3668.jsonl",
+      "sha256": "c62ccc83d902cdcb87bc09edbcff1387058f2c0713dbdf3dd4dd5d7cd594fdbc",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "menu_freeze_fix",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 0,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": false,
+          "applied": false,
+          "already_patched": false,
+          "ownership": false,
+          "rollback_verified": false,
+          "reason": "disabled"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": false,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "false",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-023011-32672.jsonl",
+      "sha256": "b2ca569798a2dfda87b54033416a83c57f0fb44ff8e048e7e891bc2e633ac6dc",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "menu_freeze_fix",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 0,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": false,
+          "applied": false,
+          "already_patched": false,
+          "ownership": false,
+          "rollback_verified": false,
+          "reason": "disabled"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 1920,
+        "display_height": 1080,
+        "refresh_rate": 60,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": false,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "false",
+          "Display.Height": "1080",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "60",
+          "Display.Width": "1920",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-023043-20944.jsonl",
+      "sha256": "3832117b7909f964eaa51304f68f8fa7e0442f4a041dbb68b683c60c52b7e60a",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "fov_culling_hook",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 712,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 2364784,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 5,
+      "effective_sizes": [
+        [
+          640,
+          480
+        ],
+        [
+          958,
+          493
+        ],
+        [
+          1920,
+          1018
+        ],
+        [
+          1920,
+          1027
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": false,
+          "applied": false,
+          "already_patched": false,
+          "ownership": false,
+          "rollback_verified": false,
+          "reason": "disabled"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Windowed",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Centered4x3",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": false,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "false",
+          "Display.Height": "0",
+          "Display.Mode": "Windowed",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Centered4x3"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-023325-22056.jsonl",
+      "sha256": "e1f7294b40ae281323a747d22aa4d13ef1e26fa079940edc52c9757dacf9c0e1",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "fov_culling_hook",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 510,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 23006564,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 5,
+      "effective_sizes": [
+        [
+          640,
+          480
+        ],
+        [
+          958,
+          493
+        ],
+        [
+          1919,
+          1027
+        ],
+        [
+          1920,
+          1027
+        ],
+        [
+          2013,
+          1073
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": false,
+          "applied": false,
+          "already_patched": false,
+          "ownership": false,
+          "rollback_verified": false,
+          "reason": "disabled"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Windowed",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "PreserveMargins",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": false,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "false",
+          "Display.Height": "0",
+          "Display.Mode": "Windowed",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "PreserveMargins"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-023622-39016.jsonl",
+      "sha256": "6fd71b73ea392bfcf539e07ea16372c480e5a5243baa7a3d0cb407bd7b65a587",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "root_release",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 143,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 24973720,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 1,
+      "effective_sizes": [
+        [
+          640,
+          480
+        ],
+        [
+          1920,
+          1027
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Stock",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "invalid_aa_mode_stock",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "4",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Stock",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-025529-42232.jsonl",
+      "sha256": "ddc30f49fcbf5939499163182406e92f73352addba23b97319ff18b10ad59734",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "root_release",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 9,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 4,
+            "swap_effect": 1,
+            "device_window": 17369242,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          640,
+          480
+        ]
+      ],
+      "effective_samples": [
+        4
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Stock",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "MSAA",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "MSAA",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Stock",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-025535-12772.jsonl",
+      "sha256": "014345bb610db0e538eac1203e09df28ac60fa6aa81b99cf32c8a3a129988aa4",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "root_release",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 241,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 4,
+            "swap_effect": 1,
+            "device_window": 17307164,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 8,
+      "effective_sizes": [
+        [
+          640,
+          480
+        ],
+        [
+          1920,
+          1027
+        ]
+      ],
+      "effective_samples": [
+        4
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Stock",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "MSAA",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "MSAA",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Stock",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "session-20261007-030811-47816.jsonl",
+      "sha256": "058c0bf9a8b8bd7e874124e1520a2779473f9235eb5747246c320efa447cd835",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "root_release",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 126,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 640,
+            "height": 480,
+            "format": 22,
+            "count": 1,
+            "multisample": 4,
+            "swap_effect": 1,
+            "device_window": 12063070,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          640,
+          480
+        ]
+      ],
+      "effective_samples": [
+        4
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Stock",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "MSAA",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "MSAA",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Stock",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": null
+    },
+    {
+      "name": "frame-22056-d1-00007563.jsonl",
+      "sha256": "2ed2bd82f9e64fb07889df4684a4c8de33dc9c12398e4930c9f80a67d5c51d61",
+      "proxy_version": "R-GFX5-1",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 0,
+          "requested_equals_effective": true,
+          "widescreen_applied": false
+        }
+      ],
+      "last_breadcrumb": null
+    }
+  ]
+}

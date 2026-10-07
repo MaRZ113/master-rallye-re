@@ -1,0 +1,64 @@
+{
+  "images": [
+    {
+      "name": "MRallye.exe",
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "evidence_grade": "NATIVE_READ_ONLY_FILE_FINGERPRINT_AUDIT_NOT_RUNTIME",
+      "freeze": {
+        "feature_id": "MenuFreezeFix",
+        "compatibility_method": "fingerprint",
+        "status": "SUPPORTED",
+        "reason": "unique_decoded_owner_validated",
+        "fast_path_candidate": false,
+        "scan_matches": 1,
+        "candidate_rva": 1769820,
+        "bytes_valid": true,
+        "instruction_shape_valid": true,
+        "normalized_fingerprint_valid": null
+      },
+      "ui": {
+        "feature_id": "WidescreenUI",
+        "compatibility_method": "fingerprint",
+        "status": "SUPPORTED",
+        "reason": "unique_decoded_owner_validated",
+        "fast_path_candidate": false,
+        "scan_matches": 1,
+        "candidate_rva": 1449683,
+        "bytes_valid": true,
+        "instruction_shape_valid": true,
+        "normalized_fingerprint_valid": null
+      }
+    },
+    {
+      "name": "MRallye_patched.exe",
+      "sha256": "bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6",
+      "evidence_grade": "NATIVE_READ_ONLY_FILE_FINGERPRINT_AUDIT_NOT_RUNTIME",
+      "freeze": {
+        "feature_id": "MenuFreezeFix",
+        "compatibility_method": "unsupported",
+        "status": "UNSUPPORTED",
+        "reason": "decoded_control_flow_or_callee_mismatch",
+        "fast_path_candidate": false,
+        "scan_matches": 1,
+        "candidate_rva": 2400700,
+        "bytes_valid": true,
+        "instruction_shape_valid": false,
+        "normalized_fingerprint_valid": null
+      },
+      "ui": {
+        "feature_id": "WidescreenUI",
+        "compatibility_method": "unsupported",
+        "status": "UNSUPPORTED",
+        "reason": "owner_not_found",
+        "fast_path_candidate": false,
+        "scan_matches": 0,
+        "candidate_rva": 0,
+        "bytes_valid": false,
+        "instruction_shape_valid": false,
+        "normalized_fingerprint_valid": null
+      }
+    }
+  ],
+  "modified_elsewhere_compatible": "synthetic same-owner bytes with unrelated mutation; native compatibility suite PASS",
+  "executables_written": false
+}

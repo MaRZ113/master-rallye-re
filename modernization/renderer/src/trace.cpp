@@ -1,5 +1,6 @@
 #include "trace.hpp"
 #include "method_names.hpp"
+#include "quality.hpp"
 #include <sstream>
 #include <iomanip>
 #include <cmath>
@@ -124,7 +125,7 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
    else if(!capture_->truncated){auto& e=capture_->events[capture_->event_count++];e=Event{};e.slot=slot;e.result=result;e.args=args;e.pc=pc;e.effective_args=native;e.feature=feature;e.suppressed=suppressed;e.native_only=native_only;e.culling_synchronized=culling.synchronized;
     if((slot==37||slot==38)&&safe_copy(e.effective_payload,(void*)native.a[1],64))e.effective_words=16;
     else if((slot==40||slot==41)&&safe_copy(e.effective_payload,(void*)native.a[0],24))e.effective_words=6;
-    if(slot>=70&&slot<=73){e.draw=pending_draw_;if(e.draw!=UINT32_MAX){const auto& d=capture_->draws[e.draw];for(int j=0;j<4;++j){const auto& l=d.state.tss[0][j==3?20:15+j];const auto& n=d.effective.filtering[j];if(l.known&&n.known&&l.value!=n.value)e.feature|=1;}if(d.state.matrices[2].known&&d.effective.projection.known&&std::memcmp(&d.state.matrices[2].value,&d.effective.projection.value,sizeof(D3DMATRIX)))e.feature|=2;}}
+    if(slot>=70&&slot<=73){e.draw=pending_draw_;if(e.draw!=UINT32_MAX){const auto& d=capture_->draws[e.draw];for(int j=0;j<4;++j){const auto& l=d.state.tss[0][j==3?20:15+j];const auto& n=d.effective.filtering[j];if(l.known&&n.known&&l.value!=n.value)e.feature|=1;}if(d.state.matrices[2].known&&d.effective.projection.known&&std::memcmp(&d.state.matrices[2].value,&d.effective.projection.value,sizeof(D3DMATRIX)))e.feature|=stock_ui_projection(d.state.matrices[2].value)?32u:2u;}}
     if((slot==37||slot==38)&&safe_copy(e.payload,(void*)args.a[1],64))e.payload_words=16;
     else if(slot==40&&safe_copy(e.payload,(void*)args.a[0],24))e.payload_words=6;
     else if(slot==42&&safe_copy(e.payload,(void*)args.a[0],sizeof(D3DMATERIAL8)))e.payload_words=sizeof(D3DMATERIAL8)/4;
@@ -163,7 +164,7 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
    if(written+text.size()>64*1024*1024||!WriteFile(f,text.data(),static_cast<DWORD>(text.size()),&n,nullptr)||n!=text.size()){
     okay=false;LARGE_INTEGER at;at.QuadPart=written;SetFilePointerEx(f,at,nullptr,FILE_BEGIN);SetEndOfFile(f);return;
    }written+=n;};
-  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX5-1\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+",\"quality\":"+quality_metadata+",\"ui_margins\":"+ui_metadata+"}");
+  line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX5-2\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+",\"quality\":"+quality_metadata+",\"ui_margins\":"+ui_metadata+"}");
   if(semantics_)for(size_t i=0;i<semantics_->size();++i){const auto& e=semantics_->entry(i);std::ostringstream o;
    o<<"{\"type\":\"vehicle_semantic_signature\",\"semantic_signature_id\":"<<e.id<<",\"semantic_signature_state\":\"PROVEN_VEHICLE_BODY_ENV\",\"geometry_signature\":"<<e.key.hash<<",\"learned_frame\":"<<e.learned_frame<<",\"learned_epoch\":"<<e.epoch<<",\"origin_constellation_id\":"<<e.origin.constellation<<",\"origin_reason_mask\":"<<e.origin.vehicle_reasons<<",\"origin_grace_frames\":"<<e.origin.grace<<",\"origin_identity_source\":"<<quote(identity_source(e.origin.source))<<",\"origin_wheel_track_ids\":[";
    for(int j=0;j<4;++j){if(j)o<<',';o<<e.origin.wheels[j];}o<<"],\"resource_generations\":[";for(int j=0;j<4;++j){if(j)o<<',';o<<e.key.generations[j];}
@@ -180,6 +181,9 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
    for(int j=0;j<8;++j){if(j)o<<',';o<<e.args.a[j];}o<<"],\"payload_bits\":[";
    for(uint32_t j=0;j<e.payload_words;++j){if(j)o<<',';o<<e.payload[j];}o<<']';
    o<<",\"native_only\":"<<(e.native_only?"true":"false")<<",\"feature_mask\":"<<(e.feature|(e.draw!=UINT32_MAX&&capture_->draws[e.draw].reflection.applied?8u:0u))<<",\"forwarded\":"<<(e.suppressed?"false":"true")<<",\"effective_arguments\":[";for(int j=0;j<8;++j){if(j)o<<',';o<<e.effective_args.a[j];}o<<"],\"effective_payload_bits\":[";for(uint32_t j=0;j<e.effective_words;++j){if(j)o<<',';o<<e.effective_payload[j];}o<<']';
+   if((e.feature&32)&&e.slot==37&&e.effective_words==16){D3DMATRIX effective{};std::memcpy(&effective,e.effective_payload,64);
+    double width=effective._11?2./effective._11:0.;o<<",\"widescreen_applied\":true,\"widescreen_source\":"<<quote(e.native_only?"validated_ui_projection_owner_cached":"validated_ui_projection_owner")<<",\"virtual_width\":"<<width<<",\"widescreen_extra\":"<<width-640.<<",\"center_offset\":"<<(width-640.)*.5;
+   }
    if(e.feature&2 && e.slot==37 && e.payload_words==16 && e.effective_words==16){D3DMATRIX original{},effective{};std::memcpy(&original,e.payload,64);std::memcpy(&effective,e.effective_payload,64);if(symmetric_lh(original)&&symmetric_lh(effective))o<<",\"projection_override\":{\"original_vfov\":"<<vertical_fov(original)<<",\"effective_vfov\":"<<vertical_fov(effective)<<",\"configured_vfov\":"<<s.visual_config.vfov<<",\"original_aspect\":"<<original._22/original._11<<",\"culling_synchronized\":"<<(e.culling_synchronized?"true":"false")<<'}';}
    if(e.draw!=UINT32_MAX){auto classification=capture_->draws[e.draw].classification;auto result=tracker_.result(classification.group);if(result&&classification.epoch==tracker_.epoch())classification.transform=*result;
     o<<",\"object_classification\":"<<quote(object_classification(classification))<<",\"classification_confidence\":"<<quote(object_classification(classification))<<",\"classification_evidence\":\"D3D_TEMPORAL_ONLY\",\"classification_reasons\":[";bool first_reason=true;

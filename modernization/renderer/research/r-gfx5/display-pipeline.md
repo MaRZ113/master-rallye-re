@@ -1,17 +1,27 @@
 # Display, resolution and Reset
 
-ConfigVersion1/exact pristine required. Invalid individual display settings choose displayStock locally. Width/height both0 or nonzero320x200..16384x16384; actual native device is final legality check. Unknown build forwards/traces with Stock effects.
+ConfigVersion1 is required. Display is D3D/Win32-generic and does not require the pristine SHA. Invalid individual display settings choose displayStock locally. Width/height both0 or nonzero320x200..16384x16384; actual native device is the final legality check.
 
 | Mode | Behavior |
 |---|---|
 | Stock | Original presentation/HWND/styles; no new window/caps/surface calls for disabled display/AA. |
-| Windowed | Existing device HWND or focus HWND; WindowedTRUE, desktop-compatible format, configured **client** dimensions. Caption/borders, AdjustWindowRectEx with menu, GetClientRect verification. 0/0 follows game dimensions/current client. |
+| Windowed | Existing device HWND or focus HWND; WindowedTRUE, desktop-compatible format, fixed configured **client** dimensions. 0/0 pins the first valid requested backbuffer size, or initial client when the request is zero. Later game Reset or manual resize cannot redefine it. |
 | Borderless | Same HWND; WindowedTRUE, popup style preserving visibility/clip flags, no caption/borders, exact monitor rcMonitor. 0/0 uses native desktop. Explicit nonnative dimensions currently resolve to monitor-native with logged reason; no supersampling/scaler. |
 | ExclusiveFullscreen | WindowedFALSE; enumerate actual adapter modes, match dimensions/format/explicit refresh, CheckDeviceType. Unsupported falls back to original Stock. Refresh0 requests native default. |
 
-Save style/exstyle/menu/outer/client before changes. MonitorFromWindow(MONITOR_DEFAULTTONEAREST)+GetMonitorInfoW chooses rcMonitor, not taskbar workarea; initialize cbSize as required by [Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmonitorinfow). No monitor-selection UI, forced activation or visibility. Failure, Stock fallback and policy destruction restore saved state; restore failure logged.
+Save style/exstyle/menu/outer/client before changes. Borderless uses MonitorFromWindow + GetMonitorInfoW `rcMonitor`, including secondary-monitor offsets. Decorated Windowed uses `rcWork`: derive outer dimensions with AdjustWindowRectEx and clamp outer placement within the work area while retaining the configured client size. An oversized requested client falls back to Stock with a reason; there is no silent scale-down. No forced activation, visibility or DPI-awareness change.
 
-Same per-device planner handles CreateDevice and Reset. Trace raw `requested`, unmixed `logical_baseline`, accepted `effective`, monitor/reasons/attempts. Successful PP returns native effective values. An echoed Reset field still exactly equal to our previous override is unmixed to its original value; fresh game requests remain. Thus AA fallback cannot accidentally inherit our DISCARD/MSAA from the preceding successful call.
+R-GFX5-1 runtime: three Borderless logs stop before CreateDevice completion; Windowed auto sizing grew through several sizes, reaching 2013x1073 in the PreserveMargins session. [Hashed evidence](continuation-runtime-evidence.json). Early synchronous HWND mutation is a **STRONG HYPOTHESIS**, not a proven crash cause.
+
+R-GFX5-2 order is **PLAN -> native CreateDevice/Reset -> successful native result -> HWND COMMIT**. PLAN queries/snapshots and computes parameters without SetWindowLong, SetMenu, SetWindowPos or restoration. Failed native calls never commit/restore HWND and failed Reset retains the preceding accepted descriptors/window/domain. Native AA/display retries remain bounded at three; DEVICELOST/DEVICENOTRESET do not retry. Only successful Stock fallback restores a previously owned window.
+
+COMMIT compares current HWND/style/menu/client/outer geometry with the committed state; unchanged placement skips Win32 mutations. Manual resize/maximize is corrected to the pinned client dimensions on the next successful Reset. The selected monitor rectangle remains authoritative for Borderless. A guard rejects a synchronous reentrant Reset during window mutation before it can start a second native transaction.
+
+If Win32 commit fails after native success, restore the pre-commit window snapshot and log `window_commit_failed_native_parameters_retained`. Keep the real accepted presentation parameters/HRESULT visible: do not pretend a Stock-sized device was created. Unverified rollback is separately logged and restoration remains owned for a later attempt/destruction. Human runtime must reject a commit failure; this is diagnostic recovery, not a successful Borderless result.
+
+Compact breadcrumbs cover plan, monitor selection, transformed PP, every native CreateDevice/Reset begin/end, commit begin/end or unchanged, both SetWindowLong calls, SetMenu and SetWindowPos begin/end. Logs expose the last completed step after a crash. No per-frame repositioning.
+
+Same per-device planner handles CreateDevice and Reset. Trace raw `requested`, unmixed `logical_baseline`, accepted `effective`, pinned Windowed target, commit status, monitor/reasons/attempts. Successful PP returns native effective values. An echoed Reset field still exactly equal to our previous override is unmixed to its original value; fresh game requests remain in the logical baseline, but cannot redefine a pinned Windowed target. Thus AA fallback cannot inherit our DISCARD/MSAA from the preceding successful call.
 
 Attempt1 display+AA, ordinary failure retry without our AA, then without our display: maximum3 native calls. DEVICELOST/DEVICENOTRESET return immediately. Final native HRESULT preserved. Successful Reset invokes existing pool-aware observer once: DEFAULT metadata invalidated, MANAGED retained, object/learned vehicle proof cleared and relearned. GetDesc observations hold/release transient native surface references only.
 

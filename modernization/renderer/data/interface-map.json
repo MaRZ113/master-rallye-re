@@ -217,7 +217,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "COM",
-        "forwarding_status": "default-off unchanged; COM pointer plumbing and R-GFX5 exact-build display/MSAA parameters with bounded native fallback"
+        "forwarding_status": "default-off unchanged; COM pointer plumbing and R-GFX5 D3D-generic display/MSAA parameters with bounded native fallback"
       }
     ],
     "IDirect3DDevice8": [

@@ -37,17 +37,22 @@ HRESULT STDMETHODCALLTYPE Device8::GetTextureStageState(DWORD stage,D3DTEXTUREST
  trace.after(62,args,static_cast<uint32_t>(hr),pc,&effective_args,virtualized?1:0);return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::SetTransform(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input){
- auto guard=trace.guard();auto args=pack(type,input);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(37,args,pc);
+ return set_transform_at(type,input,reinterpret_cast<uintptr_t>(_ReturnAddress()));
+}
+HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
+ auto guard=trace.guard();auto args=pack(type,input);trace.before(37,args,pc);
  D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);bool rewritten=visuals.effective.fov&&visuals.projection(type,input,changed,exe,rva);
  if(rewritten){D3DMATRIX original{};rewritten=safe_copy(&original,input,sizeof(original))&&game_fov.allows(original);} // No D3D-only widening fallback.
  bool ui_rewritten=false;
- if(!rewritten&&quality&&quality->config.interface_mode!="Stock"&&type==D3DTS_PROJECTION&&exe&&rva==GAMEPLAY_PROJECTION_RETURN_RVA){
-  D3DMATRIX original{};auto& viewport=trace.effective_shadow.bindings.viewport;double aspect=viewport.known&&viewport.value.Height?double(viewport.value.Width)/viewport.value.Height:quality->valid&&quality->effective.BackBufferHeight?double(quality->effective.BackBufferWidth)/quality->effective.BackBufferHeight:0;
-  ui_rewritten=safe_copy(&original,input,sizeof(original))&&ui_projection(original,aspect,changed);
+ if(!rewritten&&quality&&quality->config.interface_mode!="Stock"&&type==D3DTS_PROJECTION&&ui_owner(quality->ui_capability,exe,rva)){
+  D3DMATRIX original{};auto& viewport=trace.effective_shadow.bindings.viewport;
+  UINT width=viewport.known?viewport.value.Width:quality->valid?quality->effective.BackBufferWidth:0;
+  UINT height=viewport.known?viewport.value.Height:quality->valid?quality->effective.BackBufferHeight:0;
+  ui_rewritten=safe_copy(&original,input,sizeof(original))&&ui_projection_dimensions(original,width,height,changed);
  }
  trace.culling=game_fov.status();
  const D3DMATRIX* forwarded=(rewritten||ui_rewritten)?&changed:input;auto native=pack(type,forwarded);
- HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&(rewritten||ui_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=false;}trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:0);return hr;
+ HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&(rewritten||ui_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:0);return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
  auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);

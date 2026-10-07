@@ -1,6 +1,38 @@
-# R-GFX5-1 automated validation â€” 2026-10-07
+# R-GFX5-2 continuation validation - 2026-10-07
 
-**READY_FOR_HUMAN_RUNTIME.** No game, GPU visual test, deployment or real Alt+Tab performed. R-GFX4 human acceptance is separate from this candidate's automated evidence.
+**READY_FOR_HUMAN_RUNTIME.** Human-confirmed MSAA4/MenuFreezeFix from the prior candidate are preserved. Borderless/Windowed/UI changes in this DLL have no human visual PASS yet. Game not launched or DLL deployed by the agent; no disk EXE/assets/patcher changes.
+
+Continuation starting HEAD144470b9e7b378ef67fa7a04b227dc6cad4c12f5, branch research/general-re, repository master-rallye-re-general. Tracked preflight clean; only modernization/input untracked. When unrelated Observatory edits appeared, work stopped; after user commitf9e91188641ea624554e9f3761f69a93592923a7 it resumed in the same checkout/branch. Only modernization/renderer changes staged. No new worktree, retired-tree write or push.
+
+| Check | Executed result |
+|---|---|
+| `python modernization/renderer/tools/build.py` | PASS, Win32 x86 Release, MSVC/Visual Studio18 2026 |
+| Native compatibility/COM/visual/classifier/reflection/FOV-culling/quality/identity suites | **8/8 PASS**,2.52s |
+| `python -m unittest discover -s modernization/renderer/tests -v` | **88 PASS**, no skips,142.197s |
+| `python -X pycache_prefix=<ignored phase analysis cache> -m compileall -q modernization` | PASS; includes the tree without writing pyc to user input/retired sources |
+| PE/export/import verifier | PASS,PE32/I386,Direct3DCreate8@5,ValidateVertexShader@3,ValidatePixelShader@2, no recursive d3d8 import |
+| `git diff --check` | PASS |
+| Native file fingerprint audit | Pristine freeze/UI supported; historical MRallye_patched.exe locally unsupported; no file execution/write |
+
+DLL SHA256 `525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0`, **1,196,032 bytes**. Ignored `.build-msvc/Release/d3d8.dll`, not committed/deployed. [Build manifest](../../data/build.json). Imports bcrypt.dll,USER32.dll,KERNEL32.dll; no additional exports/backend.
+
+New synthetic contracts prove discovery on an unknown image with an unchanged local owner, related call target validation, unrelated mutations, missing/ambiguous/changed/malformed owner rejection and already-patched no-write. Known SHA never overrides a changed local owner. Correct UI return0x00161ED3 is in the generated recovered block; production setter captures prove a validated test-owner rewrite, requested/effective matrices and F10 provenance. Wrong caller/shape cannot establish cached proof. The synthetic test address is not presented as a game runtime address.
+
+Display contracts assert no HWND apply/restore before native success or after native failure, success-only/idempotent commit, failed Reset descriptor retention, fixed1280x720 despite later1920x1027 requests, auto640x480 retention and invalid-first-auto rejection. Hidden real Win32 window style/client/popup/restoration checks remain. Native AA color/depth/mode/descent/retry/echo/lost tests remain. Current UI rejections fail locally with Stock restoration while AF remains enabled.
+
+All prior assertions for COM/ABI/FPU, capture bounds, AF MIN-only, frontend45/five cameras/backview/FOV-culling, shadow modes, generation/poolReset, structural/brake/temporal/learned vehicle semantics and native TCI restoration remain. The previous unknown-build all-Stock assertions were intentionally replaced by generic-enabled/exact-game-feature-disabled assertions under the new user requirements. Producer version filters updated; original positive MSAA4 capture assertions are still exercised separately from the added UI capture.
+
+Development failures remain in ignored logs: an install-parameter rename compile mismatch; a new test incorrectly expected E_NOTIMPL instead of the mock's actual HRESULT; an invalid-auto fixture reused a previously valid planner and was corrected to a fresh-device fixture. Final build completed before the full Python capture suite; all required checks passed. None of these failures is recast as runtime evidence.
+
+Read-only [runtime audit](continuation-runtime-evidence.json) covers10 R-GFX5-1 sessions and one UI F10; no raw logs committed. MSAA main session has8 successful resets; three Borderless sessions have no CreateDevice completion/frame summaries; Windowed PreserveMargins reached2013x1073; actual UI return0x00161ED3 had unchanged requested/effective matrix. These support the prior human verdicts, not the new fix's visual correctness.
+
+[Human handoff](runtime-handoff.md) requires narrow A-G. PreserveMargins code/rules/bridge and MSAA sample selection were not redesigned. Gamma/LOD/distance and HD UI/camera/light/shader/weather/postFX work remain deferred.
+
+---
+
+## Historical R-GFX5-1 automated snapshot â€” 2026-10-07
+
+**Historical pre-runtime status.** No game, GPU visual test, deployment or real Alt+Tab performed. R-GFX4 human acceptance is separate from this candidate's automated evidence.
 
 Repository master-rallye-re-general, branch research/general-re, starting HEAD6ede833122bcd32ffb6223548c88587650d0539d. Tracked preflight clean, user modernization/input untracked and preserved. All changes modernization; no new branch/worktree/push; retired trees and game/inputs unchanged.
 

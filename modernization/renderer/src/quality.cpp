@@ -9,21 +9,26 @@ namespace gfx2 {
 namespace {
 struct SavedFP {fenv_t env;SavedFP(){fegetenv(&env);}~SavedFP(){fesetenv(&env);}};
 class NativeWindows final:public WindowApi {
- bool style(HWND w,int index,LONG value) noexcept {SetLastError(0);return SetWindowLongW(w,index,value)!=0||GetLastError()==0;}
+ bool style(HWND w,int index,LONG value) noexcept {display_breadcrumb("SetWindowLong_begin");SetLastError(0);bool okay=SetWindowLongW(w,index,value)!=0||GetLastError()==0;display_breadcrumb("SetWindowLong_end",okay?S_OK:E_FAIL);return okay;}
 public:
  bool snapshot(HWND w,WindowState& s) noexcept override {
   s={};if(!IsWindow(w))return false;MONITORINFO m{sizeof(m)};
   if(!GetWindowRect(w,&s.outer)||!GetClientRect(w,&s.client)||!GetMonitorInfoW(MonitorFromWindow(w,MONITOR_DEFAULTTONEAREST),&m))return false;
-  s.hwnd=w;s.style=GetWindowLongW(w,GWL_STYLE);s.exstyle=GetWindowLongW(w,GWL_EXSTYLE);s.menu=GetMenu(w);s.monitor=m.rcMonitor;s.valid=true;return true;
+  s.hwnd=w;s.style=GetWindowLongW(w,GWL_STYLE);s.exstyle=GetWindowLongW(w,GWL_EXSTYLE);s.menu=GetMenu(w);s.monitor=m.rcMonitor;s.work=m.rcWork;s.valid=true;return true;
  }
  bool apply(const WindowState& s,const RECT& desired,bool client,bool popup) noexcept override {
   if(!s.valid)return false;
   LONG ws=(s.style&(WS_VISIBLE|WS_DISABLED|WS_CLIPCHILDREN|WS_CLIPSIBLINGS))|(popup?WS_POPUP:WS_OVERLAPPEDWINDOW);
   LONG ex=s.exstyle&~(WS_EX_TOPMOST|WS_EX_WINDOWEDGE|WS_EX_CLIENTEDGE|WS_EX_DLGMODALFRAME);
   RECT r=desired;HMENU menu=popup?nullptr:s.menu;
-  if(client&&!AdjustWindowRectEx(&r,ws,menu!=nullptr,ex))return false;
-  if(!style(s.hwnd,GWL_STYLE,ws)||!style(s.hwnd,GWL_EXSTYLE,ex)||!SetMenu(s.hwnd,menu))return false;
-  if(!SetWindowPos(s.hwnd,HWND_NOTOPMOST,r.left,r.top,r.right-r.left,r.bottom-r.top,SWP_FRAMECHANGED|SWP_NOACTIVATE|SWP_NOOWNERZORDER))return false;
+  if(client){RECT size{0,0,desired.right-desired.left,desired.bottom-desired.top};if(!AdjustWindowRectEx(&size,ws,menu!=nullptr,ex))return false;
+   const auto& work=s.work.right>s.work.left?s.work:s.monitor;LONG width=size.right-size.left,height=size.bottom-size.top;
+   if(width>work.right-work.left||height>work.bottom-work.top)return false;
+   r.left=std::clamp(desired.left,work.left,work.right-width);r.top=std::clamp(desired.top,work.top,work.bottom-height);r.right=r.left+width;r.bottom=r.top+height;
+  }
+  if(!style(s.hwnd,GWL_STYLE,ws)||!style(s.hwnd,GWL_EXSTYLE,ex))return false;
+  display_breadcrumb("SetMenu_begin");bool menu_ok=SetMenu(s.hwnd,menu)!=FALSE;display_breadcrumb("SetMenu_end",menu_ok?S_OK:E_FAIL);if(!menu_ok)return false;
+  display_breadcrumb("SetWindowPos_begin");bool positioned=SetWindowPos(s.hwnd,HWND_NOTOPMOST,r.left,r.top,r.right-r.left,r.bottom-r.top,SWP_FRAMECHANGED|SWP_NOACTIVATE|SWP_NOOWNERZORDER)!=FALSE;display_breadcrumb("SetWindowPos_end",positioned?S_OK:E_FAIL);if(!positioned)return false;
   RECT actual{};return GetClientRect(s.hwnd,&actual)&&actual.right==desired.right-desired.left&&actual.bottom==desired.bottom-desired.top;
  }
  bool restore(const WindowState& s) noexcept override {
@@ -34,18 +39,22 @@ public:
 } native_windows;
 bool lost(HRESULT hr){return hr==D3DERR_DEVICELOST||hr==D3DERR_DEVICENOTRESET;}
 }
+void display_breadcrumb(const char* step,HRESULT result) noexcept {try{session().write("{\"type\":\"display_breadcrumb\",\"step\":"+quote(step)+",\"hresult\":"+std::to_string(static_cast<uint32_t>(result))+"}");}catch(...){}}
 WindowApi& native_window_api() noexcept{return native_windows;}
 QualityPipeline::~QualityPipeline(){restore_window();}
-void QualityPipeline::configure(const VisualConfig& c,bool exact,UINT a,D3DDEVTYPE t,HWND w){
+void QualityPipeline::configure(const VisualConfig& c,bool ui_supported,UINT a,D3DDEVTYPE t,HWND w){
  config=c;adapter=a;type=t;focus=w;display=c.display_mode;display_reason=c.display_reason;aa_reason=c.aa_reason;
- if(!exact){config.display_mode=config.aa_mode="Stock";config.interface_mode="Stock";config.menu_freeze=false;display="Stock";display_reason=aa_reason="unsupported_build";}
+ pinned_width_=pinned_height_=0;
+ if(!ui_supported){config.interface_mode="Stock";config.interface_reason="ui_owner_unsupported";}
+ if(c.aa_mode=="Stock")aa_reason="Mode_Stock_Samples_ignored";
 }
 void QualityPipeline::restore_window() noexcept {
- if(window_owned_){if(windows_->restore(original))window_owned_=false;else {try{session().write("{\"type\":\"window_restore_failed\"}");}catch(...){}}}
+ if(window_owned_){bool prior=committing_;committing_=true;if(windows_->restore(original))window_owned_=false;else {try{session().write("{\"type\":\"window_restore_failed\"}");}catch(...){}}committing_=prior;}
 }
 bool QualityPipeline::select_display(IDirect3D8& root,D3DPRESENT_PARAMETERS& p){
  display=config.display_mode;if(display=="Stock")return true;
  if(!windows_->snapshot(p.hDeviceWindow?p.hDeviceWindow:focus,current)){display_reason="invalid_window_or_monitor_stock";return false;}
+ display_breadcrumb("monitor_selection_complete");
  if(!original.valid)original=current;
  D3DDISPLAYMODE desktop{};if(FAILED(root.GetAdapterDisplayMode(adapter,&desktop))){display_reason="adapter_display_query_failed_stock";return false;}
  p.hDeviceWindow=current.hwnd;
@@ -56,6 +65,16 @@ bool QualityPipeline::select_display(IDirect3D8& root,D3DPRESENT_PARAMETERS& p){
   if(p.BackBufferWidth!=static_cast<UINT>(current.monitor.right-current.monitor.left)||p.BackBufferHeight!=static_cast<UINT>(current.monitor.bottom-current.monitor.top)){
    display_reason="borderless_uses_monitor_native_size";p.BackBufferWidth=current.monitor.right-current.monitor.left;p.BackBufferHeight=current.monitor.bottom-current.monitor.top;
   }
+ }else if(display=="Windowed"){
+  p.BackBufferWidth=pinned_width_?pinned_width_:(config.width?config.width:(p.BackBufferWidth?p.BackBufferWidth:current.client.right));
+  p.BackBufferHeight=pinned_height_?pinned_height_:(config.height?config.height:(p.BackBufferHeight?p.BackBufferHeight:current.client.bottom));
+  if(!p.BackBufferWidth||!p.BackBufferHeight||p.BackBufferWidth>16384||p.BackBufferHeight>16384){display_reason="invalid_effective_dimensions_stock";return false;}
+  RECT bounds{0,0,static_cast<LONG>(p.BackBufferWidth),static_cast<LONG>(p.BackBufferHeight)};
+  LONG ws=(current.style&(WS_VISIBLE|WS_DISABLED|WS_CLIPCHILDREN|WS_CLIPSIBLINGS))|WS_OVERLAPPEDWINDOW;
+  LONG ex=current.exstyle&~(WS_EX_TOPMOST|WS_EX_WINDOWEDGE|WS_EX_CLIENTEDGE|WS_EX_DLGMODALFRAME);
+  auto work=current.work.right>current.work.left?current.work:current.monitor;
+  if(!AdjustWindowRectEx(&bounds,ws,current.menu!=nullptr,ex)||bounds.right-bounds.left>work.right-work.left||bounds.bottom-bounds.top>work.bottom-work.top){display_reason="windowed_client_exceeds_work_area_stock";return false;}
+  pinned_width_=p.BackBufferWidth;pinned_height_=p.BackBufferHeight;
  }else {p.BackBufferWidth=config.width?config.width:(p.BackBufferWidth?p.BackBufferWidth:current.client.right);p.BackBufferHeight=config.height?config.height:(p.BackBufferHeight?p.BackBufferHeight:current.client.bottom);}
  if(!p.BackBufferWidth||!p.BackBufferHeight||p.BackBufferWidth>16384||p.BackBufferHeight>16384){display_reason="invalid_effective_dimensions_stock";return false;}
  if(display=="ExclusiveFullscreen"){
@@ -74,16 +93,24 @@ bool QualityPipeline::select_display(IDirect3D8& root,D3DPRESENT_PARAMETERS& p){
  return true;
 }
 bool QualityPipeline::apply_window(const D3DPRESENT_PARAMETERS& p){
- if(display=="Stock")return true;
- RECT r=current.monitor;bool client=display=="Windowed";
+ if(display=="Stock"){restore_window();committed_={};window_commit_status_="not_required";return true;}
+ WindowState now{};if(!windows_->snapshot(p.hDeviceWindow?p.hDeviceWindow:focus,now)){display_reason="window_commit_snapshot_failed";window_commit_status_="failed_snapshot";return false;}
+ bool unchanged=committed_.valid&&now.hwnd==committed_.hwnd&&now.style==committed_.style&&now.exstyle==committed_.exstyle&&now.menu==committed_.menu&&
+  !std::memcmp(&now.outer,&committed_.outer,sizeof(RECT))&&!std::memcmp(&now.client,&committed_.client,sizeof(RECT))&&
+  now.client.right==static_cast<LONG>(p.BackBufferWidth)&&now.client.bottom==static_cast<LONG>(p.BackBufferHeight)&&
+  ((display=="Windowed")==((now.style&WS_CAPTION)==WS_CAPTION))&&
+  (display!="Borderless"||!std::memcmp(&now.outer,&now.monitor,sizeof(RECT)));
+ if(unchanged){window_commit_status_="unchanged";display_breadcrumb("window_commit_unchanged");return true;}
+ current=now;RECT r=current.monitor;bool client=display=="Windowed";
  if(client){r.left=current.outer.left;r.top=current.outer.top;r.right=r.left+p.BackBufferWidth;r.bottom=r.top+p.BackBufferHeight;}
  else if(display=="ExclusiveFullscreen"){r.right=r.left+p.BackBufferWidth;r.bottom=r.top+p.BackBufferHeight;}
- window_owned_=true;
- if(!windows_->apply(current,r,client,!client)){restore_window();display_reason="window_transaction_failed_stock";return false;}
- return true;
+ display_breadcrumb("window_commit_begin");committing_=true;
+ bool okay=windows_->apply(current,r,client,!client);
+ if(!okay){window_commit_status_="failed_rollback_restored";if(!windows_->restore(now)){window_owned_=true;window_commit_status_="failed_rollback_unverified";display_breadcrumb("window_commit_rollback_failed",E_FAIL);}committing_=false;display_reason="window_commit_failed_native_parameters_retained";display_breadcrumb("window_commit_failed",E_FAIL);return false;}
+ committing_=false;window_owned_=true;window_commit_status_="committed";windows_->snapshot(current.hwnd,committed_);display_breadcrumb("window_commit_complete");return true;
 }
 D3DPRESENT_PARAMETERS QualityPipeline::plan(IDirect3D8& root,const D3DPRESENT_PARAMETERS& source){
- auto logical=source;
+ display_breadcrumb("display_plan_begin");auto logical=source;
  if(valid&&modified){
   // Reset may echo the effective descriptor returned by our preceding call.
   // Remove only fields still exactly equal to our own override; retain new game requests.
@@ -92,7 +119,7 @@ D3DPRESENT_PARAMETERS QualityPipeline::plan(IDirect3D8& root,const D3DPRESENT_PA
   #undef UNMIX
  }
  requested=source;fallback_=logical;viewport_domain_known=false;auto p=logical;
- if(config.display_mode!="Stock"&&(!select_display(root,p)||!apply_window(p))){p=fallback_;display="Stock";restore_window();}
+ if(config.display_mode!="Stock"&&!select_display(root,p)){p=fallback_;display="Stock";}
  auto before_aa=p;
  if(config.aa_mode=="MSAA"&&!aa_hazard){
   D3DDISPLAYMODE desktop{};bool pair=SUCCEEDED(root.GetAdapterDisplayMode(adapter,&desktop));
@@ -108,24 +135,28 @@ D3DPRESENT_PARAMETERS QualityPipeline::plan(IDirect3D8& root,const D3DPRESENT_PA
   if(chosen){p.MultiSampleType=static_cast<D3DMULTISAMPLE_TYPE>(chosen);p.SwapEffect=D3DSWAPEFFECT_DISCARD;p.BackBufferCount=1;p.Flags&=~D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;aa_reason="color_and_depth_caps_supported_pending_create";}
   else {p=before_aa;aa_reason=pair?"requested_samples_unsupported_stock":"format_or_depth_pair_unavailable_stock";}
  }else if(aa_hazard)aa_reason="unreviewed_present_arguments_stock_on_next_reset";
- return p;
+ display_breadcrumb("presentation_transform_complete");return p;
 }
 D3DPRESENT_PARAMETERS QualityPipeline::without_aa(D3DPRESENT_PARAMETERS p) const noexcept {p.MultiSampleType=fallback_.MultiSampleType;p.SwapEffect=fallback_.SwapEffect;p.BackBufferCount=fallback_.BackBufferCount;p.Flags=fallback_.Flags;return p;}
 HRESULT QualityPipeline::create(IDirect3D8& root,DWORD flags,D3DPRESENT_PARAMETERS* pp,IDirect3DDevice8** out){
  D3DPRESENT_PARAMETERS input{};bool have=pp&&safe_copy(&input,pp,sizeof(input));
  if(!active()||!have){if(have){requested=fallback_=input;}HRESULT hr=root.CreateDevice(adapter,type,focus,flags,pp,out);if(SUCCEEDED(hr)&&pp&&safe_copy(&effective,pp,sizeof(effective)))valid=true;return hr;}
- auto candidate=plan(root,input);attempts=1;auto sent=candidate;HRESULT hr=root.CreateDevice(adapter,type,focus,flags,&sent,out);
- if(FAILED(hr)&&!lost(hr)&&candidate.MultiSampleType!=fallback_.MultiSampleType){candidate=without_aa(candidate);sent=candidate;++attempts;aa_reason="native_create_rejected_msaa_stock";hr=root.CreateDevice(adapter,type,focus,flags,&sent,out);}
- if(FAILED(hr)&&!lost(hr)&&std::memcmp(&candidate,&fallback_,sizeof(candidate))){restore_window();display="Stock";display_reason="native_create_rejected_display_stock";sent=fallback_;++attempts;hr=root.CreateDevice(adapter,type,focus,flags,&sent,out);}
- if(SUCCEEDED(hr)){effective=sent;valid=true;modified=std::memcmp(&effective,&fallback_,sizeof(effective))!=0;safe_copy(pp,&sent,sizeof(sent));if(out&&*out)observe(**out);}else restore_window();return hr;
+ auto candidate=plan(root,input);attempts=1;auto sent=candidate;auto invoke=[&](){display_breadcrumb("native_CreateDevice_begin");auto result=root.CreateDevice(adapter,type,focus,flags,&sent,out);display_breadcrumb("native_CreateDevice_end",result);return result;};HRESULT hr=invoke();
+ if(FAILED(hr)&&!lost(hr)&&candidate.MultiSampleType!=fallback_.MultiSampleType){candidate=without_aa(candidate);sent=candidate;++attempts;aa_reason="native_create_rejected_msaa_stock";hr=invoke();}
+ if(FAILED(hr)&&!lost(hr)&&std::memcmp(&candidate,&fallback_,sizeof(candidate))){display="Stock";display_reason="native_create_rejected_display_stock";sent=fallback_;++attempts;hr=invoke();}
+ if(SUCCEEDED(hr)){effective=sent;valid=true;modified=std::memcmp(&effective,&fallback_,sizeof(effective))!=0;safe_copy(pp,&sent,sizeof(sent));if(out&&*out)observe(**out);apply_window(sent);}return hr;
 }
 HRESULT QualityPipeline::reset(IDirect3D8& root,IDirect3DDevice8& device,D3DPRESENT_PARAMETERS* pp){
+ if(committing_)return D3DERR_INVALIDCALL; // Synchronous window messages must not reenter this transaction.
+ const auto old_requested=requested,old_effective=effective,old_fallback=fallback_;const auto old_display=display;const auto old_current=current;
+ const bool old_valid=valid,old_modified=modified,old_domain=viewport_domain_known,old_logical=viewport_logical;
+ auto failed=[&](){requested=old_requested;effective=old_effective;fallback_=old_fallback;display=old_display;current=old_current;valid=old_valid;modified=old_modified;viewport_domain_known=old_domain;viewport_logical=old_logical;};
  D3DPRESENT_PARAMETERS input{};bool have=pp&&safe_copy(&input,pp,sizeof(input));
- if(!active()||!have){if(have){requested=fallback_=input;}HRESULT hr=device.Reset(pp);if(SUCCEEDED(hr)&&pp&&safe_copy(&effective,pp,sizeof(effective)))valid=true;return hr;}
- auto candidate=plan(root,input);attempts=1;auto sent=candidate;HRESULT hr=device.Reset(&sent);
- if(FAILED(hr)&&!lost(hr)&&candidate.MultiSampleType!=fallback_.MultiSampleType){candidate=without_aa(candidate);sent=candidate;++attempts;aa_reason="native_reset_rejected_msaa_stock";hr=device.Reset(&sent);}
- if(FAILED(hr)&&!lost(hr)&&std::memcmp(&candidate,&fallback_,sizeof(candidate))){restore_window();display="Stock";display_reason="native_reset_rejected_display_stock";sent=fallback_;++attempts;hr=device.Reset(&sent);}
- if(SUCCEEDED(hr)){effective=sent;valid=true;modified=std::memcmp(&effective,&fallback_,sizeof(effective))!=0;safe_copy(pp,&sent,sizeof(sent));observe(device);}return hr;
+ if(!active()||!have){if(have){requested=fallback_=input;}HRESULT hr=device.Reset(pp);if(SUCCEEDED(hr)&&pp&&safe_copy(&effective,pp,sizeof(effective)))valid=true;if(FAILED(hr))failed();return hr;}
+ auto candidate=plan(root,input);attempts=1;auto sent=candidate;auto invoke=[&](){display_breadcrumb("native_Reset_begin");auto result=device.Reset(&sent);display_breadcrumb("native_Reset_end",result);return result;};HRESULT hr=invoke();
+ if(FAILED(hr)&&!lost(hr)&&candidate.MultiSampleType!=fallback_.MultiSampleType){candidate=without_aa(candidate);sent=candidate;++attempts;aa_reason="native_reset_rejected_msaa_stock";hr=invoke();}
+ if(FAILED(hr)&&!lost(hr)&&std::memcmp(&candidate,&fallback_,sizeof(candidate))){display="Stock";display_reason="native_reset_rejected_display_stock";sent=fallback_;++attempts;hr=invoke();}
+ if(SUCCEEDED(hr)){effective=sent;valid=true;modified=std::memcmp(&effective,&fallback_,sizeof(effective))!=0;safe_copy(pp,&sent,sizeof(sent));observe(device);ui_projection_live=false;apply_window(sent);}else failed();return hr;
 }
 void QualityPipeline::observe(IDirect3DDevice8& device) noexcept {
  if(!active())return;backbuffer_known=depth_known=false;IDirect3DSurface8* surface=nullptr;
@@ -152,13 +183,14 @@ bool stock_ui_projection(const D3DMATRIX& p) noexcept {
  if(!std::isfinite(p._11)||!std::isfinite(p._22)||std::abs(p._11-2.f/640.f)>1e-8f||std::abs(p._22-2.f/480.f)>1e-8f||p._41!=-1||p._42!=-1||p._34!=0||p._44!=1||std::abs(p._33+.0005f)>1e-9f||p._43!=.5f)return false;
  const int zero[]={1,2,3,4,6,7,8,9};const float* f=&p.m[0][0];for(int k:zero)if(f[k]!=0)return false;return true;
 }
+bool ui_projection_dimensions(const D3DMATRIX& in,UINT width,UINT height,D3DMATRIX& out) noexcept {SavedFP fp;return height&&ui_projection(in,double(width)/height,out);}
 bool ui_projection(const D3DMATRIX& in,double aspect,D3DMATRIX& out) noexcept {
  SavedFP fp;if(!stock_ui_projection(in)||!std::isfinite(aspect)||aspect<1.||aspect>4.)return false;
  double width=480.*aspect;out=in;out._11=static_cast<float>(2./width);out._41=static_cast<float>(-640./width);return true;
 }
 std::string QualityPipeline::json() const {
  SavedFP fp;
- std::ostringstream o;o<<"{\"display_requested\":"<<quote(config.display_mode)<<",\"display_effective\":"<<quote(display)<<",\"display_reason\":"<<quote(display_reason)<<",\"aa_requested\":"<<quote(config.aa_mode)<<",\"aa_reason\":"<<quote(aa_reason)<<",\"attempts\":"<<attempts<<",\"requested\":"<<pp_json(requested)<<",\"logical_baseline\":"<<pp_json(fallback_)<<",\"effective\":"<<(valid?pp_json(effective):"null")<<",\"monitor_rect\":["<<current.monitor.left<<','<<current.monitor.top<<','<<current.monitor.right<<','<<current.monitor.bottom<<"],\"physical_backbuffer\":";
+ std::ostringstream o;o<<"{\"display_requested\":"<<quote(config.display_mode)<<",\"display_effective\":"<<quote(display)<<",\"display_reason\":"<<quote(display_reason)<<",\"window_commit_status\":"<<quote(window_commit_status_)<<",\"windowed_target_width\":"<<pinned_width_<<",\"windowed_target_height\":"<<pinned_height_<<",\"aa_effective\":"<<quote(valid&&effective.MultiSampleType!=D3DMULTISAMPLE_NONE?"MSAA":"Stock")<<",\"aa_effective_samples\":"<<(valid?effective.MultiSampleType:0)<<",\"aa_requested\":"<<quote(config.aa_mode)<<",\"aa_requested_samples\":"<<config.samples<<",\"aa_swap_effect\":"<<quote(valid&&effective.SwapEffect==D3DSWAPEFFECT_DISCARD?"DISCARD":valid&&effective.SwapEffect==D3DSWAPEFFECT_COPY?"COPY":"OTHER")<<",\"aa_reason\":"<<quote(aa_reason)<<",\"attempts\":"<<attempts<<",\"requested\":"<<pp_json(requested)<<",\"logical_baseline\":"<<pp_json(fallback_)<<",\"effective\":"<<(valid?pp_json(effective):"null")<<",\"monitor_rect\":["<<current.monitor.left<<','<<current.monitor.top<<','<<current.monitor.right<<','<<current.monitor.bottom<<"],\"physical_backbuffer\":";
  if(backbuffer_known)o<<"{\"width\":"<<backbuffer.Width<<",\"height\":"<<backbuffer.Height<<",\"format\":"<<backbuffer.Format<<",\"multisample\":"<<backbuffer.MultiSampleType<<'}';else o<<"null";
  o<<",\"physical_depth\":";if(depth_known)o<<"{\"width\":"<<depth.Width<<",\"height\":"<<depth.Height<<",\"format\":"<<depth.Format<<",\"multisample\":"<<depth.MultiSampleType<<'}';else o<<"null";
  double aspect=valid&&effective.BackBufferHeight?double(effective.BackBufferWidth)/effective.BackBufferHeight:0;

@@ -1,26 +1,25 @@
-# R-GFX5 — проверка человеком
+# R-GFX5-2 — короткий ретест
 
-**READY_FOR_HUMAN_RUNTIME**, версия R-GFX5-1. R-GFX4 принят пользователем; новые режимы в игре ещё не подтверждены. Игра агентом не запускалась, DLL не развёрнута.
+**READY_FOR_HUMAN_RUNTIME.** MSAA4 и pristine MenuFreezeFix уже приняты по предыдущему runtime. Не повторять широкие тесты этих функций: сейчас нужны display/UI и их сочетание. Агент игру не запускал и DLL не развёртывал.
 
-Кандидат: `D:\Game\Master Rallye\master-rallye-re-general\modernization\renderer\.build-msvc\Release\d3d8.dll`; hash/size в [validation](validation.md) и [build.json](../../data/build.json). Используйте тестовую копию с pristine MRallye.exe SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`. Сохраните рабочие DLL/INI. Сторонний patcher/script не запускайте: пропатченный EXE отключит exact-build функции.
+Кандидат: `D:\Game\Master Rallye\master-rallye-re-general\modernization\renderer\.build-msvc\Release\d3d8.dll`. SHA256 `525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0`, размер **1 196 032 байта**, PE32/I386. Сохраните рабочие DLL/INI и используйте тестовую копию. Основные A–F — на pristine EXE SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
 
-INI рядом с DLL: MRRRenderer.ini. Настройки читаются один раз; после каждого изменения перезапуск. Начните с [example](../../MRRRenderer.ini.example), затем меняйте параметры текущего этапа. [stock-plus.ini](stock-plus.ini) — финальный opt-in профиль. Одинаковые трек/машина/камера, VehicleReflections.Mode=Stock для основных сравнений.
+INI рядом с DLL: `MRRRenderer.ini`, ConfigVersion=1. После правок перезапуск. Начните с [example](../../MRRRenderer.ini.example); остальные прежние настройки держите неизменными при сравнении. VehicleReflections.Mode=Stock. Файлы patcher/script не запускать, EXE на диске не править.
 
-| Этап | Действия | PASS / FAIL, F10 |
+| Этап | Настройки и действия | PASS / что записать |
 |---|---|---|
-| A Stock | DisplayStock,UIStock,AAStock,freezefalse; для чистого контроля AF/FOV выключены | Меню/preview/гонка/HUD/выход нормальны. `A-stock`. Если база не работает, дальнейшие сравнения не засчитываются. |
-| B Borderless | ModeBorderless,Width=Height=0; остальное какA | Нет рамок, полный выбранный монитор. На1920x1080 client/backbuffer/полный viewport именно1920x1080, не1920x1027. `B-borderless`. Увеличенная640x480 картинка/несовпадение GetDesc — FAIL. |
-| C UI | Отдельные запуски Centered4x3 и PreserveMargins | Проверить главные/подменю, preview, loading, HUD, текст/иконки/шкалы/края. Centered сохраняет формы/центр; Margins корректно прижимает известные элементы. `C-centered-menu/race`, `C-margins-menu/race`. Обрезание/сдвиг текста, restore_failures/overflow — FAIL конкретного режима. |
-| D AF | Borderless+выбранныйUI,AFtrue,Max16,AAStock | Косые текстуры чище какR-GFX3; MAG/MIP/stage1 Stock. `D-af`. |
-| E MSAA | При одинаковых размерах сравнить AAStock и MSAA Samples4; AF/FOV неизменны | Реальные samples>0 и согласованные color/depth. Машина/колёса/столбы чище; world/HUD/menu без мусора. Unsupported Stock fallback допустим, но не «MSAA включён». `E-msaa`. Alpha-test листья могут остаться зубчатыми. При проблеме AAStock+перезапуск. |
-| F Stock+ | Предложенный INI: Borderless,Centered4x3,AF16,MSAA4,VFOV80,shadowStock,reflectionStock,freezefalse | Камеры/backview/края, preview45 не меняется от GameplayFOV, геометрия не пропадает из-за frustum. Исходные цвета/свет/ассеты сохранены. `F-stockplus-race/preview`. |
-| G Alt+Tab/Reset | Несколько сворачиваний/возвратов в меню и гонке | Нет crash/black frame/потери HUD; выбранные размеры/AA/UI сохраняются. Нужны actual successful Reset и следующий quality descriptor. Если Borderless не вызывает Reset, отметить «не наблюдался» либо использовать уже известный безопасный game Reset-путь. Alt+Tab сам по себе не доказывает Reset. |
-| H Freeze отдельно | После здоровойA, одна воспроизводимая последовательность false/true с перезапуском | True-журнал: exact context/applied, EXE hash на диске прежний. Если исходный freeze не воспроизводится — эффективность не проверена. Не смешивать media/loading/Attract. |
-| I High-res опция | Если доступно native2560x1440/3440x1440/3840x2160 или Windowed client-размер; сначала AAStock | Подтвердить GetDesc/viewport/UI, не спутать масштабирование с rasterization. Borderless всегда native monitor; arbitrary supersampling не реализован. DPI/другой монитор отдельно. |
-| J Exclusive опция | Поддерживаемые Width/Height,RefreshRate0 либо известный режим; AA отдельно | Log WindowedFALSE/выбранный режим, task switch/восстановление. Отказ режима фиксировать как fallback. Разницу яркости записать, desktop gamma не править. |
+| A Borderless boot | Display.Mode=Borderless, Width=Height=0; UIStock, AAStock; MenuFreezeFix=true. Открыть меню и гонку. | Нет startup crash, рамок/заголовка/exclusive switch; точный выбранный монитор, рабочее меню. Если crash — session и последний display_breadcrumb. |
+| B Centered4x3 | Только после A: InterfaceMode=Centered4x3. Меню/preview и гонка/HUD; F10 `B-centered-menu`, `B-centered-race`. | 4:3-контент центрирован, preview нормален, 3D не растянут. PROJECTION с actual returnRVA0x00161ED3: requested640x480, effectivewide, widescreen_applied=true, source=validated_ui_projection_owner. |
+| C PreserveMargins | Только после визуального и trace PASS B: InterfaceMode=PreserveMargins, те же экраны; F10 `C-margins`. | Стабильные крайние элементы, нет осцилляции. Старый INVALID_TEST_STATE не засчитывается как результат C. Если ошибка остаётся, прислать F10/скриншоты для отдельного анализа packet timing. |
+| D Windowed1280x720 | Display.Mode=Windowed, Width=1280, Height=720; UIStock, AAStock. При необходимости один resize/maximize и штатный game Reset. | Обычная рамка, client/backbuffer1280x720, окно внутри work area; Reset не переопределяет target. После ручного изменения следующий успешный Reset возвращает заданный размер. Нет роста за монитор. |
+| E combined | Borderless0/0 + Centered4x3 + AF16 + Mode=MSAA/Samples=4; reflectionsStock. Меню/preview/гонка; F10 `E-combined`. | Устойчивое изображение, effective WindowedTRUE, monitor-native backbuffer/depth, MSAA4/DISCARD, UIwide. Samples=4 при ModeStock AA не включает. |
+| F task switching | Настройки E; несколько minimize/restore и Alt+Tab в меню/гонке. | Нет crash/black frame/потери HUD/AA/UI. Сопоставить actual successful Reset и следующий quality descriptor; Alt+Tab сам по себе не доказывает Reset. |
+| G modified EXE, optional | Одна уже имеющаяся легитимная изменённая копия; ничего не патчить для теста. | UNKNOWN_BUILD не означает глобальный запрет. MenuFreezeFix: fingerprint SUPPORTED / ALREADY_PATCHED / локальный UNSUPPORTED. Centered UI может пройти независимо; camera/packet margins/shadow/vehicle сохраняют exact-profile gate. Не создавать новый профиль ради прохождения. |
 
-Если используются split/multi-camera — отдельно полно/половины/четверти, HUD и PreserveMargins. Арифметика проверена, UI packet timing по камерам ещё нет. Миграция монитора и125/150% DPI — отдельные непроверенные случаи.
+Если A/B не прошёл, зависимые этапы не засчитывать. Не повторять A–J из старой инструкции. PreserveMargins исходник не изменён: оценивать его можно только поверх доказанного wide UI. Split-screen/mixed-DPI/monitor migration остаются отдельными непроверенными случаями.
 
-Прислать INI, session JSONL, выбранные F10 и краткий результат A..J (optional можно «не запускал»). Нужны версия/hash DLL/EXE, monitor_rect, physical_backbuffer/depth, effective viewport, requested/logical_baseline/effective PP, native failures, ui restore_failures/overflow. Raw captures не коммитить.
+Прислать INI, session, указанные F10 и короткие ответы: Borderless boot; Centered/menu/HUD; margins стабильны; Windowed client1280x720 без роста; combined MSAA4/AF; Alt+Tab/Reset; optional modified-EXE capability. При отказе важны последнее breadcrumb, feature-local reason, window_commit_status и реальные размеры GetDesc/viewport. Raw captures не коммитить.
 
-Закрытие требует подтверждённого изображения и стабильной работы. После результатов возможен узкий R-GFX5 follow-up; R-CAM1/F-PHOTO1 сейчас не начинать.
+На16:9 ожидается virtual_width853.3333, extra213.3333, center_offset106.6667; effective UI _11=0.00234375 и _41=-0.75 при прежнем _22. Наличие metadata-математики без изменённой матрицы не является PASS. Build/static/synthetic проверки также не заменяют визуальный результат.
+
+После human PASS — закрытие этого continuation; следующий возможный этап R-GFX5 HD UI replacement/upscale, затем отдельные gamma/LOD-доказательства. R-CAM1/F-PHOTO1, новый свет, cubemaps, postFX и weather здесь не начинаются.

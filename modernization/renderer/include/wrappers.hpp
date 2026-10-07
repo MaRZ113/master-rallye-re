@@ -40,6 +40,7 @@ public:
  void adopt() noexcept { ++refs_; }
  Trace trace;
  std::unique_ptr<QualityPipeline> quality;
+ HRESULT set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc);
  UiMargins ui_margins;
  void quality_trace() noexcept;
  HRESULT stock_ui(const char* reason) noexcept;

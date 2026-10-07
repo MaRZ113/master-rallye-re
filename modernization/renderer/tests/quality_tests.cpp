@@ -12,11 +12,11 @@
 #include "mock_interfaces.hpp"
 using namespace gfx2;
 struct Windows:WindowApi {
- WindowState state{};RECT last{};bool client=false,popup=false,fail=false;unsigned applies=0,restores=0;
- Windows(){state.hwnd=reinterpret_cast<HWND>(0x1234);state.valid=true;state.monitor={1920,0,3840,1080};state.client={0,0,640,480};state.outer={2000,50,2660,570};state.style=WS_OVERLAPPEDWINDOW;}
+ WindowState state{};RECT last{};bool client=false,popup=false,fail=false;bool native_completed=true;unsigned applies=0,restores=0;
+ Windows(){state.hwnd=reinterpret_cast<HWND>(0x1234);state.valid=true;state.monitor={1920,0,3840,1080};state.work=state.monitor;state.client={0,0,640,480};state.outer={2000,50,2660,570};state.style=WS_OVERLAPPEDWINDOW;}
  bool snapshot(HWND,WindowState& s) noexcept override{s=state;return true;}
- bool apply(const WindowState&,const RECT& r,bool c,bool p) noexcept override{last=r;client=c;popup=p;++applies;return !fail;}
- bool restore(const WindowState&) noexcept override{++restores;return true;}
+ bool apply(const WindowState&,const RECT& r,bool c,bool p) noexcept override{if(!native_completed)std::terminate();last=r;client=c;popup=p;++applies;if(fail)return false;state.outer=r;state.client={0,0,r.right-r.left,r.bottom-r.top};state.style=p?WS_POPUP:WS_OVERLAPPEDWINDOW;return true;}
+ bool restore(const WindowState& saved) noexcept override{++restores;state=saved;return true;}
 };
 struct Surface:IDirect3DSurface8 {
  D3DSURFACE_DESC desc{};unsigned refs=0;
@@ -33,9 +33,10 @@ struct Surface:IDirect3DSurface8 {
  HRESULT STDMETHODCALLTYPE UnlockRect() override{return E_NOTIMPL;}
 };
 struct Device:MockDeviceBase {
+ Windows* order=nullptr;
  std::vector<D3DPRESENT_PARAMETERS> resets;HRESULT result=S_OK;bool reject_msaa=false,reject_ui=false;
  D3DVIEWPORT8 viewport{};D3DMATRIX projection{};Surface color,depth;
- HRESULT STDMETHODCALLTYPE Reset(D3DPRESENT_PARAMETERS* p) override{resets.push_back(*p);return reject_msaa&&p->MultiSampleType!=D3DMULTISAMPLE_NONE?D3DERR_INVALIDCALL:result;}
+ HRESULT STDMETHODCALLTYPE Reset(D3DPRESENT_PARAMETERS* p) override{resets.push_back(*p);if(order)order->native_completed=true;return reject_msaa&&p->MultiSampleType!=D3DMULTISAMPLE_NONE?D3DERR_INVALIDCALL:result;}
  HRESULT STDMETHODCALLTYPE GetBackBuffer(UINT,D3DBACKBUFFER_TYPE,IDirect3DSurface8** p) override{color.AddRef();*p=&color;return S_OK;}
  HRESULT STDMETHODCALLTYPE GetDepthStencilSurface(IDirect3DSurface8** p) override{depth.AddRef();*p=&depth;return S_OK;}
  HRESULT STDMETHODCALLTYPE SetViewport(const D3DVIEWPORT8* p) override{viewport=*p;return result;}
@@ -45,7 +46,7 @@ struct Device:MockDeviceBase {
  HRESULT STDMETHODCALLTYPE DrawPrimitive(D3DPRIMITIVETYPE,UINT,UINT) override{return result;}
 };
 struct Root:MockRootBase {
- Device dev;std::vector<D3DPRESENT_PARAMETERS> creates;unsigned support=4,depth_support=4;bool windowed_expected=true,modes=true,depth_pair=true;HRESULT result=S_OK;bool reject_msaa=false,reject_display=false;
+ Windows* order=nullptr;Device dev;std::vector<D3DPRESENT_PARAMETERS> creates;unsigned support=4,depth_support=4;bool windowed_expected=true,modes=true,depth_pair=true;HRESULT result=S_OK;bool reject_msaa=false,reject_display=false;
  HRESULT STDMETHODCALLTYPE GetAdapterDisplayMode(UINT a,D3DDISPLAYMODE* m) override{CHECK(a==2);*m={1920,1080,60,D3DFMT_X8R8G8B8};return S_OK;}
  UINT STDMETHODCALLTYPE GetAdapterModeCount(UINT) override{return modes?1:0;}
  HRESULT STDMETHODCALLTYPE EnumAdapterModes(UINT,UINT,D3DDISPLAYMODE* m) override{*m={1920,1080,60,D3DFMT_X8R8G8B8};return S_OK;}
@@ -53,7 +54,7 @@ struct Root:MockRootBase {
  HRESULT STDMETHODCALLTYPE CheckDeviceFormat(UINT,D3DDEVTYPE,D3DFORMAT,DWORD usage,D3DRESOURCETYPE,D3DFORMAT) override{CHECK(usage==D3DUSAGE_DEPTHSTENCIL);return S_OK;}
  HRESULT STDMETHODCALLTYPE CheckDepthStencilMatch(UINT,D3DDEVTYPE,D3DFORMAT,D3DFORMAT,D3DFORMAT) override{return depth_pair?S_OK:D3DERR_NOTAVAILABLE;}
  HRESULT STDMETHODCALLTYPE CheckDeviceMultiSampleType(UINT a,D3DDEVTYPE t,D3DFORMAT f,BOOL windowed,D3DMULTISAMPLE_TYPE n) override{CHECK(a==2&&t==D3DDEVTYPE_HAL&&bool(windowed)==windowed_expected);return n<=static_cast<int>(f==D3DFMT_D16?depth_support:support)?S_OK:D3DERR_NOTAVAILABLE;}
- HRESULT STDMETHODCALLTYPE CreateDevice(UINT,D3DDEVTYPE,HWND,DWORD,D3DPRESENT_PARAMETERS* p,IDirect3DDevice8** out) override{creates.push_back(*p);if(reject_msaa&&p->MultiSampleType!=D3DMULTISAMPLE_NONE)return D3DERR_INVALIDCALL;if(reject_display&&p->BackBufferWidth!=640)return D3DERR_INVALIDCALL;if(FAILED(result))return result;*out=&dev;return S_OK;}
+ HRESULT STDMETHODCALLTYPE CreateDevice(UINT,D3DDEVTYPE,HWND,DWORD,D3DPRESENT_PARAMETERS* p,IDirect3DDevice8** out) override{creates.push_back(*p);if(order)order->native_completed=true;if(reject_msaa&&p->MultiSampleType!=D3DMULTISAMPLE_NONE)return D3DERR_INVALIDCALL;if(reject_display&&p->BackBufferWidth!=640)return D3DERR_INVALIDCALL;if(FAILED(result))return result;*out=&dev;return S_OK;}
 };
 D3DPRESENT_PARAMETERS stock(){D3DPRESENT_PARAMETERS p{};p.BackBufferWidth=640;p.BackBufferHeight=480;p.BackBufferFormat=D3DFMT_X8R8G8B8;p.BackBufferCount=1;p.SwapEffect=D3DSWAPEFFECT_COPY;p.hDeviceWindow=reinterpret_cast<HWND>(0x1234);p.Windowed=TRUE;p.EnableAutoDepthStencil=TRUE;p.AutoDepthStencilFormat=D3DFMT_D16;return p;}
 void configs(){
@@ -69,8 +70,29 @@ void displays(){
  q.restore_window();c.display_mode="Borderless";c.width=c.height=0;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);p=stock();CHECK(q.create(root,0,&p,&out)==S_OK);CHECK(p.Windowed&&p.BackBufferWidth==1920&&p.BackBufferHeight==1080&&!windows.client&&windows.popup&&windows.last.left==1920&&windows.last.bottom==1080);
  c.display_mode="ExclusiveFullscreen";c.width=1920;c.height=1080;c.refresh=60;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);p=stock();CHECK(q.create(root,0,&p,&out)==S_OK);CHECK(!p.Windowed&&p.FullScreen_RefreshRateInHz==60);
  c.refresh=75;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);p=stock();CHECK(q.create(root,0,&p,&out)==S_OK&&p.Windowed&&p.BackBufferWidth==640&&q.display=="Stock");
- c.display_mode="Borderless";q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(!q.active());
- q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);windows.fail=true;p=stock();CHECK(q.create(root,0,&p,&out)==S_OK&&p.BackBufferWidth==640&&q.display=="Stock"&&windows.restores>0);
+ c.display_mode="Borderless";q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(q.active()&&q.config.interface_mode=="Stock");
+ q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);windows.fail=true;p=stock();CHECK(q.create(root,0,&p,&out)==S_OK&&p.BackBufferWidth==1920&&q.display=="Borderless"&&q.display_reason=="window_commit_failed_native_parameters_retained"&&windows.restores>0);
+}
+void display_transactions(){
+ Root root;Windows window;QualityPipeline q(window);VisualConfig c;c.display_mode="Borderless";auto p=stock();IDirect3DDevice8* out=nullptr;root.order=&window;root.dev.order=&window;
+ q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);window.native_completed=false;
+ auto proposed=q.plan(root,p);CHECK(window.applies==0&&window.restores==0&&proposed.BackBufferWidth==1920);
+ root.result=D3DERR_DEVICELOST;CHECK(q.create(root,0,&p,&out)==D3DERR_DEVICELOST&&window.applies==0&&window.restores==0);
+ root.result=S_OK;window.native_completed=false;CHECK(q.create(root,0,&p,&out)==S_OK&&window.applies==1);
+ auto effective=q.effective;auto applies=window.applies,restores=window.restores;root.dev.result=D3DERR_DEVICELOST;auto input=stock();window.native_completed=false;
+ CHECK(q.reset(root,root.dev,&input)==D3DERR_DEVICELOST&&window.applies==applies&&window.restores==restores&&!std::memcmp(&q.effective,&effective,sizeof(effective)));
+ root.dev.result=S_OK;window.native_completed=false;CHECK(q.reset(root,root.dev,&input)==S_OK&&window.applies==applies); // same placement: no synchronous window mutation
+ c.display_mode="Windowed";c.width=1280;c.height=720;q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);input=stock();window.native_completed=false;
+ CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1280&&input.BackBufferHeight==720);
+ input=stock();input.BackBufferWidth=1920;input.BackBufferHeight=1027;window.native_completed=false;
+ CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1280&&input.BackBufferHeight==720);
+ window.state.client={0,0,1900,1027};input=stock();window.native_completed=false;CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1280&&window.state.client.right==1280);
+ c.width=c.height=0;q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);input=stock();CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==640);
+ input=stock();input.BackBufferWidth=1920;input.BackBufferHeight=1027;CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==640&&input.BackBufferHeight==480);
+ QualityPipeline auto_invalid(window);auto_invalid.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);input=stock();input.BackBufferWidth=20000;CHECK(auto_invalid.plan(root,input).BackBufferWidth==20000&&auto_invalid.display=="Stock");
+ input=stock();CHECK(auto_invalid.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==640); // invalid initial auto request never pins
+ c.display_mode="Stock";c.aa_mode="Stock";c.samples=4;q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(q.aa_reason=="Mode_Stock_Samples_ignored");
+ std::cout<<"Display plan/native/commit/failure/idempotence/pinned and automatic Windowed ownership: PASS\n";
 }
 void antialiasing(){
  Root root;Windows windows;QualityPipeline q(windows);VisualConfig c;c.display_mode="Borderless";c.aa_mode="MSAA";c.samples=8;auto p=stock();q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);IDirect3DDevice8* out=nullptr;
@@ -150,11 +172,30 @@ void wrapper_trace(){
  CHECK(device->DrawPrimitive(D3DPT_TRIANGLELIST,0,1)==S_OK);v={320,240,320,240,0,1};CHECK(device->SetViewport(&v)==S_OK&&raw.dev.viewport.X==960&&raw.dev.viewport.Y==540&&raw.dev.viewport.Width==960);CHECK(device->DrawPrimitive(D3DPT_TRIANGLELIST,3,1)==S_OK);CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);
  raw.dev.reject_msaa=true;CHECK(device->Reset(&p)==S_OK&&p.BackBufferWidth==1920&&p.MultiSampleType==0&&p.SwapEffect==D3DSWAPEFFECT_COPY);
  D3DMATRIX ui{};ui._11=2.f/640;ui._22=2.f/480;ui._33=-.0005f;ui._41=ui._42=-1;ui._43=.5f;ui._44=1;
- device->quality->config.interface_mode="Centered4x3";device->trace.shadow.matrices[D3DTS_PROJECTION].set(ui);device->trace.effective_shadow.matrices[D3DTS_PROJECTION].set(ui);
+ device->quality->config.interface_mode="Centered4x3";device->quality->ui_projection_live=true;device->trace.shadow.matrices[D3DTS_PROJECTION].set(ui);device->trace.effective_shadow.matrices[D3DTS_PROJECTION].set(ui);
  v={0,0,1920,1080,0,1};CHECK(device->SetViewport(&v)==S_OK&&std::abs(raw.dev.projection._11-2.f/(480.f*16/9))<1e-8f);
  raw.dev.reject_ui=true;device->visuals.effective.anisotropy=true;v={0,0,960,600,0,1};
  CHECK(device->SetViewport(&v)==S_OK&&device->quality->config.interface_mode=="Stock"&&raw.dev.projection._11==ui._11&&device->visuals.effective.anisotropy);
  device->Release();root->Release();
+}
+void validated_ui_wrapper(){
+ Root raw;Windows windows;auto policy=std::make_unique<QualityPipeline>(windows);VisualConfig config;config.display_mode="Borderless";config.interface_mode="Centered4x3";
+ policy->configure(config,true,2,D3DDEVTYPE_HAL,reinterpret_cast<HWND>(0x1234));auto p=stock();IDirect3DDevice8* output=nullptr;CHECK(policy->create(raw,0,&p,&output)==S_OK);
+ auto* root=new Root8(&raw);auto* device=new Device8(&raw.dev,root,std::move(policy));
+ device->quality->config.interface_mode="Centered4x3"; // production session is the synthetic EXE; inject independently validated test owner.
+ device->quality->ui_capability.status="SUPPORTED";device->quality->ui_capability.method="fingerprint";device->quality->ui_capability.candidate_rva=0x1000;
+ auto base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));D3DVIEWPORT8 v{0,0,1920,1080,0,1};CHECK(device->SetViewport(&v)==S_OK);
+ D3DMATRIX ui{};ui._11=2.f/640;ui._22=2.f/480;ui._33=-.0005f;ui._41=ui._42=-1;ui._43=.5;ui._44=1;
+ CHECK(device->set_transform_at(D3DTS_PROJECTION,&ui,base+GAMEPLAY_PROJECTION_RETURN_RVA)==S_OK&&!device->quality->ui_projection_live&&raw.dev.projection._11==ui._11);
+ CHECK(device->SetViewport(&v)==S_OK&&raw.dev.projection._11==ui._11); // shape alone cannot establish proof
+ device->trace.control.pending=true;CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);
+ CHECK(device->set_transform_at(D3DTS_PROJECTION,&ui,base+0x1000)==S_OK&&device->quality->ui_projection_live&&std::abs(raw.dev.projection._11-2.f/(480.f*16/9))<1e-8f);
+ D3DMATRIX logical{};CHECK(device->GetTransform(D3DTS_PROJECTION,&logical)==raw.dev.hr); // unrelated native HRESULT is preserved
+ CHECK(device->DrawPrimitive(D3DPT_TRIANGLELIST,0,1)==S_OK&&device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);
+ auto bad=ui;bad._41=0;CHECK(device->set_transform_at(D3DTS_PROJECTION,&bad,base+0x1000)==S_OK&&!device->quality->ui_projection_live&&raw.dev.projection._41==0);
+ CHECK(device->SetViewport(&v)==S_OK&&raw.dev.projection._41==0);
+ raw.dev.reject_ui=true;CHECK(device->set_transform_at(D3DTS_PROJECTION,&ui,base+0x1000)==S_OK&&!device->quality->ui_projection_live&&raw.dev.projection._11==ui._11);
+ device->Release();root->Release();std::cout<<"Validated UI native setter, wrong caller/ortho, cached proof and rejected rewrite: PASS\n";
 }
 void ui_native_abi(){
  std::array<unsigned char,0x90> packet{};std::array<unsigned char,0x60> entity{};auto pp=reinterpret_cast<uintptr_t>(packet.data());std::memcpy(entity.data()+0x4c,&pp,4);uint32_t mode=1;std::memcpy(packet.data()+0x68,&mode,4);
@@ -181,6 +222,7 @@ void ui_native_abi(){
 void quality_fpu(){
  fenv_t saved;fegetenv(&saved);feclearexcept(FE_ALL_EXCEPT);fesetround(FE_DOWNWARD);feraiseexcept(FE_INVALID);
  int flags=fetestexcept(FE_ALL_EXCEPT);QualityPipeline q;q.valid=true;q.effective=stock();q.effective.BackBufferWidth=1920;q.effective.BackBufferHeight=1080;q.json();
- UiMargins ui;ui.dimensions(1920,1080);ui.json();CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
+ UiMargins ui;ui.dimensions(1920,1080);ui.json();D3DMATRIX matrix{},out{};matrix._11=2.f/640;matrix._22=2.f/480;matrix._33=-.0005f;matrix._41=matrix._42=-1;matrix._43=.5;matrix._44=1;
+ flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();displays();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();ui_native_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();displays();display_transactions();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

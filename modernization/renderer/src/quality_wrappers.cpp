@@ -6,7 +6,7 @@ void Device8::quality_trace() noexcept {
  try{if(quality){trace.quality_metadata=quality->json();trace.ui_metadata=ui_margins.json();session().write("{\"type\":\"quality_pipeline\",\"descriptor\":"+trace.quality_metadata+",\"ui_margins\":"+trace.ui_metadata+"}");}}catch(...){}
 }
 HRESULT Device8::stock_ui(const char* reason) noexcept {
- if(quality){quality->config.interface_mode="Stock";quality->config.interface_reason=reason;}
+ if(quality){quality->ui_projection_live=false;quality->config.interface_mode="Stock";quality->config.interface_reason=reason;}
  ui_margins.disable(reason);HRESULT hr=S_OK;
  const auto& logical=trace.shadow.matrices[D3DTS_PROJECTION];const auto& effective=trace.effective_shadow.matrices[D3DTS_PROJECTION];
  if(logical.known&&effective.known&&stock_ui_projection(logical.value)&&std::memcmp(&logical.value,&effective.value,sizeof(D3DMATRIX))){
@@ -19,7 +19,7 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
  game_fov.finish_frame();if(!ui_margins.finish_frame())stock_ui("ui_coordinate_restore_failed");
  HRESULT hr=quality?quality->reset(*parent_->real(),*real_,pp):real_->Reset(pp);
  trace.after(14,args,static_cast<uint32_t>(hr),pc);
- if(SUCCEEDED(hr)&&quality){ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);quality_trace();}
+ if(SUCCEEDED(hr)&&quality){quality->ui_projection_live=false;ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);quality_trace();}
  return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destination,HWND window,const RGNDATA* dirty){
@@ -40,7 +40,7 @@ HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8* input){
  if(SUCCEEDED(hr)&&trace.effective_shadow.bindings.viewport.known){auto v=trace.effective_shadow.bindings.viewport.value;ui_margins.dimensions(v.Width,v.Height);
   // The game caches a constant UI matrix. Recompute its effective counterpart when only viewport/aspect changes.
   auto& logical=trace.shadow.matrices[D3DTS_PROJECTION];D3DMATRIX ui{};
-  if(quality&&quality->config.interface_mode!="Stock"&&logical.known&&ui_projection(logical.value,double(v.Width)/v.Height,ui)){
+  if(quality&&quality->ui_projection_live&&quality->config.interface_mode!="Stock"&&logical.known&&v.Height&&ui_projection_dimensions(logical.value,v.Width,v.Height,ui)){
    auto setter=pack(D3DTS_PROJECTION,&ui);HRESULT extra=real_->SetTransform(D3DTS_PROJECTION,&ui);trace.after(37,setter,static_cast<uint32_t>(extra),pc,&setter,32,false,true);
    if(FAILED(extra))stock_ui("native_ui_viewport_projection_rejected");
   }

@@ -3,11 +3,14 @@
 #include <cstring>
 #include <mutex>
 namespace gfx2 {
-FreezeResult apply_freeze_patch(PatchMemory& memory,void* context,bool exact,bool enabled) noexcept {
- FreezeResult r;if(!enabled)return r;if(!exact){r.reason="unsupported_build";return r;}
+FreezeResult apply_freeze_patch(PatchMemory& memory,void* context,bool validated,bool enabled) noexcept {
+ FreezeResult r;if(!enabled)return r;if(!validated){r.reason="unverified_feature_owner";return r;}
  unsigned char observed[sizeof(FREEZE_CONTEXT)]{};
  if(!context||!memory.read(observed,context,sizeof(observed))){r.reason="context_read_failed";return r;}
+ if(observed[3]!=0&&observed[3]!=0x11){r.reason="branch_displacement_mismatch";return r;}
  bool patched=observed[3]==0;observed[3]=FREEZE_CONTEXT[3];
+ // Decoded E8 rel32 is validated by the compatibility verifier immediately before install.
+ std::memcpy(observed+13,FREEZE_CONTEXT+13,4);
  if(std::memcmp(observed,FREEZE_CONTEXT,sizeof(observed))){r.reason="original_bytes_or_context_mismatch";return r;}
  r.context_validated=true;
  if(patched){r.already=true;r.reason="already_patched_no_ownership";return r;}
@@ -24,7 +27,7 @@ FreezeResult apply_freeze_patch(PatchMemory& memory,void* context,bool exact,boo
  }
  r.reason=r.rollback_verified?"patch_failed_rolled_back":"patch_failed_rollback_unverified";return r;
 }
-void install_menu_freeze(bool exact,bool enabled) noexcept {
+void install_menu_freeze(bool known,bool enabled) noexcept {
  static std::once_flag once;
  try{std::call_once(once,[&](){
   class NativeMemory final:public PatchMemory {public:
@@ -34,8 +37,9 @@ void install_menu_freeze(bool exact,bool enabled) noexcept {
    bool flush(void* p,size_t n) noexcept override{return FlushInstructionCache(GetCurrentProcess(),p,n)!=FALSE;}
   } memory;
   uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
-  auto result=apply_freeze_patch(memory,reinterpret_cast<void*>(base+FREEZE_CONTEXT_RVA),exact&&base==0x400000,enabled);
-  session().write("{\"type\":\"menu_freeze_fix\",\"expected_exe_sha256\":"+quote(TARGET_SHA)+",\"rva\":1769820,\"expected_bytes\":\"7511\",\"replacement_bytes\":\"7500\",\"context_validated\":"+std::string(result.context_validated?"true":"false")+",\"applied\":"+(result.applied?"true":"false")+",\"already_patched\":"+(result.already?"true":"false")+",\"ownership\":"+(result.owned?"true":"false")+",\"rollback_verified\":"+(result.rollback_verified?"true":"false")+",\"reason\":"+quote(result.reason)+"}");
+  auto capability=enabled?inspect_compatibility(known).freeze:session().compatibility.freeze;
+  auto result=apply_freeze_patch(memory,reinterpret_cast<void*>(base+capability.candidate_rva-2),capability.supported(),enabled);
+  session().write("{\"type\":\"menu_freeze_fix\",\"compatibility\":"+capability.json()+",\"expected_exe_sha256\":"+quote(TARGET_SHA)+",\"rva\":"+std::to_string(capability.candidate_rva)+",\"expected_bytes\":\"7511\",\"replacement_bytes\":\"7500\",\"context_validated\":"+std::string(result.context_validated?"true":"false")+",\"applied\":"+(result.applied?"true":"false")+",\"already_patched\":"+(result.already?"true":"false")+",\"ownership\":"+(result.owned?"true":"false")+",\"rollback_verified\":"+(result.rollback_verified?"true":"false")+",\"reason\":"+quote(result.reason)+"}");
  });}catch(...){}
 }
 }

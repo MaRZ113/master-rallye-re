@@ -2,7 +2,8 @@
 ConfigVersion=1
 
 [Display]
-; Windowed Width/Height are client pixels. Borderless always uses native monitor size.
+; Windowed Width/Height are fixed client pixels; 0/0 pins the first valid game size.
+; Later Reset/manual resize does not redefine that target. Borderless uses native rcMonitor.
 Mode=Stock
 Width=0
 Height=0
@@ -13,7 +14,9 @@ RefreshRate=0
 InterfaceMode=Stock
 
 [AntiAliasing]
-; Native D3D8, request 2/4/8; supported color+depth <= request.
+; Mode=Stock: Samples is ignored, so Samples=4 alone does NOT enable AA.
+; To enable native AA use Mode=MSAA and Samples=4 (or 2/8).
+; Supported color+depth sample count <= request; startup logs show the accepted count.
 Mode=Stock
 Samples=4
 
@@ -37,5 +40,6 @@ FrameSummaries=true
 Mode=Stock
 
 [Compatibility]
-; Exact pristine, process-memory only. Test independently after a healthy baseline.
+; Process-memory only: verified unique local owner; modified EXEs may be compatible.
+; Already-patched owner is reported without a write. Attract/media fixes are separate.
 MenuFreezeFix=false
