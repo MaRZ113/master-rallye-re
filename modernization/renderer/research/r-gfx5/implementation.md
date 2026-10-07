@@ -1,3 +1,13 @@
+# R-GFX5-4 implementation delta
+
+Only Windowed state ownership and stable PreserveMargins semantic direction changed. WindowApi snapshot exposes maximized state, the planner separates normal target from current client and the commit leaves maximized HWND placement alone. Final shutdown, cursor observer, Borderless and bounded native AA/error fallback behavior remain.
+
+MarginAnchors owns direction proof; MarginFrame owns writes/restores. Registry is bounded512 and has no writable pointer ownership. DrawTextPacket bridge/guarded six-byte patch and native FPU/register replay remain. Frame gaps and current structure/context explicitly limit identity retention; no universal screen/allocator generation is invented. F10 provenance and state-transition records make those limits inspectable.
+
+Regression contracts remain: AF MIN-only; MSAA4; source45 preview33.75; Centered4x3; feature-local freeze/UI/FOV/VehicleSemantics; FOV CPU planes; pool-aware Reset; COM identity; learned vehicle signatures/current material exclusion; exact draw-local reflection restoration. No backdrop/UI assets, whole-hash profile, lighting, freecam or future phase. Producer/capture filters are R-GFX5-4.
+
+## Historical R-GFX5-3 implementation
+
 # R-GFX5-3 implementation changes
 
 Code candidate keeps all R-GFX3/R-GFX4 native overrides and material learning unchanged. Added: field-based self-induced Reset echo recognition without resource reset, pre-final-Release shutdown, rcWork centering, optional idle SetCursor policy, numeric/text enum parser, independent source45 preview correction, consumer-entry margins with bounded lifetime provenance, and independent decoded fixed-layout FOV/vehicle capabilities.

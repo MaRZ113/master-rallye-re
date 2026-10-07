@@ -1,4 +1,27 @@
-# R-GFX5-3 — узкий runtime ретест A–H
+# R-GFX5-4 — финальный ретест двух исправлений
+
+Кандидат: `.build-msvc/Release/d3d8.dll`; точный хеш/размер — [build.json](../../data/build.json). Агент DLL не устанавливал и игру не запускал. Сохраните рабочую DLL/INI для отката; после изменения INI перезапускайте игру. EXE и ассеты не меняются.
+
+Предыдущая база R-GFX5-3 принята как broadly successful по вашему отчёту. Проверяем только Windowed maximize/restore и стабильность PreserveMargins; AF16, MSAA4, preview, FOV/culling, отражения, cursor/exit остаются регрессиями.
+
+| Проверка | Действия | PASS |
+|---|---|---|
+| A Normal | Display.Mode=1, Width=1280, Height=720 | Нормальный клиент1280x720, окно центрировано |
+| B Maximize/Restore | Стандартная кнопка Maximize → Restore, повторить несколько раз; один раз в гонке | Окно остаётся maximized, backbuffer/depth следуют actual client; aspect/FOV корректны. Restore возвращает центрированный1280x720. Нет snap-back, Error2010 или Reset loop |
+| C HUD | InterfaceMode=2; гонка15–30с, индикатор места, время, damage/status, GPS, тахометр, progress bar | Нативная анимация сохраняется, компоненты не прыгают между центральной и краевой позицией. F10: C-hud-stable |
+| D Decorations | Main Menu и Quick Race; переход туда/обратно, следить за полупрозрачными квадратами | Движение плавное, нет прыжков ±half. Центрированные элементы после смены экрана не наследуют чужую привязку |
+| E Diagnostics | F10 во время остаточного twitch; сохранить session и frame с меткой экрана | Видны anchor_id/direction/source, current_rule_match, engine_x/y, effective_x, ui_epoch и invalidated reason |
+| F Combined | Borderless/native1920x1080 + PreserveMargins + AF16/MSAA4; Quick Race → race → Alt+Tab → Quit | Нет регрессии lifecycle, preview, UI или ранее подтверждённых game-specific возможностей |
+
+Windowed: `normal_target` должен оставаться1280x720 даже при `window_state=maximized`. В `window_state_transition` и quality сравните `actual_client` с `effective_backbuffer`. При рабочей MSAA один genuine Reset проходит в native; эквивалентные self-commit echoes остаются suppressed. Максимизированное размещение не должно сопровождаться renderer SetWindowPos возвратом к normal target.
+
+PreserveMargins: LEFT/RIGHT хранится как семантика identity, не как замороженный X. `engine_x` должен двигаться, а `effective_x-engine_x` сохранять ±half. `retained_anchor_without_current_rule_match > 0` показывает сохранение привязки после отхода от точного authored anchor. Пропуск полного consumer-frame, packet/mode/content-storage replacement, Reset или validated frontend/race epoch требуют нового admission. Это консервативная политика, не наблюдение настоящего heap generation; полностью одинаковый reuse без наблюдаемого изменения остаётся неразличимым.
+
+F10 включает три кадра, максимум64 diagnostic identities/256 записей lifetime на устройство. При исчерпании бюджета перезапустите игру. Сообщите отдельно Normal, Maximize, Restore, HUD, Decorations/переход экрана и Combined: PASS/FAIL; при FAIL приложите session + F10. Если anchor стабилен, а twitch остаётся, это повод следующего анализа draw-local offset; сейчас Present restore boundary не заменяется.
+
+BACKDROP_ASSET_EXTENSION_REQUIRED сохраняется. После человеческого PASS — R-GFX5 closeout, затем R-CAM1 → F-PHOTO1 → HD UI. Эти этапы сейчас не начинаются.
+
+## Исторический R-GFX5-3 handoff (заменён текущим)
 
 Кандидат: `modernization/renderer/.build-msvc/Release/d3d8.dll`; точный SHA/размер — в `../../data/build.json`. Агент игру не запускает и DLL в игровую папку не устанавливает. После смены INI перезапустите игру. Сохраните предыдущую DLL/INI для отката; EXE и ассеты сохраняются. Числовые и текстовые значения эквивалентны.
 

@@ -42,6 +42,9 @@ HRESULT STDMETHODCALLTYPE Device8::SetTransform(D3DTRANSFORMSTATETYPE type,const
 HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
  auto guard=trace.guard();auto args=pack(type,input);trace.before(37,args,pc);
  D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);bool rewritten=visuals.effective.fov&&visuals.projection(type,input,changed,exe,rva);
+ if(quality&&quality->preview_capability.supported()&&type==D3DTS_PROJECTION&&exe&&rva==quality->preview_capability.candidate_rva){
+  D3DMATRIX source{};if(safe_copy(&source,input,sizeof(source))){int family=camera_scene_family(source);if(family>=0)ui_margins.scene_context(family==1);}
+ }
  if(rewritten){D3DMATRIX original{};rewritten=safe_copy(&original,input,sizeof(original))&&game_fov.allows(original);} // No D3D-only widening fallback.
  bool preview_rewritten=false;
  if(!rewritten&&!preview_rewritten&&quality&&quality->config.interface_mode!="Stock"&&quality->preview_capability.supported()&&type==D3DTS_PROJECTION&&exe&&rva==quality->preview_capability.candidate_rva){D3DMATRIX original{};preview_rewritten=safe_copy(&original,input,sizeof(original))&&frontend_preview_projection(original,changed);}

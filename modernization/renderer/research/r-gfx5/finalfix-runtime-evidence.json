@@ -1,0 +1,154 @@
+{
+  "phase": "R-GFX5 final fix",
+  "candidate_under_observation": "R-GFX5-3",
+  "human_source": "direct final fix continuation prompt 2026-10-07",
+  "human_verdict": "BROADLY_SUCCESSFUL_TWO_VISIBLE_DEFECTS_REMAIN",
+  "remaining": [
+    "Windowed maximize snap-back",
+    "PreserveMargins animated anchor jitter"
+  ],
+  "source_frame": {
+    "name": "H-hard-combined.jsonl",
+    "sha256": "cf8d01c2da7cec357e6a6aaffc3f4992cff3618516fc0dcee3ae87fa488cd54a",
+    "proxy_version": "R-GFX5-3",
+    "exe_sha256": "391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819",
+    "proxy_sha256": "71471ec6e1fd5a7ccf1685400ad0beb36978c7cc7d74a2b32387272344d14bbe",
+    "complete": true,
+    "fov_culling": {
+      "installed": true,
+      "synchronized": true,
+      "restored": true,
+      "width": 1920,
+      "height": 1080,
+      "source_angle": 90,
+      "vfov": 75,
+      "hfov": 107.512,
+      "synchronized_frames": 13624,
+      "failures": 0,
+      "reason": "matched_side_planes"
+    },
+    "vehicle_constellations": 4,
+    "reflection_candidates": 68,
+    "reflection_modified": 68,
+    "ui_margins": {
+      "installed": true,
+      "enabled": true,
+      "reason": "ui_packet_consumer_installed",
+      "half_extra": 106.667,
+      "restore_boundary": "post_consumer_present_or_reset",
+      "bounded_lifetime_records": 56,
+      "diagnostic_frames_remaining": 2,
+      "packet_shifts": 385495,
+      "restore_failures": 0,
+      "overflow": 0
+    },
+    "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT"
+  },
+  "animated_packet_evidence": {
+    "name": "session-20261007-065956-8040.jsonl",
+    "sha256": "36cb61bb10bbf736716630306317dffbe63818bdd444a48147f00faebb05511b",
+    "engine_rewrite_records": 10,
+    "representative_pairs": [
+      {
+        "packet_id": 29,
+        "observations": [
+          {
+            "frame": 26736,
+            "observed_x": 86.2048,
+            "original_x": 86.2048,
+            "effective_x": -20.4619,
+            "engine_rewrite": false
+          },
+          {
+            "frame": 26737,
+            "observed_x": 86.2048,
+            "original_x": 86.2048,
+            "effective_x": -20.4619,
+            "engine_rewrite": false
+          },
+          {
+            "frame": 26738,
+            "observed_x": 96.0007,
+            "original_x": 96.0007,
+            "effective_x": -10.6659,
+            "engine_rewrite": true
+          }
+        ]
+      },
+      {
+        "packet_id": 30,
+        "observations": [
+          {
+            "frame": 26736,
+            "observed_x": 43.2609,
+            "original_x": 43.2609,
+            "effective_x": -63.4058,
+            "engine_rewrite": false
+          },
+          {
+            "frame": 26737,
+            "observed_x": 43.2609,
+            "original_x": 43.2609,
+            "effective_x": -63.4058,
+            "engine_rewrite": false
+          },
+          {
+            "frame": 26738,
+            "observed_x": 43.1243,
+            "original_x": 43.1243,
+            "effective_x": -63.5423,
+            "engine_rewrite": true
+          }
+        ]
+      },
+      {
+        "packet_id": 39,
+        "observations": [
+          {
+            "frame": 33199,
+            "observed_x": 59.4836,
+            "original_x": 59.4836,
+            "effective_x": -47.1831,
+            "engine_rewrite": false
+          },
+          {
+            "frame": 33200,
+            "observed_x": 58.656,
+            "original_x": 58.656,
+            "effective_x": -48.0107,
+            "engine_rewrite": true
+          },
+          {
+            "frame": 33201,
+            "observed_x": 58.656,
+            "original_x": 58.656,
+            "effective_x": -48.0107,
+            "engine_rewrite": false
+          }
+        ]
+      },
+      {
+        "packet_id": 41,
+        "observations": [
+          {
+            "frame": 34094,
+            "observed_x": 36.8983,
+            "original_x": 36.8983,
+            "effective_x": -69.7684,
+            "engine_rewrite": false
+          },
+          {
+            "frame": 34095,
+            "observed_x": 36.4725,
+            "original_x": 36.4725,
+            "effective_x": -70.1941,
+            "engine_rewrite": true
+          }
+        ]
+      }
+    ],
+    "evidence_grade": "OBSERVED_IN_CAPTURE",
+    "limitation": "Old records lack engine Y/current-rule classification; no per-packet causal toggle correlation is invented."
+  },
+  "new_candidate_runtime": "PENDING"
+}

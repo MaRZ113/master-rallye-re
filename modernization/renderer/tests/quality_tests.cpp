@@ -12,6 +12,7 @@
 #define CHECK(x) do {if(!(x))throw std::runtime_error(#x);}while(0)
 #include "mock_interfaces.hpp"
 using namespace gfx2;
+namespace gfx2::detail {struct UiMarginsContract {static void enable(UiMargins& ui){ui.enabled_=true;ui.thread_=GetCurrentThreadId();}};}
 struct Windows:WindowApi {
  std::function<void()> on_apply;
  WindowState state{};RECT last{};bool client=false,popup=false,fail=false;bool native_completed=true;unsigned applies=0,restores=0;
@@ -90,6 +91,7 @@ void preview_cursor_packets(){
  for(double aspect:{4./3,16./9,16./10,21./9}){
   D3DMATRIX p{},out{};double y=1/std::tan((45./aspect)*3.14159265358979323846/360.);p._11=float(y/aspect);p._22=float(y);p._33=1.01f;p._34=1;p._43=-.202f;
   CHECK(frontend_preview_projection(p,out)&&std::abs(vertical_fov(out)-33.75)<.001&&std::abs(out._22/out._11-aspect)<.0001&&out._43==p._43&&out._33==p._33);
+  CHECK(camera_scene_family(p)==0);auto gameplay=p;gameplay._22=float(1/std::tan((90./aspect)*3.14159265358979323846/360.));gameplay._11=float(gameplay._22/aspect);CHECK(camera_scene_family(gameplay)==1);
   if(aspect==4./3)CHECK(std::abs(out._22-p._22)<.00001);
   auto bad=p;bad._22=1;CHECK(!frontend_preview_projection(bad,out));
  }
@@ -130,6 +132,91 @@ void display_transactions(){
  input=stock();CHECK(auto_invalid.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==640); // invalid initial auto request never pins
  c.display_mode="Stock";c.aa_mode="Stock";c.samples=4;q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(q.aa_reason=="Mode_Stock_Samples_ignored");
  std::cout<<"Display plan/native/commit/failure/idempotence/pinned and automatic Windowed ownership: PASS\n";
+}
+void windowed_maximize_restore(){
+ Root root;Windows window;QualityPipeline q(window);VisualConfig c;c.display_mode="Windowed";c.width=1280;c.height=720;
+ auto p=stock();IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
+ CHECK(q.create(root,0,&p,&out)==S_OK&&p.BackBufferWidth==1280&&p.BackBufferHeight==720);
+ CHECK(q.json().find("\"window_state\":\"normal\"")!=std::string::npos);
+ for(int round=0;round<3;++round){
+  auto applies=window.applies;auto resets=root.dev.resets.size();auto echoes=q.window_reset_echoes;
+  window.state.maximized=true;window.state.client={0,0,1900,1027};window.state.outer=window.state.work;
+  p=stock();p.BackBufferWidth=1900;p.BackBufferHeight=1027;
+  CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1900&&p.BackBufferHeight==1027&&p.EnableAutoDepthStencil);
+  CHECK(root.dev.resets.size()==resets+1&&window.applies==applies&&q.window_reset_echoes==echoes&&!q.window_commit_active());
+  CHECK(q.json().find("\"normal_target\":{\"width\":1280,\"height\":720}")!=std::string::npos&&q.json().find("\"window_state\":\"maximized\"")!=std::string::npos);
+  // Legacy logical viewport scales to the accepted maximized backbuffer.
+  p=stock();CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1900&&window.applies==applies);
+  D3DVIEWPORT8 in{0,0,640,480,0,1},scaled{};CHECK(q.viewport(in,scaled)&&scaled.Width==1900&&scaled.Height==1027);
+  auto accepted=q.effective;root.dev.result=D3DERR_DEVICELOST;p=stock();CHECK(q.reset(root,root.dev,&p)==D3DERR_DEVICELOST&&presentation_equivalent(q.effective,accepted)&&window.applies==applies);root.dev.result=S_OK;
+  window.state.maximized=false;window.state.client={0,0,1400,800};window.state.outer={2000,10,3400,810};
+  p=stock();p.BackBufferWidth=1900;p.BackBufferHeight=1027;CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1280&&p.BackBufferHeight==720&&window.applies==applies+1);
+  CHECK(q.json().find("\"window_state\":\"normal\"")!=std::string::npos);
+ }
+ // Genuine maximize uses actual client dimensions, never a bogus game Reset size.
+ window.state.maximized=true;window.state.client={0,0,1880,1000};p=stock();p.BackBufferWidth=9000;CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1880&&p.BackBufferHeight==1000);
+ std::cout<<"Windowed normal/maximize/restore, no placement mutation or echo swallow, fixed normal target: PASS\n";
+}
+void stable_margin_anchors(){
+ for(int direction:{-1,1}){
+  MarginAnchors anchors;MarginFrame edits;float point[3]{direction>0?565.f:23.f,direction>0?75.f:370.f,0};
+  MarginIdentity key{1,2,reinterpret_cast<uintptr_t>(point),3,1};uint64_t id=0;float last_engine=0,last_effective=0;
+  for(int frame=0;frame<20;++frame){
+   if(frame){point[0]=(direction>0?565.f:23.f)-3.f*frame;point[1]=(direction>0?75.f:370.f)+frame*.125f;}
+   float engine=point[0];auto proof=anchors.resolve(key,point[0],point[1],point[2]);
+   CHECK(proof.direction==direction&&(frame?proof.retained:proof.admitted));if(!frame)id=proof.id;CHECK(proof.id==id);
+   CHECK(edits.shift_direction(point,100,proof.direction)&&point[0]==engine+direction*100);
+   if(frame)CHECK(point[0]-last_effective==engine-last_engine);
+   float logical[3]{};CHECK(edits.logical_point(point,0,logical)&&logical[0]==engine);
+   auto duplicate=anchors.resolve(key,logical[0],logical[1],logical[2]);CHECK(duplicate.id==id&&!edits.shift_direction(point,100,duplicate.direction));
+   last_engine=engine;last_effective=point[0];CHECK(edits.restore()&&point[0]==engine);anchors.next_frame();
+  }
+  CHECK(anchors.admissions==1&&anchors.retained_anchor_without_current_rule_match>0&&anchors.size()==1);
+ }
+ MarginAnchors anchors;MarginIdentity key{1,2,3,4,1};
+ CHECK(anchors.resolve(key,565,75,0).admitted);auto replacement=key;replacement.packet=5;
+ CHECK(!anchors.resolve(replacement,300,300,0).direction&&anchors.size()==0);
+ CHECK(anchors.resolve(key,565,75,0).admitted);replacement=key;replacement.mode=2;
+ CHECK(!anchors.resolve(replacement,300,300,0).direction&&anchors.size()==0);
+ CHECK(anchors.resolve(key,565,75,0).admitted);replacement=key;replacement.storage=6;
+ CHECK(!anchors.resolve(replacement,300,300,0).direction&&anchors.size()==0);
+ CHECK(anchors.resolve(key,565,75,0).admitted);replacement=key;replacement.point=7;
+ CHECK(!anchors.resolve(replacement,300,300,0).direction&&anchors.size()==0);
+ CHECK(anchors.resolve(key,565,75,0).admitted);anchors.begin_epoch("Reset");CHECK(!anchors.resolve(key,300,300,0).direction&&anchors.size()==0);
+ anchors.scene_context(false);CHECK(anchors.resolve(key,565,75,0).admitted);auto epoch=anchors.epoch();anchors.scene_context(true);
+ CHECK(anchors.epoch()==epoch+1&&!anchors.resolve(key,300,300,0).direction);
+ CHECK(anchors.resolve(key,565,75,0).admitted);anchors.next_frame();anchors.next_frame();CHECK(!anchors.resolve(key,300,300,0).direction&&anchors.size()==0);
+ for(int i=0;i<20;++i){CHECK(!anchors.resolve(key,300+i,300+i,0).direction);anchors.next_frame();}
+ CHECK(anchors.resolve(key,565,75,0).admitted);CHECK(!anchors.resolve(key,560,74,1).direction&&anchors.size()==0);
+ key.storage=0;CHECK(!anchors.resolve(key,565,75,0).direction);key.storage=4;
+ MarginAnchors capacity;for(uintptr_t i=1;i<=512;++i){auto k=key;k.entity=i;CHECK(capacity.resolve(k,565,75,0).admitted);}key.entity=513;CHECK(!capacity.resolve(key,565,75,0).direction&&capacity.overflow==1);
+ // Read the same production identity/layout and protect mode changes on restore.
+ alignas(float) std::array<unsigned char,0x90> packet{};std::array<unsigned char,0x60> entity{};uintptr_t pp=reinterpret_cast<uintptr_t>(packet.data()),storage=0x1234;uint32_t mode=1;
+ std::memcpy(entity.data()+0x4c,&pp,4);std::memcpy(packet.data()+8,&storage,4);std::memcpy(packet.data()+0x68,&mode,4);
+ auto* point=reinterpret_cast<float*>(packet.data()+0x54);point[0]=565;point[1]=75;MarginIdentity read{};auto owner=reinterpret_cast<uintptr_t>(entity.data());CHECK(read_margin_identity(owner,pp+0x24,read)&&read.point==pp+0x54&&read.storage==storage&&read.mode==mode);
+ MarginFrame edits;CHECK(edits.shift_direction(point,100,1,owner,mode));point[1]=76;CHECK(edits.shift_direction(point,100,1,owner,mode)&&point[0]==665&&edits.restore()&&point[0]==565&&point[1]==76);
+ CHECK(edits.shift_direction(point,100,1,owner,mode));mode=2;std::memcpy(packet.data()+0x68,&mode,4);CHECK(edits.restore()&&point[0]==665);
+ CHECK(!read_margin_identity(1,1,read));
+ std::cout<<"Historical admission/stable animated anchors, center exclusion, replacement/epoch/gap/overflow and no double offset: PASS\n";
+}
+void margin_consumer_retention(){
+ alignas(float) std::array<unsigned char,0x90> packet{};std::array<unsigned char,0x60> entity{};
+ uintptr_t pp=reinterpret_cast<uintptr_t>(packet.data()),storage=0x1234,owner=reinterpret_cast<uintptr_t>(entity.data());uint32_t mode=1;
+ std::memcpy(entity.data()+0x4c,&pp,4);std::memcpy(packet.data()+8,&storage,4);std::memcpy(packet.data()+0x68,&mode,4);
+ auto* point=reinterpret_cast<float*>(packet.data()+0x54);point[0]=565;point[1]=75;
+ UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1920,1080);ui.scene_context(false);ui.capture_window(true,30);
+ ui.before_consume(owner);float offset=point[0]-565;CHECK(std::abs(offset-106.6667f)<.0001f);ui.before_consume(owner);CHECK(point[0]==565+offset&&ui.finish_frame()&&point[0]==565);
+ point[0]=562;point[1]=75.125f;ui.before_consume(owner);CHECK(std::abs(point[0]-(562+offset))<.0001f&&ui.json().find("\"retained_anchor_without_current_rule_match\":1")!=std::string::npos);CHECK(ui.finish_frame()&&point[0]==562);
+ point[0]=558;point[1]=75.25f;ui.before_consume(owner);CHECK(std::abs(point[0]-(558+offset))<.0001f&&ui.finish_frame()&&point[0]==558);
+ ui.reset_anchors("Reset");ui.capture_window(false,33);ui.capture_window(true,33);point[0]=300;point[1]=300;ui.before_consume(owner);CHECK(point[0]==300&&ui.finish_frame());
+ point[0]=565;point[1]=75;ui.before_consume(owner);CHECK(std::abs(point[0]-(565+offset))<.0001f&&ui.finish_frame());
+ storage=0x5678;std::memcpy(packet.data()+8,&storage,4);point[0]=300;point[1]=300;ui.before_consume(owner);CHECK(point[0]==300&&ui.finish_frame());
+ // A scene epoch ends any still-owned edit before new-screen admission.
+ point[0]=565;point[1]=75;ui.before_consume(owner);CHECK(std::abs(point[0]-(565+offset))<.0001f);ui.scene_context(false);ui.scene_context(true);CHECK(point[0]==565);
+ point[0]=300;point[1]=300;ui.before_consume(owner);CHECK(point[0]==300&&ui.finish_frame());
+ // Storage replacement cancels stale restore even at identical XYZ bytes.
+ MarginFrame stale;point[0]=565;point[1]=75;CHECK(stale.shift_direction(point,100,1,owner,mode,storage));storage=0x9999;std::memcpy(packet.data()+8,&storage,4);CHECK(stale.restore()&&point[0]==665);
+ std::cout<<"Production packet consume/restore, animated engine coordinates and anchor diagnostics: PASS\n";
 }
 void antialiasing(){
  Root root;Windows windows;QualityPipeline q(windows);VisualConfig c;c.display_mode="Borderless";c.aa_mode="MSAA";c.samples=8;auto p=stock();q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);IDirect3DDevice8* out=nullptr;
@@ -195,6 +282,8 @@ void native_window(){
  // Hidden synthetic HWND; no game or visible interactive window is launched.
  HWND w=CreateWindowExW(0,L"STATIC",L"MRR quality contract",WS_OVERLAPPEDWINDOW,100,100,640,480,nullptr,nullptr,GetModuleHandleW(nullptr),nullptr);CHECK(w!=nullptr&&!IsWindowVisible(w));
  WindowState saved{};auto& api=native_window_api();CHECK(api.snapshot(w,saved));RECT target{saved.outer.left,saved.outer.top,saved.outer.left+1280,saved.outer.top+720};CHECK(api.apply(saved,target,true,false));RECT outer{};CHECK(GetWindowRect(w,&outer));CHECK(std::abs((outer.left+outer.right)-(saved.work.left+saved.work.right))<=1&&std::abs((outer.top+outer.bottom)-(saved.work.top+saved.work.bottom))<=1);RECT client{};CHECK(GetClientRect(w,&client)&&client.right==1280&&client.bottom==720&&!IsWindowVisible(w));
+ // IsZoomed state detection on a hidden synthetic HWND; no visible maximize.
+ auto style=GetWindowLongW(w,GWL_STYLE);SetWindowLongW(w,GWL_STYLE,style|WS_MAXIMIZE);WindowState zoomed{};CHECK(api.snapshot(w,zoomed)&&zoomed.maximized&&IsZoomed(w)&&!IsWindowVisible(w));SetWindowLongW(w,GWL_STYLE,style);CHECK(api.snapshot(w,zoomed)&&!zoomed.maximized);
  CHECK(api.apply(saved,saved.monitor,false,true));CHECK(GetClientRect(w,&client)&&client.right==saved.monitor.right-saved.monitor.left&&client.bottom==saved.monitor.bottom-saved.monitor.top);
  CHECK(!(GetWindowLongW(w,GWL_STYLE)&WS_CAPTION)&&!IsWindowVisible(w));CHECK(api.restore(saved));WindowState after{};CHECK(api.snapshot(w,after)&&after.style==saved.style&&after.exstyle==saved.exstyle&&std::memcmp(&after.outer,&saved.outer,sizeof(RECT))==0);{QualityPipeline q;q.valid=true;q.effective=stock();q.effective.hDeviceWindow=w;q.display="Borderless";q.cursor_watch();CHECK(q.cursor_watch_installed());SendMessageW(w,WM_KILLFOCUS,0,0);q.begin_shutdown();CHECK(!q.cursor_watch_installed());}CHECK(DestroyWindow(w));
 }
@@ -279,5 +368,6 @@ void quality_fpu(){
  int flags=fetestexcept(FE_ALL_EXCEPT);QualityPipeline q;q.valid=true;q.effective=stock();q.effective.BackBufferWidth=1920;q.effective.BackBufferHeight=1080;q.json();
  UiMargins ui;ui.dimensions(1920,1080);ui.json();D3DMATRIX matrix{},out{};matrix._11=2.f/640;matrix._22=2.f/480;matrix._33=-.0005f;matrix._41=matrix._42=-1;matrix._43=.5;matrix._44=1;
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
+ fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_maximize_restore();stable_margin_anchors();margin_consumer_retention();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

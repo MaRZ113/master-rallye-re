@@ -6,8 +6,30 @@ inline constexpr std::array<unsigned char,5> UI_SORT_BYTES={0xd8,0x60,0x30,0xd9,
 inline constexpr uint32_t UI_PACKET_RVA=0x0016d110;
 inline constexpr std::array<unsigned char,6> UI_PACKET_BYTES={0x81,0xec,0x08,0x01,0,0};
 int margin_direction(float x,float y,float z) noexcept;
+const char* margin_source(float x,float y,float z) noexcept;
 bool eligible_ui_packet(uintptr_t entity,uintptr_t coordinates) noexcept;
-namespace detail {uintptr_t ui_bridge_for_contract(uintptr_t return_address) noexcept;uintptr_t ui_packet_entity_for_contract() noexcept;uintptr_t ui_packet_bridge_for_contract(uintptr_t return_address) noexcept;}
+struct MarginIdentity {uintptr_t entity=0,packet=0,point=0,storage=0;uint32_t mode=0;};
+bool read_margin_identity(uintptr_t entity,uintptr_t coordinates,MarginIdentity&) noexcept;
+struct MarginAnchorDecision {
+ uint64_t id=0,epoch=0;int direction=0,current_rule=0;bool admitted=false,retained=false;
+ const char* source="none";const char* invalidated="none";
+};
+// Semantic direction only. This registry never owns coordinates or writes memory.
+class MarginAnchors {
+ struct Anchor {MarginIdentity key{};uint64_t id=0,last=0;int direction=0;};
+ std::array<Anchor,512> entries_{};uint64_t frame_=1,epoch_=1,next_id_=0;
+ int context_=-1;const char* epoch_reason_="initial";
+public:
+ uint64_t admissions=0,invalidations=0,retained_anchor_without_current_rule_match=0,overflow=0;
+ MarginAnchorDecision resolve(const MarginIdentity&,float x,float y,float z) noexcept;
+ void next_frame() noexcept;
+ void begin_epoch(const char* reason) noexcept;
+ void scene_context(bool race) noexcept;
+ void reject(uintptr_t entity) noexcept;
+ uint64_t epoch() const noexcept{return epoch_;}
+ size_t size() const noexcept;
+};
+namespace detail {struct UiMarginsContract;uintptr_t ui_bridge_for_contract(uintptr_t return_address) noexcept;uintptr_t ui_packet_entity_for_contract() noexcept;uintptr_t ui_packet_bridge_for_contract(uintptr_t return_address) noexcept;}
 class UiJumpPatch {
  void* site_=nullptr;std::array<unsigned char,5> after_{};bool installed_=false;
  bool exchange(PatchMemory&,const std::array<unsigned char,5>&,const std::array<unsigned char,5>&) noexcept;
@@ -26,15 +48,18 @@ public:
 };
 // Frame-owned coordinate edits, independently tested; never persistent packet identity.
 class MarginFrame {
- struct Edit {float* x=nullptr;float original=0,effective=0,y=0,z=0;uintptr_t owner=0;};std::array<Edit,512> edits_{};size_t count_=0;
+ struct Edit {float* x=nullptr;float original=0,effective=0,y=0,z=0;uintptr_t owner=0;uint32_t mode=0;uintptr_t storage=0;};std::array<Edit,512> edits_{};size_t count_=0;
 public:
  uint64_t changed=0,failures=0,overflow=0;
  bool shift(float* xyz,float half,uintptr_t owner=0) noexcept;
+ bool shift_direction(float* xyz,float half,int direction,uintptr_t owner=0,uint32_t mode=0,uintptr_t storage=0) noexcept;
+ bool logical_point(float* xyz,uintptr_t owner,float (&point)[3],uint32_t mode=0,uintptr_t storage=0) const noexcept;
  bool restore() noexcept;
  size_t size() const noexcept{return count_;}
 };
 class UiMargins {
- UiPacketPatch patch_;MarginFrame frame_;
+ friend struct detail::UiMarginsContract;
+ UiPacketPatch patch_;MarginFrame frame_;MarginAnchors anchors_;
  struct Observation {uintptr_t entity=0,point=0;uint64_t id=0,first=0,last=0,restored=0;float logical=0,effective=0;unsigned visits=0;};
  std::array<Observation,64> observations_{};uint64_t frame_id_=1,next_id_=0;unsigned records_=0,diagnostic_frames_=0;bool capturing_=false;DWORD thread_=0;float half_=0;bool enabled_=false;
 public:
@@ -44,6 +69,8 @@ public:
  void dimensions(UINT width,UINT height) noexcept;
  void capture_window(bool active,uint64_t frame) noexcept;
  void reset_diagnostics() noexcept;
+ void reset_anchors(const char* reason) noexcept;
+ void scene_context(bool race) noexcept;
  void before_consume(uintptr_t entity) noexcept;
  void before_sort(uintptr_t entity,uintptr_t coordinates) noexcept;
  bool finish_frame() noexcept;

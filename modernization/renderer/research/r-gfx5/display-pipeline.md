@@ -1,3 +1,13 @@
+# R-GFX5-4 Windowed normal/maximized ownership
+
+WindowState snapshot now includes native IsZoomed. Windowed retains configured/pinned NORMAL target (e.g.1280x720). In normal state existing AdjustWindowRectEx/rcWork centering and manual-drag pinned policy remain. While genuinely maximized, select_display uses actual client width/height for native presentation, without replacing normal target. apply_window skips all style/menu/SetWindowPos operations: maximized placement is OS-owned. Restore follows the original centered normal commit; it does not adopt the previous maximized dimensions.
+
+Planning and successful native Reset still precede placement commit. A genuine maximize/restore Reset outside the commit transaction executes native Reset and normal resource invalidation once. Self-induced normal placement echoes retain equivalent-descriptor S_OK/no-native policy; different synchronous requests still fail explicitly, and actual native failures retain the last accepted descriptor. No suppression by size alone or old free-resize feedback loop was introduced. Existing AA/fallback/native-error behavior remains.
+
+Transition-only window_state_transition records normal/maximized, normal_target, actual_client, effective_backbuffer; compact quality metadata contains the same fields. This is accepted-device state, not an asynchronous resize observer. Viewport planning uses accepted effective dimensions; the game receives those dimensions through Reset, so existing camera/aspect/culling pipeline remains. Synthetic tests repeat normal/maximized/restore, assert no maximize placement write or echo swallow, unchanged normal target and lost-device retention; a hidden native HWND verifies IsZoomed detection. Physical GPU/maximize behavior still needs human PASS.
+
+## Historical R-GFX5-3 display lifecycle
+
 # R-GFX5-3: accepted-device Reset echoes and final shutdown
 
 **CONFIRMED_BY_CODE_AND_CAPTURE:** R-GFX5-2 successful native Reset is followed by SetWindowLong/SetMenu/SetWindowPos. Synchronous game callback reenters Reset while committing_; the old unconditional INVALIDCALL yields Error2010. Several exit captures end at SetWindowLong_end after a reset error. Final native Release previously preceded QualityPipeline destructor restore_window, allowing HWND changes after device teardown.

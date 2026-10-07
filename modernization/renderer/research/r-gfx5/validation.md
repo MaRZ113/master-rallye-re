@@ -1,3 +1,21 @@
+# R-GFX5-4 final fix validation - 2026-10-07
+
+READY_FOR_HUMAN_RUNTIME. Win32 x86 Release build PASS; **8/8 native suites** pass (3.61s). Full **93/93 Python** passed on final DLL (59.768s), including the final diagnostic fixture-selection correction. Canonical renderer compileall and git diff --check pass. Required exports/imports/PE verifier PASS.
+
+DLL SHA256 **044a492a4919a009e416863d9e4753f139af007a70af1407c159dabae6fe5a65**, **1,388,544 bytes**, PE32/I386. Direct3DCreate8@5, ValidatePixelShader@2, ValidateVertexShader@3; bcrypt/USER32/KERNEL32 imports, no recursive d3d8 import. [Build manifest](../../data/build.json). Generated DLL/native fixtures/logs remain ignored, not deployed or committed.
+
+New contracts: repeated Windowed maximize/restore with unchanged1280x720 normal target; actual-client maximized PP/viewport; no maximize placement apply or commit-echo swallow; genuine device-lost HRESULT; hidden native IsZoomed snapshot. LEFT/RIGHT20-frame animation preserves deltas, center never admits, packet/mode/point/storage/epoch/gap invalidation, bounded capacity, duplicate/Y-rewrite offset safety and mode/storage-safe restore. Real production consume callback on synthetic packet emits stable anchor provenance through565->562->558; no doubled offset. Scene epoch releases pending edit; source45/90 context detector preserves caller FPU flags/rounding. No game executable or GPU runtime was exercised.
+
+Existing AF/FOV/preview/culling/cameras/shadows/COM/MSAA/resources/vehicle semantics/reflection restoration assertions remain; no previous test assertion was weakened. Two added Python checks read actual current native telemetry. They select one latest matching session so session-local IDs are never merged across repeated identical builds. No new analysis tool or synthetic game EXE.
+
+Final native log: ignored .analysis/r-gfx5/build-finalfix-final.log; final Python-only checked log: .analysis/r-gfx5/python-finalfix-checked.log. Earlier candidate builds/93-test pass are retained as intermediate evidence, not the release manifest.
+
+[Baseline evidence](finalfix-runtime-evidence.json) preserves user R-GFX5-3 acceptance with two visible failures and H-hard VFOV75/failures0, constellations4/reflection68/68. New maximize/HUD/decorative stability remains HUMAN_PENDING. Backdrop remains BACKDROP_ASSET_EXTENSION_REQUIRED; no new art/features/whole-SHA profile, branch/worktree or push.
+
+Identity limit: continuous full-tuple aliasing without observable gap/context/storage change is not a proven native allocation generation. Conservative expiry and explicit epochs are tested; human MainMenu/QuickRace and centered-replacement checks remain mandatory. No 100-percent allocator/screen coverage claim is made.
+
+## Historical R-GFX5-3 validation
+
 # R-GFX5-3 current validation — 2026-10-07
 
 Win32 x86 Release built with MSVC; all **8/8 native suites** pass (3.55s), including equivalent/different Reset echoes, no final-window restore, fixed Windowed/centering, cursor state and owned-thread message observer detach, numeric/text/invalid enum, source45 framing aspects, ten-frame packet reuse/engine rewrite, six-byte consumer bridge stack/argument/register/x87 and patch rollback. Existing AF/FOV/culling/camera/shadow/COM/resource/brake/structural/learned-reflection/restore assertions remain intact.

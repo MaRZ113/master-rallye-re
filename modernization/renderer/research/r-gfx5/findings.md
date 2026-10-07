@@ -1,3 +1,17 @@
+# R-GFX5-4 final fix - 2026-10-07
+
+READY_FOR_HUMAN_RUNTIME. Starting HEAD7267053eeb498e18d8f54ce73c8151993d6a629c, research/general-re, same master-rallye-re-general checkout. Tracked preflight clean; untracked modernization/input and modernization/PS2 preserved. Only renderer changes. No branch/worktree/push or game deployment/disk patch.
+
+Human reports R-GFX5-3 broadly successful for Borderless/AltTab/high resolution/Centered4x3/preview/AF16/MSAA4/freeze/FOV/vehicle capability/cursor/shutdown. Two remaining visible defects: Windowed maximize snaps back and animated PreserveMargins packets jitter. [Captured baseline](finalfix-runtime-evidence.json) preserves H-hard VFOV75/culling sync/failures0, four constellations and reflection68/68, plus actual animated packet rewrites. Those captures do not test this candidate.
+
+Windowed configured/pinned size now owns NORMAL only. Native IsZoomed plus actual client size controls temporary maximized effective backbuffer; no placement write while maximized. Restore replans to the same normal target and the existing centered commit. Genuine user resize Reset runs outside commit-echo suppression.
+
+Historical 51 points and left text bands now admit a bounded semantic direction registry, separate from frame-owned edits. Exact entity/packet/point/content-allocation/mode identity plus UI epoch retains direction through XYZ animation (valid Z0 only). No coordinate ranges were broadened. Final consumer0056D110 and Present restore boundary remain. Unknown packets remain centered. See [UI identity/lifetime](widescreen-integration.md).
+
+F10 adds anchor provenance/current rule/current engine XY and retained_anchor_without_current_rule_match. No new artwork; BACKDROP_ASSET_EXTENSION_REQUIRED unchanged. Await Normal/Maximize/Restore/HUD/Menu/Combined handoff. R-CAM1/F-PHOTO1/HD UI not begun.
+
+## Historical R-GFX5-3 findings
+
 # R-GFX5-3 lifecycle and widescreen continuation
 
 Status: READY_FOR_HUMAN_RUNTIME for the code candidate; backdrop is separately **BACKDROP_ASSET_EXTENSION_REQUIRED**. No visual PASS is inferred from automated tests.

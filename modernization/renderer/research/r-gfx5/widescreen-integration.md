@@ -1,3 +1,21 @@
+# R-GFX5-4 stable PreserveMargins anchor semantics
+
+Human/runtime narrowed the active defect: the final consumer hook is installed, widened projection stable, restore_failures0, yet animated HUD/decorations jitter. Do not recast missing sorter head as the remaining cause. DrawTextPacket VA0x0056D110/RVA0x0016D110 stays the only production packet hook; Present/Reset/disable/release coordinate ownership boundary stays intact.
+
+Historical 51 exact XY points and bounded left text regions are authoritative admission evidence, unchanged. MarginAnchors (512 slots) stores LEFT/RIGHT, not original XY. Key: entity, entity+4C packet, packet+54 point, packet+8 content row-vector allocation, packet+68 mode1/2, plus registry UI epoch. The existing read-only Ghidra bridge consumer export confirms +8/+C row storage, +54 point and +68 mode; these are not guessed object labels. Each consumption revalidates the structure and reads current engine XY; admitted direction offsets current X by direction*half, preserving animation. Never-matched/invalid/overflow packets remain centered.
+
+Retention invalidates on packet/point/content-allocation/mode change, invalid structure/nonfinite/nonzeroZ, Reset, disable/release, or validated source45/frontend versus source90/race family transition. Context uses already-supported camera owner and original projection, independently of optional GameplayFOV. It does not infer gameplay from the inner UI orthographic projection. A packet absent for a complete consumer frame expires; later reused addresses must independently admit again. No global X>320 heuristic, frozen coordinate, old sort hook or new whole-image SHA profile.
+
+Safety boundary: content allocation and continuous validated consumption are observed lifetime evidence, not a heap allocator generation. No universal native menu/screen generation or allocator free hook has been proven. Same full identity reused without any observed gap/context/storage change is unobservable; it is not claimed safe by raw pointer alone. MainMenu/QuickRace transitions and centered replacement are explicit human regression checks. Reset/family transitions have tested explicit epochs; menu replacement is guarded by changed storage/identity or absence. The conservative missing-frame rule can cause re-admission after an element is hidden; no persistent grace is silently added.
+
+MarginFrame independently owns live memory edits until Present. Duplicate consumes normalize only their still-owned X before admission and never add a second offset. An engine X rewrite becomes a fresh logical value; a Y-only rewrite preserves its new Y without accumulating X offset. Mode/owner/content-storage/XYZ replacement cancels stale restore. An epoch ends pending ownership through the same guarded restore before a new context can learn. The ordinary Present boundary is not redesigned. Camera-family detection preserves caller FPU flags and rounding mode.
+
+Bounded F10 session records now include anchor_id/direction/source/new/retained, ui_epoch, packet mode/content/point storage, current_rule_match, engine_x/engine_y, effective_x and anchor_invalidated_reason. Unanchored packets also appear during the three diagnostic frames. Counters include retained_anchor_without_current_rule_match, admissions/invalidations/count/overflow; positive retained-without-match proves an animated trajectory is using semantic retention. Maximum64 diagnostic slots/256 lifetime records unchanged. No continuous huge log.
+
+Synthetic tests cover20-frame LEFT/RIGHT animation, center exclusion, packet/mode/point/content replacement, Reset/scene epoch, absence expiry, capacity, duplicate and production consume/restore. Centered4x3, preview, UI projection/rules/ABI, MSAA and other feature owners are unchanged. Backdrop remains BACKDROP_ASSET_EXTENSION_REQUIRED.
+
+## Historical R-GFX5-3 UI implementation
+
 # R-GFX5-3: frontend camera and packet consumption
 
 ## Frontend preview

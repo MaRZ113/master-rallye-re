@@ -1,3 +1,9 @@
+# R-GFX5-4 baseline compatibility evidence
+
+No fingerprint recipe, SHA profile, capability owner or gating algorithm changed. User reports hardened391d5d86 FOV/vehicle capability healthy. Existing H-hard-combined R-GFX5-3 capture independently shows culling installed/synchronized, VFOV75/failures0, four constellations and reflection68/68; see finalfix-runtime-evidence.json. That is preserved baseline evidence, not validation of the new Windowed/anchor changes. The new scene-family anchor epoch reads original source45/90 only at the already validated camera return; no extra game-memory global is introduced.
+
+## Historical R-GFX5-3 compatibility findings
+
 # R-GFX5-3 feature-local owner authorization
 
 Whole-image SHA remains provenance, not a global permission switch. No new whole-SHA profile was added. Generic display/AF/MSAA remain generic. Freeze and orthographic UI retain their unique decoded scanned owners. Stock shadow stays exact-profile gated.

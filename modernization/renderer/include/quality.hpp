@@ -3,7 +3,7 @@
 #include "compatibility.hpp"
 #include <memory>
 namespace gfx2 {
-struct WindowState {HWND hwnd=nullptr;LONG style=0,exstyle=0;HMENU menu=nullptr;RECT outer{},client{},monitor{},work{};bool valid=false;};
+struct WindowState {HWND hwnd=nullptr;LONG style=0,exstyle=0;HMENU menu=nullptr;RECT outer{},client{},monitor{},work{};bool valid=false,maximized=false;};
 class WindowApi {
 public: virtual ~WindowApi()=default;
  virtual bool snapshot(HWND,WindowState&) noexcept=0;
@@ -49,6 +49,8 @@ private:
  WindowApi* windows_;bool window_owned_=false,committing_=false,shutting_down_=false;D3DPRESENT_PARAMETERS fallback_{};
  WindowState committed_{};UINT pinned_width_=0,pinned_height_=0;
  std::string window_commit_status_="not_required";
+ std::string window_state_="unknown";
+ void window_transition(const WindowState&) noexcept;
  bool select_display(IDirect3D8&,D3DPRESENT_PARAMETERS&);
  bool apply_window(const D3DPRESENT_PARAMETERS&);
  D3DPRESENT_PARAMETERS without_aa(D3DPRESENT_PARAMETERS) const noexcept;
@@ -58,6 +60,7 @@ bool ui_projection_dimensions(const D3DMATRIX&,UINT width,UINT height,D3DMATRIX&
 bool ui_projection(const D3DMATRIX&,double aspect,D3DMATRIX&) noexcept;
 bool presentation_equivalent(const D3DPRESENT_PARAMETERS&,const D3DPRESENT_PARAMETERS&) noexcept;
 bool frontend_preview_projection(const D3DMATRIX&,D3DMATRIX&) noexcept;
+int camera_scene_family(const D3DMATRIX&) noexcept;
 bool stock_ui_projection(const D3DMATRIX&) noexcept;
 void display_breadcrumb(const char* step,HRESULT result=S_OK) noexcept;
 }

@@ -16,6 +16,46 @@ from reference_ghidra import PATCHER_SHA
 from trace_common import read_jsonl
 
 class QualityResearchTests(unittest.TestCase):
+    def current_native_session(self):
+        release=ROOT/'.build-msvc/Release'
+        sha=hashlib.sha256((release/'quality_tests.exe').read_bytes()).hexdigest()
+        matching=[]
+        for path in (release/'MRRRenderer/logs').glob('session*.jsonl'):
+            with path.open(encoding='utf-8-sig') as f:
+                head=json.loads(f.readline())
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-4':
+                matching.append(path)
+        self.assertTrue(matching,'Run current native suites before Python')
+        # Anchor IDs are session-local. Repeated identical native builds must
+        # not merge separate lifetimes just because the executable hash matches.
+        latest=max(matching,key=lambda p:(p.stat().st_mtime_ns,p.name))
+        return read_jsonl(latest)
+
+    def test_native_windowed_maximize_restore_telemetry(self):
+        events=[r for r in self.current_native_session() if r.get('type')=='window_state_transition']
+        maximized=[r for r in events if r.get('window_state')=='maximized']
+        self.assertGreaterEqual(len(maximized),4)
+        for r in maximized:
+            self.assertEqual(r['normal_target'],dict(width=1280,height=720))
+            self.assertEqual(r['actual_client'],r['effective_backbuffer'])
+        triples=[events[i:i+3] for i in range(len(events)-2)]
+        self.assertTrue(any([r['window_state'] for r in t]==['normal','maximized','normal'] for t in triples))
+
+    def test_native_consumer_anchor_provenance_preserves_animation(self):
+        rows=[r for r in self.current_native_session() if r.get('type')=='ui_packet_lifetime' and r.get('event')=='consume']
+        new=next(r for r in rows if r.get('anchor_new') and r.get('engine_x')==565)
+        retained=[r for r in rows if r.get('anchor_id')==new['anchor_id'] and r.get('anchor_retained') and r.get('current_rule_match')==0]
+        self.assertEqual(new['anchor_source'],'exact_historical_rule')
+        self.assertEqual([r['engine_x'] for r in retained],[562,558])
+        for r in retained:
+            self.assertEqual(r['anchor_direction'],'right')
+            self.assertEqual(r['anchor_source'],'retained_identity')
+            self.assertAlmostEqual(r['effective_x']-r['engine_x'],new['effective_x']-new['engine_x'],places=3)
+        duplicate=next(r for r in rows if r.get('anchor_id')==new['anchor_id'] and r.get('frame')==new['frame'] and not r.get('anchor_new'))
+        self.assertFalse(duplicate['shifted']);self.assertEqual(duplicate['effective_x'],new['effective_x'])
+        center=next(r for r in rows if r.get('engine_x')==300 and r.get('anchor_direction')=='none')
+        self.assertEqual(center['effective_x'],300);self.assertEqual(center['anchor_id'],0)
+
     def test_identity_and_output_guard(self):
         self.assertEqual(ROOT,TOOL_ROOT)
         self.assertEqual(output_guard(ROOT/'research/r-gfx5/result.json'),ROOT/'research/r-gfx5/result.json')
@@ -74,7 +114,7 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             with path.open() as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-3':frames.append(read_jsonl(path))
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-4':frames.append(read_jsonl(path))
         self.assertTrue(frames,'Native production wrapper must emit its positive capture')
         frame=next(f for f in reversed(frames) if f[0]['quality']['effective']['multisample']==4);self.assertTrue(frame[-1]['complete']);self.assertFalse(frame[-1]['truncated'])
         pp=frame[0]['quality']['effective'];self.assertEqual((pp['width'],pp['height'],pp['multisample'],pp['swap_effect']),(1920,1080,4,1))
