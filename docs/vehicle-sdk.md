@@ -37,3 +37,12 @@ the generic addon tool/SDK. Before that SDK can be called complete, an addon
 must select/configure its sound family independently of model/physics identity
 and pass a T2 addon vehicle qualification. F.2f does not implement these
 features.
+
+R5V-I.0 currently has a static-ready slot-proof candidate (28 registry
+records; sparse T2/local7 -> physical ID27) and a verified human-test package.
+That candidate reuses Navara physical ID7 as a diagnostic donor and does not
+qualify a second vehicle. The present corpus audit is
+`REAL_T2_PAYLOAD_REQUIRED`: stock NewRav is ID12, while demo Rav4 lacks cooked
+DX/DXT and a retail physics/collision package. The generic SDK remains
+incomplete until an independent T2 vehicle passes runtime qualification. See
+`research/vehicles/multislot/id27-vehicle.md`.

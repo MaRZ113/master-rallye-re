@@ -1,0 +1,65 @@
+{
+  "phase": "R5V-I.1 independent T2 payload audit",
+  "status": "REAL_T2_PAYLOAD_REQUIRED",
+  "audited_corpus_root": "../corpora",
+  "candidates": [
+    {
+      "name": "NewRav / Newrav",
+      "classification": "EXISTING_STOCK_T2_ID12_NOT_AN_INDEPENDENT_ADDON",
+      "stock_mapping": {
+        "physical_id": 12,
+        "class": "T2",
+        "class_local_index": 5,
+        "evidence": "research/vehicles/audio/stock-audio-matrix.json"
+      },
+      "retail_payload": {
+        "root": "retail/Data.sma_unpacked/DataGx/Vehicles/NewRav",
+        "car.dx": {
+          "size": 137586,
+          "sha256": "615f00a1d61ec84170c49c52727fcdd68fc96fcb89f1690324edf445ad3fbee6"
+        },
+        "complete.dx": {
+          "size": 142520,
+          "sha256": "d2feb13f8673d25a284b7f0e00dbfa9c9c66c073bac1120bdd68c0d392d93eaf"
+        },
+        "wheel.dx": {
+          "size": 12971,
+          "sha256": "335e5632714974bfc04087391854647c5f37289fe0d6625c56c265a66a049e94"
+        },
+        "dxt_file_count": 34
+      },
+      "decision": "Do not reuse as the required second T2 vehicle; it is stock ID12."
+    },
+    {
+      "name": "Rav4",
+      "classification": "DEMO_SOURCE_ONLY_UNQUALIFIED",
+      "demo_root": "demo-9.3.1/DataGx/Vehicles/Rav4",
+      "demo_scene": {
+        "path": "demo-9.3.1/DataScene/FrontendScreens/Wjd/VehicleSelect.xml",
+        "size": 119543,
+        "sha256": "c0be053b124b099400e1b2755b9223c9e0526dc43d74bc2f2f0d82315e99721a",
+        "interpretation": "A T2_Car8 authored widget is slot evidence only."
+      },
+      "available_source_resources": [
+        "car.gxm",
+        "complete.gxm",
+        "wheel.gxm",
+        "GXI material/texture sources"
+      ],
+      "missing_required_resources": [
+        "car.dx",
+        "complete.dx",
+        "wheel.dx",
+        "compiled DXT dependency package",
+        "independently qualified retail physics/collision family"
+      ],
+      "retail_physics_search": {
+        "file": "retail/Data.sma_unpacked/DataGame/vehicles.xml",
+        "Rav4_profile_found": false
+      },
+      "decision": "Potential future cooker/conversion input only; requires a separate authorized qualification."
+    }
+  ],
+  "conclusion": "No current corpus candidate is ready to satisfy the independent real T2 vehicle requirement.",
+  "proprietary_payloads_copied_to_repository": false
+}

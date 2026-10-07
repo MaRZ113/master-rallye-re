@@ -37,16 +37,24 @@ Identity / Sound Family Architecture is also **FULL PASS / CLOSED**. R5V-H.1
 natural Quick Race T1 eligibility is now **CONFIRMED_BY_RUNTIME**: a new race
 selected physical ID26 as AI Car2 while the player remained T1/ID1 and locked;
 Results showed the fixed display-only name `JEAN-PIERRE STRUGO`. Native
-DriverID selection was not changed. R5V-H.2 maps separate dynamic T1 roster
-owners for Rallye Cup/Invitation and new Master Rallye competitions and
-prepares a fail-closed candidate that appends ID26 only at those roster
-creation boundaries. Existing saved rosters and stage reuse paths are
-untouched. H.2 is **READY_FOR_HUMAN_RUNTIME**; mode inclusion and persistence
-still need validation. Challenge remains authored and unchanged. See
-`research/vehicles/ai/mode-consumers.md`,
-`research/vehicles/ai/mode-aware-t1-eligibility.md`, and
-`research/vehicles/ai/mode-aware-runtime-plan.md`. Catalog ordering remains
-deferred.
+DriverID selection was not changed. R5V-H.2 extends physical ID26 eligibility
+only at native new-roster generation boundaries. Natural inclusion is
+**CONFIRMED_BY_RUNTIME** in Quick Race, newly created Rallye Cup rosters and
+new Master Rallye competitions; Cup stage reuse and Master Rallye
+fresh-process persistence are also confirmed. Existing rosters remain
+unchanged. Normal Invitation is T3-only, Challenge is authored, and Practice
+has no distinct AI-roster owner in the bounded audit. See
+`research/vehicles/ai/runtime-results.md`.
+
+R5V-I is in progress. I.0 has a deterministic static candidate with 28
+registry records and sparse T2/local7 -> physical ID27; a verified runtime
+package is ready for a human slot proof. Its ID27 uses the stock Navara family
+as a labeled diagnostic donor, so it is not the required second real T2
+vehicle. The audited corpora currently yield
+`REAL_T2_PAYLOAD_REQUIRED`: retail NewRav is already stock ID12, and demo
+Rav4 lacks the cooked DX/DXT and retail physics/collision package. R5V-I is
+not closed. See `research/vehicles/multislot/findings.md` and
+`research/vehicles/multislot/runtime-plan.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

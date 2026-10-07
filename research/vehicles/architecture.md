@@ -64,5 +64,18 @@ are also confirmed. Invitation's normal route is T3-only and uses ordinary
 base IDs 14..20, so T1 ID26 is not applicable there. This establishes a future
 addon-design requirement: ordinary/non-bonus T3 vehicles need explicit
 Invitation pool qualification, while bonus/special T3 vehicles must not be
-inserted automatically. This note is carried forward for R5V-I/J and does not
-start those phases.
+inserted automatically. This note is carried forward for R5V-I/J.
+
+## R5V-I — registry expansion and second T2 vehicle
+
+R5V-I.0 has a deterministic static slot-proof candidate: 28 VehicleRecords,
+T1=8/T2=8/T3=12, and sparse T2/local7 -> physical ID27. Its adjacent 39-row
+RaceTest table is moved to the 28-record base, with all 39 initializers and 11
+indexed consumers retargeted. ID25 Trooper and ID26 Mercedes remain distinct.
+The candidate uses Navara physical ID7 only as a diagnostic donor and has not
+yet been human-runtime-tested. See [R5V-I findings](multislot/findings.md).
+
+An independent second T2 vehicle is not ready: stock NewRav is physical ID12,
+while demo Rav4 lacks the cooked resource and physics/collision package needed
+for qualification. Current status is `REAL_T2_PAYLOAD_REQUIRED`; R5V-I remains
+open and no generic addon claim is made.

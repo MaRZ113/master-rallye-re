@@ -330,6 +330,18 @@ separate Practice AI-roster owner. See
 `research/vehicles/ai/mode-aware-t1-eligibility.md`, and
 `research/vehicles/ai/runtime-results.md`.
 
-R5V-I begins the bounded 27->28 record expansion and qualification of a real
-T2 local7 addon. R5V-J generic SDK work remains out of scope until the second
-vehicle qualification is complete.
+### Current R5V-I — registry slot proof and independent T2 qualification
+
+R5V-I.0 is **STATIC PASS / READY FOR HUMAN RUNTIME**. The deterministic
+candidate expands the registry to 28 records, maps T2/local7 to physical ID27,
+and relocates the adjacent 39-row RaceTest table with 39 initializer and 11
+consumer references updated. The matching T2_Car8 overlay and complete
+qualified H.2 runtime resource set are staged together and package-verified.
+This does not imply DX/DXT format changes or a runtime result.
+
+The required independent T2 vehicle remains **`REAL_T2_PAYLOAD_REQUIRED`**.
+Retail NewRav is stock ID12; the demo Rav4 source lacks cooked DX/DXT and an
+independent retail physics/collision profile. ID27's current Navara donor is a
+slot diagnostic only. R5V-I remains open; R5V-J generic SDK work stays out of
+scope until the real second-vehicle qualification is complete. See
+`research/vehicles/multislot/`.

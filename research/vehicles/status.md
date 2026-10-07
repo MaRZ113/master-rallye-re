@@ -74,13 +74,32 @@ Native DriverID selection remains independent from ID26's display-only Results
 identity `JEAN-PIERRE STRUGO`. The fixed label is not used to select or alter
 AI behavior. Player unlock state also remains independent from AI eligibility.
 
+## Current phase — R5V-I multi-slot registry expansion
+
+**R5V-I.0 slot proof: STATIC PASS / READY FOR HUMAN RUNTIME.** The exact
+pristine-to-H.2-to-I.0 candidate expands the registry from 27 to 28 records
+and maps T2/local7 sparsely to physical ID27. The candidate retains ID25
+Trooper and ID26 Mercedes. Its ignored runtime package includes the exact
+candidate, generated T2_Car8 scene, and qualified H.2 resource set; the
+package verifier passed. This is not an in-game pass. Human runtime status is
+pending in [the I.0 runtime ledger](multislot/runtime-results.md).
+
+**R5V-I.1 real T2 qualification: `REAL_T2_PAYLOAD_REQUIRED`.** ID27 currently
+uses Navara physical ID7 as a clearly labeled slot-test donor. NewRav is
+already stock physical ID12; demo Rav4 has source GXM/GXI but no cooked DX/DXT
+family or retail physics profile. A real independent T2 payload is therefore
+still required; R5V-I remains open and must not be called FULL PASS. Details
+are in the [payload audit](multislot/id27-vehicle.md).
+
+Future non-bonus T3 addons must qualify Invitation's ordinary T3 pool
+explicitly; class membership alone does not imply eligibility in every mode.
+Bonus/special T3 vehicles must not be added to that pool automatically.
+
 ## Roadmap
 
-Next planned vehicle phase: **R5V-I — multi-slot registry expansion plus a
-second real T2 addon vehicle**. Future non-bonus T3 addons must qualify
-Invitation's ordinary T3 pool explicitly; class membership alone does not
-imply eligibility in every mode. Bonus/special T3 vehicles must not be added
-to that pool automatically. No R5V-I implementation is part of this closeout.
+R5V-I closes only after the slot proof and an independent real T2 vehicle
+qualification. R5V-J generic Addon Vehicle SDK remains out of scope until that
+qualification is complete.
 
 ## H.2 historical pre-runtime status (superseded)
 
