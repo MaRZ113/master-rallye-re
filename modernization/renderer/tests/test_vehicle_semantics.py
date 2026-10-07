@@ -10,8 +10,10 @@ class LearnedSemanticCaptureTests(unittest.TestCase):
         digest=hashlib.sha256((ROOT/'.build-msvc/Release/reflection_tests.exe').read_bytes()).hexdigest()
         cls.captures=[]
         for p in (ROOT/'.build-msvc/Release/MRRRenderer/logs').glob('frame*.jsonl'):
+            with p.open(encoding='utf-8') as stream:header=json.loads(stream.readline())
+            if header.get('proxy_version')!='R-GFX5-3' or header.get('exe_sha256')!=digest:continue
             rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines()]
-            if rows[0].get('proxy_version')=='R-GFX5-2' and rows[0].get('exe_sha256')==digest and any(d.get('vehicle_semantic_source')=='learned_signature' for d in rows):cls.captures.append(rows)
+            if rows[0].get('proxy_version')=='R-GFX5-3' and rows[0].get('exe_sha256')==digest and any(d.get('vehicle_semantic_source')=='learned_signature' for d in rows):cls.captures.append(rows)
         if not cls.captures:raise AssertionError('Run current native lost-constellation integration first')
     def test_learned_modified_without_live_identity(self):
         for rows in self.captures:

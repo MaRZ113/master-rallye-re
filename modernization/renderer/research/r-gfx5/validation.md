@@ -1,3 +1,21 @@
+# R-GFX5-3 current validation — 2026-10-07
+
+Win32 x86 Release built with MSVC; all **8/8 native suites** pass (3.55s), including equivalent/different Reset echoes, no final-window restore, fixed Windowed/centering, cursor state and owned-thread message observer detach, numeric/text/invalid enum, source45 framing aspects, ten-frame packet reuse/engine rewrite, six-byte consumer bridge stack/argument/register/x87 and patch rollback. Existing AF/FOV/culling/camera/shadow/COM/resource/brake/structural/learned-reflection/restore assertions remain intact.
+
+Full current renderer Python **91/91 passed** (54.734s), including backdrop identity/layout tests. Tests now filter historical capture headers by exact current producer/hash before parsing full body; assertions were not weakened. This avoids repeatedly loading ~2.3GB of historical synthetic logs. Run native first, then Python. compileall modernization and git diff --check pass.
+
+DLL SHA256 **71471ec6e1fd5a7ccf1685400ad0beb36978c7cc7d74a2b32387272344d14bbe**, **1,378,816 bytes**, PE32/I386. Required direct exports Direct3DCreate8@5, ValidateVertexShader@3, ValidatePixelShader@2; bcrypt/USER32/KERNEL32 imports, no recursive d3d8 import. [Verified build](../../data/build.json). No deployment or human execution by agent.
+
+Read-only Ghidra 12.1.4 bridge exports: pristine hash verified, project read-only, program not saved, analysis transaction rolled back. Complete required local owner groups pass on pristine and hardened391d5d86…, historical MRallye_patched fails independently. [Static audit](local-owner-audit.json) does not execute either game build or certify runtime compatibility.
+
+Initial implementation build failed on IDC_ARROW ANSI macro passed to LoadCursorW; corrected explicit wide integer resource32512. All later native suites pass. A documentation write used a locale encoding incompatible with Russian; recreated the handoff as UTF-8 and normalized current prefixes. These failures are not runtime defects or PASS evidence.
+
+25 prior R-GFX5-2 capture audits preserve reported exit/Reset failures and accepted baseline. New visual behavior remains PENDING: A/B exit, C preview, D HUD, F cursor, G hardened FOV/vehicles, H combined. E is explicitly BACKDROP_ASSET_EXTENSION_REQUIRED; no art extension or native texture-association proof is claimed. Next priority R-CAM1 -> F-PHOTO1 -> HD UI, none begun.
+
+Final candidate logs (ignored): `.analysis/r-gfx5/build-cont3-final-candidate.log`, `.analysis/r-gfx5/python-cont3-final-candidate.log`. Reset telemetry records actual native attempt counts; F10 arms three bounded UI lifetime frames.
+
+## Historical R-GFX5-2 validation
+
 # R-GFX5-2 continuation validation - 2026-10-07
 
 **READY_FOR_HUMAN_RUNTIME.** Human-confirmed MSAA4/MenuFreezeFix from the prior candidate are preserved. Borderless/Windowed/UI changes in this DLL have no human visual PASS yet. Game not launched or DLL deployed by the agent; no disk EXE/assets/patcher changes.

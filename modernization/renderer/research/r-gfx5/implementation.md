@@ -1,3 +1,15 @@
+# R-GFX5-3 implementation changes
+
+Code candidate keeps all R-GFX3/R-GFX4 native overrides and material learning unchanged. Added: field-based self-induced Reset echo recognition without resource reset, pre-final-Release shutdown, rcWork centering, optional idle SetCursor policy, numeric/text enum parser, independent source45 preview correction, consumer-entry margins with bounded lifetime provenance, and independent decoded fixed-layout FOV/vehicle capabilities.
+
+Cursor is managed only for configured Borderless/ExclusiveFullscreen, foreground game HWND and cursor inside its outer rectangle. Present samples movement/time; idle selects NULL, movement restores the saved handle, focus/outside relinquishes ownership and restores only if the current handle is NULL. A thread-local WH_CALLWNDPROCRET observer restores on WM_KILLFOCUS/WM_ACTIVATEAPP(false)/WM_DESTROY even when Present stops, and applies the idle policy after WM_SETCURSOR/WM_MOUSEMOVE. It does not replace the game WndProc or consume messages; CallNextHookEx preserves the chain. Watch installation requires the HWND to belong to this process/render thread; failure/multiple devices disables cursor management locally. Final shutdown detaches before native Release. Desktop behavior still needs Stage F observation. No ShowCursor display-counter operations or ClipCursor are introduced. AutoHideCursor defaults1 but Stock/Windowed remain unmanaged; delay0..60000ms (default1500), invalid values disable this feature locally.
+
+Numeric selectors preserve text spelling: Display0Stock/1Windowed/2Borderless/3ExclusiveFullscreen; Widescreen0Stock/1Centered4x3/2PreserveMargins; AA0Stock/1MSAA; Shadows0Stock/1Off; Reflections0Stock/1ViewDependent2D. Boolean0/1 and true/false accepted. No numeric wrapping: invalid enum falls back locally with reason. Samples=4 still does not enable AA without Mode1/MSAA.
+
+Backdrop work is an exact identity manifest and replacement layout contract only, separately marked ASSET_EXTENSION_REQUIRED. [Current handoff](runtime-handoff.md) has A-H, superseding old A-G. No new branch/worktree, disk patch, generated binary commit, deployment, push or next-phase implementation.
+
+## Historical R-GFX5-2 record (superseded where stated above)
+
 # R-GFX5-2 implementation and retained contracts
 
 `quality.hpp/cpp` owns display planning, bounded native AA retries, pinned Windowed dimensions and post-success window commit. `quality_wrappers.cpp` owns native Reset/Present/viewport forwarding and logical getters. `visual_wrappers.cpp` routes SetTransform through the production setter helper, validates the discovered UI caller and current ortho matrix, and records live proof for subsequent cached UI/aspect updates.

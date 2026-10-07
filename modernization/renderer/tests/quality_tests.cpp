@@ -8,14 +8,16 @@
 #include <cmath>
 #include <cstring>
 #include <cfenv>
+#include <functional>
 #define CHECK(x) do {if(!(x))throw std::runtime_error(#x);}while(0)
 #include "mock_interfaces.hpp"
 using namespace gfx2;
 struct Windows:WindowApi {
+ std::function<void()> on_apply;
  WindowState state{};RECT last{};bool client=false,popup=false,fail=false;bool native_completed=true;unsigned applies=0,restores=0;
  Windows(){state.hwnd=reinterpret_cast<HWND>(0x1234);state.valid=true;state.monitor={1920,0,3840,1080};state.work=state.monitor;state.client={0,0,640,480};state.outer={2000,50,2660,570};state.style=WS_OVERLAPPEDWINDOW;}
  bool snapshot(HWND,WindowState& s) noexcept override{s=state;return true;}
- bool apply(const WindowState&,const RECT& r,bool c,bool p) noexcept override{if(!native_completed)std::terminate();last=r;client=c;popup=p;++applies;if(fail)return false;state.outer=r;state.client={0,0,r.right-r.left,r.bottom-r.top};state.style=p?WS_POPUP:WS_OVERLAPPEDWINDOW;return true;}
+ bool apply(const WindowState&,const RECT& r,bool c,bool p) noexcept override{if(!native_completed)std::terminate();last=r;client=c;popup=p;++applies;if(fail)return false;state.outer=r;state.client={0,0,r.right-r.left,r.bottom-r.top};state.style=p?WS_POPUP:WS_OVERLAPPEDWINDOW;if(on_apply)on_apply();return true;}
  bool restore(const WindowState& saved) noexcept override{++restores;state=saved;return true;}
 };
 struct Surface:IDirect3DSurface8 {
@@ -62,6 +64,41 @@ void configs(){
  c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Display.Mode","Borderless"},{"Display.Width","nan"},{"AntiAliasing.Mode","MSAA"},{"AntiAliasing.Samples","8"}},true);CHECK(c.display_mode=="Stock"&&c.aa_mode=="MSAA"&&c.samples==8);
  c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Display.Mode","Windowed"},{"Display.Width","1280"},{"Display.Height","720"},{"Widescreen.InterfaceMode","PreserveMargins"},{"Compatibility.MenuFreezeFix","true"}},true);CHECK(c.width==1280&&c.height==720&&c.interface_mode=="PreserveMargins"&&c.menu_freeze);
  for(auto key:{"Display.Mode","Widescreen.InterfaceMode","AntiAliasing.Mode","Compatibility.MenuFreezeFix"}){auto v=parse_visual_config({{"Renderer.ConfigVersion","1"},{key,"invalid"}},true);CHECK(v.display_mode=="Stock"&&v.interface_mode=="Stock"&&v.aa_mode=="Stock"&&!v.menu_freeze);}
+}
+void numeric_configs(){
+ for(auto entry:std::vector<std::pair<std::string,std::vector<std::string>>>{{"Display.Mode",{"Stock","Windowed","Borderless","ExclusiveFullscreen"}},{"Widescreen.InterfaceMode",{"Stock","Centered4x3","PreserveMargins"}},{"AntiAliasing.Mode",{"Stock","MSAA"}},{"Shadows.Mode",{"Stock","Off"}},{"VehicleReflections.Mode",{"Stock","ViewDependent2D"}}}){
+  for(size_t i=0;i<entry.second.size();++i){auto a=parse_visual_config({{"Renderer.ConfigVersion","1"},{entry.first,std::to_string(i)}},true),b=parse_visual_config({{"Renderer.ConfigVersion","1"},{entry.first,entry.second[i]}},true);CHECK(a.display_mode==b.display_mode&&a.interface_mode==b.interface_mode&&a.aa_mode==b.aa_mode&&a.shadow_off==b.shadow_off&&a.reflection_mode==b.reflection_mode);}
+  for(auto bad:{"-1","99","1.5","2147483648"}){auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{entry.first,bad},{"Filtering.AnisotropicFiltering","1"}},true);CHECK(c.anisotropy&&c.display_mode=="Stock"&&c.interface_mode=="Stock"&&c.aa_mode=="Stock"&&!c.shadow_off&&c.reflection_mode=="Stock");}
+ }
+ auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Display.AutoHideCursor","0"},{"Display.CursorHideDelayMs","2500"},{"Compatibility.MenuFreezeFix","1"}},true);CHECK(!c.auto_hide_cursor&&c.cursor_delay_ms==2500&&c.menu_freeze);
+ c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Display.CursorHideDelayMs","-1"}},true);CHECK(!c.auto_hide_cursor&&!c.cursor_reason.empty());
+}
+void reset_echo_shutdown(){
+ Root root;Windows windows;QualityPipeline q(windows);VisualConfig c;auto p=stock();IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(q.create(root,0,&p,&out)==S_OK);
+ c.display_mode="Windowed";c.width=1280;c.height=720;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
+ HRESULT echo=E_FAIL;windows.on_apply=[&](){auto same=stock();echo=q.reset(root,root.dev,&same);CHECK(same.BackBufferWidth==1280);};
+ auto input=stock();CHECK(q.reset(root,root.dev,&input)==S_OK&&echo==S_OK&&root.dev.resets.size()==1&&q.window_reset_echoes_suppressed==1&&q.native_reset_calls==1);
+ c.display_mode="Borderless";q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
+ windows.on_apply=[&](){auto different=stock();different.EnableAutoDepthStencil=FALSE;echo=q.reset(root,root.dev,&different);};
+ input=stock();CHECK(q.reset(root,root.dev,&input)==S_OK&&echo==D3DERR_INVALIDCALL&&root.dev.resets.size()==2&&q.deferred_resets==1);
+ auto accepted=q.effective;root.dev.result=D3DERR_DEVICELOST;input=stock();CHECK(q.reset(root,root.dev,&input)==D3DERR_DEVICELOST&&presentation_equivalent(q.effective,accepted));
+ auto restores=windows.restores,applies=windows.applies;q.begin_shutdown();q.restore_window();CHECK(windows.restores==restores&&windows.applies==applies);
+ auto a=stock(),b=a;CHECK(presentation_equivalent(a,b));b.EnableAutoDepthStencil=FALSE;CHECK(!presentation_equivalent(a,b));b=a;b.Flags=1;CHECK(!presentation_equivalent(a,b));
+ Windows final_window;auto policy=std::make_unique<QualityPipeline>(final_window);policy->configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);root.result=S_OK;p=stock();CHECK(policy->create(root,0,&p,&out)==S_OK);auto* parent=new Root8(&root);auto* device=new Device8(&root.dev,parent,std::move(policy));restores=final_window.restores;applies=final_window.applies;device->Release();parent->Release();CHECK(final_window.restores==restores&&final_window.applies==applies);
+}
+void preview_cursor_packets(){
+ for(double aspect:{4./3,16./9,16./10,21./9}){
+  D3DMATRIX p{},out{};double y=1/std::tan((45./aspect)*3.14159265358979323846/360.);p._11=float(y/aspect);p._22=float(y);p._33=1.01f;p._34=1;p._43=-.202f;
+  CHECK(frontend_preview_projection(p,out)&&std::abs(vertical_fov(out)-33.75)<.001&&std::abs(out._22/out._11-aspect)<.0001&&out._43==p._43&&out._33==p._33);
+  if(aspect==4./3)CHECK(std::abs(out._22-p._22)<.00001);
+  auto bad=p;bad._22=1;CHECK(!frontend_preview_projection(bad,out));
+ }
+ UiMargins diagnostics;diagnostics.capture_window(true,20);CHECK(diagnostics.json().find("\"diagnostic_frames_remaining\":3")!=std::string::npos);for(int i=0;i<3;++i)CHECK(diagnostics.finish_frame());CHECK(diagnostics.json().find("\"diagnostic_frames_remaining\":0")!=std::string::npos);diagnostics.reset_diagnostics();
+ CursorIdle cursor;POINT p{10,10};CHECK(cursor.update(true,p,0,1500)==0);CHECK(cursor.update(true,p,1499,1500)==0);CHECK(cursor.update(true,p,1500,1500)==-1&&cursor.hidden);
+ for(int i=0;i<100;++i)CHECK(cursor.update(true,p,1501+i,1500)==0);p.x=11;CHECK(cursor.update(true,p,2000,1500)==1&&!cursor.hidden);CHECK(cursor.update(true,p,3500,1500)==-1);CHECK(cursor.update(false,p,3501,1500)==1);CHECK(cursor.update(false,p,9000,1500)==0);CHECK(cursor.update(true,p,9001,1500)==0);
+ // Every actual packet consumer gets an effective value, even if the sort walk skips it.
+ MarginFrame edits;float packet[3]{565,75,0};for(int frame=0;frame<10;++frame){CHECK(edits.shift(packet,100)&&packet[0]==665);CHECK(!edits.shift(packet,100));CHECK(edits.restore()&&packet[0]==565);}packet[0]=450;packet[1]=160;CHECK(edits.shift(packet,100)&&packet[0]==550);CHECK(edits.restore()&&packet[0]==450);
+ packet[0]=565;packet[1]=75;CHECK(edits.shift(packet,100));packet[0]=450;packet[1]=160;CHECK(edits.shift(packet,100)&&packet[0]==550);CHECK(edits.restore()&&packet[0]==450);
 }
 void displays(){
  Root root;Windows windows;QualityPipeline q(windows);VisualConfig c;auto p=stock();IDirect3DDevice8* out=nullptr;
@@ -157,9 +194,9 @@ void freeze_and_patch(){
 void native_window(){
  // Hidden synthetic HWND; no game or visible interactive window is launched.
  HWND w=CreateWindowExW(0,L"STATIC",L"MRR quality contract",WS_OVERLAPPEDWINDOW,100,100,640,480,nullptr,nullptr,GetModuleHandleW(nullptr),nullptr);CHECK(w!=nullptr&&!IsWindowVisible(w));
- WindowState saved{};auto& api=native_window_api();CHECK(api.snapshot(w,saved));RECT target{saved.outer.left,saved.outer.top,saved.outer.left+1280,saved.outer.top+720};CHECK(api.apply(saved,target,true,false));RECT client{};CHECK(GetClientRect(w,&client)&&client.right==1280&&client.bottom==720&&!IsWindowVisible(w));
+ WindowState saved{};auto& api=native_window_api();CHECK(api.snapshot(w,saved));RECT target{saved.outer.left,saved.outer.top,saved.outer.left+1280,saved.outer.top+720};CHECK(api.apply(saved,target,true,false));RECT outer{};CHECK(GetWindowRect(w,&outer));CHECK(std::abs((outer.left+outer.right)-(saved.work.left+saved.work.right))<=1&&std::abs((outer.top+outer.bottom)-(saved.work.top+saved.work.bottom))<=1);RECT client{};CHECK(GetClientRect(w,&client)&&client.right==1280&&client.bottom==720&&!IsWindowVisible(w));
  CHECK(api.apply(saved,saved.monitor,false,true));CHECK(GetClientRect(w,&client)&&client.right==saved.monitor.right-saved.monitor.left&&client.bottom==saved.monitor.bottom-saved.monitor.top);
- CHECK(!(GetWindowLongW(w,GWL_STYLE)&WS_CAPTION)&&!IsWindowVisible(w));CHECK(api.restore(saved));WindowState after{};CHECK(api.snapshot(w,after)&&after.style==saved.style&&after.exstyle==saved.exstyle&&std::memcmp(&after.outer,&saved.outer,sizeof(RECT))==0);CHECK(DestroyWindow(w));
+ CHECK(!(GetWindowLongW(w,GWL_STYLE)&WS_CAPTION)&&!IsWindowVisible(w));CHECK(api.restore(saved));WindowState after{};CHECK(api.snapshot(w,after)&&after.style==saved.style&&after.exstyle==saved.exstyle&&std::memcmp(&after.outer,&saved.outer,sizeof(RECT))==0);{QualityPipeline q;q.valid=true;q.effective=stock();q.effective.hDeviceWindow=w;q.display="Borderless";q.cursor_watch();CHECK(q.cursor_watch_installed());SendMessageW(w,WM_KILLFOCUS,0,0);q.begin_shutdown();CHECK(!q.cursor_watch_installed());}CHECK(DestroyWindow(w));
 }
 void wrapper_trace(){
  Root raw;Windows windows;auto policy=std::make_unique<QualityPipeline>(windows);VisualConfig config;config.display_mode="Borderless";config.aa_mode="MSAA";
@@ -219,10 +256,28 @@ void ui_native_abi(){
  }
  CHECK(output[0]==3&&output[1]==3&&stack_before==stack_after&&ecx_after==0x12345678&&cw_before==cw_after);CHECK(patch.remove(memory));CHECK(VirtualFree(code,0,MEM_RELEASE));
 }
+void packet_consumer_abi(){
+ unsigned char bytes[]={0x81,0xec,0x08,0x01,0,0,0x8b,0x84,0x24,0x0c,0x01,0,0,0x81,0xc4,0x08,0x01,0,0,0xc2,4,0};
+ auto* code=static_cast<unsigned char*>(VirtualAlloc(nullptr,4096,MEM_COMMIT|MEM_RESERVE,PAGE_EXECUTE_READWRITE));CHECK(code);std::memcpy(code,bytes,sizeof(bytes));Memory memory;UiPacketPatch patch;
+ CHECK(patch.install(memory,code,detail::ui_packet_bridge_for_contract(reinterpret_cast<uintptr_t>(code)+6)));
+ uint32_t before=0,after=0,result=0,ecx_after=0;float source=7,fp_after=0;
+ __asm {mov before,esp
+ mov ecx,12345678h
+ fld source
+ push 11223344h
+ call code
+ mov result,eax
+ mov after,esp
+ mov ecx_after,ecx
+ fstp fp_after}
+ CHECK(before==after&&result==0x11223344&&ecx_after==0x12345678&&fp_after==7&&detail::ui_packet_entity_for_contract()==0x11223344);CHECK(patch.remove(memory)&&!std::memcmp(code,UI_PACKET_BYTES.data(),6));
+ for(int failure=1;failure<=3;++failure){Memory bad;UiPacketPatch failed;if(failure==1)bad.fail_write=1;if(failure==2)bad.fail_flush=1;if(failure==3)bad.fail_protect=2;CHECK(!failed.install(bad,code,detail::ui_packet_bridge_for_contract(reinterpret_cast<uintptr_t>(code)+6)));CHECK(!failed.installed()&&!std::memcmp(code,UI_PACKET_BYTES.data(),6));}
+ CHECK(VirtualFree(code,0,MEM_RELEASE));
+}
 void quality_fpu(){
  fenv_t saved;fegetenv(&saved);feclearexcept(FE_ALL_EXCEPT);fesetround(FE_DOWNWARD);feraiseexcept(FE_INVALID);
  int flags=fetestexcept(FE_ALL_EXCEPT);QualityPipeline q;q.valid=true;q.effective=stock();q.effective.BackBufferWidth=1920;q.effective.BackBufferHeight=1080;q.json();
  UiMargins ui;ui.dimensions(1920,1080);ui.json();D3DMATRIX matrix{},out{};matrix._11=2.f/640;matrix._22=2.f/480;matrix._33=-.0005f;matrix._41=matrix._42=-1;matrix._43=.5;matrix._44=1;
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();displays();display_transactions();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

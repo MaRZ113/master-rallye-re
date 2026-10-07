@@ -1,3 +1,19 @@
+# R-GFX5-3: accepted-device Reset echoes and final shutdown
+
+**CONFIRMED_BY_CODE_AND_CAPTURE:** R-GFX5-2 successful native Reset is followed by SetWindowLong/SetMenu/SetWindowPos. Synchronous game callback reenters Reset while committing_; the old unconditional INVALIDCALL yields Error2010. Several exit captures end at SetWindowLong_end after a reset error. Final native Release previously preceded QualityPipeline destructor restore_window, allowing HWND changes after device teardown.
+
+The planner remains the single display/MSAA resolver. A commit-time request is planned on a non-owning copy; it cannot change the accepted pipeline or HWND. Only a readable/writable request whose effective descriptor is field-equivalent to the accepted device gets S_OK. Compare width/height/format/count/multisampling/swap/HWND/Windowed/depth enable+relevant format/flags, and fullscreen refresh/interval when relevant. Struct padding is never evidence.
+
+A different request gets actual diagnostic INVALIDCALL without recursive native Reset. It is classified deferred_during_commit but **not queued or falsely reported successful**: no safe asynchronous game Reset contract has been proved. deferred_resets counts these rejected requests. This explicit fail-closed choice preserves genuine errors and may still show a game error for a genuinely different nested request.
+
+Equivalent echoes bypass Device8 trace reset processing: they do not remove DEFAULT metadata, clear instance/learned semantics, abort F10 or restore camera/UI as a second reset. Ordinary successful native resets retain the existing pool-aware lifecycle exactly once. Failed native Reset still returns its native HRESULT.
+
+Trace reset_policy includes source, requested/planned effective PP, echo_equivalent, native_reset_called=false and result; normal reset_policy also records before/effective descriptors, native_reset_called and actual native_reset_attempts; generic reset events retain before/after descriptors and HRESULT. Quality metadata carries window_reset_echoes, window_reset_echoes_suppressed and deferred_resets.
+
+Before final wrapper native Release, begin_shutdown relinquishes cosmetic window ownership and restores a hidden cursor handle without resizing. Destructor is idempotent and performs no window restore. Explicit restore_window for a live mode transaction and failed commit rollback remains. For decorated Windowed, AdjustWindowRectEx gives outer size, centered/clamped within rcWork; Borderless stays rcMonitor. Pinned client dimensions are unchanged.
+
+## Historical R-GFX5-2 record (superseded where stated above)
+
 # Display, resolution and Reset
 
 ConfigVersion1 is required. Display is D3D/Win32-generic and does not require the pristine SHA. Invalid individual display settings choose displayStock locally. Width/height both0 or nonzero320x200..16384x16384; actual native device is the final legality check.

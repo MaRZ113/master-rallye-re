@@ -242,7 +242,7 @@ uint64_t geometry_signature(const Shadow& s,const ResourceRegistry& resources,co
  for(int k:{14,15,27}){if(!s.rs[k].known)return 0;add(s.rs[k].value);}return h?h:1;
 }
 uint32_t draw_reasons(const Shadow& s,bool known,bool race,bool owner) noexcept {
- uint32_t r=(known?EXACT_BUILD:0)|(race?RACE_PROJECTION:0)|(owner?SHARED_OWNER:0);
+ uint32_t r=(known?VEHICLE_SEMANTICS_CAPABILITY:0)|(race?RACE_PROJECTION:0)|(owner?SHARED_OWNER:0);
  if(s.matrices[256].known&&rigid(s.matrices[256].value))r|=RIGID_WORLD;
  if(s.bindings.vertex_shader.known){auto f=s.bindings.vertex_shader.value;if((f==0x112||f==0x152||f==0x252)&&(f&D3DFVF_NORMAL))r|=NORMAL_FVF;}
  auto eq=[&](int k,DWORD v){return s.tss[1][k].known&&s.tss[1][k].value==v;};
@@ -250,7 +250,7 @@ uint32_t draw_reasons(const Shadow& s,bool known,bool race,bool owner) noexcept 
  if(s.rs[27].known&&s.rs[27].value==0&&s.rs[14].known&&s.rs[14].value==1)r|=CL_OPAQUE;return r;
 }
 const char* object_classification(const DrawClassification& c) noexcept {
- constexpr uint32_t required=EXACT_BUILD|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD;
+ constexpr uint32_t required=VEHICLE_SEMANTICS_CAPABILITY|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD;
  if((c.reasons&required)!=required||!c.transform.track||c.transform.ambiguous)return "UNKNOWN";
  if(c.transform.object==ObjectClass::Body&&c.transform.constellation)return "VEHICLE_BODY";
  if(c.transform.object==ObjectClass::Wheel&&c.transform.constellation)return "VEHICLE_WHEEL";
@@ -266,8 +266,8 @@ const char* material_classification(const DrawClassification& c) noexcept {
  return "VEHICLE_BODY_BASE";
 }
 const char* reflection_material_exclusion(const DrawClassification& c) noexcept {
- constexpr uint32_t required=EXACT_BUILD|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD|NORMAL_FVF;
- if(!(c.reasons&EXACT_BUILD))return "unknown_build";
+ constexpr uint32_t required=VEHICLE_SEMANTICS_CAPABILITY|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD|NORMAL_FVF;
+ if(!(c.reasons&VEHICLE_SEMANTICS_CAPABILITY))return "vehicle_semantics_unsupported";
  if(!(c.reasons&RACE_PROJECTION))return "non_race_context";
  if((c.reasons&required)!=required)return "unmapped_or_unknown_geometry";
  if(c.fvf!=0x152)return "excluded_fvf";
@@ -277,8 +277,8 @@ const char* reflection_material_exclusion(const DrawClassification& c) noexcept 
 }
 const char* reflection_exclusion(const DrawClassification& c) noexcept {
  if(c.semantic_source==VehicleSemanticSource::Learned&&c.semantic_id)return reflection_material_exclusion(c);
- constexpr uint32_t required=EXACT_BUILD|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD;
- if(!(c.reasons&EXACT_BUILD))return "unknown_build";
+ constexpr uint32_t required=VEHICLE_SEMANTICS_CAPABILITY|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|RIGID_WORLD;
+ if(!(c.reasons&VEHICLE_SEMANTICS_CAPABILITY))return "vehicle_semantics_unsupported";
  if(!(c.reasons&RACE_PROJECTION))return "non_race_context";
  if((c.reasons&required)!=required)return "unmapped_or_unknown_geometry";
  if(c.transform.object==ObjectClass::Wheel)return "vehicle_wheel_stock";

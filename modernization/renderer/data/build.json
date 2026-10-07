@@ -1,14 +1,14 @@
 {
   "valid": true,
   "errors": [],
-  "sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
-  "size": 1196032,
+  "sha256": "71471ec6e1fd5a7ccf1685400ad0beb36978c7cc7d74a2b32387272344d14bbe",
+  "size": 1378816,
   "machine": 332,
   "pe_type": "PE32",
   "dll": true,
   "image_base": 268435456,
-  "timestamp": 2101196215,
-  "entry_rva": 616363,
+  "timestamp": 1513182001,
+  "entry_rva": 740683,
   "exports": {
     "Direct3DCreate8": {
       "ordinal": 5,
@@ -35,44 +35,44 @@
     {
       "name": ".text",
       "rva": 4096,
-      "virtual_size": 1017749,
-      "raw_size": 1017856,
+      "virtual_size": 1167813,
+      "raw_size": 1167872,
       "raw_offset": 1024
     },
     {
       "name": ".rdata",
-      "rva": 1024000,
-      "virtual_size": 138828,
-      "raw_size": 139264,
-      "raw_offset": 1018880
+      "rva": 1175552,
+      "virtual_size": 165936,
+      "raw_size": 166400,
+      "raw_offset": 1168896
     },
     {
       "name": ".data",
-      "rva": 1163264,
-      "virtual_size": 11956,
+      "rva": 1343488,
+      "virtual_size": 11972,
       "raw_size": 7680,
-      "raw_offset": 1158144
+      "raw_offset": 1335296
     },
     {
       "name": ".fptable",
-      "rva": 1175552,
+      "rva": 1355776,
       "virtual_size": 128,
       "raw_size": 512,
-      "raw_offset": 1165824
+      "raw_offset": 1342976
     },
     {
       "name": ".rsrc",
-      "rva": 1179648,
+      "rva": 1359872,
       "virtual_size": 480,
       "raw_size": 512,
-      "raw_offset": 1166336
+      "raw_offset": 1343488
     },
     {
       "name": ".reloc",
-      "rva": 1183744,
-      "virtual_size": 29096,
-      "raw_size": 29184,
-      "raw_offset": 1166848
+      "rva": 1363968,
+      "virtual_size": 34360,
+      "raw_size": 34816,
+      "raw_offset": 1344000
     }
   ],
   "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"

@@ -1,0 +1,1757 @@
+{
+  "producer": "R-GFX5-2",
+  "human_source": "Current continuation prompt accepted Borderless/AltTab/native-resolution/Centered4x3/AF16/MSAA4/MenuFreezeFix and reported lifecycle/HUD/preview defects",
+  "reports": [
+    {
+      "name": "B-centered-mainmenu.jsonl",
+      "sha256": "c290adee50fb6a4a5a34fa1782a915fd2621cb83bb4f542f1fadc5d2f44a3790",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "B-centered-quickracemenu.jsonl",
+      "sha256": "49d88d4ab7bba4c85935ab537f2a9931e99a1243cc21e4cc977811c51df467a1",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        },
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "B-centered-race.jsonl",
+      "sha256": "cee68080af63da2220ac48c05f8e843b064240a1b979074d0e517ebb38d509f7",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "C-margins-4by3frame.jsonl",
+      "sha256": "b038e55dabf74f4adfaa7be29475c076af56c6c34175605b67e8730de07f66ae",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "C-margins-normframe.jsonl",
+      "sha256": "85b90892007aac3e4365ccf950c7c32adc78928ba79c8bda1519ae54121f1393",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "D-windowed_1280x720.jsonl",
+      "sha256": "5fb3608970bfae3741f88f95e3913f8cefdd564ff82ac5677b0e579bbeadcafb",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "E-combined-mainmenu.jsonl",
+      "sha256": "6bd938f4e677506cb75c952ac97ed13615fe97b4d794e78dbff56ee0dc2fb00f",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "E-combined-quickracemenu.jsonl",
+      "sha256": "564f96c8a7f0d61f3a17f4a679c8a4b963c7b46350d868d2a4b7094d58019ee6",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        },
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "E-combined-race-mid.jsonl",
+      "sha256": "894145fd454f2db18f160d0047921ba7701e6cade67d0d4a769a1bbf01d57851",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "E-combined-race-start.jsonl",
+      "sha256": "2bb40ad6e0c2a76a5abe0411e6eeabb4242c168a6a795b92372b29b50c6a0203",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "frame-30020-d1-00074290.jsonl",
+      "sha256": "132d5057e6dd9cfc5b9a5deacc18594fc451cb2316d88c80e4c98d85d8bd42a8",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "frame-30020-d1-00079187.jsonl",
+      "sha256": "a0fb29453e74259f2fafe5235d96c04c781a53b20fa29ee71775bb9ee024575f",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "frame-34328-d1-00003186.jsonl",
+      "sha256": "82c16cfff57e5a4a27684ffb7b851ebffef9be1092104bed72c804287e468fa4",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "hardened_reflections-and-fov_on.jsonl",
+      "sha256": "a07de3a839b0c89912694b1111634f1fda1171c8131ed299a7dcb08320c5dfbd",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "menu-decorations.jsonl",
+      "sha256": "f28f26cfbccb1132469c7c7ce1496c2a8943d0647fd747710959c2939c4cca43",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "frame_end",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1,
+      "creates": [],
+      "successful_resets": 0,
+      "effective_sizes": [],
+      "effective_samples": [],
+      "freeze": [],
+      "requested_config": {},
+      "ui_projection_observations": [
+        {
+          "return_rva": 1449683,
+          "feature_mask": 32,
+          "requested_equals_effective": false,
+          "widescreen_applied": true
+        }
+      ],
+      "last_breadcrumb": null,
+      "reset_errors": [],
+      "last_steps": []
+    },
+    {
+      "name": "session-20261007-044742-41364.jsonl",
+      "sha256": "150daf0e585b421fef750ea0c3f7ba6e528f39e5cb49bbc0a9d9fb1e055a9a1c",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 193,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 21170118,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "known_profile",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": true,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 11538
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    },
+    {
+      "name": "session-20261007-044849-46224.jsonl",
+      "sha256": "c7fba5b44ea96379aa995f01ed767108dd6a9e153a73b1132afdbab13c70ea4d",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 23,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 6820108,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "known_profile",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": true,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Stock",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Stock"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 1378
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    },
+    {
+      "name": "session-20261007-045018-31436.jsonl",
+      "sha256": "4c155cc2b5777001a02b33851a12b13b3950127b295175dcdbf38d73c2e59491",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 769,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 14096498,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "known_profile",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": true,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Centered4x3",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Centered4x3"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 45960
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    },
+    {
+      "name": "session-20261007-045514-34328.jsonl",
+      "sha256": "c43547e2e5f901c8d7f353dd7b0f165f9fe94f0bf152d6c274f5d204bdea26ee",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 155,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 25172072,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "known_profile",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": true,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "PreserveMargins",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "PreserveMargins"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 9071
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    },
+    {
+      "name": "session-20261007-045629-27168.jsonl",
+      "sha256": "4edf89599708decaeb71debd2478d1dfcedea9fae1b9c7c5103a2526c010aa0f",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 48,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 15802478,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "known_profile",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": true,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "PreserveMargins",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "PreserveMargins"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 2835
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    },
+    {
+      "name": "session-20261007-045721-4992.jsonl",
+      "sha256": "e77f8da071482176a050f99b6bb19c20c383bf2cb368a1089de945eb93eac78b",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "display_breadcrumb",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 628,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1280,
+            "height": 720,
+            "format": 22,
+            "count": 1,
+            "multisample": 0,
+            "swap_effect": 3,
+            "device_window": 31397050,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1280,
+          720
+        ]
+      ],
+      "effective_samples": [
+        0
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "known_profile",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": true,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": false,
+        "max_anisotropy": 16,
+        "gameplay_fov": false,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Windowed",
+        "display_width": 1280,
+        "display_height": 720,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Centered4x3",
+        "interface_reason": "",
+        "aa_mode": "Stock",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "Stock",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "false",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "720",
+          "Display.Mode": "Windowed",
+          "Display.RefreshRate": "0",
+          "Display.Width": "1280",
+          "Filtering.AnisotropicFiltering": "false",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Centered4x3"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "window_commit_failed",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 37579
+        },
+        {
+          "hresult": 2289436780,
+          "frame": 37580
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowPos_end",
+        "window_commit_rollback_failed",
+        "window_commit_failed"
+      ]
+    },
+    {
+      "name": "session-20261007-050338-30020.jsonl",
+      "sha256": "0d861f14215861b0a3b49fad9de63a40162d51db20c6fdb9551a1787484cb766",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 1377,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 4,
+            "swap_effect": 1,
+            "device_window": 31462586,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        4
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "known_profile",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": true,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": true,
+        "max_anisotropy": 16,
+        "gameplay_fov": true,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Centered4x3",
+        "interface_reason": "",
+        "aa_mode": "MSAA",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "MSAA",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "true",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "true",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Centered4x3"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 82142
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    },
+    {
+      "name": "session-20261007-050813-8244.jsonl",
+      "sha256": "672c72d8da977f0f8278a96575922bbd8f2431fb33f58506cae0a75c89073b67",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 295,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 4,
+            "swap_effect": 1,
+            "device_window": 26086102,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        4
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "fingerprint",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": false,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": true,
+        "max_anisotropy": 16,
+        "gameplay_fov": true,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "Stock",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Centered4x3",
+        "interface_reason": "",
+        "aa_mode": "MSAA",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "MSAA",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "true",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "true",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "Stock",
+          "Widescreen.InterfaceMode": "Centered4x3"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 17642
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    },
+    {
+      "name": "session-20261007-051023-43092.jsonl",
+      "sha256": "c004b376737404888903d9f7dcf263a1b3420a36fcf5767064c10db64593c81b",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 402,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 4,
+            "swap_effect": 1,
+            "device_window": 3348286,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        4
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "fingerprint",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": false,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": true,
+        "max_anisotropy": 16,
+        "gameplay_fov": true,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "ViewDependent2D",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Centered4x3",
+        "interface_reason": "",
+        "aa_mode": "MSAA",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "MSAA",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "true",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "true",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "ViewDependent2D",
+          "Widescreen.InterfaceMode": "Centered4x3"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 24046
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    },
+    {
+      "name": "session-20261007-051240-10280.jsonl",
+      "sha256": "28a9e93d6b458e0f8bbf2c1090e14b23388e3a72112265468115451d0db258d5",
+      "proxy_version": "R-GFX5-2",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "last_record": "reset",
+      "evidence_grade": "OBSERVED_IN_CAPTURE_NOT_VISUAL_VERDICT",
+      "frame_summaries": 123,
+      "creates": [
+        {
+          "hresult": 0,
+          "effective": {
+            "width": 1920,
+            "height": 1080,
+            "format": 22,
+            "count": 1,
+            "multisample": 4,
+            "swap_effect": 1,
+            "device_window": 14158554,
+            "windowed": 1,
+            "auto_depth": 1,
+            "depth_format": 77,
+            "flags": 0,
+            "refresh": 0,
+            "interval": 0
+          }
+        }
+      ],
+      "successful_resets": 0,
+      "effective_sizes": [
+        [
+          1920,
+          1080
+        ]
+      ],
+      "effective_samples": [
+        4
+      ],
+      "freeze": [
+        {
+          "type": "menu_freeze_fix",
+          "compatibility": {
+            "feature_id": "MenuFreezeFix",
+            "compatibility_method": "known_profile",
+            "status": "SUPPORTED",
+            "reason": "unique_decoded_owner_validated",
+            "fast_path_candidate": true,
+            "scan_matches": 1,
+            "candidate_rva": 1769820,
+            "bytes_valid": true,
+            "instruction_shape_valid": true,
+            "normalized_fingerprint_valid": null
+          },
+          "expected_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "rva": 1769820,
+          "expected_bytes": "7511",
+          "replacement_bytes": "7500",
+          "context_validated": true,
+          "applied": true,
+          "already_patched": false,
+          "ownership": true,
+          "rollback_verified": false,
+          "reason": "applied_process_memory_only"
+        }
+      ],
+      "requested_config": {
+        "config_found": true,
+        "ConfigVersion": 1,
+        "anisotropy": true,
+        "max_anisotropy": 16,
+        "gameplay_fov": true,
+        "vfov": 75,
+        "shadow": "Stock",
+        "reason": "version_1",
+        "af_reason": "",
+        "fov_reason": "",
+        "shadow_reason": "",
+        "vehicle_reflections": "ViewDependent2D",
+        "reflection_reason": "",
+        "display_mode": "Borderless",
+        "display_width": 0,
+        "display_height": 0,
+        "refresh_rate": 0,
+        "display_reason": "",
+        "interface_mode": "Centered4x3",
+        "interface_reason": "",
+        "aa_mode": "MSAA",
+        "aa_samples": 4,
+        "aa_reason": "",
+        "menu_freeze_fix": true,
+        "freeze_reason": "",
+        "raw_fields": {
+          "AntiAliasing.Mode": "MSAA",
+          "AntiAliasing.Samples": "4",
+          "Camera.GameplayFOV": "true",
+          "Camera.VerticalFOVDegrees": "75.0",
+          "Compatibility.MenuFreezeFix": "true",
+          "Display.Height": "0",
+          "Display.Mode": "Borderless",
+          "Display.RefreshRate": "0",
+          "Display.Width": "0",
+          "Filtering.AnisotropicFiltering": "true",
+          "Filtering.MaxAnisotropy": "16",
+          "Renderer.ConfigVersion": "1",
+          "Shadows.Mode": "Stock",
+          "VehicleReflections.Mode": "ViewDependent2D",
+          "Widescreen.InterfaceMode": "Centered4x3"
+        }
+      },
+      "ui_projection_observations": [],
+      "last_breadcrumb": "SetWindowLong_end",
+      "reset_errors": [
+        {
+          "hresult": 2289436780,
+          "frame": 7331
+        }
+      ],
+      "last_steps": [
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetMenu_begin",
+        "SetMenu_end",
+        "SetWindowPos_begin",
+        "SetWindowPos_end",
+        "window_commit_complete",
+        "SetWindowLong_begin",
+        "SetWindowLong_end",
+        "SetWindowLong_begin",
+        "SetWindowLong_end"
+      ]
+    }
+  ]
+}

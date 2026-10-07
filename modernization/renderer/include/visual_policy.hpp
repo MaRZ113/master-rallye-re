@@ -16,7 +16,7 @@ struct VisualConfig {
  std::string display_mode="Stock",display_reason,interface_mode="Stock",interface_reason;
  unsigned width=0,height=0,refresh=0,samples=4;
  std::string aa_mode="Stock",aa_reason,freeze_reason;
- bool menu_freeze=false;
+ bool menu_freeze=false,auto_hide_cursor=true;unsigned cursor_delay_ms=1500;std::string cursor_reason;
 };
 VisualConfig parse_visual_config(const std::unordered_map<std::string,std::string>& fields,bool found);
 VisualConfig read_visual_config(const std::wstring& path);

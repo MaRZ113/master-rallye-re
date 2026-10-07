@@ -1,3 +1,24 @@
+# R-GFX5-3 lifecycle and widescreen continuation
+
+Status: READY_FOR_HUMAN_RUNTIME for the code candidate; backdrop is separately **BACKDROP_ASSET_EXTENSION_REQUIRED**. No visual PASS is inferred from automated tests.
+
+Human acceptance supplied on 2026-10-07 confirms R-GFX5-2 Borderless rendering/Alt+Tab, native resolution, Centered4x3, AF16, native MSAA4 and MenuFreezeFix. Human failures remain historical evidence: exit error sound/crash, Windowed Error2010, oversized Quick Race preview and alternating PreserveMargins HUD. [25 compact capture audits](lifecycle-runtime-evidence.json) preserve observed reset HRESULT 0x8876086C and breadcrumbs; raw logs are not committed.
+
+| Issue | R-GFX5-3 change | Evidence / remaining boundary |
+|---|---|---|
+| Reset echo | Same planner, field-wise effective equivalence, S_OK without native Reset or metadata invalidation | Native synthetic equivalent/different/reset-failure cases; real Windowed retest pending |
+| Final exit | Enter shutdown before final native Release, skip cosmetic window restore | Native wrapper destructor/window-operation counts; Alt+F4/menu Quit pending |
+| Windowed placement | Center adjusted outer rectangle in rcWork; keep pinned client size | Hidden native HWND and planner tests |
+| Cursor | Optional foreground/inside idle hide, movement/focus restoration; SetCursor, no ShowCursor/ClipCursor | Deterministic transition tests; desktop behavior pending |
+| Preview | Separate source45 family with original source/aspect math and 4:3 reference VFOV | Read-only Ghidra 004F2350; 4:3/16:9/16:10/21:9 math tests |
+| HUD alternating | Sort walk skips list head; shift at actual packet consumer entry instead | CONFIRMED_BY_EXE structural defect; bounded lifetime trace and x86 entry ABI tests; visual causality pending |
+| Modified EXE FOV / vehicles | Independent complete local owner groups, image data/global placement plus runtime sanity/proof | Hardened 391d5d86… static SUPPORTED; runtime pending |
+| Backdrop | XML/bank/tile content identity manifest and undistorted replacement contract | Four distinct banks; native texture-generation association UNKNOWN; artwork extension required |
+
+No reflection appearance, lighting, vertex diffuse, shaders, weather, postFX or game disk bytes changed. Preserve R-GFX4 learning/material gates and R-GFX3 AF/culling/shadow behavior. Next after human acceptance: R-CAM1, then F-PHOTO1, then HD UI. Do not start them in this continuation.
+
+## Historical R-GFX5-2 record (superseded where stated above)
+
 # R-GFX5 continuation - Classic+ display/UI fixes
 
 **READY_FOR_HUMAN_RUNTIME, R-GFX5-2.** R-GFX4 remains CLOSED / CONFIRMED_BY_RUNTIME. The prior R-GFX5-1 candidate has mixed human results, retained in [hashed evidence](continuation-runtime-evidence.json):

@@ -1,41 +1,38 @@
 {
   "phase": "R-GFX5",
-  "proxy_version": "R-GFX5-2",
+  "continuation": "STOCK_PLUS_LIFECYCLE_WIDESCREEN",
+  "proxy_version": "R-GFX5-3",
   "status": "READY_FOR_HUMAN_RUNTIME",
   "repository": "D:\\Game\\Master Rallye\\master-rallye-re-general",
   "branch": "research/general-re",
-  "starting_head": "144470b9e7b378ef67fa7a04b227dc6cad4c12f5",
+  "starting_head": "d035943f88e26d02ee1d43163904791b5720ffa4",
   "preflight": {
-    "tracked": "CLEAN_AT_CONTINUATION_START",
+    "tracked": "CLEAN",
     "untracked_user_input": "modernization/input/",
+    "only_task_changes": "modernization/renderer/",
     "new_branch": false,
     "new_worktree": false,
-    "push": false,
-    "interruption": "Unrelated Observatory edits appeared; stopped; user committed and authorized resume",
-    "only_task_changes": "modernization/renderer/",
-    "untracked_user_input_preserved": true
+    "retired_worktrees_touched": false,
+    "game_disk_writes": false,
+    "deployment": false,
+    "push": false
   },
   "target": {
     "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
     "size": 3121214,
     "image_base": "0x00400000"
   },
-  "r_gfx4": {
-    "status": "CLOSED_CONFIRMED_BY_RUNTIME",
-    "source": "Human user acceptance on2026-10-07",
-    "additional_stage_verdicts_inferred": false
-  },
   "build": {
     "valid": true,
     "errors": [],
-    "sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
-    "size": 1196032,
+    "sha256": "71471ec6e1fd5a7ccf1685400ad0beb36978c7cc7d74a2b32387272344d14bbe",
+    "size": 1378816,
     "machine": 332,
     "pe_type": "PE32",
     "dll": true,
     "image_base": 268435456,
-    "timestamp": 2101196215,
-    "entry_rva": 616363,
+    "timestamp": 1513182001,
+    "entry_rva": 740683,
     "exports": {
       "Direct3DCreate8": {
         "ordinal": 5,
@@ -62,411 +59,240 @@
       {
         "name": ".text",
         "rva": 4096,
-        "virtual_size": 1017749,
-        "raw_size": 1017856,
+        "virtual_size": 1167813,
+        "raw_size": 1167872,
         "raw_offset": 1024
       },
       {
         "name": ".rdata",
-        "rva": 1024000,
-        "virtual_size": 138828,
-        "raw_size": 139264,
-        "raw_offset": 1018880
+        "rva": 1175552,
+        "virtual_size": 165936,
+        "raw_size": 166400,
+        "raw_offset": 1168896
       },
       {
         "name": ".data",
-        "rva": 1163264,
-        "virtual_size": 11956,
+        "rva": 1343488,
+        "virtual_size": 11972,
         "raw_size": 7680,
-        "raw_offset": 1158144
+        "raw_offset": 1335296
       },
       {
         "name": ".fptable",
-        "rva": 1175552,
+        "rva": 1355776,
         "virtual_size": 128,
         "raw_size": 512,
-        "raw_offset": 1165824
+        "raw_offset": 1342976
       },
       {
         "name": ".rsrc",
-        "rva": 1179648,
+        "rva": 1359872,
         "virtual_size": 480,
         "raw_size": 512,
-        "raw_offset": 1166336
+        "raw_offset": 1343488
       },
       {
         "name": ".reloc",
-        "rva": 1183744,
-        "virtual_size": 29096,
-        "raw_size": 29184,
-        "raw_offset": 1166848
+        "rva": 1363968,
+        "virtual_size": 34360,
+        "raw_size": 34816,
+        "raw_offset": 1344000
       }
     ],
     "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
   },
-  "deployed": false,
-  "game_run_by_agent": false,
-  "disk_exe_modified": false,
-  "inputs": [
-    {
-      "name": "MRallye.exe",
-      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "size": 3121214
-    },
-    {
-      "name": "MRallye_patched.exe",
-      "sha256": "bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6",
-      "size": 3117118
-    },
-    {
-      "name": "MasterRallyeWidescreenFix.exe",
-      "sha256": "e0de5489b3b512d174024397eac0d54dc2afd8f3f2c13933a0c3881f75860814",
-      "size": 1404483
-    },
-    {
-      "name": "freeze-patch.py",
-      "sha256": "6719605fb97b59f6d11a480bf8b6e6f223c726cfff1b656862fd2a9640b02b1b",
-      "size": 2619
-    }
-  ],
-  "reference_archive_rehashed": false,
-  "display": {
+  "accepted_human_baseline": {
+    "source": "2026-10-07 continuation prompt",
+    "producer": "R-GFX5-2",
+    "features": [
+      "Borderless rendering",
+      "AltTab",
+      "native resolution",
+      "Centered4x3",
+      "AF16",
+      "MSAA4",
+      "MenuFreezeFix"
+    ],
+    "evidence_grade": "CONFIRMED_BY_HUMAN_RUNTIME_REPORT"
+  },
+  "reset": {
+    "echo_rule": "field equivalent accepted-device descriptor after identical planner; writable output",
+    "equivalent_echo": "S_OK; no native Reset and no resource/scene reset",
+    "different_echo": "D3DERR_INVALIDCALL with deferred_during_commit diagnostic; NOT queued",
+    "genuine_errors": "actual native HRESULT preserved",
+    "final_shutdown": "before native final Release, detach cursor watcher and skip window restore",
+    "mode_change_or_failed_commit": "live restore/rollback retained",
+    "normal_trace": "requested, accepted effective, native_reset_called, actual native_reset_attempts delta and actual HRESULT"
+  },
+  "windowed": "fixed client size; AdjustWindowRectEx outer centered/clamped in rcWork; Borderless rcMonitor",
+  "cursor": {
+    "optional": true,
+    "default": 1,
+    "delay_ms": 1500,
     "modes": [
-      "Stock",
-      "Windowed",
       "Borderless",
       "ExclusiveFullscreen"
     ],
-    "default": "Stock",
-    "hwnd": "existing device HWND or focus HWND",
-    "windowed_dimensions": "explicit fixed client; auto0/0 pins first valid requested backbuffer or initial client when request zero; later Reset never redefines",
-    "borderless_dimensions": "monitor-native rcMonitor; explicit nonnative resolves native with reason",
-    "exclusive": "EnumAdapterModes + CheckDeviceType + native acceptance",
-    "dpi_awareness": "unchanged; human high-DPI validation pending",
-    "create_reset": "PLAN no HWND writes -> native CreateDevice/Reset -> success-only COMMIT",
-    "maximum_native_attempts": 3,
-    "lost_notreset_retry": false,
-    "viewport": "endpoint proportional; full domain latch; physical quarters unchanged; ambiguous partial Stock",
-    "physical_surfaces": "GetBackBuffer/GetDepthStencilSurface GetDesc, immediate Release",
-    "evidence_grade": "AUTOMATED_SYNTHETIC_ONLY",
-    "source": "src/quality.cpp,src/quality_wrappers.cpp",
-    "windowed_resize_policy": "restore pinned client on next successful Reset; adjust outer and clamp to monitor work area; oversized client Stock with reason",
-    "native_failure": "no HWND commit/restore; failed Reset keeps prior accepted descriptors/window/domain",
-    "commit_frequency": "only meaningful live window state/placement changes; no per-frame SetWindowPos",
-    "commit_failure": "rollback pre-commit HWND; retain accepted native PP/HRESULT, explicit status; unverified rollback logged",
-    "reentrancy": "Reset rejected before native transaction during window commit/restore",
-    "startup_breadcrumbs": [
-      "display_plan_begin",
-      "monitor_selection_complete",
-      "presentation_transform_complete",
-      "native_CreateDevice_begin/end",
-      "native_Reset_begin/end",
-      "window_commit_begin/complete/unchanged/failed",
-      "SetWindowLong_begin/end",
-      "SetMenu_begin/end",
-      "SetWindowPos_begin/end"
-    ]
+    "idle": "foreground+inside",
+    "move": "show",
+    "focus_loss": "message observer restores even without Present",
+    "message_api": "WH_CALLWNDPROCRET on owned render thread; preserves handler chain",
+    "ShowCursor": false,
+    "ClipCursor": false,
+    "runtime_verdict": "PENDING"
   },
-  "widescreen": {
-    "default": "Stock",
-    "modes": [
-      "Stock",
-      "Centered4x3",
-      "PreserveMargins"
+  "preview": {
+    "feature": "FrontendPreviewAspectCorrection",
+    "owner_va": "0x004F2350",
+    "owner_rva": "0x000F2350",
+    "source_family": 45,
+    "source_landscape_rule": "source * H/W",
+    "authored_reference_aspect": "4:3",
+    "reference_vfov": 33.75,
+    "gameplay_vfov_used": false,
+    "runtime_verdict": "PENDING"
+  },
+  "preserve_margins": {
+    "diagnosis": "sort walk omits first node; confirmed static defect, visual causality pending",
+    "delayed_packet_hypothesis": "UNPROVEN",
+    "consumer_va": "0x0056D110",
+    "consumer_rva": "0x0016D110",
+    "hook_instruction": "SUB ESP,108h, 6 bytes",
+    "restore_boundary": "Present/Reset/disable after actual vertex consumer; each new consume reacquires logical/effective edit",
+    "pointer_lifetime": "frame-local ownership, entity+4C and XYZ checks; no persistent writable pointer identity",
+    "engine_rewrite": "new baseline, no double shift",
+    "trace": "F10 arms 3 consecutive diagnostic frames; 64 slots; at most256 lifetime records per device",
+    "runtime_verdict": "PENDING"
+  },
+  "backdrop": {
+    "status": "BACKDROP_ASSET_EXTENSION_REQUIRED",
+    "manifest": "menu-backdrop-map.json",
+    "runtime_extension": false,
+    "central_art_distorted": false,
+    "UI_clipped": false,
+    "replacement_seam": "XML bank/content identity manifest and undistorted canvas contract; active native texture generation association UNKNOWN"
+  },
+  "numeric_ini": {
+    "Display": {
+      "0": "Stock",
+      "1": "Windowed",
+      "2": "Borderless",
+      "3": "ExclusiveFullscreen"
+    },
+    "Widescreen": {
+      "0": "Stock",
+      "1": "Centered4x3",
+      "2": "PreserveMargins"
+    },
+    "AA": {
+      "0": "Stock",
+      "1": "MSAA"
+    },
+    "Shadows": {
+      "0": "Stock",
+      "1": "Off"
+    },
+    "VehicleReflections": {
+      "0": "Stock",
+      "1": "ViewDependent2D"
+    },
+    "boolean": [
+      "0",
+      "1",
+      "false",
+      "true"
     ],
-    "virtual_width": "480*effective_viewport_aspect",
-    "extra": "virtual_width-640",
-    "half": "extra/2",
-    "centered_bounds": [
-      "-half",
-      "640+half"
-    ],
-    "legacy_90_45_fov_reused": false,
-    "source_coordinate_scaling": false,
-    "margin_rule_count": 51,
-    "frame_edit_bound": 512,
-    "packet_gate": "entity+0x4C packet nonnull; EAX=packet+0x24; packet+0x68=1/2; z=0",
-    "restore": "Present/Reset/disable/release; matching effective XYZ only",
-    "split_packet_aspect_runtime": "UNKNOWN",
-    "source": "widescreen-integration.md,third-party-widescreen-analysis.md",
-    "evidence_grade": "AUTOMATED_SYNTHETIC_ONLY",
-    "previous_wrong_return_rva": "0x0013FA75",
-    "owner_va": "0x00561DF0",
-    "owner_rva": "0x00161DF0",
-    "native_call_va": "0x00561ECD",
-    "native_call_rva": "0x00161ECD",
-    "return_va": "0x00561ED3",
-    "return_rva": "0x00161ED3",
-    "gate": "verified unique UI owner/caller AND current exact640x480 orthographic matrix family",
-    "cached_rewrite": "requires current live validated UI projection proof; another successful projection or Reset clears proof",
-    "preserve_margins_implementation_changed": false,
-    "preserve_margins_retest": "pending after Centered4x3 human PASS",
-    "human_visual_result": "PENDING_FOR_R_GFX5_2"
+    "strings_retained": true,
+    "invalid": "feature-local safe fallback, no wrapping"
   },
-  "camera_filtering": {
-    "gameplay_vfov": "existing synchronized R-GFX4 CPU/projection seam unchanged",
-    "frontend45": "excluded",
-    "af": "existing stage0 MIN-only + caps MaxAnisotropy; MAG/MIP/stage1 Stock",
-    "shadows": "existing Stock/Off",
-    "reflection": "existing learned body semantic registry/strict material/TCI restore; Stock in proposed quality profile"
+  "capabilities": {
+    "method": "independent fixed-layout whole decoded local owners, absolute globals and exact operands; writable image-data placement; runtime sanity retained",
+    "whole_sha_profile_added": false,
+    "FOV_owners": 7,
+    "vehicle_owners": 6,
+    "hardened_sha256": "391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819",
+    "hardened_static_FOV": "SUPPORTED",
+    "hardened_static_vehicle": "SUPPORTED",
+    "hardened_runtime": "PENDING",
+    "audit": "local-owner-audit.json"
   },
-  "msaa": {
-    "default": "Stock",
-    "request_samples": [
-      2,
-      4,
-      8
-    ],
-    "choice": "highest supported <= request, actual adapter/type/color/depth/mode",
-    "checks": [
-      "CheckDeviceType",
-      "CheckDeviceFormat(depth)",
-      "CheckDepthStencilMatch",
-      "CheckDeviceMultiSampleType(color)",
-      "CheckDeviceMultiSampleType(depth)"
-    ],
-    "stock_observed_swap": {
-      "name": "COPY",
-      "value": 3
-    },
-    "candidate_swap": {
-      "name": "DISCARD",
-      "value": 1
-    },
-    "candidate_count": 1,
-    "candidate_lockable": false,
-    "format_policy": "desktop-compatible windowed color; retain original automatic-depth format",
-    "fallback": "Stock AA then Stock display, native HRESULT; unmix echoed overrides",
-    "nonnull_present": "forward + hazard log; Stock AA on next Reset",
-    "actual_hardware_samples": 4,
-    "positive_mock_samples": 4,
-    "evidence_grade": "CONFIRMED_BY_RUNTIME_FOR_R_GFX5_1_PRISTINE_PATH",
-    "source": "msaa.md,continuation-runtime-evidence.json",
-    "runtime_confirmed_samples": 4,
-    "selection_algorithm_changed": false,
-    "integration_changed": "generic capability and post-native display transaction/diagnostics",
-    "stock_samples_policy": "ModeStock ignores Samples; explicit example comments and startup requested/effective mode/count/swap/reason",
-    "borderless_interaction": "PENDING_HUMAN",
-    "runtime_resets_main_session": 8
-  },
-  "gamma": {
-    "implementation": "DEFERRED",
-    "stock": "not observed in reviewed imports/receiver map/windowed sampled counters; absence coverage limited",
-    "borderless": "forward native; no independent correction claimed",
-    "exclusive": "forward native; actual gamma behavior unknown",
-    "fake_vertex_texture_rgb": false,
-    "desktop_gamma_write": false,
-    "source": "gamma.md"
-  },
-  "world_distance": {
-    "implementation": "DEFERRED",
-    "viewdist": [
-      300,
-      400,
-      500
-    ],
-    "near": 0.2,
-    "far": "ordinary2*ViewDist; special100000",
-    "fog": "linear vertex, end=ViewDist, start=end*(1-clamped_span)",
-    "sphere_hierarchy": "CPU/scene limits separate from far/fog",
-    "terrain_vegetation_lod": "UNKNOWN",
-    "source": "world-distance-map.md",
-    "evidence_grade": "CONFIRMED_BY_EXE_AND_EXISTING_RESEARCH"
-  },
-  "freeze": {
-    "va": "0x005b015c",
-    "rva": "0x001b015c",
-    "file_offset": 1769820,
-    "context_hex": "85ff75118b4424108b4e1850e8152f0a00ff44241484db",
-    "branch_target_before": "0x005b016f",
-    "branch_target_after": "0x005b015e",
-    "render_call_va": "0x005b0166",
-    "render_owner_va": "0x00653080",
-    "reference_file_offset": "0x0024a1bc",
-    "reference_va": "0x64a1bc",
-    "evidence_grade": "CONFIRMED_BY_EXE",
-    "default": false,
-    "implementation": "IN_MEMORY_PATCH",
-    "expected_bytes": "7511",
-    "replacement_bytes": "7500",
-    "physical_write": "displacement byte VA0x005B015D/RVA0x001B015D",
-    "gate": "known validated owner or unique feature fingerprint; enabled installer revalidates loaded owner; fixed base retained",
-    "transaction": "protect/write/readback/flush/restore; rollback on failure",
-    "lifetime": "until process exit; contains no DLL address",
-    "legacy_loading_attract_relation": "SEPARATE",
-    "runtime_efficacy": "CONFIRMED_BY_RUNTIME_PRISTINE_PREVIOUS_PATH",
-    "source": "compatibility-freeze.md",
-    "already": "75 00 + verified owner: ALREADY_PATCHED, no write/ownership",
-    "unknown_sha": "feature-local discovery allowed, no generic shutdown",
-    "modified_runtime": "PENDING_OPTIONAL_HUMAN"
-  },
-  "pristine_owners": [
-    {
-      "name": "window",
-      "va": "0x005590C0",
-      "rva": "0x001590C0",
-      "source": "display-pipeline.md",
-      "evidence_grade": "CONFIRMED_BY_EXE"
-    },
-    {
-      "name": "client_dimensions",
-      "va": "0x0064DD10",
-      "rva": "0x0024DD10",
-      "source": "display-pipeline.md",
-      "evidence_grade": "CONFIRMED_BY_EXE"
-    },
-    {
-      "name": "frame_dimensions",
-      "va": "0x00653080",
-      "rva": "0x00253080",
-      "source": "display-pipeline.md",
-      "evidence_grade": "CONFIRMED_BY_EXE"
-    },
-    {
-      "name": "projection",
-      "va": "0x005614A0",
-      "rva": "0x001614A0",
-      "source": "display-pipeline.md",
-      "evidence_grade": "CONFIRMED_BY_EXE"
-    },
-    {
-      "name": "ui_ortho",
-      "va": "0x00561DF0",
-      "rva": "0x00161DF0",
-      "source": "widescreen-integration.md",
-      "evidence_grade": "CONFIRMED_BY_EXE"
-    },
-    {
-      "name": "ui_sort",
-      "va": "0x00509A21",
-      "rva": "0x00109A21",
-      "source": "widescreen-integration.md",
-      "evidence_grade": "CONFIRMED_BY_EXE"
-    },
-    {
-      "name": "environment",
-      "va": "0x0056D020",
-      "rva": "0x0016D020",
-      "source": "world-distance-map.md",
-      "evidence_grade": "CONFIRMED_BY_EXE"
-    }
+  "preserved": [
+    "AF MIN-only",
+    "synchronized FOV / frontend exclusion",
+    "shadow Stock/Off",
+    "pool-aware Reset",
+    "race/HUD frame lifetime",
+    "stationary admission",
+    "sticky brake identity",
+    "learned signatures / generations",
+    "wheels/brake/glass/world Stock",
+    "exact native reflection restore",
+    "COM identity",
+    "F10"
   ],
-  "existing_runtime_session": {
-    "file": "session-20261007-003728-5952.jsonl",
-    "sha256": "5d13ae5a1d8d872aad1a80b162e7f7b7f931dba307a4aa8200cc496a591d2441",
-    "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE",
-    "proxy_version": "R-GFX4-5",
-    "proxy_sha256": "d171d03c0fca176b1909a6babc76ede83baf22b830760d388dcc75e0fa7fa87c",
-    "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-    "sampled_frame_summaries": 1263,
-    "gamma_counts": {
-      "SetGammaRamp": 0,
-      "GetGammaRamp": 0
-    },
-    "create": {
-      "width": 640,
-      "height": 480,
-      "format": 22,
-      "count": 1,
-      "multisample": 0,
-      "swap_effect": 3,
-      "device_window": 11537212,
-      "windowed": 1,
-      "auto_depth": 1,
-      "depth_format": 77,
-      "flags": 0,
-      "refresh": 0,
-      "interval": 0
-    },
-    "reset_success": 4
-  },
-  "existing_captures": [
-    {
-      "name": "B-ai-multicar.jsonl",
-      "sha256": "9db93645fec37b09afb1c05b17ae32b39358a62edd8d88e83b73d5d4d0bcf297",
-      "present_count": 1,
-      "all_present_arguments_null": true,
-      "clear_count": 1,
-      "full_color_depth_clears": 1,
-      "complete": true,
-      "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
-    },
-    {
-      "name": "C-ai-edge.jsonl",
-      "sha256": "6541c48bb9b57ae59f70c933fea4f7da6516f36e5d4f1edeb8e6ab4bb902ada2",
-      "present_count": 1,
-      "all_present_arguments_null": true,
-      "clear_count": 1,
-      "full_color_depth_clears": 1,
-      "complete": true,
-      "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
-    },
-    {
-      "name": "frame-5952-d1-00064234.jsonl",
-      "sha256": "5745d9dcdc9fae142c522085579ca139b420398e6db307ebdee16c8f0ff7499a",
-      "present_count": 1,
-      "all_present_arguments_null": true,
-      "clear_count": 1,
-      "full_color_depth_clears": 1,
-      "complete": true,
-      "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
-    }
-  ],
-  "synthetic_aspects": [
-    "4:3",
-    "16:9",
-    "16:10",
-    "21:9"
-  ],
-  "trace": {
-    "quality": "pinned target + window_commit_status + requested/effective AA samples and named swap",
-    "viewport": "draw logical/effective; Set/GetViewport payload",
-    "freeze": "hash/RVA/context/applied/already/ownership/rollback/reason",
-    "f10_allocation_mib": 32,
-    "feature_masks": {
-      "af": 1,
-      "fov": 2,
-      "shadow": 4,
-      "reflection": 8,
-      "viewport": 16,
-      "ui": 32
-    },
-    "version": "R-GFX5-2",
-    "compatibility": "startup per-feature method/status/reason/scan count/RVA/validation",
-    "ui_projection": "widescreen_applied/source, requested/effective payload, virtual_width/extra/half; UI32 distinct from FOV2"
-  },
   "tests": {
-    "native_suites": 8,
-    "native_status": "PASS",
-    "native_seconds": 2.52,
-    "python_tests": 88,
-    "python_status": "PASS",
-    "python_seconds": 142.197,
-    "compileall": "PASS; pycache_prefix redirected under ignored phase analysis, includes modernization input without writes there",
-    "pe_verifier": "PASS",
-    "diff_check": "PASS",
-    "evidence_grade": "AUTOMATED_SYNTHETIC_BUILD_ONLY",
-    "retained_assertions": "previous COM/ABI/FPU/AF/camera/reflection/resource suites retained; mandated unknown-build expectations changed to generic-enabled/local-owner-fail-closed",
-    "capture_filters": "new producer label; existing positive MSAA4 fixture still asserted separately from new validated UI fixture"
+    "python": {
+      "passed": 91,
+      "failed": 0,
+      "log": "ignored .analysis/r-gfx5/python-cont3-final-candidate.log",
+      "seconds": 54.734
+    },
+    "native": {
+      "passed": 8,
+      "failed": 0,
+      "seconds": 3.55,
+      "log": "ignored .analysis/r-gfx5/build-cont3-final-candidate.log"
+    },
+    "compileall": "PASS",
+    "PE_verifier": "PASS",
+    "diff_check": "PASS"
   },
-  "human_stages": [
-    "A Borderless boot",
-    "B Centered4x3",
-    "C unchanged PreserveMargins only after B",
-    "D fixed Windowed1280x720",
-    "E Borderless+Centered+AF16+MSAA4",
-    "F minimize/restore/AltTab",
-    "G compatible modified EXE optional"
+  "human_handoff": "runtime-handoff.md A-H; code visual verdict PENDING; E explicit art boundary",
+  "next_after_human_pass": [
+    "close R-GFX5",
+    "R-CAM1",
+    "F-PHOTO1",
+    "HD UI"
   ],
   "next_phase_started": false,
-  "historical_r_gfx5_1": {
-    "proxy_version": "R-GFX5-1",
-    "starting_head": "6ede833122bcd32ffb6223548c88587650d0539d",
+  "prior_r_gfx5_2_summary": {
+    "phase": "R-GFX5",
+    "proxy_version": "R-GFX5-2",
+    "status": "READY_FOR_HUMAN_RUNTIME",
+    "repository": "D:\\Game\\Master Rallye\\master-rallye-re-general",
+    "branch": "research/general-re",
+    "starting_head": "144470b9e7b378ef67fa7a04b227dc6cad4c12f5",
+    "preflight": {
+      "tracked": "CLEAN_AT_CONTINUATION_START",
+      "untracked_user_input": "modernization/input/",
+      "new_branch": false,
+      "new_worktree": false,
+      "push": false,
+      "interruption": "Unrelated Observatory edits appeared; stopped; user committed and authorized resume",
+      "only_task_changes": "modernization/renderer/",
+      "untracked_user_input_preserved": true
+    },
+    "target": {
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "size": 3121214,
+      "image_base": "0x00400000"
+    },
+    "r_gfx4": {
+      "status": "CLOSED_CONFIRMED_BY_RUNTIME",
+      "source": "Human user acceptance on2026-10-07",
+      "additional_stage_verdicts_inferred": false
+    },
     "build": {
-      "sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
-      "size": 1150976,
-      "pe_type": "PE32",
+      "valid": true,
+      "errors": [],
+      "sha256": "525d92cc0b4961221b5aab240ec85f2d05984f1dad9d8170c0653d9b037cffd0",
+      "size": 1196032,
       "machine": 332,
+      "pe_type": "PE32",
+      "dll": true,
+      "image_base": 268435456,
+      "timestamp": 2101196215,
+      "entry_rva": 616363,
       "exports": {
         "Direct3DCreate8": {
           "ordinal": 5,
@@ -488,9 +314,79 @@
         "bcrypt.dll",
         "USER32.dll",
         "KERNEL32.dll"
-      ]
+      ],
+      "sections": [
+        {
+          "name": ".text",
+          "rva": 4096,
+          "virtual_size": 1017749,
+          "raw_size": 1017856,
+          "raw_offset": 1024
+        },
+        {
+          "name": ".rdata",
+          "rva": 1024000,
+          "virtual_size": 138828,
+          "raw_size": 139264,
+          "raw_offset": 1018880
+        },
+        {
+          "name": ".data",
+          "rva": 1163264,
+          "virtual_size": 11956,
+          "raw_size": 7680,
+          "raw_offset": 1158144
+        },
+        {
+          "name": ".fptable",
+          "rva": 1175552,
+          "virtual_size": 128,
+          "raw_size": 512,
+          "raw_offset": 1165824
+        },
+        {
+          "name": ".rsrc",
+          "rva": 1179648,
+          "virtual_size": 480,
+          "raw_size": 512,
+          "raw_offset": 1166336
+        },
+        {
+          "name": ".reloc",
+          "rva": 1183744,
+          "virtual_size": 29096,
+          "raw_size": 29184,
+          "raw_offset": 1166848
+        }
+      ],
+      "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
     },
-    "status": "READY_FOR_HUMAN_RUNTIME",
+    "deployed": false,
+    "game_run_by_agent": false,
+    "disk_exe_modified": false,
+    "inputs": [
+      {
+        "name": "MRallye.exe",
+        "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "size": 3121214
+      },
+      {
+        "name": "MRallye_patched.exe",
+        "sha256": "bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6",
+        "size": 3117118
+      },
+      {
+        "name": "MasterRallyeWidescreenFix.exe",
+        "sha256": "e0de5489b3b512d174024397eac0d54dc2afd8f3f2c13933a0c3881f75860814",
+        "size": 1404483
+      },
+      {
+        "name": "freeze-patch.py",
+        "sha256": "6719605fb97b59f6d11a480bf8b6e6f223c726cfff1b656862fd2a9640b02b1b",
+        "size": 2619
+      }
+    ],
+    "reference_archive_rehashed": false,
     "display": {
       "modes": [
         "Stock",
@@ -564,6 +460,13 @@
       "preserve_margins_retest": "pending after Centered4x3 human PASS",
       "human_visual_result": "PENDING_FOR_R_GFX5_2"
     },
+    "camera_filtering": {
+      "gameplay_vfov": "existing synchronized R-GFX4 CPU/projection seam unchanged",
+      "frontend45": "excluded",
+      "af": "existing stage0 MIN-only + caps MaxAnisotropy; MAG/MIP/stage1 Stock",
+      "shadows": "existing Stock/Off",
+      "reflection": "existing learned body semantic registry/strict material/TCI restore; Stock in proposed quality profile"
+    },
     "msaa": {
       "default": "Stock",
       "request_samples": [
@@ -603,6 +506,30 @@
       "borderless_interaction": "PENDING_HUMAN",
       "runtime_resets_main_session": 8
     },
+    "gamma": {
+      "implementation": "DEFERRED",
+      "stock": "not observed in reviewed imports/receiver map/windowed sampled counters; absence coverage limited",
+      "borderless": "forward native; no independent correction claimed",
+      "exclusive": "forward native; actual gamma behavior unknown",
+      "fake_vertex_texture_rgb": false,
+      "desktop_gamma_write": false,
+      "source": "gamma.md"
+    },
+    "world_distance": {
+      "implementation": "DEFERRED",
+      "viewdist": [
+        300,
+        400,
+        500
+      ],
+      "near": 0.2,
+      "far": "ordinary2*ViewDist; special100000",
+      "fog": "linear vertex, end=ViewDist, start=end*(1-clamped_span)",
+      "sphere_hierarchy": "CPU/scene limits separate from far/fog",
+      "terrain_vegetation_lod": "UNKNOWN",
+      "source": "world-distance-map.md",
+      "evidence_grade": "CONFIRMED_BY_EXE_AND_EXISTING_RESEARCH"
+    },
     "freeze": {
       "va": "0x005b015c",
       "rva": "0x001b015c",
@@ -630,85 +557,416 @@
       "unknown_sha": "feature-local discovery allowed, no generic shutdown",
       "modified_runtime": "PENDING_OPTIONAL_HUMAN"
     },
+    "pristine_owners": [
+      {
+        "name": "window",
+        "va": "0x005590C0",
+        "rva": "0x001590C0",
+        "source": "display-pipeline.md",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "name": "client_dimensions",
+        "va": "0x0064DD10",
+        "rva": "0x0024DD10",
+        "source": "display-pipeline.md",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "name": "frame_dimensions",
+        "va": "0x00653080",
+        "rva": "0x00253080",
+        "source": "display-pipeline.md",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "name": "projection",
+        "va": "0x005614A0",
+        "rva": "0x001614A0",
+        "source": "display-pipeline.md",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "name": "ui_ortho",
+        "va": "0x00561DF0",
+        "rva": "0x00161DF0",
+        "source": "widescreen-integration.md",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "name": "ui_sort",
+        "va": "0x00509A21",
+        "rva": "0x00109A21",
+        "source": "widescreen-integration.md",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "name": "environment",
+        "va": "0x0056D020",
+        "rva": "0x0016D020",
+        "source": "world-distance-map.md",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      }
+    ],
+    "existing_runtime_session": {
+      "file": "session-20261007-003728-5952.jsonl",
+      "sha256": "5d13ae5a1d8d872aad1a80b162e7f7b7f931dba307a4aa8200cc496a591d2441",
+      "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE",
+      "proxy_version": "R-GFX4-5",
+      "proxy_sha256": "d171d03c0fca176b1909a6babc76ede83baf22b830760d388dcc75e0fa7fa87c",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "sampled_frame_summaries": 1263,
+      "gamma_counts": {
+        "SetGammaRamp": 0,
+        "GetGammaRamp": 0
+      },
+      "create": {
+        "width": 640,
+        "height": 480,
+        "format": 22,
+        "count": 1,
+        "multisample": 0,
+        "swap_effect": 3,
+        "device_window": 11537212,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      },
+      "reset_success": 4
+    },
+    "existing_captures": [
+      {
+        "name": "B-ai-multicar.jsonl",
+        "sha256": "9db93645fec37b09afb1c05b17ae32b39358a62edd8d88e83b73d5d4d0bcf297",
+        "present_count": 1,
+        "all_present_arguments_null": true,
+        "clear_count": 1,
+        "full_color_depth_clears": 1,
+        "complete": true,
+        "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
+      },
+      {
+        "name": "C-ai-edge.jsonl",
+        "sha256": "6541c48bb9b57ae59f70c933fea4f7da6516f36e5d4f1edeb8e6ab4bb902ada2",
+        "present_count": 1,
+        "all_present_arguments_null": true,
+        "clear_count": 1,
+        "full_color_depth_clears": 1,
+        "complete": true,
+        "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
+      },
+      {
+        "name": "frame-5952-d1-00064234.jsonl",
+        "sha256": "5745d9dcdc9fae142c522085579ca139b420398e6db307ebdee16c8f0ff7499a",
+        "present_count": 1,
+        "all_present_arguments_null": true,
+        "clear_count": 1,
+        "full_color_depth_clears": 1,
+        "complete": true,
+        "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
+      }
+    ],
+    "synthetic_aspects": [
+      "4:3",
+      "16:9",
+      "16:10",
+      "21:9"
+    ],
+    "trace": {
+      "quality": "pinned target + window_commit_status + requested/effective AA samples and named swap",
+      "viewport": "draw logical/effective; Set/GetViewport payload",
+      "freeze": "hash/RVA/context/applied/already/ownership/rollback/reason",
+      "f10_allocation_mib": 32,
+      "feature_masks": {
+        "af": 1,
+        "fov": 2,
+        "shadow": 4,
+        "reflection": 8,
+        "viewport": 16,
+        "ui": 32
+      },
+      "version": "R-GFX5-2",
+      "compatibility": "startup per-feature method/status/reason/scan count/RVA/validation",
+      "ui_projection": "widescreen_applied/source, requested/effective payload, virtual_width/extra/half; UI32 distinct from FOV2"
+    },
     "tests": {
-      "native_suites": 7,
+      "native_suites": 8,
       "native_status": "PASS",
-      "python_tests": 83,
+      "native_seconds": 2.52,
+      "python_tests": 88,
       "python_status": "PASS",
-      "compileall": "PASS",
+      "python_seconds": 142.197,
+      "compileall": "PASS; pycache_prefix redirected under ignored phase analysis, includes modernization input without writes there",
       "pe_verifier": "PASS",
       "diff_check": "PASS",
-      "evidence_grade": "AUTOMATED_SYNTHETIC_ONLY",
-      "python_seconds": 114.852,
-      "native_seconds": 3.19,
-      "unknown_build_diagnostics": "requested retained, effective Stock/off; native config contract PASS"
+      "evidence_grade": "AUTOMATED_SYNTHETIC_BUILD_ONLY",
+      "retained_assertions": "previous COM/ABI/FPU/AF/camera/reflection/resource suites retained; mandated unknown-build expectations changed to generic-enabled/local-owner-fail-closed",
+      "capture_filters": "new producer label; existing positive MSAA4 fixture still asserted separately from new validated UI fixture"
     },
     "human_stages": [
-      "A Stock",
-      "B Borderless",
-      "C centered + margins UI",
-      "D AF",
-      "E native MSAA",
-      "F combined Stock+",
-      "G actual Reset/Alt+Tab",
-      "H optional freeze AB",
-      "I optional high-res/DPI",
-      "J optional exclusive/gamma observation"
-    ]
-  },
-  "resumed_head": "f9e91188641ea624554e9f3761f69a93592923a7",
-  "human_r_gfx5_1": {
-    "source": "continuation-runtime-evidence.json + direct user continuation report",
-    "MSAA4": "CONFIRMED_BY_RUNTIME",
-    "MenuFreezeFix_pristine": "CONFIRMED_BY_RUNTIME",
-    "Borderless": "FAIL_STARTUP",
-    "Windowed": "FAIL_SIZE_OWNERSHIP",
-    "Centered4x3": "FAIL_NOT_APPLIED",
-    "PreserveMargins": "INVALID_TEST_STATE_WIDE_BASE_MISSING"
-  },
-  "new_human_confirmation": false,
-  "compatibility": {
-    "image_sha_role": "provenance and known-profile candidate; loaded local bytes still validated",
-    "generic": [
-      "GenericDisplay",
-      "MSAA",
-      "AF",
-      "presentation_trace"
+      "A Borderless boot",
+      "B Centered4x3",
+      "C unchanged PreserveMargins only after B",
+      "D fixed Windowed1280x720",
+      "E Borderless+Centered+AF16+MSAA4",
+      "F minimize/restore/AltTab",
+      "G compatible modified EXE optional"
     ],
-    "fingerprinted": [
-      "MenuFreezeFix",
-      "WidescreenUI_Centered4x3"
+    "next_phase_started": false,
+    "historical_r_gfx5_1": {
+      "proxy_version": "R-GFX5-1",
+      "starting_head": "6ede833122bcd32ffb6223548c88587650d0539d",
+      "build": {
+        "sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+        "size": 1150976,
+        "pe_type": "PE32",
+        "machine": 332,
+        "exports": {
+          "Direct3DCreate8": {
+            "ordinal": 5,
+            "rva": 16256,
+            "forwarder": null
+          },
+          "ValidatePixelShader": {
+            "ordinal": 2,
+            "rva": 17632,
+            "forwarder": null
+          },
+          "ValidateVertexShader": {
+            "ordinal": 3,
+            "rva": 17664,
+            "forwarder": null
+          }
+        },
+        "imported_dlls": [
+          "bcrypt.dll",
+          "USER32.dll",
+          "KERNEL32.dll"
+        ]
+      },
+      "status": "READY_FOR_HUMAN_RUNTIME",
+      "display": {
+        "modes": [
+          "Stock",
+          "Windowed",
+          "Borderless",
+          "ExclusiveFullscreen"
+        ],
+        "default": "Stock",
+        "hwnd": "existing device HWND or focus HWND",
+        "windowed_dimensions": "explicit fixed client; auto0/0 pins first valid requested backbuffer or initial client when request zero; later Reset never redefines",
+        "borderless_dimensions": "monitor-native rcMonitor; explicit nonnative resolves native with reason",
+        "exclusive": "EnumAdapterModes + CheckDeviceType + native acceptance",
+        "dpi_awareness": "unchanged; human high-DPI validation pending",
+        "create_reset": "PLAN no HWND writes -> native CreateDevice/Reset -> success-only COMMIT",
+        "maximum_native_attempts": 3,
+        "lost_notreset_retry": false,
+        "viewport": "endpoint proportional; full domain latch; physical quarters unchanged; ambiguous partial Stock",
+        "physical_surfaces": "GetBackBuffer/GetDepthStencilSurface GetDesc, immediate Release",
+        "evidence_grade": "AUTOMATED_SYNTHETIC_ONLY",
+        "source": "src/quality.cpp,src/quality_wrappers.cpp",
+        "windowed_resize_policy": "restore pinned client on next successful Reset; adjust outer and clamp to monitor work area; oversized client Stock with reason",
+        "native_failure": "no HWND commit/restore; failed Reset keeps prior accepted descriptors/window/domain",
+        "commit_frequency": "only meaningful live window state/placement changes; no per-frame SetWindowPos",
+        "commit_failure": "rollback pre-commit HWND; retain accepted native PP/HRESULT, explicit status; unverified rollback logged",
+        "reentrancy": "Reset rejected before native transaction during window commit/restore",
+        "startup_breadcrumbs": [
+          "display_plan_begin",
+          "monitor_selection_complete",
+          "presentation_transform_complete",
+          "native_CreateDevice_begin/end",
+          "native_Reset_begin/end",
+          "window_commit_begin/complete/unchanged/failed",
+          "SetWindowLong_begin/end",
+          "SetMenu_begin/end",
+          "SetWindowPos_begin/end"
+        ]
+      },
+      "widescreen": {
+        "default": "Stock",
+        "modes": [
+          "Stock",
+          "Centered4x3",
+          "PreserveMargins"
+        ],
+        "virtual_width": "480*effective_viewport_aspect",
+        "extra": "virtual_width-640",
+        "half": "extra/2",
+        "centered_bounds": [
+          "-half",
+          "640+half"
+        ],
+        "legacy_90_45_fov_reused": false,
+        "source_coordinate_scaling": false,
+        "margin_rule_count": 51,
+        "frame_edit_bound": 512,
+        "packet_gate": "entity+0x4C packet nonnull; EAX=packet+0x24; packet+0x68=1/2; z=0",
+        "restore": "Present/Reset/disable/release; matching effective XYZ only",
+        "split_packet_aspect_runtime": "UNKNOWN",
+        "source": "widescreen-integration.md,third-party-widescreen-analysis.md",
+        "evidence_grade": "AUTOMATED_SYNTHETIC_ONLY",
+        "previous_wrong_return_rva": "0x0013FA75",
+        "owner_va": "0x00561DF0",
+        "owner_rva": "0x00161DF0",
+        "native_call_va": "0x00561ECD",
+        "native_call_rva": "0x00161ECD",
+        "return_va": "0x00561ED3",
+        "return_rva": "0x00161ED3",
+        "gate": "verified unique UI owner/caller AND current exact640x480 orthographic matrix family",
+        "cached_rewrite": "requires current live validated UI projection proof; another successful projection or Reset clears proof",
+        "preserve_margins_implementation_changed": false,
+        "preserve_margins_retest": "pending after Centered4x3 human PASS",
+        "human_visual_result": "PENDING_FOR_R_GFX5_2"
+      },
+      "msaa": {
+        "default": "Stock",
+        "request_samples": [
+          2,
+          4,
+          8
+        ],
+        "choice": "highest supported <= request, actual adapter/type/color/depth/mode",
+        "checks": [
+          "CheckDeviceType",
+          "CheckDeviceFormat(depth)",
+          "CheckDepthStencilMatch",
+          "CheckDeviceMultiSampleType(color)",
+          "CheckDeviceMultiSampleType(depth)"
+        ],
+        "stock_observed_swap": {
+          "name": "COPY",
+          "value": 3
+        },
+        "candidate_swap": {
+          "name": "DISCARD",
+          "value": 1
+        },
+        "candidate_count": 1,
+        "candidate_lockable": false,
+        "format_policy": "desktop-compatible windowed color; retain original automatic-depth format",
+        "fallback": "Stock AA then Stock display, native HRESULT; unmix echoed overrides",
+        "nonnull_present": "forward + hazard log; Stock AA on next Reset",
+        "actual_hardware_samples": 4,
+        "positive_mock_samples": 4,
+        "evidence_grade": "CONFIRMED_BY_RUNTIME_FOR_R_GFX5_1_PRISTINE_PATH",
+        "source": "msaa.md,continuation-runtime-evidence.json",
+        "runtime_confirmed_samples": 4,
+        "selection_algorithm_changed": false,
+        "integration_changed": "generic capability and post-native display transaction/diagnostics",
+        "stock_samples_policy": "ModeStock ignores Samples; explicit example comments and startup requested/effective mode/count/swap/reason",
+        "borderless_interaction": "PENDING_HUMAN",
+        "runtime_resets_main_session": 8
+      },
+      "freeze": {
+        "va": "0x005b015c",
+        "rva": "0x001b015c",
+        "file_offset": 1769820,
+        "context_hex": "85ff75118b4424108b4e1850e8152f0a00ff44241484db",
+        "branch_target_before": "0x005b016f",
+        "branch_target_after": "0x005b015e",
+        "render_call_va": "0x005b0166",
+        "render_owner_va": "0x00653080",
+        "reference_file_offset": "0x0024a1bc",
+        "reference_va": "0x64a1bc",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "default": false,
+        "implementation": "IN_MEMORY_PATCH",
+        "expected_bytes": "7511",
+        "replacement_bytes": "7500",
+        "physical_write": "displacement byte VA0x005B015D/RVA0x001B015D",
+        "gate": "known validated owner or unique feature fingerprint; enabled installer revalidates loaded owner; fixed base retained",
+        "transaction": "protect/write/readback/flush/restore; rollback on failure",
+        "lifetime": "until process exit; contains no DLL address",
+        "legacy_loading_attract_relation": "SEPARATE",
+        "runtime_efficacy": "CONFIRMED_BY_RUNTIME_PRISTINE_PREVIOUS_PATH",
+        "source": "compatibility-freeze.md",
+        "already": "75 00 + verified owner: ALREADY_PATCHED, no write/ownership",
+        "unknown_sha": "feature-local discovery allowed, no generic shutdown",
+        "modified_runtime": "PENDING_OPTIONAL_HUMAN"
+      },
+      "tests": {
+        "native_suites": 7,
+        "native_status": "PASS",
+        "python_tests": 83,
+        "python_status": "PASS",
+        "compileall": "PASS",
+        "pe_verifier": "PASS",
+        "diff_check": "PASS",
+        "evidence_grade": "AUTOMATED_SYNTHETIC_ONLY",
+        "python_seconds": 114.852,
+        "native_seconds": 3.19,
+        "unknown_build_diagnostics": "requested retained, effective Stock/off; native config contract PASS"
+      },
+      "human_stages": [
+        "A Stock",
+        "B Borderless",
+        "C centered + margins UI",
+        "D AF",
+        "E native MSAA",
+        "F combined Stock+",
+        "G actual Reset/Alt+Tab",
+        "H optional freeze AB",
+        "I optional high-res/DPI",
+        "J optional exclusive/gamma observation"
+      ]
+    },
+    "resumed_head": "f9e91188641ea624554e9f3761f69a93592923a7",
+    "human_r_gfx5_1": {
+      "source": "continuation-runtime-evidence.json + direct user continuation report",
+      "MSAA4": "CONFIRMED_BY_RUNTIME",
+      "MenuFreezeFix_pristine": "CONFIRMED_BY_RUNTIME",
+      "Borderless": "FAIL_STARTUP",
+      "Windowed": "FAIL_SIZE_OWNERSHIP",
+      "Centered4x3": "FAIL_NOT_APPLIED",
+      "PreserveMargins": "INVALID_TEST_STATE_WIDE_BASE_MISSING"
+    },
+    "new_human_confirmation": false,
+    "compatibility": {
+      "image_sha_role": "provenance and known-profile candidate; loaded local bytes still validated",
+      "generic": [
+        "GenericDisplay",
+        "MSAA",
+        "AF",
+        "presentation_trace"
+      ],
+      "fingerprinted": [
+        "MenuFreezeFix",
+        "WidescreenUI_Centered4x3"
+      ],
+      "exact_profile": [
+        "GameplayFOVCulling",
+        "PreserveMargins_packet_hook",
+        "StockShadow",
+        "VehicleSemantics_ViewDependent2D"
+      ],
+      "known": "known RVA validation first; changed known owner fails; section uniqueness also required",
+      "unknown": "unique section-local anchor, full recovered instruction recipe, decoded control-flow and callee-prefix checks; only affected feature fails",
+      "normalization": "decoded E8 rel32 only; callee executable .text prefix validated; absolute globals and short control flow exact; freeze11/00 documented variant",
+      "normalized_hash_used": false,
+      "base_requirement": "0x00400000 for retained absolute globals",
+      "pristine_file_audit": "freeze/UI supported even through unknown-profile discovery",
+      "unknown_compatible": "native synthetic same owners, unrelated mutations and relocated owner/callee positions PASS",
+      "historical_modified": "MRallye_patched.exe freeze/UI unsupported independently; generic features not disabled",
+      "sources": [
+        "compatibility-fingerprints.md",
+        "fingerprint-recipes.json",
+        "compatibility-audit.json"
+      ]
+    },
+    "tools_created": [
+      "tools/generate_fingerprints.py",
+      "tools/audit_quality_runtime.py",
+      "native compatibility_tests.exe optional read-only file audit (generated ignored binary)"
     ],
-    "exact_profile": [
-      "GameplayFOVCulling",
-      "PreserveMargins_packet_hook",
-      "StockShadow",
-      "VehicleSemantics_ViewDependent2D"
-    ],
-    "known": "known RVA validation first; changed known owner fails; section uniqueness also required",
-    "unknown": "unique section-local anchor, full recovered instruction recipe, decoded control-flow and callee-prefix checks; only affected feature fails",
-    "normalization": "decoded E8 rel32 only; callee executable .text prefix validated; absolute globals and short control flow exact; freeze11/00 documented variant",
-    "normalized_hash_used": false,
-    "base_requirement": "0x00400000 for retained absolute globals",
-    "pristine_file_audit": "freeze/UI supported even through unknown-profile discovery",
-    "unknown_compatible": "native synthetic same owners, unrelated mutations and relocated owner/callee positions PASS",
-    "historical_modified": "MRallye_patched.exe freeze/UI unsupported independently; generic features not disabled",
-    "sources": [
-      "compatibility-fingerprints.md",
-      "fingerprint-recipes.json",
-      "compatibility-audit.json"
-    ]
-  },
-  "tools_created": [
-    "tools/generate_fingerprints.py",
-    "tools/audit_quality_runtime.py",
-    "native compatibility_tests.exe optional read-only file audit (generated ignored binary)"
-  ],
-  "scope": {
-    "preserve_margins_source_changed": false,
-    "msaa_selection_changed": false,
-    "new_lights_shaders_vertex_colors_assets": false,
-    "gamma_distance": "unchanged/deferred",
-    "next_features_started": false
+    "scope": {
+      "preserve_margins_source_changed": false,
+      "msaa_selection_changed": false,
+      "new_lights_shaders_vertex_colors_assets": false,
+      "gamma_distance": "unchanged/deferred",
+      "next_features_started": false
+    }
   }
 }

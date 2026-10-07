@@ -144,7 +144,7 @@ def semantic_report(records):
 def analyze(records):
     header=records[0] if records else {};end=records[-1] if records else {}
     complete=header.get('type')=='frame_begin' and end.get('type')=='frame_end' and end.get('complete') is True and end.get('truncated') is False
-    known=header.get('exe_sha256')==TARGET_SHA and complete
+    known=(header.get('exe_sha256')==TARGET_SHA or header.get('vehicle_semantics_capability') is True) and complete
     families={};groups=defaultdict(lambda:{'draws':0,'triangles':0,'tracks':set(),'dynamic':False,'ambiguous':False,'body_draws':0,'body_env_draws':0,'wheel_draws':0,'world':[]});classifications=Counter();reflections=0
     for d in records:
         if d.get('type')!='draw':continue
@@ -166,7 +166,7 @@ def analyze(records):
             g['wheel_draws']+=fvf==0x112 and env and opaque
     for v in families.values():v['texture_generations']=sorted(v['texture_generations'])
     for v in groups.values():v['tracks']=sorted(t for t in v['tracks'] if t)
-    return {'exact_build_and_complete':known,'header':{k:header.get(k) for k in ('exe_sha256','proxy_sha256','device','frame')},'families':list(families.values()),'transform_groups':list(groups.values()),'constellation_analysis':constellations([g for g in groups.values() if len(g['world'])==16]) if known else [],'classification_counts':dict(classifications),'reflection_modified_draws':reflections,'reflection_validation':reflection_audit(records,known),'vehicle_semantics':'DISCOVERY_AND_LEARNED_RENDER_SEMANTICS' if known and any(r.get('type')=='vehicle_semantic_signature' for r in records) else 'UNPROVEN_UNLESS_SEPARATELY_CORRELATED','semantic_registry':semantic_report(records),'legacy_temporal_status':'UNAVAILABLE' if not any('transform_dynamic' in d for d in records) else 'RECORDED_RUNTIME_TRACKER'}
+    return {'exact_build_and_complete':header.get('exe_sha256')==TARGET_SHA and complete,'vehicle_capability_and_complete':known,'header':{k:header.get(k) for k in ('exe_sha256','proxy_sha256','device','frame')},'families':list(families.values()),'transform_groups':list(groups.values()),'constellation_analysis':constellations([g for g in groups.values() if len(g['world'])==16]) if known else [],'classification_counts':dict(classifications),'reflection_modified_draws':reflections,'reflection_validation':reflection_audit(records,known),'vehicle_semantics':'DISCOVERY_AND_LEARNED_RENDER_SEMANTICS' if known and any(r.get('type')=='vehicle_semantic_signature' for r in records) else 'UNPROVEN_UNLESS_SEPARATELY_CORRELATED','semantic_registry':semantic_report(records),'legacy_temporal_status':'UNAVAILABLE' if not any('transform_dynamic' in d for d in records) else 'RECORDED_RUNTIME_TRACKER'}
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('captures',type=Path,nargs='+');a=ap.parse_args()

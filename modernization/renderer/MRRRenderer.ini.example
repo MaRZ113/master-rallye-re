@@ -4,20 +4,25 @@ ConfigVersion=1
 [Display]
 ; Windowed Width/Height are fixed client pixels; 0/0 pins the first valid game size.
 ; Later Reset/manual resize does not redefine that target. Borderless uses native rcMonitor.
-Mode=Stock
+; 0=Stock, 1=Windowed, 2=Borderless, 3=ExclusiveFullscreen; text names accepted.
+Mode=0
 Width=0
 Height=0
 RefreshRate=0
+; Managed only in Borderless/ExclusiveFullscreen while foreground/inside.
+AutoHideCursor=1
+CursorHideDelayMs=1500
 
 [Widescreen]
-; Stock, Centered4x3, PreserveMargins. Gameplay FOV remains separate.
-InterfaceMode=Stock
+; 0=Stock, 1=Centered4x3, 2=PreserveMargins; text names also accepted.
+; Source45 frontend preview correction is separate from gameplay VFOV.
+InterfaceMode=0
 
 [AntiAliasing]
-; Mode=Stock: Samples is ignored, so Samples=4 alone does NOT enable AA.
+; Mode=0: Samples is ignored, so Samples=4 alone does NOT enable AA.
 ; To enable native AA use Mode=MSAA and Samples=4 (or 2/8).
 ; Supported color+depth sample count <= request; startup logs show the accepted count.
-Mode=Stock
+Mode=0
 Samples=4
 
 [Filtering]
@@ -29,15 +34,17 @@ GameplayFOV=false
 VerticalFOVDegrees=75.0
 
 [Shadows]
-Mode=Stock
+; 0=Stock, 1=Off; text names accepted.
+Mode=0
 
 [Trace]
 Enabled=true
 FrameSummaries=true
 
 [VehicleReflections]
-; Keep Stock for R-GFX5 quality comparisons; ViewDependent2D remains optional.
-Mode=Stock
+; 0=Stock, 1=ViewDependent2D; text names accepted.
+; Keep Stock for quality comparisons; locally validated vehicle proof is required.
+Mode=0
 
 [Compatibility]
 ; Process-memory only: verified unique local owner; modified EXEs may be compatible.

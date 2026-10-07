@@ -15,10 +15,15 @@ HRESULT Device8::stock_ui(const char* reason) noexcept {
  quality_trace();return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
+ if(quality&&quality->window_commit_active())return quality->reset(*parent_->real(),*real_,pp); // An echo is not a resource/scene reset.
  auto guard=trace.guard();const auto args=pack(pp);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(14,args,pc);
+ D3DPRESENT_PARAMETERS requested{};bool requested_known=pp&&safe_copy(&requested,pp,sizeof(requested));uint64_t native_before=quality?quality->native_reset_calls:0;
  game_fov.finish_frame();if(!ui_margins.finish_frame())stock_ui("ui_coordinate_restore_failed");
  HRESULT hr=quality?quality->reset(*parent_->real(),*real_,pp):real_->Reset(pp);
  trace.after(14,args,static_cast<uint32_t>(hr),pc);
+ try{session().write("{\"type\":\"reset_policy\",\"reset_request_source\":\"normal\",\"requested\":"+(requested_known?pp_json(requested):"null")+",\"effective\":"+(quality&&quality->valid?pp_json(quality->effective):"null")+",\"echo_equivalent\":false,\"native_reset_called\":"+(!quality||quality->native_reset_calls>native_before?"true":"false")+",\"native_reset_attempts\":"+std::to_string(quality?quality->native_reset_calls-native_before:1)+",\"result\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
+
+ ui_margins.reset_diagnostics();ui_margins.capture_window(false,trace.frame_number());
  if(SUCCEEDED(hr)&&quality){quality->ui_projection_live=false;ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);quality_trace();}
  return hr;
 }
@@ -29,7 +34,8 @@ HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destin
  if(quality&&quality->valid&&quality->effective.MultiSampleType!=D3DMULTISAMPLE_NONE&&(source||destination||window||dirty)&&!quality->aa_hazard){
   quality->aa_hazard=true;try{session().write("{\"type\":\"msaa_present_hazard\",\"reason\":\"non_null_present_arguments_native_hresult_preserved\"}");}catch(...){}
  }
- HRESULT hr=real_->Present(source,destination,window,dirty);trace.after(15,args,static_cast<uint32_t>(hr),pc);return hr;
+ if(quality)quality->cursor_tick();
+ HRESULT hr=real_->Present(source,destination,window,dirty);trace.after(15,args,static_cast<uint32_t>(hr),pc);ui_margins.capture_window(trace.control.active,trace.frame_number());return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8* input){
  auto guard=trace.guard();auto args=pack(input);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(40,args,pc);

@@ -1,12 +1,10 @@
-# Master Rallye renderer - R-GFX5-2
+# Master Rallye renderer — R-GFX5-3
 
-**READY_FOR_HUMAN_RUNTIME.** R-GFX4 is accepted; prior MSAA4 and pristine MenuFreezeFix are human-confirmed. This continuation fixes display plan/commit ordering, Windowed size ownership and the actual UI projection caller. PreserveMargins implementation and MSAA selection are retained; new visual/display results are pending.
+**READY_FOR_HUMAN_RUNTIME.** Previous human run accepted Borderless/Alt+Tab, native resolution, Centered4x3, AF16/MSAA4 and MenuFreezeFix. This candidate fixes Reset echoes/final shutdown, centers Windowed, adds optional cursor idle hiding and numeric INI, corrects the separate preview camera and moves HUD margins to actual packet consumption. Hardened EXE FOV/vehicle owners validate locally; runtime remains pending.
 
-Repository master-rallye-re-general, branch research/general-re. All graphics changes under modernization; no branch/worktree/push or game disk changes. Display/MSAA/AF are generic; freeze and Centered UI use feature-local owner validation on known or compatible unknown EXEs. Camera/culling, packet margins, shadow and vehicle semantics remain exact-profile gated. See [compatibility](research/r-gfx5/compatibility-fingerprints.md).
+Backdrop coverage is separately **BACKDROP_ASSET_EXTENSION_REQUIRED**: four-bank content identity and replacement seam are documented; side artwork is unchanged. [Findings](research/r-gfx5/findings.md), [display lifecycle](research/r-gfx5/display-pipeline.md), [UI](research/r-gfx5/widescreen-integration.md), [compatibility](research/r-gfx5/compatibility-fingerprints.md), [backdrop](research/r-gfx5/menu-backdrop.md), [handoff A-H](research/r-gfx5/runtime-handoff.md), [validation](research/r-gfx5/validation.md).
 
-[Findings](research/r-gfx5/findings.md), [display/Reset](research/r-gfx5/display-pipeline.md), [reference analysis](research/r-gfx5/third-party-widescreen-analysis.md), [UI](research/r-gfx5/widescreen-integration.md), [MSAA](research/r-gfx5/msaa.md), [freeze](research/r-gfx5/compatibility-freeze.md), [handoff](research/r-gfx5/runtime-handoff.md), [validation](research/r-gfx5/validation.md), [machine summary](research/r-gfx5/runtime-summary.json).
-
-Missing config and example INI keep new features Stock/off. Restart after edits. [stock-plus.ini](research/r-gfx5/stock-plus.ini) is a comparison candidate. Previous AF MIN-only, gameplay VFOV/CPU culling, frontend exclusion, shadows and learned vehicle/native TCI contracts remain passing.
+Repository master-rallye-re-general / research/general-re. Only modernization changed. Default new features stay Stock; restart after INI edits. [Numeric example](MRRRenderer.ini.example), [opt-in stock-plus preset](research/r-gfx5/stock-plus.ini). AF MIN-only, synchronized FOV, shadows, pool Reset, learned vehicle/current material proof and exact draw-local TCI restoration remain covered.
 
 ```powershell
 python modernization/renderer/tools/build.py
@@ -15,4 +13,4 @@ python -m unittest discover -s modernization/renderer/tests -q
 python -m compileall -q modernization
 ```
 
-Run Python capture tests after native suites finish; they verify current executable hashes. Build outputs, synthetic logs and analysis projects are ignored. Human narrow display/UI/combined/task-switching retest A-G is still required. Stop before R-CAM1/F-PHOTO1.
+Python capture checks run after the native build completes; generated binaries/logs are ignored. Await human A-H. Next accepted priority: R-CAM1 -> F-PHOTO1 -> HD UI. None starts in this continuation.

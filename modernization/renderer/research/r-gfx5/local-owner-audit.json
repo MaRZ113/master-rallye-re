@@ -1,0 +1,356 @@
+{
+  "proxy_version": "R-GFX5-3",
+  "arbitrary_modified_build_support": false,
+  "whole_sha_profile_added": false,
+  "audits": [
+    {
+      "file": "D:\\Game\\Master Rallye\\corpora\\retail\\MRallye.exe",
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "size": 3121214,
+      "evidence_grade": "READ_ONLY_FILE_STATIC_OWNER_VALIDATION_NOT_RUNTIME",
+      "capabilities": {
+        "fov": {
+          "feature_id": "GameplayFOVCulling",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "all_required_fixed_layout_owners_globals_and_calls_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": [
+            933328,
+            1306320,
+            992080,
+            1447072,
+            1309152,
+            2437248,
+            1087104
+          ]
+        },
+        "vehicle": {
+          "feature_id": "VehicleSemantics",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "all_required_fixed_layout_owners_globals_and_calls_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": [
+            933328,
+            1306320,
+            992080,
+            1447072,
+            1309152,
+            1534320
+          ]
+        },
+        "preview": {
+          "feature_id": "FrontendPreviewAspectCorrection",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "all_required_fixed_layout_owners_globals_and_calls_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": [
+            933328,
+            1306320,
+            992080,
+            1447072,
+            1309152
+          ]
+        },
+        "margins": {
+          "feature_id": "PreserveMargins",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "all_required_fixed_layout_owners_globals_and_calls_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": [
+            1495312
+          ]
+        },
+        "freeze": {
+          "feature_id": "MenuFreezeFix",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "unique_decoded_owner_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 1,
+          "candidate_rva": 1769820,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        },
+        "ui": {
+          "feature_id": "WidescreenUI",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "unique_decoded_owner_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 1,
+          "candidate_rva": 1449683,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        }
+      },
+      "PE_global_data_layout": [
+        {
+          "rva": 3118300,
+          "va": 7312604,
+          "section": ".data",
+          "read_write_nonexecutable": true
+        },
+        {
+          "rva": 3120368,
+          "va": 7314672,
+          "section": ".data",
+          "read_write_nonexecutable": true
+        }
+      ],
+      "loaded_process_validation": "NOT_EXECUTED; runtime independently validates image sections and camera pointers"
+    },
+    {
+      "file": "D:\\Game\\Master Rallye Pristine\\MRallye-hard.exe",
+      "sha256": "391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819",
+      "size": 3121214,
+      "evidence_grade": "READ_ONLY_FILE_STATIC_OWNER_VALIDATION_NOT_RUNTIME",
+      "capabilities": {
+        "fov": {
+          "feature_id": "GameplayFOVCulling",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "all_required_fixed_layout_owners_globals_and_calls_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": [
+            933328,
+            1306320,
+            992080,
+            1447072,
+            1309152,
+            2437248,
+            1087104
+          ]
+        },
+        "vehicle": {
+          "feature_id": "VehicleSemantics",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "all_required_fixed_layout_owners_globals_and_calls_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": [
+            933328,
+            1306320,
+            992080,
+            1447072,
+            1309152,
+            1534320
+          ]
+        },
+        "preview": {
+          "feature_id": "FrontendPreviewAspectCorrection",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "all_required_fixed_layout_owners_globals_and_calls_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": [
+            933328,
+            1306320,
+            992080,
+            1447072,
+            1309152
+          ]
+        },
+        "margins": {
+          "feature_id": "PreserveMargins",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "all_required_fixed_layout_owners_globals_and_calls_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": [
+            1495312
+          ]
+        },
+        "freeze": {
+          "feature_id": "MenuFreezeFix",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "unique_decoded_owner_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 1,
+          "candidate_rva": 1769820,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        },
+        "ui": {
+          "feature_id": "WidescreenUI",
+          "compatibility_method": "fingerprint",
+          "status": "SUPPORTED",
+          "reason": "unique_decoded_owner_validated",
+          "fast_path_candidate": false,
+          "scan_matches": 1,
+          "candidate_rva": 1449683,
+          "bytes_valid": true,
+          "instruction_shape_valid": true,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        }
+      },
+      "PE_global_data_layout": [
+        {
+          "rva": 3118300,
+          "va": 7312604,
+          "section": ".data",
+          "read_write_nonexecutable": true
+        },
+        {
+          "rva": 3120368,
+          "va": 7314672,
+          "section": ".data",
+          "read_write_nonexecutable": true
+        }
+      ],
+      "loaded_process_validation": "NOT_EXECUTED; runtime independently validates image sections and camera pointers"
+    },
+    {
+      "file": "D:\\Game\\Master Rallye\\MRallye_patched.exe",
+      "sha256": "bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6",
+      "size": 3117118,
+      "evidence_grade": "READ_ONLY_FILE_STATIC_OWNER_VALIDATION_NOT_RUNTIME",
+      "capabilities": {
+        "fov": {
+          "feature_id": "GameplayFOVCulling",
+          "compatibility_method": "unsupported",
+          "status": "UNSUPPORTED",
+          "reason": "CameraManager:fixed_layout_local_owner_or_callee_changed",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 933328,
+          "bytes_valid": false,
+          "instruction_shape_valid": false,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        },
+        "vehicle": {
+          "feature_id": "VehicleSemantics",
+          "compatibility_method": "unsupported",
+          "status": "UNSUPPORTED",
+          "reason": "CameraManager:fixed_layout_local_owner_or_callee_changed",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 933328,
+          "bytes_valid": false,
+          "instruction_shape_valid": false,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        },
+        "preview": {
+          "feature_id": "FrontendPreviewAspectCorrection",
+          "compatibility_method": "unsupported",
+          "status": "UNSUPPORTED",
+          "reason": "CameraManager:fixed_layout_local_owner_or_callee_changed",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 933328,
+          "bytes_valid": false,
+          "instruction_shape_valid": false,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        },
+        "margins": {
+          "feature_id": "PreserveMargins",
+          "compatibility_method": "unsupported",
+          "status": "UNSUPPORTED",
+          "reason": "UiPacketOwner:fixed_layout_local_owner_or_callee_changed",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 1495312,
+          "bytes_valid": false,
+          "instruction_shape_valid": false,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        },
+        "freeze": {
+          "feature_id": "MenuFreezeFix",
+          "compatibility_method": "unsupported",
+          "status": "UNSUPPORTED",
+          "reason": "decoded_control_flow_or_callee_mismatch",
+          "fast_path_candidate": false,
+          "scan_matches": 1,
+          "candidate_rva": 2400700,
+          "bytes_valid": true,
+          "instruction_shape_valid": false,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        },
+        "ui": {
+          "feature_id": "WidescreenUI",
+          "compatibility_method": "unsupported",
+          "status": "UNSUPPORTED",
+          "reason": "owner_not_found",
+          "fast_path_candidate": false,
+          "scan_matches": 0,
+          "candidate_rva": 0,
+          "bytes_valid": false,
+          "instruction_shape_valid": false,
+          "normalized_fingerprint_valid": null,
+          "validated_owner_rvas": []
+        }
+      },
+      "PE_global_data_layout": [
+        {
+          "rva": 3118300,
+          "va": 7312604,
+          "section": ".data",
+          "read_write_nonexecutable": true
+        },
+        {
+          "rva": 3120368,
+          "va": 7314672,
+          "section": ".data",
+          "read_write_nonexecutable": true
+        }
+      ],
+      "loaded_process_validation": "NOT_EXECUTED; runtime independently validates image sections and camera pointers"
+    }
+  ]
+}

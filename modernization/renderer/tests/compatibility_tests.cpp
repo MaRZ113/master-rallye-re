@@ -45,6 +45,14 @@ void fingerprints(){
  auto c2=verify_feature(fixture(freeze_fingerprint()),freeze_fingerprint(),false);CHECK(c2.supported());
  std::cout<<"Unique decoded known/unknown/ambiguous/missing/changed/callee/already owners + UI caller semantics: PASS\n";
 }
+void local_groups(){
+ FeatureFingerprint a;a.id="CameraGlobalOwner";a.fixed_rva=true;a.known_rva=0x1100;a.anchor_size=1;a.bytes={0xa1,0xdc,0x94,0x6f,0,0xc3};a.instructions={{0,5,false,{}},{5,1,false,{}}};auto b=a;b.id="SharedDrawOwner";b.known_rva=0x1180;b.bytes={0xa1,0xf0,0x9c,0x6f,0,0xc3};
+ CodeSection section;section.name=".text";section.rva=0x1000;section.bytes.resize(0x200,0x90);std::memcpy(section.bytes.data()+0x100,a.bytes.data(),a.bytes.size());std::memcpy(section.bytes.data()+0x180,b.bytes.data(),b.bytes.size());std::vector<CodeSection> sections{section};
+ CHECK(verify_owner_group(sections,{a,b},"VehicleSemantics",false).supported());sections[0].bytes[0x10]=0xcc;CHECK(verify_owner_group(sections,{a,b},"VehicleSemantics",false).supported());
+ sections[0].bytes[0x181]^=1;CHECK(!verify_owner_group(sections,{a,b},"VehicleSemantics",false).supported()&&verify_owner_group(sections,{a},"GameplayFOVCulling",false).supported());
+ sections[0].bytes[0x101]^=1;CHECK(!verify_owner_group(sections,{a},"GameplayFOVCulling",true).supported());CHECK(!verify_owner_group(sections,{},"empty",false).supported());
+ auto bad=a;bad.instructions[0].length=4;CHECK(!verify_feature({section},bad,false).supported());
+}
 std::vector<CodeSection> read_sections(const char* path){
  std::ifstream file(path,std::ios::binary);CHECK(file.good());std::vector<unsigned char> data((std::istreambuf_iterator<char>(file)),{});
  CHECK(data.size()>=sizeof(IMAGE_DOS_HEADER));auto* dos=reinterpret_cast<const IMAGE_DOS_HEADER*>(data.data());CHECK(dos->e_magic==IMAGE_DOS_SIGNATURE&&dos->e_lfanew>0);
@@ -57,7 +65,8 @@ std::vector<CodeSection> read_sections(const char* path){
  }return sections;
 }
 int main(int argc,char** argv){try{
- fingerprints();
+ fingerprints();local_groups();
+ if(argc==2){auto sections=read_sections(argv[1]);auto fov=verify_owner_group(sections,fov_owner_recipes(),"GameplayFOVCulling",false),vehicle=verify_owner_group(sections,vehicle_owner_recipes(),"VehicleSemantics",false),preview=verify_owner_group(sections,camera_owner_recipes(),"FrontendPreviewAspectCorrection",false),margins=verify_owner_group(sections,margin_owner_recipes(),"PreserveMargins",false);std::cout<<"{\"fov\":"<<fov.json()<<",\"vehicle\":"<<vehicle.json()<<",\"preview\":"<<preview.json()<<",\"margins\":"<<margins.json()<<"}\n";}
  if(argc==2){auto s=read_sections(argv[1]);std::cout<<"{\"freeze\":"<<verify_feature(s,freeze_fingerprint(),false).json()<<",\"ui\":"<<verify_feature(s,ui_fingerprint(),false).json()<<"}\n";}
  return 0;
  }catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

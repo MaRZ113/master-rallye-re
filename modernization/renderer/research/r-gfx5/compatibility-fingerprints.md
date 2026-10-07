@@ -1,3 +1,24 @@
+# R-GFX5-3 feature-local owner authorization
+
+Whole-image SHA remains provenance, not a global permission switch. No new whole-SHA profile was added. Generic display/AF/MSAA remain generic. Freeze and orthographic UI retain their unique decoded scanned owners. Stock shadow stays exact-profile gated.
+
+FOV/culling, frontend preview, vehicle semantics and packet margins now have conservative **fixed-layout local fingerprints**. The entire required owner bytes, instruction-length recipes and E8 callees are checked, including absolute globals and relative operands. These coupled features require ImageBase 0x00400000 and original owner RVAs; relocated/rebased owners are intentionally unsupported. This is useful for EXEs patched elsewhere, not arbitrary modified-EXE support. Full bytes have no wildcard normalization for these groups.
+
+| Capability | Required owner VAs (RVA = VA - 00400000) |
+|---|---|
+| Camera foundation / frontend preview | 004E3DD0 camera-manager allocation/layout/global 006F94DC; 0053EED0 renderer holder; 004F2350 authored angle; 005614A0 camera view/projection; 0053F9E0 final cached SetTransform return0053FA75 |
+| GameplayFOVCulling | Foundation + complete scheduler00653080 (including submit CALL006532DD and holder006F9CF0) + submit00509680 |
+| VehicleSemantics | Foundation + complete shared-world owner00576970, including DrawIndexedPrimitive return0057707E |
+| PreserveMargins | Complete packet consumer0056D110, including point layout, modes, native draw path |
+
+Loaded-image validation also requires both camera-manager/renderer-holder globals to lie within readable+writable non-executable image sections. Missing/changed component disables the dependent feature only. validated_owner_rvas distinguishes component checks from scanned match counts. Installers still immediately validate their patch-site bytes; unsupported image/camera runtime shapes remain Stock.
+
+FOV retains count/index/pointer/current-camera/rigid/source90 runtime checks before any widening. Vehicle capability only admits the D3D discovery route; four-wheel dynamic/structural proof, learned signature generation lifetime, race context and strict current opaque FVF0x152 env/TCI gate remain required. Wheels0x112, lamps0x102, alpha/glass and unproven static geometry stay Stock. The historical bit1 EXACT_BUILD alias now means VEHICLE_SEMANTICS_CAPABILITY; F10 names it explicitly. Unknown SHA alone never learns vehicles; frame headers record the validated capability for offline analysis.
+
+Read-only file audit of hardened MRallye-hard.exe SHA391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819 passes all seven FOV and six vehicle owners. That is static SUPPORTED, not modified-build runtime acceptance. See owner recipes and current compatibility audit. Pristine remains canonical.
+
+## Historical R-GFX5-2 record (superseded where stated above)
+
 # Feature-local compatibility - R-GFX5-2
 
 The image SHA remains provenance and a known-profile shortcut. An unknown SHA no longer disables D3D-generic features. This is a compatibility change requested by the continuation; the former all-Stock unknown-build assertions have been replaced with generic-enabled / game-owner-fail-closed assertions.

@@ -35,6 +35,7 @@ public:
  DrawClassification before(uint32_t slot,const Args& args,uintptr_t pc) noexcept;
  void reflection_result(const ReflectionOutcome& outcome,uint32_t triangles) noexcept;
  void configure_classifier(bool known,uintptr_t base) noexcept {classifier_known_=known;exe_base_=base;tracker_.reset();if(semantics_)semantics_->clear();race_context_=race_seen_this_frame_=race_history_=false;}
+ uint64_t frame_number() const noexcept {return frame_;}
  size_t learned_signatures() const noexcept {return semantics_?semantics_->size():0;}
  bool race_context() const noexcept {return race_context_;}
  uint64_t classifier_epoch() const noexcept {return tracker_.epoch();}

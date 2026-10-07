@@ -11,7 +11,7 @@ namespace gfx2 {
 namespace {
 struct PolicyFP {fenv_t env;PolicyFP(){fegetenv(&env);}~PolicyFP(){fesetenv(&env);}};
 std::string trim(std::string v){auto a=v.find_first_not_of(" \t\r\n");return a==std::string::npos?"":v.substr(a,v.find_last_not_of(" \t\r\n")-a+1);}
-bool boolean(std::string v,bool& out){v=trim(v);for(char& c:v)c=static_cast<char>(std::tolower(static_cast<unsigned char>(c)));if(v=="true"){out=true;return true;}if(v=="false"){out=false;return true;}return false;}
+bool boolean(std::string v,bool& out){v=trim(v);for(char& c:v)c=static_cast<char>(std::tolower(static_cast<unsigned char>(c)));if(v=="true"||v=="1"){out=true;return true;}if(v=="false"||v=="0"){out=false;return true;}return false;}
 bool number(const std::string& text,double& out){auto v=trim(text);char* end=nullptr;errno=0;out=std::strtod(v.c_str(),&end);return !v.empty()&&end==v.c_str()+v.size()&&!errno&&std::isfinite(out);}
 }
 VisualConfig parse_visual_config(const std::unordered_map<std::string,std::string>& fields,bool found){
@@ -24,21 +24,24 @@ VisualConfig parse_visual_config(const std::unordered_map<std::string,std::strin
  double n=0;if(!number(get("Filtering.MaxAnisotropy","16"),n)||n<1||n>65535||n!=std::floor(n)){c.anisotropy=false;c.af_reason="invalid_max_anisotropy";}else c.max_anisotropy=static_cast<unsigned>(n);
  if(!boolean(get("Camera.GameplayFOV","false"),c.fov)){c.fov=false;c.fov_reason="invalid_boolean";}
  if(!number(get("Camera.VerticalFOVDegrees","75"),n)||n<30||n>110){c.fov=false;c.fov_reason="invalid_vertical_fov";}else c.vfov=static_cast<float>(n);
- auto mode=trim(get("Shadows.Mode","Stock"));if(mode=="Off")c.shadow_off=true;else if(mode!="Stock")c.shadow_reason="invalid_shadow_mode";
- auto reflection=trim(get("VehicleReflections.Mode","Stock"));
+ auto selector=[&](const char* key,std::initializer_list<const char*> names){auto v=trim(get(key,"Stock"));unsigned i=0;for(auto name:names){if(v==std::to_string(i++))return std::string(name);}return v;};
+ auto mode=selector("Shadows.Mode",{"Stock","Off"});if(mode=="Off")c.shadow_off=true;else if(mode!="Stock")c.shadow_reason="invalid_shadow_mode";
+ auto reflection=selector("VehicleReflections.Mode",{"Stock","ViewDependent2D"});
  if(reflection=="Stock"||reflection=="ViewDependent2D")c.reflection_mode=reflection;else c.reflection_reason="invalid_reflection_mode_stock";
- auto display=trim(get("Display.Mode","Stock"));
+ auto display=selector("Display.Mode",{"Stock","Windowed","Borderless","ExclusiveFullscreen"});
  if(display=="Stock"||display=="Windowed"||display=="Borderless"||display=="ExclusiveFullscreen")c.display_mode=display;else c.display_reason="invalid_display_mode_stock";
  auto integer=[&](const char* key,const char* fallback,unsigned limit,unsigned& value){double v=0;if(!number(get(key,fallback),v)||v<0||v>limit||v!=std::floor(v))return false;value=static_cast<unsigned>(v);return true;};
  if(!integer("Display.Width","0",16384,c.width)||!integer("Display.Height","0",16384,c.height)||
     ((c.width==0)!=(c.height==0))||(c.width&& (c.width<320||c.height<200))||!integer("Display.RefreshRate","0",1000,c.refresh)){
   c.display_mode="Stock";c.width=c.height=c.refresh=0;c.display_reason="invalid_display_dimensions_or_refresh_stock";
  }
- auto ui=trim(get("Widescreen.InterfaceMode","Stock"));
+ auto ui=selector("Widescreen.InterfaceMode",{"Stock","Centered4x3","PreserveMargins"});
  if(ui=="Stock"||ui=="Centered4x3"||ui=="PreserveMargins")c.interface_mode=ui;else c.interface_reason="invalid_interface_mode_stock";
- auto aa=trim(get("AntiAliasing.Mode","Stock"));if(aa=="Stock"||aa=="MSAA")c.aa_mode=aa;else c.aa_reason="invalid_aa_mode_stock";
+ auto aa=selector("AntiAliasing.Mode",{"Stock","MSAA"});if(aa=="Stock"||aa=="MSAA")c.aa_mode=aa;else c.aa_reason="invalid_aa_mode_stock";
  if(!integer("AntiAliasing.Samples","4",8,c.samples)||(c.samples!=2&&c.samples!=4&&c.samples!=8)){c.aa_mode="Stock";c.samples=4;c.aa_reason="invalid_samples_stock";}
  if(!boolean(get("Compatibility.MenuFreezeFix","false"),c.menu_freeze)){c.menu_freeze=false;c.freeze_reason="invalid_freeze_boolean_disabled";}
+ if(!boolean(get("Display.AutoHideCursor","1"),c.auto_hide_cursor)){c.auto_hide_cursor=false;c.cursor_reason="invalid_cursor_boolean_disabled";}
+ if(!integer("Display.CursorHideDelayMs","1500",60000,c.cursor_delay_ms)){c.auto_hide_cursor=false;c.cursor_reason="invalid_cursor_delay_disabled";}
  return c;
 }
 VisualConfig read_visual_config(const std::wstring& path){
@@ -47,13 +50,13 @@ VisualConfig read_visual_config(const std::wstring& path){
  if(found){
   struct Key{const wchar_t* section;const wchar_t* key;const char* name;};
   const Key keys[]={{L"Renderer",L"ConfigVersion","Renderer.ConfigVersion"},{L"Filtering",L"AnisotropicFiltering","Filtering.AnisotropicFiltering"},{L"Filtering",L"MaxAnisotropy","Filtering.MaxAnisotropy"},{L"Camera",L"GameplayFOV","Camera.GameplayFOV"},{L"Camera",L"VerticalFOVDegrees","Camera.VerticalFOVDegrees"},{L"Shadows",L"Mode","Shadows.Mode"},{L"VehicleReflections",L"Mode","VehicleReflections.Mode"}};
-  const Key quality_keys[]={{L"Display",L"Mode","Display.Mode"},{L"Display",L"Width","Display.Width"},{L"Display",L"Height","Display.Height"},{L"Display",L"RefreshRate","Display.RefreshRate"},{L"Widescreen",L"InterfaceMode","Widescreen.InterfaceMode"},{L"AntiAliasing",L"Mode","AntiAliasing.Mode"},{L"AntiAliasing",L"Samples","AntiAliasing.Samples"},{L"Compatibility",L"MenuFreezeFix","Compatibility.MenuFreezeFix"}};
+  const Key quality_keys[]={{L"Display",L"AutoHideCursor","Display.AutoHideCursor"},{L"Display",L"CursorHideDelayMs","Display.CursorHideDelayMs"},{L"Display",L"Mode","Display.Mode"},{L"Display",L"Width","Display.Width"},{L"Display",L"Height","Display.Height"},{L"Display",L"RefreshRate","Display.RefreshRate"},{L"Widescreen",L"InterfaceMode","Widescreen.InterfaceMode"},{L"AntiAliasing",L"Mode","AntiAliasing.Mode"},{L"AntiAliasing",L"Samples","AntiAliasing.Samples"},{L"Compatibility",L"MenuFreezeFix","Compatibility.MenuFreezeFix"}};
   auto read=[&](const Key& k){wchar_t b[256];DWORD n=GetPrivateProfileStringW(k.section,k.key,L"__ABSENT__",b,256,path.c_str());if(n>=255)fields[k.name]="__TRUNCATED_INVALID__";else if(wcscmp(b,L"__ABSENT__"))fields[k.name]=utf8(b);};
   for(const auto& k:keys)read(k);for(const auto& k:quality_keys)read(k);
  }
  return parse_visual_config(fields,found);
 }
-std::string config_json(const VisualConfig& c){std::ostringstream o;o<<"{\"config_found\":"<<(c.found?"true":"false")<<",\"ConfigVersion\":"<<(c.version_ok?"1":"null")<<",\"anisotropy\":"<<(c.anisotropy?"true":"false")<<",\"max_anisotropy\":"<<c.max_anisotropy<<",\"gameplay_fov\":"<<(c.fov?"true":"false")<<",\"vfov\":"<<c.vfov<<",\"shadow\":"<<quote(c.shadow_off?"Off":"Stock")<<",\"reason\":"<<quote(c.reason)<<",\"af_reason\":"<<quote(c.af_reason)<<",\"fov_reason\":"<<quote(c.fov_reason)<<",\"shadow_reason\":"<<quote(c.shadow_reason)<<",\"vehicle_reflections\":"<<quote(c.reflection_mode)<<",\"reflection_reason\":"<<quote(c.reflection_reason)<<",\"display_mode\":"<<quote(c.display_mode)<<",\"display_width\":"<<c.width<<",\"display_height\":"<<c.height<<",\"refresh_rate\":"<<c.refresh<<",\"display_reason\":"<<quote(c.display_reason)<<",\"interface_mode\":"<<quote(c.interface_mode)<<",\"interface_reason\":"<<quote(c.interface_reason)<<",\"aa_mode\":"<<quote(c.aa_mode)<<",\"aa_samples\":"<<c.samples<<",\"aa_reason\":"<<quote(c.aa_reason)<<",\"menu_freeze_fix\":"<<(c.menu_freeze?"true":"false")<<",\"freeze_reason\":"<<quote(c.freeze_reason)<<",\"raw_fields\":{";bool first=true;for(const auto& entry:c.raw_fields){if(!first)o<<',';first=false;o<<quote(entry.first)<<':'<<quote(entry.second);}o<<"}}";return o.str();}
+std::string config_json(const VisualConfig& c){std::ostringstream o;o<<"{\"config_found\":"<<(c.found?"true":"false")<<",\"ConfigVersion\":"<<(c.version_ok?"1":"null")<<",\"anisotropy\":"<<(c.anisotropy?"true":"false")<<",\"max_anisotropy\":"<<c.max_anisotropy<<",\"gameplay_fov\":"<<(c.fov?"true":"false")<<",\"vfov\":"<<c.vfov<<",\"shadow\":"<<quote(c.shadow_off?"Off":"Stock")<<",\"reason\":"<<quote(c.reason)<<",\"af_reason\":"<<quote(c.af_reason)<<",\"fov_reason\":"<<quote(c.fov_reason)<<",\"shadow_reason\":"<<quote(c.shadow_reason)<<",\"vehicle_reflections\":"<<quote(c.reflection_mode)<<",\"reflection_reason\":"<<quote(c.reflection_reason)<<",\"display_mode\":"<<quote(c.display_mode)<<",\"auto_hide_cursor\":"<<(c.auto_hide_cursor?"true":"false")<<",\"cursor_hide_delay_ms\":"<<c.cursor_delay_ms<<",\"cursor_reason\":"<<quote(c.cursor_reason)<<",\"display_width\":"<<c.width<<",\"display_height\":"<<c.height<<",\"refresh_rate\":"<<c.refresh<<",\"display_reason\":"<<quote(c.display_reason)<<",\"interface_mode\":"<<quote(c.interface_mode)<<",\"interface_reason\":"<<quote(c.interface_reason)<<",\"aa_mode\":"<<quote(c.aa_mode)<<",\"aa_samples\":"<<c.samples<<",\"aa_reason\":"<<quote(c.aa_reason)<<",\"menu_freeze_fix\":"<<(c.menu_freeze?"true":"false")<<",\"freeze_reason\":"<<quote(c.freeze_reason)<<",\"raw_fields\":{";bool first=true;for(const auto& entry:c.raw_fields){if(!first)o<<',';first=false;o<<quote(entry.first)<<':'<<quote(entry.second);}o<<"}}";return o.str();}
 void VisualPolicy::configure(const VisualConfig& c,bool known,const D3DCAPS8* caps,HRESULT hr){
  requested=c;effective=c;caps_result=hr;
  if(c.reflection_mode=="ViewDependent2D")effective.reflection_reason="requires_live_or_learned_body_proof_current_material";

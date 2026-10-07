@@ -1,0 +1,423 @@
+{
+  "status": "BACKDROP_ASSET_EXTENSION_REQUIRED",
+  "runtime_extension": false,
+  "native_draw_role": "UNKNOWN_UNTIL_RESOURCE_CONTENT_AND_GENERATION_CORRELATED",
+  "candidate_owner_va": "0x0056D110",
+  "candidate_draw_return_rva": "0x0016D7C4",
+  "source": "Retail XML, image-bank references, exact DXT content; shared packet owner from pristine Ghidra",
+  "screens": [
+    {
+      "screen": "MainMenu",
+      "xml_sha256": "96a565f8ded691e5d4df159de41d99c28e2cbb9e7a048e9ab323c28dfcefb227",
+      "backgrounds": [
+        {
+          "role": "UI_MENU_BACKDROP",
+          "resource": "frontend/backgrounds/bg_newmainmenu",
+          "bank_sha256": "e9d1304f5f3a3564d76bfdea6c2271bd383ea9d60652e2c4a676407b8966d1f5",
+          "egg": "Background",
+          "matrix": {
+            "Name": "en2d Matrix",
+            "Type": "Matrix",
+            "Row0": "1.00 0.00 0.00 0.00",
+            "Row1": "0.00 1.00 0.00 0.00",
+            "Row2": "0.00 0.00 1.00 0.00",
+            "Row3": "0.00 0.00 0.00 1.00"
+          },
+          "draw_priority": "6",
+          "tiles": [
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_newmainmenu_000_000.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 3356928417,
+              "sha256": "fbd55dea5564583278fab2780dd18d86daf734c3132e04c884f301ccfff45408",
+              "upload_bgra_sha256": "e041708386f3f534e56c798ecee5bdcf76dd5c28e4cc8ed7cd78c75a6eb6eb44",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_newmainmenu_000_001.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 4288252259,
+              "sha256": "21cb91e4890168ac1a6d142b8ed01898d7fd01d7f82d402447f4487f7e6c217e",
+              "upload_bgra_sha256": "1debc8e3c0856a0fb28b532b6e59df030698a917442558b6e202bca17676cbe1",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_newmainmenu_000_002.dxt",
+              "width": 128,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 718319423,
+              "sha256": "67c187749b71f82a3e75386f97ab7498e85a4a072a62666f6c7daca8d3790bd9",
+              "upload_bgra_sha256": "2067ba1d06e30dff551b5b3a3d02630771aeb4c458de0afd546b4daf71afeb22",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_newmainmenu_000_003.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 1017005572,
+              "sha256": "509ca80e79450235110ceb00f54bc88eb5e88562c927a36a7463a3544188fd19",
+              "upload_bgra_sha256": "ecefa1fcd96f821805f7e81cdf77e3a6962eee067e2cbd5ef42e22f3fc16c27d",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_newmainmenu_000_004.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 1914667213,
+              "sha256": "ef3aa9853b93f95aa575694a20644f12da4f780786e421911a2db6f354b5f30d",
+              "upload_bgra_sha256": "846b30c264cb0865f67631e04a68cb5141baa06bd3a9e4c52412d2681419b3ab",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_newmainmenu_000_005.dxt",
+              "width": 128,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 3159374535,
+              "sha256": "15ecbb03a7d82539d31c380ddbfa46d19c28222d8184acb23b6f16b3c468bbda",
+              "upload_bgra_sha256": "cb351a51745585fa23d92c59b8b65066b2cb3427b006da9d30cb941b074faa35",
+              "alpha_values": [
+                255
+              ]
+            }
+          ],
+          "native_texture_generation_association": "UNKNOWN",
+          "evidence_grade": "CONFIRMED_BY_ASSET_XML_AND_CONTENT"
+        }
+      ]
+    },
+    {
+      "screen": "QuickRace",
+      "xml_sha256": "78237af3e2af4e702699936d21413f19908007a4f643bb72f38cd87639d14d0e",
+      "backgrounds": [
+        {
+          "role": "UI_MENU_BACKDROP",
+          "resource": "frontend/backgrounds/bg_quickrace2",
+          "bank_sha256": "9edbd1405e799f9aba4c6f4d42cfef6fae3dd7ab107ff65c526e8a2a741bc68a",
+          "egg": "Background",
+          "matrix": {
+            "Name": "en2d Matrix",
+            "Type": "Matrix",
+            "Row0": "1.00 0.00 0.00 0.00",
+            "Row1": "0.00 1.00 0.00 0.00",
+            "Row2": "0.00 0.00 1.00 0.00",
+            "Row3": "0.00 0.00 0.00 1.00"
+          },
+          "draw_priority": "6",
+          "tiles": [
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickrace2_000_000.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 987621449,
+              "sha256": "40f3d4092ef701388c3a1446ea16cec684feb4329ea6a884cdd26e96ffcee41c",
+              "upload_bgra_sha256": "0f5961a713feca2b86762311cc30b8eff7b655172902cedd6bf2220184befe24",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickrace2_000_001.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 3735521220,
+              "sha256": "b70e2b247bba7ff2d9025c76a83972fe3e0cb7bc16bd3126a82eed26bf925d79",
+              "upload_bgra_sha256": "e856f5927bde9df93aca8eca2c5657a18c630bcd9ed1a22290eb5d029cd58252",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickrace2_000_002.dxt",
+              "width": 128,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 2490172789,
+              "sha256": "5fa9e38a034d28689a0e029961371711623694f783134422d4b5a725792d19a5",
+              "upload_bgra_sha256": "d704fc22cc56698d975dd30637a96aa02636671450b4699fd30f31b9dc43ec3a",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickrace2_000_003.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 1013751951,
+              "sha256": "b1f9c74550a133553081aee87379cb2683b486d2846b7b494d271243e65082a4",
+              "upload_bgra_sha256": "b4e0ddc0b6bf662cc93317274e9612dfbb22781e41bf794a626ed7cee9017748",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickrace2_000_004.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 138440873,
+              "sha256": "00ed2164a7d93e5ba7262c94d63ff433c0d3196f65f1fc050bac8fe3805b0e50",
+              "upload_bgra_sha256": "a2580c8ccf812e783f8e74e14ad0901c659d60b7f9dbf31c98a28bd573713d13",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickrace2_000_005.dxt",
+              "width": 128,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 2793359774,
+              "sha256": "969f953f2091ddf846a0952dbca9fb0015f696694607a1b4d55f23d7d4090eef",
+              "upload_bgra_sha256": "32e66e079cadcb42ca219ba542085bcd5975e6a11e56b42e73894ec3a040d5a8",
+              "alpha_values": [
+                255
+              ]
+            }
+          ],
+          "native_texture_generation_association": "UNKNOWN",
+          "evidence_grade": "CONFIRMED_BY_ASSET_XML_AND_CONTENT"
+        }
+      ]
+    },
+    {
+      "screen": "QuickModeSelect",
+      "xml_sha256": "85bf47d6fc5e34082b166e3dec704080858eb2c4b7c495ddfb8ee953b14d54b7",
+      "backgrounds": [
+        {
+          "role": "UI_MENU_BACKDROP",
+          "resource": "frontend/backgrounds/bg_quickmodeselect",
+          "bank_sha256": "10174570847e029f900d70b679cd89b4dfe60ecb0cb467bbdffb2455feff25a7",
+          "egg": "Background",
+          "matrix": {
+            "Name": "en2d Matrix",
+            "Type": "Matrix",
+            "Row0": "1.00 0.00 0.00 0.00",
+            "Row1": "0.00 1.00 0.00 0.00",
+            "Row2": "0.00 0.00 1.00 0.00",
+            "Row3": "0.00 0.00 0.00 1.00"
+          },
+          "draw_priority": "6",
+          "tiles": [
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickmodeselect_000_000.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 1028176051,
+              "sha256": "4f8a6c1175b7ee455ce015bf1da87d31162c40e9e73eea0133d1a659e2339ff4",
+              "upload_bgra_sha256": "250b938828a6dc1423961ca2747be54853617ebd4b301683ce69b577a931dfaa",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickmodeselect_000_001.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 37853220,
+              "sha256": "2b40f54d032e07109a38f3a7e0f23e591e418e019d231698d4799f1e3548bee3",
+              "upload_bgra_sha256": "bac8aec922f6c94038110403f9811311ce4567a8f84aa01f6a33718c66edb5d6",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickmodeselect_000_002.dxt",
+              "width": 128,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 663980006,
+              "sha256": "ab667ba64ea51580a0c859ff9702d8b3ad2a0bce44902444906968207abfbedd",
+              "upload_bgra_sha256": "0c9f83995bbe19783223a8c153d401347917d27588a4d0751a790cff4688c74b",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickmodeselect_000_003.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 3894266733,
+              "sha256": "150d941586899402c5d3b6e65afff2858f7d356879ace6d1c66a475f65b58711",
+              "upload_bgra_sha256": "67cd660d36d561be77e5beaee4792ee8819814ebe18346facb590035b93de292",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickmodeselect_000_004.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 4183551157,
+              "sha256": "62ce9ea8b7689503328267d6879f59bfcbf53bad911bf68284c5bf9702de1f8e",
+              "upload_bgra_sha256": "901c371caa861a473412a764d50ae136b9d01db6f5abaac87b26d9b3d0fdf279",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_quickmodeselect_000_005.dxt",
+              "width": 128,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 3468077414,
+              "sha256": "8bf8db206411b0336eb466f267ab8b31b2346a6d68e111c703d178dcb31424a1",
+              "upload_bgra_sha256": "104609e1724ac26c40ba031aa13378f71387070e107d9443c2cf8786becb78e4",
+              "alpha_values": [
+                255
+              ]
+            }
+          ],
+          "native_texture_generation_association": "UNKNOWN",
+          "evidence_grade": "CONFIRMED_BY_ASSET_XML_AND_CONTENT"
+        }
+      ]
+    },
+    {
+      "screen": "RaceResults",
+      "xml_sha256": "3cf61487cd54aa2e5fc03ded9c292f78320f00d0ad7ba39f184fd40daa603818",
+      "backgrounds": [
+        {
+          "role": "UI_MENU_BACKDROP",
+          "resource": "frontend/backgrounds/bg_raceresult",
+          "bank_sha256": "bb5706cd0bd0059d44e942a9918537a77b767f8aca0c2b3830f1aa37b71ed6cb",
+          "egg": "BG",
+          "matrix": {
+            "Name": "en2d Matrix",
+            "Type": "Matrix",
+            "Row0": "1.00 0.00 0.00 0.00",
+            "Row1": "0.00 1.00 0.00 0.00",
+            "Row2": "0.00 0.00 1.00 0.00",
+            "Row3": "0.00 0.00 0.00 1.00"
+          },
+          "draw_priority": "6",
+          "tiles": [
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_raceresult_000_000.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 644312445,
+              "sha256": "c5c73968fd950a6d9bcb79101cd277eda31ea0b3d793a3a8cd8375879289b3cf",
+              "upload_bgra_sha256": "481f784a2faa9763a0f89fe93d87322b95d5ca562b9e9a0781003d75fb096d80",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_raceresult_000_001.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 1037245367,
+              "sha256": "3e38cb2a64f5b187c253475d673fc5a26c18c8e8521d41dc42d486cb99b3c7b7",
+              "upload_bgra_sha256": "329cde6ca2349e1276da05c75af7cb904a379ef0534eeafc79e5eb3fa341dc74",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_raceresult_000_002.dxt",
+              "width": 128,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 3711594988,
+              "sha256": "4e6e4419162d4f24d6ffd83cdf554ed06d637290a7231750520f1cd059a43560",
+              "upload_bgra_sha256": "cab67fd57c571166e8612e2b68987429e1ad6927016ad23d558e8cb99fc3e807",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_raceresult_000_003.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 34614636,
+              "sha256": "9821b72601f8c34f0c6d4e8f4b8e3e7cda8bc9e8ba491e8c6c10a11d7a0763e6",
+              "upload_bgra_sha256": "98e4a9e9a205b795caba16e883f787cfab8371c38cc2b2e64925e249bd734152",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_raceresult_000_004.dxt",
+              "width": 256,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 3907757381,
+              "sha256": "ad3abc7c0992912ee7b1847993c1eddd27d5395c11120c8fcc7de3bfdd32f365",
+              "upload_bgra_sha256": "2484f2678843fd2581bf1d0397becf4ef1f11888f2af7e58cd974b8b32a15442",
+              "alpha_values": [
+                255
+              ]
+            },
+            {
+              "resource": "DataGx/frontend/backgrounds/bg_raceresult_000_005.dxt",
+              "width": 128,
+              "height": 256,
+              "version": 1,
+              "opaque_word": 4181855141,
+              "sha256": "8e2d75d921ae584ef4216097fcf98ec1ff23f17d17a8a474f57365cfbec904be",
+              "upload_bgra_sha256": "a8f1a71d88a2e0e1051059f356bb9078b93691edc0eccecdc802f50704137609",
+              "alpha_values": [
+                255
+              ]
+            }
+          ],
+          "native_texture_generation_association": "UNKNOWN",
+          "evidence_grade": "CONFIRMED_BY_ASSET_XML_AND_CONTENT"
+        }
+      ]
+    }
+  ],
+  "replacement_contract": {
+    "canvas": [
+      -106.66666666666663,
+      0,
+      746.6666666666666,
+      480
+    ],
+    "central_art": [
+      0,
+      0,
+      640,
+      480
+    ],
+    "central_scale": [
+      1,
+      1
+    ],
+    "requires_extension": true
+  },
+  "constraints": [
+    "No horizontal stretch of central art",
+    "No clipping of buttons or decorations",
+    "No runtime texture writes in this pass",
+    "No role promotion from draw order alone"
+  ]
+}

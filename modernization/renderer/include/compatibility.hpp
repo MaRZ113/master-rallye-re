@@ -9,12 +9,13 @@ struct FingerprintInstruction {uint16_t offset,length;bool relative_call=false;s
 struct FeatureFingerprint {
  std::string id,section=".text";uint32_t known_rva=0,target_offset=0;
  std::vector<unsigned char> bytes;std::vector<FingerprintInstruction> instructions;
- size_t anchor_size=0;bool freeze_branch=false;
+ size_t anchor_size=0;bool freeze_branch=false,fixed_rva=false;
 };
 struct CodeSection {std::string name;uint32_t rva=0;std::vector<unsigned char> bytes;};
 struct FeatureCapability {
  std::string id,method="unsupported",status="UNSUPPORTED",reason="owner_not_found";
  uint32_t candidate_rva=0;unsigned matches=0;bool fast_path=false,bytes_valid=false,instructions_valid=false;
+ std::vector<uint32_t> validated_owner_rvas;
  bool supported() const noexcept {return status=="SUPPORTED"||status=="ALREADY_PATCHED";}
  std::string json() const;
 };
@@ -22,9 +23,14 @@ FeatureFingerprint freeze_fingerprint();
 FeatureFingerprint ui_fingerprint();
 FeatureCapability verify_feature(const std::vector<CodeSection>&,const FeatureFingerprint&,bool known);
 struct Compatibility {
- FeatureCapability freeze,ui,margins,fov,shadow,vehicle;
+ FeatureCapability freeze,ui,margins,fov,shadow,vehicle,preview;
  std::string json(const std::string& sha,bool known) const;
 };
+std::vector<FeatureFingerprint> camera_owner_recipes();
+std::vector<FeatureFingerprint> fov_owner_recipes();
+std::vector<FeatureFingerprint> vehicle_owner_recipes();
+std::vector<FeatureFingerprint> margin_owner_recipes();
+FeatureCapability verify_owner_group(const std::vector<CodeSection>&,const std::vector<FeatureFingerprint>&,const char*,bool known);
 Compatibility inspect_compatibility(bool known) noexcept;
 bool ui_owner(const FeatureCapability&,bool exe,uint32_t return_rva) noexcept;
 }

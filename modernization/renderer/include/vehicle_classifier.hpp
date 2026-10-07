@@ -60,7 +60,7 @@ struct DrawClassification {
  uint32_t reasons=0,fvf=0;bool alpha_blended=false;
  uint64_t semantic_id=0;VehicleSemanticSource semantic_source=VehicleSemanticSource::None;
 };
-enum ClassificationReason : uint32_t {EXACT_BUILD=1,RACE_PROJECTION=2,SHARED_OWNER=4,
+enum ClassificationReason : uint32_t {VEHICLE_SEMANTICS_CAPABILITY=1,EXACT_BUILD=VEHICLE_SEMANTICS_CAPABILITY,RACE_PROJECTION=2,SHARED_OWNER=4,
  KNOWN_GEOMETRY=8,RIGID_WORLD=16,NORMAL_FVF=32,ENV_STAGE=64,CL_OPAQUE=128};
 uint64_t geometry_signature(const Shadow& s,const ResourceRegistry& resources,const Args& args,uint32_t rva) noexcept;
 uint64_t geometry_resource_family(const Shadow&,const ResourceRegistry&) noexcept;
