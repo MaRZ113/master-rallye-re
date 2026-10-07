@@ -8,17 +8,18 @@ CONFIRMED_BY_RUNTIME** for the tested paths. The XmlData NULL guard remains
 statically verified without isolated runtime attribution.
 **H.1 natural Quick Race T1 ID26 pool and fixed Results label:
 CONFIRMED_BY_RUNTIME.**
-**H.2 Rallye Cup/Invitation/Master Rallye T1 pool extension:
-STATICALLY VERIFIED / READY_FOR_HUMAN_RUNTIME.**
+**R5V-H mode-aware ID26 AI eligibility: FULL PASS / CLOSED.**
 
 R5V-H first proved that an existing AI participant can materialize physical
 ID26 without changing the player's vehicle or race count. H.0.1 then closed its
 tested Results display and NULL StringList Dump paths. H.1 subsequently proved
 natural Quick Race T1 selection of ID26 and its fixed display-only Results
 identity while preserving native DriverID selection and participant count.
-H.2 adds ID26 to separately owned dynamic Cup/Invitation and new Master Rallye
-T1 rosters; those modes still await human runtime validation with the H.2
-candidate.
+H.2 adds ID26 to separately owned dynamic Cup/Invitation T1 and new Master
+Rallye T1 roster owners. Runtime validation confirms natural ID26 selection in
+a new Rallye Cup and new Master Rallye competition, Cup stage roster reuse,
+and Master Rallye native save/fresh-process resume with the exact roster
+restored. Invitation's tested path is T3-only; T1 ID26 is `NOT_APPLICABLE`.
 
 ## Stock Quick Race pool
 
@@ -100,9 +101,10 @@ packages passed deterministic build and on-disk verification. The tested
 forced profile confirmed its Results name and post-Results Dump survival. The
 natural H.1 candidate and package pass static/on-disk verification, and
 natural ID26 selection plus the fixed Results label are runtime-confirmed.
-H.2 deterministic candidate/package verification passes; Cup/Invitation/Master
-new-roster inclusion and native persistence remain pending human runtime
-validation.
+H.2 deterministic candidate/package verification passes; Cup and Master
+Rallye inclusion and native persistence are now runtime-confirmed. Invitation
+uses a T3-only ordinary pool in the tested route, so T1 ID26 there is
+`NOT_APPLICABLE`.
 
 ## Unlock and audio axes
 
@@ -111,7 +113,9 @@ Player unlock policy and AI pool membership are distinct except where retail
 explicitly couples particular progress flags to pool entries. G.1 keeps the
 ID26 player unlock behavior independent. G.2's sound constructor reads
 physical `Race/CarN/CarID` and maps ID26 to stock audio profile 0 without
-changing physical identity.
+changing physical identity. Future ordinary/non-bonus T3 addon inclusion in
+Invitation requires explicit qualification; bonus/special T3 vehicles are
+not eligible there automatically.
 
 ## Evidence boundary
 
@@ -120,12 +124,13 @@ changing physical identity.
   group-`0x39` Results-name producer, and exact H.0.1 patch layout.
 * `CONFIRMED_BY_RUNTIME`: the bounded forced Car1=ID26 actor/materialization,
   H.0.1 Results identity and post-Results Dump survival; H.1 natural Quick
-  Race ID26 selection while the player remained locked; and the fixed Strugo
-  Results display in the completed H.1 race.
+  Race ID26 selection while the player remained locked; the fixed Strugo
+  Results display; and H.2 new Rallye Cup/Master Rallye ID26 eligibility with
+  native roster persistence as detailed in `runtime-results.md`.
 * `HUMAN_RUNTIME_OBSERVATION`: the original H.0 `GALOCAL UNKNOWN` Results
   symptom, superseded for H.1 by the corrected fixed display identity.
-* `READY_FOR_HUMAN_RUNTIME`: H.2 mode-specific dynamic T1 pool inclusion and
-  roster persistence in Rallye Cup, Invitation, and Master Rallye.
+* `NOT_APPLICABLE`: T1 ID26 in the normal tested Invitation route, which is
+  T3-only and uses ordinary/base T3 IDs 14..20.
 * `UNKNOWN`: isolated XmlData NULL-guard runtime behavior and the exact legacy
   Loading->Attract trigger correction.
 * `NOT STARTED`: ID27, T2 expansion, ordering, audio architecture changes,

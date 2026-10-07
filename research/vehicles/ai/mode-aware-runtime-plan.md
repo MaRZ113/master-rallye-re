@@ -1,5 +1,10 @@
 # R5V-H.2 human runtime handoff
 
+This procedure has been completed. R5V-H is now **FULL PASS / CLOSED**; this
+page is retained as test provenance and is no longer a pending human handoff.
+Capture values and integrity checks are in
+[runtime-results.md](runtime-results.md).
+
 ## Exact candidate and prelaunch check
 
 Use the staged H.2 package only:

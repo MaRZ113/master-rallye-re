@@ -21,7 +21,7 @@
       "h2_t1_pool": [0, 1, 2, 3, 4, 5, 6, 26],
       "hook_va": "0x0045AD14",
       "append_stub_va": "0x0068E7A0",
-      "status": "READY_FOR_HUMAN_RUNTIME"
+      "status": "CONFIRMED_BY_RUNTIME"
     },
     "invitation": {
       "race_type": 8,
@@ -31,8 +31,9 @@
       "h2_t1_pool": [0, 1, 2, 3, 4, 5, 6, 26],
       "hook_va": "0x0045AD14",
       "append_stub_va": "0x0068E7A0",
-      "persistence_evidence": "HISTORICAL_PARALLEL_BRANCH_RUNTIME_ORACLE",
-      "status": "READY_FOR_HUMAN_RUNTIME"
+      "normal_tested_route": "T3-only; ordinary/base T3 IDs 14..20",
+      "t1_id26_status": "NOT_APPLICABLE",
+      "status": "T1_ARM_NOT_REACHED_BY_TESTED_INVITATION_ROUTE"
     },
     "master_rallye": {
       "race_type": 5,
@@ -46,7 +47,7 @@
       "h2_t1_pool": [0, 1, 2, 3, 4, 5, 6, 26],
       "hook_va": "0x00451ED9",
       "append_stub_va": "0x0068E7C0",
-      "status": "READY_FOR_HUMAN_RUNTIME"
+      "status": "CONFIRMED_BY_RUNTIME"
     }
   },
   "preserved_semantics": {
@@ -67,8 +68,9 @@
   },
   "runtime_status": {
     "quickrace_h1": "CONFIRMED_BY_RUNTIME",
-    "cup_h2": "PENDING_HUMAN_RUNTIME",
-    "invitation_h2": "PENDING_HUMAN_RUNTIME",
-    "master_rallye_h2": "PENDING_HUMAN_RUNTIME"
+    "cup_h2": "CONFIRMED_BY_RUNTIME",
+    "invitation_t1_id26": "NOT_APPLICABLE",
+    "master_rallye_h2": "CONFIRMED_BY_RUNTIME",
+    "r5v_h": "FULL_PASS_CLOSED"
   }
 }

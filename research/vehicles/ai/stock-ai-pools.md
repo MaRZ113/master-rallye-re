@@ -14,12 +14,14 @@ does not call the G.1 sparse T1 local-to-physical mapper.
 | 4 / alias | same arm as code 2 | shared switch arm | same as code 2 |
 
 ID25 is absent from the stock T3 list. ID26 is absent from the stock T1 list
-in retail. H.1 now appends it explicitly to Quick Race's native T1 pool and
-is `CONFIRMED_BY_RUNTIME` for the supplied natural Quick Race result. H.2
-extends the T1 source at the distinct dynamic Rallye Cup/Invitation and new
-Master Rallye roster owners; those paths are
-`READY_FOR_HUMAN_RUNTIME`, not yet runtime-confirmed. The machine-readable
-form is [stock-ai-pools.json](stock-ai-pools.json).
+in retail. H.1 appends it explicitly to Quick Race's native T1 pool and is
+`CONFIRMED_BY_RUNTIME` for the supplied natural Quick Race result. H.2 extends
+the T1 source at dynamic Rallye Cup and new Master Rallye roster owners; both
+are `CONFIRMED_BY_RUNTIME`, including their respective native persistence
+boundaries. Invitation shares the Cup helper but the tested normal mode is
+T3-only and uses ordinary/base T3 IDs 14..20, so T1 ID26 there is
+`NOT_APPLICABLE`. The machine-readable form is
+[stock-ai-pools.json](stock-ai-pools.json).
 
 ## Selection behavior
 

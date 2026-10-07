@@ -101,7 +101,9 @@ or randomizer. This is package verification, not race-runtime proof.
   `JEAN-PIERRE STRUGO` name: `CONFIRMED_BY_RUNTIME`. The four raw sidecar hashes
   and capture details are in [runtime-results.md](runtime-results.md).
 * H.2 Cup, Invitation, and Master Rallye T1 eligibility is prepared at their
-  native generation owners and remains `READY_FOR_HUMAN_RUNTIME`; see
+native generation owners and is now runtime-confirmed for Rallye Cup and Master
+Rallye; Invitation's tested route is T3-only, making T1 ID26
+`NOT_APPLICABLE`; see
   [mode-aware-t1-eligibility.md](mode-aware-t1-eligibility.md).
 * Further participant counts and any selection-probability claim remain
   `UNKNOWN` / out of scope.

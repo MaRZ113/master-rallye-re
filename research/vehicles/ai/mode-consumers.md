@@ -10,9 +10,9 @@ labels below apply only to the captures named in
 | Mode | Roster classification / owner | ID26 status | Evidence boundary |
 |---|---|---|---|
 | Quick Race | Dynamic class pool: `FUN_0047B780 -> FUN_00458090` | Natural T1 membership in H.1 | H.1 `CONFIRMED_BY_RUNTIME`; H.2 preserves it |
-| Rallye Cup | Dynamic at new cup/event setup: `FUN_0045BE10 -> FUN_0045ABC0` | H.2 extends the native T1 candidate source | `CONFIRMED_BY_EXE`; H.2 `READY_FOR_HUMAN_RUNTIME` |
-| Invitation | Dynamic at event setup through the same `FUN_0045BE10 -> FUN_0045ABC0` path, selected by RaceType 8 dispatch | H.2 extends the shared T1 source | `CONFIRMED_BY_EXE`; persistence is a historical parallel-branch runtime oracle |
-| Master Rallye | Dynamic at new competition creation: `FUN_00452590 -> FUN_00451DD0` | H.2 extends only the new T1 roster source | `CONFIRMED_BY_EXE`; H.2 `READY_FOR_HUMAN_RUNTIME` |
+| Rallye Cup | Dynamic at new cup/event setup: `FUN_0045BE10 -> FUN_0045ABC0` | ID26 is possible in the new T1 roster; later stages reuse it | ID26 inclusion and stage reuse `CONFIRMED_BY_RUNTIME` |
+| Invitation | Shared setup path, but the tested normal route is T3-only and uses ordinary/base T3 IDs 14..20 | H.2 extends a shared T1 arm that this route does not reach | T1 ID26 `NOT_APPLICABLE`; ordinary T3-addon eligibility requires explicit future qualification |
+| Master Rallye | Dynamic at new competition creation: `FUN_00452590 -> FUN_00451DD0` | ID26 is possible in a new T1 roster; native competition state stores it | ID26 inclusion and fresh-process native save/load restore `CONFIRMED_BY_RUNTIME` |
 | Challenge | Authored/event-specific setup; not the generic dynamic pool path | Not auto-injected | Historical runtime/static event evidence; H.2 does not touch it |
 | Practice | No distinct stock Practice opponent mode/AI roster owner found in the audited frontend and setup dispatch | Not applicable to a separate Practice pool | Bounded `CONFIRMED_BY_EXE` search; does not claim every informal practice variant is absent |
 
@@ -37,8 +37,12 @@ required native persistence behavior, not a missed upgrade.
 
 The code patch and deterministic candidate metadata are documented in
 [mode-aware-t1-eligibility.md](mode-aware-t1-eligibility.md). Current-branch
-runtime validation is pending in the exact procedure in
-[mode-aware-runtime-plan.md](mode-aware-runtime-plan.md). Historical Rallye
-Cup, Invitation, and Master Rallye persistence observations from the separate
-general-RE branch remain `HISTORICAL_PARALLEL_BRANCH / RUNTIME ORACLE`, not
-H.2 runtime evidence.
+runtime evidence for this candidate is now recorded in
+[runtime-results.md](runtime-results.md). The nine JSON/raw pairs identify the
+same H.2 executable and all raw sidecar hashes were verified against actual
+bytes.
+
+Invitation is not an H.2 T1 inclusion failure: its observed RaceType 8 route
+is T3-only, with ordinary/base pool IDs 14..20. A future non-bonus T3 addon
+must qualify for that Invitation pool explicitly; bonus/special T3 addons are
+not inserted based on class alone.

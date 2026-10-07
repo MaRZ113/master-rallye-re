@@ -1,5 +1,19 @@
 # AI vehicle identity architecture
 
+## Current status
+
+R5V-H is **FULL PASS / CLOSED** for physical ID26. H.1 natural Quick Race
+eligibility and H.2 Rallye Cup / Master Rallye eligibility are
+`CONFIRMED_BY_RUNTIME`; Cup stage roster reuse and Master Rallye native
+fresh-process save/load persistence are confirmed. The normal tested
+Invitation route is T3-only (ordinary/base IDs 14..20), so T1 ID26 there is
+`NOT_APPLICABLE`. See [runtime evidence](runtime-results.md).
+
+For later addon architecture, T3 class membership alone must not imply
+Invitation eligibility: ordinary/non-bonus T3 addons require explicit pool
+qualification, while bonus/special T3 addons must not be inserted there
+automatically.
+
 ## Quick Race setup path
 
 1. `FUN_0047B780` publishes the player's selected absolute ID from

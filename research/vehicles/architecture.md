@@ -56,3 +56,13 @@ T1-local7 mapping to ID26 is not used there. A gated proof candidate changes
 only the selected Car1 absolute ID after driver selection, allowing native
 registry code to derive T1 `CarClass` from physical ID26. See
 [R5V-H architecture](ai/architecture.md) and [pool map](ai/stock-ai-pools.md).
+
+R5V-H is now **FULL PASS / CLOSED** for physical ID26: natural Quick Race,
+new Rallye Cup, and new Master Rallye T1 eligibility are runtime-confirmed;
+Cup stage reuse and Master Rallye native fresh-process save/load persistence
+are also confirmed. Invitation's normal route is T3-only and uses ordinary
+base IDs 14..20, so T1 ID26 is not applicable there. This establishes a future
+addon-design requirement: ordinary/non-bonus T3 vehicles need explicit
+Invitation pool qualification, while bonus/special T3 vehicles must not be
+inserted automatically. This note is carried forward for R5V-I/J and does not
+start those phases.

@@ -180,12 +180,57 @@ H.1 final verification:
 These checks established candidate/package/static correctness at the time.
 That pre-H.1-runtime status is superseded by the H.1 runtime closeout below.
 
-## H.1 and H.2 status correction — 2026-10-07
+## H.1 and H.2 pre-closeout status correction — 2026-10-07 (superseded)
 
 H.1 natural Quick Race ID26 selection and fixed Results display are now
 `CONFIRMED_BY_RUNTIME`; the captures, raw hashes, roster, player unlock state,
 and Rank 2 name are recorded in [runtime-results.md](runtime-results.md).
 H.2 is a separate static candidate for Cup/Invitation and new Master Rallye
 T1 pool generation. Its deterministic candidate and package verification pass,
-but these mode-specific inclusion and persistence results remain
-`READY_FOR_HUMAN_RUNTIME`.
+and the mode-specific inclusion/persistence results were then
+`READY_FOR_HUMAN_RUNTIME`. This handoff status is superseded by the H.2 runtime
+closeout below.
+
+## R5V-H.2 runtime closeout — 2026-10-07
+
+The nine Observatory 0.2.2-beta JSON/raw pairs listed in
+[runtime-results.md](runtime-results.md) were checked against actual bytes.
+Every raw sidecar SHA256 equals its JSON `source.raw_sha256`, and every capture
+identifies the exact candidate SHA256
+`de5e81c0b126619574834f25ac941cd491139235fd2f89086d8e125f063dcac9`.
+
+Runtime closes H.2 as **FULL PASS / CLOSED**. A newly generated Rallye Cup
+contains AI Car2 physical ID26 and preserves the same IDs/classes/DriverIDs
+through the captured later stages and Cup Results. A newly generated Master
+Rallye stores ID26/DriverID4 in `MasterRallye/Car2`; after process 46152 ended,
+fresh process 19008 resumed the competition with that exact roster identity.
+The supplied human report says the Cup and Master Rallye gameplay completed
+normally. Results use `JEAN-PIERRE STRUGO` for ID26 without changing native
+DriverID selection.
+
+The Invitation capture is a T3-only control (RaceType 8): player ID17 and AI
+IDs 14, 15, and 20 are all T3. Since the H.2 patch extends only the shared
+Cup/Invitation T1 pool arm, T1 ID26 in normal Invitation is `NOT_APPLICABLE`,
+not a failed draw. Invitation uses the ordinary/base T3 family 14..20; future
+ordinary/non-bonus T3 addons require explicit Invitation qualification, while
+bonus/special T3 addons must remain excluded unless deliberately qualified.
+
+## R5V-H final validation
+
+The prior H.2 `READY_FOR_HUMAN_RUNTIME` label above records the handoff state
+only and is superseded by this runtime closeout. No code or candidate was
+modified during closeout. Final checks after the documentation update:
+
+* `PYTHONPATH=src python -m unittest discover -s tests/synthetic -v`:
+  **350 passed, 0 failed, 0 skipped**.
+* `python -m compileall src tools tests`: **passed**.
+* `git diff --check`: **passed**.
+* H.2 candidate builder `--verify-existing`: **passed**, candidate SHA256
+  `de5e81c0b126619574834f25ac941cd491139235fd2f89086d8e125f063dcac9`.
+* Strict verification of the human-used runtime package refused its two
+  generated PlayerState files; those files were preserved. A clean package was
+  staged from the pinned source and candidate under ignored `.research-output`
+  and verified: **PASS**, 145 files, correct scene SHA, no PlayerState,
+  randomizer, or forced-proof hook.
+* All nine runtime JSON/raw pairs: candidate hashes and raw sidecar SHA256
+  values **matched** actual files.

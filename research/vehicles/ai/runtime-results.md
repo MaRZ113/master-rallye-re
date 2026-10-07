@@ -211,7 +211,7 @@ their mode identity and illustrate that H.1's Quick-Race-only hook does not
 change their rosters; they are not evidence against H.2 and are not inclusion
 tests.
 
-## H.2 mode-aware candidate — static ready; human runtime pending
+## H.2 mode-aware candidate — original pre-runtime handoff (superseded)
 
 H.2's current-branch trace found distinct native generation owners for Cup /
 Invitation and new Master Rallye competitions. The candidate extends only
@@ -222,3 +222,93 @@ and [mode-aware-runtime-plan.md](mode-aware-runtime-plan.md). The H.2 package
 passes deterministic build and on-disk staging verification, but ID26
 inclusion and persistence with that candidate have not been observed in a
 human runtime session.
+
+## H.2 mode-aware runtime closeout — 2026-10-07
+
+The nine supplied Observatory 0.2.2-beta captures identify the same exact
+candidate executable SHA256
+`de5e81c0b126619574834f25ac941cd491139235fd2f89086d8e125f063dcac9`
+(3,121,214 bytes; profile `mode-aware-natural-t1-id26`). Each JSON's
+`source.raw_sha256` was recomputed from the corresponding `.dump.bin` bytes and
+matched. No raw captures are committed.
+
+| Capture label | Raw sidecar SHA256 | Verified runtime result |
+|---|---|---|
+| `h2-rallyecup-id26-stage1` | `46f5884dbb4d92a3d528df8d49ff16ea6d20112cd52352a790e7773fbbd12393` | RaceType 6; four-car T1 roster; ID26 Mercedes AI at Car2 |
+| `h2-rallyecup-id26-stageresults` | `431639f9427479ded72a5df1ab42231809ba141460bdde63b6a39c51fba18a04` | Same physical IDs/classes/DriverIDs; Results NameList includes Strugo |
+| `h2-rallyecup-id26-stage3` | `0c7379ce473be32c8b22ef1201a275f90db9bde2f9a291b0898097290543873a` | Same physical IDs/classes/DriverIDs; ID26 remains Mercedes at Car2 |
+| `h2-rallyecup-id26-cupresults` | `81d5be7ba3250b204bba5619dc585f1dec9258c370c434ca2f074f7a737525e0` | Same roster through Cup Results; NameList includes Strugo |
+| `h2-master-id26-new` | `498125c742b69f228d3255ddd12d7a4c4e2ddfe47c6047a932f9d38b92d1f2dd` | PID 46152; RaceType 5; native MasterRallye and active Race roster contain ID26 at Car2 |
+| `h2-master-id26-results` | `0033d66e1070e49d616a483455d5b8c2b923cb2d006d149a0dd8327332ef8fbf` | Same MasterRallye roster; ID26 Results display is Strugo |
+| `h2-master-id26-finalresults` | `6233e115d112c438e29bb545d92be8dd7c71caef3a350d245375fcebec0749fe` | Same native roster through final Results; ID26 Results display is Strugo |
+| `h2-master-id26-resume` | `45dcdb71cb5d037c6e614944e9aea7387bfbb4dbc8ac8af9a69d1c089705de09` | PID 19008; fresh-process resume restores exact MasterRallye roster and active Race CarIDs/DriverIDs |
+| `invitation` | `5e91daa8ef9337aa4b49ea6b68efb92fdc638325e34cf4de050e415e220cf7d8` | PID 19008; RaceType 8; player and all AI are T3, IDs 17/14/15/20 |
+
+### Rallye Cup
+
+The stage-one active race reports `Race/Type=6`, `Race/NumCars=4`, and
+`Race/NumPlayers=1`. Its roster is:
+
+| Slot | CarID | CarClass | DriverID | PlayerType | Runtime family |
+|---|---:|---:|---:|---:|---|
+| Car0 | 2 | 0 / T1 | 30 | 1 / human | Tata |
+| Car1 | 0 | 0 / T1 | 0 | 2 / AI | Landcruiser |
+| Car2 | 26 | 0 / T1 | 3 | 2 / AI | Mercedes |
+| Car3 | 6 | 0 / T1 | 2 | 2 / AI | Frontera |
+
+The same IDs, classes, and DriverIDs appear in the later stage and Cup-result
+captures. Car2 retains `CarType=Mercedes` and `WheelType=Mercedes`. Human
+runtime reports normal Cup gameplay without issues. This proves natural
+Rallye Cup ID26 T1 eligibility and native roster reuse across the tested Cup
+stages: **CONFIRMED_BY_RUNTIME**. The extension is applied only at native new
+roster generation; no per-stage reroll was added.
+
+### Master Rallye
+
+The new competition capture reports PID 46152 and this native roster in both
+`MasterRallye/CarN` storage and active `Race/CarN` state:
+
+| Slot | CarID | CarClass | DriverID | PlayerType | Runtime family |
+|---|---:|---:|---:|---:|---|
+| Car0 | 0 | 0 / T1 | 30 | 1 / human | Landcruiser |
+| Car1 | 5 | 0 / T1 | 2 | 2 / AI | Xtrail |
+| Car2 | 26 | 0 / T1 | 4 | 2 / AI | Mercedes |
+| Car3 | 1 | 0 / T1 | 5 | 2 / AI | Pajero |
+
+The two Results captures retain the same native roster. After the original
+process ended, fresh process PID 19008 resumed the competition; the capture
+again reports `MasterRallye/Car0..3` IDs `0,5,26,1` and DriverIDs `30,2,4,5`,
+with active Race Car2 physical ID26 and native DriverID4. Thus natural
+Master Rallye eligibility, native roster storage, and
+save -> process exit -> fresh process -> load restoration are
+**CONFIRMED_BY_RUNTIME**. No sidecar is required. The fixed ID26 Results
+display name is `JEAN-PIERRE STRUGO`; native AI DriverID remains 4 and is not
+bound to that display label.
+
+### Invitation classification and H closeout
+
+The Invitation capture is a control, not an ID26 failure: `Race/Type=8`,
+player Car0 ID17 Kangoo class 2/T3, and AI IDs 14 Wildcat, 15 Simmbugghini,
+and 20 Bruno, all class 2/T3. The observed normal mode is T3-only and consumes
+the ordinary/base T3 family IDs 14..20. H.2 extends only the shared chooser's
+T1 arm, which this route does not reach. Therefore Invitation T1 ID26 is
+`NOT_APPLICABLE`, not `NOT_FOUND` or an RNG failure. A future ordinary,
+non-bonus T3 addon must explicitly qualify for Invitation; bonus/special T3
+addons are not included automatically.
+
+The mode matrix is now:
+
+| Mode | Classification | ID26 result |
+|---|---|---|
+| Quick Race | Dynamic class pool | Natural T1 inclusion `CONFIRMED_BY_RUNTIME` (H.1) |
+| Rallye Cup | Dynamic, generated for a new Cup | Natural T1 inclusion and stage reuse `CONFIRMED_BY_RUNTIME` |
+| Master Rallye | Dynamic, generated for a new competition | Natural T1 inclusion and native fresh-process persistence `CONFIRMED_BY_RUNTIME` |
+| Invitation | Normal tested path is T3-only; ordinary/base IDs 14..20 | T1 ID26 `NOT_APPLICABLE` |
+| Challenge | Authored/event-specific | No automatic addon injection |
+| Practice | No distinct stock AI roster owner found in bounded audit | `NOT_APPLICABLE` |
+
+R5V-H is **FULL PASS / CLOSED**. ID26 remains physical CarID 26, T1,
+Mercedes `CarType`/`WheelType`; player unlock is independent; native DriverID
+selection is unchanged; the display-only Results identity remains Strugo; and
+G.2 audio continues to resolve physical ID26 to stock audio profile 0. No
+capacity or roster-count behavior is implied by this result.

@@ -9,10 +9,12 @@
     "xml_data_dump_guard": "STATICALLY_VERIFIED_RUNTIME_NOT_ISOLATED",
     "loading_attract_false_trigger_fix": "RUNTIME_NOT_ISOLATED",
     "natural_t1_id26_membership": "CONFIRMED_BY_RUNTIME",
-    "rallye_cup_t1_id26_pool": "STATICALLY_VERIFIED_READY_FOR_HUMAN_RUNTIME",
-    "invitation_t1_id26_pool": "STATICALLY_VERIFIED_READY_FOR_HUMAN_RUNTIME",
-    "master_rallye_t1_id26_pool": "STATICALLY_VERIFIED_READY_FOR_HUMAN_RUNTIME",
-    "native_competition_roster_persistence_with_h2": "RUNTIME_PENDING"
+    "rallye_cup_t1_id26_pool": "CONFIRMED_BY_RUNTIME",
+    "invitation_t1_id26_pool": "NOT_APPLICABLE_NORMAL_ROUTE_T3_ONLY",
+    "master_rallye_t1_id26_pool": "CONFIRMED_BY_RUNTIME",
+    "native_cup_stage_roster_reuse_with_h2": "CONFIRMED_BY_RUNTIME",
+    "native_master_save_load_roster_persistence_with_h2": "CONFIRMED_BY_RUNTIME",
+    "r5v_h": "FULL_PASS_CLOSED"
   },
   "build": {
     "name": "retail",
@@ -112,7 +114,7 @@
       "class": "T1 / code 0",
       "frontend_t1_local_index": 7,
       "ai_eligibility_distinct_from_player_unlock": true,
-      "natural_pool_change": "H1 Quick Race T1 pool [0,1,2,3,4,5,6,26] CONFIRMED_BY_RUNTIME; H2 appends ID26 at Rallye Cup/Invitation and new Master Rallye T1 generation owners; READY_FOR_HUMAN_RUNTIME",
+      "natural_pool_change": "H1 Quick Race T1 pool [0,1,2,3,4,5,6,26] CONFIRMED_BY_RUNTIME; H2 Rallye Cup and new Master Rallye T1 generation owners CONFIRMED_BY_RUNTIME; Invitation is T3-only in the tested normal route, so T1 ID26 is NOT_APPLICABLE",
       "natural_t1_source_ids": [0, 1, 2, 3, 4, 5, 6, 26],
       "results_display_name": "JEAN-PIERRE STRUGO",
       "results_display_classification": "REAL_2001_MASTER_RALLYE_MERCEDES_DRIVER",
@@ -133,7 +135,8 @@
     "neutral_hardening": "StringList Dump survival CONFIRMED_BY_RUNTIME; XmlData guard and exact Loading trigger not isolated",
     "natural_id26_selection": "CONFIRMED_BY_RUNTIME for the tested H1 Quick Race capture",
     "mode_specific_pool_owners": "CONFIRMED_BY_EXE",
-    "rallye_cup_invitation_master_rallye_id26_inclusion": "STATICALLY_VERIFIED_READY_FOR_HUMAN_RUNTIME",
-    "persisted_roster_semantics_with_h2": "RUNTIME_PENDING; H2 hooks do not target stage, resume, save, or load owners"
+    "rallye_cup_and_master_rallye_id26_inclusion": "CONFIRMED_BY_RUNTIME",
+    "invitation_t1_id26": "NOT_APPLICABLE_NORMAL_ROUTE_T3_ONLY_ORDINARY_POOL_14_THROUGH_20",
+    "persisted_roster_semantics_with_h2": "Cup stage reuse and Master Rallye fresh-process native save/load restoration CONFIRMED_BY_RUNTIME; hooks do not target later stage/resume/save/load owners"
   }
 }
