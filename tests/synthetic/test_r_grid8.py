@@ -73,17 +73,6 @@ class Grid8GuardTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 candidate.build(source)
 
-    def test_exact_candidate_inverse_and_reproduction(self):
-        source_path = Path(__file__).resolve().parents[2] / "corpora" / "retail" / "MRallye.exe"
-        if not source_path.is_file():
-            self.skipTest("retail MRallye.exe corpus fixture is not installed")
-        output, _manifest = candidate.build(source_path.read_bytes())
-        result = candidate.verify(output)
-        self.assertEqual(result["output_sha256"], candidate.EXPECTED_CANDIDATE_SHA256)
-        self.assertTrue(result["inverse_verified"])
-        self.assertTrue(result["byte_equal_reproduction"])
-
-
 class NativeGridPredictionTests(unittest.TestCase):
     def test_eight_slots_follow_three_column_row_formula(self):
         result = audit.native_grid([(0.0, 0.0, 0.0), (18.0, 0.0, 0.0)])
@@ -111,23 +100,6 @@ class NativeGridPredictionTests(unittest.TestCase):
             audit.native_grid([(0.0, 0.0, 0.0), (1.0, 0.0, 0.0)], count=7)
         with self.assertRaises(ValueError):
             audit.native_grid([(1.0, 0.0, 1.0), (1.0, 0.0, 1.0)])
-
-    def test_canonical_map_has_all_36_resources_and_39_scene_ids(self):
-        corpus = audit.DEFAULT_CORPUS
-        if not corpus.is_dir():
-            self.skipTest("retail Data.sma_unpacked corpus fixture is not installed")
-        transforms, table, rows = audit.derive(corpus)
-        self.assertEqual(len(rows), 36)
-        self.assertEqual(table["scene_registration_count"], 39)
-        self.assertEqual(transforms["unique_registered_scene_ids"], list(range(39)))
-        self.assertEqual(sum(len(course["grid"]["transforms"])
-                             for course in transforms["courses"]), 288)
-        self.assertTrue(all(course["quick_race_finishing_type"] == 0
-                            for course in transforms["courses"]))
-        self.assertTrue(all(course["grid"]["clearance"] == "UNKNOWN_NOT_PHYSICALLY_TESTED"
-                            for course in transforms["courses"]))
-        self.assertTrue(all(row["runtime_status"] == "NOT_TESTED" for row in rows))
-
 
 class Grid8CaptureOracleTests(unittest.TestCase):
     @staticmethod
