@@ -1,0 +1,2414 @@
+{
+  "schema_version": 1,
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "status": "PARTIAL",
+  "logical_dimensions": [
+    640,
+    480
+  ],
+  "screen_equation_condition": "global identity UI; physical vertical factor=1",
+  "screen_equation": [
+    "tx + local_x - 0.5",
+    "480 - ty + local_y - 0.5"
+  ],
+  "map_exception": {
+    "authored_position_used": false,
+    "center_xy": [
+      74,
+      392
+    ],
+    "clip_size": [
+      90,
+      86
+    ],
+    "evidence": "CONFIRMED_BY_BOTH"
+  },
+  "bank_selection": {
+    "authored": "XML bank/key copied into en2d commands",
+    "rank": "HUD/newhud by default; RankImageBank can override",
+    "global_style_replacement": "UNKNOWN; no replacement of every HUD0 model established"
+  },
+  "elements": [
+    {
+      "authored_name": "GameController",
+      "owner": [
+        "gaGameController"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": false,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaGameController",
+          "runtime_class": "gaGameController",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "PauseMenuTiles",
+      "owner": [
+        "enUITileBox"
+      ],
+      "XML_position": [
+        170.0,
+        290.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUITileBox",
+          "runtime_class": "enUITileBox",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ConfirmMenuTiles",
+      "owner": [
+        "enUITileBox"
+      ],
+      "XML_position": [
+        170.0,
+        190.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUITileBox",
+          "runtime_class": "enUITileBox",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "PauseMenuChooser",
+      "owner": [
+        "gaFrontendPauseMenuAI"
+      ],
+      "XML_position": [
+        320.0,
+        337.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaFrontendPauseMenuAI",
+          "runtime_class": "gaFrontendPauseMenuAI",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "SpeedDial",
+      "owner": [
+        "gaHudAiSpeedDial",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        557.0,
+        98.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 0,
+      "image_index": 0,
+      "local_rect": [
+        -64,
+        -63,
+        64,
+        65
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        492.5,
+        318.5,
+        620.5,
+        446.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": [
+        557.0,
+        98.0
+      ],
+      "update_owner": [
+        {
+          "owner": "gaHudAiSpeedDial",
+          "runtime_class": "gaHudAiSpeedDial",
+          "code": {
+            "constructor": "0x0014b040",
+            "vtable": "0x0044c900",
+            "size": 68,
+            "type_id": "interned name, not a fixed literal integer",
+            "configure": "0x0014b290",
+            "initialize": "0x00159188",
+            "update": "0x0014b578",
+            "clone": "0x0015a890",
+            "evidence": "CONFIRMED_BY_ELF"
+          },
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "SpeedNeedle",
+      "owner": [
+        "gaHudAiSpeedNeedle",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 2,
+      "image_index": 2,
+      "local_rect": [
+        -8,
+        -55,
+        8,
+        9
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        548.5,
+        326.5,
+        564.5,
+        390.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": [
+        557,
+        98
+      ],
+      "update_owner": [
+        {
+          "owner": "gaHudAiSpeedNeedle",
+          "runtime_class": "gaHudAiSpeedNeedle",
+          "code": {
+            "constructor": "0x0014b580",
+            "vtable": "0x0044c8c0",
+            "size": 52,
+            "type_id": "interned name, not a fixed literal integer",
+            "configure": "0x0014b688",
+            "initialize": "0x0014b6c8",
+            "update": "0x0014b8b0",
+            "clone": "0x0015a9d8",
+            "evidence": "CONFIRMED_BY_ELF"
+          },
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "SpeedVelocity",
+      "owner": [
+        "enUIText",
+        "gaHudAiSpeedCounter",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiSpeedCounter",
+          "runtime_class": "gaHudAiSpeedCounter",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "SpeedGear",
+      "owner": [
+        "enUIText",
+        "gaHudAiGearCounter",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiGearCounter",
+          "runtime_class": "gaHudAiGearCounter",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Map",
+      "owner": [
+        "gaHudAiMap",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        -65.0,
+        -87.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiMap",
+          "runtime_class": "gaHudAiMap",
+          "code": {
+            "constructor": "0x00146118",
+            "vtable": "0x0044cb00",
+            "size": 140,
+            "type_id": "interned name, not a fixed literal integer",
+            "configure": "0x00146960",
+            "initialize": "0x001461f8",
+            "update": "0x00147038",
+            "clone": "0x0015a5f8",
+            "evidence": "CONFIRMED_BY_ELF"
+          },
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "PaceNotes",
+      "owner": [
+        "gaHudAiPaceNotes"
+      ],
+      "XML_position": [
+        320.0,
+        418.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\PACENOTES.PSB",
+      "mapping_key": 0,
+      "image_index": 0,
+      "local_rect": [
+        -31,
+        -31,
+        33,
+        33
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        288.5,
+        30.5,
+        352.5,
+        94.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiPaceNotes",
+          "runtime_class": "gaHudAiPaceNotes",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "GameRank",
+      "owner": [
+        "gaHudRankAi",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        22.0,
+        401.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudRankAi",
+          "runtime_class": "gaHudRankAi",
+          "code": {
+            "constructor": "0x0014de38",
+            "vtable": "0x0044c700",
+            "size": 44,
+            "type_id": "interned name, not a fixed literal integer",
+            "configure": "0x0014dfc0",
+            "initialize": "0x0014e250",
+            "update": "0x0014e360",
+            "clone": "0x0015abe0",
+            "evidence": "CONFIRMED_BY_ELF"
+          },
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "TimeDiffs",
+      "owner": [
+        "gaHudTimeDiffs2Ai",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        22.0,
+        365.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudTimeDiffs2Ai",
+          "runtime_class": "gaHudTimeDiffs2Ai",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "GameTimer",
+      "owner": [
+        "enUIText",
+        "gaHudAiGameTimer",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        494.0,
+        430.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiGameTimer",
+          "runtime_class": "gaHudAiGameTimer",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "GameRecordTimeName",
+      "owner": [
+        "enUIText",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        527.0,
+        413.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "GameRecordTimeNumber",
+      "owner": [
+        "enUIText",
+        "gaHudAiRecordTime",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        612.0,
+        413.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiRecordTime",
+          "runtime_class": "gaHudAiRecordTime",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "GameSplitTimeName",
+      "owner": [
+        "enUIText",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        527.0,
+        398.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "GameSplitTimeNumber",
+      "owner": [
+        "enUIText",
+        "gaHudAiSplitTime",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        612.0,
+        398.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiSplitTime",
+          "runtime_class": "gaHudAiSplitTime",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "GameWrongWay",
+      "owner": [
+        "enUIText",
+        "gaHudAiWrongWay",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        320.0,
+        347.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\DUMMY.PSB",
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiWrongWay",
+          "runtime_class": "gaHudAiWrongWay",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "HudReset",
+      "owner": [
+        "enUIText",
+        "gaHudResetAi",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        320.0,
+        307.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\DUMMY.PSB",
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudResetAi",
+          "runtime_class": "gaHudResetAi",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "HudFailed",
+      "owner": [
+        "enUIText",
+        "gaHudFailedAi",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        320.0,
+        242.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\DUMMY.PSB",
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudFailedAi",
+          "runtime_class": "gaHudFailedAi",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "HudContinue",
+      "owner": [
+        "enUIText",
+        "gaHudContinueAi"
+      ],
+      "XML_position": [
+        320.0,
+        220.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudContinueAi",
+          "runtime_class": "gaHudContinueAi",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "GameComplete",
+      "owner": [
+        "enUIText",
+        "gaHudAiRaceComplete",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        320.0,
+        240.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiRaceComplete",
+          "runtime_class": "gaHudAiRaceComplete",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ReplayText",
+      "owner": [
+        "enUIText",
+        "gaHudAiDemoReplayText",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        23.0,
+        145.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\DUMMY.PSB",
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiDemoReplayText",
+          "runtime_class": "gaHudAiDemoReplayText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ReplayText1",
+      "owner": [
+        "enUIText",
+        "gaHudAiDemoReplayText",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        23.0,
+        42.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\DUMMY.PSB",
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "enUIText",
+          "runtime_class": "enUIText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiDemoReplayText",
+          "runtime_class": "gaHudAiDemoReplayText",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressBar",
+      "owner": [
+        "gaHudAiRaceProgressBar",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        320.0,
+        55.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 8,
+      "image_index": 8,
+      "local_rect": [
+        0,
+        -15,
+        32,
+        17
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        319.5,
+        409.5,
+        351.5,
+        441.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgressBar",
+          "runtime_class": "gaHudAiRaceProgressBar",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressFinish",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 6,
+      "image_index": 6,
+      "local_rect": [
+        -3,
+        -7,
+        5,
+        9
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -3.5,
+        472.5,
+        4.5,
+        488.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressSplitPos0",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 5,
+      "image_index": 5,
+      "local_rect": [
+        0,
+        -7,
+        2,
+        9
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -0.5,
+        472.5,
+        1.5,
+        488.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressSplitPos1",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 5,
+      "image_index": 5,
+      "local_rect": [
+        0,
+        -7,
+        2,
+        9
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -0.5,
+        472.5,
+        1.5,
+        488.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressSplitPos2",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 5,
+      "image_index": 5,
+      "local_rect": [
+        0,
+        -7,
+        2,
+        9
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -0.5,
+        472.5,
+        1.5,
+        488.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressCar0",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        -5,
+        -6,
+        8,
+        10
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -5.5,
+        473.5,
+        7.5,
+        489.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressCar1",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        -5,
+        -6,
+        8,
+        10
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -5.5,
+        473.5,
+        7.5,
+        489.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressCar2",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        -5,
+        -6,
+        8,
+        10
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -5.5,
+        473.5,
+        7.5,
+        489.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressCar3",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        -5,
+        -6,
+        8,
+        10
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -5.5,
+        473.5,
+        7.5,
+        489.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressCar4",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        -5,
+        -6,
+        8,
+        10
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -5.5,
+        473.5,
+        7.5,
+        489.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressCar5",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        -5,
+        -6,
+        8,
+        10
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -5.5,
+        473.5,
+        7.5,
+        489.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressCar6",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        -5,
+        -6,
+        8,
+        10
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -5.5,
+        473.5,
+        7.5,
+        489.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "ProgressCar7",
+      "owner": [
+        "gaHudAiRaceProgress",
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        0.0,
+        0.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        -5,
+        -6,
+        8,
+        10
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        -5.5,
+        473.5,
+        7.5,
+        489.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiRaceProgress",
+          "runtime_class": "gaHudAiRaceProgress",
+          "code": null,
+          "evidence": "UNKNOWN"
+        },
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "CarDamageController",
+      "owner": [
+        "gaHudAiCarDamage"
+      ],
+      "XML_position": [
+        20.0,
+        390.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": null,
+      "mapping_key": null,
+      "image_index": null,
+      "local_rect": null,
+      "final_logical_rect": null,
+      "conditional_logical_rect": null,
+      "rect_condition": null,
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiCarDamage",
+          "runtime_class": "gaHudAiCarDamage",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Steering",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        440.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 0,
+      "image_index": 0,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        439.5,
+        85.5,
+        471.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Engine",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        475.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 1,
+      "image_index": 1,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        474.5,
+        85.5,
+        506.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Suspension",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        510.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 2,
+      "image_index": 2,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        509.5,
+        85.5,
+        541.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Gear",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        545.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 3,
+      "image_index": 3,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        544.5,
+        85.5,
+        576.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Tyres",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        580.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 4,
+      "image_index": 4,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        579.5,
+        85.5,
+        611.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Steering_Overlay",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        440.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 5,
+      "image_index": 5,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        439.5,
+        85.5,
+        471.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Engine_Overlay",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        475.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 5,
+      "image_index": 5,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        474.5,
+        85.5,
+        506.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Suspension_Overlay",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        510.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 5,
+      "image_index": 5,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        509.5,
+        85.5,
+        541.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Gear_Overlay",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        545.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 5,
+      "image_index": 5,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        544.5,
+        85.5,
+        576.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "Car0_Damage_Tyres_Overlay",
+      "owner": [
+        "gaHudAiHide"
+      ],
+      "XML_position": [
+        580.0,
+        380.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 5,
+      "image_index": 5,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        579.5,
+        85.5,
+        611.5,
+        115.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiHide",
+          "runtime_class": "gaHudAiHide",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    },
+    {
+      "authored_name": "DefaultEggName",
+      "owner": [
+        "gaHudAiCarDamage1"
+      ],
+      "XML_position": [
+        565.0,
+        340.0
+      ],
+      "runtime_class": "runtime_entity + optional en2d + AI slots",
+      "uses_en2d": true,
+      "runtime_field_offsets": {
+        "entity_en2d": 76,
+        "en2d_translation_x": 80,
+        "en2d_translation_y": 84
+      },
+      "PSB_bank": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "mapping_key": 0,
+      "image_index": 0,
+      "local_rect": [
+        0,
+        -14,
+        32,
+        16
+      ],
+      "final_logical_rect": null,
+      "conditional_logical_rect": [
+        564.5,
+        125.5,
+        596.5,
+        155.5
+      ],
+      "rect_condition": "identity global UI; zero command cursor; vertical factor=1; before owner deformation",
+      "runtime_translation": null,
+      "update_owner": [
+        {
+          "owner": "gaHudAiCarDamage1",
+          "runtime_class": "gaHudAiCarDamage1",
+          "code": null,
+          "evidence": "UNKNOWN"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BOTH",
+      "unknown": "physical factor/safe-area capture; dynamic owner fields not recovered except Map, dial, needle initialization and rank",
+      "source": "\\TNG\\DATASCENE\\HUD\\HUD0.XML"
+    }
+  ]
+}

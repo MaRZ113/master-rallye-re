@@ -1,6 +1,7 @@
 # Master Rallye PS2 research
 
-Active filesystem work lives in `packfs/`, content/UI work in `ui/`, tools in
+Active filesystem work lives in `packfs/`, static content/UI work in `ui/`,
+HUD runtime reverse in `ui2/`, tools in
 `tools/`, tests in `tests/`.
 Canonical development branch: `master`. Historical `research/general-re` and
 `research/r-*` are reference evidence; this track does not edit them.
@@ -8,6 +9,8 @@ Canonical development branch: `master`. Historical `research/general-re` and
 Start with [PackFS findings](packfs/findings.md) and [validation](packfs/validation.md).
 The first content pass is [PS2-UI1](ui/findings.md), with a
 [byte-accurate PSB map](ui/psb-format.md) and [closeout report](ui/final-report.md).
+The runtime continuation is [PS2-UI2](ui2/findings.md), including
+[dynamic minimap data flow and offline reconstruction](ui2/minimap.md).
 Original ISO files remain external. Extracted resources, full directory images,
 Ghidra databases and raw decompilations stay under ignored `data/`.
 
@@ -53,3 +56,10 @@ python -m unittest discover -s ps2-research/tests -v
 Unknown signature/version and malformed bounds fail closed. `dump` preserves
 unknown trailing bytes; `verify` refuses them. Diagnostic assembly stays in
 ignored `data/` and does not implement or replay the PS2 HUD renderer.
+
+`hudruntime.py` reads a named RaceTest XML through PackFS, a decoded XML or
+an explicitly bounded marker array in a memory image. It emits route bounds,
+world/map points, clipped centerlines and optional SVG under ignored data.
+Player position/heading/marker state must be supplied explicitly; the output
+does not claim a live captured frame or bit-exact PS2 rasterization.
+See [UI2 validation](ui2/validation.md) and [remaining coordinate proof](ui2/next.md).

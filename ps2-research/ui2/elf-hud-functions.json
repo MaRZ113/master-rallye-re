@@ -1,0 +1,2027 @@
+{
+  "schema_version": 1,
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "function_count": 63,
+  "owner_factory": {
+    "intern_name": "0x001d4040",
+    "registration": "0x0015b190",
+    "registry_holder": "0x001fc760",
+    "lookup": "0x001fc500",
+    "clone": "0x001fc4c0",
+    "xml_parser": "0x00295d58",
+    "hatch": "0x00292a48",
+    "attach_initialize": "0x0021e620",
+    "evidence": "CONFIRMED_BY_ELF"
+  },
+  "owners": {
+    "gaHudAiMap": {
+      "constructor": "0x00146118",
+      "vtable": "0x0044cb00",
+      "size": 140,
+      "type_id": "interned name, not a fixed literal integer",
+      "configure": "0x00146960",
+      "initialize": "0x001461f8",
+      "update": "0x00147038",
+      "clone": "0x0015a5f8",
+      "evidence": "CONFIRMED_BY_ELF"
+    },
+    "gaHudAiSpeedDial": {
+      "constructor": "0x0014b040",
+      "vtable": "0x0044c900",
+      "size": 68,
+      "type_id": "interned name, not a fixed literal integer",
+      "configure": "0x0014b290",
+      "initialize": "0x00159188",
+      "update": "0x0014b578",
+      "clone": "0x0015a890",
+      "evidence": "CONFIRMED_BY_ELF"
+    },
+    "gaHudAiSpeedNeedle": {
+      "constructor": "0x0014b580",
+      "vtable": "0x0044c8c0",
+      "size": 52,
+      "type_id": "interned name, not a fixed literal integer",
+      "configure": "0x0014b688",
+      "initialize": "0x0014b6c8",
+      "update": "0x0014b8b0",
+      "clone": "0x0015a9d8",
+      "evidence": "CONFIRMED_BY_ELF"
+    },
+    "gaHudRankAi": {
+      "constructor": "0x0014de38",
+      "vtable": "0x0044c700",
+      "size": 44,
+      "type_id": "interned name, not a fixed literal integer",
+      "configure": "0x0014dfc0",
+      "initialize": "0x0014e250",
+      "update": "0x0014e360",
+      "clone": "0x0015abe0",
+      "evidence": "CONFIRMED_BY_ELF"
+    },
+    "gaHudLoader": {
+      "constructor": "0x0014db88",
+      "vtable": "0x0044c740",
+      "size": 12,
+      "type_id": "interned name, not a fixed literal integer",
+      "configure": "0x00159178",
+      "initialize": "0x0014dbd8",
+      "update": "0x00159180",
+      "clone": "0x0015abb8",
+      "evidence": "CONFIRMED_BY_ELF"
+    }
+  },
+  "functions": [
+    {
+      "va": "0x00146118",
+      "working_label": "gaHudAiMap_ctor",
+      "purpose": "Initialize type ID, vtable, vector headers, dimensions/center defaults",
+      "direct_call_sites": [
+        "0x0015a608",
+        "0x0015cc24"
+      ],
+      "callees": [
+        "0x001d4040"
+      ],
+      "important_offsets": [
+        "0x7c",
+        "0x80",
+        "0x84",
+        "0x88"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001461f8",
+      "working_label": "gaHudAiMap_initialize",
+      "purpose": "Resolve player/car/marker keys, colors, clip globals and buffers",
+      "direct_call_sites": [],
+      "callees": [
+        "0x00152720",
+        "0x00155db0",
+        "0x00155ff8",
+        "0x00156300",
+        "0x001918c0",
+        "0x001930d8",
+        "0x00193138",
+        "0x00193b60",
+        "0x001d4040",
+        "0x001e3650",
+        "0x001e38a0",
+        "0x001e38c8",
+        "0x001e4280",
+        "0x0021e4f0",
+        "0x003fa310"
+      ],
+      "important_offsets": [
+        "0xc",
+        "0x10",
+        "0x14",
+        "0x18",
+        "0x24",
+        "0x30",
+        "0x70"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00146868",
+      "working_label": "gaHudAiMap_schema",
+      "purpose": "Serialize Hud No, clip dimensions and center",
+      "direct_call_sites": [],
+      "callees": [
+        "0x001d4040",
+        "0x001e2460",
+        "0x001e2c08",
+        "0x001e2c78",
+        "0x002ad408"
+      ],
+      "important_offsets": [
+        "0xc",
+        "0x7c",
+        "0x80",
+        "0x84",
+        "0x88"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00146960",
+      "working_label": "gaHudAiMap_configure",
+      "purpose": "Read custom map settings from owner configuration broker",
+      "direct_call_sites": [],
+      "callees": [
+        "0x001e2460",
+        "0x001e2510",
+        "0x001e25b0"
+      ],
+      "important_offsets": [
+        "0xc",
+        "0x7c",
+        "0x80",
+        "0x84",
+        "0x88"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001469f0",
+      "working_label": "clip_map_segment",
+      "purpose": "Clip against shared half extents and append translated Vec2 endpoint pairs",
+      "direct_call_sites": [
+        "0x001476f8",
+        "0x001477e8",
+        "0x001478b4",
+        "0x00147ef8",
+        "0x00147f60",
+        "0x001480a4",
+        "0x00148110"
+      ],
+      "callees": [
+        "0x001565d0"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00146d80",
+      "working_label": "draw_map_endpoint_pairs",
+      "purpose": "Compare odd endpoint to cached even point, flush on inequality; nonzero segments submit separately",
+      "direct_call_sites": [
+        "0x00147994",
+        "0x00147a10",
+        "0x00147a8c",
+        "0x00147b08",
+        "0x00147fe8",
+        "0x00148194"
+      ],
+      "callees": [
+        "0x001565d0",
+        "0x001d6bb0"
+      ],
+      "important_offsets": [
+        "0x54"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00147038",
+      "working_label": "gaHudAiMap_update_draw",
+      "purpose": "RaceLine and vehicle output to clipped route, player chevron and opponent crosses",
+      "direct_call_sites": [],
+      "callees": [
+        "0x001469f0",
+        "0x00146d80",
+        "0x001565d0",
+        "0x001567e8",
+        "0x001d6bb0",
+        "0x001e3650",
+        "0x001e3820",
+        "0x001e4280",
+        "0x001fdba8",
+        "0x001fde60",
+        "0x003f3e80"
+      ],
+      "important_offsets": [
+        "0x14",
+        "0x3c",
+        "0x48",
+        "0x54",
+        "0x60",
+        "0x74",
+        "0x78",
+        "0x84",
+        "0x88"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014b040",
+      "working_label": "gaHudAiSpeedDial_ctor",
+      "purpose": "Register dial type ID and vtable",
+      "direct_call_sites": [
+        "0x0015a8a0",
+        "0x0015c6cc"
+      ],
+      "callees": [
+        "0x001d4040"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014b290",
+      "working_label": "configure_dial",
+      "purpose": "Read offsets and rotation settings then publish them",
+      "direct_call_sites": [],
+      "callees": [
+        "0x0014b388",
+        "0x001e2460",
+        "0x001e2470",
+        "0x001e2510",
+        "0x001e25b0",
+        "0x001e2af0"
+      ],
+      "important_offsets": [
+        "0x10",
+        "0x14",
+        "0x1c",
+        "0x20",
+        "0x24",
+        "0x28"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014b388",
+      "working_label": "publish_dial_settings",
+      "purpose": "Read visual translation and publish needle, gear and speed broker positions",
+      "direct_call_sites": [
+        "0x0014b36c"
+      ],
+      "callees": [
+        "0x0015acb0",
+        "0x0015ad18",
+        "0x00193138",
+        "0x001936d8",
+        "0x00193748",
+        "0x001937b8",
+        "0x00193828",
+        "0x00193898",
+        "0x00193908",
+        "0x00193978",
+        "0x00193b60",
+        "0x00193be0",
+        "0x00194c40",
+        "0x0021e4f0"
+      ],
+      "important_offsets": [
+        "0x50",
+        "0x54"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014b580",
+      "working_label": "gaHudAiSpeedNeedle_ctor",
+      "purpose": "Register needle type ID and vtable",
+      "direct_call_sites": [
+        "0x0015a9e8",
+        "0x0015c714"
+      ],
+      "callees": [
+        "0x001d4040"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014b6c8",
+      "working_label": "initialize_needle",
+      "purpose": "Apply published dial position to en2d and resolve vehicle-output source",
+      "direct_call_sites": [],
+      "callees": [
+        "0x001930d8",
+        "0x00193138",
+        "0x001931c0",
+        "0x00193220",
+        "0x00193280",
+        "0x001932e0",
+        "0x00193b60",
+        "0x001d4040",
+        "0x001e3820",
+        "0x001e4280",
+        "0x0021e4f0",
+        "0x003fa310"
+      ],
+      "important_offsets": [
+        "0x10",
+        "0x14",
+        "0x50",
+        "0x54"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014db88",
+      "working_label": "gaHudLoader_ctor",
+      "purpose": "Register HUD scene loader type and vtable",
+      "direct_call_sites": [
+        "0x0015abc8",
+        "0x0015cabc"
+      ],
+      "callees": [
+        "0x001d4040"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014dbd8",
+      "working_label": "load_hud_scene",
+      "purpose": "Select attract/single/split scene and Visable keys from race state",
+      "direct_call_sites": [],
+      "callees": [
+        "0x00191908",
+        "0x00193b60",
+        "0x00193be0",
+        "0x00194c40",
+        "0x001e33c8",
+        "0x001e3598",
+        "0x001e3d10",
+        "0x001e4280",
+        "0x0021e4f0",
+        "0x002a1d30",
+        "0x002a2458"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014de38",
+      "working_label": "gaHudRankAi_ctor",
+      "purpose": "Default rank bank HUD/newhud and font selector 0x67",
+      "direct_call_sites": [
+        "0x0015abf0",
+        "0x0015c5ac"
+      ],
+      "callees": [
+        "0x001d4040"
+      ],
+      "important_offsets": [
+        "0x24",
+        "0x28"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014dfc0",
+      "working_label": "configure_rank",
+      "purpose": "Read Hud No, RankImageBank and Font No",
+      "direct_call_sites": [],
+      "callees": [
+        "0x001e2460",
+        "0x001e25b0",
+        "0x001e28f8"
+      ],
+      "important_offsets": [
+        "0xc",
+        "0x24",
+        "0x28"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014e028",
+      "working_label": "rebuild_rank_commands",
+      "purpose": "Rebuild same en2d bank/key commands for rank digits and localized suffix",
+      "direct_call_sites": [
+        "0x0014e338",
+        "0x0014e394"
+      ],
+      "callees": [
+        "0x0017e620",
+        "0x002060f8",
+        "0x002062a8",
+        "0x002063a0",
+        "0x00206588",
+        "0x002068c0",
+        "0x003fa310"
+      ],
+      "important_offsets": [
+        "0x14",
+        "0x18",
+        "0x1c"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014e250",
+      "working_label": "initialize_rank",
+      "purpose": "Resolve Race/CarN/Rank and font resource; initialize digit commands",
+      "direct_call_sites": [],
+      "callees": [
+        "0x0014e028",
+        "0x0017e620",
+        "0x001930d8",
+        "0x00193b60",
+        "0x001d4010",
+        "0x001d4040",
+        "0x001d4810",
+        "0x0021e4f0",
+        "0x0021e740",
+        "0x0021e748",
+        "0x003fa310"
+      ],
+      "important_offsets": [
+        "0x14",
+        "0x20"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0014e360",
+      "working_label": "update_rank",
+      "purpose": "Rebuild commands on changed broker rank",
+      "direct_call_sites": [],
+      "callees": [
+        "0x0014e028",
+        "0x001e3650",
+        "0x001e4280"
+      ],
+      "important_offsets": [
+        "0x10",
+        "0x20"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0015b190",
+      "working_label": "register_game_ai_prototypes",
+      "purpose": "Allocate and append typed AI prototypes, including HUD subset",
+      "direct_call_sites": [],
+      "callees": [
+        "0x00100440",
+        "0x00102010",
+        "0x00102408",
+        "0x001028e0",
+        "0x00102da8",
+        "0x0010b210",
+        "0x0010bfe8",
+        "0x0010c470",
+        "0x0010c8c8",
+        "0x00110868",
+        "0x00111400",
+        "0x00113510",
+        "0x00115d80",
+        "0x0011add8",
+        "0x0011b488",
+        "0x0011b708",
+        "0x0011cbc8",
+        "0x0011ce48",
+        "0x0011e8f8",
+        "0x0011f180",
+        "0x0011fba8",
+        "0x0011fda8",
+        "0x00121620",
+        "0x001222f0",
+        "0x00122470",
+        "0x00123b40",
+        "0x00124730",
+        "0x001250c8",
+        "0x001255d8",
+        "0x00125990",
+        "0x00125ff0",
+        "0x00128d48",
+        "0x00129618",
+        "0x0012a228",
+        "0x0012a680",
+        "0x0012ae30",
+        "0x0012d2f0",
+        "0x0012e908",
+        "0x00130a70",
+        "0x00132000",
+        "0x00133680",
+        "0x00134c18",
+        "0x001366b8",
+        "0x00136a48",
+        "0x00138be0",
+        "0x00138f50",
+        "0x001398a0",
+        "0x0013a0f0",
+        "0x0013d938",
+        "0x0013e750",
+        "0x0013f568",
+        "0x001400f0",
+        "0x00140f30",
+        "0x00141970",
+        "0x00142ec8",
+        "0x00143368",
+        "0x00144718",
+        "0x00144a68",
+        "0x00144d58",
+        "0x00145a98",
+        "0x00145e98",
+        "0x00146118",
+        "0x00149138",
+        "0x00149b50",
+        "0x0014a3e8",
+        "0x0014ab90",
+        "0x0014aca8",
+        "0x0014b040",
+        "0x0014b580",
+        "0x0014bb98",
+        "0x0014bda0",
+        "0x0014c208",
+        "0x0014cf08",
+        "0x0014d7e8",
+        "0x0014db88",
+        "0x0014de38",
+        "0x0014e3b8",
+        "0x0014fa88",
+        "0x0015e890",
+        "0x0015e928",
+        "0x0015f428",
+        "0x0015f810",
+        "0x0015fc08",
+        "0x0015fe48",
+        "0x00160248",
+        "0x00163b70",
+        "0x00164d48",
+        "0x001715c8",
+        "0x0017e670",
+        "0x0017f5b0",
+        "0x0017fc88",
+        "0x00181300",
+        "0x00181708",
+        "0x001825e0",
+        "0x00183828",
+        "0x00184e38",
+        "0x00185838",
+        "0x00187000",
+        "0x00196e58",
+        "0x001971b0",
+        "0x001991e0",
+        "0x0019a550",
+        "0x0019cd28",
+        "0x0019ecf8",
+        "0x0019f430",
+        "0x0019fcd0",
+        "0x001a4138",
+        "0x001a70b0",
+        "0x001a7b08",
+        "0x001aa480",
+        "0x001ae8b8",
+        "0x001b0950",
+        "0x001b1030",
+        "0x001b1898",
+        "0x001bb0d0",
+        "0x001c46d8",
+        "0x001d4040",
+        "0x001fc760",
+        "0x00261bf8",
+        "0x00265ae8",
+        "0x0027dfb0",
+        "0x00289090",
+        "0x002900c0",
+        "0x00290370",
+        "0x002ad408"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001cc908",
+      "working_label": "initialize_hud_name_ids",
+      "purpose": "Intern static RaceLine, vehicle-output and HUD scene/key identifiers",
+      "direct_call_sites": [
+        "0x001d1aa4",
+        "0x001d1ac4"
+      ],
+      "callees": [
+        "0x001d2458",
+        "0x001d4040",
+        "0x002ad390",
+        "0x002b2028"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001fc4c0",
+      "working_label": "clone_owner_by_type",
+      "purpose": "Lookup prototype then invoke virtual clone slot +0x14",
+      "direct_call_sites": [
+        "0x00292df4"
+      ],
+      "callees": [
+        "0x001fc500"
+      ],
+      "important_offsets": [
+        "0x8"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001fc500",
+      "working_label": "lookup_owner_prototype",
+      "purpose": "Search registry vector comparing owner type ID +4",
+      "direct_call_sites": [
+        "0x001fc4c8",
+        "0x00294248",
+        "0x00295174",
+        "0x00295aa4",
+        "0x0029640c"
+      ],
+      "callees": [],
+      "important_offsets": [
+        "0x4"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001fc760",
+      "working_label": "owner_registry_holder",
+      "purpose": "Singleton holder of owner prototype registry",
+      "direct_call_sites": [
+        "0x0015b1a0",
+        "0x00285b1c",
+        "0x00292ddc",
+        "0x0029421c",
+        "0x00295160",
+        "0x00295a90",
+        "0x002963f8",
+        "0x002a11ac"
+      ],
+      "callees": [
+        "0x001fc6b0",
+        "0x002ad408"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001fde60",
+      "working_label": "marker_manager_holder",
+      "purpose": "Resolve marker-list manager singleton",
+      "direct_call_sites": [
+        "0x00145344",
+        "0x0014708c",
+        "0x0014c714",
+        "0x00150318",
+        "0x0017f93c",
+        "0x0017f954",
+        "0x0017fb14",
+        "0x0017feb0",
+        "0x001809b0",
+        "0x00181e38",
+        "0x00184890",
+        "0x001a5050",
+        "0x001a5b48",
+        "0x001a60e0",
+        "0x001a60f8",
+        "0x001a66b8",
+        "0x001a66d0",
+        "0x001a8378",
+        "0x001ab9c0",
+        "0x001af1d8",
+        "0x001af1ec",
+        "0x001af348",
+        "0x001af35c",
+        "0x001b68f4",
+        "0x001b8f94",
+        "0x001b9490",
+        "0x001ba578",
+        "0x001ba674",
+        "0x001fca44",
+        "0x001fcc80",
+        "0x001fce4c",
+        "0x001fd064",
+        "0x001ff170",
+        "0x001ff724",
+        "0x001ffc8c",
+        "0x00283358",
+        "0x00286c38",
+        "0x0028b384",
+        "0x0028fc58",
+        "0x002a1f1c"
+      ],
+      "callees": [
+        "0x001fd8c8",
+        "0x002ad408"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001fdba8",
+      "working_label": "find_named_marker_list",
+      "purpose": "Resolve list by interned name ID",
+      "direct_call_sites": [
+        "0x00145350",
+        "0x0014709c",
+        "0x0014c724",
+        "0x00150328",
+        "0x0017f94c",
+        "0x0017f964",
+        "0x0017fb24",
+        "0x0017fec0",
+        "0x001809c0",
+        "0x00181e48",
+        "0x001848b0",
+        "0x001a505c",
+        "0x001a5b54",
+        "0x001a60f0",
+        "0x001a6108",
+        "0x001a66c8",
+        "0x001a66e0",
+        "0x001a8384",
+        "0x001ab9d0",
+        "0x001af1e4",
+        "0x001af1f8",
+        "0x001af354",
+        "0x001af368",
+        "0x001b6900",
+        "0x001b8fa0",
+        "0x001b949c",
+        "0x001ba584",
+        "0x001ba680",
+        "0x001fca50",
+        "0x001fcc8c",
+        "0x001fce58",
+        "0x001fd070",
+        "0x001ffc98",
+        "0x00283364",
+        "0x00286c44",
+        "0x0028b390",
+        "0x0028fc64"
+      ],
+      "callees": [],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001ff618",
+      "working_label": "read_marker_lists",
+      "purpose": "Dispatch scene MarkerLists entries to named-list reader",
+      "direct_call_sites": [
+        "0x002a2588"
+      ],
+      "callees": [
+        "0x001d4040",
+        "0x001ff6a0"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001ff6a0",
+      "working_label": "read_named_marker_list",
+      "purpose": "Create named list then visit markers in document order",
+      "direct_call_sites": [
+        "0x001ff668"
+      ],
+      "callees": [
+        "0x001d2488",
+        "0x001d4040",
+        "0x001fdcd8",
+        "0x001fde60",
+        "0x001ff7a8",
+        "0x002ad390"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x001ff7a8",
+      "working_label": "read_append_marker",
+      "purpose": "Read type, position and direction, append 0x50-byte record",
+      "direct_call_sites": [
+        "0x001ff768"
+      ],
+      "callees": [
+        "0x001d4010",
+        "0x001d4810",
+        "0x001e2460",
+        "0x001e28f8",
+        "0x001e2a48",
+        "0x001fdba8",
+        "0x001fde60",
+        "0x002150c8",
+        "0x003f3e80"
+      ],
+      "important_offsets": [
+        "0x40",
+        "0x44",
+        "0x48",
+        "0x4c"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00205bf8",
+      "working_label": "en2d_ctor",
+      "purpose": "Create visual object with matrix, command vector and renderer cache",
+      "direct_call_sites": [
+        "0x00111594",
+        "0x0011174c",
+        "0x001136dc",
+        "0x001137cc",
+        "0x001138f4",
+        "0x00122180",
+        "0x0012a9e4",
+        "0x0012ab30",
+        "0x0014edb8",
+        "0x001501d8",
+        "0x0015d5ec",
+        "0x0015d81c",
+        "0x0015dcc8",
+        "0x0018276c",
+        "0x00182978",
+        "0x00183cd8",
+        "0x001aaa40",
+        "0x001ab444",
+        "0x001af708",
+        "0x0028edf4",
+        "0x0028f018",
+        "0x00292c6c"
+      ],
+      "callees": [
+        "0x00205ea0"
+      ],
+      "important_offsets": [
+        "0x4",
+        "0x20",
+        "0x64",
+        "0x78",
+        "0x80"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00205ce0",
+      "working_label": "append_image_key",
+      "purpose": "Append authored index as u16 mapping key",
+      "direct_call_sites": [
+        "0x0010c898",
+        "0x0010c8a8",
+        "0x00111650",
+        "0x00113888",
+        "0x00113990",
+        "0x0011c8a0",
+        "0x0011c8b8",
+        "0x0011c8d8",
+        "0x0011ca00",
+        "0x0011ca38",
+        "0x0011ca70",
+        "0x0011cac0",
+        "0x0011cad8",
+        "0x0011caf8",
+        "0x0012aa8c",
+        "0x0012abbc",
+        "0x0012cf2c",
+        "0x0012d11c",
+        "0x00142d20",
+        "0x00142d64",
+        "0x00142e34",
+        "0x00142e78",
+        "0x00148d98",
+        "0x0014a5dc",
+        "0x0014a614",
+        "0x0014a630",
+        "0x0014f130",
+        "0x00150ce8",
+        "0x0015d6f4",
+        "0x00183d38",
+        "0x001af2e8",
+        "0x001af2f4",
+        "0x001af300",
+        "0x001af30c",
+        "0x001b04ac",
+        "0x001b04e4",
+        "0x001b17a0",
+        "0x001b187c",
+        "0x0028ef94",
+        "0x0028f630",
+        "0x00292c88",
+        "0x0029a364",
+        "0x0029a374",
+        "0x0029a3ac",
+        "0x0029a510",
+        "0x0029ae90",
+        "0x0029b020",
+        "0x0029f48c",
+        "0x0029f694",
+        "0x0029ffd8",
+        "0x0029fff8",
+        "0x002a0020",
+        "0x002a00c0",
+        "0x002a00e0",
+        "0x002a0104",
+        "0x002a018c",
+        "0x002a01a8",
+        "0x002a01d0",
+        "0x002a0944"
+      ],
+      "callees": [
+        "0x002063f0",
+        "0x00218a68"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00205dc8",
+      "working_label": "append_string_keys",
+      "purpose": "Append unsigned byte characters as u16 bank keys",
+      "direct_call_sites": [],
+      "callees": [
+        "0x002063f0",
+        "0x00218a68"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00205ea0",
+      "working_label": "reset_en2d",
+      "purpose": "Identity matrix and initial 0x34-byte command",
+      "direct_call_sites": [
+        "0x0015d604",
+        "0x0015d834",
+        "0x00205c48"
+      ],
+      "callees": [
+        "0x002069f0",
+        "0x00218e50",
+        "0x0021dc88",
+        "0x002b2028"
+      ],
+      "important_offsets": [
+        "0x20",
+        "0x50",
+        "0x64"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x002060f8",
+      "working_label": "clear_en2d_commands",
+      "purpose": "Reset command stream for dynamic owners",
+      "direct_call_sites": [
+        "0x0010c880",
+        "0x00112964",
+        "0x00112f54",
+        "0x001146f4",
+        "0x00114db0",
+        "0x0011be54",
+        "0x00121f44",
+        "0x0012cf08",
+        "0x0012d104",
+        "0x00141f74",
+        "0x00142bd0",
+        "0x00143694",
+        "0x0014394c",
+        "0x00143d64",
+        "0x0014410c",
+        "0x00144470",
+        "0x00148ad0",
+        "0x00148d30",
+        "0x001490f8",
+        "0x001493c8",
+        "0x001495c0",
+        "0x0014a5d0",
+        "0x0014d36c",
+        "0x0014d698",
+        "0x0014e074",
+        "0x0014eee4",
+        "0x00150b84",
+        "0x001ab464",
+        "0x001b0318",
+        "0x001b043c",
+        "0x001b1794",
+        "0x001b1850",
+        "0x0028f624",
+        "0x0028f6a8",
+        "0x00297844",
+        "0x00299230",
+        "0x0029a234",
+        "0x0029a3a0",
+        "0x0029ada0",
+        "0x0029c290",
+        "0x0029c2e8",
+        "0x0029c5b0",
+        "0x0029e0d8",
+        "0x0029e740",
+        "0x0029f474",
+        "0x0029fe94",
+        "0x002a04e4",
+        "0x002a08b0"
+      ],
+      "callees": [
+        "0x002b2028",
+        "0x003f93cc"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00206218",
+      "working_label": "replace_en2d_render_cache",
+      "purpose": "Replace renderer-owned cache +0x80",
+      "direct_call_sites": [
+        "0x0021e80c",
+        "0x00337b50"
+      ],
+      "callees": [],
+      "important_offsets": [
+        "0x80"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x002062a8",
+      "working_label": "select_command_bank",
+      "purpose": "Assign current command bank name ID",
+      "direct_call_sites": [
+        "0x00111644",
+        "0x001129a0",
+        "0x00112fa4",
+        "0x0011387c",
+        "0x00113984",
+        "0x00114730",
+        "0x00114de4",
+        "0x0011bee4",
+        "0x0011c0fc",
+        "0x0011c570",
+        "0x00121f58",
+        "0x0012aa80",
+        "0x0012abb0",
+        "0x0012cf20",
+        "0x0012d110",
+        "0x001436a0",
+        "0x00143cb0",
+        "0x00143d70",
+        "0x0014447c",
+        "0x00149638",
+        "0x0014d3e0",
+        "0x0014d6a4",
+        "0x0014e08c",
+        "0x0014e1c4",
+        "0x0014eef4",
+        "0x0014f0fc",
+        "0x00150b90",
+        "0x00150cb4",
+        "0x0015d624",
+        "0x0015d854",
+        "0x0015de38",
+        "0x001827e4",
+        "0x001829e4",
+        "0x00183d14",
+        "0x001ab64c",
+        "0x001af2dc",
+        "0x001b0448",
+        "0x0028ef88",
+        "0x0028f1c4",
+        "0x0028f61c",
+        "0x0028f6a0",
+        "0x00292c7c",
+        "0x002978c0",
+        "0x0029926c",
+        "0x0029987c",
+        "0x0029ae84",
+        "0x0029c324",
+        "0x0029c5ec",
+        "0x0029e0f0",
+        "0x0029f500",
+        "0x0029f65c",
+        "0x0029f770",
+        "0x0029f878",
+        "0x0029fea0",
+        "0x002a052c",
+        "0x002a0938"
+      ],
+      "callees": [
+        "0x002063f0"
+      ],
+      "important_offsets": [
+        "0xc"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00206338",
+      "working_label": "set_command_rgba",
+      "purpose": "Assign command float RGBA",
+      "direct_call_sites": [
+        "0x00112bdc",
+        "0x00112bf0",
+        "0x00112dcc",
+        "0x00112de0",
+        "0x00112e04",
+        "0x00112e1c",
+        "0x001131cc",
+        "0x001131e0",
+        "0x001133d0",
+        "0x001133e4",
+        "0x001149f8",
+        "0x00114a0c",
+        "0x00114be4",
+        "0x00114bf8",
+        "0x00114fc0",
+        "0x0011bf60",
+        "0x0011bfe8",
+        "0x0011c7bc",
+        "0x0011ca1c",
+        "0x0011ca64",
+        "0x00121fb4",
+        "0x00122030",
+        "0x00142d14",
+        "0x00142d58",
+        "0x00142e28",
+        "0x00142e6c",
+        "0x0014efe4",
+        "0x0014f0a0",
+        "0x0014f0c8",
+        "0x00150be4",
+        "0x00150c28",
+        "0x00150c3c",
+        "0x00150c88",
+        "0x0015d6c0",
+        "0x0015d8f0",
+        "0x0015de74",
+        "0x0015deac",
+        "0x0015deec",
+        "0x0015df44",
+        "0x001ab688",
+        "0x00297c28",
+        "0x00297c48",
+        "0x00299518",
+        "0x00299580",
+        "0x00299700",
+        "0x00299758",
+        "0x0029c4d8",
+        "0x0029c508",
+        "0x0029c7a0",
+        "0x0029c7d0",
+        "0x0029f57c",
+        "0x0029f60c"
+      ],
+      "callees": [
+        "0x002063f0"
+      ],
+      "important_offsets": [
+        "0x1c"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x002063a0",
+      "working_label": "set_command_position",
+      "purpose": "Assign command cursor/position",
+      "direct_call_sites": [
+        "0x0011289c",
+        "0x001149e0",
+        "0x00114fb0",
+        "0x0011bf3c",
+        "0x0011bfcc",
+        "0x0011c8f8",
+        "0x0011caa4",
+        "0x00121f90",
+        "0x0012200c",
+        "0x00142d08",
+        "0x00142d38",
+        "0x00142e1c",
+        "0x00142e4c",
+        "0x00143cc8",
+        "0x00143e78",
+        "0x00144580",
+        "0x0014969c",
+        "0x0014d780",
+        "0x0014e080",
+        "0x0014e1b8",
+        "0x0014ef14",
+        "0x0014f0f0",
+        "0x00150bb4",
+        "0x00150ca8",
+        "0x0015d6e8",
+        "0x0015d908",
+        "0x0015de58",
+        "0x0015df0c",
+        "0x001ab66c",
+        "0x001ab6e4",
+        "0x001ab73c",
+        "0x001ab798",
+        "0x001ab7f0",
+        "0x001ab880",
+        "0x001ab8f8",
+        "0x00297c04",
+        "0x00299284",
+        "0x002994fc",
+        "0x002995ac",
+        "0x002996e4",
+        "0x0029973c",
+        "0x0029a350",
+        "0x0029a504",
+        "0x0029b014",
+        "0x0029c8e8",
+        "0x0029c9a8",
+        "0x0029ca24",
+        "0x0029ca5c",
+        "0x0029e690",
+        "0x0029e87c",
+        "0x0029e91c",
+        "0x0029e9a8",
+        "0x0029f558",
+        "0x0029f5e8",
+        "0x0029f684",
+        "0x0029ffcc",
+        "0x002a00b0",
+        "0x002a0140",
+        "0x002a05c4"
+      ],
+      "callees": [
+        "0x002063f0"
+      ],
+      "important_offsets": [
+        "0x10",
+        "0x14",
+        "0x18"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0021e290",
+      "working_label": "runtime_entity_ctor",
+      "purpose": "Create 0x7c entity, four owner slots and visual references",
+      "direct_call_sites": [
+        "0x00111580",
+        "0x00111738",
+        "0x001136c8",
+        "0x001137b8",
+        "0x001138e0",
+        "0x001221bc",
+        "0x0012aa08",
+        "0x0012ab54",
+        "0x0014eda4",
+        "0x001501c4",
+        "0x0015d5d8",
+        "0x0015d808",
+        "0x0015db58",
+        "0x0015dbbc",
+        "0x0015dcb4",
+        "0x0015e024",
+        "0x0015e3f8",
+        "0x0015e434",
+        "0x0015e584",
+        "0x0015e674",
+        "0x0015fd04",
+        "0x00182750",
+        "0x00182964",
+        "0x00183acc",
+        "0x00183b78",
+        "0x00183c00",
+        "0x00183c58",
+        "0x001845b8",
+        "0x0019a258",
+        "0x001a72f0",
+        "0x001aaa2c",
+        "0x001af688",
+        "0x00263624",
+        "0x0028ea90",
+        "0x00292a70"
+      ],
+      "callees": [
+        "0x001dad18",
+        "0x0021e740",
+        "0x0021f4b0",
+        "0x00262e68",
+        "0x002ad408"
+      ],
+      "important_offsets": [
+        "0x4",
+        "0x4c",
+        "0x50"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0021e4f0",
+      "working_label": "request_entity_removal",
+      "purpose": "Set removal flag and enqueue deferred destruction",
+      "direct_call_sites": [
+        "0x00111510",
+        "0x00111524",
+        "0x00113630",
+        "0x00113644",
+        "0x00113658",
+        "0x0011366c",
+        "0x0012170c",
+        "0x0012586c",
+        "0x001258a4",
+        "0x001258dc",
+        "0x00125914",
+        "0x0012b974",
+        "0x0012b9ac",
+        "0x0012b9cc",
+        "0x0012b9e0",
+        "0x0014110c",
+        "0x00141df4",
+        "0x001430d4",
+        "0x00143110",
+        "0x001435c0",
+        "0x001448cc",
+        "0x00144be0",
+        "0x00145020",
+        "0x00146248",
+        "0x00148a08",
+        "0x0014932c",
+        "0x00149f0c",
+        "0x0014a094",
+        "0x0014ae2c",
+        "0x0014b3c0",
+        "0x0014b708",
+        "0x0014bd08",
+        "0x0014bf6c",
+        "0x0014bfdc",
+        "0x0014c3c4",
+        "0x0014d218",
+        "0x0014d954",
+        "0x0014da40",
+        "0x0014de10",
+        "0x0014e2b0",
+        "0x0014e54c",
+        "0x0014e994",
+        "0x0014f1d8",
+        "0x00150338",
+        "0x00165380",
+        "0x00173324",
+        "0x0017e8c0",
+        "0x0017edec",
+        "0x0017f334",
+        "0x0017fb44",
+        "0x0017fedc",
+        "0x001813a8",
+        "0x00182f6c",
+        "0x00182f88",
+        "0x00182f90",
+        "0x00184654",
+        "0x001977e4",
+        "0x0019a054",
+        "0x0019a7ec",
+        "0x0019ff9c",
+        "0x001a1ae8",
+        "0x001a2b90",
+        "0x001a6708",
+        "0x001a7464",
+        "0x001a76d8",
+        "0x001a7f50",
+        "0x001aa8c8",
+        "0x001af214",
+        "0x001bb34c",
+        "0x0021ed58",
+        "0x0021ee30",
+        "0x00289b98",
+        "0x00293580"
+      ],
+      "callees": [
+        "0x001dad18",
+        "0x0021f4b0"
+      ],
+      "important_offsets": [
+        "0x0"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0021e540",
+      "working_label": "attach_en2d",
+      "purpose": "Replace entity en2d visual",
+      "direct_call_sites": [
+        "0x001115d0",
+        "0x00111788",
+        "0x00113734",
+        "0x00113838",
+        "0x00113930",
+        "0x001221d0",
+        "0x0012aa1c",
+        "0x0012ab68",
+        "0x0014edf8",
+        "0x00150218",
+        "0x0015d5fc",
+        "0x0015d82c",
+        "0x0015df84",
+        "0x00182794",
+        "0x001829a4",
+        "0x00183cf4",
+        "0x001aaa4c",
+        "0x001ab454",
+        "0x001af718",
+        "0x0028ee04",
+        "0x0028f028",
+        "0x00292dd4"
+      ],
+      "callees": [
+        "0x00205c68"
+      ],
+      "important_offsets": [
+        "0x4c"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0021e620",
+      "working_label": "attach_ai_initialize",
+      "purpose": "Store owner in slot and invoke virtual initializer +0x34",
+      "direct_call_sites": [
+        "0x001001dc",
+        "0x0010023c",
+        "0x00143508",
+        "0x001493bc",
+        "0x0014d22c",
+        "0x0015dc68",
+        "0x0015dca4",
+        "0x0015e0b8",
+        "0x0015e1c0",
+        "0x0015e4e4",
+        "0x0015e658",
+        "0x0015e73c",
+        "0x0015e814",
+        "0x0015fd48",
+        "0x001823f8",
+        "0x00183b0c",
+        "0x00183bb8",
+        "0x00183c40",
+        "0x00183c98",
+        "0x00184620",
+        "0x0019a2dc",
+        "0x0019a3ac",
+        "0x0019a3cc",
+        "0x0019a4d4",
+        "0x0019a818",
+        "0x0019b044",
+        "0x0019b090",
+        "0x0019b0ec",
+        "0x0019b13c",
+        "0x0019b1cc",
+        "0x001a0044",
+        "0x001a7334",
+        "0x001aff98",
+        "0x001affa8",
+        "0x001b0020",
+        "0x001b0030",
+        "0x001b00dc",
+        "0x001b01a0",
+        "0x001b0340",
+        "0x001b0350",
+        "0x001b0360",
+        "0x001b0370",
+        "0x001b04d0",
+        "0x0028eae4",
+        "0x00292e30"
+      ],
+      "callees": [],
+      "important_offsets": [
+        "0x4"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00292a48",
+      "working_label": "hatch_entity",
+      "purpose": "Template matrix/bank/key/flags to entity and en2d, clone/configure/initialize owners",
+      "direct_call_sites": [
+        "0x0029358c",
+        "0x00293630"
+      ],
+      "callees": [
+        "0x001fc4c0",
+        "0x001fc760",
+        "0x00205bf8",
+        "0x00205ce0",
+        "0x002062a8",
+        "0x0021e290",
+        "0x0021e540",
+        "0x0021e620",
+        "0x0021e740",
+        "0x0021e748",
+        "0x00262f88",
+        "0x002ad408"
+      ],
+      "important_offsets": [
+        "0x30",
+        "0x38",
+        "0x40",
+        "0x90"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00295d58",
+      "working_label": "read_egg_version4",
+      "purpose": "Parse modern authored template including en2d 2dGlobal bit6",
+      "direct_call_sites": [
+        "0x00295d18"
+      ],
+      "callees": [
+        "0x001d2488",
+        "0x001d4010",
+        "0x001d4040",
+        "0x001d4810",
+        "0x001df4c8",
+        "0x001dfa10",
+        "0x001e2460",
+        "0x001e2470",
+        "0x001e25b0",
+        "0x001e2790",
+        "0x001e28f8",
+        "0x001fc500",
+        "0x001fc760",
+        "0x00292330",
+        "0x00293270",
+        "0x00293668",
+        "0x002ad390",
+        "0x002ad408",
+        "0x003fa760"
+      ],
+      "important_offsets": [
+        "0x28",
+        "0x30",
+        "0x38",
+        "0x40",
+        "0x90"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x002dc4d0",
+      "working_label": "install_ps2_ui_renderer",
+      "purpose": "Install concrete PS2 renderer into UI renderer holder",
+      "direct_call_sites": [
+        "0x003ee6c8"
+      ],
+      "callees": [
+        "0x001d6b10",
+        "0x001d6b60",
+        "0x001d6bb0",
+        "0x00201398",
+        "0x002015d8",
+        "0x002ad408",
+        "0x002dc6e8",
+        "0x002e29b0",
+        "0x002fc4c8",
+        "0x0030e9f0",
+        "0x0030edb8",
+        "0x00311210",
+        "0x003280d0",
+        "0x00329cf8",
+        "0x0032e8e8",
+        "0x003f9698"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x002dd510",
+      "working_label": "configure_ui_viewport_projection",
+      "purpose": "640/480 viewport ratios, GS center/scissor and orthographic bounds",
+      "direct_call_sites": [
+        "0x002dd4d8",
+        "0x00338a10",
+        "0x00338a5c",
+        "0x00338b2c"
+      ],
+      "callees": [
+        "0x0015ad18",
+        "0x003280d0",
+        "0x00342d38",
+        "0x003f3230"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00318bd8",
+      "working_label": "tag_ui_triangle_strip_packet",
+      "purpose": "Packet tag PRIM=0x14c: triangle strip, texture disabled, alpha blend enabled",
+      "direct_call_sites": [
+        "0x00319308",
+        "0x0031a4ac"
+      ],
+      "callees": [
+        "0x002ad530",
+        "0x002ad5a8",
+        "0x003f931c"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00318e10",
+      "working_label": "emit_ps2_ui_primitive_packets",
+      "purpose": "Expand stroked line/polyline/polygon to vertex pairs and GS packet positions",
+      "direct_call_sites": [
+        "0x0032fd18"
+      ],
+      "callees": [
+        "0x002ad530",
+        "0x002ad5a8",
+        "0x00318bd8",
+        "0x003f931c"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x003280d0",
+      "working_label": "projection_object_ctor",
+      "purpose": "Construct affine, clip and screen matrices from extended float ABI arguments",
+      "direct_call_sites": [
+        "0x002dc5d0",
+        "0x002dd97c",
+        "0x002dd9e4",
+        "0x0032ea18",
+        "0x0032ea90",
+        "0x0032eb04"
+      ],
+      "callees": [
+        "0x00328168"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00328168",
+      "working_label": "build_projection_matrices",
+      "purpose": "Scalar projection and viewport matrix builder",
+      "direct_call_sites": [
+        "0x0032812c"
+      ],
+      "callees": [
+        "0x00152108"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0032e8e8",
+      "working_label": "ps2_ui_renderer_ctor",
+      "purpose": "Concrete UI interface vtable and primitive object",
+      "direct_call_sites": [
+        "0x002dc688"
+      ],
+      "callees": [
+        "0x001d1fd0",
+        "0x002ad408",
+        "0x003280d0",
+        "0x003453d0",
+        "0x0034d6f0"
+      ],
+      "important_offsets": [
+        "0x468"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0032edf8",
+      "working_label": "set_primitive_rgba",
+      "purpose": "Pack R:G:B:A bytes in high-to-low order",
+      "direct_call_sites": [],
+      "callees": [],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0032ee28",
+      "working_label": "set_primitive_width",
+      "purpose": "Store half of requested stroke width",
+      "direct_call_sites": [],
+      "callees": [],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0032ee40",
+      "working_label": "queue_ui_line",
+      "purpose": "Queue type1 and float XY endpoints",
+      "direct_call_sites": [],
+      "callees": [
+        "0x001565d0",
+        "0x002c51b8",
+        "0x002c54d8"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0032f498",
+      "working_label": "queue_ui_open_polyline",
+      "purpose": "Queue type4 with at most 64 points",
+      "direct_call_sites": [],
+      "callees": [
+        "0x002c51b8",
+        "0x002c54d8",
+        "0x002c5a40"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0032f710",
+      "working_label": "queue_ui_closed_polygon",
+      "purpose": "Queue type5 with at most 63 points",
+      "direct_call_sites": [],
+      "callees": [
+        "0x002c51b8",
+        "0x002c54d8",
+        "0x002c5a40"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0032fce0",
+      "working_label": "flush_ui_frame",
+      "purpose": "Flush global sprites then map primitive packets and clear vectors",
+      "direct_call_sites": [],
+      "callees": [
+        "0x00318e10",
+        "0x003303c0"
+      ],
+      "important_offsets": [
+        "0x468"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00337a98",
+      "working_label": "build_psb_sprite_vertices",
+      "purpose": "Visible en2d commands to bank key lookup and local triangle geometry",
+      "direct_call_sites": [
+        "0x00330334",
+        "0x003303f4"
+      ],
+      "callees": [
+        "0x001d32c8",
+        "0x001d4010",
+        "0x001d4810",
+        "0x00206218",
+        "0x0021f4b0",
+        "0x002ad408",
+        "0x002b2028",
+        "0x002dda20",
+        "0x00305038",
+        "0x00330450",
+        "0x00330530",
+        "0x003376c0",
+        "0x003387c8",
+        "0x00338ab8",
+        "0x0033f588",
+        "0x0033f628",
+        "0x003401f0",
+        "0x00340230",
+        "0x00340270",
+        "0x003402b0",
+        "0x003432b8",
+        "0x00369dd0",
+        "0x0036a5a8",
+        "0x0036a728",
+        "0x0036a768",
+        "0x0036a810",
+        "0x0036ad18",
+        "0x003853d8"
+      ],
+      "important_offsets": [
+        "0x4c",
+        "0x64",
+        "0x78",
+        "0x80"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00338ab8",
+      "working_label": "configure_sprite_orthographic",
+      "purpose": "Apply orthographic UI camera for en2d modes 1/2",
+      "direct_call_sites": [
+        "0x00330954",
+        "0x00337b9c"
+      ],
+      "callees": [
+        "0x002004d0",
+        "0x002dd510",
+        "0x002dda20",
+        "0x0033ff78",
+        "0x00343458",
+        "0x0036fc18"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x00342b90",
+      "working_label": "sprite_matrix_product_wrapper",
+      "purpose": "Call COP2 matrix product; numeric semantics not modeled by the scalar query",
+      "direct_call_sites": [
+        "0x003432e0"
+      ],
+      "callees": [
+        "0x003cb2d0"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x003432b8",
+      "working_label": "submit_sprite_world_matrices",
+      "purpose": "Pass current/interpolated world matrices to GS renderer and snapshot globals",
+      "direct_call_sites": [
+        "0x00330cd4",
+        "0x00337ea4",
+        "0x003472b0",
+        "0x00359768"
+      ],
+      "callees": [
+        "0x00342b90"
+      ],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x0036a5a8",
+      "working_label": "copy_sprite_world_matrices",
+      "purpose": "Copy en2d-derived current/interpolated matrix to cache +0x50/+0x90",
+      "direct_call_sites": [
+        "0x00337e8c"
+      ],
+      "callees": [],
+      "important_offsets": [
+        "0x50",
+        "0x90"
+      ],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    },
+    {
+      "va": "0x003cb2d0",
+      "working_label": "matrix_product_cop2_unmodeled",
+      "purpose": "Four vector rows consumed/produced by COP2; exact VU result remains UNKNOWN here",
+      "direct_call_sites": [
+        "0x00342ba0",
+        "0x003cbb80"
+      ],
+      "callees": [],
+      "important_offsets": [],
+      "confidence": "CONFIRMED_BY_ELF",
+      "boundary": "direct JAL target or checked vtable entry; ABI inferred from assembly",
+      "indirect_calls": "see owner/renderer slot tables; direct callees are not a complete runtime graph"
+    }
+  ],
+  "supersedes_ui1": {
+    "gaHudAiMap_initialize": "0x001461f8",
+    "gaHudAiMap_update": "0x00147038",
+    "reason": "attach_ai invokes slot +0x34; frame draw is slot +0x2c"
+  }
+}

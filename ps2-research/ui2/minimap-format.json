@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "evidence": "CONFIRMED_BY_ELF",
+  "source": {
+    "scene_section": "MarkerLists",
+    "list_name": "RaceLine",
+    "name_id_va": "0x0040e818",
+    "parser": [
+      "0x001ff618",
+      "0x001ff6a0",
+      "0x001ff7a8"
+    ],
+    "consumer": "0x00147038"
+  },
+  "route": {
+    "point_stride": 80,
+    "position_offset": 64,
+    "position_representation": "float32 XYZ/W=1",
+    "count": "(end-begin)/80",
+    "order": "document order, consecutive pairs; Marker No not sorted by ELF",
+    "segment_breaks": "no authored breaks; clipping creates visible discontinuities",
+    "queue_batching": "146d80 compares odd endpoint against preceding cached even endpoint; ordinary nonzero segments flush separately",
+    "sample_resource": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+    "sample_count": 293,
+    "sample_decoded_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92"
+  },
+  "transform": {
+    "scale": 0.4000000059604645,
+    "scale_va": "0x0040e5e8",
+    "center_xy": [
+      74,
+      392
+    ],
+    "clip_width": 90,
+    "clip_height": 86,
+    "local_x": "S * (Hz*(Wx-Px) - Hx*(Wz-Pz))",
+    "local_y": "S * (Hx*(Wx-Px) + Hz*(Wz-Pz))",
+    "screen_xy": "clipped local XY + center XY",
+    "heading_offsets": {
+      "x": 120,
+      "z": 116
+    },
+    "heading_initial_state": null,
+    "bounds_fit": false,
+    "route_window": "max(last-32,0) <= i < min(last+32,FinishArea/BestMarker)",
+    "clip": "Cohen-Sutherland, inclusive rectangle centered on zero"
+  },
+  "vehicle_output": {
+    "wrapper_data_pointer_offset": 8,
+    "position_x_offset": 240,
+    "position_z_offset": 248,
+    "heading_input_offsets": [
+      224,
+      228,
+      232
+    ],
+    "secondary_vector_offsets": [
+      24,
+      28,
+      32
+    ],
+    "semantic_grade": "position confirmed by flow; forward/velocity names are STATIC_INFERENCE"
+  },
+  "player": {
+    "source": "HUD PlayerID, CarN/gaVehicleOutputData",
+    "centered": true,
+    "marker_offsets": [
+      [
+        -5,
+        5
+      ],
+      [
+        0,
+        -5
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    "shadow_offset": [
+      3,
+      3
+    ],
+    "width": 4
+  },
+  "opponents": {
+    "source": "Car0..NumCars-1 except player",
+    "marker": "two clipped diagonals +/-4 around transformed position",
+    "width": 4,
+    "color_source": "Race/CarN/Colour float RGBA; RGB intensity*250, command alpha250"
+  },
+  "renderer": {
+    "concrete_vtable": "0x00485a00",
+    "object_primitive_offset": 1128,
+    "slots": {
+      "set_color": 156,
+      "set_width": 164,
+      "line": 172,
+      "polyline": 188,
+      "polygon": 196
+    },
+    "producer": "0x00318e10",
+    "vertex_stride": 8,
+    "command_stride": 24,
+    "topology": "stroked open/closed triangle strips, two vertices per point; closed repeats first",
+    "gs_position": [
+      "CVT.W(16*(x/640*RasterW + 2048-RasterW/2))",
+      "CVT.W(16*(y/480*RasterH + 2048-RasterH/2))"
+    ],
+    "alpha": "command byte shifted right one before packet packing; e.g.250 ->125",
+    "route_style": {
+      "shadow_width": 6,
+      "front_width": 3,
+      "rgb_float": [
+        0.2,
+        0.6,
+        0.1
+      ],
+      "shadow_intensity": 127,
+      "front_intensity": 250
+    }
+  },
+  "MAP128STRIPED": {
+    "participates_in_traced_race_map": false,
+    "evidence": "CONFIRMED_BY_ELF",
+    "scope": "Map -> primitive queues -> 318e10 has no texture or PSB lookup; wider asset consumers UNKNOWN"
+  },
+  "offline_scope": "centerlines and player/opponent foreground geometry; exact heading evolution, crossbars and raster joins excluded"
+}

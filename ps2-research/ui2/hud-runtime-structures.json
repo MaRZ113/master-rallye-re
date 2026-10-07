@@ -1,0 +1,590 @@
+{
+  "schema_version": 1,
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "structures": [
+    {
+      "name": "runtime_entity",
+      "size": 124,
+      "fields": [
+        {
+          "name": "flags",
+          "offset": 0,
+          "size": 4,
+          "representation": "bit0 Freezable, bit1 pending removal",
+          "accessors": [
+            "0x0021e290",
+            "0x0021e4f0",
+            "0x00292a48"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "owner_slots",
+          "offset": 4,
+          "size": 16,
+          "representation": "four AI pointers",
+          "accessors": [
+            "0x0021e290",
+            "0x0021e620",
+            "0x00292a48"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "en2d",
+          "offset": 76,
+          "size": 4,
+          "representation": "visual pointer",
+          "accessors": [
+            "0x0021e290",
+            "0x0021e540",
+            "0x00292a48",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "en3d",
+          "offset": 80,
+          "size": 4,
+          "representation": "visual pointer",
+          "accessors": [
+            "0x0021e290",
+            "0x00292a48"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "name_id",
+          "offset": 92,
+          "size": 4,
+          "representation": "interned name ID",
+          "accessors": [
+            "0x00292a48"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "parent",
+          "offset": null,
+          "size": null,
+          "representation": "UNKNOWN",
+          "accessors": [],
+          "evidence": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "name": "en2d",
+      "size": 144,
+      "fields": [
+        {
+          "name": "commands",
+          "offset": 4,
+          "size": 12,
+          "representation": "vector of 0x34-byte bank/key commands",
+          "accessors": [
+            "0x00205bf8",
+            "0x00205ea0",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "color",
+          "offset": 16,
+          "size": 16,
+          "representation": "float32 RGBA",
+          "accessors": [
+            "0x00205bf8",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "matrix",
+          "offset": 32,
+          "size": 64,
+          "representation": "row-oriented float32 matrix, translation +0x50/+0x54",
+          "accessors": [
+            "0x00205ea0",
+            "0x00292a48",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "coordinate_mode",
+          "offset": 100,
+          "size": 4,
+          "representation": "0=world,1=viewport UI,2=global UI",
+          "accessors": [
+            "0x00292a48",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "flags",
+          "offset": 120,
+          "size": 8,
+          "representation": "bit0 Visible; bit1 ZBuffered; bit2 Interpolated",
+          "accessors": [
+            "0x00292a48",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "renderer_cache",
+          "offset": 128,
+          "size": 4,
+          "representation": "renderer-owned cached geometry",
+          "accessors": [
+            "0x00206218",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        }
+      ]
+    },
+    {
+      "name": "en2d_command",
+      "size": 52,
+      "fields": [
+        {
+          "name": "keys",
+          "offset": 0,
+          "size": 12,
+          "representation": "vector<u16> mapping keys",
+          "accessors": [
+            "0x00205ce0",
+            "0x00205dc8",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "bank_id",
+          "offset": 12,
+          "size": 4,
+          "representation": "interned bank name ID",
+          "accessors": [
+            "0x002062a8",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "cursor_xyz",
+          "offset": 16,
+          "size": 12,
+          "representation": "float32",
+          "accessors": [
+            "0x002063a0",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "rgba",
+          "offset": 28,
+          "size": 16,
+          "representation": "float32",
+          "accessors": [
+            "0x00206338",
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "carry_cursor",
+          "offset": 48,
+          "size": 4,
+          "representation": "0 resets cursor, 1 continues previous position",
+          "accessors": [
+            "0x00337a98"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        }
+      ]
+    },
+    {
+      "name": "gaHudAiMap",
+      "size": 140,
+      "fields": [
+        {
+          "name": "base_header",
+          "offset": 0,
+          "size": 12,
+          "representation": "sentinel, interned type ID, AI vtable pointer",
+          "accessors": [
+            "0x00146118"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "hud_no",
+          "offset": 12,
+          "size": 4,
+          "representation": "s32",
+          "accessors": [
+            "0x00146868",
+            "0x00146960",
+            "0x001461f8"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "player_id",
+          "offset": 16,
+          "size": 4,
+          "representation": "s32",
+          "accessors": [
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "finish_best_marker",
+          "offset": 20,
+          "size": 4,
+          "representation": "s32 from FinishArea/BestMarker",
+          "accessors": [
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "split_best_markers",
+          "offset": 24,
+          "size": 12,
+          "representation": "begin/end/capacity pointers to u32",
+          "accessors": [
+            "0x00146118",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "car_name_ids",
+          "offset": 36,
+          "size": 12,
+          "representation": "begin/end/capacity pointers to u32",
+          "accessors": [
+            "0x00146118",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "car_colors",
+          "offset": 48,
+          "size": 12,
+          "representation": "begin/end/capacity pointers to float32 RGBA",
+          "accessors": [
+            "0x00146118",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "route_segments",
+          "offset": 60,
+          "size": 12,
+          "representation": "begin/end/capacity pointers to float32 Vec2",
+          "accessors": [
+            "0x00146118",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "split_segments",
+          "offset": 72,
+          "size": 12,
+          "representation": "begin/end/capacity pointers to float32 Vec2",
+          "accessors": [
+            "0x00146118",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "polyline_scratch",
+          "offset": 84,
+          "size": 12,
+          "representation": "begin/end/capacity pointers to float32 Vec2",
+          "accessors": [
+            "0x00146118",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "finish_segments",
+          "offset": 96,
+          "size": 12,
+          "representation": "begin/end/capacity pointers to float32 Vec2",
+          "accessors": [
+            "0x00146118",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "last_marker_key",
+          "offset": 108,
+          "size": 4,
+          "representation": "interned Race/CarN/LastMarker key",
+          "accessors": [
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "car_count",
+          "offset": 112,
+          "size": 4,
+          "representation": "s32 Race/NumCars",
+          "accessors": [
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "heading_z",
+          "offset": 116,
+          "size": 4,
+          "representation": "float32; initial value UNKNOWN",
+          "accessors": [
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "heading_x",
+          "offset": 120,
+          "size": 4,
+          "representation": "float32; initial value UNKNOWN",
+          "accessors": [
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "clip_height",
+          "offset": 124,
+          "size": 4,
+          "representation": "float32",
+          "accessors": [
+            "0x00146118",
+            "0x00146868",
+            "0x00146960",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "clip_width",
+          "offset": 128,
+          "size": 4,
+          "representation": "float32",
+          "accessors": [
+            "0x00146118",
+            "0x00146868",
+            "0x00146960",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "center_x",
+          "offset": 132,
+          "size": 4,
+          "representation": "float32 top-left logical X",
+          "accessors": [
+            "0x00146118",
+            "0x00146868",
+            "0x00146960",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "center_y",
+          "offset": 136,
+          "size": 4,
+          "representation": "float32 top-left logical Y",
+          "accessors": [
+            "0x00146118",
+            "0x00146868",
+            "0x00146960",
+            "0x001461f8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        }
+      ]
+    },
+    {
+      "name": "marker_record",
+      "size": 80,
+      "fields": [
+        {
+          "name": "type_id",
+          "offset": 0,
+          "size": 4,
+          "representation": "interned Marker Type",
+          "accessors": [
+            "0x001ff7a8"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "basis_and_position",
+          "offset": 16,
+          "size": 64,
+          "representation": "float32 matrix",
+          "accessors": [
+            "0x001ff7a8"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "position_xyzw",
+          "offset": 64,
+          "size": 16,
+          "representation": "float32 XYZ + W=1; map reads X/Z only",
+          "accessors": [
+            "0x001ff7a8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_BOTH"
+        }
+      ]
+    },
+    {
+      "name": "marker_vector",
+      "size": 12,
+      "fields": [
+        {
+          "name": "begin_end_capacity",
+          "offset": 0,
+          "size": 12,
+          "representation": "32-bit pointers; count=(end-begin)/0x50",
+          "accessors": [
+            "0x001ff7a8",
+            "0x00147038"
+          ],
+          "evidence": "CONFIRMED_BY_BOTH"
+        }
+      ]
+    },
+    {
+      "name": "ui_primitive_command",
+      "size": 24,
+      "fields": [
+        {
+          "name": "half_width",
+          "offset": 0,
+          "size": 4,
+          "representation": "float32",
+          "accessors": [
+            "0x0032ee28",
+            "0x00318e10"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "rgba_bytes",
+          "offset": 4,
+          "size": 4,
+          "representation": "R<<24|G<<16|B<<8|A",
+          "accessors": [
+            "0x0032edf8",
+            "0x00318e10"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "type",
+          "offset": 8,
+          "size": 4,
+          "representation": "1=line,4=open polyline,5=closed polygon",
+          "accessors": [
+            "0x0032ee40",
+            "0x0032f498",
+            "0x0032f710",
+            "0x00318e10"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "vertex_start",
+          "offset": 12,
+          "size": 4,
+          "representation": "index in Vec2 array",
+          "accessors": [
+            "0x0032f498",
+            "0x00318e10"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "vertex_count",
+          "offset": 16,
+          "size": 4,
+          "representation": "s32",
+          "accessors": [
+            "0x0032f498",
+            "0x00318e10"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        },
+        {
+          "name": "minimum_vertex_count",
+          "offset": 20,
+          "size": 4,
+          "representation": "s32",
+          "accessors": [
+            "0x0032f498"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        }
+      ]
+    },
+    {
+      "name": "ui_primitive_vertex",
+      "size": 8,
+      "fields": [
+        {
+          "name": "xy",
+          "offset": 0,
+          "size": 8,
+          "representation": "float32 top-left logical XY",
+          "accessors": [
+            "0x001469f0",
+            "0x0032f498",
+            "0x00318e10"
+          ],
+          "evidence": "CONFIRMED_BY_ELF"
+        }
+      ]
+    }
+  ]
+}

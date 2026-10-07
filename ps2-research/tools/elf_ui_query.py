@@ -19,6 +19,10 @@ def main():
     ap.add_argument('--window', nargs=2, type=lambda s: int(s, 0), required=True)
     ap.add_argument('--addresses', nargs='+', type=lambda s: int(s, 0), required=True)
     ap.add_argument('--refs', nargs='*', type=lambda s: int(s, 0), default=[])
+    ap.add_argument('--track', choices=['ui1', 'ui2'], default='ui1',
+                    help='Ignored local export directory; defaults to the original UI1 track')
+    ap.add_argument('--ee-scalar', action='store_true',
+                    help='Normalize EE SQRT operand and MULT rd for scalar dataflow; requires no HI/LO reads in window')
     a = ap.parse_args()
     b = a.elf.read_bytes()
     if hashlib.sha256(b).hexdigest() != SHA:
@@ -28,6 +32,9 @@ def main():
         raise ValueError('Invalid or excessive UI query window')
     if any(not lo <= v < hi for v in a.addresses):
         raise ValueError('Function address outside query window')
+    if a.ee_scalar and any((w := struct.unpack_from('<I', b, va-0xff000)[0]) >> 26 == 0
+                           and w & 63 in (16, 18) for va in range(lo, hi, 4)):
+        raise ValueError('EE scalar MULT surrogate cannot preserve HI/LO consumers')
     import pyghidra
     from pyghidra.launcher import HeadlessPyGhidraLauncher
     launcher = HeadlessPyGhidraLauncher(install_dir=a.install)
@@ -45,7 +52,7 @@ def main():
     consumer = Object()
     program = project.getFile('/SLES_509.06').getReadOnlyDomainObject(consumer, -1, pyghidra.task_monitor())
     tx = decomp = ir = None
-    output = ROOT/'data'/'ui1'/'elf'
+    output = ROOT/'data'/a.track/'elf'
     output.mkdir(parents=True, exist_ok=True)
     def save(name, value):
         (output/name).write_text(json.dumps(value, indent=2)+'\n', encoding='utf-8', newline='\n')
@@ -62,10 +69,20 @@ def main():
         changes = []
         for va in range(lo, hi, 4):
             word = struct.unpack_from('<I', b, va-0xff000)[0]
+            replacement = None
+            kind = None
             if word>>26 in (0x1e, 0x1f):
                 replacement = ((0x37 if word>>26 == 0x1e else 0x3f)<<26)|(word&0x3ffffff)
+                kind = 'LQ/SQ low64 only'
+            elif a.ee_scalar and word >> 26 == 0 and word & 63 in (24, 25) and (word >> 11) & 31:
+                replacement = 0x70000002 | (word & 0x03fff800)
+                kind = 'EE MULT rd low32 only; HI/LO not modeled'
+            elif a.ee_scalar and word >> 21 == 0x230 and word & 63 == 4:
+                replacement = (word & ~0x001ff800) | (((word >> 16) & 31) << 11)
+                kind = 'EE SQRT ft to MIPS SQRT fs; positive finite scalar dataflow only'
+            if replacement is not None:
                 program.getMemory().setInt(api.toAddr(va), replacement if replacement<0x80000000 else replacement-0x100000000)
-                changes.append({'va':hex(va),'original':hex(word),'surrogate':hex(replacement)})
+                changes.append({'va':hex(va),'original':hex(word),'surrogate':hex(replacement),'kind':kind})
         save('surrogates-%x-%x.json'%(lo,hi), changes)
         targets = set(a.addresses)
         for p in range(0x1000, 0x30ea74, 4):
