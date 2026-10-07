@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "SLES_509.06": {
+      "available": true,
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "verified": true
+    },
+    "SYSTEM.CNF": {
+      "available": true,
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2",
+      "verified": true
+    },
+    "TNG.PAK": {
+      "available": true,
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d",
+      "verified": true
+    },
+    "TNG.000": {
+      "available": true,
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86",
+      "verified": true
+    }
+  },
+  "source_policy": "immutable external proprietary inputs"
+}

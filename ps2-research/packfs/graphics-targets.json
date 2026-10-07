@@ -1,0 +1,3430 @@
+{
+  "schema_version": 1,
+  "families": {
+    "HUD": {
+      "selection": "name-based inventory; rendering role remains STATIC_INFERENCE",
+      "patterns": [
+        "\\HUD\\",
+        "MASTER_TEMPLATE",
+        "PACENOTES",
+        "CARDAMAGEBITS",
+        "MAP128STRIPED",
+        "\\FRONTENDSCREENS\\PS2\\"
+      ],
+      "resource_count": 135,
+      "entries": [
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_001.GXI",
+          "entry_index": 88,
+          "offset": 1209537412,
+          "stored_size": 5145,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL_000.GXI",
+          "entry_index": 100,
+          "offset": 1209467466,
+          "stored_size": 4685,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_002.GXI",
+          "entry_index": 135,
+          "offset": 1209542557,
+          "stored_size": 7281,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD_006.GXI",
+          "entry_index": 154,
+          "offset": 1209634771,
+          "stored_size": 7670,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_010.GXI",
+          "entry_index": 193,
+          "offset": 1209826400,
+          "stored_size": 1797,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACERETRY.XML",
+          "entry_index": 219,
+          "offset": 1219039084,
+          "stored_size": 2239,
+          "unpacked_size": 16068,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKMODESELECT.XML",
+          "entry_index": 233,
+          "offset": 1218977106,
+          "stored_size": 14106,
+          "unpacked_size": 96483,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_007.GXI",
+          "entry_index": 246,
+          "offset": 1209758970,
+          "stored_size": 3083,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACEDETAILS2.XML",
+          "entry_index": 292,
+          "offset": 1219024003,
+          "stored_size": 8735,
+          "unpacked_size": 53465,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_005.GXI",
+          "entry_index": 310,
+          "offset": 1209812395,
+          "stored_size": 3284,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_009.GXI",
+          "entry_index": 376,
+          "offset": 1209824301,
+          "stored_size": 2099,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_013.GXI",
+          "entry_index": 377,
+          "offset": 1209790068,
+          "stored_size": 3626,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CHALLENGE.XML",
+          "entry_index": 380,
+          "offset": 1218857247,
+          "stored_size": 6027,
+          "unpacked_size": 40581,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD_007.GXI",
+          "entry_index": 385,
+          "offset": 1209642441,
+          "stored_size": 487,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_003.GXI",
+          "entry_index": 437,
+          "offset": 1209666195,
+          "stored_size": 8499,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_014.GXI",
+          "entry_index": 438,
+          "offset": 1209837454,
+          "stored_size": 2333,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MRALLYESTART.XML",
+          "entry_index": 443,
+          "offset": 1218930677,
+          "stored_size": 1697,
+          "unpacked_size": 9671,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL_001.GXI",
+          "entry_index": 451,
+          "offset": 1209472151,
+          "stored_size": 2537,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_003.GXI",
+          "entry_index": 454,
+          "offset": 1209729944,
+          "stored_size": 8250,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TITLE.XML",
+          "entry_index": 467,
+          "offset": 1219053486,
+          "stored_size": 2079,
+          "unpacked_size": 10795,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+          "entry_index": 529,
+          "offset": 1209525455,
+          "stored_size": 1095,
+          "unpacked_size": 3004,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\REPLAYTHEATRE.XML",
+          "entry_index": 581,
+          "offset": 1219047475,
+          "stored_size": 1557,
+          "unpacked_size": 9112,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_021.GXI",
+          "entry_index": 612,
+          "offset": 1209861026,
+          "stored_size": 3966,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LOADING2.XML",
+          "entry_index": 622,
+          "offset": 1218902135,
+          "stored_size": 3797,
+          "unpacked_size": 26463,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_005.GXI",
+          "entry_index": 643,
+          "offset": 1209522554,
+          "stored_size": 2901,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD.PSB",
+          "entry_index": 666,
+          "offset": 1209703958,
+          "stored_size": 4212,
+          "unpacked_size": 11768,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CREDITS.XML",
+          "entry_index": 722,
+          "offset": 1218865256,
+          "stored_size": 594,
+          "unpacked_size": 2151,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MAP128STRIPED1-TGA.GXI",
+          "entry_index": 734,
+          "offset": 1037649919,
+          "stored_size": 15931,
+          "unpacked_size": 65544,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MRALLYELEVEL.XML",
+          "entry_index": 739,
+          "offset": 1218928119,
+          "stored_size": 2558,
+          "unpacked_size": 14351,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_013.GXI",
+          "entry_index": 744,
+          "offset": 1209835331,
+          "stored_size": 2123,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_000.GXI",
+          "entry_index": 792,
+          "offset": 1209708170,
+          "stored_size": 9856,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\AUDIOOPTIONS.XML",
+          "entry_index": 796,
+          "offset": 1218849370,
+          "stored_size": 7877,
+          "unpacked_size": 46373,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_003.GXI",
+          "entry_index": 816,
+          "offset": 1209510221,
+          "stored_size": 7387,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LOADING.XML",
+          "entry_index": 849,
+          "offset": 1218898820,
+          "stored_size": 3315,
+          "unpacked_size": 21366,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\OPTIONS.XML",
+          "entry_index": 864,
+          "offset": 1218932963,
+          "stored_size": 2555,
+          "unpacked_size": 17125,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_018.GXI",
+          "entry_index": 946,
+          "offset": 1209851184,
+          "stored_size": 2842,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_000.GXI",
+          "entry_index": 965,
+          "offset": 1209474688,
+          "stored_size": 3095,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_022.GXI",
+          "entry_index": 975,
+          "offset": 1209864992,
+          "stored_size": 2205,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\CARDAMAGEBITS_000.GXI",
+          "entry_index": 1004,
+          "offset": 1209454162,
+          "stored_size": 1050,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_003.GXI",
+          "entry_index": 1021,
+          "offset": 1209805855,
+          "stored_size": 3339,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_012.GXI",
+          "entry_index": 1055,
+          "offset": 1209831153,
+          "stored_size": 4178,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\LANGUAGE.XML",
+          "entry_index": 1150,
+          "offset": 1218894478,
+          "stored_size": 4342,
+          "unpacked_size": 27140,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES.PSB",
+          "entry_index": 1232,
+          "offset": 1209795467,
+          "stored_size": 485,
+          "unpacked_size": 4192,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_004.GXI",
+          "entry_index": 1282,
+          "offset": 1209674694,
+          "stored_size": 8195,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\PS2CONTROLLEROPTIONS.XML",
+          "entry_index": 1307,
+          "offset": 1218959798,
+          "stored_size": 17308,
+          "unpacked_size": 121753,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACERESULTS.XML",
+          "entry_index": 1323,
+          "offset": 1219032738,
+          "stored_size": 6346,
+          "unpacked_size": 43915,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMESELECT.XML",
+          "entry_index": 1330,
+          "offset": 1218884667,
+          "stored_size": 5127,
+          "unpacked_size": 33061,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\HUD\\HUD1.XML",
+          "entry_index": 1366,
+          "offset": 1219173828,
+          "stored_size": 18619,
+          "unpacked_size": 136177,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\HUD\\ATTRACTMODE.XML",
+          "entry_index": 1403,
+          "offset": 1219138638,
+          "stored_size": 1341,
+          "unpacked_size": 9147,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE_000.GXI",
+          "entry_index": 1428,
+          "offset": 1209455660,
+          "stored_size": 6142,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_000.GXI",
+          "entry_index": 1441,
+          "offset": 1209644510,
+          "stored_size": 9791,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKRACE.XML",
+          "entry_index": 1508,
+          "offset": 1219004237,
+          "stored_size": 6543,
+          "unpacked_size": 45923,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_001.GXI",
+          "entry_index": 1520,
+          "offset": 1209477783,
+          "stored_size": 3229,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\PROGRESS.XML",
+          "entry_index": 1573,
+          "offset": 1218935518,
+          "stored_size": 24280,
+          "unpacked_size": 187813,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS.PSB",
+          "entry_index": 1587,
+          "offset": 1209465583,
+          "stored_size": 1005,
+          "unpacked_size": 2656,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_006.GXI",
+          "entry_index": 1602,
+          "offset": 1209575174,
+          "stored_size": 8517,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD_001.GXI",
+          "entry_index": 1607,
+          "offset": 1209597205,
+          "stored_size": 4666,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD.PSB",
+          "entry_index": 1618,
+          "offset": 1209586389,
+          "stored_size": 937,
+          "unpacked_size": 2446,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_010.GXI",
+          "entry_index": 1622,
+          "offset": 1209775277,
+          "stored_size": 6315,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_005.GXI",
+          "entry_index": 1675,
+          "offset": 1209565923,
+          "stored_size": 9251,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE_001.GXI",
+          "entry_index": 1722,
+          "offset": 1209461802,
+          "stored_size": 3781,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_000.GXI",
+          "entry_index": 1780,
+          "offset": 1209482964,
+          "stored_size": 12010,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS_002.GXI",
+          "entry_index": 1825,
+          "offset": 1209481012,
+          "stored_size": 844,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_008.GXI",
+          "entry_index": 1846,
+          "offset": 1209762053,
+          "stored_size": 5272,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TROPHY.XML",
+          "entry_index": 1918,
+          "offset": 1219057070,
+          "stored_size": 4769,
+          "unpacked_size": 30802,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP2.XML",
+          "entry_index": 1939,
+          "offset": 1219092374,
+          "stored_size": 18414,
+          "unpacked_size": 112773,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_002.GXI",
+          "entry_index": 2025,
+          "offset": 1209802503,
+          "stored_size": 3352,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_003.GXI",
+          "entry_index": 2042,
+          "offset": 1209549838,
+          "stored_size": 8306,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_012.GXI",
+          "entry_index": 2052,
+          "offset": 1209786587,
+          "stored_size": 3481,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARD.XML",
+          "entry_index": 2053,
+          "offset": 1218909400,
+          "stored_size": 10967,
+          "unpacked_size": 67195,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_001.GXI",
+          "entry_index": 2076,
+          "offset": 1209718026,
+          "stored_size": 4909,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD_002.GXI",
+          "entry_index": 2084,
+          "offset": 1209601871,
+          "stored_size": 7180,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_007.GXI",
+          "entry_index": 2089,
+          "offset": 1209583691,
+          "stored_size": 2698,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\HUD\\HUDDEBUG.XML",
+          "entry_index": 2096,
+          "offset": 1219192447,
+          "stored_size": 19452,
+          "unpacked_size": 150084,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_008.GXI",
+          "entry_index": 2103,
+          "offset": 1209821983,
+          "stored_size": 2318,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE.PSB",
+          "entry_index": 2129,
+          "offset": 1209642928,
+          "stored_size": 1582,
+          "unpacked_size": 4714,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_011.GXI",
+          "entry_index": 2205,
+          "offset": 1209828197,
+          "stored_size": 2956,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_006.GXI",
+          "entry_index": 2222,
+          "offset": 1209752753,
+          "stored_size": 6217,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MAINMENU.XML",
+          "entry_index": 2241,
+          "offset": 1218905932,
+          "stored_size": 3468,
+          "unpacked_size": 24040,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\NAME.XML",
+          "entry_index": 2276,
+          "offset": 1218932374,
+          "stored_size": 589,
+          "unpacked_size": 2142,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_000.GXI",
+          "entry_index": 2314,
+          "offset": 1209795952,
+          "stored_size": 3503,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\SCREENCENTRE.XML",
+          "entry_index": 2357,
+          "offset": 1219049032,
+          "stored_size": 4454,
+          "unpacked_size": 30831,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMSSMALL.PSB",
+          "entry_index": 2360,
+          "offset": 1209466588,
+          "stored_size": 878,
+          "unpacked_size": 2414,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_007.GXI",
+          "entry_index": 2368,
+          "offset": 1209692159,
+          "stored_size": 7848,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESELECT.XML",
+          "entry_index": 2394,
+          "offset": 1219061839,
+          "stored_size": 12031,
+          "unpacked_size": 79535,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_019.GXI",
+          "entry_index": 2402,
+          "offset": 1209854026,
+          "stored_size": 3556,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML.DISABLED",
+          "entry_index": 2435,
+          "offset": 1219156984,
+          "stored_size": 16844,
+          "unpacked_size": 130886,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_005.GXI",
+          "entry_index": 2454,
+          "offset": 1209682889,
+          "stored_size": 1660,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP.XML",
+          "entry_index": 2523,
+          "offset": 1219073870,
+          "stored_size": 18504,
+          "unpacked_size": 112800,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKRACE2.XML",
+          "entry_index": 2541,
+          "offset": 1219010780,
+          "stored_size": 6661,
+          "unpacked_size": 42561,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP3.XML",
+          "entry_index": 2562,
+          "offset": 1219110788,
+          "stored_size": 15572,
+          "unpacked_size": 93898,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_015.GXI",
+          "entry_index": 2595,
+          "offset": 1209839787,
+          "stored_size": 3579,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_004.GXI",
+          "entry_index": 2613,
+          "offset": 1209558144,
+          "stored_size": 7779,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_020.GXI",
+          "entry_index": 2657,
+          "offset": 1209857582,
+          "stored_size": 3444,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACEDETAILS.XML",
+          "entry_index": 2680,
+          "offset": 1219017441,
+          "stored_size": 6562,
+          "unpacked_size": 40766,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD_003.GXI",
+          "entry_index": 2760,
+          "offset": 1209609051,
+          "stored_size": 8494,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_007.GXI",
+          "entry_index": 2781,
+          "offset": 1209818742,
+          "stored_size": 3241,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_002.GXI",
+          "entry_index": 2794,
+          "offset": 1209504177,
+          "stored_size": 6044,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_014.GXI",
+          "entry_index": 2810,
+          "offset": 1209793694,
+          "stored_size": 1773,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\CUPSELECT.XML",
+          "entry_index": 2828,
+          "offset": 1218865850,
+          "stored_size": 10244,
+          "unpacked_size": 72607,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_009.GXI",
+          "entry_index": 2844,
+          "offset": 1209767325,
+          "stored_size": 7952,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_017.GXI",
+          "entry_index": 2864,
+          "offset": 1209847211,
+          "stored_size": 3973,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\COPYRIGHTS.XML",
+          "entry_index": 2877,
+          "offset": 1218863274,
+          "stored_size": 1982,
+          "unpacked_size": 11696,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+          "entry_index": 2886,
+          "offset": 1209455212,
+          "stored_size": 448,
+          "unpacked_size": 1072,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD_000.GXI",
+          "entry_index": 2958,
+          "offset": 1209587326,
+          "stored_size": 9879,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARDBOOT.XML",
+          "entry_index": 2973,
+          "offset": 1218920367,
+          "stored_size": 2239,
+          "unpacked_size": 12794,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_001.GXI",
+          "entry_index": 2974,
+          "offset": 1209494974,
+          "stored_size": 9203,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_023.GXI",
+          "entry_index": 3043,
+          "offset": 1209867197,
+          "stored_size": 3868,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_005.GXI",
+          "entry_index": 3061,
+          "offset": 1209745814,
+          "stored_size": 6939,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_016.GXI",
+          "entry_index": 3096,
+          "offset": 1209843366,
+          "stored_size": 3845,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD_005.GXI",
+          "entry_index": 3117,
+          "offset": 1209625724,
+          "stored_size": 9047,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\TRAINING.XML",
+          "entry_index": 3199,
+          "offset": 1219055565,
+          "stored_size": 1505,
+          "unpacked_size": 9244,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\QUICKMODESELECT2.XML",
+          "entry_index": 3221,
+          "offset": 1218991212,
+          "stored_size": 13025,
+          "unpacked_size": 83476,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT.PSB",
+          "entry_index": 3246,
+          "offset": 1209481856,
+          "stored_size": 1108,
+          "unpacked_size": 2902,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD_004.GXI",
+          "entry_index": 3280,
+          "offset": 1209617545,
+          "stored_size": 8179,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_009.GXI",
+          "entry_index": 3281,
+          "offset": 1209701316,
+          "stored_size": 2642,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_004.GXI",
+          "entry_index": 3288,
+          "offset": 1209809194,
+          "stored_size": 3201,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_008.GXI",
+          "entry_index": 3291,
+          "offset": 1209700007,
+          "stored_size": 1309,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMESELECT2.XML",
+          "entry_index": 3295,
+          "offset": 1218889794,
+          "stored_size": 4684,
+          "unpacked_size": 28439,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_006.GXI",
+          "entry_index": 3320,
+          "offset": 1209684549,
+          "stored_size": 7610,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML",
+          "entry_index": 3374,
+          "offset": 1219139979,
+          "stored_size": 17005,
+          "unpacked_size": 133513,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\GAMEOPTIONS.XML",
+          "entry_index": 3375,
+          "offset": 1218876094,
+          "stored_size": 8573,
+          "unpacked_size": 56540,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_000.GXI",
+          "entry_index": 3404,
+          "offset": 1209526550,
+          "stored_size": 10862,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_006.GXI",
+          "entry_index": 3467,
+          "offset": 1209815679,
+          "stored_size": 3063,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\VEHICLESETUP4.XML",
+          "entry_index": 3499,
+          "offset": 1219126360,
+          "stored_size": 12278,
+          "unpacked_size": 78768,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\MEMORYCARDMAIN.XML",
+          "entry_index": 3507,
+          "offset": 1218922606,
+          "stored_size": 5513,
+          "unpacked_size": 36917,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_011.GXI",
+          "entry_index": 3540,
+          "offset": 1209781592,
+          "stored_size": 4995,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATASCENE\\FRONTENDSCREENS\\PS2\\RACESELECT.XML",
+          "entry_index": 3569,
+          "offset": 1219041323,
+          "stored_size": 6152,
+          "unpacked_size": 41359,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_001.GXI",
+          "entry_index": 3579,
+          "offset": 1209799455,
+          "stored_size": 3048,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_001.GXI",
+          "entry_index": 3628,
+          "offset": 1209654301,
+          "stored_size": 4673,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\HUD-SPLIT_004.GXI",
+          "entry_index": 3632,
+          "offset": 1209517608,
+          "stored_size": 4946,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_002.GXI",
+          "entry_index": 3657,
+          "offset": 1209722935,
+          "stored_size": 7009,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\CARDAMAGEBITS.PSB",
+          "entry_index": 3686,
+          "offset": 1209453381,
+          "stored_size": 781,
+          "unpacked_size": 1982,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_004.GXI",
+          "entry_index": 3716,
+          "offset": 1209738194,
+          "stored_size": 7620,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\HUD\\MASTER_TEMPLATE_002.GXI",
+          "entry_index": 3727,
+          "offset": 1209658974,
+          "stored_size": 7221,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        }
+      ]
+    },
+    "grass_detail": {
+      "selection": "name-based inventory; rendering role remains STATIC_INFERENCE",
+      "patterns": [
+        "GRASS",
+        "SHRUB",
+        "STONES",
+        "\\PARTICLES\\"
+      ],
+      "resource_count": 175,
+      "entries": [
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W_FLIP\\ITALIAN GRASSSW-TGA.GXI",
+          "entry_index": 2,
+          "offset": 1159918733,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W\\F_GRASS_2_GRAVEL_L-TGA.GXI",
+          "entry_index": 40,
+          "offset": 1066819425,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S2\\GRASS_RIGHT-TGA.GXI",
+          "entry_index": 85,
+          "offset": 1061937792,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\I2A_GRASSPATH-TGA.GXI",
+          "entry_index": 97,
+          "offset": 1080561258,
+          "stored_size": 16104,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\LFIRE.GXI",
+          "entry_index": 112,
+          "offset": 1210652433,
+          "stored_size": 288,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 114,
+          "offset": 1098446837,
+          "stored_size": 15610,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_M\\GRASS-TGA.GXI",
+          "entry_index": 119,
+          "offset": 1052426866,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S1\\SANDGRASS-TGA.GXI",
+          "entry_index": 138,
+          "offset": 1141595279,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 139,
+          "offset": 1200887762,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\GREYSTONE.GXI",
+          "entry_index": 143,
+          "offset": 1210651588,
+          "stored_size": 845,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY1\\DIRT_SHRUB_BLEND_LFT_IN-TGA.GXI",
+          "entry_index": 159,
+          "offset": 1164812944,
+          "stored_size": 15820,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY1\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 174,
+          "offset": 1072491063,
+          "stored_size": 15608,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S1_FLIP\\SANDGRASS-TGA.GXI",
+          "entry_index": 192,
+          "offset": 1146157268,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\BASEGRASS-TGA.GXI",
+          "entry_index": 274,
+          "offset": 1184533468,
+          "stored_size": 16299,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\GRASS TO ROC2-TGA.GXI",
+          "entry_index": 281,
+          "offset": 1174197840,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3\\I2A_SHRUB-TGA.GXI",
+          "entry_index": 284,
+          "offset": 1107268017,
+          "stored_size": 16306,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\GRASS TO GRAV-TGA.GXI",
+          "entry_index": 294,
+          "offset": 1195393314,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY1\\I2A_GRASS-TGA.GXI",
+          "entry_index": 329,
+          "offset": 1072476195,
+          "stored_size": 14868,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 365,
+          "offset": 1080593302,
+          "stored_size": 15613,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE2\\GRASS-TGA.GXI",
+          "entry_index": 370,
+          "offset": 1047518025,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN2\\ITALIAN GRASSSW-TGA.GXI",
+          "entry_index": 372,
+          "offset": 1132767620,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DIRTDUST.GXI",
+          "entry_index": 448,
+          "offset": 1210626584,
+          "stored_size": 1635,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W_FLIP\\GRASS-TGA.GXI",
+          "entry_index": 468,
+          "offset": 1071686366,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 473,
+          "offset": 1190803961,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W\\GRASS-TREEDIRT-TGA.GXI",
+          "entry_index": 496,
+          "offset": 1066905510,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\GREEN SHRUB-TGA.GXI",
+          "entry_index": 501,
+          "offset": 1200443464,
+          "stored_size": 16206,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\MUD.GXI",
+          "entry_index": 515,
+          "offset": 1210652721,
+          "stored_size": 2762,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W\\GRASS_RIGHT-TGA.GXI",
+          "entry_index": 519,
+          "offset": 1066921902,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W2\\I2A_GRASSPATH-TGA.GXI",
+          "entry_index": 533,
+          "offset": 1124421481,
+          "stored_size": 16119,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W1\\I2A_GRASS-TGA.GXI",
+          "entry_index": 540,
+          "offset": 1120172644,
+          "stored_size": 14898,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W_FLIP\\GRASS_ROCK_LFT-TGA.GXI",
+          "entry_index": 551,
+          "offset": 1071735542,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 559,
+          "offset": 1038378058,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_M\\GREEN SHRUB-TGA.GXI",
+          "entry_index": 576,
+          "offset": 1178971363,
+          "stored_size": 16191,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_M\\TRACK_SHRUB_BLEND_LFT-TGA.GXI",
+          "entry_index": 635,
+          "offset": 1179661431,
+          "stored_size": 16116,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S2\\GRASS-TGA.GXI",
+          "entry_index": 659,
+          "offset": 1061905008,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\BASEGRASS-TGA.GXI",
+          "entry_index": 678,
+          "offset": 1169526767,
+          "stored_size": 16293,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_M\\F_GRASS_2_GRAVEL_L-TGA.GXI",
+          "entry_index": 732,
+          "offset": 1052368768,
+          "stored_size": 16380,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY1\\DIRT_SHRUB_BLEND_LFT-TGA.GXI",
+          "entry_index": 832,
+          "offset": 1164797337,
+          "stored_size": 15607,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3_FLIP\\I2A_GRASSPATH-TGA.GXI",
+          "entry_index": 838,
+          "offset": 1111393712,
+          "stored_size": 16088,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W\\GRASS-TGA.GXI",
+          "entry_index": 907,
+          "offset": 1066889118,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M2\\I2A_GRASSPATHB-TGA.GXI",
+          "entry_index": 912,
+          "offset": 1093799280,
+          "stored_size": 15931,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN2\\SANDGRASS-TGA.GXI",
+          "entry_index": 974,
+          "offset": 1132976622,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 1017,
+          "offset": 1195947976,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3\\I2A_SANDGRASS-TGA.GXI",
+          "entry_index": 1018,
+          "offset": 1107253369,
+          "stored_size": 14648,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DEFAULT3.GXI",
+          "entry_index": 1051,
+          "offset": 1210625493,
+          "stored_size": 642,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\DIRT_SHRUB_BLEND_LFT-TGA.GXI",
+          "entry_index": 1060,
+          "offset": 1200309984,
+          "stored_size": 15578,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\FIRE.GXI",
+          "entry_index": 1112,
+          "offset": 1210642090,
+          "stored_size": 474,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3\\I2A_GRASS-TGA.GXI",
+          "entry_index": 1114,
+          "offset": 1107082344,
+          "stored_size": 14850,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DUSTTEST.GXI",
+          "entry_index": 1123,
+          "offset": 1210633470,
+          "stored_size": 3504,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\I2A_GRASS-TGA.GXI",
+          "entry_index": 1136,
+          "offset": 1098431981,
+          "stored_size": 14856,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\TRACK_SHRUB_BLEND_LFT-TGA.GXI",
+          "entry_index": 1144,
+          "offset": 1201008778,
+          "stored_size": 16096,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\GRASS TO GRAV-TGA.GXI",
+          "entry_index": 1145,
+          "offset": 1184947970,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\GRASS TO GRAV-TGA.GXI",
+          "entry_index": 1169,
+          "offset": 1174181448,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\GRASS_RIGHT-TGA.GXI",
+          "entry_index": 1174,
+          "offset": 1057041018,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY1\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 1181,
+          "offset": 1165254881,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\BROWNSTONE.GXI",
+          "entry_index": 1188,
+          "offset": 1210620312,
+          "stored_size": 884,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3_FLIP\\I2A_GRASSPATHB-TGA.GXI",
+          "entry_index": 1240,
+          "offset": 1111409800,
+          "stored_size": 15926,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W2\\I2A_SHRUB-TGA.GXI",
+          "entry_index": 1245,
+          "offset": 1124580712,
+          "stored_size": 16299,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S4\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 1274,
+          "offset": 1115742498,
+          "stored_size": 15666,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\GRASS-TGA.GXI",
+          "entry_index": 1308,
+          "offset": 1043017509,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_M\\BASEGRASS-TGA.GXI",
+          "entry_index": 1318,
+          "offset": 1178684184,
+          "stored_size": 16298,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\GRASS_ROCK_LFT-TGA.GXI",
+          "entry_index": 1326,
+          "offset": 1043066685,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W_FLIP\\SANDGRASS-TGA.GXI",
+          "entry_index": 1338,
+          "offset": 1160116118,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\GREEN SHRUB-TGA.GXI",
+          "entry_index": 1413,
+          "offset": 1195474274,
+          "stored_size": 16226,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\GRASS_TO_MUD-TGA.GXI",
+          "entry_index": 1435,
+          "offset": 1184980754,
+          "stored_size": 16041,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\BASEGRASS-TGA.GXI",
+          "entry_index": 1487,
+          "offset": 1200152425,
+          "stored_size": 16314,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S2\\F_GRASS_2_GRAVEL_L-TGA.GXI",
+          "entry_index": 1490,
+          "offset": 1061835349,
+          "stored_size": 16379,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\I2A_GRASSPATHB-TGA.GXI",
+          "entry_index": 1510,
+          "offset": 1080577362,
+          "stored_size": 15940,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DEFAULT2.GXI",
+          "entry_index": 1523,
+          "offset": 1210625405,
+          "stored_size": 88,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\EXPLODE6.GXI",
+          "entry_index": 1577,
+          "offset": 1210641741,
+          "stored_size": 349,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\WATERSPLASH.GXI",
+          "entry_index": 1583,
+          "offset": 1210659222,
+          "stored_size": 2207,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY1\\TRACK_SHRUB_BLEND_LFT-TGA.GXI",
+          "entry_index": 1591,
+          "offset": 1165389042,
+          "stored_size": 16076,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DIRTDUST2.GXI",
+          "entry_index": 1615,
+          "offset": 1210628219,
+          "stored_size": 3624,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_M\\NEU GRASS TO ROCK2-TGA.GXI",
+          "entry_index": 1639,
+          "offset": 1179180148,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\GREEN SHRUB-TGA.GXI",
+          "entry_index": 1653,
+          "offset": 1185028926,
+          "stored_size": 16227,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3\\I2A_GRASSPATHB-TGA.GXI",
+          "entry_index": 1687,
+          "offset": 1107113281,
+          "stored_size": 15927,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\DIRT_SHRUB_BLEND_LFT_IN-TGA.GXI",
+          "entry_index": 1692,
+          "offset": 1200325562,
+          "stored_size": 15796,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M2\\I2A_GRASS-TGA.GXI",
+          "entry_index": 1697,
+          "offset": 1093768353,
+          "stored_size": 14833,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S4\\I2A_GRASSPATH-TGA.GXI",
+          "entry_index": 1742,
+          "offset": 1115710419,
+          "stored_size": 16108,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W\\ITALIAN GRASSSW-TGA.GXI",
+          "entry_index": 1771,
+          "offset": 1155035210,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\EXPLODE5.GXI",
+          "entry_index": 1774,
+          "offset": 1210641114,
+          "stored_size": 627,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W_FLIP\\GRASS-TREEDIRT-TGA.GXI",
+          "entry_index": 1783,
+          "offset": 1071702758,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN1\\ITALIAN GRASSSW-TGA.GXI",
+          "entry_index": 1824,
+          "offset": 1128820848,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3_FLIP\\I2A_SANDGRASS-TGA.GXI",
+          "entry_index": 1837,
+          "offset": 1111549890,
+          "stored_size": 14648,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\GRASS TO ROC2-TGA.GXI",
+          "entry_index": 1848,
+          "offset": 1184964362,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\NEU GRASS TO ROCK2-TGA.GXI",
+          "entry_index": 1862,
+          "offset": 1185222882,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1\\I2A_GRASS-TGA.GXI",
+          "entry_index": 1874,
+          "offset": 1084299278,
+          "stored_size": 14905,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\NEU GRASS TO ROCK2-TGA.GXI",
+          "entry_index": 1925,
+          "offset": 1200560245,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\NEU GRASS TO ROCK2-TGA.GXI",
+          "entry_index": 1934,
+          "offset": 1169882748,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\GRASS_TO_MUD-TGA.GXI",
+          "entry_index": 1947,
+          "offset": 1169723977,
+          "stored_size": 16055,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 1954,
+          "offset": 1174628753,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S4\\I2A_GRASS-TGA.GXI",
+          "entry_index": 1988,
+          "offset": 1115695531,
+          "stored_size": 14888,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\GRASS1.GXI",
+          "entry_index": 2018,
+          "offset": 1210642564,
+          "stored_size": 4104,
+          "unpacked_size": 4104,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\SANDGRASS-TGA.GXI",
+          "entry_index": 2088,
+          "offset": 1150783761,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\GRASS-TREEDIRT-TGA.GXI",
+          "entry_index": 2100,
+          "offset": 1043033901,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\GRASS_TO_MUD-TGA.GXI",
+          "entry_index": 2101,
+          "offset": 1200427385,
+          "stored_size": 16079,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W2\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 2132,
+          "offset": 1124453580,
+          "stored_size": 15671,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_M\\ITALIAN GRASSSW-TGA.GXI",
+          "entry_index": 2138,
+          "offset": 1137093653,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1_FLIP\\I2A_GRASS-TGA.GXI",
+          "entry_index": 2166,
+          "offset": 1089108634,
+          "stored_size": 14882,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\SPARK.GXI",
+          "entry_index": 2176,
+          "offset": 1210658647,
+          "stored_size": 575,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\GRASS TO ROC2-TGA.GXI",
+          "entry_index": 2203,
+          "offset": 1195409706,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W1\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 2231,
+          "offset": 1120187542,
+          "stored_size": 15672,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\GRASS_ROCK_LFT-TGA.GXI",
+          "entry_index": 2232,
+          "offset": 1057057410,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 2249,
+          "offset": 1107129208,
+          "stored_size": 15618,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\GRASS TO ROC2-TGA.GXI",
+          "entry_index": 2254,
+          "offset": 1190266783,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 2279,
+          "offset": 1170187670,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W\\GRASS_ROCK_LFT-TGA.GXI",
+          "entry_index": 2291,
+          "offset": 1066938294,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE2\\GRASS_RIGHT-TGA.GXI",
+          "entry_index": 2304,
+          "offset": 1047550809,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S4\\I2A_SHRUB-TGA.GXI",
+          "entry_index": 2307,
+          "offset": 1115881083,
+          "stored_size": 16318,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M2\\I2A_SHRUB-TGA.GXI",
+          "entry_index": 2332,
+          "offset": 1093953477,
+          "stored_size": 16311,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_M\\SANDGRASS-TGA.GXI",
+          "entry_index": 2338,
+          "offset": 1137352730,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3_FLIP\\I2A_GRASS-TGA.GXI",
+          "entry_index": 2396,
+          "offset": 1111378858,
+          "stored_size": 14854,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\NEU GRASS TO ROCK2-TGA.GXI",
+          "entry_index": 2429,
+          "offset": 1174402897,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\ITALIAN GRASSSW-TGA.GXI",
+          "entry_index": 2462,
+          "offset": 1150527006,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3_FLIP\\I2A_SHRUB-TGA.GXI",
+          "entry_index": 2484,
+          "offset": 1111564538,
+          "stored_size": 16306,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\GREEN SHRUB-TGA.GXI",
+          "entry_index": 2488,
+          "offset": 1169740032,
+          "stored_size": 16199,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\WATERSPLASH3.GXI",
+          "entry_index": 2502,
+          "offset": 1210661429,
+          "stored_size": 3490,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_M\\GRASS_ROCK_LFT-TGA.GXI",
+          "entry_index": 2546,
+          "offset": 1052476042,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\TRACK_SHRUB_BLEND_RHT-TGA.GXI",
+          "entry_index": 2558,
+          "offset": 1170241304,
+          "stored_size": 15895,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_M\\GRASS_TO_MUD-TGA.GXI",
+          "entry_index": 2571,
+          "offset": 1178955299,
+          "stored_size": 16064,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\BASEGRASS-TGA.GXI",
+          "entry_index": 2581,
+          "offset": 1189862782,
+          "stored_size": 16294,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DUSTY2.GXI",
+          "entry_index": 2587,
+          "offset": 1210636974,
+          "stored_size": 2070,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 2588,
+          "offset": 1084314183,
+          "stored_size": 15660,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DEFAULT4.GXI",
+          "entry_index": 2597,
+          "offset": 1210626135,
+          "stored_size": 449,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\GRASS_TO_MUD-TGA.GXI",
+          "entry_index": 2620,
+          "offset": 1195426098,
+          "stored_size": 16060,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3\\I2A_GRASSPATH-TGA.GXI",
+          "entry_index": 2626,
+          "offset": 1107097194,
+          "stored_size": 16087,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W2\\I2A_SANDGRASS-TGA.GXI",
+          "entry_index": 2650,
+          "offset": 1124565990,
+          "stored_size": 14722,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S2\\I2A_GRASS-TGA.GXI",
+          "entry_index": 2673,
+          "offset": 1102566378,
+          "stored_size": 14850,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\F_GRASS_2_GRAVEL_L-TGA.GXI",
+          "entry_index": 2689,
+          "offset": 1056950099,
+          "stored_size": 16390,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_M\\GRASS_RIGHT-TGA.GXI",
+          "entry_index": 2737,
+          "offset": 1052459650,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\NEU GRASS TO ROCK2-TGA.GXI",
+          "entry_index": 2768,
+          "offset": 1190541064,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DUSTCLOUD.GXI",
+          "entry_index": 2799,
+          "offset": 1210631843,
+          "stored_size": 1627,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\I2A_SHRUB-TGA.GXI",
+          "entry_index": 2837,
+          "offset": 1080746168,
+          "stored_size": 16317,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1_FLIP\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 2890,
+          "offset": 1089123516,
+          "stored_size": 15617,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S2\\GRASS_ROCK_LFT-TGA.GXI",
+          "entry_index": 2912,
+          "offset": 1061954184,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\GRASS-TREEDIRT-TGA.GXI",
+          "entry_index": 2934,
+          "offset": 1057024626,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\SMOKEY.GXI",
+          "entry_index": 2948,
+          "offset": 1210656391,
+          "stored_size": 2070,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 2962,
+          "offset": 1185526832,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W2\\I2A_GRASSPATHB-TGA.GXI",
+          "entry_index": 3012,
+          "offset": 1124437600,
+          "stored_size": 15980,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\GRASS TO GRAV-TGA.GXI",
+          "entry_index": 3017,
+          "offset": 1190250391,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\BUSH1.GXI",
+          "entry_index": 3086,
+          "offset": 1210621196,
+          "stored_size": 4104,
+          "unpacked_size": 4104,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S1_FLIP\\ITALIAN GRASSSW-TGA.GXI",
+          "entry_index": 3104,
+          "offset": 1145963694,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\GRASS_RIGHT-TGA.GXI",
+          "entry_index": 3110,
+          "offset": 1043050293,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\I2A_GRASS-TGA.GXI",
+          "entry_index": 3120,
+          "offset": 1080546409,
+          "stored_size": 14849,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W_FLIP\\F_GRASS_2_GRAVEL_L-TGA.GXI",
+          "entry_index": 3153,
+          "offset": 1071616644,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\GREEN SHRUB-TGA.GXI",
+          "entry_index": 3163,
+          "offset": 1190331332,
+          "stored_size": 16224,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M2\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 3166,
+          "offset": 1093815211,
+          "stored_size": 15620,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S2\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 3183,
+          "offset": 1102581228,
+          "stored_size": 15613,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\SNOW1.GXI",
+          "entry_index": 3188,
+          "offset": 1210658461,
+          "stored_size": 186,
+          "unpacked_size": 264,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\GRASS_TO_MUD-TGA.GXI",
+          "entry_index": 3239,
+          "offset": 1190283175,
+          "stored_size": 16049,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\NEWMUD.GXI",
+          "entry_index": 3285,
+          "offset": 1210655483,
+          "stored_size": 908,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN1\\SANDGRASS-TGA.GXI",
+          "entry_index": 3294,
+          "offset": 1129044051,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\NEU GRASS TO ROCK2-TGA.GXI",
+          "entry_index": 3310,
+          "offset": 1195676412,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DEFAULT.GXI",
+          "entry_index": 3361,
+          "offset": 1210625300,
+          "stored_size": 105,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3_FLIP\\I2A_GRASSROCK-TGA.GXI",
+          "entry_index": 3380,
+          "offset": 1111425726,
+          "stored_size": 15620,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_M\\GRASS-TREEDIRT-TGA.GXI",
+          "entry_index": 3384,
+          "offset": 1052443258,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\I2A_SANDGRASS-TGA.GXI",
+          "entry_index": 3392,
+          "offset": 1080731376,
+          "stored_size": 14792,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_M\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 3424,
+          "offset": 1179526154,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S1\\ITALIAN GRASSSW-TGA.GXI",
+          "entry_index": 3451,
+          "offset": 1141401729,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE2\\GRASS-TREEDIRT-TGA.GXI",
+          "entry_index": 3469,
+          "offset": 1047534417,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W_FLIP\\GRASS_RIGHT-TGA.GXI",
+          "entry_index": 3503,
+          "offset": 1071719150,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M2\\I2A_GRASSPATH-TGA.GXI",
+          "entry_index": 3526,
+          "offset": 1093783186,
+          "stored_size": 16094,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\GRASSDUST.GXI",
+          "entry_index": 3543,
+          "offset": 1210649961,
+          "stored_size": 1627,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\DUSTY3.GXI",
+          "entry_index": 3557,
+          "offset": 1210639044,
+          "stored_size": 2070,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W2\\I2A_GRASS-TGA.GXI",
+          "entry_index": 3576,
+          "offset": 1124406574,
+          "stored_size": 14907,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S4\\I2A_GRASSPATHB-TGA.GXI",
+          "entry_index": 3586,
+          "offset": 1115726527,
+          "stored_size": 15971,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\BASEGRASS-TGA.GXI",
+          "entry_index": 3612,
+          "offset": 1195001654,
+          "stored_size": 16298,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\F_GRASS_2_GRAVEL_L-TGA.GXI",
+          "entry_index": 3629,
+          "offset": 1042947808,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY2\\I2A_GRASS-TGA.GXI",
+          "entry_index": 3650,
+          "offset": 1076561855,
+          "stored_size": 14854,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\GRASS-TGA.GXI",
+          "entry_index": 3670,
+          "offset": 1057008234,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W\\SANDGRASS-TGA.GXI",
+          "entry_index": 3674,
+          "offset": 1155232566,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE2\\GRASS_ROCK_LFT-TGA.GXI",
+          "entry_index": 3717,
+          "offset": 1047567201,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\SHRUBTRIG2-TGA.GXI",
+          "entry_index": 3720,
+          "offset": 1210333619,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\GRASSDIRT.GXI",
+          "entry_index": 3721,
+          "offset": 1210646668,
+          "stored_size": 3293,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S2\\GRASS-TREEDIRT-TGA.GXI",
+          "entry_index": 3723,
+          "offset": 1061921400,
+          "stored_size": 16392,
+          "unpacked_size": 16392,
+          "compression": "raw",
+          "storage_codec": "raw"
+        }
+      ]
+    },
+    "water": {
+      "selection": "name-based inventory; rendering role remains STATIC_INFERENCE",
+      "patterns": [
+        "WATER",
+        "PUDDLE"
+      ],
+      "resource_count": 46,
+      "entries": [
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\WATER-TGA.GXI",
+          "entry_index": 99,
+          "offset": 1043658891,
+          "stored_size": 11195,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\I2A_WATER-TGA.GXI",
+          "entry_index": 142,
+          "offset": 1080762485,
+          "stored_size": 11217,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\WATER-TGA.GXI",
+          "entry_index": 157,
+          "offset": 1154812695,
+          "stored_size": 11205,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S2\\WATER-TGA.GXI",
+          "entry_index": 182,
+          "offset": 1106862479,
+          "stored_size": 11196,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY2\\WATER-TGA.GXI",
+          "entry_index": 239,
+          "offset": 1080388269,
+          "stored_size": 11215,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\WATER-TGA.GXI",
+          "entry_index": 400,
+          "offset": 1204777784,
+          "stored_size": 11208,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\WATER-TGA.GXI",
+          "entry_index": 431,
+          "offset": 1194964596,
+          "stored_size": 11184,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\WATER-TGA.GXI",
+          "entry_index": 483,
+          "offset": 1200131752,
+          "stored_size": 11189,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W_FLIP\\WATER-TGA.GXI",
+          "entry_index": 573,
+          "offset": 1072217671,
+          "stored_size": 11193,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W_FLIP\\WATER-TGA.GXI",
+          "entry_index": 621,
+          "offset": 1164608459,
+          "stored_size": 11177,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\WATERFALL-TGA.GXI",
+          "entry_index": 640,
+          "offset": 1043670086,
+          "stored_size": 15207,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S1\\WATER-TGA.GXI",
+          "entry_index": 725,
+          "offset": 1145798943,
+          "stored_size": 11200,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_M\\WATERFALL-TGA.GXI",
+          "entry_index": 760,
+          "offset": 1141244923,
+          "stored_size": 15011,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN1\\WATERFALL-TGA.GXI",
+          "entry_index": 827,
+          "offset": 1132543133,
+          "stored_size": 15062,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN2\\WATER-TGA.GXI",
+          "entry_index": 852,
+          "offset": 1136934967,
+          "stored_size": 11206,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERFALL2-TGA.GXI",
+          "entry_index": 1127,
+          "offset": 1038839060,
+          "stored_size": 4104,
+          "unpacked_size": 4104,
+          "compression": "raw",
+          "storage_codec": "raw"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN1\\WATER-TGA.GXI",
+          "entry_index": 1142,
+          "offset": 1132531935,
+          "stored_size": 11198,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERSURFACE2.GXI",
+          "entry_index": 1175,
+          "offset": 1038857243,
+          "stored_size": 16175,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W2\\I2A_WATER-TGA.GXI",
+          "entry_index": 1233,
+          "offset": 1124597011,
+          "stored_size": 11209,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1_FLIP\\WATER-TGA.GXI",
+          "entry_index": 1317,
+          "offset": 1093594601,
+          "stored_size": 11217,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERFALL-TGA.GXI",
+          "entry_index": 1341,
+          "offset": 1038835279,
+          "stored_size": 3781,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE2\\WATER-TGA.GXI",
+          "entry_index": 1374,
+          "offset": 1048160085,
+          "stored_size": 11193,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3_FLIP\\I2A_WATER-TGA.GXI",
+          "entry_index": 1476,
+          "offset": 1111580844,
+          "stored_size": 11186,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\WATERSPLASH.GXI",
+          "entry_index": 1583,
+          "offset": 1210659222,
+          "stored_size": 2207,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\WATER-TGA.GXI",
+          "entry_index": 1906,
+          "offset": 1178663687,
+          "stored_size": 11017,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1\\WATER-TGA.GXI",
+          "entry_index": 1958,
+          "offset": 1088782741,
+          "stored_size": 11220,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\WATER-TGA.GXI",
+          "entry_index": 2146,
+          "offset": 1189825702,
+          "stored_size": 11206,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_M\\WATERFALL-TGA.GXI",
+          "entry_index": 2147,
+          "offset": 1053112396,
+          "stored_size": 15204,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_M2\\I2A_WATER-TGA.GXI",
+          "entry_index": 2174,
+          "offset": 1093969788,
+          "stored_size": 11194,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\WATER-TGA.GXI",
+          "entry_index": 2289,
+          "offset": 1173817549,
+          "stored_size": 11179,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_W1\\I2A_WATER-TGA.GXI",
+          "entry_index": 2423,
+          "offset": 1120314808,
+          "stored_size": 11181,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\PARTICLES\\WATERSPLASH3.GXI",
+          "entry_index": 2502,
+          "offset": 1210661429,
+          "stored_size": 3490,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\WATERFALL-TGA.GXI",
+          "entry_index": 2528,
+          "offset": 1154823900,
+          "stored_size": 15048,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W\\WATER-TGA.GXI",
+          "entry_index": 2540,
+          "offset": 1067420425,
+          "stored_size": 11183,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3\\I2A_WATER-TGA.GXI",
+          "entry_index": 2847,
+          "offset": 1107284323,
+          "stored_size": 11186,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\WATERFALL-TGA.GXI",
+          "entry_index": 2929,
+          "offset": 1057567535,
+          "stored_size": 15272,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S2\\WATER-TGA.GXI",
+          "entry_index": 2994,
+          "offset": 1062596516,
+          "stored_size": 11175,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_M\\WATER-TGA.GXI",
+          "entry_index": 3178,
+          "offset": 1141233728,
+          "stored_size": 11195,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_M\\WATER-TGA.GXI",
+          "entry_index": 3179,
+          "offset": 1184496386,
+          "stored_size": 11210,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERSURFACE.GXI",
+          "entry_index": 3362,
+          "offset": 1038843164,
+          "stored_size": 14079,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W\\WATER-TGA.GXI",
+          "entry_index": 3415,
+          "offset": 1159713329,
+          "stored_size": 11187,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S4\\I2A_WATER-TGA.GXI",
+          "entry_index": 3476,
+          "offset": 1115897401,
+          "stored_size": 11211,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_M\\WATER-TGA.GXI",
+          "entry_index": 3513,
+          "offset": 1053101224,
+          "stored_size": 11172,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S1_FLIP\\WATER-TGA.GXI",
+          "entry_index": 3532,
+          "offset": 1150347110,
+          "stored_size": 11209,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\WATER-TGA.GXI",
+          "entry_index": 3583,
+          "offset": 1057556335,
+          "stored_size": 11200,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\WATER-TGA.GXI",
+          "entry_index": 3724,
+          "offset": 1102349849,
+          "stored_size": 11211,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        }
+      ]
+    },
+    "reflection": {
+      "selection": "name-based inventory; rendering role remains STATIC_INFERENCE",
+      "patterns": [
+        "ENV",
+        "REFLECT",
+        "CHROME",
+        "REAR128",
+        "RENDERTARGET",
+        "WINDSCREEN"
+      ],
+      "resource_count": 19,
+      "entries": [
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ENVSOURCE64X64.GXI",
+          "entry_index": 22,
+          "offset": 1036874990,
+          "stored_size": 10660,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREENC32-TGA.GXI",
+          "entry_index": 118,
+          "offset": 1038890555,
+          "stored_size": 2802,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\REAR128-TGA.GXI",
+          "entry_index": 395,
+          "offset": 1038214044,
+          "stored_size": 12244,
+          "unpacked_size": 65544,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN-REFLECT.GXI",
+          "entry_index": 560,
+          "offset": 1038886458,
+          "stored_size": 3318,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\TUMBLE-ENV.GXI",
+          "entry_index": 571,
+          "offset": 1038787783,
+          "stored_size": 2001,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\HAY_ENV-TGA.GXI",
+          "entry_index": 828,
+          "offset": 1037074753,
+          "stored_size": 900,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\KREAR128-TGA.GXI",
+          "entry_index": 894,
+          "offset": 1037335334,
+          "stored_size": 15606,
+          "unpacked_size": 65544,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\JCHROME16-TGA.GXI",
+          "entry_index": 1737,
+          "offset": 1037125351,
+          "stored_size": 358,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROME-TGA.GXI",
+          "entry_index": 1858,
+          "offset": 1036531841,
+          "stored_size": 2740,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\TUMBLE_ENV-TGA.GXI",
+          "entry_index": 2064,
+          "offset": 1038806176,
+          "stored_size": 894,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RENDERTARGET32X32.GXI",
+          "entry_index": 2427,
+          "offset": 1038237250,
+          "stored_size": 2619,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN32-TGA.GXI",
+          "entry_index": 2448,
+          "offset": 1038889776,
+          "stored_size": 779,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\SUBPELKAREAR128-TGA.GXI",
+          "entry_index": 2450,
+          "offset": 1038564805,
+          "stored_size": 16482,
+          "unpacked_size": 65544,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ROCK_ENV-TGA.GXI",
+          "entry_index": 2603,
+          "offset": 1038267855,
+          "stored_size": 789,
+          "unpacked_size": 1032,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\NEW CHROME LOGO-TGA.GXI",
+          "entry_index": 2642,
+          "offset": 1037840968,
+          "stored_size": 1973,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROMEBAR-TGA.GXI",
+          "entry_index": 2995,
+          "offset": 1036534581,
+          "stored_size": 237,
+          "unpacked_size": 264,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\KTCHROME-TGA.GXI",
+          "entry_index": 3234,
+          "offset": 1037350940,
+          "stored_size": 2033,
+          "unpacked_size": 4104,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\STATICRENDERTARGET64X64.GXI",
+          "entry_index": 3258,
+          "offset": 1038500358,
+          "stored_size": 15870,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        },
+        {
+          "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RENDERTARGET64X64.GXI",
+          "entry_index": 3289,
+          "offset": 1038239869,
+          "stored_size": 14124,
+          "unpacked_size": 16392,
+          "compression": "packfs_lzo",
+          "storage_codec": "gz"
+        }
+      ]
+    }
+  }
+}

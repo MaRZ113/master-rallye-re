@@ -1,0 +1,16 @@
+data/
+.local/
+*.gpr
+*.rep/
+SLES_509.06
+SYSTEM.CNF
+TNG.PAK
+TNG.000
+*.gxi
+*.GXI
+*.psb
+*.PSB
+*.psm
+*.PSM
+*.bxml
+*.BXML

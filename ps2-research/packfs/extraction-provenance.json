@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "input_sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86",
+  "validation_scope": "exactly the listed assets; other payloads not fully decompressed",
+  "entries": [
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "offset": 1209525455,
+      "stored_size": 1095,
+      "directory_size_0x08": 1095,
+      "unpacked_size": 3004,
+      "compression": "packfs_lzo",
+      "stored_sha256": "5fd880d6a947af39678ee7ce5af1263cbbad4b1047d4800cb17bdf79cd8ed4f5",
+      "payload_sha256": "c36f89c2978a98a4e3e3e4ce64204ff9cd52c3f9a81c5891cb9268859e172f9b",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-NUMS.PSB",
+      "offset": 1209465583,
+      "stored_size": 1005,
+      "directory_size_0x08": 1005,
+      "unpacked_size": 2656,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ee9814e6b2ad0b34e54dc5108230d4abd82af9a457362e7dea84171bb08dafed",
+      "payload_sha256": "f68b7d81d2a6c41031604cdfb745e33d105b5f85d0b5b50833269cc358256ee4",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_000.GXI",
+      "offset": 1209708170,
+      "stored_size": 9856,
+      "directory_size_0x08": 9856,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "017b76922c4321b7f0250fea12b4b4d62ac43dfbf4ed014cadd5743028a07ecc",
+      "payload_sha256": "427860e0df9c2431d279dd115ff15d0f2f0d15aad3f1a6d074aebff445fa655a",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ENVSOURCE64X64.GXI",
+      "offset": 1036874990,
+      "stored_size": 10660,
+      "directory_size_0x08": 10660,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e5c53cf4f958c19d00d13eb971d2964e5031956456e02ea9a97fa40e7d4e38dd",
+      "payload_sha256": "aa15159a5f3f668244dd3b1c5c7b8322d8f41ac626c3a1741222b797252ad1e4",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\REAR128-TGA.GXI",
+      "offset": 1038214044,
+      "stored_size": 12244,
+      "directory_size_0x08": 12244,
+      "unpacked_size": 65544,
+      "compression": "packfs_lzo",
+      "stored_sha256": "581d6c1881f265d7705667814289b20d2d81ae2960e7fa360f2179eb670b22d8",
+      "payload_sha256": "166700124d793109b5dac4ced0d5fb07f3f690b88cde4320a8c062ce0d45ccc1",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 128,
+        "height": 128,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\WATER-TGA.GXI",
+      "offset": 1043658891,
+      "stored_size": 11195,
+      "directory_size_0x08": 11195,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "b6ff26ddaf2e18bf7fe8d837f5e7fda843acb27db543db15fa13553496060311",
+      "payload_sha256": "37107b7bcd72412d5db4ff76336d5b705c35f1c03cc4394fbdcc6e7dc7813118",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE2\\GRASS-TGA.GXI",
+      "offset": 1047518025,
+      "stored_size": 16392,
+      "directory_size_0x08": 16392,
+      "unpacked_size": 16392,
+      "compression": "raw",
+      "stored_sha256": "62facf2a542281081074076bc5fe7a5d8e76dde5cf5d056b245a353825db762b",
+      "payload_sha256": "62facf2a542281081074076bc5fe7a5d8e76dde5cf5d056b245a353825db762b",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\I2A_GRASSPATH-TGA.GXI",
+      "offset": 1080561258,
+      "stored_size": 16104,
+      "directory_size_0x08": 16104,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "6b7fc53a3540bebee8e9aa046f402396bbfb917196bae284334b4d86d13dcfd5",
+      "payload_sha256": "688751e550e53af0627b69f480a7ad21fe65cd36747f1e0cbceb2cd72945b7c5",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    }
+  ]
+}

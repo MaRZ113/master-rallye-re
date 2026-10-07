@@ -1,0 +1,247 @@
+{
+  "input_sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d",
+  "input_size": 135556,
+  "output_size": 269668,
+  "output_sha256": "391929a42dac29eaa6a4306d9e178ad7da925a5426de0befd5550524cc6a56c4",
+  "golden_match": true,
+  "framing": {
+    "total_unpacked_size": 269668,
+    "compressor_id": 1,
+    "unknown_0x05": 1,
+    "block_size": 8192,
+    "blocks": [
+      {
+        "header_offset": 8,
+        "payload_offset": 16,
+        "previous_size": 0,
+        "stored_size": 5984,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 6000,
+        "payload_offset": 6008,
+        "previous_size": 5984,
+        "stored_size": 3745,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 9753,
+        "payload_offset": 9761,
+        "previous_size": 3745,
+        "stored_size": 3756,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 13517,
+        "payload_offset": 13525,
+        "previous_size": 3756,
+        "stored_size": 3443,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 16968,
+        "payload_offset": 16976,
+        "previous_size": 3443,
+        "stored_size": 3856,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 20832,
+        "payload_offset": 20840,
+        "previous_size": 3856,
+        "stored_size": 3905,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 24745,
+        "payload_offset": 24753,
+        "previous_size": 3905,
+        "stored_size": 3884,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 28637,
+        "payload_offset": 28645,
+        "previous_size": 3884,
+        "stored_size": 4010,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 32655,
+        "payload_offset": 32663,
+        "previous_size": 4010,
+        "stored_size": 4029,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 36692,
+        "payload_offset": 36700,
+        "previous_size": 4029,
+        "stored_size": 4008,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 40708,
+        "payload_offset": 40716,
+        "previous_size": 4008,
+        "stored_size": 4073,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 44789,
+        "payload_offset": 44797,
+        "previous_size": 4073,
+        "stored_size": 4031,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 48828,
+        "payload_offset": 48836,
+        "previous_size": 4031,
+        "stored_size": 4108,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 52944,
+        "payload_offset": 52952,
+        "previous_size": 4108,
+        "stored_size": 4023,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 56975,
+        "payload_offset": 56983,
+        "previous_size": 4023,
+        "stored_size": 4126,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 61109,
+        "payload_offset": 61117,
+        "previous_size": 4126,
+        "stored_size": 4060,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 65177,
+        "payload_offset": 65185,
+        "previous_size": 4060,
+        "stored_size": 4069,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 69254,
+        "payload_offset": 69262,
+        "previous_size": 4069,
+        "stored_size": 4007,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 73269,
+        "payload_offset": 73277,
+        "previous_size": 4007,
+        "stored_size": 4163,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 77440,
+        "payload_offset": 77448,
+        "previous_size": 4163,
+        "stored_size": 4118,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 81566,
+        "payload_offset": 81574,
+        "previous_size": 4118,
+        "stored_size": 4132,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 85706,
+        "payload_offset": 85714,
+        "previous_size": 4132,
+        "stored_size": 4169,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 89883,
+        "payload_offset": 89891,
+        "previous_size": 4169,
+        "stored_size": 4201,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 94092,
+        "payload_offset": 94100,
+        "previous_size": 4201,
+        "stored_size": 4314,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 98414,
+        "payload_offset": 98422,
+        "previous_size": 4314,
+        "stored_size": 4127,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 102549,
+        "payload_offset": 102557,
+        "previous_size": 4127,
+        "stored_size": 4251,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 106808,
+        "payload_offset": 106816,
+        "previous_size": 4251,
+        "stored_size": 4146,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 110962,
+        "payload_offset": 110970,
+        "previous_size": 4146,
+        "stored_size": 4160,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 115130,
+        "payload_offset": 115138,
+        "previous_size": 4160,
+        "stored_size": 4143,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 119281,
+        "payload_offset": 119289,
+        "previous_size": 4143,
+        "stored_size": 4196,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 123485,
+        "payload_offset": 123493,
+        "previous_size": 4196,
+        "stored_size": 4102,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 127595,
+        "payload_offset": 127603,
+        "previous_size": 4102,
+        "stored_size": 4072,
+        "unpacked_size": 8192
+      },
+      {
+        "header_offset": 131675,
+        "payload_offset": 131683,
+        "previous_size": 4072,
+        "stored_size": 3865,
+        "unpacked_size": 7524
+      }
+    ],
+    "terminal_offset": 135548
+  }
+}
