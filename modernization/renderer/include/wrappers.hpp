@@ -2,6 +2,8 @@
 #pragma once
 #include "trace.hpp"
 #include "game_fov.hpp"
+#include "quality.hpp"
+#include "ui_margins.hpp"
 #include <atomic>
 #include <unordered_map>
 namespace gfx2 {
@@ -33,10 +35,14 @@ private: IDirect3D8* real_; std::atomic<ULONG> refs_{1};
 };
 class Device8 final : public IDirect3DDevice8 {
 public:
- Device8(IDirect3DDevice8* p, Root8* parent) noexcept;
+ Device8(IDirect3DDevice8* p, Root8* parent, std::unique_ptr<QualityPipeline> quality = {}) noexcept;
  ~Device8();
  void adopt() noexcept { ++refs_; }
  Trace trace;
+ std::unique_ptr<QualityPipeline> quality;
+ UiMargins ui_margins;
+ void quality_trace() noexcept;
+ HRESULT stock_ui(const char* reason) noexcept;
  VisualPolicy visuals;
  GameFov game_fov;
  HRESULT stock_for_unmapped(const char* reason) noexcept;

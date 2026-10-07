@@ -13,6 +13,10 @@ struct VisualConfig {
  std::map<std::string,std::string> raw_fields;
  std::string reason,af_reason,fov_reason,shadow_reason;
  std::string reflection_mode="Stock",reflection_reason;
+ std::string display_mode="Stock",display_reason,interface_mode="Stock",interface_reason;
+ unsigned width=0,height=0,refresh=0,samples=4;
+ std::string aa_mode="Stock",aa_reason,freeze_reason;
+ bool menu_freeze=false;
 };
 VisualConfig parse_visual_config(const std::unordered_map<std::string,std::string>& fields,bool found);
 VisualConfig read_visual_config(const std::wstring& path);

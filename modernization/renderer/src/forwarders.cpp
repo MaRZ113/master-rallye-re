@@ -127,26 +127,6 @@ HRESULT STDMETHODCALLTYPE Device8::CreateAdditionalSwapChain(D3DPRESENT_PARAMETE
  trace.after(13, args, static_cast<uint32_t>(result), pc);
  return result;
 }
-HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS * pPresentationParameters) {
- auto guard = trace.guard();
- const auto args = pack(pPresentationParameters);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(14, args, pc);
- game_fov.finish_frame();
- HRESULT result = real_->Reset(pPresentationParameters);
- trace.after(14, args, static_cast<uint32_t>(result), pc);
- return result;
-}
-HRESULT STDMETHODCALLTYPE Device8::Present(const RECT *src_rect, const RECT *dst_rect, HWND dst_window_override, const RGNDATA *dirty_region) {
- auto guard = trace.guard();
- const auto args = pack(src_rect, dst_rect, dst_window_override, dirty_region);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(15, args, pc);
- trace.culling=game_fov.status(); game_fov.finish_frame(); trace.culling.restored=game_fov.status().restored;
- HRESULT result = real_->Present(src_rect, dst_rect, dst_window_override, dirty_region);
- trace.after(15, args, static_cast<uint32_t>(result), pc);
- return result;
-}
 HRESULT STDMETHODCALLTYPE Device8::GetBackBuffer(UINT BackBuffer,D3DBACKBUFFER_TYPE Type,IDirect3DSurface8 ** ppBackBuffer) {
  auto guard = trace.guard();
  const auto args = pack(BackBuffer, Type, ppBackBuffer);
@@ -342,24 +322,6 @@ HRESULT STDMETHODCALLTYPE Device8::MultiplyTransform(D3DTRANSFORMSTATETYPE state
  if(state==D3DTS_PROJECTION){HRESULT safe=stock_for_unmapped("MultiplyTransform_PROJECTION");if(FAILED(safe)){trace.after(39,args,static_cast<uint32_t>(safe),pc);return safe;}}
  HRESULT result = real_->MultiplyTransform(state, matrix);
  trace.after(39, args, static_cast<uint32_t>(result), pc);
- return result;
-}
-HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8 *viewport) {
- auto guard = trace.guard();
- const auto args = pack(viewport);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(40, args, pc);
- HRESULT result = real_->SetViewport(viewport);
- trace.after(40, args, static_cast<uint32_t>(result), pc);
- return result;
-}
-HRESULT STDMETHODCALLTYPE Device8::GetViewport(D3DVIEWPORT8 * pViewport) {
- auto guard = trace.guard();
- const auto args = pack(pViewport);
- const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(41, args, pc);
- HRESULT result = real_->GetViewport(pViewport);
- trace.after(41, args, static_cast<uint32_t>(result), pc);
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::SetMaterial(const D3DMATERIAL8 *material) {

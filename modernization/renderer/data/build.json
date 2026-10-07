@@ -1,28 +1,28 @@
 {
   "valid": true,
   "errors": [],
-  "sha256": "d171d03c0fca176b1909a6babc76ede83baf22b830760d388dcc75e0fa7fa87c",
-  "size": 1105920,
+  "sha256": "571e01cd648a7fd3ec8a86456071d8958856f8cebd49da064083cd7826b36d63",
+  "size": 1150464,
   "machine": 332,
   "pe_type": "PE32",
   "dll": true,
   "image_base": 268435456,
-  "timestamp": 2825985969,
-  "entry_rva": 544955,
+  "timestamp": 2348284350,
+  "entry_rva": 579691,
   "exports": {
     "Direct3DCreate8": {
       "ordinal": 5,
-      "rva": 16224,
+      "rva": 16256,
       "forwarder": null
     },
     "ValidatePixelShader": {
       "ordinal": 2,
-      "rva": 17600,
+      "rva": 17632,
       "forwarder": null
     },
     "ValidateVertexShader": {
       "ordinal": 3,
-      "rva": 17632,
+      "rva": 17664,
       "forwarder": null
     }
   },
@@ -35,44 +35,44 @@
     {
       "name": ".text",
       "rva": 4096,
-      "virtual_size": 941285,
-      "raw_size": 941568,
+      "virtual_size": 977877,
+      "raw_size": 977920,
       "raw_offset": 1024
     },
     {
       "name": ".rdata",
-      "rva": 946176,
-      "virtual_size": 128266,
-      "raw_size": 128512,
-      "raw_offset": 942592
+      "rva": 983040,
+      "virtual_size": 134316,
+      "raw_size": 134656,
+      "raw_offset": 978944
     },
     {
       "name": ".data",
-      "rva": 1077248,
-      "virtual_size": 11716,
-      "raw_size": 7168,
-      "raw_offset": 1071104
+      "rva": 1118208,
+      "virtual_size": 11956,
+      "raw_size": 7680,
+      "raw_offset": 1113600
     },
     {
       "name": ".fptable",
-      "rva": 1089536,
+      "rva": 1130496,
       "virtual_size": 128,
       "raw_size": 512,
-      "raw_offset": 1078272
+      "raw_offset": 1121280
     },
     {
       "name": ".rsrc",
-      "rva": 1093632,
+      "rva": 1134592,
       "virtual_size": 480,
       "raw_size": 512,
-      "raw_offset": 1078784
+      "raw_offset": 1121792
     },
     {
       "name": ".reloc",
-      "rva": 1097728,
-      "virtual_size": 26624,
-      "raw_size": 26624,
-      "raw_offset": 1079296
+      "rva": 1138688,
+      "virtual_size": 28048,
+      "raw_size": 28160,
+      "raw_offset": 1122304
     }
   ],
   "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"

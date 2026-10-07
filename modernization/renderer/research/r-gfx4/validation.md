@@ -1,3 +1,9 @@
+# R-GFX4 runtime closeout — 2026-10-07
+
+**CLOSED / CONFIRMED_BY_RUNTIME (human report).** User explicitly accepted R-GFX4 and authorized R-GFX5. The candidate preparation and automated evidence below are historical; no additional capture counts or per-stage verdicts are inferred from this acceptance.
+
+---
+
 # R-GFX4-5 automated validation — continuation #4
 
 **READY_FOR_HUMAN_RUNTIME.** New AI center/edge visual stability remains pending. Starting branch research/general-re, HEAD a6fc83d245902458019262b6574175c7eda3391a; tracked tree clean, user modernization/renderer.zip preserved. Concurrent Observatory edits appeared during work, causing a STOP; user resumed after unrelated commits57a0985 and91ecac6b4e63138ea32ed06c3f893b5b0f8a47e6. Final graphics changes remain exclusively in modernization/renderer. No branch/worktree/push/deployment, game EXE/asset mutation or retired-tree/Ghidra project writes.

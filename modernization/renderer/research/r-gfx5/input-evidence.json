@@ -1,0 +1,361 @@
+{
+  "inputs": [
+    {
+      "name": "MRallye.exe",
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "size": 3121214
+    },
+    {
+      "name": "MRallye_patched.exe",
+      "sha256": "bcf310a79133b03aa89ce51197a37516ee27c1b0e9da19788519e849e7a2f2f6",
+      "size": 3117118
+    },
+    {
+      "name": "MasterRallyeWidescreenFix.exe",
+      "sha256": "e0de5489b3b512d174024397eac0d54dc2afd8f3f2c13933a0c3881f75860814",
+      "size": 1404483
+    },
+    {
+      "name": "freeze-patch.py",
+      "sha256": "6719605fb97b59f6d11a480bf8b6e6f223c726cfff1b656862fd2a9640b02b1b",
+      "size": 2619
+    }
+  ],
+  "pristine_image_base": 4194304,
+  "freeze": {
+    "va": "0x005b015c",
+    "rva": "0x001b015c",
+    "file_offset": 1769820,
+    "context_hex": "85ff75118b4424108b4e1850e8152f0a00ff44241484db",
+    "branch_target_before": "0x005b016f",
+    "branch_target_after": "0x005b015e",
+    "render_call_va": "0x005b0166",
+    "render_owner_va": "0x00653080",
+    "reference_file_offset": "0x0024a1bc",
+    "reference_va": "0x64a1bc",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "ui_sort": {
+    "va": "0x00509a21",
+    "rva": "0x00109a21",
+    "context_hex": "d987b8000000d86030d9c0d8c9d9c2d8cb",
+    "overwritten_instructions": [
+      "FSUB dword [EAX+0x30]",
+      "FLD ST(0)"
+    ],
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "reference_cave": {
+    "va": "0x6ac444",
+    "rva": "0x2ac444",
+    "instruction_count": 162,
+    "point_rules": [
+      [
+        15.0,
+        150.0,
+        -1
+      ],
+      [
+        15.0,
+        390.0,
+        -1
+      ],
+      [
+        20.0,
+        135.0,
+        -1
+      ],
+      [
+        20.0,
+        150.0,
+        -1
+      ],
+      [
+        20.0,
+        175.0,
+        -1
+      ],
+      [
+        20.0,
+        350.0,
+        -1
+      ],
+      [
+        20.0,
+        360.0,
+        -1
+      ],
+      [
+        20.0,
+        365.0,
+        -1
+      ],
+      [
+        20.0,
+        375.0,
+        -1
+      ],
+      [
+        20.0,
+        380.0,
+        -1
+      ],
+      [
+        20.0,
+        410.0,
+        -1
+      ],
+      [
+        20.0,
+        415.0,
+        -1
+      ],
+      [
+        23.0,
+        370.0,
+        -1
+      ],
+      [
+        440.0,
+        390.0,
+        1
+      ],
+      [
+        450.0,
+        160.0,
+        1
+      ],
+      [
+        450.0,
+        400.0,
+        1
+      ],
+      [
+        475.0,
+        390.0,
+        1
+      ],
+      [
+        485.0,
+        160.0,
+        1
+      ],
+      [
+        485.0,
+        400.0,
+        1
+      ],
+      [
+        490.0,
+        210.0,
+        1
+      ],
+      [
+        490.0,
+        440.0,
+        1
+      ],
+      [
+        490.0,
+        450.0,
+        1
+      ],
+      [
+        510.0,
+        390.0,
+        1
+      ],
+      [
+        520.0,
+        160.0,
+        1
+      ],
+      [
+        520.0,
+        400.0,
+        1
+      ],
+      [
+        540.0,
+        408.0,
+        1
+      ],
+      [
+        540.0,
+        423.0,
+        1
+      ],
+      [
+        545.0,
+        40.0,
+        1
+      ],
+      [
+        545.0,
+        280.0,
+        1
+      ],
+      [
+        545.0,
+        390.0,
+        1
+      ],
+      [
+        550.0,
+        179.0,
+        1
+      ],
+      [
+        550.0,
+        194.0,
+        1
+      ],
+      [
+        550.0,
+        419.0,
+        1
+      ],
+      [
+        550.0,
+        434.0,
+        1
+      ],
+      [
+        555.0,
+        160.0,
+        1
+      ],
+      [
+        555.0,
+        400.0,
+        1
+      ],
+      [
+        565.0,
+        75.0,
+        1
+      ],
+      [
+        565.0,
+        315.0,
+        1
+      ],
+      [
+        570.0,
+        22.0,
+        1
+      ],
+      [
+        570.0,
+        262.0,
+        1
+      ],
+      [
+        580.0,
+        390.0,
+        1
+      ],
+      [
+        590.0,
+        160.0,
+        1
+      ],
+      [
+        590.0,
+        400.0,
+        1
+      ],
+      [
+        601.0,
+        52.0,
+        1
+      ],
+      [
+        601.0,
+        292.0,
+        1
+      ],
+      [
+        610.0,
+        408.0,
+        1
+      ],
+      [
+        610.0,
+        423.0,
+        1
+      ],
+      [
+        620.0,
+        179.0,
+        1
+      ],
+      [
+        620.0,
+        194.0,
+        1
+      ],
+      [
+        620.0,
+        419.0,
+        1
+      ],
+      [
+        620.0,
+        434.0,
+        1
+      ]
+    ],
+    "z_required": 0,
+    "left_bands": {
+      "x_inclusive": [
+        25,
+        106
+      ],
+      "y_half_open": [
+        [
+          19,
+          100
+        ],
+        [
+          259,
+          340
+        ]
+      ]
+    },
+    "evidence_grade": "CONFIRMED_BY_REFERENCE_EXE"
+  },
+  "captures": [
+    {
+      "name": "B-ai-multicar.jsonl",
+      "sha256": "9db93645fec37b09afb1c05b17ae32b39358a62edd8d88e83b73d5d4d0bcf297",
+      "present_count": 1,
+      "all_present_arguments_null": true,
+      "clear_count": 1,
+      "full_color_depth_clears": 1,
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
+    },
+    {
+      "name": "C-ai-edge.jsonl",
+      "sha256": "6541c48bb9b57ae59f70c933fea4f7da6516f36e5d4f1edeb8e6ab4bb902ada2",
+      "present_count": 1,
+      "all_present_arguments_null": true,
+      "clear_count": 1,
+      "full_color_depth_clears": 1,
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
+    },
+    {
+      "name": "frame-5952-d1-00064234.jsonl",
+      "sha256": "5745d9dcdc9fae142c522085579ca139b420398e6db307ebdee16c8f0ff7499a",
+      "present_count": 1,
+      "all_present_arguments_null": true,
+      "clear_count": 1,
+      "full_color_depth_clears": 1,
+      "complete": true,
+      "evidence_grade": "OBSERVED_IN_EXISTING_RUNTIME_CAPTURE"
+    }
+  ],
+  "inputs_executed": false
+}

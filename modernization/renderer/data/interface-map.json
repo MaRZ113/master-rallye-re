@@ -217,7 +217,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "COM",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; COM pointer plumbing and R-GFX5 exact-build display/MSAA parameters with bounded native fallback"
       }
     ],
     "IDirect3DDevice8": [
@@ -397,7 +397,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 15,
@@ -412,7 +412,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 16,
@@ -725,7 +725,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4 gated override or logical getter virtualization"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 38,
@@ -738,7 +738,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4 gated override or logical getter virtualization"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 39,
@@ -763,7 +763,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 41,
@@ -775,7 +775,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "unchanged except documented COM pointer plumbing"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 42,
@@ -1038,7 +1038,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4 gated override or logical getter virtualization"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 63,
@@ -1052,7 +1052,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4 gated override or logical getter virtualization"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 64,
@@ -1142,7 +1142,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4 gated override or logical getter virtualization"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 71,
@@ -1158,7 +1158,7 @@
         ],
         "implemented_wrapper": true,
         "logging_category": "observational",
-        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4 gated override or logical getter virtualization"
+        "forwarding_status": "default-off unchanged; documented R-GFX3/R-GFX4/R-GFX5 gated override or logical getter virtualization"
       },
       {
         "slot": 72,

@@ -1,6 +1,22 @@
 [Renderer]
 ConfigVersion=1
 
+[Display]
+; Windowed Width/Height are client pixels. Borderless always uses native monitor size.
+Mode=Stock
+Width=0
+Height=0
+RefreshRate=0
+
+[Widescreen]
+; Stock, Centered4x3, PreserveMargins. Gameplay FOV remains separate.
+InterfaceMode=Stock
+
+[AntiAliasing]
+; Native D3D8, request 2/4/8; supported color+depth <= request.
+Mode=Stock
+Samples=4
+
 [Filtering]
 AnisotropicFiltering=false
 MaxAnisotropy=16
@@ -17,5 +33,9 @@ Enabled=true
 FrameSummaries=true
 
 [VehicleReflections]
-; Test Stock Reset/relearn first. Opt-in experiment afterward: ViewDependent2D.
+; Keep Stock for R-GFX5 quality comparisons; ViewDependent2D remains optional.
 Mode=Stock
+
+[Compatibility]
+; Exact pristine, process-memory only. Test independently after a healthy baseline.
+MenuFreezeFix=false

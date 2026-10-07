@@ -40,9 +40,14 @@ HRESULT STDMETHODCALLTYPE Device8::SetTransform(D3DTRANSFORMSTATETYPE type,const
  auto guard=trace.guard();auto args=pack(type,input);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(37,args,pc);
  D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);bool rewritten=visuals.effective.fov&&visuals.projection(type,input,changed,exe,rva);
  if(rewritten){D3DMATRIX original{};rewritten=safe_copy(&original,input,sizeof(original))&&game_fov.allows(original);} // No D3D-only widening fallback.
+ bool ui_rewritten=false;
+ if(!rewritten&&quality&&quality->config.interface_mode!="Stock"&&type==D3DTS_PROJECTION&&exe&&rva==GAMEPLAY_PROJECTION_RETURN_RVA){
+  D3DMATRIX original{};auto& viewport=trace.effective_shadow.bindings.viewport;double aspect=viewport.known&&viewport.value.Height?double(viewport.value.Width)/viewport.value.Height:quality->valid&&quality->effective.BackBufferHeight?double(quality->effective.BackBufferWidth)/quality->effective.BackBufferHeight:0;
+  ui_rewritten=safe_copy(&original,input,sizeof(original))&&ui_projection(original,aspect,changed);
+ }
  trace.culling=game_fov.status();
- const D3DMATRIX* forwarded=rewritten?&changed:input;auto native=pack(type,forwarded);
- HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&rewritten){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,2,false,true);game_fov.disable("native_projection_rejected");visuals.effective.fov=false;native=args;hr=real_->SetTransform(type,input);rewritten=false;}trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:0);return hr;
+ const D3DMATRIX* forwarded=(rewritten||ui_rewritten)?&changed:input;auto native=pack(type,forwarded);
+ HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&(rewritten||ui_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=false;}trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:0);return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
  auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
@@ -83,7 +88,7 @@ HRESULT Device8::repair_reflection() noexcept {
 }
 HRESULT Device8::stock_for_unmapped(const char* reason) noexcept {
  HRESULT repair=repair_reflection();if(FAILED(repair))return repair;
- if(!visuals.active())return S_OK;
+ if(!visuals.active()&&(!quality||quality->config.interface_mode=="Stock"))return S_OK;
  // Canonical tested path uses no state blocks. Restore before entering an unreviewed block/multiply path,
  // then keep this device stock. If restoration fails, report that real HRESULT rather than hide leakage.
  const DWORD keys[]={16,17,18,21};
@@ -93,7 +98,7 @@ HRESULT Device8::stock_for_unmapped(const char* reason) noexcept {
  auto& logical=trace.shadow.matrices[3];auto& native=trace.effective_shadow.matrices[3];
  if(logical.known&&native.known&&std::memcmp(&logical.value,&native.value,sizeof(D3DMATRIX))){auto args=pack(D3DTS_PROJECTION,&logical.value);HRESULT hr=real_->SetTransform(D3DTS_PROJECTION,&logical.value);trace.after(37,args,static_cast<uint32_t>(hr),0,&args,2,false,true);if(FAILED(hr))return hr;}
  visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;visuals.effective.reflection_mode="Stock";
- game_fov.disable(reason);
+ game_fov.disable(reason);ui_margins.disable(reason);if(quality)quality->config.interface_mode="Stock";
  try{session().write("{\"type\":\"visual_fallback_stock\",\"reason\":"+quote(reason)+"}");}catch(...){}
  return S_OK;
 }

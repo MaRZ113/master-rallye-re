@@ -1,7 +1,7 @@
 {
   "phase": "R-GFX4 CONTINUATION #4",
   "proxy_version": "R-GFX4-5",
-  "status": "READY_FOR_HUMAN_RUNTIME",
+  "status": "CLOSED_CONFIRMED_BY_RUNTIME",
   "branch": "research/general-re",
   "starting_head": "a6fc83d245902458019262b6574175c7eda3391a",
   "resume_head": "91ecac6b4e63138ea32ed06c3f893b5b0f8a47e6",
@@ -226,7 +226,7 @@
     "push": false,
     "proprietary_binary_commit": false
   },
-  "next": "WAIT_FOR_HUMAN_RUNTIME_EVIDENCE; NO_R_GFX5",
+  "next": "R-GFX5 \u2014 Classic+ Quality Pass II",
   "historical_continuation3_preparation": {
     "phase": "R-GFX4 CONTINUATION #3",
     "proxy_version": "R-GFX4-4",
@@ -528,5 +528,11 @@
       },
       "next": "WAIT_FOR_HUMAN_RUNTIME_EVIDENCE"
     }
+  },
+  "human_closeout": {
+    "date": "2026-10-07",
+    "source": "Direct user report in this chat: R-GFX4 successful; proceed to R-GFX5",
+    "evidence_grade": "CONFIRMED_BY_HUMAN_REPORT",
+    "claim": "User accepts R-GFX4 outcome; no new detailed capture metrics invented"
   }
 }

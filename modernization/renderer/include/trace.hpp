@@ -20,7 +20,7 @@ struct ReflectionOutcome {
 struct EffectiveDraw {Known<uint32_t> filtering[4];Known<D3DMATRIX> projection;};
 struct Draw { DrawClassification classification;Classification at_draw;ReflectionOutcome reflection;Snapshot state;EffectiveDraw effective;std::array<uint64_t,8> texture_generation{};
  std::array<uint64_t,16> stream_generation{};uint64_t index_generation=0; };
-struct FrameBuffer {std::array<Event,MAX_EVENTS> events;std::array<Draw,MAX_DRAWS> draws;
+struct FrameBuffer {Known<D3DVIEWPORT8> initial_effective_viewport;std::array<Event,MAX_EVENTS> events;std::array<Draw,MAX_DRAWS> draws;
  size_t event_count=0,draw_count=0;bool truncated=false;uint64_t dropped=0;};
 static_assert(sizeof(FrameBuffer)<=MAX_BUFFER_BYTES,"hard capture allocation limit");
 class Trace {
@@ -44,6 +44,7 @@ public:
  std::atomic<bool> enabled{false};
  Shadow shadow,effective_shadow;
  FovCullStatus culling;
+ std::string quality_metadata="null",ui_metadata="null";
  CaptureControl control;
  ResourceRegistry resources;
 private:

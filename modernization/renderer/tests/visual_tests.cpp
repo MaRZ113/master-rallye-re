@@ -20,7 +20,7 @@ void config_contracts(){
  CHECK(!parse_visual_config({{"Renderer.ConfigVersion","1"},{"Shadows.Mode","Opacity"}},true).shadow_off);
  CHECK(parse_visual_config({{"Renderer.ConfigVersion","1"},{"Camera.GameplayFOV","true"},{"Camera.VerticalFOVDegrees","110"}},true).fov);
  auto reflection=parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode","ViewDependent2D"}},true);CHECK(reflection.reflection_mode=="ViewDependent2D");
- VisualPolicy blocked;blocked.configure(reflection,true,nullptr,E_FAIL);CHECK(blocked.effective.reflection_mode=="ViewDependent2D"&&blocked.effective.reflection_reason=="requires_strong_body_constellation_per_draw");
+ VisualPolicy blocked;blocked.configure(reflection,true,nullptr,E_FAIL);CHECK(blocked.effective.reflection_mode=="ViewDependent2D"&&blocked.effective.reflection_reason=="requires_live_or_learned_body_proof_current_material");
  blocked.configure(reflection,false,nullptr,E_FAIL);CHECK(blocked.effective.reflection_mode=="Stock"&&blocked.effective.reflection_reason=="unsupported_build");
  auto invalid=parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode","Cubemap"}},true);CHECK(invalid.reflection_mode=="Stock"&&!invalid.reflection_reason.empty());
  std::cout<<"Config missing/version/invalid fields/independence: PASS\n";
