@@ -33,12 +33,16 @@ Rallye and Rallye Cup; the stock ID0 display regression and full stage/Results
 are owner-reported PASS. Physical ID26 remains unchanged. See
 `research/vehicles/unlock/closeout.md` and
 `research/vehicles/localization/frontend-consumers.md`. R5V-G.2 Vehicle Audio
-Identity / Sound Family Architecture is also **FULL PASS / CLOSED**. R5V-H is
-now in progress: the Quick Race AI pool is mapped, but the first forced
-Car1=ID26 runtime attempt failed with resource provenance unresolved. H.0 has
-a corrected minimal guard and verified self-contained package; the fresh
-profile canary and human AI test are still required before any natural T1-pool
-change. Catalog ordering remains deferred.
+Identity / Sound Family Architecture is also **FULL PASS / CLOSED**. R5V-H's
+bounded forced Car1=ID26/T1 Quick Race actor proof is now
+**CONFIRMED_BY_RUNTIME**: the human observed the Mercedes AI drive, progress,
+finish, and appear in Results. The Results row displayed `GALOCAL UNKNOWN`; a
+static trace found the missing group-`0x39` selector and a narrow DriverID-based
+display fix is ready for human retest. Separate hardened candidates are staged
+for ordinary tests without a forced AI hook/randomizer and for the deterministic
+Car1 proof. The Results-name fix and neutral Dump/Loading hardening still need
+human validation. Natural T1 pool membership remains **NOT STARTED**. Catalog
+ordering remains deferred.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

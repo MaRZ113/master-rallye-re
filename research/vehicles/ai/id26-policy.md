@@ -13,13 +13,16 @@ unlock, audio, or asset change is part of the H proof.
 |---|---|---|
 | Player unlock | Mirrors the stock T1 Cup ID3 gate | `CONFIRMED_BY_RUNTIME` in G.1; unchanged |
 | Stock Quick Race T1 membership | ID26 absent from retail IDs 0–6 | `CONFIRMED_BY_EXE` |
-| Diagnostic forced proof | Car1 physical CarID becomes 26 after normal selection | `WAITING_FOR_CORRECTED_HUMAN_RUNTIME` |
+| Diagnostic forced proof | Car1 physical CarID becomes 26 after normal selection | `CONFIRMED_BY_RUNTIME` for the tested T1 / three-AI Quick Race path |
 | Natural T1 AI eligibility | Append physical ID26 to the explicit T1 absolute-ID list | `NOT STARTED`, gated on forced AI runtime pass |
 | Natural selection in other modes | No inference | `UNKNOWN` |
 
 The proof guard is Car1-specific only to isolate actor materialization. It is
-not the intended final policy. The later natural candidate must have no forced
-CarN, must preserve IDs 0–25, and must keep T2 IDs 7–13 and T3 unchanged.
+not the intended final policy. H.0.1 has a separate hardened forced candidate
+for Results-name and Dump retest; its ordinary hardened counterpart contains
+neither the proof guard nor a randomizer. The later natural candidate must
+have no forced CarN, must preserve IDs 0–25, and must keep T2 IDs 7–13 and T3
+unchanged.
 
 ## Expected proof participant
 
@@ -28,6 +31,11 @@ CarN, must preserve IDs 0–25, and must keep T2 IDs 7–13 and T3 unchanged.
 * Car2/Car3: distinct stock T1 AI IDs in 1–6.
 * `Race/NumCars=4`, `Race/NumPlayers=1`.
 
-The checker classifies the AI `PlayerType` by comparing Car1 with Car2/Car3
-and distinguishing them from Car0. It reports observed enum values without
+The corrected H.0.1 active-race capture reports Car1 ID26/T1/DriverID8,
+`CarType=Mercedes`, and `WheelType=Mercedes`; the human confirmed the actor,
+AI driving, progress, finish, and Results-row presence. The Results row's
+`GALOCAL UNKNOWN` is a separate name-selector defect; the H.0.1 display fix is
+static-only until a post-Results human capture confirms it. The runtime
+checker classifies AI `PlayerType` by comparing Car1 with Car2/Car3 and
+distinguishing them from Car0; it reports observed enum values without
 hardcoding an unverified numeric AI constant.

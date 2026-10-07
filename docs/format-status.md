@@ -303,9 +303,24 @@ The final 78-operation candidate (`722d1a59...`) also displays `MERCEDES ML-320`
 in both Master Rallye and Rallye Cup Race Details; stock ID0 Race Details
 regression and full stage/Results are owner-reported PASS. See
 `research/vehicles/unlock/closeout.md`, `runtime-captures.json`, and
-`research/vehicles/localization/frontend-consumers.md`. The next phase is
-R5V-G.2 Vehicle Audio Identity / Sound Family Architecture. Catalog ordering is
-deferred; later work includes R5V-H AI pools, R5V-I multi-slot registry
-expansion plus a real T2 addon qualification, and R5V-J generic Addon Vehicle
-SDK. Do not infer a frontend return, split-screen Race Details, or unqualified
-Challenge/Trophy identity pass from this closeout.
+`research/vehicles/localization/frontend-consumers.md`. R5V-G.2 Vehicle Audio
+Identity / Sound Family Architecture is also **FULL PASS / CLOSED**. Catalog
+ordering is deferred; later work includes R5V-H AI pools, R5V-I multi-slot
+registry expansion plus a real T2 addon qualification, and R5V-J generic
+Addon Vehicle SDK. Do not infer a frontend return, split-screen Race Details,
+or unqualified Challenge/Trophy identity pass from this closeout.
+
+### Current R5V-H — forced ID26 AI and research hardening
+
+The bounded Car1/T1/three-AI forced ID26 materialization test is
+**CONFIRMED_BY_RUNTIME**. The human saw the Mercedes actor drive, progress,
+finish, and appear in Race Results. The Results row showed `GALOCAL UNKNOWN`;
+static tracing found that the native AI name path passes physical CarID to
+group `0x39`, where ID26 has no selector. A bounded DriverID-based display
+selector for ID26 AI, plus neutral Loading->Attract and native Dump null
+guards, are **READY_FOR_HUMAN_RUNTIME**. Separate forced-proof and ordinary
+Hardened EXEs are reproducibly built and staged. The ordinary candidate has no
+forced AI hook or opponent randomizer. Natural T1 pool membership remains
+**NOT STARTED** pending the Results/Dump retest; see
+`research/vehicles/ai/runtime-results.md`, `race-results-identity.md`,
+`hardening.md`, and `runtime-plan.md`.

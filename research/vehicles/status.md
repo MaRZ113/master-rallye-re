@@ -56,18 +56,24 @@ not changed or qualified for ID26.
 CarIDs; T1 enumerates 0–6 and does not include sparse frontend mapping
 `T1 local7 -> ID26`. Player availability and AI pool eligibility are separate.
 
-**Forced Car1=ID26 materialization proof: WAITING_FOR_CORRECTED_HUMAN_RUNTIME.**
-The first H run failed: the locked thumbnail/commit behavior regressed in that
-test environment and forced Car1=ID26 was not observed; missing runtime
-provenance leaves the cause unresolved. H.0 now has a hash-verified package
-composing the closed G.1 resources and G.2 profile-0 build, plus a minimal
-Car1/T1/three-AI publication guard. The corrected package still requires the
-fresh-profile lock canary and human AI test. See [H runtime results](ai/runtime-results.md),
-[findings](ai/findings.md), and [runtime plan](ai/runtime-plan.md).
+**Forced Car1=ID26 materialization proof: CONFIRMED_BY_RUNTIME** for one
+single-player T1 Quick Race with three AI. The active-race capture confirms
+Car1 ID26/T1/DriverID8 with Mercedes `CarType` and `WheelType`; the human
+observed its model, AI driving, progress, finish, and Results-row presence.
+The Results name itself displayed `GALOCAL UNKNOWN`; static analysis found
+that the native Results builder uses physical CarID as a group-`0x39` person
+name selector, where ID26 has no entry. H.0.1 now has a display-only correction
+and neutral Loading/Dump hardening, both **READY_FOR_HUMAN_RUNTIME**. Two
+separate verified builds exist: a forced proof candidate and an ordinary
+hardened EXE with no forced ID and no randomizer. See [H runtime results](ai/runtime-results.md),
+[findings](ai/findings.md), [Results identity trace](ai/race-results-identity.md),
+[hardening](ai/hardening.md), and [runtime handoff](ai/runtime-plan.md).
 
-**Natural T1 pool inclusion: NOT STARTED; gated on forced runtime pass.** The
-next candidate will append ID26 to the explicit T1 pool only after the forced
-participant proves model, wheels, physics, AI, collision, and damage behavior.
+**Natural T1 pool inclusion: NOT STARTED.** The forced-materialization gate
+has passed, but this closeout only repairs Results-name presentation and
+prepares neutral research hardening. Do not begin natural pool membership
+until the H.0.1 Results/Dump retest is recorded and a separate phase is
+authorized.
 
 Later phases are R5V-I multi-slot registry expansion with a real additional T2
 vehicle, then R5V-J generic Addon Vehicle SDK. Catalog/order refinement remains

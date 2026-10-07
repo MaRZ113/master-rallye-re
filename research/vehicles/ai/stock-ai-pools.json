@@ -3,7 +3,9 @@
   "phase": "R5V-H",
   "status": {
     "quickrace_pool_map": "CONFIRMED_BY_EXE",
-    "forced_id26_ai_candidate": "WAITING_FOR_CORRECTED_HUMAN_RUNTIME",
+    "forced_id26_ai_candidate": "CONFIRMED_BY_RUNTIME",
+    "forced_id26_results_name_fix": "READY_FOR_HUMAN_RUNTIME",
+    "neutral_research_hardening": "READY_FOR_HUMAN_RUNTIME",
     "natural_t1_id26_membership": "NOT_STARTED_GATED_ON_FORCED_RUNTIME_PASS"
   },
   "build": {
@@ -104,13 +106,15 @@
       "class": "T1 / code 0",
       "frontend_t1_local_index": 7,
       "ai_eligibility_distinct_from_player_unlock": true,
-      "natural_pool_change": "NOT_STARTED; gated on forced AI human runtime pass"
+      "natural_pool_change": "NOT_STARTED; forced materialization pass does not prove natural T1 pool eligibility"
     }
   },
   "evidence_boundary": {
     "static_pool_model": "CONFIRMED_BY_EXE",
-    "forced_id26_ai_candidate": "WAITING_FOR_CORRECTED_HUMAN_RUNTIME",
-    "ai_model_physics_collision_or_driving": "NOT_YET_CONFIRMED_BY_RUNTIME",
+    "forced_id26_ai_candidate": "CONFIRMED_BY_RUNTIME for Car1/T1/three-AI Quick Race only",
+    "ai_model_physics_collision_or_driving": "CONFIRMED_BY_RUNTIME for tested Car1 actor, AI movement, progress and finish",
+    "race_results_name_id26": "GALOCAL UNKNOWN observed by human; selector fix READY_FOR_HUMAN_RUNTIME",
+    "neutral_hardening": "READY_FOR_HUMAN_RUNTIME",
     "natural_id26_selection": "NOT_YET_CONFIRMED_BY_RUNTIME",
     "other_mode_pool_consumers": "UNKNOWN unless separately stated in mode-consumers.md"
   }

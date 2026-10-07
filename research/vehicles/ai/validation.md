@@ -88,10 +88,53 @@ result is `HUMAN_AI_CONFIRMATION_REQUIRED`; a wrong Car1 is classified
   metadata, forced identity agreement, and incomplete state.
 * Full-suite and compile counts are recorded after the final closeout checks.
 
-## Runtime status
+## H.0.1 candidate build and package verification
 
-**WAITING_FOR_CORRECTED_HUMAN_RUNTIME.** The failed first H run remains a
-separate failure with unknown effective resource root and unknown Car0 ID.
-The corrected candidate/package has not yet been tested in the game. The first
-human gate is the fresh-profile G.1 locked-state canary; if it fails, stop
-before Quick Race. Natural T1 pool inclusion remains **NOT STARTED**.
+From exact retail SHA256
+`bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`, both
+profiles reproduce deterministically and pass `--verify-existing`:
+
+| Profile | Output SHA256 | Forced hook | Randomizer |
+|---|---|---:|---:|
+| `ordinary-hardened` | `391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819` | no | no |
+| `forced-id26-ai-hardened` | `9255c9d7cb27336d0a5324bd193719c768f09f5bb7d37e30bab384031b0de0e7` | Car1 proof only | no |
+
+Both separate runtime packages pass verification with 145 staged files, the
+pinned VehicleSelect scene, and no generated PlayerState. Neither package
+contains a DLL. The ordinary package reports no forced proof and no
+randomizer, making it the stock-path hardened control requested for tests.
+The forced package is reserved for the ID26 Results-name and hardening retest.
+
+Final repository validation for this correction pass:
+
+* `python -m unittest discover -s tests/synthetic -v`: **325 passed, 0 failed,
+  0 skipped**.
+* `python -m compileall src tools tests`: **passed**.
+* Both candidate `--verify-existing` commands: **passed**.
+* Both hardened runtime package verifiers: **passed**.
+* `git diff --check`: **passed**.
+
+## Corrected H.0 runtime status
+
+The first failed H run remains a separate failure with unknown effective
+resource root and Car0 ID. The corrected H.0 candidate was later human-tested
+from its verified package. The supplied active-race capture confirms
+`NumCars=4`, `NumPlayers=1`, and Car1 `CarID=26`, T1, DriverID8,
+`CarType=Mercedes`, `WheelType=Mercedes`. The human confirmed visible model,
+AI behavior, progress, finish, and a Results row. This is
+**CONFIRMED_BY_RUNTIME** for the forced Car1 materialization path.
+
+The Results row currently shows `GALOCAL UNKNOWN`. Static analysis maps this to
+the group-`0x39` selector using physical CarID; ID26 has no entry in that
+table. H.0.1 changes the selector to the already-selected DriverID for ID26 AI
+only. The correction is **STATICALLY VERIFIED / READY_FOR_HUMAN_RUNTIME**.
+
+H.0.1 also composes neutral Loading->Attract and native StringList/XmlData
+Dump guards. The ordinary profile has neither forced AI selection nor a
+randomizer; the forced profile has the deterministic H.0 guard only. Both
+candidates and resource packages verify on disk, but human validation of the
+Results name, post-Results Dump survival, and Restart/loading behavior remains
+pending. The separate ordinary hardened EXE is ready at
+`.research-output/vehicles/ai/hardened-ordinary-no-randomizer/runtime-package/MRallye.exe`.
+The corrected human instructions are in [runtime-plan.md](runtime-plan.md).
+Natural T1 pool inclusion remains **NOT STARTED**.

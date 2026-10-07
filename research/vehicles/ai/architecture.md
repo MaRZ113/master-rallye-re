@@ -60,8 +60,10 @@ The corrected stub therefore has only three guards: ESI==1, EBP==4, and class
 0/T1. On a match, it changes only the selected-ID local `[ESP+0x14]` to 26.
 All paths replay the original five bytes and jump to `0x0045842D`. It does not
 require Car0 ID0, although ID0 remains the human runtime-test control. This is
-static call-graph/frame evidence; the corrected hook remains unproven at
-runtime until the new package passes its human test.
+static call-graph/frame evidence. The corrected H.0 candidate later passed the
+human materialization test: the active capture records Car1 ID26/T1 and
+Mercedes runtime identity, and the human observed AI movement, progress, and a
+finish. This closes only the bounded forced proof.
 
 The native publication and class derivation then consume physical ID26. H does
 not separately write CarClass, DriverID, participant count, model, wheel,
@@ -69,5 +71,13 @@ physics, or audio state. Exact candidate identity and byte ranges are in the
 ignored research-output manifest; a non-proprietary summary is in
 [validation.md](validation.md).
 
+The H.0.1 Results-name correction is a separate display consumer: the stock
+Race Results builder uses physical CarID as its group-`0x39` AI name selector,
+which has no ID26 row. The bounded candidate substitutes the participant's
+DriverID only for an ID26 AI name lookup; it does not change physical CarID or
+the driver chooser. That fix remains **READY_FOR_HUMAN_RUNTIME**; see
+[race-results-identity.md](race-results-identity.md).
+
 This is a causal AI-materialization experiment only. It does not add ID26 to
-the natural AI pool.
+the natural AI pool. The ordinary hardened test candidate contains neither
+this forced selection hook nor an opponent randomizer.
