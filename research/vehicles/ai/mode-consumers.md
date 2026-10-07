@@ -6,7 +6,7 @@ observations are not promoted to this branch's runtime evidence.
 
 | Mode | Classification | Evidence / boundary |
 |---|---|---|
-| Quick Race | Dynamic class pool through `FUN_0047B780 -> FUN_00458090` | `CONFIRMED_BY_EXE`; primary R5V-H qualification path |
+| Quick Race | Dynamic class pool through `FUN_0047B780 -> FUN_00458090`; H.1 appends physical ID26 only to T1 | Base path `CONFIRMED_BY_EXE`; H.1 candidate `READY_FOR_HUMAN_RUNTIME` |
 | Practice | UNKNOWN | No separate Practice opponent producer traced in this phase |
 | Rallye Cup | UNKNOWN | Current vehicle-branch producer not yet traced; no pool change made |
 | Invitation | UNKNOWN | Current vehicle-branch producer not yet traced; no pool change made |

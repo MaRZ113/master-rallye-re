@@ -58,3 +58,14 @@ The static model applies to pristine retail SHA256
 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`, 3,121,214
 bytes. The existing current-branch Ghidra export is from Ghidra 12.1.4. Hook and
 call-site bytes are checked by the fail-closed candidate builder at runtime.
+
+## H.1 natural T1 ID26 inclusion
+
+H.1 branches only the T1 loop exit at VA `0x00458167` through a one-time
+append shim. The shim re-enters the stock exclusion/append body for absolute
+ID26, then restores the original loop end and exits through the common stock
+path. The resulting source set is `[0,1,2,3,4,5,6,26]`; no CarID is forced
+into a participant slot. ID7 is not added and remains T2. T2/T3 pool builders,
+selection/shuffle logic, DriverID selection, participant count, and all
+publication consumers remain unchanged. Byte layout, manifest, and tests are
+documented in [natural-t1-pool.md](natural-t1-pool.md).

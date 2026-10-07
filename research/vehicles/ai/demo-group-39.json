@@ -1,0 +1,465 @@
+{
+  "schema_version": 1,
+  "evidence": "CONFIRMED_BY_EXE",
+  "extraction_method": "exact-hash-pinned PE localization rows, 12-byte entries",
+  "builds": [
+    {
+      "build": "demo-8.4.1",
+      "corpus_relative_path": "corpora/demo-8.4.1/MRallye.exe",
+      "sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+      "size": 2084926,
+      "image_base": 4194304,
+      "group": 57,
+      "tables": [
+        {
+          "raw_offset": 2002736,
+          "table_va": 6197040,
+          "rows": [
+            {
+              "row_index": 0,
+              "raw_offset": 2002736,
+              "selector": 0,
+              "string_pointer_va": 6199484,
+              "string_raw_offset": 2005180,
+              "text": "JEAN LOUIS SCHLESSER"
+            },
+            {
+              "row_index": 1,
+              "raw_offset": 2002748,
+              "selector": 1,
+              "string_pointer_va": 6199472,
+              "string_raw_offset": 2005168,
+              "text": "HENRI MAGNE"
+            },
+            {
+              "row_index": 2,
+              "raw_offset": 2002760,
+              "selector": 2,
+              "string_pointer_va": 6199452,
+              "string_raw_offset": 2005148,
+              "text": "JOSE MARIA SERCIA"
+            },
+            {
+              "row_index": 3,
+              "raw_offset": 2002772,
+              "selector": 3,
+              "string_pointer_va": 6199432,
+              "string_raw_offset": 2005128,
+              "text": "JEAN MARIE LURQUIN"
+            },
+            {
+              "row_index": 4,
+              "raw_offset": 2002784,
+              "selector": 4,
+              "string_pointer_va": 6199416,
+              "string_raw_offset": 2005112,
+              "text": "LUC ALPHANDE"
+            },
+            {
+              "row_index": 5,
+              "raw_offset": 2002796,
+              "selector": 5,
+              "string_pointer_va": 6199400,
+              "string_raw_offset": 2005096,
+              "text": "ARNAUD DEBRON"
+            },
+            {
+              "row_index": 6,
+              "raw_offset": 2002808,
+              "selector": 6,
+              "string_pointer_va": 6199388,
+              "string_raw_offset": 2005084,
+              "text": "BRUNO SABY"
+            },
+            {
+              "row_index": 7,
+              "raw_offset": 2002820,
+              "selector": 7,
+              "string_pointer_va": 6199376,
+              "string_raw_offset": 2005072,
+              "text": "TIM DVOSKIN"
+            },
+            {
+              "row_index": 8,
+              "raw_offset": 2002832,
+              "selector": 8,
+              "string_pointer_va": 6199356,
+              "string_raw_offset": 2005052,
+              "text": "VLADIMIR STRAKHOV"
+            },
+            {
+              "row_index": 9,
+              "raw_offset": 2002844,
+              "selector": 9,
+              "string_pointer_va": 6199344,
+              "string_raw_offset": 2005040,
+              "text": "RENE METGE"
+            },
+            {
+              "row_index": 10,
+              "raw_offset": 2002856,
+              "selector": 10,
+              "string_pointer_va": 6199332,
+              "string_raw_offset": 2005028,
+              "text": "PLAYER 1"
+            },
+            {
+              "row_index": 11,
+              "raw_offset": 2002868,
+              "selector": 11,
+              "string_pointer_va": 6199320,
+              "string_raw_offset": 2005016,
+              "text": "PLAYER 2"
+            }
+          ]
+        }
+      ],
+      "physical_mercedes_id2_selector": 2,
+      "physical_mercedes_id2_name": "JOSE MARIA SERCIA"
+    },
+    {
+      "build": "demo-9.3.1",
+      "corpus_relative_path": "corpora/demo-9.3.1/MRallye.exe",
+      "sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+      "size": 2637886,
+      "image_base": 4194304,
+      "group": 57,
+      "tables": [
+        {
+          "raw_offset": 2521036,
+          "table_va": 6715340,
+          "rows": [
+            {
+              "row_index": 0,
+              "raw_offset": 2521036,
+              "selector": 0,
+              "string_pointer_va": 6740688,
+              "string_raw_offset": 2546384,
+              "text": "JEAN LOUIS SCHLESSER"
+            },
+            {
+              "row_index": 1,
+              "raw_offset": 2521048,
+              "selector": 1,
+              "string_pointer_va": 6740676,
+              "string_raw_offset": 2546372,
+              "text": "HENRI MAGNE"
+            },
+            {
+              "row_index": 2,
+              "raw_offset": 2521060,
+              "selector": 2,
+              "string_pointer_va": 6740656,
+              "string_raw_offset": 2546352,
+              "text": "JOSE MARIA SERCIA"
+            },
+            {
+              "row_index": 3,
+              "raw_offset": 2521072,
+              "selector": 3,
+              "string_pointer_va": 6740636,
+              "string_raw_offset": 2546332,
+              "text": "JEAN MARIE LURQUIN"
+            },
+            {
+              "row_index": 4,
+              "raw_offset": 2521084,
+              "selector": 4,
+              "string_pointer_va": 6740620,
+              "string_raw_offset": 2546316,
+              "text": "LUC ALPHANDE"
+            },
+            {
+              "row_index": 5,
+              "raw_offset": 2521096,
+              "selector": 5,
+              "string_pointer_va": 6740604,
+              "string_raw_offset": 2546300,
+              "text": "ARNAUD DEBRON"
+            },
+            {
+              "row_index": 6,
+              "raw_offset": 2521108,
+              "selector": 6,
+              "string_pointer_va": 6740592,
+              "string_raw_offset": 2546288,
+              "text": "BRUNO SABY"
+            },
+            {
+              "row_index": 7,
+              "raw_offset": 2521120,
+              "selector": 7,
+              "string_pointer_va": 6740580,
+              "string_raw_offset": 2546276,
+              "text": "TIM DVOSKIN"
+            },
+            {
+              "row_index": 8,
+              "raw_offset": 2521132,
+              "selector": 8,
+              "string_pointer_va": 6740560,
+              "string_raw_offset": 2546256,
+              "text": "VLADIMIR STRAKHOV"
+            },
+            {
+              "row_index": 9,
+              "raw_offset": 2521144,
+              "selector": 9,
+              "string_pointer_va": 6740548,
+              "string_raw_offset": 2546244,
+              "text": "RENE METGE"
+            },
+            {
+              "row_index": 10,
+              "raw_offset": 2521156,
+              "selector": 10,
+              "string_pointer_va": 6740536,
+              "string_raw_offset": 2546232,
+              "text": "PLAYER 1"
+            },
+            {
+              "row_index": 11,
+              "raw_offset": 2521168,
+              "selector": 11,
+              "string_pointer_va": 6740524,
+              "string_raw_offset": 2546220,
+              "text": "PLAYER 2"
+            },
+            {
+              "row_index": 12,
+              "raw_offset": 2521180,
+              "selector": 40,
+              "string_pointer_va": 6740512,
+              "string_raw_offset": 2546208,
+              "text": "RESERVED1"
+            },
+            {
+              "row_index": 13,
+              "raw_offset": 2521192,
+              "selector": 41,
+              "string_pointer_va": 6740500,
+              "string_raw_offset": 2546196,
+              "text": "RESERVED2"
+            },
+            {
+              "row_index": 14,
+              "raw_offset": 2521204,
+              "selector": 42,
+              "string_pointer_va": 6740488,
+              "string_raw_offset": 2546184,
+              "text": "RESERVED3"
+            },
+            {
+              "row_index": 15,
+              "raw_offset": 2521216,
+              "selector": 43,
+              "string_pointer_va": 6740476,
+              "string_raw_offset": 2546172,
+              "text": "RESERVED4"
+            },
+            {
+              "row_index": 16,
+              "raw_offset": 2521228,
+              "selector": 44,
+              "string_pointer_va": 6740464,
+              "string_raw_offset": 2546160,
+              "text": "RESERVED5"
+            },
+            {
+              "row_index": 17,
+              "raw_offset": 2521240,
+              "selector": 45,
+              "string_pointer_va": 6740452,
+              "string_raw_offset": 2546148,
+              "text": "RESERVED6"
+            },
+            {
+              "row_index": 18,
+              "raw_offset": 2521252,
+              "selector": 46,
+              "string_pointer_va": 6740440,
+              "string_raw_offset": 2546136,
+              "text": "RESERVED7"
+            },
+            {
+              "row_index": 19,
+              "raw_offset": 2521264,
+              "selector": 47,
+              "string_pointer_va": 6740428,
+              "string_raw_offset": 2546124,
+              "text": "RESERVED8"
+            }
+          ]
+        },
+        {
+          "raw_offset": 2530492,
+          "table_va": 6724796,
+          "rows": [
+            {
+              "row_index": 0,
+              "raw_offset": 2530492,
+              "selector": 0,
+              "string_pointer_va": 6740688,
+              "string_raw_offset": 2546384,
+              "text": "JEAN LOUIS SCHLESSER"
+            },
+            {
+              "row_index": 1,
+              "raw_offset": 2530504,
+              "selector": 1,
+              "string_pointer_va": 6740676,
+              "string_raw_offset": 2546372,
+              "text": "HENRI MAGNE"
+            },
+            {
+              "row_index": 2,
+              "raw_offset": 2530516,
+              "selector": 2,
+              "string_pointer_va": 6740656,
+              "string_raw_offset": 2546352,
+              "text": "JOSE MARIA SERCIA"
+            },
+            {
+              "row_index": 3,
+              "raw_offset": 2530528,
+              "selector": 3,
+              "string_pointer_va": 6740636,
+              "string_raw_offset": 2546332,
+              "text": "JEAN MARIE LURQUIN"
+            },
+            {
+              "row_index": 4,
+              "raw_offset": 2530540,
+              "selector": 4,
+              "string_pointer_va": 6740620,
+              "string_raw_offset": 2546316,
+              "text": "LUC ALPHANDE"
+            },
+            {
+              "row_index": 5,
+              "raw_offset": 2530552,
+              "selector": 5,
+              "string_pointer_va": 6740604,
+              "string_raw_offset": 2546300,
+              "text": "ARNAUD DEBRON"
+            },
+            {
+              "row_index": 6,
+              "raw_offset": 2530564,
+              "selector": 6,
+              "string_pointer_va": 6740592,
+              "string_raw_offset": 2546288,
+              "text": "BRUNO SABY"
+            },
+            {
+              "row_index": 7,
+              "raw_offset": 2530576,
+              "selector": 7,
+              "string_pointer_va": 6740580,
+              "string_raw_offset": 2546276,
+              "text": "TIM DVOSKIN"
+            },
+            {
+              "row_index": 8,
+              "raw_offset": 2530588,
+              "selector": 8,
+              "string_pointer_va": 6740560,
+              "string_raw_offset": 2546256,
+              "text": "VLADIMIR STRAKHOV"
+            },
+            {
+              "row_index": 9,
+              "raw_offset": 2530600,
+              "selector": 9,
+              "string_pointer_va": 6740548,
+              "string_raw_offset": 2546244,
+              "text": "RENE METGE"
+            },
+            {
+              "row_index": 10,
+              "raw_offset": 2530612,
+              "selector": 10,
+              "string_pointer_va": 6740536,
+              "string_raw_offset": 2546232,
+              "text": "PLAYER 1"
+            },
+            {
+              "row_index": 11,
+              "raw_offset": 2530624,
+              "selector": 11,
+              "string_pointer_va": 6740524,
+              "string_raw_offset": 2546220,
+              "text": "PLAYER 2"
+            },
+            {
+              "row_index": 12,
+              "raw_offset": 2530636,
+              "selector": 40,
+              "string_pointer_va": 6740512,
+              "string_raw_offset": 2546208,
+              "text": "RESERVED1"
+            },
+            {
+              "row_index": 13,
+              "raw_offset": 2530648,
+              "selector": 41,
+              "string_pointer_va": 6740500,
+              "string_raw_offset": 2546196,
+              "text": "RESERVED2"
+            },
+            {
+              "row_index": 14,
+              "raw_offset": 2530660,
+              "selector": 42,
+              "string_pointer_va": 6740488,
+              "string_raw_offset": 2546184,
+              "text": "RESERVED3"
+            },
+            {
+              "row_index": 15,
+              "raw_offset": 2530672,
+              "selector": 43,
+              "string_pointer_va": 6740476,
+              "string_raw_offset": 2546172,
+              "text": "RESERVED4"
+            },
+            {
+              "row_index": 16,
+              "raw_offset": 2530684,
+              "selector": 44,
+              "string_pointer_va": 6740464,
+              "string_raw_offset": 2546160,
+              "text": "RESERVED5"
+            },
+            {
+              "row_index": 17,
+              "raw_offset": 2530696,
+              "selector": 45,
+              "string_pointer_va": 6740452,
+              "string_raw_offset": 2546148,
+              "text": "RESERVED6"
+            },
+            {
+              "row_index": 18,
+              "raw_offset": 2530708,
+              "selector": 46,
+              "string_pointer_va": 6740440,
+              "string_raw_offset": 2546136,
+              "text": "RESERVED7"
+            },
+            {
+              "row_index": 19,
+              "raw_offset": 2530720,
+              "selector": 47,
+              "string_pointer_va": 6740428,
+              "string_raw_offset": 2546124,
+              "text": "RESERVED8"
+            }
+          ]
+        }
+      ],
+      "physical_mercedes_id2_selector": 2,
+      "physical_mercedes_id2_name": "JOSE MARIA SERCIA"
+    }
+  ]
+}

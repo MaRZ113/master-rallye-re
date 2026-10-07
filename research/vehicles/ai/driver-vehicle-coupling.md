@@ -17,12 +17,14 @@ driver chooser has completed. It leaves that local DriverID and all native
 driver bookkeeping untouched. There is no Mercedes-specific driver in this
 phase.
 
-The H.0.1 Race Results correction uses this existing participant DriverID only
-as the group-`0x39` display selector when an AI participant has physical
-CarID26. It does not alter driver selection or require a Mercedes-specific
-driver. The forced runtime capture confirms one example pair (`CarID=26`,
-`DriverID=8`); the display correction remains pending a Results-screen human
-retest.
+The H.0.1 Race Results profile used the existing participant DriverID only as
+the group-`0x39` display selector for AI CarID26. Its human Results captures
+confirmed the selected names for DriverID6 and DriverID2. The H.1 natural-pool
+candidate now uses a fixed display-only string for CarID26 because the demo
+Mercedes ID2 -> selector 2 mapping is not supported as a historical Mercedes
+T1 driver association. It does not alter driver selection or require a
+Mercedes-specific native DriverID. The H.1 fixed Results name is
+`JEAN-PIERRE STRUGO`; runtime confirmation remains pending.
 
 **Evidence:** call order and visible arguments are `CONFIRMED_BY_EXE` from the
 current retail Ghidra export and raw code. Full AI personality/skill semantics

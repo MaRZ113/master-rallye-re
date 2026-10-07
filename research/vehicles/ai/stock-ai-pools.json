@@ -1,12 +1,14 @@
 {
   "schema_version": 1,
-  "phase": "R5V-H",
+  "phase": "R5V-H.1",
   "status": {
     "quickrace_pool_map": "CONFIRMED_BY_EXE",
     "forced_id26_ai_candidate": "CONFIRMED_BY_RUNTIME",
-    "forced_id26_results_name_fix": "READY_FOR_HUMAN_RUNTIME",
-    "neutral_research_hardening": "READY_FOR_HUMAN_RUNTIME",
-    "natural_t1_id26_membership": "NOT_STARTED_GATED_ON_FORCED_RUNTIME_PASS"
+    "forced_id26_results_name_fix": "CONFIRMED_BY_RUNTIME",
+    "null_stringlist_dump_hardening": "CONFIRMED_BY_RUNTIME",
+    "xml_data_dump_guard": "STATICALLY_VERIFIED_RUNTIME_NOT_ISOLATED",
+    "loading_attract_false_trigger_fix": "RUNTIME_NOT_ISOLATED",
+    "natural_t1_id26_membership": "STATICALLY_VERIFIED_READY_FOR_HUMAN_RUNTIME"
   },
   "build": {
     "name": "retail",
@@ -106,16 +108,26 @@
       "class": "T1 / code 0",
       "frontend_t1_local_index": 7,
       "ai_eligibility_distinct_from_player_unlock": true,
-      "natural_pool_change": "NOT_STARTED; forced materialization pass does not prove natural T1 pool eligibility"
+      "natural_pool_change": "H1 candidate appends ID26 to native T1 pool; READY_FOR_HUMAN_RUNTIME",
+      "natural_t1_source_ids": [0, 1, 2, 3, 4, 5, 6, 26],
+      "results_display_name": "JEAN-PIERRE STRUGO",
+      "results_display_classification": "REAL_2001_MASTER_RALLYE_MERCEDES_DRIVER",
+      "exact_ml320_pairing": "UNPROVEN",
+      "native_driver_id_selection_changed": false,
+      "demo_group_0x39_mercedes_id2_selector": 2,
+      "demo_group_0x39_mercedes_id2_name": "JOSE MARIA SERCIA",
+      "demo_group_0x39_association_classification": "DEVELOPER_PLACEHOLDER_FOR_MERCEDES_T1"
     }
   },
   "evidence_boundary": {
     "static_pool_model": "CONFIRMED_BY_EXE",
     "forced_id26_ai_candidate": "CONFIRMED_BY_RUNTIME for Car1/T1/three-AI Quick Race only",
     "ai_model_physics_collision_or_driving": "CONFIRMED_BY_RUNTIME for tested Car1 actor, AI movement, progress and finish",
-    "race_results_name_id26": "GALOCAL UNKNOWN observed by human; selector fix READY_FOR_HUMAN_RUNTIME",
-    "neutral_hardening": "READY_FOR_HUMAN_RUNTIME",
-    "natural_id26_selection": "NOT_YET_CONFIRMED_BY_RUNTIME",
+    "race_results_name_id26_h0_1": "CONFIRMED_BY_RUNTIME for the tested native-DriverID display policy",
+    "race_results_name_id26_h1": "fixed JEAN-PIERRE STRUGO display is READY_FOR_HUMAN_RUNTIME",
+    "demo_mercedes_id2_group_0x39": "selector 2 maps to JOSE MARIA SERCIA; developer placeholder association for Mercedes T1",
+    "neutral_hardening": "StringList Dump survival CONFIRMED_BY_RUNTIME; XmlData guard and exact Loading trigger not isolated",
+    "natural_id26_selection": "READY_FOR_HUMAN_RUNTIME",
     "other_mode_pool_consumers": "UNKNOWN unless separately stated in mode-consumers.md"
   }
 }

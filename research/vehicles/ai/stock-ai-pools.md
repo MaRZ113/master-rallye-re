@@ -13,7 +13,8 @@ does not call the G.1 sparse T1 local-to-physical mapper.
 | 2 / T3 | 14–20 | absolute IDs 14 through 20 | 21, 22, 23, 24 behind their individual progress flags |
 | 4 / alias | same arm as code 2 | shared switch arm | same as code 2 |
 
-ID25 is absent from the stock T3 list. ID26 is absent from the stock T1 list.
+ID25 is absent from the stock T3 list. ID26 is absent from the stock T1 list
+in retail; H.1 appends it explicitly to the native T1 pool for testing.
 The machine-readable form is [stock-ai-pools.json](stock-ai-pools.json).
 
 ## Selection behavior
@@ -44,6 +45,6 @@ builder are `0x0047B93D` and `0x0047B96E`, both inside
 `FUN_0047B780`; the latter is the one-human Quick Race call used by the
 diagnostic proof.
 
-This is static executable evidence. It does not show that ID26 can yet be
-selected naturally or that an AI actor can drive it; those are separate runtime
-gates.
+This is static executable evidence. The H.1 candidate applies the bounded T1
+append, but natural selection and AI runtime behavior still require human
+validation; see [natural-t1-pool.md](natural-t1-pool.md).

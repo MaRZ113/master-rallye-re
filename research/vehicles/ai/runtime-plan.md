@@ -1,6 +1,12 @@
-# R5V-H.0.1 runtime handoff — Results identity and neutral hardening
+# R5V-H.0.1 runtime handoff — historical / superseded
 
-## Current status
+This was the H.0.1 test procedure. Its forced-ID26 Results-name and native
+post-Results StringList Dump checks were later completed; see
+[runtime-results.md](runtime-results.md). Do not use these H.0.1 candidates as
+the current natural-pool test. The active H.1 instructions are in
+[natural-t1-runtime-plan.md](natural-t1-runtime-plan.md).
+
+## Historical H.0.1 status
 
 The H.0 forced ID26 actor path is **CONFIRMED_BY_RUNTIME**. This handoff tests
 the newly added Results-name selector and the separate neutral Loading/Attract
@@ -106,4 +112,6 @@ If either package verification fails, do not launch it. If the new Results
 candidate still shows `GALOCAL UNKNOWN`, preserve the Results capture and stop
 for a focused selector correction. If native Dump still crashes, preserve the
 complete crash point/raw output and stop; do not broaden into generic Broker
-formatter redesign. Natural T1 pool inclusion remains **NOT STARTED**.
+formatter redesign. Natural T1 pool inclusion was outside H.0.1; the current
+natural-pool procedure is documented in
+[natural-t1-runtime-plan.md](natural-t1-runtime-plan.md).

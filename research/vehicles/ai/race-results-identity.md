@@ -1,6 +1,6 @@
 # ID26 Race Results name identity
 
-## Runtime symptom and evidence limit
+## Original runtime symptom and H.0.1 result
 
 The H.0.1 forced-ID26 human run reached Race Results and displayed
 `GALOCAL UNKNOWN` for the Mercedes participant. The available Observatory
@@ -31,7 +31,7 @@ group therefore reaches the stock `GALOCAL UNKNOWN` fallback. This is a
 presentation identity gap; the runtime model, physics, wheel family, CarID,
 and class are already correct.
 
-## Bounded correction
+## H.0.1 runtime-driver correction
 
 The H.0.1 candidate replaces the 11-byte sequence at VA `0x0047CC71` / file
 offset `0x07CC71`:
@@ -49,20 +49,47 @@ the original localization call. The emitted stub does not write a participant
 field or alter CarID, CarClass, driver selection, the result icon, or race
 progression.
 
-This intentionally follows the **actual AI driver identity** selected by the
-native path. It does not hardcode DriverID 8, a Mercedes display string, or an
-authored driver. It also does not globally change `gaLocal` or any stock
-localization row.
+That tested profile followed the **actual AI driver identity** selected by the
+native path. It did not hardcode DriverID 8, a Mercedes display string, or an
+authored driver. The two H.0.1 Results captures showed CarID26/DriverID6 ->
+`BRUNO SELLIER` and CarID26/DriverID2 -> `TESSA BAMFORD`; the human confirmed
+the visible Results names. The H.0.1 runtime-driver display policy is
+**CONFIRMED_BY_RUNTIME** for those tested Quick Race rows. It did not globally
+change `gaLocal` or any stock localization row.
+
+## Demo group 0x39 audit and current H.1 policy
+
+Exact-hash inspection of demo-8.4.1 and demo-9.3.1 shows physical Mercedes ID2
+reaches group-0x39 selector 2, which maps to `JOSE MARIA SERCIA` in both
+builds. Historical 2001 result tables put Servia/Lurquin in a Schlesser T3
+entry and separately list the Mercedes T1 crews Strugo/Larroque,
+Lansac/Jacquema, and Menguy/Menguy. The demo mapping is therefore classified
+`DEVELOPER-PLACEHOLDER` as a Mercedes T1 name association; this does not assert
+that the referenced Servià is fictitious. Full row offsets, hashes, and
+historical links are in [historical-driver-selector.md](historical-driver-selector.md)
+and [demo-group-39.json](demo-group-39.json).
+
+The H.1 `natural-t1-id26` candidate uses a distinct display-only ID26 branch:
+it returns the literal `JEAN-PIERRE STRUGO` to the same stock string consumer,
+classified `REAL_2001_MASTER_RALLYE_MERCEDES_DRIVER`. The exact ML-320 pairing
+is unproven. The H.1 result display hook is at `0x0047CC71`; its 60-byte helper
+and NUL-terminated string occupy `0x0068E720..0x0068E75C`. Other AI rows still
+use the original CarID -> group-0x39 path. Native DriverID selection,
+participant DriverID, CarID26, CarClass, and vehicle family are not changed.
+This new fixed H.1 name policy is **STATICALLY VERIFIED /
+READY_FOR_HUMAN_RUNTIME**; do not promote it using the H.0.1 captures, which
+tested the earlier runtime-driver name policy.
 
 ## Verification status
 
-Synthetic x86-path tests verify ID26 -> DriverID selector, non-ID26 -> original
-CarID selector, localization group `0x39`, and unchanged physical identity.
-The candidate builder verifies the retail hash, exact hook bytes, zero-filled
-non-overlapping cave, PE bounds, deterministic output, and inverse patch
-reproduction.
+Synthetic x86-path tests verify the H.0.1 ID26 -> DriverID selector and the
+H.1 fixed-ID26 literal path, non-ID26 -> original CarID selector, localization
+group `0x39`, preserved native DriverID/physical identity, and both hook
+continuations. The H.1 candidate builder verifies the retail and neutral-base
+hashes, exact loop/hook bytes, zero-filled non-overlapping caves, PE bounds,
+deterministic output, and inverse patch reproduction.
 
-Status: **STATIC FIX VERIFIED / READY_FOR_HUMAN_RUNTIME**. The forced
-H.0.1 candidate must be tested through Results to prove the displayed localized
-driver identity. Automated candidate verification cannot prove the visible
-name.
+Status: H.0.1 runtime-driver policy **CONFIRMED_BY_RUNTIME** for its two
+captured names; H.1 fixed `JEAN-PIERRE STRUGO` policy **STATIC FIX VERIFIED /
+READY_FOR_HUMAN_RUNTIME**. Automated checks cannot prove the visible Results
+string or complete natural-ID26 lifecycle.

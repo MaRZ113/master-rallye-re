@@ -124,17 +124,59 @@ from its verified package. The supplied active-race capture confirms
 AI behavior, progress, finish, and a Results row. This is
 **CONFIRMED_BY_RUNTIME** for the forced Car1 materialization path.
 
-The Results row currently shows `GALOCAL UNKNOWN`. Static analysis maps this to
-the group-`0x39` selector using physical CarID; ID26 has no entry in that
-table. H.0.1 changes the selector to the already-selected DriverID for ID26 AI
-only. The correction is **STATICALLY VERIFIED / READY_FOR_HUMAN_RUNTIME**.
+The initial H.0 Results row showed `GALOCAL UNKNOWN`. H.0.1 substituted the
+already-selected DriverID as the group-`0x39` selector for AI CarID26 only;
+the two later Results captures and human-visible names confirm that policy for
+the tested rows. This H.0.1 behavior is `CONFIRMED_BY_RUNTIME`. H.1 uses a
+separate fixed ID26 display identity and has not inherited that runtime status.
 
 H.0.1 also composes neutral Loading->Attract and native StringList/XmlData
-Dump guards. The ordinary profile has neither forced AI selection nor a
-randomizer; the forced profile has the deterministic H.0 guard only. Both
-candidates and resource packages verify on disk, but human validation of the
-Results name, post-Results Dump survival, and Restart/loading behavior remains
-pending. The separate ordinary hardened EXE is ready at
+Dump guards. Human runtime confirms the forced-ID26 Results-name policy and
+post-Results NULL StringList Dump survival. The XmlData guard and exact
+Loading->Attract trigger were not isolated by that runtime test and remain
+`UNKNOWN`. The separate ordinary hardened EXE remains available at
 `.research-output/vehicles/ai/hardened-ordinary-no-randomizer/runtime-package/MRallye.exe`.
-The corrected human instructions are in [runtime-plan.md](runtime-plan.md).
-Natural T1 pool inclusion remains **NOT STARTED**.
+The H.0.1 handoff is historical; the current H.1 handoff is
+[natural-t1-runtime-plan.md](natural-t1-runtime-plan.md).
+
+## H.1 natural T1 candidate verification
+
+The H.1 candidate builder composes exact retail through the verified ordinary
+hardened G.1/G.2 base, then changes only the native T1 loop exit and the ID26
+Results display branch. Static checks verify the exact source/base hashes,
+original instruction bytes, native exclusion-body re-entry, preserved
+publication hook, fixed Results string, zero-filled non-overlapping caves,
+`.text` bounds, deterministic reconstruction, and inverse restoration.
+
+The demo group-`0x39` extractor pins both input SHA256 values, selects the
+verified group rows, rejects duplicate selectors or malformed pointers, and
+records both demo Mercedes ID2 -> selector 2 -> `JOSE MARIA SERCIA` mappings.
+Historical Stage 5/7 results independently list the Mercedes T1 crews used to
+classify this selector association as a developer placeholder; see
+[historical-driver-selector.md](historical-driver-selector.md).
+
+The H.1 Results fix returns fixed display text for physical ID26 only. Other
+AI keep stock CarID -> group-`0x39` lookup; human branches are untouched. The
+helper neither reads nor writes native DriverID, and the native driver chooser
+and participant publication remain unchanged. H.1 is
+`STATICALLY VERIFIED / READY_FOR_HUMAN_RUNTIME`; it has not established
+natural ID26 selection or visible Results text in a human run.
+
+H.1 final verification:
+
+* `PYTHONPATH=src python -m unittest discover -s tests/synthetic -v`:
+  **341 passed, 0 failed, 0 skipped**.
+* `python -m compileall src tools tests`: **passed**.
+* `git diff --check`: **passed**.
+* H.1 candidate `--verify-existing`: **passed**; candidate SHA256
+  `e59895776dd53acb3ac4a25e1973c8de341da815b90407ec372b696be06d363a`.
+* H.1 runtime-package verifier: **PASS**, 145 files, no PlayerState.
+* Exact demo group-`0x39` data rebuild: **passed** for both pinned demo EXEs.
+* H.0.1 ordinary and forced candidate verifiers: **passed**. The ordinary
+  package verifier passed. Rechecking the forced package was refused because
+  the human-tested package now contains generated `DataGame/PlayerState.xml`
+  and `PlayerState.xml#`; those runtime state files were preserved.
+
+These checks establish candidate/package/static correctness, not natural
+ID26 AI selection, visible Results name, or race behavior. Those remain
+`READY_FOR_HUMAN_RUNTIME` under the handoff.

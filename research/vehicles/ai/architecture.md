@@ -71,13 +71,18 @@ physics, or audio state. Exact candidate identity and byte ranges are in the
 ignored research-output manifest; a non-proprietary summary is in
 [validation.md](validation.md).
 
-The H.0.1 Results-name correction is a separate display consumer: the stock
-Race Results builder uses physical CarID as its group-`0x39` AI name selector,
-which has no ID26 row. The bounded candidate substitutes the participant's
-DriverID only for an ID26 AI name lookup; it does not change physical CarID or
-the driver chooser. That fix remains **READY_FOR_HUMAN_RUNTIME**; see
+Results name is a separate display consumer. H.0.1's runtime-tested candidate
+substitutes the native DriverID as the group-`0x39` selector for ID26 AI only;
+the two captured Results rows confirm that policy follows DriverID 6 and 2.
+Before finalizing the natural-pool display, exact demo group-0x39 evidence
+showed demo Mercedes ID2 maps to `JOSE MARIA SERCIA`, which does not match the
+historical Mercedes T1 crews. H.1 therefore uses the display-only literal
+`JEAN-PIERRE STRUGO` for physical ID26 while leaving native DriverID selection
+and publication untouched. That H.1 fixed-name policy is static-only pending
+its own Results runtime check; details are in
 [race-results-identity.md](race-results-identity.md).
 
-This is a causal AI-materialization experiment only. It does not add ID26 to
-the natural AI pool. The ordinary hardened test candidate contains neither
-this forced selection hook nor an opponent randomizer.
+The H.0 hook is only causal materialization scaffolding. The separate H.1
+candidate instead adds ID26 to the native T1 source pool and contains no
+forced publication hook or opponent randomizer; its static design is in
+[natural-t1-pool.md](natural-t1-pool.md).

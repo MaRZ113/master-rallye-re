@@ -50,30 +50,35 @@ not changed or qualified for ID26.
 
 ## Roadmap
 
-## Current phase: R5V-H — AI Opponent Vehicle Pools
+## Current phase: R5V-H.1 — Natural T1 AI Pool Inclusion
 
 **Static Quick Race pool map: CONFIRMED_BY_EXE.** The retail pool uses absolute
-CarIDs; T1 enumerates 0–6 and does not include sparse frontend mapping
-`T1 local7 -> ID26`. Player availability and AI pool eligibility are separate.
+CarIDs; T1 originally enumerates 0–6 and does not include sparse frontend
+mapping `T1 local7 -> ID26`. Player availability and AI pool eligibility are
+separate.
 
 **Forced Car1=ID26 materialization proof: CONFIRMED_BY_RUNTIME** for one
 single-player T1 Quick Race with three AI. The active-race capture confirms
 Car1 ID26/T1/DriverID8 with Mercedes `CarType` and `WheelType`; the human
 observed its model, AI driving, progress, finish, and Results-row presence.
-The Results name itself displayed `GALOCAL UNKNOWN`; static analysis found
-that the native Results builder uses physical CarID as a group-`0x39` person
-name selector, where ID26 has no entry. H.0.1 now has a display-only correction
-and neutral Loading/Dump hardening, both **READY_FOR_HUMAN_RUNTIME**. Two
-separate verified builds exist: a forced proof candidate and an ordinary
-hardened EXE with no forced ID and no randomizer. See [H runtime results](ai/runtime-results.md),
-[findings](ai/findings.md), [Results identity trace](ai/race-results-identity.md),
-[hardening](ai/hardening.md), and [runtime handoff](ai/runtime-plan.md).
+The H.0.1 forced-ID26 Results display and post-Results NULL StringList Dump
+survival are **CONFIRMED_BY_RUNTIME**. Its separate XmlData NULL guard and the
+exact legacy Loading->Attract trigger remain unisolated/`UNKNOWN`.
 
-**Natural T1 pool inclusion: NOT STARTED.** The forced-materialization gate
-has passed, but this closeout only repairs Results-name presentation and
-prepares neutral research hardening. Do not begin natural pool membership
-until the H.0.1 Results/Dump retest is recorded and a separate phase is
-authorized.
+**Natural T1 ID26 pool inclusion: STATICALLY VERIFIED /
+READY_FOR_HUMAN_RUNTIME.** The fail-closed candidate adds physical ID26 to
+the native T1 absolute-ID pool without forcing a slot, changing `NumCars`,
+altering T2/T3, or changing native DriverID selection. For Results display,
+H.1 presents ID26 as `JEAN-PIERRE STRUGO`, classified
+`REAL_2001_MASTER_RALLYE_MERCEDES_DRIVER`; exact ML-320 pairing is unproven.
+Demo group `0x39` maps Mercedes physical ID2 to selector 2,
+`JOSE MARIA SERCIA`, classified `DEVELOPER-PLACEHOLDER` as a Mercedes T1
+identity because historical event tables list Servia/Lurquin with Schlesser
+T3. See the [H.1 static result](ai/natural-t1-pool.md),
+[demo selector audit](ai/historical-driver-selector.md), and
+[fresh-race runtime handoff](ai/natural-t1-runtime-plan.md).
+
+No natural-pool runtime result is claimed yet. Other modes remain unknown.
 
 Later phases are R5V-I multi-slot registry expansion with a real additional T2
 vehicle, then R5V-J generic Addon Vehicle SDK. Catalog/order refinement remains

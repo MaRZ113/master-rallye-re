@@ -50,23 +50,69 @@ materialization proof as **CONFIRMED_BY_RUNTIME** for the tested Car1/T1/
 three-AI Quick Race path. It does not add ID26 to a natural pool or prove other
 modes, slots, or classes.
 
-The human also reports that the Race Results participant name was
-`GALOCAL UNKNOWN`. The supplied capture and raw sidecar were captured during
-the active race, not on the Results screen; they contain no
-`Frontend/RaceResults/NameList` value. Therefore the visible name is
-**HUMAN_RUNTIME_OBSERVATION**, while its native producer and correction are
-**CONFIRMED_BY_EXE / READY_FOR_HUMAN_RETEST** respectively. The Ghidra trace is
-in [Race Results identity](race-results-identity.md).
+The original un-hardened H.0 run showed `GALOCAL UNKNOWN` in the Results row.
+That capture was from active race and contained no Results `NameList`, so the
+old symptom remains classified as a human observation. The later H.0.1
+Results-screen captures below directly show the corrected localized names.
+The producer trace is in [Race Results identity](race-results-identity.md).
 
-The native Debug->Dump call after Results still crashes on this un-hardened
-candidate. The failure is consistent with the known retail NULL `StringList`
-formatter defect and has a clean-stock reproduction; it is not evidence of an
-AI or Mercedes runtime failure. Post-Results Dump safety is not yet runtime
-confirmed for the newly built hardened candidates.
+The native Debug->Dump call after Results still crashed on this original
+un-hardened candidate, consistent with the known retail NULL `StringList`
+formatter defect. H.0.1 later passed the hardened Results Dump path, recorded
+below; the historical failure remains preserved as a separate observation.
 
-## H.0.1 candidates — rebuilt, not yet human retested
+## H.0.1 Results identity and native Dump — runtime closeout
 
-Both current candidates derive from exact pristine retail SHA256
+All three Observatory 0.2.2-beta captures identify the same tested executable
+SHA256 `9255c9d7cb27336d0a5324bd193719c768f09f5bb7d37e30bab384031b0de0e7`,
+image path under
+`.research-output/vehicles/ai/forced-id26-proof-hardened/runtime-package/`,
+and profile `local-hardened-9255c9d7cb27`. `exact_profile_id` is `null`,
+`profile_origin` is `locally_audited`, and the compatibility family is
+`retail-broker-v1`. Each raw header independently reports the same runtime
+Root. All raw sidecar SHA256 values match their JSON metadata:
+
+| Capture | JSON SHA256 | Raw SHA256 | Result evidence |
+|---|---|---|---|
+| `20261007-135125_h0-1-forced-results` | `06597e7c77aadd00619c271fdb8ef028f17e615882d25ac385fa0cc4cf327eff` | `2249ad8ac02afaa41b7f610329f64ad02237154adbf5c4cd05106bd31c192179` | Completed first race, Results NameList |
+| `20261007-135213_h0-1-forced-dump` | `d75a8b339f9bc75d0b4184e91f7292483659e61a723b0c094a935cb9e48a97fa` | `3229e33483acf1b54e54c766091d5665ccfb73fd15f8840dd6671e7145defff5` | Post-Results native Dump |
+| `20261007-135330_h0-1-forced-results_secondrace` | `d99dfc2f98e2fb111ebf68a67af76b4365abf9b171bd5ec1e4cc46970cb58d69` | `7347e02abe0856c554f681eb08b4456e59d165a9b588799ed0bf2adb3056376f` | Second completed race, Results NameList |
+
+The first Results capture records Car1 `CarID=26`, `CarClass=0`,
+`DriverID=6`, `PlayerType=2`, `CarType=Mercedes`, `WheelType=Mercedes`, and
+`Rank=4`. The fourth Results name is `BRUNO SELLIER`, matching retail group
+`0x39`, selector 6. In the second race Car1 remains ID26/T1/AI, but native
+selection gives `DriverID=2`; its fourth Results name is `TESSA BAMFORD`,
+matching group `0x39`, selector 2. This confirms that physical vehicle
+identity and AI driver identity are separate, and the ID26 Results selector
+follows the actual native DriverID. The Results-name fix is
+**CONFIRMED_BY_RUNTIME**. The human observed the same visible Results rows.
+
+The post-Results capture reports `native_dump_post_results_safe=true`, emits
+`Frontend/RaceResults/PointsList` as an empty StringList, and contains 21
+subsequent Broker entries, beginning with `Frontend/RaceResults/Car0`. The
+human invoked native Debug->Dump on Results and the game remained alive.
+Therefore NULL StringList Dump hardening and post-Results Dump continuation
+are **CONFIRMED_BY_RUNTIME**. Textual `{}` / empty-list rendering still does
+not distinguish a NULL payload from an allocated empty list. Although the
+XmlData guard is part of the candidate, this run does not isolate that guard;
+keep its individual runtime behavior **UNKNOWN**.
+
+All three captures show `Race/Type=2`, `Race/AttractMode=False`,
+`Race/NumPlayers=1`, and `Race/NumCars=4`. No unintended Attract state was
+observed in these races. The exact historical loading-failure trigger was not
+retested, so do not claim that trigger's runtime correction from these
+captures alone. A second normal race was observed, but it is not evidence of a
+specific Restart/loading trigger unless that path is separately recorded.
+
+Observatory's retail-derived compatibility audit and hardened-Dump
+classification are **CONFIRMED_BY_RUNTIME** for this tested candidate. No
+exact-profile allowlist entry was added: its profile remains locally audited
+under `retail-broker-v1`.
+
+## H.0.1 candidate build record
+
+The two candidates derive from exact pristine retail SHA256
 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`, then
 compose G.1, G.2 audio profile 0, and the bounded H.0.1 changes. Each is
 3,121,214 bytes. Candidate manifests are generated next to each executable in
@@ -77,7 +123,7 @@ ignored `.research-output`.
 | `ordinary-hardened` | `391d5d864699b6e945eed43fd8e7bc28b28639b24b222428ab79231e7cc3a819` | no | no | Separate ordinary hardened EXE for stock/player tests without forced AI or randomizer |
 | `forced-id26-ai-hardened` | `9255c9d7cb27336d0a5324bd193719c768f09f5bb7d37e30bab384031b0de0e7` | yes, bounded Car1 proof only | no | Re-test the forced ID26 actor, corrected Results name, and native post-Results Dump |
 
-The ordinary candidate's staged runtime package and verifier both return
+At build time, the ordinary candidate's staged runtime package and verifier returned
 `PASS`; the forced candidate's separate package and verifier also return
 `PASS`. Each package includes the pinned G.1 resources and VehicleSelect scene
 SHA256 `6cdf398b892dbe01d2a1258030d2785e568cd993e4cf01d9dc4378ae9207341d`,
@@ -86,17 +132,43 @@ forced-ID26 hook nor a randomizer DLL; its manifest reports both
 `forced_ai_proof=false` and `randomizer_present=false`. These are on-disk
 package results, not gameplay results.
 
-The neutral Loading->Attract and native Dump patches plus the ID26 Results
-display-selector fix are **STATICALLY VERIFIED / READY_FOR_HUMAN_RUNTIME**.
-The Results fix changes only the localization selector for an AI competitor
-whose physical CarID is 26. The original CarID remains 26; stock IDs and human
-name paths are unchanged. No randomizer code is present. See
+The ID26 Results display-selector fix and NULL StringList Dump hardening are
+**CONFIRMED_BY_RUNTIME**. The Results fix changes only the localization
+selector for an AI competitor whose physical CarID is 26. The original CarID
+remains 26; stock IDs and human name paths are unchanged. The XmlData guard
+remains static-only, and the loading false-trigger was not isolated by the
+new captures. No randomizer code is present. See
 [hardening details](hardening.md) and the [updated handoff](runtime-plan.md).
 
 ## Scope boundary
 
-The forced H.0 actor proof is complete. Natural T1 pool membership remains
-**NOT STARTED**. The H.0.1 Results-name correction and hardened Dump require a
-human pass before they can be marked runtime-confirmed. Do not proceed to
-natural pool inclusion, ID27, T2 expansion, ordering, audio changes, or SDK
-work as part of this closeout.
+The H.0 forced actor proof and H.0.1 Results-name / post-Results Dump checks
+are closed for the tested Quick Race path. Natural T1 pool inclusion is the
+separate active H.1 phase; no natural pool change is part of this H.0.1
+evidence.
+
+## H.1 natural T1 candidate — static package ready; runtime pending
+
+The natural-pool candidate is profile `natural-t1-id26`, built from exact
+pristine retail SHA256
+`bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4` through
+the ordinary G.1/G.2 hardened base. Candidate SHA256 is
+`e59895776dd53acb3ac4a25e1973c8de341da815b90407ec372b696be06d363a`, size
+3,121,214 bytes. Its patch manifest SHA256 is
+`77ff35b1e49025e5b1d29f57d12339a117adb79bc427096cdcfc8685c22c412e`.
+The staged runtime package verifies 145 files, includes the pinned
+VehicleSelect overlay and Mercedes runtime assets, and excludes PlayerState.
+
+The natural T1 source vector is `[0,1,2,3,4,5,6,26]`; no participant slot is
+forced, the randomizer is absent, and participant count is unchanged. The
+candidate's ID26 Results display is a fixed `JEAN-PIERRE STRUGO` string,
+classified `REAL_2001_MASTER_RALLYE_MERCEDES_DRIVER`; exact ML-320 pairing is
+unproven. Native DriverID selection and participant DriverID publication are
+unchanged. Demo group-`0x39` selector evidence and the historical-driver
+classification are recorded in
+[historical-driver-selector.md](historical-driver-selector.md).
+
+This is static/candidate/package evidence only. Natural AI selection,
+visible Mercedes behavior, race completion, and the new fixed Results name
+remain **READY_FOR_HUMAN_RUNTIME**, not runtime-confirmed. Use the exact test
+steps in [natural-t1-runtime-plan.md](natural-t1-runtime-plan.md).
