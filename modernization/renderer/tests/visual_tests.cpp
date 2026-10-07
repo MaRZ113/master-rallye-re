@@ -22,6 +22,11 @@ void config_contracts(){
  auto reflection=parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode","ViewDependent2D"}},true);CHECK(reflection.reflection_mode=="ViewDependent2D");
  VisualPolicy blocked;blocked.configure(reflection,true,nullptr,E_FAIL);CHECK(blocked.effective.reflection_mode=="ViewDependent2D"&&blocked.effective.reflection_reason=="requires_live_or_learned_body_proof_current_material");
  blocked.configure(reflection,false,nullptr,E_FAIL);CHECK(blocked.effective.reflection_mode=="Stock"&&blocked.effective.reflection_reason=="unsupported_build");
+ reflection.display_mode="Borderless";reflection.interface_mode="PreserveMargins";reflection.aa_mode="MSAA";reflection.menu_freeze=true;
+ blocked.configure(reflection,false,nullptr,E_FAIL);
+ CHECK(blocked.requested.display_mode=="Borderless"&&blocked.requested.menu_freeze);
+ CHECK(blocked.effective.display_mode=="Stock"&&blocked.effective.interface_mode=="Stock"&&blocked.effective.aa_mode=="Stock"&&!blocked.effective.menu_freeze);
+ CHECK(blocked.effective.display_reason=="unsupported_build"&&blocked.effective.freeze_reason=="unsupported_build");
  auto invalid=parse_visual_config({{"Renderer.ConfigVersion","1"},{"VehicleReflections.Mode","Cubemap"}},true);CHECK(invalid.reflection_mode=="Stock"&&!invalid.reflection_reason.empty());
  std::cout<<"Config missing/version/invalid fields/independence: PASS\n";
 }

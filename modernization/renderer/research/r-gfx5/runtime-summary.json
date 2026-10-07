@@ -23,8 +23,8 @@
     "additional_stage_verdicts_inferred": false
   },
   "build": {
-    "sha256": "571e01cd648a7fd3ec8a86456071d8958856f8cebd49da064083cd7826b36d63",
-    "size": 1150464,
+    "sha256": "0fdd037c5fc0542df85f31b471eb121e739a5b7e128fe4d4c460d727c3392471",
+    "size": 1150976,
     "pe_type": "PE32",
     "machine": 332,
     "exports": {
@@ -350,8 +350,9 @@
     "pe_verifier": "PASS",
     "diff_check": "PASS",
     "evidence_grade": "AUTOMATED_SYNTHETIC_ONLY",
-    "python_seconds": 116.179,
-    "native_seconds": 3.21
+    "python_seconds": 114.852,
+    "native_seconds": 3.19,
+    "unknown_build_diagnostics": "requested retained, effective Stock/off; native config contract PASS"
   },
   "human_stages": [
     "A Stock",
