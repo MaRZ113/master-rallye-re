@@ -1,3 +1,27 @@
+# R-GFX5-5 — narrow pass / экспериментальный PreserveMargins
+
+**READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS.** Надёжный нативный владелец группы виджета не доказан, групповое наследование не включено. PreserveMargins (`InterfaceMode=2`) остаётся экспериментальным режимом совместимости; рекомендуемый стабильный режим — Centered4x3 (`InterfaceMode=1`). Остаточное разделение компонентов HUD/декораций не объявлено исправленным. Прежний consumer hook и подтверждённые maximize/restore сохраняются.
+
+Новая сборка: `.build-msvc/Release/d3d8.dll`, SHA256 `812330b862c0ba14a5572eee14a76d6e7cd5d2fcf63f6fd76e6fc327fc608737`, 1 393 664 байта. Автоматически не установлена и не запускалась в игре. Пример INI сохраняет Stock; `stock-plus.ini` — числовой opt-in preset с Centered4x3, Borderless, AF16, MSAA4, MenuFreezeFix=1. После смены настроек перезапустите игру.
+
+| Проверка | Действия | Что фиксировать |
+| --- | --- | --- |
+| A HUD, исследовательская | InterfaceMode=2, гонка около20с; время, damage, GPS, тахометр, место, progress bar | Остаются ли независимые прыжки компонентов? Нативная анимация должна сохраняться. FAIL допустим для экспериментального fallback |
+| B Декорации, исследовательская | Main Menu и Quick Race, движущиеся полупрозрачные квадраты | Плавность и стабильность привязки; составной jitter ещё не закрыт |
+| C F10 при дефекте | Захватить момент прыжка, сохранить session и frame | packet/entity/candidate IDs, текущий engine XY, individual anchor, current rule, effective X, grace и observed candidate members/conflicts |
+| D Стабильный контроль | InterfaceMode=1; Quick Race и гонка | Centered4x3 ведёт себя как в предыдущем успешном runtime |
+| E Combined | Borderless/native, InterfaceMode=1, AF=1/16, AA Mode=1/Samples=4, MenuFreezeFix=1; гонка → Alt+Tab → Quit | Нет регрессии lifecycle, preview или работающих возможностей |
+
+Для групповых полей ожидается `group_owner_status=not_proven`, `group_id=null`, `group_direction=null`. `ui_group_candidates` сообщает только наблюдаемый префикс и конфликт текущих исторических правил; он не доказывает логическую принадлежность виджету. Нет наследования RIGHT/LEFT центровыми членами и нет голосования большинства.
+
+Grace равен двум завершённым кадрам отсутствия того же валидного пакета; третий отсутствующий кадр удаляет якорь. `anchor_grace_retained>0` показывает фактический возврат после пропуска, `grace_expired` — истечение. `group_grace_retained=0` означает отсутствие группового registry, а не подтверждение его устойчивости. Replacement/mode/storage/Reset/известный scene epoch сбрасывают привязку немедленно. Физический storage replacement не покрывается grace. Между Main Menu/Quick Race не заявлена универсальная allocator/screen generation.
+
+F10 ограничен тремя кадрами,64 наблюдаемыми identities и256 записями на устройство. Для нового полного бюджета перезапустите игру. Сохраняйте session вместе с frame; IDs локальны для registry/capture. Сообщите отдельно HUD, Decorations, Centered control, Combined. Автоматические тесты не заменяют этот ретест.
+
+Незакрытый PreserveMargins не должен бесконечно блокировать R-GFX5 closeout: Centered4x3 остаётся рекомендуемым, PreserveMargins — экспериментальным. Backdrop по-прежнему BACKDROP_ASSET_EXTENSION_REQUIRED. R-CAM1, F-PHOTO1 и HD UI сейчас не начинаются.
+
+## Исторический R-GFX5-4 handoff (заменён текущим)
+
 # R-GFX5-4 — финальный ретест двух исправлений
 
 Кандидат: `.build-msvc/Release/d3d8.dll`; точный хеш/размер — [build.json](../../data/build.json). Агент DLL не устанавливал и игру не запускал. Сохраните рабочую DLL/INI для отката; после изменения INI перезапускайте игру. EXE и ассеты не меняются.

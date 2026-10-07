@@ -11,16 +11,19 @@ bool eligible_ui_packet(uintptr_t entity,uintptr_t coordinates) noexcept;
 struct MarginIdentity {uintptr_t entity=0,packet=0,point=0,storage=0;uint32_t mode=0;};
 bool read_margin_identity(uintptr_t entity,uintptr_t coordinates,MarginIdentity&) noexcept;
 struct MarginAnchorDecision {
- uint64_t id=0,epoch=0;int direction=0,current_rule=0;bool admitted=false,retained=false;
+ uint64_t id=0,epoch=0;int direction=0,current_rule=0;bool admitted=false,retained=false,grace_retained=false;
  const char* source="none";const char* invalidated="none";
 };
 // Semantic direction only. This registry never owns coordinates or writes memory.
+// At most two completed absent frames; observable identity/epoch changes win immediately.
+inline constexpr uint64_t MARGIN_ANCHOR_GRACE_FRAMES=2;
 class MarginAnchors {
  struct Anchor {MarginIdentity key{};uint64_t id=0,last=0;int direction=0;};
  std::array<Anchor,512> entries_{};uint64_t frame_=1,epoch_=1,next_id_=0;
  int context_=-1;const char* epoch_reason_="initial";
 public:
  uint64_t admissions=0,invalidations=0,retained_anchor_without_current_rule_match=0,overflow=0;
+ uint64_t anchor_grace_retained=0,grace_expired=0;
  MarginAnchorDecision resolve(const MarginIdentity&,float x,float y,float z) noexcept;
  void next_frame() noexcept;
  void begin_epoch(const char* reason) noexcept;
@@ -60,7 +63,7 @@ public:
 class UiMargins {
  friend struct detail::UiMarginsContract;
  UiPacketPatch patch_;MarginFrame frame_;MarginAnchors anchors_;
- struct Observation {uintptr_t entity=0,point=0;uint64_t id=0,first=0,last=0,restored=0;float logical=0,effective=0;unsigned visits=0;};
+ struct Observation {uintptr_t entity=0,point=0,packet=0,storage=0;uint64_t id=0,first=0,last=0,restored=0;float logical=0,effective=0;unsigned visits=0;int rule=0;};
  std::array<Observation,64> observations_{};uint64_t frame_id_=1,next_id_=0;unsigned records_=0,diagnostic_frames_=0;bool capturing_=false;DWORD thread_=0;float half_=0;bool enabled_=false;
 public:
  const char* reason="disabled";

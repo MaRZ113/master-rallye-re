@@ -1,3 +1,15 @@
+# R-GFX5-5 implementation delta
+
+This pass retains the final0056D110 consumer, frame-owned edits and successful Windowed/Borderless/Reset/preview/filtering/MSAA/FOV/vehicle mechanisms. No native widget owner is proven; group inheritance is absent. PreserveMargins is experimental, Centered4x3 recommended.
+
+MarginAnchors keeps direction for two absent completed frames (MARGIN_ANCHOR_GRACE_FRAMES). Identity, structure, epoch and Reset changes override grace. It uses current animation coordinates on every consume. Bounded F10 records expose candidate IDs/membership/conflicts and packet grace; null group fields mean NOT_PROVEN. No unverified pointer fields, XY table changes or proximity grouping. [Policy](ui-group-ownership.md).
+
+The existing strict visual boolean parser is shared by Trace's real INI reader. Numeric0/1 and true/false are equivalent; missing Trace settings default1, malformed/truncated values disable only the affected option and preserve raw/reason metadata. Enum string compatibility is unchanged. Both canonical INIs use numbers and one option per comment line. General example retains Stock visual defaults; stock-plus is opt-in with Centered4x3 and locally verified MenuFreezeFix enabled.
+
+Producer/native capture filters are R-GFX5-5. Existing assertions retain their meaning. Synthetic UI IDs are registry-local; Python selects matching capture lifetime and ID/entity, avoiding merging separate registries in one session. No deployment or later phase.
+
+## Historical R-GFX5-4 record (current policy above supersedes status/lifetime)
+
 # R-GFX5-4 implementation delta
 
 Only Windowed state ownership and stable PreserveMargins semantic direction changed. WindowApi snapshot exposes maximized state, the planner separates normal target from current client and the commit leaves maximized HWND placement alone. Final shutdown, cursor observer, Borderless and bounded native AA/error fallback behavior remain.

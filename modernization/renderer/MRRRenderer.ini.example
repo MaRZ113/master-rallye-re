@@ -1,52 +1,76 @@
+; Numeric selectors are canonical; existing text names remain accepted.
+; Stock defaults below; stock-plus.ini is the opt-in Classic+ preset.
 [Renderer]
 ConfigVersion=1
 
 [Display]
-; Windowed Width/Height are fixed client pixels; 0/0 pins the first valid game size.
-; Later Reset/manual resize does not redefine that target. Borderless uses native rcMonitor.
-; 0=Stock, 1=Windowed, 2=Borderless, 3=ExclusiveFullscreen; text names accepted.
+; Width/Height are the NORMAL client target; 0/0 pins the first valid game size.
+; Maximized uses the actual OS client size without changing the normal target.
+; 0 = Stock
+; 1 = Windowed
+; 2 = Borderless
+; 3 = ExclusiveFullscreen
 Mode=0
 Width=0
 Height=0
 RefreshRate=0
 ; Managed only in Borderless/ExclusiveFullscreen while foreground/inside.
+; 0 = Off
+; 1 = On
 AutoHideCursor=1
 CursorHideDelayMs=1500
 
 [Widescreen]
-; 0=Stock, 1=Centered4x3, 2=PreserveMargins; text names also accepted.
+; Centered4x3 is the stable recommended widescreen mode.
+; PreserveMargins is experimental / legacy compatibility.
 ; Source45 frontend preview correction is separate from gameplay VFOV.
+; 0 = Stock
+; 1 = Centered4x3
+; 2 = PreserveMargins
 InterfaceMode=0
 
-[AntiAliasing]
-; Mode=0: Samples is ignored, so Samples=4 alone does NOT enable AA.
-; To enable native AA use Mode=MSAA and Samples=4 (or 2/8).
-; Supported color+depth sample count <= request; startup logs show the accepted count.
-Mode=0
-Samples=4
-
 [Filtering]
-AnisotropicFiltering=false
+; 0 = Off
+; 1 = On
+AnisotropicFiltering=0
 MaxAnisotropy=16
 
+[AntiAliasing]
+; 0 = Stock
+; 1 = MSAA
+Mode=0
+; Used only when Mode=1. Samples alone does not enable AA.
+; Supported color+depth sample count <= request; startup logs show acceptance.
+Samples=4
+
 [Camera]
-GameplayFOV=false
+; 0 = Off
+; 1 = On
+GameplayFOV=0
 VerticalFOVDegrees=75.0
 
 [Shadows]
-; 0=Stock, 1=Off; text names accepted.
+; 0 = Stock
+; 1 = Off
 Mode=0
 
-[Trace]
-Enabled=true
-FrameSummaries=true
-
 [VehicleReflections]
-; 0=Stock, 1=ViewDependent2D; text names accepted.
-; Keep Stock for quality comparisons; locally validated vehicle proof is required.
+; Locally validated vehicle proof is required.
+; 0 = Stock
+; 1 = ViewDependent2D
 Mode=0
 
 [Compatibility]
-; Process-memory only: verified unique local owner; modified EXEs may be compatible.
-; Already-patched owner is reported without a write. Attract/media fixes are separate.
-MenuFreezeFix=false
+; Verified local owner, process-memory only; modified EXEs may be compatible.
+; Already-patched owner is reported without a write.
+; 0 = Off
+; 1 = On
+MenuFreezeFix=0
+
+[Trace]
+; 0 = Off
+; 1 = On
+Enabled=1
+; 0 = Off
+; 1 = On
+FrameSummaries=1

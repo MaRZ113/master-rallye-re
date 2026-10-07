@@ -1,3 +1,19 @@
+# R-GFX5-5 narrow pass validation - 2026-10-07
+
+**READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS.** Win32 x86 Release build PASS,8/8 native suites PASS (3.69s). Full renderer Python96/96 PASS (45.566s), compileall modernization and git diff --check PASS. DLL PE verifier PASS: PE32/I386, direct Direct3DCreate8@5, ValidatePixelShader@2, ValidateVertexShader@3; bcrypt/USER32/KERNEL32 imports, no recursive d3d8 import.
+
+DLL SHA256 **812330b862c0ba14a5572eee14a76d6e7cd5d2fcf63f6fd76e6fc327fc608737**, **1,393,664 bytes**. [Verified build](../../data/build.json). Generated DLL/native fixtures/raw logs remain ignored; no deployment/game/GPU execution was performed.
+
+New contracts cover zero/one/two absent frames, expiry after the third absent completion, repeated alternate-frame submission, immediate Reset/storage/context/reject invalidation, current dynamic X preservation, and no double offset. A shared-content diagnostic candidate with LEFT/RIGHT/CENTER exposes conflict without group inheritance; center remains unchanged. Numeric/text equivalence and feature-local invalid booleans include the actual Win32 Trace INI reader. Canonical numeric vertical selector style is checked in both INIs. Existing Windowed/maximize/restore, Borderless, Centered4x3, preview, cursor, AF/MSAA, freeze, FOV/culling, modified-build capabilities, resources, COM and R-GFX4 assertions remain.
+
+First Python run96 tests failed one fixture-selection assertion: independent synthetic UiMargins registries reused local anchor ID1 in one Session, merging the new550-X grace fixture with the existing565->562->558 animation fixture. Selection now includes entity and capture lifetime, with the original exact animation assertion intact. Full repeat96/96 passes. This was an automated evidence-selection failure, not game runtime evidence.
+
+Read-only Ghidra12.1.4 bridge queries verified pristine build/program, rolled back temporary transactions and saved no project changes. [Investigation](ui-group-ownership.md) does not prove native logical-widget ownership. Thus group implementation tests are not applicable and no group-based visual success is claimed. User-supplied R-GFX5-4 logs confirm packet retention/maximize, while the user still reports HUD/menu composite defects. PreserveMargins stays experimental.
+
+Final logs: ignored .analysis/r-gfx5/build-narrow-pass.log and python-narrow-pass-checked.log; intermediate python-narrow-pass.log is retained as FAIL evidence. New centered/combined human control remains pending. Backdrop remains BACKDROP_ASSET_EXTENSION_REQUIRED. No new branch/worktree/push or later phase.
+
+## Historical R-GFX5-4 record (current policy above supersedes status/lifetime)
+
 # R-GFX5-4 final fix validation - 2026-10-07
 
 READY_FOR_HUMAN_RUNTIME. Win32 x86 Release build PASS; **8/8 native suites** pass (3.61s). Full **93/93 Python** passed on final DLL (59.768s), including the final diagnostic fixture-selection correction. Canonical renderer compileall and git diff --check pass. Required exports/imports/PE verifier PASS.

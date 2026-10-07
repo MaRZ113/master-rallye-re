@@ -39,9 +39,9 @@ void MarginAnchors::scene_context(bool race) noexcept {
 }
 void MarginAnchors::reject(uintptr_t entity) noexcept {for(auto& a:entries_)if(a.id&&a.key.entity==entity){a={};++invalidations;}}
 void MarginAnchors::next_frame() noexcept {
- // No allocator generation is available. A missing completed consumer frame
- // ends retention; later address reuse must pass admission again.
- for(auto& a:entries_)if(a.id&&a.last!=frame_){a={};++invalidations;}
+ // Grace covers short submission gaps, never packet/storage/epoch replacement.
+ // Expire at the completion of the third absent frame, not during animation.
+ for(auto& a:entries_)if(a.id&&frame_-a.last>MARGIN_ANCHOR_GRACE_FRAMES){a={};++invalidations;++grace_expired;}
  ++frame_;
 }
 MarginAnchorDecision MarginAnchors::resolve(const MarginIdentity& key,float x,float y,float z) noexcept {
@@ -54,7 +54,7 @@ MarginAnchorDecision MarginAnchors::resolve(const MarginIdentity& key,float x,fl
   if(a.id&&a.key.entity==key.entity){
    const char* changed=a.key.packet!=key.packet?"packet_replacement":a.key.point!=key.point?"point_replacement":a.key.mode!=key.mode?"packet_mode_changed":a.key.storage!=key.storage?"content_storage_replacement":nullptr;
    if(changed){a={};++invalidations;d.invalidated=changed;}
-   else {a.last=frame_;d.id=a.id;d.direction=a.direction;d.retained=true;d.source="retained_identity";d.invalidated="none";if(!d.current_rule)++retained_anchor_without_current_rule_match;return d;}
+   else {d.grace_retained=frame_>a.last+1;if(d.grace_retained)++anchor_grace_retained;a.last=frame_;d.id=a.id;d.direction=a.direction;d.retained=true;d.source="retained_identity";d.invalidated="none";if(!d.current_rule)++retained_anchor_without_current_rule_match;return d;}
   }
   if(!a.id&&!free)free=&a;
  }
@@ -214,18 +214,31 @@ void UiMargins::before_sort(uintptr_t entity,uintptr_t coordinates) noexcept {
  auto anchor=anchors_.resolve(identity,engine[0],engine[1],engine[2]);
  bool changed=frame_.shift_direction(point,half_,anchor.direction,entity,identity.mode,identity.storage);if(!safe_copy(after,point,sizeof(after)))return;
  if(!diagnostic_frames_)return;
- Observation* observation=nullptr;for(auto& o:observations_)if(o.entity==entity&&o.point==reinterpret_cast<uintptr_t>(point)){observation=&o;break;}
- if(!observation)for(auto& o:observations_)if(!o.id){observation=&o;o.entity=entity;o.point=reinterpret_cast<uintptr_t>(point);o.id=++next_id_;o.first=frame_id_;break;}
+ Observation* observation=nullptr;for(auto& o:observations_)if(o.id&&o.entity==entity&&o.point==identity.point&&o.packet==identity.packet&&o.storage==identity.storage){observation=&o;break;}
+ if(!observation)for(auto& o:observations_)if(!o.id){observation=&o;o.entity=entity;o.point=identity.point;o.packet=identity.packet;o.storage=identity.storage;o.id=++next_id_;o.first=frame_id_;break;}
  if(!observation)return;auto& o=*observation;auto previous=o.last;bool rewrite=o.last&&before[0]!=o.logical&&before[0]!=o.effective;
- o.logical=engine[0];o.effective=after[0];o.last=frame_id_;++o.visits;
- if(records_<256){++records_;try{std::ostringstream out;out<<"{\"type\":\"ui_packet_lifetime\",\"event\":\"consume\",\"packet_id\":"<<o.id<<",\"entity\":"<<entity<<",\"packet\":"<<identity.packet<<",\"point_storage\":"<<identity.point<<",\"content_storage\":"<<identity.storage<<",\"packet_mode\":"<<identity.mode<<",\"ui_epoch\":"<<anchor.epoch<<",\"anchor_id\":"<<anchor.id<<",\"anchor_direction\":"<<quote(anchor.direction<0?"left":anchor.direction>0?"right":"none")<<",\"anchor_source\":"<<quote(anchor.source)<<",\"anchor_new\":"<<(anchor.admitted?"true":"false")<<",\"anchor_retained\":"<<(anchor.retained?"true":"false")<<",\"current_rule_match\":"<<anchor.current_rule<<",\"engine_x\":"<<engine[0]<<",\"engine_y\":"<<engine[1]<<",\"anchor_invalidated_reason\":"<<quote(anchor.invalidated)<<",\"owner_rva\":"<<UI_PACKET_RVA<<",\"first_frame\":"<<o.first<<",\"frame\":"<<frame_id_<<",\"previous_frame\":"<<previous<<",\"restored_frame\":"<<o.restored<<",\"original_x\":"<<o.logical<<",\"effective_x\":"<<o.effective<<",\"observed_x\":"<<before[0]<<",\"engine_rewrite\":"<<(rewrite?"true":"false")<<",\"shifted\":"<<(changed?"true":"false")<<",\"consume_count\":"<<o.visits<<"}";session().write(out.str());}catch(...){}}
+ o.logical=engine[0];o.effective=after[0];o.last=frame_id_;o.rule=anchor.current_rule;++o.visits;
+ if(records_<256){++records_;try{std::ostringstream out;out<<"{\"type\":\"ui_packet_lifetime\",\"event\":\"consume\",\"packet_id\":"<<o.id<<",\"entity\":"<<entity<<",\"packet\":"<<identity.packet<<",\"point_storage\":"<<identity.point<<",\"content_storage\":"<<identity.storage<<",\"packet_mode\":"<<identity.mode<<",\"ui_epoch\":"<<anchor.epoch<<",\"anchor_id\":"<<anchor.id<<",\"anchor_direction\":"<<quote(anchor.direction<0?"left":anchor.direction>0?"right":"none")<<",\"anchor_source\":"<<quote(anchor.source)<<",\"anchor_new\":"<<(anchor.admitted?"true":"false")<<",\"anchor_retained\":"<<(anchor.retained?"true":"false")<<",\"anchor_grace_retained\":"<<(anchor.grace_retained?"true":"false")<<",\"group_id\":null,\"group_direction\":null,\"group_owner_status\":\"not_proven\",\"candidate_group_ids\":{\"entity\":"<<entity<<",\"packet\":"<<identity.packet<<",\"content_storage\":"<<identity.storage<<"}"<<",\"current_rule_match\":"<<anchor.current_rule<<",\"engine_x\":"<<engine[0]<<",\"engine_y\":"<<engine[1]<<",\"anchor_invalidated_reason\":"<<quote(anchor.invalidated)<<",\"owner_rva\":"<<UI_PACKET_RVA<<",\"first_frame\":"<<o.first<<",\"frame\":"<<frame_id_<<",\"previous_frame\":"<<previous<<",\"restored_frame\":"<<o.restored<<",\"original_x\":"<<o.logical<<",\"effective_x\":"<<o.effective<<",\"observed_x\":"<<before[0]<<",\"engine_rewrite\":"<<(rewrite?"true":"false")<<",\"shifted\":"<<(changed?"true":"false")<<",\"consume_count\":"<<o.visits<<"}";session().write(out.str());}catch(...){}}
 
 }
 bool UiMargins::finish_frame() noexcept {bool okay=frame_.restore();
+ if(diagnostic_frames_&&records_<256){++records_;try{
+  // Candidate buckets use only fields already read by the verified consumer.
+  // Observed sharing is evidence for investigation, never permission to inherit.
+  std::ostringstream out;out<<"{\"type\":\"ui_group_candidates\",\"frame\":"<<frame_id_<<",\"ui_epoch\":"<<anchors_.epoch()<<",\"group_owner_status\":\"not_proven\",\"observed_prefix_only\":true,\"candidates\":[";bool first=true;
+  for(int kind=0;kind<3;++kind)for(size_t i=0;i<observations_.size();++i){
+   const auto& o=observations_[i];if(!o.id||o.last!=frame_id_)continue;
+   auto value=[&](const Observation& v){return kind==0?v.entity:kind==1?v.packet:v.storage;};auto id=value(o);if(!id)continue;
+   bool seen=false;for(size_t j=0;j<i;++j)if(observations_[j].id&&observations_[j].last==frame_id_&&value(observations_[j])==id)seen=true;if(seen)continue;
+   bool left=false,right=false;unsigned count=0;for(const auto& v:observations_)if(v.id&&v.last==frame_id_&&value(v)==id){++count;left|=v.rule<0;right|=v.rule>0;}
+   if(!first)out<<',';first=false;out<<"{\"kind\":"<<quote(kind==0?"entity":kind==1?"packet":"content_storage")<<",\"candidate_id\":"<<id<<",\"observed_member_count\":"<<count<<",\"strong_rule_conflict\":"<<(left&&right?"true":"false")<<",\"group_id\":null,\"group_direction\":null,\"member_packet_ids\":[";bool member_first=true;
+   for(const auto& v:observations_)if(v.id&&v.last==frame_id_&&value(v)==id){if(!member_first)out<<',';member_first=false;out<<v.id;}out<<"]}";
+  }out<<"]}";session().write(out.str());
+ }catch(...){}}
  for(auto& o:observations_)if(o.id&&o.last==frame_id_){o.restored=frame_id_;if(records_<256){++records_;try{session().write("{\"type\":\"ui_packet_lifetime\",\"event\":\"restore\",\"packet_id\":"+std::to_string(o.id)+",\"frame\":"+std::to_string(frame_id_)+",\"success\":"+(okay?"true":"false")+"}");}catch(...){}}}anchors_.next_frame();if(diagnostic_frames_)--diagnostic_frames_;++frame_id_;if(!okay)disable("ui_coordinate_restore_failed");return okay;}
 void UiMargins::disable(const char* why) noexcept {enabled_=false;half_=0;frame_.restore();anchors_.begin_epoch(why);if(active==this)active=nullptr;patch_.remove(memory);reason=why;}
 UiMargins::~UiMargins(){disable("device_release");}
-std::string UiMargins::json() const {MarginFP fp;std::ostringstream o;o<<"{\"anchor_count\":"<<anchors_.size()<<",\"ui_epoch\":"<<anchors_.epoch()<<",\"anchor_admissions\":"<<anchors_.admissions<<",\"anchor_invalidations\":"<<anchors_.invalidations<<",\"retained_anchor_without_current_rule_match\":"<<anchors_.retained_anchor_without_current_rule_match<<",\"anchor_overflow\":"<<anchors_.overflow<<",\"installed\":"<<(patch_.installed()?"true":"false")<<",\"enabled\":"<<(enabled_?"true":"false")<<",\"reason\":"<<quote(reason)<<",\"half_extra\":"<<half_<<",\"restore_boundary\":\"post_consumer_present_or_reset\",\"bounded_lifetime_records\":"<<records_<<",\"diagnostic_frames_remaining\":"<<diagnostic_frames_<<",\"packet_shifts\":"<<frame_.changed<<",\"restore_failures\":"<<frame_.failures<<",\"overflow\":"<<frame_.overflow<<'}';return o.str();}
+std::string UiMargins::json() const {MarginFP fp;std::ostringstream o;o<<"{\"anchor_count\":"<<anchors_.size()<<",\"ui_epoch\":"<<anchors_.epoch()<<",\"anchor_admissions\":"<<anchors_.admissions<<",\"anchor_invalidations\":"<<anchors_.invalidations<<",\"retained_anchor_without_current_rule_match\":"<<anchors_.retained_anchor_without_current_rule_match<<",\"anchor_grace_frames\":"<<MARGIN_ANCHOR_GRACE_FRAMES<<",\"anchor_grace_retained\":"<<anchors_.anchor_grace_retained<<",\"group_grace_retained\":0,\"grace_expired\":"<<anchors_.grace_expired<<",\"group_owner_status\":\"not_proven\",\"status\":\"EXPERIMENTAL_LEGACY_COMPATIBILITY\""<<",\"anchor_overflow\":"<<anchors_.overflow<<",\"installed\":"<<(patch_.installed()?"true":"false")<<",\"enabled\":"<<(enabled_?"true":"false")<<",\"reason\":"<<quote(reason)<<",\"half_extra\":"<<half_<<",\"restore_boundary\":\"post_consumer_present_or_reset\",\"bounded_lifetime_records\":"<<records_<<",\"diagnostic_frames_remaining\":"<<diagnostic_frames_<<",\"packet_shifts\":"<<frame_.changed<<",\"restore_failures\":"<<frame_.failures<<",\"overflow\":"<<frame_.overflow<<'}';return o.str();}
 uintptr_t detail::ui_packet_entity_for_contract() noexcept {return contract_entity;}
 uintptr_t detail::ui_packet_bridge_for_contract(uintptr_t address) noexcept {if(active)return 0;contract_probe=true;contract_entity=0;packet_return=address;return reinterpret_cast<uintptr_t>(&packet_bridge);}
 uintptr_t detail::ui_bridge_for_contract(uintptr_t address) noexcept {if(active)return 0;sort_return=address;return reinterpret_cast<uintptr_t>(&sort_bridge);}

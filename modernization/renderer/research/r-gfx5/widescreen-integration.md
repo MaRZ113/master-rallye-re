@@ -1,3 +1,15 @@
+# R-GFX5-5 widescreen decision
+
+**Centered4x3 = STABLE / RECOMMENDED. PreserveMargins = EXPERIMENTAL / LEGACY COMPATIBILITY.** R-GFX5-4 packet retention works according to the user and counters; composite HUD/menu defects remain. The final consumer stays the interception owner. No return to SortPerCamera or wider historical XY ranges.
+
+[Native group investigation](ui-group-ownership.md) establishes no robust sibling widget owner. Candidate sharing is diagnostic only: no group anchor, center-child inheritance, or majority resolution of contradictions. Group ID/direction remain null. This is the authorized fallback, not a claim of group stabilization.
+
+MARGIN_ANCHOR_GRACE_FRAMES=2 replaces immediate missing-frame expiry only. Valid identity can return after two absent completed frames; third absent completion expires it. Packet/point/mode/storage changes and Reset/observed scene epoch/release invalidate immediately. Current X/Y animation and guarded Present restore remain. Fully indistinguishable allocator/screen reuse is not certified; experimental mode retains that known limitation.
+
+InterfaceMode0Stock/1Centered4x3/2PreserveMargins and text compatibility remain. The production opt-in preset selects1; selecting2 accepts the limitation. Backdrop remains BACKDROP_ASSET_EXTENSION_REQUIRED. Historical one-missing-frame expiry below is superseded.
+
+## Historical R-GFX5-4 record (current policy above supersedes status/lifetime)
+
 # R-GFX5-4 stable PreserveMargins anchor semantics
 
 Human/runtime narrowed the active defect: the final consumer hook is installed, widened projection stable, restore_failures0, yet animated HUD/decorations jitter. Do not recast missing sorter head as the remaining cause. DrawTextPacket VA0x0056D110/RVA0x0016D110 stays the only production packet hook; Present/Reset/disable/release coordinate ownership boundary stays intact.

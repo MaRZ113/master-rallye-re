@@ -1,0 +1,324 @@
+{
+  "phase": "R-GFX5 FINAL NARROW PASS",
+  "decision": "READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS",
+  "proven_native_widget_owner": null,
+  "group_inheritance": false,
+  "owner_absence_claim": false,
+  "static_queries": "Ghidra 12.1.4 ghidra_ai_bridge read-only exact pristine; transaction rollback, no database save",
+  "static_candidates": [
+    {
+      "candidate": "entity -> packet",
+      "va": "0x0056D110",
+      "rva": "0x0016D110",
+      "source": ".analysis/r-gfx5/continuation3-owners/0056d110.json",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "finding": "entity+0x4C supplies one packet. No parent/root linkage established at this consumer."
+    },
+    {
+      "candidate": "packet content rows",
+      "va": "0x0056D110",
+      "rva": "0x0016D110",
+      "source": ".analysis/r-gfx5/continuation3-owners/0056d110.json",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "finding": "packet+8/+0xC are content vector begin/end; rows advance 0x38. This is intra-packet content, not proven cross-packet widget ownership."
+    },
+    {
+      "candidate": "packet+0x84",
+      "va": "0x004E24C0",
+      "rva": "0x000E24C0",
+      "source": ".analysis/r-gfx5/narrow-ui-owners/004e24c0.json",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "finding": "consumer constructs an identity matrix via 0058C660 and copies packet transform into cached object at +0x84; setter replaces/releases it. Not demonstrated widget root."
+    },
+    {
+      "candidate": "per-camera submission list",
+      "va": "0x00509680",
+      "rva": "0x00109680",
+      "source": ".analysis/r-gfx5/continuation3-static/00509680.json",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "finding": "list indexed by camera; 00509970 sorts by entity+0x48 and distance. Too broad/volatile to establish a logical widget."
+    },
+    {
+      "candidate": "renderer dispatcher singleton",
+      "va": "0x004D3920",
+      "rva": "0x000D3920",
+      "source": ".analysis/r-gfx5/narrow-ui-owners/004d3920.json",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "finding": "global 006F93D0 creates dispatch objects with 00691710/00691704 vtables. Global service is not proof of a HUD subgroup."
+    }
+  ],
+  "query_limit": "Sparse project references to consumer/list routines are empty. No exhaustive UI hierarchy recovery or allocator generation proof. No pointer field is invented.",
+  "runtime_sources": [
+    {
+      "file": "session-20261007-084836-1516.jsonl",
+      "sha256": "13e5786c6b0fde17e334a45ee41bd0d399367c542f68d79b80d4d9fa30439a3d",
+      "size": 419817,
+      "producer": "R-GFX5-4",
+      "proxy_sha256": "044a492a4919a009e416863d9e4753f139af007a70af1407c159dabae6fe5a65",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "summary_count": 55,
+      "retained_without_rule_max": 0,
+      "restore_failures_max": 0,
+      "consume_records": 0,
+      "observed_candidate_buckets": {
+        "entity": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        },
+        "packet": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        },
+        "content_storage": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        }
+      },
+      "anchor_directions": {},
+      "window_transitions": [],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE_NOT_VISUAL"
+    },
+    {
+      "file": "session-20261007-084904-44300.jsonl",
+      "sha256": "a29b5c8fcbf1f354b91d88db38697a72f1f20908631b9f9a7871b8cab0400ada",
+      "size": 1613905,
+      "producer": "R-GFX5-4",
+      "proxy_sha256": "044a492a4919a009e416863d9e4753f139af007a70af1407c159dabae6fe5a65",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "summary_count": 281,
+      "retained_without_rule_max": 0,
+      "restore_failures_max": 0,
+      "consume_records": 0,
+      "observed_candidate_buckets": {
+        "entity": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        },
+        "packet": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        },
+        "content_storage": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        }
+      },
+      "anchor_directions": {},
+      "window_transitions": [
+        {
+          "window_state": "normal",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1280,
+            "height": 720
+          },
+          "effective_backbuffer": {
+            "width": 1280,
+            "height": 720
+          }
+        },
+        {
+          "window_state": "maximized",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1920,
+            "height": 1027
+          },
+          "effective_backbuffer": {
+            "width": 1920,
+            "height": 1027
+          }
+        },
+        {
+          "window_state": "normal",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1280,
+            "height": 720
+          },
+          "effective_backbuffer": {
+            "width": 1280,
+            "height": 720
+          }
+        },
+        {
+          "window_state": "maximized",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1920,
+            "height": 1027
+          },
+          "effective_backbuffer": {
+            "width": 1920,
+            "height": 1027
+          }
+        },
+        {
+          "window_state": "normal",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1280,
+            "height": 720
+          },
+          "effective_backbuffer": {
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE_NOT_VISUAL"
+    },
+    {
+      "file": "session-20261007-084957-12128.jsonl",
+      "sha256": "b011c5e6b6a271abf4efcb90d00dacb3e7ade6e57f6e8f333a831377bbc45d60",
+      "size": 1067740,
+      "producer": "R-GFX5-4",
+      "proxy_sha256": "044a492a4919a009e416863d9e4753f139af007a70af1407c159dabae6fe5a65",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "summary_count": 163,
+      "retained_without_rule_max": 11901,
+      "restore_failures_max": 0,
+      "consume_records": 0,
+      "observed_candidate_buckets": {
+        "entity": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        },
+        "packet": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        },
+        "content_storage": {
+          "unique_candidates": 0,
+          "max_observed_entities_per_candidate": 0
+        }
+      },
+      "anchor_directions": {},
+      "window_transitions": [
+        {
+          "window_state": "normal",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1280,
+            "height": 720
+          },
+          "effective_backbuffer": {
+            "width": 1280,
+            "height": 720
+          }
+        },
+        {
+          "window_state": "maximized",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1920,
+            "height": 1027
+          },
+          "effective_backbuffer": {
+            "width": 1920,
+            "height": 1027
+          }
+        },
+        {
+          "window_state": "normal",
+          "normal_target": {
+            "width": 1280,
+            "height": 720
+          },
+          "actual_client": {
+            "width": 1280,
+            "height": 720
+          },
+          "effective_backbuffer": {
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE_NOT_VISUAL"
+    },
+    {
+      "file": "session-20261007-085206-29228.jsonl",
+      "sha256": "f28fb547b671098e7c9e12173cf9a46117b7f1ceeb735da687c2a07e04562fc5",
+      "size": 1218809,
+      "producer": "R-GFX5-4",
+      "proxy_sha256": "044a492a4919a009e416863d9e4753f139af007a70af1407c159dabae6fe5a65",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "summary_count": 169,
+      "retained_without_rule_max": 48238,
+      "restore_failures_max": 0,
+      "consume_records": 198,
+      "observed_candidate_buckets": {
+        "entity": {
+          "unique_candidates": 52,
+          "max_observed_entities_per_candidate": 1
+        },
+        "packet": {
+          "unique_candidates": 52,
+          "max_observed_entities_per_candidate": 1
+        },
+        "content_storage": {
+          "unique_candidates": 52,
+          "max_observed_entities_per_candidate": 1
+        }
+      },
+      "anchor_directions": {
+        "none": 86,
+        "right": 80,
+        "left": 32
+      },
+      "window_transitions": [],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME_TRACE_NOT_VISUAL"
+    }
+  ],
+  "runtime_limit": "One bounded F10 prefix has 198 consumes, 52 entities/packets/storage candidates. Prefix sharing cannot prove total widget membership or visual identity.",
+  "human_result": {
+    "source": "latest user prompt",
+    "per_packet_retention": "working",
+    "windowed_maximize_restore": "passed",
+    "hud_menu_composite_stability": "still failing",
+    "evidence_grade": "HUMAN_REPORTED"
+  },
+  "grace": {
+    "absent_completed_frames": 2,
+    "expiry": "end of third absent completed frame",
+    "immediate_invalidators": [
+      "packet",
+      "point",
+      "mode",
+      "storage",
+      "invalid structure",
+      "Reset",
+      "observed frontend/race epoch",
+      "device release"
+    ],
+    "group_grace": "not applicable; counter remains zero",
+    "limit": "No true screen/allocator generation. Identical tuple reuse within grace may be unobservable; experimental mode only."
+  },
+  "ui_modes": {
+    "Centered4x3": "STABLE_RECOMMENDED_PRIOR_HUMAN_RUNTIME",
+    "PreserveMargins": "EXPERIMENTAL_LEGACY_COMPATIBILITY"
+  },
+  "backdrop": "BACKDROP_ASSET_EXTENSION_REQUIRED"
+}

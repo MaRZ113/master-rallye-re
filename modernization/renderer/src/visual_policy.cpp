@@ -11,18 +11,18 @@ namespace gfx2 {
 namespace {
 struct PolicyFP {fenv_t env;PolicyFP(){fegetenv(&env);}~PolicyFP(){fesetenv(&env);}};
 std::string trim(std::string v){auto a=v.find_first_not_of(" \t\r\n");return a==std::string::npos?"":v.substr(a,v.find_last_not_of(" \t\r\n")-a+1);}
-bool boolean(std::string v,bool& out){v=trim(v);for(char& c:v)c=static_cast<char>(std::tolower(static_cast<unsigned char>(c)));if(v=="true"||v=="1"){out=true;return true;}if(v=="false"||v=="0"){out=false;return true;}return false;}
 bool number(const std::string& text,double& out){auto v=trim(text);char* end=nullptr;errno=0;out=std::strtod(v.c_str(),&end);return !v.empty()&&end==v.c_str()+v.size()&&!errno&&std::isfinite(out);}
 }
+bool parse_config_boolean(std::string v,bool& out){v=trim(v);for(char& c:v)c=static_cast<char>(std::tolower(static_cast<unsigned char>(c)));if(v=="true"||v=="1"){out=true;return true;}if(v=="false"||v=="0"){out=false;return true;}return false;}
 VisualConfig parse_visual_config(const std::unordered_map<std::string,std::string>& fields,bool found){
  PolicyFP fp;VisualConfig c;c.found=found;c.raw_fields.insert(fields.begin(),fields.end());if(!found){c.reason="missing_config_stock";return c;}
  auto get=[&](const char* key,const char* fallback){auto i=fields.find(key);return i==fields.end()?std::string(fallback):i->second;};
  c.version_ok=trim(get("Renderer.ConfigVersion",""))=="1";
  if(!c.version_ok){c.reason="unknown_or_missing_config_version_stock";return c;}
  c.reason="version_1";
- if(!boolean(get("Filtering.AnisotropicFiltering","false"),c.anisotropy)){c.anisotropy=false;c.af_reason="invalid_boolean";}
+ if(!parse_config_boolean(get("Filtering.AnisotropicFiltering","false"),c.anisotropy)){c.anisotropy=false;c.af_reason="invalid_boolean";}
  double n=0;if(!number(get("Filtering.MaxAnisotropy","16"),n)||n<1||n>65535||n!=std::floor(n)){c.anisotropy=false;c.af_reason="invalid_max_anisotropy";}else c.max_anisotropy=static_cast<unsigned>(n);
- if(!boolean(get("Camera.GameplayFOV","false"),c.fov)){c.fov=false;c.fov_reason="invalid_boolean";}
+ if(!parse_config_boolean(get("Camera.GameplayFOV","false"),c.fov)){c.fov=false;c.fov_reason="invalid_boolean";}
  if(!number(get("Camera.VerticalFOVDegrees","75"),n)||n<30||n>110){c.fov=false;c.fov_reason="invalid_vertical_fov";}else c.vfov=static_cast<float>(n);
  auto selector=[&](const char* key,std::initializer_list<const char*> names){auto v=trim(get(key,"Stock"));unsigned i=0;for(auto name:names){if(v==std::to_string(i++))return std::string(name);}return v;};
  auto mode=selector("Shadows.Mode",{"Stock","Off"});if(mode=="Off")c.shadow_off=true;else if(mode!="Stock")c.shadow_reason="invalid_shadow_mode";
@@ -39,8 +39,8 @@ VisualConfig parse_visual_config(const std::unordered_map<std::string,std::strin
  if(ui=="Stock"||ui=="Centered4x3"||ui=="PreserveMargins")c.interface_mode=ui;else c.interface_reason="invalid_interface_mode_stock";
  auto aa=selector("AntiAliasing.Mode",{"Stock","MSAA"});if(aa=="Stock"||aa=="MSAA")c.aa_mode=aa;else c.aa_reason="invalid_aa_mode_stock";
  if(!integer("AntiAliasing.Samples","4",8,c.samples)||(c.samples!=2&&c.samples!=4&&c.samples!=8)){c.aa_mode="Stock";c.samples=4;c.aa_reason="invalid_samples_stock";}
- if(!boolean(get("Compatibility.MenuFreezeFix","false"),c.menu_freeze)){c.menu_freeze=false;c.freeze_reason="invalid_freeze_boolean_disabled";}
- if(!boolean(get("Display.AutoHideCursor","1"),c.auto_hide_cursor)){c.auto_hide_cursor=false;c.cursor_reason="invalid_cursor_boolean_disabled";}
+ if(!parse_config_boolean(get("Compatibility.MenuFreezeFix","false"),c.menu_freeze)){c.menu_freeze=false;c.freeze_reason="invalid_freeze_boolean_disabled";}
+ if(!parse_config_boolean(get("Display.AutoHideCursor","1"),c.auto_hide_cursor)){c.auto_hide_cursor=false;c.cursor_reason="invalid_cursor_boolean_disabled";}
  if(!integer("Display.CursorHideDelayMs","1500",60000,c.cursor_delay_ms)){c.auto_hide_cursor=false;c.cursor_reason="invalid_cursor_delay_disabled";}
  return c;
 }

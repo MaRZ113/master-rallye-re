@@ -13,6 +13,11 @@ std::string sha256_file(const std::wstring& path,uint64_t* size=nullptr) noexcep
 struct Caller {uintptr_t address=0,base=0;std::string module;bool known=false;};
 Caller caller_info(uintptr_t address);
 std::string quote(const std::string& text);
+struct TraceConfig {
+ bool enabled=true,summaries=true,enabled_valid=true,summaries_valid=true;
+ std::string enabled_raw="1",summaries_raw="1";
+};
+TraceConfig read_trace_config(const std::wstring& path);
 class Session {
 public:
  bool enabled=true,summaries=true;

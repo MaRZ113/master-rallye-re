@@ -20,6 +20,7 @@ struct VisualConfig {
 };
 VisualConfig parse_visual_config(const std::unordered_map<std::string,std::string>& fields,bool found);
 VisualConfig read_visual_config(const std::wstring& path);
+bool parse_config_boolean(std::string value,bool& output);
 std::string config_json(const VisualConfig& c);
 struct VisualPolicy {
  VisualConfig requested,effective;

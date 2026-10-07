@@ -23,7 +23,7 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('session*.jsonl'):
             with path.open(encoding='utf-8-sig') as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-4':
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-5':
                 matching.append(path)
         self.assertTrue(matching,'Run current native suites before Python')
         # Anchor IDs are session-local. Repeated identical native builds must
@@ -44,7 +44,9 @@ class QualityResearchTests(unittest.TestCase):
     def test_native_consumer_anchor_provenance_preserves_animation(self):
         rows=[r for r in self.current_native_session() if r.get('type')=='ui_packet_lifetime' and r.get('event')=='consume']
         new=next(r for r in rows if r.get('anchor_new') and r.get('engine_x')==565)
-        retained=[r for r in rows if r.get('anchor_id')==new['anchor_id'] and r.get('anchor_retained') and r.get('current_rule_match')==0]
+        # Synthetic contracts create independent UiMargins instances in one
+        # session. IDs are registry-local; do not merge their capture lifetimes.
+        retained=[r for r in rows if r.get('anchor_id')==new['anchor_id'] and r.get('first_frame')==new['first_frame'] and r.get('entity')==new['entity'] and r.get('anchor_retained') and r.get('current_rule_match')==0]
         self.assertEqual(new['anchor_source'],'exact_historical_rule')
         self.assertEqual([r['engine_x'] for r in retained],[562,558])
         for r in retained:
@@ -55,6 +57,52 @@ class QualityResearchTests(unittest.TestCase):
         self.assertFalse(duplicate['shifted']);self.assertEqual(duplicate['effective_x'],new['effective_x'])
         center=next(r for r in rows if r.get('engine_x')==300 and r.get('anchor_direction')=='none')
         self.assertEqual(center['effective_x'],300);self.assertEqual(center['anchor_id'],0)
+
+    def test_native_short_grace_preserves_dynamic_coordinate(self):
+        rows=self.current_native_session()
+        retained=[r for r in rows if r.get('type')=='ui_packet_lifetime' and r.get('anchor_grace_retained')]
+        self.assertTrue(retained)
+        r=next(r for r in retained if r['engine_x']==550)
+        self.assertEqual(r['anchor_direction'],'right')
+        self.assertEqual(r['anchor_source'],'retained_identity')
+        self.assertEqual(r['current_rule_match'],0)
+        self.assertAlmostEqual(r['effective_x']-r['engine_x'],106.667,places=2)
+        self.assertEqual(r['group_owner_status'],'not_proven')
+        self.assertIsNone(r['group_id']);self.assertIsNone(r['group_direction'])
+
+    def test_native_candidate_conflict_never_creates_group_inheritance(self):
+        rows=self.current_native_session()
+        candidates=[c for r in rows if r.get('type')=='ui_group_candidates' for c in r['candidates']]
+        conflict=next(c for c in candidates if c['kind']=='content_storage' and c['strong_rule_conflict'])
+        self.assertEqual(conflict['observed_member_count'],3)
+        self.assertEqual(len(set(conflict['member_packet_ids'])),3)
+        self.assertIsNone(conflict['group_id']);self.assertIsNone(conflict['group_direction'])
+        center=next(r for r in rows if r.get('type')=='ui_packet_lifetime' and r.get('candidate_group_ids',{}).get('content_storage')==conflict['candidate_id'] and r.get('engine_x')==300)
+        self.assertEqual(center['anchor_direction'],'none');self.assertEqual(center['effective_x'],300)
+
+    def test_canonical_numeric_ini_vertical_selectors(self):
+        import configparser
+        selectors={'Display.Mode':4,'Display.AutoHideCursor':2,'Widescreen.InterfaceMode':3,
+                   'Filtering.AnisotropicFiltering':2,'AntiAliasing.Mode':2,'Camera.GameplayFOV':2,
+                   'Shadows.Mode':2,'VehicleReflections.Mode':2,'Compatibility.MenuFreezeFix':2,
+                   'Trace.Enabled':2,'Trace.FrameSummaries':2}
+        for file in [ROOT/'MRRRenderer.ini.example',ROOT/'research/r-gfx5/stock-plus.ini']:
+            text=file.read_text(encoding='utf-8');parser=configparser.ConfigParser();parser.read_string(text)
+            self.assertNotRegex(text,r'(?im)^\w+\s*=\s*(true|false|yes|no)\s*$')
+            lines=text.splitlines()
+            for full,options in selectors.items():
+                section,key=full.split('.');value=parser[section][key]
+                self.assertTrue(value.isdigit());self.assertLess(int(value),options)
+                start=lines.index('['+section+']');index=next(i for i in range(start+1,len(lines)) if lines[i].startswith(key+'='))
+                comments=[];i=index-1
+                while i>start and lines[i].startswith(';'):comments.insert(0,lines[i]);i-=1
+                mappings=[l for l in comments if re.match(r'; \d+ = ',l)]
+                self.assertEqual([int(re.match(r'; (\d+) = ',l)[1]) for l in mappings],list(range(options)))
+                for line in mappings:self.assertNotRegex(line,r',|\|')
+            self.assertIn('PreserveMargins is experimental',text)
+        preset=configparser.ConfigParser();preset.read(ROOT/'research/r-gfx5/stock-plus.ini')
+        self.assertEqual(preset['Widescreen']['InterfaceMode'],'1')
+        self.assertEqual(preset['Compatibility']['MenuFreezeFix'],'1')
 
     def test_identity_and_output_guard(self):
         self.assertEqual(ROOT,TOOL_ROOT)
@@ -114,7 +162,7 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             with path.open() as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-4':frames.append(read_jsonl(path))
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-5':frames.append(read_jsonl(path))
         self.assertTrue(frames,'Native production wrapper must emit its positive capture')
         frame=next(f for f in reversed(frames) if f[0]['quality']['effective']['multisample']==4);self.assertTrue(frame[-1]['complete']);self.assertFalse(frame[-1]['truncated'])
         pp=frame[0]['quality']['effective'];self.assertEqual((pp['width'],pp['height'],pp['multisample'],pp['swap_effect']),(1920,1080,4,1))

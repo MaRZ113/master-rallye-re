@@ -185,7 +185,9 @@ void stable_margin_anchors(){
  CHECK(anchors.resolve(key,565,75,0).admitted);anchors.begin_epoch("Reset");CHECK(!anchors.resolve(key,300,300,0).direction&&anchors.size()==0);
  anchors.scene_context(false);CHECK(anchors.resolve(key,565,75,0).admitted);auto epoch=anchors.epoch();anchors.scene_context(true);
  CHECK(anchors.epoch()==epoch+1&&!anchors.resolve(key,300,300,0).direction);
- CHECK(anchors.resolve(key,565,75,0).admitted);anchors.next_frame();anchors.next_frame();CHECK(!anchors.resolve(key,300,300,0).direction&&anchors.size()==0);
+ CHECK(anchors.resolve(key,565,75,0).admitted);anchors.next_frame();
+ for(uint64_t i=0;i<=MARGIN_ANCHOR_GRACE_FRAMES;++i)anchors.next_frame();
+ CHECK(!anchors.resolve(key,300,300,0).direction&&anchors.size()==0&&anchors.grace_expired==1);
  for(int i=0;i<20;++i){CHECK(!anchors.resolve(key,300+i,300+i,0).direction);anchors.next_frame();}
  CHECK(anchors.resolve(key,565,75,0).admitted);CHECK(!anchors.resolve(key,560,74,1).direction&&anchors.size()==0);
  key.storage=0;CHECK(!anchors.resolve(key,565,75,0).direction);key.storage=4;
@@ -198,6 +200,43 @@ void stable_margin_anchors(){
  CHECK(edits.shift_direction(point,100,1,owner,mode));mode=2;std::memcpy(packet.data()+0x68,&mode,4);CHECK(edits.restore()&&point[0]==665);
  CHECK(!read_margin_identity(1,1,read));
  std::cout<<"Historical admission/stable animated anchors, center exclusion, replacement/epoch/gap/overflow and no double offset: PASS\n";
+}
+void margin_short_grace(){
+ const MarginIdentity key{1,2,3,4,1};
+ for(uint64_t gap=0;gap<=MARGIN_ANCHOR_GRACE_FRAMES;++gap){
+  MarginAnchors a;auto first=a.resolve(key,565,75,0);a.next_frame();
+  for(uint64_t i=0;i<gap;++i)a.next_frame();
+  auto retained=a.resolve(key,558,76,0);CHECK(retained.id==first.id&&retained.direction==1&&retained.retained);
+  CHECK(retained.grace_retained==(gap>0)&&a.anchor_grace_retained==(gap>0?1:0));
+ }
+ MarginAnchors a;auto first=a.resolve(key,565,75,0);a.next_frame();
+ // Conditional every-other-frame submission survives repeatedly, without refreshing coordinates.
+ for(int i=0;i<20;++i){a.next_frame();auto d=a.resolve(key,558-i,76+i,0);CHECK(d.id==first.id&&d.grace_retained);a.next_frame();}
+ CHECK(a.anchor_grace_retained==20&&a.grace_expired==0);
+ a.next_frame();a.begin_epoch("Reset");CHECK(!a.resolve(key,300,300,0).direction);
+ a.resolve(key,565,75,0);a.next_frame();a.next_frame();auto replaced=key;replaced.storage=9;
+ CHECK(!a.resolve(replaced,300,300,0).direction&&a.size()==0);
+ a.resolve(key,565,75,0);a.scene_context(false);a.next_frame();a.next_frame();a.scene_context(true);
+ CHECK(!a.resolve(key,300,300,0).direction);
+ a.resolve(key,565,75,0);a.next_frame();a.next_frame();a.reject(key.entity);CHECK(!a.resolve(key,300,300,0).direction);
+ std::cout<<"Two absent completed frames survive; expiry, Reset/storage/context/reject override grace: PASS\n";
+}
+void trace_numeric_configs(){
+ wchar_t temp[MAX_PATH],file[MAX_PATH];CHECK(GetTempPathW(MAX_PATH,temp)&&GetTempFileNameW(temp,L"gfx",0,file));
+ CHECK(DeleteFileW(file));auto defaults=read_trace_config(file);CHECK(defaults.enabled&&defaults.summaries);
+ for(auto pair:std::vector<std::pair<const wchar_t*,bool>>{{L"0",false},{L"1",true},{L"false",false},{L"true",true},{L"TRUE",true}}){
+  CHECK(WritePrivateProfileStringW(L"Trace",L"Enabled",pair.first,file));CHECK(WritePrivateProfileStringW(L"Trace",L"FrameSummaries",pair.first,file));
+  auto c=read_trace_config(file);CHECK(c.enabled_valid&&c.summaries_valid&&c.enabled==pair.second&&c.summaries==pair.second);
+ }
+ for(auto bad:{L"97",L"-1",L"1.5",L"invalid"}){
+  CHECK(WritePrivateProfileStringW(L"Trace",L"Enabled",bad,file));CHECK(WritePrivateProfileStringW(L"Trace",L"FrameSummaries",L"1",file));auto c=read_trace_config(file);CHECK(!c.enabled&&!c.enabled_valid&&c.summaries&&c.summaries_valid);
+  CHECK(WritePrivateProfileStringW(L"Trace",L"Enabled",L"1",file));CHECK(WritePrivateProfileStringW(L"Trace",L"FrameSummaries",bad,file));c=read_trace_config(file);CHECK(c.enabled&&c.enabled_valid&&!c.summaries&&!c.summaries_valid);
+ }
+ CHECK(DeleteFileW(file));
+ for(auto key:{"Filtering.AnisotropicFiltering","Camera.GameplayFOV","Display.AutoHideCursor","Compatibility.MenuFreezeFix"}){
+  for(auto value:{"0","1","false","true"}){auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{key,value}},true);bool expected=std::string(value)=="1"||std::string(value)=="true";CHECK((std::string(key)=="Filtering.AnisotropicFiltering"?c.anisotropy:std::string(key)=="Camera.GameplayFOV"?c.fov:std::string(key)=="Display.AutoHideCursor"?c.auto_hide_cursor:c.menu_freeze)==expected);}
+  auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{key,"97"},{"AntiAliasing.Mode","1"}},true);CHECK(c.aa_mode=="MSAA");CHECK(!(std::string(key)=="Filtering.AnisotropicFiltering"?c.anisotropy:std::string(key)=="Camera.GameplayFOV"?c.fov:std::string(key)=="Display.AutoHideCursor"?c.auto_hide_cursor:c.menu_freeze));
+ }
 }
 void margin_consumer_retention(){
  alignas(float) std::array<unsigned char,0x90> packet{};std::array<unsigned char,0x60> entity{};
@@ -217,6 +256,21 @@ void margin_consumer_retention(){
  // Storage replacement cancels stale restore even at identical XYZ bytes.
  MarginFrame stale;point[0]=565;point[1]=75;CHECK(stale.shift_direction(point,100,1,owner,mode,storage));storage=0x9999;std::memcpy(packet.data()+8,&storage,4);CHECK(stale.restore()&&point[0]==665);
  std::cout<<"Production packet consume/restore, animated engine coordinates and anchor diagnostics: PASS\n";
+}
+void margin_candidate_diagnostics(){
+ alignas(float) std::array<std::array<unsigned char,0x90>,3> packets{};
+ std::array<std::array<unsigned char,0x60>,3> entities{};
+ UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1920,1080);ui.scene_context(false);ui.capture_window(true,60);
+ uintptr_t storage=0xabc0;uint32_t mode=1;
+ for(size_t i=0;i<3;++i){
+  auto pp=reinterpret_cast<uintptr_t>(packets[i].data());std::memcpy(entities[i].data()+0x4c,&pp,4);std::memcpy(packets[i].data()+8,&storage,4);std::memcpy(packets[i].data()+0x68,&mode,4);
+  auto* point=reinterpret_cast<float*>(packets[i].data()+0x54);point[0]=i==0?565.f:i==1?23.f:300.f;point[1]=i==0?75.f:i==1?370.f:300.f;
+  ui.before_consume(reinterpret_cast<uintptr_t>(entities[i].data()));CHECK(i!=2||point[0]==300);
+ }
+ CHECK(ui.finish_frame());CHECK(ui.finish_frame()); // One completed absent frame.
+ auto* point=reinterpret_cast<float*>(packets[0].data()+0x54);point[0]=550;point[1]=76;ui.before_consume(reinterpret_cast<uintptr_t>(entities[0].data()));
+ CHECK(std::abs(point[0]-656.6667f)<.0001f&&ui.json().find("\"anchor_grace_retained\":1")!=std::string::npos);
+ CHECK(ui.finish_frame()&&point[0]==550&&ui.json().find("\"group_grace_retained\":0")!=std::string::npos);
 }
 void antialiasing(){
  Root root;Windows windows;QualityPipeline q(windows);VisualConfig c;c.display_mode="Borderless";c.aa_mode="MSAA";c.samples=8;auto p=stock();q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);IDirect3DDevice8* out=nullptr;
@@ -370,4 +424,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_maximize_restore();stable_margin_anchors();margin_consumer_retention();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();antialiasing();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

@@ -50,23 +50,31 @@ std::string pp_json(const D3DPRESENT_PARAMETERS& p){
  <<",\"windowed\":"<<p.Windowed<<",\"auto_depth\":"<<p.EnableAutoDepthStencil<<",\"depth_format\":"<<p.AutoDepthStencilFormat
  <<",\"flags\":"<<p.Flags<<",\"refresh\":"<<p.FullScreen_RefreshRateInHz<<",\"interval\":"<<p.FullScreen_PresentationInterval<<"}";return o.str();
 }
+TraceConfig read_trace_config(const std::wstring& path){
+ TraceConfig c;
+ auto read=[&](const wchar_t* key,std::string& raw,bool& value,bool& valid){
+  wchar_t buffer[256];DWORD n=GetPrivateProfileStringW(L"Trace",key,L"1",buffer,256,path.c_str());
+  raw=n>=255?"__TRUNCATED_INVALID__":utf8(buffer);valid=parse_config_boolean(raw,value);if(!valid)value=false;
+ };
+ read(L"Enabled",c.enabled_raw,c.enabled,c.enabled_valid);read(L"FrameSummaries",c.summaries_raw,c.summaries,c.summaries_valid);return c;
+}
 Session::Session(){
  if(!InitializeCriticalSectionEx(&lock_,2000,0))throw std::bad_alloc();
  auto own=module_path(proxy_module),exe=module_path(nullptr);uint64_t exe_size=0;
  proxy_path=utf8(own);exe_path=utf8(exe);proxy_sha=sha256_file(own);exe_sha=sha256_file(exe,&exe_size);target=exe_sha==TARGET_SHA;
  auto base=own.substr(0,own.find_last_of(L"\\/"));
  auto ini=base+L"\\MRRRenderer.ini";config_path=ini;visual_config=read_visual_config(ini);
- auto boolean=[&](const wchar_t* key){wchar_t b[16];GetPrivateProfileStringW(L"Trace",key,L"true",b,16,ini.c_str());return _wcsicmp(b,L"false")!=0&&wcscmp(b,L"0")!=0;};
- enabled=boolean(L"Enabled");summaries=boolean(L"FrameSummaries");
+ auto trace_config=read_trace_config(ini);enabled=trace_config.enabled;summaries=trace_config.summaries;
  CreateDirectoryW((base+L"\\MRRRenderer").c_str(),nullptr);directory=base+L"\\MRRRenderer\\logs";CreateDirectoryW(directory.c_str(),nullptr);
  SYSTEMTIME t;GetSystemTime(&t);wchar_t name[128];swprintf_s(name,L"\\session-%04u%02u%02u-%02u%02u%02u-%lu.jsonl",t.wYear,t.wMonth,t.wDay,t.wHour,t.wMinute,t.wSecond,GetCurrentProcessId());
  file_=CreateFileW((directory+name).c_str(),GENERIC_WRITE,FILE_SHARE_READ,nullptr,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,nullptr);
- std::ostringstream o;o<<"{\"type\":\"session\",\"schema_version\":1,\"proxy_version\":\"R-GFX5-4\",\"architecture\":\"I386/PE32\",\"exe_path\":"<<quote(exe_path)<<",\"exe_size\":"<<exe_size<<",\"exe_sha256\":"<<quote(exe_sha)<<",\"proxy_path\":"<<quote(proxy_path)<<",\"proxy_sha256\":"<<quote(proxy_sha)<<",\"build\":"<<quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")<<",\"trace_enabled\":"<<(enabled?"true":"false")<<"}";write(o.str());
+ std::ostringstream o;o<<"{\"type\":\"session\",\"schema_version\":1,\"proxy_version\":\"R-GFX5-5\",\"architecture\":\"I386/PE32\",\"exe_path\":"<<quote(exe_path)<<",\"exe_size\":"<<exe_size<<",\"exe_sha256\":"<<quote(exe_sha)<<",\"proxy_path\":"<<quote(proxy_path)<<",\"proxy_sha256\":"<<quote(proxy_sha)<<",\"build\":"<<quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")<<",\"trace_enabled\":"<<(enabled?"true":"false")<<"}";write(o.str());
+ write("{\"type\":\"trace_config\",\"Enabled\":"+quote(trace_config.enabled_raw)+",\"FrameSummaries\":"+quote(trace_config.summaries_raw)+",\"enabled_reason\":"+quote(trace_config.enabled_valid?"valid":"invalid_boolean_disabled")+",\"summaries_reason\":"+quote(trace_config.summaries_valid?"valid":"invalid_boolean_disabled")+"}");
  compatibility=inspect_compatibility(target);write(compatibility.json(exe_sha,target));
  auto effective=visual_config;effective.fov=effective.fov&&compatibility.fov.supported();effective.fov_reason=compatibility.fov.reason;effective.shadow_off=effective.shadow_off&&compatibility.shadow.supported();if(!compatibility.vehicle.supported())effective.reflection_mode="Stock";effective.reflection_reason=compatibility.vehicle.reason;
  if(!compatibility.ui.supported()){effective.interface_mode="Stock";effective.interface_reason=compatibility.ui.reason;}
  if(!compatibility.freeze.supported()){effective.menu_freeze=false;effective.freeze_reason=compatibility.freeze.reason;}
- write("{\"type\":\"renderer_config\",\"version\":\"R-GFX5-4\",\"config_path\":"+quote(utf8(config_path))+",\"build\":"+quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"requested\":"+config_json(visual_config)+",\"effective_before_caps\":"+config_json(effective)+"}");
+ write("{\"type\":\"renderer_config\",\"version\":\"R-GFX5-5\",\"config_path\":"+quote(utf8(config_path))+",\"build\":"+quote(target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"requested\":"+config_json(visual_config)+",\"effective_before_caps\":"+config_json(effective)+"}");
 }
 Session& session(){static Session* s=new Session();return *s;}
 uint64_t Session::device_serial() noexcept {EnterCriticalSection(&lock_);auto n=++serial_;LeaveCriticalSection(&lock_);return n;}

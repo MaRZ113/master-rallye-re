@@ -1,3 +1,15 @@
+# R-GFX5-5 narrow pass - 2026-10-07
+
+**READY_FOR_CLOSEOUT_WITH_EXPERIMENTAL_PRESERVEMARGINS.** Branch master; starting HEAD68e5f10f51cf2d5524ac15b41787beeba1f28d44. Tracked preflight clean; untracked ps2-research preserved. Existing R-GFX5-4 Windowed/maximize/restore is human-confirmed and unchanged. Packet anchors work, but remaining logical HUD/menu splitting is still HUMAN_REPORTED_FAIL.
+
+Read-only native ownership investigation did not establish a robust cross-packet widget root. Candidate entity/packet/content pointers each identify one entity in the bounded52-entity capture; camera lists and dispatcher are too broad, cached packet matrix is not a proven root. No fake groups, inheritance, new XY rules or sort hook. [Investigation](ui-group-ownership.md), [curated evidence](ui-group-ownership.json).
+
+Added two completed absent-frame grace, immediate structural/epoch/Reset invalidation, bounded candidate membership/conflict diagnostics and strict Trace booleans. Canonical example/preset INIs use numeric selectors with vertical option comments, preserving text compatibility. General example retains Stock defaults; opt-in stock-plus recommends Centered4x3, native MSAA4/AF16, MenuFreezeFix=1. PreserveMargins remains experimental / legacy compatibility; Centered4x3 is stable and recommended.
+
+Validation:96/96 Python,8/8 native, compileall modernization, PE verifier and diff-check PASS. No GPU/game execution or deployment. Centered control/combined human regression remains pending for this binary. Backdrop remains BACKDROP_ASSET_EXTENSION_REQUIRED. No later phase, new branch/worktree or push.
+
+## Historical R-GFX5-4 record (current policy above supersedes status/lifetime)
+
 # R-GFX5-4 final fix - 2026-10-07
 
 READY_FOR_HUMAN_RUNTIME. Starting HEAD7267053eeb498e18d8f54ce73c8151993d6a629c, research/general-re, same master-rallye-re-general checkout. Tracked preflight clean; untracked modernization/input and modernization/PS2 preserved. Only renderer changes. No branch/worktree/push or game deployment/disk patch.
