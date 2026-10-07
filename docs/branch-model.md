@@ -1,21 +1,16 @@
 # Branch model
 
-The repository keeps six long-lived branches:
+`master` is the canonical public branch, active development branch, and integration branch. New executable, Broker, AI/UI, runtime, vehicle, course, Blender, renderer, and tooling work is integrated into `master`.
 
-| Branch | Responsibility | Intended local worktree |
-| --- | --- | --- |
-| `master` | Release and full integration | `D:\Game\Master Rallye\master-rallye-re` |
-| `research/general-re` | EXE and runtime research, Broker, AI/UI, Observatory, renderer and loader work | `D:\Game\Master Rallye\master-rallye-re-general` |
-| `research/r5t-course-archaeology` | Course formats, Courses and future GRID8 research | `D:\Game\Master Rallye\master-rallye-re-course` |
-| `research/vehicles` | Addon vehicle slots, registry, Mercedes and demo-car work | `D:\Game\Master Rallye\master-rallye-re-vehicles` |
-| `research/r-demo-pipeline` | Demo/source/cooker pipeline | `D:\Game\Master Rallye\master-rallye-re-rdemo` |
-| `research/blender-sdk` | Blender tooling, vehicle materials and multi-revision support | `D:\Game\Master Rallye\master-rallye-re-blend` |
+Historical branches remain available for provenance and archival review. Their presence does not make them active development destinations or establish that they are safe to delete. Reactivate one only when explicitly requested.
 
-Short-lived experiment branches are allowed. After closeout, merge their
-history into one of these six canonical branches, then delete the experiment
-branch. Preserve archive tags for independent milestones where they are needed
-for rollback.
+| Branch | Current role |
+| --- | --- |
+| `master` | Canonical public and active development branch |
+| `research/general-re` | Consolidation line promoted into `master`; retained temporarily as a reference |
+| `research/vehicles` | Historical research branch; archival audit pending |
+| `research/r5t-course-archaeology` | Historical research branch; archival audit pending |
+| `research/r-demo-pipeline` | Historical research branch; archival audit pending |
+| `research/blender-sdk` | Historical research branch; archival audit pending |
 
-This branch model does not mean that the separate research results form a
-single runtime-tested product. Each capability keeps its existing evidence and
-validation boundary.
+The repository contains both released supporting code and ongoing research. Presence on `master` does not mean that every capability is released, production-ready, or runtime-confirmed. GitHub Releases remain the packaging boundary for public tools and builds.
