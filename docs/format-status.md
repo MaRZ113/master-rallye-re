@@ -319,15 +319,17 @@ capture showed `JEAN-PIERRE STRUGO` as a display-only name. The human reports
 that new Quick Race rosters sometimes omit ID26; no probability distribution
 is claimed.
 
-H.2 statically mapped and extended separate T1 source pools for new Rallye Cup
-and Invitation rosters and new Master Rallye competitions. The candidate keeps
-the existing mode-specific exclusions, DriverID choice, participant storage,
-cup/stage persistence, and Master Rallye save/load paths intact. The candidate
-and coherent Mercedes resource package are deterministic and on-disk verified;
-Cup/Invitation/Master inclusion and persistence remain
-**READY_FOR_HUMAN_RUNTIME**, not confirmed. Challenge stays authored; no
-separate Practice AI-roster owner was found in the bounded mode audit. See
+R5V-H is **FULL PASS / CLOSED**. H.1 natural Quick Race T1 eligibility and H.2
+natural ID26 inclusion in new Rallye Cup and Master Rallye T1 rosters are
+**CONFIRMED_BY_RUNTIME**. Cup stage roster reuse and Master Rallye native
+save/fresh-process resume are confirmed. The tested normal Invitation path is
+T3-only with ordinary/base IDs 14..20, so T1 ID26 there is
+**NOT_APPLICABLE**. Challenge remains authored; the bounded audit found no
+separate Practice AI-roster owner. See
 `research/vehicles/ai/mode-consumers.md`,
-`research/vehicles/ai/mode-aware-t1-eligibility.md`,
-`research/vehicles/ai/runtime-results.md`, and
-`research/vehicles/ai/mode-aware-runtime-plan.md`.
+`research/vehicles/ai/mode-aware-t1-eligibility.md`, and
+`research/vehicles/ai/runtime-results.md`.
+
+R5V-I begins the bounded 27->28 record expansion and qualification of a real
+T2 local7 addon. R5V-J generic SDK work remains out of scope until the second
+vehicle qualification is complete.
