@@ -1,0 +1,6613 @@
+{
+  "schema_version": 1,
+  "scope": {
+    "ps2_racetest_xml": 36,
+    "pc_paired_racetest_xml": 36,
+    "pc_all_racetest_xml": 41,
+    "ps2_resource_manifest_files": 3599,
+    "pc_full_file_inventory": 7595,
+    "pc_full_xml_scan": 99
+  },
+  "definitions": {
+    "instance": "one explicit XML Egg, independent of same-name Eggs; not filename count, route marker, compiled mesh or runtime-visible proof",
+    "runtime": "no independent gameplay run performed",
+    "presence": "negative evidence bounded to scanned corpus and layer"
+  },
+  "source_hashes": [
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+      "decoded_sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+      "decoded_sha256": "73994778517d708c542cec93fadbc80d9f243986a80e98445f7a401ef61ffc99"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+      "decoded_sha256": "b9d4d752f181b0915b1fa82a4eebc48d25dbb1287a92007bf0a8968aae77c780"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+      "decoded_sha256": "961d479907fd1ae23efa090a86e73f99d08397db6f1f7971a0f792aff7408f0a"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+      "decoded_sha256": "61f18daf5146c79f21334708a195fe72f0f79cfc4e8282e3fb95ac9d20c64c1e"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+      "decoded_sha256": "6584be244c0081dff1b11ae41f4a30da1905adcd99d753e5a921c2c1f27e1bef"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+      "decoded_sha256": "6615efe8ff52dacb7b0312576e27f1404a7ba37edb90d388c8c833876ec772ee"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+      "decoded_sha256": "f089fdb13a2647255212ddb9737f0ca6fd4f70a31791b54afe3c7f8634a82ed7"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "decoded_sha256": "56ef29e13f9cc3f64fb1d2d31b0cc293d3ccd08deed8e88e2a78752b90574c69"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+      "decoded_sha256": "4906b90b90560a73df3b73ed11b5fd536accbdd1a02d1f599531c694902a5cee"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+      "decoded_sha256": "d6e818e132d2061577c7b43c2bd42d3bc8fac66b28e195de2e71957cdcadb85a"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+      "decoded_sha256": "83402e92b8092edb7c82e6b6dc9b4bd0490d9547a8882a864cfaa127094315ad"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+      "decoded_sha256": "133f3872bc08251fdc7d6f1f275421b5ac7f00ee601d739589034a7f46681ec3"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "decoded_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+      "decoded_sha256": "e43d3a14d063814590a582e5d968b6f04c7b68d75e5e4b3c8240c2c822161957"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+      "decoded_sha256": "d5e5d88c50cd641b97058dd74dcb07ab9b349c49bcf7f9bab59cd70a27ad4ff8"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+      "decoded_sha256": "ba5fae57e1b1cb0ed46b4b75ed6609d078ef5632384ce5da4ab06ccb1e3e338d"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "decoded_sha256": "2d7249f24e6556c13be8f38027b1df22bd1e49d94b81ccfabbb6f61420a13e1a"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "decoded_sha256": "d9461c464e967d52773aeaf691520d6ef0b130f062d8b9590d17bd9fc0110af0"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "decoded_sha256": "e910034391104ec29c6456a4e13cc6c697b614b06b245a53d85be1d2c2011126"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+      "decoded_sha256": "08ad416db70206e2e33cc4d45d5bb8193f49c6daec1cdca2f1d5e669e05091ab"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+      "decoded_sha256": "6a064bdcf407ab026d5f9640f6ce33cc8c59c6272ba3afabdb6128dec3256016"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+      "decoded_sha256": "1f6e7e4c90c13e6326e7e20dacc9aafcf2b5aa9cc7837507965b5eddf3f88aa5"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+      "decoded_sha256": "949ac964982b8175bc7ab022af3efa4ccae04436bc93c0fe0f4157e231ecfb9d"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+      "decoded_sha256": "dd6322e62c41ffb2b044e4874ac1808bafba2d83527bc15079e4c4ad9d086418"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+      "decoded_sha256": "a86028f610083c4769a9c0826106eafa17087cd06dcd34bd7c676779db4d2b45"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+      "decoded_sha256": "fc439bc40aaa64bb257c870220154082fcbd2a4751a72f53380e87cd5ba984ca"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+      "decoded_sha256": "3f608f088959a055dafae017800fa5fc73d00bbb44f99340848b66338a188203"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "decoded_sha256": "dca7c2e5887e346312681cb7a3fc2451b9febe03e5361ffef39437604a12ee03"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+      "decoded_sha256": "31f5b0fa50367ebf40fb2c7b333913a3c791085d9965112a633df46b33b3ed81"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "decoded_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "decoded_sha256": "4d66a1bc7b3564e255402372f25decc7a1d38e3321b29549486e38f824f93fd6"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+      "decoded_sha256": "194c09b97a02efd9c5b30e3a370e403632adfa879199696612c1ad7728456e64"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+      "decoded_sha256": "a9bd520ddb28d3f4e913eb32dc613fe1424c860773e305b32efcae9ac74277eb"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "decoded_sha256": "6861e2da78032e13430ab7fde238f68405882787836edba558bdfe3f2fc78734"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+      "decoded_sha256": "d3f6ca2853a3cfe448edd06e86ff0cae4184812bc6259b256fbabe50dd940f90"
+    }
+  ],
+  "birds": [
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "850.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 6,
+      "flight_marker_count": 10,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+      "list": "IContManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "1000.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 15,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 29,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 28,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 5,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 34,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 23,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 13,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 7,
+      "flight_marker_count": 3,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+      "list": "IContManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 8,
+      "flight_marker_count": 20,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 12,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 22,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 5,
+      "flight_marker_count": 20,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 14,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 11,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 20,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 4,
+      "flight_marker_count": 18,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "1000.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 12,
+      "flight_marker_count": 6,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 19,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 17,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+      "list": "IContManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 19,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 25,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 12,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 9,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 29,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 4,
+      "flight_marker_count": 7,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 3,
+      "flight_marker_count": 3,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 16,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "list": "IContManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 12,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+      "list": "IContManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 11,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "list": "IContManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 12,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 3,
+      "flight_marker_count": 12,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "False"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 3,
+      "flight_marker_count": 6,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 9,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 11,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+      "list": "IConManager",
+      "egg": "birds",
+      "owner": "gaAnimals_BirdManager",
+      "parameters": [
+        {
+          "Name": "Milling MarkerList",
+          "Value": "MillList"
+        },
+        {
+          "Name": "Flight MarkerList",
+          "Value": "FlightList"
+        },
+        {
+          "Name": "Min Fly Dist",
+          "Value": "100.00000"
+        },
+        {
+          "Name": "Max Fly Dist",
+          "Value": "800.00000"
+        },
+        {
+          "Name": "Min Mil Dist",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Max Mil Dist",
+          "Value": "900.00000"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        },
+        {
+          "Name": "Rnd Mil",
+          "Value": "10"
+        },
+        {
+          "Name": "Rnd Fly",
+          "Value": "10"
+        },
+        {
+          "Name": "Bird Brown",
+          "Value": "True"
+        }
+      ],
+      "milling_marker_count": 0,
+      "flight_marker_count": 10,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    }
+  ],
+  "splines": [
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+      "list": "IConManager",
+      "egg": "boat1",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boatlist1"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "2.50000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "True"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "300"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boatlist1",
+      "marker_count": 6,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+      "list": "IConManager",
+      "egg": "boat2",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boatlist2"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "2.70000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boatlist2",
+      "marker_count": 4,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+      "list": "IConManager",
+      "egg": "zeppelin",
+      "model": "misc\\airship\\airship",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "zeppelin"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "12.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "zeppelin",
+      "marker_count": 4,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+      "list": "IConManager",
+      "egg": "boat1",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat1list"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat1list",
+      "marker_count": 6,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+      "list": "IConManager",
+      "egg": "boat2",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat2list"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "2.50000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat2list",
+      "marker_count": 7,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+      "list": "IConManager",
+      "egg": "boat1",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat1"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.30000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat1",
+      "marker_count": 6,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+      "list": "IConManager",
+      "egg": "boat2",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat2"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.30000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat2",
+      "marker_count": 4,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+      "list": "IConManager",
+      "egg": "boat1",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat1"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.30000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat1",
+      "marker_count": 6,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+      "list": "IConManager",
+      "egg": "boat2",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat2"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.30000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat2",
+      "marker_count": 4,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+      "list": "IContManager",
+      "egg": "barge",
+      "model": "misc\\barge\\barge",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "barge"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "True"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "400.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "1000.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "barge",
+      "marker_count": 11,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+      "list": "IConManager",
+      "egg": "zeppelin",
+      "model": "misc\\airship\\airship",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "zeppelin"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "12.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "zeppelin",
+      "marker_count": 6,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+      "list": "IConManager",
+      "egg": "boat",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat1"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "True"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "300.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "1200.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.05000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat1",
+      "marker_count": 7,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+      "list": "IConManager",
+      "egg": "boat",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat1"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "300.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "1200.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.20000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat1",
+      "marker_count": 7,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "IConManager",
+      "egg": "race zeppelin",
+      "model": "misc\\airship\\airship",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "zeppelin"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "9.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "3000.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "zeppelin",
+      "marker_count": 9,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "zeppelin",
+      "model": "misc\\airship\\airship",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "zeppelin"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "10.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "zeppelin",
+      "marker_count": 4,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "boat",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.20000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "1000.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.30000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat",
+      "marker_count": 15,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+      "list": "IConManager",
+      "egg": "boat",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.20000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat",
+      "marker_count": 6,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+      "list": "IConManager",
+      "egg": "boat1",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat1"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "True"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "8.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "300.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "1.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat1",
+      "marker_count": 7,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+      "list": "IConManager",
+      "egg": "boat5",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat5"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "True"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "6.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "300.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.60000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat5",
+      "marker_count": 5,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+      "list": "IConManager",
+      "egg": "boat1",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat1"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.40000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat1",
+      "marker_count": 5,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+      "list": "IConManager",
+      "egg": "boat2",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat2"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.40000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat2",
+      "marker_count": 5,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+      "list": "IConManager",
+      "egg": "boat1",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat1"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.40000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat1",
+      "marker_count": 5,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+      "list": "IConManager",
+      "egg": "boat2",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "boat2"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.40000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "boat2",
+      "marker_count": 5,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+      "list": "IConManager",
+      "egg": "barge",
+      "model": "misc\\barge\\barge",
+      "owner": "gaEntitySpline",
+      "parameters": [
+        {
+          "Name": "MarkerList Name",
+          "Value": "bargelist"
+        },
+        {
+          "Name": "Use Const Speed",
+          "Value": "True"
+        },
+        {
+          "Name": "Use Closed Loop",
+          "Value": "False"
+        },
+        {
+          "Name": "Use Trigger System",
+          "Value": "False"
+        },
+        {
+          "Name": "Max Speed/Const Speed",
+          "Value": "3.00000"
+        },
+        {
+          "Name": "Trigger Dist On",
+          "Value": "200.00000"
+        },
+        {
+          "Name": "Trigger Dist Off",
+          "Value": "600.00000"
+        },
+        {
+          "Name": "Use Rest On NonLoop",
+          "Value": "False"
+        },
+        {
+          "Name": "Rest Time (sec)",
+          "Value": "0"
+        },
+        {
+          "Name": "Banking",
+          "Value": "0.00000"
+        },
+        {
+          "Name": "Number Of Samples",
+          "Value": "30"
+        }
+      ],
+      "marker_list": "bargelist",
+      "marker_count": 10,
+      "evidence": "CONFIRMED_BY_BYTES",
+      "runtime_selection": "UNKNOWN"
+    }
+  ],
+  "rigid_body_population": {
+    "misc\\haybale\\haybale": 48,
+    "misc\\objects\\haybales\\haybale": 10,
+    "misc\\objects\\tumbleweed\\tumblweed": 25
+  },
+  "rigid_bodies": [
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "list": "IContManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "False"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "list": "Physics",
+      "egg": "haybale0",
+      "model": "misc\\objects\\haybales\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "562.00 447.00 562.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "list": "IConManager",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "500.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "565.00 447.00 565.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "15.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "15.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "15.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "15.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "15.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "15.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "15.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "list": "IContManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "list": "IConManager",
+      "egg": "tumbleweed",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "owner": "gaAiRigidBody",
+      "parameters": [
+        {
+          "Name": "Casts Shadow",
+          "Value": "True"
+        },
+        {
+          "Name": "Mass",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "Trigger Distance",
+          "Value": "5.00000"
+        },
+        {
+          "Name": "MOI",
+          "Value": "2.00 2.00 2.00"
+        }
+      ],
+      "evidence": "CONFIRMED_BY_BYTES",
+      "actual_physics": "UNKNOWN"
+    }
+  ],
+  "particle_emitters": [
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 6,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 4,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 2,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 3,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 1,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 2,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 6,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 2,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 2,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 6,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 5,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 2,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 4,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 1,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 3,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 1,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 3,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 1,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 2,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 1,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 11,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 1,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 1,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 6,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "owner": "aiSpawnParticle",
+      "authored_instances": 5,
+      "egg_name_family": "smoke",
+      "model": "Null",
+      "effect_binding": "UNKNOWN"
+    }
+  ],
+  "checkpoint_ps2_per_course": [
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+      "count": 11,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    }
+  ],
+  "checkpoint_pc_per_course": [
+    {
+      "source": "DataScene\\RaceTest\\France1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\France2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\FranceM.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\FranceS1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\FranceS2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\FranceW.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\FranceWFlip.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\Italy1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\Italy2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\Italy3.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyM1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyM1Flip.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyM2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyS1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyS2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyS3.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyS3Flip.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyS4.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyW1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\ItalyW2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\Spain1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\Spain2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\SpainM.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\SpainS1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\SpainS1Flip.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\SpainS2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\SpainW.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\SpainWFlip.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\Turkey1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\Turkey2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\Turkey3.xml",
+      "count": 16,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\TurkeyM.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\TurkeyS1.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\TurkeyS2.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\TurkeyS2Flip.xml",
+      "count": 16,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    },
+    {
+      "source": "DataScene\\RaceTest\\TurkeyW.xml",
+      "count": 12,
+      "all_visible_true": true,
+      "all_hitable_true": true,
+      "ai_owner_count": 0
+    }
+  ],
+  "bird_sprite_structures": [
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN.PSB",
+      "format": "PS2_PSB_F001_125",
+      "mapped_images": 4,
+      "triangle_count": 8,
+      "texture_names": [
+        "burdybrown_000"
+      ],
+      "decoded_sha256": "38aa140093718b2cbb1e652d96219bd81737c40baca4a7d308235dbcbdf7de1d",
+      "evidence": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYWHITE.PSB",
+      "format": "PS2_PSB_F001_125",
+      "mapped_images": 4,
+      "triangle_count": 8,
+      "texture_names": [
+        "burdywhite_000"
+      ],
+      "decoded_sha256": "cbf6589c26d3fd8c10f533b2464ae558a9cbe6c1ccb5132249d31cac2d2b697e",
+      "evidence": "CONFIRMED_BY_BYTES"
+    }
+  ],
+  "resource_probes": [
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\BLUEDINGHY.PSM",
+      "decoded_size": 3420,
+      "decoded_sha256": "c626258e7ac460002fef6c7c7c1247598ec1b6978169f371a074066bd79432cd",
+      "selected_strings": [
+        {
+          "offset": 3182,
+          "text": "commontextures\\dinghy-tga"
+        },
+        {
+          "offset": 3215,
+          "text": "$grnd:dirt_hard $shader(object)"
+        },
+        {
+          "offset": 3331,
+          "text": "commontextures\\dinghy-tga"
+        },
+        {
+          "offset": 3364,
+          "text": "$grnd:dirt_hard"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\REDDINGHY.PSM",
+      "decoded_size": 3420,
+      "decoded_sha256": "2ae06c53b3eb6f9991a37c54d093dd27425cfdbbc1dbea0f2620d0452b8d684f",
+      "selected_strings": [
+        {
+          "offset": 3182,
+          "text": "commontextures\\dinghy-tga"
+        },
+        {
+          "offset": 3215,
+          "text": "$grnd:dirt_hard $shader(object)"
+        },
+        {
+          "offset": 3331,
+          "text": "commontextures\\dinghy-tga"
+        },
+        {
+          "offset": 3364,
+          "text": "$grnd:dirt_hard"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYWHITE.PSB",
+      "decoded_size": 720,
+      "decoded_sha256": "cbf6589c26d3fd8c10f533b2464ae558a9cbe6c1ccb5132249d31cac2d2b697e",
+      "selected_strings": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\BARGE\\BARGE.PSM",
+      "decoded_size": 6939,
+      "decoded_sha256": "b5e9216704138b5c8e0a69332dcc555a3df62f32a5540be6484e523ae21300b1",
+      "selected_strings": [
+        {
+          "offset": 6666,
+          "text": "commontextures\\plating2-tga"
+        },
+        {
+          "offset": 6701,
+          "text": "Material #73 $shader(object)"
+        },
+        {
+          "offset": 6827,
+          "text": "commontextures\\basegravel-tga"
+        },
+        {
+          "offset": 6864,
+          "text": "cargo $shader(ground)"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\TUMBLWEED.PSM",
+      "decoded_size": 9819,
+      "decoded_sha256": "eb959250d0bdb6fa051fb69f4a852c4789be200613eb8e90678d36a48ab54bf4",
+      "selected_strings": [
+        {
+          "offset": 5054,
+          "text": "Misc\\Objects\\Tumbleweed\\shrubtrig2-tga"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\HAYBALE\\HAYBALE.PSM",
+      "decoded_size": 6636,
+      "decoded_sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+      "selected_strings": [
+        {
+          "offset": 3910,
+          "text": "commontextures\\hay-tga"
+        },
+        {
+          "offset": 3942,
+          "text": "commontextures\\hay_env-tga"
+        },
+        {
+          "offset": 3975,
+          "text": "Hay Bale $shader(dull)"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\HAWK.PSM",
+      "decoded_size": 44,
+      "decoded_sha256": "339d5610a6a170f45fafc316d2ca7ae23bd9060ed8180f892efa8ea003d621ac",
+      "selected_strings": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\CHECKPOINTS\\BANNER.PSM",
+      "decoded_size": 4315,
+      "decoded_sha256": "8cba5dd60f9a0625c0f9da4eb7a6e85e232304dba0560c34ea836aff1c442a94",
+      "selected_strings": [
+        {
+          "offset": 2038,
+          "text": "commontextures\\masterlogo-tga"
+        },
+        {
+          "offset": 2075,
+          "text": "MR Banner"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\AIRSHIP\\AIRSHIP.PSM",
+      "decoded_size": 6760,
+      "decoded_sha256": "eb8fea2c7758e08559838f9d8d5aa3f5e83f7aa1b16efb688ca4e2c007607283",
+      "selected_strings": [
+        {
+          "offset": 6614,
+          "text": "commontextures\\stamp_01-tga"
+        },
+        {
+          "offset": 6649,
+          "text": "$shader(notexture)"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\HAYBALES\\HAYBALE.PSM",
+      "decoded_size": 6636,
+      "decoded_sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+      "selected_strings": [
+        {
+          "offset": 3910,
+          "text": "commontextures\\hay-tga"
+        },
+        {
+          "offset": 3942,
+          "text": "commontextures\\hay_env-tga"
+        },
+        {
+          "offset": 3975,
+          "text": "Hay Bale $shader(dull)"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\CHECKPOINTS\\CHECKPOINT.PSM",
+      "decoded_size": 4924,
+      "decoded_sha256": "114585473160953a29ac26f75d64447923611f78b43f5712de5dc9da77e76ecc",
+      "selected_strings": [
+        {
+          "offset": 2038,
+          "text": "commontextures\\c-point-tga"
+        },
+        {
+          "offset": 2074,
+          "text": "commontextures\\aluminium-tga"
+        },
+        {
+          "offset": 2109,
+          "text": "drum $shader(metal)"
+        },
+        {
+          "offset": 2187,
+          "text": "commontextures\\top-tga"
+        },
+        {
+          "offset": 2219,
+          "text": "commontextures\\aluminium-tga"
+        },
+        {
+          "offset": 2254,
+          "text": "top $shader(metal)"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\NESSIE\\NESSIE.PSM",
+      "decoded_size": 44,
+      "decoded_sha256": "339d5610a6a170f45fafc316d2ca7ae23bd9060ed8180f892efa8ea003d621ac",
+      "selected_strings": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\CHECKPOINTS\\CHECKPOINT.PSM",
+      "decoded_size": 7465,
+      "decoded_sha256": "3c61a581524ff18bd57c050afdb5e75da20b762b59df501bcdbc8de5725ba95c",
+      "selected_strings": [
+        {
+          "offset": 5470,
+          "text": "commontextures\\i2a_planks2-tga"
+        },
+        {
+          "offset": 5623,
+          "text": "commontextures\\stamp_01-tga"
+        },
+        {
+          "offset": 5658,
+          "text": "CHECKPOINT"
+        }
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN.PSB",
+      "decoded_size": 720,
+      "decoded_sha256": "38aa140093718b2cbb1e652d96219bd81737c40baca4a7d308235dbcbdf7de1d",
+      "selected_strings": []
+    }
+  ],
+  "stub_note": "HAWK.PSM and NESSIE.PSM are identical 44-byte payloads with NaN header floats; do not count them as proved renderable meshes."
+}

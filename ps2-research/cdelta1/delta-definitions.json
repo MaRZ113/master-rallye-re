@@ -1,0 +1,301 @@
+[
+  {
+    "id": "ambient-spline-fleet",
+    "name": "Authored moving ambient fleet",
+    "classification": "AMBIENT_AI",
+    "owners": [
+      "gaEntitySpline"
+    ],
+    "models": [],
+    "presence": "DIFFERENTLY_USED",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "24 owner-bound vehicles with independent authored marker routes; a reusable course animation layer",
+    "portability_hypothesis": "COURSE_SDK_EXTENSION + PC_RUNTIME_HOOK + REQUIRES_DEEPER_RE",
+    "open_questions": [
+      "Spline interpolation/update/timing, trigger and loop semantics",
+      "Compiled PC dinghys must be distinguished from added movable objects"
+    ],
+    "next_phase": "PS2-AMBIENT1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "birds",
+    "name": "Bird manager and flight/mill lists",
+    "classification": "AMBIENT_AI",
+    "owners": [
+      "gaAnimals_BirdManager"
+    ],
+    "models": [],
+    "presence": "NOT_FOUND_IN_SCANNED_PC_CORPUS",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "36 managers with authored flight inputs; visual species binding remains unresolved",
+    "portability_hypothesis": "PC_RUNTIME_HOOK + REQUIRES_DEEPER_RE",
+    "open_questions": [
+      "Duplicate Bird Brown precedence",
+      "Exact species resource binding and spawn consumers"
+    ],
+    "next_phase": "PS2-AMBIENT1",
+    "screenshot_evidence": "SCREENSHOT_CORRELATION",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "airship",
+    "name": "Route-controlled airships",
+    "classification": "AMBIENT_AI",
+    "owners": [],
+    "models": [
+      "^misc\\\\airship\\\\"
+    ],
+    "presence": "NOT_FOUND_IN_SCANNED_PC_CORPUS",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "Four explicit placements with spline routes, not an unused resource",
+    "portability_hypothesis": "COURSE_DATA_PORT + PC_RUNTIME_HOOK",
+    "open_questions": [
+      "Exact movement and visibility timing"
+    ],
+    "next_phase": "PS2-AMBIENT1",
+    "screenshot_evidence": "SCREENSHOT_CORRELATION",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "dinghy",
+    "name": "Route-controlled dinghys",
+    "classification": "AMBIENT_AI",
+    "owners": [],
+    "models": [
+      "^misc\\\\objects\\\\dinghy"
+    ],
+    "presence": "DIFFERENTLY_USED",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "18 movable authored references on 11 courses; PC also has embedded dinghy meshes",
+    "portability_hypothesis": "COURSE_DATA_PORT + PC_RUNTIME_HOOK",
+    "open_questions": [
+      "Static PC hull correspondence and duplicate avoidance"
+    ],
+    "next_phase": "PS2-AMBIENT1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "barge",
+    "name": "Route-controlled barges",
+    "classification": "AMBIENT_AI",
+    "owners": [],
+    "models": [
+      "^misc\\\\barge\\\\"
+    ],
+    "presence": "NOT_FOUND_IN_SCANNED_PC_CORPUS",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "Two large moving vessel candidates with authored routes",
+    "portability_hypothesis": "COURSE_DATA_PORT + PC_RUNTIME_HOOK",
+    "open_questions": [
+      "Runtime render/update and PC embedded equivalent"
+    ],
+    "next_phase": "PS2-AMBIENT1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "haybale-rigidbody",
+    "name": "Interactive haybale course layer",
+    "classification": "PHYSICS_INTERACTIVE_PROP",
+    "owners": [],
+    "models": [
+      "^misc\\\\(?:objects\\\\)?haybales?\\\\haybale$"
+    ],
+    "presence": "DIFFERENTLY_USED",
+    "evidence": "STATIC_INFERENCE",
+    "significance": "58 authored rigid-body references with mass/MOI; PC has embedded visual/collision hay and dormant standalone hull",
+    "portability_hypothesis": "PHYSICS_WORK + PC_RUNTIME_HOOK",
+    "open_questions": [
+      "Activation/integration/contact response; XML parameters do not prove live physics"
+    ],
+    "next_phase": "PS2-DRESSING1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "tumbleweed",
+    "name": "Rigid-body tumbleweed",
+    "classification": "PHYSICS_INTERACTIVE_PROP",
+    "owners": [],
+    "models": [
+      "^misc\\\\objects\\\\tumbleweed"
+    ],
+    "presence": "NOT_FOUND_IN_SCANNED_PC_CORPUS",
+    "evidence": "STATIC_INFERENCE",
+    "significance": "25 explicit props with rigid owner, more than a texture family",
+    "portability_hypothesis": "PHYSICS_WORK + PC_RUNTIME_HOOK",
+    "open_questions": [
+      "Wind/motion behavior and exact contact semantics"
+    ],
+    "next_phase": "PS2-AMBIENT1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "checkpoint",
+    "name": "Checkpoint trigger and changed visual asset",
+    "classification": "SCENE_PLACEMENT",
+    "owners": [],
+    "models": [
+      "^misc\\\\(?:objects\\\\)?checkpoints\\\\checkpoint$"
+    ],
+    "presence": "DIFFERENTLY_USED",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "PS2 drum material resource replaces PC marker model references; split trigger is separate",
+    "portability_hypothesis": "COURSE_DATA_PORT; PHYSICS_WORK remains unproved",
+    "open_questions": [
+      "Knockable checkpoint barrel contact/physics owner",
+      "Difference between authored companions/helpers and active race checkpoints"
+    ],
+    "next_phase": "PS2-CHECKPOINT1",
+    "screenshot_evidence": "SCREENSHOT_CORRELATION",
+    "user_observation": "USER_RUNTIME_OBSERVATION: user reports knockable yellow PS2 barrels vs PC noncolliding markers"
+  },
+  {
+    "id": "particle-owner",
+    "name": "Course-authored particle emitters",
+    "classification": "PARTICLE_SYSTEM",
+    "owners": [
+      "aiSpawnParticle"
+    ],
+    "models": [],
+    "presence": "NOT_FOUND_IN_SCANNED_PC_CORPUS",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "Emitter owner/parameters separate runtime spawning from scenery meshes",
+    "portability_hypothesis": "PC_RUNTIME_HOOK + REQUIRES_DEEPER_RE",
+    "open_questions": [
+      "Particle enum/resource binding and visible effect",
+      "Do not count emitters as extra trees or grass blades"
+    ],
+    "next_phase": "PS2-AMBIENT1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "detail-vegetation",
+    "name": "Material-driven grass/shrub/stone detail",
+    "classification": "MATERIAL_DETAIL",
+    "owners": [],
+    "models": [],
+    "presence": "NOT_FOUND_IN_SCANNED_PC_CORPUS",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "Directives in all 36 PS2 course payloads, none in 36 PC sidecars; shared base textures are not detail instances",
+    "portability_hypothesis": "D3D8_PROXY_RENDER_FEATURE + REQUIRES_DEEPER_RE",
+    "open_questions": [
+      "Surface sampling, density, visibility and species binding",
+      "Singular shrub variant semantics"
+    ],
+    "next_phase": "PS2-GRASS1",
+    "screenshot_evidence": "SCREENSHOT_CORRELATION",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "water-shared",
+    "name": "Authored water, puddle, waterfall and scrolling",
+    "classification": "RENDERER_SEMANTICS",
+    "owners": [],
+    "models": [],
+    "presence": "PRESENT_ON_BOTH",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "PC has compiled water geometry as well as shader names; visual differences need renderer proof",
+    "portability_hypothesis": "D3D8_PROXY_RENDER_FEATURE + REQUIRES_DEEPER_RE",
+    "open_questions": [
+      "PS2 material draw binding, animation and reflection semantics"
+    ],
+    "next_phase": "PS2-WATER1",
+    "screenshot_evidence": "SCREENSHOT_CORRELATION",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "turkey3-water",
+    "name": "Turkey3 water/puddle content candidate",
+    "classification": "COURSE_GEOMETRY",
+    "owners": [],
+    "models": [],
+    "presence": "DIFFERENTLY_USED",
+    "evidence": "STATIC_INFERENCE",
+    "significance": "PS2 course bytes contain water/puddle material string, PC sidecar and 939 decoded draws have no water-related bindings",
+    "portability_hypothesis": "COURSE_DATA_PORT + REQUIRES_DEEPER_RE",
+    "open_questions": [
+      "Locate actual PS2 draw/surface and rule out unused material"
+    ],
+    "next_phase": "PS2-WATER1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "treeblend",
+    "name": "Treeblend material semantics",
+    "classification": "RENDERER_SEMANTICS",
+    "owners": [],
+    "models": [],
+    "presence": "DIFFERENTLY_USED",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "14 PS2 course models carry treeblend while matched PC foliage carries tree; visual result unproved",
+    "portability_hypothesis": "D3D8_PROXY_RENDER_FEATURE + REQUIRES_DEEPER_RE",
+    "open_questions": [
+      "Actual blend/wind/alpha contract; treeblend name alone does not identify it"
+    ],
+    "next_phase": "PS2-DRESSING1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "wire-shaders",
+    "name": "Wire/wires renderer candidates",
+    "classification": "RENDERER_SEMANTICS",
+    "owners": [],
+    "models": [],
+    "presence": "DIFFERENTLY_USED",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "PS2 wire/wires material directives differ from PC sidecar labels; PC wire geometry/resources also exist",
+    "portability_hypothesis": "REQUIRES_DEEPER_RE",
+    "open_questions": [
+      "Visibility/scaling/primitive behavior and whether any meaningful delta exists"
+    ],
+    "next_phase": "PS2-DRESSING1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "nessie-stub",
+    "name": "Nessie authored reference / empty resource control",
+    "classification": "UNKNOWN",
+    "owners": [],
+    "models": [
+      "^misc\\\\nessie\\\\"
+    ],
+    "presence": "NOT_FOUND_IN_SCANNED_PC_CORPUS",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "Visible flag is insufficient: Nessie and Hawk resolve to identical 44-byte stub payloads",
+    "portability_hypothesis": "UNKNOWN",
+    "open_questions": [
+      "Any alternate/generated producer?"
+    ],
+    "next_phase": "NONE; excluded from substantive novel discoveries",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  },
+  {
+    "id": "raceline",
+    "name": "Ordered RaceLine semantic bridge",
+    "classification": "SHARED_SEMANTIC_DATA",
+    "owners": [
+      "gaRaceLineAI"
+    ],
+    "models": [],
+    "presence": "PRESENT_ON_BOTH",
+    "evidence": "CONFIRMED_BY_BYTES",
+    "significance": "Actual ordered marker data links PS2 minimap to PC Course SDK; layouts differ",
+    "portability_hypothesis": "PC_RUNTIME_HOOK + D3D8_PROXY_RENDER_FEATURE",
+    "open_questions": [
+      "PC route source runtime binding for a future minimap port"
+    ],
+    "next_phase": "PC-PS2MAP1",
+    "screenshot_evidence": "UNKNOWN",
+    "user_observation": "UNKNOWN"
+  }
+]

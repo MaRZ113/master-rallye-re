@@ -1,0 +1,672 @@
+[
+  {
+    "source": "DataGx/Course/France1/france1.dx",
+    "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+    "vertex_count": 65206,
+    "triangles": 64577,
+    "draw_count": 995,
+    "complete_disjoint_render_validated": true,
+    "water_related_draws": [
+      {
+        "draw_index": 236,
+        "triangles": 182,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -2334.89208984375,
+            30.35724449157715,
+            -198.1077880859375
+          ],
+          "max": [
+            -2204.89208984375,
+            30.35725212097168,
+            -58.1077880859375
+          ]
+        }
+      },
+      {
+        "draw_index": 265,
+        "triangles": 369,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -2264.89599609375,
+            30.357240676879883,
+            -333.09783935546875
+          ],
+          "max": [
+            -2119.89599609375,
+            37.148597717285156,
+            -208.09783935546875
+          ]
+        }
+      },
+      {
+        "draw_index": 281,
+        "triangles": 301,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -2384.89208984375,
+            30.35723876953125,
+            -353.1077880859375
+          ],
+          "max": [
+            -2264.89208984375,
+            30.511497497558594,
+            -278.1077880859375
+          ]
+        }
+      },
+      {
+        "draw_index": 287,
+        "triangles": 350,
+        "textures": [
+          "waterfall-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "$shader(waterfall) $scroll(v,+1)"
+        ],
+        "bounds": {
+          "min": [
+            -2480.175537109375,
+            19.828598022460938,
+            -436.389892578125
+          ],
+          "max": [
+            -2344.99072265625,
+            95.77051544189453,
+            -287.2865295410156
+          ]
+        }
+      },
+      {
+        "draw_index": 324,
+        "triangles": 146,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -1637.330810546875,
+            -6.433595657348633,
+            -389.59246826171875
+          ],
+          "max": [
+            -1577.330810546875,
+            2.550152540206909,
+            -324.59246826171875
+          ]
+        }
+      },
+      {
+        "draw_index": 414,
+        "triangles": 76,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -2384.89208984375,
+            30.35724449157715,
+            -198.1077880859375
+          ],
+          "max": [
+            -2294.89208984375,
+            30.357250213623047,
+            -98.1077880859375
+          ]
+        }
+      },
+      {
+        "draw_index": 431,
+        "triangles": 81,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -2404.89208984375,
+            30.357240676879883,
+            -298.1077880859375
+          ],
+          "max": [
+            -2344.89208984375,
+            30.35724639892578,
+            -178.1077880859375
+          ]
+        }
+      },
+      {
+        "draw_index": 434,
+        "triangles": 31,
+        "textures": [
+          "waterfall-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "$shader(waterfall) $scroll(v,+1)"
+        ],
+        "bounds": {
+          "min": [
+            -2412.091064453125,
+            19.141183853149414,
+            -314.24267578125
+          ],
+          "max": [
+            -2367.99853515625,
+            81.77056884765625,
+            -283.0360412597656
+          ]
+        }
+      },
+      {
+        "draw_index": 540,
+        "triangles": 206,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -1170.91455078125,
+            48.44454574584961,
+            635.08740234375
+          ],
+          "max": [
+            -1065.91455078125,
+            48.444549560546875,
+            730.08740234375
+          ]
+        }
+      },
+      {
+        "draw_index": 699,
+        "triangles": 27,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -1837.330810546875,
+            -12.719630241394043,
+            -59.59246826171875
+          ],
+          "max": [
+            -1792.330810546875,
+            -10.3396635055542,
+            -49.59246826171875
+          ]
+        }
+      },
+      {
+        "draw_index": 712,
+        "triangles": 73,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -1872.330810546875,
+            -11.298249244689941,
+            -104.59246826171875
+          ],
+          "max": [
+            -1832.330810546875,
+            -10.3396635055542,
+            -49.59246826171875
+          ]
+        }
+      },
+      {
+        "draw_index": 728,
+        "triangles": 69,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -1867.330810546875,
+            -11.37057113647461,
+            -129.59246826171875
+          ],
+          "max": [
+            -1812.330810546875,
+            -10.339665412902832,
+            -99.59246826171875
+          ]
+        }
+      },
+      {
+        "draw_index": 751,
+        "triangles": 264,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -1817.330810546875,
+            -13.618866920471191,
+            -209.59246826171875
+          ],
+          "max": [
+            -1692.330810546875,
+            -10.919698715209961,
+            -114.59246826171875
+          ]
+        }
+      },
+      {
+        "draw_index": 768,
+        "triangles": 277,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -1712.330810546875,
+            -13.61887264251709,
+            -349.59246826171875
+          ],
+          "max": [
+            -1637.330810546875,
+            -6.2618842124938965,
+            -204.59246826171875
+          ]
+        }
+      },
+      {
+        "draw_index": 901,
+        "triangles": 555,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -2676.983154296875,
+            -22.5576114654541,
+            716.3388671875
+          ],
+          "max": [
+            -2358.261474609375,
+            -22.55759620666504,
+            1031.703857421875
+          ]
+        }
+      },
+      {
+        "draw_index": 929,
+        "triangles": 579,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -3104.590576171875,
+            -22.55760955810547,
+            755.6649780273438
+          ],
+          "max": [
+            -2362.357421875,
+            -22.557579040527344,
+            1424.174560546875
+          ]
+        }
+      }
+    ],
+    "evidence": "CONFIRMED_BY_BYTES",
+    "scope": "Broad water/puddle texture or material binding; no runtime visibility proof"
+  },
+  {
+    "source": "DataGx/Course/Italy_S1/italy_s1.dx",
+    "sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+    "vertex_count": 61463,
+    "triangles": 46367,
+    "draw_count": 867,
+    "complete_disjoint_render_validated": true,
+    "water_related_draws": [
+      {
+        "draw_index": 64,
+        "triangles": 132,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -636.5291137695312,
+            -62.45207214355469,
+            162.14419555664062
+          ],
+          "max": [
+            -544.0567016601562,
+            -57.71135330200195,
+            288.88720703125
+          ]
+        }
+      },
+      {
+        "draw_index": 84,
+        "triangles": 296,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -655.314453125,
+            -69.0428695678711,
+            245.3344268798828
+          ],
+          "max": [
+            -478.48663330078125,
+            -60.74225616455078,
+            485.70947265625
+          ]
+        }
+      },
+      {
+        "draw_index": 95,
+        "triangles": 4,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -697.4229125976562,
+            -70.288818359375,
+            496.757080078125
+          ],
+          "max": [
+            -668.8002319335938,
+            -69.47763061523438,
+            527.0771484375
+          ]
+        }
+      },
+      {
+        "draw_index": 101,
+        "triangles": 7,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -676.36865234375,
+            -69.92086791992188,
+            474.1460266113281
+          ],
+          "max": [
+            -632.6090698242188,
+            -68.8170166015625,
+            513.8443603515625
+          ]
+        }
+      },
+      {
+        "draw_index": 126,
+        "triangles": 67,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -630.1990356445312,
+            -58.312957763671875,
+            35.38168716430664
+          ],
+          "max": [
+            -582.1448364257812,
+            -45.844303131103516,
+            180.32403564453125
+          ]
+        }
+      },
+      {
+        "draw_index": 232,
+        "triangles": 564,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            35.14797592163086,
+            -40.676292419433594,
+            485.02618408203125
+          ],
+          "max": [
+            159.89154052734375,
+            -40.67628479003906,
+            735.4546508789062
+          ]
+        }
+      },
+      {
+        "draw_index": 269,
+        "triangles": 100,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -126.63381958007812,
+            -40.67628479003906,
+            722.4213256835938
+          ],
+          "max": [
+            155.81149291992188,
+            -40.6762809753418,
+            790.00439453125
+          ]
+        }
+      },
+      {
+        "draw_index": 306,
+        "triangles": 127,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -44.68700408935547,
+            -40.676300048828125,
+            329.3624572753906
+          ],
+          "max": [
+            40.34569549560547,
+            -40.67629623413086,
+            470.7354431152344
+          ]
+        }
+      },
+      {
+        "draw_index": 314,
+        "triangles": 25,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            -26.805423736572266,
+            -40.67630386352539,
+            276.98858642578125
+          ],
+          "max": [
+            62.83631134033203,
+            -40.67629623413086,
+            476.4651794433594
+          ]
+        }
+      },
+      {
+        "draw_index": 319,
+        "triangles": 7,
+        "textures": [
+          "water-tga",
+          "Null",
+          "Null"
+        ],
+        "material_candidates": [
+          "water $surfacetype(water) $shader(water)"
+        ],
+        "bounds": {
+          "min": [
+            43.43090057373047,
+            -40.67629623413086,
+            466.1798400878906
+          ],
+          "max": [
+            77.16682434082031,
+            -40.676292419433594,
+            493.65447998046875
+          ]
+        }
+      }
+    ],
+    "evidence": "CONFIRMED_BY_BYTES",
+    "scope": "Broad water/puddle texture or material binding; no runtime visibility proof"
+  },
+  {
+    "source": "DataGx/Course/Turkey1/turkey1.dx",
+    "sha256": "653da3a7b2191ff3f3aaaff8dac4d38286e4c281d2cb4ae34f3e47258a81fecb",
+    "vertex_count": 58804,
+    "triangles": 46199,
+    "draw_count": 1295,
+    "complete_disjoint_render_validated": true,
+    "water_related_draws": [],
+    "evidence": "CONFIRMED_BY_BYTES",
+    "scope": "Broad water/puddle texture or material binding; no runtime visibility proof"
+  },
+  {
+    "source": "DataGx/Course/Turkey3/turkey3.dx",
+    "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+    "vertex_count": 54589,
+    "triangles": 42237,
+    "draw_count": 939,
+    "complete_disjoint_render_validated": true,
+    "water_related_draws": [],
+    "evidence": "CONFIRMED_BY_BYTES",
+    "scope": "Broad water/puddle texture or material binding; no runtime visibility proof"
+  }
+]

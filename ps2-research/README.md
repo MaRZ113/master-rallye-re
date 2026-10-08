@@ -1,7 +1,7 @@
 # Master Rallye PS2 research
 
 Active filesystem work lives in `packfs/`, static content/UI work in `ui/`,
-HUD runtime reverse in `ui2/`, tools in
+HUD runtime reverse in `ui2/`, PC/PS2 course-content survey in `cdelta1/`, tools in
 `tools/`, tests in `tests/`.
 Canonical development branch: `master`. Historical `research/general-re` and
 `research/r-*` are reference evidence; this track does not edit them.
@@ -63,3 +63,30 @@ world/map points, clipped centerlines and optional SVG under ignored data.
 Player position/heading/marker state must be supplied explicitly; the output
 does not claim a live captured frame or bit-exact PS2 rasterization.
 See [UI2 validation](ui2/validation.md) and [remaining coordinate proof](ui2/next.md).
+
+The [CDELTA1 survey](cdelta1/final-report.md) compares all 36 paired retail
+courses, authored ambient/prop ownership and material interfaces. Its
+[novel candidates](cdelta1/novel-candidates.md) and [single next phase](cdelta1/next.md)
+retain static/runtime boundaries. The PC Course SDK is a read-only parser reference.
+
+```powershell
+python ps2-research/tools/course_delta.py --inputs 'D:\Game\Master Rallye PS2' --pc 'D:\Game\Master Rallye\corpora\retail\Data.sma_unpacked' --sdk 'D:\Game\Master Rallye\master-rallye-re-course' --screens 'D:\Game\Master Rallye PS2\PS2-userscreens' --screen-archive 'D:\Game\Master Rallye\!backup\PS2\PS2.zip'
+python -m unittest discover -s ps2-research/tests -v
+python -m pytest ps2-research/tests/test_course_delta.py -q -p no:cacheprovider
+```
+
+Survey generation uses canonical PS2 hashes, `tngtool` and the SDK scene,
+sidecar and course DX readers. SDK imports disable bytecode writes. Outputs
+stay in `cdelta1/` or ignored `data/cdelta1/`; diagnostic caches are independently
+checked by re-decoding the original archive on every use. PSM string occurrences
+are never counted as visible objects.
+Compiled PC water samples and paired route spatial checks are reproducible.
+The selected `ambient-evidence.json` / `materials-evidence.json` are frozen
+probe metadata; the tool regenerates their broader source inventories and
+delta records. Screenshots are provenance/correlation only.
+
+On this workstation pytest is local to ignored `data/cdelta1/python`; set
+`$env:PYTHONPATH=(Resolve-Path 'ps2-research/data/cdelta1/python').Path`
+before the pytest command. For a fresh checkout install pytest in your normal
+test environment or that ignored directory. The survey itself uses the
+standard library and the existing read-only SDK; no external decoder is needed.

@@ -1,0 +1,3958 @@
+[
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+    "pc": "DataScene/RaceTest/France1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\france1\\france1",
+    "ps2_route": {
+      "count": 450,
+      "ordered_xyz_f32_sha256": "8abc973843e6ec614e6d4d613460273f327c48c2853715cbf89f172618b1ffa7"
+    },
+    "pc_route": {
+      "count": 448,
+      "ordered_xyz_f32_sha256": "96205608771ba78db34ecc452e36d0a530793f3f9abd398329b1adca5db95d37"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\france1\\france1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 448,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 79,
+        "pc": 76
+      },
+      "authored_visible_model_references": {
+        "ps2": 17,
+        "pc": 52
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 14,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\france1\\france1": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\france1\\france1": 1,
+        "markers\\green_marker": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 36
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 14,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAiWaterfallSound": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 19,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 14,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAiWaterfallSound": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 19,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+    "pc": "DataScene/RaceTest/France2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\france2\\france2",
+    "ps2_route": {
+      "count": 351,
+      "ordered_xyz_f32_sha256": "7aca118bf0c9b6ddbc23544cff95dc13b6f19b14428682ea4017e2c08cc44d72"
+    },
+    "pc_route": {
+      "count": 349,
+      "ordered_xyz_f32_sha256": "8a3751268a701c0d1dd2f9fa752b3149d08e0a2648f0066ccd5d97801af00043"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\france2\\france2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 349,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 76,
+        "pc": 69
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 45
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\france2\\france2": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\france2\\france2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 30
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 6,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 11,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 16,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 11,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 16,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+    "pc": "DataScene/RaceTest/FranceM.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\france_m\\francem",
+    "ps2_route": {
+      "count": 414,
+      "ordered_xyz_f32_sha256": "3d0c2eebe40ce8a649516eab367ce9bddf16f5a79a209f7f67f760aadb3250da"
+    },
+    "pc_route": {
+      "count": 412,
+      "ordered_xyz_f32_sha256": "0767da68c4acd59dd5317df77fd727aa78959b3233d847fdebe333d7feea1142"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\france_m\\francem",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 412,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 80,
+        "pc": 72
+      },
+      "authored_visible_model_references": {
+        "ps2": 16,
+        "pc": 48
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 13,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\france_m\\francem": 1,
+        "misc\\airship\\airship": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\france_m\\francem": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 33
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 4,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 14,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAiWaterfallSound": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 17,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 13,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 17,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+    "pc": "DataScene/RaceTest/FranceS1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\france_s1\\frances1",
+    "ps2_route": {
+      "count": 390,
+      "ordered_xyz_f32_sha256": "3bcf632b969b0bea024c0a982bba7c2a1ff01fbe4fa997541c14ff540986fb70"
+    },
+    "pc_route": {
+      "count": 388,
+      "ordered_xyz_f32_sha256": "aaf77817e5bfaaebb6f0fe5af733a61fa8c0c17aa7c29e1cc6fa791f85fccd3f"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\france_s1\\frances1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 388,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 72,
+        "pc": 69
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 45
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\france_s1\\frances1": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\france_s1\\frances1": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 30
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 2,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 13,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 14,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 13,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 14,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+    "pc": "DataScene/RaceTest/FranceS2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\france_s2\\frances2",
+    "ps2_route": {
+      "count": 431,
+      "ordered_xyz_f32_sha256": "e5b3b591732acc14c198a8d980529709f4497e21728c76afb639e0aecfd593c2"
+    },
+    "pc_route": {
+      "count": 429,
+      "ordered_xyz_f32_sha256": "b8c26de635a5948f2e569aca54939e5da41d5586543815fbd3c2dfb20b7ce926"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\france_s2\\frances2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 429,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 84,
+        "pc": 73
+      },
+      "authored_visible_model_references": {
+        "ps2": 17,
+        "pc": 49
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 14,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\france_s2\\frances2": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\france_s2\\frances2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 34
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 3,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 12,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 24,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 12,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 19,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+    "pc": "DataScene/RaceTest/FranceW.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\france_w\\francew",
+    "ps2_route": {
+      "count": 431,
+      "ordered_xyz_f32_sha256": "026f234aee1b32878b8c7cd42fc7a5fb63124e3f22d7999c5c09102057c5742b"
+    },
+    "pc_route": {
+      "count": 429,
+      "ordered_xyz_f32_sha256": "f27a0cd46f41a9697d0a11c5bed36f6a2970af5e5f169db4e262e02bce8ec19c"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\france_w\\francew",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 429,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 73,
+        "pc": 69
+      },
+      "authored_visible_model_references": {
+        "ps2": 17,
+        "pc": 45
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 14,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\france_w\\francew": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\france_w\\francew": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 30
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 10,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 17,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 10,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 17,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+    "pc": "DataScene/RaceTest/FranceWFlip.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\france_w_flip\\francew_flip",
+    "ps2_route": {
+      "count": 431,
+      "ordered_xyz_f32_sha256": "b79a3800f04310d554e5d6a0c6cedc9af74477539ca9b7a0b723b5154ea96cfd"
+    },
+    "pc_route": {
+      "count": 429,
+      "ordered_xyz_f32_sha256": "ddb1abe0b80912e02c59e1293a309c72691a71f82f73bf994fbbbdba2ff86257"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\france_w_flip\\francew_flip",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 429,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 73,
+        "pc": 68
+      },
+      "authored_visible_model_references": {
+        "ps2": 17,
+        "pc": 44
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 14,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\france_w_flip\\francew_flip": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\france_w_flip\\francew_flip": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 29
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 2,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 10,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 16,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 10,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 16,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+    "pc": "DataScene/RaceTest/Italy1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy1\\italy1",
+    "ps2_route": {
+      "count": 215,
+      "ordered_xyz_f32_sha256": "4786b8a3846e722f05291920fe82a596ea4bb2e543898e3e729b92c76fab2448"
+    },
+    "pc_route": {
+      "count": 213,
+      "ordered_xyz_f32_sha256": "fd02e6fd77164a5a0ebecdea8da7e15b3269c5e649efb37e298c804b1fe053ed"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy1\\track01",
+    "landscape_alias_from_spatial_evidence": true,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 213,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 68,
+        "pc": 61
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 37
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy1\\italy1": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy1\\track01": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 22
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 6,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 11,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 11,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+    "pc": "DataScene/RaceTest/Italy2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy2\\italy2",
+    "ps2_route": {
+      "count": 177,
+      "ordered_xyz_f32_sha256": "56af8c039190bafec02e12124407ee82f3a012901a7d65ddbe3f1995ae48505f"
+    },
+    "pc_route": {
+      "count": 175,
+      "ordered_xyz_f32_sha256": "88e8a9e0734488a9452798c78cb86fe62ad2a9681390a2661a2264686a7e6020"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy2\\italy2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 175,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 75,
+        "pc": 61
+      },
+      "authored_visible_model_references": {
+        "ps2": 26,
+        "pc": 37
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 23,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy2\\italy2": 1,
+        "misc\\haybale\\haybale": 11,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy2\\italy2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 22
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 2,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 10,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 11,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 9,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 10,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 9,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+    "pc": "DataScene/RaceTest/Italy3.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy3\\italy3",
+    "ps2_route": {
+      "count": 138,
+      "ordered_xyz_f32_sha256": "70e2f93fb5a4c5f470d296fa3fa306ad726b9db979d25258121c6615d91e9041"
+    },
+    "pc_route": {
+      "count": 136,
+      "ordered_xyz_f32_sha256": "d946d4018720aa0aeb8256aff3bd606e9d1a532c774f465e236d2e785317bc63"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy3\\italy3",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 136,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 68,
+        "pc": 64
+      },
+      "authored_visible_model_references": {
+        "ps2": 16,
+        "pc": 40
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 13,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy3\\italy3": 1,
+        "misc\\barge\\barge": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy3\\italy3": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 25
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 2,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 14,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 14,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+    "pc": "DataScene/RaceTest/ItalyM1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_m1\\italy_m1",
+    "ps2_route": {
+      "count": 387,
+      "ordered_xyz_f32_sha256": "e10cf0137971589b504a2e2a7d425f9802c241a8b6a96f4ac84296d52ddb11da"
+    },
+    "pc_route": {
+      "count": 385,
+      "ordered_xyz_f32_sha256": "cc631bbc5a7c932262c80ba27e9f6779ca327a16b6cd4cfeba068cf1b6e85b2e"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_m1\\italy_m1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 385,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 76,
+        "pc": 69
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 45
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_m1\\italy_m1": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy_m1\\italy_m1": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 30
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 6,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 20,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 20,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+    "pc": "DataScene/RaceTest/ItalyM1Flip.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_m1_flip\\italy_m1_flip",
+    "ps2_route": {
+      "count": 387,
+      "ordered_xyz_f32_sha256": "83221d9634fc94a6f8bfd54a99c5327c65ad1b3212ce5348fe1483bd92f3ed69"
+    },
+    "pc_route": {
+      "count": 385,
+      "ordered_xyz_f32_sha256": "9d9817c41443476dcab4d158722cee9b11cbc1a02098edee905f6ea6dbff2501"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_m1_flip\\italy_m1_flip",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 385,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 84,
+        "pc": 78
+      },
+      "authored_visible_model_references": {
+        "ps2": 18,
+        "pc": 54
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_m1_flip\\italy_m1_flip": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 3
+      },
+      "pc": {
+        "course\\italy_m1_flip\\italy_m1_flip": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 39
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 5,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 29,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 29,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+    "pc": "DataScene/RaceTest/ItalyM2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_m2\\italy_m2",
+    "ps2_route": {
+      "count": 388,
+      "ordered_xyz_f32_sha256": "b67d5e7cb02c6db494e7d0ea85fef4f0ebb47362ab1fa979446d63d9a9c66046"
+    },
+    "pc_route": {
+      "count": 386,
+      "ordered_xyz_f32_sha256": "561ea8fdacf99a52a0a89dc3c1151ab655fa6cf3eb3489ff2e9923216f47326a"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_m2\\italy_m2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 386,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 75,
+        "pc": 71
+      },
+      "authored_visible_model_references": {
+        "ps2": 16,
+        "pc": 49
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_m2\\italy_m2": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "vehicles\\citroen\\car": 1
+      },
+      "pc": {
+        "course\\italy_m2\\italy_m2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 32,
+        "vehicles\\citroen\\car": 1,
+        "vehicles\\mercedes\\car": 1
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 2,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 5,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 25,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 5,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 24,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+    "pc": "DataScene/RaceTest/ItalyS1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_s1\\italy_s1",
+    "ps2_route": {
+      "count": 293,
+      "ordered_xyz_f32_sha256": "53d5025203a9ac42f4154e89802460cec64f97bbd57777f76f1910bf8948e7b0"
+    },
+    "pc_route": {
+      "count": 292,
+      "ordered_xyz_f32_sha256": "68801c61c28142ebdc18f1053034ea73c5e87261e2e69a4d154d083f997431eb"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_s1\\italy_s1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 292,
+      "max_distance": 26.822076727949334,
+      "mean_distance": 0.17658877345589064,
+      "within_one_world_unit": 0.9931506849315068
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 88,
+        "pc": 69
+      },
+      "authored_visible_model_references": {
+        "ps2": 30,
+        "pc": 47
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 26,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_s1\\italy_s1": 1,
+        "misc\\haybale\\haybale": 14,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "vehicles\\citroen\\car": 1
+      },
+      "pc": {
+        "course\\italy_s1\\italy_s1": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 30,
+        "vehicles\\citroen\\car": 1,
+        "vehicles\\mercedes\\car": 1
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 4,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 12,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 14,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 15,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 12,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 15,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+    "pc": "DataScene/RaceTest/ItalyS2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_s2\\italy_s2",
+    "ps2_route": {
+      "count": 418,
+      "ordered_xyz_f32_sha256": "75a467ef84fc10d8bee9e999de81b325d5ad3d9ff898325ac18f8d9a2edde766"
+    },
+    "pc_route": {
+      "count": 416,
+      "ordered_xyz_f32_sha256": "31c5d92b0b9b43e712462a143f5c17648f8f0ec55228edddb34ed815d93d5885"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_s2\\italy_s2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 416,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 73,
+        "pc": 69
+      },
+      "authored_visible_model_references": {
+        "ps2": 17,
+        "pc": 47
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 13,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_s2\\italy_s2": 1,
+        "misc\\airship\\airship": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "vehicles\\citroen\\car": 1
+      },
+      "pc": {
+        "course\\italy_s2\\italy_s2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 30,
+        "vehicles\\citroen\\car": 1,
+        "vehicles\\mercedes\\car": 1
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 20,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 19,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+    "pc": "DataScene/RaceTest/ItalyS3.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_s3\\italy_s3",
+    "ps2_route": {
+      "count": 348,
+      "ordered_xyz_f32_sha256": "f45255c27675d15b3ccbfb99514da34351d56585224fd0e49606b09dc1c9e083"
+    },
+    "pc_route": {
+      "count": 346,
+      "ordered_xyz_f32_sha256": "343c4fde6fa1dd1e80e13fd3171a4e192dd9ceb42acc0e1155010853213b2e7c"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_s3\\italy_s3",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 346,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 71,
+        "pc": 66
+      },
+      "authored_visible_model_references": {
+        "ps2": 16,
+        "pc": 43
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 13,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_s3\\italy_s3": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy_s3\\italy_s3": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 27,
+        "vehicles\\mercedes\\car": 1
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 3,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 16,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 16,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+    "pc": "DataScene/RaceTest/ItalyS3Flip.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_s3_flip\\italy_s3_flip",
+    "ps2_route": {
+      "count": 342,
+      "ordered_xyz_f32_sha256": "2f081cd78aa478ad93bacc3ed20ae407c68312d56485eb0ddceea08d56c45f25"
+    },
+    "pc_route": {
+      "count": 340,
+      "ordered_xyz_f32_sha256": "fffdb98a1ad46d92502e4d8494295e47e7c83326a2ea1afed565dd5755a40aea"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_s3_flip\\italy_s3_flip",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 340,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 75,
+        "pc": 72
+      },
+      "authored_visible_model_references": {
+        "ps2": 16,
+        "pc": 49
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 13,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_s3_flip\\italy_s3_flip": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy_s3_flip\\italy_s3_flip": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 33,
+        "vehicles\\mercedes\\car": 1
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 22,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 22,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+    "pc": "DataScene/RaceTest/ItalyS4.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_s4\\italy_s4",
+    "ps2_route": {
+      "count": 367,
+      "ordered_xyz_f32_sha256": "5e79319ce552ac8917c8a6edca96d2727e711240c11b64dbe3054f11b6cc24bc"
+    },
+    "pc_route": {
+      "count": 365,
+      "ordered_xyz_f32_sha256": "f760ef0420c49b2bc69c3949ace97075caa8c1064d2ac98ab822c5ff8018078a"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_s4\\italy_s4",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 365,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 92,
+        "pc": 76
+      },
+      "authored_visible_model_references": {
+        "ps2": 26,
+        "pc": 52
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 23,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_s4\\italy_s4": 1,
+        "misc\\airship\\airship": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\haybales\\haybale": 10,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy_s4\\italy_s4": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 37
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 3,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 11,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 10,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 24,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 11,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 23,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+    "pc": "DataScene/RaceTest/ItalyW1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_w1\\italy_w1",
+    "ps2_route": {
+      "count": 356,
+      "ordered_xyz_f32_sha256": "1d765df0c3a1f32e55f8885e569a76b1f00032bd66499e2e953ea721b34e06cf"
+    },
+    "pc_route": {
+      "count": 354,
+      "ordered_xyz_f32_sha256": "9a91b0cd0aab52e3a6aedf7b9afe2de90e63fbb6b7567277444eb1e3a4d9cd14"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_w1\\italy_w1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 354,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 92,
+        "pc": 80
+      },
+      "authored_visible_model_references": {
+        "ps2": 26,
+        "pc": 56
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 23,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_w1\\italy_w1": 1,
+        "misc\\airship\\airship": 1,
+        "misc\\haybale\\haybale": 10,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy_w1\\italy_w1": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 41
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 14,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 10,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 24,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 14,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 24,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+    "pc": "DataScene/RaceTest/ItalyW2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\italy_w2\\italy_w2",
+    "ps2_route": {
+      "count": 358,
+      "ordered_xyz_f32_sha256": "7bbdb63a09cee368692f559484e7ff199ee42ec27632a01c8e38813001d313a7"
+    },
+    "pc_route": {
+      "count": 356,
+      "ordered_xyz_f32_sha256": "e2d5dbcdbc721a70a9b7a3fb9079e3ca6921e7fce0b03b9dcd0c904551017fe2"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\italy_w2\\italy_w2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 356,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 96,
+        "pc": 81
+      },
+      "authored_visible_model_references": {
+        "ps2": 29,
+        "pc": 57
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 26,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\italy_w2\\italy_w2": 1,
+        "misc\\haybale\\haybale": 13,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\italy_w2\\italy_w2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 42
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 15,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 13,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 23,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 15,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 24,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+    "pc": "DataScene/RaceTest/Spain1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\spain1\\spain1",
+    "ps2_route": {
+      "count": 309,
+      "ordered_xyz_f32_sha256": "ed44ce3b03ce4619d0323e268d284ff7fd8736bf254b0733bd27c3728b1e6839"
+    },
+    "pc_route": {
+      "count": 307,
+      "ordered_xyz_f32_sha256": "554fda223b4e872bf5c0cf0a2c3613e640f8967dc81dd5f6b19c8d79e0d283f8"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\spain1\\spain1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 307,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 64,
+        "pc": 64
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 40
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\spain1\\spain1": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\spain1\\spain1": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 25
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 15,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 15,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+    "pc": "DataScene/RaceTest/Spain2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\spain2\\spain2",
+    "ps2_route": {
+      "count": 326,
+      "ordered_xyz_f32_sha256": "0781b3ad03908fa98e00db75adc7c6154ae57f1eb33031b48d2c2fbabc8e88c1"
+    },
+    "pc_route": {
+      "count": 324,
+      "ordered_xyz_f32_sha256": "3a1886f13c7e435df83cff2a520b3f3cc7fc742ad7736e6b25ddff49567ce5df"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\spain2\\spain2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 324,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 76,
+        "pc": 74
+      },
+      "authored_visible_model_references": {
+        "ps2": 16,
+        "pc": 50
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 13,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\spain2\\spain2": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\spain2\\spain2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 35
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 25,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 25,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+    "pc": "DataScene/RaceTest/SpainM.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\spain_m\\spain_m",
+    "ps2_route": {
+      "count": 403,
+      "ordered_xyz_f32_sha256": "d3e1aa79f0d0192e48d7fd5fddef2b9c919d069b767399593f1aa4d4794d9cd5"
+    },
+    "pc_route": {
+      "count": 401,
+      "ordered_xyz_f32_sha256": "93bbc07f5b610d745eab5ab2ec0b249fe3d4e8e41d0f1cfd49f70c7b9978492a"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\spain_m\\spain_m",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 401,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 78,
+        "pc": 77
+      },
+      "authored_visible_model_references": {
+        "ps2": 18,
+        "pc": 53
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\spain_m\\spain_m": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 3
+      },
+      "pc": {
+        "course\\spain_m\\spain_m": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 38
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 9,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 26,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 9,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 26,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+    "pc": "DataScene/RaceTest/SpainS1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\spain_s1\\spain_s1",
+    "ps2_route": {
+      "count": 339,
+      "ordered_xyz_f32_sha256": "6a520345aef04316ddfc4358c909e03a1a689cd069e3e23f48ad5e9ded0b2b56"
+    },
+    "pc_route": {
+      "count": 337,
+      "ordered_xyz_f32_sha256": "9c88860601b81c59109ef3fd7f9c7ddbb4b69a3c9fce33c97639d3864574b08e"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\spain_s1\\spain_s1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 337,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 69,
+        "pc": 69
+      },
+      "authored_visible_model_references": {
+        "ps2": 18,
+        "pc": 45
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\spain_s1\\spain_s1": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 3
+      },
+      "pc": {
+        "course\\spain_s1\\spain_s1": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 30
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 4,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 22,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 5,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 22,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+    "pc": "DataScene/RaceTest/SpainS1Flip.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\spain_s1_flip\\spain_s1_flip",
+    "ps2_route": {
+      "count": 339,
+      "ordered_xyz_f32_sha256": "50a44f2e8c561a68e2f56c42546af04068809befd7c130e78204822eb6abf57d"
+    },
+    "pc_route": {
+      "count": 337,
+      "ordered_xyz_f32_sha256": "845df60c995bf0a9b64599131a4c94b303f6fcc96661102e857f00e75f2066b6"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\spain_s1_flip\\spain_s1_flip",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 337,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 70,
+        "pc": 70
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 46
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\spain_s1_flip\\spain_s1_flip": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\spain_s1_flip\\spain_s1_flip": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 31
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 4,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 23,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 5,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 23,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+    "pc": "DataScene/RaceTest/SpainS2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\spain_s2\\spain_s2",
+    "ps2_route": {
+      "count": 260,
+      "ordered_xyz_f32_sha256": "d5f5c5a9149d726736923b00136f8ada7e3a64888b2da0dfae9b16885e16db60"
+    },
+    "pc_route": {
+      "count": 258,
+      "ordered_xyz_f32_sha256": "3a823a6ecbff20be4efd30bb56b4e2cdbbbe976ed46ae06e4a1b46b8701550b8"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\spain_s2\\spain_s2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 258,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 84,
+        "pc": 81
+      },
+      "authored_visible_model_references": {
+        "ps2": 17,
+        "pc": 57
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 14,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\spain_s2\\spain_s2": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\spain_s2\\spain_s2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 42
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "enAiSoundSource": 11,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 28,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "enAiSoundSource": 11,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 28,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+    "pc": "DataScene/RaceTest/SpainW.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\spain_w\\spain_w",
+    "ps2_route": {
+      "count": 204,
+      "ordered_xyz_f32_sha256": "fb2fcbf9a45c25b05f0b05354a490c5fdad32d168db243e14c010cc0ac95a86b"
+    },
+    "pc_route": {
+      "count": 202,
+      "ordered_xyz_f32_sha256": "67b0cdde14083c609a19e46bd9bbeb626c5e4e2168ab91322d3fade40481bb10"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\spain_w\\spain_w",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 202,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 79,
+        "pc": 77
+      },
+      "authored_visible_model_references": {
+        "ps2": 17,
+        "pc": 53
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 14,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\spain_w\\spain_w": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\spain_w\\spain_w": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 38
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 27,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 27,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+    "pc": "DataScene/RaceTest/SpainWFlip.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\spain_w_flip\\spain_w_flip",
+    "ps2_route": {
+      "count": 204,
+      "ordered_xyz_f32_sha256": "a95fdaba2c9ed18c922eb7e2838197aa17e87cfd941bfc5e8ac192123de99d7e"
+    },
+    "pc_route": {
+      "count": 202,
+      "ordered_xyz_f32_sha256": "87c97d38e29cb1915dddeac08d6b577a1d434ec843123bd21a2e5c85c0327e2e"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\spain_w_flip\\spain_w_flip",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 202,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 75,
+        "pc": 73
+      },
+      "authored_visible_model_references": {
+        "ps2": 20,
+        "pc": 49
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 14,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\spain_w_flip\\spain_w_flip": 1,
+        "misc\\nessie\\nessie": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 11,
+        "misc\\objects\\dinghys\\bluedinghy": 1,
+        "misc\\objects\\dinghys\\reddinghy": 1,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 3
+      },
+      "pc": {
+        "course\\spain_w_flip\\spain_w_flip": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 34
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 23,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 23,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+    "pc": "DataScene/RaceTest/Turkey1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\turkey1\\turkey1",
+    "ps2_route": {
+      "count": 341,
+      "ordered_xyz_f32_sha256": "ea10e308f026ce312af9cdc86696a3f24f47b8a1509c90eec65fa150cf78a0cf"
+    },
+    "pc_route": {
+      "count": 339,
+      "ordered_xyz_f32_sha256": "fc7b699e32738fa4c664631237a92ab76bcfc21e141dab423a7bef3a68826f35"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\turkey1\\turkey1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 339,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 69,
+        "pc": 61
+      },
+      "authored_visible_model_references": {
+        "ps2": 22,
+        "pc": 37
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 19,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\turkey1\\turkey1": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\tumbleweed\\tumblweed": 7,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\turkey1\\turkey1": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 22
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 2,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 3,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 7,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 14,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 5,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 14,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+    "pc": "DataScene/RaceTest/Turkey2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\turkey2\\turkey2",
+    "ps2_route": {
+      "count": 351,
+      "ordered_xyz_f32_sha256": "6e21cf5eac6118e7ec4da33a04e6608dbe705b247e6c25699694f79cab53a435"
+    },
+    "pc_route": {
+      "count": 349,
+      "ordered_xyz_f32_sha256": "2dfac878415d55eef7010d65edc4b2a5a74c103d873b8cf0ec0093f3d386381c"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\turkey2\\turkey2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 349,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 64,
+        "pc": 62
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 38
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\turkey2\\turkey2": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\turkey2\\turkey2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 23
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 14,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 14,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+    "pc": "DataScene/RaceTest/Turkey3.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\turkey3\\turkey3",
+    "ps2_route": {
+      "count": 422,
+      "ordered_xyz_f32_sha256": "e4761cb3928efc756f9a550fec927c6bf5fd300dbeac8ed93a2fc7296d126f4d"
+    },
+    "pc_route": {
+      "count": 420,
+      "ordered_xyz_f32_sha256": "d9547c169f9092d9222b009665badf0a78fc2a61a34a8e6fae79d2639123ae60"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\turkey3\\turkey3",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 420,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 83,
+        "pc": 71
+      },
+      "authored_visible_model_references": {
+        "ps2": 24,
+        "pc": 46
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 18,
+        "pc": 16
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\turkey3\\turkey3": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\tumbleweed\\tumblweed": 6,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 3
+      },
+      "pc": {
+        "course\\turkey3\\turkey3": 1,
+        "misc\\checkpoints\\checkpoint": 16,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 27
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 11,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 4,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 6,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 19,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 4,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 2,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 19,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 4,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+    "pc": "DataScene/RaceTest/TurkeyM.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\turkey_m\\turkey_m",
+    "ps2_route": {
+      "count": 460,
+      "ordered_xyz_f32_sha256": "c4b6193815312ce23f0d72fe5b06e630babffe7217436bc6edad224ea59f69e9"
+    },
+    "pc_route": {
+      "count": 458,
+      "ordered_xyz_f32_sha256": "a7e8480398af1930acbbe20448c3ff2d833eb3d7ce6c4ce4a4063e90093f2649"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\turkey_m\\turkey_m",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 458,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 78,
+        "pc": 69
+      },
+      "authored_visible_model_references": {
+        "ps2": 24,
+        "pc": 45
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 21,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\turkey_m\\turkey_m": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\tumbleweed\\tumblweed": 9,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\turkey_m\\turkey_m": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 30
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 7,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 9,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 18,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 9,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 18,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+    "pc": "DataScene/RaceTest/TurkeyS1.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\turkey_s1\\turkey_s1",
+    "ps2_route": {
+      "count": 366,
+      "ordered_xyz_f32_sha256": "5b408ce610dc1e222f9904d65adc7ac1efdaa5ccfff5c4fb4cc7831f5562a0c2"
+    },
+    "pc_route": {
+      "count": 364,
+      "ordered_xyz_f32_sha256": "8eef0ac179008ba4a7a8d62b67541f226f8bf59fad97a3d42515d3fe64c7d161"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\turkey_s1\\turkey_s1",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 364,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 70,
+        "pc": 68
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 44
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\turkey_s1\\turkey_s1": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\turkey_s1\\turkey_s1": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 29
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 18,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 8,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 18,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+    "pc": "DataScene/RaceTest/TurkeyS2.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\turkey_s2\\turkey_s2",
+    "ps2_route": {
+      "count": 471,
+      "ordered_xyz_f32_sha256": "abdf19c163115c5977986fc20e7ec741505704d52f29e2d6c130efcceb985e35"
+    },
+    "pc_route": {
+      "count": 469,
+      "ordered_xyz_f32_sha256": "eacbeacd425af07d71ca76750768ea7a2149046c6854512f633b33c8436a2b66"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\turkey_s2\\turkey_s2",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 469,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 80,
+        "pc": 73
+      },
+      "authored_visible_model_references": {
+        "ps2": 15,
+        "pc": 49
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 12,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\turkey_s2\\turkey_s2": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\turkey_s2\\turkey_s2": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 34
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 6,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 25,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 25,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+    "pc": "DataScene/RaceTest/TurkeyS2Flip.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\turkey_s2_flip\\turkey_s2_flip",
+    "ps2_route": {
+      "count": 472,
+      "ordered_xyz_f32_sha256": "e243cc863ba0e008c3ecdf80b44b913c3c660ebfd917cd03a0adc1390932639b"
+    },
+    "pc_route": {
+      "count": 470,
+      "ordered_xyz_f32_sha256": "ea4db24e3e29c4e75c3d627d013bb25ea9e0b282e2b050e99e91771ada986fc4"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\turkey_s2_flip\\turkey_s2_flip",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 470,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 75,
+        "pc": 71
+      },
+      "authored_visible_model_references": {
+        "ps2": 18,
+        "pc": 47
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 15,
+        "pc": 16
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\turkey_s2_flip\\turkey_s2_flip": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\objects\\tumbleweed\\tumblweed": 3,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1
+      },
+      "pc": {
+        "course\\turkey_s2_flip\\turkey_s2_flip": 1,
+        "misc\\checkpoints\\checkpoint": 16,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 28
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiSpawnParticle": 5,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiRigidBody": 3,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 18,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 18,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 4,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  },
+  {
+    "ps2": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+    "pc": "DataScene/RaceTest/TurkeyW.xml",
+    "confidence": "STRONG",
+    "landscape": "course\\turkey_w\\turkey_w",
+    "ps2_route": {
+      "count": 336,
+      "ordered_xyz_f32_sha256": "37c2653aea2cbb2bdb73531b6fc32cfd0a812849896cf0e1514be8469e5481d6"
+    },
+    "pc_route": {
+      "count": 334,
+      "ordered_xyz_f32_sha256": "e1a988f05e6b4b0012b67a09751dfe3cf1b7691963bc3b7039f13cf27a3542a3"
+    },
+    "candidate_count": 1,
+    "pc_landscape": "course\\turkey_w\\turkey_w",
+    "landscape_alias_from_spatial_evidence": false,
+    "ordered_spatial_check": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 334,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "evidence": "STATIC_INFERENCE",
+    "basis": "Unique landscape identity or spatially proved alias + ordered route geometry; no coordinate fitting",
+    "counts": {
+      "entity_count": {
+        "ps2": 69,
+        "pc": 65
+      },
+      "authored_visible_model_references": {
+        "ps2": 19,
+        "pc": 41
+      },
+      "declared_visible_misc_world_references": {
+        "ps2": 13,
+        "pc": 12
+      }
+    },
+    "model_counts": {
+      "ps2": {
+        "course\\turkey_w\\turkey_w": 1,
+        "misc\\barge\\barge": 1,
+        "misc\\objects\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 3
+      },
+      "pc": {
+        "course\\turkey_w\\turkey_w": 1,
+        "misc\\checkpoints\\checkpoint": 12,
+        "misc\\sky\\clouds": 1,
+        "misc\\sky\\layer1": 1,
+        "test\\gps_test\\gps_arrow": 26
+      }
+    },
+    "owner_counts": {
+      "ps2": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAnimals_BirdManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaEntitySpline": 1,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 19,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      },
+      "pc": {
+        "aiShadowBoot": 1,
+        "aiTrackBoot": 1,
+        "enAiSoundSource": 6,
+        "gaAiCloudSetUp": 2,
+        "gaAiNetworkManager": 1,
+        "gaAiSoundManager": 1,
+        "gaAttractModeAI": 1,
+        "gaBootAICar": 8,
+        "gaCameraManagerAI": 2,
+        "gaHudLoader": 1,
+        "gaIContAIManager": 1,
+        "gaNetworkConsole": 1,
+        "gaPhysicsManager": 1,
+        "gaRaceFinishAI": 1,
+        "gaRaceFinishAreaAI": 1,
+        "gaRaceLineAI": 1,
+        "gaRacePaceNoteAI": 17,
+        "gaRacePostFirstSplitTimeAI": 1,
+        "gaRaceSplitTimeAI": 3,
+        "gaRaceStarterAI": 1,
+        "gaRaceTimerAI": 1,
+        "gaVehicleResetManager": 1
+      }
+    }
+  }
+]
