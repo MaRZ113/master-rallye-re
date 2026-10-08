@@ -1,0 +1,303 @@
+{
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "section": {
+    "name": ".vudata",
+    "va": "0x442170",
+    "file_offset": "0x343170",
+    "size": "0x2680",
+    "flags": "ALLOC|WRITE"
+  },
+  "chunks": [
+    {
+      "command_va": "0x44217c",
+      "word": "0x4a000000",
+      "micro_pc": 0,
+      "count": 256,
+      "source_va": 4465024,
+      "sha256": "4af35729b5ac7753e65b730f491fcd107e7978ce87a6ccca9f711702ca830e4e"
+    },
+    {
+      "command_va": "0x442984",
+      "word": "0x4a000100",
+      "micro_pc": 256,
+      "count": 256,
+      "source_va": 4467080,
+      "sha256": "0950571ea077b21f9f6dbb54b5463f71789895062c75c90ae0a94bdef3ab92ff"
+    },
+    {
+      "command_va": "0x44318c",
+      "word": "0x4a000200",
+      "micro_pc": 512,
+      "count": 256,
+      "source_va": 4469136,
+      "sha256": "f9ef7bfe3214431a925e1d4b2dce3fe73914d2819e7f4108e7fbc107ee52ab1a"
+    },
+    {
+      "command_va": "0x443994",
+      "word": "0x4a000300",
+      "micro_pc": 768,
+      "count": 256,
+      "source_va": 4471192,
+      "sha256": "320c8b6abc6c4f961cda216a99502181f0ee4de8936e5730a4a134cc48e0dda7"
+    },
+    {
+      "command_va": "0x44419c",
+      "word": "0x4ac90400",
+      "micro_pc": 1024,
+      "count": 201,
+      "source_va": 4473248,
+      "sha256": "460ec8ad74f2f4b5135e8f5b32b397ae45799ca9dbb4702755689a784b83a8a3"
+    }
+  ],
+  "microprograms": [
+    {
+      "micro_pc": "0x0",
+      "address": "0x442180",
+      "known_function_bounds": {
+        "micro_start": "0x0",
+        "micro_end_inclusive": "0xe",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Initialize output ring / common E-bit return",
+      "callers": [],
+      "callees": [],
+      "input_pointers_registers": "No sprite inputs required",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "vi3=0;vi2=636; common E-bit atpc0d",
+      "relevant_constants": "vi3=0;vi2=636; common E-bit atpc0d",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x0",
+          "elf_va": "0x442180",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0xe",
+          "elf_va": "0x4421f0",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Initialize output ring / common E-bit return; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x2cf",
+      "address": "0x443808",
+      "known_function_bounds": {
+        "micro_start": "0x2cf",
+        "micro_end_inclusive": "0x30d",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Reload shared transform registers",
+      "callers": [
+        "317770 MSCAL140002cf"
+      ],
+      "callees": [
+        "0x41c",
+        "0x430"
+      ],
+      "input_pointers_registers": "CPU317770 transfers two matrices; previously cached projection context",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "vf1..4 source transform, vf13..16 composite",
+      "relevant_constants": "vf1..4 source transform, vf13..16 composite",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x2cf",
+          "elf_va": "0x443808",
+          "lower_word": "0x800c06bc",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x30d",
+          "elf_va": "0x443a00",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Reload shared transform registers; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x30e",
+      "address": "0x443a08",
+      "known_function_bounds": {
+        "micro_start": "0x30e",
+        "micro_end_inclusive": "0x331",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Load projection context",
+      "callers": [
+        "317470 MSCAL1400030e"
+      ],
+      "callees": [
+        "0x41c",
+        "0x430"
+      ],
+      "input_pointers_registers": "CPU317470:21qwords; matrix and scalar inputs",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "vf5..8 and shared matrix context",
+      "relevant_constants": "vf5..8 and shared matrix context",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x30e",
+          "elf_va": "0x443a08",
+          "lower_word": "0x800c06bc",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x331",
+          "elf_va": "0x443b20",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Load projection context; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x37c",
+      "address": "0x443d78",
+      "known_function_bounds": {
+        "micro_start": "0x37c",
+        "micro_end_inclusive": "0x393",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Copy snapshot state and cache sprite GIF prototype",
+      "callers": [
+        "31e478 MSCAL1400037c"
+      ],
+      "callees": [
+        "0x3c9",
+        "0xd"
+      ],
+      "input_pointers_registers": "11quadwords from31e478; input qword0 prototype, qword1 AD tag",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "vf31 prototype; input qword7/TEX1 cached atVUdata318; output GIF state qwords",
+      "relevant_constants": "vf31 prototype; input qword7/TEX1 cached atVUdata318; output GIF state qwords",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x37c",
+          "elf_va": "0x443d78",
+          "lower_word": "0x800c06bc",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x393",
+          "elf_va": "0x443e30",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Copy snapshot state and cache sprite GIF prototype; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x3c9",
+      "address": "0x443fe0",
+      "known_function_bounds": {
+        "micro_start": "0x3c9",
+        "micro_end_inclusive": "0x3db",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Output ring budget and XGKICK",
+      "callers": [
+        "VU pc453;pc387; shared helpers"
+      ],
+      "callees": [],
+      "input_pointers_registers": "vi1 requiredqwords;vi2 cursor;vi3 ring offset;vi8 last GIFtag",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "EOP on prior tag;XGKICK; output halves base636/830, size194qwords",
+      "relevant_constants": "EOP on prior tag;XGKICK; output halves base636/830, size194qwords",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x3c9",
+          "elf_va": "0x443fe0",
+          "lower_word": "0x800311f1",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x3d7",
+          "elf_va": "0x444050",
+          "lower_word": "0x800046fc",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Output ring budget and XGKICK; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x449",
+      "address": "0x4443e8",
+      "known_function_bounds": {
+        "micro_start": "0x449",
+        "micro_end_inclusive": "0x4c4",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Expand detail records into projected GS SPRITEs",
+      "callers": [
+        "31da60 MSCAL14000449"
+      ],
+      "callees": [
+        "0x3c9",
+        "0xd"
+      ],
+      "input_pointers_registers": "4vectors perrecord;firstW count&127;vf1..8 transforms;vf31 GIFprototype",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "6qwords perpoint:ST/RGBA/XYZF2 twice;two vertices;FTOI4;cap56;clipADCmaskc000",
+      "relevant_constants": "6qwords perpoint:ST/RGBA/XYZF2 twice;two vertices;FTOI4;cap56;clipADCmaskc000",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x449",
+          "elf_va": "0x4443e8",
+          "lower_word": "0x800c06bc",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x4c4",
+          "elf_va": "0x4447c0",
+          "lower_word": "0x1fe013c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Expand detail records into projected GS SPRITEs; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    }
+  ],
+  "decoder_primary_reference": "https://raw.githubusercontent.com/PCSX2/pcsx2/master/pcsx2/DebugTools/DisVUmicro.h",
+  "instruction_semantics_primary_reference": "https://raw.githubusercontent.com/PCSX2/pcsx2/master/pcsx2/VUops.cpp",
+  "linkage_evidence": "CPU MSCAL PCs and 64-byte format match embedded programs; no CPU address xref to442170 apart from ELFsection header found",
+  "residency_evidence_grade": "STATIC_INFERENCE",
+  "runtime_validation": "NOT_PERFORMED"
+}

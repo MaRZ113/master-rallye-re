@@ -1,0 +1,3191 @@
+{
+  "schema": 1,
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "address_translation": "Canonical PT_LOAD file offset = VA - 0xff000 for file-backed range",
+  "analysis": "Ghidra12.1.4 ghidra_ai_bridge; readonly project, temporary scalar surrogates rolled back. Evidence words always original ELF.",
+  "scope_boundary": "Unresolved function ends never inferred from truncated decompilations. Virtual callers are in documents; raw JAL table is complete for listed targets.",
+  "functions": [
+    {
+      "address": "0x0038fac0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0038fac0",
+        "end_inclusive": "0x003900ec",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "003900ec"
+      },
+      "proposed_role": "PSM landscape loader and tag dispatcher",
+      "callers": [
+        {
+          "callsite": "0x0037cc9c",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003a4f28",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a4d10",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a4de8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a4ea0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f9698",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a7bd8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a7c30",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad408",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00370d10",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003900f0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00393b48",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00393d68",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00393ea0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003946e0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003947b0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00394900",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00394b48",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a8040",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a8088",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 model; a1 filename/stream context",
+      "object_fields_read": "model+18 vertices, +1c triangles, +2c spatial proxy",
+      "object_fields_written": "model+18/+1c/+2c loaded state",
+      "relevant_constants": "d00d/version2; tags539/103",
+      "instruction_evidence": [
+        {
+          "va": "0x0038fac0",
+          "original_word": "0x27bdfef0"
+        },
+        {
+          "va": "0x0038fac4",
+          "original_word": "0x7fbf0100"
+        },
+        {
+          "va": "0x0038fac8",
+          "original_word": "0x7fbe00f0"
+        }
+      ],
+      "data_flow_evidence": "PSM landscape loader and tag dispatcher; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Visual scene-tree/strip and LOD equivalence not decoded"
+      ]
+    },
+    {
+      "address": "0x003900f0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x003900f0",
+        "end_inclusive": "0x003903c8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "003903c8"
+      },
+      "proposed_role": "Read shared model vertices",
+      "callers": [
+        {
+          "callsite": "0x0038feb0",
+          "function": "0x0038fac0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003a7c90",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f9698",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a81c0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a83f0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a52d0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a50c0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a7db0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a7f10",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a5088",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a4fd8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a84f8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a4ab8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a85a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00394498",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00391d38",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 model, a1 stream",
+      "object_fields_read": "stream gsVertex records",
+      "object_fields_written": "model+18 runtime vertex array",
+      "relevant_constants": "file stride52; runtime stride48; XYZ file+24/runtime+20",
+      "instruction_evidence": [
+        {
+          "va": "0x003900f0",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x003900f4",
+          "original_word": "0x7fbf00d0"
+        },
+        {
+          "va": "0x003900f8",
+          "original_word": "0x7fbe00c0"
+        }
+      ],
+      "data_flow_evidence": "Read shared model vertices; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Color conversion and complete render vertex semantics outside scope"
+      ]
+    },
+    {
+      "address": "0x00394900",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00394900",
+        "end_inclusive": "0x00394b40",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00394b40"
+      },
+      "proposed_role": "Allocate/read spatial proxy and following triangles",
+      "callers": [
+        {
+          "callsite": "0x0038ff30",
+          "function": "0x0038fac0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad408",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002d5100",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f9698",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003aa628",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a4238",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003a3c30",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 model, a1 stream",
+      "object_fields_read": "model+18 shared vertices; serialized triangle indices",
+      "object_fields_written": "model+2c proxy; model+1c source triangle list",
+      "relevant_constants": "proxy allocation 0xa4; triangle stride12",
+      "instruction_evidence": [
+        {
+          "va": "0x00394900",
+          "original_word": "0x27bdff70"
+        },
+        {
+          "va": "0x00394904",
+          "original_word": "0x7fbf0080"
+        },
+        {
+          "va": "0x00394908",
+          "original_word": "0x7fbe0070"
+        }
+      ],
+      "data_flow_evidence": "Allocate/read spatial proxy and following triangles; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Visual draw-strip binding remains distinct"
+      ]
+    },
+    {
+      "address": "0x002d1e68",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x002d1e68",
+        "end_inclusive": "0x002d1f24",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "002d1f24"
+      },
+      "proposed_role": "Initialize spatial proxy",
+      "callers": [
+        {
+          "callsite": "0x0039493c",
+          "function": "0x00394900",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_pointers_registers": "a0 proxy",
+      "object_fields_read": "none required",
+      "object_fields_written": "proxy vectors and grid fields zeroed",
+      "relevant_constants": "proxy size0xa4",
+      "instruction_evidence": [
+        {
+          "va": "0x002d1e68",
+          "original_word": "0xac800000"
+        },
+        {
+          "va": "0x002d1e6c",
+          "original_word": "0x24830040"
+        },
+        {
+          "va": "0x002d1e70",
+          "original_word": "0xac800004"
+        }
+      ],
+      "data_flow_evidence": "Initialize spatial proxy; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Naming is proposed, not RTTI-derived"
+      ]
+    },
+    {
+      "address": "0x002d5100",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x002d5100",
+        "end_inclusive": "0x002d8208",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "002d8208"
+      },
+      "proposed_role": "Spatial table loader and detail-token classifier",
+      "callers": [
+        {
+          "callsite": "0x00394954",
+          "function": "0x00394900",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x0030bf18",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002b2028",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad390",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad530",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad5a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad408",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002b1fc0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003d2910",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00152d28",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002d99e8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00151930",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00152720",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d2de8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d6278",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003fa9b8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00151a28",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00213b70",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001539a0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001537e8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00153f40",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d9628",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d9a90",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002db3d0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d4040",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00155db0",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 proxy, a1 stream, a2 model",
+      "object_fields_read": "header, cells, material strings",
+      "object_fields_written": "proxy+80/+8c/+98 material-derived vectors; +0/+4 counts; grid fields",
+      "relevant_constants": "default detail(none); first substring through closing parenthesis",
+      "instruction_evidence": [
+        {
+          "va": "0x002d5100",
+          "original_word": "0x27bdfe00"
+        },
+        {
+          "va": "0x002d5104",
+          "original_word": "0xafa5010c"
+        },
+        {
+          "va": "0x002d5108",
+          "original_word": "0xafa40108"
+        }
+      ],
+      "data_flow_evidence": "Spatial table loader and detail-token classifier; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Material IDs are interner-dependent, not fixed enum integers"
+      ]
+    },
+    {
+      "address": "0x00213b70",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00213b70",
+        "end_inclusive": null,
+        "status": "END_UNKNOWN_OR_PARTIAL_EXPORT",
+        "last_exported_instruction": null
+      },
+      "proposed_role": "Substring search used by material classifier",
+      "callers": [
+        {
+          "callsite": "0x001f9cc4",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x001f9cf0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002307b4",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002307d4",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00230868",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002d29ec",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002d2a18",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002d2b38",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002d2b64",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002d60b4",
+          "function": "0x002d5100",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002d60e8",
+          "function": "0x002d5100",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002d7114",
+          "function": "0x002d5100",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002d7148",
+          "function": "0x002d5100",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00386db0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003a6f5c",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_pointers_registers": "a0 string object; a1 search text; a2 start offset; a3 text length",
+      "object_fields_read": "string bytes",
+      "object_fields_written": "return found index or -1",
+      "relevant_constants": "case-sensitive search before interning",
+      "instruction_evidence": [
+        {
+          "va": "0x00213b70",
+          "original_word": "0x27bdffb0"
+        },
+        {
+          "va": "0x00213b74",
+          "original_word": "0x7fb30030"
+        },
+        {
+          "va": "0x00213b78",
+          "original_word": "0x7fb20020"
+        }
+      ],
+      "data_flow_evidence": "Substring search used by material classifier; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Only actual classifier call arguments and entry block inspected"
+      ]
+    },
+    {
+      "address": "0x002d3540",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x002d3540",
+        "end_inclusive": "0x002d3970",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "002d3970"
+      },
+      "proposed_role": "Spatial cell query and source-triangle deduplication",
+      "callers": [
+        {
+          "callsite": "0x00358100",
+          "function": "0x00357e70",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002d2da8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002d2e00",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002d9828",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002d99e8",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 proxy; f12 X, f13 Z, f14 half-width (verified callsite)",
+      "object_fields_read": "proxy grid/cells; triangle-visited state+40",
+      "object_fields_written": "result vector+5c; visited bits",
+      "relevant_constants": "inclusive clamped cell rectangle, Z outer/X inner",
+      "instruction_evidence": [
+        {
+          "va": "0x002d3540",
+          "original_word": "0x27bdff30"
+        },
+        {
+          "va": "0x002d3544",
+          "original_word": "0x7fb30040"
+        },
+        {
+          "va": "0x002d3548",
+          "original_word": "0xe7b600c0"
+        }
+      ],
+      "data_flow_evidence": "Spatial cell query and source-triangle deduplication; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Coordinate conversion inherits inline negative-power-of-two quirk"
+      ]
+    },
+    {
+      "address": "0x003375a0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x003375a0",
+        "end_inclusive": "0x00337630",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00337630"
+      },
+      "proposed_role": "Landscape detail integration in world draw",
+      "callers": [
+        {
+          "callsite": "0x00330d6c",
+          "function": "0x00330780",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad408",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0034e698",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00357e70",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003581e8",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 world/render owner",
+      "object_fields_read": "landscape model+2c; camera+c0/+c8; frame key owner+404",
+      "object_fields_written": "global42dd2c allocated if absent",
+      "relevant_constants": "owner allocation0x106c; region width60",
+      "instruction_evidence": [
+        {
+          "va": "0x003375a0",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003375a4",
+          "original_word": "0x7fb20020"
+        },
+        {
+          "va": "0x003375a8",
+          "original_word": "0x7fb10010"
+        }
+      ],
+      "data_flow_evidence": "Landscape detail integration in world draw; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Landscape ownership when multiple eligible models coexist needs capture"
+      ]
+    },
+    {
+      "address": "0x0034e698",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0034e698",
+        "end_inclusive": "0x00355ae8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00355ae8"
+      },
+      "proposed_role": "Create terrain-detail owner and two pools",
+      "callers": [
+        {
+          "callsite": "0x003375e0",
+          "function": "0x003375a0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002b1fc0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003d2910",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00152d28",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f93cc",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002b2028",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0035eb88",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003fa9b8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00151930",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00152720",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00151a28",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001537e8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00153f40",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d9628",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d9a90",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f3e80",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003b7880",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0035eed0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad408",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00361320",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00327d08",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad5a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f931c",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad530",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner; a1 landscape model",
+      "object_fields_read": "four detail name anchors; grass/bush names",
+      "object_fields_written": "owner+101c model; +100c pitch; +102c..1038 directive IDs; +105c pools; +1068 context",
+      "relevant_constants": "pitch1.33; grass lift.33; shrub lift.4; LUT1024; initial reserve1536/3072",
+      "instruction_evidence": [
+        {
+          "va": "0x0034e698",
+          "original_word": "0x27bdfd10"
+        },
+        {
+          "va": "0x0034e69c",
+          "original_word": "0x3c013faa"
+        },
+        {
+          "va": "0x0034e6a0",
+          "original_word": "0x34213d71"
+        }
+      ],
+      "data_flow_evidence": "Create terrain-detail owner and two pools; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "+103d initial value and RNG guard lifetime unresolved"
+      ]
+    },
+    {
+      "address": "0x00355af0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00355af0",
+        "end_inclusive": "0x00356b6c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00356b6c"
+      },
+      "proposed_role": "Destroy detail owner and owned buffers",
+      "callers": [
+        {
+          "callsite": "0x00339058",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002b2028",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00151930",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00152720",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0033eff8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad390",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner",
+      "object_fields_read": "pools, caches and render context",
+      "object_fields_written": "releases pool vectors, directive IDs, context",
+      "relevant_constants": "two68-byte category records",
+      "instruction_evidence": [
+        {
+          "va": "0x00355af0",
+          "original_word": "0x27bdff10"
+        },
+        {
+          "va": "0x00355af4",
+          "original_word": "0x7fb700c0"
+        },
+        {
+          "va": "0x00355af8",
+          "original_word": "0x7fb00050"
+        }
+      ],
+      "data_flow_evidence": "Destroy detail owner and owned buffers; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Only relevant destruction branch, not allocator internals, classified"
+      ]
+    },
+    {
+      "address": "0x00357e70",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00357e70",
+        "end_inclusive": "0x003581e0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "003581e0"
+      },
+      "proposed_role": "Camera-region activation and replenishment",
+      "callers": [
+        {
+          "callsite": "0x00337608",
+          "function": "0x003375a0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x0015ace0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002d3540",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00357c38",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00357628",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner; f12 cameraX, f13 cameraZ, f14 width",
+      "object_fields_read": "owner old region+1000/+1004/+1008; pitch+100c; proxy",
+      "object_fields_written": "owner new center+1010/+1018 and old region fields",
+      "relevant_constants": "snap2*p; width60 caller; independent squared changes>.1",
+      "instruction_evidence": [
+        {
+          "va": "0x00357e70",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x00357e74",
+          "original_word": "0x3c087fff"
+        },
+        {
+          "va": "0x00357e78",
+          "original_word": "0x7fb00010"
+        }
+      ],
+      "data_flow_evidence": "Camera-region activation and replenishment; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Four rectangle clip/order replay not implemented offline"
+      ]
+    },
+    {
+      "address": "0x00357c38",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00357c38",
+        "end_inclusive": "0x00357e68",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00357e68"
+      },
+      "proposed_role": "Retire points outside active rectangle",
+      "callers": [
+        {
+          "callsite": "0x00358120",
+          "function": "0x00357e70",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x00152720",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner; f12..f15 rectangle bounds",
+      "object_fields_read": "pool+24 point positions; active/free index vectors",
+      "object_fields_written": "dense point/index removal and free-ID recycling",
+      "relevant_constants": "xmin<=x<xmax; zmin<=z<zmax",
+      "instruction_evidence": [
+        {
+          "va": "0x00357c38",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x00357c3c",
+          "original_word": "0x3c03f0f0"
+        },
+        {
+          "va": "0x00357c40",
+          "original_word": "0x7fb60080"
+        }
+      ],
+      "data_flow_evidence": "Retire points outside active rectangle; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Swap-last iteration order matters to full activation-history replay"
+      ]
+    },
+    {
+      "address": "0x00357628",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00357628",
+        "end_inclusive": "0x00357c30",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00357c30"
+      },
+      "proposed_role": "Select source surfaces, clip polygons and generate",
+      "callers": [
+        {
+          "callsite": "0x0035813c",
+          "function": "0x00357e70",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00358158",
+          "function": "0x00357e70",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00358174",
+          "function": "0x00357e70",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00358190",
+          "function": "0x00357e70",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003f3e80",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00358e98",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0020fe18",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00356b70",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002b2028",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner; a1 query refs; f12..f15 activation rectangle",
+      "object_fields_read": "model+18 vertices, +1c indices, proxy+98 category IDs",
+      "object_fields_written": "current pool+1024 and point pools through356b70",
+      "relevant_constants": "normalY>.975; degenerate length2<=2^-23; shrubs0/grass1/other-1",
+      "instruction_evidence": [
+        {
+          "va": "0x00357628",
+          "original_word": "0x27bdfea0"
+        },
+        {
+          "va": "0x0035762c",
+          "original_word": "0x460e6034"
+        },
+        {
+          "va": "0x00357630",
+          "original_word": "0x7fb50100"
+        }
+      ],
+      "data_flow_evidence": "Select source surfaces, clip polygons and generate; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Clipping helper order not independently reconstructed"
+      ]
+    },
+    {
+      "address": "0x00358e98",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00358e98",
+        "end_inclusive": "0x0035917c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0035917c"
+      },
+      "proposed_role": "Activation-rectangle polygon clip",
+      "callers": [
+        {
+          "callsite": "0x00357a54",
+          "function": "0x00357628",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x00358d90",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "polygon vector and rectangle scalar arguments from357628",
+      "object_fields_read": "source polygon and clip edges",
+      "object_fields_written": "clipped polygon vector",
+      "relevant_constants": "up to rectangle intersection",
+      "instruction_evidence": [
+        {
+          "va": "0x00358e98",
+          "original_word": "0x27bdfc10"
+        },
+        {
+          "va": "0x00358e9c",
+          "original_word": "0x0100182d"
+        },
+        {
+          "va": "0x00358ea0",
+          "original_word": "0xafa40340"
+        }
+      ],
+      "data_flow_evidence": "Activation-rectangle polygon clip; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Exact boundary/intersection numerical contract remains open"
+      ]
+    },
+    {
+      "address": "0x00359318",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00359318",
+        "end_inclusive": "0x003593e4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "003593e4"
+      },
+      "proposed_role": "Height plane coefficients from X/Z/Y rows",
+      "callers": [
+        {
+          "callsite": "0x00357b4c",
+          "function": "0x00357628",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_pointers_registers": "a0/a1/a2 three reordered rows; a3 output",
+      "object_fields_read": "source triangle coordinates",
+      "object_fields_written": "output constant, X coefficient, Z coefficient",
+      "relevant_constants": "ordered FPU expressions include reciprocal source-origin X/Z",
+      "instruction_evidence": [
+        {
+          "va": "0x00359318",
+          "original_word": "0xc4840000"
+        },
+        {
+          "va": "0x0035931c",
+          "original_word": "0xc4850004"
+        },
+        {
+          "va": "0x00359320",
+          "original_word": "0xc4a30000"
+        }
+      ],
+      "data_flow_evidence": "Height plane coefficients from X/Z/Y rows; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "PS2 zero-axis exceptional arithmetic not emulated"
+      ]
+    },
+    {
+      "address": "0x00356b70",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00356b70",
+        "end_inclusive": "0x00357374",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00357374"
+      },
+      "proposed_role": "Scanline lattice placement with coordinate-hash jitter",
+      "callers": [
+        {
+          "callsite": "0x00357b60",
+          "function": "0x00357628",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003f94d0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0035fc20",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00357378",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner; a1 polygon vector; a2 height coefficients; f12 min clipped Z",
+      "object_fields_read": "pitch; polygon; global jitter42fe88",
+      "object_fields_written": "scanline vector+1050; points via357378",
+      "relevant_constants": "pitch1.33; boundary epsilon.001; hash21.123102/-34.923172/184.12938; jitter*.5",
+      "instruction_evidence": [
+        {
+          "va": "0x00356b70",
+          "original_word": "0x27bdfed0"
+        },
+        {
+          "va": "0x00356b74",
+          "original_word": "0x3c02aaaa"
+        },
+        {
+          "va": "0x00356b78",
+          "original_word": "0x7fb700b0"
+        }
+      ],
+      "data_flow_evidence": "Scanline lattice placement with coordinate-hash jitter; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Live FCSR rounding affects hash CVT.W.S"
+      ]
+    },
+    {
+      "address": "0x00357378",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00357378",
+        "end_inclusive": "0x00357624",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00357624"
+      },
+      "proposed_role": "Append one generated point to selected pool",
+      "callers": [
+        {
+          "callsite": "0x003572ec",
+          "function": "0x00356b70",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x0020fe18",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d9a90",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner; f12 X, f13 Y, f14 Z (callsite verified)",
+      "object_fields_read": "owner+1024 pool selector; pool free/dense indices",
+      "object_fields_written": "pool+24 Vec3 array; active+30, max+34, used+38",
+      "relevant_constants": "point stride12; growth in1024-aligned slots",
+      "instruction_evidence": [
+        {
+          "va": "0x00357378",
+          "original_word": "0x27bdff70"
+        },
+        {
+          "va": "0x0035737c",
+          "original_word": "0x24030044"
+        },
+        {
+          "va": "0x00357380",
+          "original_word": "0x7fb30050"
+        }
+      ],
+      "data_flow_evidence": "Append one generated point to selected pool; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "No hard global point cap proved"
+      ]
+    },
+    {
+      "address": "0x003b7880",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x003b7880",
+        "end_inclusive": "0x003b7bb8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "003b7bb8"
+      },
+      "proposed_role": "Create deterministic random lookup tables",
+      "callers": [
+        {
+          "callsite": "0x00352890",
+          "function": "0x0034e698",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003f96e8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f3e80",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "no detail object argument",
+      "object_fields_read": "guard42fe78; libc RNG state",
+      "object_fields_written": "uniform4a8810; unnormalized jitter42fe88; direction432e88",
+      "relevant_constants": "srand(0x30ff); 1024 entries each; unit-ball rejection",
+      "instruction_evidence": [
+        {
+          "va": "0x003b7880",
+          "original_word": "0x3c020043"
+        },
+        {
+          "va": "0x003b7884",
+          "original_word": "0x27bdff30"
+        },
+        {
+          "va": "0x003b7888",
+          "original_word": "0x8c43fe78"
+        }
+      ],
+      "data_flow_evidence": "Create deterministic random lookup tables; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Guard writer/reset lifetime and other global RNG consumers not traced"
+      ]
+    },
+    {
+      "address": "0x003f96e8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x003f96e8",
+        "end_inclusive": "0x003f96f4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": null
+      },
+      "proposed_role": "Original srand state store",
+      "callers": [
+        {
+          "callsite": "0x00152900",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00220c10",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003b78c8",
+          "function": "0x003b7880",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_pointers_registers": "a0 seed",
+      "object_fields_read": "global4404dc impure pointer",
+      "object_fields_written": "impure+58 32-bit RNG state",
+      "relevant_constants": "seed assignment",
+      "instruction_evidence": [
+        {
+          "va": "0x003f96e8",
+          "original_word": "0x3c020044"
+        },
+        {
+          "va": "0x003f96ec",
+          "original_word": "0x8c4304dc"
+        },
+        {
+          "va": "0x003f96f0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Original srand state store; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Shared libc state, not private per-course seed"
+      ]
+    },
+    {
+      "address": "0x003f96f8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x003f96f8",
+        "end_inclusive": "0x003f9724",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": null
+      },
+      "proposed_role": "Original rand LCG",
+      "callers": [
+        {
+          "callsite": "0x0015299c",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00198fa0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x001990e4",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002bb3c8",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003778d0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003b78e0",
+          "function": "0x003b7880",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003b7930",
+          "function": "0x003b7880",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003b7948",
+          "function": "0x003b7880",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003b7960",
+          "function": "0x003b7880",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003b7a28",
+          "function": "0x003b7880",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003b7a40",
+          "function": "0x003b7880",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003b7a58",
+          "function": "0x003b7880",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_pointers_registers": "none",
+      "object_fields_read": "impure+58 state",
+      "object_fields_written": "impure+58 low32 next state; v0 masked output",
+      "relevant_constants": "state*41c64e6d+3039; result&7fffffff",
+      "instruction_evidence": [
+        {
+          "va": "0x003f96f8",
+          "original_word": "0x3c020044"
+        },
+        {
+          "va": "0x003f96fc",
+          "original_word": "0x3c0441c6"
+        },
+        {
+          "va": "0x003f9700",
+          "original_word": "0x8c4504dc"
+        }
+      ],
+      "data_flow_evidence": "Original rand LCG; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "EE MULT rd original word00641818; no HI/LO-derived claim"
+      ]
+    },
+    {
+      "address": "0x003581e8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x003581e8",
+        "end_inclusive": "0x00358d88",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00358d88"
+      },
+      "proposed_role": "Build category texture/state/point packets",
+      "callers": [
+        {
+          "callsite": "0x00337614",
+          "function": "0x003375a0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00340cd0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002fd7d0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002b2028",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00151930",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00152720",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00360280",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003604d0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0033ed08",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003597e0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031dce8",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner; a1 frame key",
+      "object_fields_read": "owner+1028 compare; +105c pools; hash cache; +1068 packet context",
+      "object_fields_written": "texture cache, packet words, ring handles; invalidates shared state cache",
+      "relevant_constants": "mode11; category traversal grass then shrubs; resourceID keyed cache100",
+      "instruction_evidence": [
+        {
+          "va": "0x003581e8",
+          "original_word": "0x27bdfe80"
+        },
+        {
+          "va": "0x003581ec",
+          "original_word": "0x7fb60140"
+        },
+        {
+          "va": "0x003581f0",
+          "original_word": "0x7fbf0170"
+        }
+      ],
+      "data_flow_evidence": "Build category texture/state/point packets; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "+1028 writer not found; effective same-frame guard unproved"
+      ]
+    },
+    {
+      "address": "0x002fd7d0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x002fd7d0",
+        "end_inclusive": "0x002fdcb0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "002fdcb0"
+      },
+      "proposed_role": "Resolve named .gxi resource to manager handle",
+      "callers": [
+        {
+          "callsite": "0x002fe998",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003318d0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00332348",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00333234",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00335c78",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00346ea4",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003584ec",
+          "function": "0x003581e8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x0037160c",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003716a8",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x0038884c",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003adf78",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003ae1fc",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003ae360",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002b4ad8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00151930",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003fa9b8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00151a28",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002f84f0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002f9c80",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002b2028",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00152720",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 output handle pointer; a1 system/context; a2 interned-name pointer; a3 mode",
+      "object_fields_read": "runtime resource root via2b4ad8; name interner",
+      "object_fields_written": "returned handle; cache/load manager path",
+      "relevant_constants": "root + particles/grass1 or bush1 + .gxi at4846a0",
+      "instruction_evidence": [
+        {
+          "va": "0x002fd7d0",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x002fd7d4",
+          "original_word": "0x7fbe00c0"
+        },
+        {
+          "va": "0x002fd7d8",
+          "original_word": "0x7fb700b0"
+        }
+      ],
+      "data_flow_evidence": "Resolve named .gxi resource to manager handle; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Manager resource decode/missing-file fallback not fully traced"
+      ]
+    },
+    {
+      "address": "0x002f84f0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x002f84f0",
+        "end_inclusive": "0x002f8a34",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "002f8a34"
+      },
+      "proposed_role": "Texture-manager filename cache lookup/create",
+      "callers": [
+        {
+          "callsite": "0x002f8030",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002fd984",
+          "function": "0x002fd7d0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00342ce0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003fa760",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f9698",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003fa8a4",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002fb248",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d9a90",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 handle output; a1 manager; a2 filename; extra flags t0/t1",
+      "object_fields_read": "manager filename/handle tables",
+      "object_fields_written": "handle and cache metadata",
+      "relevant_constants": "exact filename comparison3fa760",
+      "instruction_evidence": [
+        {
+          "va": "0x002f84f0",
+          "original_word": "0x27bdfcd0"
+        },
+        {
+          "va": "0x002f84f4",
+          "original_word": "0x7fbe0310"
+        },
+        {
+          "va": "0x002f84f8",
+          "original_word": "0x7fb602f0"
+        }
+      ],
+      "data_flow_evidence": "Texture-manager filename cache lookup/create; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Query truncates at packed instructions; no whole-loader semantics claimed"
+      ]
+    },
+    {
+      "address": "0x002f9c80",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x002f9c80",
+        "end_inclusive": "0x002fa050",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "002fa050"
+      },
+      "proposed_role": "Make texture resident/touch manager entry",
+      "callers": [
+        {
+          "callsite": "0x002fa078",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x002fd99c",
+          "function": "0x002fd7d0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002f9b20",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002fc178",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003774d0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002f96d8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00374bd8",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 manager; a1 handle pointer",
+      "object_fields_read": "manager resources and residence/LRU state",
+      "object_fields_written": "residence buffers, upload/cache links",
+      "relevant_constants": "load/residence loops, delegates3774d0/376d50",
+      "instruction_evidence": [
+        {
+          "va": "0x002f9c80",
+          "original_word": "0x27bdff40"
+        },
+        {
+          "va": "0x002f9c84",
+          "original_word": "0x2406012c"
+        },
+        {
+          "va": "0x002f9c88",
+          "original_word": "0x7fb50070"
+        }
+      ],
+      "data_flow_evidence": "Make texture resident/touch manager entry; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Complete GXI decoder and failure behavior not reversed"
+      ]
+    },
+    {
+      "address": "0x00311210",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00311210",
+        "end_inclusive": null,
+        "status": "END_UNKNOWN_OR_PARTIAL_EXPORT",
+        "last_exported_instruction": "00311364"
+      },
+      "proposed_role": "Concrete PS2 renderer interface owner",
+      "callers": [
+        {
+          "callsite": "0x002dc524",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x00342bb8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00403160",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003c9328",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003114a0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0030f070",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0030f030",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 renderer",
+      "object_fields_read": "base constructor",
+      "object_fields_written": "renderer+148 vtable4853f0; frame/resource fields",
+      "relevant_constants": "vtable signed-adjustment pairs",
+      "instruction_evidence": [
+        {
+          "va": "0x00311210",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x00311214",
+          "original_word": "0x7fb20020"
+        },
+        {
+          "va": "0x00311218",
+          "original_word": "0x0080902d"
+        }
+      ],
+      "data_flow_evidence": "Concrete PS2 renderer interface owner; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Full device lifetime is outside scope"
+      ]
+    },
+    {
+      "address": "0x00311c50",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00311c50",
+        "end_inclusive": "0x0031212c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031212c"
+      },
+      "proposed_role": "Bind resource handle into texture drawing state",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x002de820",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002fa058",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00327340",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 renderer; a1 texture-handle pointer",
+      "object_fields_read": "texture-state cache42e430 with48-byte entries; renderer+140/+144",
+      "object_fields_written": "TEX0 template42df20; TEX1/MIPTBP templates42df30/40/50",
+      "relevant_constants": "binds handle via2fa058 and327340",
+      "instruction_evidence": [
+        {
+          "va": "0x00311c50",
+          "original_word": "0x27bdff30"
+        },
+        {
+          "va": "0x00311c54",
+          "original_word": "0x3c020043"
+        },
+        {
+          "va": "0x00311c58",
+          "original_word": "0x7fbe00b0"
+        }
+      ],
+      "data_flow_evidence": "Bind resource handle into texture drawing state; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Final TEX0 VRAM address/dimensions need captured handle"
+      ]
+    },
+    {
+      "address": "0x00312610",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00312610",
+        "end_inclusive": "0x00316800",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00316800"
+      },
+      "proposed_role": "Set renderer mode; detail uses case11 only",
+      "callers": [],
+      "callees": [],
+      "input_pointers_registers": "a0 renderer; a1 mode=11",
+      "object_fields_read": "GS templates and revision counters",
+      "object_fields_written": "GIF PRIM; TEST1/ALPHA1/ZBUF1/TEX0/TEX1 templates",
+      "relevant_constants": "canonical switch4850c0[11]=312dc8; shared tail315a00",
+      "instruction_evidence": [
+        {
+          "va": "0x00312610",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x00312614",
+          "original_word": "0x3c0a0043"
+        },
+        {
+          "va": "0x00312618",
+          "original_word": "0x7fbe0090"
+        }
+      ],
+      "data_flow_evidence": "Set renderer mode; detail uses case11 only; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Other renderer modes not researched"
+      ]
+    },
+    {
+      "address": "0x003411d0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x003411d0",
+        "end_inclusive": null,
+        "status": "END_UNKNOWN_OR_PARTIAL_EXPORT",
+        "last_exported_instruction": "003412bc"
+      },
+      "proposed_role": "Initialize GS register identifiers in shared templates",
+      "callers": [
+        {
+          "callsite": "0x00342a80",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003452d0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x00341198",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "no required material argument",
+      "object_fields_read": "template storage",
+      "object_fields_written": "TEST1 address47 at42dee8; ALPHA1 address42 at42df08; ZBUF1 address4e at42df68; others",
+      "relevant_constants": "GS register ID assignments at341248..341288",
+      "instruction_evidence": [
+        {
+          "va": "0x003411d0",
+          "original_word": "0x27bdff60"
+        },
+        {
+          "va": "0x003411d4",
+          "original_word": "0x3c070043"
+        },
+        {
+          "va": "0x003411d8",
+          "original_word": "0x3406c039"
+        }
+      ],
+      "data_flow_evidence": "Initialize GS register identifiers in shared templates; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Instruction block verified; whole initializer return bound unresolved"
+      ]
+    },
+    {
+      "address": "0x003597e0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x003597e0",
+        "end_inclusive": "0x00359bc0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "00359bc0"
+      },
+      "proposed_role": "Build 64-byte point-to-sprite inputs and cull/fade",
+      "callers": [
+        {
+          "callsite": "0x00358900",
+          "function": "0x003581e8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad5a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f931c",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad530",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031da60",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner; a1 selected68-byte pool",
+      "object_fields_read": "pool Vec3+24/+30; owner LUT and snapped center; renderer+11c; global42d2c4",
+      "object_fields_written": "point records and per-batch first-record count+0c",
+      "relevant_constants": "groups<=30; radius35-2*p; q<1023; RGB128; size3*lift",
+      "instruction_evidence": [
+        {
+          "va": "0x003597e0",
+          "original_word": "0x27bdfef0"
+        },
+        {
+          "va": "0x003597e4",
+          "original_word": "0x7fb700c0"
+        },
+        {
+          "va": "0x003597e8",
+          "original_word": "0x7fb30080"
+        }
+      ],
+      "data_flow_evidence": "Build 64-byte point-to-sprite inputs and cull/fade; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Matching embedded VU1 pc449 is decoded; exact residency still unproved"
+      ]
+    },
+    {
+      "address": "0x0031c8f8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0031c8f8",
+        "end_inclusive": "0x0031cd90",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031cd90"
+      },
+      "proposed_role": "Snapshot texture/draw state into packet context",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031e8d8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031af50",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031e478",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031e6a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031b1f0",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 renderer; a1 packet context",
+      "object_fields_read": "state cache and GS templates",
+      "object_fields_written": "packet state sections via31e478/31e6a8",
+      "relevant_constants": "copies texture/template state before point records",
+      "instruction_evidence": [
+        {
+          "va": "0x0031c8f8",
+          "original_word": "0x27bdffd0"
+        },
+        {
+          "va": "0x0031c8fc",
+          "original_word": "0x7fbf0020"
+        },
+        {
+          "va": "0x0031c900",
+          "original_word": "0x7fb00000"
+        }
+      ],
+      "data_flow_evidence": "Snapshot texture/draw state into packet context; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "State microprogram37c and second-context behavior need capture"
+      ]
+    },
+    {
+      "address": "0x0031e478",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0031e478",
+        "end_inclusive": "0x0031e6a0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031e6a0"
+      },
+      "proposed_role": "Append first-context template transfer",
+      "callers": [
+        {
+          "callsite": "0x0031c678",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x0031cb18",
+          "function": "0x0031c8f8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f931c",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad530",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 packet context",
+      "object_fields_read": "templates42dec0..42df6f",
+      "object_fields_written": "DMA CNT0b; UNPACK11vectors; MSCAL37c",
+      "relevant_constants": "STCYCL01000404; UNPACK6c0b8000; MSCAL1400037c",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e478",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x0031e47c",
+          "original_word": "0x7fb60060"
+        },
+        {
+          "va": "0x0031e480",
+          "original_word": "0x7fb40040"
+        }
+      ],
+      "data_flow_evidence": "Append first-context template transfer; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Matching embedded state program decoded; upload/residency unproved"
+      ]
+    },
+    {
+      "address": "0x0031da60",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0031da60",
+        "end_inclusive": "0x0031dce0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031dce0"
+      },
+      "proposed_role": "Append detail-record VIF1 transfer",
+      "callers": [
+        {
+          "callsite": "0x00347610",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00359b74",
+          "function": "0x003597e0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f931c",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad530",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x001d7d00",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 packet; a1 record start index; a2 accepted count",
+      "object_fields_read": "packet words and record-index patch vector",
+      "object_fields_written": "DMA REF(count*4); UNPACK(count*4) V4_32; MSCAL449",
+      "relevant_constants": "30000000;01000404;6c008000|(count<<18);14000449",
+      "instruction_evidence": [
+        {
+          "va": "0x0031da60",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x0031da64",
+          "original_word": "0x7fbe0090"
+        },
+        {
+          "va": "0x0031da68",
+          "original_word": "0x7fb60070"
+        }
+      ],
+      "data_flow_evidence": "Append detail-record VIF1 transfer; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Embedded MPG stream located at442170; exact CPU upload path unproved"
+      ]
+    },
+    {
+      "address": "0x0031dce8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0031dce8",
+        "end_inclusive": "0x0031ddd0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031ddd0"
+      },
+      "proposed_role": "Fix point-record DMA physical addresses",
+      "callers": [
+        {
+          "callsite": "0x0031fb2c",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00320168",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003208f0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00334d34",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00337128",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00346f90",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00358bc4",
+          "function": "0x003581e8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003f93cc",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 packet context",
+      "object_fields_read": "patch indices and record buffer",
+      "object_fields_written": "REF address=(buffer&0fffffff)+recordIndex*64; clears patch list",
+      "relevant_constants": "record stride64",
+      "instruction_evidence": [
+        {
+          "va": "0x0031dce8",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x0031dcec",
+          "original_word": "0x0080402d"
+        },
+        {
+          "va": "0x0031dcf0",
+          "original_word": "0x7fbf0030"
+        }
+      ],
+      "data_flow_evidence": "Fix point-record DMA physical addresses; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Physical DMA address is encoded, not a runtime RAM capture"
+      ]
+    },
+    {
+      "address": "0x00359610",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00359610",
+        "end_inclusive": "0x003597d8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "003597d8"
+      },
+      "proposed_role": "Submit completed detail packet during frame flush",
+      "callers": [
+        {
+          "callsite": "0x0032ff4c",
+          "function": "0x0032ff28",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00340cd0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003387c8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003432b8",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 owner",
+      "object_fields_read": "owner+1068 packet ring +14; system renderer",
+      "object_fields_written": "identity transform/state commit; renderer packet submission",
+      "relevant_constants": "3432b8 identity; virtual31c228/317120",
+      "instruction_evidence": [
+        {
+          "va": "0x00359610",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x00359614",
+          "original_word": "0x7fb40090"
+        },
+        {
+          "va": "0x00359618",
+          "original_word": "0x7fbf00a0"
+        }
+      ],
+      "data_flow_evidence": "Submit completed detail packet during frame flush; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Frame-ring latency and final hardware DMA start not captured"
+      ]
+    },
+    {
+      "address": "0x00317120",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00317120",
+        "end_inclusive": "0x003171f8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "003171f8"
+      },
+      "proposed_role": "Queue detail DMA chain into frame submission",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x00326cb8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003179c8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031e010",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 renderer; a1 packet",
+      "object_fields_read": "packet DMA base, renderer frame+140",
+      "object_fields_written": "frame refs and DMA CALL via31e010",
+      "relevant_constants": "frame array42d760",
+      "instruction_evidence": [
+        {
+          "va": "0x00317120",
+          "original_word": "0x3c030043"
+        },
+        {
+          "va": "0x00317124",
+          "original_word": "0x27bdffd0"
+        },
+        {
+          "va": "0x00317128",
+          "original_word": "0x9462da10"
+        }
+      ],
+      "data_flow_evidence": "Queue detail DMA chain into frame submission; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "No runtime proof of XGKICK/visible instance"
+      ]
+    },
+    {
+      "address": "0x0031e010",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0031e010",
+        "end_inclusive": "0x0031e18c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031e18c"
+      },
+      "proposed_role": "Append DMA CALL referencing packet chain",
+      "callers": [
+        {
+          "callsite": "0x003171c8",
+          "function": "0x00317120",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x0031d0b0",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f931c",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad530",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 frame context; a1 packet-chain address",
+      "object_fields_read": "frame DMA-chain vector",
+      "object_fields_written": "CALL tag50000000; physical chain address; zero VIF words",
+      "relevant_constants": "chain address &0fffffff",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e010",
+          "original_word": "0x27bdff90"
+        },
+        {
+          "va": "0x0031e014",
+          "original_word": "0x7fb40040"
+        },
+        {
+          "va": "0x0031e018",
+          "original_word": "0x7fbf0060"
+        }
+      ],
+      "data_flow_evidence": "Append DMA CALL referencing packet chain; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Hardware channel start and VU/GIF completion outside proved boundary"
+      ]
+    },
+    {
+      "address": "0x0032ff28",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0032ff28",
+        "end_inclusive": "0x0032ff8c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0032ff8c"
+      },
+      "proposed_role": "Frame integration invokes detail submission",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x003302b8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00359610",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00345b50",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00347160",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "world frame context",
+      "object_fields_read": "global42dd2c",
+      "object_fields_written": "calls359610 when owner exists",
+      "relevant_constants": "callsite32ff4c",
+      "instruction_evidence": [
+        {
+          "va": "0x0032ff28",
+          "original_word": "0x27bdffe0"
+        },
+        {
+          "va": "0x0032ff2c",
+          "original_word": "0x7fb00000"
+        },
+        {
+          "va": "0x0032ff30",
+          "original_word": "0x7fbf0010"
+        }
+      ],
+      "data_flow_evidence": "Frame integration invokes detail submission; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Exact final draw order relative to every terrain pass not established"
+      ]
+    },
+    {
+      "address": "0x00338d88",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00338d88",
+        "end_inclusive": null,
+        "status": "END_UNKNOWN_OR_PARTIAL_EXPORT",
+        "last_exported_instruction": "00339194"
+      },
+      "proposed_role": "World teardown releases detail owner",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x002b2028",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002dda20",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00307000",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f93cc",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00345908",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00355af0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002f77d8",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "world teardown context",
+      "object_fields_read": "global42dd2c",
+      "object_fields_written": "355af0 destructor then global zero",
+      "relevant_constants": "detail cleanup branch only",
+      "instruction_evidence": [
+        {
+          "va": "0x00338d88",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x00338d8c",
+          "original_word": "0xafa00004"
+        },
+        {
+          "va": "0x00338d90",
+          "original_word": "0x03a0282d"
+        }
+      ],
+      "data_flow_evidence": "World teardown releases detail owner; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Unrelated teardown tail not included in behavioral claims"
+      ]
+    },
+    {
+      "address": "0x0031ddd8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0031ddd8",
+        "end_inclusive": "0x0031de08",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031de08"
+      },
+      "proposed_role": "Terminate completed DMA chain",
+      "callers": [
+        {
+          "callsite": "0x0031fb34",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00320170",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x003208f8",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00334d3c",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00337130",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00346f98",
+          "function": "UNKNOWN_CALLER_FUNCTION",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x00358bcc",
+          "function": "0x003581e8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_pointers_registers": "a0 packet context",
+      "object_fields_read": "packet+34 saved tag index; packet+14 word vector",
+      "object_fields_written": "tag at saved index becomes60000000 and address zero",
+      "relevant_constants": "DMA RET; no XGKICK itself",
+      "instruction_evidence": [
+        {
+          "va": "0x0031ddd8",
+          "original_word": "0x0080182d"
+        },
+        {
+          "va": "0x0031dddc",
+          "original_word": "0x2402ffff"
+        },
+        {
+          "va": "0x0031dde0",
+          "original_word": "0x8c640034"
+        }
+      ],
+      "data_flow_evidence": "Terminate completed DMA chain; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Final output-ring flush is a different shared VU operation"
+      ]
+    },
+    {
+      "address": "0x0031c228",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x0031c228",
+        "end_inclusive": "0x0031c428",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031c428"
+      },
+      "proposed_role": "Commit transform/projection context for submission",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00317470",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x00317770",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x0031e8d8",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 renderer",
+      "object_fields_read": "state revisions42de00/04/08; renderer+114; matrices42e230/270/2b0/2f0",
+      "object_fields_written": "matrix/state packets via317470/317770/31e8d8; cache revisions",
+      "relevant_constants": "MSCAL30e/2cf in matrix transfer helpers",
+      "instruction_evidence": [
+        {
+          "va": "0x0031c228",
+          "original_word": "0x3c050043"
+        },
+        {
+          "va": "0x0031c22c",
+          "original_word": "0x240600e0"
+        },
+        {
+          "va": "0x0031c230",
+          "original_word": "0x94a2da10"
+        }
+      ],
+      "data_flow_evidence": "Commit transform/projection context for submission; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Full matrix composition/exceptional arithmetic and live values unproved"
+      ]
+    },
+    {
+      "address": "0x00317470",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00317470",
+        "end_inclusive": "0x0031776c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "0031776c"
+      },
+      "proposed_role": "Transfer projection context to VU1",
+      "callers": [
+        {
+          "callsite": "0x0031c2e0",
+          "function": "0x0031c228",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f931c",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad530",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 frame packet; a1 scalar vector; a2/a3/t0/t1/t2 matrix pointers",
+      "object_fields_read": "21quadword scalar+matrix input",
+      "object_fields_written": "DMA CNT16;UNPACK6c158000;MSCAL1400030e",
+      "relevant_constants": "shared pc30e loads vf5..8; no grass-specific time input",
+      "instruction_evidence": [
+        {
+          "va": "0x00317470",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x00317474",
+          "original_word": "0x7fbe0090"
+        },
+        {
+          "va": "0x00317478",
+          "original_word": "0x7fb70080"
+        }
+      ],
+      "data_flow_evidence": "Transfer projection context to VU1; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Matrix interpretation beyond downstream column transforms not fully named"
+      ]
+    },
+    {
+      "address": "0x00317770",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; role is proposed",
+      "known_function_bounds": {
+        "start": "0x00317770",
+        "end_inclusive": "0x003179c4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "last_exported_instruction": "003179c4"
+      },
+      "proposed_role": "Transfer world/view context to VU1",
+      "callers": [
+        {
+          "callsite": "0x0031c334",
+          "function": "0x0031c228",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x003f931c",
+          "scope": "Known direct target in local query; may be incomplete"
+        },
+        {
+          "address": "0x002ad530",
+          "scope": "Known direct target in local query; may be incomplete"
+        }
+      ],
+      "input_pointers_registers": "a0 frame packet; a1/a2 matrix pointers",
+      "object_fields_read": "8quadwords from two matrices",
+      "object_fields_written": "DMA CNT09;UNPACK6c088000;MSCAL140002cf",
+      "relevant_constants": "shared pc2cf reloads vf1..4 using cached projection context",
+      "instruction_evidence": [
+        {
+          "va": "0x00317770",
+          "original_word": "0x27bdff70"
+        },
+        {
+          "va": "0x00317774",
+          "original_word": "0x7fb70070"
+        },
+        {
+          "va": "0x00317778",
+          "original_word": "0x7fb60060"
+        }
+      ],
+      "data_flow_evidence": "Transfer world/view context to VU1; see associated phase contract documents and ignored canonical query for detailed instructions",
+      "confidence": "HIGH for stated bounded role; unknown fields remain open",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "open_questions": [
+        "Shared matrix multiply helpers not independently replayed"
+      ]
+    }
+  ],
+  "vu_microprograms": [
+    {
+      "micro_pc": "0x0",
+      "address": "0x442180",
+      "known_function_bounds": {
+        "micro_start": "0x0",
+        "micro_end_inclusive": "0xe",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Initialize output ring / common E-bit return",
+      "callers": [],
+      "callees": [],
+      "input_pointers_registers": "No sprite inputs required",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "vi3=0;vi2=636; common E-bit atpc0d",
+      "relevant_constants": "vi3=0;vi2=636; common E-bit atpc0d",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x0",
+          "elf_va": "0x442180",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0xe",
+          "elf_va": "0x4421f0",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Initialize output ring / common E-bit return; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x2cf",
+      "address": "0x443808",
+      "known_function_bounds": {
+        "micro_start": "0x2cf",
+        "micro_end_inclusive": "0x30d",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Reload shared transform registers",
+      "callers": [
+        "317770 MSCAL140002cf"
+      ],
+      "callees": [
+        "0x41c",
+        "0x430"
+      ],
+      "input_pointers_registers": "CPU317770 transfers two matrices; previously cached projection context",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "vf1..4 source transform, vf13..16 composite",
+      "relevant_constants": "vf1..4 source transform, vf13..16 composite",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x2cf",
+          "elf_va": "0x443808",
+          "lower_word": "0x800c06bc",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x30d",
+          "elf_va": "0x443a00",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Reload shared transform registers; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x30e",
+      "address": "0x443a08",
+      "known_function_bounds": {
+        "micro_start": "0x30e",
+        "micro_end_inclusive": "0x331",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Load projection context",
+      "callers": [
+        "317470 MSCAL1400030e"
+      ],
+      "callees": [
+        "0x41c",
+        "0x430"
+      ],
+      "input_pointers_registers": "CPU317470:21qwords; matrix and scalar inputs",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "vf5..8 and shared matrix context",
+      "relevant_constants": "vf5..8 and shared matrix context",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x30e",
+          "elf_va": "0x443a08",
+          "lower_word": "0x800c06bc",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x331",
+          "elf_va": "0x443b20",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Load projection context; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x37c",
+      "address": "0x443d78",
+      "known_function_bounds": {
+        "micro_start": "0x37c",
+        "micro_end_inclusive": "0x393",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Copy snapshot state and cache sprite GIF prototype",
+      "callers": [
+        "31e478 MSCAL1400037c"
+      ],
+      "callees": [
+        "0x3c9",
+        "0xd"
+      ],
+      "input_pointers_registers": "11quadwords from31e478; input qword0 prototype, qword1 AD tag",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "vf31 prototype; input qword7/TEX1 cached atVUdata318; output GIF state qwords",
+      "relevant_constants": "vf31 prototype; input qword7/TEX1 cached atVUdata318; output GIF state qwords",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x37c",
+          "elf_va": "0x443d78",
+          "lower_word": "0x800c06bc",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x393",
+          "elf_va": "0x443e30",
+          "lower_word": "0x8000033c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Copy snapshot state and cache sprite GIF prototype; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x3c9",
+      "address": "0x443fe0",
+      "known_function_bounds": {
+        "micro_start": "0x3c9",
+        "micro_end_inclusive": "0x3db",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Output ring budget and XGKICK",
+      "callers": [
+        "VU pc453;pc387; shared helpers"
+      ],
+      "callees": [],
+      "input_pointers_registers": "vi1 requiredqwords;vi2 cursor;vi3 ring offset;vi8 last GIFtag",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "EOP on prior tag;XGKICK; output halves base636/830, size194qwords",
+      "relevant_constants": "EOP on prior tag;XGKICK; output halves base636/830, size194qwords",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x3c9",
+          "elf_va": "0x443fe0",
+          "lower_word": "0x800311f1",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x3d7",
+          "elf_va": "0x444050",
+          "lower_word": "0x800046fc",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Output ring budget and XGKICK; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    },
+    {
+      "micro_pc": "0x449",
+      "address": "0x4443e8",
+      "known_function_bounds": {
+        "micro_start": "0x449",
+        "micro_end_inclusive": "0x4c4",
+        "kind": "VU_MICROPROGRAM_BLOCK; shared branches are not CPU function bounds",
+        "status": "CONTROL_FLOW_BLOCK_VERIFIED"
+      },
+      "proposed_role": "Expand detail records into projected GS SPRITEs",
+      "callers": [
+        "31da60 MSCAL14000449"
+      ],
+      "callees": [
+        "0x3c9",
+        "0xd"
+      ],
+      "input_pointers_registers": "4vectors perrecord;firstW count&127;vf1..8 transforms;vf31 GIFprototype",
+      "object_fields_read": "VU inputs and shared registers, not an invented CPU class",
+      "object_fields_written": "6qwords perpoint:ST/RGBA/XYZF2 twice;two vertices;FTOI4;cap56;clipADCmaskc000",
+      "relevant_constants": "6qwords perpoint:ST/RGBA/XYZF2 twice;two vertices;FTOI4;cap56;clipADCmaskc000",
+      "instruction_evidence": [
+        {
+          "micro_pc": "0x449",
+          "elf_va": "0x4443e8",
+          "lower_word": "0x800c06bc",
+          "upper_word": "0x2ff"
+        },
+        {
+          "micro_pc": "0x4c4",
+          "elf_va": "0x4447c0",
+          "lower_word": "0x1fe013c",
+          "upper_word": "0x2ff"
+        }
+      ],
+      "data_flow_evidence": "Expand detail records into projected GS SPRITEs; embedded MPG program analysis",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "confidence": "HIGH for embedded instructions; residency STATIC_INFERENCE",
+      "open_questions": [
+        "CPU upload of this exact MPG stream and live resident VU1 contents remain unproved"
+      ]
+    }
+  ]
+}

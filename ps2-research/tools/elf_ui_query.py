@@ -19,7 +19,7 @@ def main():
     ap.add_argument('--window', nargs=2, type=lambda s: int(s, 0), required=True)
     ap.add_argument('--addresses', nargs='+', type=lambda s: int(s, 0), required=True)
     ap.add_argument('--refs', nargs='*', type=lambda s: int(s, 0), default=[])
-    ap.add_argument('--track', choices=['ui1', 'ui2', 'ambient1'], default='ui1',
+    ap.add_argument('--track', choices=['ui1', 'ui2', 'ambient1', 'grass1'], default='ui1',
                     help='Ignored local export directory; defaults to the original UI1 track')
     ap.add_argument('--ee-scalar', action='store_true',
                     help='Normalize EE SQRT operand and MULT rd for scalar dataflow; requires no HI/LO reads in window')

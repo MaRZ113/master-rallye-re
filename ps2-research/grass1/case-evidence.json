@@ -1,0 +1,1473 @@
+{
+  "schema": 1,
+  "preflight": {
+    "repository": "D:\\Game\\Master Rallye\\master-rallye-re-general",
+    "branch": "master",
+    "head": "080ce812f24bb21b0a9f63d2592556f5f1c978b4",
+    "status": "CLEAN",
+    "sdk_head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "sdk_status": "CLEAN",
+    "inputs": {
+      "SLES_509.06": {
+        "size": 3739852,
+        "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+      },
+      "SYSTEM.CNF": {
+        "size": 56,
+        "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+      },
+      "TNG.PAK": {
+        "size": 135556,
+        "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+      },
+      "TNG.000": {
+        "size": 1225915283,
+        "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+      }
+    }
+  },
+  "cases": [
+    {
+      "schema": 1,
+      "course": "FRANCE1",
+      "landscape_resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM",
+      "source_sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d",
+      "vertex_count": 67387,
+      "file_vertex_stride": 52,
+      "runtime_vertex_stride": 48,
+      "proxy_offset": 3717639,
+      "triangle_offset": 3932099,
+      "source_triangles": 23064,
+      "spatial_grid": [
+        91,
+        59
+      ],
+      "spatial_references": 48119,
+      "materials": [
+        {
+          "id": 0,
+          "name": "$surfacetype(gravel) $detail(none) ",
+          "offset": 3931657,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1388,
+          "slope_passing_triangles_float32": 221,
+          "first_flat_triangle": 12734,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 1,
+          "name": "$surfacetype(gravel) $detail(grass) ",
+          "offset": 3931698,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1941,
+          "slope_passing_triangles_float32": 215,
+          "first_flat_triangle": 14279,
+          "eligible_triangles_float32": 215,
+          "first_eligible_triangle": 14279
+        },
+        {
+          "id": 2,
+          "name": "$surfacetype(grass) $detail(shrubs) ",
+          "offset": 3931740,
+          "authored_detail": "$detail(shrubs)",
+          "interned_token": "$detail(shrubs)",
+          "detail_category": "shrubs",
+          "point_pool_index": 0,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 3944,
+          "slope_passing_triangles_float32": 1244,
+          "first_flat_triangle": 1231,
+          "eligible_triangles_float32": 1244,
+          "first_eligible_triangle": 1231
+        },
+        {
+          "id": 3,
+          "name": "$surfacetype(grass) $detail(grass) ",
+          "offset": 3931782,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 4068,
+          "slope_passing_triangles_float32": 1612,
+          "first_flat_triangle": 6993,
+          "eligible_triangles_float32": 1612,
+          "first_eligible_triangle": 6993
+        },
+        {
+          "id": 4,
+          "name": "$surfacetype(harddirt) $detail(grass) ",
+          "offset": 3931823,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 4257,
+          "slope_passing_triangles_float32": 3366,
+          "first_flat_triangle": 9174,
+          "eligible_triangles_float32": 3366,
+          "first_eligible_triangle": 9174
+        },
+        {
+          "id": 5,
+          "name": "$surfacetype(water) ",
+          "offset": 3931867,
+          "authored_detail": null,
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": true,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 3205,
+          "slope_passing_triangles_float32": 3158,
+          "first_flat_triangle": 20714,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 6,
+          "name": "$surfacetype(harddirt) $detail(stones) ",
+          "offset": 3931893,
+          "authored_detail": "$detail(stones)",
+          "interned_token": "$detail(stones)",
+          "detail_category": "stones",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 567,
+          "slope_passing_triangles_float32": 555,
+          "first_flat_triangle": 16297,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 7,
+          "name": "$surfacetype(tarmac) $detail(none) ",
+          "offset": 3931938,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1678,
+          "slope_passing_triangles_float32": 1334,
+          "first_flat_triangle": 18281,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 8,
+          "name": "$surfacetype(harddirt) $detail(none) ",
+          "offset": 3931979,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1114,
+          "slope_passing_triangles_float32": 900,
+          "first_flat_triangle": 16967,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 9,
+          "name": "$surfacetype(harddirt) $detail(shrubs) ",
+          "offset": 3932022,
+          "authored_detail": "$detail(shrubs)",
+          "interned_token": "$detail(shrubs)",
+          "detail_category": "shrubs",
+          "point_pool_index": 0,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 360,
+          "slope_passing_triangles_float32": 219,
+          "first_flat_triangle": 19569,
+          "eligible_triangles_float32": 219,
+          "first_eligible_triangle": 19569
+        },
+        {
+          "id": 10,
+          "name": "$surfacetype(mud) $detail(none) ",
+          "offset": 3932067,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 542,
+          "slope_passing_triangles_float32": 176,
+          "first_flat_triangle": 15947,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "numeric_precision": "FLOAT32_RECONSTRUCTION",
+      "geometry_source": "PSM tag 103 spatial/collision triangles using shared visual gsVertex positions",
+      "runtime_validation": "NOT_PERFORMED",
+      "unknowns": [
+        "Visual scene-tree strip/draw-group equivalence",
+        "Live FCSR rounding state",
+        "Final VU1 sprite corner/UV calculation"
+      ],
+      "packfs_provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM",
+        "offset": 1040499712,
+        "stored_size": 2423641,
+        "directory_size_0x08": 2423641,
+        "unpacked_size": 4216655,
+        "compression": "packfs_lzo",
+        "stored_sha256": "bf32946b1e8f322b925028ecb90413c2634bb30cc39904acda1d3f6f4fd9b48c",
+        "payload_sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "schema": 1,
+      "course": "ITALY_S1",
+      "landscape_resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\ITALY_S1.PSM",
+      "source_sha256": "f74854a0789c1d3bb416cef8d70a02c65141a2d7afc5a150068c047b94bc30a0",
+      "vertex_count": 69577,
+      "file_vertex_stride": 52,
+      "runtime_vertex_stride": 48,
+      "proxy_offset": 3835291,
+      "triangle_offset": 3970722,
+      "source_triangles": 15042,
+      "spatial_grid": [
+        78,
+        63
+      ],
+      "spatial_references": 28839,
+      "materials": [
+        {
+          "id": 0,
+          "name": "$surfacetype(gravel) $detail(grass) ",
+          "offset": 3970369,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 960,
+          "slope_passing_triangles_float32": 286,
+          "first_flat_triangle": 11921,
+          "eligible_triangles_float32": 286,
+          "first_eligible_triangle": 11921
+        },
+        {
+          "id": 1,
+          "name": "$surfacetype(grass) $detail(grass) ",
+          "offset": 3970411,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 630,
+          "slope_passing_triangles_float32": 225,
+          "first_flat_triangle": 14724,
+          "eligible_triangles_float32": 225,
+          "first_eligible_triangle": 14724
+        },
+        {
+          "id": 2,
+          "name": "$surfacetype(harddirt) $detail(none) ",
+          "offset": 3970452,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 3636,
+          "slope_passing_triangles_float32": 1833,
+          "first_flat_triangle": 3339,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 3,
+          "name": "$surfacetype(harddirt) $detail(grass) ",
+          "offset": 3970495,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 5155,
+          "slope_passing_triangles_float32": 2621,
+          "first_flat_triangle": 8681,
+          "eligible_triangles_float32": 2621,
+          "first_eligible_triangle": 8681
+        },
+        {
+          "id": 4,
+          "name": "$surfacetype(grass) $detail(shrubs) ",
+          "offset": 3970539,
+          "authored_detail": "$detail(shrubs)",
+          "interned_token": "$detail(shrubs)",
+          "detail_category": "shrubs",
+          "point_pool_index": 0,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 2694,
+          "slope_passing_triangles_float32": 1158,
+          "first_flat_triangle": 10698,
+          "eligible_triangles_float32": 1158,
+          "first_eligible_triangle": 10698
+        },
+        {
+          "id": 5,
+          "name": "$surfacetype(tarmac) $detail(none) ",
+          "offset": 3970581,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 287,
+          "slope_passing_triangles_float32": 278,
+          "first_flat_triangle": 14819,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 6,
+          "name": "$surfacetype(gravel) $detail(none) ",
+          "offset": 3970622,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 244,
+          "slope_passing_triangles_float32": 142,
+          "first_flat_triangle": 12613,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 7,
+          "name": "$surfacetype(mud) $detail(grass) ",
+          "offset": 3970663,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 107,
+          "slope_passing_triangles_float32": 107,
+          "first_flat_triangle": 14018,
+          "eligible_triangles_float32": 107,
+          "first_eligible_triangle": 14018
+        },
+        {
+          "id": 8,
+          "name": "$surfacetype(water) ",
+          "offset": 3970702,
+          "authored_detail": null,
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": true,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1329,
+          "slope_passing_triangles_float32": 1329,
+          "first_flat_triangle": 13131,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "numeric_precision": "FLOAT32_RECONSTRUCTION",
+      "geometry_source": "PSM tag 103 spatial/collision triangles using shared visual gsVertex positions",
+      "runtime_validation": "NOT_PERFORMED",
+      "unknowns": [
+        "Visual scene-tree strip/draw-group equivalence",
+        "Live FCSR rounding state",
+        "Final VU1 sprite corner/UV calculation"
+      ],
+      "packfs_provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\ITALY_S1.PSM",
+        "offset": 1099716026,
+        "stored_size": 2326973,
+        "directory_size_0x08": 2326973,
+        "unpacked_size": 4163686,
+        "compression": "packfs_lzo",
+        "stored_sha256": "d3020e3f0443586bb4a2948cf06b18a9c30bef049bd615c2501b8d026c25f036",
+        "payload_sha256": "f74854a0789c1d3bb416cef8d70a02c65141a2d7afc5a150068c047b94bc30a0",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "schema": 1,
+      "course": "TURKEY_S1",
+      "landscape_resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\TURKEY_S1.PSM",
+      "source_sha256": "e431d2c3e64cf9e803013b4faf1f116bd2bce9e4d9a55140b74c42f2b8ca2198",
+      "vertex_count": 84986,
+      "file_vertex_stride": 52,
+      "runtime_vertex_stride": 48,
+      "proxy_offset": 4709233,
+      "triangle_offset": 4888621,
+      "source_triangles": 18768,
+      "spatial_grid": [
+        115,
+        70
+      ],
+      "spatial_references": 36673,
+      "materials": [
+        {
+          "id": 0,
+          "name": "$surfacetype(grass) ",
+          "offset": 4888191,
+          "authored_detail": null,
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": true,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1142,
+          "slope_passing_triangles_float32": 243,
+          "first_flat_triangle": 11563,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 1,
+          "name": "$surfacetype(gravel) ",
+          "offset": 4888217,
+          "authored_detail": null,
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": true,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 3350,
+          "slope_passing_triangles_float32": 527,
+          "first_flat_triangle": 7730,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 2,
+          "name": "$surfacetype(gravel) $detail(grass) ",
+          "offset": 4888244,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1569,
+          "slope_passing_triangles_float32": 529,
+          "first_flat_triangle": 2323,
+          "eligible_triangles_float32": 529,
+          "first_eligible_triangle": 2323
+        },
+        {
+          "id": 3,
+          "name": "$surfacetype(grass) $detail(shrubs) ",
+          "offset": 4888286,
+          "authored_detail": "$detail(shrubs)",
+          "interned_token": "$detail(shrubs)",
+          "detail_category": "shrubs",
+          "point_pool_index": 0,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 2104,
+          "slope_passing_triangles_float32": 796,
+          "first_flat_triangle": 12564,
+          "eligible_triangles_float32": 796,
+          "first_eligible_triangle": 12564
+        },
+        {
+          "id": 4,
+          "name": "$surfacetype(harddirt) $detail(shrubs) ",
+          "offset": 4888328,
+          "authored_detail": "$detail(shrubs)",
+          "interned_token": "$detail(shrubs)",
+          "detail_category": "shrubs",
+          "point_pool_index": 0,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1408,
+          "slope_passing_triangles_float32": 986,
+          "first_flat_triangle": 17627,
+          "eligible_triangles_float32": 986,
+          "first_eligible_triangle": 17627
+        },
+        {
+          "id": 5,
+          "name": "$surfacetype(harddirt) $detail(grass) ",
+          "offset": 4888373,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 3446,
+          "slope_passing_triangles_float32": 2819,
+          "first_flat_triangle": 4132,
+          "eligible_triangles_float32": 2819,
+          "first_eligible_triangle": 4132
+        },
+        {
+          "id": 6,
+          "name": "$surfacetype(harddirt) $detail(none) ",
+          "offset": 4888417,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 823,
+          "slope_passing_triangles_float32": 714,
+          "first_flat_triangle": 14526,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 7,
+          "name": "$surfacetype(harddirt) ",
+          "offset": 4888460,
+          "authored_detail": null,
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": true,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 782,
+          "slope_passing_triangles_float32": 484,
+          "first_flat_triangle": 10553,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 8,
+          "name": "$surfacetype(gravel) $detail(none) ",
+          "offset": 4888489,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1367,
+          "slope_passing_triangles_float32": 233,
+          "first_flat_triangle": 15310,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 9,
+          "name": "$surfacetype(tarmac) ",
+          "offset": 4888530,
+          "authored_detail": null,
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": true,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 388,
+          "slope_passing_triangles_float32": 381,
+          "first_flat_triangle": 16980,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 10,
+          "name": "$surfacetype(water) ",
+          "offset": 4888557,
+          "authored_detail": null,
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": true,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 2046,
+          "slope_passing_triangles_float32": 2046,
+          "first_flat_triangle": 304,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 11,
+          "name": "$surfacetype(harddirt) $detail(shrub) ",
+          "offset": 4888583,
+          "authored_detail": "$detail(shrub)",
+          "interned_token": "$detail(shrub)",
+          "detail_category": "unrecognized",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 343,
+          "slope_passing_triangles_float32": 153,
+          "first_flat_triangle": 16696,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "numeric_precision": "FLOAT32_RECONSTRUCTION",
+      "geometry_source": "PSM tag 103 spatial/collision triangles using shared visual gsVertex positions",
+      "runtime_validation": "NOT_PERFORMED",
+      "unknowns": [
+        "Visual scene-tree strip/draw-group equivalence",
+        "Live FCSR rounding state",
+        "Final VU1 sprite corner/UV calculation"
+      ],
+      "packfs_provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\TURKEY_S1.PSM",
+        "offset": 1187004348,
+        "stored_size": 2821354,
+        "directory_size_0x08": 2821354,
+        "unpacked_size": 5126769,
+        "compression": "packfs_lzo",
+        "stored_sha256": "cc2e3f114e78757f60a2f7516e81645c7392d24f7c776bba26eb510fcc4636a3",
+        "payload_sha256": "e431d2c3e64cf9e803013b4faf1f116bd2bce9e4d9a55140b74c42f2b8ca2198",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "schema": 1,
+      "course": "SPAIN1",
+      "landscape_resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN1\\SPAIN1.PSM",
+      "source_sha256": "ae465c2636b34957cbca8a62eb3906b5e39b8db3667097fc365700ee1533a0c7",
+      "vertex_count": 63744,
+      "file_vertex_stride": 52,
+      "runtime_vertex_stride": 48,
+      "proxy_offset": 3485071,
+      "triangle_offset": 3617873,
+      "source_triangles": 17202,
+      "spatial_grid": [
+        47,
+        57
+      ],
+      "spatial_references": 30437,
+      "materials": [
+        {
+          "id": 0,
+          "name": "$surfacetype(gravel) $detail(none) ",
+          "offset": 3617601,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 3740,
+          "slope_passing_triangles_float32": 280,
+          "first_flat_triangle": 2264,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 1,
+          "name": "$surfacetype(grass) $detail(shrubs) ",
+          "offset": 3617642,
+          "authored_detail": "$detail(shrubs)",
+          "interned_token": "$detail(shrubs)",
+          "detail_category": "shrubs",
+          "point_pool_index": 0,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 3631,
+          "slope_passing_triangles_float32": 2188,
+          "first_flat_triangle": 11884,
+          "eligible_triangles_float32": 2188,
+          "first_eligible_triangle": 11884
+        },
+        {
+          "id": 2,
+          "name": "$surfacetype(grass) $detail(grass) ",
+          "offset": 3617684,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1208,
+          "slope_passing_triangles_float32": 115,
+          "first_flat_triangle": 4652,
+          "eligible_triangles_float32": 115,
+          "first_eligible_triangle": 4652
+        },
+        {
+          "id": 3,
+          "name": "$surfacetype(harddirt) $detail(grass) ",
+          "offset": 3617725,
+          "authored_detail": "$detail(grass)",
+          "interned_token": "$detail(grass)",
+          "detail_category": "grass",
+          "point_pool_index": 1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 4703,
+          "slope_passing_triangles_float32": 3133,
+          "first_flat_triangle": 8390,
+          "eligible_triangles_float32": 3133,
+          "first_eligible_triangle": 8390
+        },
+        {
+          "id": 4,
+          "name": "$surfacetype(harddirt) $detail(none) ",
+          "offset": 3617769,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1881,
+          "slope_passing_triangles_float32": 1849,
+          "first_flat_triangle": 14711,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 5,
+          "name": "$surfacetype(water) ",
+          "offset": 3617812,
+          "authored_detail": null,
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": true,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 1798,
+          "slope_passing_triangles_float32": 1798,
+          "first_flat_triangle": 16154,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        },
+        {
+          "id": 6,
+          "name": "$surfacetype(tarmac) $detail(none) ",
+          "offset": 3617838,
+          "authored_detail": "$detail(none)",
+          "interned_token": "$detail(none)",
+          "detail_category": "none",
+          "point_pool_index": -1,
+          "default_applied": false,
+          "grass_off_present": false,
+          "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+          "bound_triangles": 241,
+          "slope_passing_triangles_float32": 190,
+          "first_flat_triangle": 17014,
+          "eligible_triangles_float32": 0,
+          "first_eligible_triangle": null
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "numeric_precision": "FLOAT32_RECONSTRUCTION",
+      "geometry_source": "PSM tag 103 spatial/collision triangles using shared visual gsVertex positions",
+      "runtime_validation": "NOT_PERFORMED",
+      "unknowns": [
+        "Visual scene-tree strip/draw-group equivalence",
+        "Live FCSR rounding state",
+        "Final VU1 sprite corner/UV calculation"
+      ],
+      "packfs_provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN1\\SPAIN1.PSM",
+        "offset": 1130328177,
+        "stored_size": 2167160,
+        "directory_size_0x08": 2167160,
+        "unpacked_size": 3833385,
+        "compression": "packfs_lzo",
+        "stored_sha256": "1c8b6fc408477b10fc7d5428cc7f92e7ec0b8ddb9ef90dfbd81f6db44201ea8e",
+        "payload_sha256": "ae465c2636b34957cbca8a62eb3906b5e39b8db3667097fc365700ee1533a0c7",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    }
+  ],
+  "pc_readonly_references": [
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Course\\France1\\France1.txt",
+      "sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+      "material_count": 127,
+      "detail_directives_in_original_bytes": false,
+      "selected_ground_materials": [
+        {
+          "number": 0,
+          "name": "$surfacetype(tarmac) $shader(ground)$grnd(tarmac)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "road-tga",
+              "source": "road.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 1,
+          "name": "$surfacetype(harddirt) $clamp(u) $shader(ground)$grnd(gravel)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "grass_left-tga",
+              "source": "grass_left.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "name": "$surfacetype(harddirt) $clamp(u) $shader(ground)$grnd(gravel)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "grass_right-tga",
+              "source": "grass_right.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "name": "$surfacetype(grass) $shader(ground)$grnd(grass)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "grass-tga",
+              "source": "grass.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "name": "$surfacetype(gravel) $clamp(u) $shader(ground)$grnd(gravel)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "grass_rock_lft-tga",
+              "source": "grass_rock_lft.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "name": "$surfacetype(gravel) $shader(ground)$grnd(gravel)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "rock-tga",
+              "source": "rock.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "name": "$surfacetype(gravel) $clamp(u) $shader(ground)$grnd(gravel)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "grass_rock_rht-tga",
+              "source": "grass_rock_rht.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Course\\Italy_S1\\Italy_S1.txt",
+      "sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+      "material_count": 89,
+      "detail_directives_in_original_bytes": false,
+      "selected_ground_materials": [
+        {
+          "number": 35,
+          "name": "$surfacetype(harddirt) $shader(ground) $mip(1.0)$grnd:dirt_softNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "i2a_road-tga",
+              "source": "I2A_Road.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 36,
+          "name": "$surfacetype(harddirt) $shader(ground) $mip(1.0) $clamp(u)$grndu:50:grass_soft_wet:dirt_softNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "i2a_dirtblend1l-tga",
+              "source": "I2A_DirtBlend1L.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 37,
+          "name": "$surfacetype(harddirt) $shader(ground) $mip(1.0) $clamp(u)$grndu:50:dirt_soft:grass_soft_wetNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "i2a_dirtblend1r-tga",
+              "source": "I2A_DirtBlend1R.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 38,
+          "name": "$surfacetype(grass) $shader(ground) $mip(1.0)$grnd:grass_soft_wetNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "i2a_grass-tga",
+              "source": "I2A_grass.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 39,
+          "name": "$surfacetype(grass) $shader(ground) $mip(1.0) $clamp(u)$grndu:50:stones_hard:grass_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "i2a_rockblend1l-tga",
+              "source": "I2A_RockBlend1L.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 40,
+          "name": "$surfacetype(grass) $shader(ground) $mip(1.0) $clamp(u)$grndu:50:grass_hard:stones_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "i2a_rockblend1r-tga",
+              "source": "I2A_RockBlend1R.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 41,
+          "name": "$surfacetype(gravel) $shader(ground) $mip(1.0)$grnd:stones_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "i2a_rock2-tga",
+              "source": "I2A_Rock2.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Course\\Spain1\\Spain1.txt",
+      "sha256": "418849785e9f24501331f78cd5b928f8d4ebf06921ddd6db9b85da4a0a94e37b",
+      "material_count": 64,
+      "detail_directives_in_original_bytes": false,
+      "selected_ground_materials": [
+        {
+          "number": 0,
+          "name": "$surfacetype(harddirt) $shader(ground) $mip(1.0)$surfacetype(harddirt)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "rockypasssw-tga",
+              "source": "rockypassSW.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 1,
+          "name": "$surfacetype(harddirt) $shader(ground) $mip(1.0)$surfacetype(grass)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "sea rock sand blendsw-tga",
+              "source": "sea rock sand blendSW.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "name": "$surfacetype(harddirt) $shader(ground) $mip(1.0)$surfacetype(grass)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "sandgrass-tga",
+              "source": "sandgrass.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "name": "$surfacetype(grass) $shader(ground) $mip(1.0)$surfacetype(grass)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "italian grasssw-tga",
+              "source": "italian grassSW.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "name": "$surfacetype(grass) $shader(ground) $mip(1.0)$surfacetype(grass)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "italian grassrocklsw-tga",
+              "source": "italian grassrockLSW.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "name": "$surfacetype(grass) $shader(ground) $mip(1.0)$surfacetype(grass)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "rock facesw-tga",
+              "source": "rock faceSW.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "name": "$surfacetype(gravel) $shader(ground) $mip(1.0)$surfacetype(gravel)Noise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "rock face-tga",
+              "source": "rock face.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Course\\Turkey_s1\\turkey_s1.txt",
+      "sha256": "e3863d39ac609d22980b7a071419c4ee0f9e6131638b1e560b7ca0860e9ef0de",
+      "material_count": 119,
+      "detail_directives_in_original_bytes": false,
+      "selected_ground_materials": [
+        {
+          "number": 0,
+          "name": "$surfacetype(harddirt) $shader(ground)$grnd:gravel_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "gravel_road-tga",
+              "source": "gravel_road.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 1,
+          "name": "$surfacetype(harddirt) $shader(ground) $clamp(u)$grndu:50:grass_hard:dirt_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "grass_to_mud-tga",
+              "source": "grass_to_mud.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "name": "$surfacetype(harddirt) $shader(ground) $clamp(u)$grndu:50:dirt_hard:grass_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "mud_to_grass-tga",
+              "source": "mud_to_grass.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "name": "$surfacetype(grass) $shader(ground)$grnd:grass_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "basegrass-tga",
+              "source": "BASEgrass.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "name": "$surfacetype(gravel) $shader(ground) $clamp(u)$grndu:50:gravel_hard:grass_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "neu grass to rock2-tga",
+              "source": "neu grass to rock2.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "name": "$surfacetype(gravel) $shader(ground) $clamp(u)$grndu:50:grass_hard:gravel_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "neu grass to rock-tga",
+              "source": "neu grass to rock.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "name": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+          "textures": [
+            {
+              "slot": 0,
+              "stem": "neu rocky-tga",
+              "source": "Neu rocky.tga"
+            },
+            {
+              "slot": 2,
+              "stem": "noise-tga",
+              "source": "noise.tga"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rng": {
+    "seed": 12543,
+    "seed_provenance": "ELF 3b78c8 delay slot 3b78cc",
+    "rng_calls_through_jitter": 6970,
+    "state_after_jitter": 1125623325,
+    "not_included": "Later normalized direction table 432e88; unused by traced placement"
+  },
+  "diagnostics": [
+    {
+      "course": "FRANCE1",
+      "source_triangle": 9174,
+      "material": 4,
+      "diagnostic_file": "diagnostic-FRANCE1-9174.json",
+      "sha256": "a3b14ca7bc17ba41f747cb9cbc00eac4611a53178d5e56925878efa9e3edee6c",
+      "repeat_identical": true,
+      "instance_count": 32,
+      "accepted_primitive_records": 32,
+      "generation_mode": "ORIGINAL_SURFACE_WITH_SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+      "synthetic_inputs": [
+        "Full original triangle activation without clipping",
+        "FCSR nearest-even assumption",
+        "Camera center from triangle centroid",
+        "projection_scale=64",
+        "vertical_factor=1"
+      ]
+    },
+    {
+      "course": "FRANCE1",
+      "source_triangle": 1231,
+      "material": 2,
+      "diagnostic_file": "diagnostic-FRANCE1-1231.json",
+      "sha256": "84a2afa72d9bb8fa6282130d9fd94fd2aae1db1623c6017ac78c249d189ceb79",
+      "repeat_identical": true,
+      "instance_count": 80,
+      "accepted_primitive_records": 80,
+      "generation_mode": "ORIGINAL_SURFACE_WITH_SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+      "synthetic_inputs": [
+        "Full original triangle activation without clipping",
+        "FCSR nearest-even assumption",
+        "Camera center from triangle centroid",
+        "projection_scale=64",
+        "vertical_factor=1"
+      ]
+    },
+    {
+      "course": "FRANCE1",
+      "source_triangle": 16967,
+      "material": 8,
+      "diagnostic_file": "diagnostic-FRANCE1-16967.json",
+      "sha256": "43e0018d1cef9ed9d8d2ae14e172b468610b370b62e4185cfe0131e35753bdff",
+      "repeat_identical": true,
+      "instance_count": 0,
+      "accepted_primitive_records": 0,
+      "generation_mode": "EXCLUDED_BY_ORIGINAL_CATEGORY_OR_SLOPE",
+      "synthetic_inputs": [
+        "Full original triangle activation without clipping",
+        "FCSR nearest-even assumption",
+        "Camera center from triangle centroid",
+        "projection_scale=64",
+        "vertical_factor=1"
+      ]
+    },
+    {
+      "course": "FRANCE1",
+      "source_triangle": 16297,
+      "material": 6,
+      "diagnostic_file": "diagnostic-FRANCE1-16297.json",
+      "sha256": "3a46b4a7f23e4ce5146f3ee12ad78a4a5dbd0441ccaba06721747102b30cde0b",
+      "repeat_identical": true,
+      "instance_count": 0,
+      "accepted_primitive_records": 0,
+      "generation_mode": "EXCLUDED_BY_ORIGINAL_CATEGORY_OR_SLOPE",
+      "synthetic_inputs": [
+        "Full original triangle activation without clipping",
+        "FCSR nearest-even assumption",
+        "Camera center from triangle centroid",
+        "projection_scale=64",
+        "vertical_factor=1"
+      ]
+    },
+    {
+      "course": "ITALY_S1",
+      "source_triangle": 8681,
+      "material": 3,
+      "diagnostic_file": "diagnostic-ITALY_S1-8681.json",
+      "sha256": "5b7d3bb32a55a072914eaa0433657935a189afc838e35a46f3def24909ee4674",
+      "repeat_identical": true,
+      "instance_count": 15,
+      "accepted_primitive_records": 15,
+      "generation_mode": "ORIGINAL_SURFACE_WITH_SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+      "synthetic_inputs": [
+        "Full original triangle activation without clipping",
+        "FCSR nearest-even assumption",
+        "Camera center from triangle centroid",
+        "projection_scale=64",
+        "vertical_factor=1"
+      ]
+    },
+    {
+      "course": "TURKEY_S1",
+      "source_triangle": 16696,
+      "material": 11,
+      "diagnostic_file": "diagnostic-TURKEY_S1-16696.json",
+      "sha256": "48f2675d57fdb3cef85be53e33ce84d9a9be5970d8c390b2a3593cc1c6d9d7cf",
+      "repeat_identical": true,
+      "instance_count": 0,
+      "accepted_primitive_records": 0,
+      "generation_mode": "EXCLUDED_BY_ORIGINAL_CATEGORY_OR_SLOPE",
+      "synthetic_inputs": [
+        "Full original triangle activation without clipping",
+        "FCSR nearest-even assumption",
+        "Camera center from triangle centroid",
+        "projection_scale=64",
+        "vertical_factor=1"
+      ]
+    },
+    {
+      "course": "SPAIN1",
+      "source_triangle": 8390,
+      "material": 3,
+      "diagnostic_file": "diagnostic-SPAIN1-8390.json",
+      "sha256": "224e86b23729ccbd8375a12063232459615e4f0baa10734656678325609620f5",
+      "repeat_identical": true,
+      "instance_count": 31,
+      "accepted_primitive_records": 31,
+      "generation_mode": "ORIGINAL_SURFACE_WITH_SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+      "synthetic_inputs": [
+        "Full original triangle activation without clipping",
+        "FCSR nearest-even assumption",
+        "Camera center from triangle centroid",
+        "projection_scale=64",
+        "vertical_factor=1"
+      ]
+    }
+  ],
+  "runtime_validation": "NOT_PERFORMED",
+  "precision": "FLOAT32_RECONSTRUCTION"
+}

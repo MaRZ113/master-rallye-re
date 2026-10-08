@@ -1,0 +1,773 @@
+{
+  "schema": 1,
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "scope": "Bounded tag-103/material/source-index structural check; no complete visual scene-tree decode",
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "runtime_validation": "NOT_PERFORMED",
+  "courses": [
+    {
+      "course": "FRANCE1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM",
+      "source_sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d",
+      "vertices": 67387,
+      "spatial_offset": 3717639,
+      "triangle_count_offset": 3932099,
+      "source_triangles": 23064,
+      "grid": [
+        91,
+        59
+      ],
+      "spatial_references": 48119,
+      "material_count": 11,
+      "uniquely_bound_triangles": 23064,
+      "bound_triangle_counts_by_category": {
+        "none": 7927,
+        "grass": 10266,
+        "shrubs": 4304,
+        "stones": 567
+      }
+    },
+    {
+      "course": "FRANCE2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE2\\FRANCE2.PSM",
+      "source_sha256": "5fb751c283dc81501dc94e2234a006da8698a50e72de8f2ce4d44f74429469fe",
+      "vertices": 76708,
+      "spatial_offset": 4240942,
+      "triangle_count_offset": 4368726,
+      "source_triangles": 15538,
+      "grid": [
+        58,
+        54
+      ],
+      "spatial_references": 28687,
+      "material_count": 11,
+      "uniquely_bound_triangles": 15538,
+      "bound_triangle_counts_by_category": {
+        "shrubs": 2588,
+        "grass": 4493,
+        "none": 7770,
+        "stones": 687
+      }
+    },
+    {
+      "course": "FRANCEM",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE_M\\FRANCEM.PSM",
+      "source_sha256": "b0446f47c90a98684b020c39cdb650c2ae975286b4f99924d5e0c1c4999d17c9",
+      "vertices": 78401,
+      "spatial_offset": 4364011,
+      "triangle_count_offset": 4544343,
+      "source_triangles": 20130,
+      "grid": [
+        155,
+        42
+      ],
+      "spatial_references": 38446,
+      "material_count": 11,
+      "uniquely_bound_triangles": 20130,
+      "bound_triangle_counts_by_category": {
+        "shrubs": 5588,
+        "grass": 5550,
+        "none": 8173,
+        "stones": 819
+      }
+    },
+    {
+      "course": "FRANCES1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\FRANCES1.PSM",
+      "source_sha256": "c475ec2e26a1085714acae7d64ef30df0f0e0ec0d564c0e2df0a02c0a6404bac",
+      "vertices": 68647,
+      "spatial_offset": 3805035,
+      "triangle_count_offset": 3971479,
+      "source_triangles": 18095,
+      "grid": [
+        124,
+        50
+      ],
+      "spatial_references": 35284,
+      "material_count": 11,
+      "uniquely_bound_triangles": 18095,
+      "bound_triangle_counts_by_category": {
+        "grass": 6142,
+        "none": 6567,
+        "shrubs": 4490,
+        "stones": 896
+      }
+    },
+    {
+      "course": "FRANCES2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S2\\FRANCES2.PSM",
+      "source_sha256": "2f857d96823bf324d6a9154664b8f1fefaa7ae0e4407ed109d09ef0fd51f7127",
+      "vertices": 80770,
+      "spatial_offset": 4455842,
+      "triangle_count_offset": 4672486,
+      "source_triangles": 21643,
+      "grid": [
+        162,
+        63
+      ],
+      "spatial_references": 43828,
+      "material_count": 11,
+      "uniquely_bound_triangles": 21643,
+      "bound_triangle_counts_by_category": {
+        "none": 9383,
+        "grass": 5939,
+        "shrubs": 5544,
+        "stones": 777
+      }
+    },
+    {
+      "course": "FRANCEW",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W\\FRANCEW.PSM",
+      "source_sha256": "b2b056ddb4e959d535de1e5ca201f5e5ae566eae32c80e3a75d8642c3b0f076c",
+      "vertices": 75126,
+      "spatial_offset": 4117161,
+      "triangle_count_offset": 4336169,
+      "source_triangles": 21482,
+      "grid": [
+        158,
+        48
+      ],
+      "spatial_references": 47041,
+      "material_count": 11,
+      "uniquely_bound_triangles": 21482,
+      "bound_triangle_counts_by_category": {
+        "grass": 6931,
+        "none": 7602,
+        "shrubs": 6304,
+        "stones": 645
+      }
+    },
+    {
+      "course": "FRANCEW_FLIP",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE_W_FLIP\\FRANCEW_FLIP.PSM",
+      "source_sha256": "a75100a6ae1daee435a008db7ec9e0acc0178c5a961761aecbfaabd95079012c",
+      "vertices": 75134,
+      "spatial_offset": 4130513,
+      "triangle_count_offset": 4348121,
+      "source_triangles": 21431,
+      "grid": [
+        158,
+        48
+      ],
+      "spatial_references": 46691,
+      "material_count": 11,
+      "uniquely_bound_triangles": 21431,
+      "bound_triangle_counts_by_category": {
+        "grass": 6925,
+        "none": 7668,
+        "shrubs": 6225,
+        "stones": 613
+      }
+    },
+    {
+      "course": "ITALY1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY1\\ITALY1.PSM",
+      "source_sha256": "ba743c0c9f43694dc38337b325ecffad6ee2b438193eb999294f1e3c4377d234",
+      "vertices": 59857,
+      "spatial_offset": 3300337,
+      "triangle_count_offset": 3433719,
+      "source_triangles": 16393,
+      "grid": [
+        46,
+        49
+      ],
+      "spatial_references": 31003,
+      "material_count": 7,
+      "uniquely_bound_triangles": 16393,
+      "bound_triangle_counts_by_category": {
+        "none": 6216,
+        "grass": 7793,
+        "shrubs": 2384
+      }
+    },
+    {
+      "course": "ITALY2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY2\\ITALY2.PSM",
+      "source_sha256": "15be471a3c19afef2e7cf3f694fd1c6c50d18c40ffca840357047c0a74e68396",
+      "vertices": 74212,
+      "spatial_offset": 4088650,
+      "triangle_count_offset": 4227503,
+      "source_triangles": 15239,
+      "grid": [
+        64,
+        55
+      ],
+      "spatial_references": 31109,
+      "material_count": 7,
+      "uniquely_bound_triangles": 15239,
+      "bound_triangle_counts_by_category": {
+        "none": 5792,
+        "grass": 5742,
+        "shrubs": 3705
+      }
+    },
+    {
+      "course": "ITALY3",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY3\\ITALY3.PSM",
+      "source_sha256": "1652475e683f1f1a0df9fa05d614c6187600128e11dd44122bca80325bb124a2",
+      "vertices": 57185,
+      "spatial_offset": 3146627,
+      "triangle_count_offset": 3313150,
+      "source_triangles": 17879,
+      "grid": [
+        67,
+        83
+      ],
+      "spatial_references": 35965,
+      "material_count": 9,
+      "uniquely_bound_triangles": 17879,
+      "bound_triangle_counts_by_category": {
+        "grass": 6679,
+        "shrubs": 3257,
+        "none": 7943
+      }
+    },
+    {
+      "course": "ITALY_M1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1\\ITALY_M1.PSM",
+      "source_sha256": "1f4f057988a6ba484a353e80c2070e413f54b84d460e4292cd34514fc42ae3c8",
+      "vertices": 79940,
+      "spatial_offset": 4431754,
+      "triangle_count_offset": 4592329,
+      "source_triangles": 17429,
+      "grid": [
+        119,
+        47
+      ],
+      "spatial_references": 34446,
+      "material_count": 9,
+      "uniquely_bound_triangles": 17429,
+      "bound_triangle_counts_by_category": {
+        "none": 6138,
+        "grass": 8876,
+        "shrubs": 2415
+      }
+    },
+    {
+      "course": "ITALY_M1_FLIP",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1_FLIP\\ITALY_M1_FLIP.PSM",
+      "source_sha256": "5ae9dd2ec50c3c5e6d33cd8e610ad32a6ead0c5e686781756fb6fd76cd3cf0de",
+      "vertices": 79880,
+      "spatial_offset": 4435395,
+      "triangle_count_offset": 4595938,
+      "source_triangles": 17425,
+      "grid": [
+        119,
+        47
+      ],
+      "spatial_references": 34438,
+      "material_count": 9,
+      "uniquely_bound_triangles": 17425,
+      "bound_triangle_counts_by_category": {
+        "none": 6126,
+        "grass": 8884,
+        "shrubs": 2415
+      }
+    },
+    {
+      "course": "ITALY_M2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_M2\\ITALY_M2.PSM",
+      "source_sha256": "779cd74d7704e2383183eb185243baa498e4f607e01551ebc68c27b5512a0cfc",
+      "vertices": 79458,
+      "spatial_offset": 4411551,
+      "triangle_count_offset": 4595558,
+      "source_triangles": 19990,
+      "grid": [
+        149,
+        45
+      ],
+      "spatial_references": 39192,
+      "material_count": 9,
+      "uniquely_bound_triangles": 19990,
+      "bound_triangle_counts_by_category": {
+        "none": 7407,
+        "grass": 8177,
+        "shrubs": 4406
+      }
+    },
+    {
+      "course": "ITALY_S1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\ITALY_S1.PSM",
+      "source_sha256": "f74854a0789c1d3bb416cef8d70a02c65141a2d7afc5a150068c047b94bc30a0",
+      "vertices": 69577,
+      "spatial_offset": 3835291,
+      "triangle_count_offset": 3970722,
+      "source_triangles": 15042,
+      "grid": [
+        78,
+        63
+      ],
+      "spatial_references": 28839,
+      "material_count": 9,
+      "uniquely_bound_triangles": 15042,
+      "bound_triangle_counts_by_category": {
+        "grass": 6852,
+        "none": 5496,
+        "shrubs": 2694
+      }
+    },
+    {
+      "course": "ITALY_S2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_S2\\ITALY_S2.PSM",
+      "source_sha256": "c52e5dfefd62774797e4daabd13b09af9bcf2067676e6d19a3bb2c6a96cc46b7",
+      "vertices": 78790,
+      "spatial_offset": 4381783,
+      "triangle_count_offset": 4541281,
+      "source_triangles": 17612,
+      "grid": [
+        116,
+        42
+      ],
+      "spatial_references": 34908,
+      "material_count": 8,
+      "uniquely_bound_triangles": 17612,
+      "bound_triangle_counts_by_category": {
+        "none": 5903,
+        "grass": 8038,
+        "shrubs": 3671
+      }
+    },
+    {
+      "course": "ITALY_S3",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3\\ITALY_S3.PSM",
+      "source_sha256": "8025b5f11377778d2c414c066d9c4d4d7289701529432f783cf5c33c53b79871",
+      "vertices": 72780,
+      "spatial_offset": 4022540,
+      "triangle_count_offset": 4214090,
+      "source_triangles": 17730,
+      "grid": [
+        124,
+        85
+      ],
+      "spatial_references": 37253,
+      "material_count": 8,
+      "uniquely_bound_triangles": 17730,
+      "bound_triangle_counts_by_category": {
+        "grass": 6904,
+        "none": 6873,
+        "shrubs": 3953
+      }
+    },
+    {
+      "course": "ITALY_S3_FLIP",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_S3_FLIP\\ITALY_S3_FLIP.PSM",
+      "source_sha256": "816531cedfcffbe5e1d66fd164300304514d91ef79e611e0d2b6c16a9e447db1",
+      "vertices": 72946,
+      "spatial_offset": 4039416,
+      "triangle_count_offset": 4230966,
+      "source_triangles": 17730,
+      "grid": [
+        124,
+        85
+      ],
+      "spatial_references": 37253,
+      "material_count": 8,
+      "uniquely_bound_triangles": 17730,
+      "bound_triangle_counts_by_category": {
+        "grass": 6873,
+        "none": 6904,
+        "shrubs": 3953
+      }
+    },
+    {
+      "course": "ITALY_S4",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_S4\\ITALY_S4.PSM",
+      "source_sha256": "1d6d578bdf6f86784e8f9ee2b75d902359e3a83e5233ad25434fd6ceb1294fc6",
+      "vertices": 75998,
+      "spatial_offset": 4208664,
+      "triangle_count_offset": 4399079,
+      "source_triangles": 20670,
+      "grid": [
+        154,
+        52
+      ],
+      "spatial_references": 39491,
+      "material_count": 9,
+      "uniquely_bound_triangles": 20670,
+      "bound_triangle_counts_by_category": {
+        "grass": 7670,
+        "shrubs": 5046,
+        "none": 7954
+      }
+    },
+    {
+      "course": "ITALY_W1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_W1\\ITALY_W1.PSM",
+      "source_sha256": "1e80a99d84d7a99cccb114c89070c583934a85c094e94459374935593f158f7a",
+      "vertices": 72117,
+      "spatial_offset": 3997993,
+      "triangle_count_offset": 4143003,
+      "source_triangles": 16440,
+      "grid": [
+        90,
+        50
+      ],
+      "spatial_references": 31658,
+      "material_count": 8,
+      "uniquely_bound_triangles": 16440,
+      "bound_triangle_counts_by_category": {
+        "none": 5746,
+        "grass": 6913,
+        "shrubs": 3781
+      }
+    },
+    {
+      "course": "ITALY_W2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_W2\\ITALY_W2.PSM",
+      "source_sha256": "6da44f1680e0f8eff1805aac71245a220094e083670e7cde34205b54b7a6c45b",
+      "vertices": 77848,
+      "spatial_offset": 4279749,
+      "triangle_count_offset": 4481647,
+      "source_triangles": 19736,
+      "grid": [
+        146,
+        69
+      ],
+      "spatial_references": 40306,
+      "material_count": 8,
+      "uniquely_bound_triangles": 19736,
+      "bound_triangle_counts_by_category": {
+        "shrubs": 5025,
+        "grass": 7033,
+        "none": 7678
+      }
+    },
+    {
+      "course": "SPAIN1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN1\\SPAIN1.PSM",
+      "source_sha256": "ae465c2636b34957cbca8a62eb3906b5e39b8db3667097fc365700ee1533a0c7",
+      "vertices": 63744,
+      "spatial_offset": 3485071,
+      "triangle_count_offset": 3617873,
+      "source_triangles": 17202,
+      "grid": [
+        47,
+        57
+      ],
+      "spatial_references": 30437,
+      "material_count": 7,
+      "uniquely_bound_triangles": 17202,
+      "bound_triangle_counts_by_category": {
+        "none": 7660,
+        "shrubs": 3631,
+        "grass": 5911
+      }
+    },
+    {
+      "course": "SPAIN2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN2\\SPAIN2.PSM",
+      "source_sha256": "77f645f2ac0b9eed7a57088453d068f4474b8a4889507f1f5101eea4671afd63",
+      "vertices": 84326,
+      "spatial_offset": 4539100,
+      "triangle_count_offset": 4674376,
+      "source_triangles": 15891,
+      "grid": [
+        52,
+        56
+      ],
+      "spatial_references": 30808,
+      "material_count": 9,
+      "uniquely_bound_triangles": 15891,
+      "bound_triangle_counts_by_category": {
+        "none": 9282,
+        "grass": 5269,
+        "shrubs": 1340
+      }
+    },
+    {
+      "course": "SPAIN_M",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN_M\\SPAIN_M.PSM",
+      "source_sha256": "52f139a72f509b6df67c81b43e2417551a58732b01b2f31f3c288956349085be",
+      "vertices": 80622,
+      "spatial_offset": 4404756,
+      "triangle_count_offset": 4534906,
+      "source_triangles": 16310,
+      "grid": [
+        75,
+        33
+      ],
+      "spatial_references": 29978,
+      "material_count": 7,
+      "uniquely_bound_triangles": 16310,
+      "bound_triangle_counts_by_category": {
+        "none": 7003,
+        "grass": 6233,
+        "shrubs": 3074
+      }
+    },
+    {
+      "course": "SPAIN_S1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S1\\SPAIN_S1.PSM",
+      "source_sha256": "51ee09ca3b9269b72aabb1c4b4f096070de4c175907f1bf40df550d5973371b4",
+      "vertices": 86729,
+      "spatial_offset": 4696355,
+      "triangle_count_offset": 4842377,
+      "source_triangles": 17358,
+      "grid": [
+        94,
+        55
+      ],
+      "spatial_references": 31251,
+      "material_count": 7,
+      "uniquely_bound_triangles": 17358,
+      "bound_triangle_counts_by_category": {
+        "none": 7557,
+        "grass": 6752,
+        "shrubs": 3049
+      }
+    },
+    {
+      "course": "SPAIN_S1_FLIP",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S1_FLIP\\SPAIN_S1_FLIP.PSM",
+      "source_sha256": "242a740edb948b1062b2be9b2716dbcd43dd326daff85212d7d5a168913aea2b",
+      "vertices": 86643,
+      "spatial_offset": 4699169,
+      "triangle_count_offset": 4845191,
+      "source_triangles": 17358,
+      "grid": [
+        94,
+        55
+      ],
+      "spatial_references": 31251,
+      "material_count": 7,
+      "uniquely_bound_triangles": 17358,
+      "bound_triangle_counts_by_category": {
+        "none": 7557,
+        "grass": 6752,
+        "shrubs": 3049
+      }
+    },
+    {
+      "course": "SPAIN_S2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\SPAIN_S2.PSM",
+      "source_sha256": "4821ebadd9f85deffed2451f5a92fd839191fdf0c85c9c512acb66209d1559a1",
+      "vertices": 77216,
+      "spatial_offset": 4209321,
+      "triangle_count_offset": 4363237,
+      "source_triangles": 17766,
+      "grid": [
+        89,
+        57
+      ],
+      "spatial_references": 33307,
+      "material_count": 9,
+      "uniquely_bound_triangles": 17766,
+      "bound_triangle_counts_by_category": {
+        "none": 10461,
+        "grass": 5102,
+        "shrubs": 2203
+      }
+    },
+    {
+      "course": "SPAIN_W",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W\\SPAIN_W.PSM",
+      "source_sha256": "5e4f5bf41c8443d85ae74275b03c8e6a549611d6875014ff293057238ff15d6d",
+      "vertices": 90848,
+      "spatial_offset": 4888112,
+      "triangle_count_offset": 5044920,
+      "source_triangles": 18927,
+      "grid": [
+        94,
+        40
+      ],
+      "spatial_references": 35343,
+      "material_count": 9,
+      "uniquely_bound_triangles": 18927,
+      "bound_triangle_counts_by_category": {
+        "none": 10853,
+        "grass": 5723,
+        "shrubs": 2351
+      }
+    },
+    {
+      "course": "SPAIN_W_FLIP",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W_FLIP\\SPAIN_W_FLIP.PSM",
+      "source_sha256": "dfe5a3dc208c5d5c37f6fa7105e59592f0aa4ca26f80ff66f93a4c7c2ba53c9b",
+      "vertices": 90826,
+      "spatial_offset": 4892874,
+      "triangle_count_offset": 5049682,
+      "source_triangles": 18927,
+      "grid": [
+        94,
+        40
+      ],
+      "spatial_references": 35343,
+      "material_count": 9,
+      "uniquely_bound_triangles": 18927,
+      "bound_triangle_counts_by_category": {
+        "none": 10853,
+        "grass": 5723,
+        "shrubs": 2351
+      }
+    },
+    {
+      "course": "TURKEY1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY1\\TURKEY1.PSM",
+      "source_sha256": "0f0cae4de41e4dec855acbeb15943462af3c9fff09e0444e10990d00c85bcd1e",
+      "vertices": 65803,
+      "spatial_offset": 3661842,
+      "triangle_count_offset": 3826508,
+      "source_triangles": 22573,
+      "grid": [
+        42,
+        47
+      ],
+      "spatial_references": 39100,
+      "material_count": 8,
+      "uniquely_bound_triangles": 22573,
+      "bound_triangle_counts_by_category": {
+        "grass": 10220,
+        "shrubs": 2671,
+        "none": 9682
+      }
+    },
+    {
+      "course": "TURKEY2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\TURKEY2.PSM",
+      "source_sha256": "80a2b1d8d1e5df771e57e1fe5753c711b75523d4e89fd14335745645446f28df",
+      "vertices": 74827,
+      "spatial_offset": 4117720,
+      "triangle_count_offset": 4257298,
+      "source_triangles": 16312,
+      "grid": [
+        60,
+        48
+      ],
+      "spatial_references": 31903,
+      "material_count": 11,
+      "uniquely_bound_triangles": 16312,
+      "bound_triangle_counts_by_category": {
+        "none": 8432,
+        "grass": 3866,
+        "shrubs": 4014
+      }
+    },
+    {
+      "course": "TURKEY3",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+      "source_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+      "vertices": 65446,
+      "spatial_offset": 3631905,
+      "triangle_count_offset": 3811633,
+      "source_triangles": 22016,
+      "grid": [
+        55,
+        59
+      ],
+      "spatial_references": 41574,
+      "material_count": 11,
+      "uniquely_bound_triangles": 22016,
+      "bound_triangle_counts_by_category": {
+        "none": 10229,
+        "grass": 5035,
+        "shrubs": 6752
+      }
+    },
+    {
+      "course": "TURKEY_M",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY_M\\TURKEY_M.PSM",
+      "source_sha256": "7bf0c7022db8c7d6d1cf21b00a614f47d2235d14f1cd9434858121e1fb5ee0d9",
+      "vertices": 85221,
+      "spatial_offset": 4682402,
+      "triangle_count_offset": 4868478,
+      "source_triangles": 23994,
+      "grid": [
+        83,
+        54
+      ],
+      "spatial_references": 41900,
+      "material_count": 13,
+      "uniquely_bound_triangles": 23994,
+      "bound_triangle_counts_by_category": {
+        "shrubs": 3228,
+        "none": 15888,
+        "grass": 4878
+      }
+    },
+    {
+      "course": "TURKEY_S1",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S1\\TURKEY_S1.PSM",
+      "source_sha256": "e431d2c3e64cf9e803013b4faf1f116bd2bce9e4d9a55140b74c42f2b8ca2198",
+      "vertices": 84986,
+      "spatial_offset": 4709233,
+      "triangle_count_offset": 4888621,
+      "source_triangles": 18768,
+      "grid": [
+        115,
+        70
+      ],
+      "spatial_references": 36673,
+      "material_count": 12,
+      "uniquely_bound_triangles": 18768,
+      "bound_triangle_counts_by_category": {
+        "none": 9898,
+        "grass": 5015,
+        "shrubs": 3512,
+        "unrecognized": 343
+      }
+    },
+    {
+      "course": "TURKEY_S2",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2\\TURKEY_S2.PSM",
+      "source_sha256": "e61e1fda314e6113e4f6be2fb0770ec2ac95c699ba3a0cd9a9124bad80aae6ba",
+      "vertices": 79512,
+      "spatial_offset": 4393744,
+      "triangle_count_offset": 4555248,
+      "source_triangles": 19781,
+      "grid": [
+        112,
+        37
+      ],
+      "spatial_references": 36119,
+      "material_count": 11,
+      "uniquely_bound_triangles": 19781,
+      "bound_triangle_counts_by_category": {
+        "none": 10631,
+        "grass": 6878,
+        "shrubs": 2272
+      }
+    },
+    {
+      "course": "TURKEY_S2_FLIP",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY_S2_FLIP\\TURKEY_S2_FLIP.PSM",
+      "source_sha256": "c913f6cfc37a30173c8fc43fcca6c40641ae4115fb692acd6a77ced41253db70",
+      "vertices": 80336,
+      "spatial_offset": 4448875,
+      "triangle_count_offset": 4609775,
+      "source_triangles": 19682,
+      "grid": [
+        112,
+        37
+      ],
+      "spatial_references": 35968,
+      "material_count": 11,
+      "uniquely_bound_triangles": 19682,
+      "bound_triangle_counts_by_category": {
+        "none": 9436,
+        "grass": 7926,
+        "shrubs": 2320
+      }
+    },
+    {
+      "course": "TURKEY_W",
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY_W\\TURKEY_W.PSM",
+      "source_sha256": "6d0c774caf4598e58f848dcd1938e0512cb6ddb8c0185e18b47d6fa8bad5cb27",
+      "vertices": 71435,
+      "spatial_offset": 3963437,
+      "triangle_count_offset": 4132445,
+      "source_triangles": 17850,
+      "grid": [
+        94,
+        70
+      ],
+      "spatial_references": 35535,
+      "material_count": 13,
+      "uniquely_bound_triangles": 17850,
+      "bound_triangle_counts_by_category": {
+        "none": 6076,
+        "grass": 7070,
+        "shrubs": 4704
+      }
+    }
+  ]
+}
