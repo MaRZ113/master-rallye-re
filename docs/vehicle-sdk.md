@@ -27,22 +27,23 @@ CLI: py -3 tools/mrtool.py validate-vehicle project.json; py -3 tools/mrtool.py 
 - Rare or unknown auxiliary semantics remain optional future research.
 - The known non-finite Forklift tag101 hull remains rejected for scaling; it is preserved at zero edit.
 
-## Future addon qualification boundary
+## Generic addon SDK boundary
 
-The existing-donor SDK v1 baseline does not close the generic addon vehicle
-roadmap. The agreed phases are R5V-G.1 unlock architecture, R5V-G.2 vehicle
-audio identity/sound family, R5V-H AI pools, R5V-I multi-slot registry
-expansion with a real added T2 vehicle as a required qualification, then R5V-J
-the generic addon tool/SDK. Before that SDK can be called complete, an addon
-must select/configure its sound family independently of model/physics identity
-and pass a T2 addon vehicle qualification. F.2f does not implement these
-features.
+This donor-authoring SDK v1 remains frozen and distinct from the new
+manifest-driven Generic Addon Vehicle SDK. The roadmap milestones G.1 unlock,
+G.2 stock audio profiles, H mode-aware AI pools, and I multi-slot registry
+qualification have been completed for their stated scope. R5V-I.1 runtime
+evidence now confirms the authored `R5VQualifier` family at physical ID27/T2
+local7, including natural AI participant materialization. The model/physics
+payload remains Navara-derived; this is a family-routing qualification, not
+historical content.
 
-R5V-I.0 currently has a static-ready slot-proof candidate (28 registry
-records; sparse T2/local7 -> physical ID27) and a verified human-test package.
-That candidate reuses Navara physical ID7 as a diagnostic donor and does not
-qualify a second vehicle. The present corpus audit is
-`REAL_T2_PAYLOAD_REQUIRED`: stock NewRav is ID12, while demo Rav4 lacks cooked
-DX/DXT and a retail physics/collision package. The generic SDK remains
-incomplete until an independent T2 vehicle passes runtime qualification. See
-`research/vehicles/multislot/id27-vehicle.md`.
+R5V-J.0 adds a separate versioned manifest, validator and deterministic
+offline planner under `research/vehicles/sdk/`. It does not change this SDK's
+existing-donor authoring limits and does not yet provide an unchanged-EXE
+runtime loader. Vehicle Select re-entry restoration and the requested ID27
+race-marker color are still public runtime-release gates. The earlier
+`REAL_T2_PAYLOAD_REQUIRED` audit remains useful for historical-content claims,
+but no longer blocks the authored qualifier proof; see
+`research/vehicles/multislot/id27-vehicle.md` and
+`research/vehicles/multislot/i1-runtime-evidence.json`.

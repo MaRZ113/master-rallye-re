@@ -22,5 +22,9 @@ T2/local7. The candidate capacities are T1=8, T2=8 and T3=12.
 
 The Ghidra bridge export in the current vehicle checkout records the stock
 helper fields: class at record offset +0x10, T1 local index +0x14, T2 local
-index +0x18 and T3 local index +0x1C. The mapping claim is static; no
-human-runtime confirmation is implied for ID27.
+index +0x18 and T3 local index +0x1C. Those offsets and the mapping helper
+implementation are static evidence. Separately, I.0 runtime captures confirm
+ID27 as a player at T2/local7; I.1 captures confirm its independently named
+`R5VQualifier` family as both player and natural AI participant. The runtime
+evidence is summarized in [the I.1 ledger](i1-runtime-evidence.json); it does
+not imply higher IDs or arbitrary-N support.

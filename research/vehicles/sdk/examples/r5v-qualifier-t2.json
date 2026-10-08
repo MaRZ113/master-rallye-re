@@ -1,0 +1,38 @@
+{
+  "manifest_version": 1,
+  "addon_id": "r5v-qualifier-t2",
+  "description": "Authored T2 SDK qualification vehicle, not historical Master Rallye content.",
+  "vehicle_class": "T2",
+  "physical_id": {"policy": "explicit", "value": 27},
+  "class_local_placement": "append",
+  "identity": {
+    "runtime_family": "R5VQualifier",
+    "model_family": "R5VQualifier",
+    "wheel_family": "R5VQualifier",
+    "physics_family": "Vehicles/R5VQualifier"
+  },
+  "assets": {
+    "model_package_root": "DataGx/Vehicles/R5VQualifier",
+    "required_roles": ["car.dx", "complete.dx", "wheel.dx"]
+  },
+  "frontend": {
+    "manufacturer": "R5V",
+    "model": "T2 QUALIFIER",
+    "combined": "R5V T2 QUALIFIER",
+    "stats": [7, 6, 6, 5],
+    "vehicle_select_art": {"policy": "stock_frame", "frame": 23},
+    "smallcarsheet": {"policy": "stock_frame", "frame": 13}
+  },
+  "race_colour_rgba": [1.0, 0.0, 1.0, 1.0],
+  "unlock": {"policy": "mirror_stock_unlock", "stock_vehicle_id": 10},
+  "audio": {"policy": "stock_profile", "stock_audio_profile_id": 7},
+  "ai_eligibility": {
+    "quick_race": {"enabled": true, "boundary": "new_race", "pool": "dynamic_class"},
+    "rallye_cup": {"enabled": true, "boundary": "new_cup", "pool": "dynamic_class"},
+    "master_rallye": {"enabled": true, "boundary": "new_competition", "pool": "dynamic_class"},
+    "invitation": {"enabled": false, "reason": "T2 is not Invitation's tested ordinary T3 pool"},
+    "challenge": {"enabled": false, "reason": "authored event roster; no automatic addon injection"},
+    "practice": {"enabled": false, "reason": "no distinct stock AI roster owner qualified"}
+  },
+  "results": {"policy": "fixed", "display_name": "R5V TEST DRIVER"}
+}

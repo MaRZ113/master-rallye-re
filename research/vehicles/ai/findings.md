@@ -133,5 +133,7 @@ not eligible there automatically.
   T3-only and uses ordinary/base T3 IDs 14..20.
 * `UNKNOWN`: isolated XmlData NULL-guard runtime behavior and the exact legacy
   Loading->Attract trigger correction.
-* `NOT STARTED`: ID27, T2 expansion, ordering, audio architecture changes,
-  and SDK work.
+* `Historical at the R5V-H closeout`: ID27, T2 expansion, ordering, and SDK
+  work had not started. R5V-I.1 later confirmed the authored ID27/T2 family and
+  natural AI participant; J0 SDK work is now underway. Higher IDs and UI
+  ordering remain outside those completed phases.

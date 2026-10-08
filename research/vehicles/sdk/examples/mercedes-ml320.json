@@ -1,0 +1,38 @@
+{
+  "manifest_version": 1,
+  "addon_id": "mercedes-ml320",
+  "description": "Runtime-qualified Mercedes ID26 example; display and result identity are presentation-only.",
+  "vehicle_class": "T1",
+  "physical_id": {"policy": "explicit", "value": 26},
+  "class_local_placement": "append",
+  "identity": {
+    "runtime_family": "Mercedes",
+    "model_family": "Mercedes",
+    "wheel_family": "Mercedes",
+    "physics_family": "Vehicles/Mercedes"
+  },
+  "assets": {
+    "model_package_root": "DataGx/Vehicles/Mercedes",
+    "required_roles": ["car.dx", "complete.dx", "wheel.dx"]
+  },
+  "frontend": {
+    "manufacturer": "MERCEDES",
+    "model": "ML-320",
+    "combined": "MERCEDES ML-320",
+    "stats": [4, 3, 6, 5],
+    "vehicle_select_art": {"policy": "stock_frame", "frame": 3},
+    "smallcarsheet": {"policy": "stock_frame", "frame": 9}
+  },
+  "race_colour_rgba": [1.0, 0.0, 0.0, 1.0],
+  "unlock": {"policy": "mirror_stock_unlock", "stock_vehicle_id": 3},
+  "audio": {"policy": "stock_profile", "stock_audio_profile_id": 0},
+  "ai_eligibility": {
+    "quick_race": {"enabled": true, "boundary": "new_race", "pool": "dynamic_class"},
+    "rallye_cup": {"enabled": true, "boundary": "new_cup", "pool": "dynamic_class"},
+    "master_rallye": {"enabled": true, "boundary": "new_competition", "pool": "dynamic_class"},
+    "invitation": {"enabled": false, "reason": "tested Invitation route is ordinary T3 only"},
+    "challenge": {"enabled": false, "reason": "authored event roster; no automatic addon injection"},
+    "practice": {"enabled": false, "reason": "no distinct stock AI roster owner qualified"}
+  },
+  "results": {"policy": "fixed", "display_name": "JEAN-PIERRE STRUGO"}
+}

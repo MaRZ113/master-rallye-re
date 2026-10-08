@@ -74,7 +74,7 @@ Native DriverID selection remains independent from ID26's display-only Results
 identity `JEAN-PIERRE STRUGO`. The fixed label is not used to select or alter
 AI behavior. Player unlock state also remains independent from AI eligibility.
 
-## Current phase — R5V-I multi-slot registry expansion
+## R5V-I — multi-slot registry and independent-family qualification
 
 **R5V-I.0 second-slot proof: FULL PASS / CLOSED.** Four verified Observatory
 JSON/raw pairs from the exact I.0 executable confirm physical ID27 at T2
@@ -84,25 +84,47 @@ wheel, movement, HUD and progress behavior. This is a slot proof; the I.0
 Navara donor is not a distinct vehicle identity. Capture/raw hashes and
 bounded human observations are in [the I runtime ledger](multislot/runtime-results.md).
 
-**R5V-I.1 authored independent-family T2 qualifier: READY FOR HUMAN RUNTIME.**
+**R5V-I.1 independent-family T2 qualification: core routing CONFIRMED_BY_RUNTIME.**
 The exact candidate keeps physical ID27/T2 local7 while naming its runtime,
-model, wheel and physics family `R5VQualifier`. Its ignored package gives that
-family its own `DataGx/Vehicles/R5VQualifier` assets and
-`Vehicles/R5VQualifier` physics/modification paths, with a magenta body-DXT
-canary. This is intentionally authored SDK qualification content, not a
-historical vehicle; collision/model topology and most assets remain
-Navara-derived. Runtime status is still pending. See the
-[I.1 qualification and handoff](multislot/i1-qualification.md).
+model, wheel and physics family `R5VQualifier`. The player-race capture shows
+physical ID27 with `CarType`/`WheelType` `R5VQualifier`; the owner reports the
+normal player materialization test. A natural Quick Race capture separately
+shows ID27 as T2 AI Car3 using the same family. The I.1 candidate manifest
+lists ID27 in the dynamic T2 pool and has no forced-participant override. That
+AI capture proves participant materialization only, not a completed AI race
+or finishing position. Six exact candidate capture pairs and rehashed raw
+sidecars are summarized in
+[I.1 runtime evidence](multislot/i1-runtime-evidence.json).
+
+Two public runtime-release gates remain open: the scene-local Vehicle Select
+re-entry mismatch (stored Quick Race ID27, but one capture displays Navara at
+T2/local0; exact native writer unresolved) and the desired marker RGBA change
+from runtime-captured white to planned magenta. Neither blocks the J0 offline
+compiler foundation. The re-entry comparison does not prove loss of physical
+ID27 or automatic Navara commit. See the
+[I.1 lifecycle and handoff](multislot/i1-qualification.md) and
+[SDK frontend lifecycle](sdk/frontend-lifecycle.md).
 
 Future non-bonus T3 addons must qualify Invitation's ordinary T3 pool
 explicitly; class membership alone does not imply eligibility in every mode.
 Bonus/special T3 vehicles must not be added to that pool automatically.
 
-## Roadmap
+## Current phase — R5V-J.0 Generic Addon Vehicle SDK foundation
 
-R5V-I closes only after the exact I.1 candidate proves independent family
-routing in human runtime and its natural T2 AI eligibility. R5V-J generic Addon
-Vehicle SDK remains out of scope until that qualification is complete.
+**J0: PARTIAL / OFFLINE COMPILER IMPLEMENTED.** Versioned JSON manifests,
+semantic validation, deterministic physical-ID resolution, bidirectional
+sparse class maps, formula-derived registry layout, resource/policy plans,
+multi-addon compilation, and output verification are implemented. The
+Mercedes and R5VQualifier examples are metadata-only; no proprietary assets
+are included. The on-disk retail executable is hash-checked if supplied, but
+the compiler does not patch it. No unchanged-EXE external runtime loader is
+implemented or qualified. Re-entry restoration and the new race-marker color
+remain explicit runtime-release gates. See [SDK architecture](sdk/architecture.md)
+and [remaining gates](sdk/remaining-gates.md).
+
+**R5V-I core qualification:** ID26/T1 and ID27/T2 remain the only two
+runtime-qualified added physical IDs. This does not establish arbitrary-N
+runtime support.
 
 ## H.2 historical pre-runtime status (superseded)
 

@@ -2,11 +2,14 @@
 
 ## Status and scope
 
-**READY FOR HUMAN RUNTIME.** This is the final R5V-I qualification before
-R5V-J, but no I.1 gameplay/runtime result is claimed yet. The test uses the
-authored SDK qualifier `R5VQualifier` at physical ID27 / T2 local7. It is not a
-historical Master Rallye vehicle. Do not add ID28 or begin SDK implementation
-until the human test is complete.
+**HISTORICAL HUMAN HANDOFF — SUPERSEDED BY RUNTIME EVIDENCE.** The exact
+candidate's player-family routing and natural T2 AI participant materialization
+are now recorded as `CONFIRMED_BY_RUNTIME` in
+[`i1-runtime-evidence.json`](i1-runtime-evidence.json). This file preserves
+the original test protocol and should not be read as a current request to
+repeat it. The authored qualifier `R5VQualifier` at physical ID27/T2 local7 is
+not historical Master Rallye content. Vehicle Select re-entry and race-marker
+color remain public runtime-release gates.
 
 Candidate profile: `i1-id27-r5v-qualifier-independent-t2-family`.
 
@@ -125,6 +128,6 @@ the existing architecture can resolve a second independently named T2 family
 at ID27; it does not prove arbitrary registry growth, unique model topology,
 unique collision topology, custom audio authoring, or historical authenticity.
 
-After the human report, update runtime status and close R5V-I only if both the
-player family-routing pass and one natural T2 AI pass succeed. R5V-J remains
-unstarted until then.
+The remaining human re-entry/color checks are recorded separately from J0
+compiler work; do not infer them from the older checklist below. No ID28,
+custom ordering, or public runtime loader is included in this qualification.

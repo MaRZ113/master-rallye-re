@@ -26,6 +26,11 @@ from master_rallye.vehicle_project import VehicleProject, validate_vehicle, buil
 from master_rallye.vehicle_packaging import (
     vehicle_dependencies, texture_users, bundle_vehicle, pack_sma, unpack_sma,
 )
+from master_rallye.addon_sdk import (
+    AddonValidationError, build_artifacts, build_to_directory, inspect_frontend_capture,
+    load_capabilities, load_manifests, validate_manifests, verify_build,
+)
+from master_rallye.addon_sdk.compiler import verify_retail_executable
 import hashlib
 
 def r4e_command(args):
@@ -206,6 +211,47 @@ def collision_corpus_command(args) -> int:
     return 0
 
 
+def addon_command(args) -> int:
+    """Manifest-driven generic addon planner; all outputs remain offline plans."""
+    if args.addon_command == "validate":
+        manifests, _ = load_manifests(args.manifest)
+        capabilities, cap_sha = load_capabilities(args.capabilities)
+        plan = validate_manifests(manifests, capabilities)
+        exe_check = verify_retail_executable(args.retail_exe, capabilities) if args.retail_exe else "NOT_SUPPLIED_OFFLINE_PLAN_ONLY"
+        resource_check = (build_artifacts(manifests, capabilities, args.assets_root)["resource-inventory.json"]
+                          if args.assets_root else None)
+        result = {"status": "PASS", "capability_profile_sha256": cap_sha,
+                  "retail_executable_check": exe_check,
+                  "asset_validation": json.loads(resource_check.decode("utf-8")) if resource_check else "NOT_REQUESTED",
+                  "addon_count": len(plan["addons"]), "resolved_addons": [
+                      {"addon_id": row["addon_id"], "physical_id": row["physical_id"],
+                       "vehicle_class": row["vehicle_class"], "class_local_index": row["class_local_index"]}
+                      for row in plan["addons"]],
+                  "runtime_installable": False}
+    elif args.addon_command == "build":
+        result = build_to_directory(args.manifest, args.capabilities, args.output,
+                                    assets_root=args.assets_root, retail_exe=args.retail_exe)
+    elif args.addon_command == "verify":
+        result = verify_build(args.output)
+    elif args.addon_command == "inspect":
+        data = json.loads(args.input.read_text(encoding="utf-8-sig"))
+        if isinstance(data, dict) and isinstance(data.get("entries"), list):
+            result = inspect_frontend_capture(args.input, expected_exe_sha256=args.expected_exe_sha256)
+        elif isinstance(data, dict) and data.get("plan_version") == 1:
+            result = {"artifact": "addon-plan", "build_target": data.get("build_target"),
+                      "evidence_boundary": data.get("evidence_boundary"),
+                      "addons": data.get("addons"), "class_mapping": data.get("class_mapping"),
+                      "registry_layout": data.get("registry_layout"), "runtime_installable": False}
+        else:
+            raise AddonValidationError("input is not an addon plan or Observatory Broker capture")
+    elif args.addon_command == "check-frontend-state":
+        result = inspect_frontend_capture(args.capture, expected_exe_sha256=args.expected_exe_sha256)
+    else:
+        raise AddonValidationError(f"unsupported addon SDK command {args.addon_command}")
+    print(json.dumps(result, indent=2, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mrtool", description="Master Rallye clean-room research CLI")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -254,6 +300,33 @@ def build_parser() -> argparse.ArgumentParser:
     collision.add_argument("--report", required=True, type=Path)
     collision.add_argument("--markdown", type=Path)
     collision.set_defaults(function=collision_corpus_command)
+    addon = commands.add_parser("addon", help="validate, plan, build and inspect generic addon definitions")
+    addon_commands = addon.add_subparsers(dest="addon_command", required=True)
+    addon_default_capabilities = REPOSITORY_ROOT / "research" / "vehicles" / "sdk" / "capabilities" / "retail-2001.json"
+    addon_validate = addon_commands.add_parser("validate", help="validate one or more addon manifests")
+    addon_validate.add_argument("--manifest", action="append", required=True, type=Path)
+    addon_validate.add_argument("--capabilities", type=Path, default=addon_default_capabilities)
+    addon_validate.add_argument("--retail-exe", type=Path, help="optional exact pristine retail image to hash-check")
+    addon_validate.add_argument("--assets-root", type=Path, help="optional external DataGx/Vehicles asset root to validate")
+    addon_validate.set_defaults(function=addon_command)
+    addon_build = addon_commands.add_parser("build", help="write a deterministic offline integration plan")
+    addon_build.add_argument("--manifest", action="append", required=True, type=Path)
+    addon_build.add_argument("--capabilities", type=Path, default=addon_default_capabilities)
+    addon_build.add_argument("--assets-root", type=Path, help="external DataGx/Vehicles root; validates and stages referenced DX/DXT dependencies")
+    addon_build.add_argument("--retail-exe", type=Path, help="optional exact pristine retail image to hash-check; never modified or copied")
+    addon_build.add_argument("--output", required=True, type=Path)
+    addon_build.set_defaults(function=addon_command)
+    addon_verify = addon_commands.add_parser("verify", help="verify every deterministic output hash")
+    addon_verify.add_argument("output", type=Path)
+    addon_verify.set_defaults(function=addon_command)
+    addon_inspect = addon_commands.add_parser("inspect", help="inspect an addon plan or Broker capture")
+    addon_inspect.add_argument("input", type=Path)
+    addon_inspect.add_argument("--expected-exe-sha256")
+    addon_inspect.set_defaults(function=addon_command)
+    addon_state = addon_commands.add_parser("check-frontend-state", help="report stored and scene-local vehicle selection separately")
+    addon_state.add_argument("capture", type=Path)
+    addon_state.add_argument("--expected-exe-sha256")
+    addon_state.set_defaults(function=addon_command)
     vehicle=commands.add_parser("inspect-vehicle",help="exact DX/DXT dependencies for one vehicle")
     vehicle.add_argument("vehicle_dir",type=Path)
     vehicle.set_defaults(function=r4e_command)

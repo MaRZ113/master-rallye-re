@@ -39,8 +39,26 @@ I.0 runtime classifications:
 
 ## R5V-I.1 — authored independent-family T2 qualification
 
-**READY FOR HUMAN RUNTIME.** Static candidate and package verification passed;
-human runtime has not yet occurred.
+**CORE FAMILY ROUTING AND NATURAL AI MATERIALIZATION: CONFIRMED_BY_RUNTIME.**
+The exact candidate and six rehashed capture pairs are summarized in
+[`i1-runtime-evidence.json`](i1-runtime-evidence.json).
+
+The player-race capture reports Car0 physical ID27, class T2, player type,
+`CarType=R5VQualifier`, and `WheelType=R5VQualifier`; the owner reports the
+normal player-family runtime test. A separate natural Quick Race capture
+records `Race/NumCars=4`, `Race/NumPlayers=1`, `Race/Type=2`, with ID27 as T2
+AI Car3 (`DriverID=1`) and `CarType`/`WheelType=R5VQualifier`. The candidate
+manifest lists the natural T2 pool `[7,8,9,10,11,12,13,27]` and
+`id27_forced_participant=false`. This confirms natural AI participant
+materialization, not a completed AI race lifecycle or final position.
+
+Two public runtime-release gates remain bounded: the Vehicle Select scene
+re-entry mismatch and the new race marker color. The re-entry captures retain
+`Frontend/QuickRace/Car0=27` in both states, while one displays Navara at
+T2/local0 and the control displays R5VQualifier at T2/local7. The exact native
+writer is unknown; the later Navara capture does not prove automatic commit.
+The captured ID27 marker is white `[1,1,1,1]`; the SDK request for magenta
+`[1,0,1,1]` has not been runtime-tested.
 
 * Profile: `i1-id27-r5v-qualifier-independent-t2-family`
 * Source retail SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
@@ -66,6 +84,6 @@ human runtime has not yet occurred.
   T2 AI pool membership, audio profile7, ID10 unlock oracle, native DriverID
   selection and participant count are preserved.
 
-The human handoff and required observations are in
-[i1-qualification.md](i1-qualification.md). Do not close R5V-I until the
-player family-routing and natural T2 AI checks pass on this exact candidate.
+The original pre-runtime handoff and protocol are retained in
+[i1-qualification.md](i1-qualification.md) as historical provenance. Its
+runtime checklist is superseded by the verified captures summarized above.

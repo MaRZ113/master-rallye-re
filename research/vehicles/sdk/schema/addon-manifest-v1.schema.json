@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://master-rallye-re.invalid/schema/addon-manifest-v1.schema.json",
+  "title": "Master Rallye Generic Addon Vehicle Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version", "addon_id", "description", "vehicle_class", "physical_id",
+    "class_local_placement", "identity", "assets", "frontend", "race_colour_rgba",
+    "unlock", "audio", "ai_eligibility", "results"
+  ],
+  "properties": {
+    "manifest_version": {"const": 1},
+    "addon_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+    "description": {"type": "string", "minLength": 1},
+    "vehicle_class": {"enum": ["T1", "T2", "T3"]},
+    "physical_id": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["policy", "value"], "properties": {"policy": {"const": "explicit"}, "value": {"type": "integer", "minimum": 0}}},
+        {"type": "object", "additionalProperties": false, "required": ["policy", "value"], "properties": {"policy": {"const": "auto"}, "value": {"type": "null"}}}
+      ]
+    },
+    "class_local_placement": {"const": "append"},
+    "identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["runtime_family", "model_family", "wheel_family", "physics_family"],
+      "properties": {
+        "runtime_family": {"$ref": "#/$defs/family"},
+        "model_family": {"$ref": "#/$defs/family"},
+        "wheel_family": {"$ref": "#/$defs/family"},
+        "physics_family": {"type": "string", "pattern": "^Vehicles/[A-Za-z][A-Za-z0-9_]*$"}
+      }
+    },
+    "assets": {
+      "type": "object", "additionalProperties": false,
+      "required": ["model_package_root", "required_roles"],
+      "properties": {
+        "model_package_root": {"type": "string", "pattern": "^DataGx/Vehicles/[A-Za-z][A-Za-z0-9_]*$"},
+        "required_roles": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+$"}, "allOf": [{"contains": {"const": "car.dx"}}, {"contains": {"const": "complete.dx"}}, {"contains": {"const": "wheel.dx"}}]}
+      }
+    },
+    "frontend": {
+      "type": "object", "additionalProperties": false,
+      "required": ["manufacturer", "model", "combined", "stats", "vehicle_select_art", "smallcarsheet"],
+      "properties": {
+        "manufacturer": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "combined": {"type": "string", "minLength": 1},
+        "stats": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "integer", "minimum": 0, "maximum": 10}},
+        "vehicle_select_art": {"$ref": "#/$defs/stockFrame"},
+        "smallcarsheet": {"$ref": "#/$defs/stockFrame"}
+      }
+    },
+    "race_colour_rgba": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+    "unlock": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["policy"], "properties": {"policy": {"const": "always_available"}}},
+        {"type": "object", "additionalProperties": false, "required": ["policy", "stock_vehicle_id"], "properties": {"policy": {"const": "mirror_stock_unlock"}, "stock_vehicle_id": {"type": "integer", "minimum": 0, "maximum": 25}}}
+      ]
+    },
+    "audio": {
+      "type": "object", "additionalProperties": false, "required": ["policy", "stock_audio_profile_id"],
+      "properties": {"policy": {"const": "stock_profile"}, "stock_audio_profile_id": {"type": "integer", "minimum": 0, "maximum": 24}}
+    },
+    "ai_eligibility": {
+      "type": "object", "additionalProperties": false,
+      "required": ["quick_race", "rallye_cup", "master_rallye", "invitation", "challenge", "practice"],
+      "properties": {
+        "quick_race": {"$ref": "#/$defs/aiMode"},
+        "rallye_cup": {"$ref": "#/$defs/aiMode"},
+        "master_rallye": {"$ref": "#/$defs/aiMode"},
+        "invitation": {"$ref": "#/$defs/aiMode"},
+        "challenge": {"$ref": "#/$defs/disabledMode"},
+        "practice": {"$ref": "#/$defs/disabledMode"}
+      }
+    },
+    "results": {
+      "type": "object", "additionalProperties": false, "required": ["policy", "display_name"],
+      "properties": {"policy": {"const": "fixed"}, "display_name": {"type": "string", "minLength": 1}}
+    }
+  },
+  "$defs": {
+    "family": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_]*$"},
+    "stockFrame": {"type": "object", "additionalProperties": false, "required": ["policy", "frame"], "properties": {"policy": {"const": "stock_frame"}, "frame": {"type": "integer", "minimum": 0}}},
+    "aiMode": {"oneOf": [{"type": "object", "additionalProperties": false, "required": ["enabled", "boundary", "pool"], "properties": {"enabled": {"const": true}, "boundary": {"type": "string"}, "pool": {"type": "string"}}}, {"$ref": "#/$defs/disabledMode"}]},
+    "disabledMode": {"type": "object", "additionalProperties": false, "required": ["enabled", "reason"], "properties": {"enabled": {"const": false}, "reason": {"type": "string", "minLength": 1}}}
+  }
+}

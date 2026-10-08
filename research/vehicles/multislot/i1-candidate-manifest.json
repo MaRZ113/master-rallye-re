@@ -2,7 +2,7 @@
   "schema_version": 1,
   "phase": "R5V-I.1 authored independent T2 qualification vehicle",
   "profile": "i1-id27-r5v-qualifier-independent-t2-family",
-  "status": "READY_FOR_HUMAN_RUNTIME",
+  "status": "CORE_RUNTIME_CONFIRMED; FRONTEND_REENTRY_AND_MARKER_COLOR_RELEASE_GATES_OPEN",
   "source": {
     "identity": "exact pristine retail Master Rallye PC 2001",
     "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
@@ -1158,10 +1158,10 @@
     "i0_slot_architecture": "CONFIRMED_BY_RUNTIME / FULL PASS / CLOSED",
     "i1_real_t2_payload": "AUTHORED_R5VQUALIFIER_FAMILY; NAVARA_DERIVED; NOT_HISTORICAL_CONTENT",
     "r5v_i_full_pass": false,
-    "i1_independent_family": "READY_FOR_HUMAN_RUNTIME",
+    "i1_independent_family": "CORE_FAMILY_ROUTING_AND_NATURAL_AI_MATERIALIZATION_CONFIRMED_BY_RUNTIME",
     "r5v_j_started": false
   },
   "source_patch_manifest_sha256": "591398e9296a09676efdfe47edf3c7def27e98c9fb7abb2c76d62497e6a76860",
   "raw_patch_bytes_included": false,
-  "runtime_status": "READY_FOR_HUMAN_RUNTIME; no human I.1 result claimed"
+  "runtime_status": "PLAYER_FAMILY_ROUTING_AND_NATURAL_T2_AI_MATERIALIZATION_CONFIRMED_BY_RUNTIME; COMPLETED_AI_RACE_NOT_CLAIMED; FRONTEND_REENTRY_AND_MAGENTA_MARKER_COLOR_REMAIN_OPEN"
 }

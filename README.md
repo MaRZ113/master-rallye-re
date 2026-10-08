@@ -48,17 +48,19 @@ has no distinct AI-roster owner in the bounded audit. See
 
 R5V-I.0 is **FULL PASS / CLOSED**: four verified captures confirm physical
 ID27/T2 local7 in Vehicle Select and a single-player race, and distinct
-ID27/T2 plus ID26/T1 actors coexisting in SplitScreen. The I.0 Navara donor
-proved the slot, not an independent vehicle identity. R5V-I.1 is **READY FOR
-HUMAN RUNTIME** with authored `R5VQualifier` identity and its own `DataGx`
-asset plus `Vehicles` physics/modification paths, including a magenta body
-texture canary. Resources remain Navara-derived; no historical authenticity
-or unique collision topology is claimed. Exact candidate/package checks and
-short human instructions are in
-`research/vehicles/multislot/i1-qualification.md`; the sanitized 81-site patch
-inventory is `research/vehicles/multislot/i1-candidate-manifest.json`. R5V-I
-remains open until player and natural T2 AI family-routing checks pass; R5V-J
-is not started.
+ID27/T2 plus ID26/T1 actors coexisting in SplitScreen. R5V-I.1's
+`R5VQualifier` family routing and player materialization are now
+**CONFIRMED_BY_RUNTIME**. A separate natural Quick Race capture confirms
+ID27/T2/AI materializes with `CarType` and `WheelType` `R5VQualifier`; this
+does not claim a completed AI race lifecycle or final position. The body and
+physics payload remain Navara-derived, and no historical authenticity or
+unique collision topology is claimed. See
+`research/vehicles/multislot/i1-runtime-evidence.json` for six rehashed
+capture pairs. Two bounded release gates remain: scene-local Vehicle Select
+re-entry restoration and changing the race marker from captured white to the
+requested independent magenta RGBA. R5V-J.0 now provides a deterministic
+offline manifest/compiler foundation; it is not a runtime loader or public
+release. See `research/vehicles/sdk/`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

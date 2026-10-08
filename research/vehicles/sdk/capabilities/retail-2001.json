@@ -1,0 +1,26 @@
+{
+  "capability_version": 1,
+  "profile_id": "retail-pc-2001-known-build-v1",
+  "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "retail_exe_size": 3121214,
+  "reserved_stock_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
+  "supported_addon_physical_ids": [26, 27],
+  "runtime_qualified_addon_ids": [26, 27],
+  "stock_class_map": {
+    "T1": [0, 1, 2, 3, 4, 5, 6],
+    "T2": [7, 8, 9, 10, 11, 12, 13],
+    "T3": [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+  },
+  "class_slot_limits": {"T1": 8, "T2": 8, "T3": 12},
+  "registry_layout": {
+    "header_bytes": 4,
+    "vehicle_record_stride": 52,
+    "racetest_count": 39,
+    "racetest_stride": 44
+  },
+  "capability_boundary": {
+    "physical_ids_above_27": "UNQUALIFIED_AND_REJECTED_BY_THIS_PROFILE",
+    "runtime_integration": "NO_UNCHANGED_EXE_LOADER_IMPLEMENTED",
+    "registry_layout_formula": "PLANNER_ONLY_UNTIL_A_NEW_BUILD_PROFILE_IS_AUDITED"
+  }
+}

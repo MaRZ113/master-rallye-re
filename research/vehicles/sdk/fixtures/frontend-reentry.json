@@ -1,0 +1,96 @@
+{
+  "fixture_version": 1,
+  "evidence_status": "DERIVED_FROM_HASH_VERIFIED_OBSERVATORY_CAPTURES",
+  "candidate_exe_sha256": "90abfbf9825f1cc7acebb3a1a2811a179e6474f2406433854e1ffdbc60bdd955",
+  "capture_a": {
+    "label": "r5vq_navara-reset",
+    "capture_id": "20261008-110034_r5vq_navara-reset",
+    "capture_json_sha256": "d110b0b284cc8a0ea2f8e8742b9a2359e09a4ba469ff26e1fba9010640e9b854",
+    "raw_sha256": "e1bb7d3cb684eebcff7a004c250859ac8d90357ccc14849d7217476cd5a7445f",
+    "process_id": 14300,
+    "state": {
+      "Frontend/QuickRace/Car0": 27,
+      "Frontend/VehicleSelect/Vehicle": 1,
+      "Frontend/VehicleSelect/CarModel": 7,
+      "FrontEnd/Network/selectedCar": 7,
+      "UI/XYButton/XValue": 0,
+      "Frontend/VehicleSelect/ManufacturerName": "NISSAN",
+      "Frontend/VehicleSelect/ModelName": "NAVARA"
+    }
+  },
+  "capture_b": {
+    "label": "r5vq_quickrace-preview",
+    "capture_id": "20261008-110105_r5vq_quickrace-preview",
+    "capture_json_sha256": "2b8cb03dd99046874c77c87d93e4a491eaa6268ced00b3ab30b8cdf97448f71a",
+    "raw_sha256": "37c4a60576334b559f9a6a7a42fa5108ad16d33f68559ca0045fe01db9f6ffe8",
+    "process_id": 14300,
+    "state": {
+      "Frontend/QuickRace/Car0": 27,
+      "Frontend/VehicleSelect/Vehicle": 1,
+      "Frontend/VehicleSelect/CarModel": 27,
+      "FrontEnd/Network/selectedCar": 27,
+      "UI/XYButton/XValue": 7,
+      "Frontend/VehicleSelect/ManufacturerName": "R5V",
+      "Frontend/VehicleSelect/ModelName": "T2 QUALIFIER"
+    }
+  },
+  "changed_broker_paths_a_to_b": [
+    "FrontEnd/Network/selectedCar", "Frontend/ButtonPulser/Position",
+    "Frontend/VehicleSelect/Button0XPos", "Frontend/VehicleSelect/Button10XPos",
+    "Frontend/VehicleSelect/Button11XPos", "Frontend/VehicleSelect/Button1XPos",
+    "Frontend/VehicleSelect/Button2XPos", "Frontend/VehicleSelect/Button3XPos",
+    "Frontend/VehicleSelect/Button4XPos", "Frontend/VehicleSelect/Button5XPos",
+    "Frontend/VehicleSelect/Button6XPos", "Frontend/VehicleSelect/Button7XPos",
+    "Frontend/VehicleSelect/Button8XPos", "Frontend/VehicleSelect/Button9XPos",
+    "Frontend/VehicleSelect/CarLeftArrow", "Frontend/VehicleSelect/CarModel",
+    "Frontend/VehicleSelect/CarRightArrow", "Frontend/VehicleSelect/ManufacturerName",
+    "Frontend/VehicleSelect/ModelName", "UI/Active", "UI/XYButton/XValue"
+  ],
+  "changed_broker_path_count": 21,
+  "interpretation": "Stored absolute ID27 remains in both states. This proves a scene-local selection/highlight divergence, not loss of the physical record or automatic commit. The exact writer is unresolved.",
+  "later_navara_choice_is_automatic_commit_proof": false,
+  "capture_c": {
+    "label": "r5vq_navara_choice",
+    "capture_id": "20261008-110409_r5vq_navara_choice",
+    "capture_json_sha256": "ac4253e55e0bcd421deee687a839154f8325417c3e68258dc5fb8eadb2d3a4b4",
+    "raw_sha256": "6cc92d9e796ad4a791a19100122ffbd83c8b51f92469e4d9534fbb6b5087c939",
+    "process_id": 14300,
+    "state": {
+      "Frontend/QuickRace/Car0": 7,
+      "Frontend/VehicleSelect/Vehicle": 1,
+      "Frontend/VehicleSelect/CarModel": 7,
+      "FrontEnd/Network/selectedCar": 7,
+      "UI/XYButton/XValue": 0,
+      "Frontend/VehicleSelect/ManufacturerName": "NISSAN",
+      "Frontend/VehicleSelect/ModelName": "NAVARA"
+    },
+    "interpretation": "Current Navara selection is captured after the user path; capture alone does not distinguish intentional user selection from automatic restoration and is not commit evidence."
+  },
+  "natural_ai": {
+    "capture_id": "20261008-110203_r5vq_ai",
+    "capture_json_sha256": "3b455f05ea78a12da1355d1eba8673cc35de490f30b8e5c388843fb6eaa9ecaf",
+    "raw_sha256": "1a86827e7a0c90b2f56e19b654ca23006154d51a43ae2bb4b06301f62ea7f9ce",
+    "process_id": 14300,
+    "race_type": 2,
+    "num_cars": 4,
+    "num_players": 1,
+    "participants": [
+      {"slot": 0, "physical_id": 7, "class": 1, "player_type": 1, "car_type": "Navara"},
+      {"slot": 1, "physical_id": 10, "class": 1, "player_type": 2},
+      {"slot": 2, "physical_id": 8, "class": 1, "player_type": 2},
+      {"slot": 3, "physical_id": 27, "class": 1, "player_type": 2, "driver_id": 1,
+       "car_type": "R5VQualifier", "wheel_type": "R5VQualifier", "colour_rgba": [1.0, 1.0, 1.0, 1.0]}
+    ],
+    "candidate_manifest_pool": [7, 8, 9, 10, 11, 12, 13, 27],
+    "forced_participant_override": false,
+    "evidence_grade": "NATURAL_AI_PARTICIPANT_MATERIALIZATION_CONFIRMED_BY_RUNTIME; no complete AI race lifecycle or finishing position claimed"
+  },
+  "race_colour": {
+    "existing_runtime_rgba": [1.0, 1.0, 1.0, 1.0],
+    "sdk_profile_rgba": [1.0, 0.0, 1.0, 1.0],
+    "sdk_initializer_argument_bytes_le": "0000803f000000000000803f0000803f",
+    "semantic_note": "Race marker colour is configured independently of the magenta body DXT; current capture is white and does not runtime-confirm the magenta value."
+  },
+  "all_six_capture_pairs_raw_sha_verified": true,
+  "all_six_use_exact_candidate_sha256": "90abfbf9825f1cc7acebb3a1a2811a179e6474f2406433854e1ffdbc60bdd955"
+}

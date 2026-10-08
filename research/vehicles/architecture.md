@@ -77,16 +77,31 @@ only a donor slot proof.
 
 I.1 changes the same physical ID27 to an intentionally authored qualification
 identity, `R5VQualifier`, without increasing the record count or changing the
-T2 local mapping. The candidate/package route model, wheel, DXT and physics
-lookup through separately named `R5VQualifier` paths. The resources are
+T2 local mapping. The human-tested candidate materializes the player vehicle
+through the separately named `R5VQualifier` family; a natural AI capture also
+shows physical ID27/T2/AI with `CarType` and `WheelType` `R5VQualifier`. The AI
+capture does not prove a completed AI lifecycle. Resources remain
 Navara-derived, with a controlled magenta body texture, cloned physics and
 player-modification rows, donor frontend art/stats, donor-derived collision,
-and audio profile7. This is a generic-family routing qualification target,
-not historically authentic content and not yet runtime-confirmed. See
-[R5V-I findings](multislot/findings.md) and the
-[I.1 qualification handoff](multislot/i1-qualification.md).
+and audio profile7. This is an authored qualification vehicle, not historical
+content. Capture hashes and evidence limits are in
+[I.1 runtime evidence](multislot/i1-runtime-evidence.json).
 
 The architecture demonstrates formula-based registry layout through IDs26
 and 27 and sparse placement in T1 and T2. The identity/presentation layer is
-still explicitly qualified for IDs26/27; it does not prove arbitrary-N SDK
-support. R5V-J remains unstarted pending human I.1 validation.
+runtime-qualified only for those two additions; it does not prove arbitrary-N
+runtime support. Vehicle Select re-entry still has an unresolved
+scene-selection restoration divergence, and the captured ID27 race-marker
+color remains white; the J0 example requests magenta independently of body
+art. Both gates are documented before public runtime-release qualification.
+
+## Generic addon SDK J0
+
+The new manifest-driven SDK planning architecture is separate from the
+existing donor-authoring SDK v1. It provides strict JSON validation, explicit
+capability-profile ID allocation, sparse forward/reverse class maps,
+formula-derived registry layout, AI/audio/unlock/Results and color planning,
+optional external DX/DXT payload validation, deterministic multi-addon output,
+and hash verification. It emits semantic frontend plans rather than native
+XML or executable patches. The public unchanged-EXE runtime loader is not yet
+implemented. See [SDK architecture](sdk/architecture.md).

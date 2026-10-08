@@ -10,13 +10,21 @@ the ID27 Navara donor model, wheels, movement, HUD icon and progress marker
 working without obvious corruption. These observations close the slot proof;
 they do not turn the Navara donor alias into an independent vehicle.
 
-**R5V-I.1 authored independent T2 family: READY FOR HUMAN RUNTIME.** The
-current candidate preserves physical ID27/T2 local7 but changes its runtime
-family to `R5VQualifier`. The packaged model, wheel, physics and modification
-references use that family name and a distinct loose asset directory. A
-controlled body texture recolor makes the independent asset route visible.
-Human runtime is required before claiming that the game resolves the separate
-family paths or before closing R5V-I.
+**R5V-I.1 authored independent T2 family: core routing CONFIRMED_BY_RUNTIME.**
+The exact candidate preserves physical ID27/T2 local7 but changes its runtime
+family to `R5VQualifier`. The player-race capture shows ID27 with
+`CarType`/`WheelType=R5VQualifier`; the owner reports the normal player
+materialization check. The natural AI capture shows ID27/T2/AI using the same
+family. The audited candidate pool includes ID27 and has no forced
+participant override, so natural AI materialization is confirmed. No completed
+AI race lifecycle or finish position is claimed. Six capture/raw hashes are
+recorded in [the runtime ledger](i1-runtime-evidence.json).
+
+The re-entry comparison shows stored Quick Race ID27 with a scene-local
+Navara/T2-local0 selection in one snapshot and R5VQualifier/T2-local7 in its
+control; its native writer remains unidentified. The captured marker remains
+white, while J0's example requests magenta. Both are explicit public runtime
+release gates; neither blocks compiler foundation work.
 
 ## I.0 runtime record
 
@@ -47,7 +55,7 @@ damage claim is made for the I.0 run unless separately reported.
 | T1 | 0–6 | 0–6 | retail mapping preserved |
 | T1 | 7 | 26 | Mercedes, runtime qualified |
 | T2 | 0–6 | 7–13 | retail mapping preserved |
-| T2 | 7 | 27 | I.0 slot proof runtime-confirmed; I.1 family proof pending |
+| T2 | 7 | 27 | I.0 slot and I.1 family routing runtime-confirmed |
 | T3 | 0–11 | 14–25 | retail mapping preserved; ID25 remains Trooper slot |
 
 Registry layout is formula-based through 28 records: `record_count = highest
@@ -97,7 +105,8 @@ before/after SHA256 values, but omits raw executable patch bytes.
 
 I.1 does not add ID28, alter participant count, change the randomizer, change
 AI roster lifecycle, add an authored sound, change collision topology, or
-start public SDK implementation. Existing ID26 Mercedes behavior and ID25
-Trooper mapping remain regression constraints. R5V-I closes only after the
-I.1 player-family test and one natural T2 AI ID27 test pass in human runtime.
-R5V-J is not started by preparing this candidate.
+claim arbitrary-N runtime support. Existing ID26 Mercedes behavior and ID25
+Trooper mapping remain regression constraints. Player family routing and
+natural AI participant materialization are now runtime-confirmed; Vehicle
+Select re-entry and marker-color changes remain gates before public runtime
+release. J0 offline SDK development is in progress.
