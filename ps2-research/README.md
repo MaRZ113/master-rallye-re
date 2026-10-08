@@ -100,3 +100,11 @@ On this workstation pytest is local to ignored `data/cdelta1/python`; set
 before the pytest command. For a fresh checkout install pytest in your normal
 test environment or that ignored directory. The survey itself uses the
 standard library and the existing read-only SDK; no external decoder is needed.
+
+The [WATER1 research](water1/final-report.md) resolves Turkey3's additional
+authored PS2 puddle surfaces against all compiled PC landscape draws, while
+France1 and Italy_S1 provide shared-geometry controls. It recovers mode9/10/19,
+two texture bindings, UV/color callbacks, GS templates and the VIF1 DMA path.
+Static RE is complete within that contract; live frame/residency validation is
+separate and not performed. The [bounded diagnostic](tools/water_runtime.py)
+keeps source geometry under ignored data/water1; no PC port or SDK change occurs.

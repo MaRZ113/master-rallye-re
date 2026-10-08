@@ -1,0 +1,390 @@
+{
+  "schema": 1,
+  "textures": [
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\WATER-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\WATER-TGA.GXI",
+        "offset": 1043658891,
+        "stored_size": 11195,
+        "directory_size_0x08": 11195,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "b6ff26ddaf2e18bf7fe8d837f5e7fda843acb27db543db15fa13553496060311",
+        "payload_sha256": "37107b7bcd72412d5db4ff76336d5b705c35f1c03cc4394fbdcc6e7dc7813118",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "37107b7bcd72412d5db4ff76336d5b705c35f1c03cc4394fbdcc6e7dc7813118",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 255,
+        "alpha_max": 255,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 4096,
+        "average_rgba": [
+          58.752197,
+          69.293213,
+          80.590332,
+          255.0
+        ]
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\WATER-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\WATER-TGA.GXI",
+        "offset": 1154812695,
+        "stored_size": 11205,
+        "directory_size_0x08": 11205,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "48e27502d277495cddaf7d4c452d0fac6b688af52a49d37214f332d72e8ee339",
+        "payload_sha256": "37107b7bcd72412d5db4ff76336d5b705c35f1c03cc4394fbdcc6e7dc7813118",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "37107b7bcd72412d5db4ff76336d5b705c35f1c03cc4394fbdcc6e7dc7813118",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 255,
+        "alpha_max": 255,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 4096,
+        "average_rgba": [
+          58.752197,
+          69.293213,
+          80.590332,
+          255.0
+        ]
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\WATERFALL-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\WATERFALL-TGA.GXI",
+        "offset": 1043670086,
+        "stored_size": 15207,
+        "directory_size_0x08": 15207,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "921e2b43b161f7e7490526c1ea7e49679da9045206714d3245c22764d6ce1574",
+        "payload_sha256": "580f39ab84713e4b382eaea9428c03f881ae7ce4d069ccfbc776e7dd9255590e",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "580f39ab84713e4b382eaea9428c03f881ae7ce4d069ccfbc776e7dd9255590e",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_unique_count": 71,
+        "alpha_nonzero_pixels": 3968,
+        "average_rgba": [
+          227.8396,
+          232.733643,
+          238.758301,
+          169.495117
+        ]
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERFALL2-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERFALL2-TGA.GXI",
+        "offset": 1038839060,
+        "stored_size": 4104,
+        "directory_size_0x08": 4104,
+        "unpacked_size": 4104,
+        "compression": "raw",
+        "stored_sha256": "9e6c67f15eae583e0230a63dfd8fde8545a680eefd7e15b0b41591bc78eeb2d2",
+        "payload_sha256": "9e6c67f15eae583e0230a63dfd8fde8545a680eefd7e15b0b41591bc78eeb2d2",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 32,
+        "height": 32,
+        "size": 4104,
+        "sha256": "9e6c67f15eae583e0230a63dfd8fde8545a680eefd7e15b0b41591bc78eeb2d2",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 67,
+        "alpha_unique_count": 24,
+        "alpha_nonzero_pixels": 736,
+        "average_rgba": [
+          65.079102,
+          102.532227,
+          164.412109,
+          37.250977
+        ]
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERSURFACE2.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERSURFACE2.GXI",
+        "offset": 1038857243,
+        "stored_size": 16175,
+        "directory_size_0x08": 16175,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e1db176b26ddc4c176493f5fe21e272ad34c97b5dad7148237b17d009a747608",
+        "payload_sha256": "5ae7ed990a251e8960b5e0fe4c71aaff8e8571345795b04b7d9e70df1dbe9e83",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "5ae7ed990a251e8960b5e0fe4c71aaff8e8571345795b04b7d9e70df1dbe9e83",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 4,
+        "alpha_max": 131,
+        "alpha_unique_count": 128,
+        "alpha_nonzero_pixels": 4096,
+        "average_rgba": [
+          64.960449,
+          102.532471,
+          164.40918,
+          66.890625
+        ]
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERFALL-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WATERFALL-TGA.GXI",
+        "offset": 1038835279,
+        "stored_size": 3781,
+        "directory_size_0x08": 3781,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "13b7bb32a94e05dc85494fc365d599a0afdd6e2138b3916430d94783831a5690",
+        "payload_sha256": "5bf8edcc9bb6cdddc0c749da09e66fdaac0b23044f78cf587b304b800da83618",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 32,
+        "height": 32,
+        "size": 4104,
+        "sha256": "5bf8edcc9bb6cdddc0c749da09e66fdaac0b23044f78cf587b304b800da83618",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 6,
+        "alpha_max": 255,
+        "alpha_unique_count": 53,
+        "alpha_nonzero_pixels": 1024,
+        "average_rgba": [
+          225.061523,
+          232.348633,
+          240.719727,
+          170.042969
+        ]
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\WATER-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\WATER-TGA.GXI",
+        "offset": 1178663687,
+        "stored_size": 11017,
+        "directory_size_0x08": 11017,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "ec8ec1cef5be1e49b4b6235a962d45d420f9a25c6e409ff18cfbdcaf86a677f2",
+        "payload_sha256": "65a8318d8c432764c91d56b53b843f8096b4629d3f53894d4d6d5caf46945d34",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "65a8318d8c432764c91d56b53b843f8096b4629d3f53894d4d6d5caf46945d34",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 255,
+        "alpha_max": 255,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 4096,
+        "average_rgba": [
+          58.371338,
+          68.92749,
+          80.209473,
+          255.0
+        ]
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\WATERFALL-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\SPAIN_S2\\WATERFALL-TGA.GXI",
+        "offset": 1154823900,
+        "stored_size": 15048,
+        "directory_size_0x08": 15048,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "54d7d89f259bc649d4aee46a3f4afe23a704d01587b7d7c21ac855b78097827d",
+        "payload_sha256": "6fd54e1ced9896209624eb3ef64ba5cdd546aef37635718f2acffe45999a34b5",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "6fd54e1ced9896209624eb3ef64ba5cdd546aef37635718f2acffe45999a34b5",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_unique_count": 136,
+        "alpha_nonzero_pixels": 3968,
+        "average_rgba": [
+          228.208984,
+          233.098389,
+          239.118164,
+          169.685303
+        ]
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\WATER-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\WATER-TGA.GXI",
+        "offset": 1102349849,
+        "stored_size": 11211,
+        "directory_size_0x08": 11211,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "b993a87d796af26fa0c1f94640244e261eaaebb7b52dbcb4150a7185687cd252",
+        "payload_sha256": "37107b7bcd72412d5db4ff76336d5b705c35f1c03cc4394fbdcc6e7dc7813118",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "decoded": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "37107b7bcd72412d5db4ff76336d5b705c35f1c03cc4394fbdcc6e7dc7813118",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 255,
+        "alpha_max": 255,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 4096,
+        "average_rgba": [
+          58.752197,
+          69.293213,
+          80.590332,
+          255.0
+        ]
+      }
+    }
+  ],
+  "runtime_visible_bindings": "UNKNOWN",
+  "psm_water_primary": "Course-local WATER-TGA",
+  "water_and_puddle_secondary": "CommonTextures/watersurface2",
+  "waterfall_override": [
+    "CommonTextures/waterfall-tga",
+    "CommonTextures/waterfall2-tga"
+  ]
+}

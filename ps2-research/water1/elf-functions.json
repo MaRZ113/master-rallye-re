@@ -1,0 +1,4544 @@
+{
+  "schema": 1,
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "va_to_file": "VA - 0xff000 for canonical file-backed PT_LOAD",
+  "analysis": "Ghidra12.1.4 ghidra_ai_bridge, read-only project, temporary EE scalar/stack substitutions rolled back; probes always original words",
+  "functions": [
+    {
+      "address": "0x0038fac0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0038fac0",
+        "end_inclusive": "0x003900ec",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003900ec"
+      },
+      "role": "PSM load dispatcher and post-load water auxiliary callback",
+      "callers": [
+        {
+          "callsite": "0x0037cc9c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a4f28",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4d10",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ea0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7bd8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7c30",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00370d10",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003900f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00393b48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00393d68",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00393ea0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003946e0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003947b0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00394900",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00394b48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a8040",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a8088",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "model+18/+44",
+      "output_fields": "model geometry and auxiliary virtual+14",
+      "important_constants": "d00d/2/539,100/103",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "model geometry and auxiliary virtual+14",
+      "instruction_evidence": [
+        {
+          "va": "0x0038fac0",
+          "original_word": "0x27bdfef0"
+        },
+        {
+          "va": "0x00390084",
+          "original_word": "0xafc20068"
+        },
+        {
+          "va": "0x003900e8",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "PSM load dispatcher and post-load water auxiliary callback; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Full generic loader not reimplemented",
+      "export_available": true
+    },
+    {
+      "address": "0x003900f0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003900f0",
+        "end_inclusive": "0x003903c8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003903c8"
+      },
+      "role": "Read file vertices into runtime 48-byte records",
+      "callers": [
+        {
+          "callsite": "0x0038feb0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a7c90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a81c0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a83f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a52d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a50c0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7db0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7f10",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a5088",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4fd8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a84f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ab8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a85a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00394498",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00391d38",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "stream, vertex count",
+      "output_fields": "model+18",
+      "important_constants": "52 file bytes;48 runtime bytes",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "model+18",
+      "instruction_evidence": [
+        {
+          "va": "0x003900f0",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x003903c4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Read file vertices into runtime 48-byte records; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Unrelated animation channels outside scope",
+      "export_available": true
+    },
+    {
+      "address": "0x00391d38",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00391d38",
+        "end_inclusive": "0x00392ac8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003928a8"
+      },
+      "role": "Recursive scene node reader and mesh/strip owner",
+      "callers": [
+        {
+          "callsite": "0x0039038c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00392928",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "stream, tags, material input",
+      "output_fields": "mesh+74 strip vector, model+44 mesh list",
+      "important_constants": "tag2, allocation f4, runtime cache index+d8",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "mesh+74 strip vector, model+44 mesh list",
+      "instruction_evidence": [
+        {
+          "va": "0x00391d38",
+          "original_word": "0x27bdfe40"
+        },
+        {
+          "va": "0x00392ac4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Recursive scene node reader and mesh/strip owner; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other node kinds deliberately unsupported offline",
+      "export_available": true
+    },
+    {
+      "address": "0x00390a98",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00390a98",
+        "end_inclusive": "0x00390ba0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00390ba0"
+      },
+      "role": "Read three map-slot metadata records",
+      "callers": [
+        {
+          "callsite": "0x00390cc8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x0030be70",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ee8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d6278",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "stream",
+      "output_fields": "temporary map names/flags",
+      "important_constants": "3 maps, one-byte booleans",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "temporary map names/flags",
+      "instruction_evidence": [
+        {
+          "va": "0x00390a98",
+          "original_word": "0x27bdffb0"
+        },
+        {
+          "va": "0x00390b9c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Read three map-slot metadata records; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other material variants unsupported",
+      "export_available": true
+    },
+    {
+      "address": "0x00390ba8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00390ba8",
+        "end_inclusive": "0x00390d90",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00390d90"
+      },
+      "role": "Read material-name record and map data",
+      "callers": [
+        {
+          "callsite": "0x00391e98",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030be70",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00390a98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ee8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d6278",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "stream",
+      "output_fields": "mesh+80 material input",
+      "important_constants": "length32/length16/string",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "mesh+80 material input",
+      "instruction_evidence": [
+        {
+          "va": "0x00390ba8",
+          "original_word": "0x27bdffa0"
+        },
+        {
+          "va": "0x00390d8c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Read material-name record and map data; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No global material-index table invented",
+      "export_available": true
+    },
+    {
+      "address": "0x00390d98",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00390d98",
+        "end_inclusive": "0x00390f50",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00390f50"
+      },
+      "role": "Extract property argument through parentheses",
+      "callers": [
+        {
+          "callsite": "0x00391918",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00391b0c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d24b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4e40",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ea0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "a1 string,a2 property",
+      "output_fields": "a0 resulting substring",
+      "important_constants": "case-sensitive $shader; first opening/closing parenthesis",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "a0 resulting substring",
+      "instruction_evidence": [
+        {
+          "va": "0x00390d98",
+          "original_word": "0x27bdff70"
+        },
+        {
+          "va": "0x00390e14",
+          "original_word": "0xafd10024"
+        },
+        {
+          "va": "0x00390e3c",
+          "original_word": "0xafd20028"
+        },
+        {
+          "va": "0x00390f4c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Extract property argument through parentheses; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other properties share helper",
+      "export_available": true
+    },
+    {
+      "address": "0x00390f98",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00390f98",
+        "end_inclusive": "0x0039168c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0039168c"
+      },
+      "role": "Lazily initialize shader registry",
+      "callers": [
+        {
+          "callsite": "0x003916c8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a88a0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a88d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a8930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6ea8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6b70",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6f98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7008",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7078",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a70e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7158",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a71c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7238",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a72a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7318",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7388",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a73f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7468",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a74d8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7548",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a75b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7628",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7708",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7778",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a77e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7858",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a78c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7a18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7a88",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7af8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7b68",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7938",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a79a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42fd68 initialization flag",
+      "output_fields": "42fd60 registry",
+      "important_constants": "water/puddle/waterfall/waterall factories",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "42fd60 registry",
+      "instruction_evidence": [
+        {
+          "va": "0x00390f98",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x00391154",
+          "original_word": "0xafc20024"
+        },
+        {
+          "va": "0x0039118c",
+          "original_word": "0xafc20028"
+        },
+        {
+          "va": "0x0039126c",
+          "original_word": "0xafc20038"
+        },
+        {
+          "va": "0x0039150c",
+          "original_word": "0xafc20068"
+        },
+        {
+          "va": "0x00391688",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Lazily initialize shader registry; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other shaders out of scope",
+      "export_available": true
+    },
+    {
+      "address": "0x00391690",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00391690",
+        "end_inclusive": "0x00391d34",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00391d34"
+      },
+      "role": "Initialize generic map defaults and apply shader classifier",
+      "callers": [
+        {
+          "callsite": "0x003921e8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x00390f98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c60",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00390d98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2458",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4f78",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2d48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6c58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a3460",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6f18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a33e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "material input+80",
+      "output_fields": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "important_constants": "$clamp; $shader; default .1",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "instruction_evidence": [
+        {
+          "va": "0x00391690",
+          "original_word": "0x27bdfed0"
+        },
+        {
+          "va": "0x003916dc",
+          "original_word": "0xac400028"
+        },
+        {
+          "va": "0x0039178c",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x003917e4",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x00391818",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x00391d30",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Initialize generic map defaults and apply shader classifier; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Unknown shader retains generic map-derived mode",
+      "export_available": true
+    },
+    {
+      "address": "0x003a6c58",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003a6c58",
+        "end_inclusive": "0x003a6ea4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003a6ea4"
+      },
+      "role": "Interned-name shader registry dispatch",
+      "callers": [
+        {
+          "callsite": "0x00391bb8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003adcf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad968",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add50",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adde0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adc90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ac680",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ade18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "name ID, registry49b890",
+      "output_fields": "handler virtual+14 effects",
+      "important_constants": "unidentified shader log",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "handler virtual+14 effects",
+      "instruction_evidence": [
+        {
+          "va": "0x003a6c58",
+          "original_word": "0x27bdff40"
+        },
+        {
+          "va": "0x003a6ea0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Interned-name shader registry dispatch; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other shader names not enumerated",
+      "export_available": true
+    },
+    {
+      "address": "0x003ac680",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003ac680",
+        "end_inclusive": "0x003ac6c0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003ac6c0"
+      },
+      "role": "Compare interned shader identities",
+      "callers": [
+        {
+          "callsite": "0x003a6d5c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "two interned IDs",
+      "output_fields": "boolean equality result",
+      "important_constants": "pointer/index equality",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "boolean equality result",
+      "instruction_evidence": [
+        {
+          "va": "0x003ac680",
+          "original_word": "0x27bdfff0"
+        },
+        {
+          "va": "0x003ac6bc",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Compare interned shader identities; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Interner creation shared existing evidence",
+      "export_available": true
+    },
+    {
+      "address": "0x003a7708",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003a7708",
+        "end_inclusive": "0x003a7774",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003a7774"
+      },
+      "role": "Register waterfall shader object",
+      "callers": [
+        {
+          "callsite": "0x00391424",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "registry initialization",
+      "output_fields": "object name, vtable487ca8",
+      "important_constants": "string487628, allocation12",
+      "material_modes_handled": [
+        19
+      ],
+      "packet_state_writes": "object name, vtable487ca8",
+      "instruction_evidence": [
+        {
+          "va": "0x003a7708",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003a7770",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register waterfall shader object; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No visual confirmation",
+      "export_available": true
+    },
+    {
+      "address": "0x003a7778",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003a7778",
+        "end_inclusive": "0x003a77e4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003a77e4"
+      },
+      "role": "Register waterall shader object",
+      "callers": [
+        {
+          "callsite": "0x0039145c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "registry initialization",
+      "output_fields": "object name, vtable487c88",
+      "important_constants": "string487678, allocation12",
+      "material_modes_handled": [
+        19
+      ],
+      "packet_state_writes": "object name, vtable487c88",
+      "instruction_evidence": [
+        {
+          "va": "0x003a7778",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003a77e0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register waterall shader object; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Accepted exact alternate spelling",
+      "export_available": true
+    },
+    {
+      "address": "0x003a77e8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003a77e8",
+        "end_inclusive": "0x003a7854",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003a7854"
+      },
+      "role": "Register water shader object",
+      "callers": [
+        {
+          "callsite": "0x00391494",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "registry initialization",
+      "output_fields": "object name, vtable487c68",
+      "important_constants": "string487688, allocation12",
+      "material_modes_handled": [
+        10
+      ],
+      "packet_state_writes": "object name, vtable487c68",
+      "instruction_evidence": [
+        {
+          "va": "0x003a77e8",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003a7850",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register water shader object; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No visual confirmation",
+      "export_available": true
+    },
+    {
+      "address": "0x003a7858",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003a7858",
+        "end_inclusive": "0x003a78c4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003a78c4"
+      },
+      "role": "Register puddle shader object",
+      "callers": [
+        {
+          "callsite": "0x003914cc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "registry initialization",
+      "output_fields": "object name, vtable487c48",
+      "important_constants": "string4876b0, allocation12",
+      "material_modes_handled": [
+        9
+      ],
+      "packet_state_writes": "object name, vtable487c48",
+      "instruction_evidence": [
+        {
+          "va": "0x003a7858",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003a78c0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register puddle shader object; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No visual confirmation",
+      "export_available": true
+    },
+    {
+      "address": "0x003ae800",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003ae800",
+        "end_inclusive": "0x003ae8c8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003ae8c8"
+      },
+      "role": "Apply waterfall material mode",
+      "callers": [],
+      "virtual_callers": [
+        "shader vtable487ca8+14"
+      ],
+      "callees": [
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "a1 mesh, mesh center+4c",
+      "output_fields": "+28=19,+34/+38 common waterfall names,+24 aux,+44=.005",
+      "important_constants": "allocation16, flags+2c/+3c/+40=1",
+      "material_modes_handled": [
+        19
+      ],
+      "packet_state_writes": "+28=19,+34/+38 common waterfall names,+24 aux,+44=.005",
+      "instruction_evidence": [
+        {
+          "va": "0x003ae800",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003ae824",
+          "original_word": "0xae220028"
+        },
+        {
+          "va": "0x003ae894",
+          "original_word": "0xae220024"
+        },
+        {
+          "va": "0x003ae8c4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Apply waterfall material mode; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Authored scroll numeric argument not consumed here",
+      "export_available": true
+    },
+    {
+      "address": "0x003ae8d0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003ae8d0",
+        "end_inclusive": "0x003ae998",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003ae998"
+      },
+      "role": "Apply waterall material mode",
+      "callers": [],
+      "virtual_callers": [
+        "shader vtable487c88+14"
+      ],
+      "callees": [
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "a1 mesh, mesh center+4c",
+      "output_fields": "Same fields as waterfall",
+      "important_constants": "mode19, .005",
+      "material_modes_handled": [
+        19
+      ],
+      "packet_state_writes": "Same fields as waterfall",
+      "instruction_evidence": [
+        {
+          "va": "0x003ae8d0",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003ae8f4",
+          "original_word": "0xae220028"
+        },
+        {
+          "va": "0x003ae964",
+          "original_word": "0xae220024"
+        },
+        {
+          "va": "0x003ae994",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Apply waterall material mode; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Alias uses separately registered handler",
+      "export_available": true
+    },
+    {
+      "address": "0x003ae9a0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003ae9a0",
+        "end_inclusive": "0x003aea4c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003aea4c"
+      },
+      "role": "Apply ordinary water mode",
+      "callers": [],
+      "virtual_callers": [
+        "shader vtable487c68+14"
+      ],
+      "callees": [
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "a1 mesh, primary+34, center+4c",
+      "output_fields": "+28=10,+38 watersurface2,+24 aux,+44=1",
+      "important_constants": "flags1, allocation16",
+      "material_modes_handled": [
+        10
+      ],
+      "packet_state_writes": "+28=10,+38 watersurface2,+24 aux,+44=1",
+      "instruction_evidence": [
+        {
+          "va": "0x003ae9a0",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003ae9c4",
+          "original_word": "0xae220028"
+        },
+        {
+          "va": "0x003aea1c",
+          "original_word": "0xae220024"
+        },
+        {
+          "va": "0x003aea48",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Apply ordinary water mode; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Primary texture preserved",
+      "export_available": true
+    },
+    {
+      "address": "0x003aea50",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003aea50",
+        "end_inclusive": "0x003aeafc",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003aeafc"
+      },
+      "role": "Apply puddle mode",
+      "callers": [],
+      "virtual_callers": [
+        "shader vtable487c48+14"
+      ],
+      "callees": [
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "a1 mesh, primary+34, center+4c",
+      "output_fields": "+28=9,+38 watersurface2,+24 aux,+44=.25",
+      "important_constants": "flags1, allocation16",
+      "material_modes_handled": [
+        9
+      ],
+      "packet_state_writes": "+28=9,+38 watersurface2,+24 aux,+44=.25",
+      "instruction_evidence": [
+        {
+          "va": "0x003aea50",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x003aea74",
+          "original_word": "0xae220028"
+        },
+        {
+          "va": "0x003aeacc",
+          "original_word": "0xae220024"
+        },
+        {
+          "va": "0x003aeaf8",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Apply puddle mode; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Primary texture preserved",
+      "export_available": true
+    },
+    {
+      "address": "0x00327e60",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00327e60",
+        "end_inclusive": "0x00327e94",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00327e94"
+      },
+      "role": "Construct puddle auxiliary",
+      "callers": [
+        {
+          "callsite": "0x003aeac4",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mesh center XYZ",
+      "output_fields": "vtable4853c8 and center",
+      "important_constants": "16 bytes",
+      "material_modes_handled": [
+        9
+      ],
+      "packet_state_writes": "vtable4853c8 and center",
+      "instruction_evidence": [
+        {
+          "va": "0x00327e60",
+          "original_word": "0x3c020048"
+        },
+        {
+          "va": "0x00327e90",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Construct puddle auxiliary; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Shared allocation lifetime",
+      "export_available": true
+    },
+    {
+      "address": "0x00327e98",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00327e98",
+        "end_inclusive": "0x00327e9c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00327e9c"
+      },
+      "role": "Puddle auxiliary requires per-frame update",
+      "callers": [],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "aux",
+      "output_fields": "v0=1",
+      "important_constants": "1",
+      "material_modes_handled": [
+        9
+      ],
+      "packet_state_writes": "v0=1",
+      "instruction_evidence": [
+        {
+          "va": "0x00327e98",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Puddle auxiliary requires per-frame update; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Meaning proved by361a58",
+      "export_available": true
+    },
+    {
+      "address": "0x00327ea0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00327ea0",
+        "end_inclusive": "0x00327ed4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00327ed4"
+      },
+      "role": "Construct water auxiliary",
+      "callers": [
+        {
+          "callsite": "0x003aea14",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mesh center XYZ",
+      "output_fields": "vtable4853a0 and center",
+      "important_constants": "16 bytes",
+      "material_modes_handled": [
+        10
+      ],
+      "packet_state_writes": "vtable4853a0 and center",
+      "instruction_evidence": [
+        {
+          "va": "0x00327ea0",
+          "original_word": "0x3c020048"
+        },
+        {
+          "va": "0x00327ed0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Construct water auxiliary; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Shared allocation lifetime",
+      "export_available": true
+    },
+    {
+      "address": "0x00327ee0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00327ee0",
+        "end_inclusive": "0x00327ee4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00327ee4"
+      },
+      "role": "Water auxiliary does not request frame update",
+      "callers": [],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "aux",
+      "output_fields": "v0=0",
+      "important_constants": "0",
+      "material_modes_handled": [
+        10
+      ],
+      "packet_state_writes": "v0=0",
+      "instruction_evidence": [
+        {
+          "va": "0x00327ee0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Water auxiliary does not request frame update; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Does not imply no generic transform changes",
+      "export_available": true
+    },
+    {
+      "address": "0x00327ee8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00327ee8",
+        "end_inclusive": "0x00327f1c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00327f1c"
+      },
+      "role": "Construct waterfall auxiliary",
+      "callers": [
+        {
+          "callsite": "0x003ae88c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003ae95c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mesh center XYZ",
+      "output_fields": "vtable485378 and center",
+      "important_constants": "16 bytes",
+      "material_modes_handled": [
+        19
+      ],
+      "packet_state_writes": "vtable485378 and center",
+      "instruction_evidence": [
+        {
+          "va": "0x00327ee8",
+          "original_word": "0x3c020048"
+        },
+        {
+          "va": "0x00327f18",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Construct waterfall auxiliary; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Shared allocation lifetime",
+      "export_available": true
+    },
+    {
+      "address": "0x00327f28",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00327f28",
+        "end_inclusive": "0x00327f2c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00327f2c"
+      },
+      "role": "Waterfall auxiliary requests per-frame update",
+      "callers": [],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "aux",
+      "output_fields": "v0=1",
+      "important_constants": "1",
+      "material_modes_handled": [
+        19
+      ],
+      "packet_state_writes": "v0=1",
+      "instruction_evidence": [
+        {
+          "va": "0x00327f28",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Waterfall auxiliary requests per-frame update; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No authored scroll expression evaluator",
+      "export_available": true
+    },
+    {
+      "address": "0x00320938",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00320938",
+        "end_inclusive": "0x00320c70",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00320c70"
+      },
+      "role": "Prepare puddle vertex color through spatial ground query",
+      "callers": [],
+      "virtual_callers": [
+        "puddle aux4853c8+14,38fac0 post-load"
+      ],
+      "callees": [
+        {
+          "address": "0x002d4618",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d4010",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2458",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d24b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad390",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "model vertices and spatial proxy, strip list",
+      "output_fields": "runtime RGBA four bytes; no XYZ writes",
+      "important_constants": "254;255*(1-1/(2*d+1)), clamp2..254;skip water-named spatial hits",
+      "material_modes_handled": [
+        9
+      ],
+      "packet_state_writes": "runtime RGBA four bytes; no XYZ writes",
+      "instruction_evidence": [
+        {
+          "va": "0x00320938",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x00320a4c",
+          "original_word": "0xafb00024"
+        },
+        {
+          "va": "0x00320c6c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Prepare puddle vertex color through spatial ground query; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Which fallback ground hit is visible requires capture",
+      "export_available": true
+    },
+    {
+      "address": "0x00320c78",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00320c78",
+        "end_inclusive": "0x00320f8c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00320f8c"
+      },
+      "role": "Update cached puddle four UV components",
+      "callers": [],
+      "virtual_callers": [
+        "puddle aux4853c8+c,361a58"
+      ],
+      "callees": [
+        {
+          "address": "0x00328c90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "phase42dc40, normal/XYZ, global42dc00 basis",
+      "output_fields": "CPU64-byte packet +20/+24/+28/+2c UV; no XYZ",
+      "important_constants": "1.61368,.1,.05,.02,.6,1.13,1.78,2.19,2.93,LUT4096",
+      "material_modes_handled": [
+        9
+      ],
+      "packet_state_writes": "CPU64-byte packet +20/+24/+28/+2c UV; no XYZ",
+      "instruction_evidence": [
+        {
+          "va": "0x00320c78",
+          "original_word": "0x27bdff00"
+        },
+        {
+          "va": "0x00320f88",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Update cached puddle four UV components; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Global basis setter/camera ownership not proved",
+      "export_available": true
+    },
+    {
+      "address": "0x00320f90",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00320f90",
+        "end_inclusive": "0x00321094",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00321094"
+      },
+      "role": "Water model-load UV preparation caller",
+      "callers": [],
+      "virtual_callers": [
+        "water aux4853a0+14,38fac0 post-load"
+      ],
+      "callees": [
+        {
+          "address": "0x00321098",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "model,mesh strips",
+      "output_fields": "per-vertex UV/color via321098",
+      "important_constants": "sets RGBA254",
+      "material_modes_handled": [
+        10
+      ],
+      "packet_state_writes": "per-vertex UV/color via321098",
+      "instruction_evidence": [
+        {
+          "va": "0x00320f90",
+          "original_word": "0x27bdfff0"
+        },
+        {
+          "va": "0x00321090",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Water model-load UV preparation caller; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No per-frame water aux update",
+      "export_available": true
+    },
+    {
+      "address": "0x00321098",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00321098",
+        "end_inclusive": "0x00321834",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00321834"
+      },
+      "role": "Prepare ordinary water normal/position UVs",
+      "callers": [
+        {
+          "callsite": "0x00321084",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x00328c90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "runtime XYZ/normal and sine LUT",
+      "output_fields": "UV+10..1c, no XYZ",
+      "important_constants": "load-time phase; UV integer rebasing",
+      "material_modes_handled": [
+        10
+      ],
+      "packet_state_writes": "UV+10..1c, no XYZ",
+      "instruction_evidence": [
+        {
+          "va": "0x00321098",
+          "original_word": "0x27bdfe90"
+        },
+        {
+          "va": "0x0032115c",
+          "original_word": "0xafa00068"
+        },
+        {
+          "va": "0x00321308",
+          "original_word": "0xafa40068"
+        },
+        {
+          "va": "0x00321830",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Prepare ordinary water normal/position UVs; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Exact FCSR mode not captured",
+      "export_available": true
+    },
+    {
+      "address": "0x00321838",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00321838",
+        "end_inclusive": "0x00321a7c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00321a7c"
+      },
+      "role": "Update waterfall dual-layer vertical UV scrolling",
+      "callers": [],
+      "virtual_callers": [
+        "waterfall aux485378+c,361a58"
+      ],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "phase, source Y, first source Y, primary U",
+      "output_fields": "cached primary/secondary V, secondary U",
+      "important_constants": "frac(2*T),frac(4*T),.05*Y,inline floor",
+      "material_modes_handled": [
+        19
+      ],
+      "packet_state_writes": "cached primary/secondary V, secondary U",
+      "instruction_evidence": [
+        {
+          "va": "0x00321838",
+          "original_word": "0x3c020043"
+        },
+        {
+          "va": "0x00321a78",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Update waterfall dual-layer vertical UV scrolling; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Counter units and authored +1 relationship UNKNOWN",
+      "export_available": true
+    },
+    {
+      "address": "0x00328c90",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00328c90",
+        "end_inclusive": "0x00328d18",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00328d18"
+      },
+      "role": "Initialize shared sine lookup table",
+      "callers": [
+        {
+          "callsite": "0x00320cd8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003210f8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003f3140",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "initialization flag",
+      "output_fields": "4a4760 4096 floats",
+      "important_constants": "sin(i*C/4096)",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "4a4760 4096 floats",
+      "instruction_evidence": [
+        {
+          "va": "0x00328c90",
+          "original_word": "0x3c040043"
+        },
+        {
+          "va": "0x00328d14",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Initialize shared sine lookup table; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Host sin not claimed PS2 libm parity",
+      "export_available": true
+    },
+    {
+      "address": "0x0015acc8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0015acc8",
+        "end_inclusive": "0x0015acd8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0015acd8"
+      },
+      "role": "Return original float32 full-circle constant",
+      "callers": [
+        {
+          "callsite": "0x0010b358",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0010b374",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00289234",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00291ae0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x002efb50",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x002f5758",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320dcc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320df0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320e1c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320e44",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0032136c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00321390",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003213bc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003213e4",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00328cd0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033930c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00339328",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033933c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00339358",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033936c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00339388",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033939c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003393b8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003393cc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003393e8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003393fc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00339418",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033942c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00339448",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033945c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00339478",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033948c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003394a8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "none",
+      "output_fields": "f0",
+      "important_constants": "0x40c90fdb",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "f0",
+      "instruction_evidence": [
+        {
+          "va": "0x0015acc8",
+          "original_word": "0x3c0140c9"
+        },
+        {
+          "va": "0x0015acd4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Return original float32 full-circle constant; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No approximation of constant",
+      "export_available": true
+    },
+    {
+      "address": "0x003714e0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003714e0",
+        "end_inclusive": "0x0037171c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0037171c"
+      },
+      "role": "Resolve both classified mesh texture names",
+      "callers": [
+        {
+          "callsite": "0x0037cd04",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7b0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "model+44 meshes; mesh+34/+38,+3c/+40",
+      "output_fields": "mesh+dc/+e4 handles,+e0/+e8 metadata",
+      "important_constants": "2fd7d0 lookup;2fd788 default if no name",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "mesh+dc/+e4 handles,+e0/+e8 metadata",
+      "instruction_evidence": [
+        {
+          "va": "0x003714e0",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x00371620",
+          "original_word": "0xae0200dc"
+        },
+        {
+          "va": "0x00371648",
+          "original_word": "0xae0200dc"
+        },
+        {
+          "va": "0x003716bc",
+          "original_word": "0xae0200e4"
+        },
+        {
+          "va": "0x003716e4",
+          "original_word": "0xae0200e4"
+        },
+        {
+          "va": "0x00371718",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Resolve both classified mesh texture names; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Missing named file fallback not fully traced",
+      "export_available": true
+    },
+    {
+      "address": "0x002fd7d0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x002fd7d0",
+        "end_inclusive": "0x002fdcb0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x002fdcb0"
+      },
+      "role": "Resource-root GXI lookup and texture residence",
+      "callers": [
+        {
+          "callsite": "0x002fe998",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003318d0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00332348",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00333234",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00335c78",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00346ea4",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003584ec",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0037160c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003716a8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0038884c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003adf78",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003ae1fc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003ae360",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002b4ad8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003fa9b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151a28",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f84f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f9c80",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "interned resource name, load flag",
+      "output_fields": "cached resource handle",
+      "important_constants": ".gxi suffix;2f84f0;2f9c80",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "cached resource handle",
+      "instruction_evidence": [
+        {
+          "va": "0x002fd7d0",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x002fdcac",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Resource-root GXI lookup and texture residence; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Missing/corrupt named texture fallback outside trace",
+      "export_available": true
+    },
+    {
+      "address": "0x002f84f0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x002f84f0",
+        "end_inclusive": "0x002f8a34",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x002f8a34"
+      },
+      "role": "Filename texture cache/create",
+      "callers": [
+        {
+          "callsite": "0x002f8030",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x002fd984",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00342ce0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003fa760",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003fa8a4",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fb248",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9a90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "resolved filename",
+      "output_fields": "texture cache object",
+      "important_constants": "cache hit/create",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "texture cache object",
+      "instruction_evidence": [
+        {
+          "va": "0x002f84f0",
+          "original_word": "0x27bdfcd0"
+        },
+        {
+          "va": "0x002f8a30",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Filename texture cache/create; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Full GXI upload not reversed",
+      "export_available": true
+    },
+    {
+      "address": "0x002f9c80",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x002f9c80",
+        "end_inclusive": "0x002fa050",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x002fa050"
+      },
+      "role": "Ensure texture resident",
+      "callers": [
+        {
+          "callsite": "0x002fa078",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x002fd99c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002f9b20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fc178",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003774d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f96d8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00374bd8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "texture object",
+      "output_fields": "VRAM/resident fields",
+      "important_constants": "load-on-demand path",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "VRAM/resident fields",
+      "instruction_evidence": [
+        {
+          "va": "0x002f9c80",
+          "original_word": "0x27bdff40"
+        },
+        {
+          "va": "0x002fa04c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Ensure texture resident; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Actual VRAM contents uncaptured",
+      "export_available": true
+    },
+    {
+      "address": "0x003ba868",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003ba868",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x003bbe7c"
+      },
+      "role": "Construct physical mesh owner",
+      "callers": [
+        {
+          "callsite": "0x00391e0c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003fa9b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151a28",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001537e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00153f40",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9628",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9a90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001f2108",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2458",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "allocation f4",
+      "output_fields": "mesh fields, vtable488328, strip/material storage",
+      "important_constants": "default texture IDs",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "mesh fields, vtable488328, strip/material storage",
+      "instruction_evidence": [
+        {
+          "va": "0x003ba868",
+          "original_word": "0x27bdfe90"
+        },
+        {
+          "va": "0x003ba8d8",
+          "original_word": "0xaea00024"
+        },
+        {
+          "va": "0x003ba8dc",
+          "original_word": "0xaea00028"
+        },
+        {
+          "va": "0x003bbe30",
+          "original_word": "0xaea00068"
+        },
+        {
+          "va": "0x003bbe58",
+          "original_word": "0xaea000dc"
+        },
+        {
+          "va": "0x003bbe7c",
+          "original_word": "0xaeb000dc"
+        }
+      ],
+      "data_flow_evidence": "Construct physical mesh owner; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Large interned-string constructor export not used as exact bounds",
+      "export_available": true
+    },
+    {
+      "address": "0x003bbeb0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003bbeb0",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x003bca48"
+      },
+      "role": "Destroy mesh-owned auxiliary and vectors",
+      "callers": [],
+      "virtual_callers": [
+        "mesh488328+c"
+      ],
+      "callees": [
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad390",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002106b0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001df180",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mesh+24,+74,+80,+d4,+f0",
+      "output_fields": "release/delete state",
+      "important_constants": "2ad390 release helpers",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "release/delete state",
+      "instruction_evidence": [
+        {
+          "va": "0x003bbeb0",
+          "original_word": "0x27bdff40"
+        },
+        {
+          "va": "0x003bca48",
+          "original_word": "0xae620010"
+        }
+      ],
+      "data_flow_evidence": "Destroy mesh-owned auxiliary and vectors; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Reference-count details outside water scope",
+      "export_available": true
+    },
+    {
+      "address": "0x003bca80",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003bca80",
+        "end_inclusive": "0x003bcbb4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003bcbb4"
+      },
+      "role": "Mesh scene draw into renderer queue",
+      "callers": [],
+      "virtual_callers": [
+        "mesh488328+5c"
+      ],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00361a58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mesh strips, flags, mode, handles+dc/+e4, instance cache",
+      "output_fields": "renderer virtual setters and queued cache packet",
+      "important_constants": "vtable4853f0 slots8c/94/9c/a4/ac",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "renderer virtual setters and queued cache packet",
+      "instruction_evidence": [
+        {
+          "va": "0x003bca80",
+          "original_word": "0x27bdffa0"
+        },
+        {
+          "va": "0x003bcbb0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Mesh scene draw into renderer queue; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Scene-wide visibility/LOD draw scheduling not fully mapped",
+      "export_available": true
+    },
+    {
+      "address": "0x00361a58",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00361a58",
+        "end_inclusive": "0x00361e14",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00361e14"
+      },
+      "role": "Maintain geometry cache and per-frame aux update",
+      "callers": [
+        {
+          "callsite": "0x003bcaf8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mesh aux; renderer+140; cache revisions",
+      "output_fields": "cache+c,+10,+14/+18/+1c",
+      "important_constants": "reason3 if frame flag and counter changes",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "cache+c,+10,+14/+18/+1c",
+      "instruction_evidence": [
+        {
+          "va": "0x00361a58",
+          "original_word": "0x27bdff30"
+        },
+        {
+          "va": "0x00361ddc",
+          "original_word": "0xae020024"
+        },
+        {
+          "va": "0x00361e10",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Maintain geometry cache and per-frame aux update; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Not a water spawn manager",
+      "export_available": true
+    },
+    {
+      "address": "0x0031f1c8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031f1c8",
+        "end_inclusive": "0x0031f2f4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031f2f4"
+      },
+      "role": "Allocate render wrapper/cache record",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+64"
+      ],
+      "callees": [
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00327d08",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "renderer,model,mesh",
+      "output_fields": "40-byte wrapper;calls virtual7c",
+      "important_constants": "refcounts,initial revisions",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "40-byte wrapper;calls virtual7c",
+      "instruction_evidence": [
+        {
+          "va": "0x0031f1c8",
+          "original_word": "0x27bdff90"
+        },
+        {
+          "va": "0x0031f2f0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Allocate render wrapper/cache record; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Generic wrapper lifetime",
+      "export_available": true
+    },
+    {
+      "address": "0x0031f2f8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031f2f8",
+        "end_inclusive": "0x0031f474",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031f474"
+      },
+      "role": "Build initial strip packet wrapper at model load",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+84,391d38"
+      ],
+      "callees": [
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00327d08",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "model vertex array and mesh strips",
+      "output_fields": "render wrapper and geometry chain",
+      "important_constants": "40-byte wrapper,64-byte vertex records",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "render wrapper and geometry chain",
+      "instruction_evidence": [
+        {
+          "va": "0x0031f2f8",
+          "original_word": "0x27bdffa0"
+        },
+        {
+          "va": "0x0031f470",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Build initial strip packet wrapper at model load; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Shared path with ordinary landscape",
+      "export_available": true
+    },
+    {
+      "address": "0x0031f4e0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031f4e0",
+        "end_inclusive": "0x0031fb78",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031fb78"
+      },
+      "role": "Generate mesh strip packet vertices and batches",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+7c"
+      ],
+      "callees": [
+        {
+          "address": "0x003f93cc",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031f478",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b9c0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031de48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031dce8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "48-byte runtime vertices, packed strip records, material+44",
+      "output_fields": "64-byte record streams, DMA packet refs",
+      "important_constants": "4qwords/vertex,128qword guard,color*.5,scale ratio1.5",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "64-byte record streams, DMA packet refs",
+      "instruction_evidence": [
+        {
+          "va": "0x0031f4e0",
+          "original_word": "0x27bdfef0"
+        },
+        {
+          "va": "0x0031fb74",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Generate mesh strip packet vertices and batches; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Winding/LOD coverage not fully reconstructed offline",
+      "export_available": true
+    },
+    {
+      "address": "0x0031f478",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031f478",
+        "end_inclusive": "0x0031f4d8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031f4d8"
+      },
+      "role": "Flush nonempty visual-strip batch",
+      "callers": [
+        {
+          "callsite": "0x0031f7b4",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031f818",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031fa2c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x0031d7c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "batch count",
+      "output_fields": "calls31d7c8",
+      "important_constants": "count>2",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "calls31d7c8",
+      "instruction_evidence": [
+        {
+          "va": "0x0031f478",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x0031f4d4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Flush nonempty visual-strip batch; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Only actual flush branch traced",
+      "export_available": true
+    },
+    {
+      "address": "0x0031de48",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031de48",
+        "end_inclusive": "0x0031e008",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031e008"
+      },
+      "role": "Copy one four-qword vertex packet",
+      "callers": [
+        {
+          "callsite": "0x0031f9fc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031fe7c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031ffd8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320134",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003204ac",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320608",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320760",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003208bc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "source64bytes",
+      "output_fields": "packet64bytes",
+      "important_constants": "64 bytes",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "packet64bytes",
+      "instruction_evidence": [
+        {
+          "va": "0x0031de48",
+          "original_word": "0x27bdff90"
+        },
+        {
+          "va": "0x0031e004",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Copy one four-qword vertex packet; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No universal VU vertex format assumption",
+      "export_available": true
+    },
+    {
+      "address": "0x0031d7c8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031d7c8",
+        "end_inclusive": "0x0031da48",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031da48"
+      },
+      "role": "Emit visual geometry DMA REF/VIF packet",
+      "callers": [
+        {
+          "callsite": "0x0031f4b0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320158",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003208e0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00334cac",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00334d10",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003370ac",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033710c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d7d00",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "record source pointer,vertex count",
+      "output_fields": "DMA REF,UNPACK,MSCALf",
+      "important_constants": "30000000,01000404,6c008000,1400000f",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "DMA REF,UNPACK,MSCALf",
+      "instruction_evidence": [
+        {
+          "va": "0x0031d7c8",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x0031da44",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Emit visual geometry DMA REF/VIF packet; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Actual source address fixed later",
+      "export_available": true
+    },
+    {
+      "address": "0x0031dce8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031dce8",
+        "end_inclusive": "0x0031ddd0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031ddd0"
+      },
+      "role": "Backpatch physical REF record addresses",
+      "callers": [
+        {
+          "callsite": "0x0031fb2c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320168",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003208f0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00334d34",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00337128",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00346f90",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00358bc4",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003f93cc",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "record source and address-fix vector",
+      "output_fields": "DMA address words",
+      "important_constants": "physical-address mask",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "DMA address words",
+      "instruction_evidence": [
+        {
+          "va": "0x0031dce8",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x0031ddcc",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Backpatch physical REF record addresses; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Runtime buffer addresses not captured",
+      "export_available": true
+    },
+    {
+      "address": "0x0031ddd8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031ddd8",
+        "end_inclusive": "0x0031de08",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031de08"
+      },
+      "role": "Finish reusable geometry DMA subchain",
+      "callers": [
+        {
+          "callsite": "0x0031fb34",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320170",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003208f8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00334d3c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00337130",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00346f98",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00358bcc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "packet stream",
+      "output_fields": "DMA RET",
+      "important_constants": "60000000",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "DMA RET",
+      "instruction_evidence": [
+        {
+          "va": "0x0031ddd8",
+          "original_word": "0x0080182d"
+        },
+        {
+          "va": "0x0031de04",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Finish reusable geometry DMA subchain; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Not GS XGKICK itself",
+      "export_available": true
+    },
+    {
+      "address": "0x0031d1f8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031d1f8",
+        "end_inclusive": "0x0031d22c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031d22c"
+      },
+      "role": "Set two texture handles for queued draw",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+a4,3bca80"
+      ],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "a1/a2 handles",
+      "output_fields": "renderer+150/+154,dirty+164",
+      "important_constants": "cache change detection",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "renderer+150/+154,dirty+164",
+      "instruction_evidence": [
+        {
+          "va": "0x0031d1f8",
+          "original_word": "0x8ca50000"
+        },
+        {
+          "va": "0x0031d228",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Set two texture handles for queued draw; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "GS bind occurs during queue drain",
+      "export_available": true
+    },
+    {
+      "address": "0x0031d230",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031d230",
+        "end_inclusive": "0x0031d248",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031d248"
+      },
+      "role": "Set runtime material mode",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+9c,3bca80"
+      ],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mode",
+      "output_fields": "renderer+158,+164",
+      "important_constants": "9/10/19 relevant",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "renderer+158,+164",
+      "instruction_evidence": [
+        {
+          "va": "0x0031d230",
+          "original_word": "0x8c82015c"
+        },
+        {
+          "va": "0x0031d244",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Set runtime material mode; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other modes untouched",
+      "export_available": true
+    },
+    {
+      "address": "0x0031d250",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031d250",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x0031d794"
+      },
+      "role": "Bucket cached packets by mode/texture/flags",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+ac,3bca80"
+      ],
+      "callees": [
+        {
+          "address": "0x00326cb8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfa58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfca8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfec8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f93cc",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00275db8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002df898",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "renderer+150/+154/+158,cache wrapper",
+      "output_fields": "renderer+16c queued groups",
+      "important_constants": "compact mode/handle key",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "renderer+16c queued groups",
+      "instruction_evidence": [
+        {
+          "va": "0x0031d250",
+          "original_word": "0x27bdfeb0"
+        },
+        {
+          "va": "0x0031d400",
+          "original_word": "0xafa90024"
+        },
+        {
+          "va": "0x0031d610",
+          "original_word": "0xafa00038"
+        },
+        {
+          "va": "0x0031d794",
+          "original_word": "0x02e0302d"
+        }
+      ],
+      "data_flow_evidence": "Bucket cached packets by mode/texture/flags; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Some export tail originally truncated; raw dispatch consumer proved",
+      "export_available": true
+    },
+    {
+      "address": "0x0031cd98",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031cd98",
+        "end_inclusive": "0x0031d1b0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031d1b0"
+      },
+      "role": "Drain queued draw buckets and emit state/geometry CALLs",
+      "callers": [],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003179c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b1f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e010",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "queued group flags,mode,handles,packets",
+      "output_fields": "frame DMA chain; empties group vectors",
+      "important_constants": "virtualbc=mode,c4/cc=textures,dc=state,31e010 packet CALL",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "frame DMA chain; empties group vectors",
+      "instruction_evidence": [
+        {
+          "va": "0x0031cd98",
+          "original_word": "0x27bdff00"
+        },
+        {
+          "va": "0x0031d1ac",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Drain queued draw buckets and emit state/geometry CALLs; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Group order only; global terrain-before-water order not proved",
+      "export_available": true
+    },
+    {
+      "address": "0x00311c50",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00311c50",
+        "end_inclusive": "0x0031212c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031212c"
+      },
+      "role": "Bind primary resident texture to GS template",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+c4,31cd98"
+      ],
+      "callees": [
+        {
+          "address": "0x002de820",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fa058",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00327340",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "texture handle/cache42e430",
+      "output_fields": "TEX0_1,TEX1_1,MIPTBP fields",
+      "important_constants": "48-byte cache entries;2fa058",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "TEX0_1,TEX1_1,MIPTBP fields",
+      "instruction_evidence": [
+        {
+          "va": "0x00311c50",
+          "original_word": "0x27bdff30"
+        },
+        {
+          "va": "0x00311d70",
+          "original_word": "0xafa50028"
+        },
+        {
+          "va": "0x00311f14",
+          "original_word": "0xafa50028"
+        },
+        {
+          "va": "0x00311fe0",
+          "original_word": "0xfca40028"
+        },
+        {
+          "va": "0x00311fec",
+          "original_word": "0xac560028"
+        },
+        {
+          "va": "0x00312128",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Bind primary resident texture to GS template; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Runtime VRAM address unknown",
+      "export_available": true
+    },
+    {
+      "address": "0x00312130",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00312130",
+        "end_inclusive": "0x0031260c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031260c"
+      },
+      "role": "Bind secondary resident texture to GS template",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+cc,31cd98"
+      ],
+      "callees": [
+        {
+          "address": "0x002de820",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fa058",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00327340",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "texture handle/cache42e430",
+      "output_fields": "TEX0_2,TEX1_2,MIPTBP fields",
+      "important_constants": "48-byte cache entries;2fa058",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "TEX0_2,TEX1_2,MIPTBP fields",
+      "instruction_evidence": [
+        {
+          "va": "0x00312130",
+          "original_word": "0x27bdff30"
+        },
+        {
+          "va": "0x00312250",
+          "original_word": "0xafa50028"
+        },
+        {
+          "va": "0x003123f4",
+          "original_word": "0xafa50028"
+        },
+        {
+          "va": "0x003124c0",
+          "original_word": "0xfca40028"
+        },
+        {
+          "va": "0x003124cc",
+          "original_word": "0xac560028"
+        },
+        {
+          "va": "0x00312608",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Bind secondary resident texture to GS template; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Runtime VRAM address unknown",
+      "export_available": true
+    },
+    {
+      "address": "0x00312610",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00312610",
+        "end_inclusive": "0x00316800",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00316800"
+      },
+      "role": "Set water/puddle/waterfall GS templates",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+bc,31cd98"
+      ],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mode and renderer state",
+      "output_fields": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector",
+      "important_constants": "mode9:secondary68 FIX56 TCC0;10:44 TCC1;19:ZMSK0 both",
+      "material_modes_handled": [
+        9,
+        10,
+        19
+      ],
+      "packet_state_writes": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector",
+      "instruction_evidence": [
+        {
+          "va": "0x00312610",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x0031270c",
+          "original_word": "0x2648ff98"
+        },
+        {
+          "va": "0x003167fc",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Set water/puddle/waterfall GS templates; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "ZTE/DATE/FRAME/TEXA inherited; live packet not captured",
+      "export_available": true
+    },
+    {
+      "address": "0x0031c228",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031c228",
+        "end_inclusive": "0x0031c428",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031c428"
+      },
+      "role": "Commit generic camera/world matrices for draw",
+      "callers": [],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00317470",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00317770",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e8d8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "renderer transform/projection revisions",
+      "output_fields": "matrix UNPACK packets",
+      "important_constants": "317470 MSCAL30e;317770 MSCAL2cf",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "matrix UNPACK packets",
+      "instruction_evidence": [
+        {
+          "va": "0x0031c228",
+          "original_word": "0x3c050043"
+        },
+        {
+          "va": "0x0031c424",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Commit generic camera/world matrices for draw; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No new course alignment fitted offline",
+      "export_available": true
+    },
+    {
+      "address": "0x0031c438",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031c438",
+        "end_inclusive": "0x0031c8f0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031c8f0"
+      },
+      "role": "Commit dirty GS templates and VU material selector",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+dc,31cd98"
+      ],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e8d8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031af50",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e478",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e6a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b1f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "global template revisions",
+      "output_fields": "31e478/31e6a8 state packets;31af50 selector",
+      "important_constants": "primary and secondary independently cached",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "31e478/31e6a8 state packets;31af50 selector",
+      "instruction_evidence": [
+        {
+          "va": "0x0031c438",
+          "original_word": "0x3c040043"
+        },
+        {
+          "va": "0x0031c8ec",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Commit dirty GS templates and VU material selector; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Template state distinguished from live GS register snapshot",
+      "export_available": true
+    },
+    {
+      "address": "0x0031af50",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031af50",
+        "end_inclusive": "0x0031b1ec",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031b1ec"
+      },
+      "role": "Transfer material selector/constants to VU",
+      "callers": [
+        {
+          "callsite": "0x0031c520",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031c9c0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "selector0/3 for water/puddle",
+      "output_fields": "VIF UNPACK and MSCAL36a",
+      "important_constants": "317.w selector storage,1400036a",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "VIF UNPACK and MSCAL36a",
+      "instruction_evidence": [
+        {
+          "va": "0x0031af50",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x0031b1e8",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Transfer material selector/constants to VU; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Runtime residency not directly captured",
+      "export_available": true
+    },
+    {
+      "address": "0x0031e478",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031e478",
+        "end_inclusive": "0x0031e6a0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031e6a0"
+      },
+      "role": "Transfer primary eleven-qword GS state template",
+      "callers": [
+        {
+          "callsite": "0x0031c678",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031cb18",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42dec0 template",
+      "output_fields": "UNPACK and MSCAL37c",
+      "important_constants": "6c0b8000,1400037c",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "UNPACK and MSCAL37c",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e478",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x0031e69c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Transfer primary eleven-qword GS state template; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Hardware action conditional on uploaded program",
+      "export_available": true
+    },
+    {
+      "address": "0x0031e6a8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031e6a8",
+        "end_inclusive": "0x0031e8d0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031e8d0"
+      },
+      "role": "Transfer secondary eleven-qword GS state template",
+      "callers": [
+        {
+          "callsite": "0x0031c808",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031cca8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42df70 template",
+      "output_fields": "UNPACK and MSCAL377",
+      "important_constants": "6c0b8000,14000377",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "UNPACK and MSCAL377",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e6a8",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x0031e8cc",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Transfer secondary eleven-qword GS state template; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Hardware action conditional on uploaded program",
+      "export_available": true
+    },
+    {
+      "address": "0x0031e010",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031e010",
+        "end_inclusive": "0x0031e18c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031e18c"
+      },
+      "role": "Link cached geometry subchain into frame chain",
+      "callers": [
+        {
+          "callsite": "0x003171c8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031d0b0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "geometry chain pointer",
+      "output_fields": "DMA CALL address",
+      "important_constants": "50000000",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "DMA CALL address",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e010",
+          "original_word": "0x27bdff90"
+        },
+        {
+          "va": "0x0031e188",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Link cached geometry subchain into frame chain; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "CPU-proven submission link",
+      "export_available": true
+    },
+    {
+      "address": "0x0031e190",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031e190",
+        "end_inclusive": "0x0031e30c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031e30c"
+      },
+      "role": "Finish frame-context link with DMA NEXT",
+      "callers": [
+        {
+          "callsite": "0x00316bcc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00316bdc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "next chain pointer",
+      "output_fields": "DMA NEXT",
+      "important_constants": "20000000,mask0fffffff",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "DMA NEXT",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e190",
+          "original_word": "0x27bdff90"
+        },
+        {
+          "va": "0x0031e308",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Finish frame-context link with DMA NEXT; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Shared frame-chain finalizer",
+      "export_available": true
+    },
+    {
+      "address": "0x00317208",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00317208",
+        "end_inclusive": "0x0031746c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031746c"
+      },
+      "role": "Produce initial embedded VU upload DMA CALL",
+      "callers": [
+        {
+          "callsite": "0x00311370",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "renderer initialization context",
+      "output_fields": "CALL442170;VIF BASE/OFFSET;MSCAL0",
+      "important_constants": "50000000,442170,03000000,02000080,14000000",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "CALL442170;VIF BASE/OFFSET;MSCAL0",
+      "instruction_evidence": [
+        {
+          "va": "0x00317208",
+          "original_word": "0x27bdff60"
+        },
+        {
+          "va": "0x00317468",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Produce initial embedded VU upload DMA CALL; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Caller at311370; actual micro-RAM capture pending",
+      "export_available": true
+    },
+    {
+      "address": "0x00316808",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00316808",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x00316a80"
+      },
+      "role": "Begin frame/counter and gated water phase",
+      "callers": [],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d4040",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001e4280",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001e38c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001e3598",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00361830",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "unsigned renderer counter,Game/PauseMenuEnabled",
+      "output_fields": "renderer+140,phase42dc40",
+      "important_constants": "float(counter)/150",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "renderer+140,phase42dc40",
+      "instruction_evidence": [
+        {
+          "va": "0x00316808",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x00316a80",
+          "original_word": "0x00551023"
+        }
+      ],
+      "data_flow_evidence": "Begin frame/counter and gated water phase; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Counter physical time units not proved",
+      "export_available": true
+    },
+    {
+      "address": "0x00316b88",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00316b88",
+        "end_inclusive": "0x00316c34",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00316c34"
+      },
+      "role": "Finalize both frame chains and advance producer ring",
+      "callers": [
+        {
+          "callsite": "0x00311378",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [
+        "renderer4853f0+34,316ce0"
+      ],
+      "callees": [
+        {
+          "address": "0x0031e190",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00403160",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030ea38",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030e9f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42da10 ring index,context stridee0",
+      "output_fields": "NEXT chains,ready flag+ c0,producer index",
+      "important_constants": "4contexts;403160 cache sync;30ea38/30e9f0 critical section",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "NEXT chains,ready flag+ c0,producer index",
+      "instruction_evidence": [
+        {
+          "va": "0x00316b88",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x00316c30",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Finalize both frame chains and advance producer ring; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No live ring-state capture",
+      "export_available": true
+    },
+    {
+      "address": "0x00316ce0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00316ce0",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x00316f3c"
+      },
+      "role": "Frame close invokes renderer flush virtual",
+      "callers": [],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "renderer",
+      "output_fields": "calls virtual34 to316b88",
+      "important_constants": "frame close chain",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "calls virtual34 to316b88",
+      "instruction_evidence": [
+        {
+          "va": "0x00316ce0",
+          "original_word": "0x27bdff60"
+        },
+        {
+          "va": "0x00316f3c",
+          "original_word": "0x00000000"
+        }
+      ],
+      "data_flow_evidence": "Frame close invokes renderer flush virtual; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Unrelated tail out of scope",
+      "export_available": true
+    },
+    {
+      "address": "0x0030ea38",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0030ea38",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x0030ea44"
+      },
+      "role": "Enter interrupt-disabled nested critical section",
+      "callers": [
+        {
+          "callsite": "0x0030eaa4",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00316bf4",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00322d08",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42da14 depth,CP0Status",
+      "output_fields": "depth decrement,DI/EI control",
+      "important_constants": "42000039,42000038",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "depth decrement,DI/EI control",
+      "instruction_evidence": [
+        {
+          "va": "0x0030ea38",
+          "original_word": "0x3c020043"
+        },
+        {
+          "va": "0x0030ea44",
+          "original_word": "0x00000000"
+        }
+      ],
+      "data_flow_evidence": "Enter interrupt-disabled nested critical section; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "This is NOT DMA start",
+      "export_available": true
+    },
+    {
+      "address": "0x0030ea80",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0030ea80",
+        "end_inclusive": "0x0030edb4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0030edb4"
+      },
+      "role": "Drain produced frame ring and start VIF1 DMA",
+      "callers": [
+        {
+          "callsite": "0x00310de0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x0030ea38",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002c1870",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f5528",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002c1948",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030e9f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42da12 consumer vs42da10 producer;context+14 pointer",
+      "output_fields": "10009030 TADR,10009020 QWC,10009000 CHCR145",
+      "important_constants": "stridee0;physical mask0fffffff;VIF/GIF/VU busy checks",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "10009030 TADR,10009020 QWC,10009000 CHCR145",
+      "instruction_evidence": [
+        {
+          "va": "0x0030ea80",
+          "original_word": "0x3c030043"
+        },
+        {
+          "va": "0x0030ed68",
+          "original_word": "0x34429030"
+        },
+        {
+          "va": "0x0030edb0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Drain produced frame ring and start VIF1 DMA; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Synchronization branch has unsupported EE instruction; original start writes independently verified",
+      "export_available": true
+    },
+    {
+      "address": "0x002d5100",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x002d5100",
+        "end_inclusive": "0x002d8208",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x002d8208"
+      },
+      "role": "Read spatial material surface-type and detail separately",
+      "callers": [
+        {
+          "callsite": "0x00394954",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x0030bf18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad390",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b1fc0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003d2910",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152d28",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002d99e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d6278",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003fa9b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151a28",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00213b70",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001539a0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001537e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00153f40",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9628",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9a90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002db3d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d4040",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00155db0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "tag103 short material strings",
+      "output_fields": "spatial material+8c type and+98 detail",
+      "important_constants": "case-sensitive substring;interned categories",
+      "material_modes_handled": "SPATIAL_SURFACE_SEMANTICS",
+      "packet_state_writes": "spatial material+8c type and+98 detail",
+      "instruction_evidence": [
+        {
+          "va": "0x002d5100",
+          "original_word": "0x27bdfe00"
+        },
+        {
+          "va": "0x002d53b4",
+          "original_word": "0xac660038"
+        },
+        {
+          "va": "0x002d8204",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Read spatial material surface-type and detail separately; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Full vehicle/wet-surface physics excluded",
+      "export_available": true
+    },
+    {
+      "address": "0x002d4618",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x002d4618",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x002d4618"
+      },
+      "role": "Query spatial source triangles under point/range",
+      "callers": [
+        {
+          "callsite": "0x00320a74",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "model spatial grid",
+      "output_fields": "triangle/material references",
+      "important_constants": "existing GRASS1 verified layout",
+      "material_modes_handled": "SPATIAL_SURFACE_SEMANTICS",
+      "packet_state_writes": "triangle/material references",
+      "instruction_evidence": [
+        {
+          "va": "0x002d4618",
+          "original_word": "0x27bdfeb0"
+        }
+      ],
+      "data_flow_evidence": "Query spatial source triangles under point/range; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Not a visible-strip decoder",
+      "export_available": false
+    }
+  ],
+  "embedded_vu": {
+    "upload_producer": "0x00317208",
+    "dma_source_va": "0x00442170",
+    "mpg_chunks": [
+      {
+        "command_va": "0x44217c",
+        "word": "0x4a000000",
+        "micro_pc": 0,
+        "count": 256,
+        "source_va": 4465024,
+        "sha256": "4af35729b5ac7753e65b730f491fcd107e7978ce87a6ccca9f711702ca830e4e"
+      },
+      {
+        "command_va": "0x442984",
+        "word": "0x4a000100",
+        "micro_pc": 256,
+        "count": 256,
+        "source_va": 4467080,
+        "sha256": "0950571ea077b21f9f6dbb54b5463f71789895062c75c90ae0a94bdef3ab92ff"
+      },
+      {
+        "command_va": "0x44318c",
+        "word": "0x4a000200",
+        "micro_pc": 512,
+        "count": 256,
+        "source_va": 4469136,
+        "sha256": "f9ef7bfe3214431a925e1d4b2dce3fe73914d2819e7f4108e7fbc107ee52ab1a"
+      },
+      {
+        "command_va": "0x443994",
+        "word": "0x4a000300",
+        "micro_pc": 768,
+        "count": 256,
+        "source_va": 4471192,
+        "sha256": "320c8b6abc6c4f961cda216a99502181f0ee4de8936e5730a4a134cc48e0dda7"
+      },
+      {
+        "command_va": "0x44419c",
+        "word": "0x4ac90400",
+        "micro_pc": 1024,
+        "count": 201,
+        "source_va": 4473248,
+        "sha256": "460ec8ad74f2f4b5135e8f5b32b397ae45799ca9dbb4702755689a784b83a8a3"
+      }
+    ],
+    "geometry_entry": "0x00f",
+    "selector_entry": "0x36a",
+    "primary_state_entry": "0x37c",
+    "secondary_state_entry": "0x377",
+    "puddle_uv_rebase": "0x3dc..0x3f1",
+    "submission_xgkick": "0x0fa; source VA mapped by mpg_chunks",
+    "runtime_residency": "NOT_CAPTURED",
+    "grade": "STATIC_PROGRAM_DECODE_WITH_CONFIRMED_CPU_UPLOAD_ADDRESS"
+  }
+}
