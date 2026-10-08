@@ -1,0 +1,235 @@
+{
+  "schema": 1,
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "runtime_validation": "NOT_PERFORMED",
+  "environment_source": {
+    "classification": "MIXED_STATIC_AND_FRAMEBUFFER",
+    "owner": "0x330780",
+    "reset": "0x32f988",
+    "resources": {
+      "static_source": "CommonTextures\\envsource64x64",
+      "target": "CommonTextures\\rendertarget64x64"
+    },
+    "handle_containers": {
+      "target": "0x49b380",
+      "source": "0x49b388"
+    },
+    "once_guard": "0x42dd38 reset by 32f988, set by first eligible 330780",
+    "enable": "0x42dd34 = 1 XOR Frontend/SplitScreen; early model/visibility/vehicle-data gates also apply",
+    "producer": "0x31a518 twice, caller0x33257c/0x3325c8",
+    "source_format_selector": 2,
+    "destination_format_selector": 2,
+    "format": "PSMCT16 at these calls",
+    "sprite_prim": "0x156",
+    "test": "0x31000",
+    "zbuf_or": "0x132000000",
+    "tex0_tcc": 0,
+    "tex0_tfx": 1,
+    "tex1": "0x61",
+    "passes": [
+      {
+        "source": "ENVSOURCE64X64",
+        "vertical_flip": false,
+        "alpha": {
+          "A": 0,
+          "B": 2,
+          "C": 2,
+          "D": 2,
+          "FIX": 80,
+          "equation": "(Cs - 0) * FIX / 128 + 0",
+          "word": "0x00000050000000a8"
+        }
+      },
+      {
+        "source": "Current framebuffer 0x42d298, width0x42d29c,height0x42d2a0",
+        "vertical_flip": true,
+        "alpha": {
+          "A": 0,
+          "B": 2,
+          "C": 2,
+          "D": 1,
+          "FIX": 48,
+          "equation": "(Cs - 0) * FIX / 128 + Cd",
+          "word": "0x0000003000000068"
+        }
+      }
+    ],
+    "nominal_rgb": "(80/128)*EnvSource + (48/128)*FlipY(Framebuffer)",
+    "nominal_equation_precision": "MATHEMATICALLY_EQUIVALENT; not a pixel simulator, GS16 quantization/filter/saturation apply",
+    "geometry": "CPU-produced textured GS sprites in source-width 32-pixel columns",
+    "submission": "DMA CNT / UNPACK -> MSCAL0x373 -> embedded copy/flush XGKICK -> VIF1 DMA",
+    "teardown": "Handle containers register callbacks at 0x330770/0x330778; callback bodies not resolved",
+    "aliasing": "Shared cached name/handle, no proven ping-pong or framebuffer storage alias",
+    "missing": "Exact live VRAM base, live source frame contents and complete engine outer-frame scheduling"
+  },
+  "coordinates": {
+    "selector": 1,
+    "normal_source": "PSM vertex xyz +0 -> runtime48 -> cached64 first qword",
+    "object_matrices": "cache+70/cache+30 ->3432b8 ->42e230/42e270 ->317770 ->MSCAL2cf",
+    "view_matrices": "camera owner+34 ->3387c8 ->36fc18/36fb28 ->owner+1e0/+220 ->343458 ->42e2b0/42e2f0 ->317470 ->MSCAL30e",
+    "model_other_context": "338ab8 uses identical owner+c0 matrix twice, not race camera",
+    "weight": "VU data319.w; embedded init0 writes0; update3a7..3c8 exists but CPU invocation not established",
+    "equation": "O=(1-w)O0+wO1; V=(1-w)V0+wV1; M=O*V; u=.5+.5*(nx*M00+ny*M10+nz*M20); v=.5-.5*(nx*M01+ny*M11+nz*M21)",
+    "convention": "Four stored row vectors; row-normal n times row product O*V; no inverse transpose/renormalization in selector1",
+    "space": "Local normal -> object/view orientation -> biased 2D texture coordinates",
+    "original_helpers": [
+      "0x2cf..0x30d",
+      "0x30e..0x342",
+      "0x408..0x41b",
+      "0x41c..0x42f",
+      "0x430..0x448"
+    ],
+    "position_input": false,
+    "reflection_vector": false,
+    "precision": "FLOAT32_RECONSTRUCTION",
+    "object_matrix_owner": "3628c0:cache+30 always current input manager+40;cache+70 conditionally retains orientation when initialized, definition bit34 set,context!=2,force==0 and row0/row1 dot>=.9"
+  },
+  "materials": {
+    "3": {
+      "shader": "carshiny",
+      "environment_selector": 1,
+      "primary": {
+        "tcc": 0,
+        "tfx": 0,
+        "tfx_name": "MODULATE",
+        "ABE": 0,
+        "IIP": 1,
+        "TME": 1,
+        "FGE": 1,
+        "alpha": {
+          "A": 0,
+          "B": 1,
+          "C": 0,
+          "D": 1,
+          "FIX": 0,
+          "equation": "(Cs - Cd) * As / 128 + Cd",
+          "word": "0x0000000000000044"
+        },
+        "ZMSK": 0,
+        "ATE": 0,
+        "ZTST": 2,
+        "ZTE": "INHERITED",
+        "TEX1_low_or": "0x160"
+      },
+      "secondary": {
+        "tcc": 0,
+        "tfx": 1,
+        "tfx_name": "DECAL",
+        "ABE": 1,
+        "IIP": 1,
+        "TME": 1,
+        "FGE": 0,
+        "alpha": {
+          "A": 1,
+          "B": 2,
+          "C": 2,
+          "D": 0,
+          "FIX": 128,
+          "equation": "(Cd - 0) * FIX / 128 + Cs",
+          "word": "0x0000008000000029"
+        },
+        "ZMSK": 1,
+        "ATE": 0,
+        "ZTST": 2,
+        "ZTE": "INHERITED",
+        "TEX1_low_or": "0x120"
+      },
+      "texture": "CommonTextures\\rendertarget64x64",
+      "exception": "carshiny authored secondary containing literal rubber is retained",
+      "pass_order": "Primary then secondary GIF streams for this mesh; no global ordering assertion"
+    },
+    "20": {
+      "shader": "carglass/carsglass",
+      "environment_selector": 1,
+      "primary": {
+        "tcc": 1,
+        "tfx": 0,
+        "tfx_name": "MODULATE",
+        "ABE": 1,
+        "IIP": 1,
+        "TME": 1,
+        "FGE": 1,
+        "alpha": {
+          "A": 0,
+          "B": 1,
+          "C": 0,
+          "D": 1,
+          "FIX": 0,
+          "equation": "(Cs - Cd) * As / 128 + Cd",
+          "word": "0x0000000000000044"
+        },
+        "ZMSK": 1,
+        "ATE": 0,
+        "ZTST": 2,
+        "ZTE": "INHERITED",
+        "TEX1_low_or": "0x120"
+      },
+      "secondary": {
+        "tcc": 0,
+        "tfx": 1,
+        "tfx_name": "DECAL",
+        "ABE": 1,
+        "IIP": 1,
+        "TME": 1,
+        "FGE": 0,
+        "alpha": {
+          "A": 0,
+          "B": 2,
+          "C": 2,
+          "D": 1,
+          "FIX": 96,
+          "equation": "(Cs - 0) * FIX / 128 + Cd",
+          "word": "0x0000006000000068"
+        },
+        "ZMSK": 1,
+        "ATE": 0,
+        "ZTST": 2,
+        "ZTE": "INHERITED",
+        "TEX1_low_or": "0x120"
+      },
+      "texture": "CommonTextures/windscreen-reflect",
+      "exception": null,
+      "pass_order": "Primary then secondary GIF streams for this mesh; no global ordering assertion"
+    }
+  },
+  "packet": {
+    "source_stride": 52,
+    "runtime_stride": 48,
+    "cache_stride": 64,
+    "qwords": [
+      "normal.xyz / control",
+      "color.rgba float32",
+      "base_uv.xy / generated_env_uv.zw",
+      "position.xyzw"
+    ],
+    "topology": "TRIANGLE_STRIP",
+    "primitive_kick_control": "Newest source vertex control bit0",
+    "queue": "0x31d250 ->0x31cd98 ->0x31d7c8/0x31e010",
+    "material_mode_setup": "0x312610",
+    "texture_setup": [
+      "0x311c50",
+      "0x312130"
+    ],
+    "entries": {
+      "selector": "0x36a",
+      "strip": "0x00f",
+      "primary_state": "0x37c",
+      "secondary_state": "0x377",
+      "sprite_copy": "0x373"
+    },
+    "upload": "Original initialization JAL at311370 ->317208 ->DMA CALL442170, five MPG chunks; containing function entry not claimed",
+    "final_submission": "316b88 ring ->30ea80; QWC10009020=0,TADR10009030,CHCR10009000=0x145",
+    "embedded_program": "EMBEDDED_PROGRAM_CONFIRMED",
+    "upload_producer": "UPLOAD_PRODUCER_CONFIRMED",
+    "cpu_packet": "CPU_PACKET_CONTRACT_CONFIRMED",
+    "live_residency": "LIVE_RESIDENCY_UNKNOWN",
+    "frame": "LIVE_FRAME_NOT_CAPTURED"
+  },
+  "unknown_state": [
+    "ZTE/DATE inherited in body/glass templates",
+    "Final CLAMP/TEXA/FRAME and live VRAM addresses",
+    "Named-child/LOD activation",
+    "Actual pixel parity"
+  ]
+}

@@ -1,0 +1,1347 @@
+{
+  "schema": 1,
+  "scope": "Two canonical vehicle visual trees; counts include conditional child variants, not simultaneous draws",
+  "vehicles": [
+    {
+      "model": "TATA",
+      "decoded_sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+      "decoded_size": 180332,
+      "source_vertex_count": 3262,
+      "visual_tree_start": 169656,
+      "visual_tree_end": 176064,
+      "terminal": 101,
+      "node_counts": {
+        "1": 1,
+        "2": 31,
+        "7": 5,
+        "8": 10
+      },
+      "mesh_count": 31,
+      "shader_counts": {
+        "carbrakelights": 2,
+        "carflat": 3,
+        "carglass": 6,
+        "carshiny": 20
+      },
+      "resource": "\\TNG\\DATAPSM\\VEHICLES\\TATA\\CAR.PSM",
+      "packfs_provenance": {
+        "path": "\\TNG\\DATAPSM\\VEHICLES\\TATA\\CAR.PSM",
+        "offset": 1217242555,
+        "stored_size": 103131,
+        "directory_size_0x08": 103131,
+        "unpacked_size": 180332,
+        "compression": "packfs_lzo",
+        "stored_sha256": "755f913c3914eae4909ef8295f4e335bba7bef3a60aaca6171260c926ad04511",
+        "payload_sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "selected_groups": [
+        {
+          "stable_id": "9397b4b9b60567a3:mesh:296c0",
+          "path": "root.0",
+          "node_offset": 169664,
+          "material": "$shader(carflat)",
+          "material_offset": 169723,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\underdash2-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 169686
+            }
+          ],
+          "contract": {
+            "authored_shader": "carflat",
+            "interned_shader": "carflat",
+            "mode": 1,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": null,
+            "handler": "0x3ae250",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 37,
+          "strip_record_offsets": [
+            169759,
+            169772,
+            169785,
+            169798,
+            169811,
+            169824,
+            169837,
+            169850,
+            169863,
+            169876,
+            169889,
+            169902,
+            169915,
+            169928,
+            169941,
+            169954,
+            169967,
+            169980,
+            169993,
+            170006,
+            170019,
+            170032,
+            170045,
+            170058,
+            170071,
+            170084,
+            170097,
+            170110,
+            170123,
+            170136,
+            170149,
+            170162,
+            170175,
+            170188,
+            170201,
+            170214,
+            170227
+          ],
+          "source_vertices_referenced": 1029,
+          "metrics": {
+            "triangles": 579,
+            "coordinate_vertices": 408,
+            "bounds": {
+              "min": [
+                -1.0229995250701904,
+                -0.0041725304909050465,
+                -2.34460711479187
+              ],
+              "max": [
+                1.0811736583709717,
+                1.5397818088531494,
+                1.9660913944244385
+              ]
+            },
+            "components": 10,
+            "component_sizes": [
+              151,
+              104,
+              101,
+              48,
+              48,
+              47,
+              24,
+              24,
+              18,
+              14
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 15.94673613509412,
+            "unsigned_xz_area": 11.597692676026407,
+            "horizontal_triangles": 3,
+            "absolute_slope_degrees": [
+              0.024127856667444072,
+              89.99999713327169
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 376,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999851102316,
+            1.0000001296097656
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "9397b4b9b60567a3:mesh:29b03",
+          "path": "root.3",
+          "node_offset": 170755,
+          "material": "$shader(carshiny)",
+          "material_offset": 170849,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\tatabon-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 170777
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\whitepaint-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 170813
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\whitepaint-tga",
+            "effective_secondary": "CommonTextures\\rendertarget64x64",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 8,
+          "strip_record_offsets": [
+            170886,
+            170899,
+            170912,
+            170925,
+            170938,
+            170951,
+            170964,
+            170977
+          ],
+          "source_vertices_referenced": 77,
+          "metrics": {
+            "triangles": 57,
+            "coordinate_vertices": 48,
+            "bounds": {
+              "min": [
+                -0.8316795825958252,
+                0.789432168006897,
+                -0.7042401432991028
+              ],
+              "max": [
+                0.8626372218132019,
+                1.6099216938018799,
+                1.9955955743789673
+              ]
+            },
+            "components": 3,
+            "component_sizes": [
+              28,
+              27,
+              2
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 2.7819139177864174,
+            "unsigned_xz_area": 2.7100497672743695,
+            "horizontal_triangles": 3,
+            "absolute_slope_degrees": [
+              0.1528730928617868,
+              88.21898296766959
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 4,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999868299868,
+            1.0000001162529788
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "9397b4b9b60567a3:mesh:2a1d7",
+          "path": "root.11",
+          "node_offset": 172503,
+          "material": "$shader(carshiny)",
+          "material_offset": 172599,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\tataside3-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 172525
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\whitepaint-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 172563
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\whitepaint-tga",
+            "effective_secondary": "CommonTextures\\rendertarget64x64",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 2,
+          "strip_record_offsets": [
+            172636,
+            172649
+          ],
+          "source_vertices_referenced": 59,
+          "metrics": {
+            "triangles": 39,
+            "coordinate_vertices": 29,
+            "bounds": {
+              "min": [
+                -0.9179216623306274,
+                0.6492018699645996,
+                -1.981908917427063
+              ],
+              "max": [
+                -0.6298468708992004,
+                1.5434956550598145,
+                -0.7039984464645386
+              ]
+            },
+            "components": 1,
+            "component_sizes": [
+              39
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 1.0475767201460102,
+            "unsigned_xz_area": 0.3254139420872839,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              36.625873000367335,
+              85.62699945592604
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 16,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999869116233,
+            1.0000001179102778
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "9397b4b9b60567a3:mesh:2a27a",
+          "path": "root.12",
+          "node_offset": 172666,
+          "material": "$shader(carshiny)",
+          "material_offset": 172762,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\tataside2-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 172688
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\whitepaint-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 172726
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\whitepaint-tga",
+            "effective_secondary": "CommonTextures\\rendertarget64x64",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 5,
+          "strip_record_offsets": [
+            172799,
+            172812,
+            172825,
+            172838,
+            172851
+          ],
+          "source_vertices_referenced": 64,
+          "metrics": {
+            "triangles": 40,
+            "coordinate_vertices": 30,
+            "bounds": {
+              "min": [
+                0.6880210041999817,
+                0.6492017507553101,
+                -1.981908917427063
+              ],
+              "max": [
+                0.9760957956314087,
+                1.543495535850525,
+                -0.7039984464645386
+              ]
+            },
+            "components": 1,
+            "component_sizes": [
+              40
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 1.0505286279528485,
+            "unsigned_xz_area": 0.32644586795790786,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              36.62592165826809,
+              89.01061379120317
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 14,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999851147825,
+            1.000000124824506
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "9397b4b9b60567a3:mesh:2a3ff",
+          "path": "root.14",
+          "node_offset": 173055,
+          "material": "$shader(carshiny)",
+          "material_offset": 173152,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\tatacolour-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 173077
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\whitepaint-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 173116
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\whitepaint-tga",
+            "effective_secondary": "CommonTextures\\rendertarget64x64",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 7,
+          "strip_record_offsets": [
+            173189,
+            173202,
+            173215,
+            173228,
+            173241,
+            173254,
+            173267
+          ],
+          "source_vertices_referenced": 120,
+          "metrics": {
+            "triangles": 68,
+            "coordinate_vertices": 56,
+            "bounds": {
+              "min": [
+                -0.9178264141082764,
+                0.5770442485809326,
+                1.784631371498108
+              ],
+              "max": [
+                0.9760004878044128,
+                0.8750816583633423,
+                2.031811237335205
+              ]
+            },
+            "components": 1,
+            "component_sizes": [
+              68
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 0.25210188824003826,
+            "unsigned_xz_area": 0.07472814065181765,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              21.96571077798786,
+              87.679137837624
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 38,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.999999985730259,
+            1.0000001252634985
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "9397b4b9b60567a3:mesh:2a616",
+          "path": "root.17",
+          "node_offset": 173590,
+          "material": "$shader(carshiny)",
+          "material_offset": 173685,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\tataback-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 173612
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\whitepaint-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 173649
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\whitepaint-tga",
+            "effective_secondary": "CommonTextures\\rendertarget64x64",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 3,
+          "strip_record_offsets": [
+            173722,
+            173735,
+            173748
+          ],
+          "source_vertices_referenced": 51,
+          "metrics": {
+            "triangles": 33,
+            "coordinate_vertices": 35,
+            "bounds": {
+              "min": [
+                -0.835691511631012,
+                0.6804676651954651,
+                -2.278959035873413
+              ],
+              "max": [
+                0.8938655853271484,
+                1.5447567701339722,
+                -1.8597484827041626
+              ]
+            },
+            "components": 1,
+            "component_sizes": [
+              33
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 1.3583434427579941,
+            "unsigned_xz_area": 0.433238217226382,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              44.29037488718421,
+              87.35059810825413
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 12,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.999999987310725,
+            1.0000001304347417
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "9397b4b9b60567a3:mesh:2a8cb",
+          "path": "root.21",
+          "node_offset": 174283,
+          "material": "$shader(carglass)",
+          "material_offset": 174377,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\windscreen32-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 174305
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\glass-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 174346
+            }
+          ],
+          "contract": {
+            "authored_shader": "carglass",
+            "interned_shader": "carglass",
+            "mode": 20,
+            "authored_secondary": "commontextures\\glass-tga",
+            "effective_secondary": "CommonTextures/windscreen-reflect",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ae040",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 2,
+          "strip_record_offsets": [
+            174414,
+            174427
+          ],
+          "source_vertices_referenced": 16,
+          "metrics": {
+            "triangles": 8,
+            "coordinate_vertices": 14,
+            "bounds": {
+              "min": [
+                -0.8068838715553284,
+                0.6389556527137756,
+                -0.30895641446113586
+              ],
+              "max": [
+                0.8650580048561096,
+                1.5397818088531494,
+                2.022651433944702
+              ]
+            },
+            "components": 3,
+            "component_sizes": [
+              4,
+              2,
+              2
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 0.49769161249307553,
+            "unsigned_xz_area": 0.10978349714300095,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              73.21092528534318,
+              81.71370350944588
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 4,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999880521521,
+            1.0000001066273898
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "9397b4b9b60567a3:mesh:2a96c",
+          "path": "root.22",
+          "node_offset": 174444,
+          "material": "$shader(carglass)",
+          "material_offset": 174539,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\windscreenc32-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 174466
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\glass-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 174508
+            }
+          ],
+          "contract": {
+            "authored_shader": "carglass",
+            "interned_shader": "carglass",
+            "mode": 20,
+            "authored_secondary": "commontextures\\glass-tga",
+            "effective_secondary": "CommonTextures/windscreen-reflect",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ae040",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 1,
+          "strip_record_offsets": [
+            174576
+          ],
+          "source_vertices_referenced": 8,
+          "metrics": {
+            "triangles": 4,
+            "coordinate_vertices": 6,
+            "bounds": {
+              "min": [
+                -0.7839825749397278,
+                1.004065752029419,
+                -0.30895641446113586
+              ],
+              "max": [
+                -0.6395078301429749,
+                1.5397818088531494,
+                0.6958367228507996
+              ]
+            },
+            "components": 1,
+            "component_sizes": [
+              4
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 0.38972740246677484,
+            "unsigned_xz_area": 0.09378299323323547,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              73.21092528534318,
+              77.38744960489082
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 2,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            1.0000000016315536,
+            1.0000001066273898
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        }
+      ],
+      "all_mesh_triangles_before_named_child_activation": 2016,
+      "geometry_kind": "VISUAL_SOURCE_STRIP",
+      "evidence_grade": "CONFIRMED_BY_BOTH"
+    },
+    {
+      "model": "KIASPORTAGE",
+      "decoded_sha256": "b4afabfab7437eae01ee72ca424beb90967c7b849cebdb9cf94e104560be33ce",
+      "decoded_size": 194660,
+      "source_vertex_count": 3559,
+      "visual_tree_start": 185100,
+      "visual_tree_end": 191364,
+      "terminal": 101,
+      "node_counts": {
+        "1": 1,
+        "2": 31,
+        "7": 5,
+        "8": 10
+      },
+      "mesh_count": 31,
+      "shader_counts": {
+        "<untagged>": 3,
+        "carbrakelights": 2,
+        "carflat": 6,
+        "carglass": 7,
+        "carshiny": 13
+      },
+      "resource": "\\TNG\\DATAPSM\\VEHICLES\\KIASPORTAGE\\CAR.PSM",
+      "packfs_provenance": {
+        "path": "\\TNG\\DATAPSM\\VEHICLES\\KIASPORTAGE\\CAR.PSM",
+        "offset": 1213713197,
+        "stored_size": 107814,
+        "directory_size_0x08": 107814,
+        "unpacked_size": 194660,
+        "compression": "packfs_lzo",
+        "stored_sha256": "3bae8818936a95b1407341da79e9bb602ebcb599312e75e25a6fa6d35bea77c6",
+        "payload_sha256": "b4afabfab7437eae01ee72ca424beb90967c7b849cebdb9cf94e104560be33ce",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "selected_groups": [
+        {
+          "stable_id": "b4afabfab7437eae:mesh:2d314",
+          "path": "root.0",
+          "node_offset": 185108,
+          "material": "$shader(carflat)",
+          "material_offset": 185167,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\underdash2-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 185130
+            }
+          ],
+          "contract": {
+            "authored_shader": "carflat",
+            "interned_shader": "carflat",
+            "mode": 1,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": null,
+            "handler": "0x3ae250",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 20,
+          "strip_record_offsets": [
+            185203,
+            185216,
+            185229,
+            185242,
+            185255,
+            185268,
+            185281,
+            185294,
+            185307,
+            185320,
+            185333,
+            185346,
+            185359,
+            185372,
+            185385,
+            185398,
+            185411,
+            185424,
+            185437,
+            185450
+          ],
+          "source_vertices_referenced": 509,
+          "metrics": {
+            "triangles": 287,
+            "coordinate_vertices": 228,
+            "bounds": {
+              "min": [
+                -1.1127009391784668,
+                -0.12291670590639114,
+                -2.257808208465576
+              ],
+              "max": [
+                1.113851547241211,
+                1.5443038940429688,
+                2.1066532135009766
+              ]
+            },
+            "components": 10,
+            "component_sizes": [
+              130,
+              60,
+              24,
+              24,
+              18,
+              14,
+              12,
+              2,
+              2,
+              1
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 14.421091123981496,
+            "unsigned_xz_area": 10.505190004644327,
+            "horizontal_triangles": 1,
+            "absolute_slope_degrees": [
+              0.1806222217474714,
+              89.99999673792973
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 182,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999853529625,
+            1.0000001201278974
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "b4afabfab7437eae:mesh:2d6c5",
+          "path": "root.4",
+          "node_offset": 186053,
+          "material": "$shader(carshiny)",
+          "material_offset": 186148,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\kiaside2-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 186075
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\whitepaint-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 186112
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\whitepaint-tga",
+            "effective_secondary": "CommonTextures\\rendertarget64x64",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 27,
+          "strip_record_offsets": [
+            186185,
+            186198,
+            186211,
+            186224,
+            186237,
+            186250,
+            186263,
+            186276,
+            186289,
+            186302,
+            186315,
+            186328,
+            186341,
+            186354,
+            186367,
+            186380,
+            186393,
+            186406,
+            186419,
+            186432,
+            186445,
+            186458,
+            186471,
+            186484,
+            186497,
+            186510,
+            186523
+          ],
+          "source_vertices_referenced": 690,
+          "metrics": {
+            "triangles": 522,
+            "coordinate_vertices": 371,
+            "bounds": {
+              "min": [
+                -1.1127009391784668,
+                0.031714726239442825,
+                -2.1403515338897705
+              ],
+              "max": [
+                1.113851547241211,
+                1.6352051496505737,
+                2.1661171913146973
+              ]
+            },
+            "components": 8,
+            "component_sizes": [
+              320,
+              80,
+              48,
+              48,
+              10,
+              10,
+              3,
+              3
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 5.6409959312559605,
+            "unsigned_xz_area": 2.6302025645667375,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              3.7094107709262603,
+              89.99084076159919
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 114,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999852308356,
+            1.000000121369739
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "b4afabfab7437eae:mesh:2d8ac",
+          "path": "root.5",
+          "node_offset": 186540,
+          "material": "$shader(carshiny)",
+          "material_offset": 186634,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\kiabon2-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 186562
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\whitepaint-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 186598
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\whitepaint-tga",
+            "effective_secondary": "CommonTextures\\rendertarget64x64",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 14,
+          "strip_record_offsets": [
+            186671,
+            186684,
+            186697,
+            186710,
+            186723,
+            186736,
+            186749,
+            186762,
+            186775,
+            186788,
+            186801,
+            186814,
+            186827,
+            186840
+          ],
+          "source_vertices_referenced": 304,
+          "metrics": {
+            "triangles": 206,
+            "coordinate_vertices": 196,
+            "bounds": {
+              "min": [
+                -1.0443990230560303,
+                0.05898443982005119,
+                -2.3285343647003174
+              ],
+              "max": [
+                1.045551061630249,
+                1.633331060409546,
+                2.1591217517852783
+              ]
+            },
+            "components": 14,
+            "component_sizes": [
+              56,
+              54,
+              24,
+              12,
+              11,
+              10,
+              8,
+              6,
+              6,
+              5,
+              5,
+              4,
+              3,
+              2
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 4.491441053795222,
+            "unsigned_xz_area": 1.913631077357324,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              2.8147246915890114,
+              89.96658282122002
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 70,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.999999985502189,
+            1.0000001226630366
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "b4afabfab7437eae:mesh:2dbd4",
+          "path": "root.9",
+          "node_offset": 187348,
+          "material": "$shader(carshiny)",
+          "material_offset": 187437,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\canvas-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 187370
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\rubber-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 187405
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\rubber-tga",
+            "effective_secondary": "commontextures\\rubber-tga",
+            "rubber_substring_preserved": true,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 8,
+          "strip_record_offsets": [
+            187474,
+            187487,
+            187500,
+            187513,
+            187526,
+            187539,
+            187552,
+            187565
+          ],
+          "source_vertices_referenced": 209,
+          "metrics": {
+            "triangles": 159,
+            "coordinate_vertices": 97,
+            "bounds": {
+              "min": [
+                -0.846236526966095,
+                0.9760938882827759,
+                -2.0934062004089355
+              ],
+              "max": [
+                0.8459842205047607,
+                1.6352051496505737,
+                -0.3933502733707428
+              ]
+            },
+            "components": 1,
+            "component_sizes": [
+              159
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 3.1522805335521835,
+            "unsigned_xz_area": 2.8562190376587027,
+            "horizontal_triangles": 0,
+            "absolute_slope_degrees": [
+              0.6122574023743961,
+              82.62147392872048
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 34,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999851190781,
+            1.0000001187145338
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "stable_id": "b4afabfab7437eae:mesh:2e3c0",
+          "path": "root.20",
+          "node_offset": 189376,
+          "material": "$shader(carshiny)",
+          "material_offset": 189466,
+          "textures": [
+            {
+              "slot": 0,
+              "name": "commontextures\\mlamp32-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 189398
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\chrome-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 189434
+            }
+          ],
+          "contract": {
+            "authored_shader": "carshiny",
+            "interned_shader": "carshiny",
+            "mode": 3,
+            "authored_secondary": "commontextures\\chrome-tga",
+            "effective_secondary": "CommonTextures\\rendertarget64x64",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": true,
+            "environment_selector": 1,
+            "handler": "0x3ade58",
+            "fallback": null,
+            "evidence_grade": "CONFIRMED_BY_EXE"
+          },
+          "strip_count": 7,
+          "strip_record_offsets": [
+            189503,
+            189516,
+            189529,
+            189542,
+            189555,
+            189568,
+            189581
+          ],
+          "source_vertices_referenced": 56,
+          "metrics": {
+            "triangles": 28,
+            "coordinate_vertices": 36,
+            "bounds": {
+              "min": [
+                -1.0451239347457886,
+                0.6162451505661011,
+                0.6314553618431091
+              ],
+              "max": [
+                1.0337533950805664,
+                1.0714763402938843,
+                2.224579095840454
+              ]
+            },
+            "components": 6,
+            "component_sizes": [
+              8,
+              8,
+              5,
+              5,
+              1,
+              1
+            ],
+            "component_method": "Shared edges after decimal rounding to 4 places; diagnostic only",
+            "surface_area": 0.10512404766485603,
+            "unsigned_xz_area": 0.022555076555902866,
+            "horizontal_triangles": 2,
+            "absolute_slope_degrees": [
+              0.1806220089770367,
+              89.25237018607076
+            ],
+            "precision": "MATHEMATICALLY_EQUIVALENT_HOST_DOUBLE_METRICS"
+          },
+          "suppressed_triples": 14,
+          "diagnostic_degenerate_triples": 0,
+          "geometry_kind": "VISUAL_SOURCE_STRIP",
+          "normal_source": "file vertex +0, three float32; runtime vertex +0",
+          "normal_length_range": [
+            0.9999999855631775,
+            1.0000001163448662
+          ],
+          "evidence_grade": "CONFIRMED_BY_BOTH"
+        }
+      ],
+      "all_mesh_triangles_before_named_child_activation": 2289,
+      "geometry_kind": "VISUAL_SOURCE_STRIP",
+      "evidence_grade": "CONFIRMED_BY_BOTH"
+    }
+  ]
+}

@@ -1,0 +1,419 @@
+{
+  "schema": 1,
+  "resources": [
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ENVSOURCE64X64.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ENVSOURCE64X64.GXI",
+        "offset": 1036874990,
+        "stored_size": 10660,
+        "directory_size_0x08": 10660,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e5c53cf4f958c19d00d13eb971d2964e5031956456e02ea9a97fa40e7d4e38dd",
+        "payload_sha256": "aa15159a5f3f668244dd3b1c5c7b8322d8f41ac626c3a1741222b797252ad1e4",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "aa15159a5f3f668244dd3b1c5c7b8322d8f41ac626c3a1741222b797252ad1e4",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_unique_count": 2,
+        "alpha_nonzero_pixels": 3288,
+        "average_rgba": [
+          32.747803,
+          33.889404,
+          34.82373,
+          204.697266
+        ]
+      },
+      "role": "STATIC_TEXTURE / ENVIRONMENT_SOURCE",
+      "ownership_evidence": "330780 loads49b388;31a518 first source; no texture writer in traced path",
+      "role_evidence_grade": "CONFIRMED_BY_BOTH",
+      "runtime_visible": "NOT_CAPTURED"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RENDERTARGET64X64.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RENDERTARGET64X64.GXI",
+        "offset": 1038239869,
+        "stored_size": 14124,
+        "directory_size_0x08": 14124,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "580cbf59795825feaa8735952e0a2882193dd44b8e23deadb0d58f1c46c18c46",
+        "payload_sha256": "84e84c0f338b6f351ef769c310c96c799c3a37f5b03d7c67bcecf50fef6652cc",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "84e84c0f338b6f351ef769c310c96c799c3a37f5b03d7c67bcecf50fef6652cc",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_unique_count": 2,
+        "alpha_nonzero_pixels": 4061,
+        "average_rgba": [
+          45.105713,
+          46.094482,
+          37.868896,
+          252.821045
+        ]
+      },
+      "role": "INITIALIZATION_TEXTURE / DYNAMIC_TEXTURE_STORAGE / RENDER_TARGET",
+      "ownership_evidence": "3ade58 -> mesh+38/+e4;330780 handle49b380;31a518 FRAME destination;312130 TEX0 secondary",
+      "role_evidence_grade": "CONFIRMED_BY_BOTH",
+      "runtime_visible": "NOT_CAPTURED"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\STATICRENDERTARGET64X64.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\STATICRENDERTARGET64X64.GXI",
+        "offset": 1038500358,
+        "stored_size": 15870,
+        "directory_size_0x08": 15870,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "101194d746bd4f9ea646718c24cfb930cade986c3a2a2bf2d2f17d901413e1b7",
+        "payload_sha256": "1bd7cc22a8bbfc27ca5781382b66201b45a701f2818d49af49697307c5846f67",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "1bd7cc22a8bbfc27ca5781382b66201b45a701f2818d49af49697307c5846f67",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 110,
+        "alpha_max": 110,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 4096,
+        "average_rgba": [
+          107.085938,
+          107.619385,
+          86.761963,
+          110.0
+        ]
+      },
+      "role": "UNUSED_IN_TRACED_PATH / UNKNOWN elsewhere",
+      "ownership_evidence": "No original name load anchor in ELF or selected handlers/29CAR.PSM byte-name survey",
+      "role_evidence_grade": "UNKNOWN",
+      "runtime_visible": "NOT_CAPTURED"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN-REFLECT.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN-REFLECT.GXI",
+        "offset": 1038886458,
+        "stored_size": 3318,
+        "directory_size_0x08": 3318,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "090ba7c5750aba1b4a4602ec49b510fc473fc153fb81421467d109db1c2d6a2d",
+        "payload_sha256": "ff3317403995248fd5c2dfe46aa3e4ef7bf7ea877070bdc0c92843c8c3e4cd54",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 32,
+        "height": 32,
+        "size": 4104,
+        "sha256": "ff3317403995248fd5c2dfe46aa3e4ef7bf7ea877070bdc0c92843c8c3e4cd54",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 255,
+        "alpha_max": 255,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 1024,
+        "average_rgba": [
+          39.496094,
+          36.614258,
+          41.650391,
+          255.0
+        ]
+      },
+      "role": "STATIC_TEXTURE / REFLECTION_HELPER",
+      "ownership_evidence": "3ae040/3ae0c8 -> mesh+38/+e4;mode20 secondary",
+      "role_evidence_grade": "CONFIRMED_BY_BOTH",
+      "runtime_visible": "NOT_CAPTURED"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROME-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROME-TGA.GXI",
+        "offset": 1036531841,
+        "stored_size": 2740,
+        "directory_size_0x08": 2740,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "479265e548a4dd5a63004e81a6e635a011353ac6e21cd36cc9c6be28d181ac72",
+        "payload_sha256": "4368ca3f678c11c414eca8f4c16e44e7d3513137dd68362ac5e4759a4cc79d0c",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 32,
+        "height": 32,
+        "size": 4104,
+        "sha256": "4368ca3f678c11c414eca8f4c16e44e7d3513137dd68362ac5e4759a4cc79d0c",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 255,
+        "alpha_max": 255,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 1024,
+        "average_rgba": [
+          20.012695,
+          19.083008,
+          21.416992,
+          255.0
+        ]
+      },
+      "role": "TEXTURE_REFERENCED_BY_MATERIAL; overridden in selected carshiny mesh",
+      "ownership_evidence": "Kia root.20 authored secondary;3ade58 replaces withRT",
+      "role_evidence_grade": "CONFIRMED_BY_BOTH",
+      "runtime_visible": "NOT_CAPTURED"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\REAR128-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\REAR128-TGA.GXI",
+        "offset": 1038214044,
+        "stored_size": 12244,
+        "directory_size_0x08": 12244,
+        "unpacked_size": 65544,
+        "compression": "packfs_lzo",
+        "stored_sha256": "581d6c1881f265d7705667814289b20d2d81ae2960e7fa360f2179eb670b22d8",
+        "payload_sha256": "166700124d793109b5dac4ced0d5fb07f3f690b88cde4320a8c062ce0d45ccc1",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 128,
+          "height": 128,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 128,
+        "height": 128,
+        "size": 65544,
+        "sha256": "166700124d793109b5dac4ced0d5fb07f3f690b88cde4320a8c062ce0d45ccc1",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 255,
+        "alpha_max": 255,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 16384,
+        "average_rgba": [
+          140.331604,
+          37.043823,
+          61.885071,
+          255.0
+        ]
+      },
+      "role": "TEXTURE_EXISTS / UNKNOWN_RENDERER_ROLE",
+      "ownership_evidence": "Bounded name lead only; not connected to primary body/glass draw",
+      "role_evidence_grade": "UNKNOWN",
+      "runtime_visible": "NOT_CAPTURED"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RUBBER-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RUBBER-TGA.GXI",
+        "offset": 1038272766,
+        "stored_size": 1982,
+        "directory_size_0x08": 1982,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "894c49a54860bfba0be21daa44b9e858c6517f1ff715a01ce1b1ec61bf1686e3",
+        "payload_sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 32,
+        "height": 32,
+        "size": 4104,
+        "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 255,
+        "alpha_max": 255,
+        "alpha_unique_count": 1,
+        "alpha_nonzero_pixels": 1024,
+        "average_rgba": [
+          13.12793,
+          13.430664,
+          14.191406,
+          255.0
+        ]
+      },
+      "role": "STATIC_TEXTURE / MATERIAL_SECONDARY",
+      "ownership_evidence": "Kia root.9 rubber literal prevents3ade58 replacement; shared mode3 coordinates",
+      "role_evidence_grade": "CONFIRMED_BY_BOTH",
+      "runtime_visible": "NOT_CAPTURED"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN32-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN32-TGA.GXI",
+        "offset": 1038889776,
+        "stored_size": 779,
+        "directory_size_0x08": 779,
+        "unpacked_size": 1032,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a13db7ddf0c272aa9b5bfd9f16b09108232ee093d34d899c7cd9e5946abd3e88",
+        "payload_sha256": "8e09efb4803e475ca2b8c9d7f48e3b408fc55a798020a53e6598da2ba306d450",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 16,
+          "height": 16,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 16,
+        "height": 16,
+        "size": 1032,
+        "sha256": "8e09efb4803e475ca2b8c9d7f48e3b408fc55a798020a53e6598da2ba306d450",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 7,
+        "alpha_max": 138,
+        "alpha_unique_count": 56,
+        "alpha_nonzero_pixels": 256,
+        "average_rgba": [
+          75.253906,
+          52.507812,
+          53.484375,
+          106.011719
+        ]
+      },
+      "role": "TEXTURE_REFERENCED_BY_MATERIAL / PRIMARY_GLASS_TEXTURE",
+      "ownership_evidence": "Tata root.21 carglass primary",
+      "role_evidence_grade": "CONFIRMED_BY_BOTH",
+      "runtime_visible": "NOT_CAPTURED"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREENC32-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREENC32-TGA.GXI",
+        "offset": 1038890555,
+        "stored_size": 2802,
+        "directory_size_0x08": 2802,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "6a30d907977ad957aeadf695de113b07fbd5b576585433602f65db0f078a21d4",
+        "payload_sha256": "d464d694b74899cc3c02b7575b0701b23ef35c9d3111bca14eefcef62cec1c9b",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 32,
+        "height": 32,
+        "size": 4104,
+        "sha256": "d464d694b74899cc3c02b7575b0701b23ef35c9d3111bca14eefcef62cec1c9b",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 31,
+        "alpha_max": 255,
+        "alpha_unique_count": 172,
+        "alpha_nonzero_pixels": 1024,
+        "average_rgba": [
+          89.699219,
+          75.491211,
+          75.780273,
+          122.969727
+        ]
+      },
+      "role": "TEXTURE_REFERENCED_BY_MATERIAL / PRIMARY_GLASS_TEXTURE",
+      "ownership_evidence": "Tata root.22 carglass primary",
+      "role_evidence_grade": "CONFIRMED_BY_BOTH",
+      "runtime_visible": "NOT_CAPTURED"
+    }
+  ]
+}

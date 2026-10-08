@@ -1,0 +1,3908 @@
+{
+  "schema": 1,
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "va_to_file": "VA - 0xff000 for canonical file-backed PT_LOAD",
+  "analysis": "Ghidra12.1.4 ghidra_ai_bridge, read-only project, temporary EE scalar/stack substitutions rolled back; probes always original words",
+  "functions": [
+    {
+      "address": "0x002fd7d0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x002fd7d0",
+        "end_inclusive": "0x002fdcb0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x002fdcb0"
+      },
+      "role": "Resource-root GXI lookup and texture residence",
+      "callers": [
+        {
+          "callsite": "0x002fe998",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003318d0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00332348",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00333234",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00335c78",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00346ea4",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003584ec",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0037160c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003716a8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0038884c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003adf78",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003ae1fc",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003ae360",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002b4ad8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003fa9b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151a28",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f84f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f9c80",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "interned resource name, load flag",
+      "output_fields": "cached resource handle",
+      "important_constants": ".gxi suffix;2f84f0;2f9c80",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "cached resource handle",
+      "instruction_evidence": [
+        {
+          "va": "0x002fd7d0",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x002fdcac",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Resource-root GXI lookup and texture residence; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Missing/corrupt named texture fallback outside trace",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "interned resource name, load flag",
+      "object_fields_written": "cached resource handle"
+    },
+    {
+      "address": "0x0030ea80",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0030ea80",
+        "end_inclusive": "0x0030edb4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0030edb4"
+      },
+      "role": "Drain produced frame ring and start VIF1 DMA",
+      "callers": [
+        {
+          "callsite": "0x00310de0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x0030ea38",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002c1870",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f5528",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002c1948",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030e9f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42da12 consumer vs42da10 producer;context+14 pointer",
+      "output_fields": "10009030 TADR,10009020 QWC,10009000 CHCR145",
+      "important_constants": "stridee0;physical mask0fffffff;VIF/GIF/VU busy checks",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "10009030 TADR,10009020 QWC,10009000 CHCR145",
+      "instruction_evidence": [
+        {
+          "va": "0x0030ea80",
+          "original_word": "0x3c030043"
+        },
+        {
+          "va": "0x0030ed68",
+          "original_word": "0x34429030"
+        },
+        {
+          "va": "0x0030edb0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Drain produced frame ring and start VIF1 DMA; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Synchronization branch has unsupported EE instruction; original start writes independently verified",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "42da12 consumer vs42da10 producer;context+14 pointer",
+      "object_fields_written": "10009030 TADR,10009020 QWC,10009000 CHCR145"
+    },
+    {
+      "address": "0x00311c50",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00311c50",
+        "end_inclusive": "0x0031212c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031212c"
+      },
+      "role": "Bind primary resident texture to GS template",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+c4,31cd98"
+      ],
+      "callees": [
+        {
+          "address": "0x002de820",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fa058",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00327340",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "texture handle/cache42e430",
+      "output_fields": "TEX0_1,TEX1_1,MIPTBP fields",
+      "important_constants": "48-byte cache entries;2fa058",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "TEX0_1,TEX1_1,MIPTBP fields",
+      "instruction_evidence": [
+        {
+          "va": "0x00311c50",
+          "original_word": "0x27bdff30"
+        },
+        {
+          "va": "0x00311d70",
+          "original_word": "0xafa50028"
+        },
+        {
+          "va": "0x00311f14",
+          "original_word": "0xafa50028"
+        },
+        {
+          "va": "0x00311fe0",
+          "original_word": "0xfca40028"
+        },
+        {
+          "va": "0x00311fec",
+          "original_word": "0xac560028"
+        },
+        {
+          "va": "0x00312128",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Bind primary resident texture to GS template; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Runtime VRAM address unknown",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "texture handle/cache42e430",
+      "object_fields_written": "TEX0_1,TEX1_1,MIPTBP fields"
+    },
+    {
+      "address": "0x00312130",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00312130",
+        "end_inclusive": "0x0031260c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031260c"
+      },
+      "role": "Bind secondary resident texture to GS template",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+cc,31cd98"
+      ],
+      "callees": [
+        {
+          "address": "0x002de820",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fa058",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00327340",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "texture handle/cache42e430",
+      "output_fields": "TEX0_2,TEX1_2,MIPTBP fields",
+      "important_constants": "48-byte cache entries;2fa058",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "TEX0_2,TEX1_2,MIPTBP fields",
+      "instruction_evidence": [
+        {
+          "va": "0x00312130",
+          "original_word": "0x27bdff30"
+        },
+        {
+          "va": "0x00312250",
+          "original_word": "0xafa50028"
+        },
+        {
+          "va": "0x003123f4",
+          "original_word": "0xafa50028"
+        },
+        {
+          "va": "0x003124c0",
+          "original_word": "0xfca40028"
+        },
+        {
+          "va": "0x003124cc",
+          "original_word": "0xac560028"
+        },
+        {
+          "va": "0x00312608",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Bind secondary resident texture to GS template; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Runtime VRAM address unknown",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "texture handle/cache42e430",
+      "object_fields_written": "TEX0_2,TEX1_2,MIPTBP fields"
+    },
+    {
+      "address": "0x00312610",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00312610",
+        "end_inclusive": "0x00316800",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00316800"
+      },
+      "role": "Set water/puddle/waterfall GS templates",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+bc,31cd98"
+      ],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mode and renderer state",
+      "output_fields": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector",
+      "important_constants": "mode9:secondary68 FIX56 TCC0;10:44 TCC1;19:ZMSK0 both",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector",
+      "instruction_evidence": [
+        {
+          "va": "0x00312610",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x0031270c",
+          "original_word": "0x2648ff98"
+        },
+        {
+          "va": "0x003167fc",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Set water/puddle/waterfall GS templates; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "ZTE/DATE/FRAME/TEXA inherited; live packet not captured",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "mode and renderer state",
+      "object_fields_written": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector"
+    },
+    {
+      "address": "0x00316b88",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00316b88",
+        "end_inclusive": "0x00316c34",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00316c34"
+      },
+      "role": "Finalize both frame chains and advance producer ring",
+      "callers": [
+        {
+          "callsite": "0x00311378",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [
+        "renderer4853f0+34,316ce0"
+      ],
+      "callees": [
+        {
+          "address": "0x0031e190",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00403160",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030ea38",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030e9f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42da10 ring index,context stridee0",
+      "output_fields": "NEXT chains,ready flag+ c0,producer index",
+      "important_constants": "4contexts;403160 cache sync;30ea38/30e9f0 critical section",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "NEXT chains,ready flag+ c0,producer index",
+      "instruction_evidence": [
+        {
+          "va": "0x00316b88",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x00316c30",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Finalize both frame chains and advance producer ring; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No live ring-state capture",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "42da10 ring index,context stridee0",
+      "object_fields_written": "NEXT chains,ready flag+ c0,producer index"
+    },
+    {
+      "address": "0x00317208",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00317208",
+        "end_inclusive": "0x0031746c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031746c"
+      },
+      "role": "Produce initial embedded VU upload DMA CALL",
+      "callers": [
+        {
+          "callsite": "0x00311370",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "renderer initialization context",
+      "output_fields": "CALL442170;VIF BASE/OFFSET;MSCAL0",
+      "important_constants": "50000000,442170,03000000,02000080,14000000",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "CALL442170;VIF BASE/OFFSET;MSCAL0",
+      "instruction_evidence": [
+        {
+          "va": "0x00317208",
+          "original_word": "0x27bdff60"
+        },
+        {
+          "va": "0x00317468",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Produce initial embedded VU upload DMA CALL; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Caller at311370; actual micro-RAM capture pending",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "renderer initialization context",
+      "object_fields_written": "CALL442170;VIF BASE/OFFSET;MSCAL0"
+    },
+    {
+      "address": "0x317470",
+      "known_bounds": {
+        "start": "0x317470",
+        "end_inclusive": "0x31776c",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "role": "Upload view/projection matrices",
+      "callers": [],
+      "caller_scope": "Explicit callers 31c228; original direct JAL verified",
+      "callees": [
+        {
+          "address": "0x002ad5a8"
+        },
+        {
+          "address": "0x003f931c"
+        },
+        {
+          "address": "0x002ad530"
+        }
+      ],
+      "input_fields": "a0 chain,a1 viewport,a2 view0,a3 view1,t0/t1 projection matrices,t2 other constants",
+      "output_fields": "MSCAL30e;matrix packet21 qwords",
+      "object_fields_read": "a0 chain,a1 viewport,a2 view0,a3 view1,t0/t1 projection matrices,t2 other constants",
+      "object_fields_written": "MSCAL30e;matrix packet21 qwords",
+      "important_constants": "MSCAL30e;matrix packet21 qwords",
+      "material_modes_handled": "SHARED",
+      "packet_state_writes": "MSCAL30e;matrix packet21 qwords",
+      "instruction_evidence": [
+        {
+          "va": "0x317470",
+          "original_word": "0x27bdff50"
+        }
+      ],
+      "data_flow_evidence": "Actual317xxx calls from freshly exported31c228, not general WATER1 attribution",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Live matrix state not captured"
+    },
+    {
+      "address": "0x317770",
+      "known_bounds": {
+        "start": "0x317770",
+        "end_inclusive": "0x3179c4",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "role": "Upload object matrices",
+      "callers": [],
+      "caller_scope": "Explicit callers 31c228; original direct JAL verified",
+      "callees": [
+        {
+          "address": "0x002ad5a8"
+        },
+        {
+          "address": "0x003f931c"
+        },
+        {
+          "address": "0x002ad530"
+        }
+      ],
+      "input_fields": "a0 chain,a1 object0,a2 object1",
+      "output_fields": "MSCAL2cf;matrix packet8 qwords",
+      "object_fields_read": "a0 chain,a1 object0,a2 object1",
+      "object_fields_written": "MSCAL2cf;matrix packet8 qwords",
+      "important_constants": "MSCAL2cf;matrix packet8 qwords",
+      "material_modes_handled": "SHARED",
+      "packet_state_writes": "MSCAL2cf;matrix packet8 qwords",
+      "instruction_evidence": [
+        {
+          "va": "0x317770",
+          "original_word": "0x27bdff70"
+        }
+      ],
+      "data_flow_evidence": "Actual317xxx calls from freshly exported31c228, not general WATER1 attribution",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Live matrix state not captured"
+    },
+    {
+      "address": "0x003179c8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3179c8",
+        "end_inclusive": "0x317fc8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "00317fc8"
+      },
+      "role": "Drain host-to-GS texture upload queue",
+      "callers": [
+        {
+          "callsite": "0x3171b8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x31d06c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x33252c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 chain;+14 buffer",
+      "output_fields": "BITBLTBUF/TRXPOS/TRXREG/TRXDIR and IMAGE DMA",
+      "object_fields_read": "a0 chain;+14 buffer",
+      "object_fields_written": "BITBLTBUF/TRXPOS/TRXREG/TRXDIR and IMAGE DMA",
+      "important_constants": "GS50/51/52/53",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "BITBLTBUF/TRXPOS/TRXREG/TRXDIR and IMAGE DMA",
+      "instruction_evidence": [
+        {
+          "va": "0x3179c8",
+          "original_word": "0x27bdff60"
+        },
+        {
+          "va": "0x317fc4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Drain host-to-GS texture upload queue; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Separate from sprite framebuffer mixing"
+    },
+    {
+      "address": "0x0031a518",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x31a518",
+        "end_inclusive": "0x31af48",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0031af48"
+      },
+      "role": "GS textured sprite scaling/copy producer",
+      "callers": [
+        {
+          "callsite": "0x33257c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x3325c8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 chain,a1 sourceFBP,a2/a3 sourceW/H,t0 sourcePSM,t1 destFBP,t2/t3 destW/H;stack0 dstPSM,8 FIX,10 D,18 flip",
+      "output_fields": "GS TEX0/1,FRAME,CLAMP,TEST,ALPHA,ZBUF;DMA/VIF packet",
+      "object_fields_read": "a0 chain,a1 sourceFBP,a2/a3 sourceW/H,t0 sourcePSM,t1 destFBP,t2/t3 destW/H;stack0 dstPSM,8 FIX,10 D,18 flip",
+      "object_fields_written": "GS TEX0/1,FRAME,CLAMP,TEST,ALPHA,ZBUF;DMA/VIF packet",
+      "important_constants": "PRIM156;TEST31000;TEX161;32-pixel columns;MSCAL373",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "GS TEX0/1,FRAME,CLAMP,TEST,ALPHA,ZBUF;DMA/VIF packet",
+      "instruction_evidence": [
+        {
+          "va": "0x31a518",
+          "original_word": "0x00c0682d"
+        },
+        {
+          "va": "0x31af44",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "GS textured sprite scaling/copy producer; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No actual GS capture; 16-bit filtering/quantization affects pixel results"
+    },
+    {
+      "address": "0x0031af50",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031af50",
+        "end_inclusive": "0x0031b1ec",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031b1ec"
+      },
+      "role": "Transfer material selector/constants to VU",
+      "callers": [
+        {
+          "callsite": "0x0031c520",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031c9c0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "selector0/3 for water/puddle",
+      "output_fields": "VIF UNPACK and MSCAL36a",
+      "important_constants": "317.w selector storage,1400036a",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "VIF UNPACK and MSCAL36a",
+      "instruction_evidence": [
+        {
+          "va": "0x0031af50",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x0031b1e8",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Transfer material selector/constants to VU; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Runtime residency not directly captured",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "selector0/3 for water/puddle",
+      "object_fields_written": "VIF UNPACK and MSCAL36a"
+    },
+    {
+      "address": "0x0031c228",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x31c228",
+        "end_inclusive": "0x31c428",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0031c428"
+      },
+      "role": "Send revised object/camera matrix and auxiliary state packets",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00317470",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00317770",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e8d8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "renderer,revision42de00/04;matrix sources42e230..2f0",
+      "output_fields": "317470/317770/31e8d8 command sequences",
+      "object_fields_read": "renderer,revision42de00/04;matrix sources42e230..2f0",
+      "object_fields_written": "317470/317770/31e8d8 command sequences",
+      "important_constants": "MSCAL30e/2cf/373",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "317470/317770/31e8d8 command sequences",
+      "instruction_evidence": [
+        {
+          "va": "0x31c228",
+          "original_word": "0x3c050043"
+        },
+        {
+          "va": "0x31c424",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Send revised object/camera matrix and auxiliary state packets; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Live interpolation weight differs from CPU auxiliary packet; do not conflate"
+    },
+    {
+      "address": "0x0031c438",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031c438",
+        "end_inclusive": "0x0031c8f0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031c8f0"
+      },
+      "role": "Commit dirty GS templates and VU material selector",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+dc,31cd98"
+      ],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e8d8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031af50",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e478",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e6a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b1f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "global template revisions",
+      "output_fields": "31e478/31e6a8 state packets;31af50 selector",
+      "important_constants": "primary and secondary independently cached",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "31e478/31e6a8 state packets;31af50 selector",
+      "instruction_evidence": [
+        {
+          "va": "0x0031c438",
+          "original_word": "0x3c040043"
+        },
+        {
+          "va": "0x0031c8ec",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Commit dirty GS templates and VU material selector; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Template state distinguished from live GS register snapshot",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "global template revisions",
+      "object_fields_written": "31e478/31e6a8 state packets;31af50 selector"
+    },
+    {
+      "address": "0x0031cd98",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031cd98",
+        "end_inclusive": "0x0031d1b0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031d1b0"
+      },
+      "role": "Drain queued draw buckets and emit state/geometry CALLs",
+      "callers": [],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003179c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b1f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e010",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "queued group flags,mode,handles,packets",
+      "output_fields": "frame DMA chain; empties group vectors",
+      "important_constants": "virtualbc=mode,c4/cc=textures,dc=state,31e010 packet CALL",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "frame DMA chain; empties group vectors",
+      "instruction_evidence": [
+        {
+          "va": "0x0031cd98",
+          "original_word": "0x27bdff00"
+        },
+        {
+          "va": "0x0031d1ac",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Drain queued draw buckets and emit state/geometry CALLs; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Group order only; global terrain-before-water order not proved",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "queued group flags,mode,handles,packets",
+      "object_fields_written": "frame DMA chain; empties group vectors"
+    },
+    {
+      "address": "0x0031d250",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031d250",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x0031d794"
+      },
+      "role": "Bucket cached packets by mode/texture/flags",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+ac,3bca80"
+      ],
+      "callees": [
+        {
+          "address": "0x00326cb8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfa58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfca8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfec8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f93cc",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00275db8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002df898",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "renderer+150/+154/+158,cache wrapper",
+      "output_fields": "renderer+16c queued groups",
+      "important_constants": "compact mode/handle key",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "renderer+16c queued groups",
+      "instruction_evidence": [
+        {
+          "va": "0x0031d250",
+          "original_word": "0x27bdfeb0"
+        },
+        {
+          "va": "0x0031d400",
+          "original_word": "0xafa90024"
+        },
+        {
+          "va": "0x0031d610",
+          "original_word": "0xafa00038"
+        },
+        {
+          "va": "0x0031d794",
+          "original_word": "0x02e0302d"
+        }
+      ],
+      "data_flow_evidence": "Bucket cached packets by mode/texture/flags; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Some export tail originally truncated; raw dispatch consumer proved",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "renderer+150/+154/+158,cache wrapper",
+      "object_fields_written": "renderer+16c queued groups"
+    },
+    {
+      "address": "0x0031d7c8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031d7c8",
+        "end_inclusive": "0x0031da48",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031da48"
+      },
+      "role": "Emit visual geometry DMA REF/VIF packet",
+      "callers": [
+        {
+          "callsite": "0x0031f4b0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00320158",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003208e0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00334cac",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00334d10",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x003370ac",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0033710c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d7d00",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "record source pointer,vertex count",
+      "output_fields": "DMA REF,UNPACK,MSCALf",
+      "important_constants": "30000000,01000404,6c008000,1400000f",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "DMA REF,UNPACK,MSCALf",
+      "instruction_evidence": [
+        {
+          "va": "0x0031d7c8",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x0031da44",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Emit visual geometry DMA REF/VIF packet; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Actual source address fixed later",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "record source pointer,vertex count",
+      "object_fields_written": "DMA REF,UNPACK,MSCALf"
+    },
+    {
+      "address": "0x0031e010",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031e010",
+        "end_inclusive": "0x0031e18c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031e18c"
+      },
+      "role": "Link cached geometry subchain into frame chain",
+      "callers": [
+        {
+          "callsite": "0x003171c8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031d0b0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "geometry chain pointer",
+      "output_fields": "DMA CALL address",
+      "important_constants": "50000000",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "DMA CALL address",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e010",
+          "original_word": "0x27bdff90"
+        },
+        {
+          "va": "0x0031e188",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Link cached geometry subchain into frame chain; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "CPU-proven submission link",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "geometry chain pointer",
+      "object_fields_written": "DMA CALL address"
+    },
+    {
+      "address": "0x0031e478",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031e478",
+        "end_inclusive": "0x0031e6a0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031e6a0"
+      },
+      "role": "Transfer primary eleven-qword GS state template",
+      "callers": [
+        {
+          "callsite": "0x0031c678",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031cb18",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42dec0 template",
+      "output_fields": "UNPACK and MSCAL37c",
+      "important_constants": "6c0b8000,1400037c",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "UNPACK and MSCAL37c",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e478",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x0031e69c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Transfer primary eleven-qword GS state template; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Hardware action conditional on uploaded program",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "42dec0 template",
+      "object_fields_written": "UNPACK and MSCAL37c"
+    },
+    {
+      "address": "0x0031e6a8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031e6a8",
+        "end_inclusive": "0x0031e8d0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031e8d0"
+      },
+      "role": "Transfer secondary eleven-qword GS state template",
+      "callers": [
+        {
+          "callsite": "0x0031c808",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x0031cca8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "42df70 template",
+      "output_fields": "UNPACK and MSCAL377",
+      "important_constants": "6c0b8000,14000377",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "UNPACK and MSCAL377",
+      "instruction_evidence": [
+        {
+          "va": "0x0031e6a8",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x0031e8cc",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Transfer secondary eleven-qword GS state template; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Hardware action conditional on uploaded program",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "42df70 template",
+      "object_fields_written": "UNPACK and MSCAL377"
+    },
+    {
+      "address": "0x0031f4e0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0031f4e0",
+        "end_inclusive": "0x0031fb78",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0031fb78"
+      },
+      "role": "Generate mesh strip packet vertices and batches",
+      "callers": [],
+      "virtual_callers": [
+        "renderer4853f0+7c"
+      ],
+      "callees": [
+        {
+          "address": "0x003f93cc",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031f478",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b9c0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031de48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031dce8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "48-byte runtime vertices, packed strip records, material+44",
+      "output_fields": "64-byte record streams, DMA packet refs",
+      "important_constants": "4qwords/vertex,128qword guard,color*.5,scale ratio1.5",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "64-byte record streams, DMA packet refs",
+      "instruction_evidence": [
+        {
+          "va": "0x0031f4e0",
+          "original_word": "0x27bdfef0"
+        },
+        {
+          "va": "0x0031fb74",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Generate mesh strip packet vertices and batches; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Winding/LOD coverage not fully reconstructed offline",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "48-byte runtime vertices, packed strip records, material+44",
+      "object_fields_written": "64-byte record streams, DMA packet refs"
+    },
+    {
+      "address": "0x00322220",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x322220",
+        "end_inclusive": "0x3223f4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003223f4"
+      },
+      "role": "Prepare local-normal grayscale vertex colors",
+      "callers": [],
+      "callees": [],
+      "input_fields": "a0 aux/a1 runtime model;+18 vertex source;+44 mesh strips",
+      "output_fields": "runtime vertex+2c..2f RGB and alpha",
+      "object_fields_read": "a0 aux/a1 runtime model;+18 vertex source;+44 mesh strips",
+      "object_fields_written": "runtime vertex+2c..2f RGB and alpha",
+      "important_constants": "0,.225,.4,255;RGB clamp2..254;A254",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "runtime vertex+2c..2f RGB and alpha",
+      "instruction_evidence": [
+        {
+          "va": "0x322220",
+          "original_word": "0x10c00073"
+        },
+        {
+          "va": "0x3223f0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Prepare local-normal grayscale vertex colors; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "CVT.W.S live FCSR not captured"
+    },
+    {
+      "address": "0x003223f8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3223f8",
+        "end_inclusive": "0x3223fc",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003223fc"
+      },
+      "role": "Empty per-frame auxiliary callback",
+      "callers": [],
+      "callees": [],
+      "input_fields": "aux/model parameters",
+      "output_fields": "none",
+      "object_fields_read": "aux/model parameters",
+      "object_fields_written": "none",
+      "important_constants": "JR RA",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "none",
+      "instruction_evidence": [
+        {
+          "va": "0x3223f8",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Empty per-frame auxiliary callback; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Does not imply all vehicle state is static"
+    },
+    {
+      "address": "0x00327f30",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x327f30",
+        "end_inclusive": "0x327f64",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "00327f64"
+      },
+      "role": "Allocate auxiliary ownership",
+      "callers": [
+        {
+          "callsite": "0x3adec4",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x3ae2b4",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x3aee7c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_fields": "a0 allocation/a1 center vector",
+      "output_fields": "object+0..8=center,+c=485350 vtable",
+      "object_fields_read": "a0 allocation/a1 center vector",
+      "object_fields_written": "object+0..8=center,+c=485350 vtable",
+      "important_constants": "16 bytes",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "object+0..8=center,+c=485350 vtable",
+      "instruction_evidence": [
+        {
+          "va": "0x327f30",
+          "original_word": "0x3c020048"
+        },
+        {
+          "va": "0x327f60",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Allocate auxiliary ownership; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Center unrelated to environment UV math"
+    },
+    {
+      "address": "0x0032f988",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x32f988",
+        "end_inclusive": "0x32fcd8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0032fcd8"
+      },
+      "role": "Begin scene presentation/reset feedback guard and split-screen gate",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fddf8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d4040",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001e4280",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001e38c8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001e3650",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001e3598",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ef870",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00302ff0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f9c30",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f93cc",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00345a10",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 scene manager/options",
+      "output_fields": "42dd38=0;42dd34=!Frontend/SplitScreen;manager+404 increment",
+      "object_fields_read": "a0 scene manager/options",
+      "object_fields_written": "42dd38=0;42dd34=!Frontend/SplitScreen;manager+404 increment",
+      "important_constants": "Frontend/SplitScreen",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "42dd38=0;42dd34=!Frontend/SplitScreen;manager+404 increment",
+      "instruction_evidence": [
+        {
+          "va": "0x32f988",
+          "original_word": "0x27bdff70"
+        },
+        {
+          "va": "0x32fcd4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Begin scene presentation/reset feedback guard and split-screen gate; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Outer virtual scheduling not runtime captured"
+    },
+    {
+      "address": "0x00330780",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x330780",
+        "end_inclusive": "0x332620",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "00332620"
+      },
+      "role": "Model draw wrapper and guarded environment feedback producer",
+      "callers": [
+        {
+          "callsite": "0x3302fc",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x001d4010",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00362458",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00362fd0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002631a0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dda20",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002c6528",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00303038",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003387c8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00338ab8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00330668",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0021f4b0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00362dd8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0034d780",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00200550",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fdcb8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001fbe60",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00370930",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00370aa0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003432b8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00337638",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00332628",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00335168",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003375a0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003fa9b8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151930",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151a28",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001537e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00153f40",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9628",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9a90",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7d0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fa058",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003179c8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00340cd0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 manager/a1 draw record;+50 definition,+10 vehicle helpers;camera manager+34;cache+30/+70",
+      "output_fields": "49b380/49b388 handles;42dd38 latch;two31a518 packets",
+      "object_fields_read": "a0 manager/a1 draw record;+50 definition,+10 vehicle helpers;camera manager+34;cache+30/+70",
+      "object_fields_written": "49b380/49b388 handles;42dd38 latch;two31a518 packets",
+      "important_constants": "FIX80/48;target/sourcePSM2;D2/1;flip0/1",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "49b380/49b388 handles;42dd38 latch;two31a518 packets",
+      "instruction_evidence": [
+        {
+          "va": "0x330780",
+          "original_word": "0x27bdfe60"
+        },
+        {
+          "va": "0x330cd4",
+          "original_word": "0x0c0d0cae"
+        },
+        {
+          "va": "0x3324cc",
+          "original_word": "0xde070028"
+        },
+        {
+          "va": "0x3324fc",
+          "original_word": "0xde080028"
+        },
+        {
+          "va": "0x33261c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Model draw wrapper and guarded environment feedback producer; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "First eligible call per reset pass; exact live frame and visibility/LOD not captured"
+    },
+    {
+      "address": "0x003387c8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3387c8",
+        "end_inclusive": "0x338ab4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "00338ab4"
+      },
+      "role": "Build race-view matrices from camera basis and position",
+      "callers": [
+        {
+          "callsite": "0x330944",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x337bac",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x3471d8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x359690",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x0036fc18",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dda20",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dd510",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00343458",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 manager;camera=manager+34;basis+50/+60/+70 and+a0/+b0/+c0",
+      "output_fields": "manager+1e0/+220 view rows ->343458",
+      "object_fields_read": "a0 manager;camera=manager+34;basis+50/+60/+70 and+a0/+b0/+c0",
+      "object_fields_written": "manager+1e0/+220 view rows ->343458",
+      "important_constants": "mode2 cached by manager+400/+40c",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "manager+1e0/+220 view rows ->343458",
+      "instruction_evidence": [
+        {
+          "va": "0x3387c8",
+          "original_word": "0x27bdff70"
+        },
+        {
+          "va": "0x338a88",
+          "original_word": "0x0c0d0d16"
+        },
+        {
+          "va": "0x338ab0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Build race-view matrices from camera basis and position; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Camera movement updates source matrices; live values not captured"
+    },
+    {
+      "address": "0x00338ab8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x338ab8",
+        "end_inclusive": "0x338d44",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "00338d44"
+      },
+      "role": "Set alternate model presentation camera",
+      "callers": [
+        {
+          "callsite": "0x330954",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x337b9c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dd510",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0036fc18",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00343458",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 manager;fixed vectors;projectioncamera+34",
+      "output_fields": "manager+c0 twice ->343458",
+      "object_fields_read": "a0 manager;fixed vectors;projectioncamera+34",
+      "object_fields_written": "manager+c0 twice ->343458",
+      "important_constants": "mode1",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "manager+c0 twice ->343458",
+      "instruction_evidence": [
+        {
+          "va": "0x338ab8",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x338d20",
+          "original_word": "0x0c0d0d16"
+        },
+        {
+          "va": "0x338d40",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Set alternate model presentation camera; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Not a racing camera mirror capture"
+    },
+    {
+      "address": "0x003432b8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3432b8",
+        "end_inclusive": "0x343450",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "00343450"
+      },
+      "role": "Store two object transform matrices",
+      "callers": [
+        {
+          "callsite": "0x330cd4",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x337ea4",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x3472b0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x359768",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x00342b90",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 renderer,a1 cache+70,a2 cache+30",
+      "output_fields": "42e230/42e270;revision42de00",
+      "object_fields_read": "a0 renderer,a1 cache+70,a2 cache+30",
+      "object_fields_written": "42e230/42e270;revision42de00",
+      "important_constants": "two64-byte matrices",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "42e230/42e270;revision42de00",
+      "instruction_evidence": [
+        {
+          "va": "0x3432b8",
+          "original_word": "0x27bdffb0"
+        },
+        {
+          "va": "0x34344c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Store two object transform matrices; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Which live animation endpoints selected requires capture"
+    },
+    {
+      "address": "0x00343458",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x343458",
+        "end_inclusive": "0x343ad0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "00343ad0"
+      },
+      "role": "Store two camera/view and projection matrices",
+      "callers": [
+        {
+          "callsite": "0x338a88",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x338d20",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_fields": "a0 renderer,a1 view0,a2 view1,a3 projection0,t0 projection1",
+      "output_fields": "42dc00;42e2b0/2f0/330/370;revision42de04",
+      "object_fields_read": "a0 renderer,a1 view0,a2 view1,a3 projection0,t0 projection1",
+      "object_fields_written": "42dc00;42e2b0/2f0/330/370;revision42de04",
+      "important_constants": "64-byte row matrices",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "42dc00;42e2b0/2f0/330/370;revision42de04",
+      "instruction_evidence": [
+        {
+          "va": "0x343458",
+          "original_word": "0x27bdff10"
+        },
+        {
+          "va": "0x343acc",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Store two camera/view and projection matrices; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Full generic projection transform not reimplemented"
+    },
+    {
+      "address": "0x003628c0",
+      "known_bounds": {
+        "start": "0x3628c0",
+        "end_inclusive": "0x362b48",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "role": "Maintain current and conditionally retained object orientation matrices",
+      "callers": [
+        {
+          "callsite": "0x330b1c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [],
+      "input_fields": "a0 cache,a1 draw record,a2 manager+40 matrix,a3 force flag;definition+70 bit34,+60 context;cache+b0 initialized",
+      "output_fields": "cache+30 always receives matrix;cache+70 receives selected orientation/translation rows",
+      "object_fields_read": "cache+b0/+70/+80;definition+70 bit34,+60;input four rows",
+      "object_fields_written": "cache+30..6c,+70..ac,+b0",
+      "important_constants": "0.9 row0/row1 dot thresholds; context !=2; force bypasses retaining test",
+      "material_modes_handled": "Shared object transforms consumed by carshiny/carglass",
+      "packet_state_writes": "None;feeds3432b8 matrices",
+      "instruction_evidence": [
+        {
+          "va": "0x3628c0",
+          "original_word": "0xc0482d"
+        },
+        {
+          "va": "0x362ab0",
+          "original_word": "0xc5200000"
+        },
+        {
+          "va": "0x362b44",
+          "original_word": "0x3e00008"
+        }
+      ],
+      "data_flow_evidence": "330780 calls3628c0 withmanager+40, then3432b8 reads samecache+70/+30",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Outer animation/simulation transform producer not reversed;live retained endpoints and force flag not captured"
+    },
+    {
+      "address": "0x0036fb28",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x36fb28",
+        "end_inclusive": "0x36fc10",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0036fc10"
+      },
+      "role": "View construction from translated orientation",
+      "callers": [
+        {
+          "callsite": "0x36ff90",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x00370080",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152108",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 basis+position,a1 output",
+      "output_fields": "translation(-position)*transposed basis",
+      "object_fields_read": "a0 basis+position,a1 output",
+      "object_fields_written": "translation(-position)*transposed basis",
+      "important_constants": "64-byte matrices",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "translation(-position)*transposed basis",
+      "instruction_evidence": [
+        {
+          "va": "0x36fb28",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x36fc0c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "View construction from translated orientation; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Orthogonal camera basis; not general nonuniform matrix inverse"
+    },
+    {
+      "address": "0x0036fc18",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x36fc18",
+        "end_inclusive": "0x36ffb0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0036ffb0"
+      },
+      "role": "Construct/invert camera basis using forward/up",
+      "callers": [
+        {
+          "callsite": "0x33885c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x33893c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x338c68",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003f3e80",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0036fb28",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 helper,a1 position,a2 forward,a3 up",
+      "output_fields": "helper+30 view matrix",
+      "object_fields_read": "a0 helper,a1 position,a2 forward,a3 up",
+      "object_fields_written": "helper+30 view matrix",
+      "important_constants": "epsilon2^-23;handedness43e88",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "helper+30 view matrix",
+      "instruction_evidence": [
+        {
+          "va": "0x36fc18",
+          "original_word": "0x27bdff00"
+        },
+        {
+          "va": "0x36ffac",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Construct/invert camera basis using forward/up; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "SQRT single surrogate independently checked; no numerical VU claim"
+    },
+    {
+      "address": "0x00370080",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x370080",
+        "end_inclusive": null,
+        "status": "PARTIAL_EXPORT_BOUND_UNKNOWN",
+        "inspected_last_va": "003701fc"
+      },
+      "role": "Transpose stored matrix",
+      "callers": [
+        {
+          "callsite": "0x36fba4",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x37016c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x00370080",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 input,a1 output",
+      "output_fields": "output transpose including row3",
+      "object_fields_read": "a0 input,a1 output",
+      "object_fields_written": "output transpose including row3",
+      "important_constants": "4x4;in-place supported",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "output transpose including row3",
+      "instruction_evidence": [
+        {
+          "va": "0x370080",
+          "original_word": "0x27bdff90"
+        },
+        {
+          "va": "0x3700f8",
+          "original_word": "0xc6000028"
+        },
+        {
+          "va": "0x3700fc",
+          "original_word": "0xc6010038"
+        }
+      ],
+      "data_flow_evidence": "Transpose stored matrix; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Function extent not fully exported; transpose writes independently present"
+    },
+    {
+      "address": "0x003714e0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003714e0",
+        "end_inclusive": "0x0037171c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x0037171c"
+      },
+      "role": "Resolve both classified mesh texture names",
+      "callers": [
+        {
+          "callsite": "0x0037cd04",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7b0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "model+44 meshes; mesh+34/+38,+3c/+40",
+      "output_fields": "mesh+dc/+e4 handles,+e0/+e8 metadata",
+      "important_constants": "2fd7d0 lookup;2fd788 default if no name",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "mesh+dc/+e4 handles,+e0/+e8 metadata",
+      "instruction_evidence": [
+        {
+          "va": "0x003714e0",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "va": "0x00371620",
+          "original_word": "0xae0200dc"
+        },
+        {
+          "va": "0x00371648",
+          "original_word": "0xae0200dc"
+        },
+        {
+          "va": "0x003716bc",
+          "original_word": "0xae0200e4"
+        },
+        {
+          "va": "0x003716e4",
+          "original_word": "0xae0200e4"
+        },
+        {
+          "va": "0x00371718",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Resolve both classified mesh texture names; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Missing named file fallback not fully traced",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "model+44 meshes; mesh+34/+38,+3c/+40",
+      "object_fields_written": "mesh+dc/+e4 handles,+e0/+e8 metadata"
+    },
+    {
+      "address": "0x0038fac0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x0038fac0",
+        "end_inclusive": "0x003900ec",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003900ec"
+      },
+      "role": "PSM load dispatcher and post-load water auxiliary callback",
+      "callers": [
+        {
+          "callsite": "0x0037cc9c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a4f28",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4d10",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ea0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7bd8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7c30",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00370d10",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003900f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00393b48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00393d68",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00393ea0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003946e0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003947b0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00394900",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00394b48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a8040",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a8088",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "model+18/+44",
+      "output_fields": "model geometry and auxiliary virtual+14",
+      "important_constants": "d00d/2/539,100/103",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "model geometry and auxiliary virtual+14",
+      "instruction_evidence": [
+        {
+          "va": "0x0038fac0",
+          "original_word": "0x27bdfef0"
+        },
+        {
+          "va": "0x00390084",
+          "original_word": "0xafc20068"
+        },
+        {
+          "va": "0x003900e8",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "PSM load dispatcher and post-load water auxiliary callback; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Full generic loader not reimplemented",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "model+18/+44",
+      "object_fields_written": "model geometry and auxiliary virtual+14"
+    },
+    {
+      "address": "0x003900f0",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003900f0",
+        "end_inclusive": "0x003903c8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003903c8"
+      },
+      "role": "Read file vertices into runtime 48-byte records",
+      "callers": [
+        {
+          "callsite": "0x0038feb0",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003a7c90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a81c0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a83f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a52d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a50c0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7db0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7f10",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a5088",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4fd8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a84f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ab8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a85a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00394498",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00391d38",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "stream, vertex count",
+      "output_fields": "model+18",
+      "important_constants": "52 file bytes;48 runtime bytes",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "model+18",
+      "instruction_evidence": [
+        {
+          "va": "0x003900f0",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "va": "0x003903c4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Read file vertices into runtime 48-byte records; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Unrelated animation channels outside scope",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "stream, vertex count",
+      "object_fields_written": "model+18"
+    },
+    {
+      "address": "0x00390d98",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00390d98",
+        "end_inclusive": "0x00390f50",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00390f50"
+      },
+      "role": "Extract property argument through parentheses",
+      "callers": [
+        {
+          "callsite": "0x00391918",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00391b0c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d24b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4e40",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ea0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "a1 string,a2 property",
+      "output_fields": "a0 resulting substring",
+      "important_constants": "case-sensitive $shader; first opening/closing parenthesis",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "a0 resulting substring",
+      "instruction_evidence": [
+        {
+          "va": "0x00390d98",
+          "original_word": "0x27bdff70"
+        },
+        {
+          "va": "0x00390e14",
+          "original_word": "0xafd10024"
+        },
+        {
+          "va": "0x00390e3c",
+          "original_word": "0xafd20028"
+        },
+        {
+          "va": "0x00390f4c",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Extract property argument through parentheses; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other properties share helper",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "a1 string,a2 property",
+      "object_fields_written": "a0 resulting substring"
+    },
+    {
+      "address": "0x00391690",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00391690",
+        "end_inclusive": "0x00391d34",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00391d34"
+      },
+      "role": "Initialize generic map defaults and apply shader classifier",
+      "callers": [
+        {
+          "callsite": "0x003921e8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x00390f98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c60",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00390d98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2458",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4f78",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2d48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6c58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a3460",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6f18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a33e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "material input+80",
+      "output_fields": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "important_constants": "$clamp; $shader; default .1",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "instruction_evidence": [
+        {
+          "va": "0x00391690",
+          "original_word": "0x27bdfed0"
+        },
+        {
+          "va": "0x003916dc",
+          "original_word": "0xac400028"
+        },
+        {
+          "va": "0x0039178c",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x003917e4",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x00391818",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x00391d30",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Initialize generic map defaults and apply shader classifier; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Unknown shader retains generic map-derived mode",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "material input+80",
+      "object_fields_written": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24"
+    },
+    {
+      "address": "0x00391d38",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00391d38",
+        "end_inclusive": "0x00392ac8",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003928a8"
+      },
+      "role": "Recursive scene node reader and mesh/strip owner",
+      "callers": [
+        {
+          "callsite": "0x0039038c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        },
+        {
+          "callsite": "0x00392928",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "stream, tags, material input",
+      "output_fields": "mesh+74 strip vector, model+44 mesh list",
+      "important_constants": "tag2, allocation f4, runtime cache index+d8; REFL1 confirms raw name tag7 and u32 selector tag8",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "mesh+74 strip vector, model+44 mesh list",
+      "instruction_evidence": [
+        {
+          "va": "0x00391d38",
+          "original_word": "0x27bdfe40"
+        },
+        {
+          "va": "0x00392ac4",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Recursive scene node reader and mesh/strip owner; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other node kinds deliberately unsupported offline",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "stream, tags, material input",
+      "object_fields_written": "mesh+74 strip vector, model+44 mesh list"
+    },
+    {
+      "address": "0x003a6c58",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3a6c58",
+        "end_inclusive": "0x3a6ea4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003a6ea4"
+      },
+      "role": "Shader registry dispatch",
+      "callers": [
+        {
+          "callsite": "0x391bb8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003adcf0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad930",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad968",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add50",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add98",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adde0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adc90",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ac680",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ade18",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 registry/a1 interned token/a2 mesh",
+      "output_fields": "vtable+14 handler",
+      "object_fields_read": "a0 registry/a1 interned token/a2 mesh",
+      "object_fields_written": "vtable+14 handler",
+      "important_constants": "registered name IDs",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "vtable+14 handler",
+      "instruction_evidence": [
+        {
+          "va": "0x3a6c58",
+          "original_word": "0x27bdff40"
+        },
+        {
+          "va": "0x3a6ea0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Shader registry dispatch; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Unregistered token default remains generic"
+    },
+    {
+      "address": "0x003a6ea8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3a6ea8",
+        "end_inclusive": "0x3a6f14",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003a6f14"
+      },
+      "role": "Register carshiny handler",
+      "callers": [
+        {
+          "callsite": "0x391034",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 handler object",
+      "output_fields": "object+8=487ee8",
+      "object_fields_read": "a0 handler object",
+      "object_fields_written": "object+8=487ee8",
+      "important_constants": "carshiny",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "object+8=487ee8",
+      "instruction_evidence": [
+        {
+          "va": "0x3a6ea8",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3a6f10",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register carshiny handler; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No live material instance capture"
+    },
+    {
+      "address": "0x003a6f98",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3a6f98",
+        "end_inclusive": "0x3a7004",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003a7004"
+      },
+      "role": "Register caralpha handler",
+      "callers": [
+        {
+          "callsite": "0x39106c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 handler object",
+      "output_fields": "object+8=487ec8",
+      "object_fields_read": "a0 handler object",
+      "object_fields_written": "object+8=487ec8",
+      "important_constants": "caralpha",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "object+8=487ec8",
+      "instruction_evidence": [
+        {
+          "va": "0x3a6f98",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3a7000",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register caralpha handler; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Opaque control family classification only"
+    },
+    {
+      "address": "0x003a7008",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3a7008",
+        "end_inclusive": "0x3a7074",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003a7074"
+      },
+      "role": "Register carglass handler",
+      "callers": [
+        {
+          "callsite": "0x3910a4",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 handler object",
+      "output_fields": "object+8=487ea8",
+      "object_fields_read": "a0 handler object",
+      "object_fields_written": "object+8=487ea8",
+      "important_constants": "carglass",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "object+8=487ea8",
+      "instruction_evidence": [
+        {
+          "va": "0x3a7008",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3a7070",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register carglass handler; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No live material instance capture"
+    },
+    {
+      "address": "0x003a7078",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3a7078",
+        "end_inclusive": "0x3a70e4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003a70e4"
+      },
+      "role": "Register carsglass handler",
+      "callers": [
+        {
+          "callsite": "0x3910dc",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 handler object",
+      "output_fields": "object+8=487e88",
+      "object_fields_read": "a0 handler object",
+      "object_fields_written": "object+8=487e88",
+      "important_constants": "carsglass",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "object+8=487e88",
+      "instruction_evidence": [
+        {
+          "va": "0x3a7078",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3a70e0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register carsglass handler; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No selected asset with this token"
+    },
+    {
+      "address": "0x003a70e8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3a70e8",
+        "end_inclusive": "0x3a7154",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003a7154"
+      },
+      "role": "Register carglow handler",
+      "callers": [
+        {
+          "callsite": "0x391114",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 handler object",
+      "output_fields": "object+8=487e68",
+      "object_fields_read": "a0 handler object",
+      "object_fields_written": "object+8=487e68",
+      "important_constants": "carglow",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "object+8=487e68",
+      "instruction_evidence": [
+        {
+          "va": "0x3a70e8",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3a7150",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register carglow handler; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Glow outside core body case"
+    },
+    {
+      "address": "0x003a7158",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3a7158",
+        "end_inclusive": "0x3a71c4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003a71c4"
+      },
+      "role": "Register carflat handler",
+      "callers": [
+        {
+          "callsite": "0x39114c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ada88",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 handler object",
+      "output_fields": "object+8=487e48",
+      "object_fields_read": "a0 handler object",
+      "object_fields_written": "object+8=487e48",
+      "important_constants": "carflat",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "object+8=487e48",
+      "instruction_evidence": [
+        {
+          "va": "0x3a7158",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3a71c0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Register carflat handler; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Bounded negative control"
+    },
+    {
+      "address": "0x003ade58",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3ade58",
+        "end_inclusive": "0x3adfe0",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x3adfe0"
+      },
+      "role": "carshiny mesh classifier and secondary resource override",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x002ad408",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a3460",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6f18",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a45e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dda20",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003b1ee0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7d0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003b2190",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4790",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a33e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a1 mesh;+38 authored interned secondary;+4c center",
+      "output_fields": "+28=3,+2c/+3c/+40=0,+44=.3,+24 aux,+38 target unless rubber",
+      "object_fields_read": "a1 mesh;+38 authored interned secondary;+4c center",
+      "object_fields_written": "+28=3,+2c/+3c/+40=0,+44=.3,+24 aux,+38 target unless rubber",
+      "important_constants": "rubber;CommonTextures\\rendertarget64x64",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [
+        "CommonTextures\\rendertarget64x64"
+      ],
+      "packet_state_writes": "+28=3,+2c/+3c/+40=0,+44=.3,+24 aux,+38 target unless rubber",
+      "instruction_evidence": [
+        {
+          "va": "0x3ade58",
+          "original_word": "0x27bdff60"
+        },
+        {
+          "va": "0x3adfdc",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "carshiny mesh classifier and secondary resource override; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Resolved string is tested; raw authored case variants not a normalization experiment"
+    },
+    {
+      "address": "0x003adfe8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3adfe8",
+        "end_inclusive": "0x3ae03c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003ae03c"
+      },
+      "role": "caralpha mode2 classifier",
+      "callers": [],
+      "callees": [],
+      "input_fields": "a1 mesh",
+      "output_fields": "+28=2,+2c=1,+3c=1,+40=0,+44=.3",
+      "object_fields_read": "a1 mesh",
+      "object_fields_written": "+28=2,+2c=1,+3c=1,+40=0,+44=.3",
+      "important_constants": "2",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "+28=2,+2c=1,+3c=1,+40=0,+44=.3",
+      "instruction_evidence": [
+        {
+          "va": "0x3adfe8",
+          "original_word": "0x27bdfff0"
+        },
+        {
+          "va": "0x3ae038",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "caralpha mode2 classifier; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No normal-coordinate environment selector in this branch"
+    },
+    {
+      "address": "0x003ae040",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3ae040",
+        "end_inclusive": "0x3ae0c4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003ae0c4"
+      },
+      "role": "carglass classifier and static highlight override",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x003a4790",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a1 mesh",
+      "output_fields": "+28=20,+2c/+3c=1,+40=0,+44=.3,+38 windscreen",
+      "object_fields_read": "a1 mesh",
+      "object_fields_written": "+28=20,+2c/+3c=1,+40=0,+44=.3,+38 windscreen",
+      "important_constants": "20;CommonTextures/windscreen-reflect",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [
+        "CommonTextures/windscreen-reflect"
+      ],
+      "packet_state_writes": "+28=20,+2c/+3c=1,+40=0,+44=.3,+38 windscreen",
+      "instruction_evidence": [
+        {
+          "va": "0x3ae040",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3ae0c0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "carglass classifier and static highlight override; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "No controlled glass runtime frame"
+    },
+    {
+      "address": "0x003ae0c8",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3ae0c8",
+        "end_inclusive": "0x3ae14c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003ae14c"
+      },
+      "role": "carsglass classifier",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x003a4790",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a1 mesh",
+      "output_fields": "same mode20 and static secondary",
+      "object_fields_read": "a1 mesh",
+      "object_fields_written": "same mode20 and static secondary",
+      "important_constants": "20",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "same mode20 and static secondary",
+      "instruction_evidence": [
+        {
+          "va": "0x3ae0c8",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3ae148",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "carsglass classifier; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Selected vehicle corpus case uses carglass"
+    },
+    {
+      "address": "0x003ae150",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3ae150",
+        "end_inclusive": "0x3ae24c",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003ae24c"
+      },
+      "role": "carglow classifier",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x003a45e8",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dda20",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003b1ee0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7d0",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003b2190",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4790",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a1 mesh",
+      "output_fields": "+28=21,secondary dynamic target",
+      "object_fields_read": "a1 mesh",
+      "object_fields_written": "+28=21,secondary dynamic target",
+      "important_constants": "21",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "+28=21,secondary dynamic target",
+      "instruction_evidence": [
+        {
+          "va": "0x3ae150",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "va": "0x3ae248",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "carglow classifier; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Not a full light/glow reverse"
+    },
+    {
+      "address": "0x003ae250",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3ae250",
+        "end_inclusive": "0x3ae2dc",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003ae2dc"
+      },
+      "role": "carflat classifier and normal-color auxiliary",
+      "callers": [],
+      "callees": [
+        {
+          "address": "0x002ad408",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a1 mesh",
+      "output_fields": "+28=1,+2c/+3c/+40=0,+44=.3,+24 aux",
+      "object_fields_read": "a1 mesh",
+      "object_fields_written": "+28=1,+2c/+3c/+40=0,+44=.3,+24 aux",
+      "important_constants": "1",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "+28=1,+2c/+3c/+40=0,+44=.3,+24 aux",
+      "instruction_evidence": [
+        {
+          "va": "0x3ae250",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3ae2d8",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "carflat classifier and normal-color auxiliary; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Single-texture default renderer; not all nonreflective vehicle shaders surveyed"
+    },
+    {
+      "address": "0x003b2190",
+      "entry_provenance": "Original direct JAL, verified vtable pointer and/or original prologue; not neighboring string guess",
+      "known_bounds": {
+        "start": "0x3b2190",
+        "end_inclusive": "0x3b21ec",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "003b21ec"
+      },
+      "role": "Release/delete epilogue, rejected texture-flag lead",
+      "callers": [
+        {
+          "callsite": "0x3adf8c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x3ae20c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "callsite": "0x3ae370",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "callees": [
+        {
+          "address": "0x002ad390",
+          "kind": "EXPORTED_DIRECT_TARGET"
+        }
+      ],
+      "input_fields": "a0 handle/a1 deletion bit",
+      "output_fields": "free only when bit0 set",
+      "object_fields_read": "a0 handle/a1 deletion bit",
+      "object_fields_written": "free only when bit0 set",
+      "important_constants": "argument2 does not set texture format",
+      "material_modes_handled": "3/20 representative; 1/2/21 bounded related controls",
+      "texture_dependencies": [],
+      "packet_state_writes": "free only when bit0 set",
+      "instruction_evidence": [
+        {
+          "va": "0x3b2190",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "va": "0x3b21e8",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Release/delete epilogue, rejected texture-flag lead; actual caller/field transitions documented in REFL1 phase documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Do not attribute format2 to this call"
+    },
+    {
+      "address": "0x003bca80",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003bca80",
+        "end_inclusive": "0x003bcbb4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003bcbb4"
+      },
+      "role": "Mesh scene draw into renderer queue",
+      "callers": [],
+      "virtual_callers": [
+        "mesh488328+5c"
+      ],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00361a58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mesh strips, flags, mode, handles+dc/+e4, instance cache",
+      "output_fields": "renderer virtual setters and queued cache packet",
+      "important_constants": "vtable4853f0 slots8c/94/9c/a4/ac",
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "packet_state_writes": "renderer virtual setters and queued cache packet",
+      "instruction_evidence": [
+        {
+          "va": "0x003bca80",
+          "original_word": "0x27bdffa0"
+        },
+        {
+          "va": "0x003bcbb0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Mesh scene draw into renderer queue; fields and virtual associations independently described in WATER1 documents; REFL1 links this shared path via actual vehicle tag2 and carshiny/carglass handlers",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Scene-wide visibility/LOD draw scheduling not fully mapped",
+      "export_available": true,
+      "reuse_provenance": "WATER1 verified infrastructure, freshly byte-checked for REFL1 vehicle mode3/20 callers",
+      "object_fields_read": "mesh strips, flags, mode, handles+dc/+e4, instance cache",
+      "object_fields_written": "renderer virtual setters and queued cache packet"
+    }
+  ],
+  "embedded_vu": {
+    "upload_producer": "0x00317208",
+    "dma_source_va": "0x00442170",
+    "mpg_chunks": [
+      {
+        "command_va": "0x44217c",
+        "word": "0x4a000000",
+        "micro_pc": 0,
+        "count": 256,
+        "source_va": 4465024,
+        "sha256": "4af35729b5ac7753e65b730f491fcd107e7978ce87a6ccca9f711702ca830e4e"
+      },
+      {
+        "command_va": "0x442984",
+        "word": "0x4a000100",
+        "micro_pc": 256,
+        "count": 256,
+        "source_va": 4467080,
+        "sha256": "0950571ea077b21f9f6dbb54b5463f71789895062c75c90ae0a94bdef3ab92ff"
+      },
+      {
+        "command_va": "0x44318c",
+        "word": "0x4a000200",
+        "micro_pc": 512,
+        "count": 256,
+        "source_va": 4469136,
+        "sha256": "f9ef7bfe3214431a925e1d4b2dce3fe73914d2819e7f4108e7fbc107ee52ab1a"
+      },
+      {
+        "command_va": "0x443994",
+        "word": "0x4a000300",
+        "micro_pc": 768,
+        "count": 256,
+        "source_va": 4471192,
+        "sha256": "320c8b6abc6c4f961cda216a99502181f0ee4de8936e5730a4a134cc48e0dda7"
+      },
+      {
+        "command_va": "0x44419c",
+        "word": "0x4ac90400",
+        "micro_pc": 1024,
+        "count": 201,
+        "source_va": 4473248,
+        "sha256": "460ec8ad74f2f4b5135e8f5b32b397ae45799ca9dbb4702755689a784b83a8a3"
+      }
+    ],
+    "geometry_entry": "0x00f",
+    "selector_entry": "0x36a",
+    "primary_state_entry": "0x37c",
+    "secondary_state_entry": "0x377",
+    "submission_xgkick": "0x0fa; source VA mapped by mpg_chunks",
+    "runtime_residency": "NOT_CAPTURED",
+    "grade": "STATIC_PROGRAM_DECODE_WITH_CONFIRMED_CPU_UPLOAD_ADDRESS",
+    "reflection_helper": "0x408..0x41b",
+    "source_for_reflection": "Fresh REFL1 original VU word probes; shared loader and CPU selector independently connected",
+    "residency": "LIVE_RESIDENCY_UNKNOWN"
+  },
+  "independent_probes": [
+    {
+      "va": "0x3ade6c",
+      "original_word": "0x7fb10050"
+    },
+    {
+      "va": "0x3ae048",
+      "original_word": "0x7fbe0020"
+    },
+    {
+      "va": "0x3ae258",
+      "original_word": "0x7fbe0020"
+    },
+    {
+      "va": "0x32f998",
+      "original_word": "0x8ca3dd40"
+    },
+    {
+      "va": "0x330d54",
+      "original_word": "0x8c43dd34"
+    },
+    {
+      "va": "0x330d78",
+      "original_word": "0x8ce2dd38"
+    },
+    {
+      "va": "0x330db0",
+      "original_word": "0xacf1dd38"
+    },
+    {
+      "va": "0x33257c",
+      "original_word": "0xc0c6946"
+    },
+    {
+      "va": "0x3325c8",
+      "original_word": "0xc0c6946"
+    },
+    {
+      "va": "0x332540",
+      "original_word": "0x24080002"
+    },
+    {
+      "va": "0x3325b8",
+      "original_word": "0x24080002"
+    },
+    {
+      "va": "0x343acc",
+      "original_word": "0x3e00008"
+    },
+    {
+      "va": "0x31775c",
+      "original_word": "0x7bb20030"
+    },
+    {
+      "va": "0x3222bc",
+      "original_word": "0x10e5018"
+    },
+    {
+      "va": "0x443830",
+      "original_word": "0x420f0147"
+    },
+    {
+      "va": "0x443928",
+      "original_word": "0x420f013c"
+    },
+    {
+      "va": "0x443a30",
+      "original_word": "0x100b0268"
+    },
+    {
+      "va": "0x4441e0",
+      "original_word": "0x10016000"
+    },
+    {
+      "va": "0x444280",
+      "original_word": "0x29013f"
+    },
+    {
+      "va": "0x444320",
+      "original_word": "0x81fa4b7c"
+    },
+    {
+      "va": "0x442950",
+      "original_word": "0x800046fc"
+    },
+    {
+      "micro_pc": "0x408",
+      "half": "lower",
+      "va": "0x4441e0",
+      "original_word": "0x10016000"
+    },
+    {
+      "micro_pc": "0x408",
+      "half": "upper",
+      "va": "0x4441e4",
+      "original_word": "0x1e0026c"
+    },
+    {
+      "micro_pc": "0x40c",
+      "half": "lower",
+      "va": "0x444200",
+      "original_word": "0x18c0802"
+    },
+    {
+      "micro_pc": "0x40c",
+      "half": "upper",
+      "va": "0x444204",
+      "original_word": "0x604a62"
+    },
+    {
+      "micro_pc": "0x40d",
+      "half": "lower",
+      "va": "0x444208",
+      "original_word": "0x80094a70"
+    },
+    {
+      "micro_pc": "0x40d",
+      "half": "upper",
+      "va": "0x44420c",
+      "original_word": "0x1ea89bc"
+    },
+    {
+      "micro_pc": "0x40e",
+      "half": "lower",
+      "va": "0x444210",
+      "original_word": "0x1cb0804"
+    },
+    {
+      "micro_pc": "0x40e",
+      "half": "upper",
+      "va": "0x444214",
+      "original_word": "0x1ea90bd"
+    },
+    {
+      "micro_pc": "0x40f",
+      "half": "lower",
+      "va": "0x444218",
+      "original_word": "0x80014a70"
+    },
+    {
+      "micro_pc": "0x40f",
+      "half": "upper",
+      "va": "0x44421c",
+      "original_word": "0x1ea98be"
+    },
+    {
+      "micro_pc": "0x410",
+      "half": "lower",
+      "va": "0x444220",
+      "original_word": "0x10010804"
+    },
+    {
+      "micro_pc": "0x410",
+      "half": "upper",
+      "va": "0x444224",
+      "original_word": "0x18060bf"
+    },
+    {
+      "micro_pc": "0x411",
+      "half": "lower",
+      "va": "0x444228",
+      "original_word": "0x18c0802"
+    },
+    {
+      "micro_pc": "0x411",
+      "half": "upper",
+      "va": "0x44422c",
+      "original_word": "0x1e04a8b"
+    },
+    {
+      "micro_pc": "0x41c",
+      "half": "lower",
+      "va": "0x444280",
+      "original_word": "0x29013f"
+    },
+    {
+      "micro_pc": "0x41c",
+      "half": "upper",
+      "va": "0x444284",
+      "original_word": "0x1000283"
+    },
+    {
+      "micro_pc": "0x420",
+      "half": "lower",
+      "va": "0x4442a0",
+      "original_word": "0x1f94802"
+    },
+    {
+      "micro_pc": "0x420",
+      "half": "upper",
+      "va": "0x4442a4",
+      "original_word": "0x1095247"
+    },
+    {
+      "micro_pc": "0x421",
+      "half": "lower",
+      "va": "0x4442a8",
+      "original_word": "0x1ea5002"
+    },
+    {
+      "micro_pc": "0x421",
+      "half": "upper",
+      "va": "0x4442ac",
+      "original_word": "0x890243"
+    },
+    {
+      "micro_pc": "0x424",
+      "half": "lower",
+      "va": "0x4442c0",
+      "original_word": "0x1fb4800"
+    },
+    {
+      "micro_pc": "0x424",
+      "half": "upper",
+      "va": "0x4442c4",
+      "original_word": "0x1e9c9bc"
+    },
+    {
+      "micro_pc": "0x425",
+      "half": "lower",
+      "va": "0x4442c8",
+      "original_word": "0x1f95000"
+    },
+    {
+      "micro_pc": "0x425",
+      "half": "upper",
+      "va": "0x4442cc",
+      "original_word": "0x1e95289"
+    },
+    {
+      "micro_pc": "0x430",
+      "half": "lower",
+      "va": "0x444320",
+      "original_word": "0x81fa4b7c"
+    },
+    {
+      "micro_pc": "0x430",
+      "half": "upper",
+      "va": "0x444324",
+      "original_word": "0x2ff"
+    },
+    {
+      "micro_pc": "0x435",
+      "half": "lower",
+      "va": "0x444348",
+      "original_word": "0x81fb4b7c"
+    },
+    {
+      "micro_pc": "0x435",
+      "half": "upper",
+      "va": "0x44434c",
+      "original_word": "0x1fa61bc"
+    },
+    {
+      "micro_pc": "0x436",
+      "half": "lower",
+      "va": "0x444350",
+      "original_word": "0x81f94b7c"
+    },
+    {
+      "micro_pc": "0x436",
+      "half": "upper",
+      "va": "0x444354",
+      "original_word": "0x1fa58bd"
+    },
+    {
+      "micro_pc": "0x437",
+      "half": "lower",
+      "va": "0x444358",
+      "original_word": "0x8000033c"
+    },
+    {
+      "micro_pc": "0x437",
+      "half": "upper",
+      "va": "0x44435c",
+      "original_word": "0x1fa50be"
+    },
+    {
+      "micro_pc": "0x438",
+      "half": "lower",
+      "va": "0x444360",
+      "original_word": "0x8000033c"
+    },
+    {
+      "micro_pc": "0x438",
+      "half": "upper",
+      "va": "0x444364",
+      "original_word": "0x1fa4e8b"
+    }
+  ],
+  "rejected_entry_guesses": [
+    "3adfc8 epilogue inside3ade58",
+    "3a6ff8 epilogue inside3a6f98"
+  ],
+  "vtable_links": [
+    {
+      "table": "0x487ee8",
+      "slot": 20,
+      "handler": "0x3ade58"
+    },
+    {
+      "table": "0x487ea8",
+      "slot": 20,
+      "handler": "0x3ae040"
+    },
+    {
+      "table": "0x487e48",
+      "slot": 20,
+      "handler": "0x3ae250"
+    },
+    {
+      "table": "0x485350",
+      "slot": 20,
+      "handler": "0x322220"
+    },
+    {
+      "table": "0x485350",
+      "slot": 12,
+      "handler": "0x3223f8"
+    },
+    {
+      "pointer_va": "0x485a1c",
+      "handler": "0x32f988"
+    }
+  ]
+}

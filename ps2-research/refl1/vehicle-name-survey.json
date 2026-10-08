@@ -1,0 +1,437 @@
+{
+  "scope": "29 canonical CAR.PSM byte-name survey, not active draws",
+  "records": [
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\KIASPORTAGE\\CAR.PSM",
+      "sha256": "b4afabfab7437eae01ee72ca424beb90967c7b849cebdb9cf94e104560be33ce",
+      "shader_occurrences": {
+        "carflat": 6,
+        "carshiny": 13,
+        "carglass": 7,
+        "carbrakelights": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          1
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\FRONTERA\\CAR.PSM",
+      "sha256": "007758a3192218b383c41d520cddf326e6ba23a6ca625acd48d436e0955495bd",
+      "shader_occurrences": {
+        "carflat": 4,
+        "carshiny": 15,
+        "carglass": 9,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\KANGOO\\CAR.PSM",
+      "sha256": "bf157a13a059a8cef0e59f8e4742db40b99713618a803adfd8b8355141fdd955",
+      "shader_occurrences": {
+        "carflat": 5,
+        "carshiny": 10,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "rear128",
+          1
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\MOONBUGGY\\CAR.PSM",
+      "sha256": "eb6abaf7dffc2dbee47decc10b58a2282646c1a2967e784c987c7e47fcfe166c",
+      "shader_occurrences": {
+        "carflat": 9,
+        "carshiny": 5,
+        "carglass": 4,
+        "carbrakelight": 1,
+        "brakelight": 1
+      },
+      "name_leads": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\BRUNO\\CAR.PSM",
+      "sha256": "f53373134712dd8eb8cae26422d9a67e18489668639cdaa479023765692cf260",
+      "shader_occurrences": {
+        "carflat": 5,
+        "carshiny": 10,
+        "carglass": 1,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\SEATBUGGY\\CAR.PSM",
+      "sha256": "3244c3decf33634d035cae682fa886acd9d86982250cbc64060a65109585c3f7",
+      "shader_occurrences": {
+        "carflat": 7,
+        "carshiny": 9,
+        "carbrakelights": 2,
+        "carglass": 6
+      },
+      "name_leads": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\MATTSERATI\\CAR.PSM",
+      "sha256": "165a9b7c2553e7a55def29f3deee4b83af6e1e4435c33a41ef2107477f25246a",
+      "shader_occurrences": {
+        "carflat": 4,
+        "carshiny": 12,
+        "carglass": 3,
+        "caralpha": 1,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\RMONSTER\\CAR.PSM",
+      "sha256": "9d5805e16d855e10b25704e88a25ecd55adadb9f89de77e66f4c29c2f9eb6a4a",
+      "shader_occurrences": {
+        "carflat": 5,
+        "carshiny": 13,
+        "carglass": 9,
+        "carbrakelight": 2
+      },
+      "name_leads": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\FORKLIFT\\CAR.PSM",
+      "sha256": "5ccd7919f7b59687f11e36e809ac3bfc76c39990bdde93bb150ac73dcf6a4404",
+      "shader_occurrences": {},
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\TANK\\CAR.PSM",
+      "sha256": "10afa84ada587f5e8058b17ec7ed8406936cba028c6f57133539e7affc9a3ce3",
+      "shader_occurrences": {
+        "carflat": 10,
+        "carshiny": 7,
+        "carbrakelight": 1,
+        "brakelight": 1
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\TATA\\CAR.PSM",
+      "sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+      "shader_occurrences": {
+        "carflat": 3,
+        "carshiny": 20,
+        "carglass": 6,
+        "carbrakelights": 2
+      },
+      "name_leads": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\KAMAZ\\CAR.PSM",
+      "sha256": "9559c040e9574a474e4c2ef8f2ed33e01fceaa457be794aea7ab79e17a2e7f33",
+      "shader_occurrences": {
+        "carflat": 3,
+        "carshiny": 15,
+        "carglass": 6,
+        "carbrakelights": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          3
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\MEGANE\\CAR.PSM",
+      "sha256": "6ee866b563309d1a9205cd99b2706fa3c7471d984daa3b4d954fa60e33bd0248",
+      "shader_occurrences": {
+        "carflat": 6,
+        "carshiny": 14,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\WOOLDAND\\CAR.PSM",
+      "sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "shader_occurrences": {
+        "carflat": 2,
+        "carshiny": 9,
+        "crashiny": 1,
+        "carglass": 6,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "rear128",
+          4
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\CHEVYBLAZER\\CAR.PSM",
+      "sha256": "52b0dd8a5d46293781ce538519cc5d4da419afd738dd5eeb5d8b08cd2a02ae18",
+      "shader_occurrences": {
+        "carflat": 5,
+        "carshiny": 16,
+        "carglass": 8
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\CAR.PSM",
+      "sha256": "af57572e92ce47d810666779fb60c8c178f1979feb203416131a3acc81449326",
+      "shader_occurrences": {
+        "carflat": 7,
+        "carshiny": 14,
+        "carglass": 7,
+        "carbrakelights": 2
+      },
+      "name_leads": []
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\NEWRAV\\CAR.PSM",
+      "sha256": "98b59c09cc878b01610165e1f7b498200441c0384e2223af185addc51d4e4cc7",
+      "shader_occurrences": {
+        "carflat": 4,
+        "carshiny": 17,
+        "carglass": 9,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\LANDCRUISER\\CAR.PSM",
+      "sha256": "834873c104dbc139cd85ff24e0323ec8fc0a7130725d0a40de177b690946c5e9",
+      "shader_occurrences": {
+        "carflat": 3,
+        "carshiny": 17,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\SIMMBUGGHINI\\CAR.PSM",
+      "sha256": "d3998e23fa1b26f800601e72959bb28d94278e069ff5f21efb0531c63ed210a1",
+      "shader_occurrences": {
+        "carflat": 5,
+        "carshiny": 12,
+        "caralpha": 1,
+        "carglass": 2,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\TERRANO\\CAR.PSM",
+      "sha256": "bb0e2c4e34ba21812cf9fe57077da5e04a02501eae24451767c2ced42b95f1b1",
+      "shader_occurrences": {
+        "carflat": 3,
+        "carshiny": 17,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\PATROL\\CAR.PSM",
+      "sha256": "a01f0f74fa76f74506e3dcbf8a72c26b73536d1896ded11069d8135f68c08dff",
+      "shader_occurrences": {
+        "carflat": 3,
+        "carshiny": 19,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\WILDCAT\\CAR.PSM",
+      "sha256": "ea85c64312342149b7a18cc9060174a5532e53a1e02ed62c80a21c2c0a62425a",
+      "shader_occurrences": {
+        "carflat": 7,
+        "carshiny": 10,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          1
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\PAJERO\\CAR.PSM",
+      "sha256": "ea810c4087a9c2c7c10098d87e35fb17a91db126176c12f9f535ea2b4e87122f",
+      "shader_occurrences": {
+        "carflat": 3,
+        "carshiny": 14,
+        "carglass": 4,
+        "carbrakelights": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\ICECREAM\\CAR.PSM",
+      "sha256": "c6baac227f362471cbc28ecf2fb21e0d25ddb42757accd8546a3ad8799d27463",
+      "shader_occurrences": {
+        "carflat": 4,
+        "carshiny": 14,
+        "carglass": 7,
+        "carbrakelights": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          1
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\JUMP\\CAR.PSM",
+      "sha256": "049d2d2517b8feb949a422753570e34fd55d2d5a87f42d4c8221e0c5af45d304",
+      "shader_occurrences": {
+        "carflat": 4,
+        "carshiny": 13,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          4
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\FORESTER\\CAR.PSM",
+      "sha256": "c648998af4bcc343c864e762fee075386525bf10d1bc58379721d6639d778bc2",
+      "shader_occurrences": {
+        "carflat": 3,
+        "carshiny": 7,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "rear128",
+          1
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\UFO\\CAR.PSM",
+      "sha256": "72e96dea29d35a2462dfac68161276e5bc343b491af7525c486e506e56be55a8",
+      "shader_occurrences": {
+        "carflat": 2,
+        "carshiny": 2,
+        "carbrakelight": 4,
+        "carglow": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          1
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\NAVARA\\CAR.PSM",
+      "sha256": "c5ecc753358a369280b2d5fc27435b1929b676b867a85acd9c458db24dbfffdf",
+      "shader_occurrences": {
+        "carflat": 5,
+        "carshiny": 19,
+        "carglass": 5,
+        "carbrakelights": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          2
+        ]
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\ASTERO\\CAR.PSM",
+      "sha256": "7d2e9b3a29762f311838e1e4e050658bcc0d432b59d4f259e5d289b0ea7bdc86",
+      "shader_occurrences": {
+        "carflat": 5,
+        "carshiny": 15,
+        "carglass": 7,
+        "carbrakelight": 2
+      },
+      "name_leads": [
+        [
+          "chrome",
+          4
+        ]
+      ]
+    }
+  ]
+}

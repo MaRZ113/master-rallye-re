@@ -108,3 +108,10 @@ two texture bindings, UV/color callbacks, GS templates and the VIF1 DMA path.
 Static RE is complete within that contract; live frame/residency validation is
 separate and not performed. The [bounded diagnostic](tools/water_runtime.py)
 keeps source geometry under ignored data/water1; no PC port or SDK change occurs.
+
+The [REFL1 research](refl1/final-report.md) connects Tata/Kia visual meshes to
+body/glass modes, a static-plus-framebuffer environment target, normal-coordinate
+math and separate GS blend contracts. Static RE is complete within the documented
+input/state boundaries; live VU and frame validation is not performed.
+[reflection_runtime.py](tools/reflection_runtime.py) provides explicit-state
+diagnostics in ignored data/refl1. No PC effect or vehicle/SDK change is included.

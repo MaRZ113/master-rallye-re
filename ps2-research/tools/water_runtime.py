@@ -83,6 +83,7 @@ class Scene:
     end: int
     meshes: list
     node_counts: dict
+    extra_nodes: list = None
 
     def position(self, index):
         if not 0 <= index < self.vertex_count:
@@ -96,11 +97,12 @@ class Scene:
         return struct.unpack_from('<I', self.payload, 32+index*52+12)[0]
 
 
-def decode_scene(payload):
-    """Decode only tags 0/1/2/5/6; fail closed on another scene grammar.
+def decode_scene(payload, extra_node_readers=None, terminator=100):
+    """Decode tags 0/1/2/5/6; optional callers must supply other tag readers.
 
-    Tag 100 terminates this visual tree. Tag 103 is a different representation;
-    it is never used here to invent visual strips or shader assignments.
+    Landscape defaults remain strict: terminal 100. REFL1 supplies the proven
+    vehicle tag 7/8 readers and terminal 101 explicitly. Neither trailer nor
+    spatial tag 103 is used to invent visual strips or shader assignments.
     """
     if len(payload) < 32 or struct.unpack_from('<3I', payload) != (0xd00d, 2, 0x539):
         raise t.FormatError('Unsupported landscape PSM header')
@@ -109,6 +111,7 @@ def decode_scene(payload):
     if not 0 < nv <= 1000000 or start+8 > len(payload):
         raise t.FormatError('Invalid visual vertex span')
     reader, meshes, counts = Reader(payload, start), [], Counter()
+    extra_nodes = []
 
     def node(path, depth):
         if depth > 100 or sum(counts.values()) >= 100000:
@@ -150,6 +153,9 @@ def decode_scene(payload):
                            'textures': textures, 'material': material, 'material_offset': at,
                            'words_unknown': words, 'flags': flags, 'word70_unknown': hex(value),
                            'strips': strips, 'classification': shader_contract(material)})
+        elif extra_node_readers and tag in extra_node_readers:
+            extra_nodes.append({'tag': tag, 'offset': offset, 'path': path,
+                                **extra_node_readers[tag](reader)})
         elif tag not in (0, 1, 5, 6):
             raise t.FormatError('Unsupported visual node tag %d at %d' % (tag, offset))
         children = reader.unpack('I')
@@ -160,9 +166,9 @@ def decode_scene(payload):
 
     node('root', 0)
     end = reader.offset
-    if reader.unpack('I') != 100:
-        raise t.FormatError('Visual tree does not end at tag 100')
-    return Scene(payload, nv, start, end, meshes, dict(sorted(counts.items())))
+    if terminator not in (100, 101) or reader.unpack('I') != terminator:
+        raise t.FormatError('Visual tree does not end at tag %d' % terminator)
+    return Scene(payload, nv, start, end, meshes, dict(sorted(counts.items())), extra_nodes)
 
 
 def area_normal(triangle):
