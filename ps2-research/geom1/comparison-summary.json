@@ -1,0 +1,836 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "course_pair": "TURKEY3",
+      "ps2_source": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+        "decoded_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+        "decoded_size": 4086061,
+        "vertex_count": 65446,
+        "visual_tree_start": 3403224,
+        "visual_tree_end": 3631901,
+        "terminator": 100,
+        "node_counts": {
+          "1": 1,
+          "2": 1008,
+          "5": 67,
+          "6": 1
+        },
+        "mesh_count": 1008,
+        "triangle_records": 40832,
+        "exclusions": {
+          "adc_suppressed": 17224,
+          "area_at_or_below_diagnostic_cutoff": 4
+        },
+        "coordinates": "GAME_SOURCE",
+        "strip_winding": "Ordered consecutive triples retained; rendered parity/culling UNKNOWN",
+        "packfs": {
+          "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+          "offset": 1176335774,
+          "stored_size": 2327913,
+          "directory_size_0x08": 2327913,
+          "unpacked_size": 4086061,
+          "compression": "packfs_lzo",
+          "stored_sha256": "2a074ce9562a59914b0c11a2ed2f06dffbc6f9440de4347e6f9452fa4a1646b6",
+          "payload_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+          "evidence": "CONFIRMED_BY_BOTH",
+          "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+        }
+      },
+      "pc_source": {
+        "path": "DataGx\\Course\\Turkey3\\turkey3.dx",
+        "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+        "size": 10055607,
+        "txt_path": "DataGx\\Course\\Turkey3\\turkey3.txt",
+        "txt_sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+        "position_array_offset": 16,
+        "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+        "draws": 939,
+        "vertices": 54589,
+        "triangles": 42237,
+        "coverage": "VALIDATED_COMPLETE_DISJOINT",
+        "txt_mesh_records": 2574,
+        "txt_named_nodes": 2881,
+        "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+        "txt_dinghy_leads": [],
+        "coordinates": "GAME_SOURCE"
+      },
+      "alignment": {
+        "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+        "independent_anchor": "ORDERED_RACELINE",
+        "route_residual": {
+          "ps2_start": 0,
+          "pc_start": 0,
+          "compared_points": 420,
+          "max_distance": 0.0,
+          "mean_distance": 0.0,
+          "within_one_world_unit": 1.0
+        },
+        "ps2_route_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+        "pc_route_sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+        "authored_landscape_matrices": [
+          [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ],
+        "runtime_transform": "UNKNOWN",
+        "evidence_grade": "CONFIRMED_BY_BYTES"
+      },
+      "ps2_relations": {
+        "DIAGNOSTIC_DEGENERATE": 4,
+        "EXACT_TRIANGLE_MATCH": 36001,
+        "GEOMETRY_MODIFIED": 336,
+        "PARTIAL_SURFACE_OVERLAP": 12,
+        "PS2_EXTRA_VISUAL_SOURCE": 4478,
+        "SAME_SURFACE_DIFFERENT_TRIANGULATION": 1
+      },
+      "pc_relations": {
+        "DIAGNOSTIC_DEGENERATE": 1,
+        "EXACT_TRIANGLE_MATCH": 41039,
+        "GEOMETRY_MODIFIED": 187,
+        "PARTIAL_SURFACE_OVERLAP": 33,
+        "PC_EXTRA_COMPILED_DRAW": 971,
+        "SAME_SURFACE_DIFFERENT_TRIANGULATION": 6
+      },
+      "material_relations": {
+        "DIFFERENT_SHADER_SEMANTICS": 94,
+        "DIFFERENT_TEXTURE_BINDING": 583,
+        "SAME_OR_EQUIVALENT_MATERIAL": 160,
+        "UNKNOWN": 271,
+        "UNRESOLVED_MATERIAL_MAPPING": 1280
+      },
+      "vertices": {
+        "source_unique_numeric_positions": 26125,
+        "target_unique_numeric_positions": 23055,
+        "source_unique_bitwise_positions": 26125,
+        "target_unique_bitwise_positions": 23055,
+        "bitwise_float32_matches": 48,
+        "numeric_matches": 48,
+        "tolerance_matches": 22679,
+        "signed_zero_note": "Numeric equality coalesces signed zero; bitwise positions retain both encodings"
+      },
+      "candidate_counts": {
+        "ps2_to_pc": {
+          "exact_candidate_pairs": 48227,
+          "surface_aabb_candidate_pairs": 63833,
+          "projected_overlap_pairs": 960,
+          "spatial_cell": 32.0,
+          "index_cells": 4866
+        },
+        "pc_to_ps2": {
+          "exact_candidate_pairs": 48227,
+          "surface_aabb_candidate_pairs": 48857,
+          "projected_overlap_pairs": 914,
+          "spatial_cell": 32.0,
+          "index_cells": 4888
+        }
+      },
+      "thresholds": {
+        "vertex": 0.001,
+        "plane": 0.001,
+        "normal": 0.99999,
+        "coverage": 0.99999,
+        "near": 1.0
+      },
+      "water_anchor": {
+        "tolerance": 0.001,
+        "triangle_matches": 0,
+        "triangles": 745,
+        "matched_pc_draws": {},
+        "maximum_corner_error": null,
+        "water_vertices_matching_pc": 0,
+        "water_vertices": 537,
+        "all_source_coordinate_positions_matching_pc": 22679,
+        "all_source_coordinate_positions": 26125,
+        "coordinate_transform": "IDENTITY; independently checked through ordinary course vertices",
+        "centroid_height": {
+          "performed": true,
+          "hits": 745,
+          "missing": 0,
+          "coplanar_with_any_pc_triangle": 0,
+          "min_signed_nearest": -6.682011548989912,
+          "max_signed_nearest": 9.586565426087216,
+          "min_abs_nearest": 0.0014047927076639155,
+          "max_abs_nearest": 9.586565426087216,
+          "above_pc": 405,
+          "below_pc": 340
+        },
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_visibility": "UNKNOWN"
+      },
+      "performance_seconds": 11.4333129998995,
+      "cumulative_process_peak_working_set_bytes": 382734336,
+      "stable_report_sha256": "0dc635d2e86c99603719b152f64c4fca528f33b8e1521c8dbed55c6461edd210"
+    },
+    {
+      "course_pair": "FRANCE1",
+      "ps2_source": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM",
+        "decoded_sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d",
+        "decoded_size": 4216655,
+        "vertex_count": 67387,
+        "visual_tree_start": 3504156,
+        "visual_tree_end": 3717635,
+        "terminator": 100,
+        "node_counts": {
+          "1": 1,
+          "2": 956,
+          "5": 192,
+          "6": 1
+        },
+        "mesh_count": 956,
+        "triangle_records": 41817,
+        "exclusions": {
+          "adc_suppressed": 18468
+        },
+        "coordinates": "GAME_SOURCE",
+        "strip_winding": "Ordered consecutive triples retained; rendered parity/culling UNKNOWN",
+        "packfs": {
+          "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM",
+          "offset": 1040499712,
+          "stored_size": 2423641,
+          "directory_size_0x08": 2423641,
+          "unpacked_size": 4216655,
+          "compression": "packfs_lzo",
+          "stored_sha256": "bf32946b1e8f322b925028ecb90413c2634bb30cc39904acda1d3f6f4fd9b48c",
+          "payload_sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d",
+          "evidence": "CONFIRMED_BY_BOTH",
+          "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+        }
+      },
+      "pc_source": {
+        "path": "DataGx\\Course\\France1\\france1.dx",
+        "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+        "size": 13489510,
+        "txt_path": "DataGx\\Course\\France1\\France1.txt",
+        "txt_sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+        "position_array_offset": 16,
+        "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+        "draws": 995,
+        "vertices": 65206,
+        "triangles": 64577,
+        "coverage": "VALIDATED_COMPLETE_DISJOINT",
+        "txt_mesh_records": 2527,
+        "txt_named_nodes": 2568,
+        "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+        "txt_dinghy_leads": [
+          {
+            "node_id": 799,
+            "name": "DINGHYS",
+            "parent_id": 751,
+            "source_index": null,
+            "source_size": null
+          },
+          {
+            "node_id": 800,
+            "name": "dinghy01",
+            "parent_id": 799,
+            "source_index": 47180,
+            "source_size": 12
+          },
+          {
+            "node_id": 801,
+            "name": "dinghy02",
+            "parent_id": 799,
+            "source_index": 47192,
+            "source_size": 12
+          },
+          {
+            "node_id": 802,
+            "name": "dinghy03",
+            "parent_id": 799,
+            "source_index": 47204,
+            "source_size": 12
+          },
+          {
+            "node_id": 803,
+            "name": "dinghy04",
+            "parent_id": 799,
+            "source_index": 47216,
+            "source_size": 12
+          },
+          {
+            "node_id": 804,
+            "name": "dinghy05",
+            "parent_id": 799,
+            "source_index": 47228,
+            "source_size": 12
+          },
+          {
+            "node_id": 805,
+            "name": "dinghy06",
+            "parent_id": 799,
+            "source_index": 47240,
+            "source_size": 12
+          },
+          {
+            "node_id": 806,
+            "name": "dinghy07",
+            "parent_id": 799,
+            "source_index": 47252,
+            "source_size": 12
+          },
+          {
+            "node_id": 807,
+            "name": "dinghy08",
+            "parent_id": 799,
+            "source_index": 47264,
+            "source_size": 12
+          },
+          {
+            "node_id": 808,
+            "name": "dinghy09",
+            "parent_id": 799,
+            "source_index": 47276,
+            "source_size": 12
+          },
+          {
+            "node_id": 809,
+            "name": "dinghy10",
+            "parent_id": 799,
+            "source_index": 47288,
+            "source_size": 12
+          },
+          {
+            "node_id": 810,
+            "name": "dinghy11",
+            "parent_id": 799,
+            "source_index": 47300,
+            "source_size": 12
+          },
+          {
+            "node_id": 811,
+            "name": "DINGHYS_Masts",
+            "parent_id": 751,
+            "source_index": null,
+            "source_size": null
+          },
+          {
+            "node_id": 812,
+            "name": "dinghymast01",
+            "parent_id": 811,
+            "source_index": 47312,
+            "source_size": 3
+          },
+          {
+            "node_id": 813,
+            "name": "dinghymast02",
+            "parent_id": 811,
+            "source_index": 47315,
+            "source_size": 3
+          },
+          {
+            "node_id": 814,
+            "name": "dinghymast03",
+            "parent_id": 811,
+            "source_index": 47318,
+            "source_size": 3
+          },
+          {
+            "node_id": 815,
+            "name": "dinghymast04",
+            "parent_id": 811,
+            "source_index": 47321,
+            "source_size": 3
+          },
+          {
+            "node_id": 816,
+            "name": "dinghymast05",
+            "parent_id": 811,
+            "source_index": 47324,
+            "source_size": 3
+          },
+          {
+            "node_id": 817,
+            "name": "dinghymast06",
+            "parent_id": 811,
+            "source_index": 47327,
+            "source_size": 3
+          },
+          {
+            "node_id": 818,
+            "name": "dinghymast07",
+            "parent_id": 811,
+            "source_index": 47330,
+            "source_size": 3
+          },
+          {
+            "node_id": 819,
+            "name": "dinghymast08",
+            "parent_id": 811,
+            "source_index": 47333,
+            "source_size": 3
+          },
+          {
+            "node_id": 820,
+            "name": "dinghymast09",
+            "parent_id": 811,
+            "source_index": 47336,
+            "source_size": 3
+          },
+          {
+            "node_id": 821,
+            "name": "dinghymast10",
+            "parent_id": 811,
+            "source_index": 47339,
+            "source_size": 3
+          },
+          {
+            "node_id": 822,
+            "name": "dinghymast11",
+            "parent_id": 811,
+            "source_index": 47342,
+            "source_size": 3
+          },
+          {
+            "node_id": 1186,
+            "name": "DINGHYS_Trailers",
+            "parent_id": 867,
+            "source_index": null,
+            "source_size": null
+          }
+        ],
+        "coordinates": "GAME_SOURCE"
+      },
+      "alignment": {
+        "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+        "independent_anchor": "ORDERED_RACELINE",
+        "route_residual": {
+          "ps2_start": 0,
+          "pc_start": 0,
+          "compared_points": 448,
+          "max_distance": 0.0,
+          "mean_distance": 0.0,
+          "within_one_world_unit": 1.0
+        },
+        "ps2_route_sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437",
+        "pc_route_sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+        "authored_landscape_matrices": [
+          [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ],
+        "runtime_transform": "UNKNOWN",
+        "evidence_grade": "CONFIRMED_BY_BYTES"
+      },
+      "ps2_relations": {
+        "EXACT_TRIANGLE_MATCH": 41620,
+        "GEOMETRY_MODIFIED": 51,
+        "PARTIAL_SURFACE_OVERLAP": 11,
+        "PS2_EXTRA_VISUAL_SOURCE": 117,
+        "SAME_SURFACE_DIFFERENT_TRIANGULATION": 18
+      },
+      "pc_relations": {
+        "EXACT_TRIANGLE_MATCH": 60198,
+        "GEOMETRY_MODIFIED": 39,
+        "PARTIAL_SURFACE_OVERLAP": 1816,
+        "PC_EXTRA_COMPILED_DRAW": 1922,
+        "SAME_SURFACE_DIFFERENT_TRIANGULATION": 602
+      },
+      "material_relations": {
+        "DIFFERENT_SHADER_SEMANTICS": 205,
+        "DIFFERENT_TEXTURE_BINDING": 594,
+        "SAME_OR_EQUIVALENT_MATERIAL": 326,
+        "UNKNOWN": 42,
+        "UNRESOLVED_MATERIAL_MAPPING": 1111
+      },
+      "vertices": {
+        "source_unique_numeric_positions": 31195,
+        "target_unique_numeric_positions": 37406,
+        "source_unique_bitwise_positions": 31195,
+        "target_unique_bitwise_positions": 37406,
+        "bitwise_float32_matches": 492,
+        "numeric_matches": 492,
+        "tolerance_matches": 31167,
+        "signed_zero_note": "Numeric equality coalesces signed zero; bitwise positions retain both encodings"
+      },
+      "candidate_counts": {
+        "ps2_to_pc": {
+          "exact_candidate_pairs": 66484,
+          "surface_aabb_candidate_pairs": 32074,
+          "projected_overlap_pairs": 333,
+          "spatial_cell": 32.0,
+          "index_cells": 7558
+        },
+        "pc_to_ps2": {
+          "exact_candidate_pairs": 66484,
+          "surface_aabb_candidate_pairs": 61881,
+          "projected_overlap_pairs": 4909,
+          "spatial_cell": 32.0,
+          "index_cells": 7361
+        }
+      },
+      "thresholds": {
+        "vertex": 0.001,
+        "plane": 0.001,
+        "normal": 0.99999,
+        "coverage": 0.99999,
+        "near": 1.0
+      },
+      "water_anchor": {
+        "tolerance": 0.001,
+        "triangle_matches": 3586,
+        "triangles": 3586,
+        "matched_pc_draws": {
+          "236": 182,
+          "265": 369,
+          "281": 301,
+          "287": 350,
+          "324": 146,
+          "414": 76,
+          "431": 81,
+          "434": 31,
+          "540": 206,
+          "699": 27,
+          "712": 73,
+          "728": 69,
+          "751": 264,
+          "768": 277,
+          "901": 555,
+          "929": 579
+        },
+        "maximum_corner_error": 8.0108642578125e-05,
+        "water_vertices_matching_pc": 2264,
+        "water_vertices": 2264,
+        "all_source_coordinate_positions_matching_pc": 31167,
+        "all_source_coordinate_positions": 31195,
+        "coordinate_transform": "IDENTITY; independently checked through ordinary course vertices",
+        "centroid_height": {
+          "performed": false,
+          "hits": 0,
+          "missing": 0,
+          "coplanar_with_any_pc_triangle": 0,
+          "min_signed_nearest": null,
+          "max_signed_nearest": null,
+          "min_abs_nearest": null,
+          "max_abs_nearest": null,
+          "above_pc": 0,
+          "below_pc": 0
+        },
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_visibility": "UNKNOWN"
+      },
+      "performance_seconds": 14.817165999906138,
+      "cumulative_process_peak_working_set_bytes": 566882304,
+      "stable_report_sha256": "4f7ed07951d55823d9589afb4a809e264cec104b41ccc94fd998e9c1bb60ec17"
+    },
+    {
+      "course_pair": "ITALY_S1",
+      "ps2_source": {
+        "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\ITALY_S1.PSM",
+        "decoded_sha256": "f74854a0789c1d3bb416cef8d70a02c65141a2d7afc5a150068c047b94bc30a0",
+        "decoded_size": 4163686,
+        "vertex_count": 69577,
+        "visual_tree_start": 3618036,
+        "visual_tree_end": 3835287,
+        "terminator": 100,
+        "node_counts": {
+          "1": 1,
+          "2": 930,
+          "5": 79,
+          "6": 1
+        },
+        "mesh_count": 930,
+        "triangle_records": 40479,
+        "exclusions": {
+          "adc_suppressed": 21742
+        },
+        "coordinates": "GAME_SOURCE",
+        "strip_winding": "Ordered consecutive triples retained; rendered parity/culling UNKNOWN",
+        "packfs": {
+          "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\ITALY_S1.PSM",
+          "offset": 1099716026,
+          "stored_size": 2326973,
+          "directory_size_0x08": 2326973,
+          "unpacked_size": 4163686,
+          "compression": "packfs_lzo",
+          "stored_sha256": "d3020e3f0443586bb4a2948cf06b18a9c30bef049bd615c2501b8d026c25f036",
+          "payload_sha256": "f74854a0789c1d3bb416cef8d70a02c65141a2d7afc5a150068c047b94bc30a0",
+          "evidence": "CONFIRMED_BY_BOTH",
+          "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+        }
+      },
+      "pc_source": {
+        "path": "DataGx\\Course\\Italy_S1\\italy_s1.dx",
+        "sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+        "size": 10418531,
+        "txt_path": "DataGx\\Course\\Italy_S1\\Italy_S1.txt",
+        "txt_sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+        "position_array_offset": 16,
+        "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+        "draws": 867,
+        "vertices": 61463,
+        "triangles": 46367,
+        "coverage": "VALIDATED_COMPLETE_DISJOINT",
+        "txt_mesh_records": 1417,
+        "txt_named_nodes": 1463,
+        "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+        "txt_dinghy_leads": [],
+        "coordinates": "GAME_SOURCE"
+      },
+      "alignment": {
+        "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+        "independent_anchor": "ORDERED_RACELINE",
+        "route_residual": {
+          "ps2_start": 0,
+          "pc_start": 0,
+          "compared_points": 292,
+          "max_distance": 26.822076727949334,
+          "mean_distance": 0.17658877345589064,
+          "within_one_world_unit": 0.9931506849315068
+        },
+        "ps2_route_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+        "pc_route_sha256": "009cec2b253e012fbd4c948b79dc6d8837943736e1ba6747b00a215611115e66",
+        "authored_landscape_matrices": [
+          [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ],
+        "runtime_transform": "UNKNOWN",
+        "evidence_grade": "CONFIRMED_BY_BYTES"
+      },
+      "ps2_relations": {
+        "EXACT_TRIANGLE_MATCH": 39682,
+        "GEOMETRY_MODIFIED": 35,
+        "PARTIAL_SURFACE_OVERLAP": 59,
+        "PS2_EXTRA_VISUAL_SOURCE": 690,
+        "SAME_SURFACE_DIFFERENT_TRIANGULATION": 13
+      },
+      "pc_relations": {
+        "EXACT_TRIANGLE_MATCH": 44572,
+        "GEOMETRY_MODIFIED": 23,
+        "PARTIAL_SURFACE_OVERLAP": 69,
+        "PC_EXTRA_COMPILED_DRAW": 1694,
+        "SAME_SURFACE_DIFFERENT_TRIANGULATION": 9
+      },
+      "material_relations": {
+        "DIFFERENT_SHADER_SEMANTICS": 20,
+        "DIFFERENT_TEXTURE_BINDING": 379,
+        "SAME_OR_EQUIVALENT_MATERIAL": 117,
+        "UNKNOWN": 94,
+        "UNRESOLVED_MATERIAL_MAPPING": 1409
+      },
+      "vertices": {
+        "source_unique_numeric_positions": 25005,
+        "target_unique_numeric_positions": 25566,
+        "source_unique_bitwise_positions": 25005,
+        "target_unique_bitwise_positions": 25566,
+        "bitwise_float32_matches": 59,
+        "numeric_matches": 59,
+        "tolerance_matches": 24627,
+        "signed_zero_note": "Numeric equality coalesces signed zero; bitwise positions retain both encodings"
+      },
+      "candidate_counts": {
+        "ps2_to_pc": {
+          "exact_candidate_pairs": 55864,
+          "surface_aabb_candidate_pairs": 24791,
+          "projected_overlap_pairs": 217,
+          "spatial_cell": 32.0,
+          "index_cells": 5361
+        },
+        "pc_to_ps2": {
+          "exact_candidate_pairs": 55864,
+          "surface_aabb_candidate_pairs": 23402,
+          "projected_overlap_pairs": 177,
+          "spatial_cell": 32.0,
+          "index_cells": 5591
+        }
+      },
+      "thresholds": {
+        "vertex": 0.001,
+        "plane": 0.001,
+        "normal": 0.99999,
+        "coverage": 0.99999,
+        "near": 1.0
+      },
+      "water_anchor": {
+        "tolerance": 0.001,
+        "triangle_matches": 1329,
+        "triangles": 1329,
+        "matched_pc_draws": {
+          "64": 132,
+          "84": 296,
+          "95": 4,
+          "101": 7,
+          "126": 67,
+          "232": 564,
+          "269": 100,
+          "306": 127,
+          "314": 25,
+          "319": 7
+        },
+        "maximum_corner_error": 4.57763671875e-05,
+        "water_vertices_matching_pc": 877,
+        "water_vertices": 877,
+        "all_source_coordinate_positions_matching_pc": 24627,
+        "all_source_coordinate_positions": 25005,
+        "coordinate_transform": "IDENTITY; independently checked through ordinary course vertices",
+        "centroid_height": {
+          "performed": false,
+          "hits": 0,
+          "missing": 0,
+          "coplanar_with_any_pc_triangle": 0,
+          "min_signed_nearest": null,
+          "max_signed_nearest": null,
+          "min_abs_nearest": null,
+          "max_abs_nearest": null,
+          "above_pc": 0,
+          "below_pc": 0
+        },
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_visibility": "UNKNOWN"
+      },
+      "performance_seconds": 11.511064399965107,
+      "cumulative_process_peak_working_set_bytes": 566882304,
+      "stable_report_sha256": "1d782f4b12fbd4238d8356b04625f69fa414ebe604e8787c3f5af3f1d0dde8f1"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "TURKEY3": {
+    "ps2_node_offset": 3502612,
+    "material_offset": 3502703,
+    "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+    "exact_faces": 247,
+    "pc_draws": [
+      436
+    ],
+    "maximum_corner_error": 3.814697265625e-05,
+    "ps2_source_vertex_indices": [
+      30202,
+      30203,
+      30204
+    ],
+    "pc_source_vertex_indices": [
+      25272,
+      25221,
+      25271
+    ],
+    "pc_position_array_offset": 16,
+    "sample_corner_error": 3.0517578125e-05
+  },
+  "FRANCE1": {
+    "ps2_node_offset": 3613136,
+    "material_offset": 3613223,
+    "material": "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd(grass)Noise Pass",
+    "exact_faces": 441,
+    "pc_draws": [
+      519
+    ],
+    "maximum_corner_error": 0.0001220703125,
+    "ps2_source_vertex_indices": [
+      37567,
+      37568,
+      37569
+    ],
+    "pc_source_vertex_indices": [
+      37032,
+      37076,
+      37030
+    ],
+    "pc_position_array_offset": 16,
+    "sample_corner_error": 4.57763671875e-05
+  },
+  "ITALY_S1": {
+    "ps2_node_offset": 3758051,
+    "material_offset": 3758144,
+    "material": "$surfacetype(harddirt) $shader(ground) $detail(none)$grnd:stones_hardNoise Pass",
+    "exact_faces": 336,
+    "pc_draws": [
+      530
+    ],
+    "maximum_corner_error": 6.103515625e-05,
+    "ps2_source_vertex_indices": [
+      44721,
+      44722,
+      44723
+    ],
+    "pc_source_vertex_indices": [
+      38717,
+      38718,
+      38719
+    ],
+    "pc_position_array_offset": 16,
+    "sample_corner_error": 3.814697265625e-05
+  }
+}

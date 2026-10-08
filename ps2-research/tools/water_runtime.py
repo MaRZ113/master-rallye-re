@@ -84,6 +84,7 @@ class Scene:
     meshes: list
     node_counts: dict
     extra_nodes: list = None
+    nodes: list = None
 
     def position(self, index):
         if not 0 <= index < self.vertex_count:
@@ -111,7 +112,7 @@ def decode_scene(payload, extra_node_readers=None, terminator=100):
     if not 0 < nv <= 1000000 or start+8 > len(payload):
         raise t.FormatError('Invalid visual vertex span')
     reader, meshes, counts = Reader(payload, start), [], Counter()
-    extra_nodes = []
+    extra_nodes, nodes = [], []
 
     def node(path, depth):
         if depth > 100 or sum(counts.values()) >= 100000:
@@ -159,6 +160,7 @@ def decode_scene(payload, extra_node_readers=None, terminator=100):
         elif tag not in (0, 1, 5, 6):
             raise t.FormatError('Unsupported visual node tag %d at %d' % (tag, offset))
         children = reader.unpack('I')
+        nodes.append({'path': path, 'tag': tag, 'offset': offset, 'children': children})
         if children > 10000 or children*8 > len(payload)-reader.offset:
             raise t.FormatError('Visual child count exceeds payload')
         for i in range(children):
@@ -166,9 +168,11 @@ def decode_scene(payload, extra_node_readers=None, terminator=100):
 
     node('root', 0)
     end = reader.offset
-    if terminator not in (100, 101) or reader.unpack('I') != terminator:
+    if terminator not in (100, 101, 0xffffffff) or reader.unpack('I') != terminator:
         raise t.FormatError('Visual tree does not end at tag %d' % terminator)
-    return Scene(payload, nv, start, end, meshes, dict(sorted(counts.items())), extra_nodes)
+    if terminator == 0xffffffff and reader.offset != len(payload):
+        raise t.FormatError('Selected standalone visual sentinel has unexplained trailing data')
+    return Scene(payload, nv, start, end, meshes, dict(sorted(counts.items())), extra_nodes, nodes)
 
 
 def area_normal(triangle):

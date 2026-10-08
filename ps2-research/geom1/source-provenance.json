@@ -1,0 +1,333 @@
+{
+  "branch": "master",
+  "head": "b23c67b42f4a0f341b1bfede12dbd239433af8ed",
+  "status": "CLEAN",
+  "canonical": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "source_checks": "Fresh four size/SHA matches",
+  "sdk_head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+  "sdk_state": "CLEAN_READ_ONLY",
+  "pc_sources": [
+    {
+      "path": "DataGx\\Course\\Turkey3\\turkey3.dx",
+      "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+      "size": 10055607,
+      "txt_path": "DataGx\\Course\\Turkey3\\turkey3.txt",
+      "txt_sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+      "position_array_offset": 16,
+      "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+      "draws": 939,
+      "vertices": 54589,
+      "triangles": 42237,
+      "coverage": "VALIDATED_COMPLETE_DISJOINT",
+      "txt_mesh_records": 2574,
+      "txt_named_nodes": 2881,
+      "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+      "txt_dinghy_leads": [],
+      "coordinates": "GAME_SOURCE"
+    },
+    {
+      "path": "DataGx\\Course\\France1\\france1.dx",
+      "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+      "size": 13489510,
+      "txt_path": "DataGx\\Course\\France1\\France1.txt",
+      "txt_sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+      "position_array_offset": 16,
+      "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+      "draws": 995,
+      "vertices": 65206,
+      "triangles": 64577,
+      "coverage": "VALIDATED_COMPLETE_DISJOINT",
+      "txt_mesh_records": 2527,
+      "txt_named_nodes": 2568,
+      "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+      "txt_dinghy_leads": [
+        {
+          "node_id": 799,
+          "name": "DINGHYS",
+          "parent_id": 751,
+          "source_index": null,
+          "source_size": null
+        },
+        {
+          "node_id": 800,
+          "name": "dinghy01",
+          "parent_id": 799,
+          "source_index": 47180,
+          "source_size": 12
+        },
+        {
+          "node_id": 801,
+          "name": "dinghy02",
+          "parent_id": 799,
+          "source_index": 47192,
+          "source_size": 12
+        },
+        {
+          "node_id": 802,
+          "name": "dinghy03",
+          "parent_id": 799,
+          "source_index": 47204,
+          "source_size": 12
+        },
+        {
+          "node_id": 803,
+          "name": "dinghy04",
+          "parent_id": 799,
+          "source_index": 47216,
+          "source_size": 12
+        },
+        {
+          "node_id": 804,
+          "name": "dinghy05",
+          "parent_id": 799,
+          "source_index": 47228,
+          "source_size": 12
+        },
+        {
+          "node_id": 805,
+          "name": "dinghy06",
+          "parent_id": 799,
+          "source_index": 47240,
+          "source_size": 12
+        },
+        {
+          "node_id": 806,
+          "name": "dinghy07",
+          "parent_id": 799,
+          "source_index": 47252,
+          "source_size": 12
+        },
+        {
+          "node_id": 807,
+          "name": "dinghy08",
+          "parent_id": 799,
+          "source_index": 47264,
+          "source_size": 12
+        },
+        {
+          "node_id": 808,
+          "name": "dinghy09",
+          "parent_id": 799,
+          "source_index": 47276,
+          "source_size": 12
+        },
+        {
+          "node_id": 809,
+          "name": "dinghy10",
+          "parent_id": 799,
+          "source_index": 47288,
+          "source_size": 12
+        },
+        {
+          "node_id": 810,
+          "name": "dinghy11",
+          "parent_id": 799,
+          "source_index": 47300,
+          "source_size": 12
+        },
+        {
+          "node_id": 811,
+          "name": "DINGHYS_Masts",
+          "parent_id": 751,
+          "source_index": null,
+          "source_size": null
+        },
+        {
+          "node_id": 812,
+          "name": "dinghymast01",
+          "parent_id": 811,
+          "source_index": 47312,
+          "source_size": 3
+        },
+        {
+          "node_id": 813,
+          "name": "dinghymast02",
+          "parent_id": 811,
+          "source_index": 47315,
+          "source_size": 3
+        },
+        {
+          "node_id": 814,
+          "name": "dinghymast03",
+          "parent_id": 811,
+          "source_index": 47318,
+          "source_size": 3
+        },
+        {
+          "node_id": 815,
+          "name": "dinghymast04",
+          "parent_id": 811,
+          "source_index": 47321,
+          "source_size": 3
+        },
+        {
+          "node_id": 816,
+          "name": "dinghymast05",
+          "parent_id": 811,
+          "source_index": 47324,
+          "source_size": 3
+        },
+        {
+          "node_id": 817,
+          "name": "dinghymast06",
+          "parent_id": 811,
+          "source_index": 47327,
+          "source_size": 3
+        },
+        {
+          "node_id": 818,
+          "name": "dinghymast07",
+          "parent_id": 811,
+          "source_index": 47330,
+          "source_size": 3
+        },
+        {
+          "node_id": 819,
+          "name": "dinghymast08",
+          "parent_id": 811,
+          "source_index": 47333,
+          "source_size": 3
+        },
+        {
+          "node_id": 820,
+          "name": "dinghymast09",
+          "parent_id": 811,
+          "source_index": 47336,
+          "source_size": 3
+        },
+        {
+          "node_id": 821,
+          "name": "dinghymast10",
+          "parent_id": 811,
+          "source_index": 47339,
+          "source_size": 3
+        },
+        {
+          "node_id": 822,
+          "name": "dinghymast11",
+          "parent_id": 811,
+          "source_index": 47342,
+          "source_size": 3
+        },
+        {
+          "node_id": 1186,
+          "name": "DINGHYS_Trailers",
+          "parent_id": 867,
+          "source_index": null,
+          "source_size": null
+        }
+      ],
+      "coordinates": "GAME_SOURCE"
+    },
+    {
+      "path": "DataGx\\Course\\Italy_S1\\italy_s1.dx",
+      "sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+      "size": 10418531,
+      "txt_path": "DataGx\\Course\\Italy_S1\\Italy_S1.txt",
+      "txt_sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+      "position_array_offset": 16,
+      "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+      "draws": 867,
+      "vertices": 61463,
+      "triangles": 46367,
+      "coverage": "VALIDATED_COMPLETE_DISJOINT",
+      "txt_mesh_records": 1417,
+      "txt_named_nodes": 1463,
+      "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+      "txt_dinghy_leads": [],
+      "coordinates": "GAME_SOURCE"
+    }
+  ],
+  "original_file_checks": "PASS: fresh preflight and postflight identity of the canonical PS2 corpus and every inspected original PC source",
+  "postflight": {
+    "canonical_ps2": "Fresh four size/SHA matches",
+    "selected_pc_files": [
+      {
+        "path": "DataGx\\Course\\Turkey3\\turkey3.dx",
+        "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+        "size": 10055607,
+        "result": "PASS"
+      },
+      {
+        "path": "DataGx\\Course\\Turkey3\\turkey3.txt",
+        "sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+        "size": 177948,
+        "result": "PASS"
+      },
+      {
+        "path": "DataScene/RaceTest/Turkey3.xml",
+        "sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+        "size": 447575,
+        "result": "PASS"
+      },
+      {
+        "path": "DataGx\\Course\\France1\\france1.dx",
+        "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+        "size": 13489510,
+        "result": "PASS"
+      },
+      {
+        "path": "DataGx\\Course\\France1\\France1.txt",
+        "sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+        "size": 172020,
+        "result": "PASS"
+      },
+      {
+        "path": "DataScene/RaceTest/France1.xml",
+        "sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+        "size": 474787,
+        "result": "PASS"
+      },
+      {
+        "path": "DataGx\\Course\\Italy_S1\\italy_s1.dx",
+        "sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+        "size": 10418531,
+        "result": "PASS"
+      },
+      {
+        "path": "DataGx\\Course\\Italy_S1\\Italy_S1.txt",
+        "sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+        "size": 105265,
+        "result": "PASS"
+      },
+      {
+        "path": "DataScene/RaceTest/ItalyS1.xml",
+        "sha256": "009cec2b253e012fbd4c948b79dc6d8837943736e1ba6747b00a215611115e66",
+        "size": 505063,
+        "result": "PASS"
+      },
+      {
+        "path": "DataGx\\Vehicles\\Tata\\car.dx",
+        "sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+        "size": 126178,
+        "result": "PASS"
+      },
+      {
+        "path": "DataGx\\Vehicles\\KiaSportage\\car.dx",
+        "sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451",
+        "size": 141754,
+        "result": "PASS"
+      }
+    ],
+    "sdk_head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "sdk_status": "CLEAN_UNCHANGED",
+    "pc_renderer": "UNCHANGED_FROM_STARTING_HEAD"
+  }
+}

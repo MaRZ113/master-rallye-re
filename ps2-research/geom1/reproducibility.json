@@ -1,0 +1,17 @@
+[
+  {
+    "course": "TURKEY3",
+    "report_sha256": "0dc635d2e86c99603719b152f64c4fca528f33b8e1521c8dbed55c6461edd210",
+    "result": "BYTE_IDENTICAL"
+  },
+  {
+    "course": "FRANCE1",
+    "report_sha256": "4f7ed07951d55823d9589afb4a809e264cec104b41ccc94fd998e9c1bb60ec17",
+    "result": "BYTE_IDENTICAL"
+  },
+  {
+    "course": "ITALY_S1",
+    "report_sha256": "1d782f4b12fbd4238d8356b04625f69fa414ebe604e8787c3f5af3f1d0dde8f1",
+    "result": "BYTE_IDENTICAL"
+  }
+]

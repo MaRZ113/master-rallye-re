@@ -1,0 +1,823 @@
+{
+  "schema": 1,
+  "course": "FRANCE1",
+  "ps2_models": [
+    {
+      "source": {
+        "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\BLUEDINGHY.PSM",
+        "decoded_sha256": "c626258e7ac460002fef6c7c7c1247598ec1b6978169f371a074066bd79432cd",
+        "decoded_size": 3420,
+        "vertex_count": 60,
+        "visual_tree_start": 3152,
+        "visual_tree_end": 3416,
+        "terminator": 4294967295,
+        "node_counts": {
+          "1": 1,
+          "2": 2
+        },
+        "mesh_count": 2,
+        "triangle_records": 24,
+        "exclusions": {
+          "adc_suppressed": 28
+        },
+        "coordinates": "MODEL_LOCAL",
+        "strip_winding": "Ordered consecutive triples retained; rendered parity/culling UNKNOWN"
+      },
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\BLUEDINGHY.PSM",
+        "offset": 1210316868,
+        "stored_size": 1517,
+        "directory_size_0x08": 1517,
+        "unpacked_size": 3420,
+        "compression": "packfs_lzo",
+        "stored_sha256": "6fbfd663dd1fd5e1bc1d8811fb0e450713be5e94fae3408113a9ca8eceab0550",
+        "payload_sha256": "c626258e7ac460002fef6c7c7c1247598ec1b6978169f371a074066bd79432cd",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "shape": {
+        "triangles": 24,
+        "unique_positions": 22,
+        "bounds": {
+          "min": [
+            -1.301607370376587,
+            -0.35805851221084595,
+            -4.204062461853027
+          ],
+          "max": [
+            1.3015986680984497,
+            8.345678329467773,
+            4.0
+          ]
+        },
+        "source_axis_extents": [
+          2.6032060384750366,
+          8.70373684167862,
+          8.204062461853027
+        ],
+        "maximum_pair_distance": 9.137036454665894,
+        "area": 84.53686937947914
+      },
+      "components": [
+        {
+          "triangles": 10,
+          "unique_positions": 7,
+          "bounds": {
+            "min": [
+              -0.0850696936249733,
+              0.4225059151649475,
+              -0.049115054309368134
+            ],
+            "max": [
+              0.08506980538368225,
+              8.345678329467773,
+              0.09823008626699448
+            ]
+          },
+          "source_axis_extents": [
+            0.17013949900865555,
+            7.923172414302826,
+            0.1473451405763626
+          ],
+          "maximum_pair_distance": 7.924119715996076,
+          "area": 2.840705880974625
+        },
+        {
+          "triangles": 10,
+          "unique_positions": 7,
+          "bounds": {
+            "min": [
+              -1.301607370376587,
+              -0.35805851221084595,
+              -4.0
+            ],
+            "max": [
+              1.3015986680984497,
+              0.5355417728424072,
+              4.0
+            ]
+          },
+          "source_axis_extents": [
+            2.6032060384750366,
+            0.8936002850532532,
+            8.0
+          ],
+          "maximum_pair_distance": 8.051539612282493,
+          "area": 31.441973522007288
+        },
+        {
+          "triangles": 2,
+          "unique_positions": 4,
+          "bounds": {
+            "min": [
+              -0.000767042045481503,
+              0.5608958005905151,
+              0.04053991660475731
+            ],
+            "max": [
+              0.028706150129437447,
+              8.26860237121582,
+              3.963348627090454
+            ]
+          },
+          "source_axis_extents": [
+            0.02947319217491895,
+            7.707706570625305,
+            3.922808710485697
+          ],
+          "maximum_pair_distance": 8.648535642403457,
+          "area": 21.40226247914382
+        },
+        {
+          "triangles": 2,
+          "unique_positions": 4,
+          "bounds": {
+            "min": [
+              -0.0007670655031688511,
+              1.0052766799926758,
+              -4.204062461853027
+            ],
+            "max": [
+              0.02870623953640461,
+              8.299249649047852,
+              -0.051400963217020035
+            ]
+          },
+          "source_axis_extents": [
+            0.02947330503957346,
+            7.293972969055176,
+            4.152661498636007
+          ],
+          "maximum_pair_distance": 8.326752929317557,
+          "area": 28.851927497353415
+        }
+      ],
+      "position_sha256": "c60cf12c368cba6361d765af46da64c32cc58dbda345e96212ff8a3ed040dee9",
+      "labels": [
+        "PS2_STANDALONE_DYNAMIC_MODEL"
+      ],
+      "runtime_pose": "AMBIENT1 spline publication; not authored Row3"
+    },
+    {
+      "source": {
+        "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\REDDINGHY.PSM",
+        "decoded_sha256": "2ae06c53b3eb6f9991a37c54d093dd27425cfdbbc1dbea0f2620d0452b8d684f",
+        "decoded_size": 3420,
+        "vertex_count": 60,
+        "visual_tree_start": 3152,
+        "visual_tree_end": 3416,
+        "terminator": 4294967295,
+        "node_counts": {
+          "1": 1,
+          "2": 2
+        },
+        "mesh_count": 2,
+        "triangle_records": 24,
+        "exclusions": {
+          "adc_suppressed": 28
+        },
+        "coordinates": "MODEL_LOCAL",
+        "strip_winding": "Ordered consecutive triples retained; rendered parity/culling UNKNOWN"
+      },
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\REDDINGHY.PSM",
+        "offset": 1210318385,
+        "stored_size": 1515,
+        "directory_size_0x08": 1515,
+        "unpacked_size": 3420,
+        "compression": "packfs_lzo",
+        "stored_sha256": "469edb58bb026d879e8c372c67e28e221d3885e9fefffd04e630c300c63bad8d",
+        "payload_sha256": "2ae06c53b3eb6f9991a37c54d093dd27425cfdbbc1dbea0f2620d0452b8d684f",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "shape": {
+        "triangles": 24,
+        "unique_positions": 22,
+        "bounds": {
+          "min": [
+            -1.301607370376587,
+            -0.35805851221084595,
+            -4.204062461853027
+          ],
+          "max": [
+            1.3015986680984497,
+            8.345678329467773,
+            4.0
+          ]
+        },
+        "source_axis_extents": [
+          2.6032060384750366,
+          8.70373684167862,
+          8.204062461853027
+        ],
+        "maximum_pair_distance": 9.137036454665894,
+        "area": 84.53686937947914
+      },
+      "components": [
+        {
+          "triangles": 10,
+          "unique_positions": 7,
+          "bounds": {
+            "min": [
+              -0.0850696936249733,
+              0.4225059151649475,
+              -0.049115054309368134
+            ],
+            "max": [
+              0.08506980538368225,
+              8.345678329467773,
+              0.09823008626699448
+            ]
+          },
+          "source_axis_extents": [
+            0.17013949900865555,
+            7.923172414302826,
+            0.1473451405763626
+          ],
+          "maximum_pair_distance": 7.924119715996076,
+          "area": 2.840705880974625
+        },
+        {
+          "triangles": 10,
+          "unique_positions": 7,
+          "bounds": {
+            "min": [
+              -1.301607370376587,
+              -0.35805851221084595,
+              -4.0
+            ],
+            "max": [
+              1.3015986680984497,
+              0.5355417728424072,
+              4.0
+            ]
+          },
+          "source_axis_extents": [
+            2.6032060384750366,
+            0.8936002850532532,
+            8.0
+          ],
+          "maximum_pair_distance": 8.051539612282493,
+          "area": 31.441973522007288
+        },
+        {
+          "triangles": 2,
+          "unique_positions": 4,
+          "bounds": {
+            "min": [
+              -0.000767042045481503,
+              0.5608958005905151,
+              0.04053991660475731
+            ],
+            "max": [
+              0.028706150129437447,
+              8.26860237121582,
+              3.963348627090454
+            ]
+          },
+          "source_axis_extents": [
+            0.02947319217491895,
+            7.707706570625305,
+            3.922808710485697
+          ],
+          "maximum_pair_distance": 8.648535642403457,
+          "area": 21.40226247914382
+        },
+        {
+          "triangles": 2,
+          "unique_positions": 4,
+          "bounds": {
+            "min": [
+              -0.0007670655031688511,
+              1.0052766799926758,
+              -4.204062461853027
+            ],
+            "max": [
+              0.02870623953640461,
+              8.299249649047852,
+              -0.051400963217020035
+            ]
+          },
+          "source_axis_extents": [
+            0.02947330503957346,
+            7.293972969055176,
+            4.152661498636007
+          ],
+          "maximum_pair_distance": 8.326752929317557,
+          "area": 28.851927497353415
+        }
+      ],
+      "position_sha256": "c60cf12c368cba6361d765af46da64c32cc58dbda345e96212ff8a3ed040dee9",
+      "labels": [
+        "PS2_STANDALONE_DYNAMIC_MODEL"
+      ],
+      "runtime_pose": "AMBIENT1 spline publication; not authored Row3"
+    }
+  ],
+  "ps2_authored_references": [
+    {
+      "list": "IConManager",
+      "egg": "boat1",
+      "model": "misc\\objects\\dinghys\\reddinghy",
+      "authored_visible": true,
+      "owners": [
+        "gaEntitySpline"
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matrix_sha256": "eba91ea447c2a18c1510229bb460a99bcd030ed6bde4091c466992e0dbafb3d1",
+      "properties": {
+        "Use en2d": "False",
+        "Freezable": "True",
+        "Hitable": "True",
+        "Draw Priority": "3",
+        "Tick Priority": "3",
+        "Egg Group": "0",
+        "en3d Model Name": "misc\\objects\\dinghys\\reddinghy",
+        "en3d Draw 2D": "False",
+        "en3d Interpolated": "True",
+        "en3d Visible": "True",
+        "en3d ZBuffered": "True",
+        "en2d Model Name": "Null",
+        "en2d FileType": "0",
+        "en2d Image Bank Index": "0",
+        "en2d Draw 2D": "False",
+        "en2d Interpolated": "True",
+        "en2d Visible": "True",
+        "en2d ZBuffered": "True",
+        "en2d 2dGlobal": "False"
+      },
+      "parameters": [
+        {
+          "owner": "gaEntitySpline",
+          "component": "gaEntitySpline",
+          "values": [
+            {
+              "name": "MarkerList Name",
+              "value": "boatlist1"
+            },
+            {
+              "name": "Use Const Speed",
+              "value": "True"
+            },
+            {
+              "name": "Use Closed Loop",
+              "value": "True"
+            },
+            {
+              "name": "Use Trigger System",
+              "value": "False"
+            },
+            {
+              "name": "Max Speed/Const Speed",
+              "value": "2.50000"
+            },
+            {
+              "name": "Trigger Dist On",
+              "value": "200.00000"
+            },
+            {
+              "name": "Trigger Dist Off",
+              "value": "600.00000"
+            },
+            {
+              "name": "Use Rest On NonLoop",
+              "value": "True"
+            },
+            {
+              "name": "Rest Time (sec)",
+              "value": "300"
+            },
+            {
+              "name": "Banking",
+              "value": "0.00000"
+            },
+            {
+              "name": "Number Of Samples",
+              "value": "30"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "list": "IConManager",
+      "egg": "boat2",
+      "model": "misc\\objects\\dinghys\\bluedinghy",
+      "authored_visible": true,
+      "owners": [
+        "gaEntitySpline"
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matrix_sha256": "eba91ea447c2a18c1510229bb460a99bcd030ed6bde4091c466992e0dbafb3d1",
+      "properties": {
+        "Use en2d": "False",
+        "Freezable": "True",
+        "Hitable": "True",
+        "Draw Priority": "3",
+        "Tick Priority": "3",
+        "Egg Group": "0",
+        "en3d Model Name": "misc\\objects\\dinghys\\bluedinghy",
+        "en3d Draw 2D": "False",
+        "en3d Interpolated": "True",
+        "en3d Visible": "True",
+        "en3d ZBuffered": "True",
+        "en2d Model Name": "Null",
+        "en2d FileType": "0",
+        "en2d Image Bank Index": "0",
+        "en2d Draw 2D": "False",
+        "en2d Interpolated": "True",
+        "en2d Visible": "True",
+        "en2d ZBuffered": "True",
+        "en2d 2dGlobal": "False"
+      },
+      "parameters": [
+        {
+          "owner": "gaEntitySpline",
+          "component": "gaEntitySpline",
+          "values": [
+            {
+              "name": "MarkerList Name",
+              "value": "boatlist2"
+            },
+            {
+              "name": "Use Const Speed",
+              "value": "True"
+            },
+            {
+              "name": "Use Closed Loop",
+              "value": "True"
+            },
+            {
+              "name": "Use Trigger System",
+              "value": "False"
+            },
+            {
+              "name": "Max Speed/Const Speed",
+              "value": "2.70000"
+            },
+            {
+              "name": "Trigger Dist On",
+              "value": "200.00000"
+            },
+            {
+              "name": "Trigger Dist Off",
+              "value": "600.00000"
+            },
+            {
+              "name": "Use Rest On NonLoop",
+              "value": "False"
+            },
+            {
+              "name": "Rest Time (sec)",
+              "value": "0"
+            },
+            {
+              "name": "Banking",
+              "value": "0.00000"
+            },
+            {
+              "name": "Number Of Samples",
+              "value": "30"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pc_source": {
+    "path": "DataGx\\Course\\France1\\france1.dx",
+    "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+    "size": 13489510,
+    "txt_path": "DataGx\\Course\\France1\\France1.txt",
+    "txt_sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+    "position_array_offset": 16,
+    "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+    "draws": 995,
+    "vertices": 65206,
+    "triangles": 64577,
+    "coverage": "VALIDATED_COMPLETE_DISJOINT",
+    "txt_mesh_records": 2527,
+    "txt_named_nodes": 2568,
+    "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+    "txt_dinghy_leads": [
+      {
+        "node_id": 799,
+        "name": "DINGHYS",
+        "parent_id": 751,
+        "source_index": null,
+        "source_size": null
+      },
+      {
+        "node_id": 800,
+        "name": "dinghy01",
+        "parent_id": 799,
+        "source_index": 47180,
+        "source_size": 12
+      },
+      {
+        "node_id": 801,
+        "name": "dinghy02",
+        "parent_id": 799,
+        "source_index": 47192,
+        "source_size": 12
+      },
+      {
+        "node_id": 802,
+        "name": "dinghy03",
+        "parent_id": 799,
+        "source_index": 47204,
+        "source_size": 12
+      },
+      {
+        "node_id": 803,
+        "name": "dinghy04",
+        "parent_id": 799,
+        "source_index": 47216,
+        "source_size": 12
+      },
+      {
+        "node_id": 804,
+        "name": "dinghy05",
+        "parent_id": 799,
+        "source_index": 47228,
+        "source_size": 12
+      },
+      {
+        "node_id": 805,
+        "name": "dinghy06",
+        "parent_id": 799,
+        "source_index": 47240,
+        "source_size": 12
+      },
+      {
+        "node_id": 806,
+        "name": "dinghy07",
+        "parent_id": 799,
+        "source_index": 47252,
+        "source_size": 12
+      },
+      {
+        "node_id": 807,
+        "name": "dinghy08",
+        "parent_id": 799,
+        "source_index": 47264,
+        "source_size": 12
+      },
+      {
+        "node_id": 808,
+        "name": "dinghy09",
+        "parent_id": 799,
+        "source_index": 47276,
+        "source_size": 12
+      },
+      {
+        "node_id": 809,
+        "name": "dinghy10",
+        "parent_id": 799,
+        "source_index": 47288,
+        "source_size": 12
+      },
+      {
+        "node_id": 810,
+        "name": "dinghy11",
+        "parent_id": 799,
+        "source_index": 47300,
+        "source_size": 12
+      },
+      {
+        "node_id": 811,
+        "name": "DINGHYS_Masts",
+        "parent_id": 751,
+        "source_index": null,
+        "source_size": null
+      },
+      {
+        "node_id": 812,
+        "name": "dinghymast01",
+        "parent_id": 811,
+        "source_index": 47312,
+        "source_size": 3
+      },
+      {
+        "node_id": 813,
+        "name": "dinghymast02",
+        "parent_id": 811,
+        "source_index": 47315,
+        "source_size": 3
+      },
+      {
+        "node_id": 814,
+        "name": "dinghymast03",
+        "parent_id": 811,
+        "source_index": 47318,
+        "source_size": 3
+      },
+      {
+        "node_id": 815,
+        "name": "dinghymast04",
+        "parent_id": 811,
+        "source_index": 47321,
+        "source_size": 3
+      },
+      {
+        "node_id": 816,
+        "name": "dinghymast05",
+        "parent_id": 811,
+        "source_index": 47324,
+        "source_size": 3
+      },
+      {
+        "node_id": 817,
+        "name": "dinghymast06",
+        "parent_id": 811,
+        "source_index": 47327,
+        "source_size": 3
+      },
+      {
+        "node_id": 818,
+        "name": "dinghymast07",
+        "parent_id": 811,
+        "source_index": 47330,
+        "source_size": 3
+      },
+      {
+        "node_id": 819,
+        "name": "dinghymast08",
+        "parent_id": 811,
+        "source_index": 47333,
+        "source_size": 3
+      },
+      {
+        "node_id": 820,
+        "name": "dinghymast09",
+        "parent_id": 811,
+        "source_index": 47336,
+        "source_size": 3
+      },
+      {
+        "node_id": 821,
+        "name": "dinghymast10",
+        "parent_id": 811,
+        "source_index": 47339,
+        "source_size": 3
+      },
+      {
+        "node_id": 822,
+        "name": "dinghymast11",
+        "parent_id": 811,
+        "source_index": 47342,
+        "source_size": 3
+      },
+      {
+        "node_id": 1186,
+        "name": "DINGHYS_Trailers",
+        "parent_id": 867,
+        "source_index": null,
+        "source_size": null
+      }
+    ],
+    "coordinates": "GAME_SOURCE"
+  },
+  "pc_candidate_triangles": 261,
+  "pc_compiled_draws": [
+    897,
+    904
+  ],
+  "pc_edge_components": [
+    {
+      "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:0",
+      "draws": [
+        897
+      ],
+      "triangles": 12,
+      "unique_positions": 8,
+      "bounds": {
+        "min": [
+          -2459.203125,
+          -17.421545028686523,
+          762.8388061523438
+        ],
+        "max": [
+          -2454.226318359375,
+          -16.527944564819336,
+          770.3309326171875
+        ]
+      },
+      "source_axis_extents": [
+        4.976806640625,
+        0.8936004638671875,
+        7.49212646484375
+      ],
+      "maximum_pair_distance": 8.079397158219269,
+      "area": 36.4174997107374
+    },
+    {
+      "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:108",
+      "draws": [
+        897
+      ],
+      "triangles": 12,
+      "unique_positions": 8,
+      "bounds": {
+        "min": [
+          -2509.04443359375,
+          -23.230266571044922,
+          863.3400268554688
+        ],
+        "max": [
+          -2505.123779296875,
+          -22.113265991210938,
+          873.437255859375
+        ]
+      },
+      "source_axis_extents": [
+        3.920654296875,
+        1.1170005798339844,
+        10.09722900390625
+      ],
+      "maximum_pair_distance": 10.099115855934826,
+      "area": 56.89968834944845
+    },
+    {
+      "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:12",
+      "draws": [
+        897
+      ],
+      "triangles": 12,
+      "unique_positions": 8,
+      "bounds": {
+        "min": [
+          -2455.20263671875,
+          -17.453811645507812,
+          767.49658203125
+        ],
+        "max": [
+          -2449.690185546875,
+          -16.560211181640625,
+          774.6967163085938
+        ]
+      },
+      "source_axis_extents": [
+        5.512451171875,
+        0.8936004638671875,
+        7.20013427734375
+      ],
+      "maximum_pair_distance": 8.079302424947,
+      "area": 36.415852862631425
+    },
+    {
+      "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:120",
+      "draws": [
+        897
+      ],
+      "triangles": 12,
+      "unique_positions": 8,
+      "bounds": {
+        "min": [
+          -2464.706787109375,
+          -17.468685150146484,
+          762.033203125
+        ],
+        "max": [
+          -2461.706787109375,
+          -16.575084686279297,
+          770.033203125
+        ]
+      },
+      "source_axis_extents": [
+        3.0,
+        0.8936004638671875,
+        8.0
+      ],
+      "maximum_pair_distance": 8.079339410685659,
+      "area": 36.41734555373155
+    }
+  ],
+  "component_method": "Complete edges, decimal coordinate rounding 1e-4; NOT boat instance count",
+  "labels": [
+    "PS2_STANDALONE_DYNAMIC_MODEL",
+    "PC_BAKED_STATIC_GEOMETRY",
+    "PLACEMENT_CORRESPONDENCE_UNKNOWN",
+    "GEOMETRY_DIFFERENT"
+  ],
+  "geometry_shape_relation": "GEOMETRY_DIFFERENT: bounded unit-scale invariant; compatible boat family, exact hull/instance mapping UNKNOWN",
+  "duplication_risk": "Existing compiled dinghy geometry is a replace/hide candidate only after instance correspondence",
+  "txt_link": "Literal hull/mast names are source metadata; no direct TXT Index to DX face mapping assumed",
+  "runtime_validation": "NOT_PERFORMED",
+  "unit_scale_negative_proof": {
+    "ps2_model_maximum_pair_distance": 9.137036454665894,
+    "pc_component_maximum_pair_distance": 13.545417327841237,
+    "conclusion": "Selected PC component has longer point separation than the entire PS2 model; identical unit-scale rigid geometry is impossible for that component. No scaling or placement fit attempted."
+  },
+  "pc_component_count": 31,
+  "component_selection": "First four stable components only; full 31-component diagnostic is ignored"
+}

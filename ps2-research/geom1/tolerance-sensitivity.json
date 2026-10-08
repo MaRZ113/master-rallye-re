@@ -1,0 +1,178 @@
+[
+  {
+    "course": "TURKEY3",
+    "profile": "strict",
+    "ps2": {
+      "DIAGNOSTIC_DEGENERATE": 4,
+      "EXACT_TRIANGLE_MATCH": 28119,
+      "GEOMETRY_MODIFIED": 4627,
+      "PARTIAL_SURFACE_OVERLAP": 2478,
+      "PS2_EXTRA_VISUAL_SOURCE": 4793,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 811
+    },
+    "pc": {
+      "DIAGNOSTIC_DEGENERATE": 1,
+      "EXACT_TRIANGLE_MATCH": 29698,
+      "GEOMETRY_MODIFIED": 6583,
+      "PARTIAL_SURFACE_OVERLAP": 3613,
+      "PC_EXTRA_COMPILED_DRAW": 1131,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 1211
+    },
+    "water": {
+      "PS2_EXTRA_VISUAL_SOURCE": 745
+    },
+    "thresholds": {
+      "vertex": 0.0001,
+      "plane": 0.0001,
+      "normal": 0.99999,
+      "coverage": 0.99999,
+      "near": 0.1
+    },
+    "seconds": 13.558622299926355
+  },
+  {
+    "course": "TURKEY3",
+    "profile": "relaxed",
+    "ps2": {
+      "DIAGNOSTIC_DEGENERATE": 4,
+      "EXACT_TRIANGLE_MATCH": 36133,
+      "GEOMETRY_MODIFIED": 351,
+      "PARTIAL_SURFACE_OVERLAP": 14,
+      "PS2_EXTRA_VISUAL_SOURCE": 4324,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 6
+    },
+    "pc": {
+      "DIAGNOSTIC_DEGENERATE": 1,
+      "EXACT_TRIANGLE_MATCH": 41171,
+      "GEOMETRY_MODIFIED": 180,
+      "PARTIAL_SURFACE_OVERLAP": 24,
+      "PC_EXTRA_COMPILED_DRAW": 840,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 21
+    },
+    "water": {
+      "GEOMETRY_MODIFIED": 238,
+      "PS2_EXTRA_VISUAL_SOURCE": 507
+    },
+    "thresholds": {
+      "vertex": 0.01,
+      "plane": 0.01,
+      "normal": 0.9999,
+      "coverage": 0.9999,
+      "near": 1.0
+    },
+    "seconds": 13.827524100081064
+  },
+  {
+    "course": "FRANCE1",
+    "profile": "strict",
+    "ps2": {
+      "EXACT_TRIANGLE_MATCH": 35672,
+      "GEOMETRY_MODIFIED": 1293,
+      "PARTIAL_SURFACE_OVERLAP": 3384,
+      "PS2_EXTRA_VISUAL_SOURCE": 246,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 1222
+    },
+    "pc": {
+      "EXACT_TRIANGLE_MATCH": 53403,
+      "GEOMETRY_MODIFIED": 2818,
+      "PARTIAL_SURFACE_OVERLAP": 4573,
+      "PC_EXTRA_COMPILED_DRAW": 2039,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 1744
+    },
+    "water": {
+      "EXACT_TRIANGLE_MATCH": 3586
+    },
+    "thresholds": {
+      "vertex": 0.0001,
+      "plane": 0.0001,
+      "normal": 0.99999,
+      "coverage": 0.99999,
+      "near": 0.1
+    },
+    "seconds": 11.023342800093815
+  },
+  {
+    "course": "FRANCE1",
+    "profile": "relaxed",
+    "ps2": {
+      "EXACT_TRIANGLE_MATCH": 41783,
+      "GEOMETRY_MODIFIED": 2,
+      "PS2_EXTRA_VISUAL_SOURCE": 28,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 4
+    },
+    "pc": {
+      "EXACT_TRIANGLE_MATCH": 60436,
+      "GEOMETRY_MODIFIED": 3,
+      "PARTIAL_SURFACE_OVERLAP": 1648,
+      "PC_EXTRA_COMPILED_DRAW": 1820,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 670
+    },
+    "water": {
+      "EXACT_TRIANGLE_MATCH": 3586
+    },
+    "thresholds": {
+      "vertex": 0.01,
+      "plane": 0.01,
+      "normal": 0.9999,
+      "coverage": 0.9999,
+      "near": 1.0
+    },
+    "seconds": 13.635295199928805
+  },
+  {
+    "course": "ITALY_S1",
+    "profile": "strict",
+    "ps2": {
+      "EXACT_TRIANGLE_MATCH": 38462,
+      "GEOMETRY_MODIFIED": 572,
+      "PARTIAL_SURFACE_OVERLAP": 413,
+      "PS2_EXTRA_VISUAL_SOURCE": 802,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 230
+    },
+    "pc": {
+      "EXACT_TRIANGLE_MATCH": 43201,
+      "GEOMETRY_MODIFIED": 653,
+      "PARTIAL_SURFACE_OVERLAP": 450,
+      "PC_EXTRA_COMPILED_DRAW": 1794,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 269
+    },
+    "water": {
+      "EXACT_TRIANGLE_MATCH": 1329
+    },
+    "thresholds": {
+      "vertex": 0.0001,
+      "plane": 0.0001,
+      "normal": 0.99999,
+      "coverage": 0.99999,
+      "near": 0.1
+    },
+    "seconds": 7.139297500019893
+  },
+  {
+    "course": "ITALY_S1",
+    "profile": "relaxed",
+    "ps2": {
+      "EXACT_TRIANGLE_MATCH": 39825,
+      "GEOMETRY_MODIFIED": 12,
+      "PS2_EXTRA_VISUAL_SOURCE": 640,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 2
+    },
+    "pc": {
+      "EXACT_TRIANGLE_MATCH": 44721,
+      "GEOMETRY_MODIFIED": 9,
+      "PC_EXTRA_COMPILED_DRAW": 1635,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 2
+    },
+    "water": {
+      "EXACT_TRIANGLE_MATCH": 1329
+    },
+    "thresholds": {
+      "vertex": 0.01,
+      "plane": 0.01,
+      "normal": 0.9999,
+      "coverage": 0.9999,
+      "near": 1.0
+    },
+    "seconds": 14.20272390008904
+  }
+]

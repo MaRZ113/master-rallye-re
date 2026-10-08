@@ -1,0 +1,155 @@
+[
+  {
+    "course": "TURKEY3",
+    "node_offset": 3429766,
+    "profile": "strict",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 139
+    }
+  },
+  {
+    "course": "TURKEY3",
+    "node_offset": 3583641,
+    "profile": "strict",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 113
+    }
+  },
+  {
+    "course": "TURKEY3",
+    "node_offset": 3620664,
+    "profile": "strict",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 256
+    }
+  },
+  {
+    "course": "TURKEY3",
+    "node_offset": 3429766,
+    "profile": "baseline",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 139
+    }
+  },
+  {
+    "course": "TURKEY3",
+    "node_offset": 3583641,
+    "profile": "baseline",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 113
+    }
+  },
+  {
+    "course": "TURKEY3",
+    "node_offset": 3620664,
+    "profile": "baseline",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 256
+    }
+  },
+  {
+    "course": "TURKEY3",
+    "node_offset": 3429766,
+    "profile": "relaxed",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 139
+    }
+  },
+  {
+    "course": "TURKEY3",
+    "node_offset": 3583641,
+    "profile": "relaxed",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 113
+    }
+  },
+  {
+    "course": "TURKEY3",
+    "node_offset": 3620664,
+    "profile": "relaxed",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 256
+    }
+  },
+  {
+    "course": "FRANCE1",
+    "node_offset": 3550808,
+    "profile": "strict",
+    "relations": {
+      "EXACT_TRIANGLE_MATCH": 62,
+      "GEOMETRY_MODIFIED": 3,
+      "PARTIAL_SURFACE_OVERLAP": 9,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 6
+    }
+  },
+  {
+    "course": "FRANCE1",
+    "node_offset": 3564909,
+    "profile": "strict",
+    "relations": {
+      "EXACT_TRIANGLE_MATCH": 226,
+      "GEOMETRY_MODIFIED": 30,
+      "PS2_EXTRA_VISUAL_SOURCE": 128
+    }
+  },
+  {
+    "course": "FRANCE1",
+    "node_offset": 3550808,
+    "profile": "baseline",
+    "relations": {
+      "EXACT_TRIANGLE_MATCH": 62,
+      "PARTIAL_SURFACE_OVERLAP": 8,
+      "SAME_SURFACE_DIFFERENT_TRIANGULATION": 10
+    }
+  },
+  {
+    "course": "FRANCE1",
+    "node_offset": 3564909,
+    "profile": "baseline",
+    "relations": {
+      "EXACT_TRIANGLE_MATCH": 310,
+      "GEOMETRY_MODIFIED": 27,
+      "PS2_EXTRA_VISUAL_SOURCE": 47
+    }
+  },
+  {
+    "course": "FRANCE1",
+    "node_offset": 3550808,
+    "profile": "relaxed",
+    "relations": {
+      "EXACT_TRIANGLE_MATCH": 80
+    }
+  },
+  {
+    "course": "FRANCE1",
+    "node_offset": 3564909,
+    "profile": "relaxed",
+    "relations": {
+      "EXACT_TRIANGLE_MATCH": 384
+    }
+  },
+  {
+    "course": "ITALY_S1",
+    "node_offset": 3706566,
+    "profile": "strict",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 64
+    }
+  },
+  {
+    "course": "ITALY_S1",
+    "node_offset": 3706566,
+    "profile": "baseline",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 64
+    }
+  },
+  {
+    "course": "ITALY_S1",
+    "node_offset": 3706566,
+    "profile": "relaxed",
+    "relations": {
+      "PS2_EXTRA_VISUAL_SOURCE": 64
+    }
+  }
+]

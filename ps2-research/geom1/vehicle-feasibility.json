@@ -1,0 +1,205 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "model": "TATA",
+      "ps2": {
+        "path": "\\TNG\\DATAPSM\\VEHICLES\\TATA\\CAR.PSM",
+        "offset": 1217242555,
+        "stored_size": 103131,
+        "directory_size_0x08": 103131,
+        "unpacked_size": 180332,
+        "compression": "packfs_lzo",
+        "stored_sha256": "755f913c3914eae4909ef8295f4e335bba7bef3a60aaca6171260c926ad04511",
+        "payload_sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "pc_path": "DataGx\\Vehicles\\Tata\\car.dx",
+      "pc_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+      "ps2_source_faces": 2016,
+      "pc_draw_records": 39,
+      "pc_source_faces": 2022,
+      "ps2_bounds": {
+        "min": [
+          -1.0229995250701904,
+          -0.0041725304909050465,
+          -2.6176061630249023
+        ],
+        "max": [
+          1.0811736583709717,
+          1.6497410535812378,
+          2.2244865894317627
+        ]
+      },
+      "pc_bounds": {
+        "min": [
+          -1.0229995250701904,
+          -0.0041725849732756615,
+          -2.6176061630249023
+        ],
+        "max": [
+          1.0811736583709717,
+          1.6497411727905273,
+          2.2244865894317627
+        ]
+      },
+      "identity_diagnostic": {
+        "tolerance": 0.001,
+        "triangle_matches": 1442,
+        "triangles": 2016,
+        "matched_pc_draws": {
+          "0": 104,
+          "1": 102,
+          "2": 28,
+          "3": 8,
+          "4": 72,
+          "5": 54,
+          "6": 12,
+          "7": 42,
+          "8": 196,
+          "9": 258,
+          "10": 54,
+          "11": 26,
+          "12": 110,
+          "13": 39,
+          "14": 40,
+          "15": 20,
+          "16": 68,
+          "17": 6,
+          "18": 6,
+          "19": 55,
+          "20": 33,
+          "21": 30,
+          "22": 11,
+          "28": 10,
+          "29": 4,
+          "30": 20,
+          "32": 10,
+          "33": 8,
+          "35": 8,
+          "37": 8
+        },
+        "maximum_corner_error": 0.0002741217613220215,
+        "water_vertices_matching_pc": 739,
+        "water_vertices": 1053,
+        "all_source_coordinate_positions_matching_pc": 739,
+        "all_source_coordinate_positions": 1053,
+        "coordinate_transform": "IDENTITY; independently checked through ordinary course vertices",
+        "centroid_height": {
+          "performed": false,
+          "hits": 0,
+          "missing": 0,
+          "coplanar_with_any_pc_triangle": 0,
+          "min_signed_nearest": null,
+          "max_signed_nearest": null,
+          "min_abs_nearest": null,
+          "max_abs_nearest": null,
+          "above_pc": 0,
+          "below_pc": 0
+        },
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_visibility": "UNKNOWN"
+      },
+      "scope": "CAR.PSM decoded alternatives versus car.dx only; wheel.dx/complete.dx excluded; no LOD/world-pose parity claim"
+    },
+    {
+      "model": "KIASPORTAGE",
+      "ps2": {
+        "path": "\\TNG\\DATAPSM\\VEHICLES\\KIASPORTAGE\\CAR.PSM",
+        "offset": 1213713197,
+        "stored_size": 107814,
+        "directory_size_0x08": 107814,
+        "unpacked_size": 194660,
+        "compression": "packfs_lzo",
+        "stored_sha256": "3bae8818936a95b1407341da79e9bb602ebcb599312e75e25a6fa6d35bea77c6",
+        "payload_sha256": "b4afabfab7437eae01ee72ca424beb90967c7b849cebdb9cf94e104560be33ce",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "pc_path": "DataGx\\Vehicles\\KiaSportage\\car.dx",
+      "pc_sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451",
+      "ps2_source_faces": 2289,
+      "pc_draw_records": 35,
+      "pc_source_faces": 2323,
+      "ps2_bounds": {
+        "min": [
+          -1.1127009391784668,
+          -0.12291670590639114,
+          -2.3688197135925293
+        ],
+        "max": [
+          1.113851547241211,
+          1.6352051496505737,
+          2.2468490600585938
+        ]
+      },
+      "pc_bounds": {
+        "min": [
+          -1.1127009391784668,
+          -0.12291663140058517,
+          -2.3688197135925293
+        ],
+        "max": [
+          1.113851547241211,
+          1.6352051496505737,
+          2.2468490600585938
+        ]
+      },
+      "identity_diagnostic": {
+        "tolerance": 0.001,
+        "triangle_matches": 1739,
+        "triangles": 2289,
+        "matched_pc_draws": {
+          "0": 322,
+          "1": 35,
+          "2": 8,
+          "3": 44,
+          "6": 50,
+          "10": 48,
+          "11": 16,
+          "12": 100,
+          "13": 442,
+          "14": 206,
+          "15": 14,
+          "16": 36,
+          "17": 22,
+          "18": 159,
+          "19": 1,
+          "20": 31,
+          "21": 36,
+          "22": 18,
+          "23": 16,
+          "24": 8,
+          "25": 35,
+          "26": 8,
+          "28": 20,
+          "30": 24,
+          "32": 32,
+          "33": 8
+        },
+        "maximum_corner_error": 0.0007356759160757065,
+        "water_vertices_matching_pc": 898,
+        "water_vertices": 1201,
+        "all_source_coordinate_positions_matching_pc": 898,
+        "all_source_coordinate_positions": 1201,
+        "coordinate_transform": "IDENTITY; independently checked through ordinary course vertices",
+        "centroid_height": {
+          "performed": false,
+          "hits": 0,
+          "missing": 0,
+          "coplanar_with_any_pc_triangle": 0,
+          "min_signed_nearest": null,
+          "max_signed_nearest": null,
+          "min_abs_nearest": null,
+          "max_abs_nearest": null,
+          "above_pc": 0,
+          "below_pc": 0
+        },
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_visibility": "UNKNOWN"
+      },
+      "scope": "CAR.PSM decoded alternatives versus car.dx only; wheel.dx/complete.dx excluded; no LOD/world-pose parity claim"
+    }
+  ]
+}

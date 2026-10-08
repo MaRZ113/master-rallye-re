@@ -27,14 +27,15 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def metadata():
+def metadata(files=None, readme=None, phase='PS2-REFL1'):
     head = subprocess.check_output(['git', '-c', 'safe.directory='+REPO.as_posix(),
                                     'rev-parse', 'HEAD'], cwd=REPO, text=True).strip()
     rows = [{'path': path.relative_to(REPO).as_posix(), 'size': path.stat().st_size,
-             'sha256': digest(path.read_bytes())} for path in selected_files()]
-    readme = (ROOT/'refl1'/'HANDOFF.md').read_bytes()
+             'sha256': digest(path.read_bytes())} for path in (selected_files() if files is None else files)]
+    if readme is None:
+        readme = (ROOT/'refl1'/'HANDOFF.md').read_bytes()
     rows.append({'path': 'HANDOFF.md', 'size': len(readme), 'sha256': digest(readme)})
-    return {'schema': 1, 'phase': 'PS2-REFL1', 'source_commit': head,
+    return {'schema': 1, 'phase': phase, 'source_commit': head,
             'manifest_self_hash': 'Covered by external ZIP receipt, no recursive self-entry',
             'external_inputs': {'PS2': 'D:/Game/Master Rallye PS2',
                 'PC': 'D:/Game/Master Rallye/corpora/retail/Data.sma_unpacked',
@@ -47,6 +48,31 @@ def destination(path):
     result = path.resolve()
     if not result.is_relative_to(SCRATCH.resolve()) or result.exists():
         raise ValueError('New output must stay in ignored data/refl1/')
+    return result
+
+
+def write_archive(target, files, manifest, readme, receipt):
+    """Shared archive/CRC/SHA writer; callers enforce their phase output root."""
+    if receipt.exists():
+        raise ValueError('Existing receipt preserved; select a new output directory')
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(target, 'x', zipfile.ZIP_DEFLATED, compresslevel=9) as bundle:
+        for path in files:
+            bundle.write(path, path.relative_to(REPO).as_posix())
+        bundle.writestr('MANIFEST.json', json.dumps(manifest, indent=2)+'\n')
+        bundle.writestr('HANDOFF.md', readme)
+    with zipfile.ZipFile(target) as bundle:
+        if bundle.testzip() is not None:
+            raise ValueError('ZIP CRC failure')
+        for row in manifest['files']:
+            data = bundle.read(row['path'])
+            if digest(data) != row['sha256'] or len(data) != row['size']:
+                raise ValueError('Bundle SHA/size mismatch: '+row['path'])
+    result = {'archive': str(target), 'size': target.stat().st_size,
+              'sha256': digest(target.read_bytes()), 'source_commit': manifest['source_commit'],
+              'payloads': len(manifest['files']), 'integrity': 'PASS', 'proprietary_assets': 'EXCLUDED'}
+    with receipt.open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write(json.dumps(result, indent=2)+'\n')
     return result
 
 
@@ -72,26 +98,7 @@ def main():
         print(target)
     if args.archive:
         target = destination(args.archive)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with zipfile.ZipFile(target, 'x', zipfile.ZIP_DEFLATED, compresslevel=9) as bundle:
-            for path in selected_files():
-                bundle.write(path, path.relative_to(REPO).as_posix())
-            bundle.writestr('MANIFEST.json', text)
-            bundle.writestr('HANDOFF.md', readme)
-        with zipfile.ZipFile(target) as bundle:
-            if bundle.testzip() is not None:
-                raise ValueError('ZIP CRC failure')
-            for row in manifest['files']:
-                data = bundle.read(row['path'])
-                if digest(data) != row['sha256'] or len(data) != row['size']:
-                    raise ValueError('Bundle SHA/size mismatch: '+row['path'])
-        result = {'archive': str(target), 'size': target.stat().st_size,
-                  'sha256': digest(target.read_bytes()), 'source_commit': manifest['source_commit'],
-                  'payloads': len(manifest['files']), 'integrity': 'PASS', 'proprietary_assets': 'EXCLUDED'}
-        receipt = SCRATCH/'ZIP_SHA256.json'
-        if receipt.exists():
-            raise ValueError('Archive created/verified; existing receipt preserved, select a new scratch directory')
-        receipt.write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8', newline='\n')
+        result = write_archive(target, selected_files(), manifest, readme, SCRATCH/'ZIP_SHA256.json')
         print(json.dumps(result))
 
 

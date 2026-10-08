@@ -115,3 +115,13 @@ math and separate GS blend contracts. Static RE is complete within the documente
 input/state boundaries; live VU and frame validation is not performed.
 [reflection_runtime.py](tools/reflection_runtime.py) provides explicit-state
 diagnostics in ignored data/refl1. No PC effect or vehicle/SDK change is included.
+
+The [GEOM1 geometry bridge](geom1/final-report.md) compares complete supported
+Turkey3, France1 and ItalyS1 visual PSM inventories with compiled retail DX,
+separating exact triangles, surface coverage and material relationships. It
+reproduces WATER1 anchors, adds ordinary ground/foliage evidence and a bounded
+standalone-versus-baked dinghy study. [geometry_delta.py](tools/geometry_delta.py)
+and its SVG helper keep rich source diagnostics in ignored data/geom1. The
+[handoff instructions](geom1/HANDOFF.md) explain isolated tests and external
+inputs. Static comparison is complete within the selected grammar; live LOD,
+instance correspondence and runtime presentation remain separately qualified.
