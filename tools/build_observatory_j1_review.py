@@ -15,23 +15,30 @@ REPO = Path(__file__).resolve().parents[1]
 RESEARCH = "research/general-re/observatory-j1-live-memory"
 OUTPUT_ROOT = REPO / ".research-output/observatory-j1-live-memory"
 FILES = {
-    "README.md": f"{RESEARCH}/README.md",
-    "findings.md": f"{RESEARCH}/findings.md",
-    "human-runtime-handoff.md": f"{RESEARCH}/human-runtime-handoff.md",
-    "validation.md": f"{RESEARCH}/validation.md",
-    "exact-build-compatibility-report.json": f"{RESEARCH}/exact-build-compatibility-report.json",
-    "reference-fingerprints.json": f"{RESEARCH}/reference-fingerprints.json",
-    "test-report.txt": f"{RESEARCH}/test-report.txt",
-    "observatory_compatibility.py": "tools/runtime/observatory_compatibility.py",
-    "broker_observatory.py": "tools/runtime/broker_observatory.py",
-    "mr_observe.py": "tools/runtime/mr_observe.py",
-    "observatory_profile_resolver.py": "tools/runtime/observatory_profile_resolver.py",
-    "broker-families.json": "tools/runtime/data/broker-families.json",
-    "observatory_live_memory_test.py": "tests/synthetic/test_observatory_live_memory.py",
-    "observatory_live_memory_fixture.json": "tests/synthetic/fixtures/observatory_j1_native_dump_memory.json",
-    "observatory_compatibility_test.py": "tests/synthetic/test_observatory_compatibility.py",
-    "observatory_release_notes.md": "docs/releases/observatory-0.2.2-beta.md",
-    "review_archive_builder.py": "tools/build_observatory_j1_review.py",
+    f"{RESEARCH}/README.md": f"{RESEARCH}/README.md",
+    f"{RESEARCH}/findings.md": f"{RESEARCH}/findings.md",
+    f"{RESEARCH}/human-runtime-handoff.md": f"{RESEARCH}/human-runtime-handoff.md",
+    f"{RESEARCH}/validation.md": f"{RESEARCH}/validation.md",
+    f"{RESEARCH}/exact-build-compatibility-report.json": f"{RESEARCH}/exact-build-compatibility-report.json",
+    f"{RESEARCH}/reference-fingerprints.json": f"{RESEARCH}/reference-fingerprints.json",
+    f"{RESEARCH}/test-report.txt": f"{RESEARCH}/test-report.txt",
+    "tools/runtime/observatory_compatibility.py": "tools/runtime/observatory_compatibility.py",
+    "tools/runtime/broker_observatory.py": "tools/runtime/broker_observatory.py",
+    "tools/runtime/mr_observe.py": "tools/runtime/mr_observe.py",
+    "tools/runtime/dev_command_trigger.py": "tools/runtime/dev_command_trigger.py",
+    "tools/runtime/observatory_build_profiles.py": "tools/runtime/observatory_build_profiles.py",
+    "tools/runtime/observatory_profile_resolver.py": "tools/runtime/observatory_profile_resolver.py",
+    "tools/runtime/observatory_version.py": "tools/runtime/observatory_version.py",
+    "tools/runtime/data/broker-families.json": "tools/runtime/data/broker-families.json",
+    "tools/runtime/data/registry-profiles.json": "tools/runtime/data/registry-profiles.json",
+    "tests/synthetic/test_broker_observatory.py": "tests/synthetic/test_broker_observatory.py",
+    "tests/synthetic/test_observatory_build_profiles.py": "tests/synthetic/test_observatory_build_profiles.py",
+    "tests/synthetic/test_mr_observe.py": "tests/synthetic/test_mr_observe.py",
+    "tests/synthetic/test_observatory_public_ux.py": "tests/synthetic/test_observatory_public_ux.py",
+    "tests/synthetic/test_observatory_live_memory.py": "tests/synthetic/test_observatory_live_memory.py",
+    "tests/synthetic/fixtures/observatory_j1_native_dump_memory.json": "tests/synthetic/fixtures/observatory_j1_native_dump_memory.json",
+    "docs/releases/observatory-0.2.2-beta.md": "docs/releases/observatory-0.2.2-beta.md",
+    "tools/build_observatory_j1_review.py": "tools/build_observatory_j1_review.py",
 }
 FORBIDDEN_SUFFIXES = {
     ".exe", ".dll", ".pyd", ".pyc", ".bin", ".sma", ".xml", ".dx", ".dxt",
@@ -68,15 +75,18 @@ def _validate_payloads(payloads: dict[str, bytes]) -> None:
             raise ValueError(f"Forbidden review member: {name}")
         if data.startswith(b"MZ"):
             raise ValueError(f"Executable signature in review member: {name}")
-        if b"Data.sma" in data or b"DataGx/Vehicles/" in data:
+        if b"Data" + b".sma" in data or b"DataGx/" + b"Vehicles/" in data:
             raise ValueError(f"Game resource payload referenced by review member: {name}")
-    report = payloads["test-report.txt"].decode("utf-8")
+    report = payloads[f"{RESEARCH}/test-report.txt"].decode("utf-8")
     if not re.search(r"Ran\s+\d+\s+tests?", report) or "OK" not in report:
         raise ValueError("Review test report is missing unittest totals or success status")
 
 
 def _metadata() -> dict:
-    status = _git("status", "--porcelain", "--untracked-files=all")
+    raw_status = _git("status", "--porcelain", "--untracked-files=all").splitlines()
+    excluded = [line for line in raw_status
+                if "ps2-research" in line.casefold()]
+    status = "\n".join(line for line in raw_status if line not in excluded)
     changed_in_head = _git("show", "--format=", "--name-only", "HEAD").splitlines()
     diffstat = _git("show", "--stat", "--format=short", "HEAD")
     return {
@@ -90,8 +100,10 @@ def _metadata() -> dict:
         "head_diff_summary": diffstat,
         "python_requirement": ">=3.11",
         "runtime_tests": "Windows human validation remains pending",
-        "excluded_unrelated_worktree_items": [line for line in status.splitlines()
-                                               if line.endswith("ps2-research.zip")],
+        "excluded_unrelated_worktree_items": sorted({
+            "ps2-research/" if "ps2-research/" in line.casefold() else "ps2-research.zip"
+            for line in excluded
+        }),
     }
 
 

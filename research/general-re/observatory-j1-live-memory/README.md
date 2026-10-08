@@ -6,9 +6,9 @@ compatibility evidence from the still-pending Windows live capture.
 
 ## Reproduce the focused mock-memory checks
 
-Extract the archive so `tools/runtime`, `tests/synthetic`, and
-`research/general-re/observatory-j1-live-memory` are at the archive root. With
-Python 3.11 or newer, run:
+The ZIP preserves repository-relative paths. Extract it to an empty folder. With
+Python 3.11 or newer, run the included standalone mock-memory test from that
+folder:
 
 ```powershell
 python -m unittest discover -s tests/synthetic -p 'test_observatory_live_memory.py' -v
@@ -17,7 +17,17 @@ python -m compileall tools/runtime tests/synthetic
 
 The focused test uses only the Python standard library and the included
 bounded mock-memory fixture. It does not require Windows, a game executable,
-game assets, a capture, or process access.
+game assets, a capture, or process access. The archive intentionally contains
+the J.1 verifier and the capture/status profile tests changed for process-
+scoped attestation. Run the latter from the archive root with:
+
+```powershell
+$env:PYTHONPATH = 'tests/synthetic'
+python -m unittest test_observatory_build_profiles test_mr_observe test_observatory_public_ux -v
+```
+
+The complete 607-test transcript is included for review; running the complete
+suite requires the full source checkout.
 
 ## Repository-level validation
 
