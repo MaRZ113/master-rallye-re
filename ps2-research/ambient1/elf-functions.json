@@ -1,0 +1,2639 @@
+{
+  "schema_version": 1,
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "owner_registration": {
+    "name_string": "0x00475658",
+    "literal": "gaEntitySpline",
+    "intern_callsite": "0x001cdd54",
+    "callee": "0x001d4040",
+    "owner_id_global": "0x0048e1d0",
+    "evidence": "CONFIRMED_BY_EXE",
+    "function_entry": "UNKNOWN; no mid-initializer pseudo-entry included"
+  },
+  "vtable": {
+    "address": "0x00473b10",
+    "this_field": "+0x08",
+    "pair_stride": 8,
+    "slots": {
+      "0x0c": "0x001cef20",
+      "0x14": "0x001cefc0",
+      "0x1c": "0x001a7c50",
+      "0x24": "0x001a7dc8",
+      "0x2c": "0x001a80e8",
+      "0x34": "0x001a7ef8"
+    }
+  },
+  "functions": [
+    {
+      "address": "0x0015acb0",
+      "bounds": {
+        "entry": "0x0015acb0",
+        "known_listing_end_exclusive": "0x0015acc4",
+        "known_listing_bytes": 20,
+        "complete_scalar_listing": true
+      },
+      "role": "float32 pi constant",
+      "arguments": "no argument -> f0",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001027e0"
+        },
+        {
+          "direct_jal_callsite": "0x0014b474"
+        },
+        {
+          "direct_jal_callsite": "0x0014b484"
+        },
+        {
+          "direct_jal_callsite": "0x0015e190"
+        },
+        {
+          "direct_jal_callsite": "0x0015e7e4"
+        },
+        {
+          "direct_jal_callsite": "0x00167948"
+        },
+        {
+          "direct_jal_callsite": "0x001aa0ec"
+        },
+        {
+          "direct_jal_callsite": "0x001ae3a8"
+        },
+        {
+          "direct_jal_callsite": "0x001b1b24"
+        },
+        {
+          "direct_jal_callsite": "0x001ef064"
+        },
+        {
+          "direct_jal_callsite": "0x001fc7f4"
+        },
+        {
+          "direct_jal_callsite": "0x002603c8"
+        },
+        {
+          "direct_jal_callsite": "0x00260e4c"
+        },
+        {
+          "direct_jal_callsite": "0x00263e94"
+        },
+        {
+          "direct_jal_callsite": "0x00285a20"
+        },
+        {
+          "direct_jal_callsite": "0x00285a50"
+        },
+        {
+          "direct_jal_callsite": "0x00285a94"
+        },
+        {
+          "direct_jal_callsite": "0x00285ac4"
+        },
+        {
+          "direct_jal_callsite": "0x00286da4"
+        },
+        {
+          "direct_jal_callsite": "0x00289d2c"
+        },
+        {
+          "direct_jal_callsite": "0x0028ac00"
+        },
+        {
+          "direct_jal_callsite": "0x0028ac20"
+        },
+        {
+          "direct_jal_callsite": "0x0028d830"
+        },
+        {
+          "direct_jal_callsite": "0x0028d838"
+        },
+        {
+          "direct_jal_callsite": "0x0028dbc8"
+        },
+        {
+          "direct_jal_callsite": "0x0028dc08"
+        },
+        {
+          "direct_jal_callsite": "0x0028e084"
+        },
+        {
+          "direct_jal_callsite": "0x0028e114"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "0x40490fdb"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "bbbc4d2c7d1de1f4af13730d2e9a0c958804154f266091a632f5b211da1820e1",
+      "open_questions": []
+    },
+    {
+      "address": "0x0015ace0",
+      "bounds": {
+        "entry": "0x0015ace0",
+        "known_listing_end_exclusive": "0x0015ad14",
+        "known_listing_bytes": 52,
+        "complete_scalar_listing": true
+      },
+      "role": "scalar range clamp (dormant path mode)",
+      "arguments": "f12 value, f13 minimum, f14 maximum -> f0",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a8c6c"
+        },
+        {
+          "direct_jal_callsite": "0x001a8f14"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "internal -decel/+accel bounds"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "9cda070870784cc45af92e5477f5c9a570a99f5bed4827cc15c37f1eb0af1993",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 88
+    },
+    {
+      "address": "0x0015b190",
+      "bounds": {
+        "entry": "0x0015b190",
+        "full_size": "UNKNOWN",
+        "audited_window": [
+          "0x0015d374",
+          "0x0015d388"
+        ]
+      },
+      "role": "owner prototype registry factory",
+      "arguments": "a0 registry context; allocation callsite 15d374",
+      "callers": [],
+      "callees": [
+        "0x001a7b08",
+        "0x002ad408"
+      ],
+      "constants": [
+        "0x130"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "65a767a392085a5df6704933a62f5deb702d5ebf052e028a28541f6a6db96fe4",
+      "open_questions": [
+        "full registry factory size outside bounded owner allocation window"
+      ]
+    },
+    {
+      "address": "0x001a7b08",
+      "bounds": {
+        "entry": "0x001a7b08",
+        "known_listing_end_exclusive": "0x001a7c50",
+        "known_listing_bytes": 328,
+        "complete_scalar_listing": true
+      },
+      "role": "gaEntitySpline constructor",
+      "arguments": "a0 this -> v0 this",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x0015d37c"
+        },
+        {
+          "direct_jal_callsite": "0x001cefd0"
+        }
+      ],
+      "callees": [
+        "0x001d4040"
+      ],
+      "constants": [
+        "0x130",
+        "0x473b10",
+        "0x48e1d0",
+        "0x3d088889"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [
+        "+4",
+        "+8",
+        "+0c",
+        "+1c",
+        "+20",
+        "+28",
+        "+2c",
+        "+30",
+        "+38",
+        "+40",
+        "+44",
+        "+48",
+        "+4c",
+        "+50",
+        "+54",
+        "+58",
+        "+5c",
+        "+60",
+        "+64",
+        "+70..+ac",
+        "+110..+120",
+        "+12c"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "f8327738792c07bd2c235fba5b9e1ace7b90e913d4d8fc786e047cea0b4e3582",
+      "open_questions": []
+    },
+    {
+      "address": "0x001a7c50",
+      "bounds": {
+        "entry": "0x001a7c50",
+        "known_listing_end_exclusive": "0x001a7dc8",
+        "known_listing_bytes": 376,
+        "complete_scalar_listing": true
+      },
+      "role": "parameter schema publisher",
+      "arguments": "a0 this; schema broker argument",
+      "callers": [],
+      "callees": [
+        "0x001e2460",
+        "0x001e2b98",
+        "0x001e2c08",
+        "0x001e2c78",
+        "0x001e2e38",
+        "0x002ad408"
+      ],
+      "constants": [
+        "eleven exact property names"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "c8c74b208614be1ad356904d8a2f45ce5a0ce8771a8c65c71d43809e0d12f83f",
+      "open_questions": []
+    },
+    {
+      "address": "0x001a7dc8",
+      "bounds": {
+        "entry": "0x001a7dc8",
+        "known_listing_end_exclusive": "0x001a7ef8",
+        "known_listing_bytes": 304,
+        "complete_scalar_listing": true
+      },
+      "role": "typed XML config reader",
+      "arguments": "a0 this, a1 entity, a2 configuration node",
+      "callers": [],
+      "callees": [
+        "0x001e2460",
+        "0x001e2470",
+        "0x001e2510",
+        "0x001e25b0",
+        "0x001e28f8"
+      ],
+      "constants": [
+        "30 integer multiplier"
+      ],
+      "owner_fields_read": [
+        "+48",
+        "+4c"
+      ],
+      "owner_fields_written": [
+        "+0c",
+        "+1c",
+        "+28",
+        "+2c",
+        "+30",
+        "+38",
+        "+40",
+        "+44",
+        "+50",
+        "+58",
+        "+120"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "9e9afa2530423e44d56ecfd148331a66a60fd2a9f6aae3b1067b115d29a96146",
+      "open_questions": []
+    },
+    {
+      "address": "0x001a7ef8",
+      "bounds": {
+        "entry": "0x001a7ef8",
+        "known_listing_end_exclusive": "0x001a80e8",
+        "known_listing_bytes": 496,
+        "complete_scalar_listing": true
+      },
+      "role": "route init and initial pose publication",
+      "arguments": "a0 this, a1 entity",
+      "callers": [],
+      "callees": [
+        "0x001551c0",
+        "0x001a8330",
+        "0x001a9498",
+        "0x001a9e08",
+        "0x001a9fd0",
+        "0x001aa2e0",
+        "0x001aa308",
+        "0x001d4010",
+        "0x0021e4f0",
+        "0x003f93cc",
+        "0x003f9698"
+      ],
+      "constants": [
+        "initial evaluation times 1 and 0"
+      ],
+      "owner_fields_read": [
+        "+28",
+        "+2c",
+        "+50",
+        "+120",
+        "+128"
+      ],
+      "owner_fields_written": [
+        "+68",
+        "+60",
+        "+b0..+dc",
+        "+110..+128"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "6d8a93fcabe24662c38860b107a367b24182727ac3d7af1658d1a8b7c7d54d8b",
+      "open_questions": [
+        "pre-init +128 and bank temporary state not initialized by constructor"
+      ]
+    },
+    {
+      "address": "0x001a80e8",
+      "bounds": {
+        "entry": "0x001a80e8",
+        "known_listing_end_exclusive": "0x001a8330",
+        "known_listing_bytes": 584,
+        "complete_scalar_listing": true
+      },
+      "role": "gaEntitySpline active tick",
+      "arguments": "a0 this, a1 entity",
+      "callers": [],
+      "callees": [
+        "0x001a9498",
+        "0x001a9e08",
+        "0x001a9fd0",
+        "0x001aa2e0",
+        "0x001aa308",
+        "0x001aa3b8",
+        "0x001aa438",
+        "0x001e3820",
+        "0x001e4280"
+      ],
+      "constants": [
+        "Car0",
+        "gaVehicleOutputData ID 40e698"
+      ],
+      "owner_fields_read": [
+        "+5c",
+        "+2c",
+        "+60",
+        "+68",
+        "+120",
+        "+12c",
+        "entity+50"
+      ],
+      "owner_fields_written": [
+        "+e0..+10c",
+        "+b0..+dc",
+        "+12c"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "d792b1b53bdec39a062d42a6374c312925018ea314c5bf398448c1d3d54ddc15",
+      "open_questions": []
+    },
+    {
+      "address": "0x001a8330",
+      "bounds": {
+        "entry": "0x001a8330",
+        "known_listing_end_exclusive": "0x001a9494",
+        "known_listing_bytes": 4452,
+        "complete_scalar_listing": true
+      },
+      "role": "named path preparation and chord time knots",
+      "arguments": "a0 this -> v0 success",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7f24"
+        }
+      ],
+      "callees": [
+        "0x0015ace0",
+        "0x001c5a70",
+        "0x001c64b0",
+        "0x001fdba8",
+        "0x001fde60",
+        "0x002ad350",
+        "0x003f3e80",
+        "0x003f9698"
+      ],
+      "constants": [
+        "record stride 80",
+        "Vec3 stride 12",
+        "float stride 4",
+        "0.0001",
+        "internal accel +3/-3"
+      ],
+      "owner_fields_read": [
+        "+0c",
+        "+1c",
+        "+20",
+        "+28",
+        "+38",
+        "+48",
+        "+4c"
+      ],
+      "owner_fields_written": [
+        "+70..+84",
+        "+a0",
+        "+6c",
+        "+ac"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "7e8395370d2192da8cc7f31e54edbb7675d91f8eb87e3abd9dbbefb496593a9c",
+      "open_questions": [
+        "PS2 FPU/library bit-exact results require independent runtime capture"
+      ]
+    },
+    {
+      "address": "0x001a9498",
+      "bounds": {
+        "entry": "0x001a9498",
+        "known_listing_end_exclusive": "0x001a9e04",
+        "known_listing_bytes": 2412,
+        "complete_scalar_listing": true
+      },
+      "role": "time lookup and Catmull-Rom position evaluator",
+      "arguments": "f12 time, a0 Vec3 output, a1 this -> v0 output",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7fb8"
+        },
+        {
+          "direct_jal_callsite": "0x001a7fcc"
+        },
+        {
+          "direct_jal_callsite": "0x001a81e8"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "0.5",
+        "3.0",
+        "1.0",
+        "loop modulo controls; open clamp"
+      ],
+      "owner_fields_read": [
+        "+70..+ac"
+      ],
+      "owner_fields_written": [
+        "+88..+9c",
+        "+a4",
+        "+a8"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "a6a5b49b6d1e4c2289585d0912385759678be94dfb44bd057f0eb8b01c565785",
+      "open_questions": [
+        "PS2 FPU/library bit-exact results require independent runtime capture"
+      ]
+    },
+    {
+      "address": "0x001a9e08",
+      "bounds": {
+        "entry": "0x001a9e08",
+        "known_listing_end_exclusive": "0x001a9fcc",
+        "known_listing_bytes": 452,
+        "complete_scalar_listing": true
+      },
+      "role": "displacement-derived forward with fallback",
+      "arguments": "a0 output, a1 this, a2 new position -> v0 output",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7ff8"
+        },
+        {
+          "direct_jal_callsite": "0x001a8210"
+        }
+      ],
+      "callees": [
+        "0x003f3e80"
+      ],
+      "constants": [
+        "0.0001 component tolerance",
+        "2^-23 normalization epsilon"
+      ],
+      "owner_fields_read": [
+        "+b0..+c4"
+      ],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "8a36c8f2d71aba9cb7265ed36837c9e202647107c4b3337ea4f9e9bd307f4d37",
+      "open_questions": []
+    },
+    {
+      "address": "0x001a9fd0",
+      "bounds": {
+        "entry": "0x001a9fd0",
+        "known_listing_end_exclusive": "0x001aa2e0",
+        "known_listing_bytes": 784,
+        "complete_scalar_listing": true
+      },
+      "role": "bank sample average and quaternion-derived up",
+      "arguments": "a0 output, a1 this, a2 new forward -> v0 output",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a8020"
+        },
+        {
+          "direct_jal_callsite": "0x001a8238"
+        }
+      ],
+      "callees": [
+        "0x0015acb0",
+        "0x001ca568",
+        "0x003f2f50",
+        "0x003f3140",
+        "0x003f3e80"
+      ],
+      "constants": [
+        "30.0",
+        "pi 0x40490fdb",
+        "0.5",
+        "5000.0"
+      ],
+      "owner_fields_read": [
+        "+128",
+        "+e0..+e8",
+        "+b0..+c4",
+        "+38",
+        "+50",
+        "+110",
+        "+124",
+        "+12c"
+      ],
+      "owner_fields_written": [
+        "+11c",
+        "ring slot at +110"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "65e8c33f4739154e562c914bd7e9e84b1950888763893ff2fa48158e3b77ca77",
+      "open_questions": [
+        "PS2 FPU/library bit-exact results require independent runtime capture"
+      ]
+    },
+    {
+      "address": "0x001aa2e0",
+      "bounds": {
+        "entry": "0x001aa2e0",
+        "known_listing_end_exclusive": "0x001aa304",
+        "known_listing_bytes": 36,
+        "complete_scalar_listing": true
+      },
+      "role": "right row builder (fz, fy, -fx)",
+      "arguments": "a0 output, a2 forward -> v0 output",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a8050"
+        },
+        {
+          "direct_jal_callsite": "0x001a8264"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "not cross product; does not read supplied up"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "d55119a0d98a59756b2c22f7315086153cd1128df8abeba4b2db5eac15635904",
+      "open_questions": []
+    },
+    {
+      "address": "0x001aa308",
+      "bounds": {
+        "entry": "0x001aa308",
+        "known_listing_end_exclusive": "0x001aa3b4",
+        "known_listing_bytes": 172,
+        "complete_scalar_listing": true
+      },
+      "role": "final en3d world matrix stores",
+      "arguments": "a0 this, a1 entity",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a8078"
+        },
+        {
+          "direct_jal_callsite": "0x001a82fc"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "13 SWC1 + 3 SW zero; sixteen words"
+      ],
+      "owner_fields_read": [
+        "+b0..+dc",
+        "entity+50"
+      ],
+      "owner_fields_written": [
+        "en3d+20..+5c"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "a18c02b4710a5797fe9c8364f665c7aaf5832063663632c173fb9309c212af80",
+      "open_questions": []
+    },
+    {
+      "address": "0x001aa3b8",
+      "bounds": {
+        "entry": "0x001aa3b8",
+        "known_listing_end_exclusive": "0x001aa438",
+        "known_listing_bytes": 128,
+        "complete_scalar_listing": true
+      },
+      "role": "post-publish time/rest advancement",
+      "arguments": "a0 this",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a8304"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "strict duration < time; overshoot discarded"
+      ],
+      "owner_fields_read": [
+        "+28",
+        "+30",
+        "+54",
+        "+58",
+        "+64",
+        "+68",
+        "+6c"
+      ],
+      "owner_fields_written": [
+        "+68",
+        "+54"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "106ed1d502527165e82b35188f57cc27baa6a0a68477396d5ac6c7aef26fb789",
+      "open_questions": []
+    },
+    {
+      "address": "0x001aa438",
+      "bounds": {
+        "entry": "0x001aa438",
+        "known_listing_end_exclusive": "0x001aa480",
+        "known_listing_bytes": 72,
+        "complete_scalar_listing": true
+      },
+      "role": "strict squared-distance hysteresis",
+      "arguments": "f12 XZ distance squared, a0 this",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a819c"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "strict < on^2 and > off^2"
+      ],
+      "owner_fields_read": [
+        "+40",
+        "+44",
+        "+60"
+      ],
+      "owner_fields_written": [
+        "+60"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "3685c21d26cb0a6f5f4df336c945939384a6d448e8d05b70431227a746678dbb",
+      "open_questions": []
+    },
+    {
+      "address": "0x001ca568",
+      "bounds": {
+        "entry": "0x001ca568",
+        "known_listing_end_exclusive": "0x001ca5fc",
+        "known_listing_bytes": 148,
+        "complete_scalar_listing": true
+      },
+      "role": "row-vector affine point transform",
+      "arguments": "a0 matrix, a1 input Vec3, a2 output Vec3",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x0019f900"
+        },
+        {
+          "direct_jal_callsite": "0x0019f910"
+        },
+        {
+          "direct_jal_callsite": "0x001aa28c"
+        },
+        {
+          "direct_jal_callsite": "0x001ae6bc"
+        },
+        {
+          "direct_jal_callsite": "0x001ef33c"
+        },
+        {
+          "direct_jal_callsite": "0x001ef3fc"
+        },
+        {
+          "direct_jal_callsite": "0x00200b38"
+        },
+        {
+          "direct_jal_callsite": "0x00200c50"
+        },
+        {
+          "direct_jal_callsite": "0x00200d6c"
+        },
+        {
+          "direct_jal_callsite": "0x00200e8c"
+        },
+        {
+          "direct_jal_callsite": "0x00200f58"
+        },
+        {
+          "direct_jal_callsite": "0x00263b18"
+        },
+        {
+          "direct_jal_callsite": "0x00263b2c"
+        },
+        {
+          "direct_jal_callsite": "0x00263b40"
+        },
+        {
+          "direct_jal_callsite": "0x00263b54"
+        },
+        {
+          "direct_jal_callsite": "0x00263ef0"
+        },
+        {
+          "direct_jal_callsite": "0x00263f04"
+        },
+        {
+          "direct_jal_callsite": "0x00263f18"
+        },
+        {
+          "direct_jal_callsite": "0x00263f2c"
+        },
+        {
+          "direct_jal_callsite": "0x002894ac"
+        },
+        {
+          "direct_jal_callsite": "0x002894c0"
+        },
+        {
+          "direct_jal_callsite": "0x002894e8"
+        },
+        {
+          "direct_jal_callsite": "0x002894fc"
+        },
+        {
+          "direct_jal_callsite": "0x002e9a64"
+        },
+        {
+          "direct_jal_callsite": "0x002e9ab4"
+        },
+        {
+          "direct_jal_callsite": "0x002e9adc"
+        },
+        {
+          "direct_jal_callsite": "0x002e9c38"
+        },
+        {
+          "direct_jal_callsite": "0x00330ba8"
+        },
+        {
+          "direct_jal_callsite": "0x00334300"
+        },
+        {
+          "direct_jal_callsite": "0x00334768"
+        },
+        {
+          "direct_jal_callsite": "0x003347a0"
+        },
+        {
+          "direct_jal_callsite": "0x00334928"
+        },
+        {
+          "direct_jal_callsite": "0x00334960"
+        },
+        {
+          "direct_jal_callsite": "0x00334ae0"
+        },
+        {
+          "direct_jal_callsite": "0x00334b18"
+        },
+        {
+          "direct_jal_callsite": "0x003430dc"
+        },
+        {
+          "direct_jal_callsite": "0x003431f0"
+        },
+        {
+          "direct_jal_callsite": "0x00343258"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "XYZ = x*Row0 + y*Row1 + z*Row2 + Row3"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "6c94b8c35e38dac538f8f685c4634b1ac0b5e225185779c28d567f319f0997d1",
+      "open_questions": []
+    },
+    {
+      "address": "0x001cef20",
+      "bounds": {
+        "entry": "0x001cef20",
+        "known_listing_end_exclusive": "0x001cefc0",
+        "known_listing_bytes": 160,
+        "complete_scalar_listing": true
+      },
+      "role": "owner destruction and path/history release",
+      "arguments": "a0 this, a1 delete flags",
+      "callers": [],
+      "callees": [
+        "0x001cee20",
+        "0x002ad390",
+        "0x002b2028"
+      ],
+      "constants": [
+        "delete flag bit 0"
+      ],
+      "owner_fields_read": [
+        "+70",
+        "+110",
+        "+118"
+      ],
+      "owner_fields_written": [
+        "+8"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "0af523645f443df11db2657ec79bef3fadbc8c69914d8b8a94a3653a62809f0f",
+      "open_questions": []
+    },
+    {
+      "address": "0x001cefc0",
+      "bounds": {
+        "entry": "0x001cefc0",
+        "known_listing_end_exclusive": "0x1cefe4",
+        "known_listing_bytes": 36,
+        "complete_scalar_listing": true
+      },
+      "role": "default construct independent clone",
+      "arguments": "prototype argument unused -> v0 new owner",
+      "callers": [],
+      "callees": [
+        "0x1a7b08",
+        "0x2ad408"
+      ],
+      "constants": [
+        "0x130 allocation; constructor 1a7b08"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "ce847834388170e9c5fe1e9d617e4e08382a6ceafdf300c726a4b30d4b15b55b",
+      "open_questions": []
+    },
+    {
+      "address": "0x001d4040",
+      "bounds": {
+        "entry": "0x001d4040",
+        "known_listing_end_exclusive": "0x001d4080",
+        "known_listing_bytes": 64,
+        "complete_scalar_listing": true
+      },
+      "role": "string name interning adapter",
+      "arguments": "a0 name-ID destination, a1 string",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7b58"
+        },
+        {
+          "direct_jal_callsite": "0x001a7bd0"
+        },
+        {
+          "direct_jal_callsite": "0x001cdd54"
+        },
+        {
+          "direct_jal_callsite": "0x001e0438"
+        },
+        {
+          "direct_jal_callsite": "0x001e05a8"
+        },
+        {
+          "direct_jal_callsite": "0x001e0700"
+        },
+        {
+          "direct_jal_callsite": "0x001e248c"
+        },
+        {
+          "direct_jal_callsite": "0x001e252c"
+        },
+        {
+          "direct_jal_callsite": "0x001e25cc"
+        },
+        {
+          "direct_jal_callsite": "0x001e2914"
+        },
+        {
+          "direct_jal_callsite": "0x001ff6c4"
+        },
+        {
+          "direct_jal_callsite": "0x001ff6fc"
+        },
+        {
+          "direct_jal_callsite": "0x001ff734"
+        },
+        {
+          "direct_jal_callsite": "0x001ff74c"
+        }
+      ],
+      "callees": [
+        "0x001d4280",
+        "0x001d4340"
+      ],
+      "constants": [
+        "null string ID 0"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "bee27070f57e722f3f8d2f2bed6c3d7c06c62c5922986827db1d8380d6a11ed3",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 2918
+    },
+    {
+      "address": "0x001d4280",
+      "bounds": {
+        "entry": "0x001d4280",
+        "known_listing_end_exclusive": "0x001d4320",
+        "known_listing_bytes": 160,
+        "complete_scalar_listing": true
+      },
+      "role": "find/intern exact literal string",
+      "arguments": "a0 interner, a1 string -> v0 ID",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001d4060"
+        },
+        {
+          "direct_jal_callsite": "0x001d4134"
+        }
+      ],
+      "callees": [
+        "0x001d3dd0",
+        "0x001d45a0",
+        "0x001d4758",
+        "0x001d47c0",
+        "0x003fa8a4",
+        "0x003fa9b8"
+      ],
+      "constants": [
+        "byte-preserving string copy"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "5008ba10d77d078a4f75f2c57eb4d3b9ff6940907eb28fb271d26121cbde3769",
+      "open_questions": []
+    },
+    {
+      "address": "0x001d4758",
+      "bounds": {
+        "entry": "0x001d4758",
+        "known_listing_end_exclusive": "0x001d47c0",
+        "known_listing_bytes": 104,
+        "complete_scalar_listing": true
+      },
+      "role": "intern table string search",
+      "arguments": "a0 table, a1 string -> v0 record",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001d42ac"
+        }
+      ],
+      "callees": [
+        "0x001d30e8",
+        "0x003fa760"
+      ],
+      "constants": [
+        "comparator 3fa760"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "b82c5b2f46307ccdc28cee26d7451add05d513bd1a1c2cc8374417e2400d481b",
+      "open_questions": []
+    },
+    {
+      "address": "0x001e0368",
+      "bounds": {
+        "entry": "0x001e0368",
+        "known_listing_end_exclusive": "0x001e04d4",
+        "known_listing_bytes": 364,
+        "complete_scalar_listing": true
+      },
+      "role": "typed Bool XML Value decoding",
+      "arguments": "XML broker and node, output name/value pointers",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001dfaf0"
+        },
+        {
+          "direct_jal_callsite": "0x001e24c0"
+        },
+        {
+          "direct_jal_callsite": "0x001e617c"
+        },
+        {
+          "direct_jal_callsite": "0x0022510c"
+        }
+      ],
+      "callees": [
+        "0x001d4010",
+        "0x001d4040",
+        "0x001e15e0",
+        "0x003fa760"
+      ],
+      "constants": [
+        "True literal comparison"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "6a6a6d68dea2a797bc9b79daf492e69a2bfd60594c50b983e9e3ad88bbb15064",
+      "open_questions": []
+    },
+    {
+      "address": "0x001e04d8",
+      "bounds": {
+        "entry": "0x001e04d8",
+        "known_listing_end_exclusive": "0x001e0630",
+        "known_listing_bytes": 344,
+        "complete_scalar_listing": true
+      },
+      "role": "typed Float XML Value decoding",
+      "arguments": "XML broker and node, output name/value pointers",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001dfb58"
+        },
+        {
+          "direct_jal_callsite": "0x001e2560"
+        },
+        {
+          "direct_jal_callsite": "0x001e61ac"
+        },
+        {
+          "direct_jal_callsite": "0x0022513c"
+        }
+      ],
+      "callees": [
+        "0x001d4010",
+        "0x001d4040",
+        "0x001e15e0",
+        "0x003fa388",
+        "0x003fa760"
+      ],
+      "constants": [
+        "sscanf float conversion"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "50ebb46b0501290a4da2b671c5ed35646dddbce895b04c27c005b7ca91731c4b",
+      "open_questions": []
+    },
+    {
+      "address": "0x001e0630",
+      "bounds": {
+        "entry": "0x001e0630",
+        "known_listing_end_exclusive": "0x001e0788",
+        "known_listing_bytes": 344,
+        "complete_scalar_listing": true
+      },
+      "role": "typed Int XML Value decoding",
+      "arguments": "XML broker and node, output name/value pointers",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001dfbc0"
+        },
+        {
+          "direct_jal_callsite": "0x001e2600"
+        },
+        {
+          "direct_jal_callsite": "0x001e61dc"
+        },
+        {
+          "direct_jal_callsite": "0x0022516c"
+        }
+      ],
+      "callees": [
+        "0x001d4010",
+        "0x001d4040",
+        "0x001e15e0",
+        "0x003fa388",
+        "0x003fa760"
+      ],
+      "constants": [
+        "sscanf integer conversion"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "30ebddb3fe9a1e95726ccaa06ec93d6a7ce8189c95e7b64b24739a24d97c09ec",
+      "open_questions": []
+    },
+    {
+      "address": "0x001e2460",
+      "bounds": {
+        "entry": "0x001e2460",
+        "known_listing_end_exclusive": "0x001e246c",
+        "known_listing_bytes": 12,
+        "complete_scalar_listing": true
+      },
+      "role": "XML property broker wrapper",
+      "arguments": "a0 wrapper, a1 node",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7cac"
+        },
+        {
+          "direct_jal_callsite": "0x001a7ddc"
+        },
+        {
+          "direct_jal_callsite": "0x001ff8d0"
+        }
+      ],
+      "callees": [],
+      "constants": [],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "36b6547918c02e5db43bdddfc64c5846fa616a27e69b1a85c453615e27a27e0b",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 251
+    },
+    {
+      "address": "0x001e2470",
+      "bounds": {
+        "entry": "0x001e2470",
+        "known_listing_end_exclusive": "0x001e2510",
+        "known_listing_bytes": 160,
+        "complete_scalar_listing": true
+      },
+      "role": "first matching Bool property lookup",
+      "arguments": "a0 wrapper, a1 name, a2 destination",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7e04"
+        },
+        {
+          "direct_jal_callsite": "0x001a7e18"
+        },
+        {
+          "direct_jal_callsite": "0x001a7e2c"
+        },
+        {
+          "direct_jal_callsite": "0x001a7e7c"
+        }
+      ],
+      "callees": [
+        "0x001d4040",
+        "0x001e00e8",
+        "0x001e0368"
+      ],
+      "constants": [
+        "failed lookup writes 0"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "119398a6b12e9ed8c55d82487fcf6667918b9e1352f8f3306fc8825b7dc2a384",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 134
+    },
+    {
+      "address": "0x001e2510",
+      "bounds": {
+        "entry": "0x001e2510",
+        "known_listing_end_exclusive": "0x001e25b0",
+        "known_listing_bytes": 160,
+        "complete_scalar_listing": true
+      },
+      "role": "first matching Float property lookup",
+      "arguments": "a0 wrapper, a1 name, a2 destination",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7e40"
+        },
+        {
+          "direct_jal_callsite": "0x001a7e54"
+        },
+        {
+          "direct_jal_callsite": "0x001a7e68"
+        },
+        {
+          "direct_jal_callsite": "0x001a7ea4"
+        }
+      ],
+      "callees": [
+        "0x001d4040",
+        "0x001e00e8",
+        "0x001e04d8"
+      ],
+      "constants": [
+        "failed lookup writes 0"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "aca996abc82067b17116f2030412df3699271be620f6e65543d05d3c63191817",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 403
+    },
+    {
+      "address": "0x001e25b0",
+      "bounds": {
+        "entry": "0x001e25b0",
+        "known_listing_end_exclusive": "0x001e2650",
+        "known_listing_bytes": 160,
+        "complete_scalar_listing": true
+      },
+      "role": "first matching Int property lookup",
+      "arguments": "a0 wrapper, a1 name, a2 destination",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7e90"
+        },
+        {
+          "direct_jal_callsite": "0x001a7eb8"
+        }
+      ],
+      "callees": [
+        "0x001d4040",
+        "0x001e00e8",
+        "0x001e0630"
+      ],
+      "constants": [
+        "failed lookup writes 0"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "e74256bfd9dc1ce5c73786823d2a5b85499953df15f545fb224e9b401023f5e6",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 204
+    },
+    {
+      "address": "0x001e28f8",
+      "bounds": {
+        "entry": "0x001e28f8",
+        "known_listing_end_exclusive": "0x001e2998",
+        "known_listing_bytes": 160,
+        "complete_scalar_listing": true
+      },
+      "role": "first matching String ID property lookup",
+      "arguments": "a0 wrapper, a1 name, a2 destination",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a7df0"
+        },
+        {
+          "direct_jal_callsite": "0x001ff8ec"
+        }
+      ],
+      "callees": [
+        "0x001d4040",
+        "0x001e00e8",
+        "0x001e0bf8"
+      ],
+      "constants": [
+        "failed lookup writes 0"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "d3e4b2127e18013d52d4275975e609bb4c084c36a4117da94dc0b7f7bc07b46c",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 105
+    },
+    {
+      "address": "0x001e3820",
+      "bounds": {
+        "entry": "0x001e3820",
+        "known_listing_end_exclusive": "0x001e3850",
+        "known_listing_bytes": 48,
+        "complete_scalar_listing": true
+      },
+      "role": "named Broker pointer lookup",
+      "arguments": "a0 broker, a1 class name ID, a2 member name ID -> v0 wrapper",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a8120"
+        }
+      ],
+      "callees": [
+        "0x001e4150",
+        "0x001e4d70"
+      ],
+      "constants": [
+        "same operands as UI2 vehicle consumer"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "b0f948d0e6ee72bbeb7f1bb3cd3ea8ab5bb1ebee126421a83e9461367b30ac70",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 68
+    },
+    {
+      "address": "0x001e4d70",
+      "bounds": {
+        "entry": "0x001e4d70",
+        "known_listing_end_exclusive": "0x001e4d90",
+        "known_listing_bytes": 32,
+        "complete_scalar_listing": true
+      },
+      "role": "Broker pointer payload read",
+      "arguments": "property cell and member key -> v0 pointer/null",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001e3838"
+        },
+        {
+          "direct_jal_callsite": "0x001e4a7c"
+        },
+        {
+          "direct_jal_callsite": "0x001e683c"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "property type tag 10"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "6c9e128c9685a45e523db346b480a49951ce3033b6deaf0e641f266d3768105d",
+      "open_questions": []
+    },
+    {
+      "address": "0x001fc4c0",
+      "bounds": {
+        "entry": "0x001fc4c0",
+        "known_listing_end_exclusive": "0x001fc500",
+        "known_listing_bytes": 64,
+        "complete_scalar_listing": true
+      },
+      "role": "owner registry resolve and virtual clone",
+      "arguments": "registry and owner ID -> v0 clone/null",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x00292df4"
+        }
+      ],
+      "callees": [
+        "0x001fc500"
+      ],
+      "constants": [
+        "vtable+14"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "2243e3706afe86d4f2f5419a78c55072bf447c92b5dd1519aecbbe450010a1fa",
+      "open_questions": []
+    },
+    {
+      "address": "0x001fc500",
+      "bounds": {
+        "entry": "0x001fc500",
+        "known_listing_end_exclusive": "0x001fc53c",
+        "known_listing_bytes": 60,
+        "complete_scalar_listing": true
+      },
+      "role": "prototype lookup by owner ID",
+      "arguments": "registry vector, requested ID -> v0 prototype/null",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001fc4c8"
+        },
+        {
+          "direct_jal_callsite": "0x00294248"
+        },
+        {
+          "direct_jal_callsite": "0x00295174"
+        },
+        {
+          "direct_jal_callsite": "0x00295aa4"
+        },
+        {
+          "direct_jal_callsite": "0x0029640c"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "owner ID field +4"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "cb077fc08a302aea4f9afaee86a86084f551dd60fb41dd311a7f95b27480465d",
+      "open_questions": []
+    },
+    {
+      "address": "0x001fdba8",
+      "bounds": {
+        "entry": "0x001fdba8",
+        "known_listing_end_exclusive": "0x001fdbdc",
+        "known_listing_bytes": 52,
+        "complete_scalar_listing": true
+      },
+      "role": "marker-list lookup by interned ID",
+      "arguments": "a0 manager, a1 ID pointer -> v0 vector/null",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x00145350"
+        },
+        {
+          "direct_jal_callsite": "0x0014709c"
+        },
+        {
+          "direct_jal_callsite": "0x0014c724"
+        },
+        {
+          "direct_jal_callsite": "0x00150328"
+        },
+        {
+          "direct_jal_callsite": "0x0017f94c"
+        },
+        {
+          "direct_jal_callsite": "0x0017f964"
+        },
+        {
+          "direct_jal_callsite": "0x0017fb24"
+        },
+        {
+          "direct_jal_callsite": "0x0017fec0"
+        },
+        {
+          "direct_jal_callsite": "0x001809c0"
+        },
+        {
+          "direct_jal_callsite": "0x00181e48"
+        },
+        {
+          "direct_jal_callsite": "0x001848b0"
+        },
+        {
+          "direct_jal_callsite": "0x001a505c"
+        },
+        {
+          "direct_jal_callsite": "0x001a5b54"
+        },
+        {
+          "direct_jal_callsite": "0x001a60f0"
+        },
+        {
+          "direct_jal_callsite": "0x001a6108"
+        },
+        {
+          "direct_jal_callsite": "0x001a66c8"
+        },
+        {
+          "direct_jal_callsite": "0x001a66e0"
+        },
+        {
+          "direct_jal_callsite": "0x001a8384"
+        },
+        {
+          "direct_jal_callsite": "0x001ab9d0"
+        },
+        {
+          "direct_jal_callsite": "0x001af1e4"
+        },
+        {
+          "direct_jal_callsite": "0x001af1f8"
+        },
+        {
+          "direct_jal_callsite": "0x001af354"
+        },
+        {
+          "direct_jal_callsite": "0x001af368"
+        },
+        {
+          "direct_jal_callsite": "0x001b6900"
+        },
+        {
+          "direct_jal_callsite": "0x001b8fa0"
+        },
+        {
+          "direct_jal_callsite": "0x001b949c"
+        },
+        {
+          "direct_jal_callsite": "0x001ba584"
+        },
+        {
+          "direct_jal_callsite": "0x001ba680"
+        },
+        {
+          "direct_jal_callsite": "0x001fca50"
+        },
+        {
+          "direct_jal_callsite": "0x001fcc8c"
+        },
+        {
+          "direct_jal_callsite": "0x001fce58"
+        },
+        {
+          "direct_jal_callsite": "0x001fd070"
+        },
+        {
+          "direct_jal_callsite": "0x001ffc98"
+        },
+        {
+          "direct_jal_callsite": "0x00283364"
+        },
+        {
+          "direct_jal_callsite": "0x00286c44"
+        },
+        {
+          "direct_jal_callsite": "0x0028b390"
+        },
+        {
+          "direct_jal_callsite": "0x0028fc64"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "indexed table bounds guard"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "76f3f3432e076547cd328b917ba409788d24205604f10dbd93f6306d7d407328",
+      "open_questions": []
+    },
+    {
+      "address": "0x001fde60",
+      "bounds": {
+        "entry": "0x001fde60",
+        "known_listing_end_exclusive": "0x001fdea4",
+        "known_listing_bytes": 68,
+        "complete_scalar_listing": true
+      },
+      "role": "marker manager singleton",
+      "arguments": "no argument -> v0 manager",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x00145344"
+        },
+        {
+          "direct_jal_callsite": "0x0014708c"
+        },
+        {
+          "direct_jal_callsite": "0x0014c714"
+        },
+        {
+          "direct_jal_callsite": "0x00150318"
+        },
+        {
+          "direct_jal_callsite": "0x0017f93c"
+        },
+        {
+          "direct_jal_callsite": "0x0017f954"
+        },
+        {
+          "direct_jal_callsite": "0x0017fb14"
+        },
+        {
+          "direct_jal_callsite": "0x0017feb0"
+        },
+        {
+          "direct_jal_callsite": "0x001809b0"
+        },
+        {
+          "direct_jal_callsite": "0x00181e38"
+        },
+        {
+          "direct_jal_callsite": "0x00184890"
+        },
+        {
+          "direct_jal_callsite": "0x001a5050"
+        },
+        {
+          "direct_jal_callsite": "0x001a5b48"
+        },
+        {
+          "direct_jal_callsite": "0x001a60e0"
+        },
+        {
+          "direct_jal_callsite": "0x001a60f8"
+        },
+        {
+          "direct_jal_callsite": "0x001a66b8"
+        },
+        {
+          "direct_jal_callsite": "0x001a66d0"
+        },
+        {
+          "direct_jal_callsite": "0x001a8378"
+        },
+        {
+          "direct_jal_callsite": "0x001ab9c0"
+        },
+        {
+          "direct_jal_callsite": "0x001af1d8"
+        },
+        {
+          "direct_jal_callsite": "0x001af1ec"
+        },
+        {
+          "direct_jal_callsite": "0x001af348"
+        },
+        {
+          "direct_jal_callsite": "0x001af35c"
+        },
+        {
+          "direct_jal_callsite": "0x001b68f4"
+        },
+        {
+          "direct_jal_callsite": "0x001b8f94"
+        },
+        {
+          "direct_jal_callsite": "0x001b9490"
+        },
+        {
+          "direct_jal_callsite": "0x001ba578"
+        },
+        {
+          "direct_jal_callsite": "0x001ba674"
+        },
+        {
+          "direct_jal_callsite": "0x001fca44"
+        },
+        {
+          "direct_jal_callsite": "0x001fcc80"
+        },
+        {
+          "direct_jal_callsite": "0x001fce4c"
+        },
+        {
+          "direct_jal_callsite": "0x001fd064"
+        },
+        {
+          "direct_jal_callsite": "0x001ff170"
+        },
+        {
+          "direct_jal_callsite": "0x001ff724"
+        },
+        {
+          "direct_jal_callsite": "0x001ffc8c"
+        },
+        {
+          "direct_jal_callsite": "0x00283358"
+        },
+        {
+          "direct_jal_callsite": "0x00286c38"
+        },
+        {
+          "direct_jal_callsite": "0x0028b384"
+        },
+        {
+          "direct_jal_callsite": "0x0028fc58"
+        },
+        {
+          "direct_jal_callsite": "0x002a1f1c"
+        }
+      ],
+      "callees": [
+        "0x001fd8c8",
+        "0x002ad408"
+      ],
+      "constants": [
+        "singleton 42642c"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "53a2ea67f9ecaa3953444a142b34b11a34d5b5ac7bc2ed90cfeb6e63ba30f573",
+      "open_questions": []
+    },
+    {
+      "address": "0x001ff6a0",
+      "bounds": {
+        "entry": "0x001ff6a0",
+        "known_listing_end_exclusive": "0x001ff7a8",
+        "known_listing_bytes": 264,
+        "complete_scalar_listing": true
+      },
+      "role": "MarkerLists List load in child order",
+      "arguments": "list parser and XML List node",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001ff668"
+        }
+      ],
+      "callees": [
+        "0x001d2488",
+        "0x001d4040",
+        "0x001fdcd8",
+        "0x001fde60",
+        "0x001ff7a8",
+        "0x002ad390"
+      ],
+      "constants": [
+        "no sorting"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "f55f68e857af638b5424081e4f1a005263afd1312dc6f37b03a8eab45d075326",
+      "open_questions": []
+    },
+    {
+      "address": "0x001ff7a8",
+      "bounds": {
+        "entry": "0x001ff7a8",
+        "known_listing_end_exclusive": "0x001ffdb8",
+        "known_listing_bytes": 1552,
+        "complete_scalar_listing": true
+      },
+      "role": "Marker Type/Pos/Dir runtime record append",
+      "arguments": "list parser and XML Marker node",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001ff768"
+        }
+      ],
+      "callees": [
+        "0x001d4010",
+        "0x001d4810",
+        "0x001e2460",
+        "0x001e28f8",
+        "0x001e2a48",
+        "0x001fdba8",
+        "0x001fde60",
+        "0x002150c8",
+        "0x003f3e80"
+      ],
+      "constants": [
+        "80-byte record",
+        "position +40/+44/+48",
+        "No attribute not used"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "b3b079a5887d63d91184766e056e896219b2a0d5f7fcbf4834e22966877dabe5",
+      "open_questions": []
+    },
+    {
+      "address": "0x0021e290",
+      "bounds": {
+        "entry": "0x0021e290",
+        "known_listing_end_exclusive": "0x0021e3c4",
+        "known_listing_bytes": 308,
+        "complete_scalar_listing": true
+      },
+      "role": "entity construction with en3d carrier",
+      "arguments": "a0 entity -> v0 entity",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x00111580"
+        },
+        {
+          "direct_jal_callsite": "0x00111738"
+        },
+        {
+          "direct_jal_callsite": "0x001136c8"
+        },
+        {
+          "direct_jal_callsite": "0x001137b8"
+        },
+        {
+          "direct_jal_callsite": "0x001138e0"
+        },
+        {
+          "direct_jal_callsite": "0x001221bc"
+        },
+        {
+          "direct_jal_callsite": "0x0012aa08"
+        },
+        {
+          "direct_jal_callsite": "0x0012ab54"
+        },
+        {
+          "direct_jal_callsite": "0x0014eda4"
+        },
+        {
+          "direct_jal_callsite": "0x001501c4"
+        },
+        {
+          "direct_jal_callsite": "0x0015d5d8"
+        },
+        {
+          "direct_jal_callsite": "0x0015d808"
+        },
+        {
+          "direct_jal_callsite": "0x0015db58"
+        },
+        {
+          "direct_jal_callsite": "0x0015dbbc"
+        },
+        {
+          "direct_jal_callsite": "0x0015dcb4"
+        },
+        {
+          "direct_jal_callsite": "0x0015e024"
+        },
+        {
+          "direct_jal_callsite": "0x0015e3f8"
+        },
+        {
+          "direct_jal_callsite": "0x0015e434"
+        },
+        {
+          "direct_jal_callsite": "0x0015e584"
+        },
+        {
+          "direct_jal_callsite": "0x0015e674"
+        },
+        {
+          "direct_jal_callsite": "0x0015fd04"
+        },
+        {
+          "direct_jal_callsite": "0x00182750"
+        },
+        {
+          "direct_jal_callsite": "0x00182964"
+        },
+        {
+          "direct_jal_callsite": "0x00183acc"
+        },
+        {
+          "direct_jal_callsite": "0x00183b78"
+        },
+        {
+          "direct_jal_callsite": "0x00183c00"
+        },
+        {
+          "direct_jal_callsite": "0x00183c58"
+        },
+        {
+          "direct_jal_callsite": "0x001845b8"
+        },
+        {
+          "direct_jal_callsite": "0x0019a258"
+        },
+        {
+          "direct_jal_callsite": "0x001a72f0"
+        },
+        {
+          "direct_jal_callsite": "0x001aaa2c"
+        },
+        {
+          "direct_jal_callsite": "0x001af688"
+        },
+        {
+          "direct_jal_callsite": "0x00263624"
+        },
+        {
+          "direct_jal_callsite": "0x0028ea90"
+        },
+        {
+          "direct_jal_callsite": "0x00292a70"
+        }
+      ],
+      "callees": [
+        "0x001dad18",
+        "0x0021e740",
+        "0x0021f4b0",
+        "0x00262e68",
+        "0x002ad408"
+      ],
+      "constants": [
+        "0x80 en3d allocation; entity+50 pointer"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "b31dfa2f9b898989ebc7882638c19cc39ca7befe5a8ac279b48ea22d0132050c",
+      "open_questions": []
+    },
+    {
+      "address": "0x0021e620",
+      "bounds": {
+        "entry": "0x0021e620",
+        "known_listing_end_exclusive": "0x0021e6cc",
+        "known_listing_bytes": 172,
+        "complete_scalar_listing": true
+      },
+      "role": "AI owner attachment and virtual init",
+      "arguments": "a0 entity, a1 slot, a2 owner",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001001dc"
+        },
+        {
+          "direct_jal_callsite": "0x0010023c"
+        },
+        {
+          "direct_jal_callsite": "0x00143508"
+        },
+        {
+          "direct_jal_callsite": "0x001493bc"
+        },
+        {
+          "direct_jal_callsite": "0x0014d22c"
+        },
+        {
+          "direct_jal_callsite": "0x0015dc68"
+        },
+        {
+          "direct_jal_callsite": "0x0015dca4"
+        },
+        {
+          "direct_jal_callsite": "0x0015e0b8"
+        },
+        {
+          "direct_jal_callsite": "0x0015e1c0"
+        },
+        {
+          "direct_jal_callsite": "0x0015e4e4"
+        },
+        {
+          "direct_jal_callsite": "0x0015e658"
+        },
+        {
+          "direct_jal_callsite": "0x0015e73c"
+        },
+        {
+          "direct_jal_callsite": "0x0015e814"
+        },
+        {
+          "direct_jal_callsite": "0x0015fd48"
+        },
+        {
+          "direct_jal_callsite": "0x001823f8"
+        },
+        {
+          "direct_jal_callsite": "0x00183b0c"
+        },
+        {
+          "direct_jal_callsite": "0x00183bb8"
+        },
+        {
+          "direct_jal_callsite": "0x00183c40"
+        },
+        {
+          "direct_jal_callsite": "0x00183c98"
+        },
+        {
+          "direct_jal_callsite": "0x00184620"
+        },
+        {
+          "direct_jal_callsite": "0x0019a2dc"
+        },
+        {
+          "direct_jal_callsite": "0x0019a3ac"
+        },
+        {
+          "direct_jal_callsite": "0x0019a3cc"
+        },
+        {
+          "direct_jal_callsite": "0x0019a4d4"
+        },
+        {
+          "direct_jal_callsite": "0x0019a818"
+        },
+        {
+          "direct_jal_callsite": "0x0019b044"
+        },
+        {
+          "direct_jal_callsite": "0x0019b090"
+        },
+        {
+          "direct_jal_callsite": "0x0019b0ec"
+        },
+        {
+          "direct_jal_callsite": "0x0019b13c"
+        },
+        {
+          "direct_jal_callsite": "0x0019b1cc"
+        },
+        {
+          "direct_jal_callsite": "0x001a0044"
+        },
+        {
+          "direct_jal_callsite": "0x001a7334"
+        },
+        {
+          "direct_jal_callsite": "0x001aff98"
+        },
+        {
+          "direct_jal_callsite": "0x001affa8"
+        },
+        {
+          "direct_jal_callsite": "0x001b0020"
+        },
+        {
+          "direct_jal_callsite": "0x001b0030"
+        },
+        {
+          "direct_jal_callsite": "0x001b00dc"
+        },
+        {
+          "direct_jal_callsite": "0x001b01a0"
+        },
+        {
+          "direct_jal_callsite": "0x001b0340"
+        },
+        {
+          "direct_jal_callsite": "0x001b0350"
+        },
+        {
+          "direct_jal_callsite": "0x001b0360"
+        },
+        {
+          "direct_jal_callsite": "0x001b0370"
+        },
+        {
+          "direct_jal_callsite": "0x001b04d0"
+        },
+        {
+          "direct_jal_callsite": "0x0028eae4"
+        },
+        {
+          "direct_jal_callsite": "0x00292e30"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "four AI slots; virtual+34"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "29a8a9ece2faec3bd0402d4bf0de18be18ebbd488141c6da37eb119cb9626e10",
+      "open_questions": []
+    },
+    {
+      "address": "0x0021ea20",
+      "bounds": {
+        "entry": "0x0021ea20",
+        "known_listing_end_exclusive": "0x0021eb2c",
+        "known_listing_bytes": 268,
+        "complete_scalar_listing": true,
+        "verified_omitted_nop_addresses": []
+      },
+      "role": "scene entity submission to interface virtual +4c",
+      "arguments": "a0 scene manager; a1/a2 submission context; a3 mask on entry, actual entity in a3 at virtual call",
+      "callers": [
+        "UNKNOWN; callers not expanded"
+      ],
+      "callees": [
+        {
+          "direct_jal_callsite": "0x0021ea5c",
+          "target": "0x002015d8"
+        },
+        {
+          "virtual_slot": "0x4c",
+          "argument_a3": "actual entity pointer",
+          "target": "UNKNOWN platform interface implementation"
+        }
+      ],
+      "constants": [
+        "queues 6..0",
+        "entity flags +58; interface slots +44/+4c"
+      ],
+      "owner_fields_read": [
+        "scene entity queues",
+        "entity+58"
+      ],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "34e0c953bff570c0e39491402a42257b1308f4bdf280951f9c6f9edfbf24075a",
+      "open_questions": [
+        "concrete platform draw, PSM children and inter-tick interpolation not expanded"
+      ]
+    },
+    {
+      "address": "0x0021f088",
+      "bounds": {
+        "entry": "0x0021f088",
+        "known_listing_end_exclusive": "0x0021f2dc",
+        "known_listing_bytes": 596,
+        "complete_scalar_listing": true
+      },
+      "role": "priority queues and owner update dispatch",
+      "arguments": "a0 entity manager",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x002a2310"
+        }
+      ],
+      "callees": [
+        "0x001dad18",
+        "0x001fbd18",
+        "0x0021e3c8",
+        "0x002200d0",
+        "0x00220200"
+      ],
+      "constants": [
+        "entity freeze/removal gates; AI slots 0..3; virtual+2c"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "9f3abcbb0f2883eb80fc53008832b1d2335db3aa75f4af576df5f97709ffe569",
+      "open_questions": []
+    },
+    {
+      "address": "0x00262e68",
+      "bounds": {
+        "entry": "0x00262e68",
+        "known_listing_end_exclusive": "0x00262eac",
+        "known_listing_bytes": 68,
+        "complete_scalar_listing": true
+      },
+      "role": "en3d carrier constructor",
+      "arguments": "a0 en3d -> v0 en3d",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x0021e31c"
+        },
+        {
+          "direct_jal_callsite": "0x0021e5c0"
+        }
+      ],
+      "callees": [
+        "0x00263038"
+      ],
+      "constants": [
+        "identity matrix through 263038"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "3671a19c65d0f56b53fae7a3b582e70c298eb63a811344cd5c57f8b962e15873",
+      "open_questions": []
+    },
+    {
+      "address": "0x00262f88",
+      "bounds": {
+        "entry": "0x00262f88",
+        "known_listing_end_exclusive": "0x00262fb8",
+        "known_listing_bytes": 48,
+        "complete_scalar_listing": true
+      },
+      "role": "en3d named model binding",
+      "arguments": "a0 en3d, a1 model ID pointer",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001030a0"
+        },
+        {
+          "direct_jal_callsite": "0x00103104"
+        },
+        {
+          "direct_jal_callsite": "0x0010c1cc"
+        },
+        {
+          "direct_jal_callsite": "0x0015db84"
+        },
+        {
+          "direct_jal_callsite": "0x0015dbe0"
+        },
+        {
+          "direct_jal_callsite": "0x0015e044"
+        },
+        {
+          "direct_jal_callsite": "0x0015e424"
+        },
+        {
+          "direct_jal_callsite": "0x0015e458"
+        },
+        {
+          "direct_jal_callsite": "0x0015e5a8"
+        },
+        {
+          "direct_jal_callsite": "0x0015e698"
+        },
+        {
+          "direct_jal_callsite": "0x001823e8"
+        },
+        {
+          "direct_jal_callsite": "0x00197534"
+        },
+        {
+          "direct_jal_callsite": "0x0019a0f4"
+        },
+        {
+          "direct_jal_callsite": "0x0019a2bc"
+        },
+        {
+          "direct_jal_callsite": "0x00292050"
+        },
+        {
+          "direct_jal_callsite": "0x00292a9c"
+        },
+        {
+          "direct_jal_callsite": "0x002a0bbc"
+        }
+      ],
+      "callees": [
+        "0x002631a0"
+      ],
+      "constants": [
+        "model ID +0c"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "2c2097575b5a08311fe9fbb0ac7e57358d33b3764e236631cf5aa42e6e68dae3",
+      "open_questions": []
+    },
+    {
+      "address": "0x00263038",
+      "bounds": {
+        "entry": "0x00263038",
+        "known_listing_end_exclusive": "0x00263168",
+        "known_listing_bytes": 304,
+        "complete_scalar_listing": true
+      },
+      "role": "en3d matrix and render flags initialization",
+      "arguments": "a0 en3d",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001b0330"
+        },
+        {
+          "direct_jal_callsite": "0x00262e90"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "identity matrix +20..+5c"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "9d3cc8cafdf5af729a0834508f42b1ff1cfb5e245e4b5193e0b2706a52a07671",
+      "open_questions": []
+    },
+    {
+      "address": "0x002639c8",
+      "bounds": {
+        "entry": "0x002639c8",
+        "known_listing_end_exclusive": "0x00263e54",
+        "known_listing_bytes": 1164,
+        "complete_scalar_listing": true,
+        "verified_omitted_nop_addresses": []
+      },
+      "role": "named-model world-matrix consumer for bounding corners",
+      "arguments": "a0 scene container; remaining scene response arguments not expanded",
+      "callers": [
+        "UNKNOWN; callers not expanded"
+      ],
+      "callees": [
+        {
+          "direct_jal_callsite": "0x00263aa0",
+          "target": "0x00262ff8"
+        },
+        {
+          "direct_jal_callsite": "0x00263ab0",
+          "target": "0x00262ff8"
+        },
+        {
+          "direct_jal_callsite": "0x00263b18",
+          "target": "0x001ca568"
+        },
+        {
+          "direct_jal_callsite": "0x00263b2c",
+          "target": "0x001ca568"
+        },
+        {
+          "direct_jal_callsite": "0x00263b40",
+          "target": "0x001ca568"
+        },
+        {
+          "direct_jal_callsite": "0x00263b54",
+          "target": "0x001ca568"
+        },
+        {
+          "direct_jal_callsite": "0x00263bcc",
+          "target": "0x00262ff8"
+        },
+        {
+          "direct_jal_callsite": "0x00263bd8",
+          "target": "0x00262ff8"
+        },
+        {
+          "direct_jal_callsite": "0x00263c08",
+          "target": "0x00263e58"
+        },
+        {
+          "direct_jal_callsite": "0x00263c7c",
+          "target": "0x00263e58"
+        },
+        {
+          "direct_jal_callsite": "0x00263cf0",
+          "target": "0x00263e58"
+        },
+        {
+          "direct_jal_callsite": "0x00263d64",
+          "target": "0x00263e58"
+        }
+      ],
+      "constants": [
+        "1ca568 affine world transform calls",
+        "en3d model ID +0c"
+      ],
+      "owner_fields_read": [
+        "entity+50",
+        "en3d+0c",
+        "en3d+20..+5c"
+      ],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "85140c7bfda0b12ceb18865631ebb3a9d70c074cadaaf5f8d64f11386167aa65",
+      "open_questions": [
+        "remaining scene response/collision logic outside bounded transform read"
+      ]
+    },
+    {
+      "address": "0x00292a48",
+      "bounds": {
+        "entry": "0x00292a48",
+        "known_listing_end_exclusive": "0x00292e6c",
+        "known_listing_bytes": 1060,
+        "complete_scalar_listing": true
+      },
+      "role": "hatch Egg entity and configure/attach owners",
+      "arguments": "Egg loader -> v0 entity",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x0029358c"
+        },
+        {
+          "direct_jal_callsite": "0x00293630"
+        }
+      ],
+      "callees": [
+        "0x001fc4c0",
+        "0x001fc760",
+        "0x00205bf8",
+        "0x00205ce0",
+        "0x002062a8",
+        "0x0021e290",
+        "0x0021e540",
+        "0x0021e620",
+        "0x0021e740",
+        "0x0021e748",
+        "0x00262f88",
+        "0x002ad408"
+      ],
+      "constants": [
+        "0x7c entity; copied authored matrix; virtual config+24"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "c42c2dbcaee38660151fe262b96f0ab2dd8e18f2534fc9714649736872f0e67c",
+      "open_questions": []
+    },
+    {
+      "address": "0x003f2f50",
+      "bounds": {
+        "entry": "0x003f2f50",
+        "known_listing_end_exclusive": "0x003f3038",
+        "known_listing_bytes": 232,
+        "complete_scalar_listing": true
+      },
+      "role": "cosine float wrapper",
+      "arguments": "f12 angle -> f0",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001aa1cc"
+        }
+      ],
+      "callees": [
+        "0x003f5b60",
+        "0x003f6078",
+        "0x003f6b20"
+      ],
+      "constants": [
+        "pi/4 threshold; quadrant reduction; even kernel 3f6078"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "a9eec81f6baf9ff2ba6b8336855195b93936cb92ae8dde5efeeb35854d1151bc",
+      "open_questions": [
+        "PS2 FPU/library bit-exact results require independent runtime capture"
+      ],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 81
+    },
+    {
+      "address": "0x003f3140",
+      "bounds": {
+        "entry": "0x003f3140",
+        "known_listing_end_exclusive": "0x003f3230",
+        "known_listing_bytes": 240,
+        "complete_scalar_listing": true
+      },
+      "role": "sine float wrapper",
+      "arguments": "f12 angle -> f0",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001aa1a0"
+        }
+      ],
+      "callees": [
+        "0x003f5b60",
+        "0x003f6078",
+        "0x003f6b20"
+      ],
+      "constants": [
+        "pi/4 threshold; quadrant reduction; odd kernel 3f6b20"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "566b9512dab17a24fa8ffecf953242118d37623dd43abc679026df617a5aa588",
+      "open_questions": [
+        "PS2 FPU/library bit-exact results require independent runtime capture"
+      ],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 84
+    },
+    {
+      "address": "0x003f6078",
+      "bounds": {
+        "entry": "0x003f6078",
+        "known_listing_end_exclusive": "0x003f61d0",
+        "known_listing_bytes": 344,
+        "complete_scalar_listing": true,
+        "verified_omitted_nop_addresses": [
+          "0x003f60c4"
+        ]
+      },
+      "role": "cosine small-angle polynomial kernel",
+      "arguments": "f12 input; correction/kernel state not reproduced",
+      "callers": [
+        {
+          "addr": "003f2f50",
+          "name": "FUN_003f2f50",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003f2f50",
+          "name": "FUN_003f2f50",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003f2f50",
+          "name": "FUN_003f2f50",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003f3140",
+          "name": "FUN_003f3140",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003f3140",
+          "name": "FUN_003f3140",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "small input return 1",
+        "even polynomial in x^2"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "97aeb5c7e70f99919e434c5a21caa805086ffc4706ebc4b43f623219b27ce6f5",
+      "open_questions": [
+        "exact R5900/libm behavior not implemented in host diagnostic"
+      ]
+    },
+    {
+      "address": "0x003f6b20",
+      "bounds": {
+        "entry": "0x003f6b20",
+        "known_listing_end_exclusive": "0x003f6c24",
+        "known_listing_bytes": 260,
+        "complete_scalar_listing": true,
+        "verified_omitted_nop_addresses": []
+      },
+      "role": "sine small-angle polynomial kernel",
+      "arguments": "f12 input; correction/kernel state not reproduced",
+      "callers": [
+        {
+          "addr": "003f2f50",
+          "name": "FUN_003f2f50",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003f2f50",
+          "name": "FUN_003f2f50",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003f3140",
+          "name": "FUN_003f3140",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003f3140",
+          "name": "FUN_003f3140",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003f3140",
+          "name": "FUN_003f3140",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "small input return x",
+        "odd polynomial x + x^3 terms"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "1449772f7ae41cf830de69673c88bbc09c770e3262ab3eda6d43e1ba2fa42002",
+      "open_questions": [
+        "exact R5900/libm behavior not implemented in host diagnostic"
+      ]
+    },
+    {
+      "address": "0x003fa760",
+      "bounds": {
+        "entry": "0x003fa760",
+        "known_listing_end_exclusive": "0x003fa8a4",
+        "known_listing_bytes": 324,
+        "complete_scalar_listing": true
+      },
+      "role": "literal byte string comparator",
+      "arguments": "a0 first string, a1 second -> v0 difference",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001d4788"
+        },
+        {
+          "direct_jal_callsite": "0x001e040c"
+        },
+        {
+          "direct_jal_callsite": "0x001e0468"
+        },
+        {
+          "direct_jal_callsite": "0x001e057c"
+        },
+        {
+          "direct_jal_callsite": "0x001e06d4"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "no case fold"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "0d7de6655503cb4da5fb662fd3458aa2316f3b3c15bd4e5a692a1e54e5104d71",
+      "open_questions": [],
+      "callers_scope": "listed direct callers are in audited function windows or the owner registration callsite; full references stay in ignored raw exports",
+      "callers_outside_audited_windows": 49
+    }
+  ],
+  "notes": [
+    "bounds are verified listing bounds, not guessed neighboring entries",
+    "virtual callers include registry +14, loader +24, attachment +34, dispatcher +2c",
+    "intra-function query probes 1cdd10, 1cefd0, 21e460 and SplineFlyBy are deliberately excluded",
+    "generic MIPS decompiler argument inference is not the EE ABI contract",
+    "Shared helpers with more than 50 references list audited-context callers only; omitted reference counts are explicit, full raw xrefs are preserved in the ignored phase archive"
+  ]
+}

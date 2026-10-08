@@ -2,7 +2,8 @@
 
 Active filesystem work lives in `packfs/`, static content/UI work in `ui/`,
 HUD runtime reverse in `ui2/`, PC/PS2 course-content survey in `cdelta1/`, tools in
-`tools/`, tests in `tests/`.
+`tools/`, tests in `tests/`. Spline ambient ownership and motion reverse is in
+`ambient1/`.
 Canonical development branch: `master`. Historical `research/general-re` and
 `research/r-*` are reference evidence; this track does not edit them.
 
@@ -11,6 +12,10 @@ The first content pass is [PS2-UI1](ui/findings.md), with a
 [byte-accurate PSB map](ui/psb-format.md) and [closeout report](ui/final-report.md).
 The runtime continuation is [PS2-UI2](ui2/findings.md), including
 [dynamic minimap data flow and offline reconstruction](ui2/minimap.md).
+The moving-object continuation is [PS2-AMBIENT1](ambient1/findings.md):
+Catmull–Rom/timing/trigger/banking contract through the actual en3d world
+matrix stores, with a [closeout report](ambient1/final-report.md).
+Independent PS2 motion/timing capture remains NOT_PERFORMED.
 Original ISO files remain external. Extracted resources, full directory images,
 Ghidra databases and raw decompilations stay under ignored `data/`.
 
