@@ -113,20 +113,40 @@ class KnownBuildProfileTests(unittest.TestCase):
                     stream.truncate(p.file_size)
                 state = dict(buffer_base=0x300000, used_bytes=3, capacity_bytes=100,
                              sink_pointer=0x100000, vtable=0x400000+p.debug_sink_vtable_rva, hwnd=123)
+                def verified(_kernel, _process, _pid, _image_path, passed_profile,
+                             capability, _ctypes, *, disk_bytes):
+                    self.assertIs(passed_profile, p)
+                    self.assertEqual(len(disk_bytes), p.file_size)
+                    result = {
+                        "module_base": 0x400000,
+                        "verified_anchors": ["debug_logger", "debug_sink_vtable"],
+                    }
+                    if capability == "native_dump":
+                        result.update({
+                            "effective_broker_dump_variant": "native_stock",
+                            "native_dump_post_results_safe": False,
+                            "native_dump_verification": "verified",
+                            "native_dump_walker_variant": "native_stock",
+                            "native_dump_walker_sha256": "synthetic-stock-walker",
+                            "verified_trampolines": [],
+                        })
+                    return result
                 with patch.object(core.os,'name','nt'), patch('ctypes.WinDLL',return_value=Mock(),create=True), \
                      patch.object(core,'_configure_win32'), patch.object(core,'_process_image_path',return_value=(1,path)), \
-                     patch.object(core,'sha256_file',return_value=p.sha256), \
-                     patch.object(core,'_module_base',return_value=0x400000), \
+                     patch.object(core,'match_profile',return_value=p), \
+                     patch.object(core,'_verify_live_capability_open',side_effect=verified) as verify_live, \
                      patch.object(core,'_read_sink_state',return_value=state) as read_state, \
                      patch.object(core,'_read_remote',return_value=b'abc'):
                     raw, source = core.capture_debug_buffer(123)
                 self.assertEqual(raw,b'abc')
                 self.assertEqual(source['build_profile_id'],p.id)
                 self.assertEqual(source['build_classification'],p.build_classification)
-                self.assertEqual(source['image_sha256'],p.sha256)
+                self.assertEqual(source['image_sha256'],hashlib.sha256(bytes(p.file_size)).hexdigest())
                 self.assertEqual(source['image_size'],p.file_size)
                 self.assertEqual(source['sink_vtable'],f'0x{state["vtable"]:08X}')
                 self.assertTrue(all(call.args[-1] is p for call in read_state.call_args_list))
+                self.assertEqual([call.args[5] for call in verify_live.call_args_list],
+                                 ["broker_read"] + (["native_dump"] if p.supports("native_dump") else []))
 
     def test_multiple_known_processes_require_selection_without_internal_profile_names(self):
         candidates = [observe.ProcessCandidate(i,Path('MRallye.exe'),p.sha256)

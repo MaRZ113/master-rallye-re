@@ -138,7 +138,8 @@ class PublicUXTests(unittest.TestCase):
             with contextlib.redirect_stdout(io.StringIO()) as normal:
                 observe.status(Path(folder), self.process)
             self.assertIn("Master Rallye executable verified", normal.getvalue())
-            self.assertIn("Native Dump from Race Results: unsafe on this build",normal.getvalue())
+            self.assertIn("Live native Dump variant: not verified.",normal.getvalue())
+            self.assertIn("Native Dump from Race Results: safety not verified; avoid that screen.",normal.getvalue())
             self.assertNotIn(core.RETAIL_SHA256, normal.getvalue())
             with contextlib.redirect_stdout(io.StringIO()) as detail:
                 observe.status(Path(folder), self.process, detailed=True)
