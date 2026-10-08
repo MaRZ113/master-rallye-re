@@ -76,20 +76,23 @@ AI behavior. Player unlock state also remains independent from AI eligibility.
 
 ## Current phase — R5V-I multi-slot registry expansion
 
-**R5V-I.0 slot proof: STATIC PASS / READY FOR HUMAN RUNTIME.** The exact
-pristine-to-H.2-to-I.0 candidate expands the registry from 27 to 28 records
-and maps T2/local7 sparsely to physical ID27. The candidate retains ID25
-Trooper and ID26 Mercedes. Its ignored runtime package includes the exact
-candidate, generated T2_Car8 scene, and qualified H.2 resource set; the
-package verifier passed. This is not an in-game pass. Human runtime status is
-pending in [the I.0 runtime ledger](multislot/runtime-results.md).
+**R5V-I.0 second-slot proof: FULL PASS / CLOSED.** Four verified Observatory
+JSON/raw pairs from the exact I.0 executable confirm physical ID27 at T2
+local7, a single-player T2 race participant, and simultaneous ID27/T2 plus
+ID26/T1 SplitScreen participants. The owner observed normal ID27 donor-model,
+wheel, movement, HUD and progress behavior. This is a slot proof; the I.0
+Navara donor is not a distinct vehicle identity. Capture/raw hashes and
+bounded human observations are in [the I runtime ledger](multislot/runtime-results.md).
 
-**R5V-I.1 real T2 qualification: `REAL_T2_PAYLOAD_REQUIRED`.** ID27 currently
-uses Navara physical ID7 as a clearly labeled slot-test donor. NewRav is
-already stock physical ID12; demo Rav4 has source GXM/GXI but no cooked DX/DXT
-family or retail physics profile. A real independent T2 payload is therefore
-still required; R5V-I remains open and must not be called FULL PASS. Details
-are in the [payload audit](multislot/id27-vehicle.md).
+**R5V-I.1 authored independent-family T2 qualifier: READY FOR HUMAN RUNTIME.**
+The exact candidate keeps physical ID27/T2 local7 while naming its runtime,
+model, wheel and physics family `R5VQualifier`. Its ignored package gives that
+family its own `DataGx/Vehicles/R5VQualifier` assets and
+`Vehicles/R5VQualifier` physics/modification paths, with a magenta body-DXT
+canary. This is intentionally authored SDK qualification content, not a
+historical vehicle; collision/model topology and most assets remain
+Navara-derived. Runtime status is still pending. See the
+[I.1 qualification and handoff](multislot/i1-qualification.md).
 
 Future non-bonus T3 addons must qualify Invitation's ordinary T3 pool
 explicitly; class membership alone does not imply eligibility in every mode.
@@ -97,9 +100,9 @@ Bonus/special T3 vehicles must not be added to that pool automatically.
 
 ## Roadmap
 
-R5V-I closes only after the slot proof and an independent real T2 vehicle
-qualification. R5V-J generic Addon Vehicle SDK remains out of scope until that
-qualification is complete.
+R5V-I closes only after the exact I.1 candidate proves independent family
+routing in human runtime and its natural T2 AI eligibility. R5V-J generic Addon
+Vehicle SDK remains out of scope until that qualification is complete.
 
 ## H.2 historical pre-runtime status (superseded)
 

@@ -1,4 +1,12 @@
-# R5V-I.1 independent T2 payload audit
+# R5V-I.1 historical payload audit — superseded as the qualification blocker
+
+This audit correctly described the available historical/retail vehicle
+corpora before the owner authorized an intentionally authored I.1 SDK
+qualification family. Its statements about NewRav and demo Rav4 remain valid,
+but `REAL_T2_PAYLOAD_REQUIRED` is no longer the current R5V-I.1 gate. The
+current target is the Navara-derived, separately named `R5VQualifier` family;
+see [the I.1 qualification record](i1-qualification.md). It is not presented
+as authentic historical content.
 
 The current retail corpus does not contain a ready, independent T2 vehicle
 payload suitable for ID27 qualification.
@@ -17,8 +25,9 @@ authorized cooker/conversion and physics/collision qualification phase; this
 R5V-I pass does not begin that work. See
 [machine-readable payload audit](payload-audit.json).
 
-**Required input to close R5V-I:** an independent T2 family with cooked
+**Superseded original gate:** an independent historical/addon T2 family with cooked
 `car.dx`, `complete.dx`, `wheel.dx`, all required DXT dependencies and
 vehicle-specific physics/collision data, with provenance sufficient to
-qualify it as distinct from stock IDs 7–13. Until supplied, the correct status
-is `REAL_T2_PAYLOAD_REQUIRED`.
+qualify it as distinct from stock IDs 7–13. This remains relevant to future
+content-authenticity claims, but is not required for the authored family-path
+qualification currently prepared.

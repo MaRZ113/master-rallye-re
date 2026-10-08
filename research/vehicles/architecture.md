@@ -66,16 +66,27 @@ addon-design requirement: ordinary/non-bonus T3 vehicles need explicit
 Invitation pool qualification, while bonus/special T3 vehicles must not be
 inserted automatically. This note is carried forward for R5V-I/J.
 
-## R5V-I — registry expansion and second T2 vehicle
+## R5V-I — multi-slot registry and independent-family qualification
 
-R5V-I.0 has a deterministic static slot-proof candidate: 28 VehicleRecords,
-T1=8/T2=8/T3=12, and sparse T2/local7 -> physical ID27. Its adjacent 39-row
-RaceTest table is moved to the 28-record base, with all 39 initializers and 11
-indexed consumers retargeted. ID25 Trooper and ID26 Mercedes remain distinct.
-The candidate uses Navara physical ID7 only as a diagnostic donor and has not
-yet been human-runtime-tested. See [R5V-I findings](multislot/findings.md).
+R5V-I.0 is **FULL PASS / CLOSED** for the second sparse physical slot: 28
+records, T2/local7 -> ID27, with the 39-row RaceTest table relocated from
+base `0x580` to `0x5B4` (39 initializer and 11 indexed-consumer relocations).
+Verified I.0 captures show physical ID27/T2 materializing as a player actor and
+coexisting with physical ID26/T1 in SplitScreen. The I.0 Navara identity was
+only a donor slot proof.
 
-An independent second T2 vehicle is not ready: stock NewRav is physical ID12,
-while demo Rav4 lacks the cooked resource and physics/collision package needed
-for qualification. Current status is `REAL_T2_PAYLOAD_REQUIRED`; R5V-I remains
-open and no generic addon claim is made.
+I.1 changes the same physical ID27 to an intentionally authored qualification
+identity, `R5VQualifier`, without increasing the record count or changing the
+T2 local mapping. The candidate/package route model, wheel, DXT and physics
+lookup through separately named `R5VQualifier` paths. The resources are
+Navara-derived, with a controlled magenta body texture, cloned physics and
+player-modification rows, donor frontend art/stats, donor-derived collision,
+and audio profile7. This is a generic-family routing qualification target,
+not historically authentic content and not yet runtime-confirmed. See
+[R5V-I findings](multislot/findings.md) and the
+[I.1 qualification handoff](multislot/i1-qualification.md).
+
+The architecture demonstrates formula-based registry layout through IDs26
+and 27 and sparse placement in T1 and T2. The identity/presentation layer is
+still explicitly qualified for IDs26/27; it does not prove arbitrary-N SDK
+support. R5V-J remains unstarted pending human I.1 validation.

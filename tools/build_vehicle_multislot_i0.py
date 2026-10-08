@@ -325,7 +325,19 @@ def t2_append_stub_bytes(stub_va: int, reentry_va: int,
     return bytes(code)
 
 
-def build_code_payload(h2_manifest: dict[str, Any]) -> tuple[bytes, dict[str, int]]:
+def build_code_payload(h2_manifest: dict[str, Any], *,
+                       id27_record: registry.VehicleRecordProfile = ID27_RECORD,
+                       results_label: str = RESULTS_ID27) -> tuple[bytes, dict[str, int]]:
+    if (id27_record.slot_id, id27_record.vehicle_class, id27_record.local_index) != (27, 1, 7):
+        raise CandidateError("the composed second slot must remain physical ID27 / T2 local7")
+    if not id27_record.internal_name or not id27_record.internal_name.isascii() or "\x00" in id27_record.internal_name:
+        raise CandidateError("ID27 runtime family must be non-empty NUL-free ASCII")
+    display_values = (id27_record.display_manufacturer, id27_record.display_model,
+                      id27_record.display_quickrace)
+    if any(not value or not value.isascii() or "\x00" in value for value in display_values):
+        raise CandidateError("ID27 frontend identity must be three non-empty NUL-free ASCII strings")
+    if not results_label or not results_label.isascii() or "\x00" in results_label:
+        raise CandidateError("ID27 Results identity must be non-empty NUL-free ASCII")
     prior = h2_manifest.get("base_manifest", {})
     structural = prior.get("structural_self_check", {})
     old_entries = structural.get("code_entrypoints", {})
@@ -340,7 +352,7 @@ def build_code_payload(h2_manifest: dict[str, Any]) -> tuple[bytes, dict[str, in
     code.label("multi_addon_registry_init")
     code.emit(b"\x56\x8B\xF1\x8B\xCE")  # save ESI; ESI/ECX = registry
     code.call(int(old_entries["registry_init"], 16))
-    registry._emit_record_initializer(code, ID27_RECORD, 0x580, "id27_internal_name")
+    registry._emit_record_initializer(code, id27_record, 0x580, "id27_internal_name")
     # FUN_00458CD0 returns its registry pointer in EAX; keep that ABI after
     # adding the extra record initializer.
     code.emit(b"\x8B\xC6\x5E\xC3")
@@ -472,15 +484,15 @@ def build_code_payload(h2_manifest: dict[str, Any]) -> tuple[bytes, dict[str, in
 
     code.align(4)
     code.label("id27_internal_name")
-    code.emit(b"Navara\x00")
+    code.emit(id27_record.internal_name.encode("ascii") + b"\x00")
     code.label("id27_manufacturer_text")
-    code.emit(DISPLAY_ID27_MANUFACTURER.encode("ascii") + b"\x00")
+    code.emit(id27_record.display_manufacturer.encode("ascii") + b"\x00")
     code.label("id27_model_text")
-    code.emit(DISPLAY_ID27_MODEL.encode("ascii") + b"\x00")
+    code.emit(id27_record.display_model.encode("ascii") + b"\x00")
     code.label("id27_combined_text")
-    code.emit(DISPLAY_ID27_COMBINED.encode("ascii") + b"\x00")
+    code.emit(id27_record.display_quickrace.encode("ascii") + b"\x00")
     code.label("id27_results_text")
-    code.emit(RESULTS_ID27.encode("ascii") + b"\x00")
+    code.emit(results_label.encode("ascii") + b"\x00")
 
     payload = code.build()
     if len(payload) > CODE_CAVE_SIZE:
@@ -488,7 +500,11 @@ def build_code_payload(h2_manifest: dict[str, Any]) -> tuple[bytes, dict[str, in
     return payload, {name: code.base_va + offset for name, offset in code.labels.items()}
 
 
-def make_candidate(data: bytes) -> tuple[bytes, dict[str, Any]]:
+def make_candidate(data: bytes, *,
+                   id27_record: registry.VehicleRecordProfile = ID27_RECORD,
+                   results_label: str = RESULTS_ID27,
+                   profile: str = PROFILE,
+                   phase: str = "R5V-I.0 two-addon-slot / T2 local7 diagnostic candidate") -> tuple[bytes, dict[str, Any]]:
     source_hash = sha256(data)
     if source_hash != RETAIL_SHA256 or len(data) != RETAIL_SIZE:
         raise CandidateError(f"unsupported pristine retail image: SHA256={source_hash}, size={len(data)}")
@@ -511,7 +527,8 @@ def make_candidate(data: bytes) -> tuple[bytes, dict[str, Any]]:
         if layout[key] != expected:
             raise CandidateError(f"internal two-addon layout error for {key}: {layout[key]:#x}")
 
-    payload, entrypoints = build_code_payload(parent_manifest)
+    payload, entrypoints = build_code_payload(
+        parent_manifest, id27_record=id27_record, results_label=results_label)
     cave_offset = registry.va_to_file_offset(pe, CODE_CAVE_VA, len(payload))
     if parent[cave_offset:cave_offset + len(payload)] != bytes(len(payload)):
         raise CandidateError("fresh I.0 code cave is not zero-filled in the exact H.2 parent")
@@ -567,14 +584,20 @@ def make_candidate(data: bytes) -> tuple[bytes, dict[str, Any]]:
 
     # PE header, .text-size extension, and the new ID27 full initializer.
     section_size_offset = text["header_offset"] + 8
+    layer_name = "i0" if profile == PROFILE else "i1"
+    payload_operation_name = f"{layer_name}_multi_addon_code_payload"
     operations.append(_operation(
-        "pe_text_virtual_size_i0_payload", "pe-bookkeeping", section_size_offset,
+        f"pe_text_virtual_size_{layer_name}_payload", "pe-bookkeeping", section_size_offset,
         struct.pack("<I", current_vsize), struct.pack("<I", new_vsize),
-        "map the fresh ID27/multi-addon wrapper code cave without overlapping .rdata"))
+        ("map the fresh ID27/multi-addon wrapper code cave without overlapping .rdata"
+         if layer_name == "i0" else
+         "map the fresh authored ID27-family wrapper code cave without overlapping .rdata")))
     operations.append(_operation(
-        "i0_multi_addon_code_payload", "multi-addon-code-cave", cave_offset,
+        payload_operation_name, "multi-addon-code-cave", cave_offset,
         bytes(len(payload)), payload,
-        "initialize physical ID27 and implement sparse mapping, display, unlock, audio, Results, and native T2 pool bridges",
+        ("initialize physical ID27 and implement sparse mapping, display, unlock, audio, Results, and native T2 pool bridges"
+         if layer_name == "i0" else
+         "initialize physical ID27 with the independent R5VQualifier runtime family while preserving sparse mapping, unlock, audio, Results, and native T2 pool bridges"),
         va=CODE_CAVE_VA))
 
     def hook(name: str, va: int, replacement: bytes, purpose: str) -> None:
@@ -654,8 +677,8 @@ def make_candidate(data: bytes) -> tuple[bytes, dict[str, Any]]:
     parent_manifest_bytes = (json.dumps(parent_manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
     manifest: dict[str, Any] = {
         "schema_version": 1,
-        "phase": "R5V-I.0 two-addon-slot / T2 local7 diagnostic candidate",
-        "profile": PROFILE,
+        "phase": phase,
+        "profile": profile,
         "status": "READY_FOR_HUMAN_RUNTIME",
         "source_sha256": source_hash,
         "source_size": len(data),
@@ -682,17 +705,21 @@ def make_candidate(data: bytes) -> tuple[bytes, dict[str, Any]]:
             },
             {
                 "physical_id": 27, "class": 1, "local_index": 7,
-                "profile_role": "SLOT PROOF / DONOR; NOT A REAL SECOND ADDON",
-                "name": "Navara", "donor_physical_id": 7,
-                "runtime_family": "Navara", "model_family": "Navara",
-                "wheel_family": "Navara", "physics_family": "Vehicles/Navara",
-                "stats": [7, 6, 6, 5], "smallcarsheet_index": 13,
-                "vehicle_select_frame": 23,
-                "race_colour_rgba_bits": ["00000000", "3f800000", "3f800000", "3f800000"],
-                "display": {"manufacturer": DISPLAY_ID27_MANUFACTURER,
-                            "model": DISPLAY_ID27_MODEL,
-                            "combined": DISPLAY_ID27_COMBINED,
-                            "results": RESULTS_ID27},
+                "profile_role": ("SLOT PROOF / DONOR; NOT A REAL SECOND ADDON"
+                                 if id27_record.internal_name == "Navara"
+                                 else "AUTHORED SDK QUALIFICATION VEHICLE"),
+                "name": id27_record.internal_name, "donor_physical_id": id27_record.donor_id,
+                "runtime_family": id27_record.runtime_family,
+                "model_family": id27_record.model_family,
+                "wheel_family": id27_record.wheel_family,
+                "physics_family": id27_record.physics_family,
+                "stats": list(id27_record.stats), "smallcarsheet_index": id27_record.smallcarsheet_index,
+                "vehicle_select_frame": id27_record.vehicle_select_icon_frame,
+                "race_colour_rgba_bits": [f"{bits:08x}" for bits in id27_record.race_colour_rgba_bits],
+                "display": {"manufacturer": id27_record.display_manufacturer,
+                            "model": id27_record.display_model,
+                            "combined": id27_record.display_quickrace,
+                            "results": results_label},
                 "unlock_oracle_id": 10,
                 "unlock_path": "Progress/UnlockedCars/T2CupCar1",
                 "audio_profile_id": 7,
@@ -751,7 +778,7 @@ def make_candidate(data: bytes) -> tuple[bytes, dict[str, Any]]:
         },
         "text_virtual_size": {
             "h2": current_vsize,
-            "i0": new_vsize,
+            layer_name: new_vsize,
             "code_cave_va": f"0x{CODE_CAVE_VA:08X}",
             "payload_size": len(payload),
             "payload_end_exclusive_va": f"0x{highest_end_va:08X}",
@@ -773,16 +800,19 @@ def make_candidate(data: bytes) -> tuple[bytes, dict[str, Any]]:
             "r5v_i_full_pass": False,
         },
     }
-    _verify_structure(candidate, manifest)
+    _verify_structure(candidate, manifest, expected_profile=profile,
+                      expected_id27_name=id27_record.internal_name)
     return candidate, manifest
 
 
-def _verify_structure(candidate: bytes, manifest: dict[str, Any]) -> None:
+def _verify_structure(candidate: bytes, manifest: dict[str, Any], *,
+                      expected_profile: str = PROFILE,
+                      expected_id27_name: str = "Navara") -> None:
     if sha256(candidate) != manifest.get("patched_sha256"):
         raise CandidateError("candidate SHA256 differs from manifest")
     if len(candidate) != RETAIL_SIZE or manifest.get("file_size") != RETAIL_SIZE:
         raise CandidateError("I.0 candidate must retain the exact retail file size")
-    if manifest.get("profile") != PROFILE or manifest.get("layout", {}).get("record_count") != 28:
+    if manifest.get("profile") != expected_profile or manifest.get("layout", {}).get("record_count") != 28:
         raise CandidateError("candidate profile or 28-record target is invalid")
     if manifest.get("capacity") != {"T1": 8, "T2": 8, "T3": 12}:
         raise CandidateError("candidate class capacities differ from the I.0 target")
@@ -799,8 +829,9 @@ def _verify_structure(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise CandidateError("manifest registry layout does not match the derived 28-record formula")
     entrypoints = {key: int(value, 16) for key, value in manifest.get("code_entrypoints", {}).items()}
     cave_va = int(manifest["text_virtual_size"]["code_cave_va"], 16)
+    layer_name = "i0" if expected_profile == PROFILE else "i1"
     payload_op = next((op for op in manifest["operations"]
-                       if op["name"] == "i0_multi_addon_code_payload"), None)
+                       if op["name"] == f"{layer_name}_multi_addon_code_payload"), None)
     if payload_op is None or payload_op.get("virtual_address") != cave_va:
         raise CandidateError("candidate manifest is missing the audited I.0 code-cave operation")
     payload = bytes.fromhex(payload_op["replacement_bytes"])
@@ -808,8 +839,8 @@ def _verify_structure(candidate: bytes, manifest: dict[str, Any]) -> None:
         raise CandidateError("candidate code payload is empty or exceeds the audited cave")
     cave_end_va = cave_va + len(payload)
     rdata_va = int(manifest["text_virtual_size"]["rdata_va"], 16)
-    text_vsize_i0 = manifest["text_virtual_size"].get("i0")
-    text_end_va = TEXT_BASE_VA + text_vsize_i0
+    text_vsize = manifest["text_virtual_size"].get(layer_name)
+    text_end_va = TEXT_BASE_VA + text_vsize
     if cave_end_va > rdata_va or text_end_va < cave_end_va:
         raise CandidateError("candidate code payload is not fully mapped before .rdata")
     if payload_op["file_offset"] < 0 or candidate[
@@ -841,15 +872,31 @@ def _verify_structure(candidate: bytes, manifest: dict[str, Any]) -> None:
             raise CandidateError(f"candidate is missing the T2 append entrypoint {key}")
     if manifest.get("profiles", [])[0].get("physical_id") != 26 or manifest.get("profiles", [])[1].get("physical_id") != 27:
         raise CandidateError("ID26/ID27 profile order or identity changed")
-    if manifest["profiles"][0].get("name") != "Mercedes" or manifest["profiles"][1].get("name") != "Navara":
-        raise CandidateError("I.0 must preserve Mercedes and use a clearly labeled Navara donor")
+    if manifest["profiles"][0].get("name") != "Mercedes" or manifest["profiles"][1].get("name") != expected_id27_name:
+        raise CandidateError("candidate must preserve Mercedes ID26 and the requested ID27 family")
+
+
+def _absolute_without_links(path: Path, label: str) -> Path:
+    """Keep lexical paths usable for protected corpus files but reject link-backed paths."""
+    absolute = Path(os.path.abspath(path))
+    current = Path(absolute.anchor)
+    for component in absolute.parts[1:]:
+        current = current / component
+        if current.is_symlink() or getattr(current, "is_junction", lambda: False)():
+            raise CandidateError(f"{label} path contains a symlink or junction: {current}")
+    return absolute
 
 
 def verify_existing(source: Path, output: Path, manifest_path: Path) -> dict[str, Any]:
-    source = source.resolve(strict=True)
-    output = output.resolve(strict=True)
-    manifest_path = manifest_path.resolve(strict=True)
-    if source == output or os.path.samefile(source, output):
+    source = Path(os.path.abspath(source))
+    if not source.is_file():
+        raise CandidateError("pristine retail source is not a regular file")
+    output = _absolute_without_links(output, "candidate")
+    manifest_path = _absolute_without_links(manifest_path, "candidate manifest")
+    if not output.is_file() or not manifest_path.is_file():
+        raise CandidateError("candidate executable or manifest is missing")
+    if (os.path.normcase(str(source)) == os.path.normcase(str(output))
+            or os.path.samefile(source, output)):
         raise CandidateError("candidate must not overwrite the pristine executable")
     expected_bytes, expected_manifest = make_candidate(source.read_bytes())
     if output.read_bytes() != expected_bytes:
@@ -862,10 +909,13 @@ def verify_existing(source: Path, output: Path, manifest_path: Path) -> dict[str
 
 
 def write_candidate(source: Path, output: Path, manifest_path: Path) -> dict[str, Any]:
-    source = source.resolve(strict=True)
-    output = output.resolve(strict=False)
-    manifest_path = manifest_path.resolve(strict=False)
-    if source == output or output.exists() or manifest_path.exists():
+    source = Path(os.path.abspath(source))
+    if not source.is_file():
+        raise CandidateError("pristine retail source is not a regular file")
+    output = _absolute_without_links(output, "candidate")
+    manifest_path = _absolute_without_links(manifest_path, "candidate manifest")
+    if (os.path.normcase(str(source)) == os.path.normcase(str(output))
+            or output.exists() or manifest_path.exists()):
         raise CandidateError("refusing to overwrite source, candidate, or manifest")
     if not registry._is_research_output(output) or not registry._is_research_output(manifest_path):
         raise CandidateError("candidate and manifest must be under ignored research-output")

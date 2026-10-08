@@ -46,15 +46,19 @@ unchanged. Normal Invitation is T3-only, Challenge is authored, and Practice
 has no distinct AI-roster owner in the bounded audit. See
 `research/vehicles/ai/runtime-results.md`.
 
-R5V-I is in progress. I.0 has a deterministic static candidate with 28
-registry records and sparse T2/local7 -> physical ID27; a verified runtime
-package is ready for a human slot proof. Its ID27 uses the stock Navara family
-as a labeled diagnostic donor, so it is not the required second real T2
-vehicle. The audited corpora currently yield
-`REAL_T2_PAYLOAD_REQUIRED`: retail NewRav is already stock ID12, and demo
-Rav4 lacks the cooked DX/DXT and retail physics/collision package. R5V-I is
-not closed. See `research/vehicles/multislot/findings.md` and
-`research/vehicles/multislot/runtime-plan.md`.
+R5V-I.0 is **FULL PASS / CLOSED**: four verified captures confirm physical
+ID27/T2 local7 in Vehicle Select and a single-player race, and distinct
+ID27/T2 plus ID26/T1 actors coexisting in SplitScreen. The I.0 Navara donor
+proved the slot, not an independent vehicle identity. R5V-I.1 is **READY FOR
+HUMAN RUNTIME** with authored `R5VQualifier` identity and its own `DataGx`
+asset plus `Vehicles` physics/modification paths, including a magenta body
+texture canary. Resources remain Navara-derived; no historical authenticity
+or unique collision topology is claimed. Exact candidate/package checks and
+short human instructions are in
+`research/vehicles/multislot/i1-qualification.md`; the sanitized 81-site patch
+inventory is `research/vehicles/multislot/i1-candidate-manifest.json`. R5V-I
+remains open until player and natural T2 AI family-routing checks pass; R5V-J
+is not started.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

@@ -1,4 +1,10 @@
-# R5V-I.0 human runtime plan — slot proof only
+# R5V-I.0 human runtime plan — COMPLETED / SUPERSEDED
+
+The I.0 plan below is retained as a historical record. Its human slot and
+SplitScreen checks are complete and **FULL PASS / CLOSED**; see
+[runtime results](runtime-results.md). Do not reuse the I.0 diagnostic package
+for the pending authored-family test. The current I.1 instructions are in
+[i1-qualification.md](i1-qualification.md).
 
 ## Prelaunch
 
@@ -47,8 +53,9 @@ package file set. Do not launch if it fails.
    still select and display correctly. Stop at any wrong mapping, crash,
    collision/physics anomaly, lock bypass or roster corruption.
 5. Do not interpret this donor test as a real independent T2 vehicle pass.
-   R5V-I remains open until an independent T2 cooked family and its own
-   physics/collision data are qualified.
+   At the time this I.0 plan was written, I.0 was only a slot proof and the
+   independent-family qualification remained open. I.0 is now closed; the
+   current authored-family gate is documented in `i1-qualification.md`.
 
 Observatory Broker paths are supporting identity evidence, not actor proof by
 themselves. The selected race actor, controls, movement and collisions need

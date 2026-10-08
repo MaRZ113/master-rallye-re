@@ -80,12 +80,14 @@ def _safe_relative(raw: str) -> Path:
 
 
 def _inside(root: Path, relative: str) -> Path:
-    root = root.resolve(strict=True)
-    candidate = (root / _safe_relative(relative)).resolve(strict=True)
-    try:
-        candidate.relative_to(root)
-    except ValueError as exc:
-        raise PackageError(f"package path escapes its root: {relative!r}") from exc
+    root = Path(os.path.abspath(root))
+    if not root.is_dir() or root.is_symlink() or getattr(root, "is_junction", lambda: False)():
+        raise PackageError("package root is missing or link-backed")
+    candidate = root
+    for part in _safe_relative(relative).parts:
+        candidate = candidate / part
+        if candidate.is_symlink() or getattr(candidate, "is_junction", lambda: False)():
+            raise PackageError(f"package path contains a link: {relative!r}")
     if not candidate.is_file():
         raise PackageError(f"package resource is not a regular file: {relative!r}")
     return candidate
@@ -111,15 +113,28 @@ def _entry(path: Path, relative: str, role: str) -> dict[str, Any]:
     }
 
 
+def _absolute_without_links(path: Path, label: str) -> Path:
+    """Use a lexical absolute path without allowing symlink/junction traversal."""
+    absolute = Path(os.path.abspath(path))
+    current = Path(absolute.anchor)
+    for component in absolute.parts[1:]:
+        current = current / component
+        if current.is_symlink() or getattr(current, "is_junction", lambda: False)():
+            raise PackageError(f"{label} path contains a symlink or junction: {current}")
+    return absolute
+
+
 def _validate_output_directory(path: Path) -> Path:
-    resolved = path.resolve(strict=False)
+    resolved = _absolute_without_links(path, "runtime package")
     if not registry._is_research_output(resolved):
         raise PackageError("runtime package output must be inside ignored research-output")
     return resolved
 
 
 def verify_h2_source(root: Path) -> tuple[dict[str, Any], bytes, list[dict[str, Any]]]:
-    root = root.resolve(strict=True)
+    root = _absolute_without_links(root, "H.2 package")
+    if not root.is_dir():
+        raise PackageError(f"H.2 package directory is missing: {root}")
     manifest_path = root / "hardened-runtime-package.json"
     manifest, manifest_bytes = _load_json(manifest_path)
     candidate = manifest.get("candidate", {})
@@ -267,7 +282,9 @@ def _build_runtime_manifest(*, h2_manifest: dict[str, Any], h2_manifest_bytes: b
 
 
 def _verify_runtime_manifest(package: Path, manifest: dict[str, Any]) -> None:
-    package = package.resolve(strict=True)
+    package = _validate_output_directory(package)
+    if not package.is_dir():
+        raise PackageError("runtime package directory is missing")
     if manifest.get("status") != "READY_FOR_HUMAN_RUNTIME" or manifest.get("profile") != EXPECTED_I0_PROFILE:
         raise PackageError("runtime package is not the pinned I.0 profile")
     candidate_meta = manifest.get("candidate", {})
@@ -347,13 +364,21 @@ def stage_package(*, h2_root: Path = DEFAULT_H2_ROOT,
     output = _validate_output_directory(output)
     if output.exists():
         raise PackageError("refusing to overwrite an existing runtime package")
-    h2_root = h2_root.resolve(strict=True)
-    retail_exe = retail_exe.resolve(strict=True)
-    retail_scene = retail_scene.resolve(strict=True)
-    candidate = candidate.resolve(strict=True)
-    patch_manifest = patch_manifest.resolve(strict=True)
-    scene_overlay = scene_overlay.resolve(strict=True)
-    overlay_manifest = overlay_manifest.resolve(strict=True)
+    h2_root = _absolute_without_links(h2_root, "H.2 package")
+    if not h2_root.is_dir():
+        raise PackageError("H.2 package directory is missing")
+    retail_exe = Path(os.path.abspath(retail_exe))
+    if not retail_exe.is_file():
+        raise PackageError("retail executable source is not a regular file")
+    retail_scene = Path(os.path.abspath(retail_scene))
+    if not retail_scene.is_file():
+        raise PackageError("retail VehicleSelect scene is missing")
+    candidate = _absolute_without_links(candidate, "I.0 candidate")
+    patch_manifest = _absolute_without_links(patch_manifest, "I.0 patch manifest")
+    scene_overlay = _absolute_without_links(scene_overlay, "I.0 VehicleSelect overlay")
+    overlay_manifest = _absolute_without_links(overlay_manifest, "I.0 overlay manifest")
+    if any(not item.is_file() for item in (candidate, patch_manifest, scene_overlay, overlay_manifest)):
+        raise PackageError("an I.0 candidate or overlay component is missing")
     h2_manifest, h2_manifest_bytes, h2_resources = verify_h2_source(h2_root)
     candidate_meta, overlay_meta = _verify_component_builds(
         retail_exe, retail_scene, candidate, patch_manifest, scene_overlay, overlay_manifest)
@@ -391,8 +416,8 @@ def stage_package(*, h2_root: Path = DEFAULT_H2_ROOT,
         _verify_runtime_manifest(temporary, manifest)
         os.replace(temporary, output)
     except Exception:
-        temp_resolved = temporary.resolve(strict=False)
-        parent_resolved = output.parent.resolve(strict=True)
+        temp_resolved = Path(os.path.abspath(temporary))
+        parent_resolved = Path(os.path.abspath(output.parent))
         if (temp_resolved.parent == parent_resolved
                 and temp_resolved.name.startswith(output.name + ".staging-")
                 and registry._is_research_output(temp_resolved)):
@@ -407,8 +432,12 @@ def verify_package(package: Path, *, retail_exe: Path = DEFAULT_RETAIL_EXE,
     package = _validate_output_directory(package)
     if not package.is_dir():
         raise PackageError(f"runtime package directory is missing: {package}")
-    retail_exe = retail_exe.resolve(strict=True)
-    retail_scene = retail_scene.resolve(strict=True)
+    retail_exe = Path(os.path.abspath(retail_exe))
+    if not retail_exe.is_file():
+        raise PackageError("retail executable source is not a regular file")
+    retail_scene = Path(os.path.abspath(retail_scene))
+    if not retail_scene.is_file():
+        raise PackageError("retail VehicleSelect scene is missing")
     manifest, _raw = _load_json(package / RUNTIME_MANIFEST_NAME)
     _verify_runtime_manifest(package, manifest)
     _verify_component_builds(

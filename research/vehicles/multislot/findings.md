@@ -1,81 +1,103 @@
-# R5V-I — multi-slot vehicle registry
+# R5V-I — multi-slot registry and independent-family qualification
 
-## Current result
+## Current status
 
-**R5V-I.0 slot proof: STATIC PASS / READY FOR HUMAN RUNTIME.** The exact
-retail executable can be deterministically extended to a 28-record registry
-with sparse `T2 local7 -> physical ID27`, while preserving physical ID25
-Trooper and ID26 Mercedes. The candidate and matching Vehicle Select overlay
-are staged together in the ignored runtime package and verified before launch.
+**R5V-I.0 second physical slot: FULL PASS / CLOSED.** Runtime capture pairs
+confirm physical ID27 at T2 local7 in Vehicle Select and as the player in a
+single-player Quick Race. A separate active SplitScreen capture shows ID27/T2
+and ID26/T1 as distinct simultaneous human participants. The owner observed
+the ID27 Navara donor model, wheels, movement, HUD icon and progress marker
+working without obvious corruption. These observations close the slot proof;
+they do not turn the Navara donor alias into an independent vehicle.
 
-**R5V-I.1 real T2 vehicle: `REAL_T2_PAYLOAD_REQUIRED`.** The I.0 ID27 profile
-reuses physical ID7/Navara's render, wheel, physics and audio families as an
-explicit slot diagnostic. It is not an independent T2 vehicle and cannot close
-the required second-vehicle qualification. The audited corpora contain no
-ready independent T2 cooked payload. See [the payload audit](id27-vehicle.md)
-and [machine-readable evidence](payload-audit.json).
+**R5V-I.1 authored independent T2 family: READY FOR HUMAN RUNTIME.** The
+current candidate preserves physical ID27/T2 local7 but changes its runtime
+family to `R5VQualifier`. The packaged model, wheel, physics and modification
+references use that family name and a distinct loose asset directory. A
+controlled body texture recolor makes the independent asset route visible.
+Human runtime is required before claiming that the game resolves the separate
+family paths or before closing R5V-I.
 
-R5V-I is therefore still **OPEN / NOT FULL PASS**. Static synthesis and the
-candidate do not establish in-game T2_Car8 construction, ID27 materials,
-physical behavior, collision, damage, AI, or results. Do not report R5V-I as
-runtime-confirmed until the human test and a real independent T2 vehicle both
-pass.
+## I.0 runtime record
+
+The exact I.0 EXE SHA256 is
+`50ff267d2758c1ff894d91bcdafd7dba4a2fa278d678a075e7767120727abbea`
+(3,121,214 bytes). Four JSON/raw pairs and their raw-byte hashes are recorded
+in [runtime-results.md](runtime-results.md). Vehicle Select publishes
+`CarModel=27`, `SLOT PROOF` / `NAVARA DONOR`; the player race has
+`NumCars=4`, `NumPlayers=1`, `Race/Type=2`, `Car0=ID27/T2`, `CarType=Navara`,
+`WheelType=Navara`, and a cyan canary. The AI remain valid T2 stock IDs 7, 11,
+and 13; ID14 does not enter T2 local7.
+
+The active SplitScreen capture has `NumCars=4`, `NumPlayers=2`: Car0 is ID27/T2
+Navara with the cyan canary, Car1 is ID26/T1 Mercedes with the red canary, and
+the two AI are T2 IDs11 and 9. The owner confirmed both human views operated
+normally. The separate SplitScreen menu capture is not treated as actor
+proof because its race participant fields are stale/inconsistent.
+
+ID25 remains mapped to T3 local11 and its frontend slot is preserved, but the
+Trooper model files are absent from this test package. This is a package
+content gap, not an I.0 registry blocker. No full stage/results/collision/
+damage claim is made for the I.0 run unless separately reported.
 
 ## Sparse identity map
 
-| Class | Class-local indices | Physical Vehicle IDs | Status |
-|---|---|---|---|
+| Class | Local indices | Physical IDs | Evidence |
+|---|---:|---|---|
 | T1 | 0–6 | 0–6 | retail mapping preserved |
-| T1 | 7 | 26 | Mercedes, previously runtime-confirmed |
+| T1 | 7 | 26 | Mercedes, runtime qualified |
 | T2 | 0–6 | 7–13 | retail mapping preserved |
-| T2 | 7 | 27 | Navara donor slot proof only; runtime pending |
-| T3 | 0–11 | 14–25 | retail mapping preserved; ID25 remains Trooper |
+| T2 | 7 | 27 | I.0 slot proof runtime-confirmed; I.1 family proof pending |
+| T3 | 0–11 | 14–25 | retail mapping preserved; ID25 remains Trooper slot |
 
-The native mapping uses separate class-local fields. ID27 does not mean ID14:
-physical 14 is the first T3 vehicle. All 26 existing retail physical IDs keep
-their prior class/local mapping. See [the mapping proof](class-mapping.md).
+Registry layout is formula-based through 28 records: `record_count = highest
+physical_id + 1`; RaceTest base is `4 + record_count * 0x34`; the adjacent
+39-row RaceTest allocation ends at `0xC68`. For ID27, base is `0x5B4`.
+I.0/I.1 retain 39 initializer and 11 indexed-consumer relocation sites. This
+is demonstrated through two added IDs, not arbitrary-N runtime qualification.
 
-## Registry and adjacent table
+## I.1 authored qualification identity
 
-The candidate has 28 `VehicleRecord` slots with a 0x34-byte record stride and
-a 4-byte leading header. `VehicleRecord[27]` starts at allocation offset
-0x580. The existing 39-row `RaceTest` table begins immediately afterward at
-0x5B4, uses 0x2C-byte rows, and the combined allocation is 0xC68 bytes. The
-candidate relocates the adjacent RaceTest start by 0x34 from the H.2 parent;
-39 initializer displacements and 11 indexed consumers are shifted accordingly.
-Constructor, destructor and unwind counts cover 28 records. No participant
-capacity, HUD, Results, course, or generic N expansion is part of I.0. See
-[registry layout](registry-layout.md) and
-[secondary-array relocation](secondary-array-relocation.md).
+| Layer | ID27 I.1 value | Qualification meaning |
+|---|---|---|
+| Physical/class identity | ID27, T2 local7 | unchanged from I.0 |
+| Registry/runtime/model/wheel name | `R5VQualifier` | distinct native lookup family |
+| Render package | `DataGx/Vehicles/R5VQualifier/*` | 98 separately staged DX/DXT files |
+| Physics family | `Vehicles/R5VQualifier/*` | 147 Navara-derived values under a new namespace |
+| Player modifications | `Vehicles/R5VQualifier/*` | 26 Navara-derived rows under a new namespace |
+| Body asset canary | `paintjeep-tga.dxt`, 16×16 magenta RGBA `[255,64,210,255]` | visible independent-package probe |
+| Collision | Navara-derived `car.dx` hull | donor-derived, no unique hull claim |
+| Frontend strings | `R5V` / `T2 QUALIFIER` / `R5V T2 QUALIFIER` | independent visible identity |
+| Results label | `R5V TEST DRIVER` | presentation-only; native DriverID unchanged |
+| Unlock | mirrors stock ID10, `T2CupCar1` | no progression redesign |
+| Audio | stock profile7 | preserved tuned stock mapping |
+| Frontend art/stats | Navara frame23; 7/6/6/5 | explicitly donor-derived |
+| T2 AI pools | `[7,8,9,10,11,12,13,27]` | unchanged I.0 pool eligibility |
 
-## Candidate boundary
+This is an authored SDK qualification vehicle, not a historical Master Rallye
+car and not an authentic Navara-independent topology. The proof target is
+family-address routing and identity separation: runtime ID27 should request
+`R5VQualifier` model, wheel, and physics paths rather than resolving through
+the Navara family name. The named physics clone is intentionally semantically
+unchanged; it proves separate path lookup without introducing a risky handling
+change.
 
-The candidate composes the exact H.2 physical-ID26 result from pristine
-retail. It appends a complete ID27 record, extends the T2 capacity to eight,
-adds the T2 sparse mapping and routes ID27 through the existing native
-exclusion/append body at Quick Race, new Rallye Cup roster creation and new
-Master Rallye competition creation. Existing Cup/Master rosters remain
-unchanged; Challenge remains authored; normal Invitation remains on its
-T3-only route. Native DriverID selection is preserved.
+The runtime package is generated under ignored
+`.research-output/vehicles/multislot/i1/runtime-package`. It composes the
+verified H.2 runtime resources, deterministic I.1 executable, qualified
+T2_Car8 scene, new family assets, and full `vehicles.xml` /
+`Modifications.xml` overlays. It contains no PlayerState, save, screenshot,
+raw capture or Ghidra project. Package verification checks every staged file
+hash and rejects loose Navara model paths for the ID27 family.
+The tracked [derived candidate manifest](i1-candidate-manifest.json) records
+the exact candidate/source hashes and all 81 patch sites with lengths and
+before/after SHA256 values, but omits raw executable patch bytes.
 
-The I.0 record mirrors the T2 ID10 unlock gate and uses audio profile 7 only
-because its current render donor is Navara. The cyan race colour, donor image,
-stats, `SLOT PROOF / DONOR` wording and Results label exist to distinguish the
-new physical slot from ID7. They are diagnostic scaffolding, not authentic
-vehicle identity. See [unlock](unlock.md), [audio](audio.md), [AI](ai.md) and
-[human runtime plan](runtime-plan.md).
+## Boundaries
 
-The old/general randomizer is absent, `Race/NumCars` behavior is untouched,
-and this candidate does not force ID27 into a participant slot. The runtime
-package excludes PlayerState/save files and raw captures.
-
-## Next gate
-
-Run the I.0 slot proof only after the staged package verifier passes. Stop at
-any registry, selection, actor, model, wheel, physics, collision, AI or race
-anomaly. A donor-based slot proof can validate slot architecture; it cannot
-substitute for R5V-I.1's required independent T2 vehicle. The first needed
-input is a distinct cooked T2 family (`car.dx`, `complete.dx`, `wheel.dx`,
-its DXT dependencies and independently qualified physics/collision data), or
-an explicit decision to start a separate conversion/cooker/physics phase for
-the demo Rav4 source.
+I.1 does not add ID28, alter participant count, change the randomizer, change
+AI roster lifecycle, add an authored sound, change collision topology, or
+start public SDK implementation. Existing ID26 Mercedes behavior and ID25
+Trooper mapping remain regression constraints. R5V-I closes only after the
+I.1 player-family test and one natural T2 AI ID27 test pass in human runtime.
+R5V-J is not started by preparing this candidate.

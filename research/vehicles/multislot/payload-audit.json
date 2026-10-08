@@ -1,6 +1,9 @@
 {
-  "phase": "R5V-I.1 independent T2 payload audit",
-  "status": "REAL_T2_PAYLOAD_REQUIRED",
+  "phase": "R5V-I.1 historical corpus payload audit before authored qualifier",
+  "status": "HISTORICAL_AUDIT_SUPERSEDED_AS_CURRENT_QUALIFICATION_GATE",
+  "original_status": "REAL_T2_PAYLOAD_REQUIRED",
+  "superseded_by": "research/vehicles/multislot/i1-qualification.md",
+  "current_qualification_vehicle": "R5VQualifier; authored, Navara-derived family-path qualification, not historical content",
   "audited_corpus_root": "../corpora",
   "candidates": [
     {
@@ -60,6 +63,6 @@
       "decision": "Potential future cooker/conversion input only; requires a separate authorized qualification."
     }
   ],
-  "conclusion": "No current corpus candidate is ready to satisfy the independent real T2 vehicle requirement.",
+  "conclusion": "At the time of this corpus audit, no historical/retail candidate was ready for the independent real T2 vehicle requirement. The later authored R5VQualifier target uses the existing Navara donor under independent asset and physics family paths.",
   "proprietary_payloads_copied_to_repository": false
 }
