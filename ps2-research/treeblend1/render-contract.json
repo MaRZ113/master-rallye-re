@@ -1,0 +1,406 @@
+{
+  "cache_stride": 64,
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "geometry": "Original source strip positions; common matrices/projection/clip; selector0 ignores normal.xyz",
+  "materials": {
+    "object": {
+      "handler": "0x003ae760",
+      "mip_factor_word": 1056964608,
+      "mode": 15,
+      "queue_bucket": 0,
+      "registration": "0x003a7628",
+      "texture_lookup_flag": 0,
+      "vtable": "0x00487ce8"
+    },
+    "tree": {
+      "handler": "0x003ae710",
+      "mip_factor_word": 1045220557,
+      "mode": 6,
+      "queue_bucket": 0,
+      "registration": "0x003a75b8",
+      "texture_lookup_flag": 0,
+      "vtable": "0x00487d08"
+    },
+    "treeblend": {
+      "handler": "0x003ae618",
+      "mip_factor_word": 1041865114,
+      "mode": 2,
+      "queue_bucket": 1,
+      "registration": "0x003a7468",
+      "texture_lookup_flag": 1,
+      "vtable": "0x00487d68"
+    }
+  },
+  "queue": "bucket0 tree/object, bucket1 treeblend; ascending buckets within one31cd98 drain; no distance sort proved",
+  "residency": "LIVE_RESIDENCY_UNKNOWN",
+  "runtime_stride": 48,
+  "runtime_validation": "NOT_PERFORMED",
+  "schema": "ps2-foliage-contract-v1",
+  "source_color": "0xRRGGBBAA -> float /255 -> clamp2..254 RGBA bytes ->*.5 ->VU FTOI0",
+  "source_stride": 52,
+  "states": [
+    {
+      "alpha_test": "DISABLED",
+      "blend_equation": "(Cs-Cd)*As/128+Cd",
+      "effective_geometry_streams": 1,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "inherited_scope": [
+        "ZTE",
+        "DATE/DATM",
+        "FRAME",
+        "PABE",
+        "TEXA",
+        "dynamic TEX0 address/format",
+        "higher PRIM bits until template initialization",
+        "global AD helper state"
+      ],
+      "input_provenance": "INHERITED_STATE_NOT_SUPPLIED",
+      "mode": 2,
+      "precision": "EXACT_ELF_OPERATION",
+      "primary_gif_registers": "0x412: ST, RGBAQ, XYZF2",
+      "registers": {
+        "ALPHA": {
+          "decoded": {
+            "A": 0,
+            "B": 1,
+            "C": 0,
+            "D": 1,
+            "FIX": 0
+          },
+          "keep_mask": "0xffffff00ffffff00",
+          "known_mask": "0x000000ff000000ff",
+          "result_word": null,
+          "set_bits": "0x0000000000000044"
+        },
+        "FBA": {
+          "decoded": {
+            "FBA": 0
+          },
+          "keep_mask": "0xfffffffffffffffe",
+          "known_mask": "0x0000000000000001",
+          "result_word": null,
+          "set_bits": "0x0000000000000000"
+        },
+        "GIF_TAG": {
+          "decoded": {
+            "AA1": "INHERITED",
+            "ABE": 1,
+            "CTXT": "INHERITED",
+            "FGE": 1,
+            "FST": "INHERITED",
+            "IIP": 1,
+            "PRIM": 4,
+            "TME": 1
+          },
+          "keep_mask": "0xffc07fffffffffff",
+          "known_mask": "0x003f800000000000",
+          "result_word": null,
+          "set_bits": "0x003e000000000000"
+        },
+        "TEST": {
+          "decoded": {
+            "AFAIL": 1,
+            "AREF": 0,
+            "ATE": 0,
+            "ATST": 0,
+            "DATE": "INHERITED",
+            "DATM": "INHERITED",
+            "ZTE": "INHERITED",
+            "ZTST": 2
+          },
+          "keep_mask": "0xfffffffffff9c000",
+          "known_mask": "0x0000000000063fff",
+          "result_word": null,
+          "set_bits": "0x0000000000041000"
+        },
+        "TEX0": {
+          "decoded": {
+            "PSM": "INHERITED",
+            "TBP0": "INHERITED",
+            "TCC": 1,
+            "TFX": 0
+          },
+          "keep_mask": "0xffffffe3ffffffff",
+          "known_mask": "0x0000001c00000000",
+          "result_word": null,
+          "set_bits": "0x0000000400000000"
+        },
+        "TEX1": {
+          "decoded": {
+            "K": 0,
+            "L": 0,
+            "LCM": 0,
+            "MMAG": 1,
+            "MMIN": 5,
+            "MTBA": "INHERITED",
+            "MXL": "INHERITED"
+          },
+          "keep_mask": "0xfffff000ffe7fe1e",
+          "known_mask": "0x00000fff001801e1",
+          "result_word": null,
+          "set_bits": "0x0000000000000160"
+        },
+        "ZBUF": {
+          "decoded": {
+            "PSM": "INHERITED",
+            "ZBP": "INHERITED",
+            "ZMSK": 1
+          },
+          "keep_mask": "0xfffffffeffffffff",
+          "known_mask": "0x0000000100000000",
+          "result_word": null,
+          "set_bits": "0x0000000100000000"
+        }
+      },
+      "runtime_validation": "NOT_PERFORMED",
+      "secondary_gif_registers": "0xfff: NOP, NOP, NOP",
+      "shader": "treeblend"
+    },
+    {
+      "alpha_test": "A > 64; AFAIL=KEEP",
+      "blend_equation": "ABE=0; ALPHA inactive",
+      "effective_geometry_streams": 1,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "inherited_scope": [
+        "ZTE",
+        "DATE/DATM",
+        "FRAME",
+        "PABE",
+        "TEXA",
+        "dynamic TEX0 address/format",
+        "higher PRIM bits until template initialization",
+        "global AD helper state"
+      ],
+      "input_provenance": "INHERITED_STATE_NOT_SUPPLIED",
+      "mode": 6,
+      "precision": "EXACT_ELF_OPERATION",
+      "primary_gif_registers": "0x412: ST, RGBAQ, XYZF2",
+      "registers": {
+        "ALPHA": {
+          "decoded": {
+            "A": 0,
+            "B": 1,
+            "C": 0,
+            "D": 1,
+            "FIX": 0
+          },
+          "keep_mask": "0xffffff00ffffff00",
+          "known_mask": "0x000000ff000000ff",
+          "result_word": null,
+          "set_bits": "0x0000000000000044"
+        },
+        "FBA": {
+          "decoded": {
+            "FBA": 0
+          },
+          "keep_mask": "0xfffffffffffffffe",
+          "known_mask": "0x0000000000000001",
+          "result_word": null,
+          "set_bits": "0x0000000000000000"
+        },
+        "GIF_TAG": {
+          "decoded": {
+            "AA1": "INHERITED",
+            "ABE": 0,
+            "CTXT": "INHERITED",
+            "FGE": 1,
+            "FST": "INHERITED",
+            "IIP": 1,
+            "PRIM": 4,
+            "TME": 1
+          },
+          "keep_mask": "0xffc07fffffffffff",
+          "known_mask": "0x003f800000000000",
+          "result_word": null,
+          "set_bits": "0x001e000000000000"
+        },
+        "TEST": {
+          "decoded": {
+            "AFAIL": 0,
+            "AREF": 64,
+            "ATE": 1,
+            "ATST": 6,
+            "DATE": "INHERITED",
+            "DATM": "INHERITED",
+            "ZTE": "INHERITED",
+            "ZTST": 2
+          },
+          "keep_mask": "0xfffffffffff9c000",
+          "known_mask": "0x0000000000063fff",
+          "result_word": null,
+          "set_bits": "0x000000000004040d"
+        },
+        "TEX0": {
+          "decoded": {
+            "PSM": "INHERITED",
+            "TBP0": "INHERITED",
+            "TCC": 1,
+            "TFX": 0
+          },
+          "keep_mask": "0xffffffe3ffffffff",
+          "known_mask": "0x0000001c00000000",
+          "result_word": null,
+          "set_bits": "0x0000000400000000"
+        },
+        "TEX1": {
+          "decoded": {
+            "K": 0,
+            "L": 0,
+            "LCM": 0,
+            "MMAG": 1,
+            "MMIN": 5,
+            "MTBA": "INHERITED",
+            "MXL": "INHERITED"
+          },
+          "keep_mask": "0xfffff000ffe7fe1e",
+          "known_mask": "0x00000fff001801e1",
+          "result_word": null,
+          "set_bits": "0x0000000000000160"
+        },
+        "ZBUF": {
+          "decoded": {
+            "PSM": "INHERITED",
+            "ZBP": "INHERITED",
+            "ZMSK": 0
+          },
+          "keep_mask": "0xfffffffeffffffff",
+          "known_mask": "0x0000000100000000",
+          "result_word": null,
+          "set_bits": "0x0000000000000000"
+        }
+      },
+      "runtime_validation": "NOT_PERFORMED",
+      "secondary_gif_registers": "0xfff: NOP, NOP, NOP",
+      "shader": "tree"
+    },
+    {
+      "alpha_test": "DISABLED",
+      "blend_equation": "ABE=0; ALPHA inactive",
+      "effective_geometry_streams": 1,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "inherited_scope": [
+        "ZTE",
+        "DATE/DATM",
+        "FRAME",
+        "PABE",
+        "TEXA",
+        "dynamic TEX0 address/format",
+        "higher PRIM bits until template initialization",
+        "global AD helper state"
+      ],
+      "input_provenance": "INHERITED_STATE_NOT_SUPPLIED",
+      "mode": 15,
+      "precision": "EXACT_ELF_OPERATION",
+      "primary_gif_registers": "0x412: ST, RGBAQ, XYZF2",
+      "registers": {
+        "ALPHA": {
+          "decoded": {
+            "A": 0,
+            "B": 1,
+            "C": 0,
+            "D": 1,
+            "FIX": 0
+          },
+          "keep_mask": "0xffffff00ffffff00",
+          "known_mask": "0x000000ff000000ff",
+          "result_word": null,
+          "set_bits": "0x0000000000000044"
+        },
+        "FBA": {
+          "decoded": {
+            "FBA": 0
+          },
+          "keep_mask": "0xfffffffffffffffe",
+          "known_mask": "0x0000000000000001",
+          "result_word": null,
+          "set_bits": "0x0000000000000000"
+        },
+        "GIF_TAG": {
+          "decoded": {
+            "AA1": "INHERITED",
+            "ABE": 0,
+            "CTXT": "INHERITED",
+            "FGE": 1,
+            "FST": "INHERITED",
+            "IIP": 1,
+            "PRIM": 4,
+            "TME": 1
+          },
+          "keep_mask": "0xffc07fffffffffff",
+          "known_mask": "0x003f800000000000",
+          "result_word": null,
+          "set_bits": "0x001e000000000000"
+        },
+        "TEST": {
+          "decoded": {
+            "AFAIL": 0,
+            "AREF": 64,
+            "ATE": 0,
+            "ATST": 6,
+            "DATE": "INHERITED",
+            "DATM": "INHERITED",
+            "ZTE": "INHERITED",
+            "ZTST": 2
+          },
+          "keep_mask": "0xfffffffffff9c000",
+          "known_mask": "0x0000000000063fff",
+          "result_word": null,
+          "set_bits": "0x000000000004040c"
+        },
+        "TEX0": {
+          "decoded": {
+            "PSM": "INHERITED",
+            "TBP0": "INHERITED",
+            "TCC": 1,
+            "TFX": 0
+          },
+          "keep_mask": "0xffffffe3ffffffff",
+          "known_mask": "0x0000001c00000000",
+          "result_word": null,
+          "set_bits": "0x0000000400000000"
+        },
+        "TEX1": {
+          "decoded": {
+            "K": 0,
+            "L": 0,
+            "LCM": 0,
+            "MMAG": 1,
+            "MMIN": 5,
+            "MTBA": "INHERITED",
+            "MXL": "INHERITED"
+          },
+          "keep_mask": "0xfffff000ffe7fe1e",
+          "known_mask": "0x00000fff001801e1",
+          "result_word": null,
+          "set_bits": "0x0000000000000160"
+        },
+        "ZBUF": {
+          "decoded": {
+            "PSM": "INHERITED",
+            "ZBP": "INHERITED",
+            "ZMSK": 0
+          },
+          "keep_mask": "0xfffffffeffffffff",
+          "known_mask": "0x0000000100000000",
+          "result_word": null,
+          "set_bits": "0x0000000000000000"
+        }
+      },
+      "runtime_validation": "NOT_PERFORMED",
+      "secondary_gif_registers": "0xfff: NOP, NOP, NOP",
+      "shader": "object"
+    }
+  ],
+  "submission": "31f4e0 ->31d7c8 REF/UNPACK/MSCAL0xf;31e010 CALL;316b88 ->30ea80 VIF1 DMA",
+  "texture_cache_option": "mesh+3c=0 tree/1 treeblend -> negated2f84f0 argument; exact pixel-format effect unknown",
+  "unknowns": [
+    "Actual live TEX0/CLUT/VRAM format and alpha conversion",
+    "Inherited ZTE/FRAME/PABE/TEXA",
+    "Global AD identity at42dea0/42deb0 not fully mapped",
+    "Live selected hierarchy groups and VU residency"
+  ],
+  "upload": "Original311370 JAL317208 ->DMA CALL442170 ->five MPG chunks",
+  "vu_entry": "0x00f",
+  "vu_selector": 0,
+  "xgkick": "micro0x0fa (ELF0x00442950); shared flush0x3d7"
+}

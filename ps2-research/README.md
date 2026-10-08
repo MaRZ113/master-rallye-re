@@ -134,3 +134,11 @@ different placement, with foliage/instance limits preserved. The
 [read-only diagnostic](tools/dressing_runtime.py) and SVG helper keep source
 geometry ignored; [handoff instructions](dressing1/HANDOFF.md) cover standalone
 tests and private corpus dependencies. No PC content/renderer/SDK change occurs.
+
+The [TREEBLEND1 foliage reverse](treeblend1/final-report.md) traces authored
+tree/treeblend meshes through distinct mode6/mode2 alpha/depth contracts and the
+shared cached-strip/VIF1 path. France1 provides a shared-geometry material control;
+camera/LOD/wind and live texture/VU boundaries remain explicit.
+[foliage_runtime.py](tools/foliage_runtime.py) exposes bounded material/state/source
+diagnostics; the [handoff](treeblend1/HANDOFF.md) includes small historical test
+fixtures and original instruction probes. No PC foliage implementation is included.

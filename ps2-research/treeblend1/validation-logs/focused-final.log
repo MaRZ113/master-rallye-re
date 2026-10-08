@@ -1,0 +1,35 @@
+test_original_instruction_words_and_vu_pairs (test_foliage_runtime.CanonicalElf.test_original_instruction_words_and_vu_pairs) ... ok
+test_original_gxi_hash_and_stored_alpha (test_foliage_runtime.CanonicalMeshes.test_original_gxi_hash_and_stored_alpha) ... ok
+test_original_material_binding_and_source_counts (test_foliage_runtime.CanonicalMeshes.test_original_material_binding_and_source_counts) ... ok
+test_paired_pixels_and_source_sizes (test_foliage_runtime.CanonicalPc.test_paired_pixels_and_source_sizes) ... ok
+test_pc_flags_against_direct_bytes_and_triangle_multiplicity (test_foliage_runtime.CanonicalPc.test_pc_flags_against_direct_bytes_and_triangle_multiplicity) ... ok
+test_frozen_compact_handlers_and_case_matrix (test_foliage_runtime.Evidence.test_frozen_compact_handlers_and_case_matrix) ... ok
+test_instruction_probe_is_small_and_original_hash_locked (test_foliage_runtime.Evidence.test_instruction_probe_is_small_and_original_hash_locked) ... ok
+test_json_determinism_without_original_state_inputs (test_foliage_runtime.Evidence.test_json_determinism_without_original_state_inputs) ... ok
+test_output_cannot_escape_research_directory (test_foliage_runtime.Evidence.test_output_cannot_escape_research_directory) ... ok
+test_alpha_marker_is_not_a_blend_mode_override (test_foliage_runtime.Materials.test_alpha_marker_is_not_a_blend_mode_override) ... ok
+test_authored_case_preserved_after_interner_folding (test_foliage_runtime.Materials.test_authored_case_preserved_after_interner_folding) ... ok
+test_geometry_and_mip_field_are_separate_from_opacity (test_foliage_runtime.Materials.test_geometry_and_mip_field_are_separate_from_opacity) ... ok
+test_property_case_and_first_substring_semantics (test_foliage_runtime.Materials.test_property_case_and_first_substring_semantics) ... ok
+test_registration_ids_are_independently_distinct (test_foliage_runtime.Materials.test_registration_ids_are_independently_distinct) ... ok
+test_unknown_spelling_whitespace_and_missing_delimiter (test_foliage_runtime.Materials.test_unknown_spelling_whitespace_and_missing_delimiter) ... ok
+test_actual_register_is_fba_not_pabe (test_foliage_runtime.State.test_actual_register_is_fba_not_pabe) ... ok
+test_blend_source_alpha_no_test_and_depth_mask (test_foliage_runtime.State.test_blend_source_alpha_no_test_and_depth_mask) ... ok
+test_depth_enable_and_frame_are_never_guessed (test_foliage_runtime.State.test_depth_enable_and_frame_are_never_guessed) ... ok
+test_masks_preserve_unowned_register_bits (test_foliage_runtime.State.test_masks_preserve_unowned_register_bits) ... ok
+test_negative_object_test_and_blend_are_disabled (test_foliage_runtime.State.test_negative_object_test_and_blend_are_disabled) ... ok
+test_only_one_effective_primitive_stream (test_foliage_runtime.State.test_only_one_effective_primitive_stream) ... ok
+test_supplied_depth_enable_survives_every_mode (test_foliage_runtime.State.test_supplied_depth_enable_survives_every_mode) ... ok
+test_texture_alpha_is_selected_independent_of_test_and_blend (test_foliage_runtime.State.test_texture_alpha_is_selected_independent_of_test_and_blend) ... ok
+test_tree_cutout_greater64_keep_and_depth_write_allowed (test_foliage_runtime.State.test_tree_cutout_greater64_keep_and_depth_write_allowed) ... ok
+test_unsupported_inputs_fail_closed (test_foliage_runtime.State.test_unsupported_inputs_fail_closed) ... ok
+test_all_source_byte_normalized_round_trips (test_foliage_runtime.Vertex.test_all_source_byte_normalized_round_trips) ... ok
+test_channel_order_and_loader_clamp (test_foliage_runtime.Vertex.test_channel_order_and_loader_clamp) ... ok
+test_color_input_validation (test_foliage_runtime.Vertex.test_color_input_validation) ... ok
+test_nonfinite_normal_is_rejected (test_foliage_runtime.Vertex.test_nonfinite_normal_is_rejected) ... ok
+test_source_52byte_attributes_independently_placed (test_foliage_runtime.Vertex.test_source_52byte_attributes_independently_placed) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 17.359s
+
+OK

@@ -1,0 +1,4533 @@
+{
+  "analysis": "Latest local Ghidra12.1.4; installed ghidra-bridge exporter; readonly project; temporary changes rolled back",
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "functions": [
+    {
+      "address": "0x00200550",
+      "callees": [
+        {
+          "callsite": "0x2005a8",
+          "original_word": "0xc075aec",
+          "target": "0x1d6bb0"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "DRESSING1 float32 reconstruction; no tree-specific threshold",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x003b9258",
+          "callsite": "0x3b92a0",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fields_read": [
+        "view+0xc0..+0xc8 position",
+        "view+0xb0..+0xb8 direction",
+        "view+8 four normal triples",
+        "optional graphics descriptor+0x28 range"
+      ],
+      "fields_written": [],
+      "fresh_export": false,
+      "important_constants": "DRESSING1 float32 reconstruction; no tree-specific threshold",
+      "input_arguments": "view,center,radius",
+      "instruction_evidence": [
+        {
+          "analysis_instruction": "c.ole.S f20,f0",
+          "original_word": "0x4600a036",
+          "va": "0x200564"
+        },
+        {
+          "analysis_instruction": "jal 0x001d6bb0",
+          "original_word": "0xc075aec",
+          "va": "0x2005a8"
+        },
+        {
+          "analysis_instruction": "jalr v0",
+          "original_word": "0x40f809",
+          "va": "0x2005c0"
+        },
+        {
+          "analysis_instruction": "lwc1 f3,0x28(v1)",
+          "original_word": "0xc4630028",
+          "va": "0x2005f4"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x2006bc",
+        "start": "0x200550",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "material_modes": "Inherited course visibility, no tree-specific mode test",
+      "object_fields_read": [
+        "view+0xc0..+0xc8 position",
+        "view+0xb0..+0xb8 direction",
+        "view+8 four normal triples",
+        "optional graphics descriptor+0x28 range"
+      ],
+      "object_fields_written": [],
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "reuse_provenance": "dressing1",
+      "role": "Shared sphere/range/side-plane gate",
+      "shader_texture_bindings": "None in this inherited visibility dependency",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "None in recovered traversal functions; delegates mesh renderer"
+    },
+    {
+      "address": "0x002f84f0",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "addr": "003fa760",
+          "name": "FUN_003fa760"
+        },
+        {
+          "addr": "003f9698",
+          "name": "FUN_003f9698"
+        },
+        {
+          "addr": "003fa8a4",
+          "name": "FUN_003fa8a4"
+        },
+        {
+          "addr": "002fb248",
+          "name": "FUN_002fb248"
+        },
+        {
+          "addr": "001d9a90",
+          "name": "FUN_001d9a90"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "addr": "00342cd0",
+          "name": "FUN_00342cd0",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "descriptor stores option; downstream meaning bounded UNKNOWN",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": true,
+      "important_constants": "cache hit/create",
+      "input_arguments": "resource manager,filename,option",
+      "input_fields": "resolved filename",
+      "instruction_evidence": [
+        {
+          "address": "0x2f84f0",
+          "ghidra_asm": "addiu sp,sp,-0x330",
+          "original_word": "0x27bdfcd0"
+        },
+        {
+          "address": "0x2f84f4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x310(sp)",
+          "original_word": "0x7fbe0310"
+        },
+        {
+          "address": "0x2f84f8",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s6,0x2f0(sp)",
+          "original_word": "0x7fb602f0"
+        },
+        {
+          "address": "0x2f84fc",
+          "ghidra_asm": "daddu s8,t0,zero",
+          "original_word": "0x100f02d"
+        },
+        {
+          "address": "0x2f8500",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s5,0x2e0(sp)",
+          "original_word": "0x7fb502e0"
+        },
+        {
+          "address": "0x2f8504",
+          "ghidra_asm": "daddu s6,t3,zero",
+          "original_word": "0x160b02d"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x002f8a34",
+        "inspected_last_va": "0x002f8a34",
+        "start": "0x002f84f0",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "resolved filename",
+      "object_fields_written": "texture cache object",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "texture cache object",
+      "packet_state_writes": "texture cache object",
+      "remaining_ambiguity": "Full GXI upload not reversed",
+      "reuse_provenance": "water1",
+      "role": "Filename cache/descriptor creation",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "texture cache object"
+    },
+    {
+      "address": "0x002f9c80",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "addr": "002f9b20",
+          "name": "FUN_002f9b20"
+        },
+        {
+          "addr": "002fc178",
+          "name": "FUN_002fc178"
+        },
+        {
+          "addr": "003774d0",
+          "name": "FUN_003774d0"
+        },
+        {
+          "addr": "002f96d8",
+          "name": "FUN_002f96d8"
+        },
+        {
+          "addr": "00374bd8",
+          "name": "FUN_00374bd8"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "addr": "002fa058",
+          "name": "ui_002fa058",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "mip state and VRAM upload/residency dependencies",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": true,
+      "important_constants": "load-on-demand path",
+      "input_arguments": "resource manager,handle",
+      "input_fields": "texture object",
+      "instruction_evidence": [
+        {
+          "address": "0x2f9c80",
+          "ghidra_asm": "addiu sp,sp,-0xc0",
+          "original_word": "0x27bdff40"
+        },
+        {
+          "address": "0x2f9c84",
+          "ghidra_asm": "li a2,0x12c",
+          "original_word": "0x2406012c"
+        },
+        {
+          "address": "0x2f9c88",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s5,0x70(sp)",
+          "original_word": "0x7fb50070"
+        },
+        {
+          "address": "0x2f9c8c",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s4,0x60(sp)",
+          "original_word": "0x7fb40060"
+        },
+        {
+          "address": "0x2f9c90",
+          "ghidra_asm": "daddu s5,a1,zero",
+          "original_word": "0xa0a82d"
+        },
+        {
+          "address": "0x2f9c94",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s2,0x40(sp)",
+          "original_word": "0x7fb20040"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x002fa050",
+        "inspected_last_va": "0x002fa050",
+        "start": "0x002f9c80",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "texture object",
+      "object_fields_written": "VRAM/resident fields",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "VRAM/resident fields",
+      "packet_state_writes": "VRAM/resident fields",
+      "remaining_ambiguity": "Actual VRAM contents uncaptured",
+      "reuse_provenance": "water1",
+      "role": "Ensure cached texture residence",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "VRAM/resident fields"
+    },
+    {
+      "address": "0x002fd7d0",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "addr": "002b4ad8",
+          "name": "FUN_002b4ad8"
+        },
+        {
+          "addr": "00151930",
+          "name": "FUN_00151930"
+        },
+        {
+          "addr": "003fa9b8",
+          "name": "FUN_003fa9b8"
+        },
+        {
+          "addr": "00151a28",
+          "name": "FUN_00151a28"
+        },
+        {
+          "addr": "002fd7a0",
+          "name": "ui_002fd7a0"
+        },
+        {
+          "addr": "002f84f0",
+          "name": "FUN_002f84f0"
+        },
+        {
+          "addr": "002f9c80",
+          "name": "FUN_002f9c80"
+        },
+        {
+          "addr": "002b2028",
+          "name": "FUN_002b2028"
+        },
+        {
+          "addr": "00152720",
+          "name": "FUN_00152720"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "negateoption ->2f84f0;residence2f9c80",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": true,
+      "important_constants": ".gxi suffix;2f84f0;2f9c80",
+      "input_arguments": "return pointer,owner,interned name,option",
+      "input_fields": "interned resource name, load flag",
+      "instruction_evidence": [
+        {
+          "address": "0x2fd7d0",
+          "ghidra_asm": "addiu sp,sp,-0xe0",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "address": "0x2fd7d4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0xc0(sp)",
+          "original_word": "0x7fbe00c0"
+        },
+        {
+          "address": "0x2fd7d8",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s7,0xb0(sp)",
+          "original_word": "0x7fb700b0"
+        },
+        {
+          "address": "0x2fd7dc",
+          "ghidra_asm": "daddu s8,t2,zero",
+          "original_word": "0x140f02d"
+        },
+        {
+          "address": "0x2fd7e0",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s6,0xa0(sp)",
+          "original_word": "0x7fb600a0"
+        },
+        {
+          "address": "0x2fd7e4",
+          "ghidra_asm": "daddu s7,t1,zero",
+          "original_word": "0x120b82d"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x002fdcb0",
+        "inspected_last_va": "0x002fdcb0",
+        "start": "0x002fd7d0",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "interned resource name, load flag",
+      "object_fields_written": "cached resource handle",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "cached resource handle",
+      "packet_state_writes": "cached resource handle",
+      "remaining_ambiguity": "Missing/corrupt named texture fallback outside trace",
+      "reuse_provenance": "refl1",
+      "role": "Resource-root GXI filename lookup",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "cached resource handle"
+    },
+    {
+      "address": "0x0030ea80",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x0030ea38",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002c1870",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002f5528",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002c1948",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030e9f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00310de0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "VIF1 QWC/TADR/CHCR writes; no runtime capture",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "stridee0;physical mask0fffffff;VIF/GIF/VU busy checks",
+      "input_arguments": "chain address",
+      "input_fields": "42da12 consumer vs42da10 producer;context+14 pointer",
+      "instruction_evidence": [
+        {
+          "original_word": "0x3c030043",
+          "va": "0x0030ea80"
+        },
+        {
+          "original_word": "0x34429030",
+          "va": "0x0030ed68"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0030edb0"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0030edb4",
+        "inspected_last_va": "0x0030edb4",
+        "start": "0x0030ea80",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "42da12 consumer vs42da10 producer;context+14 pointer",
+      "object_fields_written": "10009030 TADR,10009020 QWC,10009000 CHCR145",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "10009030 TADR,10009020 QWC,10009000 CHCR145",
+      "packet_state_writes": "10009030 TADR,10009020 QWC,10009000 CHCR145",
+      "remaining_ambiguity": "Synchronization branch has unsupported EE instruction; original start writes independently verified",
+      "reuse_provenance": "refl1",
+      "role": "Hardware DMA submission",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "10009030 TADR,10009020 QWC,10009000 CHCR145"
+    },
+    {
+      "address": "0x00311370",
+      "callees": [
+        {
+          "addr": "00317208",
+          "name": "FUN_00317208"
+        },
+        {
+          "addr": "00316b88",
+          "name": "FUN_00316b88"
+        },
+        {
+          "addr": "0030f290",
+          "name": "FUN_0030f290"
+        },
+        {
+          "addr": "002b1fc0",
+          "name": "FUN_002b1fc0"
+        },
+        {
+          "addr": "003d2910",
+          "name": "FUN_003d2910"
+        },
+        {
+          "addr": "002b2028",
+          "name": "FUN_002b2028"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "canonical direct JAL317208; not a live residency capture",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "canonical direct JAL317208; not a live residency capture",
+      "input_arguments": "graphics initialization context",
+      "instruction_evidence": [
+        {
+          "address": "0x311370",
+          "ghidra_asm": "jal 0x00317208",
+          "original_word": "0xc0c5c82"
+        },
+        {
+          "address": "0x311374",
+          "ghidra_asm": "_addu a0,a0,v1",
+          "original_word": "0x832021"
+        },
+        {
+          "address": "0x311378",
+          "ghidra_asm": "jal 0x00316b88",
+          "original_word": "0xc0c5ae2"
+        },
+        {
+          "address": "0x31137c",
+          "ghidra_asm": "_daddu a0,s2,zero",
+          "original_word": "0x240202d"
+        },
+        {
+          "address": "0x311380",
+          "ghidra_asm": "jal 0x0030e960",
+          "original_word": "0xc0c3a58"
+        },
+        {
+          "address": "0x311384",
+          "ghidra_asm": "_nop",
+          "original_word": "0x0"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3114a0",
+        "start": "0x311370",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "graphics initialization context",
+      "object_fields_written": "canonical direct JAL317208; not a live residency capture",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Graphics initialization calls original VU upload producer",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x00311c50",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002de820",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fa058",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00327340",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "TEX0_1/mip descriptors;dynamic actual words UNKNOWN",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "48-byte cache entries;2fa058",
+      "input_arguments": "handle reference",
+      "input_fields": "texture handle/cache42e430",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff30",
+          "va": "0x00311c50"
+        },
+        {
+          "original_word": "0xafa50028",
+          "va": "0x00311d70"
+        },
+        {
+          "original_word": "0xafa50028",
+          "va": "0x00311f14"
+        },
+        {
+          "original_word": "0xfca40028",
+          "va": "0x00311fe0"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031212c",
+        "inspected_last_va": "0x0031212c",
+        "start": "0x00311c50",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "texture handle/cache42e430",
+      "object_fields_written": "TEX0_1,TEX1_1,MIPTBP fields",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "TEX0_1,TEX1_1,MIPTBP fields",
+      "packet_state_writes": "TEX0_1/mip descriptors;dynamic actual words UNKNOWN",
+      "remaining_ambiguity": "Runtime VRAM address unknown",
+      "reuse_provenance": "refl1",
+      "role": "Bind primary resource handle to GS texture state",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+c4,31cd98"
+      ],
+      "vu_gs_involvement": "TEX0_1/mip descriptors;dynamic actual words UNKNOWN"
+    },
+    {
+      "address": "0x00312610",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "mode2/treeblend,mode6/tree,mode15/object",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": true,
+      "important_constants": "mode9:secondary68 FIX56 TCC0;10:44 TCC1;19:ZMSK0 both",
+      "input_arguments": "mode param2",
+      "input_fields": "mode and renderer state",
+      "instruction_evidence": [
+        {
+          "address": "0x312610",
+          "ghidra_asm": "addiu sp,sp,-0xb0",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "address": "0x312614",
+          "ghidra_asm": "lui t2,0x43",
+          "original_word": "0x3c0a0043"
+        },
+        {
+          "address": "0x312618",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x90(sp)",
+          "original_word": "0x7fbe0090"
+        },
+        {
+          "address": "0x31261c",
+          "ghidra_asm": "addiu t6,t2,-0x2140",
+          "original_word": "0x254edec0"
+        },
+        {
+          "address": "0x312620",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0xa0(sp)",
+          "original_word": "0x7fbf00a0"
+        },
+        {
+          "address": "0x312624",
+          "ghidra_asm": "addiu t5,t6,-0x60",
+          "original_word": "0x25cdffa0"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x00316800",
+        "inspected_last_va": "0x00316800",
+        "start": "0x00312610",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "mode and renderer state",
+      "object_fields_written": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector",
+      "packet_state_writes": "mode2/treeblend,mode6/tree,mode15/object",
+      "remaining_ambiguity": "ZTE/DATE/FRAME/TEXA inherited; live packet not captured",
+      "reuse_provenance": "refl1",
+      "role": "Renderer mode GS template switch",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+bc,31cd98"
+      ],
+      "vu_gs_involvement": "mode2/treeblend,mode6/tree,mode15/object"
+    },
+    {
+      "address": "0x00316b88",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x0031e190",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00403160",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030ea38",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0030e9f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00311378",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "30ea80 VIF1 channel",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "4contexts;403160 cache sync;30ea38/30e9f0 critical section",
+      "input_arguments": "graphics renderer",
+      "input_fields": "42da10 ring index,context stridee0",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdffc0",
+          "va": "0x00316b88"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x00316c30"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x00316c34",
+        "inspected_last_va": "0x00316c34",
+        "start": "0x00316b88",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "42da10 ring index,context stridee0",
+      "object_fields_written": "NEXT chains,ready flag+ c0,producer index",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "NEXT chains,ready flag+ c0,producer index",
+      "packet_state_writes": "NEXT chains,ready flag+ c0,producer index",
+      "remaining_ambiguity": "No live ring-state capture",
+      "reuse_provenance": "refl1",
+      "role": "Graphics DMA chain/ring flush",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+34,316ce0"
+      ],
+      "vu_gs_involvement": "NEXT chains,ready flag+ c0,producer index"
+    },
+    {
+      "address": "0x00317208",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00311370",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "CALL442170;five original MPG chunks",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "50000000,442170,03000000,02000080,14000000",
+      "input_arguments": "chain",
+      "input_fields": "renderer initialization context",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff60",
+          "va": "0x00317208"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x00317468"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031746c",
+        "inspected_last_va": "0x0031746c",
+        "start": "0x00317208",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "renderer initialization context",
+      "object_fields_written": "CALL442170;VIF BASE/OFFSET;MSCAL0",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "CALL442170;VIF BASE/OFFSET;MSCAL0",
+      "packet_state_writes": "CALL442170;VIF BASE/OFFSET;MSCAL0",
+      "remaining_ambiguity": "Caller at311370; actual micro-RAM capture pending",
+      "reuse_provenance": "refl1",
+      "role": "Upload embedded VU program chain",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "CALL442170;VIF BASE/OFFSET;MSCAL0"
+    },
+    {
+      "address": "0x00317470",
+      "callees": [
+        {
+          "address": "0x002ad5a8"
+        },
+        {
+          "address": "0x003f931c"
+        },
+        {
+          "address": "0x002ad530"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "common VU transform inputs;no foliage pivot",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": false,
+      "important_constants": "MSCAL30e;matrix packet21 qwords",
+      "input_arguments": "original draw matrices",
+      "input_fields": "a0 chain,a1 viewport,a2 view0,a3 view1,t0/t1 projection matrices,t2 other constants",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff50",
+          "va": "0x317470"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x31776c",
+        "start": "0x317470",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED",
+      "object_fields_read": "a0 chain,a1 viewport,a2 view0,a3 view1,t0/t1 projection matrices,t2 other constants",
+      "object_fields_written": "MSCAL30e;matrix packet21 qwords",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "MSCAL30e;matrix packet21 qwords",
+      "packet_state_writes": "MSCAL30e;matrix packet21 qwords",
+      "remaining_ambiguity": "Live matrix state not captured",
+      "reuse_provenance": "refl1",
+      "role": "Common object/view/projection input producer",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "MSCAL30e;matrix packet21 qwords"
+    },
+    {
+      "address": "0x00317770",
+      "callees": [
+        {
+          "address": "0x002ad5a8"
+        },
+        {
+          "address": "0x003f931c"
+        },
+        {
+          "address": "0x002ad530"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "common VU transform inputs;no shader billboard",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": false,
+      "important_constants": "MSCAL2cf;matrix packet8 qwords",
+      "input_arguments": "original draw matrices",
+      "input_fields": "a0 chain,a1 object0,a2 object1",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff70",
+          "va": "0x317770"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x3179c4",
+        "start": "0x317770",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED",
+      "object_fields_read": "a0 chain,a1 object0,a2 object1",
+      "object_fields_written": "MSCAL2cf;matrix packet8 qwords",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "MSCAL2cf;matrix packet8 qwords",
+      "packet_state_writes": "MSCAL2cf;matrix packet8 qwords",
+      "remaining_ambiguity": "Live matrix state not captured",
+      "reuse_provenance": "refl1",
+      "role": "Alternative common matrix producer",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "MSCAL2cf;matrix packet8 qwords"
+    },
+    {
+      "address": "0x0031af50",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0031c520",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0031c9c0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "V4_32 to317;MSCAL36a;selector0 foliage",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "317.w selector storage,1400036a",
+      "input_arguments": "chain,selector",
+      "input_fields": "selector0/3 for water/puddle",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff80",
+          "va": "0x0031af50"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031b1e8"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031b1ec",
+        "inspected_last_va": "0x0031b1ec",
+        "start": "0x0031af50",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "selector0/3 for water/puddle",
+      "object_fields_written": "VIF UNPACK and MSCAL36a",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "VIF UNPACK and MSCAL36a",
+      "packet_state_writes": "VIF UNPACK and MSCAL36a",
+      "remaining_ambiguity": "Runtime residency not directly captured",
+      "reuse_provenance": "refl1",
+      "role": "Upload VU material selector",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "VIF UNPACK and MSCAL36a"
+    },
+    {
+      "address": "0x0031b1f0",
+      "callees": [
+        {
+          "addr": "002ad5a8",
+          "name": "FUN_002ad5a8"
+        },
+        {
+          "addr": "003f931c",
+          "name": "FUN_003f931c"
+        },
+        {
+          "addr": "002ad530",
+          "name": "FUN_002ad530"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "MSCAL332;common clipping choice",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "MSCAL332;common clipping choice",
+      "input_arguments": "chain,metadata16bytes",
+      "instruction_evidence": [
+        {
+          "address": "0x31b1f0",
+          "ghidra_asm": "addiu sp,sp,-0x80",
+          "original_word": "0x27bdff80"
+        },
+        {
+          "address": "0x31b1f4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s6,0x60(sp)",
+          "original_word": "0x7fb60060"
+        },
+        {
+          "address": "0x31b1f8",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s4,0x40(sp)",
+          "original_word": "0x7fb40040"
+        },
+        {
+          "address": "0x31b1fc",
+          "ghidra_asm": "lui s6,0x0",
+          "original_word": "0x3c160000"
+        },
+        {
+          "address": "0x31b200",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0x70(sp)",
+          "original_word": "0x7fbf0070"
+        },
+        {
+          "address": "0x31b204",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s5,0x50(sp)",
+          "original_word": "0x7fb50050"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x31b418",
+        "start": "0x31b1f0",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "chain,metadata16bytes",
+      "object_fields_written": "MSCAL332;common clipping choice",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Upload common mesh-bound test input",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x0031c438",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e8d8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031af50",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e478",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e6a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b1f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "31e8d8,31af50,31e478,31e6a8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "primary and secondary independently cached",
+      "input_arguments": "renderer globals",
+      "input_fields": "global template revisions",
+      "instruction_evidence": [
+        {
+          "original_word": "0x3c040043",
+          "va": "0x0031c438"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031c8ec"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031c8f0",
+        "inspected_last_va": "0x0031c8f0",
+        "start": "0x0031c438",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "global template revisions",
+      "object_fields_written": "31e478/31e6a8 state packets;31af50 selector",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "31e478/31e6a8 state packets;31af50 selector",
+      "packet_state_writes": "31e478/31e6a8 state packets;31af50 selector",
+      "remaining_ambiguity": "Template state distinguished from live GS register snapshot",
+      "reuse_provenance": "refl1",
+      "role": "Commit dirty global/primary/secondary states",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+dc,31cd98"
+      ],
+      "vu_gs_involvement": "31e478/31e6a8 state packets;31af50 selector"
+    },
+    {
+      "address": "0x0031cd98",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003179c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b1f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e010",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "312610;311c50;31c438;31b1f0;31e010",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "virtualbc=mode,c4/cc=textures,dc=state,31e010 packet CALL",
+      "input_arguments": "renderer",
+      "input_fields": "queued group flags,mode,handles,packets",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff00",
+          "va": "0x0031cd98"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031d1ac"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031d1b0",
+        "inspected_last_va": "0x0031d1b0",
+        "start": "0x0031cd98",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "queued group flags,mode,handles,packets",
+      "object_fields_written": "frame DMA chain; empties group vectors",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "frame DMA chain; empties group vectors",
+      "packet_state_writes": "frame DMA chain; empties group vectors",
+      "remaining_ambiguity": "Group order only; global terrain-before-water order not proved",
+      "reuse_provenance": "refl1",
+      "role": "Drain ascending buckets/material lists",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "frame DMA chain; empties group vectors"
+    },
+    {
+      "address": "0x0031d1b8",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "renderer+160;dirty+164",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": false,
+      "important_constants": "renderer+160;dirty+164",
+      "input_arguments": "renderer,bucket",
+      "instruction_evidence": [],
+      "known_bounds": {
+        "end_exclusive": null,
+        "start": "0x31d1b8",
+        "status": "FUNCTION_ENTRY_CONFIRMED_FULL_END_UNKNOWN"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "renderer,bucket",
+      "object_fields_written": "renderer+160;dirty+164",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Select queue bucket",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x0031d1f8",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "texture key ->311c50 during queue drain",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "cache change detection",
+      "input_arguments": "renderer,mesh handles+dc/+e4",
+      "input_fields": "a1/a2 handles",
+      "instruction_evidence": [
+        {
+          "original_word": "0x8ca50000",
+          "va": "0x0031d1f8"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031d228"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031d22c",
+        "inspected_last_va": "0x0031d22c",
+        "start": "0x0031d1f8",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "a1/a2 handles",
+      "object_fields_written": "renderer+150/+154,dirty+164",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "renderer+150/+154,dirty+164",
+      "packet_state_writes": "renderer+150/+154,dirty+164",
+      "remaining_ambiguity": "GS bind occurs during queue drain",
+      "reuse_provenance": "water1",
+      "role": "Select queued primary and secondary handles",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+a4,3bca80"
+      ],
+      "vu_gs_involvement": "renderer+150/+154,dirty+164"
+    },
+    {
+      "address": "0x0031d230",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "queued material mode consumed by312610",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "9/10/19 relevant",
+      "input_arguments": "renderer,mesh mode+28",
+      "input_fields": "mode",
+      "instruction_evidence": [
+        {
+          "original_word": "0x8c82015c",
+          "va": "0x0031d230"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031d244"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031d248",
+        "inspected_last_va": "0x0031d248",
+        "start": "0x0031d230",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "mode",
+      "object_fields_written": "renderer+158,+164",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "renderer+158,+164",
+      "packet_state_writes": "renderer+158,+164",
+      "remaining_ambiguity": "Other modes untouched",
+      "reuse_provenance": "water1",
+      "role": "Select material mode for queued draw",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+9c,3bca80"
+      ],
+      "vu_gs_involvement": "renderer+158,+164"
+    },
+    {
+      "address": "0x0031d250",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x00326cb8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfa58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfca8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfec8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f93cc",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00275db8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002df898",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "+150/+154/+158/+15c key;+160 bucket",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "compact mode/handle key",
+      "input_arguments": "renderer,cache wrapper",
+      "input_fields": "renderer+150/+154/+158,cache wrapper",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdfeb0",
+          "va": "0x0031d250"
+        },
+        {
+          "original_word": "0xafa90024",
+          "va": "0x0031d400"
+        },
+        {
+          "original_word": "0xafa00038",
+          "va": "0x0031d610"
+        },
+        {
+          "original_word": "0x02e0302d",
+          "va": "0x0031d794"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": null,
+        "inspected_last_va": "0x0031d794",
+        "start": "0x0031d250",
+        "status": "END_UNRESOLVED"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "renderer+150/+154/+158,cache wrapper",
+      "object_fields_written": "renderer+16c queued groups",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "renderer+16c queued groups",
+      "packet_state_writes": "renderer+16c queued groups",
+      "remaining_ambiguity": "Some export tail originally truncated; raw dispatch consumer proved",
+      "reuse_provenance": "refl1",
+      "role": "Enqueue cached draw by material key/bucket",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+ac,3bca80"
+      ],
+      "vu_gs_involvement": "renderer+16c queued groups"
+    },
+    {
+      "address": "0x0031d7c8",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d7d00",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0031f4b0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00320158",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x003208e0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00334cac",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00334d10",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x003370ac",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0033710c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "four qwords/vertex;MSCALf",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "30000000,01000404,6c008000,1400000f",
+      "input_arguments": "chain,vertex reference/count",
+      "input_fields": "record source pointer,vertex count",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff50",
+          "va": "0x0031d7c8"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031da44"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031da48",
+        "inspected_last_va": "0x0031da48",
+        "start": "0x0031d7c8",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "record source pointer,vertex count",
+      "object_fields_written": "DMA REF,UNPACK,MSCALf",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "DMA REF,UNPACK,MSCALf",
+      "packet_state_writes": "DMA REF,UNPACK,MSCALf",
+      "remaining_ambiguity": "Actual source address fixed later",
+      "reuse_provenance": "refl1",
+      "role": "Cached strip REF/UNPACK producer",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "DMA REF,UNPACK,MSCALf"
+    },
+    {
+      "address": "0x0031e010",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x003171c8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0031d0b0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "original CALL tag",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "50000000",
+      "input_arguments": "chain,target",
+      "input_fields": "geometry chain pointer",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff90",
+          "va": "0x0031e010"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031e188"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031e18c",
+        "inspected_last_va": "0x0031e18c",
+        "start": "0x0031e010",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "geometry chain pointer",
+      "object_fields_written": "DMA CALL address",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "DMA CALL address",
+      "packet_state_writes": "DMA CALL address",
+      "remaining_ambiguity": "CPU-proven submission link",
+      "reuse_provenance": "refl1",
+      "role": "DMA CALL cached chain",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "DMA CALL address"
+    },
+    {
+      "address": "0x0031e478",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0031c678",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0031cb18",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "VU entry37c;primary GIF state",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "6c0b8000,1400037c",
+      "input_arguments": "chain",
+      "input_fields": "42dec0 template",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff80",
+          "va": "0x0031e478"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031e69c"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031e6a0",
+        "inspected_last_va": "0x0031e6a0",
+        "start": "0x0031e478",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "42dec0 template",
+      "object_fields_written": "UNPACK and MSCAL37c",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "UNPACK and MSCAL37c",
+      "packet_state_writes": "VU entry37c;primary GIF state",
+      "remaining_ambiguity": "Hardware action conditional on uploaded program",
+      "reuse_provenance": "refl1",
+      "role": "Primary GS state packet producer",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "VU entry37c;primary GIF state"
+    },
+    {
+      "address": "0x0031e8d8",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "MSCAL373;not vertex-normal computation",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": false,
+      "important_constants": "MSCAL373;not vertex-normal computation",
+      "input_arguments": "chain,state block,size",
+      "instruction_evidence": [],
+      "known_bounds": {
+        "end_exclusive": null,
+        "start": "0x31e8d8",
+        "status": "FUNCTION_ENTRY_CONFIRMED_FULL_END_UNKNOWN"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "chain,state block,size",
+      "object_fields_written": "MSCAL373;not vertex-normal computation",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "MSCAL373;not vertex-normal computation",
+      "reuse_provenance": null,
+      "role": "Global AD packet copy producer",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "MSCAL373;not vertex-normal computation"
+    },
+    {
+      "address": "0x0031f2f8",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00327d08",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "virtual geometry writer",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "40-byte wrapper,64-byte vertex records",
+      "input_arguments": "renderer,mesh",
+      "input_fields": "model vertex array and mesh strips",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdffa0",
+          "va": "0x0031f2f8"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031f470"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031f474",
+        "inspected_last_va": "0x0031f474",
+        "start": "0x0031f2f8",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "model vertex array and mesh strips",
+      "object_fields_written": "render wrapper and geometry chain",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "render wrapper and geometry chain",
+      "packet_state_writes": "render wrapper and geometry chain",
+      "remaining_ambiguity": "Shared path with ordinary landscape",
+      "reuse_provenance": "water1",
+      "role": "Cached wrapper build",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+84,391d38"
+      ],
+      "vu_gs_involvement": "render wrapper and geometry chain"
+    },
+    {
+      "address": "0x0031f4e0",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "addr": "003f93cc",
+          "name": "FUN_003f93cc"
+        },
+        {
+          "addr": "002ad5a8",
+          "name": "FUN_002ad5a8"
+        },
+        {
+          "addr": "003f931c",
+          "name": "FUN_003f931c"
+        },
+        {
+          "addr": "002ad530",
+          "name": "FUN_002ad530"
+        },
+        {
+          "addr": "0031f478",
+          "name": "FUN_0031f478"
+        },
+        {
+          "addr": "0031b9c0",
+          "name": "FUN_0031b9c0"
+        },
+        {
+          "addr": "0031de48",
+          "name": "FUN_0031de48"
+        },
+        {
+          "addr": "0031dce8",
+          "name": "FUN_0031dce8"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "64byte cache;RGBA*.5;no time/camera reads",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": true,
+      "important_constants": "4qwords/vertex,128qword guard,color*.5,scale ratio1.5",
+      "input_arguments": "a0 context,a1 wrapper,a2 source-base,a3 mesh",
+      "input_fields": "48-byte runtime vertices, packed strip records, material+44",
+      "instruction_evidence": [
+        {
+          "address": "0x31f4e0",
+          "ghidra_asm": "addiu sp,sp,-0x110",
+          "original_word": "0x27bdfef0"
+        },
+        {
+          "address": "0x31f4e4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s7,0xc0(sp)",
+          "original_word": "0x7fb700c0"
+        },
+        {
+          "address": "0x31f4e8",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s5,0xa0(sp)",
+          "original_word": "0x7fb500a0"
+        },
+        {
+          "address": "0x31f4ec",
+          "ghidra_asm": "daddu s7,a2,zero",
+          "original_word": "0xc0b82d"
+        },
+        {
+          "address": "0x31f4f0",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s3,0x80(sp)",
+          "original_word": "0x7fb30080"
+        },
+        {
+          "address": "0x31f4f4",
+          "ghidra_asm": "daddu s5,a3,zero",
+          "original_word": "0xe0a82d"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0031fb78",
+        "inspected_last_va": "0x0031fb78",
+        "start": "0x0031f4e0",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "48-byte runtime vertices, packed strip records, material+44",
+      "object_fields_written": "64-byte record streams, DMA packet refs",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "64-byte record streams, DMA packet refs",
+      "packet_state_writes": "64-byte record streams, DMA packet refs",
+      "remaining_ambiguity": "Winding/LOD coverage not fully reconstructed offline",
+      "reuse_provenance": "refl1",
+      "role": "Generic authored strip cache producer",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "renderer4853f0+7c"
+      ],
+      "vu_gs_involvement": "64-byte record streams, DMA packet refs"
+    },
+    {
+      "address": "0x003401f0",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "*255;integer conversion;clamp2..254",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "*255;integer conversion;clamp2..254",
+      "input_arguments": "normalized R,destination",
+      "instruction_evidence": [
+        {
+          "address": "0x3401f0",
+          "ghidra_asm": "lui at,0x437f",
+          "original_word": "0x3c01437f"
+        },
+        {
+          "address": "0x3401f4",
+          "ghidra_asm": "mtc1 at,f0",
+          "original_word": "0x44810000"
+        },
+        {
+          "address": "0x3401f8",
+          "ghidra_asm": "nop",
+          "original_word": "0x0"
+        },
+        {
+          "address": "0x3401fc",
+          "ghidra_asm": "mul.S f12,f12,f0",
+          "original_word": "0x46006302"
+        },
+        {
+          "address": "0x340200",
+          "ghidra_asm": "cvt.w.S f0,f12",
+          "original_word": "0x46006024"
+        },
+        {
+          "address": "0x340204",
+          "ghidra_asm": "mfc1 v1,f0",
+          "original_word": "0x44030000"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x34022c",
+        "start": "0x3401f0",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "normalized R,destination",
+      "object_fields_written": "*255;integer conversion;clamp2..254",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Runtime R byte with clamp",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x00340230",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "same clamp2..254",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "same clamp2..254",
+      "input_arguments": "normalized G,destination+1",
+      "instruction_evidence": [
+        {
+          "address": "0x340230",
+          "ghidra_asm": "lui at,0x437f",
+          "original_word": "0x3c01437f"
+        },
+        {
+          "address": "0x340234",
+          "ghidra_asm": "mtc1 at,f0",
+          "original_word": "0x44810000"
+        },
+        {
+          "address": "0x340238",
+          "ghidra_asm": "nop",
+          "original_word": "0x0"
+        },
+        {
+          "address": "0x34023c",
+          "ghidra_asm": "mul.S f12,f12,f0",
+          "original_word": "0x46006302"
+        },
+        {
+          "address": "0x340240",
+          "ghidra_asm": "cvt.w.S f0,f12",
+          "original_word": "0x46006024"
+        },
+        {
+          "address": "0x340244",
+          "ghidra_asm": "mfc1 v1,f0",
+          "original_word": "0x44030000"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x34026c",
+        "start": "0x340230",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "normalized G,destination+1",
+      "object_fields_written": "same clamp2..254",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Runtime G byte with clamp",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x00340270",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "same clamp2..254",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "same clamp2..254",
+      "input_arguments": "normalized B,destination+2",
+      "instruction_evidence": [
+        {
+          "address": "0x340270",
+          "ghidra_asm": "lui at,0x437f",
+          "original_word": "0x3c01437f"
+        },
+        {
+          "address": "0x340274",
+          "ghidra_asm": "mtc1 at,f0",
+          "original_word": "0x44810000"
+        },
+        {
+          "address": "0x340278",
+          "ghidra_asm": "nop",
+          "original_word": "0x0"
+        },
+        {
+          "address": "0x34027c",
+          "ghidra_asm": "mul.S f12,f12,f0",
+          "original_word": "0x46006302"
+        },
+        {
+          "address": "0x340280",
+          "ghidra_asm": "cvt.w.S f0,f12",
+          "original_word": "0x46006024"
+        },
+        {
+          "address": "0x340284",
+          "ghidra_asm": "mfc1 v1,f0",
+          "original_word": "0x44030000"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3402ac",
+        "start": "0x340270",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "normalized B,destination+2",
+      "object_fields_written": "same clamp2..254",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Runtime B byte with clamp",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003402b0",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "same clamp2..254",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "same clamp2..254",
+      "input_arguments": "normalized A,destination+3",
+      "instruction_evidence": [
+        {
+          "address": "0x3402b0",
+          "ghidra_asm": "lui at,0x437f",
+          "original_word": "0x3c01437f"
+        },
+        {
+          "address": "0x3402b4",
+          "ghidra_asm": "mtc1 at,f0",
+          "original_word": "0x44810000"
+        },
+        {
+          "address": "0x3402b8",
+          "ghidra_asm": "nop",
+          "original_word": "0x0"
+        },
+        {
+          "address": "0x3402bc",
+          "ghidra_asm": "mul.S f12,f12,f0",
+          "original_word": "0x46006302"
+        },
+        {
+          "address": "0x3402c0",
+          "ghidra_asm": "cvt.w.S f0,f12",
+          "original_word": "0x46006024"
+        },
+        {
+          "address": "0x3402c4",
+          "ghidra_asm": "mfc1 v1,f0",
+          "original_word": "0x44030000"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3402ec",
+        "start": "0x3402b0",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "normalized A,destination+3",
+      "object_fields_written": "same clamp2..254",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Runtime A byte with clamp",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003411d0",
+      "callees": [
+        {
+          "addr": "00341198",
+          "name": "FUN_00341198"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "TEST47;ALPHA42;FBA4a;TEX006;ZBUF4e",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "TEST47;ALPHA42;FBA4a;TEX006;ZBUF4e",
+      "input_arguments": "shared graphics state",
+      "instruction_evidence": [
+        {
+          "address": "0x3411d0",
+          "ghidra_asm": "addiu sp,sp,-0xa0",
+          "original_word": "0x27bdff60"
+        },
+        {
+          "address": "0x3411d4",
+          "ghidra_asm": "lui a3,0x43",
+          "original_word": "0x3c070043"
+        },
+        {
+          "address": "0x3411d8",
+          "ghidra_asm": "ori a2,zero,0xc039",
+          "original_word": "0x3406c039"
+        },
+        {
+          "address": "0x3411dc",
+          "ghidra_asm": "dsll32 a2,a2,0xe",
+          "original_word": "0x633bc"
+        },
+        {
+          "address": "0x3411e0",
+          "ghidra_asm": "addiu v0,a3,-0x2140",
+          "original_word": "0x24e2dec0"
+        },
+        {
+          "address": "0x3411e4",
+          "ghidra_asm": "sd a2,-0x2140(a3)",
+          "original_word": "0xfce6dec0"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3412f0",
+        "start": "0x3411d0",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "shared graphics state",
+      "object_fields_written": "TEST47;ALPHA42;FBA4a;TEX006;ZBUF4e",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "TEST47;ALPHA42;FBA4a;TEX006;ZBUF4e",
+      "reuse_provenance": null,
+      "role": "Initialize GS template register identities",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "TEST47;ALPHA42;FBA4a;TEX006;ZBUF4e"
+    },
+    {
+      "address": "0x00361a58",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x003bcaf8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "cache creation or existing-wrapper path",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "reason3 if frame flag and counter changes",
+      "input_arguments": "draw context,mesh",
+      "input_fields": "mesh aux; renderer+140; cache revisions",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff30",
+          "va": "0x00361a58"
+        },
+        {
+          "original_word": "0xae020024",
+          "va": "0x00361ddc"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x00361e10"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x00361e14",
+        "inspected_last_va": "0x00361e14",
+        "start": "0x00361a58",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "mesh aux; renderer+140; cache revisions",
+      "object_fields_written": "cache+c,+10,+14/+18/+1c",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "cache+c,+10,+14/+18/+1c",
+      "packet_state_writes": "cache+c,+10,+14/+18/+1c",
+      "remaining_ambiguity": "Not a water spawn manager",
+      "reuse_provenance": "water1",
+      "role": "Prepare/reuse mesh cache",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "cache+c,+10,+14/+18/+1c"
+    },
+    {
+      "address": "0x003714e0",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002fd7b0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0037cd04",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "+34/+3c ->+dc/+e0; +38/+40 ->+e4/+e8",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "2fd7d0 lookup;2fd788 default if no name",
+      "input_arguments": "model mesh vector",
+      "input_fields": "model+44 meshes; mesh+34/+38,+3c/+40",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff50",
+          "va": "0x003714e0"
+        },
+        {
+          "original_word": "0xae0200dc",
+          "va": "0x00371620"
+        },
+        {
+          "original_word": "0xae0200dc",
+          "va": "0x00371648"
+        },
+        {
+          "original_word": "0xae0200e4",
+          "va": "0x003716bc"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0037171c",
+        "inspected_last_va": "0x0037171c",
+        "start": "0x003714e0",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "model+44 meshes; mesh+34/+38,+3c/+40",
+      "object_fields_written": "mesh+dc/+e4 handles,+e0/+e8 metadata",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "mesh+dc/+e4 handles,+e0/+e8 metadata",
+      "packet_state_writes": "mesh+dc/+e4 handles,+e0/+e8 metadata",
+      "remaining_ambiguity": "Missing named file fallback not fully traced",
+      "reuse_provenance": "refl1",
+      "role": "Resolve original mesh texture names",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "mesh+dc/+e4 handles,+e0/+e8 metadata"
+    },
+    {
+      "address": "0x003900f0",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "addr": "003a7c90",
+          "name": "FUN_003a7c90"
+        },
+        {
+          "addr": "003f9698",
+          "name": "FUN_003f9698"
+        },
+        {
+          "addr": "003a81c0",
+          "name": "FUN_003a81c0"
+        },
+        {
+          "addr": "003a83f0",
+          "name": "FUN_003a83f0"
+        },
+        {
+          "addr": "003a52d0",
+          "name": "FUN_003a52d0"
+        },
+        {
+          "addr": "003a50c0",
+          "name": "FUN_003a50c0"
+        },
+        {
+          "addr": "003a7db0",
+          "name": "FUN_003a7db0"
+        },
+        {
+          "addr": "003a7f10",
+          "name": "FUN_003a7f10"
+        },
+        {
+          "addr": "003a5088",
+          "name": "FUN_003a5088"
+        },
+        {
+          "addr": "003a4fd8",
+          "name": "FUN_003a4fd8"
+        },
+        {
+          "addr": "003a84f8",
+          "name": "FUN_003a84f8"
+        },
+        {
+          "addr": "003a4ab8",
+          "name": "FUN_003a4ab8"
+        },
+        {
+          "addr": "003a85a8",
+          "name": "FUN_003a85a8"
+        },
+        {
+          "addr": "00394498",
+          "name": "FUN_00394498"
+        },
+        {
+          "addr": "00391d38",
+          "name": "FUN_00391d38"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "normal/control;RRGGBBAA;UV4;XYZ",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": true,
+      "important_constants": "52 file bytes;48 runtime bytes",
+      "input_arguments": "reader,model",
+      "input_fields": "stream, vertex count",
+      "instruction_evidence": [
+        {
+          "address": "0x3900f0",
+          "ghidra_asm": "addiu sp,sp,-0xe0",
+          "original_word": "0x27bdff20"
+        },
+        {
+          "address": "0x3900f4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0xd0(sp)",
+          "original_word": "0x7fbf00d0"
+        },
+        {
+          "address": "0x3900f8",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0xc0(sp)",
+          "original_word": "0x7fbe00c0"
+        },
+        {
+          "address": "0x3900fc",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s4,0xb0(sp)",
+          "original_word": "0x7fb400b0"
+        },
+        {
+          "address": "0x390100",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s3,0xa0(sp)",
+          "original_word": "0x7fb300a0"
+        },
+        {
+          "address": "0x390104",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s2,0x90(sp)",
+          "original_word": "0x7fb20090"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x003903c8",
+        "inspected_last_va": "0x003903c8",
+        "start": "0x003900f0",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "stream, vertex count",
+      "object_fields_written": "model+18",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "model+18",
+      "packet_state_writes": "model+18",
+      "remaining_ambiguity": "Unrelated animation channels outside scope",
+      "reuse_provenance": "refl1",
+      "role": "Source52 ->runtime48 vertex load",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "model+18"
+    },
+    {
+      "address": "0x00390d98",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d24b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4e40",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ea0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00391918",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00391b0c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "$shader substring then first parenthesized text",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "case-sensitive $shader; first opening/closing parenthesis",
+      "input_arguments": "material string",
+      "input_fields": "a1 string,a2 property",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff70",
+          "va": "0x00390d98"
+        },
+        {
+          "original_word": "0xafd10024",
+          "va": "0x00390e14"
+        },
+        {
+          "original_word": "0xafd20028",
+          "va": "0x00390e3c"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x00390f4c"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x00390f50",
+        "inspected_last_va": "0x00390f50",
+        "start": "0x00390d98",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "Vehicle modes3/20 through shared mesh/texture/state/packet path; see REFL1 render-contract",
+      "object_fields_read": "a1 string,a2 property",
+      "object_fields_written": "a0 resulting substring",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "a0 resulting substring",
+      "packet_state_writes": "a0 resulting substring",
+      "remaining_ambiguity": "Other properties share helper",
+      "reuse_provenance": "refl1",
+      "role": "Shader token extraction",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "a0 resulting substring"
+    },
+    {
+      "address": "0x00390f98",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x003a88a0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a88d0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a8930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad408",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6ea8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6b70",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6f98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7008",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7078",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a70e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7158",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a71c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7238",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a72a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7318",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7388",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a73f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7468",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a74d8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7548",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a75b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7628",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7708",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7778",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a77e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7858",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a78c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7a18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7a88",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7af8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7b68",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a7938",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a79a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x003916c8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "defaults/marker properties before handler writes",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "important_constants": "water/puddle/waterfall/waterall factories",
+      "input_arguments": "material ->mesh",
+      "input_fields": "42fd68 initialization flag",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff50",
+          "va": "0x00390f98"
+        },
+        {
+          "original_word": "0xafc20024",
+          "va": "0x00391154"
+        },
+        {
+          "original_word": "0xafc20028",
+          "va": "0x0039118c"
+        },
+        {
+          "original_word": "0xafc20038",
+          "va": "0x0039126c"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x0039168c",
+        "inspected_last_va": "0x0039168c",
+        "start": "0x00390f98",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "42fd68 initialization flag",
+      "object_fields_written": "42fd60 registry",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "42fd60 registry",
+      "packet_state_writes": "42fd60 registry",
+      "remaining_ambiguity": "Other shaders out of scope",
+      "reuse_provenance": "water1",
+      "role": "Generic material properties before shader callback",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "42fd60 registry"
+    },
+    {
+      "address": "0x00391690",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x00390f98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c60",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00390d98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2458",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4f78",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2d48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6c58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a3460",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6f18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a33e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x003921e8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "parsed names ->registry",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "fresh_query": false,
+      "important_constants": "$clamp; $shader; default .1",
+      "input_arguments": "PSM material/string ->mesh",
+      "input_fields": "material input+80",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdfed0",
+          "va": "0x00391690"
+        },
+        {
+          "original_word": "0xac400028",
+          "va": "0x003916dc"
+        },
+        {
+          "original_word": "0xac430028",
+          "va": "0x0039178c"
+        },
+        {
+          "original_word": "0xac430028",
+          "va": "0x003917e4"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x00391d34",
+        "inspected_last_va": "0x00391d34",
+        "start": "0x00391690",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "material input+80",
+      "object_fields_written": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "packet_state_writes": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "remaining_ambiguity": "Unknown shader retains generic map-derived mode",
+      "reuse_provenance": "dressing1",
+      "reused_from": "water1/elf-functions.json",
+      "role": "Intern and resolve material",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24"
+    },
+    {
+      "address": "0x00391d38",
+      "callees": [
+        {
+          "callsite": "0x391df8",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x391e0c",
+          "original_word": "0xc0eea1a",
+          "target": "0x3ba868"
+        },
+        {
+          "callsite": "0x391e2c",
+          "original_word": "0xc0ea29a",
+          "target": "0x3a8a68"
+        },
+        {
+          "callsite": "0x391e40",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x391e98",
+          "original_word": "0xc0e42ea",
+          "target": "0x390ba8"
+        },
+        {
+          "callsite": "0x391f24",
+          "original_word": "0xc0c2f9c",
+          "target": "0x30be70"
+        },
+        {
+          "callsite": "0x391f40",
+          "original_word": "0xc0c2f9c",
+          "target": "0x30be70"
+        },
+        {
+          "callsite": "0x391f5c",
+          "original_word": "0xc0c2f9c",
+          "target": "0x30be70"
+        },
+        {
+          "callsite": "0x391f78",
+          "original_word": "0xc0c2f9c",
+          "target": "0x30be70"
+        },
+        {
+          "callsite": "0x392028",
+          "original_word": "0xc0ea31c",
+          "target": "0x3a8c70"
+        },
+        {
+          "callsite": "0x392038",
+          "original_word": "0xc0e94d0",
+          "target": "0x3a5340"
+        },
+        {
+          "callsite": "0x3920f8",
+          "original_word": "0xc0c2f9c",
+          "target": "0x30be70"
+        },
+        {
+          "callsite": "0x392158",
+          "original_word": "0xc0e9500",
+          "target": "0x3a5400"
+        },
+        {
+          "callsite": "0x39216c",
+          "original_word": "0xc0e94f4",
+          "target": "0x3a53d0"
+        },
+        {
+          "callsite": "0x392180",
+          "original_word": "0xc0e9516",
+          "target": "0x3a5458"
+        },
+        {
+          "callsite": "0x392194",
+          "original_word": "0xc0e952e",
+          "target": "0x3a54b8"
+        },
+        {
+          "callsite": "0x3921a8",
+          "original_word": "0xc0ea378",
+          "target": "0x3a8de0"
+        },
+        {
+          "callsite": "0x3921cc",
+          "original_word": "0xc0e4dc8",
+          "target": "0x393720"
+        },
+        {
+          "callsite": "0x3921e8",
+          "original_word": "0xc0e45a4",
+          "target": "0x391690"
+        },
+        {
+          "callsite": "0x3921f0",
+          "original_word": "0xc0b7688",
+          "target": "0x2dda20"
+        },
+        {
+          "callsite": "0x3921fc",
+          "original_word": "0xc0e9ace",
+          "target": "0x3a6b38"
+        },
+        {
+          "callsite": "0x392274",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x392284",
+          "original_word": "0xc0ee4e6",
+          "target": "0x3b9398"
+        },
+        {
+          "callsite": "0x39229c",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x3922cc",
+          "original_word": "0xc0e9f24",
+          "target": "0x3a7c90"
+        },
+        {
+          "callsite": "0x392344",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x392354",
+          "original_word": "0xc0e97b8",
+          "target": "0x3a5ee0"
+        },
+        {
+          "callsite": "0x39236c",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x392388",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x392398",
+          "original_word": "0xc0e97b8",
+          "target": "0x3a5ee0"
+        },
+        {
+          "callsite": "0x3923b0",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x3923cc",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x3923dc",
+          "original_word": "0xc0eff74",
+          "target": "0x3bfdd0"
+        },
+        {
+          "callsite": "0x392430",
+          "original_word": "0xc0ea39e",
+          "target": "0x3a8e78"
+        },
+        {
+          "callsite": "0x392484",
+          "original_word": "0xc0ea39e",
+          "target": "0x3a8e78"
+        },
+        {
+          "callsite": "0x3924d8",
+          "original_word": "0xc0ea39e",
+          "target": "0x3a8e78"
+        },
+        {
+          "callsite": "0x39254c",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x392568",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x392578",
+          "original_word": "0xc0f040e",
+          "target": "0x3c1038"
+        },
+        {
+          "callsite": "0x392590",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x392600",
+          "original_word": "0xc0e8c84",
+          "target": "0x3a3210"
+        },
+        {
+          "callsite": "0x392618",
+          "original_word": "0xc05543e",
+          "target": "0x1550f8"
+        },
+        {
+          "callsite": "0x392658",
+          "original_word": "0xc0e8f46",
+          "target": "0x3a3d18"
+        },
+        {
+          "callsite": "0x392690",
+          "original_word": "0xc0e915a",
+          "target": "0x3a4568"
+        },
+        {
+          "callsite": "0x3926a0",
+          "original_word": "0xc0e9588",
+          "target": "0x3a5620"
+        },
+        {
+          "callsite": "0x392710",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x392720",
+          "original_word": "0xc0ea404",
+          "target": "0x3a9010"
+        },
+        {
+          "callsite": "0x392758",
+          "original_word": "0xc0ea45e",
+          "target": "0x3a9178"
+        },
+        {
+          "callsite": "0x392780",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x392790",
+          "original_word": "0xc0ee5da",
+          "target": "0x3b9768"
+        },
+        {
+          "callsite": "0x3927cc",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x3927e8",
+          "original_word": "0xc0e8cfa",
+          "target": "0x3a33e8"
+        },
+        {
+          "callsite": "0x3927fc",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x39280c",
+          "original_word": "0xc0ee580",
+          "target": "0x3b9600"
+        },
+        {
+          "callsite": "0x392874",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x392928",
+          "original_word": "0xc0e474e",
+          "target": "0x391d38"
+        },
+        {
+          "callsite": "0x392958",
+          "original_word": "0xc07b830",
+          "target": "0x1ee0c0"
+        },
+        {
+          "callsite": "0x392988",
+          "original_word": "0xc07b834",
+          "target": "0x1ee0d0"
+        },
+        {
+          "callsite": "0x3929dc",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x3929ec",
+          "original_word": "0xc0ee4e6",
+          "target": "0x3b9398"
+        },
+        {
+          "callsite": "0x392a18",
+          "original_word": "0xc0e4258",
+          "target": "0x390960"
+        },
+        {
+          "callsite": "0x392a2c",
+          "original_word": "0xc0e9264",
+          "target": "0x3a4990"
+        },
+        {
+          "callsite": "0x392a38",
+          "original_word": "0xc07b836",
+          "target": "0x1ee0d8"
+        },
+        {
+          "callsite": "0x392a4c",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x392a60",
+          "original_word": "0xc077cac",
+          "target": "0x1df2b0"
+        },
+        {
+          "callsite": "0x392a7c",
+          "original_word": "0xc0f07ac",
+          "target": "0x3c1eb0"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "tag1/6/5/2 hierarchy; original tag2 material/source strip owner",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392928",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fields_read": [
+        "source tag/children",
+        "model+0x44 mesh list"
+      ],
+      "fields_written": [
+        "allocated node fields",
+        "runtime parent/child links"
+      ],
+      "fresh_export": false,
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "sphere": "r>0; inclusive range; strict side-plane bound",
+        "view_XZ_gate": "norm squared >0.001"
+      },
+      "input_arguments": "bounded PSM reader,model owner",
+      "instruction_evidence": [
+        {
+          "callsite": "0x392958",
+          "original_word": "0xc07b830",
+          "target": "0x1ee0c0"
+        },
+        {
+          "callsite": "0x392988",
+          "original_word": "0xc07b834",
+          "target": "0x1ee0d0"
+        },
+        {
+          "callsite": "0x3929dc",
+          "original_word": "0xc0ab502",
+          "target": "0x2ad408"
+        },
+        {
+          "callsite": "0x3929ec",
+          "original_word": "0xc0ee4e6",
+          "target": "0x3b9398"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x392acc",
+        "start": "0x391d38",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": [
+        "source tag/children",
+        "model+0x44 mesh list"
+      ],
+      "object_fields_written": [
+        "allocated node fields",
+        "runtime parent/child links"
+      ],
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "reuse_provenance": "dressing1",
+      "role": "Visual source hierarchy loader",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "None in recovered traversal functions; delegates mesh renderer"
+    },
+    {
+      "address": "0x003a4fd8",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "3401f0/230/270/2b0",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "3401f0/230/270/2b0",
+      "input_arguments": "float RGBA",
+      "instruction_evidence": [
+        {
+          "address": "0x3a4fd8",
+          "ghidra_asm": "addiu sp,sp,-0x50",
+          "original_word": "0x27bdffb0"
+        },
+        {
+          "address": "0x3a4fdc",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0x20(sp)",
+          "original_word": "0x7fbf0020"
+        },
+        {
+          "address": "0x3a4fe0",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x10(sp)",
+          "original_word": "0x7fbe0010"
+        },
+        {
+          "address": "0x3a4fe4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s0,0x0(sp)",
+          "original_word": "0x7fb00000"
+        },
+        {
+          "address": "0x3a4fe8",
+          "ghidra_asm": "swc1 f23,0x48(sp)",
+          "original_word": "0xe7b70048"
+        },
+        {
+          "address": "0x3a4fec",
+          "ghidra_asm": "swc1 f22,0x40(sp)",
+          "original_word": "0xe7b60040"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3a5088",
+        "start": "0x3a4fd8",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "float RGBA",
+      "object_fields_written": "3401f0/230/270/2b0",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Pack normalized channels via four setters",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003a6c58",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x003adcf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad968",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add50",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adde0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adc90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ac680",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ade18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00391bb8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "handler virtual+14",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "fresh_query": false,
+      "important_constants": "unidentified shader log",
+      "input_arguments": "interned shader +mesh",
+      "input_fields": "name ID, registry49b890",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff40",
+          "va": "0x003a6c58"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x003a6ea0"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x003a6ea4",
+        "inspected_last_va": "0x003a6ea4",
+        "start": "0x003a6c58",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "name ID, registry49b890",
+      "object_fields_written": "handler virtual+14 effects",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "handler virtual+14 effects",
+      "packet_state_writes": "handler virtual+14 effects",
+      "remaining_ambiguity": "Other shader names not enumerated",
+      "reuse_provenance": "dressing1",
+      "reused_from": "water1/elf-functions.json",
+      "role": "Registry lookup and virtual handler dispatch",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [],
+      "vu_gs_involvement": "handler virtual+14 effects"
+    },
+    {
+      "address": "0x003a7468",
+      "callees": [
+        {
+          "addr": "003a45e8",
+          "name": "FUN_003a45e8"
+        },
+        {
+          "addr": "003ada88",
+          "name": "ui_003ada88"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "name4875e0;vtable487d68",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "name4875e0;vtable487d68",
+      "input_arguments": "registry/handler",
+      "instruction_evidence": [
+        {
+          "address": "0x3a7468",
+          "ghidra_asm": "addiu sp,sp,-0x40",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "address": "0x3a746c",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0x30(sp)",
+          "original_word": "0x7fbf0030"
+        },
+        {
+          "address": "0x3a7470",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x20(sp)",
+          "original_word": "0x7fbe0020"
+        },
+        {
+          "address": "0x3a7474",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s0,0x10(sp)",
+          "original_word": "0x7fb00010"
+        },
+        {
+          "address": "0x3a7478",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3a747c",
+          "ghidra_asm": "daddu s0,a0,zero",
+          "original_word": "0x80802d"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3a74d8",
+        "start": "0x3a7468",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2
+      ],
+      "object_fields_read": "registry/handler",
+      "object_fields_written": "name4875e0;vtable487d68",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Register treeblend handler",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003a75b8",
+      "callees": [
+        {
+          "addr": "003a45e8",
+          "name": "FUN_003a45e8"
+        },
+        {
+          "addr": "003ada88",
+          "name": "ui_003ada88"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "name487610;vtable487d08",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "name487610;vtable487d08",
+      "input_arguments": "registry/handler",
+      "instruction_evidence": [
+        {
+          "address": "0x3a75b8",
+          "ghidra_asm": "addiu sp,sp,-0x40",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "address": "0x3a75bc",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0x30(sp)",
+          "original_word": "0x7fbf0030"
+        },
+        {
+          "address": "0x3a75c0",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x20(sp)",
+          "original_word": "0x7fbe0020"
+        },
+        {
+          "address": "0x3a75c4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s0,0x10(sp)",
+          "original_word": "0x7fb00010"
+        },
+        {
+          "address": "0x3a75c8",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3a75cc",
+          "ghidra_asm": "daddu s0,a0,zero",
+          "original_word": "0x80802d"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3a7628",
+        "start": "0x3a75b8",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        6
+      ],
+      "object_fields_read": "registry/handler",
+      "object_fields_written": "name487610;vtable487d08",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Register tree handler",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003a7628",
+      "callees": [
+        {
+          "addr": "003a45e8",
+          "name": "FUN_003a45e8"
+        },
+        {
+          "addr": "003ada88",
+          "name": "ui_003ada88"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "name487618;vtable487ce8",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "name487618;vtable487ce8",
+      "input_arguments": "registry/handler",
+      "instruction_evidence": [
+        {
+          "address": "0x3a7628",
+          "ghidra_asm": "addiu sp,sp,-0x40",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "address": "0x3a762c",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0x30(sp)",
+          "original_word": "0x7fbf0030"
+        },
+        {
+          "address": "0x3a7630",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x20(sp)",
+          "original_word": "0x7fbe0020"
+        },
+        {
+          "address": "0x3a7634",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s0,0x10(sp)",
+          "original_word": "0x7fb00010"
+        },
+        {
+          "address": "0x3a7638",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3a763c",
+          "ghidra_asm": "daddu s0,a0,zero",
+          "original_word": "0x80802d"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3a7698",
+        "start": "0x3a7628",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        15
+      ],
+      "object_fields_read": "registry/handler",
+      "object_fields_written": "name487618;vtable487ce8",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Register opaque object control",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003a7f10",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "shift24/16/8/0,divide255",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "shift24/16/8/0,divide255",
+      "input_arguments": "source uint32",
+      "instruction_evidence": [
+        {
+          "address": "0x3a7f10",
+          "ghidra_asm": "addiu sp,sp,-0x60",
+          "original_word": "0x27bdffa0"
+        },
+        {
+          "address": "0x3a7f14",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0x50(sp)",
+          "original_word": "0x7fbf0050"
+        },
+        {
+          "address": "0x3a7f18",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x40(sp)",
+          "original_word": "0x7fbe0040"
+        },
+        {
+          "address": "0x3a7f1c",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s2,0x30(sp)",
+          "original_word": "0x7fb20030"
+        },
+        {
+          "address": "0x3a7f20",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s1,0x20(sp)",
+          "original_word": "0x7fb10020"
+        },
+        {
+          "address": "0x3a7f24",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s0,0x10(sp)",
+          "original_word": "0x7fb00010"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3a8040",
+        "start": "0x3a7f10",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "object_fields_read": "source uint32",
+      "object_fields_written": "shift24/16/8/0,divide255",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "Unpack RRGGBBAA to float channels",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003ae618",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "+28=2,+2c=1,+3c=1,+40=0,+44=3e19999a",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "+28=2,+2c=1,+3c=1,+40=0,+44=3e19999a",
+      "input_arguments": "a0 shader registration object; a1 material-owning mesh; returns original a0",
+      "instruction_evidence": [
+        {
+          "address": "0x3ae618",
+          "ghidra_asm": "addiu sp,sp,-0x10",
+          "original_word": "0x27bdfff0"
+        },
+        {
+          "address": "0x3ae61c",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x0(sp)",
+          "original_word": "0x7fbe0000"
+        },
+        {
+          "address": "0x3ae620",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3ae624",
+          "ghidra_asm": "daddu v0,a0,zero",
+          "original_word": "0x80102d"
+        },
+        {
+          "address": "0x3ae628",
+          "ghidra_asm": "daddu v1,a1,zero",
+          "original_word": "0xa0182d"
+        },
+        {
+          "address": "0x3ae62c",
+          "ghidra_asm": "li a0,0x2",
+          "original_word": "0x24040002"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3ae670",
+        "start": "0x3ae618",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        2
+      ],
+      "object_fields_read": [],
+      "object_fields_written": "+28=2,+2c=1,+3c=1,+40=0,+44=3e19999a",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "treeblend mesh initialization",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003ae710",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "+28=6,+2c=0,+3c=0,+40=0,+44=3e4ccccd",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "+28=6,+2c=0,+3c=0,+40=0,+44=3e4ccccd",
+      "input_arguments": "a0 shader registration object; a1 material-owning mesh; returns original a0",
+      "instruction_evidence": [
+        {
+          "address": "0x3ae710",
+          "ghidra_asm": "addiu sp,sp,-0x10",
+          "original_word": "0x27bdfff0"
+        },
+        {
+          "address": "0x3ae714",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x0(sp)",
+          "original_word": "0x7fbe0000"
+        },
+        {
+          "address": "0x3ae718",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3ae71c",
+          "ghidra_asm": "daddu v0,a0,zero",
+          "original_word": "0x80102d"
+        },
+        {
+          "address": "0x3ae720",
+          "ghidra_asm": "daddu v1,a1,zero",
+          "original_word": "0xa0182d"
+        },
+        {
+          "address": "0x3ae724",
+          "ghidra_asm": "li a0,0x6",
+          "original_word": "0x24040006"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3ae760",
+        "start": "0x3ae710",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        6
+      ],
+      "object_fields_read": [],
+      "object_fields_written": "+28=6,+2c=0,+3c=0,+40=0,+44=3e4ccccd",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "tree mesh initialization",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003ae760",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "+28=15,+2c=0,+3c=0,+40=0,+44=3f000000",
+      "entry_provenance": "Canonical original vtable or direct JAL plus bounded prologue/return export; no guessed starts",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_export": true,
+      "important_constants": "+28=15,+2c=0,+3c=0,+40=0,+44=3f000000",
+      "input_arguments": "a0 shader registration object; a1 material-owning mesh; returns original a0",
+      "instruction_evidence": [
+        {
+          "address": "0x3ae760",
+          "ghidra_asm": "addiu sp,sp,-0x10",
+          "original_word": "0x27bdfff0"
+        },
+        {
+          "address": "0x3ae764",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x0(sp)",
+          "original_word": "0x7fbe0000"
+        },
+        {
+          "address": "0x3ae768",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3ae76c",
+          "ghidra_asm": "daddu v0,a0,zero",
+          "original_word": "0x80102d"
+        },
+        {
+          "address": "0x3ae770",
+          "ghidra_asm": "daddu v1,a1,zero",
+          "original_word": "0xa0182d"
+        },
+        {
+          "address": "0x3ae774",
+          "ghidra_asm": "li a0,0xf",
+          "original_word": "0x2404000f"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3ae7ac",
+        "start": "0x3ae760",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "material_modes": [
+        15
+      ],
+      "object_fields_read": [],
+      "object_fields_written": "+28=15,+2c=0,+3c=0,+40=0,+44=3f000000",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "NONE_OR_SHARED_DEPENDENCY",
+      "reuse_provenance": null,
+      "role": "object mesh initialization",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "NONE_OR_SHARED_DEPENDENCY"
+    },
+    {
+      "address": "0x003b9258",
+      "callees": [
+        {
+          "callsite": "0x3b926c",
+          "original_word": "0xc075aec",
+          "target": "0x1d6bb0"
+        },
+        {
+          "callsite": "0x3b92a0",
+          "original_word": "0xc080154",
+          "target": "0x200550"
+        },
+        {
+          "callsite": "0x3b92b0",
+          "original_word": "0xc0ee4fc",
+          "target": "0x3b93f0"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "calls200550 before generic children",
+      "direct_callers_in_phase_inventory": [],
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fields_read": [
+        "center+0x1c",
+        "radius+0x28",
+        "graphics virtual+0x54"
+      ],
+      "fields_written": [],
+      "fresh_export": false,
+      "important_constants": "calls200550 before generic children",
+      "input_arguments": "view,center,radius",
+      "instruction_evidence": [
+        {
+          "analysis_instruction": "jal 0x001d6bb0",
+          "original_word": "0xc075aec",
+          "va": "0x3b926c"
+        },
+        {
+          "analysis_instruction": "jalr v0",
+          "original_word": "0x40f809",
+          "va": "0x3b9284"
+        },
+        {
+          "analysis_instruction": "lwc1 f12,0x28(s0)",
+          "original_word": "0xc60c0028",
+          "va": "0x3b9294"
+        },
+        {
+          "analysis_instruction": "jal 0x00200550",
+          "original_word": "0xc080154",
+          "va": "0x3b92a0"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3b92cc",
+        "start": "0x3b9258",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "material_modes": "Inherited course visibility, no tree-specific mode test",
+      "object_fields_read": [
+        "center+0x1c",
+        "radius+0x28",
+        "graphics virtual+0x54"
+      ],
+      "object_fields_written": [],
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "reuse_provenance": "dressing1",
+      "role": "Inherited bound wrapper visibility",
+      "shader_texture_bindings": "None in this inherited visibility dependency",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "None in recovered traversal functions; delegates mesh renderer"
+    },
+    {
+      "address": "0x003bca80",
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00361a58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "mode+28,queue+2c,handles+dc/+e4,cachewrapper",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "export_available": true,
+      "fresh_export": false,
+      "fresh_query": false,
+      "important_constants": "vtable4853f0 slots8c/94/9c/a4/ac",
+      "input_arguments": "mesh and draw context",
+      "input_fields": "mesh strips, flags, mode, handles+dc/+e4, instance cache",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdffa0",
+          "va": "0x003bca80"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x003bcbb0"
+        }
+      ],
+      "known_bounds": {
+        "end_inclusive": "0x003bcbb4",
+        "inspected_last_va": "0x003bcbb4",
+        "start": "0x003bca80",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "material_modes": [
+        2,
+        6,
+        15
+      ],
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "object_fields_read": "mesh strips, flags, mode, handles+dc/+e4, instance cache",
+      "object_fields_written": "renderer virtual setters and queued cache packet",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "renderer virtual setters and queued cache packet",
+      "packet_state_writes": "renderer virtual setters and queued cache packet",
+      "remaining_ambiguity": "Scene-wide visibility/LOD draw scheduling not fully mapped",
+      "reuse_provenance": "dressing1",
+      "reused_from": "water1/elf-functions.json",
+      "role": "Material mesh draw callback",
+      "shader_texture_bindings": "Original primary mesh texture+34 ->handle+dc/descriptor+e0; shared modes2/6/15 unless the role is a shader constructor",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "virtual_callers": [
+        "mesh488328+5c"
+      ],
+      "vu_gs_involvement": "renderer virtual setters and queued cache packet"
+    },
+    {
+      "address": "0x003c1148",
+      "callees": [
+        {
+          "callsite": "0x3c1178",
+          "original_word": "0xc0f07ac",
+          "target": "0x3c1eb0"
+        },
+        {
+          "callsite": "0x3c1180",
+          "original_word": "0xc0b7688",
+          "target": "0x2dda20"
+        },
+        {
+          "callsite": "0x3c1238",
+          "original_word": "0xc0b194a",
+          "target": "0x2c6528"
+        },
+        {
+          "callsite": "0x3c1258",
+          "original_word": "0xc0c0c0e",
+          "target": "0x303038"
+        },
+        {
+          "callsite": "0x3c1284",
+          "original_word": "0xc075aec",
+          "target": "0x1d6bb0"
+        },
+        {
+          "callsite": "0x3c12cc",
+          "original_word": "0xc0f1d16",
+          "target": "0x3c7458"
+        },
+        {
+          "callsite": "0x3c1370",
+          "original_word": "0xc0fcfa0",
+          "target": "0x3f3e80"
+        },
+        {
+          "callsite": "0x3c14ac",
+          "original_word": "0xc0fcfa0",
+          "target": "0x3f3e80"
+        },
+        {
+          "callsite": "0x3c1548",
+          "original_word": "0xc0f0576",
+          "target": "0x3c15d8"
+        },
+        {
+          "callsite": "0x3c1594",
+          "original_word": "0xc0f0792",
+          "target": "0x3c1e48"
+        }
+      ],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "DRESSING1 bounded predicates, not a shader fade",
+      "direct_callers_in_phase_inventory": [],
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fields_read": [
+        "context+8 model identifier",
+        "model+0x3c selection structure",
+        "view+0xc0/+0xc8 and +0xb0/+0xb8"
+      ],
+      "fields_written": [
+        "generation+0x34",
+        "model lookup cache"
+      ],
+      "fresh_export": false,
+      "important_constants": "DRESSING1 bounded predicates, not a shader fade",
+      "input_arguments": "model+3c,view",
+      "instruction_evidence": [
+        {
+          "analysis_instruction": "jal 0x003c1eb0",
+          "original_word": "0xc0f07ac",
+          "va": "0x3c1178"
+        },
+        {
+          "analysis_instruction": "jal 0x002dda20",
+          "original_word": "0xc0b7688",
+          "va": "0x3c1180"
+        },
+        {
+          "analysis_instruction": "jal 0x002c6528",
+          "original_word": "0xc0b194a",
+          "va": "0x3c1238"
+        },
+        {
+          "analysis_instruction": "jal 0x00303038",
+          "original_word": "0xc0c0c0e",
+          "va": "0x3c1258"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3c15d8",
+        "start": "0x3c1148",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "material_modes": "Inherited course visibility, no tree-specific mode test",
+      "object_fields_read": [
+        "context+8 model identifier",
+        "model+0x3c selection structure",
+        "view+0xc0/+0xc8 and +0xb0/+0xb8"
+      ],
+      "object_fields_written": [
+        "generation+0x34",
+        "model lookup cache"
+      ],
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "reuse_provenance": "dressing1",
+      "role": "Inherited region/camera child selection",
+      "shader_texture_bindings": "None in this inherited visibility dependency",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "None in recovered traversal functions; delegates mesh renderer"
+    },
+    {
+      "address": "0x003c1e48",
+      "callees": [],
+      "caller_scope": "Known direct exports/vtable ownership; an empty list is not an absence-of-callers claim",
+      "callers": [
+        {
+          "addr": "003c1148",
+          "name": "ui_003c1148",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003c15d8",
+          "name": "ui_003c15d8",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "confidence": "Canonical original bytes and bounded executable data flow; live invocation unverified",
+      "data_flow_evidence": "one dispatch per generation; live set UNKNOWN",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x003c1148",
+          "callsite": "0x3c1594",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x003c15d8",
+          "callsite": "0x3c1de8",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fields_read": [
+        "vector+0x18",
+        "stamp vector+0x28",
+        "generation+0x34",
+        "child virtual+0x5c"
+      ],
+      "fields_written": [
+        "stamp[index]",
+        "global0x42dca8 counter"
+      ],
+      "fresh_export": false,
+      "important_constants": "one dispatch per generation; live set UNKNOWN",
+      "input_arguments": "selector,child index",
+      "instruction_evidence": [
+        {
+          "analysis_instruction": "lw v0,0x28(a0)",
+          "original_word": "0x8c820028",
+          "va": "0x3c1e54"
+        },
+        {
+          "analysis_instruction": "lw a3,0x34(a0)",
+          "original_word": "0x8c870034",
+          "va": "0x3c1e58"
+        },
+        {
+          "analysis_instruction": "lw v0,0x5c(v1)",
+          "original_word": "0x8c62005c",
+          "va": "0x3c1e84"
+        },
+        {
+          "analysis_instruction": "jalr v0",
+          "original_word": "0x40f809",
+          "va": "0x3c1e88"
+        }
+      ],
+      "known_bounds": {
+        "end_exclusive": "0x3c1eac",
+        "start": "0x3c1e48",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "material_modes": "Inherited course visibility, no tree-specific mode test",
+      "object_fields_read": [
+        "vector+0x18",
+        "stamp vector+0x28",
+        "generation+0x34",
+        "child virtual+0x5c"
+      ],
+      "object_fields_written": [
+        "stamp[index]",
+        "global0x42dca8 counter"
+      ],
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "reuse_provenance": "dressing1",
+      "role": "Generation stamped selected-child dispatch",
+      "shader_texture_bindings": "None in this inherited visibility dependency",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof",
+      "vu_gs_involvement": "None in recovered traversal functions; delegates mesh renderer"
+    }
+  ],
+  "interior_blocks": {
+    "0x313270": "312610 mode2",
+    "0x3138ec": "312610 mode6",
+    "0x313e64": "312610 mode15",
+    "0x31679c": "312610 shared mode6/24 tail"
+  },
+  "phase": "PS2-TREEBLEND1",
+  "runtime_validation": "NOT_PERFORMED",
+  "schema": "ps2-foliage-functions-v1",
+  "va_to_file": "VA-0xff000"
+}

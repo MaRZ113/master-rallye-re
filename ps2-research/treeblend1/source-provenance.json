@@ -1,0 +1,455 @@
+{
+  "branch": "master",
+  "canonical_ps2": {
+    "SLES_509.06": {
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "size": 3739852,
+      "verification": "FRESH_SHA256_VERIFIED"
+    },
+    "SYSTEM.CNF": {
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2",
+      "size": 56,
+      "verification": "FRESH_SHA256_VERIFIED"
+    },
+    "TNG.000": {
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86",
+      "size": 1225915283,
+      "verification": "FRESH_SHA256_VERIFIED"
+    },
+    "TNG.PAK": {
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d",
+      "size": 135556,
+      "verification": "FRESH_SHA256_VERIFIED"
+    }
+  },
+  "closeout_integrity": {
+    "original_file_checks": 14,
+    "pc_renderer_diff": "EMPTY",
+    "sdk_head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "sdk_status": "CLEAN",
+    "status": "PASS"
+  },
+  "date": "2026-10-08",
+  "diagnostic_sha256": "f9c100752acf2f9542ba34f3e88464859a0a0e885add37d21af11093bc871c80",
+  "pc_selected_sources": {
+    "FRANCE1": {
+      "coordinates": "GAME_SOURCE",
+      "coverage": "VALIDATED_COMPLETE_DISJOINT",
+      "draws": 995,
+      "path": "DataGx\\Course\\France1\\france1.dx",
+      "position_array_offset": 16,
+      "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+      "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+      "size": 13489510,
+      "triangles": 64577,
+      "txt_dinghy_leads": [
+        {
+          "name": "DINGHYS",
+          "node_id": 799,
+          "parent_id": 751,
+          "source_index": null,
+          "source_size": null
+        },
+        {
+          "name": "dinghy01",
+          "node_id": 800,
+          "parent_id": 799,
+          "source_index": 47180,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy02",
+          "node_id": 801,
+          "parent_id": 799,
+          "source_index": 47192,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy03",
+          "node_id": 802,
+          "parent_id": 799,
+          "source_index": 47204,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy04",
+          "node_id": 803,
+          "parent_id": 799,
+          "source_index": 47216,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy05",
+          "node_id": 804,
+          "parent_id": 799,
+          "source_index": 47228,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy06",
+          "node_id": 805,
+          "parent_id": 799,
+          "source_index": 47240,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy07",
+          "node_id": 806,
+          "parent_id": 799,
+          "source_index": 47252,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy08",
+          "node_id": 807,
+          "parent_id": 799,
+          "source_index": 47264,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy09",
+          "node_id": 808,
+          "parent_id": 799,
+          "source_index": 47276,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy10",
+          "node_id": 809,
+          "parent_id": 799,
+          "source_index": 47288,
+          "source_size": 12
+        },
+        {
+          "name": "dinghy11",
+          "node_id": 810,
+          "parent_id": 799,
+          "source_index": 47300,
+          "source_size": 12
+        },
+        {
+          "name": "DINGHYS_Masts",
+          "node_id": 811,
+          "parent_id": 751,
+          "source_index": null,
+          "source_size": null
+        },
+        {
+          "name": "dinghymast01",
+          "node_id": 812,
+          "parent_id": 811,
+          "source_index": 47312,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast02",
+          "node_id": 813,
+          "parent_id": 811,
+          "source_index": 47315,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast03",
+          "node_id": 814,
+          "parent_id": 811,
+          "source_index": 47318,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast04",
+          "node_id": 815,
+          "parent_id": 811,
+          "source_index": 47321,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast05",
+          "node_id": 816,
+          "parent_id": 811,
+          "source_index": 47324,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast06",
+          "node_id": 817,
+          "parent_id": 811,
+          "source_index": 47327,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast07",
+          "node_id": 818,
+          "parent_id": 811,
+          "source_index": 47330,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast08",
+          "node_id": 819,
+          "parent_id": 811,
+          "source_index": 47333,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast09",
+          "node_id": 820,
+          "parent_id": 811,
+          "source_index": 47336,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast10",
+          "node_id": 821,
+          "parent_id": 811,
+          "source_index": 47339,
+          "source_size": 3
+        },
+        {
+          "name": "dinghymast11",
+          "node_id": 822,
+          "parent_id": 811,
+          "source_index": 47342,
+          "source_size": 3
+        },
+        {
+          "name": "DINGHYS_Trailers",
+          "node_id": 1186,
+          "parent_id": 867,
+          "source_index": null,
+          "source_size": null
+        }
+      ],
+      "txt_mesh_records": 2527,
+      "txt_named_nodes": 2568,
+      "txt_path": "DataGx\\Course\\France1\\France1.txt",
+      "txt_sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+      "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+      "vertices": 65206
+    },
+    "ITALY_S1": {
+      "coordinates": "GAME_SOURCE",
+      "coverage": "VALIDATED_COMPLETE_DISJOINT",
+      "draws": 867,
+      "path": "DataGx\\Course\\Italy_S1\\italy_s1.dx",
+      "position_array_offset": 16,
+      "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+      "sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+      "size": 10418531,
+      "triangles": 46367,
+      "txt_dinghy_leads": [],
+      "txt_mesh_records": 1417,
+      "txt_named_nodes": 1463,
+      "txt_path": "DataGx\\Course\\Italy_S1\\Italy_S1.txt",
+      "txt_sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+      "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+      "vertices": 61463
+    },
+    "TURKEY3": {
+      "coordinates": "GAME_SOURCE",
+      "coverage": "VALIDATED_COMPLETE_DISJOINT",
+      "draws": 939,
+      "path": "DataGx\\Course\\Turkey3\\turkey3.dx",
+      "position_array_offset": 16,
+      "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+      "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+      "size": 10055607,
+      "triangles": 42237,
+      "txt_dinghy_leads": [],
+      "txt_mesh_records": 2574,
+      "txt_named_nodes": 2881,
+      "txt_path": "DataGx\\Course\\Turkey3\\turkey3.txt",
+      "txt_sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+      "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+      "vertices": 54589
+    }
+  },
+  "pc_selected_textures": [
+    {
+      "alpha": {
+        "distinct": 15,
+        "max": 255,
+        "min": 0
+      },
+      "dimensions": [
+        128,
+        128
+      ],
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "path": "DataGx/Course/France1/bush01-tga.dxt",
+      "row_policy_comparisons": {
+        "flip-vertical": {
+          "equal_channel_bytes": null,
+          "identical_ps2_stored_rgba": false,
+          "rgba_sha256": "fbbe0a98b69f1e353115876f905f37b73313208baacd1206124c9a4c6b0f5aff"
+        },
+        "preserve-stored": {
+          "equal_channel_bytes": null,
+          "identical_ps2_stored_rgba": false,
+          "rgba_sha256": "ac4f350db716aa9a57779fc8e913385ccad1a99ae280d5e823def11c6386956a"
+        }
+      },
+      "runtime_alpha_consumption": "UNKNOWN",
+      "same_dimensions": false,
+      "sha256": "24beae6fbd549a62939e56b3c83655fb10f487f04d00441ea7667d3729972396",
+      "size": 65556,
+      "stored_channels": "BGRA; SDK CONVERTS TO RGBA"
+    },
+    {
+      "alpha": {
+        "distinct": 4,
+        "max": 255,
+        "min": 0
+      },
+      "dimensions": [
+        128,
+        128
+      ],
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "path": "DataGx/Course/France1/pinetree-tga.dxt",
+      "row_policy_comparisons": {
+        "flip-vertical": {
+          "equal_channel_bytes": 65536,
+          "identical_ps2_stored_rgba": true,
+          "rgba_sha256": "0cb6231bc72f4f1e3a02874037b282090c099d0c284beb98257e1f408fa288ff"
+        },
+        "preserve-stored": {
+          "equal_channel_bytes": 13384,
+          "identical_ps2_stored_rgba": false,
+          "rgba_sha256": "2aee7157a04f9adad14e79e32de0af1138b6394dbca0c5b01d3174a88f7fa19c"
+        }
+      },
+      "runtime_alpha_consumption": "UNKNOWN",
+      "same_dimensions": true,
+      "sha256": "ea3701bd0f73f2f460add6055b6856bdf0e8f3a5c97200feb2361ac5a898b716",
+      "size": 65556,
+      "stored_channels": "BGRA; SDK CONVERTS TO RGBA"
+    },
+    {
+      "alpha": {
+        "distinct": 6,
+        "max": 255,
+        "min": 0
+      },
+      "dimensions": [
+        128,
+        128
+      ],
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "path": "DataGx/Course/Italy_S1/pinus2-tga.dxt",
+      "row_policy_comparisons": {
+        "flip-vertical": {
+          "equal_channel_bytes": 65536,
+          "identical_ps2_stored_rgba": true,
+          "rgba_sha256": "328c84ea229490d5413c0b421545244538d438c610096a3ff6157e24b890d77f"
+        },
+        "preserve-stored": {
+          "equal_channel_bytes": 10692,
+          "identical_ps2_stored_rgba": false,
+          "rgba_sha256": "2071e463a8e424c7a1ad07e98ffd36e0e0458d9a02ac9b4dd346a562b0c3ba7e"
+        }
+      },
+      "runtime_alpha_consumption": "UNKNOWN",
+      "same_dimensions": true,
+      "sha256": "39a415b65d65f34c42efcb4b8576d200b37a7c09ec9d63c163d0898887360b06",
+      "size": 65556,
+      "stored_channels": "BGRA; SDK CONVERTS TO RGBA"
+    },
+    {
+      "alpha": {
+        "distinct": 1,
+        "max": 0,
+        "min": 0
+      },
+      "dimensions": [
+        128,
+        128
+      ],
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "path": "DataGx/Course/turkey3/hut_01-tga.dxt",
+      "row_policy_comparisons": {
+        "flip-vertical": {
+          "equal_channel_bytes": null,
+          "identical_ps2_stored_rgba": false,
+          "rgba_sha256": "30129eab6374b416b50b87ed9b02859e4f56e888ddbced67d3c1db5c59a82ff5"
+        },
+        "preserve-stored": {
+          "equal_channel_bytes": null,
+          "identical_ps2_stored_rgba": false,
+          "rgba_sha256": "4e966dd87cd990b618ea74cf9ca9d8837a86418d287935dcf9e282b04bf39cc8"
+        }
+      },
+      "runtime_alpha_consumption": "UNKNOWN",
+      "same_dimensions": false,
+      "sha256": "78e34f6f9e97d1160377d27ff7b9983742f0c2c770c05c28ee5df5a705e4be46",
+      "size": 65556,
+      "stored_channels": "BGRA; SDK CONVERTS TO RGBA"
+    },
+    {
+      "path": "DataGx/Course/turkey3/shrubtrig2-tga.dxt",
+      "scope": "EXPLICIT_PAIRED_PATH; NOT A GLOBAL ASSET ABSENCE CLAIM",
+      "status": "NOT_FOUND_AT_PAIRED_MATERIAL_PATH"
+    }
+  ],
+  "phase": "PS2-TREEBLEND1",
+  "preflight": "CLEAN",
+  "proprietary_payloads": "EXCLUDED",
+  "ps2_selected_sources": {
+    "FRANCE1": {
+      "decoded_sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d",
+      "provenance": {
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred",
+        "compression": "packfs_lzo",
+        "directory_size_0x08": 2423641,
+        "evidence": "CONFIRMED_BY_BOTH",
+        "offset": 1040499712,
+        "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM",
+        "payload_sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d",
+        "stored_sha256": "bf32946b1e8f322b925028ecb90413c2634bb30cc39904acda1d3f6f4fd9b48c",
+        "stored_size": 2423641,
+        "unpacked_size": 4216655
+      },
+      "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM"
+    },
+    "ITALY_S1": {
+      "decoded_sha256": "f74854a0789c1d3bb416cef8d70a02c65141a2d7afc5a150068c047b94bc30a0",
+      "provenance": {
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred",
+        "compression": "packfs_lzo",
+        "directory_size_0x08": 2326973,
+        "evidence": "CONFIRMED_BY_BOTH",
+        "offset": 1099716026,
+        "path": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\ITALY_S1.PSM",
+        "payload_sha256": "f74854a0789c1d3bb416cef8d70a02c65141a2d7afc5a150068c047b94bc30a0",
+        "stored_sha256": "d3020e3f0443586bb4a2948cf06b18a9c30bef049bd615c2501b8d026c25f036",
+        "stored_size": 2326973,
+        "unpacked_size": 4163686
+      },
+      "resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_S1\\ITALY_S1.PSM"
+    },
+    "TURKEY3": {
+      "decoded_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+      "provenance": {
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred",
+        "compression": "packfs_lzo",
+        "directory_size_0x08": 2327913,
+        "evidence": "CONFIRMED_BY_BOTH",
+        "offset": 1176335774,
+        "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+        "payload_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+        "stored_sha256": "2a074ce9562a59914b0c11a2ed2f06dffbc6f9440de4347e6f9452fa4a1646b6",
+        "stored_size": 2327913,
+        "unpacked_size": 4086061
+      },
+      "resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM"
+    }
+  },
+  "repository": "D:/Game/Master Rallye/master-rallye-re-general",
+  "runtime_validation": "NOT_PERFORMED",
+  "schema": "ps2-treeblend-provenance-v1",
+  "sdk": {
+    "head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "path": "D:/Game/Master Rallye/master-rallye-re-course",
+    "status": "CLEAN"
+  },
+  "starting_head": "b87d7cf43ed6ab6dd3ef8ace9c268593c4cc2332"
+}
