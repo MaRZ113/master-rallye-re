@@ -1,0 +1,32 @@
+{
+  "report_kind": "observatory-j1-reconstructed-static-compatibility-report",
+  "disk_executable": {
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "classification": "exact pristine retail"
+  },
+  "native_patch_manifest_sha256": "78c1070f2e656677f02d22f5d4fdff457e43c7ba74c67bb4e5a5c1488ca53179",
+  "reconstructed_reference": {
+    "sha256": "dd03adbd9f45c679e59d09e0a9f09337bd99c787d81f4ce018edb654c1cec881",
+    "size": 3121214,
+    "is_launched_executable": false
+  },
+  "compatibility": {
+    "status": "FULL_FAMILY_COMPATIBLE",
+    "layout_compatible": true,
+    "family_anchor_compatible": true,
+    "build_classification": "hardened",
+    "broker_read": true,
+    "native_dump": true,
+    "broker_dump_variant": "native_hardened",
+    "post_results_native_dump_safe_static_artifact_only": true
+  },
+  "native_dump_walker": {
+    "va": "0x00601D00",
+    "length": 1536,
+    "sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+    "matched_variant": "native-hardened-null-safe-stubs-v1",
+    "compatible": true
+  },
+  "runtime_qualification": "NOT_ESTABLISHED_BY_STATIC_REPORT"
+}

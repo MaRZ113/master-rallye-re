@@ -11,8 +11,9 @@
 ## What's new
 
 - Compatible retail-derived executables are checked automatically against the Broker family structure; a new executable SHA256 does not need to be added when the audited layout is unchanged.
-- Native Dump hardening is identified from the bounded NULL-safe StringList and XmlData trampolines, not from an executable hash allowlist. Observatory labels a matching build as hardened and enables the separately verified Results-screen Dump capability.
-- The exact executable is still re-read and checked before use. An unknown or malformed variant fails closed.
+- The offline compatibility auditor recognizes the exact NULL-safe StringList and XmlData trampoline variant. A live process is checked separately: Observatory verifies the on-disk executable, mapped PE identity, unchanged Broker/Dump anchors, the full in-memory walker, and both exact trampolines before allowing native Dump.
+- The pristine retail executable remains stock on disk when R5V-J.1 installs its hardened walker in memory. Status and capture provenance distinguish the disk variant from the effective process-memory variant; Results-screen Dump is marked safe only after the active process passes the complete live check.
+- Unknown executable identities, changed walker bytes, altered trampoline destinations/instructions, unreadable targets, and unrelated Broker anchor mismatches fail closed. Passive Broker reading retains its independent verification gate.
 
 ## Compatibility
 
@@ -21,7 +22,7 @@ Windows and Python 3.11 or newer are required. Exact known builds are recognized
 ## Known limitations
 
 - Flow Builder is not verified for locally audited compatible builds.
-- Stock native Broker Dump may crash on the Race Results screen when a typed StringList has a NULL payload. Do not request a native Dump from Results unless Status confirms hardened Dump safety.
+- Stock native Broker Dump may crash on the Race Results screen when a typed StringList has a NULL payload. Do not request a native Dump from Results unless Status confirms the active process's hardened in-memory variant and Results safety.
 - Structural compatibility does not establish every optional feature or general compatibility with arbitrary modified executables.
 - Captures can contain local paths and game state. Review them before sharing.
 - No game executable, assets, saves, raw captures, or personal profile cache is included.
@@ -35,7 +36,7 @@ Windows and Python 3.11 or newer are required. Exact known builds are recognized
 
 ## Technical details
 
-The package remains standalone and read-only. Local exact profiles are cached by SHA256 and re-audited on each use. The hardened classification is derived from code structure; the SHA256 remains provenance and cache identity, not the hardened allowlist.
+The package remains standalone and read-only. Local exact profiles are cached by SHA256 and re-audited on each use. The in-memory J.1 classification is pinned to the exact complete walker SHA256, exact hook targets, exact trampoline bytes, and audited null/continuation control flow. Observatory never writes process memory.
 
 ## Checksums
 
