@@ -125,7 +125,8 @@ class DiscoveryTests(unittest.TestCase):
             observe.status(Path(folder),process,detailed=True)
         rendered=out.getvalue()
         self.assertIn("Broker read          YES",rendered)
-        self.assertIn("Native Dump          NO",rendered)
+        self.assertIn("Native Dump          UNKNOWN",rendered)
+        self.assertIn("Live native Dump variant: not verified.",rendered)
         self.assertIn("Legacy Attract      NEUTRALIZED",rendered)
         read.assert_called_once_with(process.pid,profile)
 

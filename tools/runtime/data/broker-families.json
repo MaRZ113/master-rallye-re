@@ -46,6 +46,7 @@
       "semantic_variants": [
         {
           "id": "native-hardened-null-safe-stubs-v1",
+          "walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
           "stable_segments": [
             {
               "offset": 0,
@@ -68,7 +69,9 @@
               "name": "stringlist-null-guard",
               "offset": 798,
               "original_hex": "8b7b043b7b08",
+              "stub_va": 6874832,
               "stub_length": 19,
+              "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
               "stub_prefix_hex": "85db0f84",
               "stub_body_hex": "8b7b043b7b08",
               "null_target_va": 6299712,
@@ -78,7 +81,9 @@
               "name": "xmldata-null-guard",
               "offset": 1107,
               "original_hex": "8b108bc8ff520c",
+              "stub_va": 6874864,
               "stub_length": 20,
+              "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
               "stub_prefix_hex": "85c00f84",
               "stub_body_hex": "8b108bc8ff520c",
               "null_target_va": 6300046,
@@ -167,7 +172,7 @@
         "loading_legacy_failure"
       ],
       "anchor_policy": "all listed bounded exact fingerprints or explicitly enumerated exact/structural variants required; no fuzzy matching",
-      "audit_version": "retail-broker-v1.2",
+      "audit_version": "retail-broker-v1.3",
       "capabilities": {
         "active_race_native_dump_safe": true,
         "broker_read": true,

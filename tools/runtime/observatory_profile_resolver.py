@@ -111,7 +111,7 @@ def resolve_executable_profile(path: Path, *, cache_root: Path | None = None,
 
 
 def profile_provenance(profile: ObservatoryBuildProfile) -> dict[str, Any]:
-    """JSON-safe provenance shared by captures and command status."""
+    """JSON-safe on-disk provenance for sources without a live attestation."""
     return {
         "build_profile": profile.id,
         "exact_profile_id": profile.exact_profile_id,
@@ -121,9 +121,20 @@ def profile_provenance(profile: ObservatoryBuildProfile) -> dict[str, Any]:
         "audit_version": profile.audit_version,
         "audit_fingerprint": profile.audit_fingerprint,
         "vehicle_registry_profile": profile.vehicle_registry_profile,
+        "disk_capabilities": dict(profile.capabilities),
         "capabilities": dict(profile.capabilities),
-        "broker_dump_variant": profile.capabilities.get("broker_dump_variant", "unknown"),
-        "native_dump_post_results_safe": profile.capabilities.get("post_results_native_dump_safe"),
+        "effective_capabilities": {
+            "broker_read": None,
+            "native_dump": None,
+            "post_results_native_dump_safe": None,
+            "broker_dump_variant": "not_attested",
+        },
+        "disk_broker_dump_variant": profile.capabilities.get("broker_dump_variant", "unknown"),
+        "disk_native_dump_post_results_safe": profile.capabilities.get("post_results_native_dump_safe"),
+        "broker_dump_variant": "not_attested",
+        "effective_broker_dump_variant": "not_attested",
+        "native_dump_post_results_safe": None,
+        "native_dump_verification": "not_attested",
         "legacy_loading_attract_present": profile.capabilities.get("legacy_loading_attract_present"),
     }
 
@@ -131,7 +142,8 @@ def profile_provenance(profile: ObservatoryBuildProfile) -> dict[str, Any]:
 def required_runtime_anchors(profile: ObservatoryBuildProfile, capability: str) -> tuple[dict[str, Any], ...]:
     names = {
         "broker_read": {"debug_logger", "debug_sink_vtable"},
-        "native_dump": {"broker_editor_dump_route", "broker_singleton_accessor", "native_dump_walker"},
+        "native_dump": {"debug_logger", "debug_sink_vtable", "broker_editor_dump_route",
+                        "broker_singleton_accessor", "native_dump_walker"},
         "open_broker_editor": {"broker_editor_dump_route"},
     }.get(capability, set())
     by_name = {item["name"]: item for item in profile.runtime_anchors}

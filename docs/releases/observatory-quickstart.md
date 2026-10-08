@@ -12,7 +12,7 @@ Read-only runtime inspection for Master Rallye's internal Broker state.
 
 ### Modified executables
 
-Known builds are identified exactly. Other retail-derived builds are accepted only when their PE layout and required Broker structures pass Observatory's structural check. Hardened native Dump support is separately detected from its bounded NULL-safe walker guards. Incompatible or unrecognized variants are rejected without connecting.
+Known on-disk builds are identified exactly. Other retail-derived builds are accepted for passive reads only when their PE layout and required Broker structures pass Observatory's structural check. Native Dump is gated separately against the active process image. For R5V-J.1, Status distinguishes the pristine stock EXE on disk from its approved NULL-safe walker installed in memory; the Results safety indicator is enabled only after both exact trampoline targets and bytes, the complete walker hash, mapped PE identity, and unchanged Broker/Dump code anchors pass. Incompatible or unrecognized variants are rejected without connecting.
 
 ## What it does
 
@@ -32,7 +32,7 @@ Exact known builds are verified by SHA256. Modified retail-derived executables a
 ## Known limitations
 
 - Observatory does not include a game executable, assets, saves, or captures.
-- The stock native Dump formatter can crash on the Race Results screen when a StringList has a NULL payload. Status warns when Results-screen Dump safety is unverified or unsafe; do not request a native Dump from Results in that case.
+- The stock native Dump formatter can crash on the Race Results screen when a StringList has a NULL payload. Status warns when the active process's Results-screen Dump safety is unverified or unsafe; do not request a native Dump from Results in that case.
 - Captures may contain game state, local paths, and values printed by the game. Review them before sharing.
 - Offline parsing and comparison do not require a running game; live process discovery is Windows-only.
 

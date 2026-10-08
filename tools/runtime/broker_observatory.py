@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any, Sequence
 from observatory_version import VERSION
 from observatory_build_profiles import RETAIL_PRISTINE, ObservatoryBuildProfile, match_profile
+import observatory_compatibility as compatibility
 
 
 RETAIL_SHA256 = RETAIL_PRISTINE.sha256  # compatibility aliases; not selection gates
@@ -741,7 +742,7 @@ def _process_image_path(kernel32: Any, pid: int, ctypes: Any) -> tuple[Any, Path
     return handle, Path(buffer.value)
 
 
-def _module_base(kernel32: Any, pid: int, ctypes: Any) -> int:
+def _module_info(kernel32: Any, pid: int, ctypes: Any) -> tuple[int, int, Path]:
     from ctypes import wintypes
 
     class MODULEENTRY32W(ctypes.Structure):
@@ -775,12 +776,17 @@ def _module_base(kernel32: Any, pid: int, ctypes: Any) -> int:
                 base = int(entry.modBaseAddr or 0)
                 if base == 0:
                     break
-                return base
+                return base, int(entry.modBaseSize), Path(entry.szExePath)
             if not kernel32.Module32NextW(snapshot, entry_pointer):
                 break
     finally:
         kernel32.CloseHandle(snapshot)
     raise ObservatoryError("Verified process has no MRallye.exe main module")
+
+
+def _module_base(kernel32: Any, pid: int, ctypes: Any) -> int:
+    """Compatibility wrapper for older internal callers."""
+    return _module_info(kernel32, pid, ctypes)[0]
 
 
 def _read_remote(kernel32: Any, process: Any, address: int, size: int, ctypes: Any) -> bytes:
@@ -867,7 +873,8 @@ def _read_sink_state(kernel32: Any, user32: Any, process: Any, module_base: int,
 def _anchors_for_capability(profile: ObservatoryBuildProfile, capability: str) -> tuple[dict[str, Any], ...]:
     names = {
         "broker_read": {"debug_logger", "debug_sink_vtable"},
-        "native_dump": {"broker_editor_dump_route", "broker_singleton_accessor", "native_dump_walker"},
+        "native_dump": {"debug_logger", "debug_sink_vtable", "broker_editor_dump_route",
+                        "broker_singleton_accessor", "native_dump_walker"},
         "open_broker_editor": {"broker_editor_dump_route"},
     }.get(capability, set())
     by_name = {item["name"]: item for item in profile.runtime_anchors}
@@ -877,7 +884,11 @@ def _anchors_for_capability(profile: ObservatoryBuildProfile, capability: str) -
 
 
 def _verify_remote_anchors(kernel32: Any, process: Any, module_base: int, ctypes: Any,
-                           profile: ObservatoryBuildProfile, capability: str) -> list[str]:
+                           profile: ObservatoryBuildProfile, capability: str,
+                           pe: dict[str, Any] | None = None,
+                           runtime_details: dict[str, Any] | None = None,
+                           disk_sha256: str | None = None,
+                           disk_size: int | None = None) -> list[str]:
     if not profile.supports(capability):
         raise ObservatoryError(f"Capability {capability} is not statically audited for this build")
     anchors = _anchors_for_capability(profile, capability)
@@ -885,7 +896,7 @@ def _verify_remote_anchors(kernel32: Any, process: Any, module_base: int, ctypes
         # The public exact-profile executable set predates family anchor
         # metadata. Its exact file identity remains the frozen compatibility
         # gate; newly locally-audited profiles must always carry live anchors.
-        if profile.profile_origin == "committed_exact" and not profile.audit_version:
+        if capability != "native_dump" and profile.profile_origin == "committed_exact" and not profile.audit_version:
             return []
         raise ObservatoryError(f"No runtime code fingerprints are available for {capability}")
     identity = profile.pe_identity
@@ -894,22 +905,153 @@ def _verify_remote_anchors(kernel32: Any, process: Any, module_base: int, ctypes
     if (type(preferred_base) is not int or type(image_size) is not int
             or module_base != preferred_base or module_base + image_size > 0x80000000):
         raise ObservatoryError("Live x86 module base/extent differs from the audited PE identity")
-    verified = []
-    for anchor in anchors:
-        rva, length = anchor.get("rva"), anchor.get("length")
-        expected = anchor.get("sha256")
-        if (type(rva) is not int or type(length) is not int or length <= 0
-                or rva < 0 or rva + length > image_size or not isinstance(expected, str)):
-            raise ObservatoryError("Malformed static runtime fingerprint")
-        actual = hashlib.sha256(_read_remote(kernel32, process, module_base + rva, length, ctypes)).hexdigest()
-        if actual != expected:
-            raise ObservatoryError(f"Live {capability} code fingerprint differs at {anchor['name']}")
-        verified.append(anchor["name"])
+    def read_rva(rva: int, length: int) -> bytes:
+        if rva + length > image_size:
+            raise ObservatoryError("Runtime fingerprint is outside the verified module image")
+        return _read_remote(kernel32, process, module_base + rva, length, ctypes)
+
+    skip_names = ("native_dump_walker",) if capability == "native_dump" else ()
+    try:
+        verified = compatibility.verify_runtime_anchor_fingerprints(
+            read_rva, anchors, skip_names=skip_names
+        )
+    except Exception as exc:
+        raise ObservatoryError(f"Live {capability} anchor verification failed: {exc}") from exc
+    if capability == "native_dump":
+        if pe is None:
+            raise ObservatoryError("Native Dump verification is missing the verified PE layout")
+        canonical = compatibility.definitions()
+        walker = next((item for item in canonical["anchors"]
+                       if item.get("name") == "native_dump_walker"), None)
+        profile_walker = next((item for item in anchors
+                               if item.get("name") == "native_dump_walker"), None)
+        if (walker is None or profile_walker is None
+                or any(profile_walker.get(key) != walker.get(key)
+                       for key in ("rva", "length", "sha256", "section"))):
+            raise ObservatoryError("Native Dump walker reference differs from the audited retail family")
+
+        def read_va(va: int, size: int) -> bytes:
+            rva = va - pe["image_base"]
+            if rva < 0 or rva + size > identity["size_of_image"]:
+                raise ObservatoryError("Native Dump read is outside the verified module image")
+            return _read_remote(kernel32, process, module_base + rva, size, ctypes)
+
+        try:
+            walker_result = compatibility.classify_native_dump_walker(
+                read_va, pe,
+                profile_sha256=profile.sha256,
+                profile_size=profile.file_size,
+                disk_sha256=disk_sha256,
+                disk_size=disk_size,
+            )
+        except Exception as exc:
+            raise ObservatoryError(str(exc)) from exc
+        variant = walker_result["variant"]
+        if variant not in ("native_stock", "native-hardened-null-safe-stubs-v1"):
+            raise ObservatoryError("Live native Dump walker variant is not explicitly approved")
+        if variant == "native-hardened-null-safe-stubs-v1":
+            if profile.sha256 != RETAIL_SHA256 or profile.file_size != RETAIL_SIZE:
+                raise ObservatoryError("J.1 hardened walker requires the exact pristine retail executable identity")
+            if len(walker_result.get("verified_trampolines", ())) != 2:
+                raise ObservatoryError("J.1 hardened walker did not verify both required trampolines")
+        if runtime_details is not None:
+            runtime_details.update(walker_result)
+        verified.append(f"native_dump_walker:{variant}")
     return verified
 
 
-def verify_live_capability(pid: int, profile: ObservatoryBuildProfile, capability: str) -> list[str]:
-    """Recheck file identity and used capability bytes in the live process."""
+def _mapped_header_size(data: bytes) -> int:
+    try:
+        return compatibility.mapped_header_size(data)
+    except ValueError as exc:
+        raise ObservatoryError(f"Verified executable PE headers are invalid: {exc}") from exc
+
+
+def _verify_mapped_image(kernel32: Any, process: Any, ctypes: Any, image_path: Path,
+                         module_path: Path, module_base: int, module_size: int,
+                         disk_bytes: bytes, pe: dict[str, Any]) -> None:
+    try:
+        expected_path = os.path.normcase(str(image_path.resolve())).casefold()
+        mapped_path = os.path.normcase(str(module_path.resolve())).casefold()
+    except OSError as exc:
+        raise ObservatoryError("Could not resolve the executable module paths") from exc
+    if expected_path != mapped_path:
+        raise ObservatoryError("Mapped MRallye.exe path differs from the verified process image")
+    if (module_base != pe.get("image_base") or module_size != pe.get("size_of_image")
+            or module_base < 0x10000 or module_base + module_size > 0x80000000):
+        raise ObservatoryError("Mapped module base/size differs from the exact audited PE image")
+    header_size = _mapped_header_size(disk_bytes)
+    mapped_headers = _read_remote(kernel32, process, module_base, header_size, ctypes)
+    try:
+        compatibility.validate_mapped_image_identity(
+            disk_bytes, mapped_headers, pe, module_base, module_size
+        )
+    except ValueError as exc:
+        raise ObservatoryError(f"Mapped PE identity differs from the verified on-disk executable: {exc}") from exc
+
+
+def _verify_live_capability_open(kernel32: Any, process: Any, pid: int,
+                                 image_path: Path, profile: ObservatoryBuildProfile,
+                                 capability: str, ctypes: Any, *,
+                                 disk_bytes: bytes | None = None) -> dict[str, Any]:
+    if not profile.supports(capability):
+        raise ObservatoryError(f"Capability {capability} is not statically audited for this build")
+    if image_path.name.casefold() != "mrallye.exe" or not image_path.is_file():
+        raise ObservatoryError(f"PID {pid} image is not a readable MRallye.exe")
+    disk_bytes = image_path.read_bytes() if disk_bytes is None else disk_bytes
+    image_hash = hashlib.sha256(disk_bytes).hexdigest()
+    if image_hash != profile.sha256 or len(disk_bytes) != profile.file_size:
+        raise ObservatoryError("Live process executable changed after profile resolution")
+    if capability == "native_dump":
+        try:
+            compatibility.validate_pristine_runtime_identity(
+                profile.sha256, profile.file_size, image_hash, len(disk_bytes)
+            )
+        except ValueError as exc:
+            raise ObservatoryError(str(exc)) from exc
+    try:
+        pe = compatibility.pe_layout(disk_bytes)
+    except ValueError as exc:
+        raise ObservatoryError(f"Verified executable PE layout is invalid: {exc}") from exc
+    expected_identity = profile.pe_identity
+    for key in ("machine", "image_base", "size_of_image", "entry_rva"):
+        expected_value = expected_identity.get(key)
+        if expected_value is not None and pe.get(key) != expected_value:
+            raise ObservatoryError(f"On-disk PE identity differs from profile at {key}")
+    module_base, module_size, module_path = _module_info(kernel32, pid, ctypes)
+    _verify_mapped_image(kernel32, process, ctypes, image_path, module_path,
+                          module_base, module_size, disk_bytes, pe)
+    runtime_details: dict[str, Any] = {}
+    verified = _verify_remote_anchors(kernel32, process, module_base, ctypes,
+                                      profile, capability, pe=pe,
+                                      runtime_details=runtime_details,
+                                      disk_sha256=image_hash,
+                                      disk_size=len(disk_bytes))
+    report: dict[str, Any] = {
+        "capability": capability,
+        "verified_anchors": verified,
+        "module_base": module_base,
+        "module_size": module_size,
+        "disk_sha256": image_hash,
+        "disk_size": len(disk_bytes),
+    }
+    if capability == "native_dump":
+        variant = runtime_details.get("variant", "unknown")
+        hardened = variant == "native-hardened-null-safe-stubs-v1"
+        report.update({
+            "effective_broker_dump_variant": "native_hardened" if hardened else "native_stock" if variant == "native_stock" else "unknown",
+            "native_dump_post_results_safe": compatibility.native_dump_post_results_safe(variant),
+            "native_dump_verification": "verified" if variant in ("native_stock", "native-hardened-null-safe-stubs-v1") else "unverified",
+            "native_dump_walker_variant": variant,
+            "native_dump_walker_sha256": runtime_details.get("walker_sha256"),
+            "verified_trampolines": runtime_details.get("verified_trampolines", []),
+        })
+    return report
+
+
+def verify_live_capability_report(pid: int, profile: ObservatoryBuildProfile,
+                                  capability: str) -> dict[str, Any]:
+    """Return process-scoped capability evidence after file and mapping checks."""
     if not os.name == "nt":
         raise ObservatoryError("Live capability verification is Windows-only")
     import ctypes
@@ -917,17 +1059,15 @@ def verify_live_capability(pid: int, profile: ObservatoryBuildProfile, capabilit
     _configure_win32(kernel32, ctypes)
     process, image_path = _process_image_path(kernel32, pid, ctypes)
     try:
-        if image_path.name.casefold() != "mrallye.exe" or not image_path.is_file():
-            raise ObservatoryError("Live process image is not a readable MRallye.exe")
-        if (sha256_file(image_path) != profile.sha256
-                or image_path.stat().st_size != profile.file_size):
-            raise ObservatoryError("Live process executable changed after profile resolution")
-        module_base = _module_base(kernel32, pid, ctypes)
-        if module_base < 0x10000 or module_base > 0x7FFFFFFF:
-            raise ObservatoryError(f"Unexpected 32-bit main-module base 0x{module_base:X}")
-        return _verify_remote_anchors(kernel32, process, module_base, ctypes, profile, capability)
+        return _verify_live_capability_open(kernel32, process, pid, image_path,
+                                            profile, capability, ctypes)
     finally:
         kernel32.CloseHandle(process)
+
+
+def verify_live_capability(pid: int, profile: ObservatoryBuildProfile, capability: str) -> list[str]:
+    """Compatibility wrapper returning the independently verified anchor names."""
+    return verify_live_capability_report(pid, profile, capability)["verified_anchors"]
 
 
 def capture_debug_buffer(pid: int, profile: ObservatoryBuildProfile | None = None) -> tuple[bytes, dict[str, Any]]:
@@ -949,8 +1089,9 @@ def capture_debug_buffer(pid: int, profile: ObservatoryBuildProfile | None = Non
             raise ObservatoryError(f"PID {pid} image is not MRallye.exe: {image_path}")
         if not image_path.is_file():
             raise ObservatoryError(f"Process image path is no longer readable: {image_path}")
-        image_hash = sha256_file(image_path)
-        image_size = image_path.stat().st_size
+        disk_bytes = image_path.read_bytes()
+        image_hash = hashlib.sha256(disk_bytes).hexdigest()
+        image_size = len(disk_bytes)
         if profile is None:
             try:
                 profile = match_profile(image_hash, image_size)
@@ -960,10 +1101,12 @@ def capture_debug_buffer(pid: int, profile: ObservatoryBuildProfile | None = Non
             raise ObservatoryError("PID executable identity changed after profile resolution")
         if not profile.supports("broker_read"):
             raise ObservatoryError("Passive Broker read is disabled for this build profile")
-        module_base = _module_base(kernel32, pid, ctypes)
-        if module_base < 0x10000 or module_base > 0x7FFFFFFF:
-            raise ObservatoryError(f"Unexpected 32-bit main-module base 0x{module_base:X}")
-        verified_anchors = _verify_remote_anchors(kernel32, process, module_base, ctypes, profile, "broker_read")
+        broker_report = _verify_live_capability_open(
+            kernel32, process, pid, image_path, profile, "broker_read", ctypes,
+            disk_bytes=disk_bytes,
+        )
+        module_base = broker_report["module_base"]
+        verified_anchors = broker_report["verified_anchors"]
 
         last_problem = "buffer changed during read"
         captured: bytes | None = None
@@ -989,6 +1132,19 @@ def capture_debug_buffer(pid: int, profile: ObservatoryBuildProfile | None = Non
         if captured is None or final_state is None:
             raise ObservatoryError(f"Could not obtain a stable Debug-buffer snapshot after {CAPTURE_RETRIES} attempts: {last_problem}")
 
+        native_dump_report: dict[str, Any] | None = None
+        native_dump_error: str | None = None
+        if profile.supports("native_dump"):
+            try:
+                native_dump_report = _verify_live_capability_open(
+                    kernel32, process, pid, image_path, profile, "native_dump", ctypes,
+                    disk_bytes=disk_bytes,
+                )
+            except (OSError, ObservatoryError) as exc:
+                # Passive Broker reading is independent. A failed native Dump
+                # attestation is recorded but does not suppress this read-only capture.
+                native_dump_error = str(exc)
+
         metadata = {
             "capture_kind": "live-debug-buffer-read-only",
             "build": "retail",
@@ -1007,19 +1163,41 @@ def capture_debug_buffer(pid: int, profile: ObservatoryBuildProfile | None = Non
             "capture_consistency": "three equal metadata reads and two equal byte reads; process was not suspended",
             "access_rights": ["PROCESS_QUERY_INFORMATION", "PROCESS_VM_READ"],
             "runtime_verified_anchors": verified_anchors,
+            "runtime_verified_capabilities": {"broker_read": verified_anchors},
         }
+        if native_dump_report is not None:
+            metadata["runtime_verified_capabilities"]["native_dump"] = native_dump_report["verified_anchors"]
         metadata.update({
             "build_profile": profile.id,
-            "build_classification": profile.build_classification,
+            "build_classification": ("hardened" if native_dump_report and
+                                     native_dump_report.get("effective_broker_dump_variant") == "native_hardened"
+                                     else profile.build_classification),
+            "disk_build_classification": profile.build_classification,
             "exact_profile_id": profile.exact_profile_id,
             "profile_origin": profile.profile_origin,
             "compatibility_family": profile.compatibility_family,
             "audit_version": profile.audit_version,
             "audit_fingerprint": profile.audit_fingerprint,
             "vehicle_registry_profile": profile.vehicle_registry_profile,
+            "disk_capabilities": dict(profile.capabilities),
             "capabilities": dict(profile.capabilities),
-            "broker_dump_variant": profile.capabilities.get("broker_dump_variant", "unknown"),
-            "native_dump_post_results_safe": profile.capabilities.get("post_results_native_dump_safe"),
+            "effective_capabilities": {
+                "broker_read": True,
+                "native_dump": True if native_dump_report else None,
+                "post_results_native_dump_safe": (native_dump_report or {}).get("native_dump_post_results_safe"),
+                "broker_dump_variant": (native_dump_report or {}).get("effective_broker_dump_variant", "unknown"),
+            },
+            "disk_broker_dump_variant": profile.capabilities.get("broker_dump_variant", "unknown"),
+            "disk_native_dump_post_results_safe": profile.capabilities.get("post_results_native_dump_safe"),
+            "broker_dump_variant": (native_dump_report or {}).get("effective_broker_dump_variant", "unknown"),
+            "effective_broker_dump_variant": (native_dump_report or {}).get("effective_broker_dump_variant", "unknown"),
+            "native_dump_post_results_safe": (native_dump_report or {}).get("native_dump_post_results_safe"),
+            "native_dump_verification": (native_dump_report or {}).get("native_dump_verification", "unverified"),
+            "native_dump_walker_variant": (native_dump_report or {}).get("native_dump_walker_variant", "unknown"),
+            "native_dump_walker_sha256": (native_dump_report or {}).get("native_dump_walker_sha256"),
+            "verified_trampolines": (native_dump_report or {}).get("verified_trampolines", []),
+            "runtime_native_dump_verified_anchors": (native_dump_report or {}).get("verified_anchors", []),
+            "native_dump_verification_error": native_dump_error,
             "legacy_loading_attract_present": profile.capabilities.get("legacy_loading_attract_present"),
         })
         return captured, metadata

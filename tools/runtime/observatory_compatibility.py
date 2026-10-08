@@ -6,9 +6,27 @@ import struct
 from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
-AUDIT_VERSION = "retail-broker-v1.2"
+AUDIT_VERSION = "retail-broker-v1.3"
 PROFILE_SCHEMA_VERSION = 3
 PROFILE_CACHE_ROOT = Path(__file__).resolve().parent / "observatory-data" / "build-profiles"
+J1_NATIVE_DUMP_VARIANT_ID = "native-hardened-null-safe-stubs-v1"
+J1_NATIVE_DUMP_WALKER_SHA256 = "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9"
+J1_NATIVE_DUMP_HOOKS = (
+    {
+        "name": "stringlist-null-guard", "offset": 798, "original_hex": "8b7b043b7b08",
+        "stub_va": 6874832, "stub_length": 19,
+        "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
+        "stub_prefix_hex": "85db0f84", "stub_body_hex": "8b7b043b7b08",
+        "null_target_va": 6299712, "resume_target_va": 6299684,
+    },
+    {
+        "name": "xmldata-null-guard", "offset": 1107, "original_hex": "8b108bc8ff520c",
+        "stub_va": 6874864, "stub_length": 20,
+        "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
+        "stub_prefix_hex": "85c00f84", "stub_body_hex": "8b108bc8ff520c",
+        "null_target_va": 6300046, "resume_target_va": 6299994,
+    },
+)
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
@@ -81,7 +99,106 @@ def _family_layout_matches(pe, reference):
     return bool(layout_match)
 
 
-def _semantic_trampoline_variant_matches(data, pe, anchor, variant):
+def _section_for_file_backed_range(pe, va, length):
+    """Return the PE section for an exact file-backed VA range."""
+    if (type(va) is not int or type(length) is not int or length <= 0
+            or va < pe["image_base"]):
+        raise ValueError("Invalid image range")
+    rva = va - pe["image_base"]
+    for section in pe["sections"]:
+        if (section["rva"] <= rva
+                and rva + length <= section["rva"] + section["raw_size"]):
+            return section
+    raise ValueError("Image range is not file-backed")
+
+
+def _is_pinned_j1_native_dump_variant(variant):
+    if (variant.get("id") != J1_NATIVE_DUMP_VARIANT_ID
+            or variant.get("walker_sha256") != J1_NATIVE_DUMP_WALKER_SHA256):
+        return False
+    hooks = variant.get("hooks")
+    if not isinstance(hooks, list) or len(hooks) != len(J1_NATIVE_DUMP_HOOKS):
+        return False
+    for actual, expected in zip(hooks, J1_NATIVE_DUMP_HOOKS):
+        if any(actual.get(key) != value for key, value in expected.items()):
+            return False
+    return True
+
+
+def mapped_header_size(data):
+    """Return the bounded DOS/PE/section-table byte length mapped by Windows."""
+    if len(data) < 0x40 or data[:2] != b"MZ":
+        raise ValueError("Missing DOS header")
+    pe_offset = struct.unpack_from("<I", data, 0x3C)[0]
+    if pe_offset > len(data) - 24 or data[pe_offset:pe_offset + 4] != b"PE\0\0":
+        raise ValueError("Missing PE header")
+    section_count = struct.unpack_from("<H", data, pe_offset + 6)[0]
+    optional_size = struct.unpack_from("<H", data, pe_offset + 20)[0]
+    end = pe_offset + 24 + optional_size + section_count * 40
+    if not 1 <= section_count <= 96 or optional_size < 96 or end > len(data):
+        raise ValueError("Invalid mapped PE header bounds")
+    return end
+
+
+def validate_mapped_image_identity(disk_data, mapped_headers, pe, module_base, module_size):
+    """Compare the live module's mapped identity with the exact disk PE headers."""
+    header_size = mapped_header_size(disk_data)
+    if (module_base != pe["image_base"] or module_size != pe["size_of_image"]
+            or module_base < 0x10000 or module_base + module_size > 0x80000000):
+        raise ValueError("Mapped base/size differs from audited PE identity")
+    if len(mapped_headers) != header_size or mapped_headers != disk_data[:header_size]:
+        raise ValueError("Mapped PE headers differ from verified disk image")
+    return header_size
+
+
+def validate_pristine_runtime_identity(profile_sha256, profile_size, disk_sha256, disk_size):
+    """Require the exact supported pristine retail disk identity for Dump use."""
+    canonical = definitions()
+    retail = next((row for row in canonical.get("profiles", [])
+                   if row.get("profile") == "retail-pristine"), None)
+    if retail is None:
+        raise ValueError("Pristine retail executable identity is not registered")
+    expected_sha = retail.get("sha256")
+    expected_size = retail.get("size")
+    if (profile_sha256 != expected_sha or disk_sha256 != expected_sha
+            or profile_size != expected_size or disk_size != expected_size):
+        raise ValueError("Native Dump requires the exact pristine retail executable identity")
+    return {"profile": retail["profile"], "sha256": expected_sha, "size": expected_size}
+
+
+def verify_runtime_anchor_fingerprints(read_rva, anchors, *, skip_names=()):
+    """Verify exact live RVAs shared by the passive Broker and Dump routes."""
+    verified = []
+    skipped = set(skip_names)
+    for anchor in anchors:
+        name = anchor.get("name")
+        if name in skipped:
+            continue
+        rva, length, expected = anchor.get("rva"), anchor.get("length"), anchor.get("sha256")
+        if (not isinstance(name, str) or type(rva) is not int or type(length) is not int
+                or length <= 0 or rva < 0 or not isinstance(expected, str)
+                or len(expected) != 64):
+            raise ValueError("Malformed static runtime fingerprint")
+        actual_bytes = read_rva(rva, length)
+        if len(actual_bytes) != length:
+            raise ValueError(f"Short runtime fingerprint read at {name}")
+        actual = digest(actual_bytes)
+        if actual != expected:
+            raise ValueError(f"Live code fingerprint differs at {name}")
+        verified.append(name)
+    return verified
+
+
+def native_dump_post_results_safe(variant):
+    """Return Results-Dump safety only for a verified in-memory variant."""
+    if variant == "native_stock":
+        return False
+    if variant == J1_NATIVE_DUMP_VARIANT_ID:
+        return True
+    return None
+
+
+def _semantic_trampoline_variant_matches_reader(read_va, section_for_range, pe, anchor, variant):
     """Recognize only the audited two-hook NULL-safe native Dump wrapper.
 
     The candidate still has to match every unchanged byte of the stock walker.
@@ -91,8 +208,15 @@ def _semantic_trampoline_variant_matches(data, pe, anchor, variant):
     to the audited stock null and continuation paths.
     """
     try:
-        walker, section, _ = window(data, pe, anchor["va"], anchor["length"])
+        walker = read_va(anchor["va"], anchor["length"])
+        section = section_for_range(anchor["va"], anchor["length"])
+        if len(walker) != anchor["length"]:
+            return False
         if section != anchor["section"]:
+            return False
+        # Runtime acceptance pins the complete 1,536-byte image, not just the
+        # hook shape and stable spans. This also binds the audited cave layout.
+        if variant.get("walker_sha256") and digest(walker) != variant["walker_sha256"]:
             return False
 
         hooks = variant["hooks"]
@@ -123,14 +247,19 @@ def _semantic_trampoline_variant_matches(data, pe, anchor, variant):
 
             hook_va = anchor["va"] + offset
             stub_va = hook_va + 5 + struct.unpack_from("<i", patch, 1)[0]
+            if hook.get("stub_va") is not None and stub_va != hook["stub_va"]:
+                return False
             stub_length = hook["stub_length"]
             anchor_end = anchor["va"] + anchor["length"]
             if type(stub_length) is not int or stub_length <= 0 or stub_va < anchor_end:
                 return False
-            stub, stub_section, file_offset = window(data, pe, stub_va, stub_length)
+            stub = read_va(stub_va, stub_length)
+            stub_section = section_for_range(stub_va, stub_length)
             section_info = next((item for item in pe["sections"] if item["name"] == stub_section), None)
-            if (stub_section != ".text" or file_offset is None or section_info is None
+            if (len(stub) != stub_length or stub_section != ".text" or section_info is None
                     or not (section_info["characteristics"] & 0x20000000)):
+                return False
+            if hook.get("sha256") and digest(stub) != hook["sha256"]:
                 return False
 
             prefix = bytes.fromhex(hook["stub_prefix_hex"])
@@ -156,8 +285,77 @@ def _semantic_trampoline_variant_matches(data, pe, anchor, variant):
             return False
         ordered = sorted(stub_ranges)
         return all(left[1] <= right[0] for left, right in zip(ordered, ordered[1:]))
-    except (KeyError, TypeError, ValueError, struct.error):
+    except Exception:
         return False
+
+
+def _semantic_trampoline_variant_matches(data, pe, anchor, variant):
+    def read_va(va, length):
+        return window(data, pe, va, length)[0]
+
+    def section_for_range(va, length):
+        return _section_for_file_backed_range(pe, va, length)["name"]
+
+    return _semantic_trampoline_variant_matches_reader(
+        read_va, section_for_range, pe, anchor, variant
+    )
+
+
+def classify_native_dump_walker(read_va, pe, *, profile_sha256, profile_size,
+                                disk_sha256, disk_size, section_for_range=None):
+    """Classify only the exact stock or audited J.1 live walker variants.
+
+    ``read_va`` is deliberately small so tests can supply a bounded mock
+    process-memory reader. Callers must separately establish exact on-disk
+    executable identity and mapped PE identity before trusting this result.
+    """
+    try:
+        validate_pristine_runtime_identity(profile_sha256, profile_size,
+                                           disk_sha256, disk_size)
+    except ValueError as exc:
+        raise ValueError(f"Native Dump walker executable identity is not approved: {exc}") from exc
+    canonical = definitions()
+    anchor = next((row for row in canonical["anchors"]
+                   if row.get("name") == "native_dump_walker"), None)
+    if anchor is None:
+        raise ValueError("Native Dump walker has no canonical anchor")
+    if section_for_range is None:
+        # A live PE layout is obtained from the verified on-disk executable;
+        # section extents are therefore the same audited PE metadata.
+        section_for_range = lambda va, length: _section_for_file_backed_range(pe, va, length)["name"]
+    try:
+        walker = read_va(anchor["va"], anchor["length"])
+        if len(walker) != anchor["length"]:
+            raise ValueError("Short native Dump walker read")
+        if section_for_range(anchor["va"], anchor["length"]) != anchor["section"]:
+            raise ValueError("Native Dump walker is outside the audited section")
+    except Exception as exc:
+        raise ValueError("Native Dump walker could not be read from the audited image") from exc
+    if digest(walker) == anchor["sha256"]:
+        return {"variant": "native_stock", "walker_sha256": digest(walker),
+                "verified_trampolines": []}
+
+    for variant in anchor.get("semantic_variants", []):
+        if variant.get("id") != J1_NATIVE_DUMP_VARIANT_ID:
+            continue
+        if not _is_pinned_j1_native_dump_variant(variant):
+            continue
+        if not _semantic_trampoline_variant_matches_reader(
+                read_va, section_for_range, pe, anchor, variant):
+            continue
+        verified = []
+        for hook in variant.get("hooks", []):
+            verified.append({
+                "name": hook["name"],
+                "target_va": f"0x{hook['stub_va']:08X}",
+                "length": hook["stub_length"],
+                "sha256": hook["sha256"],
+                "null_target_va": f"0x{hook['null_target_va']:08X}",
+                "resume_target_va": f"0x{hook['resume_target_va']:08X}",
+            })
+        return {"variant": variant["id"], "walker_sha256": digest(walker),
+                "verified_trampolines": verified}
+    raise ValueError("Live native_dump_walker is neither exact stock nor the audited J.1 hardened variant")
 
 
 def _registry_profile_for(data, pe, exact_profile):

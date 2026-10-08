@@ -544,18 +544,34 @@ def status(root: Path, process: ProcessCandidate | None, rejected: Sequence[str]
             print("Master Rallye executable verified.")
         else:
             print("Master Rallye executable verified. Broker layout: compatible.")
-        results_dump_safe = profile.capabilities.get("post_results_native_dump_safe")
+        live_dump: dict[str, Any] | None = None
+        live_dump_error: str | None = None
+        if profile.supports("native_dump"):
+            try:
+                live_dump = core.verify_live_capability_report(process.pid, profile, "native_dump")
+            except (OSError, core.ObservatoryError) as exc:
+                live_dump_error = str(exc)
+        results_dump_safe = (live_dump or {}).get("native_dump_post_results_safe")
         if results_dump_safe is True:
-            print("Build classification: hardened native Dump.")
+            print("Live native Dump variant: approved J.1 hardened runtime variant.")
             print("Native Dump from Race Results: verified safe.")
         elif results_dump_safe is False:
+            print("Live native Dump variant: exact stock runtime variant.")
             print("Native Dump from Race Results: unsafe on this build; do not use there.")
         else:
+            print("Live native Dump variant: not verified.")
             print("Native Dump from Race Results: safety not verified; avoid that screen.")
         if detailed or VERBOSE:
             print(f"Build: {profile.id}\nClassification: {profile.build_classification}\nProfile origin: {profile.profile_origin}")
             print(f"Broker family: {profile.compatibility_family or 'exact-profile-only'}")
-            print(f"Native Dump variant: {profile.capabilities.get('broker_dump_variant', 'unknown')}")
+            print(f"Disk native Dump variant: {profile.capabilities.get('broker_dump_variant', 'unknown')}")
+            print(f"Effective native Dump variant: {(live_dump or {}).get('effective_broker_dump_variant', 'unknown')}")
+            if live_dump:
+                print(f"Live walker SHA256: {live_dump.get('native_dump_walker_sha256', 'unknown')}")
+                for trampoline in live_dump.get("verified_trampolines", []):
+                    print(f"    {trampoline['name']}: {trampoline['target_va']} SHA256={trampoline['sha256']}")
+            elif live_dump_error:
+                print(f"Live native Dump verification: {live_dump_error}")
             print(f"Vehicle registry: {profile.vehicle_registry_profile}\nCapabilities:")
             for label, capability in (
                 ("Broker read", "broker_read"),
@@ -565,6 +581,10 @@ def status(root: Path, process: ProcessCandidate | None, rejected: Sequence[str]
                 ("Flow Builder", "flow_builder"),
             ):
                 value = profile.capabilities.get(capability)
+                if capability == "native_dump":
+                    value = True if live_dump else None
+                elif capability == "post_results_native_dump_safe":
+                    value = results_dump_safe
                 rendered = "UNKNOWN" if value is None else "YES" if value else "NO"
                 print(f"    {label:<20} {rendered}")
             attract = profile.capabilities.get("legacy_loading_attract_present")
