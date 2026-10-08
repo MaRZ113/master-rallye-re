@@ -1,8 +1,11 @@
-# R5V-J.0 — Generic Addon Vehicle SDK architecture
+# R5V-J — Generic Addon Vehicle SDK architecture
 
 J.0 introduces a versioned addon definition and deterministic offline compiler
-foundation. It does not patch or launch `MRallye.exe`, distribute game assets,
-or claim a public runtime release.
+foundation. J.1 now adds a separate, exact-build Windows launcher candidate and
+an external resource bundle. The launcher can install an audited operation set
+into a suspended retail process, but no human startup or addon runtime test has
+been recorded; J.1 is not runtime-qualified and J.0 output semantics remain
+offline-only.
 
 The components are separated deliberately:
 
@@ -12,10 +15,13 @@ The components are separated deliberately:
    capability profile.
 3. **Compiler** — resolves IDs and class ordinals, computes the audited
    registry layout, and emits deterministic semantic integration plans.
-4. **Runtime integration** — not implemented. It must later preserve the
-   retail executable on disk, verify the exact supported build, install a
-   removable external runtime component, and fail closed on unknown builds,
-   missing resources, or conflicts.
+4. **Runtime integration** — a research-only J.1 launcher candidate verifies
+   and starts the byte-exact retail EXE without replacing it. Its separate
+   `addon runtime-*` artifacts verify an external resource root and translate
+   the audited H.2/I.1 byte layers into file-offset/RVA operations for install
+   before the suspended process first resumes. This does not set the J.0
+   offline plan's `runtime_installable` flag and does not establish a public
+   loader release.
 
 This generic addon SDK is separate from the frozen
 [vehicle authoring SDK v1](../../../docs/vehicle-sdk.md). R4G edits/validates existing donor-based DX,
@@ -42,6 +48,9 @@ py -3 tools/mrtool.py addon build `
 py -3 tools/mrtool.py addon verify .research-output/vehicles/sdk/reference-build
 ```
 
-Build output is a deterministic **offline plan**, not an installable mod. See
+Build output is a deterministic **offline plan**, not an installable mod. The
+separate J.1 launcher and runtime bundle are documented in
+[runtime deployment](runtime-deployment.md) and
+[the loader decision](loader-decision.md). See
 [manifest schema](manifest-schema.md), [compilation](compilation.md), and
 [remaining gates](remaining-gates.md).

@@ -17,3 +17,10 @@ Unknown retail hashes, unsupported audio IDs, reserved-ID collisions, class
 overflow, family/resource collisions, malformed paths, and unknown policies
 fail validation. The capability file is versioned and hashed into every
 build manifest.
+
+The J.1 native launcher supports only the same exact retail hash/size and the
+fixed PE32/I386 image at `0x00400000` with relocations stripped. It is built
+as x64 and requires an x64 Windows host exposing `IsWow64Process2`. Other PE
+builds, image bases, architectures, and unknown local proxy conflicts are
+rejected. The external resource-root/CWD arrangement and graphics-wrapper
+coexistence remain human runtime gates.

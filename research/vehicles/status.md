@@ -109,18 +109,26 @@ Future non-bonus T3 addons must qualify Invitation's ordinary T3 pool
 explicitly; class membership alone does not imply eligibility in every mode.
 Bonus/special T3 vehicles must not be added to that pool automatically.
 
-## Current phase — R5V-J.0 Generic Addon Vehicle SDK foundation
+## Current phase — R5V-J.1 External Runtime Integration
 
-**J0: PARTIAL / OFFLINE COMPILER IMPLEMENTED.** Versioned JSON manifests,
-semantic validation, deterministic physical-ID resolution, bidirectional
-sparse class maps, formula-derived registry layout, resource/policy plans,
-multi-addon compilation, and output verification are implemented. The
-Mercedes and R5VQualifier examples are metadata-only; no proprietary assets
-are included. The on-disk retail executable is hash-checked if supplied, but
-the compiler does not patch it. No unchanged-EXE external runtime loader is
-implemented or qualified. Re-entry restoration and the new race-marker color
-remain explicit runtime-release gates. See [SDK architecture](sdk/architecture.md)
-and [remaining gates](sdk/remaining-gates.md).
+**J.0: ACCEPTED / OFFLINE COMPILER FOUNDATION.** Versioned JSON manifests,
+strict validation, deterministic physical-ID resolution, bidirectional sparse
+class maps, formula-derived registry layout, policy plans, multi-addon
+compilation, and output verification remain unchanged. The reference plan
+still reproduces with SHA256
+`357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989` and
+continues to report `runtime_installable=false`.
+
+**J.1: READY FOR HUMAN RUNTIME.** A Windows x64 suspended-process launcher,
+exact-build native patch table, and independently verified 243-file external
+resource bundle are implemented and compiled. Static native bundle verification
+passes. No retail game process has been launched through this candidate yet.
+The external CWD/resource-root lookup, bootstrap/canary startup, and real
+Mercedes materialization remain human gates. No unchanged-EXE runtime pass is
+claimed. See [loader decision](sdk/loader-decision.md),
+[runtime deployment](sdk/runtime-deployment.md),
+[human handoff](sdk/j1-runtime-handoff.md), and
+[remaining gates](sdk/remaining-gates.md).
 
 **R5V-I core qualification:** ID26/T1 and ID27/T2 remain the only two
 runtime-qualified added physical IDs. This does not establish arbitrary-N

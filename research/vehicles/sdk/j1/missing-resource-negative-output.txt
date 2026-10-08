@@ -1,0 +1,1 @@
+FAIL_CLOSED: indexed resource is missing or linked: Data.sma

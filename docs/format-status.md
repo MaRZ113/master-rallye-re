@@ -330,18 +330,23 @@ separate Practice AI-roster owner. See
 `research/vehicles/ai/mode-aware-t1-eligibility.md`, and
 `research/vehicles/ai/runtime-results.md`.
 
-### Current R5V-I — registry slot proof and independent T2 qualification
+### R5V-I — registry slot proof and independent T2 qualification
 
-R5V-I.0 is **STATIC PASS / READY FOR HUMAN RUNTIME**. The deterministic
-candidate expands the registry to 28 records, maps T2/local7 to physical ID27,
-and relocates the adjacent 39-row RaceTest table with 39 initializer and 11
-consumer references updated. The matching T2_Car8 overlay and complete
-qualified H.2 runtime resource set are staged together and package-verified.
-This does not imply DX/DXT format changes or a runtime result.
+R5V-I is **FULL PASS / CLOSED**. Physical ID27/T2 local7 was runtime-qualified
+with an independent `R5VQualifier` model/wheel family, loose asset directory,
+physics family and frontend identity. Natural Quick Race T2 AI materialization
+was also confirmed. The candidate preserves formula-derived 28-record layout,
+sparse T1/T2 addon placement, ID26/ID27 coexistence, and the existing AI,
+unlock, audio, Results and persistence policies. It does not establish
+arbitrary-N runtime support. See `research/vehicles/multislot/`.
 
-The required independent T2 vehicle remains **`REAL_T2_PAYLOAD_REQUIRED`**.
-Retail NewRav is stock ID12; the demo Rav4 source lacks cooked DX/DXT and an
-independent retail physics/collision profile. ID27's current Navara donor is a
-slot diagnostic only. R5V-I remains open; R5V-J generic SDK work stays out of
-scope until the real second-vehicle qualification is complete. See
-`research/vehicles/multislot/`.
+### Current R5V-J — generic vehicle SDK and external runtime
+
+J.0 is **ACCEPTED / OFFLINE COMPILER FOUNDATION**; its semantic output remains
+`runtime_installable=false`. J.1 is **READY FOR HUMAN RUNTIME**: a compiled
+exact-build Windows x64 launcher, in-memory retail-relative operation table,
+and verified external resource bundle are prepared. No human bootstrap,
+canary, external resource-root or addon gameplay pass has yet been recorded.
+See `research/vehicles/sdk/loader-decision.md`,
+`research/vehicles/sdk/runtime-deployment.md`, and
+`research/vehicles/sdk/j1-runtime-handoff.md`.

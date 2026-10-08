@@ -1,0 +1,22 @@
+{
+  "addon_count": 2,
+  "asset_validation": "NOT_REQUESTED",
+  "capability_profile_sha256": "ba13836d89f08361c89b875a03c4e12a128d9ce01081a3fae42e7a8fec90172d",
+  "resolved_addons": [
+    {
+      "addon_id": "mercedes-ml320",
+      "class_local_index": 7,
+      "physical_id": 26,
+      "vehicle_class": "T1"
+    },
+    {
+      "addon_id": "r5v-qualifier-t2",
+      "class_local_index": 7,
+      "physical_id": 27,
+      "vehicle_class": "T2"
+    }
+  ],
+  "retail_executable_check": "NOT_SUPPLIED_OFFLINE_PLAN_ONLY",
+  "runtime_installable": false,
+  "status": "PASS"
+}

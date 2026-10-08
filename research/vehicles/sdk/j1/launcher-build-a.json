@@ -1,0 +1,17 @@
+{
+  "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+  "architecture": "x64 launcher / x86 target process",
+  "artifact_kind": "native external runtime launcher build",
+  "bundle_profile": "r5v-j1-two-addon-retail-2001-reference",
+  "bundle_verified_status": "PASS_STATIC_RUNTIME_BUNDLE",
+  "generator": "Visual Studio 18 2026",
+  "launcher_sha256": "9d4a98d01166362933974f8c376f3a42323feecfdfd021af7df0a3b1aceb31b5",
+  "launcher_size": 141312,
+  "native_patch_manifest_sha256": "78c1070f2e656677f02d22f5d4fdff457e43c7ba74c67bb4e5a5c1488ca53179",
+  "resource_index_sha256": "2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384",
+  "resource_manifest_sha256": "b7e0fd4f785ed3f7a94dc6a0632cd8c16d7311478470087ad42bd73c0b871948",
+  "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "runtime_qualified": false,
+  "schema_version": 1,
+  "status": "STATIC_BUILD_ONLY_NOT_RUNTIME_QUALIFIED"
+}

@@ -58,9 +58,12 @@ unique collision topology is claimed. See
 `research/vehicles/multislot/i1-runtime-evidence.json` for six rehashed
 capture pairs. Two bounded release gates remain: scene-local Vehicle Select
 re-entry restoration and changing the race marker from captured white to the
-requested independent magenta RGBA. R5V-J.0 now provides a deterministic
-offline manifest/compiler foundation; it is not a runtime loader or public
-release. See `research/vehicles/sdk/`.
+requested independent magenta RGBA. R5V-J.0 provides the deterministic
+offline manifest/compiler foundation. R5V-J.1 now has a compiled exact-build
+suspended-process launcher candidate and external runtime bundle; human
+bootstrap, resource-root and addon runtime tests remain pending, so no
+unchanged-EXE gameplay pass or public release is claimed. See
+`research/vehicles/sdk/`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,

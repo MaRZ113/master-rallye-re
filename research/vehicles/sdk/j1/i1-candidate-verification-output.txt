@@ -1,0 +1,61 @@
+{
+  "status": "VERIFIED",
+  "profile": "i1-id27-r5v-qualifier-independent-t2-family",
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "h2_sha256": "de5e81c0b126619574834f25ac941cd491139235fd2f89086d8e125f063dcac9",
+  "candidate_sha256": "90abfbf9825f1cc7acebb3a1a2811a179e6474f2406433854e1ffdbc60bdd955",
+  "size": 3121214,
+  "id27": {
+    "physical_id": 27,
+    "class": 1,
+    "local_index": 7,
+    "profile_role": "AUTHORED SDK QUALIFICATION VEHICLE; NOT HISTORICAL CONTENT",
+    "name": "R5VQualifier",
+    "donor_physical_id": 7,
+    "runtime_family": "R5VQualifier",
+    "model_family": "R5VQualifier",
+    "wheel_family": "R5VQualifier",
+    "physics_family": "Vehicles/R5VQualifier",
+    "stats": [
+      7,
+      6,
+      6,
+      5
+    ],
+    "smallcarsheet_index": 13,
+    "vehicle_select_frame": 23,
+    "race_colour_rgba_bits": [
+      "3f800000",
+      "3f800000",
+      "3f800000",
+      "3f800000"
+    ],
+    "display": {
+      "manufacturer": "R5V",
+      "model": "T2 QUALIFIER",
+      "combined": "R5V T2 QUALIFIER",
+      "results": "R5V TEST DRIVER"
+    },
+    "unlock_oracle_id": 10,
+    "unlock_path": "Progress/UnlockedCars/T2CupCar1",
+    "audio_profile_id": 7,
+    "ai_pools": [
+      "quickrace:T2",
+      "rallye_cup:new-roster:T2",
+      "master_rallye:new-competition:T2"
+    ],
+    "native_driver_id_changed": false,
+    "donor_frontend_art": true,
+    "id7_record_overwritten": false,
+    "asset_directory": "DataGx/Vehicles/R5VQualifier",
+    "asset_directory_is_independent": true,
+    "physics_family_is_independent": true,
+    "collision": "Navara-derived donor geometry; not a unique collision qualification",
+    "frontend_art": "DONOR FRONTEND ART (Navara frame 23)",
+    "stats_provenance": "Navara donor-derived, unchanged",
+    "source_donor_physical_id": 7,
+    "results_display": "R5V TEST DRIVER",
+    "authenticity": "authored qualification family; not a historical Master Rallye vehicle"
+  },
+  "output": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\multislot\\i1\\candidate\\MRallye.exe"
+}
