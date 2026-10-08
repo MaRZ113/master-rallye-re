@@ -942,6 +942,17 @@ Fresh Broker Dump captured.
 Fresh Broker Dump captured.
 Requesting Broker Dump...
 Requesting Broker Dump...
+## Installed Observatory package check
+
+Target folder: D:\Game\Master Rallye Pristine\MasterRallye-Observatory-0.2.2-beta
+The 14 pre-update package files matched the local rollback archive; the staged release archive members matched its manifest, and all 14 installed files matched their expected SHA256 values afterward. observatory-data and captures were not touched; the release package includes no game executable.
+
+Commands from the installed folder:
+  python mr_observe.py --version
+Result: PASS — Master Rallye Observatory 0.2.2-beta.
+
+  python mr_observe.py --verbose status
+Result: PASS — command ran; no game process was attached, so no live variant was attested and no Dump was requested.
 ## Evidence boundary
 
 STATIC COMPATIBILITY PASS. No Windows live-process memory read, J.1 Observatory attachment, fresh normal-race native Dump, Broker vehicle-state verification, Results-screen Dump, or post-exit EXE hash check was performed. LIVE NATIVE DUMP PASS remains pending the human runtime handoff.

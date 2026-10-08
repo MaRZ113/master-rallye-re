@@ -67,3 +67,8 @@ The standalone Observatory 0.2.2-beta release builder also passed and emitted
 a 14-file candidate ZIP with SHA256
 `b9ffa53d1a119f8c6cfad752a115688827658a7fa5ecd6274518b96c90c1ae31`.
 It contains no game executable, game assets, or repository dependencies.
+That candidate was staged into the requested Observatory folder after all 14
+existing package files matched the verified pre-update backup. Every installed
+file then matched the release manifest; `observatory-data` and captures were
+left untouched. The installed package returned the expected 0.2.2-beta
+version, and its verbose Status command ran with no game process attached.

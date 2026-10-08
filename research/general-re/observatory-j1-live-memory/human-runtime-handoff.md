@@ -6,26 +6,34 @@ Use the updated read-only Observatory package against the existing J.1
 `--integrated` launch. Do not replace or edit `MRallye.exe`; the expected
 on-disk SHA256 is
 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4` and size
-is 3,121,214 bytes. The Observatory process only queries the game and reads
-memory; it does not install hooks, write memory, or alter game files.
+is 3,121,214 bytes. The updated 0.2.2-beta package is installed in
+`D:\Game\Master Rallye Pristine\MasterRallye-Observatory-0.2.2-beta` and its
+14 release-manifest files were hash-verified after staging. The Observatory
+process only queries the game and reads memory; it does not install hooks,
+write memory, or alter game files.
 
 ## Test sequence
 
 1. Launch the J.1 integrated process using the existing loader procedure.
-2. Start Observatory and connect to that running process.
-3. Run Status with detailed diagnostics enabled.
+2. From the Observatory folder, run
+   `python mr_observe.py --verbose status` and select/connect to that running
+   process if prompted.
 4. Confirm the disk identity is pristine retail and the effective live
    `native_dump_walker` is reported as the approved J.1 hardened runtime
    variant. The details must include walker SHA256
    `16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9`,
    StringList target `0x0068E6D0`, and XmlData target `0x0068E6F0`, with their
    expected trampoline hashes.
-5. During a normal race, request a fresh native Dump. Keep the JSON and raw
-   `.dump.bin` pair together and verify the raw sidecar SHA256 from the JSON.
+5. During a normal race, run
+   `python mr_observe.py capture j1-live-normal-race`. Keep the generated JSON
+   and raw `.dump.bin` pair together and verify the raw sidecar SHA256 from the
+   JSON.
 6. Confirm Broker state for physical ID26 Mercedes and ID27 R5VQualifier. Keep
    the Observatory loader/runtime attestation distinct from Broker evidence.
-7. Only after Status confirms the in-memory hardened walker and Results safety,
-   optionally request a Results-screen Dump.
+7. Only after Status confirms the in-memory hardened walker and
+   `Native Dump from Race Results: verified safe.`, optionally run
+   `python mr_observe.py capture j1-live-results` from Results. Otherwise skip
+   the Results capture.
 8. Exit the game normally. Rehash the on-disk executable; it must still equal
    the pristine retail SHA above.
 
