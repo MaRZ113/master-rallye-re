@@ -19,10 +19,12 @@ def main():
     ap.add_argument('--window', nargs=2, type=lambda s: int(s, 0), required=True)
     ap.add_argument('--addresses', nargs='+', type=lambda s: int(s, 0), required=True)
     ap.add_argument('--refs', nargs='*', type=lambda s: int(s, 0), default=[])
-    ap.add_argument('--track', choices=['ui1', 'ui2', 'ambient1', 'grass1', 'water1', 'refl1'], default='ui1',
+    ap.add_argument('--track', choices=['ui1', 'ui2', 'ambient1', 'grass1', 'water1', 'refl1', 'dressing1'], default='ui1',
                     help='Ignored local export directory; defaults to the original UI1 track')
     ap.add_argument('--ee-scalar', action='store_true',
                     help='Normalize EE SQRT operand and MULT rd for scalar dataflow; requires no HI/LO reads in window')
+    ap.add_argument('--ee-sqrt-only', action='store_true',
+                    help='Normalize only EE SQRT operands; preserve MULT and HI/LO instructions')
     a = ap.parse_args()
     b = a.elf.read_bytes()
     if hashlib.sha256(b).hexdigest() != SHA:
@@ -77,7 +79,7 @@ def main():
             elif a.ee_scalar and word >> 26 == 0 and word & 63 in (24, 25) and (word >> 11) & 31:
                 replacement = 0x70000002 | (word & 0x03fff800)
                 kind = 'EE MULT rd low32 only; HI/LO not modeled'
-            elif a.ee_scalar and word >> 21 == 0x230 and word & 63 == 4:
+            elif (a.ee_scalar or a.ee_sqrt_only) and word >> 21 == 0x230 and word & 63 == 4:
                 replacement = (word & ~0x001ff800) | (((word >> 16) & 31) << 11)
                 kind = 'EE SQRT ft to MIPS SQRT fs; positive finite scalar dataflow only'
             if replacement is not None:

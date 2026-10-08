@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "full_diagnostic_sha256": "289a7d237a7d62feae74b784d1b0b0954ec1285229e35ee004e062fae7632802",
+  "repeat_sha256": "289a7d237a7d62feae74b784d1b0b0954ec1285229e35ee004e062fae7632802",
+  "result": "BYTE_IDENTICAL",
+  "compact_sha256": "eb99258819fb69426d9ca97de420fdde270f1d6a012df3f4866cf2e5d2080fa6",
+  "runtime": "NOT_PERFORMED"
+}

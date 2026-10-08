@@ -1,0 +1,685 @@
+{
+  "pc_root": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked",
+  "file_count": 7595,
+  "compiled_dx_count": 160,
+  "text_files_scanned": 270,
+  "path_inventory_sha256": "6799c04356295adbccb53fabd7217efc0725fc4391443e7e0e4792c7ecc23769",
+  "standalone_noncourse_nonvehicle_dx": [
+    {
+      "path": "DataGx/Frontend/Cups/challenge_cup.dx",
+      "size": 89044,
+      "sha256": "c09cc532d820b1c06c8227fd49bd99f9444ffd99711b90783cf1f69d8c4b0348"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/cup-bagoo.dx",
+      "size": 73169,
+      "sha256": "af3ffb026cb3a24ce0180b2d234b8e8297e0cff79e9c0229b44914d2e129a215"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/cup-elf.dx",
+      "size": 77065,
+      "sha256": "8022fc06dfc747ed008299bf554c3ec9d7d21919cc9b70fa7fc97e5889d5c1f4"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/cup-go.dx",
+      "size": 125232,
+      "sha256": "d514f891099d09d7ee59988814b3afecb991d5624096e923999083b39eae2fd3"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/cup-master.dx",
+      "size": 182034,
+      "sha256": "63cc5a8c37634acd869ecd8e7b677bc6c8ff1d105251cd3e8046200efb22ba80"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/cup-steelmonkeys.dx",
+      "size": 43568,
+      "sha256": "0ee6dada18d43423b6772cf68ac6ea7d3e85ef77f20179bab6baf66e62ebd612"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/cup_bfgood.dx",
+      "size": 94195,
+      "sha256": "57a065e4c2dfcebf356e5fa9ef98410e7975d435280e9cc74aed7160a6f9e167"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/cup_fujsem.dx",
+      "size": 125371,
+      "sha256": "c121f97fdf3cdf73a0567eaf3336dbcd7500e31ed15325ef021fed7320d62ba2"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/mr_medal.dx",
+      "size": 132046,
+      "sha256": "c2696269b759d248e9e61c89787861ea3ff1471e202582749ea73ec1215b0f5a"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/mr_medal_t1.dx",
+      "size": 102976,
+      "sha256": "72bcaaeec83253b04389aa9516d3fbdbdbe3b89957cdc36a396f2ae128b65f40"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/mr_medal_t2.dx",
+      "size": 104704,
+      "sha256": "ba4b361e3666d9701a59442f868cd2e8f05357b1bdc719532cbaf7966a01c124"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/mr_medal_t3.dx",
+      "size": 107080,
+      "sha256": "b709c3af6942dcae666ddf0efc50631cb47bd5a9789c2097b6a94f628e4a9960"
+    },
+    {
+      "path": "DataGx/Frontend/Cups/sm_medal.dx",
+      "size": 111092,
+      "sha256": "23145f23b57ec25388b578dc0549dc2faaeeb9510a6b3e4edf5d6c86d60042fd"
+    },
+    {
+      "path": "DataGx/Frontend/Flags/austria.dx",
+      "size": 13101,
+      "sha256": "202f2551a8f0228d16d0b39d99824d7a1a83c3138ca56b9216ca7a23394a3d3a"
+    },
+    {
+      "path": "DataGx/Frontend/Flags/france.dx",
+      "size": 13101,
+      "sha256": "b8ae4afa1fa89245331bc8b6165289e21b01910d6f6cfb7bc077993a18e24e5b"
+    },
+    {
+      "path": "DataGx/Frontend/Flags/germany.dx",
+      "size": 13101,
+      "sha256": "6e59d262c937152635e18168d9b570d6b01bf8613c3c2f724f3c089846f05b80"
+    },
+    {
+      "path": "DataGx/Frontend/Flags/italy.dx",
+      "size": 13101,
+      "sha256": "dd7ebc4b93ae945f834c40cd169575df4ff46d2a1159f4c9ca1c092097ed657e"
+    },
+    {
+      "path": "DataGx/Frontend/Flags/russia.dx",
+      "size": 13101,
+      "sha256": "1f7296e88d45ccfe47609fc67823cf43e0c150b06312c6ba5c0efda3146260ba"
+    },
+    {
+      "path": "DataGx/Frontend/Flags/spain.dx",
+      "size": 18141,
+      "sha256": "39d04cf3c3f696441d71718aef58fd04d47254bf71825d47ba4a22612ab03595"
+    },
+    {
+      "path": "DataGx/Frontend/Flags/turkey.dx",
+      "size": 18142,
+      "sha256": "444dc6d165d3adb980a8299945beb6609ad65de17f0441c9ed9415e3cd6267a9"
+    },
+    {
+      "path": "DataGx/Frontend/Title/circles.dx",
+      "size": 193692,
+      "sha256": "70efcf97426ac403df85ac28f90f201bccc3ccf2c0b1d74373a7f3d4a6c5dfbe"
+    },
+    {
+      "path": "DataGx/Markers/green_marker.dx",
+      "size": 1200,
+      "sha256": "7be5f4eb5b3286dc48ae99a9c90da4a8479edbc21fa3d8035c2f63b825cff250"
+    },
+    {
+      "path": "DataGx/Markers/purple_marker.dx",
+      "size": 1200,
+      "sha256": "ed959a4ae763db79fd8895ea77092cf40ac5c982ae60467cb8a2a80eddb2c580"
+    },
+    {
+      "path": "DataGx/Markers/red_marker.dx",
+      "size": 1200,
+      "sha256": "3b623827e810c095863f4abb6e35c60add91796b55a8aad4c6d7c0e33cb8b8ae"
+    },
+    {
+      "path": "DataGx/Markers/yellow_marker.dx",
+      "size": 1200,
+      "sha256": "0712632b52ea588535008f9606c04992ea1c1f55aaa219f32c677a450ce3bb4e"
+    },
+    {
+      "path": "DataGx/Misc/Checkpoints/banner.dx",
+      "size": 4022,
+      "sha256": "eb5a4cee0cf7ee3de03c4b4e78e91ca4ac71f77689abbc52747f9363eb8fa489"
+    },
+    {
+      "path": "DataGx/Misc/Checkpoints/checkpoint.dx",
+      "size": 6683,
+      "sha256": "124b15ff6462dbc03174b28d0af1554b95bafb4e03d85bf821942a80ac3efa32"
+    },
+    {
+      "path": "DataGx/Misc/Haybale/haybaletest.dx",
+      "size": 4459,
+      "sha256": "3b355f6d59b3e64789a509964b370a2849e5eeeabab174fab98162f33be045be"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud0/clouds0.dx",
+      "size": 8515,
+      "sha256": "87f249e0ae5bd2c6c27a789ba3fbc8ffeb7c521875044c312f8290ad6301b142"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud0/layer0.dx",
+      "size": 7506,
+      "sha256": "b92ab207c3bc979546134a7e3d49a032c91e65d9f07797cfdec0b844533ce818"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud1/clouds1.dx",
+      "size": 8514,
+      "sha256": "f2de5e82b17770a5cc6430c62a5f7ccb50b74957380b5ea8e4430e175bc9c37b"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud1/layer1.dx",
+      "size": 7506,
+      "sha256": "4495b13115580b2a405159dc6ee357d53cb6f62d32a14ed931376d78f775d179"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud2/clouds2.dx",
+      "size": 8514,
+      "sha256": "38c268f880454f9396dd3d5e0c45c2033686c28608add75a6f68d46179a925ad"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud2/layer2.dx",
+      "size": 7506,
+      "sha256": "f3d8709bd91c3a29fcc2d9e321ff69dd888697cb22a05dddde4a20e3ecaa6ae5"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud3/clouds3.dx",
+      "size": 8514,
+      "sha256": "7679fd58911f3efc1d8cfed9054edbf6073929831e5ffc16b81450c1b64b9293"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud3/layer3.dx",
+      "size": 7506,
+      "sha256": "2ff5c34ca20fdb14d1ff9c2bdf63da8c53362b3d14ee504bdf85928d162bcbbb"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud4/clouds4.dx",
+      "size": 8514,
+      "sha256": "eb6d45f350052bc5d0c396e2edcbc408de388f50fc5f692f57ee2bd67805b330"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud4/layer4.dx",
+      "size": 7506,
+      "sha256": "f47b348583147ad08c76e8414a4b85b7a389dec7dcc91a0b0c4240dabe7604da"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud5/cloud5.dx",
+      "size": 8514,
+      "sha256": "2cd71e1209782db96fd00fe1ea6bd6898f1a8a138d5ed9d1df256901d860be51"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud5/clouds5.dx",
+      "size": 8514,
+      "sha256": "2cd71e1209782db96fd00fe1ea6bd6898f1a8a138d5ed9d1df256901d860be51"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud5/layer5.dx",
+      "size": 7506,
+      "sha256": "6d60335f959ee96eb59c9271239c09b164961b7d297eb2efcbf7d0f0f2e77ee7"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud6/clouds6.dx",
+      "size": 8515,
+      "sha256": "3f1331c2f02348d03ba260f5bd0ed95ec79c4903cfdd380d5bdf8e516a623845"
+    },
+    {
+      "path": "DataGx/Misc/Sky/cloud6/layer6.dx",
+      "size": 7506,
+      "sha256": "650ec38320678e66367e1c37987c6db0d921d82c816d9d6e2b4e874f6d15b8d9"
+    },
+    {
+      "path": "DataGx/Misc/Sky/clouds.dx",
+      "size": 8519,
+      "sha256": "af584936bde43d99bf1c397f198833af5276098bc1878fe96bbebdef13caedab"
+    },
+    {
+      "path": "DataGx/Misc/Sky/layer1.dx",
+      "size": 7506,
+      "sha256": "4495b13115580b2a405159dc6ee357d53cb6f62d32a14ed931376d78f775d179"
+    },
+    {
+      "path": "DataGx/multiPlayer/Console/console.dx",
+      "size": 444,
+      "sha256": "dbcb0ee30bc50899cc7f98c2b93f0569d6c673a72aa81e5f668d7e88ec020afe"
+    }
+  ],
+  "text_reference_hits": [
+    {
+      "path": "DataGame/collision.xml",
+      "size": 3778,
+      "sha256": "dfdb9a92566901a90b80a5d596f0c440e735c99f9d4fbde98383a45ab676b192",
+      "families": [
+        "shrub"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/France1/France1.txt",
+      "size": 172020,
+      "sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/France2/France2.txt",
+      "size": 299784,
+      "sha256": "a9f6dad586ad44c796f109939eb210526d274beca09a32703e2ec34896c6a41a",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/France_M/FranceM.txt",
+      "size": 269243,
+      "sha256": "e67fe94ebe6b0adb997ad33bf376a24295eda3e9036702b62a53f86ce5418886",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/France_S1/FranceS1.txt",
+      "size": 248796,
+      "sha256": "62847f873b90a1a2a7740ae4057e6aa7eee7c1a293adbc6ea72ba067d269496c",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/France_S2/FranceS2.txt",
+      "size": 257428,
+      "sha256": "8e961798e4855c5e58e7cbfe8323d752e80b9481c2cfe22a68047313b20f5f9d",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/France_W/FranceW.txt",
+      "size": 256248,
+      "sha256": "59f77850ec3fcd840c4296eeefa87bb8fbdded11b443e4434c1310110f381977",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/France_W_flip/FranceW_flip.txt",
+      "size": 257261,
+      "sha256": "7fcc4bf1b54a7f43460ae49d8088275e575a1462877529c603fbff8a654ece1b",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy1/track01.txt",
+      "size": 89567,
+      "sha256": "f21fd87e09eee48649e3fe3d491237e247ad273877829bd8e74bc811a828aa96",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy2/Italy2.txt",
+      "size": 152854,
+      "sha256": "0f75d2557650e10eed4d587da0de426a2262f91034391b61f31c1f6d8bc43a9e",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy3/Italy3.txt",
+      "size": 237915,
+      "sha256": "8c86c2bafcc9d228746db0414b04b26935b56a0ad4a5f5b168e31349c5472dd1",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_M1/Italy_M1.txt",
+      "size": 132043,
+      "sha256": "c5aa30ae4e5b8cf2b308add0fad66aedd0d3d8a50f4013d5d6dbacf2ec50b429",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_M1_flip/Italy_M1_flip.txt",
+      "size": 132762,
+      "sha256": "50ff23866d7295172bb9cd28e6521765fda64a2c11083681b06f21fbfd2f1f99",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_M2/Italy_M2.txt",
+      "size": 232981,
+      "sha256": "832ed251ffc05ee037497bd86e81a46201670d45917243c9818e7b7a465f7ced",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_S1/Italy_S1.txt",
+      "size": 105265,
+      "sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_S2/Italy_S2.txt",
+      "size": 136774,
+      "sha256": "7357d566c30a7e56c4e8f2120bc51f13dce248de98a67babf9fefaf7fc03c2c4",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_S3/Italy_S3.txt",
+      "size": 234794,
+      "sha256": "c7464b80a15fa9d47e85b6e02ec14d8eb753dbae8a47561e36f2ec01eebc0cbc",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_S3_flip/Italy_S3_flip.txt",
+      "size": 236225,
+      "sha256": "01417a0fd45cd591998e10e30b2097d4f48d11e8076e16f8f5ca4433e342edca",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_S4/Italy_S4.txt",
+      "size": 219026,
+      "sha256": "ef94ca243b30f7e7f2dba6f8cf22f114b560944406fcd81d7b5da7ad8631c413",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_W1/Italy_W1.txt",
+      "size": 112386,
+      "sha256": "2d944977406771e3e996b02049d61cd1ce28889ab0bedf3d8f8906ae5a086c40",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Italy_W2/Italy_W2.txt",
+      "size": 209862,
+      "sha256": "379b9160e243b6c45764b38d79761459f3d293c4be77618ec6b0060c3fc44af8",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus",
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Spain1/Spain1.txt",
+      "size": 30253,
+      "sha256": "418849785e9f24501331f78cd5b928f8d4ebf06921ddd6db9b85da4a0a94e37b",
+      "families": [
+        "shrub"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Spain2/Spain2.txt",
+      "size": 86106,
+      "sha256": "9d72b045a13a65aef7e5d657b2e38ad76bb16146981682dd022943f762271016",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Spain_M/Spain_M.txt",
+      "size": 65651,
+      "sha256": "1398bcdfbb3476779b792248eab5eb7a2dc6b63d8691d7ef34acae19b7c85e9e",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Spain_S1/Spain_S1.txt",
+      "size": 61237,
+      "sha256": "353890ffa41239610a86bd508c3cf8caf5300e5c13bf4aae5e9b5d4b8c256656",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Spain_S1_flip/Spain_S1_flip.txt",
+      "size": 61719,
+      "sha256": "e5218f35990dcf9404a557c1feb1333bb5fae053adc0ecd4b8a650e727e0ca38",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Spain_S2/Spain_S2.txt",
+      "size": 54433,
+      "sha256": "0e70a1eb0b18d4b184faa8a1bb42a9c11619f2a0fa5e1b2e244fce02558bfc52",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Spain_W/Spain_W.txt",
+      "size": 61915,
+      "sha256": "5fce772e2ecfd16ef771dd647db5bef7b55c34296355cd69e85c60fbfc77f9bf",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Spain_W_flip/Spain_W_flip.txt",
+      "size": 62435,
+      "sha256": "30975e27f450cb00bee69d58f867a5ec62faeb2bec811162e0ea806357b99886",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Turkey1/turkey1.txt",
+      "size": 200234,
+      "sha256": "16f89860d9f72b29bcfb47738b7918f1d184e2a615c11072e89cd44a28db378a",
+      "families": [
+        "shrub",
+        "hut"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Turkey2/turkey2.txt",
+      "size": 123244,
+      "sha256": "c62f6c8867cdafef7d7957057d800e60b0d29affb2c7ff340aee1e9cda44b348",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Turkey3/turkey3.txt",
+      "size": 177948,
+      "sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Turkey_m/turkey_m.txt",
+      "size": 248891,
+      "sha256": "fd6f160ca87b430d42a9de4414a5ecdc844fa44f1f6215105ca50d0f236efc17",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Turkey_s1/turkey_s1.txt",
+      "size": 182584,
+      "sha256": "e3863d39ac609d22980b7a071419c4ee0f9e6131638b1e560b7ca0860e9ef0de",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Turkey_s2/turkey_s2.txt",
+      "size": 194106,
+      "sha256": "2731edde061065c798efe10158ebd76dd113275b6c08aa810df8caa1e0402e24",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Turkey_s2_flip/turkey_s2_flip.txt",
+      "size": 195189,
+      "sha256": "61f764edade94014bc5f6619c0098f580e7d6aaac938181ef66c2f0aef7b4b41",
+      "families": [
+        "shrub",
+        "hut",
+        "boat",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Course/Turkey_w/turkey_w.txt",
+      "size": 155257,
+      "sha256": "218c051b7eab881ade7a318a4acf8b847f8dc704aab96e717f19ee39ada0e5d9",
+      "families": [
+        "shrub",
+        "hut",
+        "pinus"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    },
+    {
+      "path": "DataGx/Misc/Haybale/haybaletest.txt",
+      "size": 384,
+      "sha256": "c1c75e148f99af5ceb29014f024653120535bb8fe79f9f078cb6588dee203901",
+      "families": [
+        "haybale"
+      ],
+      "representation": "TEXT_REFERENCE_LEAD"
+    }
+  ],
+  "scope": "All retail paths; all TXT/XML text; noncourse/nonvehicle DX identity inventory. Geometry decoded only for selected paired courses, not every standalone model.",
+  "negative_result": "NOT_FOUND_IN_SCANNED_PC_CORPUS never means universal absence"
+}

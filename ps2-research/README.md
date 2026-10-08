@@ -125,3 +125,12 @@ and its SVG helper keep rich source diagnostics in ignored data/geom1. The
 [handoff instructions](geom1/HANDOFF.md) explain isolated tests and external
 inputs. Static comparison is complete within the selected grammar; live LOD,
 instance correspondence and runtime presentation remain separately qualified.
+
+The [DRESSING1 ownership survey](dressing1/final-report.md) distinguishes material
+groups, geometric components, runtime bounds/culling and independently owned
+scene references. Its four complete candidate cards establish PC hut subpart
+reuse and a rigid correspondence of the whole Turkey3 boat source group at a
+different placement, with foliage/instance limits preserved. The
+[read-only diagnostic](tools/dressing_runtime.py) and SVG helper keep source
+geometry ignored; [handoff instructions](dressing1/HANDOFF.md) cover standalone
+tests and private corpus dependencies. No PC content/renderer/SDK change occurs.

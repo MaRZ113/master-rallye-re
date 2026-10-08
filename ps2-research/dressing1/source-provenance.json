@@ -1,0 +1,278 @@
+{
+  "branch": "master",
+  "starting_head": "7f151b74123f11101b94465ceb9ea2e2e5a8a07b",
+  "preflight_status": "?? ps2-research.zip",
+  "pre_existing_user_file": {
+    "path": "ps2-research.zip",
+    "size": 151801081,
+    "sha256": "27230b7e5bcaab5e8932633532cdb5dc108e29a41971afa14377a8436ab55367"
+  },
+  "canonical": {
+    "root": "D:/Game/Master Rallye PS2",
+    "identity": "Fresh four canonical size/SHA checks PASS",
+    "hashes": {
+      "SLES_509.06": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "SYSTEM.CNF": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2",
+      "TNG.PAK": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d",
+      "TNG.000": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "sdk": {
+    "head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "branch": "research/r5t-course-archaeology",
+    "status": "CLEAN"
+  },
+  "pc_sources": [
+    {
+      "course": "TURKEY3",
+      "source": {
+        "path": "DataGx\\Course\\Turkey3\\turkey3.dx",
+        "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+        "size": 10055607,
+        "txt_path": "DataGx\\Course\\Turkey3\\turkey3.txt",
+        "txt_sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+        "position_array_offset": 16,
+        "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+        "draws": 939,
+        "vertices": 54589,
+        "triangles": 42237,
+        "coverage": "VALIDATED_COMPLETE_DISJOINT",
+        "txt_mesh_records": 2574,
+        "txt_named_nodes": 2881,
+        "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+        "txt_dinghy_leads": [],
+        "coordinates": "GAME_SOURCE"
+      }
+    },
+    {
+      "course": "ITALY_S1",
+      "source": {
+        "path": "DataGx\\Course\\Italy_S1\\italy_s1.dx",
+        "sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+        "size": 10418531,
+        "txt_path": "DataGx\\Course\\Italy_S1\\Italy_S1.txt",
+        "txt_sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+        "position_array_offset": 16,
+        "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+        "draws": 867,
+        "vertices": 61463,
+        "triangles": 46367,
+        "coverage": "VALIDATED_COMPLETE_DISJOINT",
+        "txt_mesh_records": 1417,
+        "txt_named_nodes": 1463,
+        "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+        "txt_dinghy_leads": [],
+        "coordinates": "GAME_SOURCE"
+      }
+    },
+    {
+      "course": "FRANCE1",
+      "source": {
+        "path": "DataGx\\Course\\France1\\france1.dx",
+        "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+        "size": 13489510,
+        "txt_path": "DataGx\\Course\\France1\\France1.txt",
+        "txt_sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+        "position_array_offset": 16,
+        "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+        "draws": 995,
+        "vertices": 65206,
+        "triangles": 64577,
+        "coverage": "VALIDATED_COMPLETE_DISJOINT",
+        "txt_mesh_records": 2527,
+        "txt_named_nodes": 2568,
+        "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+        "txt_dinghy_leads": [
+          {
+            "node_id": 799,
+            "name": "DINGHYS",
+            "parent_id": 751,
+            "source_index": null,
+            "source_size": null
+          },
+          {
+            "node_id": 800,
+            "name": "dinghy01",
+            "parent_id": 799,
+            "source_index": 47180,
+            "source_size": 12
+          },
+          {
+            "node_id": 801,
+            "name": "dinghy02",
+            "parent_id": 799,
+            "source_index": 47192,
+            "source_size": 12
+          },
+          {
+            "node_id": 802,
+            "name": "dinghy03",
+            "parent_id": 799,
+            "source_index": 47204,
+            "source_size": 12
+          },
+          {
+            "node_id": 803,
+            "name": "dinghy04",
+            "parent_id": 799,
+            "source_index": 47216,
+            "source_size": 12
+          },
+          {
+            "node_id": 804,
+            "name": "dinghy05",
+            "parent_id": 799,
+            "source_index": 47228,
+            "source_size": 12
+          },
+          {
+            "node_id": 805,
+            "name": "dinghy06",
+            "parent_id": 799,
+            "source_index": 47240,
+            "source_size": 12
+          },
+          {
+            "node_id": 806,
+            "name": "dinghy07",
+            "parent_id": 799,
+            "source_index": 47252,
+            "source_size": 12
+          },
+          {
+            "node_id": 807,
+            "name": "dinghy08",
+            "parent_id": 799,
+            "source_index": 47264,
+            "source_size": 12
+          },
+          {
+            "node_id": 808,
+            "name": "dinghy09",
+            "parent_id": 799,
+            "source_index": 47276,
+            "source_size": 12
+          },
+          {
+            "node_id": 809,
+            "name": "dinghy10",
+            "parent_id": 799,
+            "source_index": 47288,
+            "source_size": 12
+          },
+          {
+            "node_id": 810,
+            "name": "dinghy11",
+            "parent_id": 799,
+            "source_index": 47300,
+            "source_size": 12
+          },
+          {
+            "node_id": 811,
+            "name": "DINGHYS_Masts",
+            "parent_id": 751,
+            "source_index": null,
+            "source_size": null
+          },
+          {
+            "node_id": 812,
+            "name": "dinghymast01",
+            "parent_id": 811,
+            "source_index": 47312,
+            "source_size": 3
+          },
+          {
+            "node_id": 813,
+            "name": "dinghymast02",
+            "parent_id": 811,
+            "source_index": 47315,
+            "source_size": 3
+          },
+          {
+            "node_id": 814,
+            "name": "dinghymast03",
+            "parent_id": 811,
+            "source_index": 47318,
+            "source_size": 3
+          },
+          {
+            "node_id": 815,
+            "name": "dinghymast04",
+            "parent_id": 811,
+            "source_index": 47321,
+            "source_size": 3
+          },
+          {
+            "node_id": 816,
+            "name": "dinghymast05",
+            "parent_id": 811,
+            "source_index": 47324,
+            "source_size": 3
+          },
+          {
+            "node_id": 817,
+            "name": "dinghymast06",
+            "parent_id": 811,
+            "source_index": 47327,
+            "source_size": 3
+          },
+          {
+            "node_id": 818,
+            "name": "dinghymast07",
+            "parent_id": 811,
+            "source_index": 47330,
+            "source_size": 3
+          },
+          {
+            "node_id": 819,
+            "name": "dinghymast08",
+            "parent_id": 811,
+            "source_index": 47333,
+            "source_size": 3
+          },
+          {
+            "node_id": 820,
+            "name": "dinghymast09",
+            "parent_id": 811,
+            "source_index": 47336,
+            "source_size": 3
+          },
+          {
+            "node_id": 821,
+            "name": "dinghymast10",
+            "parent_id": 811,
+            "source_index": 47339,
+            "source_size": 3
+          },
+          {
+            "node_id": 822,
+            "name": "dinghymast11",
+            "parent_id": 811,
+            "source_index": 47342,
+            "source_size": 3
+          },
+          {
+            "node_id": 1186,
+            "name": "DINGHYS_Trailers",
+            "parent_id": 867,
+            "source_index": null,
+            "source_size": null
+          }
+        ],
+        "coordinates": "GAME_SOURCE"
+      }
+    }
+  ],
+  "original_data_policy": "No executable, archive, mesh, texture or scene modification; maps and full diagnostics ignored",
+  "postflight": {
+    "canonical_four_file_identity": "PASS fresh hashes",
+    "pc_checked_file_count": 87,
+    "pc_hashes_match_preflight": "PASS",
+    "sdk_head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "sdk_status": "CLEAN",
+    "pc_renderer_diff": "EMPTY",
+    "pre_existing_user_zip_sha256": "27230b7e5bcaab5e8932633532cdb5dc108e29a41971afa14377a8436ab55367",
+    "raw_original_assets_committed": "NONE",
+    "pc_hash_check_records": 90
+  }
+}

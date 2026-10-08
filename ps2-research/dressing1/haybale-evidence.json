@@ -1,0 +1,316 @@
+{
+  "ps2_source": {
+    "path": "\\TNG\\DATAPSM\\MISC\\HAYBALE\\HAYBALE.PSM",
+    "offset": 1210311250,
+    "stored_size": 3114,
+    "directory_size_0x08": 3114,
+    "unpacked_size": 6636,
+    "compression": "packfs_lzo",
+    "stored_sha256": "de76d07729d77ffa4e8259faafa68ab38a14d33192e1096248e1c94fb98416f0",
+    "payload_sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+    "evidence": "CONFIRMED_BY_BOTH",
+    "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+  },
+  "geometry_status": "NOT_DECODED: strict standalone EOF grammar refused; no speculative extension",
+  "live_instances": "UNKNOWN",
+  "readiness": "NOT_READY",
+  "geometry_blocker": "Visual tree does not end at tag 4294967295",
+  "pc_txt_source": {
+    "path": "DataGx/Course/Italy_S1/Italy_S1.txt",
+    "sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2"
+  },
+  "pc_txt_name_lead_count": 175,
+  "pc_txt_name_lead_classes": {
+    "moMesh": 174,
+    "moUnknown": 1
+  },
+  "pc_txt_name_lead_samples": [
+    {
+      "node_id": 656,
+      "name": "HayBales",
+      "parent_id": 2,
+      "source_index": null,
+      "source_size": null,
+      "class": "moUnknown"
+    },
+    {
+      "node_id": 657,
+      "name": "HayBale01",
+      "parent_id": 656,
+      "source_index": 7484,
+      "source_size": 12,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 658,
+      "name": "HayBale1",
+      "parent_id": 656,
+      "source_index": 7496,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 659,
+      "name": "HayBale02",
+      "parent_id": 656,
+      "source_index": 7524,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 660,
+      "name": "HayBale03",
+      "parent_id": 656,
+      "source_index": 7552,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 661,
+      "name": "HayBale04",
+      "parent_id": 656,
+      "source_index": 7580,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 662,
+      "name": "HayBale05",
+      "parent_id": 656,
+      "source_index": 7608,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 663,
+      "name": "HayBale06",
+      "parent_id": 656,
+      "source_index": 7636,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 664,
+      "name": "HayBale07",
+      "parent_id": 656,
+      "source_index": 7664,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 665,
+      "name": "HayBale08",
+      "parent_id": 656,
+      "source_index": 7692,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 666,
+      "name": "HayBale09",
+      "parent_id": 656,
+      "source_index": 7720,
+      "source_size": 28,
+      "class": "moMesh"
+    },
+    {
+      "node_id": 667,
+      "name": "HayBale10",
+      "parent_id": 656,
+      "source_index": 7748,
+      "source_size": 28,
+      "class": "moMesh"
+    }
+  ],
+  "pc_standalone": {
+    "path": "DataGx/Misc/Haybale/haybaletest.dx",
+    "sha256": "3b355f6d59b3e64789a509964b370a2849e5eeeabab174fab98162f33be045be",
+    "presence": "RESOURCE_EXISTS; current course instance UNKNOWN"
+  },
+  "authored_references": 14,
+  "unique_matrix_hashes": 13,
+  "references": [
+    {
+      "reference_id": "ac572dde63ab96627cb6a049",
+      "ordinal": 6,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "9e0029d1680746129afaa677c0a8ee508cb0f8f5727eab64f25067639471d754",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "288ac466c25962c3644c16fd",
+      "ordinal": 7,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "2424eb8d03c5054a2d674e42f41108db1c15edc74e5a7844a249ec17588eafea",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "c0c84b3c4de52eccf5ada32b",
+      "ordinal": 8,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "cd05b239ac29f0295ff0f3c0e7c181ca76d22dd930d8ca5031d7a859802819dd",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "2e250174e9330b65d92783ed",
+      "ordinal": 9,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "eb9314063a1338737e02cd8ee41ca33b6943cc38da335169301cc501882cb25b",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "6c10a6cc593817f701518aaf",
+      "ordinal": 10,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "08ccb010208330dc940cb1d78a15856047d7d16adbf7d89cc3199001f41e5a46",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "da8989c1978532772bf23963",
+      "ordinal": 11,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "ea4044f6f2a24f6909cbef9516406eb8b91e2e1c7243407d45ef0c764ba315ec",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "e4a4d1365eed879e52c92031",
+      "ordinal": 12,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "8a6dffa12605b23267b962e360b6a962f0eb1c5a9bed04c59eb70ba341460d1a",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "d23e13feaac5b34c1a35e251",
+      "ordinal": 13,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "ac76add157f1d1084e9b9351a0199616e173d2b9402d905ce2696879f20a6bc9",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "938213ba382ac3eaf6f24afc",
+      "ordinal": 14,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "7a1f7f02709ed25e994dd68270919959e7a7382855b06ffa63c109cfcc2d3a56",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "b0a9902f1936ddac1eb7325e",
+      "ordinal": 15,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "4632ce1acf1826d463335c96e06293ac5617dd36473889f2acf64c6b1850207b",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "610361318ff5d337376ff324",
+      "ordinal": 16,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "bc11732cf611b38e467d994d7554ec619d677cb4d15372a75b7f94b7c5cfb59e",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "56b4381f5752d350014faa08",
+      "ordinal": 17,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "b2325d6e65eeda57729d0f5d6509dbce554ec704d14e2680846e56d6575a6375",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "7bb5f523409d8c8d45d54bb5",
+      "ordinal": 18,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "d830ec16dbd51f5a5d8aa87543d3099393ecabe13b5a14e6a04786c5a581a81d",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    },
+    {
+      "reference_id": "fe84b7e616f36bd5037c56e1",
+      "ordinal": 19,
+      "list": "Physics",
+      "egg": "haybale",
+      "model": "misc\\haybale\\haybale",
+      "owners": [
+        "gaAiRigidBody"
+      ],
+      "matrix_sha256": "9e0029d1680746129afaa677c0a8ee508cb0f8f5727eab64f25067639471d754",
+      "identity": "AUTHORED_SCENE_REFERENCE",
+      "authored_visible": true
+    }
+  ]
+}

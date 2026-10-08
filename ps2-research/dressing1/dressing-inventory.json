@@ -1,0 +1,3984 @@
+{
+  "schema": 1,
+  "phase": "PS2-DRESSING1",
+  "coordinate_frame": "GAME_SOURCE",
+  "pc_search": {
+    "pc_root": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked",
+    "file_count": 7595,
+    "compiled_dx_count": 160,
+    "text_files_scanned": 270,
+    "path_inventory_sha256": "6799c04356295adbccb53fabd7217efc0725fc4391443e7e0e4792c7ecc23769",
+    "standalone_noncourse_nonvehicle_dx": [
+      {
+        "path": "DataGx/Frontend/Cups/challenge_cup.dx",
+        "size": 89044,
+        "sha256": "c09cc532d820b1c06c8227fd49bd99f9444ffd99711b90783cf1f69d8c4b0348"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/cup-bagoo.dx",
+        "size": 73169,
+        "sha256": "af3ffb026cb3a24ce0180b2d234b8e8297e0cff79e9c0229b44914d2e129a215"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/cup-elf.dx",
+        "size": 77065,
+        "sha256": "8022fc06dfc747ed008299bf554c3ec9d7d21919cc9b70fa7fc97e5889d5c1f4"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/cup-go.dx",
+        "size": 125232,
+        "sha256": "d514f891099d09d7ee59988814b3afecb991d5624096e923999083b39eae2fd3"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/cup-master.dx",
+        "size": 182034,
+        "sha256": "63cc5a8c37634acd869ecd8e7b677bc6c8ff1d105251cd3e8046200efb22ba80"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/cup-steelmonkeys.dx",
+        "size": 43568,
+        "sha256": "0ee6dada18d43423b6772cf68ac6ea7d3e85ef77f20179bab6baf66e62ebd612"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/cup_bfgood.dx",
+        "size": 94195,
+        "sha256": "57a065e4c2dfcebf356e5fa9ef98410e7975d435280e9cc74aed7160a6f9e167"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/cup_fujsem.dx",
+        "size": 125371,
+        "sha256": "c121f97fdf3cdf73a0567eaf3336dbcd7500e31ed15325ef021fed7320d62ba2"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/mr_medal.dx",
+        "size": 132046,
+        "sha256": "c2696269b759d248e9e61c89787861ea3ff1471e202582749ea73ec1215b0f5a"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/mr_medal_t1.dx",
+        "size": 102976,
+        "sha256": "72bcaaeec83253b04389aa9516d3fbdbdbe3b89957cdc36a396f2ae128b65f40"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/mr_medal_t2.dx",
+        "size": 104704,
+        "sha256": "ba4b361e3666d9701a59442f868cd2e8f05357b1bdc719532cbaf7966a01c124"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/mr_medal_t3.dx",
+        "size": 107080,
+        "sha256": "b709c3af6942dcae666ddf0efc50631cb47bd5a9789c2097b6a94f628e4a9960"
+      },
+      {
+        "path": "DataGx/Frontend/Cups/sm_medal.dx",
+        "size": 111092,
+        "sha256": "23145f23b57ec25388b578dc0549dc2faaeeb9510a6b3e4edf5d6c86d60042fd"
+      },
+      {
+        "path": "DataGx/Frontend/Flags/austria.dx",
+        "size": 13101,
+        "sha256": "202f2551a8f0228d16d0b39d99824d7a1a83c3138ca56b9216ca7a23394a3d3a"
+      },
+      {
+        "path": "DataGx/Frontend/Flags/france.dx",
+        "size": 13101,
+        "sha256": "b8ae4afa1fa89245331bc8b6165289e21b01910d6f6cfb7bc077993a18e24e5b"
+      },
+      {
+        "path": "DataGx/Frontend/Flags/germany.dx",
+        "size": 13101,
+        "sha256": "6e59d262c937152635e18168d9b570d6b01bf8613c3c2f724f3c089846f05b80"
+      },
+      {
+        "path": "DataGx/Frontend/Flags/italy.dx",
+        "size": 13101,
+        "sha256": "dd7ebc4b93ae945f834c40cd169575df4ff46d2a1159f4c9ca1c092097ed657e"
+      },
+      {
+        "path": "DataGx/Frontend/Flags/russia.dx",
+        "size": 13101,
+        "sha256": "1f7296e88d45ccfe47609fc67823cf43e0c150b06312c6ba5c0efda3146260ba"
+      },
+      {
+        "path": "DataGx/Frontend/Flags/spain.dx",
+        "size": 18141,
+        "sha256": "39d04cf3c3f696441d71718aef58fd04d47254bf71825d47ba4a22612ab03595"
+      },
+      {
+        "path": "DataGx/Frontend/Flags/turkey.dx",
+        "size": 18142,
+        "sha256": "444dc6d165d3adb980a8299945beb6609ad65de17f0441c9ed9415e3cd6267a9"
+      },
+      {
+        "path": "DataGx/Frontend/Title/circles.dx",
+        "size": 193692,
+        "sha256": "70efcf97426ac403df85ac28f90f201bccc3ccf2c0b1d74373a7f3d4a6c5dfbe"
+      },
+      {
+        "path": "DataGx/Markers/green_marker.dx",
+        "size": 1200,
+        "sha256": "7be5f4eb5b3286dc48ae99a9c90da4a8479edbc21fa3d8035c2f63b825cff250"
+      },
+      {
+        "path": "DataGx/Markers/purple_marker.dx",
+        "size": 1200,
+        "sha256": "ed959a4ae763db79fd8895ea77092cf40ac5c982ae60467cb8a2a80eddb2c580"
+      },
+      {
+        "path": "DataGx/Markers/red_marker.dx",
+        "size": 1200,
+        "sha256": "3b623827e810c095863f4abb6e35c60add91796b55a8aad4c6d7c0e33cb8b8ae"
+      },
+      {
+        "path": "DataGx/Markers/yellow_marker.dx",
+        "size": 1200,
+        "sha256": "0712632b52ea588535008f9606c04992ea1c1f55aaa219f32c677a450ce3bb4e"
+      },
+      {
+        "path": "DataGx/Misc/Checkpoints/banner.dx",
+        "size": 4022,
+        "sha256": "eb5a4cee0cf7ee3de03c4b4e78e91ca4ac71f77689abbc52747f9363eb8fa489"
+      },
+      {
+        "path": "DataGx/Misc/Checkpoints/checkpoint.dx",
+        "size": 6683,
+        "sha256": "124b15ff6462dbc03174b28d0af1554b95bafb4e03d85bf821942a80ac3efa32"
+      },
+      {
+        "path": "DataGx/Misc/Haybale/haybaletest.dx",
+        "size": 4459,
+        "sha256": "3b355f6d59b3e64789a509964b370a2849e5eeeabab174fab98162f33be045be"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud0/clouds0.dx",
+        "size": 8515,
+        "sha256": "87f249e0ae5bd2c6c27a789ba3fbc8ffeb7c521875044c312f8290ad6301b142"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud0/layer0.dx",
+        "size": 7506,
+        "sha256": "b92ab207c3bc979546134a7e3d49a032c91e65d9f07797cfdec0b844533ce818"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud1/clouds1.dx",
+        "size": 8514,
+        "sha256": "f2de5e82b17770a5cc6430c62a5f7ccb50b74957380b5ea8e4430e175bc9c37b"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud1/layer1.dx",
+        "size": 7506,
+        "sha256": "4495b13115580b2a405159dc6ee357d53cb6f62d32a14ed931376d78f775d179"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud2/clouds2.dx",
+        "size": 8514,
+        "sha256": "38c268f880454f9396dd3d5e0c45c2033686c28608add75a6f68d46179a925ad"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud2/layer2.dx",
+        "size": 7506,
+        "sha256": "f3d8709bd91c3a29fcc2d9e321ff69dd888697cb22a05dddde4a20e3ecaa6ae5"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud3/clouds3.dx",
+        "size": 8514,
+        "sha256": "7679fd58911f3efc1d8cfed9054edbf6073929831e5ffc16b81450c1b64b9293"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud3/layer3.dx",
+        "size": 7506,
+        "sha256": "2ff5c34ca20fdb14d1ff9c2bdf63da8c53362b3d14ee504bdf85928d162bcbbb"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud4/clouds4.dx",
+        "size": 8514,
+        "sha256": "eb6d45f350052bc5d0c396e2edcbc408de388f50fc5f692f57ee2bd67805b330"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud4/layer4.dx",
+        "size": 7506,
+        "sha256": "f47b348583147ad08c76e8414a4b85b7a389dec7dcc91a0b0c4240dabe7604da"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud5/cloud5.dx",
+        "size": 8514,
+        "sha256": "2cd71e1209782db96fd00fe1ea6bd6898f1a8a138d5ed9d1df256901d860be51"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud5/clouds5.dx",
+        "size": 8514,
+        "sha256": "2cd71e1209782db96fd00fe1ea6bd6898f1a8a138d5ed9d1df256901d860be51"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud5/layer5.dx",
+        "size": 7506,
+        "sha256": "6d60335f959ee96eb59c9271239c09b164961b7d297eb2efcbf7d0f0f2e77ee7"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud6/clouds6.dx",
+        "size": 8515,
+        "sha256": "3f1331c2f02348d03ba260f5bd0ed95ec79c4903cfdd380d5bdf8e516a623845"
+      },
+      {
+        "path": "DataGx/Misc/Sky/cloud6/layer6.dx",
+        "size": 7506,
+        "sha256": "650ec38320678e66367e1c37987c6db0d921d82c816d9d6e2b4e874f6d15b8d9"
+      },
+      {
+        "path": "DataGx/Misc/Sky/clouds.dx",
+        "size": 8519,
+        "sha256": "af584936bde43d99bf1c397f198833af5276098bc1878fe96bbebdef13caedab"
+      },
+      {
+        "path": "DataGx/Misc/Sky/layer1.dx",
+        "size": 7506,
+        "sha256": "4495b13115580b2a405159dc6ee357d53cb6f62d32a14ed931376d78f775d179"
+      },
+      {
+        "path": "DataGx/multiPlayer/Console/console.dx",
+        "size": 444,
+        "sha256": "dbcb0ee30bc50899cc7f98c2b93f0569d6c673a72aa81e5f668d7e88ec020afe"
+      }
+    ],
+    "text_reference_hits": [
+      {
+        "path": "DataGame/collision.xml",
+        "size": 3778,
+        "sha256": "dfdb9a92566901a90b80a5d596f0c440e735c99f9d4fbde98383a45ab676b192",
+        "families": [
+          "shrub"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/France1/France1.txt",
+        "size": 172020,
+        "sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/France2/France2.txt",
+        "size": 299784,
+        "sha256": "a9f6dad586ad44c796f109939eb210526d274beca09a32703e2ec34896c6a41a",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/France_M/FranceM.txt",
+        "size": 269243,
+        "sha256": "e67fe94ebe6b0adb997ad33bf376a24295eda3e9036702b62a53f86ce5418886",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/France_S1/FranceS1.txt",
+        "size": 248796,
+        "sha256": "62847f873b90a1a2a7740ae4057e6aa7eee7c1a293adbc6ea72ba067d269496c",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/France_S2/FranceS2.txt",
+        "size": 257428,
+        "sha256": "8e961798e4855c5e58e7cbfe8323d752e80b9481c2cfe22a68047313b20f5f9d",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/France_W/FranceW.txt",
+        "size": 256248,
+        "sha256": "59f77850ec3fcd840c4296eeefa87bb8fbdded11b443e4434c1310110f381977",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/France_W_flip/FranceW_flip.txt",
+        "size": 257261,
+        "sha256": "7fcc4bf1b54a7f43460ae49d8088275e575a1462877529c603fbff8a654ece1b",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy1/track01.txt",
+        "size": 89567,
+        "sha256": "f21fd87e09eee48649e3fe3d491237e247ad273877829bd8e74bc811a828aa96",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy2/Italy2.txt",
+        "size": 152854,
+        "sha256": "0f75d2557650e10eed4d587da0de426a2262f91034391b61f31c1f6d8bc43a9e",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy3/Italy3.txt",
+        "size": 237915,
+        "sha256": "8c86c2bafcc9d228746db0414b04b26935b56a0ad4a5f5b168e31349c5472dd1",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_M1/Italy_M1.txt",
+        "size": 132043,
+        "sha256": "c5aa30ae4e5b8cf2b308add0fad66aedd0d3d8a50f4013d5d6dbacf2ec50b429",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_M1_flip/Italy_M1_flip.txt",
+        "size": 132762,
+        "sha256": "50ff23866d7295172bb9cd28e6521765fda64a2c11083681b06f21fbfd2f1f99",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_M2/Italy_M2.txt",
+        "size": 232981,
+        "sha256": "832ed251ffc05ee037497bd86e81a46201670d45917243c9818e7b7a465f7ced",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_S1/Italy_S1.txt",
+        "size": 105265,
+        "sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_S2/Italy_S2.txt",
+        "size": 136774,
+        "sha256": "7357d566c30a7e56c4e8f2120bc51f13dce248de98a67babf9fefaf7fc03c2c4",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_S3/Italy_S3.txt",
+        "size": 234794,
+        "sha256": "c7464b80a15fa9d47e85b6e02ec14d8eb753dbae8a47561e36f2ec01eebc0cbc",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_S3_flip/Italy_S3_flip.txt",
+        "size": 236225,
+        "sha256": "01417a0fd45cd591998e10e30b2097d4f48d11e8076e16f8f5ca4433e342edca",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_S4/Italy_S4.txt",
+        "size": 219026,
+        "sha256": "ef94ca243b30f7e7f2dba6f8cf22f114b560944406fcd81d7b5da7ad8631c413",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_W1/Italy_W1.txt",
+        "size": 112386,
+        "sha256": "2d944977406771e3e996b02049d61cd1ce28889ab0bedf3d8f8906ae5a086c40",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Italy_W2/Italy_W2.txt",
+        "size": 209862,
+        "sha256": "379b9160e243b6c45764b38d79761459f3d293c4be77618ec6b0060c3fc44af8",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus",
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Spain1/Spain1.txt",
+        "size": 30253,
+        "sha256": "418849785e9f24501331f78cd5b928f8d4ebf06921ddd6db9b85da4a0a94e37b",
+        "families": [
+          "shrub"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Spain2/Spain2.txt",
+        "size": 86106,
+        "sha256": "9d72b045a13a65aef7e5d657b2e38ad76bb16146981682dd022943f762271016",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Spain_M/Spain_M.txt",
+        "size": 65651,
+        "sha256": "1398bcdfbb3476779b792248eab5eb7a2dc6b63d8691d7ef34acae19b7c85e9e",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Spain_S1/Spain_S1.txt",
+        "size": 61237,
+        "sha256": "353890ffa41239610a86bd508c3cf8caf5300e5c13bf4aae5e9b5d4b8c256656",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Spain_S1_flip/Spain_S1_flip.txt",
+        "size": 61719,
+        "sha256": "e5218f35990dcf9404a557c1feb1333bb5fae053adc0ecd4b8a650e727e0ca38",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Spain_S2/Spain_S2.txt",
+        "size": 54433,
+        "sha256": "0e70a1eb0b18d4b184faa8a1bb42a9c11619f2a0fa5e1b2e244fce02558bfc52",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Spain_W/Spain_W.txt",
+        "size": 61915,
+        "sha256": "5fce772e2ecfd16ef771dd647db5bef7b55c34296355cd69e85c60fbfc77f9bf",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Spain_W_flip/Spain_W_flip.txt",
+        "size": 62435,
+        "sha256": "30975e27f450cb00bee69d58f867a5ec62faeb2bec811162e0ea806357b99886",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Turkey1/turkey1.txt",
+        "size": 200234,
+        "sha256": "16f89860d9f72b29bcfb47738b7918f1d184e2a615c11072e89cd44a28db378a",
+        "families": [
+          "shrub",
+          "hut"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Turkey2/turkey2.txt",
+        "size": 123244,
+        "sha256": "c62f6c8867cdafef7d7957057d800e60b0d29affb2c7ff340aee1e9cda44b348",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Turkey3/turkey3.txt",
+        "size": 177948,
+        "sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Turkey_m/turkey_m.txt",
+        "size": 248891,
+        "sha256": "fd6f160ca87b430d42a9de4414a5ecdc844fa44f1f6215105ca50d0f236efc17",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Turkey_s1/turkey_s1.txt",
+        "size": 182584,
+        "sha256": "e3863d39ac609d22980b7a071419c4ee0f9e6131638b1e560b7ca0860e9ef0de",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Turkey_s2/turkey_s2.txt",
+        "size": 194106,
+        "sha256": "2731edde061065c798efe10158ebd76dd113275b6c08aa810df8caa1e0402e24",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Turkey_s2_flip/turkey_s2_flip.txt",
+        "size": 195189,
+        "sha256": "61f764edade94014bc5f6619c0098f580e7d6aaac938181ef66c2f0aef7b4b41",
+        "families": [
+          "shrub",
+          "hut",
+          "boat",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Course/Turkey_w/turkey_w.txt",
+        "size": 155257,
+        "sha256": "218c051b7eab881ade7a318a4acf8b847f8dc704aab96e717f19ee39ada0e5d9",
+        "families": [
+          "shrub",
+          "hut",
+          "pinus"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      },
+      {
+        "path": "DataGx/Misc/Haybale/haybaletest.txt",
+        "size": 384,
+        "sha256": "c1c75e148f99af5ceb29014f024653120535bb8fe79f9f078cb6588dee203901",
+        "families": [
+          "haybale"
+        ],
+        "representation": "TEXT_REFERENCE_LEAD"
+      }
+    ],
+    "scope": "All retail paths; all TXT/XML text; noncourse/nonvehicle DX identity inventory. Geometry decoded only for selected paired courses, not every standalone model.",
+    "negative_result": "NOT_FOUND_IN_SCANNED_PC_CORPUS never means universal absence"
+  },
+  "scene_studies": [
+    {
+      "course": "TURKEY3",
+      "ps2_source": {
+        "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+        "sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+        "landscape": "course\\turkey3\\turkey3",
+        "marker_lists": {
+          "RaceLine": {
+            "count": 422,
+            "ordered_xyz_f32_sha256": "e4761cb3928efc756f9a550fec927c6bf5fd300dbeac8ed93a2fc7296d126f4d"
+          },
+          "FinishArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "efef9b1e8a228c8c778c5bf9004f56a2c1a5bea02646fa2d8cb0d43417644bcd"
+          },
+          "LeftOuterLimit2": {
+            "count": 230,
+            "ordered_xyz_f32_sha256": "3a4c7d08d70604ccf78ea73097278d03f20586016cfda37542110cf07bb76df3"
+          },
+          "RightOuterLimit2": {
+            "count": 209,
+            "ordered_xyz_f32_sha256": "bf7baf4a1c8fbfdd96639edc59a4a20c327b4299b518302819d266678de2a485"
+          },
+          "FlightList": {
+            "count": 12,
+            "ordered_xyz_f32_sha256": "7c1b8a9f42060b71d0947058738a4b19036502e2ed616beab5877564621bee9e"
+          },
+          "Cameras": {
+            "count": 70,
+            "ordered_xyz_f32_sha256": "b5103034dd945415f3eaf290ed014697036c6e311b308bad001cffb6da4df82a"
+          },
+          "StartArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "c11457ccdfedaefb63dc375ee5927f3137b8f606558d517ee72476a863ab557d"
+          },
+          "StaticCameras": {
+            "count": 5,
+            "ordered_xyz_f32_sha256": "d82085129fe57db36ce64f5f4f7a5af3c68a77cc636177c6d36bac539bfc18b0"
+          },
+          "BoomCameras": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "f76bb18998547201037fb7b8351c476abe3f09be559264aa7c92119800536d88"
+          }
+        },
+        "entity_count": 83,
+        "authored_visible_model_references": 24,
+        "model_references": {
+          "course\\turkey3\\turkey3": 1,
+          "misc\\objects\\checkpoints\\checkpoint": 12,
+          "misc\\objects\\tumbleweed\\tumblweed": 6,
+          "misc\\sky\\clouds": 1,
+          "misc\\sky\\layer1": 1,
+          "test\\gps_test\\gps_arrow": 3
+        },
+        "owners": {
+          "aiShadowBoot": 1,
+          "aiSpawnParticle": 11,
+          "aiTrackBoot": 1,
+          "enAiSoundSource": 4,
+          "gaAiCloudSetUp": 2,
+          "gaAiNetworkManager": 1,
+          "gaAiRigidBody": 6,
+          "gaAiSoundManager": 1,
+          "gaAnimals_BirdManager": 1,
+          "gaAttractModeAI": 1,
+          "gaBootAICar": 8,
+          "gaCameraManagerAI": 2,
+          "gaHudLoader": 1,
+          "gaIContAIManager": 1,
+          "gaNetworkConsole": 1,
+          "gaPhysicsManager": 1,
+          "gaRaceFinishAI": 1,
+          "gaRaceFinishAreaAI": 1,
+          "gaRaceLineAI": 1,
+          "gaRacePaceNoteAI": 19,
+          "gaRacePostFirstSplitTimeAI": 1,
+          "gaRaceSplitTimeAI": 3,
+          "gaRaceStarterAI": 1,
+          "gaRaceTimerAI": 1,
+          "gaVehicleResetManager": 1
+        },
+        "placement_signature": "e0ce21f10b61cc8883d0f6255d5808590194d7344d21c90cccb7401e1827bbf3",
+        "declared_visible_misc_world_references": 18,
+        "controller_egg_counts": {
+          "gaEntitySpline": 0,
+          "gaAiRigidBody": 6,
+          "gaAnimals_BirdManager": 1,
+          "aiSpawnParticle": 11,
+          "gaRaceSplitTimeAI": 3
+        }
+      },
+      "pc_source": {
+        "source": "DataScene/RaceTest/TURKEY3.xml",
+        "sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+        "landscape": "course\\turkey3\\turkey3",
+        "marker_lists": {
+          "Cameras": {
+            "count": 69,
+            "ordered_xyz_f32_sha256": "b43daa5911bce3c348cf2b76788ac33f33d8da580eb13cbba14c47c2437ac0e8"
+          },
+          "RaceLine": {
+            "count": 420,
+            "ordered_xyz_f32_sha256": "d9547c169f9092d9222b009665badf0a78fc2a61a34a8e6fae79d2639123ae60"
+          },
+          "StartArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "c11457ccdfedaefb63dc375ee5927f3137b8f606558d517ee72476a863ab557d"
+          },
+          "FinishArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "efef9b1e8a228c8c778c5bf9004f56a2c1a5bea02646fa2d8cb0d43417644bcd"
+          },
+          "RightInnerLimit": {
+            "count": 159,
+            "ordered_xyz_f32_sha256": "825c3bd9330c919705ff33ec30635dcb8a17b8d7af69d52d25517cb952d9faed"
+          },
+          "RightOuterLimit": {
+            "count": 126,
+            "ordered_xyz_f32_sha256": "5147d92db8e24e35ead848cfba27070f0b7c728be22a6b76a3becd92c3fb423e"
+          },
+          "LeftInnerLimit": {
+            "count": 141,
+            "ordered_xyz_f32_sha256": "df8d083b38fc15af7600d0eab9d91c0296326a3ab3555d2299367766c0011a18"
+          },
+          "LeftOuterLimit": {
+            "count": 110,
+            "ordered_xyz_f32_sha256": "03b1ecf6254e9b7dcb36c0844a0869b6d461c67a25dd74c0ebd162b68b4199f5"
+          }
+        },
+        "entity_count": 71,
+        "authored_visible_model_references": 46,
+        "model_references": {
+          "course\\turkey3\\turkey3": 1,
+          "misc\\checkpoints\\checkpoint": 16,
+          "misc\\sky\\clouds": 1,
+          "misc\\sky\\layer1": 1,
+          "test\\gps_test\\gps_arrow": 27
+        },
+        "owners": {
+          "aiShadowBoot": 1,
+          "aiTrackBoot": 1,
+          "enAiSoundSource": 4,
+          "gaAiCloudSetUp": 2,
+          "gaAiNetworkManager": 1,
+          "gaAiSoundManager": 1,
+          "gaAttractModeAI": 2,
+          "gaBootAICar": 8,
+          "gaCameraManagerAI": 2,
+          "gaHudLoader": 1,
+          "gaIContAIManager": 1,
+          "gaNetworkConsole": 1,
+          "gaPhysicsManager": 1,
+          "gaRaceFinishAI": 1,
+          "gaRaceFinishAreaAI": 1,
+          "gaRaceLineAI": 1,
+          "gaRacePaceNoteAI": 19,
+          "gaRacePostFirstSplitTimeAI": 1,
+          "gaRaceSplitTimeAI": 4,
+          "gaRaceStarterAI": 1,
+          "gaRaceTimerAI": 1,
+          "gaVehicleResetManager": 1
+        },
+        "placement_signature": "bc875ce172eb5664cd5b6f1b53e4269e4044523a62223d6fd82e51c67c795710",
+        "declared_visible_misc_world_references": 16,
+        "controller_egg_counts": {
+          "gaEntitySpline": 0,
+          "gaAiRigidBody": 0,
+          "gaAnimals_BirdManager": 0,
+          "aiSpawnParticle": 0,
+          "gaRaceSplitTimeAI": 4
+        }
+      },
+      "selected_references": [],
+      "count_contract": "Authored references retain duplicate transforms and are not live populations"
+    },
+    {
+      "course": "ITALY_S1",
+      "ps2_source": {
+        "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+        "sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+        "landscape": "course\\italy_s1\\italy_s1",
+        "marker_lists": {
+          "RaceLine": {
+            "count": 293,
+            "ordered_xyz_f32_sha256": "53d5025203a9ac42f4154e89802460cec64f97bbd57777f76f1910bf8948e7b0"
+          },
+          "FinishArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "23fc62f66b0e6c116c7f2f0a37613f88505090dea913f5b91ec163fc1a1df7ca"
+          },
+          "LeftOuterLimit2": {
+            "count": 81,
+            "ordered_xyz_f32_sha256": "6b9c68c700b0dcafc036de15a8ec49da842acf3fad34eebf8d1ae89e4a2cf472"
+          },
+          "RightOuterLimit2": {
+            "count": 110,
+            "ordered_xyz_f32_sha256": "93aa011bb9864dc74d4fd04bdc95e63736f5cb5f185a0c6da681e374851c77b9"
+          },
+          "FlightList": {
+            "count": 14,
+            "ordered_xyz_f32_sha256": "26e9ba2908068ff53d71754bbc3aebfd9d5d7d6ad7ab3d51128ddb44eb3ef0eb"
+          },
+          "Cameras": {
+            "count": 66,
+            "ordered_xyz_f32_sha256": "37cf875d833a406a413fa2013836c205357e83ac86f07da4db363e938d5d401f"
+          },
+          "StartArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "2920d9f0576f4d8295c007908462439a8184b484f662ed767671babe9f3a956d"
+          },
+          "StaticCameras": {
+            "count": 3,
+            "ordered_xyz_f32_sha256": "77c87a9e94f49fc12c323a504dd7e8203394343cafa47f63fa089f62fa6a1ef0"
+          },
+          "BoomCameras": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "59d25222217adeb74ce40b26ebd14557b674489e507a1b1602495f0275b355ae"
+          }
+        },
+        "entity_count": 88,
+        "authored_visible_model_references": 30,
+        "model_references": {
+          "course\\italy_s1\\italy_s1": 1,
+          "misc\\haybale\\haybale": 14,
+          "misc\\objects\\checkpoints\\checkpoint": 12,
+          "misc\\sky\\clouds": 1,
+          "misc\\sky\\layer1": 1,
+          "vehicles\\citroen\\car": 1
+        },
+        "owners": {
+          "aiShadowBoot": 1,
+          "aiSpawnParticle": 4,
+          "aiTrackBoot": 1,
+          "enAiSoundSource": 12,
+          "gaAiCloudSetUp": 2,
+          "gaAiNetworkManager": 1,
+          "gaAiRigidBody": 14,
+          "gaAiSoundManager": 1,
+          "gaAnimals_BirdManager": 1,
+          "gaAttractModeAI": 1,
+          "gaBootAICar": 8,
+          "gaCameraManagerAI": 2,
+          "gaHudLoader": 1,
+          "gaIContAIManager": 1,
+          "gaNetworkConsole": 1,
+          "gaPhysicsManager": 1,
+          "gaRaceFinishAI": 1,
+          "gaRaceFinishAreaAI": 1,
+          "gaRaceLineAI": 1,
+          "gaRacePaceNoteAI": 15,
+          "gaRacePostFirstSplitTimeAI": 1,
+          "gaRaceSplitTimeAI": 3,
+          "gaRaceStarterAI": 1,
+          "gaRaceTimerAI": 1,
+          "gaVehicleResetManager": 1
+        },
+        "placement_signature": "4ccdb04b36c139379386fa314bafc990ca3167b14575500bc3a1bb563123bd7c",
+        "declared_visible_misc_world_references": 26,
+        "controller_egg_counts": {
+          "gaEntitySpline": 0,
+          "gaAiRigidBody": 14,
+          "gaAnimals_BirdManager": 1,
+          "aiSpawnParticle": 4,
+          "gaRaceSplitTimeAI": 3
+        }
+      },
+      "pc_source": {
+        "source": "DataScene/RaceTest/ITALYS1.xml",
+        "sha256": "009cec2b253e012fbd4c948b79dc6d8837943736e1ba6747b00a215611115e66",
+        "landscape": "course\\italy_s1\\italy_s1",
+        "marker_lists": {
+          "Cameras": {
+            "count": 66,
+            "ordered_xyz_f32_sha256": "99e00bca6996ed2148255074953a415e455b4b95fc22173016de034f30dba0a9"
+          },
+          "RaceLine": {
+            "count": 292,
+            "ordered_xyz_f32_sha256": "68801c61c28142ebdc18f1053034ea73c5e87261e2e69a4d154d083f997431eb"
+          },
+          "StartArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "2920d9f0576f4d8295c007908462439a8184b484f662ed767671babe9f3a956d"
+          },
+          "FinishArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "23fc62f66b0e6c116c7f2f0a37613f88505090dea913f5b91ec163fc1a1df7ca"
+          },
+          "LeftInnerLimit": {
+            "count": 230,
+            "ordered_xyz_f32_sha256": "f2947decef3300b228100daf9750db347ce1a5e7e9faf3976f9b6f5b3acbfbeb"
+          },
+          "LeftOuterLimit": {
+            "count": 220,
+            "ordered_xyz_f32_sha256": "3c024fb7c8a247125666b2394cbe95cca99a08f78ba65b02093288e3c9b873d2"
+          },
+          "RightInnerLimit": {
+            "count": 223,
+            "ordered_xyz_f32_sha256": "c70e435d0229fed66a4625dc7a48b351cdb767d0cab721f96d8ae59baac111bb"
+          },
+          "RightOuterLimit": {
+            "count": 212,
+            "ordered_xyz_f32_sha256": "000628f25491c031e184dd36300822fe413ac1a917f1fc1b9b29adfc51acd227"
+          }
+        },
+        "entity_count": 69,
+        "authored_visible_model_references": 47,
+        "model_references": {
+          "course\\italy_s1\\italy_s1": 1,
+          "misc\\checkpoints\\checkpoint": 12,
+          "misc\\sky\\clouds": 1,
+          "misc\\sky\\layer1": 1,
+          "test\\gps_test\\gps_arrow": 30,
+          "vehicles\\citroen\\car": 1,
+          "vehicles\\mercedes\\car": 1
+        },
+        "owners": {
+          "aiShadowBoot": 1,
+          "aiTrackBoot": 1,
+          "enAiSoundSource": 12,
+          "gaAiCloudSetUp": 2,
+          "gaAiNetworkManager": 1,
+          "gaAiSoundManager": 1,
+          "gaAttractModeAI": 1,
+          "gaBootAICar": 8,
+          "gaCameraManagerAI": 2,
+          "gaHudLoader": 1,
+          "gaIContAIManager": 1,
+          "gaNetworkConsole": 1,
+          "gaPhysicsManager": 1,
+          "gaRaceFinishAI": 1,
+          "gaRaceFinishAreaAI": 1,
+          "gaRaceLineAI": 1,
+          "gaRacePaceNoteAI": 15,
+          "gaRacePostFirstSplitTimeAI": 1,
+          "gaRaceSplitTimeAI": 3,
+          "gaRaceStarterAI": 1,
+          "gaRaceTimerAI": 1,
+          "gaVehicleResetManager": 1
+        },
+        "placement_signature": "8154906b20162758653166b3558576b38eed1e41d42d45b35f4ab4064b0f0445",
+        "declared_visible_misc_world_references": 12,
+        "controller_egg_counts": {
+          "gaEntitySpline": 0,
+          "gaAiRigidBody": 0,
+          "gaAnimals_BirdManager": 0,
+          "aiSpawnParticle": 0,
+          "gaRaceSplitTimeAI": 3
+        }
+      },
+      "selected_references": [
+        {
+          "reference_id": "ac572dde63ab96627cb6a049",
+          "ordinal": 6,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "9e0029d1680746129afaa677c0a8ee508cb0f8f5727eab64f25067639471d754",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "288ac466c25962c3644c16fd",
+          "ordinal": 7,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "2424eb8d03c5054a2d674e42f41108db1c15edc74e5a7844a249ec17588eafea",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "c0c84b3c4de52eccf5ada32b",
+          "ordinal": 8,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "cd05b239ac29f0295ff0f3c0e7c181ca76d22dd930d8ca5031d7a859802819dd",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "2e250174e9330b65d92783ed",
+          "ordinal": 9,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "eb9314063a1338737e02cd8ee41ca33b6943cc38da335169301cc501882cb25b",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "6c10a6cc593817f701518aaf",
+          "ordinal": 10,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "08ccb010208330dc940cb1d78a15856047d7d16adbf7d89cc3199001f41e5a46",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "da8989c1978532772bf23963",
+          "ordinal": 11,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "ea4044f6f2a24f6909cbef9516406eb8b91e2e1c7243407d45ef0c764ba315ec",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "e4a4d1365eed879e52c92031",
+          "ordinal": 12,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "8a6dffa12605b23267b962e360b6a962f0eb1c5a9bed04c59eb70ba341460d1a",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "d23e13feaac5b34c1a35e251",
+          "ordinal": 13,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "ac76add157f1d1084e9b9351a0199616e173d2b9402d905ce2696879f20a6bc9",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "938213ba382ac3eaf6f24afc",
+          "ordinal": 14,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "7a1f7f02709ed25e994dd68270919959e7a7382855b06ffa63c109cfcc2d3a56",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "b0a9902f1936ddac1eb7325e",
+          "ordinal": 15,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "4632ce1acf1826d463335c96e06293ac5617dd36473889f2acf64c6b1850207b",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "610361318ff5d337376ff324",
+          "ordinal": 16,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "bc11732cf611b38e467d994d7554ec619d677cb4d15372a75b7f94b7c5cfb59e",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "56b4381f5752d350014faa08",
+          "ordinal": 17,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "b2325d6e65eeda57729d0f5d6509dbce554ec704d14e2680846e56d6575a6375",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "7bb5f523409d8c8d45d54bb5",
+          "ordinal": 18,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "d830ec16dbd51f5a5d8aa87543d3099393ecabe13b5a14e6a04786c5a581a81d",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "fe84b7e616f36bd5037c56e1",
+          "ordinal": 19,
+          "list": "Physics",
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "owners": [
+            "gaAiRigidBody"
+          ],
+          "matrix_sha256": "9e0029d1680746129afaa677c0a8ee508cb0f8f5727eab64f25067639471d754",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        }
+      ],
+      "count_contract": "Authored references retain duplicate transforms and are not live populations"
+    },
+    {
+      "course": "FRANCE1",
+      "ps2_source": {
+        "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+        "sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437",
+        "landscape": "course\\france1\\france1",
+        "marker_lists": {
+          "FinishArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "dbf950b7519a3fb9f1fc54e4d2020be703ba5b2bd7d720c76c56ee76b3a4e515"
+          },
+          "RaceLine": {
+            "count": 450,
+            "ordered_xyz_f32_sha256": "8abc973843e6ec614e6d4d613460273f327c48c2853715cbf89f172618b1ffa7"
+          },
+          "LeftOuterLimit2": {
+            "count": 216,
+            "ordered_xyz_f32_sha256": "45c9595165f22498c783ab42511ffaea463e86f6a4b0e051ec48e660e26da7a0"
+          },
+          "RightOuterLimit2": {
+            "count": 272,
+            "ordered_xyz_f32_sha256": "53a7b3528eeca02a75c409f9577cfa0223f17a5cad7063013afc3f2b3284ab8b"
+          },
+          "MillList": {
+            "count": 6,
+            "ordered_xyz_f32_sha256": "3b3d4dc7b81aaa49809c68d0946419488381e9f94f8e912258fc4deef91a3769"
+          },
+          "FlightList": {
+            "count": 10,
+            "ordered_xyz_f32_sha256": "f7c782c49be90e2f60e8f0693edff9f14ce41cf3bc2f3f2e74358cf189824770"
+          },
+          "Cameras": {
+            "count": 127,
+            "ordered_xyz_f32_sha256": "6688d2408fc55d32c19290e785f7272c3fd97bcda2592bef3fc1ef7f767b7e20"
+          },
+          "boatlist1": {
+            "count": 6,
+            "ordered_xyz_f32_sha256": "fe55f9b14b20f233235b3efd24b6d7c64a2f9ea9397248a2dce53fa749a04724"
+          },
+          "boatlist2": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "7458df9e2e65a8c27d18ff0eabdb17f3cefe45971634c301b9859a2eee0a0e5c"
+          },
+          "StartArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "4fdd1806069042ce8df7ff9dd9b8b0c40f8a4c5237d8b5fee355d93bfb881618"
+          },
+          "BoomCameras": {
+            "count": 7,
+            "ordered_xyz_f32_sha256": "de7786f255ed2f81085b2073b9980650ed33419f68b1bfa1aa76109c4d0bbd85"
+          },
+          "StaticCameras": {
+            "count": 7,
+            "ordered_xyz_f32_sha256": "a7b1bf88992082511f0a12880c4c05901e02949aa670ae3a09092964e9ff54c7"
+          }
+        },
+        "entity_count": 79,
+        "authored_visible_model_references": 17,
+        "model_references": {
+          "course\\france1\\france1": 1,
+          "misc\\objects\\checkpoints\\checkpoint": 12,
+          "misc\\objects\\dinghys\\bluedinghy": 1,
+          "misc\\objects\\dinghys\\reddinghy": 1,
+          "misc\\sky\\clouds": 1,
+          "misc\\sky\\layer1": 1
+        },
+        "owners": {
+          "aiShadowBoot": 1,
+          "aiTrackBoot": 1,
+          "enAiSoundSource": 14,
+          "gaAiCloudSetUp": 2,
+          "gaAiNetworkManager": 1,
+          "gaAiSoundManager": 1,
+          "gaAiWaterfallSound": 1,
+          "gaAnimals_BirdManager": 1,
+          "gaAttractModeAI": 1,
+          "gaBootAICar": 8,
+          "gaCameraManagerAI": 2,
+          "gaEntitySpline": 2,
+          "gaHudLoader": 1,
+          "gaIContAIManager": 1,
+          "gaNetworkConsole": 1,
+          "gaPhysicsManager": 1,
+          "gaRaceFinishAI": 1,
+          "gaRaceFinishAreaAI": 1,
+          "gaRaceLineAI": 1,
+          "gaRacePaceNoteAI": 19,
+          "gaRacePostFirstSplitTimeAI": 1,
+          "gaRaceSplitTimeAI": 3,
+          "gaRaceStarterAI": 1,
+          "gaRaceTimerAI": 1,
+          "gaVehicleResetManager": 1
+        },
+        "placement_signature": "5c921b37356f5f3ffcc37bd73416d93306e3f4f6e119a247667ea270d8a12707",
+        "declared_visible_misc_world_references": 14,
+        "controller_egg_counts": {
+          "gaEntitySpline": 2,
+          "gaAiRigidBody": 0,
+          "gaAnimals_BirdManager": 1,
+          "aiSpawnParticle": 0,
+          "gaRaceSplitTimeAI": 3
+        }
+      },
+      "pc_source": {
+        "source": "DataScene/RaceTest/FRANCE1.xml",
+        "sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+        "landscape": "course\\france1\\france1",
+        "marker_lists": {
+          "Cameras": {
+            "count": 127,
+            "ordered_xyz_f32_sha256": "bd1bb266b76eda6590f285d8da56cff2339f98fd9b635ac156a351b70b0d3653"
+          },
+          "RaceLine": {
+            "count": 448,
+            "ordered_xyz_f32_sha256": "96205608771ba78db34ecc452e36d0a530793f3f9abd398329b1adca5db95d37"
+          },
+          "StartArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "4fdd1806069042ce8df7ff9dd9b8b0c40f8a4c5237d8b5fee355d93bfb881618"
+          },
+          "FinishArea": {
+            "count": 4,
+            "ordered_xyz_f32_sha256": "dbf950b7519a3fb9f1fc54e4d2020be703ba5b2bd7d720c76c56ee76b3a4e515"
+          },
+          "LeftInnerLimit": {
+            "count": 147,
+            "ordered_xyz_f32_sha256": "91c5fc0a0ef56d167d7b404804cd54d49db7ec134e083a9110f07f7495ae7278"
+          },
+          "LeftOuterLimit": {
+            "count": 85,
+            "ordered_xyz_f32_sha256": "0f29f2d8c21563e6e1ab9fbe4488ba014ae1eff6e7ab96a60d2240e6d8dac108"
+          },
+          "RightInnerLimit": {
+            "count": 168,
+            "ordered_xyz_f32_sha256": "374b2d19100b3f269c63c08f7472e8c89667d11dc6deb7ce24b1a092ee629462"
+          },
+          "RightOuterLimit": {
+            "count": 97,
+            "ordered_xyz_f32_sha256": "69c305a3f97058b98705552bef604b345dd454dae7ba811bb700c4ba6f4c87eb"
+          }
+        },
+        "entity_count": 76,
+        "authored_visible_model_references": 52,
+        "model_references": {
+          "course\\france1\\france1": 1,
+          "markers\\green_marker": 1,
+          "misc\\checkpoints\\checkpoint": 12,
+          "misc\\sky\\clouds": 1,
+          "misc\\sky\\layer1": 1,
+          "test\\gps_test\\gps_arrow": 36
+        },
+        "owners": {
+          "aiShadowBoot": 1,
+          "aiTrackBoot": 1,
+          "enAiSoundSource": 14,
+          "gaAiCloudSetUp": 2,
+          "gaAiNetworkManager": 1,
+          "gaAiSoundManager": 1,
+          "gaAiWaterfallSound": 1,
+          "gaAttractModeAI": 1,
+          "gaBootAICar": 8,
+          "gaCameraManagerAI": 2,
+          "gaHudLoader": 1,
+          "gaIContAIManager": 1,
+          "gaNetworkConsole": 1,
+          "gaPhysicsManager": 1,
+          "gaRaceFinishAI": 1,
+          "gaRaceFinishAreaAI": 1,
+          "gaRaceLineAI": 1,
+          "gaRacePaceNoteAI": 19,
+          "gaRacePostFirstSplitTimeAI": 1,
+          "gaRaceSplitTimeAI": 3,
+          "gaRaceStarterAI": 1,
+          "gaRaceTimerAI": 1,
+          "gaVehicleResetManager": 1
+        },
+        "placement_signature": "6cf1788ae8b9264c2b38f62c62ac633b4d29cb72dc0bb7b9e26b37532f1573f3",
+        "declared_visible_misc_world_references": 12,
+        "controller_egg_counts": {
+          "gaEntitySpline": 0,
+          "gaAiRigidBody": 0,
+          "gaAnimals_BirdManager": 0,
+          "aiSpawnParticle": 0,
+          "gaRaceSplitTimeAI": 3
+        }
+      },
+      "selected_references": [
+        {
+          "reference_id": "6667183e649d059205f59b84",
+          "ordinal": 75,
+          "list": "IConManager",
+          "egg": "boat1",
+          "model": "misc\\objects\\dinghys\\reddinghy",
+          "owners": [
+            "gaEntitySpline"
+          ],
+          "matrix_sha256": "eba91ea447c2a18c1510229bb460a99bcd030ed6bde4091c466992e0dbafb3d1",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        },
+        {
+          "reference_id": "e3e64594bc8ab1c7776ad93e",
+          "ordinal": 76,
+          "list": "IConManager",
+          "egg": "boat2",
+          "model": "misc\\objects\\dinghys\\bluedinghy",
+          "owners": [
+            "gaEntitySpline"
+          ],
+          "matrix_sha256": "eba91ea447c2a18c1510229bb460a99bcd030ed6bde4091c466992e0dbafb3d1",
+          "identity": "AUTHORED_SCENE_REFERENCE",
+          "authored_visible": true
+        }
+      ],
+      "count_contract": "Authored references retain duplicate transforms and are not live populations"
+    }
+  ],
+  "dinghy_study": {
+    "schema": 1,
+    "course": "FRANCE1",
+    "ps2_models": [
+      {
+        "source": {
+          "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\BLUEDINGHY.PSM",
+          "decoded_sha256": "c626258e7ac460002fef6c7c7c1247598ec1b6978169f371a074066bd79432cd",
+          "decoded_size": 3420,
+          "vertex_count": 60,
+          "visual_tree_start": 3152,
+          "visual_tree_end": 3416,
+          "terminator": 4294967295,
+          "node_counts": {
+            "1": 1,
+            "2": 2
+          },
+          "mesh_count": 2,
+          "triangle_records": 24,
+          "exclusions": {
+            "adc_suppressed": 28
+          },
+          "coordinates": "MODEL_LOCAL",
+          "strip_winding": "Ordered consecutive triples retained; rendered parity/culling UNKNOWN"
+        },
+        "packfs": {
+          "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\BLUEDINGHY.PSM",
+          "offset": 1210316868,
+          "stored_size": 1517,
+          "directory_size_0x08": 1517,
+          "unpacked_size": 3420,
+          "compression": "packfs_lzo",
+          "stored_sha256": "6fbfd663dd1fd5e1bc1d8811fb0e450713be5e94fae3408113a9ca8eceab0550",
+          "payload_sha256": "c626258e7ac460002fef6c7c7c1247598ec1b6978169f371a074066bd79432cd",
+          "evidence": "CONFIRMED_BY_BOTH",
+          "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+        },
+        "shape": {
+          "triangles": 24,
+          "unique_positions": 22,
+          "bounds": {
+            "min": [
+              -1.301607370376587,
+              -0.35805851221084595,
+              -4.204062461853027
+            ],
+            "max": [
+              1.3015986680984497,
+              8.345678329467773,
+              4.0
+            ]
+          },
+          "source_axis_extents": [
+            2.6032060384750366,
+            8.70373684167862,
+            8.204062461853027
+          ],
+          "maximum_pair_distance": 9.137036454665894,
+          "area": 84.53686937947914,
+          "unique_edge_length_samples": [
+            0.067658,
+            0.09823,
+            0.170139,
+            0.17014,
+            1.078138,
+            1.503741,
+            1.541889,
+            1.815258,
+            2.604501,
+            3.075934,
+            3.744667,
+            3.771783,
+            3.791855,
+            3.954226,
+            4.0228,
+            4.384156,
+            4.459942,
+            4.50708,
+            4.507495,
+            4.961508
+          ]
+        },
+        "components": [
+          {
+            "triangles": 10,
+            "unique_positions": 7,
+            "bounds": {
+              "min": [
+                -0.0850696936249733,
+                0.4225059151649475,
+                -0.049115054309368134
+              ],
+              "max": [
+                0.08506980538368225,
+                8.345678329467773,
+                0.09823008626699448
+              ]
+            },
+            "source_axis_extents": [
+              0.17013949900865555,
+              7.923172414302826,
+              0.1473451405763626
+            ],
+            "maximum_pair_distance": 7.924119715996076,
+            "area": 2.840705880974625,
+            "unique_edge_length_samples": [
+              0.067658,
+              0.09823,
+              0.170139,
+              0.17014,
+              7.923393,
+              7.92412
+            ]
+          },
+          {
+            "triangles": 10,
+            "unique_positions": 7,
+            "bounds": {
+              "min": [
+                -1.301607370376587,
+                -0.35805851221084595,
+                -4.0
+              ],
+              "max": [
+                1.3015986680984497,
+                0.5355417728424072,
+                4.0
+              ]
+            },
+            "source_axis_extents": [
+              2.6032060384750366,
+              0.8936002850532532,
+              8.0
+            ],
+            "maximum_pair_distance": 8.051539612282493,
+            "area": 31.441973522007288,
+            "unique_edge_length_samples": [
+              1.078138,
+              1.503741,
+              1.541889,
+              1.815258,
+              2.604501,
+              3.744667,
+              3.771783,
+              3.791855,
+              4.0228,
+              4.384156,
+              4.459942,
+              4.50708,
+              4.507495,
+              4.961508
+            ]
+          },
+          {
+            "triangles": 2,
+            "unique_positions": 4,
+            "bounds": {
+              "min": [
+                -0.000767042045481503,
+                0.5608958005905151,
+                0.04053991660475731
+              ],
+              "max": [
+                0.028706150129437447,
+                8.26860237121582,
+                3.963348627090454
+              ]
+            },
+            "source_axis_extents": [
+              0.02947319217491895,
+              7.707706570625305,
+              3.922808710485697
+            ],
+            "maximum_pair_distance": 8.648535642403457,
+            "area": 21.40226247914382,
+            "unique_edge_length_samples": [
+              3.075934,
+              7.256678,
+              8.648536
+            ]
+          },
+          {
+            "triangles": 2,
+            "unique_positions": 4,
+            "bounds": {
+              "min": [
+                -0.0007670655031688511,
+                1.0052766799926758,
+                -4.204062461853027
+              ],
+              "max": [
+                0.02870623953640461,
+                8.299249649047852,
+                -0.051400963217020035
+              ]
+            },
+            "source_axis_extents": [
+              0.02947330503957346,
+              7.293972969055176,
+              4.152661498636007
+            ],
+            "maximum_pair_distance": 8.326752929317557,
+            "area": 28.851927497353415,
+            "unique_edge_length_samples": [
+              3.954226,
+              7.296708,
+              8.326753
+            ]
+          }
+        ],
+        "position_sha256": "c60cf12c368cba6361d765af46da64c32cc58dbda345e96212ff8a3ed040dee9",
+        "labels": [
+          "PS2_STANDALONE_DYNAMIC_MODEL"
+        ],
+        "runtime_pose": "AMBIENT1 spline publication; not authored Row3"
+      },
+      {
+        "source": {
+          "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\REDDINGHY.PSM",
+          "decoded_sha256": "2ae06c53b3eb6f9991a37c54d093dd27425cfdbbc1dbea0f2620d0452b8d684f",
+          "decoded_size": 3420,
+          "vertex_count": 60,
+          "visual_tree_start": 3152,
+          "visual_tree_end": 3416,
+          "terminator": 4294967295,
+          "node_counts": {
+            "1": 1,
+            "2": 2
+          },
+          "mesh_count": 2,
+          "triangle_records": 24,
+          "exclusions": {
+            "adc_suppressed": 28
+          },
+          "coordinates": "MODEL_LOCAL",
+          "strip_winding": "Ordered consecutive triples retained; rendered parity/culling UNKNOWN"
+        },
+        "packfs": {
+          "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\REDDINGHY.PSM",
+          "offset": 1210318385,
+          "stored_size": 1515,
+          "directory_size_0x08": 1515,
+          "unpacked_size": 3420,
+          "compression": "packfs_lzo",
+          "stored_sha256": "469edb58bb026d879e8c372c67e28e221d3885e9fefffd04e630c300c63bad8d",
+          "payload_sha256": "2ae06c53b3eb6f9991a37c54d093dd27425cfdbbc1dbea0f2620d0452b8d684f",
+          "evidence": "CONFIRMED_BY_BOTH",
+          "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+        },
+        "shape": {
+          "triangles": 24,
+          "unique_positions": 22,
+          "bounds": {
+            "min": [
+              -1.301607370376587,
+              -0.35805851221084595,
+              -4.204062461853027
+            ],
+            "max": [
+              1.3015986680984497,
+              8.345678329467773,
+              4.0
+            ]
+          },
+          "source_axis_extents": [
+            2.6032060384750366,
+            8.70373684167862,
+            8.204062461853027
+          ],
+          "maximum_pair_distance": 9.137036454665894,
+          "area": 84.53686937947914,
+          "unique_edge_length_samples": [
+            0.067658,
+            0.09823,
+            0.170139,
+            0.17014,
+            1.078138,
+            1.503741,
+            1.541889,
+            1.815258,
+            2.604501,
+            3.075934,
+            3.744667,
+            3.771783,
+            3.791855,
+            3.954226,
+            4.0228,
+            4.384156,
+            4.459942,
+            4.50708,
+            4.507495,
+            4.961508
+          ]
+        },
+        "components": [
+          {
+            "triangles": 10,
+            "unique_positions": 7,
+            "bounds": {
+              "min": [
+                -0.0850696936249733,
+                0.4225059151649475,
+                -0.049115054309368134
+              ],
+              "max": [
+                0.08506980538368225,
+                8.345678329467773,
+                0.09823008626699448
+              ]
+            },
+            "source_axis_extents": [
+              0.17013949900865555,
+              7.923172414302826,
+              0.1473451405763626
+            ],
+            "maximum_pair_distance": 7.924119715996076,
+            "area": 2.840705880974625,
+            "unique_edge_length_samples": [
+              0.067658,
+              0.09823,
+              0.170139,
+              0.17014,
+              7.923393,
+              7.92412
+            ]
+          },
+          {
+            "triangles": 10,
+            "unique_positions": 7,
+            "bounds": {
+              "min": [
+                -1.301607370376587,
+                -0.35805851221084595,
+                -4.0
+              ],
+              "max": [
+                1.3015986680984497,
+                0.5355417728424072,
+                4.0
+              ]
+            },
+            "source_axis_extents": [
+              2.6032060384750366,
+              0.8936002850532532,
+              8.0
+            ],
+            "maximum_pair_distance": 8.051539612282493,
+            "area": 31.441973522007288,
+            "unique_edge_length_samples": [
+              1.078138,
+              1.503741,
+              1.541889,
+              1.815258,
+              2.604501,
+              3.744667,
+              3.771783,
+              3.791855,
+              4.0228,
+              4.384156,
+              4.459942,
+              4.50708,
+              4.507495,
+              4.961508
+            ]
+          },
+          {
+            "triangles": 2,
+            "unique_positions": 4,
+            "bounds": {
+              "min": [
+                -0.000767042045481503,
+                0.5608958005905151,
+                0.04053991660475731
+              ],
+              "max": [
+                0.028706150129437447,
+                8.26860237121582,
+                3.963348627090454
+              ]
+            },
+            "source_axis_extents": [
+              0.02947319217491895,
+              7.707706570625305,
+              3.922808710485697
+            ],
+            "maximum_pair_distance": 8.648535642403457,
+            "area": 21.40226247914382,
+            "unique_edge_length_samples": [
+              3.075934,
+              7.256678,
+              8.648536
+            ]
+          },
+          {
+            "triangles": 2,
+            "unique_positions": 4,
+            "bounds": {
+              "min": [
+                -0.0007670655031688511,
+                1.0052766799926758,
+                -4.204062461853027
+              ],
+              "max": [
+                0.02870623953640461,
+                8.299249649047852,
+                -0.051400963217020035
+              ]
+            },
+            "source_axis_extents": [
+              0.02947330503957346,
+              7.293972969055176,
+              4.152661498636007
+            ],
+            "maximum_pair_distance": 8.326752929317557,
+            "area": 28.851927497353415,
+            "unique_edge_length_samples": [
+              3.954226,
+              7.296708,
+              8.326753
+            ]
+          }
+        ],
+        "position_sha256": "c60cf12c368cba6361d765af46da64c32cc58dbda345e96212ff8a3ed040dee9",
+        "labels": [
+          "PS2_STANDALONE_DYNAMIC_MODEL"
+        ],
+        "runtime_pose": "AMBIENT1 spline publication; not authored Row3"
+      }
+    ],
+    "ps2_authored_references": [
+      {
+        "list": "IConManager",
+        "egg": "boat1",
+        "model": "misc\\objects\\dinghys\\reddinghy",
+        "authored_visible": true,
+        "owners": [
+          "gaEntitySpline"
+        ],
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_sha256": "eba91ea447c2a18c1510229bb460a99bcd030ed6bde4091c466992e0dbafb3d1",
+        "properties": {
+          "Use en2d": "False",
+          "Freezable": "True",
+          "Hitable": "True",
+          "Draw Priority": "3",
+          "Tick Priority": "3",
+          "Egg Group": "0",
+          "en3d Model Name": "misc\\objects\\dinghys\\reddinghy",
+          "en3d Draw 2D": "False",
+          "en3d Interpolated": "True",
+          "en3d Visible": "True",
+          "en3d ZBuffered": "True",
+          "en2d Model Name": "Null",
+          "en2d FileType": "0",
+          "en2d Image Bank Index": "0",
+          "en2d Draw 2D": "False",
+          "en2d Interpolated": "True",
+          "en2d Visible": "True",
+          "en2d ZBuffered": "True",
+          "en2d 2dGlobal": "False"
+        },
+        "parameters": [
+          {
+            "owner": "gaEntitySpline",
+            "component": "gaEntitySpline",
+            "values": [
+              {
+                "name": "MarkerList Name",
+                "value": "boatlist1"
+              },
+              {
+                "name": "Use Const Speed",
+                "value": "True"
+              },
+              {
+                "name": "Use Closed Loop",
+                "value": "True"
+              },
+              {
+                "name": "Use Trigger System",
+                "value": "False"
+              },
+              {
+                "name": "Max Speed/Const Speed",
+                "value": "2.50000"
+              },
+              {
+                "name": "Trigger Dist On",
+                "value": "200.00000"
+              },
+              {
+                "name": "Trigger Dist Off",
+                "value": "600.00000"
+              },
+              {
+                "name": "Use Rest On NonLoop",
+                "value": "True"
+              },
+              {
+                "name": "Rest Time (sec)",
+                "value": "300"
+              },
+              {
+                "name": "Banking",
+                "value": "0.00000"
+              },
+              {
+                "name": "Number Of Samples",
+                "value": "30"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "list": "IConManager",
+        "egg": "boat2",
+        "model": "misc\\objects\\dinghys\\bluedinghy",
+        "authored_visible": true,
+        "owners": [
+          "gaEntitySpline"
+        ],
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_sha256": "eba91ea447c2a18c1510229bb460a99bcd030ed6bde4091c466992e0dbafb3d1",
+        "properties": {
+          "Use en2d": "False",
+          "Freezable": "True",
+          "Hitable": "True",
+          "Draw Priority": "3",
+          "Tick Priority": "3",
+          "Egg Group": "0",
+          "en3d Model Name": "misc\\objects\\dinghys\\bluedinghy",
+          "en3d Draw 2D": "False",
+          "en3d Interpolated": "True",
+          "en3d Visible": "True",
+          "en3d ZBuffered": "True",
+          "en2d Model Name": "Null",
+          "en2d FileType": "0",
+          "en2d Image Bank Index": "0",
+          "en2d Draw 2D": "False",
+          "en2d Interpolated": "True",
+          "en2d Visible": "True",
+          "en2d ZBuffered": "True",
+          "en2d 2dGlobal": "False"
+        },
+        "parameters": [
+          {
+            "owner": "gaEntitySpline",
+            "component": "gaEntitySpline",
+            "values": [
+              {
+                "name": "MarkerList Name",
+                "value": "boatlist2"
+              },
+              {
+                "name": "Use Const Speed",
+                "value": "True"
+              },
+              {
+                "name": "Use Closed Loop",
+                "value": "True"
+              },
+              {
+                "name": "Use Trigger System",
+                "value": "False"
+              },
+              {
+                "name": "Max Speed/Const Speed",
+                "value": "2.70000"
+              },
+              {
+                "name": "Trigger Dist On",
+                "value": "200.00000"
+              },
+              {
+                "name": "Trigger Dist Off",
+                "value": "600.00000"
+              },
+              {
+                "name": "Use Rest On NonLoop",
+                "value": "False"
+              },
+              {
+                "name": "Rest Time (sec)",
+                "value": "0"
+              },
+              {
+                "name": "Banking",
+                "value": "0.00000"
+              },
+              {
+                "name": "Number Of Samples",
+                "value": "30"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "pc_source": {
+      "path": "DataGx\\Course\\France1\\france1.dx",
+      "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+      "size": 13489510,
+      "txt_path": "DataGx\\Course\\France1\\France1.txt",
+      "txt_sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+      "position_array_offset": 16,
+      "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+      "draws": 995,
+      "vertices": 65206,
+      "triangles": 64577,
+      "coverage": "VALIDATED_COMPLETE_DISJOINT",
+      "txt_mesh_records": 2527,
+      "txt_named_nodes": 2568,
+      "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+      "txt_dinghy_leads": [
+        {
+          "node_id": 799,
+          "name": "DINGHYS",
+          "parent_id": 751,
+          "source_index": null,
+          "source_size": null
+        },
+        {
+          "node_id": 800,
+          "name": "dinghy01",
+          "parent_id": 799,
+          "source_index": 47180,
+          "source_size": 12
+        },
+        {
+          "node_id": 801,
+          "name": "dinghy02",
+          "parent_id": 799,
+          "source_index": 47192,
+          "source_size": 12
+        },
+        {
+          "node_id": 802,
+          "name": "dinghy03",
+          "parent_id": 799,
+          "source_index": 47204,
+          "source_size": 12
+        },
+        {
+          "node_id": 803,
+          "name": "dinghy04",
+          "parent_id": 799,
+          "source_index": 47216,
+          "source_size": 12
+        },
+        {
+          "node_id": 804,
+          "name": "dinghy05",
+          "parent_id": 799,
+          "source_index": 47228,
+          "source_size": 12
+        },
+        {
+          "node_id": 805,
+          "name": "dinghy06",
+          "parent_id": 799,
+          "source_index": 47240,
+          "source_size": 12
+        },
+        {
+          "node_id": 806,
+          "name": "dinghy07",
+          "parent_id": 799,
+          "source_index": 47252,
+          "source_size": 12
+        },
+        {
+          "node_id": 807,
+          "name": "dinghy08",
+          "parent_id": 799,
+          "source_index": 47264,
+          "source_size": 12
+        },
+        {
+          "node_id": 808,
+          "name": "dinghy09",
+          "parent_id": 799,
+          "source_index": 47276,
+          "source_size": 12
+        },
+        {
+          "node_id": 809,
+          "name": "dinghy10",
+          "parent_id": 799,
+          "source_index": 47288,
+          "source_size": 12
+        },
+        {
+          "node_id": 810,
+          "name": "dinghy11",
+          "parent_id": 799,
+          "source_index": 47300,
+          "source_size": 12
+        },
+        {
+          "node_id": 811,
+          "name": "DINGHYS_Masts",
+          "parent_id": 751,
+          "source_index": null,
+          "source_size": null
+        },
+        {
+          "node_id": 812,
+          "name": "dinghymast01",
+          "parent_id": 811,
+          "source_index": 47312,
+          "source_size": 3
+        },
+        {
+          "node_id": 813,
+          "name": "dinghymast02",
+          "parent_id": 811,
+          "source_index": 47315,
+          "source_size": 3
+        },
+        {
+          "node_id": 814,
+          "name": "dinghymast03",
+          "parent_id": 811,
+          "source_index": 47318,
+          "source_size": 3
+        },
+        {
+          "node_id": 815,
+          "name": "dinghymast04",
+          "parent_id": 811,
+          "source_index": 47321,
+          "source_size": 3
+        },
+        {
+          "node_id": 816,
+          "name": "dinghymast05",
+          "parent_id": 811,
+          "source_index": 47324,
+          "source_size": 3
+        },
+        {
+          "node_id": 817,
+          "name": "dinghymast06",
+          "parent_id": 811,
+          "source_index": 47327,
+          "source_size": 3
+        },
+        {
+          "node_id": 818,
+          "name": "dinghymast07",
+          "parent_id": 811,
+          "source_index": 47330,
+          "source_size": 3
+        },
+        {
+          "node_id": 819,
+          "name": "dinghymast08",
+          "parent_id": 811,
+          "source_index": 47333,
+          "source_size": 3
+        },
+        {
+          "node_id": 820,
+          "name": "dinghymast09",
+          "parent_id": 811,
+          "source_index": 47336,
+          "source_size": 3
+        },
+        {
+          "node_id": 821,
+          "name": "dinghymast10",
+          "parent_id": 811,
+          "source_index": 47339,
+          "source_size": 3
+        },
+        {
+          "node_id": 822,
+          "name": "dinghymast11",
+          "parent_id": 811,
+          "source_index": 47342,
+          "source_size": 3
+        },
+        {
+          "node_id": 1186,
+          "name": "DINGHYS_Trailers",
+          "parent_id": 867,
+          "source_index": null,
+          "source_size": null
+        }
+      ],
+      "coordinates": "GAME_SOURCE"
+    },
+    "pc_candidate_triangles": 261,
+    "pc_compiled_draws": [
+      897,
+      904
+    ],
+    "pc_edge_components": [
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:0",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2459.203125,
+            -17.421545028686523,
+            762.8388061523438
+          ],
+          "max": [
+            -2454.226318359375,
+            -16.527944564819336,
+            770.3309326171875
+          ]
+        },
+        "source_axis_extents": [
+          4.976806640625,
+          0.8936004638671875,
+          7.49212646484375
+        ],
+        "maximum_pair_distance": 8.079397158219269,
+        "area": 36.4174997107374,
+        "unique_edge_length_samples": [
+          0.864103,
+          0.907057,
+          0.907088,
+          1.664957,
+          1.690159,
+          2.255783,
+          3.000059,
+          3.771819,
+          3.961191,
+          3.961273,
+          4.04587,
+          4.045969,
+          4.168784,
+          4.35184,
+          4.351915,
+          4.556966,
+          5.070157
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:108",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2509.04443359375,
+            -23.230266571044922,
+            863.3400268554688
+          ],
+          "max": [
+            -2505.123779296875,
+            -22.113265991210938,
+            873.437255859375
+          ]
+        },
+        "source_axis_extents": [
+          3.920654296875,
+          1.1170005798339844,
+          10.09722900390625
+        ],
+        "maximum_pair_distance": 10.099115855934826,
+        "area": 56.89968834944845,
+        "unique_edge_length_samples": [
+          1.080318,
+          1.133632,
+          1.133789,
+          2.081287,
+          2.112505,
+          2.11272,
+          2.819601,
+          3.749879,
+          4.714713,
+          4.951419,
+          4.951446,
+          5.057414,
+          5.057428,
+          5.210887,
+          5.439824,
+          5.439867,
+          5.696096,
+          6.33754
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:12",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2455.20263671875,
+            -17.453811645507812,
+            767.49658203125
+          ],
+          "max": [
+            -2449.690185546875,
+            -16.560211181640625,
+            774.6967163085938
+          ]
+        },
+        "source_axis_extents": [
+          5.512451171875,
+          0.8936004638671875,
+          7.20013427734375
+        ],
+        "maximum_pair_distance": 8.079302424947,
+        "area": 36.415852862631425,
+        "unique_edge_length_samples": [
+          0.864269,
+          0.907013,
+          0.907024,
+          1.66502,
+          1.689972,
+          1.690149,
+          2.255818,
+          2.999837,
+          3.771786,
+          3.961014,
+          3.961174,
+          4.045873,
+          4.045926,
+          4.168661,
+          4.351819,
+          4.351972,
+          4.556918,
+          5.070121
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:120",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2464.706787109375,
+            -17.468685150146484,
+            762.033203125
+          ],
+          "max": [
+            -2461.706787109375,
+            -16.575084686279297,
+            770.033203125
+          ]
+        },
+        "source_axis_extents": [
+          3.0,
+          0.8936004638671875,
+          8.0
+        ],
+        "maximum_pair_distance": 8.079339410685659,
+        "area": 36.41734555373155,
+        "unique_edge_length_samples": [
+          0.864258,
+          0.90705,
+          1.665048,
+          1.690133,
+          2.255859,
+          3.0,
+          3.771811,
+          3.961214,
+          4.045899,
+          4.168683,
+          4.351863,
+          4.556939,
+          5.070137
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:132",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2507.1513671875,
+            -22.245649337768555,
+            868.1788330078125
+          ],
+          "max": [
+            -2506.936767578125,
+            -8.700809478759766,
+            868.3788452148438
+          ]
+        },
+        "source_axis_extents": [
+          0.214599609375,
+          13.544839859008789,
+          0.20001220703125
+        ],
+        "maximum_pair_distance": 13.545416636847975,
+        "area": 4.398253642553587,
+        "unique_edge_length_samples": [
+          0.216452,
+          0.216459,
+          0.216517,
+          13.545416,
+          13.545417
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:135",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2488.725341796875,
+            -22.245651245117188,
+            838.484375
+          ],
+          "max": [
+            -2488.5341796875,
+            -8.700811386108398,
+            838.7007446289062
+          ]
+        },
+        "source_axis_extents": [
+          0.191162109375,
+          13.544839859008789,
+          0.21636962890625
+        ],
+        "maximum_pair_distance": 13.545417327841237,
+        "area": 4.398708175800496,
+        "unique_edge_length_samples": [
+          0.21647,
+          0.216502,
+          0.216524,
+          13.545416,
+          13.545417
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:138",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2473.294921875,
+            -19.53876495361328,
+            793.8521118164062
+          ],
+          "max": [
+            -2473.13671875,
+            -8.702893257141113,
+            794.0243530273438
+          ]
+        },
+        "source_axis_extents": [
+          0.158203125,
+          10.835871696472168,
+          0.1722412109375
+        ],
+        "maximum_pair_distance": 10.836333611763308,
+        "area": 2.8150464462222344,
+        "unique_edge_length_samples": [
+          0.173174,
+          0.173186,
+          0.173213,
+          10.836332,
+          10.836333,
+          10.836334
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:141",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2463.29296875,
+            -16.680992126464844,
+            765.982421875
+          ],
+          "max": [
+            -2463.119873046875,
+            -5.845121383666992,
+            766.1331787109375
+          ]
+        },
+        "source_axis_extents": [
+          0.173095703125,
+          10.835870742797852,
+          0.1507568359375
+        ],
+        "maximum_pair_distance": 10.836332440690201,
+        "area": 2.814436682796535,
+        "unique_edge_length_samples": [
+          0.173102,
+          0.173169,
+          0.17319,
+          10.836331,
+          10.836332
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:144",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2457.25390625,
+            -16.633852005004883,
+            766.77978515625
+          ],
+          "max": [
+            -2457.10302734375,
+            -5.797981262207031,
+            766.9530029296875
+          ]
+        },
+        "source_axis_extents": [
+          0.15087890625,
+          10.835870742797852,
+          0.1732177734375
+        ],
+        "maximum_pair_distance": 10.83633309868085,
+        "area": 2.816851420215225,
+        "unique_edge_length_samples": [
+          0.173224,
+          0.173335,
+          0.173347,
+          10.836332,
+          10.836333
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:147",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2452.966552734375,
+            -16.666118621826172,
+            771.3291015625
+          ],
+          "max": [
+            -2452.808837890625,
+            -5.830247402191162,
+            771.5015258789062
+          ]
+        },
+        "source_axis_extents": [
+          0.15771484375,
+          10.83587121963501,
+          0.17242431640625
+        ],
+        "maximum_pair_distance": 10.836333279333132,
+        "area": 2.8163816409960623,
+        "unique_edge_length_samples": [
+          0.173222,
+          0.173293,
+          0.173305,
+          10.836333
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:150",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2445.19287109375,
+            -16.578039169311523,
+            770.2178344726562
+          ],
+          "max": [
+            -2445.023193359375,
+            -5.742167949676514,
+            770.3821411132812
+          ]
+        },
+        "source_axis_extents": [
+          0.169677734375,
+          10.83587121963501,
+          0.164306640625
+        ],
+        "maximum_pair_distance": 10.83633316021414,
+        "area": 2.8153129081891084,
+        "unique_edge_length_samples": [
+          0.173159,
+          0.173218,
+          0.173246,
+          10.836332,
+          10.836333
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:153",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2442.41845703125,
+            -16.578039169311523,
+            773.347412109375
+          ],
+          "max": [
+            -2442.26220703125,
+            -5.742167949676514,
+            773.5200805664062
+          ]
+        },
+        "source_axis_extents": [
+          0.15625,
+          10.83587121963501,
+          0.17266845703125
+        ],
+        "maximum_pair_distance": 10.836332524912828,
+        "area": 2.8141777256528187,
+        "unique_edge_length_samples": [
+          0.173092,
+          0.173112,
+          0.173209,
+          10.836332,
+          10.836333
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:156",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2436.10888671875,
+            -16.419883728027344,
+            779.300048828125
+          ],
+          "max": [
+            -2435.938720703125,
+            -5.584012508392334,
+            779.4633178710938
+          ]
+        },
+        "source_axis_extents": [
+          0.170166015625,
+          10.83587121963501,
+          0.16326904296875
+        ],
+        "maximum_pair_distance": 10.836332806294935,
+        "area": 2.814403497815489,
+        "unique_edge_length_samples": [
+          0.173067,
+          0.173137,
+          0.173251,
+          10.836332,
+          10.836333
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:159",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2433.101318359375,
+            -16.419883728027344,
+            781.9721069335938
+          ],
+          "max": [
+            -2432.941650390625,
+            -5.584012031555176,
+            782.1439819335938
+          ]
+        },
+        "source_axis_extents": [
+          0.15966796875,
+          10.835871696472168,
+          0.171875
+        ],
+        "maximum_pair_distance": 10.836334153385128,
+        "area": 2.8166683535591126,
+        "unique_edge_length_samples": [
+          0.173182,
+          0.173291,
+          0.173399,
+          10.836333,
+          10.836334
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:162",
+        "draws": [
+          897
+        ],
+        "triangles": 3,
+        "unique_positions": 4,
+        "bounds": {
+          "min": [
+            -2429.209228515625,
+            -16.419883728027344,
+            784.3408203125
+          ],
+          "max": [
+            -2429.038330078125,
+            -5.584012031555176,
+            784.5025024414062
+          ]
+        },
+        "source_axis_extents": [
+          0.1708984375,
+          10.835871696472168,
+          0.16168212890625
+        ],
+        "maximum_pair_distance": 10.836332963226578,
+        "area": 2.8136447871545034,
+        "unique_edge_length_samples": [
+          0.173034,
+          0.173115,
+          0.173166,
+          10.836332,
+          10.836333
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:24",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2446.654296875,
+            -17.365732192993164,
+            766.1423950195312
+          ],
+          "max": [
+            -2443.24755859375,
+            -16.472131729125977,
+            774.2106323242188
+          ]
+        },
+        "source_axis_extents": [
+          3.40673828125,
+          0.8936004638671875,
+          8.0682373046875
+        ],
+        "maximum_pair_distance": 8.079348825973351,
+        "area": 36.415835609249626,
+        "unique_edge_length_samples": [
+          0.864269,
+          0.90688,
+          0.906986,
+          1.664846,
+          1.690104,
+          1.690115,
+          2.25556,
+          2.999948,
+          3.771817,
+          3.961174,
+          3.96119,
+          4.045888,
+          4.045911,
+          4.168671,
+          4.351906,
+          4.351913,
+          4.556891,
+          5.070045
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:36",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2444.05224609375,
+            -17.365732192993164,
+            769.3279418945312
+          ],
+          "max": [
+            -2439.649169921875,
+            -16.472131729125977,
+            777.0550537109375
+          ]
+        },
+        "source_axis_extents": [
+          4.403076171875,
+          0.8936004638671875,
+          7.72711181640625
+        ],
+        "maximum_pair_distance": 8.079345461183415,
+        "area": 36.415825557935456,
+        "unique_edge_length_samples": [
+          0.864178,
+          0.906946,
+          0.907095,
+          1.665055,
+          1.690057,
+          1.69008,
+          2.255746,
+          2.999855,
+          3.771787,
+          3.961072,
+          3.961204,
+          4.04595,
+          4.045952,
+          4.168739,
+          4.351808,
+          4.351993,
+          4.556969,
+          5.070076
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:48",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2439.0517578125,
+            -17.207576751708984,
+            775.9229736328125
+          ],
+          "max": [
+            -2432.274169921875,
+            -16.313976287841797,
+            782.0225830078125
+          ]
+        },
+        "source_axis_extents": [
+          6.777587890625,
+          0.8936004638671875,
+          6.099609375
+        ],
+        "maximum_pair_distance": 8.079309973918566,
+        "area": 36.415597488831565,
+        "unique_edge_length_samples": [
+          0.8642,
+          0.906982,
+          0.907012,
+          1.664971,
+          1.690026,
+          1.690127,
+          2.25572,
+          2.999873,
+          3.771826,
+          3.961051,
+          3.961149,
+          4.04581,
+          4.045915,
+          4.168749,
+          4.351767,
+          4.351996,
+          4.556872,
+          5.070081
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:60",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2435.42041015625,
+            -17.207576751708984,
+            778.1778564453125
+          ],
+          "max": [
+            -2429.755126953125,
+            -16.313976287841797,
+            785.2796020507812
+          ]
+        },
+        "source_axis_extents": [
+          5.665283203125,
+          0.8936004638671875,
+          7.10174560546875
+        ],
+        "maximum_pair_distance": 8.079396387054267,
+        "area": 36.41702369712557,
+        "unique_edge_length_samples": [
+          0.864105,
+          0.90701,
+          0.907045,
+          1.664923,
+          1.690139,
+          2.255674,
+          3.000014,
+          3.771814,
+          3.961189,
+          3.96125,
+          4.045964,
+          4.046006,
+          4.168879,
+          4.351893,
+          4.35198,
+          4.556987,
+          5.0702
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:72",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2432.218017578125,
+            -17.207576751708984,
+            781.0250244140625
+          ],
+          "max": [
+            -2425.32763671875,
+            -16.313976287841797,
+            786.98388671875
+          ]
+        },
+        "source_axis_extents": [
+          6.890380859375,
+          0.8936004638671875,
+          5.9588623046875
+        ],
+        "maximum_pair_distance": 8.079332267366318,
+        "area": 36.416528980215574,
+        "unique_edge_length_samples": [
+          0.864245,
+          0.906947,
+          0.907061,
+          1.664865,
+          1.690105,
+          1.690147,
+          2.25565,
+          2.999985,
+          3.771688,
+          3.961028,
+          3.961124,
+          4.045874,
+          4.045977,
+          4.168664,
+          4.351961,
+          4.352033,
+          4.557068,
+          5.07024
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:84",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2477.169921875,
+            -20.326457977294922,
+            792.3701171875
+          ],
+          "max": [
+            -2469.093505859375,
+            -19.432857513427734,
+            795.4718017578125
+          ]
+        },
+        "source_axis_extents": [
+          8.076416015625,
+          0.8936004638671875,
+          3.1016845703125
+        ],
+        "maximum_pair_distance": 8.079492909136473,
+        "area": 36.41706699657083,
+        "unique_edge_length_samples": [
+          0.864206,
+          0.90696,
+          0.907,
+          1.664877,
+          1.690119,
+          1.690143,
+          2.255652,
+          2.999996,
+          3.771811,
+          3.961314,
+          3.961336,
+          4.046039,
+          4.046115,
+          4.168713,
+          4.351891,
+          4.351916,
+          4.557087,
+          5.070142
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:897:triangle:96",
+        "draws": [
+          897
+        ],
+        "triangles": 12,
+        "unique_positions": 8,
+        "bounds": {
+          "min": [
+            -2490.968017578125,
+            -23.230268478393555,
+            833.50439453125
+          ],
+          "max": [
+            -2485.099853515625,
+            -22.11326789855957,
+            843.0254516601562
+          ]
+        },
+        "source_axis_extents": [
+          5.8681640625,
+          1.1170005798339844,
+          9.52105712890625
+        ],
+        "maximum_pair_distance": 10.09929166218658,
+        "area": 56.90209191395583,
+        "unique_edge_length_samples": [
+          1.080291,
+          1.133699,
+          1.133721,
+          2.081133,
+          2.112597,
+          2.112814,
+          2.819535,
+          3.750088,
+          4.714794,
+          4.951464,
+          4.951607,
+          5.057425,
+          5.057465,
+          5.211015,
+          5.439898,
+          5.439978,
+          5.696214,
+          6.337813
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:0",
+        "draws": [
+          904
+        ],
+        "triangles": 8,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2455.453369140625,
+            -17.867961883544922,
+            768.661376953125
+          ],
+          "max": [
+            -2450.35107421875,
+            -16.867961883544922,
+            775.053955078125
+          ]
+        },
+        "source_axis_extents": [
+          5.102294921875,
+          1.0,
+          6.392578125
+        ],
+        "maximum_pair_distance": 6.989985118087458,
+        "area": 23.42760226292203,
+        "unique_edge_length_samples": [
+          0.69322,
+          1.0,
+          6.918039,
+          6.918084,
+          6.924837,
+          6.924883,
+          6.952729,
+          6.98994
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:16",
+        "draws": [
+          904
+        ],
+        "triangles": 8,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2444.23681640625,
+            -17.779882431030273,
+            770.6956787109375
+          ],
+          "max": [
+            -2440.023193359375,
+            -16.779882431030273,
+            777.450439453125
+          ]
+        },
+        "source_axis_extents": [
+          4.213623046875,
+          1.0,
+          6.7547607421875
+        ],
+        "maximum_pair_distance": 6.990043508562411,
+        "area": 23.427847057738695,
+        "unique_edge_length_samples": [
+          0.69322,
+          1.0,
+          6.918124,
+          6.918143,
+          6.924923,
+          6.924942,
+          6.952788,
+          6.990025
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:24",
+        "draws": [
+          904
+        ],
+        "triangles": 16,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2439.368896484375,
+            -17.619630813598633,
+            776.7625732421875
+          ],
+          "max": [
+            -2433.318115234375,
+            -16.624582290649414,
+            782.2978515625
+          ]
+        },
+        "source_axis_extents": [
+          6.05078125,
+          0.9950485229492188,
+          5.5352783203125
+        ],
+        "maximum_pair_distance": 6.955301966587006,
+        "area": 46.39195753148562,
+        "unique_edge_length_samples": [
+          0.689789,
+          0.995049,
+          6.883732,
+          6.883757,
+          6.890497,
+          6.890522,
+          6.91823,
+          6.955278
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:40",
+        "draws": [
+          904
+        ],
+        "triangles": 16,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2435.670166015625,
+            -17.619630813598633,
+            779.3272094726562
+          ],
+          "max": [
+            -2430.47314453125,
+            -16.624582290649414,
+            785.6170043945312
+          ]
+        },
+        "source_axis_extents": [
+          5.197021484375,
+          0.9950485229492188,
+          6.289794921875
+        ],
+        "maximum_pair_distance": 6.955447434148147,
+        "area": 46.39267502803584,
+        "unique_edge_length_samples": [
+          0.689789,
+          0.995049,
+          6.883798,
+          6.883904,
+          6.890563,
+          6.890668,
+          6.918377,
+          6.955343
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:56",
+        "draws": [
+          904
+        ],
+        "triangles": 16,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2432.542236328125,
+            -17.619630813598633,
+            781.8242797851562
+          ],
+          "max": [
+            -2426.407470703125,
+            -16.624582290649414,
+            787.25048828125
+          ]
+        },
+        "source_axis_extents": [
+          6.134765625,
+          0.9950485229492188,
+          5.42620849609375
+        ],
+        "maximum_pair_distance": 6.955384083896808,
+        "area": 46.392313367848125,
+        "unique_edge_length_samples": [
+          0.689789,
+          0.995049,
+          6.883755,
+          6.883839,
+          6.89052,
+          6.890604,
+          6.918229,
+          6.955384
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:72",
+        "draws": [
+          904
+        ],
+        "triangles": 8,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2477.603759765625,
+            -20.74060821533203,
+            792.1911010742188
+          ],
+          "max": [
+            -2470.7236328125,
+            -19.74060821533203,
+            795.1718139648438
+          ]
+        },
+        "source_axis_extents": [
+          6.880126953125,
+          1.0,
+          2.980712890625
+        ],
+        "maximum_pair_distance": 6.990207037881592,
+        "area": 23.428436794517513,
+        "unique_edge_length_samples": [
+          0.69322,
+          1.0,
+          6.918307,
+          6.918309,
+          6.925106,
+          6.925107,
+          6.952953,
+          6.990206
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:8",
+        "draws": [
+          904
+        ],
+        "triangles": 8,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2446.148193359375,
+            -17.779882431030273,
+            767.7236938476562
+          ],
+          "max": [
+            -2443.203369140625,
+            -16.779882431030273,
+            774.639404296875
+          ]
+        },
+        "source_axis_extents": [
+          2.94482421875,
+          1.0,
+          6.91571044921875
+        ],
+        "maximum_pair_distance": 6.9900534609874665,
+        "area": 23.427811646247527,
+        "unique_edge_length_samples": [
+          0.69322,
+          1.0,
+          6.918093,
+          6.918153,
+          6.924892,
+          6.924952,
+          6.952798,
+          6.989994
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:80",
+        "draws": [
+          904
+        ],
+        "triangles": 8,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2459.42138671875,
+            -17.835695266723633,
+            764.1104736328125
+          ],
+          "max": [
+            -2454.74560546875,
+            -16.835695266723633,
+            770.709228515625
+          ]
+        },
+        "source_axis_extents": [
+          4.67578125,
+          1.0,
+          6.5987548828125
+        ],
+        "maximum_pair_distance": 6.99007545518636,
+        "area": 23.427875819664504,
+        "unique_edge_length_samples": [
+          0.69322,
+          1.0,
+          6.918109,
+          6.918176,
+          6.924908,
+          6.924974,
+          6.95282,
+          6.990009
+        ]
+      },
+      {
+        "first_source_face": "PC:a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5:draw:904:triangle:88",
+        "draws": [
+          904
+        ],
+        "triangles": 8,
+        "unique_positions": 6,
+        "bounds": {
+          "min": [
+            -2464.70703125,
+            -17.882835388183594,
+            763.7161865234375
+          ],
+          "max": [
+            -2461.70703125,
+            -16.882835388183594,
+            770.4697265625
+          ]
+        },
+        "source_axis_extents": [
+          3.0,
+          1.0,
+          6.7535400390625
+        ],
+        "maximum_pair_distance": 6.990014524964903,
+        "area": 23.427780317579042,
+        "unique_edge_length_samples": [
+          0.69322,
+          1.0,
+          6.918114,
+          6.924913,
+          6.952759,
+          6.990015
+        ]
+      }
+    ],
+    "component_method": "Complete edges, decimal coordinate rounding 1e-4; NOT boat instance count",
+    "labels": [
+      "PS2_STANDALONE_DYNAMIC_MODEL",
+      "PC_BAKED_STATIC_GEOMETRY",
+      "PLACEMENT_CORRESPONDENCE_UNKNOWN"
+    ],
+    "geometry_shape_relation": "UNKNOWN until independent local/world orientation and partition correspondence",
+    "duplication_risk": "Existing compiled dinghy geometry is a replace/hide candidate only after instance correspondence",
+    "txt_link": "Literal hull/mast names are source metadata; no direct TXT Index to DX face mapping assumed",
+    "runtime_validation": "NOT_PERFORMED",
+    "local_shape_search": {
+      "whole_model": {
+        "hypotheses": 0,
+        "matches": [],
+        "tolerance": 0.01,
+        "scale_range": [
+          1.0,
+          1.0
+        ],
+        "placement": "UNKNOWN",
+        "method": "Largest-area anchor / 6 permutations / all source positions and exact source triangles verified",
+        "limitations": "No changed-topology shape search; failure is not proof of family absence"
+      },
+      "edge_components": [
+        {
+          "hypotheses": 0,
+          "matches": [],
+          "tolerance": 0.01,
+          "scale_range": [
+            1.0,
+            1.0
+          ],
+          "placement": "UNKNOWN",
+          "method": "Largest-area anchor / 6 permutations / all source positions and exact source triangles verified",
+          "limitations": "No changed-topology shape search; failure is not proof of family absence"
+        },
+        {
+          "hypotheses": 0,
+          "matches": [],
+          "tolerance": 0.01,
+          "scale_range": [
+            1.0,
+            1.0
+          ],
+          "placement": "UNKNOWN",
+          "method": "Largest-area anchor / 6 permutations / all source positions and exact source triangles verified",
+          "limitations": "No changed-topology shape search; failure is not proof of family absence"
+        },
+        {
+          "hypotheses": 0,
+          "matches": [],
+          "tolerance": 0.01,
+          "scale_range": [
+            1.0,
+            1.0
+          ],
+          "placement": "UNKNOWN",
+          "method": "Largest-area anchor / 6 permutations / all source positions and exact source triangles verified",
+          "limitations": "No changed-topology shape search; failure is not proof of family absence"
+        },
+        {
+          "hypotheses": 0,
+          "matches": [],
+          "tolerance": 0.01,
+          "scale_range": [
+            1.0,
+            1.0
+          ],
+          "placement": "UNKNOWN",
+          "method": "Largest-area anchor / 6 permutations / all source positions and exact source triangles verified",
+          "limitations": "No changed-topology shape search; failure is not proof of family absence"
+        }
+      ]
+    },
+    "replacement_status": "NOT_READY",
+    "safe_hide_unit": "UNKNOWN: whole draws 897/904 aggregate unrelated subparts/placements",
+    "runtime_pose_provenance": "AMBIENT1 0x001aa308 -> (*(entity+0x50))+0x20..0x5c; original route state not captured"
+  },
+  "haybale_study": {
+    "ps2_source": {
+      "path": "\\TNG\\DATAPSM\\MISC\\HAYBALE\\HAYBALE.PSM",
+      "offset": 1210311250,
+      "stored_size": 3114,
+      "directory_size_0x08": 3114,
+      "unpacked_size": 6636,
+      "compression": "packfs_lzo",
+      "stored_sha256": "de76d07729d77ffa4e8259faafa68ab38a14d33192e1096248e1c94fb98416f0",
+      "payload_sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    "geometry_status": "NOT_DECODED: strict standalone EOF grammar refused; no speculative extension",
+    "live_instances": "UNKNOWN",
+    "readiness": "NOT_READY",
+    "geometry_blocker": "Visual tree does not end at tag 4294967295",
+    "pc_txt_source": {
+      "path": "DataGx/Course/Italy_S1/Italy_S1.txt",
+      "sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2"
+    },
+    "pc_txt_name_lead_count": 175,
+    "pc_txt_name_lead_classes": {
+      "moMesh": 174,
+      "moUnknown": 1
+    },
+    "pc_txt_name_lead_samples": [
+      {
+        "node_id": 656,
+        "name": "HayBales",
+        "parent_id": 2,
+        "source_index": null,
+        "source_size": null,
+        "class": "moUnknown"
+      },
+      {
+        "node_id": 657,
+        "name": "HayBale01",
+        "parent_id": 656,
+        "source_index": 7484,
+        "source_size": 12,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 658,
+        "name": "HayBale1",
+        "parent_id": 656,
+        "source_index": 7496,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 659,
+        "name": "HayBale02",
+        "parent_id": 656,
+        "source_index": 7524,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 660,
+        "name": "HayBale03",
+        "parent_id": 656,
+        "source_index": 7552,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 661,
+        "name": "HayBale04",
+        "parent_id": 656,
+        "source_index": 7580,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 662,
+        "name": "HayBale05",
+        "parent_id": 656,
+        "source_index": 7608,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 663,
+        "name": "HayBale06",
+        "parent_id": 656,
+        "source_index": 7636,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 664,
+        "name": "HayBale07",
+        "parent_id": 656,
+        "source_index": 7664,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 665,
+        "name": "HayBale08",
+        "parent_id": 656,
+        "source_index": 7692,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 666,
+        "name": "HayBale09",
+        "parent_id": 656,
+        "source_index": 7720,
+        "source_size": 28,
+        "class": "moMesh"
+      },
+      {
+        "node_id": 667,
+        "name": "HayBale10",
+        "parent_id": 656,
+        "source_index": 7748,
+        "source_size": 28,
+        "class": "moMesh"
+      }
+    ],
+    "pc_standalone": {
+      "path": "DataGx/Misc/Haybale/haybaletest.dx",
+      "sha256": "3b355f6d59b3e64789a509964b370a2849e5eeeabab174fab98162f33be045be",
+      "presence": "RESOURCE_EXISTS; current course instance UNKNOWN"
+    },
+    "authored_references": 14,
+    "unique_matrix_hashes": 13,
+    "references": [
+      {
+        "reference_id": "ac572dde63ab96627cb6a049",
+        "ordinal": 6,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "9e0029d1680746129afaa677c0a8ee508cb0f8f5727eab64f25067639471d754",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "288ac466c25962c3644c16fd",
+        "ordinal": 7,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "2424eb8d03c5054a2d674e42f41108db1c15edc74e5a7844a249ec17588eafea",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "c0c84b3c4de52eccf5ada32b",
+        "ordinal": 8,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "cd05b239ac29f0295ff0f3c0e7c181ca76d22dd930d8ca5031d7a859802819dd",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "2e250174e9330b65d92783ed",
+        "ordinal": 9,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "eb9314063a1338737e02cd8ee41ca33b6943cc38da335169301cc501882cb25b",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "6c10a6cc593817f701518aaf",
+        "ordinal": 10,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "08ccb010208330dc940cb1d78a15856047d7d16adbf7d89cc3199001f41e5a46",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "da8989c1978532772bf23963",
+        "ordinal": 11,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "ea4044f6f2a24f6909cbef9516406eb8b91e2e1c7243407d45ef0c764ba315ec",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "e4a4d1365eed879e52c92031",
+        "ordinal": 12,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "8a6dffa12605b23267b962e360b6a962f0eb1c5a9bed04c59eb70ba341460d1a",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "d23e13feaac5b34c1a35e251",
+        "ordinal": 13,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "ac76add157f1d1084e9b9351a0199616e173d2b9402d905ce2696879f20a6bc9",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "938213ba382ac3eaf6f24afc",
+        "ordinal": 14,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "7a1f7f02709ed25e994dd68270919959e7a7382855b06ffa63c109cfcc2d3a56",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "b0a9902f1936ddac1eb7325e",
+        "ordinal": 15,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "4632ce1acf1826d463335c96e06293ac5617dd36473889f2acf64c6b1850207b",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "610361318ff5d337376ff324",
+        "ordinal": 16,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "bc11732cf611b38e467d994d7554ec619d677cb4d15372a75b7f94b7c5cfb59e",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "56b4381f5752d350014faa08",
+        "ordinal": 17,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "b2325d6e65eeda57729d0f5d6509dbce554ec704d14e2680846e56d6575a6375",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "7bb5f523409d8c8d45d54bb5",
+        "ordinal": 18,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "d830ec16dbd51f5a5d8aa87543d3099393ecabe13b5a14e6a04786c5a581a81d",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      },
+      {
+        "reference_id": "fe84b7e616f36bd5037c56e1",
+        "ordinal": 19,
+        "egg": "haybale",
+        "model": "misc\\haybale\\haybale",
+        "matrix_sha256": "9e0029d1680746129afaa677c0a8ee508cb0f8f5727eab64f25067639471d754",
+        "owners": [
+          "gaAiRigidBody"
+        ]
+      }
+    ]
+  },
+  "ps2_noncourse_family_paths": [
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\BLUEDINGHY.PSM",
+      "offset": 1210316868,
+      "stored_size": 1517
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\DINGHYS\\REDDINGHY.PSM",
+      "offset": 1210318385,
+      "stored_size": 1515
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\HAYBALE\\HAYBALE.PSM",
+      "offset": 1210311250,
+      "stored_size": 3114
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\HAYBALES\\HAYBALE.PSM",
+      "offset": 1210319900,
+      "stored_size": 3117
+    }
+  ],
+  "runtime_validation": "NOT_PERFORMED",
+  "count_contract": "Mesh groups, components, authored references and independent transform carriers stay separate",
+  "candidates": [
+    {
+      "candidate_id": "turkey3-shrub",
+      "course": "TURKEY3",
+      "source_id": "PS2:dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc:node:373f38",
+      "identity": "SOURCE_MESH_GROUP",
+      "instance_count": "UNKNOWN",
+      "comparable_instance_count": "UNKNOWN",
+      "pc_geometry_relationship": "NO_EXACT_WORLD_MATCH; family geometry correspondence UNKNOWN",
+      "pc_verified_subpart_components": 0,
+      "readiness": "NOT_READY",
+      "portability": [
+        "REQUIRES_DEEPER_PS2_RE",
+        "UNKNOWN"
+      ],
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "source_faces": 256,
+      "bounds": {
+        "min": [
+          1769.26416015625,
+          30.15923309326172,
+          -78.13909149169922
+        ],
+        "max": [
+          1877.363525390625,
+          57.83803939819336,
+          30.37624740600586
+        ]
+      },
+      "component_counts": {
+        "source_index": 64,
+        "coordinate_vertex": 16,
+        "coordinate_edge": 16
+      },
+      "material": "TURshrub2 $alphatest() $shader(treeblend)"
+    },
+    {
+      "candidate_id": "turkey3-hut",
+      "course": "TURKEY3",
+      "source_id": "PS2:dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc:node:345586",
+      "identity": "SOURCE_MESH_GROUP",
+      "instance_count": "UNKNOWN",
+      "comparable_instance_count": "UNKNOWN",
+      "pc_geometry_relationship": "CONGRUENT_SOURCE_SUBPARTS_AT_DIFFERENT_PLACEMENTS; whole-object/instance mapping UNKNOWN",
+      "pc_verified_subpart_components": 10,
+      "readiness": "NOT_READY",
+      "portability": [
+        "REUSE_EXISTING_PC_MESH",
+        "REQUIRES_DEEPER_PS2_RE"
+      ],
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "source_faces": 139,
+      "bounds": {
+        "min": [
+          2257.134033203125,
+          33.53422546386719,
+          -957.7468872070312
+        ],
+        "max": [
+          2421.1708984375,
+          50.59812545776367,
+          -835.9671630859375
+        ]
+      },
+      "component_counts": {
+        "source_index": 53,
+        "coordinate_vertex": 11,
+        "coordinate_edge": 12
+      },
+      "material": "rustic Hut $clamp(uv) $shader(object)"
+    },
+    {
+      "candidate_id": "turkey3-boat",
+      "course": "TURKEY3",
+      "source_id": "PS2:dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc:node:36ae99",
+      "identity": "SOURCE_MESH_GROUP",
+      "instance_count": "UNKNOWN",
+      "comparable_instance_count": "UNKNOWN",
+      "pc_geometry_relationship": "CONGRUENT_WHOLE_SOURCE_GROUP_AT_DIFFERENT_PLACEMENT; authored instance map UNKNOWN",
+      "pc_verified_subpart_components": 7,
+      "readiness": "NOT_READY",
+      "portability": [
+        "REUSE_EXISTING_PC_MESH",
+        "REQUIRES_DEEPER_PS2_RE"
+      ],
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "source_faces": 113,
+      "bounds": {
+        "min": [
+          3244.027099609375,
+          23.061643600463867,
+          197.4267578125
+        ],
+        "max": [
+          3275.188232421875,
+          34.0542106628418,
+          218.9149627685547
+        ]
+      },
+      "component_counts": {
+        "source_index": 51,
+        "coordinate_vertex": 7,
+        "coordinate_edge": 7
+      },
+      "material": "boat1 $shader(object)"
+    },
+    {
+      "candidate_id": "italys1-pinus",
+      "course": "ITALY_S1",
+      "source_id": "PS2:f74854a0789c1d3bb416cef8d70a02c65141a2d7afc5a150068c047b94bc30a0:node:388ec6",
+      "identity": "SOURCE_MESH_GROUP",
+      "instance_count": "UNKNOWN",
+      "comparable_instance_count": "UNKNOWN",
+      "pc_geometry_relationship": "NO_EXACT_WORLD_MATCH; family geometry correspondence UNKNOWN",
+      "pc_verified_subpart_components": 0,
+      "readiness": "NOT_READY",
+      "portability": [
+        "REQUIRES_DEEPER_PS2_RE",
+        "UNKNOWN"
+      ],
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "source_faces": 64,
+      "bounds": {
+        "min": [
+          -1219.8968505859375,
+          -43.444034576416016,
+          -74.78295135498047
+        ],
+        "max": [
+          -926.9944458007812,
+          26.1856689453125,
+          219.22503662109375
+        ]
+      },
+      "component_counts": {
+        "source_index": 28,
+        "coordinate_vertex": 3,
+        "coordinate_edge": 4
+      },
+      "material": "bush $alphatest() $shader(tree) $mip(1.0) $clamp(v)"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "source_node": 3583641,
+  "source_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+  "pc_source": {
+    "path": "DataGx\\Course\\Turkey3\\turkey3.dx",
+    "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+    "size": 10055607,
+    "txt_path": "DataGx\\Course\\Turkey3\\turkey3.txt",
+    "txt_sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+    "position_array_offset": 16,
+    "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+    "draws": 939,
+    "vertices": 54589,
+    "triangles": 42237,
+    "coverage": "VALIDATED_COMPLETE_DISJOINT",
+    "txt_mesh_records": 2574,
+    "txt_named_nodes": 2881,
+    "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+    "txt_dinghy_leads": [],
+    "coordinates": "GAME_SOURCE"
+  },
+  "pc_draw": 825,
+  "source_faces": 113,
+  "source_distinct_exact_triangles": 113,
+  "pc_draw_faces": 125,
+  "pc_distinct_matching_records": 113,
+  "pc_unselected_draw_records": 12,
+  "ambiguous_face_matches": 0,
+  "maximum_corner_Linf": 0.00039404595099767903,
+  "pair_identity_sha256": "423ed2a6c635e60531ad3e3eb5e935d5cc7cf6135401c493566773593606efb1",
+  "first_pc_triangle_indices": [
+    33,
+    30,
+    29,
+    12,
+    22,
+    55,
+    56,
+    15
+  ],
+  "transform": {
+    "scale": 1.0,
+    "rotation_rows": [
+      [
+        -0.9135464586004222,
+        7.538712138432935e-07,
+        -0.4067343948795807
+      ],
+      [
+        6.739796409218485e-07,
+        0.999999999999715,
+        3.396799027007881e-07
+      ],
+      [
+        0.406734394879721,
+        3.618267076233028e-08,
+        -0.91354645860067
+      ]
+    ],
+    "translation": [
+      5531.270011052653,
+      -1.768074932472036,
+      -1658.2703146988636
+    ],
+    "maximum_vertex_residual": 0.00039404595099767903,
+    "maximum_corner_residual": 0.00039404595099767903,
+    "source_faces": 113,
+    "target_groups": [
+      "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:825"
+    ],
+    "transform_provenance": "FITTED_DIAGNOSTIC; not an authored or runtime transform",
+    "geometry_relation": "CONGRUENT_SOURCE_SUBPART",
+    "evidence_grade": "STATIC_INFERENCE"
+  },
+  "relation": "CONGRUENT_WHOLE_SOURCE_GROUP_AT_DIFFERENT_PLACEMENT",
+  "method": "Independent exhaustive6-permutation corner check against original decoded125-face PC draw; no reuse of shape-search point grid",
+  "evidence_grade": "STATIC_INFERENCE",
+  "authored_instance_relation": "UNKNOWN",
+  "runtime_visible": "UNKNOWN"
+}

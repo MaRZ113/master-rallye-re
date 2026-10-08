@@ -1,0 +1,2519 @@
+{
+  "schema": 1,
+  "phase": "PS2-DRESSING1",
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "va_to_file": "Single PT_LOAD: file offset=VA-0xff000",
+  "ghidra": "Latest observed D: install12.1.4_PUBLIC; installed ghidra-ai-bridge exporter; read-only project; transaction rollback",
+  "analysis_limit": "LQ/SQ low64 and EE SQRT operand surrogates are analysis-only; original words checked. EE MULT/HI-LO conflicts not normalized.",
+  "functions": [
+    {
+      "address": "0x001df2b0",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x1df2b0",
+        "end_exclusive": "0x1df364",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Attach/reparent linked child node; no matrix",
+      "callers": [
+        {
+          "addr": "001df3c8",
+          "name": "ui_001df3c8",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "001df4c8",
+          "name": "ui_001df4c8",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "callees": [
+        {
+          "callsite": "0x1df2e0",
+          "target": "0x1df368",
+          "original_word": "0xc077cda"
+        }
+      ],
+      "input_arguments": [
+        "a0 parent",
+        "a1 child",
+        "a2 optional insertion sibling"
+      ],
+      "fields_read": [
+        "parent first+0/last+0xc",
+        "child parent+8"
+      ],
+      "fields_written": [
+        "child parent+8 and sibling+4",
+        "parent first+0/last+0xc"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x1df2e0",
+          "original_word": "0xc077cda",
+          "analysis_instruction": "jal 0x001df368"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/001df2b0.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x391e40",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x39229c",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x39236c",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x3923b0",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x39254c",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392590",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x3927cc",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392874",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392a4c",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392a60",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x00391d38",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x391d38",
+        "end_exclusive": "0x392acc",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Recursive PSM hierarchy parser; runtime bounding wrappers for tag6",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x391df8",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x391e0c",
+          "target": "0x3ba868",
+          "original_word": "0xc0eea1a"
+        },
+        {
+          "callsite": "0x391e2c",
+          "target": "0x3a8a68",
+          "original_word": "0xc0ea29a"
+        },
+        {
+          "callsite": "0x391e40",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x391e98",
+          "target": "0x390ba8",
+          "original_word": "0xc0e42ea"
+        },
+        {
+          "callsite": "0x391f24",
+          "target": "0x30be70",
+          "original_word": "0xc0c2f9c"
+        },
+        {
+          "callsite": "0x391f40",
+          "target": "0x30be70",
+          "original_word": "0xc0c2f9c"
+        },
+        {
+          "callsite": "0x391f5c",
+          "target": "0x30be70",
+          "original_word": "0xc0c2f9c"
+        },
+        {
+          "callsite": "0x391f78",
+          "target": "0x30be70",
+          "original_word": "0xc0c2f9c"
+        },
+        {
+          "callsite": "0x392028",
+          "target": "0x3a8c70",
+          "original_word": "0xc0ea31c"
+        },
+        {
+          "callsite": "0x392038",
+          "target": "0x3a5340",
+          "original_word": "0xc0e94d0"
+        },
+        {
+          "callsite": "0x3920f8",
+          "target": "0x30be70",
+          "original_word": "0xc0c2f9c"
+        },
+        {
+          "callsite": "0x392158",
+          "target": "0x3a5400",
+          "original_word": "0xc0e9500"
+        },
+        {
+          "callsite": "0x39216c",
+          "target": "0x3a53d0",
+          "original_word": "0xc0e94f4"
+        },
+        {
+          "callsite": "0x392180",
+          "target": "0x3a5458",
+          "original_word": "0xc0e9516"
+        },
+        {
+          "callsite": "0x392194",
+          "target": "0x3a54b8",
+          "original_word": "0xc0e952e"
+        },
+        {
+          "callsite": "0x3921a8",
+          "target": "0x3a8de0",
+          "original_word": "0xc0ea378"
+        },
+        {
+          "callsite": "0x3921cc",
+          "target": "0x393720",
+          "original_word": "0xc0e4dc8"
+        },
+        {
+          "callsite": "0x3921e8",
+          "target": "0x391690",
+          "original_word": "0xc0e45a4"
+        },
+        {
+          "callsite": "0x3921f0",
+          "target": "0x2dda20",
+          "original_word": "0xc0b7688"
+        },
+        {
+          "callsite": "0x3921fc",
+          "target": "0x3a6b38",
+          "original_word": "0xc0e9ace"
+        },
+        {
+          "callsite": "0x392274",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x392284",
+          "target": "0x3b9398",
+          "original_word": "0xc0ee4e6"
+        },
+        {
+          "callsite": "0x39229c",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x3922cc",
+          "target": "0x3a7c90",
+          "original_word": "0xc0e9f24"
+        },
+        {
+          "callsite": "0x392344",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x392354",
+          "target": "0x3a5ee0",
+          "original_word": "0xc0e97b8"
+        },
+        {
+          "callsite": "0x39236c",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x392388",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x392398",
+          "target": "0x3a5ee0",
+          "original_word": "0xc0e97b8"
+        },
+        {
+          "callsite": "0x3923b0",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x3923cc",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x3923dc",
+          "target": "0x3bfdd0",
+          "original_word": "0xc0eff74"
+        },
+        {
+          "callsite": "0x392430",
+          "target": "0x3a8e78",
+          "original_word": "0xc0ea39e"
+        },
+        {
+          "callsite": "0x392484",
+          "target": "0x3a8e78",
+          "original_word": "0xc0ea39e"
+        },
+        {
+          "callsite": "0x3924d8",
+          "target": "0x3a8e78",
+          "original_word": "0xc0ea39e"
+        },
+        {
+          "callsite": "0x39254c",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x392568",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x392578",
+          "target": "0x3c1038",
+          "original_word": "0xc0f040e"
+        },
+        {
+          "callsite": "0x392590",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x392600",
+          "target": "0x3a3210",
+          "original_word": "0xc0e8c84"
+        },
+        {
+          "callsite": "0x392618",
+          "target": "0x1550f8",
+          "original_word": "0xc05543e"
+        },
+        {
+          "callsite": "0x392658",
+          "target": "0x3a3d18",
+          "original_word": "0xc0e8f46"
+        },
+        {
+          "callsite": "0x392690",
+          "target": "0x3a4568",
+          "original_word": "0xc0e915a"
+        },
+        {
+          "callsite": "0x3926a0",
+          "target": "0x3a5620",
+          "original_word": "0xc0e9588"
+        },
+        {
+          "callsite": "0x392710",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x392720",
+          "target": "0x3a9010",
+          "original_word": "0xc0ea404"
+        },
+        {
+          "callsite": "0x392758",
+          "target": "0x3a9178",
+          "original_word": "0xc0ea45e"
+        },
+        {
+          "callsite": "0x392780",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x392790",
+          "target": "0x3b9768",
+          "original_word": "0xc0ee5da"
+        },
+        {
+          "callsite": "0x3927cc",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x3927e8",
+          "target": "0x3a33e8",
+          "original_word": "0xc0e8cfa"
+        },
+        {
+          "callsite": "0x3927fc",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x39280c",
+          "target": "0x3b9600",
+          "original_word": "0xc0ee580"
+        },
+        {
+          "callsite": "0x392874",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x392928",
+          "target": "0x391d38",
+          "original_word": "0xc0e474e"
+        },
+        {
+          "callsite": "0x392958",
+          "target": "0x1ee0c0",
+          "original_word": "0xc07b830"
+        },
+        {
+          "callsite": "0x392988",
+          "target": "0x1ee0d0",
+          "original_word": "0xc07b834"
+        },
+        {
+          "callsite": "0x3929dc",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x3929ec",
+          "target": "0x3b9398",
+          "original_word": "0xc0ee4e6"
+        },
+        {
+          "callsite": "0x392a18",
+          "target": "0x390960",
+          "original_word": "0xc0e4258"
+        },
+        {
+          "callsite": "0x392a2c",
+          "target": "0x3a4990",
+          "original_word": "0xc0e9264"
+        },
+        {
+          "callsite": "0x392a38",
+          "target": "0x1ee0d8",
+          "original_word": "0xc07b836"
+        },
+        {
+          "callsite": "0x392a4c",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x392a60",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x392a7c",
+          "target": "0x3c1eb0",
+          "original_word": "0xc0f07ac"
+        }
+      ],
+      "input_arguments": [
+        "a0 reader state",
+        "a1 source parent",
+        "a2 source/model vertex owner"
+      ],
+      "fields_read": [
+        "source tag/children",
+        "model+0x44 mesh list"
+      ],
+      "fields_written": [
+        "allocated node fields",
+        "runtime parent/child links"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "all source materials; classifier delegated",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "callsite": "0x392958",
+          "target": "0x1ee0c0",
+          "original_word": "0xc07b830"
+        },
+        {
+          "callsite": "0x392988",
+          "target": "0x1ee0d0",
+          "original_word": "0xc07b834"
+        },
+        {
+          "callsite": "0x3929dc",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x3929ec",
+          "target": "0x3b9398",
+          "original_word": "0xc0ee4e6"
+        },
+        {
+          "callsite": "0x392a18",
+          "target": "0x390960",
+          "original_word": "0xc0e4258"
+        },
+        {
+          "callsite": "0x392a2c",
+          "target": "0x3a4990",
+          "original_word": "0xc0e9264"
+        },
+        {
+          "callsite": "0x392a38",
+          "target": "0x1ee0d8",
+          "original_word": "0xc07b836"
+        },
+        {
+          "callsite": "0x392a4c",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x392a60",
+          "target": "0x1df2b0",
+          "original_word": "0xc077cac"
+        },
+        {
+          "callsite": "0x392a7c",
+          "target": "0x3c1eb0",
+          "original_word": "0xc0f07ac"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/00391d38.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392928",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003a5ee0",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3a5ee0",
+        "end_exclusive": "0x3a5f38",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Generic 0x18 group constructor (tags0/5)",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x3a5efc",
+          "target": "0x3b9568",
+          "original_word": "0xc0ee55a"
+        }
+      ],
+      "input_arguments": [
+        "a0 allocated group"
+      ],
+      "fields_read": [],
+      "fields_written": [
+        "node+0x10 vtable488440"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3a5efc",
+          "original_word": "0xc0ee55a",
+          "analysis_instruction": "jal 0x003b9568"
+        },
+        {
+          "va": "0x3a5f0c",
+          "original_word": "0xae020010",
+          "analysis_instruction": "sw v0,0x10(s0)"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003a5ee0.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392354",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392398",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003b9398",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3b9398",
+        "end_exclusive": "0x3b93c0",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "0x30 bounding-wrapper constructor",
+      "callers": [],
+      "callees": [],
+      "input_arguments": [
+        "a0 allocated wrapper"
+      ],
+      "fields_read": [],
+      "fields_written": [
+        "node+0x10 vtable488078",
+        "base links+0..+0x14"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003b9398.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392284",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x3929ec",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003b93f0",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3b93f0",
+        "end_exclusive": "0x3b9444",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Generic child-list draw traversal",
+      "callers": [
+        {
+          "addr": "003714b8",
+          "name": "FUN_003714b8",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "callees": [],
+      "input_arguments": [
+        "a0 group",
+        "a1 unchanged draw context"
+      ],
+      "fields_read": [
+        "first child+0",
+        "sibling+4",
+        "child vtable+0x10"
+      ],
+      "fields_written": [],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "delegates child mode",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3b940c",
+          "original_word": "0x8e020010",
+          "analysis_instruction": "lw v0,0x10(s0)"
+        },
+        {
+          "va": "0x3b9418",
+          "original_word": "0x8c43005c",
+          "analysis_instruction": "lw v1,0x5c(v0)"
+        },
+        {
+          "va": "0x3b941c",
+          "original_word": "0x60f809",
+          "analysis_instruction": "jalr v1"
+        },
+        {
+          "va": "0x3b942c",
+          "original_word": "0x8e020010",
+          "analysis_instruction": "_lw v0,0x10(s0)"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003b93f0.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x003b9258",
+          "callsite": "0x3b92b0",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003b9258",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3b9258",
+        "end_exclusive": "0x3b92cc",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Bounding wrapper draw gate",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x3b926c",
+          "target": "0x1d6bb0",
+          "original_word": "0xc075aec"
+        },
+        {
+          "callsite": "0x3b92a0",
+          "target": "0x200550",
+          "original_word": "0xc080154"
+        },
+        {
+          "callsite": "0x3b92b0",
+          "target": "0x3b93f0",
+          "original_word": "0xc0ee4fc"
+        }
+      ],
+      "input_arguments": [
+        "a0 wrapper",
+        "a1 draw context"
+      ],
+      "fields_read": [
+        "center+0x1c",
+        "radius+0x28",
+        "graphics virtual+0x54"
+      ],
+      "fields_written": [],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "inherited, not material-selected",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3b926c",
+          "original_word": "0xc075aec",
+          "analysis_instruction": "jal 0x001d6bb0"
+        },
+        {
+          "va": "0x3b9284",
+          "original_word": "0x40f809",
+          "analysis_instruction": "jalr v0"
+        },
+        {
+          "va": "0x3b9294",
+          "original_word": "0xc60c0028",
+          "analysis_instruction": "lwc1 f12,0x28(s0)"
+        },
+        {
+          "va": "0x3b92a0",
+          "original_word": "0xc080154",
+          "analysis_instruction": "jal 0x00200550"
+        },
+        {
+          "va": "0x3b92b0",
+          "original_word": "0xc0ee4fc",
+          "analysis_instruction": "jal 0x003b93f0"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003b9258.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x00200550",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x200550",
+        "end_exclusive": "0x2006bc",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Sphere range/direction/four-side-plane eligibility test",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x2005a8",
+          "target": "0x1d6bb0",
+          "original_word": "0xc075aec"
+        }
+      ],
+      "input_arguments": [
+        "f12 radius",
+        "a0 view",
+        "a1 center"
+      ],
+      "fields_read": [
+        "view+0xc0..+0xc8 position",
+        "view+0xb0..+0xb8 direction",
+        "view+8 four normal triples",
+        "optional graphics descriptor+0x28 range"
+      ],
+      "fields_written": [],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x200564",
+          "original_word": "0x4600a036",
+          "analysis_instruction": "c.ole.S f20,f0"
+        },
+        {
+          "va": "0x2005a8",
+          "original_word": "0xc075aec",
+          "analysis_instruction": "jal 0x001d6bb0"
+        },
+        {
+          "va": "0x2005c0",
+          "original_word": "0x40f809",
+          "analysis_instruction": "jalr v0"
+        },
+        {
+          "va": "0x2005f4",
+          "original_word": "0xc4630028",
+          "analysis_instruction": "lwc1 f3,0x28(v1)"
+        },
+        {
+          "va": "0x200620",
+          "original_word": "0x46061834",
+          "analysis_instruction": "c.olt.S f3,f6"
+        },
+        {
+          "va": "0x200634",
+          "original_word": "0x46000834",
+          "analysis_instruction": "c.olt.S f1,f0"
+        },
+        {
+          "va": "0x200688",
+          "original_word": "0x4600a036",
+          "analysis_instruction": "c.ole.S f20,f0"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/00200550.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x003b9258",
+          "callsite": "0x3b92a0",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003c1038",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3c1038",
+        "end_exclusive": "0x3c1090",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "0x38 tag6 selection-group constructor",
+      "callers": [],
+      "callees": [],
+      "input_arguments": [
+        "a0 allocated group"
+      ],
+      "fields_read": [],
+      "fields_written": [
+        "vtable+0x10=488560",
+        "vectors+0x18/+0x28",
+        "ready+0x24",
+        "generation+0x34"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3c1054",
+          "original_word": "0x24850028",
+          "analysis_instruction": "addiu a1,a0,0x28"
+        },
+        {
+          "va": "0x3c1078",
+          "original_word": "0xac800028",
+          "analysis_instruction": "sw zero,0x28(a0)"
+        },
+        {
+          "va": "0x3c1084",
+          "original_word": "0xac800034",
+          "analysis_instruction": "sw zero,0x34(a0)"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003c1038.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392578",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x003c1090",
+          "callsite": "0x3c10b4",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003c1090",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3c1090",
+        "end_exclusive": "0x3c1144",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Clone/reset selection group",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x3c10ac",
+          "target": "0x2ad408",
+          "original_word": "0xc0ab502"
+        },
+        {
+          "callsite": "0x3c10b4",
+          "target": "0x3c1038",
+          "original_word": "0xc0f040e"
+        },
+        {
+          "callsite": "0x3c10d8",
+          "target": "0x3f93cc",
+          "original_word": "0xc0fe4f3"
+        },
+        {
+          "callsite": "0x3c1104",
+          "target": "0x3f93cc",
+          "original_word": "0xc0fe4f3"
+        }
+      ],
+      "input_arguments": [
+        "source group"
+      ],
+      "fields_read": [],
+      "fields_written": [
+        "new group vectors/ready/generation"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3c10ac",
+          "original_word": "0xc0ab502",
+          "analysis_instruction": "jal 0x002ad408"
+        },
+        {
+          "va": "0x3c10b4",
+          "original_word": "0xc0f040e",
+          "analysis_instruction": "jal 0x003c1038"
+        },
+        {
+          "va": "0x3c10d0",
+          "original_word": "0x26340028",
+          "analysis_instruction": "addiu s4,s1,0x28"
+        },
+        {
+          "va": "0x3c10d8",
+          "original_word": "0xc0fe4f3",
+          "analysis_instruction": "jal 0x003f93cc"
+        },
+        {
+          "va": "0x3c10f8",
+          "original_word": "0x8e320028",
+          "analysis_instruction": "lw s2,0x28(s1)"
+        },
+        {
+          "va": "0x3c1104",
+          "original_word": "0xc0fe4f3",
+          "analysis_instruction": "jal 0x003f93cc"
+        },
+        {
+          "va": "0x3c1128",
+          "original_word": "0xae200034",
+          "analysis_instruction": "sw zero,0x34(s1)"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003c1090.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003c1eb0",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3c1eb0",
+        "end_exclusive": "0x3c1ff0",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Rebuild indexed children and selection stamps",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x3c1ee4",
+          "target": "0x3f93cc",
+          "original_word": "0xc0fe4f3"
+        },
+        {
+          "callsite": "0x3c1f3c",
+          "target": "0x3c4af8",
+          "original_word": "0xc0f12be"
+        },
+        {
+          "callsite": "0x3c1f94",
+          "target": "0x3f93cc",
+          "original_word": "0xc0fe4f3"
+        },
+        {
+          "callsite": "0x3c1fbc",
+          "target": "0x157550",
+          "original_word": "0xc055d54"
+        }
+      ],
+      "input_arguments": [
+        "a0 group"
+      ],
+      "fields_read": [
+        "linked child list+0/+4"
+      ],
+      "fields_written": [
+        "children vector+0x18/+0x1c/+0x20",
+        "stamp vector+0x28/+0x2c/+0x30",
+        "ready+0x24",
+        "generation+0x34"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3c1ee4",
+          "original_word": "0xc0fe4f3",
+          "analysis_instruction": "jal 0x003f93cc"
+        },
+        {
+          "va": "0x3c1f3c",
+          "original_word": "0xc0f12be",
+          "analysis_instruction": "jal 0x003c4af8"
+        },
+        {
+          "va": "0x3c1f58",
+          "original_word": "0x26720028",
+          "analysis_instruction": "addiu s2,s3,0x28"
+        },
+        {
+          "va": "0x3c1f64",
+          "original_word": "0x8e640028",
+          "analysis_instruction": "lw a0,0x28(s3)"
+        },
+        {
+          "va": "0x3c1f94",
+          "original_word": "0xc0fe4f3",
+          "analysis_instruction": "jal 0x003f93cc"
+        },
+        {
+          "va": "0x3c1fbc",
+          "original_word": "0xc055d54",
+          "analysis_instruction": "jal 0x00157550"
+        },
+        {
+          "va": "0x3c1fc8",
+          "original_word": "0xae600034",
+          "analysis_instruction": "sw zero,0x34(s3)"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003c1eb0.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392a7c",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x003c1148",
+          "callsite": "0x3c1178",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003c1148",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3c1148",
+        "end_exclusive": "0x3c15d8",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Tag6 draw: lookup model selection structure, view-dependent region selection, deduplicated child dispatch",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x3c1178",
+          "target": "0x3c1eb0",
+          "original_word": "0xc0f07ac"
+        },
+        {
+          "callsite": "0x3c1180",
+          "target": "0x2dda20",
+          "original_word": "0xc0b7688"
+        },
+        {
+          "callsite": "0x3c1238",
+          "target": "0x2c6528",
+          "original_word": "0xc0b194a"
+        },
+        {
+          "callsite": "0x3c1258",
+          "target": "0x303038",
+          "original_word": "0xc0c0c0e"
+        },
+        {
+          "callsite": "0x3c1284",
+          "target": "0x1d6bb0",
+          "original_word": "0xc075aec"
+        },
+        {
+          "callsite": "0x3c12cc",
+          "target": "0x3c7458",
+          "original_word": "0xc0f1d16"
+        },
+        {
+          "callsite": "0x3c1370",
+          "target": "0x3f3e80",
+          "original_word": "0xc0fcfa0"
+        },
+        {
+          "callsite": "0x3c14ac",
+          "target": "0x3f3e80",
+          "original_word": "0xc0fcfa0"
+        },
+        {
+          "callsite": "0x3c1548",
+          "target": "0x3c15d8",
+          "original_word": "0xc0f0576"
+        },
+        {
+          "callsite": "0x3c1594",
+          "target": "0x3c1e48",
+          "original_word": "0xc0f0792"
+        }
+      ],
+      "input_arguments": [
+        "a0 group",
+        "a1 draw context"
+      ],
+      "fields_read": [
+        "context+8 model identifier",
+        "model+0x3c selection structure",
+        "view+0xc0/+0xc8 and +0xb0/+0xb8"
+      ],
+      "fields_written": [
+        "generation+0x34",
+        "model lookup cache"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "delegates selected child materials",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3c1178",
+          "original_word": "0xc0f07ac",
+          "analysis_instruction": "jal 0x003c1eb0"
+        },
+        {
+          "va": "0x3c1180",
+          "original_word": "0xc0b7688",
+          "analysis_instruction": "jal 0x002dda20"
+        },
+        {
+          "va": "0x3c1238",
+          "original_word": "0xc0b194a",
+          "analysis_instruction": "jal 0x002c6528"
+        },
+        {
+          "va": "0x3c1258",
+          "original_word": "0xc0c0c0e",
+          "analysis_instruction": "jal 0x00303038"
+        },
+        {
+          "va": "0x3c1280",
+          "original_word": "0x8e620034",
+          "analysis_instruction": "_lw v0,0x34(s3)"
+        },
+        {
+          "va": "0x3c1284",
+          "original_word": "0xc075aec",
+          "analysis_instruction": "jal 0x001d6bb0"
+        },
+        {
+          "va": "0x3c129c",
+          "original_word": "0x40f809",
+          "analysis_instruction": "jalr v0"
+        },
+        {
+          "va": "0x3c12cc",
+          "original_word": "0xc0f1d16",
+          "analysis_instruction": "jal 0x003c7458"
+        },
+        {
+          "va": "0x3c1328",
+          "original_word": "0x460c2034",
+          "analysis_instruction": "c.olt.S f4,f12"
+        },
+        {
+          "va": "0x3c1334",
+          "original_word": "0xe7a00028",
+          "analysis_instruction": "_swc1 f0,0x28(sp)"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003c1148.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003c1e48",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3c1e48",
+        "end_exclusive": "0x3c1eac",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Child-index draw once for current generation",
+      "callers": [
+        {
+          "addr": "003c1148",
+          "name": "ui_003c1148",
+          "ref_type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "addr": "003c15d8",
+          "name": "ui_003c15d8",
+          "ref_type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "callees": [],
+      "input_arguments": [
+        "a0 group",
+        "a1 draw context",
+        "a2 child index"
+      ],
+      "fields_read": [
+        "vector+0x18",
+        "stamp vector+0x28",
+        "generation+0x34",
+        "child virtual+0x5c"
+      ],
+      "fields_written": [
+        "stamp[index]",
+        "global0x42dca8 counter"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "inherited",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3c1e54",
+          "original_word": "0x8c820028",
+          "analysis_instruction": "lw v0,0x28(a0)"
+        },
+        {
+          "va": "0x3c1e58",
+          "original_word": "0x8c870034",
+          "analysis_instruction": "lw a3,0x34(a0)"
+        },
+        {
+          "va": "0x3c1e84",
+          "original_word": "0x8c62005c",
+          "analysis_instruction": "lw v0,0x5c(v1)"
+        },
+        {
+          "va": "0x3c1e88",
+          "original_word": "0x40f809",
+          "analysis_instruction": "jalr v0"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003c1e48.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x003c1148",
+          "callsite": "0x3c1594",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x003c15d8",
+          "callsite": "0x3c1de8",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003c15d8",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3c15d8",
+        "end_exclusive": "0x3c1e44",
+        "status": "PARTIAL_EXPORTED_INSTRUCTION_COVERAGE"
+      },
+      "role": "Directional region-list selection helper; interior EE arithmetic unresolved",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x3c17d8",
+          "target": "0x3f3e80",
+          "original_word": "0xc0fcfa0"
+        },
+        {
+          "callsite": "0x3c1838",
+          "target": "0x3f3e80",
+          "original_word": "0xc0fcfa0"
+        },
+        {
+          "callsite": "0x3c1a80",
+          "target": "0x3f3e80",
+          "original_word": "0xc0fcfa0"
+        },
+        {
+          "callsite": "0x3c1b28",
+          "target": "0x3f3e80",
+          "original_word": "0xc0fcfa0"
+        },
+        {
+          "callsite": "0x3c1c20",
+          "target": "0x3f3e80",
+          "original_word": "0xc0fcfa0"
+        },
+        {
+          "callsite": "0x3c1d14",
+          "target": "0x3f3e80",
+          "original_word": "0xc0fcfa0"
+        },
+        {
+          "callsite": "0x3c1dc8",
+          "target": "0x3c15d8",
+          "original_word": "0xc0f0576"
+        },
+        {
+          "callsite": "0x3c1de8",
+          "target": "0x3c1e48",
+          "original_word": "0xc0f0792"
+        }
+      ],
+      "input_arguments": [
+        "register arguments from 3c1148",
+        "selection structure",
+        "constructed plane"
+      ],
+      "fields_read": [
+        "selection records",
+        "view-plane input"
+      ],
+      "fields_written": [
+        "child stamps via3c1e48"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3c1684",
+          "original_word": "0x3c013400",
+          "analysis_instruction": "lui at,0x3400"
+        },
+        {
+          "va": "0x3c1de8",
+          "original_word": "0xc0f0792",
+          "analysis_instruction": "jal 0x003c1e48"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Bad EE instruction truncates predicate/interior; no complete selector formula",
+      "fresh_export": "Ignored data/dressing1/elf/003c15d8.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x003c1148",
+          "callsite": "0x3c1548",
+          "provenance": "Original canonical JAL word"
+        },
+        {
+          "caller": "0x003c15d8",
+          "callsite": "0x3c1dc8",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003c7458",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3c7458",
+        "end_exclusive": "0x3c74f4",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Return first region index accepting horizontal camera position, or -1",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x3c74b0",
+          "target": "0x26bc78",
+          "original_word": "0xc09af1e"
+        }
+      ],
+      "input_arguments": [
+        "a0 selection structure",
+        "a1 view X/0/Z"
+      ],
+      "fields_read": [
+        "region descriptor vector; stride0x18"
+      ],
+      "fields_written": [],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x3c74b0",
+          "original_word": "0xc09af1e",
+          "analysis_instruction": "jal 0x0026bc78"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003c7458.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x003c1148",
+          "callsite": "0x3c12cc",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x0026bc78",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x26bc78",
+        "end_exclusive": "0x26bd18",
+        "status": "PARTIAL_EXPORTED_INSTRUCTION_COVERAGE"
+      },
+      "role": "Horizontal region membership predicate; complete polygon test unresolved",
+      "callers": [],
+      "callees": [],
+      "input_arguments": [
+        "a0 region record",
+        "a1 query point"
+      ],
+      "fields_read": [
+        "descriptor begin/end",
+        "query X/Z",
+        "0x1c input stride"
+      ],
+      "fields_written": [],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Bad EE instruction truncates predicate/interior; no complete selector formula",
+      "fresh_export": "Ignored data/dressing1/elf/0026bc78.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x003c7458",
+          "callsite": "0x3c74b0",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x00390960",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x390960",
+        "end_exclusive": "0x390a98",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Build bounded-node descriptor from selected source subtree",
+      "callers": [],
+      "callees": [
+        {
+          "callsite": "0x39098c",
+          "target": "0x3a87e8",
+          "original_word": "0xc0ea1fa"
+        },
+        {
+          "callsite": "0x3909b0",
+          "target": "0x3903d0",
+          "original_word": "0xc0e40f4"
+        },
+        {
+          "callsite": "0x3909d8",
+          "target": "0x3a5bc8",
+          "original_word": "0xc0e96f2"
+        },
+        {
+          "callsite": "0x3909f0",
+          "target": "0x3a4a40",
+          "original_word": "0xc0e9290"
+        },
+        {
+          "callsite": "0x390a1c",
+          "target": "0x3a8828",
+          "original_word": "0xc0ea20a"
+        },
+        {
+          "callsite": "0x390a40",
+          "target": "0x3906f0",
+          "original_word": "0xc0e41bc"
+        },
+        {
+          "callsite": "0x390a4c",
+          "target": "0x3a3120",
+          "original_word": "0xc0e8c48"
+        },
+        {
+          "callsite": "0x390a68",
+          "target": "0x3a4a40",
+          "original_word": "0xc0e9290"
+        }
+      ],
+      "input_arguments": [
+        "output descriptor",
+        "source model",
+        "subtree node"
+      ],
+      "fields_read": [
+        "subtree via3903d0/3906f0"
+      ],
+      "fields_written": [
+        "descriptor via3a4a40"
+      ],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [
+        {
+          "va": "0x39098c",
+          "original_word": "0xc0ea1fa",
+          "analysis_instruction": "jal 0x003a87e8"
+        },
+        {
+          "va": "0x3909b0",
+          "original_word": "0xc0e40f4",
+          "analysis_instruction": "jal 0x003903d0"
+        },
+        {
+          "va": "0x3909d8",
+          "original_word": "0xc0e96f2",
+          "analysis_instruction": "jal 0x003a5bc8"
+        },
+        {
+          "va": "0x3909f0",
+          "original_word": "0xc0e9290",
+          "analysis_instruction": "jal 0x003a4a40"
+        },
+        {
+          "va": "0x390a1c",
+          "original_word": "0xc0ea20a",
+          "analysis_instruction": "jal 0x003a8828"
+        },
+        {
+          "va": "0x390a40",
+          "original_word": "0xc0e41bc",
+          "analysis_instruction": "jal 0x003906f0"
+        },
+        {
+          "va": "0x390a4c",
+          "original_word": "0xc0e8c48",
+          "analysis_instruction": "jal 0x003a3120"
+        },
+        {
+          "va": "0x390a68",
+          "original_word": "0xc0e9290",
+          "analysis_instruction": "jal 0x003a4a40"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/00390960.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [
+        {
+          "caller": "0x00391d38",
+          "callsite": "0x392a18",
+          "provenance": "Original canonical JAL word"
+        }
+      ],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003b95d0",
+      "entry_provenance": "Original JAL or original vtable; fresh canonical Ghidra bridge query",
+      "known_bounds": {
+        "start": "0x3b95d0",
+        "end_exclusive": "0x3b95d8",
+        "status": "RETURN_DELAY_SLOT_OR_KNOWN_BASELINE_BOUND"
+      },
+      "role": "Base bound accessor returns null",
+      "callers": [],
+      "callees": [],
+      "input_arguments": [
+        "a0 node"
+      ],
+      "fields_read": [],
+      "fields_written": [],
+      "important_constants": {
+        "allocation": "0x18 group /0x30 bound/0x38 selection",
+        "view_XZ_gate": "norm squared >0.001",
+        "sphere": "r>0; inclusive range; strict side-plane bound"
+      },
+      "material_modes": "none",
+      "packet_state_writes": "None in recovered traversal functions; delegates mesh renderer",
+      "instruction_evidence": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Current live input/selected children not captured",
+      "fresh_export": "Ignored data/dressing1/elf/003b95d0.json",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x003b93e8",
+      "known_bounds": {
+        "start": "0x003b93e8",
+        "end_exclusive": "0x003b93f0",
+        "status": "JR_AND_DELAY"
+      },
+      "role": "Bounding-node accessor returns a0, unlike base null accessor",
+      "callers": [
+        "virtual +0x2c during391d38 tag6 postprocessing"
+      ],
+      "callees": [],
+      "input_arguments": [
+        "a0 node"
+      ],
+      "fields_read": [],
+      "fields_written": [],
+      "important_constants": {},
+      "material_modes": "none",
+      "packet_state_writes": "none",
+      "instruction_evidence": [
+        {
+          "va": "0x3b93e8",
+          "original_word": "0x3e00008"
+        },
+        {
+          "va": "0x3b93ec",
+          "original_word": "0x80102d"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "uncertainty": "Accessor returns pointer; do not call it integer kind1",
+      "source_psm_connection": "391d38 creates candidate1/6/5/2 source hierarchy; inserted bounds and selected traversal inherit same mesh owner",
+      "render_selection_consequence": "Delegate/gate source child mesh; no new instance or matrix allocation unless explicitly documented",
+      "direct_callers_in_phase_inventory": [],
+      "data_flow_evidence": "Fields/registers and direct original calls above; critical comparisons independently checked; fresh query decompilation retained ignored"
+    },
+    {
+      "address": "0x00391690",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x00391690",
+        "end_inclusive": "0x00391d34",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x00391d34"
+      },
+      "role": "Initialize generic map defaults and apply shader classifier",
+      "callers": [
+        {
+          "callsite": "0x003921e8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x00390f98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c60",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00390d98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2458",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4f78",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2d48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6c58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a3460",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6f18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a33e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "material input+80",
+      "output_fields": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "important_constants": "$clamp; $shader; default .1",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "instruction_evidence": [
+        {
+          "va": "0x00391690",
+          "original_word": "0x27bdfed0"
+        },
+        {
+          "va": "0x003916dc",
+          "original_word": "0xac400028"
+        },
+        {
+          "va": "0x0039178c",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x003917e4",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x00391818",
+          "original_word": "0xac430028"
+        },
+        {
+          "va": "0x00391d30",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Initialize generic map defaults and apply shader classifier; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Unknown shader retains generic map-derived mode",
+      "export_available": true,
+      "reused_from": "water1/elf-functions.json",
+      "fresh_query": false
+    },
+    {
+      "address": "0x003a6c58",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003a6c58",
+        "end_inclusive": "0x003a6ea4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003a6ea4"
+      },
+      "role": "Interned-name shader registry dispatch",
+      "callers": [
+        {
+          "callsite": "0x00391bb8",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003adcf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad968",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add50",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adde0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adc90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ac680",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ade18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "name ID, registry49b890",
+      "output_fields": "handler virtual+14 effects",
+      "important_constants": "unidentified shader log",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "handler virtual+14 effects",
+      "instruction_evidence": [
+        {
+          "va": "0x003a6c58",
+          "original_word": "0x27bdff40"
+        },
+        {
+          "va": "0x003a6ea0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Interned-name shader registry dispatch; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Other shader names not enumerated",
+      "export_available": true,
+      "reused_from": "water1/elf-functions.json",
+      "fresh_query": false
+    },
+    {
+      "address": "0x003ba868",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003ba868",
+        "end_inclusive": null,
+        "status": "END_UNRESOLVED",
+        "inspected_last_va": "0x003bbe7c"
+      },
+      "role": "Construct physical mesh owner",
+      "callers": [
+        {
+          "callsite": "0x00391e0c",
+          "kind": "ORIGINAL_DIRECT_JAL",
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS"
+        }
+      ],
+      "virtual_callers": [],
+      "callees": [
+        {
+          "address": "0x003fa9b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00151a28",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001537e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00153f40",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9628",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d9a90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001f2108",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2458",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "allocation f4",
+      "output_fields": "mesh fields, vtable488328, strip/material storage",
+      "important_constants": "default texture IDs",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "mesh fields, vtable488328, strip/material storage",
+      "instruction_evidence": [
+        {
+          "va": "0x003ba868",
+          "original_word": "0x27bdfe90"
+        },
+        {
+          "va": "0x003ba8d8",
+          "original_word": "0xaea00024"
+        },
+        {
+          "va": "0x003ba8dc",
+          "original_word": "0xaea00028"
+        },
+        {
+          "va": "0x003bbe30",
+          "original_word": "0xaea00068"
+        },
+        {
+          "va": "0x003bbe58",
+          "original_word": "0xaea000dc"
+        },
+        {
+          "va": "0x003bbe7c",
+          "original_word": "0xaeb000dc"
+        }
+      ],
+      "data_flow_evidence": "Construct physical mesh owner; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Large interned-string constructor export not used as exact bounds",
+      "export_available": true,
+      "reused_from": "water1/elf-functions.json",
+      "fresh_query": false
+    },
+    {
+      "address": "0x003bca80",
+      "entry_provenance": "Original direct JAL and/or verified vtable target; original prologue/leaf words",
+      "known_bounds": {
+        "start": "0x003bca80",
+        "end_inclusive": "0x003bcbb4",
+        "status": "KNOWN_RETURN_DELAY_SLOT",
+        "inspected_last_va": "0x003bcbb4"
+      },
+      "role": "Mesh scene draw into renderer queue",
+      "callers": [],
+      "virtual_callers": [
+        "mesh488328+5c"
+      ],
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00361a58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callee_scope": "Known export targets; not a whole-program call-graph assertion",
+      "input_fields": "mesh strips, flags, mode, handles+dc/+e4, instance cache",
+      "output_fields": "renderer virtual setters and queued cache packet",
+      "important_constants": "vtable4853f0 slots8c/94/9c/a4/ac",
+      "material_modes_handled": "SHARED_PATH; water-relevant inputs include modes9/10/19, no dedicated mode switch claimed",
+      "packet_state_writes": "renderer virtual setters and queued cache packet",
+      "instruction_evidence": [
+        {
+          "va": "0x003bca80",
+          "original_word": "0x27bdffa0"
+        },
+        {
+          "va": "0x003bcbb0",
+          "original_word": "0x03e00008"
+        }
+      ],
+      "data_flow_evidence": "Mesh scene draw into renderer queue; fields and virtual associations independently described in WATER1 documents",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "remaining_ambiguity": "Scene-wide visibility/LOD draw scheduling not fully mapped",
+      "export_available": true,
+      "reused_from": "water1/elf-functions.json",
+      "fresh_query": false
+    },
+    {
+      "address": "0x001aa308",
+      "bounds": {
+        "entry": "0x001aa308",
+        "known_listing_end_exclusive": "0x001aa3b4",
+        "known_listing_bytes": 172,
+        "complete_scalar_listing": true
+      },
+      "role": "final en3d world matrix stores",
+      "arguments": "a0 this, a1 entity",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x001a8078"
+        },
+        {
+          "direct_jal_callsite": "0x001a82fc"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "13 SWC1 + 3 SW zero; sixteen words"
+      ],
+      "owner_fields_read": [
+        "+b0..+dc",
+        "entity+50"
+      ],
+      "owner_fields_written": [
+        "en3d+20..+5c"
+      ],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "a18c02b4710a5797fe9c8364f665c7aaf5832063663632c173fb9309c212af80",
+      "open_questions": [],
+      "reused_from": "ambient1/elf-functions.json",
+      "fresh_query": false
+    },
+    {
+      "address": "0x001ca568",
+      "bounds": {
+        "entry": "0x001ca568",
+        "known_listing_end_exclusive": "0x001ca5fc",
+        "known_listing_bytes": 148,
+        "complete_scalar_listing": true
+      },
+      "role": "row-vector affine point transform",
+      "arguments": "a0 matrix, a1 input Vec3, a2 output Vec3",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x0019f900"
+        },
+        {
+          "direct_jal_callsite": "0x0019f910"
+        },
+        {
+          "direct_jal_callsite": "0x001aa28c"
+        },
+        {
+          "direct_jal_callsite": "0x001ae6bc"
+        },
+        {
+          "direct_jal_callsite": "0x001ef33c"
+        },
+        {
+          "direct_jal_callsite": "0x001ef3fc"
+        },
+        {
+          "direct_jal_callsite": "0x00200b38"
+        },
+        {
+          "direct_jal_callsite": "0x00200c50"
+        },
+        {
+          "direct_jal_callsite": "0x00200d6c"
+        },
+        {
+          "direct_jal_callsite": "0x00200e8c"
+        },
+        {
+          "direct_jal_callsite": "0x00200f58"
+        },
+        {
+          "direct_jal_callsite": "0x00263b18"
+        },
+        {
+          "direct_jal_callsite": "0x00263b2c"
+        },
+        {
+          "direct_jal_callsite": "0x00263b40"
+        },
+        {
+          "direct_jal_callsite": "0x00263b54"
+        },
+        {
+          "direct_jal_callsite": "0x00263ef0"
+        },
+        {
+          "direct_jal_callsite": "0x00263f04"
+        },
+        {
+          "direct_jal_callsite": "0x00263f18"
+        },
+        {
+          "direct_jal_callsite": "0x00263f2c"
+        },
+        {
+          "direct_jal_callsite": "0x002894ac"
+        },
+        {
+          "direct_jal_callsite": "0x002894c0"
+        },
+        {
+          "direct_jal_callsite": "0x002894e8"
+        },
+        {
+          "direct_jal_callsite": "0x002894fc"
+        },
+        {
+          "direct_jal_callsite": "0x002e9a64"
+        },
+        {
+          "direct_jal_callsite": "0x002e9ab4"
+        },
+        {
+          "direct_jal_callsite": "0x002e9adc"
+        },
+        {
+          "direct_jal_callsite": "0x002e9c38"
+        },
+        {
+          "direct_jal_callsite": "0x00330ba8"
+        },
+        {
+          "direct_jal_callsite": "0x00334300"
+        },
+        {
+          "direct_jal_callsite": "0x00334768"
+        },
+        {
+          "direct_jal_callsite": "0x003347a0"
+        },
+        {
+          "direct_jal_callsite": "0x00334928"
+        },
+        {
+          "direct_jal_callsite": "0x00334960"
+        },
+        {
+          "direct_jal_callsite": "0x00334ae0"
+        },
+        {
+          "direct_jal_callsite": "0x00334b18"
+        },
+        {
+          "direct_jal_callsite": "0x003430dc"
+        },
+        {
+          "direct_jal_callsite": "0x003431f0"
+        },
+        {
+          "direct_jal_callsite": "0x00343258"
+        }
+      ],
+      "callees": [],
+      "constants": [
+        "XYZ = x*Row0 + y*Row1 + z*Row2 + Row3"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "6c94b8c35e38dac538f8f685c4634b1ac0b5e225185779c28d567f319f0997d1",
+      "open_questions": [],
+      "reused_from": "ambient1/elf-functions.json",
+      "fresh_query": false
+    },
+    {
+      "address": "0x0021e290",
+      "bounds": {
+        "entry": "0x0021e290",
+        "known_listing_end_exclusive": "0x0021e3c4",
+        "known_listing_bytes": 308,
+        "complete_scalar_listing": true
+      },
+      "role": "entity construction with en3d carrier",
+      "arguments": "a0 entity -> v0 entity",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x00111580"
+        },
+        {
+          "direct_jal_callsite": "0x00111738"
+        },
+        {
+          "direct_jal_callsite": "0x001136c8"
+        },
+        {
+          "direct_jal_callsite": "0x001137b8"
+        },
+        {
+          "direct_jal_callsite": "0x001138e0"
+        },
+        {
+          "direct_jal_callsite": "0x001221bc"
+        },
+        {
+          "direct_jal_callsite": "0x0012aa08"
+        },
+        {
+          "direct_jal_callsite": "0x0012ab54"
+        },
+        {
+          "direct_jal_callsite": "0x0014eda4"
+        },
+        {
+          "direct_jal_callsite": "0x001501c4"
+        },
+        {
+          "direct_jal_callsite": "0x0015d5d8"
+        },
+        {
+          "direct_jal_callsite": "0x0015d808"
+        },
+        {
+          "direct_jal_callsite": "0x0015db58"
+        },
+        {
+          "direct_jal_callsite": "0x0015dbbc"
+        },
+        {
+          "direct_jal_callsite": "0x0015dcb4"
+        },
+        {
+          "direct_jal_callsite": "0x0015e024"
+        },
+        {
+          "direct_jal_callsite": "0x0015e3f8"
+        },
+        {
+          "direct_jal_callsite": "0x0015e434"
+        },
+        {
+          "direct_jal_callsite": "0x0015e584"
+        },
+        {
+          "direct_jal_callsite": "0x0015e674"
+        },
+        {
+          "direct_jal_callsite": "0x0015fd04"
+        },
+        {
+          "direct_jal_callsite": "0x00182750"
+        },
+        {
+          "direct_jal_callsite": "0x00182964"
+        },
+        {
+          "direct_jal_callsite": "0x00183acc"
+        },
+        {
+          "direct_jal_callsite": "0x00183b78"
+        },
+        {
+          "direct_jal_callsite": "0x00183c00"
+        },
+        {
+          "direct_jal_callsite": "0x00183c58"
+        },
+        {
+          "direct_jal_callsite": "0x001845b8"
+        },
+        {
+          "direct_jal_callsite": "0x0019a258"
+        },
+        {
+          "direct_jal_callsite": "0x001a72f0"
+        },
+        {
+          "direct_jal_callsite": "0x001aaa2c"
+        },
+        {
+          "direct_jal_callsite": "0x001af688"
+        },
+        {
+          "direct_jal_callsite": "0x00263624"
+        },
+        {
+          "direct_jal_callsite": "0x0028ea90"
+        },
+        {
+          "direct_jal_callsite": "0x00292a70"
+        }
+      ],
+      "callees": [
+        "0x001dad18",
+        "0x0021e740",
+        "0x0021f4b0",
+        "0x00262e68",
+        "0x002ad408"
+      ],
+      "constants": [
+        "0x80 en3d allocation; entity+50 pointer"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "b31dfa2f9b898989ebc7882638c19cc39ca7befe5a8ac279b48ea22d0132050c",
+      "open_questions": [],
+      "reused_from": "ambient1/elf-functions.json",
+      "fresh_query": false
+    },
+    {
+      "address": "0x00292a48",
+      "bounds": {
+        "entry": "0x00292a48",
+        "known_listing_end_exclusive": "0x00292e6c",
+        "known_listing_bytes": 1060,
+        "complete_scalar_listing": true
+      },
+      "role": "hatch Egg entity and configure/attach owners",
+      "arguments": "Egg loader -> v0 entity",
+      "callers": [
+        {
+          "direct_jal_callsite": "0x0029358c"
+        },
+        {
+          "direct_jal_callsite": "0x00293630"
+        }
+      ],
+      "callees": [
+        "0x001fc4c0",
+        "0x001fc760",
+        "0x00205bf8",
+        "0x00205ce0",
+        "0x002062a8",
+        "0x0021e290",
+        "0x0021e540",
+        "0x0021e620",
+        "0x0021e740",
+        "0x0021e748",
+        "0x00262f88",
+        "0x002ad408"
+      ],
+      "constants": [
+        "0x7c entity; copied authored matrix; virtual config+24"
+      ],
+      "owner_fields_read": [],
+      "owner_fields_written": [],
+      "evidence": "CONFIRMED_BY_EXE",
+      "original_window_sha256": "c42c2dbcaee38660151fe262b96f0ab2dd8e18f2534fc9714649736872f0e67c",
+      "open_questions": [],
+      "reused_from": "ambient1/elf-functions.json",
+      "fresh_query": false
+    }
+  ],
+  "vtables": [
+    {
+      "va": "0x488440",
+      "draw_slot": "0x5c",
+      "target": "0x3b93f0"
+    },
+    {
+      "va": "0x488560",
+      "draw_slot": "0x5c",
+      "target": "0x3c1148"
+    },
+    {
+      "va": "0x488078",
+      "draw_slot": "0x5c",
+      "target": "0x3b9258"
+    }
+  ],
+  "live_capture": "NOT_PERFORMED"
+}
