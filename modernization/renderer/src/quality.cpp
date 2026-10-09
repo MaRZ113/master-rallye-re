@@ -5,10 +5,13 @@
 #include <cstring>
 #include <sstream>
 #include <cfenv>
+#include <atomic>
 namespace gfx2 {
 namespace {
 struct SavedFP {fenv_t env;SavedFP(){fegetenv(&env);}~SavedFP(){fesetenv(&env);}};
 QualityPipeline* cursor_owner=nullptr;
+std::atomic<uint64_t> next_display_device_id{1};
+uint64_t allocate_display_device_id() noexcept {auto id=next_display_device_id.fetch_add(1,std::memory_order_relaxed);return id?id:next_display_device_id.fetch_add(1,std::memory_order_relaxed);}
 LRESULT CALLBACK cursor_messages(int code,WPARAM w,LPARAM l){
  if(code>=0&&cursor_owner){auto* message=reinterpret_cast<CWPRETSTRUCT*>(l);auto* owner=cursor_owner;HWND target=owner->effective.hDeviceWindow?owner->effective.hDeviceWindow:owner->focus;
   if(message->hwnd==target){if(message->message==WM_KILLFOCUS||message->message==WM_DESTROY||(message->message==WM_ACTIVATEAPP&&!message->wParam))owner->cursor_focus_lost();
@@ -21,7 +24,7 @@ public:
  bool snapshot(HWND w,WindowState& s) noexcept override {
   s={};if(!IsWindow(w))return false;MONITORINFO m{sizeof(m)};
   if(!GetWindowRect(w,&s.outer)||!GetClientRect(w,&s.client)||!GetMonitorInfoW(MonitorFromWindow(w,MONITOR_DEFAULTTONEAREST),&m))return false;
-  s.hwnd=w;s.style=GetWindowLongW(w,GWL_STYLE);s.exstyle=GetWindowLongW(w,GWL_EXSTYLE);s.menu=GetMenu(w);s.monitor=m.rcMonitor;s.work=m.rcWork;s.maximized=IsZoomed(w)!=FALSE;s.valid=true;return true;
+   s.hwnd=w;s.style=GetWindowLongW(w,GWL_STYLE);s.exstyle=GetWindowLongW(w,GWL_EXSTYLE);s.menu=GetMenu(w);s.monitor=m.rcMonitor;s.work=m.rcWork;s.maximized=IsZoomed(w)!=FALSE;s.minimized=IsIconic(w)!=FALSE;s.valid=true;return true;
  }
  bool apply(const WindowState& s,const RECT& desired,bool client,bool popup) noexcept override {
   if(!s.valid)return false;
@@ -58,7 +61,9 @@ QualityPipeline::~QualityPipeline(){begin_shutdown();}
 void QualityPipeline::begin_shutdown() noexcept {if(shutting_down_)return;shutting_down_=true;window_owned_=false;if(cursor_owner==this)cursor_owner=nullptr;if(cursor_hook_){UnhookWindowsHookEx(cursor_hook_);cursor_hook_=nullptr;}if(cursor_.hidden){SetCursor(saved_cursor_?saved_cursor_:LoadCursorW(nullptr,MAKEINTRESOURCEW(32512)));cursor_.hidden=false;}display_breadcrumb("shutdown_skip_window_restore");}
 void QualityPipeline::configure(const VisualConfig& c,bool ui_supported,UINT a,D3DDEVTYPE t,HWND w){
  config=c;adapter=a;type=t;focus=w;display=c.display_mode;display_reason=c.display_reason;aa_reason=c.aa_reason;
- pinned_width_=pinned_height_=exclusive_width_=exclusive_height_=0;exclusive_rejected_=false;window_state_="unknown";
+ normal_target_width_=normal_target_height_=exclusive_width_=exclusive_height_=0;normal_target_valid_=false;
+ planned_normal_target_width_=planned_normal_target_height_=0;planned_normal_target_valid_=planned_normal_target_update_=planned_live_resize_=false;
+ exclusive_rejected_=false;window_state_="unknown";window_transition_key_.clear();windowed_target_reason_="uninitialized";
  if(!ui_supported){config.interface_mode="Stock";config.interface_reason="ui_owner_unsupported";}
  if(c.aa_mode=="Stock")aa_reason="Mode_Stock_Samples_ignored";
 }
@@ -93,6 +98,8 @@ void QualityPipeline::cursor_tick() noexcept {
  else if(cursor_.hidden)SetCursor(nullptr); // WM_SETCURSOR may have installed the stock handle; display counter is untouched.
 }
 bool QualityPipeline::select_display(IDirect3D8& root,D3DPRESENT_PARAMETERS& p){
+ planned_normal_target_width_=planned_normal_target_height_=0;planned_normal_target_valid_=planned_normal_target_update_=planned_live_resize_=false;
+ windowed_target_reason_="not_windowed";
  display=config.display_mode;if(display=="Stock")return true;
  if(!windows_->snapshot(p.hDeviceWindow?p.hDeviceWindow:focus,current)){display_reason="invalid_window_or_monitor_stock";return false;}
  display_breadcrumb("monitor_selection_complete");
@@ -107,18 +114,28 @@ bool QualityPipeline::select_display(IDirect3D8& root,D3DPRESENT_PARAMETERS& p){
    display_reason="borderless_uses_monitor_native_size";p.BackBufferWidth=current.monitor.right-current.monitor.left;p.BackBufferHeight=current.monitor.bottom-current.monitor.top;
   }
  }else if(display=="Windowed"){
-  p.BackBufferWidth=pinned_width_?pinned_width_:(config.width?config.width:(p.BackBufferWidth?p.BackBufferWidth:current.client.right));
-  p.BackBufferHeight=pinned_height_?pinned_height_:(config.height?config.height:(p.BackBufferHeight?p.BackBufferHeight:current.client.bottom));
-  if(!p.BackBufferWidth||!p.BackBufferHeight||p.BackBufferWidth>16384||p.BackBufferHeight>16384){display_reason="invalid_effective_dimensions_stock";return false;}
-  RECT bounds{0,0,static_cast<LONG>(p.BackBufferWidth),static_cast<LONG>(p.BackBufferHeight)};
-  LONG ws=(current.style&(WS_VISIBLE|WS_DISABLED|WS_CLIPCHILDREN|WS_CLIPSIBLINGS))|WS_OVERLAPPEDWINDOW;
-  LONG ex=current.exstyle&~(WS_EX_TOPMOST|WS_EX_WINDOWEDGE|WS_EX_CLIENTEDGE|WS_EX_DLGMODALFRAME);
-  auto work=current.work.right>current.work.left?current.work:current.monitor;
-  if(!AdjustWindowRectEx(&bounds,ws,current.menu!=nullptr,ex)||bounds.right-bounds.left>work.right-work.left||bounds.bottom-bounds.top>work.bottom-work.top){display_reason="windowed_client_exceeds_work_area_stock";return false;}
-  pinned_width_=p.BackBufferWidth;pinned_height_=p.BackBufferHeight;
-  // The configured dimensions belong to the NORMAL window. A genuine OS
-  // maximize temporarily owns the client/backbuffer without changing that target.
-  if(current.maximized){p.BackBufferWidth=current.client.right-current.client.left;p.BackBufferHeight=current.client.bottom-current.client.top;}
+   const LONG client_width=current.client.right-current.client.left,client_height=current.client.bottom-current.client.top;
+   const bool client_valid=!current.minimized&&client_width>0&&client_height>0&&client_width<=16384&&client_height<=16384;
+   const bool initial_target=!normal_target_valid_;
+   UINT normal_width=normal_target_valid_?normal_target_width_:(config.width?config.width:(p.BackBufferWidth?p.BackBufferWidth:(client_valid?static_cast<UINT>(client_width):0)));
+   UINT normal_height=normal_target_valid_?normal_target_height_:(config.height?config.height:(p.BackBufferHeight?p.BackBufferHeight:(client_valid?static_cast<UINT>(client_height):0)));
+   if(!normal_width||!normal_height||normal_width>16384||normal_height>16384){display_reason="invalid_effective_dimensions_stock";return false;}
+   planned_normal_target_width_=normal_width;planned_normal_target_height_=normal_height;planned_normal_target_valid_=true;
+   planned_normal_target_update_=initial_target;windowed_target_reason_=initial_target?(config.width?"initial_configured_target":"initial_game_or_client_target"):"accepted_normal_target";
+   if(initial_target){
+    RECT bounds{0,0,static_cast<LONG>(normal_width),static_cast<LONG>(normal_height)};
+    LONG ws=(current.style&(WS_VISIBLE|WS_DISABLED|WS_CLIPCHILDREN|WS_CLIPSIBLINGS))|WS_OVERLAPPEDWINDOW;
+    LONG ex=current.exstyle&~(WS_EX_TOPMOST|WS_EX_WINDOWEDGE|WS_EX_CLIENTEDGE|WS_EX_DLGMODALFRAME);
+    auto work=current.work.right>current.work.left?current.work:current.monitor;
+    if(!AdjustWindowRectEx(&bounds,ws,current.menu!=nullptr,ex)||bounds.right-bounds.left>work.right-work.left||bounds.bottom-bounds.top>work.bottom-work.top){display_reason="windowed_initial_client_exceeds_work_area_stock";return false;}
+   }
+   if(current.minimized||!client_valid)windowed_target_reason_=initial_target?windowed_target_reason_:"minimized_or_zero_client_pinned_target";
+   if(current.maximized&&client_valid){p.BackBufferWidth=static_cast<UINT>(client_width);p.BackBufferHeight=static_cast<UINT>(client_height);windowed_target_reason_="maximized_os_client";}
+   else if(!current.minimized&&corroborated_windowed_resize(p,current)){
+    p.BackBufferWidth=static_cast<UINT>(client_width);p.BackBufferHeight=static_cast<UINT>(client_height);
+    planned_normal_target_width_=p.BackBufferWidth;planned_normal_target_height_=p.BackBufferHeight;planned_normal_target_update_=true;planned_live_resize_=true;
+    windowed_target_reason_="corroborated_live_resize";
+   }else {p.BackBufferWidth=normal_width;p.BackBufferHeight=normal_height;}
  }else {
   // Exclusive owns a display mode, never the decorated HWND's transient client.
   p.BackBufferWidth=config.width?config.width:exclusive_width_?exclusive_width_:p.BackBufferWidth?p.BackBufferWidth:desktop.Width;
@@ -150,9 +167,21 @@ bool QualityPipeline::apply_window(const D3DPRESENT_PARAMETERS& p){
  }
  if(display=="Stock"){restore_window();committed_={};window_commit_status_="not_required";return true;}
  WindowState now{};if(!windows_->snapshot(p.hDeviceWindow?p.hDeviceWindow:focus,now)){display_reason="window_commit_snapshot_failed";window_commit_status_="failed_snapshot";return false;}
- if(display=="Windowed"&&now.maximized){
-  // Windows owns placement while zoomed; no style/menu/SetWindowPos mutation.
-  current=committed_=now;window_commit_status_="maximized_os_owned";window_transition(now);return true;
+ if(display=="Windowed"){
+  const LONG client_width=now.client.right-now.client.left,client_height=now.client.bottom-now.client.top;
+  if(now.maximized||now.minimized||client_width<=0||client_height<=0){
+   // Windows owns maximized/minimized placement. A zero-size client is never
+   // adopted as a normal target and must not trigger a window commit.
+   current=committed_=now;window_commit_status_=now.maximized?"maximized_os_owned":"minimized_or_zero_client_os_owned";window_transition(now);return true;
+  }
+  const bool normal_style=committed_.valid&&now.hwnd==committed_.hwnd&&now.style==committed_.style&&now.exstyle==committed_.exstyle&&now.menu==committed_.menu&&
+   (now.style&WS_CAPTION)==WS_CAPTION&&(now.style&WS_POPUP)==0;
+  const bool client_matches=client_width==static_cast<LONG>(p.BackBufferWidth)&&client_height==static_cast<LONG>(p.BackBufferHeight);
+  if(normal_style&&client_matches){
+   // A normal user move or resize owns outer placement. Accept its fresh
+   // snapshot instead of recentering because the outer rectangle changed.
+   current=committed_=now;window_commit_status_="windowed_os_geometry_accepted";window_transition(now);display_breadcrumb("windowed_os_geometry_accepted");return true;
+  }
  }
  bool unchanged=committed_.valid&&now.hwnd==committed_.hwnd&&now.style==committed_.style&&now.exstyle==committed_.exstyle&&now.menu==committed_.menu&&
   !std::memcmp(&now.outer,&committed_.outer,sizeof(RECT))&&!std::memcmp(&now.client,&committed_.client,sizeof(RECT))&&
@@ -170,8 +199,12 @@ bool QualityPipeline::apply_window(const D3DPRESENT_PARAMETERS& p){
 }
 void QualityPipeline::window_transition(const WindowState& state) noexcept {
  if(display!="Windowed"||!state.valid)return;
- const char* next=state.maximized?"maximized":"normal";if(window_state_==next)return;window_state_=next;
- try{session().write("{\"type\":\"window_state_transition\",\"window_state\":"+quote(next)+",\"normal_target\":{\"width\":"+std::to_string(pinned_width_)+",\"height\":"+std::to_string(pinned_height_)+"},\"actual_client\":{\"width\":"+std::to_string(state.client.right-state.client.left)+",\"height\":"+std::to_string(state.client.bottom-state.client.top)+"},\"effective_backbuffer\":{\"width\":"+std::to_string(effective.BackBufferWidth)+",\"height\":"+std::to_string(effective.BackBufferHeight)+"}}");}catch(...){}
+ const char* next=state.maximized?"maximized":(state.minimized?"minimized":"normal");
+ const LONG client_width=state.client.right-state.client.left,client_height=state.client.bottom-state.client.top;
+ const std::string key=std::string(next)+":"+std::to_string(normal_target_width_)+"x"+std::to_string(normal_target_height_)+":"+
+  std::to_string(client_width)+"x"+std::to_string(client_height)+":"+std::to_string(effective.BackBufferWidth)+"x"+std::to_string(effective.BackBufferHeight);
+ if(window_transition_key_==key)return;window_transition_key_=key;window_state_=next;
+ try{session().write("{\"type\":\"window_state_transition\",\"device_lifetime_id\":"+std::to_string(device_lifetime_id_)+",\"successful_reset_epoch\":"+std::to_string(successful_reset_epoch_)+",\"window_state\":"+quote(next)+",\"normal_target\":{\"width\":"+std::to_string(normal_target_width_)+",\"height\":"+std::to_string(normal_target_height_)+"},\"actual_client\":{\"width\":"+std::to_string(client_width)+",\"height\":"+std::to_string(client_height)+"},\"effective_backbuffer\":{\"width\":"+std::to_string(effective.BackBufferWidth)+",\"height\":"+std::to_string(effective.BackBufferHeight)+"},\"target_source\":"+quote(windowed_target_reason_)+"}");}catch(...){}
 }
 D3DPRESENT_PARAMETERS QualityPipeline::plan(IDirect3D8& root,const D3DPRESENT_PARAMETERS& source){
  display_breadcrumb("display_plan_begin");auto logical=source;
@@ -202,17 +235,39 @@ D3DPRESENT_PARAMETERS QualityPipeline::plan(IDirect3D8& root,const D3DPRESENT_PA
  }else if(aa_hazard)aa_reason="unreviewed_present_arguments_stock_on_next_reset";
  display_breadcrumb("presentation_transform_complete");return p;
 }
+bool QualityPipeline::corroborated_windowed_resize(const D3DPRESENT_PARAMETERS& requested,const WindowState& state) const noexcept {
+ if(display!="Windowed"||committing_||shutting_down_||!state.valid||state.maximized||state.minimized||!normal_target_valid_||!committed_.valid||state.hwnd!=committed_.hwnd)return false;
+ const LONG width=state.client.right-state.client.left,height=state.client.bottom-state.client.top;
+ if(width<=0||height<=0||width>16384||height>16384)return false;
+ if(requested.BackBufferWidth!=static_cast<UINT>(width)||requested.BackBufferHeight!=static_cast<UINT>(height))return false;
+ if(width==static_cast<LONG>(normal_target_width_)&&height==static_cast<LONG>(normal_target_height_))return false;
+ const LONG old_width=committed_.client.right-committed_.client.left,old_height=committed_.client.bottom-committed_.client.top;
+ if(width==old_width&&height==old_height)return false;
+ // The engine request must match a real normal-client transition while the
+ // last accepted style, extended style, menu and HWND identity remain intact.
+ return state.style==committed_.style&&state.exstyle==committed_.exstyle&&state.menu==committed_.menu&&
+        (state.style&WS_CAPTION)==WS_CAPTION&&(state.style&WS_POPUP)==0;
+}
+void QualityPipeline::accept_planned_windowed_target() noexcept {
+ if(display=="Windowed"&&planned_normal_target_valid_&&planned_normal_target_update_){
+  normal_target_width_=planned_normal_target_width_;normal_target_height_=planned_normal_target_height_;normal_target_valid_=true;
+  if(planned_live_resize_)++windowed_resize_admissions;
+ }
+ planned_normal_target_valid_=planned_normal_target_update_=planned_live_resize_=false;
+}
 D3DPRESENT_PARAMETERS QualityPipeline::without_aa(D3DPRESENT_PARAMETERS p) const noexcept {p.MultiSampleType=fallback_.MultiSampleType;p.SwapEffect=fallback_.SwapEffect;p.BackBufferCount=fallback_.BackBufferCount;p.Flags=fallback_.Flags;return p;}
 HRESULT QualityPipeline::create(IDirect3D8& root,DWORD flags,D3DPRESENT_PARAMETERS* pp,IDirect3DDevice8** out){
+ if(!device_lifetime_id_)device_lifetime_id_=allocate_display_device_id();
  D3DPRESENT_PARAMETERS input{};bool have=pp&&safe_copy(&input,pp,sizeof(input));
  if(!active()||!have){if(have){requested=fallback_=input;}HRESULT hr=root.CreateDevice(adapter,type,focus,flags,pp,out);D3DPRESENT_PARAMETERS post{};if(have&&safe_copy(&post,pp,sizeof(post)))native_attempt("CreateDevice",input,post,hr);if(SUCCEEDED(hr)&&pp&&safe_copy(&effective,pp,sizeof(effective)))valid=true;return hr;}
  auto candidate=plan(root,input);attempts=0;if(exclusive_rejected_){native_attempt("CreateDevice_validation_rejected",input,input,D3DERR_NOTAVAILABLE);return D3DERR_NOTAVAILABLE;}
  attempts=1;auto sent=candidate;auto invoke=[&](){auto before=sent;display_breadcrumb("native_CreateDevice_begin");auto result=root.CreateDevice(adapter,type,focus,flags,&sent,out);native_attempt("CreateDevice",before,sent,result);display_breadcrumb("native_CreateDevice_end",result);return result;};HRESULT hr=invoke();
  if(FAILED(hr)&&!lost(hr)&&candidate.MultiSampleType!=fallback_.MultiSampleType){candidate=without_aa(candidate);sent=candidate;++attempts;aa_reason="native_create_rejected_msaa_stock";hr=invoke();}
  if(FAILED(hr)&&!lost(hr)&&config.display_mode!="ExclusiveFullscreen"&&std::memcmp(&candidate,&fallback_,sizeof(candidate))){display="Stock";display_reason="native_create_rejected_display_stock";sent=fallback_;++attempts;hr=invoke();}
- if(SUCCEEDED(hr)){effective=sent;valid=true;modified=std::memcmp(&effective,&fallback_,sizeof(effective))!=0;if(display=="ExclusiveFullscreen"){exclusive_width_=sent.BackBufferWidth;exclusive_height_=sent.BackBufferHeight;}safe_copy(pp,&sent,sizeof(sent));if(out&&*out)observe(**out);apply_window(sent);}return hr;
+ if(SUCCEEDED(hr)){effective=sent;valid=true;modified=std::memcmp(&effective,&fallback_,sizeof(effective))!=0;if(display=="ExclusiveFullscreen"){exclusive_width_=sent.BackBufferWidth;exclusive_height_=sent.BackBufferHeight;}accept_planned_windowed_target();safe_copy(pp,&sent,sizeof(sent));if(out&&*out)observe(**out);apply_window(sent);}else{planned_normal_target_valid_=planned_normal_target_update_=planned_live_resize_=false;}return hr;
 }
 HRESULT QualityPipeline::reset(IDirect3D8& root,IDirect3DDevice8& device,D3DPRESENT_PARAMETERS* pp){
+ if(!device_lifetime_id_)device_lifetime_id_=allocate_display_device_id();
  if(committing_){
   ++window_reset_echoes;D3DPRESENT_PARAMETERS input{};bool have=pp&&safe_copy(&input,pp,sizeof(input));
   // Probe uses the same planner, but cannot own or mutate a window or accepted state.
@@ -231,20 +286,37 @@ HRESULT QualityPipeline::reset(IDirect3D8& root,IDirect3DDevice8& device,D3DPRES
  const bool old_valid=valid,old_modified=modified,old_domain=viewport_domain_known,old_logical=viewport_logical;
  auto failed=[&](){requested=old_requested;effective=old_effective;fallback_=old_fallback;display=old_display;current=old_current;valid=old_valid;modified=old_modified;viewport_domain_known=old_domain;viewport_logical=old_logical;};
  D3DPRESENT_PARAMETERS input{};bool have=pp&&safe_copy(&input,pp,sizeof(input));
- if(!active()||!have){if(have){requested=fallback_=input;}++native_reset_calls;HRESULT hr=device.Reset(pp);D3DPRESENT_PARAMETERS post{};if(have&&safe_copy(&post,pp,sizeof(post)))native_attempt("Reset",input,post,hr);if(SUCCEEDED(hr)&&pp&&safe_copy(&effective,pp,sizeof(effective)))valid=true;if(FAILED(hr))failed();return hr;}
+  if(!active()||!have){if(have){requested=fallback_=input;}++native_reset_calls;HRESULT hr=device.Reset(pp);if(SUCCEEDED(hr))++successful_reset_epoch_;D3DPRESENT_PARAMETERS post{};if(have&&safe_copy(&post,pp,sizeof(post)))native_attempt("Reset",input,post,hr);if(SUCCEEDED(hr)&&pp&&safe_copy(&effective,pp,sizeof(effective)))valid=true;if(FAILED(hr))failed();return hr;}
  auto candidate=plan(root,input);attempts=0;if(exclusive_rejected_){native_attempt("Reset_validation_rejected",input,input,D3DERR_NOTAVAILABLE);failed();return D3DERR_NOTAVAILABLE;}
- attempts=1;auto sent=candidate;auto invoke=[&](){auto before=sent;display_breadcrumb("native_Reset_begin");++native_reset_calls;auto result=device.Reset(&sent);native_attempt("Reset",before,sent,result);display_breadcrumb("native_Reset_end",result);return result;};HRESULT hr=invoke();
+  attempts=1;auto sent=candidate;auto invoke=[&](){auto before=sent;display_breadcrumb("native_Reset_begin");++native_reset_calls;auto result=device.Reset(&sent);if(SUCCEEDED(result))++successful_reset_epoch_;native_attempt("Reset",before,sent,result);display_breadcrumb("native_Reset_end",result);return result;};HRESULT hr=invoke();
  if(FAILED(hr)&&!lost(hr)&&candidate.MultiSampleType!=fallback_.MultiSampleType){candidate=without_aa(candidate);sent=candidate;++attempts;aa_reason="native_reset_rejected_msaa_stock";hr=invoke();}
  if(FAILED(hr)&&!lost(hr)&&config.display_mode!="ExclusiveFullscreen"&&std::memcmp(&candidate,&fallback_,sizeof(candidate))){display="Stock";display_reason="native_reset_rejected_display_stock";sent=fallback_;++attempts;hr=invoke();}
- if(SUCCEEDED(hr)){effective=sent;valid=true;modified=std::memcmp(&effective,&fallback_,sizeof(effective))!=0;if(display=="ExclusiveFullscreen"){exclusive_width_=sent.BackBufferWidth;exclusive_height_=sent.BackBufferHeight;}safe_copy(pp,&sent,sizeof(sent));observe(device);ui_projection_live=false;apply_window(sent);}else failed();return hr;
+ if(SUCCEEDED(hr)){effective=sent;valid=true;modified=std::memcmp(&effective,&fallback_,sizeof(effective))!=0;if(display=="ExclusiveFullscreen"){exclusive_width_=sent.BackBufferWidth;exclusive_height_=sent.BackBufferHeight;}accept_planned_windowed_target();safe_copy(pp,&sent,sizeof(sent));observe(device);ui_projection_live=false;apply_window(sent);}else{failed();planned_normal_target_valid_=planned_normal_target_update_=planned_live_resize_=false;}return hr;
 }
 void QualityPipeline::cooperative_result(HRESULT hr) noexcept {
  if(cooperative_.known&&cooperative_.value==hr)return;cooperative_.set(hr);if(cooperative_records_>=64)return;++cooperative_records_;
- try{session().write("{\"type\":\"display_cooperative_transition\",\"display\":"+quote(display)+",\"hresult\":"+std::to_string(static_cast<uint32_t>(hr))+",\"policy\":\"forward_unchanged_game_owns_retry\"}");}catch(...){}
+ try{session().write("{\"type\":\"display_cooperative_transition\",\"device_lifetime_id\":"+std::to_string(device_lifetime_id_)+",\"successful_reset_epoch\":"+std::to_string(successful_reset_epoch_)+",\"display\":"+quote(display)+",\"hresult\":"+std::to_string(static_cast<uint32_t>(hr))+",\"policy\":\"forward_unchanged_game_owns_retry\",\"window_context\":"+window_context_json(effective.hDeviceWindow?effective.hDeviceWindow:focus)+"}");}catch(...){}
+}
+std::string QualityPipeline::window_context_json(HWND hwnd) const {
+ try{
+  WindowState state{};bool have=windows_&&windows_->snapshot(hwnd,state)&&state.valid;
+  auto handle=[](HWND w){return static_cast<uint64_t>(reinterpret_cast<uintptr_t>(w));};
+  std::ostringstream o;o<<"{\"device_window\":"<<handle(hwnd)<<",\"focus_window\":"<<handle(focus)
+   <<",\"foreground_window\":"<<handle(GetForegroundWindow())<<",\"active_window\":"<<handle(GetActiveWindow())
+   <<",\"focus_handle\":"<<handle(GetFocus());
+  if(have)o<<",\"style\":"<<static_cast<uint32_t>(state.style)<<",\"exstyle\":"<<static_cast<uint32_t>(state.exstyle)
+   <<",\"is_zoomed\":"<<(state.maximized?"true":"false")<<",\"is_iconic\":"<<(state.minimized?"true":"false")
+   <<",\"window_rect\":["<<state.outer.left<<','<<state.outer.top<<','<<state.outer.right<<','<<state.outer.bottom<<']'
+   <<",\"client_rect\":["<<state.client.left<<','<<state.client.top<<','<<state.client.right<<','<<state.client.bottom<<']';
+  else o<<",\"style\":null,\"exstyle\":null,\"is_zoomed\":null,\"is_iconic\":null,\"window_rect\":null,\"client_rect\":null";
+  o<<",\"window_commit_in_progress\":"<<(committing_?"true":"false")
+   <<",\"game_windowed_flag_0x1c\":null,\"game_windowed_flag_reason\":\"no_validated_runtime_pointer_owner\"}";
+  return o.str();
+ }catch(...){return "null";}
 }
 void QualityPipeline::native_attempt(const char* operation,const D3DPRESENT_PARAMETERS& before,const D3DPRESENT_PARAMETERS& after,HRESULT hr) noexcept {
  ++attempt_sequence_;if(attempt_records_>=128)return;++attempt_records_;
- try{session().write("{\"type\":\"display_native_attempt\",\"sequence\":"+std::to_string(attempt_sequence_)+",\"operation\":"+quote(operation)+",\"display_requested\":"+quote(config.display_mode)+",\"display_effective\":"+quote(display)+",\"reason\":"+quote(display_reason)+",\"aa_requested\":"+quote(config.aa_mode)+",\"aa_requested_samples\":"+std::to_string(config.samples)+",\"aa_reason\":"+quote(aa_reason)+",\"requested\":"+pp_json(requested)+",\"sent\":"+pp_json(before)+",\"returned\":"+pp_json(after)+",\"hresult\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
+ try{HWND hwnd=before.hDeviceWindow?before.hDeviceWindow:(after.hDeviceWindow?after.hDeviceWindow:focus);session().write("{\"type\":\"display_native_attempt\",\"device_lifetime_id\":"+std::to_string(device_lifetime_id_)+",\"successful_reset_epoch\":"+std::to_string(successful_reset_epoch_)+",\"sequence\":"+std::to_string(attempt_sequence_)+",\"operation\":"+quote(operation)+",\"display_requested\":"+quote(config.display_mode)+",\"display_effective\":"+quote(display)+",\"reason\":"+quote(display_reason)+",\"windowed_target_reason\":"+quote(windowed_target_reason_)+",\"windowed_target\":{\"width\":"+std::to_string(normal_target_width_)+",\"height\":"+std::to_string(normal_target_height_)+"},\"aa_requested\":"+quote(config.aa_mode)+",\"aa_requested_samples\":"+std::to_string(config.samples)+",\"aa_reason\":"+quote(aa_reason)+",\"requested\":"+pp_json(requested)+",\"sent\":"+pp_json(before)+",\"returned\":"+pp_json(after)+",\"window_context\":"+window_context_json(hwnd)+",\"hresult\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
 }
 void QualityPipeline::observe(IDirect3DDevice8& device) noexcept {
  if(!active())return;backbuffer_known=depth_known=false;IDirect3DSurface8* surface=nullptr;
@@ -289,7 +361,7 @@ bool ui_projection(const D3DMATRIX& in,double aspect,D3DMATRIX& out) noexcept {
 }
 std::string QualityPipeline::json() const {
  SavedFP fp;
- std::ostringstream o;o<<"{\"window_state\":"<<quote(window_state_)<<",\"normal_target\":{\"width\":"<<pinned_width_<<",\"height\":"<<pinned_height_<<"},\"actual_client\":{\"width\":"<<(committed_.client.right-committed_.client.left)<<",\"height\":"<<(committed_.client.bottom-committed_.client.top)<<"},\"effective_backbuffer\":{\"width\":"<<effective.BackBufferWidth<<",\"height\":"<<effective.BackBufferHeight<<"},\"display_requested\":"<<quote(config.display_mode)<<",\"display_effective\":"<<quote(display)<<",\"display_reason\":"<<quote(display_reason)<<",\"cursor_auto_hide_effective\":"<<(config.auto_hide_cursor?"true":"false")<<",\"cursor_watch_installed\":"<<(cursor_hook_?"true":"false")<<",\"cursor_reason\":"<<quote(config.cursor_reason)<<",\"window_commit_status\":"<<quote(window_commit_status_)<<",\"native_reset_calls\":"<<native_reset_calls<<",\"window_reset_echoes\":"<<window_reset_echoes<<",\"window_reset_echoes_suppressed\":"<<window_reset_echoes_suppressed<<",\"deferred_resets\":"<<deferred_resets<<",\"windowed_target_width\":"<<pinned_width_<<",\"windowed_target_height\":"<<pinned_height_<<",\"exclusive_target\":{\"width\":"<<exclusive_width_<<",\"height\":"<<exclusive_height_<<"},\"aa_effective\":"<<quote(valid&&effective.MultiSampleType!=D3DMULTISAMPLE_NONE?"MSAA":"Stock")<<",\"aa_effective_samples\":"<<(valid?effective.MultiSampleType:0)<<",\"aa_requested\":"<<quote(config.aa_mode)<<",\"aa_requested_samples\":"<<config.samples<<",\"aa_swap_effect\":"<<quote(valid&&effective.SwapEffect==D3DSWAPEFFECT_DISCARD?"DISCARD":valid&&effective.SwapEffect==D3DSWAPEFFECT_COPY?"COPY":"OTHER")<<",\"aa_reason\":"<<quote(aa_reason)<<",\"attempts\":"<<attempts<<",\"requested\":"<<pp_json(requested)<<",\"logical_baseline\":"<<pp_json(fallback_)<<",\"effective\":"<<(valid?pp_json(effective):"null")<<",\"monitor_rect\":["<<current.monitor.left<<','<<current.monitor.top<<','<<current.monitor.right<<','<<current.monitor.bottom<<"],\"physical_backbuffer\":";
+ std::ostringstream o;o<<"{\"device_lifetime_id\":"<<device_lifetime_id_<<",\"successful_reset_epoch\":"<<successful_reset_epoch_<<",\"window_state\":"<<quote(window_state_)<<",\"normal_target\":{\"width\":"<<normal_target_width_<<",\"height\":"<<normal_target_height_<<"},\"actual_client\":{\"width\":"<<(committed_.client.right-committed_.client.left)<<",\"height\":"<<(committed_.client.bottom-committed_.client.top)<<"},\"effective_backbuffer\":{\"width\":"<<effective.BackBufferWidth<<",\"height\":"<<effective.BackBufferHeight<<"},\"display_requested\":"<<quote(config.display_mode)<<",\"display_effective\":"<<quote(display)<<",\"display_reason\":"<<quote(display_reason)<<",\"cursor_auto_hide_effective\":"<<(config.auto_hide_cursor?"true":"false")<<",\"cursor_watch_installed\":"<<(cursor_hook_?"true":"false")<<",\"cursor_reason\":"<<quote(config.cursor_reason)<<",\"window_commit_status\":"<<quote(window_commit_status_)<<",\"native_reset_calls\":"<<native_reset_calls<<",\"window_reset_echoes\":"<<window_reset_echoes<<",\"window_reset_echoes_suppressed\":"<<window_reset_echoes_suppressed<<",\"deferred_resets\":"<<deferred_resets<<",\"windowed_target_width\":"<<normal_target_width_<<",\"windowed_target_height\":"<<normal_target_height_<<",\"windowed_target_reason\":"<<quote(windowed_target_reason_)<<",\"windowed_resize_admissions\":"<<windowed_resize_admissions<<",\"exclusive_target\":{\"width\":"<<exclusive_width_<<",\"height\":"<<exclusive_height_<<"},\"aa_effective\":"<<quote(valid&&effective.MultiSampleType!=D3DMULTISAMPLE_NONE?"MSAA":"Stock")<<",\"aa_effective_samples\":"<<(valid?effective.MultiSampleType:0)<<",\"aa_requested\":"<<quote(config.aa_mode)<<",\"aa_requested_samples\":"<<config.samples<<",\"aa_swap_effect\":"<<quote(valid&&effective.SwapEffect==D3DSWAPEFFECT_DISCARD?"DISCARD":valid&&effective.SwapEffect==D3DSWAPEFFECT_COPY?"COPY":"OTHER")<<",\"aa_reason\":"<<quote(aa_reason)<<",\"attempts\":"<<attempts<<",\"requested\":"<<pp_json(requested)<<",\"logical_baseline\":"<<pp_json(fallback_)<<",\"effective\":"<<(valid?pp_json(effective):"null")<<",\"monitor_rect\":["<<current.monitor.left<<','<<current.monitor.top<<','<<current.monitor.right<<','<<current.monitor.bottom<<"],\"physical_backbuffer\":";
  if(backbuffer_known)o<<"{\"width\":"<<backbuffer.Width<<",\"height\":"<<backbuffer.Height<<",\"format\":"<<backbuffer.Format<<",\"multisample\":"<<backbuffer.MultiSampleType<<'}';else o<<"null";
  o<<",\"physical_depth\":";if(depth_known)o<<"{\"width\":"<<depth.Width<<",\"height\":"<<depth.Height<<",\"format\":"<<depth.Format<<",\"multisample\":"<<depth.MultiSampleType<<'}';else o<<"null";
  double aspect=valid&&effective.BackBufferHeight?double(effective.BackBufferWidth)/effective.BackBufferHeight:0;

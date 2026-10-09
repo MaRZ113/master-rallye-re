@@ -1,0 +1,67 @@
+{
+  "phase": "R-GFX5-7 Display Lifecycle Finalization",
+  "repository": "master-rallye-re-general",
+  "branch": "master",
+  "starting_head": "f43d720e08961791ad46875af0d15430ed555e02",
+  "pc_visual_pilot1_source_commit": "f43d720e08961791ad46875af0d15430ed555e02",
+  "primary_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "status": "READY_FOR_DIAGNOSTIC_RUNTIME",
+  "runtime_claims": "PreserveMargins v2 is user-confirmed from prior runtime; this pass did not launch the game; Exclusive causal owner remains unknown.",
+  "included_files": [
+    {
+      "path": "modernization/renderer/README.md",
+      "sha256": "c32086af54262db3be48acf1b5f62827503ab6e3d16157971a2498f649eb8584",
+      "size": 2663
+    },
+    {
+      "path": "modernization/renderer/MRRRenderer.ini.example",
+      "sha256": "19597c7b79125bff96ed53183368c1a439a38674c4146d1e8ea2a262c7dcb58e",
+      "size": 2524
+    },
+    {
+      "path": "modernization/renderer/docs/r-gfx5-7/implementation.md",
+      "sha256": "50deaf56df223d28ce0bb11a0aae14f39cadb85a5558dbec6fa6efe84a9a35d4",
+      "size": 4952
+    },
+    {
+      "path": "modernization/renderer/docs/r-gfx5-7/exclusive-static-analysis.md",
+      "sha256": "9fb21d1b44774f3ad83cb8ee201e5b1816f084da9ea24ca2e86e2d5d1044e0d5",
+      "size": 4007
+    },
+    {
+      "path": "modernization/renderer/docs/r-gfx5-7/runtime-handoff.md",
+      "sha256": "874c7db97e3a28419599372e6aab273db7544ff4f809326236756119d5a12fb7",
+      "size": 3417
+    },
+    {
+      "path": "modernization/renderer/docs/r-gfx5-7/validation.md",
+      "sha256": "45012e388bc81bda2db8f783ea71c6270a7d94bb92044316b03ce606056a7473",
+      "size": 2980
+    },
+    {
+      "path": "modernization/renderer/research/pc-visual-pilot1/HANDOFF.md",
+      "sha256": "5a65caea45b26072809fcdab92b9845b50cb097f247f6dc5f2f99f990e5450a3",
+      "size": 3189
+    },
+    {
+      "path": "modernization/renderer/research/pc-visual-pilot1/cpu-upload-provenance.md",
+      "sha256": "b44122f1c53dcad0c3d33c2ae674cef04b2d5da4e8e78f6c4f733a0ca356c7a0",
+      "size": 5273
+    },
+    {
+      "path": "modernization/renderer/research/pc-visual-pilot1/known-limitations.md",
+      "sha256": "32df47139eb848114ab7d62b16cd0e00473c04fc063d9d8007c1e99c721fefb6",
+      "size": 1209
+    },
+    {
+      "path": "modernization/renderer/research/pc-visual-pilot1/validation.json",
+      "sha256": "6cb64427db51a568b39d4e85147527db8482a45d4954de3f3bceed4bfbbf7f04",
+      "size": 5760
+    },
+    {
+      "path": "modernization/renderer/research/pc-visual-pilot1/final-report.md",
+      "sha256": "9f9937d97b32b27d2df67888f536c170ea6c66dab15443265d1243ce29387cbe",
+      "size": 7039
+    }
+  ]
+}

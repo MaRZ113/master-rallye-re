@@ -4,9 +4,12 @@
 ConfigVersion=1
 
 [Display]
-; Windowed Width/Height are the NORMAL target; 0/0 pins the first game size.
-; Maximized uses actual CLIENT size without changing the normal target.
+; Width/Height set the normal CLIENT target; 0/0 adopts the first accepted game/client size.
+; A normal drag-resize updates that target only when HWND client and game Reset agree.
+; Maximized uses the actual OS CLIENT size; Restore returns to the latest normal target.
+; Minimize/zero-size Reset requests never replace the normal target.
 ; Exclusive validates a display target; 0/0 keeps the first accepted game mode.
+; DEVICELOST is forwarded unchanged and recorded with bounded window/device context.
 ; Borderless 0/0 uses the native monitor size.
 ; 0 = Stock
 ; 1 = Windowed
@@ -24,8 +27,8 @@ CursorHideDelayMs=1500
 
 [Widescreen]
 ; Centered4x3 is the stable recommended widescreen mode.
-; PreserveMargins is experimental until the v2 runtime retest passes.
-; V2 uses a draw-local WORLD copy; packet coordinates remain untouched.
+; PreserveMargins v2 is runtime-confirmed; it uses a draw-local WORLD copy.
+; Packet coordinates remain untouched; animated margin identity is retained.
 ; Source45 frontend preview correction is separate from gameplay VFOV.
 ; 0 = Stock
 ; 1 = Centered4x3

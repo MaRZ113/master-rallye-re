@@ -3,7 +3,7 @@
 #include "compatibility.hpp"
 #include <memory>
 namespace gfx2 {
-struct WindowState {HWND hwnd=nullptr;LONG style=0,exstyle=0;HMENU menu=nullptr;RECT outer{},client{},monitor{},work{};bool valid=false,maximized=false;};
+struct WindowState {HWND hwnd=nullptr;LONG style=0,exstyle=0;HMENU menu=nullptr;RECT outer{},client{},monitor{},work{};bool valid=false,maximized=false,minimized=false;};
 class WindowApi {
 public: virtual ~WindowApi()=default;
  virtual bool snapshot(HWND,WindowState&) noexcept=0;
@@ -45,15 +45,24 @@ public:
  bool cursor_watch_installed() const noexcept {return cursor_hook_!=nullptr;}
  bool window_commit_active() const noexcept {return committing_;}
  uint64_t native_reset_calls=0,window_reset_echoes=0,window_reset_echoes_suppressed=0,deferred_resets=0;
+ uint64_t windowed_resize_admissions=0;
 private:
  CursorIdle cursor_;HCURSOR saved_cursor_=nullptr;HHOOK cursor_hook_=nullptr;
  WindowApi* windows_;bool window_owned_=false,committing_=false,shutting_down_=false;D3DPRESENT_PARAMETERS fallback_{};
- WindowState committed_{};UINT pinned_width_=0,pinned_height_=0;
+ WindowState committed_{};
+ UINT normal_target_width_=0,normal_target_height_=0;bool normal_target_valid_=false;
+ UINT planned_normal_target_width_=0,planned_normal_target_height_=0;
+ bool planned_normal_target_valid_=false,planned_normal_target_update_=false,planned_live_resize_=false;
  UINT exclusive_width_=0,exclusive_height_=0;bool exclusive_rejected_=false;
- uint64_t attempt_sequence_=0;unsigned attempt_records_=0,cooperative_records_=0;Known<HRESULT> cooperative_;
+ uint64_t attempt_sequence_=0,device_lifetime_id_=0,successful_reset_epoch_=0;unsigned attempt_records_=0,cooperative_records_=0;Known<HRESULT> cooperative_;
  void native_attempt(const char*,const D3DPRESENT_PARAMETERS&,const D3DPRESENT_PARAMETERS&,HRESULT) noexcept;
  std::string window_commit_status_="not_required";
  std::string window_state_="unknown";
+ std::string windowed_target_reason_="uninitialized";
+ std::string window_transition_key_;
+ std::string window_context_json(HWND) const;
+ bool corroborated_windowed_resize(const D3DPRESENT_PARAMETERS&,const WindowState&) const noexcept;
+ void accept_planned_windowed_target() noexcept;
  void window_transition(const WindowState&) noexcept;
  bool select_display(IDirect3D8&,D3DPRESENT_PARAMETERS&);
  bool apply_window(const D3DPRESENT_PARAMETERS&);

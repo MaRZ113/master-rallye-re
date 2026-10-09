@@ -23,7 +23,7 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('session*.jsonl'):
             with path.open(encoding='utf-8-sig') as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-6':
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-7':
                 matching.append(path)
         self.assertTrue(matching,'Run current native suites before Python')
         # Anchor IDs are session-local. Repeated identical native builds must
@@ -35,11 +35,16 @@ class QualityResearchTests(unittest.TestCase):
         events=[r for r in self.current_native_session() if r.get('type')=='window_state_transition']
         maximized=[r for r in events if r.get('window_state')=='maximized']
         self.assertGreaterEqual(len(maximized),4)
-        for r in maximized:
-            self.assertEqual(r['normal_target'],dict(width=1280,height=720))
-            self.assertEqual(r['actual_client'],r['effective_backbuffer'])
-        triples=[events[i:i+3] for i in range(len(events)-2)]
-        self.assertTrue(any([r['window_state'] for r in t]==['normal','maximized','normal'] for t in triples))
+        by_device={}
+        for r in events:by_device.setdefault(r['device_lifetime_id'],[]).append(r)
+        for device_events in by_device.values():
+            for i,r in enumerate(device_events):
+                if r['window_state']!='maximized':continue
+                self.assertEqual(r['actual_client'],r['effective_backbuffer'])
+                prior=[x for x in device_events[:i] if x['window_state']=='normal']
+                self.assertTrue(prior)
+                self.assertEqual(r['normal_target'],prior[-1]['normal_target'])
+        self.assertTrue(any(any([r['window_state'] for r in group[i:i+3]]==['normal','maximized','normal'] for i in range(len(group)-2)) for group in by_device.values()))
 
     def test_native_consumer_anchor_provenance_preserves_animation(self):
         rows=[r for r in self.current_native_session() if r.get('type')=='ui_packet_lifetime' and r.get('event')=='consume']
@@ -121,7 +126,7 @@ class QualityResearchTests(unittest.TestCase):
         matches=[]
         for path in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             with path.open(encoding='utf-8-sig') as f: head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-6':
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-7':
                 rows=read_jsonl(path)
                 if any(r.get('type')=='draw' and r.get('feature_mask',0)&128 for r in rows):matches.append((path.stat().st_mtime_ns,rows))
         self.assertTrue(matches)
@@ -168,7 +173,7 @@ class QualityResearchTests(unittest.TestCase):
                 mappings=[l for l in comments if re.match(r'; \d+ = ',l)]
                 self.assertEqual([int(re.match(r'; (\d+) = ',l)[1]) for l in mappings],list(range(options)))
                 for line in mappings:self.assertNotRegex(line,r',|\|')
-            self.assertIn('PreserveMargins is experimental',text)
+            self.assertIn('PreserveMargins v2 is runtime-confirmed',text)
         preset=configparser.ConfigParser();preset.read(ROOT/'research/r-gfx5/stock-plus.ini')
         self.assertEqual(preset['Widescreen']['InterfaceMode'],'1')
         self.assertEqual(preset['Compatibility']['MenuFreezeFix'],'1')
@@ -231,7 +236,7 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             with path.open() as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-6':frames.append(read_jsonl(path))
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-7':frames.append(read_jsonl(path))
         self.assertTrue(frames,'Native production wrapper must emit its positive capture')
         frame=next(f for f in reversed(frames) if (f[0]['quality'].get('effective') or {}).get('multisample')==4);self.assertTrue(frame[-1]['complete']);self.assertFalse(frame[-1]['truncated'])
         pp=frame[0]['quality']['effective'];self.assertEqual((pp['width'],pp['height'],pp['multisample'],pp['swap_effect']),(1920,1080,4,1))

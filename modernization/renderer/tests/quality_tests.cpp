@@ -78,11 +78,11 @@ void reset_echo_shutdown(){
  Root root;Windows windows;QualityPipeline q(windows);VisualConfig c;auto p=stock();IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(q.create(root,0,&p,&out)==S_OK);
  c.display_mode="Windowed";c.width=1280;c.height=720;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
  HRESULT echo=E_FAIL;windows.on_apply=[&](){auto same=stock();echo=q.reset(root,root.dev,&same);CHECK(same.BackBufferWidth==1280);};
- auto input=stock();CHECK(q.reset(root,root.dev,&input)==S_OK&&echo==S_OK&&root.dev.resets.size()==1&&q.window_reset_echoes_suppressed==1&&q.native_reset_calls==1);
+ auto input=stock();CHECK(q.reset(root,root.dev,&input)==S_OK&&echo==S_OK&&root.dev.resets.size()==1&&q.window_reset_echoes_suppressed==1&&q.native_reset_calls==1&&q.json().find("\"successful_reset_epoch\":1")!=std::string::npos);
  c.display_mode="Borderless";q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
  windows.on_apply=[&](){auto different=stock();different.EnableAutoDepthStencil=FALSE;echo=q.reset(root,root.dev,&different);};
  input=stock();CHECK(q.reset(root,root.dev,&input)==S_OK&&echo==D3DERR_INVALIDCALL&&root.dev.resets.size()==2&&q.deferred_resets==1);
- auto accepted=q.effective;root.dev.result=D3DERR_DEVICELOST;input=stock();CHECK(q.reset(root,root.dev,&input)==D3DERR_DEVICELOST&&presentation_equivalent(q.effective,accepted));
+ auto accepted=q.effective;root.dev.result=D3DERR_DEVICELOST;input=stock();CHECK(q.reset(root,root.dev,&input)==D3DERR_DEVICELOST&&presentation_equivalent(q.effective,accepted)&&q.json().find("\"successful_reset_epoch\":2")!=std::string::npos);
  auto restores=windows.restores,applies=windows.applies;q.begin_shutdown();q.restore_window();CHECK(windows.restores==restores&&windows.applies==applies);
  auto a=stock(),b=a;CHECK(presentation_equivalent(a,b));b.EnableAutoDepthStencil=FALSE;CHECK(!presentation_equivalent(a,b));b=a;b.Flags=1;CHECK(!presentation_equivalent(a,b));
  Windows final_window;auto policy=std::make_unique<QualityPipeline>(final_window);policy->configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);root.result=S_OK;p=stock();CHECK(policy->create(root,0,&p,&out)==S_OK);auto* parent=new Root8(&root);auto* device=new Device8(&root.dev,parent,std::move(policy));restores=final_window.restores;applies=final_window.applies;device->Release();parent->Release();CHECK(final_window.restores==restores&&final_window.applies==applies);
@@ -121,15 +121,67 @@ void display_transactions(){
  root.dev.result=S_OK;window.native_completed=false;CHECK(q.reset(root,root.dev,&input)==S_OK&&window.applies==applies); // same placement: no synchronous window mutation
  c.display_mode="Windowed";c.width=1280;c.height=720;q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);input=stock();window.native_completed=false;
  CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1280&&input.BackBufferHeight==720);
+ CHECK(q.json().find("\"normal_target\":{\"width\":1280,\"height\":720}")!=std::string::npos);
+ // An arbitrary game Reset request without matching normal-client evidence
+ // must not replace the configured target.
  input=stock();input.BackBufferWidth=1920;input.BackBufferHeight=1027;window.native_completed=false;
- CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1280&&input.BackBufferHeight==720);
- window.state.client={0,0,1900,1027};input=stock();window.native_completed=false;CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1280&&window.state.client.right==1280);
+ CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1280&&input.BackBufferHeight==720&&q.windowed_resize_admissions==0);
+ // A real user resize is admitted only when both the HWND client and the
+ // game's requested Reset agree, and only after the native Reset succeeds.
+ window.state.client={0,0,1500,850};window.state.outer={2100,80,3620,970};input=stock();input.BackBufferWidth=1500;input.BackBufferHeight=850;window.native_completed=false;
+ CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1500&&input.BackBufferHeight==850&&q.windowed_resize_admissions==1);
+ CHECK(q.json().find("\"normal_target\":{\"width\":1500,\"height\":850}")!=std::string::npos);
+ for(const auto& size:std::vector<std::pair<UINT,UINT>>{{1734,920},{1024,768}}){
+  window.state.client={0,0,static_cast<LONG>(size.first),static_cast<LONG>(size.second)};window.state.outer.left+=17;window.state.outer.right=window.state.outer.left+static_cast<LONG>(size.first+20);
+  input=stock();input.BackBufferWidth=size.first;input.BackBufferHeight=size.second;window.native_completed=false;
+  CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==size.first&&input.BackBufferHeight==size.second);
+ }
+ CHECK(q.windowed_resize_admissions==3&&q.json().find("\"normal_target\":{\"width\":1024,\"height\":768}")!=std::string::npos);
+ // Moving a normal window without resizing accepts OS placement and does not
+ // recenter or alter the normal client target.
+ auto placements=window.applies;window.state.outer.left+=80;window.state.outer.right+=80;input=stock();window.native_completed=false;
+ CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1024&&input.BackBufferHeight==768&&window.applies==placements);
+ // Minimize/zero-client resets keep the last normal target and never adopt 0x0.
+ window.state.minimized=true;window.state.client={0,0,0,0};input=stock();window.native_completed=false;
+ CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==1024&&input.BackBufferHeight==768&&q.windowed_resize_admissions==3);
+ window.state.minimized=false;window.state.client={0,0,1024,768};window.native_completed=false;
  c.width=c.height=0;q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);input=stock();CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==640);
  input=stock();input.BackBufferWidth=1920;input.BackBufferHeight=1027;CHECK(q.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==640&&input.BackBufferHeight==480);
  QualityPipeline auto_invalid(window);auto_invalid.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);input=stock();input.BackBufferWidth=20000;CHECK(auto_invalid.plan(root,input).BackBufferWidth==20000&&auto_invalid.display=="Stock");
  input=stock();CHECK(auto_invalid.reset(root,root.dev,&input)==S_OK&&input.BackBufferWidth==640); // invalid initial auto request never pins
  c.display_mode="Stock";c.aa_mode="Stock";c.samples=4;q.configure(c,false,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(q.aa_reason=="Mode_Stock_Samples_ignored");
- std::cout<<"Display plan/native/commit/failure/idempotence/pinned and automatic Windowed ownership: PASS\n";
+ std::cout<<"Display plan/native/commit/failure/idempotence and corroborated Windowed resize ownership: PASS\n";
+}
+void windowed_live_resize(){
+ Root root;Windows window;QualityPipeline q(window);VisualConfig c;c.display_mode="Windowed";c.width=1280;c.height=720;
+ auto p=stock();IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
+ CHECK(q.create(root,0,&p,&out)==S_OK&&p.BackBufferWidth==1280&&p.BackBufferHeight==720);
+ auto applies=window.applies;
+ // A normal-window resize followed by an exactly matching game Reset updates
+ // the target only on success and leaves the OS-owned rectangle in place.
+ window.state.client={0,0,1512,864};window.state.outer={1960,10,3492,914};p=stock();p.BackBufferWidth=1512;p.BackBufferHeight=864;
+ CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1512&&p.BackBufferHeight==864&&window.applies==applies&&q.windowed_resize_admissions==1);
+ // Since this Reset already requests the actual client size, the game-owned
+ // viewport domain remains native; effective aspect follows the new size.
+ CHECK(q.json().find("\"effective_aspect\":1.75")!=std::string::npos&&q.json().find("\"virtual_width\":840")!=std::string::npos);
+ // A later live resize whose native Reset fails must not replace the target.
+ window.state.client={0,0,1600,900};p=stock();p.BackBufferWidth=1600;p.BackBufferHeight=900;root.dev.result=D3DERR_DEVICELOST;
+ CHECK(q.reset(root,root.dev,&p)==D3DERR_DEVICELOST&&q.windowed_resize_admissions==1&&q.json().find("\"normal_target\":{\"width\":1512,\"height\":864}")!=std::string::npos);
+ root.dev.result=S_OK;
+ // Restore to the last accepted normal target even when Reset echoes the
+ // previous maximized dimensions.
+ window.state.maximized=true;window.state.client={0,0,1900,1030};window.state.outer=window.state.work;p=stock();p.BackBufferWidth=1900;p.BackBufferHeight=1030;
+ CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1900&&p.BackBufferHeight==1030);
+ window.state.maximized=false;window.state.client={0,0,1512,864};window.state.outer={1960,10,3492,914};p=stock();p.BackBufferWidth=1900;p.BackBufferHeight=1030;
+ CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1512&&p.BackBufferHeight==864&&window.applies==applies);
+ // Width=Height=0 adopts the first game size, then admits subsequent live
+ // resize only when the engine request matches the normal HWND client.
+ Root auto_root;Windows auto_window;QualityPipeline automatic(auto_window);VisualConfig auto_config;auto_config.display_mode="Windowed";
+ auto_config.width=auto_config.height=0;p=stock();p.BackBufferWidth=800;p.BackBufferHeight=600;automatic.configure(auto_config,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
+ CHECK(automatic.create(auto_root,0,&p,&out)==S_OK&&p.BackBufferWidth==800&&p.BackBufferHeight==600);
+ auto_window.state.client={0,0,1024,768};p=stock();p.BackBufferWidth=1024;p.BackBufferHeight=768;
+ CHECK(automatic.reset(auto_root,auto_root.dev,&p)==S_OK&&p.BackBufferWidth==1024&&p.BackBufferHeight==768&&automatic.windowed_resize_admissions==1);
+ std::cout<<"Windowed live resize admission is corroborated and success-gated: PASS\n";
 }
 void windowed_maximize_restore(){
  Root root;Windows window;QualityPipeline q(window);VisualConfig c;c.display_mode="Windowed";c.width=1280;c.height=720;
@@ -147,8 +199,8 @@ void windowed_maximize_restore(){
   p=stock();CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1900&&window.applies==applies);
   D3DVIEWPORT8 in{0,0,640,480,0,1},scaled{};CHECK(q.viewport(in,scaled)&&scaled.Width==1900&&scaled.Height==1027);
   auto accepted=q.effective;root.dev.result=D3DERR_DEVICELOST;p=stock();CHECK(q.reset(root,root.dev,&p)==D3DERR_DEVICELOST&&presentation_equivalent(q.effective,accepted)&&window.applies==applies);root.dev.result=S_OK;
-  window.state.maximized=false;window.state.client={0,0,1400,800};window.state.outer={2000,10,3400,810};
-  p=stock();p.BackBufferWidth=1900;p.BackBufferHeight=1027;CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1280&&p.BackBufferHeight==720&&window.applies==applies+1);
+  window.state.maximized=false;window.state.client={0,0,1280,720};window.state.outer={2000,50,3280,770};
+  p=stock();p.BackBufferWidth=1900;p.BackBufferHeight=1027;CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==1280&&p.BackBufferHeight==720&&window.applies==applies);
   CHECK(q.json().find("\"window_state\":\"normal\"")!=std::string::npos);
  }
  // Genuine maximize uses actual client dimensions, never a bogus game Reset size.
@@ -513,4 +565,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();antialiasing();exclusive_lifecycle();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();antialiasing();exclusive_lifecycle();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
