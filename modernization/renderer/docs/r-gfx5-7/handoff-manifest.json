@@ -6,7 +6,7 @@
   "pc_visual_pilot1_source_commit": "f43d720e08961791ad46875af0d15430ed555e02",
   "primary_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "status": "READY_FOR_DIAGNOSTIC_RUNTIME",
-  "runtime_claims": "PreserveMargins v2 is user-confirmed from prior runtime; this pass did not launch the game; Exclusive causal owner remains unknown.",
+  "runtime_claims": "PreserveMargins v2 retains prior in-game validation PASS; this phase did not launch the game; the Exclusive causal owner remains unknown.",
   "included_files": [
     {
       "path": "modernization/renderer/README.md",

@@ -48,6 +48,6 @@ Warnings were existing SDK nameless-union and unrelated renderer/test conversion
 - Source45 frontend exclusion: **pending runtime capture**.
 - Replay/Attract/alternate-camera qualification: **pending runtime capture**.
 - Freecam movement/culling/restore: **not applicable; feature not implemented**.
-- R-GFX5 regressions: automated tests only for this candidate; no new human gameplay verdict is claimed.
+- R-GFX5 regressions: automated tests only for this candidate; no new in-game validation was performed.
 
 See [runtime-test-plan.md](runtime-test-plan.md) for the evidence required to resolve the stop gate.

@@ -16,7 +16,7 @@ Height=720
 RefreshRate=0
 ```
 
-The configured Windowed size initializes the normal client. Later genuine user resize updates its current normal target. Borderless retains its existing monitor-sized policy. This is a documentation recommendation; Stock defaults and other quality settings are unchanged.
+The configured Windowed size initializes the normal client. A later normal-window resize updates its current target. Borderless retains its existing monitor-sized policy. This is a documentation recommendation; Stock defaults and other quality settings are unchanged.
 
 ## Runtime evidence
 
