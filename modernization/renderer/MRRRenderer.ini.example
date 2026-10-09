@@ -11,10 +11,10 @@ ConfigVersion=1
 ; Exclusive validates a display target; 0/0 keeps the first accepted game mode.
 ; DEVICELOST is forwarded unchanged and recorded with bounded window/device context.
 ; Borderless 0/0 uses the native monitor size.
-; 0 = Stock
-; 1 = Windowed
-; 2 = Borderless
-; 3 = ExclusiveFullscreen
+; 0 = Stock (default compatibility control)
+; 1 = Windowed (supported for interactive development and resizing)
+; 2 = Borderless (supported fullscreen-like development mode)
+; 3 = ExclusiveFullscreen (experimental; restore after focus loss/minimize is known broken)
 Mode=0
 Width=0
 Height=0

@@ -1,0 +1,162 @@
+{
+  "schema": "mr-renderer-stable-checkpoint-v1",
+  "checkpoint_id": "R-GFX5-STABLE-2026-10-09",
+  "creation_date": "2026-10-09",
+  "repository": "master-rallye-re-general",
+  "branch": "master",
+  "source_head": "11e504de23e107b242667529405169592877090d",
+  "r_gfx5_8_starting_head": "88bf3decd411b8b65e11e8b801650867097d186b",
+  "renderer_version": "R-GFX5-8",
+  "source_evidence": {
+    "r_gfx5_8_source": "11e504de23e107b242667529405169592877090d",
+    "r_gfx5_8_source_handoff": "modernization/renderer/docs/r-gfx5-8/R-GFX5-8-handoff.zip",
+    "r_gfx5_8_handoff_matches_committed_core_sources": true,
+    "foliage_cpu_upload_provenance_commit": "f43d720e08961791ad46875af0d15430ed555e02",
+    "foliage_commit_is_source_head_ancestor": true,
+    "primary_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "primary_exe_size": 3121214,
+    "primary_exe_path": "D:/Game/Master Rallye/MRallye.exe",
+    "exclusive_internal_cause": "STRONG_HYPOTHESIS"
+  },
+  "prior_build": {
+    "sha256": "fda771e03dc3bc5457d995ea755933f9a3982fc280ece061d5b6329ad9f3f543",
+    "size": 1531392,
+    "pe": "PE32",
+    "machine": "I386",
+    "verification": "The existing on-disk Win32 Release DLL was hashed and passed the proxy verifier during checkpoint preparation; this checkpoint did not rebuild it.",
+    "canonical_build_wrapper": "The R-GFX5-8 configure succeeded; its parallel MSBuild stalled. The same Win32 Release tree completed through sequential MSBuild.",
+    "new_dll_built_for_checkpoint": false,
+    "binary_included_in_checkpoint": false
+  },
+  "status": {
+    "r_gfx5": "STABLE_BASELINE_CHECKPOINTED",
+    "supported_display_baseline": "ACCEPTED_FOR_CONTINUED_DEVELOPMENT",
+    "exclusive": "DEFERRED_KNOWN_BROKEN",
+    "full_original_r_gfx5_feature_matrix": "NOT_ALL_CLOSED",
+    "r_cam1": "AUTHORIZED_NEXT_PHASE"
+  },
+  "display_modes": {
+    "stock": {
+      "ini_mode": 0,
+      "status": "DEFAULT_COMPATIBILITY_CONTROL",
+      "evidence_grade": "CONFIRMED_BY_SOURCE",
+      "notes": "Default display selection; graphics quality options remain separately default-off."
+    },
+    "windowed": {
+      "ini_mode": 1,
+      "status": "SUPPORTED",
+      "human_runtime": "PASS",
+      "evidence_grade": "CONFIRMED_BY_RUNTIME",
+      "notes": "User-confirmed immediate live resizing after explicit initial size. Configured dimensions initialize the normal client; genuine subsequent resize updates the normal target."
+    },
+    "borderless": {
+      "ini_mode": 2,
+      "status": "SUPPORTED",
+      "human_runtime": "PRIOR_ACCEPTED_BASELINE",
+      "evidence_grade": "CONFIRMED_BY_RUNTIME",
+      "notes": "Earlier user testing reported Borderless, Alt+Tab and high-resolution behavior healthy. This checkpoint adds no new combined test."
+    },
+    "exclusive_fullscreen": {
+      "ini_mode": 3,
+      "status": "EXPERIMENTAL_KNOWN_BROKEN_ON_RECOVERY",
+      "human_runtime": "FAIL_AFTER_MINIMIZE_OR_FOCUS_LOSS",
+      "evidence_grade": "CONFIRMED_BY_RUNTIME",
+      "notes": "Error 2010 remains reproducible after restore. Earlier trace summaries recorded successful true Exclusive CreateDevice and initial Reset; keep Mode=3 semantics unchanged and do not recommend this mode for development."
+    }
+  },
+  "graphics_features": {
+    "PreserveMargins_v2": {
+      "status": "CONFIRMED_BY_RUNTIME",
+      "architecture": "draw-local WORLD override with immediate restoration; persistent UI packet coordinates are untouched"
+    },
+    "Centered4x3": "Preserved previously accepted baseline",
+    "AF": "AF16 previously accepted; stage-0 MINFILTER only",
+    "MSAA": "Native MSAA4 previously accepted",
+    "GameplayFOV": "Preserved previously accepted feature",
+    "CPU_culling_sync": "Preserved previously accepted feature",
+    "MenuFreezeFix": "Preserved previously accepted feature",
+    "vehicle_reflections_and_semantics": "Preserved R-GFX4 baseline",
+    "additional_combined_runtime_matrix": "Not newly tested by this checkpoint"
+  },
+  "foliage_diagnostic_status": {
+    "status": "BLOCKED_ON_DRAW_IDENTITY",
+    "cpu_upload_provenance": "PRESERVED",
+    "writeonly_vb_ib_lock_unlock_observation": "PRESERVED",
+    "resource_generation_and_revision_tracking": "PRESERVED",
+    "queryinterface_com_ownership": "PRESERVED",
+    "cpu_mirror_bytes_per_buffer": 8388608,
+    "cpu_mirror_bytes_per_device": 33554432,
+    "cpu_upload_copy_bytes_per_frame": 16777216,
+    "maximum_probe_records_per_frame": 128,
+    "maximum_probe_copy_bytes_per_frame": 1048576,
+    "maximum_buffer_mirror_entries": 8192,
+    "initialized_ranges_per_mirror": 4096,
+    "renderer_frame_buffer_allocation_ceiling": 33554432,
+    "renderer_frame_draw_slots": 8192,
+    "renderer_frame_event_slots": 16384,
+    "mode_1": "STOCK_UNTIL_DRAW_IDENTITY_IS_PROVEN",
+    "default_mode": 0,
+    "diagnostics_default": 0,
+    "visual_override_added": false
+  },
+  "known_limitations": [
+    "Exclusive recovery after focus loss or minimize remains known broken and is deferred under R-EXCL1.",
+    "The internal Exclusive restore cause is a strong hypothesis, not a confirmed causal chain.",
+    "Previously accepted feature results do not imply every quality/display combination received a combined runtime test.",
+    "The full R-GFX5 experimental matrix is not closed."
+  ],
+  "deferred_issues": [
+    {
+      "id": "R-EXCL1",
+      "status": "DEFERRED_KNOWN_BROKEN",
+      "path": "modernization/renderer/docs/r-excl1-deferred.md",
+      "failure": "True Exclusive may fail with Error 2010 after focus loss/minimize and restore."
+    }
+  ],
+  "human_runtime_evidence": {
+    "windowed_live_resize": "User-reported PASS for R-GFX5-8 after the original-request/HWND admission fix.",
+    "preservemargins_v2": "Prior user-reported PASS for race HUD, animated menu elements, pause/resume and extreme aspect.",
+    "borderless": "Previously accepted R-GFX5 behavior; no new checkpoint test.",
+    "exclusive_recovery": "User-reported reproducible failure; Error 2010 remains after restore.",
+    "raw_capture_included": false,
+    "uncombined_features": "No new full combined runtime matrix is claimed."
+  },
+  "synthetic_validation_evidence": {
+    "source": "modernization/renderer/docs/r-gfx5-8/validation.md",
+    "python": "118/118 PASS during R-GFX5-8",
+    "native_ctest": "9/9 PASS during R-GFX5-8",
+    "compileall": "PASS during R-GFX5-8",
+    "pe_verification": "PASS during R-GFX5-8; on-disk DLL reverified during this checkpoint",
+    "exclusive_mocks_are_game_runtime_evidence": false,
+    "tests_rerun_by_this_checkpoint": false
+  },
+  "next_phase": {
+    "id": "R-CAM1",
+    "name": "Camera Research and Controls",
+    "status": "READY_TO_PLAN",
+    "authorized": true,
+    "initial_display_targets": ["Windowed", "Borderless"],
+    "planned_scope": [
+      "Freecam",
+      "Teleport",
+      "HUD Hide",
+      "Camera pose save/load",
+      "Configurable FOV",
+      "Camera roll"
+    ],
+    "photo_mode": "DEFERRED_TO_F-PHOTO1",
+    "exclusive_recovery_required": false,
+    "implementation_started_in_checkpoint": false
+  },
+  "checkpoint_validation": {
+    "r_gfx5_8_and_foliage_ancestor_provenance": "PASS",
+    "handoff_vs_committed_core_sources": "PASS; nine core/source/config files compared",
+    "existing_dll_hash_and_pe_verifier": "PASS; rechecked without rebuilding",
+    "checkpoint_json_parse": "PASS",
+    "local_markdown_links": "PASS; 21 links across four current documents",
+    "git_diff_check": "PASS",
+    "python_native_compileall_rerun": false,
+    "game_runtime_tests_rerun": false,
+    "runtime_verdict_source": "User report in the stable checkpoint request"
+  }
+}
