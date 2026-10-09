@@ -1,0 +1,224 @@
+{
+  "baseline_executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "evidence_class": "CONFIRMED_BY_EXE_PATCH_MANIFESTS",
+  "historical_patch_binaries_imported": false,
+  "historical_sources": {
+    "capacity": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "randomizer": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "ui": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+  },
+  "integrated_patch_bundle_created": false,
+  "overlap_summary": {
+    "identical_shared_operations_to_deduplicate": 15,
+    "semantic_or_code_cave_conflicts": 2,
+    "shared_pe_virtual_size_fields_to_recompute_once": 3
+  },
+  "pairs": [
+    {
+      "overlaps": [
+        {
+          "classification": "SHARED_PE_VIRTUALSIZE_FIELD_RECOMPUTE_ONCE",
+          "end_exclusive": "0x21C",
+          "left_purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "left_replacement_sha256": "91b8a83091b594130da282f2bc0220a5868fcdbf3755c0e9d9b8df91b3000db5",
+          "right_purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "right_replacement_sha256": "76207f943522055de7f87589ae24aba02587fdc4ef9ba117cf23873c7fe09ac8",
+          "start": "0x218"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x64F6E",
+          "left_purpose": "loading_attract_legacy_media_check_neutralization",
+          "left_replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2",
+          "right_purpose": "loading_attract_legacy_media_check_neutralization",
+          "right_replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2",
+          "start": "0x64F69"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x202024",
+          "left_purpose": "broker_dump_null_stringlist_guard",
+          "left_replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0",
+          "right_purpose": "broker_dump_null_stringlist_guard",
+          "right_replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0",
+          "start": "0x20201E"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x20215A",
+          "left_purpose": "broker_dump_null_xmldata_guard",
+          "left_replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d",
+          "right_purpose": "broker_dump_null_xmldata_guard",
+          "right_replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d",
+          "start": "0x202153"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x28E2B3",
+          "left_purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "left_replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5",
+          "right_purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "right_replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5",
+          "start": "0x28E2A0"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x28E2DC",
+          "left_purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "left_replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171",
+          "right_purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "right_replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171",
+          "start": "0x28E2C0"
+        },
+        {
+          "classification": "SEMANTIC_OR_CAVE_CONFLICT_RECOMPOSE_REQUIRED",
+          "end_exclusive": "0x28E51B",
+          "left_purpose": "QuickRace: active-count policy/class-pool reuse",
+          "left_replacement_sha256": "a038b9b61a0abd8c876e438f113ed48e263499f55b2f9cc13d396178f1dce505",
+          "right_purpose": "Exact count/context/arguments; native CarID, registry CarClass and unique valid DriverID setters",
+          "right_replacement_sha256": "108843d1b2e6f3b6975b7ce29e58c08593680230ca4eabe9ed75f62f9c1a62c2",
+          "start": "0x28E400"
+        }
+      ],
+      "sources": [
+        "randomizer",
+        "capacity"
+      ]
+    },
+    {
+      "overlaps": [
+        {
+          "classification": "SHARED_PE_VIRTUALSIZE_FIELD_RECOMPUTE_ONCE",
+          "end_exclusive": "0x21C",
+          "left_purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "left_replacement_sha256": "91b8a83091b594130da282f2bc0220a5868fcdbf3755c0e9d9b8df91b3000db5",
+          "right_purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "right_replacement_sha256": "92e64c27bf608e54b848266d32190c1061da2b650b07f049cce8590ba8f34112",
+          "start": "0x218"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x64F6E",
+          "left_purpose": "loading_attract_legacy_media_check_neutralization",
+          "left_replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2",
+          "right_purpose": "loading_attract_legacy_media_check_neutralization",
+          "right_replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2",
+          "start": "0x64F69"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x202024",
+          "left_purpose": "broker_dump_null_stringlist_guard",
+          "left_replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0",
+          "right_purpose": "broker_dump_null_stringlist_guard",
+          "right_replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0",
+          "start": "0x20201E"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x20215A",
+          "left_purpose": "broker_dump_null_xmldata_guard",
+          "left_replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d",
+          "right_purpose": "broker_dump_null_xmldata_guard",
+          "right_replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d",
+          "start": "0x202153"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x28E2B3",
+          "left_purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "left_replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5",
+          "right_purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "right_replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5",
+          "start": "0x28E2A0"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x28E2DC",
+          "left_purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "left_replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171",
+          "right_purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "right_replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171",
+          "start": "0x28E2C0"
+        }
+      ],
+      "sources": [
+        "randomizer",
+        "ui"
+      ]
+    },
+    {
+      "overlaps": [
+        {
+          "classification": "SHARED_PE_VIRTUALSIZE_FIELD_RECOMPUTE_ONCE",
+          "end_exclusive": "0x21C",
+          "left_purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "left_replacement_sha256": "76207f943522055de7f87589ae24aba02587fdc4ef9ba117cf23873c7fe09ac8",
+          "right_purpose": "Explicit shared VirtualSize merge: maximum declared guard/chooser end",
+          "right_replacement_sha256": "92e64c27bf608e54b848266d32190c1061da2b650b07f049cce8590ba8f34112",
+          "start": "0x218"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x64F6E",
+          "left_purpose": "loading_attract_legacy_media_check_neutralization",
+          "left_replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2",
+          "right_purpose": "loading_attract_legacy_media_check_neutralization",
+          "right_replacement_sha256": "a17ab4052d421f8d9036c30978015a95c8c0e5446ae09c4beff285dfaa64f9e2",
+          "start": "0x64F69"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x202024",
+          "left_purpose": "broker_dump_null_stringlist_guard",
+          "left_replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0",
+          "right_purpose": "broker_dump_null_stringlist_guard",
+          "right_replacement_sha256": "4fb7d248d1bbe9444d39396ef16998345e1e715f4e10764bad26d61c39a644b0",
+          "start": "0x20201E"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x20215A",
+          "left_purpose": "broker_dump_null_xmldata_guard",
+          "left_replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d",
+          "right_purpose": "broker_dump_null_xmldata_guard",
+          "right_replacement_sha256": "2344373cd54a087e8b3cbba1a9e8cec5e391db6721e8745f75b8a1fb9347610d",
+          "start": "0x202153"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x28E2B3",
+          "left_purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "left_replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5",
+          "right_purpose": "StringList NULL joins stock allocated-empty cleanup; non-NULL replays MOV/CMP",
+          "right_replacement_sha256": "f451eb73263a418ee4eecffbe8608e99243fbfe7dac0f9eb07b163e1dc89aee5",
+          "start": "0x28E2A0"
+        },
+        {
+          "classification": "IDENTICAL_SHARED_OPERATION_DEDUPLICATE",
+          "end_exclusive": "0x28E2DC",
+          "left_purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "left_replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171",
+          "right_purpose": "XmlData NULL uses existing no-root continuation; non-NULL replays virtual call",
+          "right_replacement_sha256": "c153447fa6c4b833c9251b1a628eaf973b596274731afe628c7853fd7d008171",
+          "start": "0x28E2C0"
+        },
+        {
+          "classification": "SEMANTIC_OR_CAVE_CONFLICT_RECOMPOSE_REQUIRED",
+          "end_exclusive": "0x28E35C",
+          "left_purpose": "Original getter and exact closed R-AI2 context guards; effective total-specific count",
+          "left_replacement_sha256": "ab0ceaba0d668f486bd1791d63f6fab9d9ed6180c9be667bc1621b066ee0ad71",
+          "right_purpose": "Native localization and StringList append/temporary cleanup; replay displaced MOVs",
+          "right_replacement_sha256": "f6f235c9a53e0e4b96175ef122a725031cf7a3e0dcac3dba96c626cf72e4d956",
+          "start": "0x28E300"
+        }
+      ],
+      "sources": [
+        "capacity",
+        "ui"
+      ]
+    }
+  ],
+  "phase": "R-MOD1-A",
+  "release_implication": "Do not overlay historical candidates. Build one fresh plan from the pristine image, deduplicate identical hardening operations only where still required, recompute PE sizing once, and move new code/data to verified runtime allocations or a newly audited disjoint layout."
+}

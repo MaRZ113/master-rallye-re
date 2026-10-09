@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "artifact_type": "r-mod1-native-integration-status",
+  "supported_executable": {
+    "filename": "MRallye.exe",
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "machine": "I386_PE32"
+  },
+  "status": "NOT_COMPOSED",
+  "operation_count": 0,
+  "source_candidates_imported": [],
+  "historical_conflicts": "patch-composition-audit.json",
+  "installation_phase": "before_game_entry",
+  "original_executable_modified": false,
+  "launcher_ready": false,
+  "dinput8_proxy_ready": false,
+  "renderer_compatibility_runtime_qualified": false,
+  "notes": [
+    "This is a status artifact, not an installable empty patch bundle.",
+    "Historical patched EXEs remain research oracles and are never product inputs.",
+    "No operation may be installed until a single pristine-derived plan passes exact preimage and overlap checks."
+  ]
+}
