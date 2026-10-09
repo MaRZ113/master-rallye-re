@@ -1,0 +1,49 @@
+{
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "producer": "0x00311370 JAL0x00317208; DMA CALL0x00442170",
+  "chunks": [
+    {
+      "command_va": "0x44217c",
+      "count": 256,
+      "micro_pc": 0,
+      "sha256": "4af35729b5ac7753e65b730f491fcd107e7978ce87a6ccca9f711702ca830e4e",
+      "source_va": 4465024,
+      "word": "0x4a000000"
+    },
+    {
+      "command_va": "0x442984",
+      "count": 256,
+      "micro_pc": 256,
+      "sha256": "0950571ea077b21f9f6dbb54b5463f71789895062c75c90ae0a94bdef3ab92ff",
+      "source_va": 4467080,
+      "word": "0x4a000100"
+    },
+    {
+      "command_va": "0x44318c",
+      "count": 256,
+      "micro_pc": 512,
+      "sha256": "f9ef7bfe3214431a925e1d4b2dce3fe73914d2819e7f4108e7fbc107ee52ab1a",
+      "source_va": 4469136,
+      "word": "0x4a000200"
+    },
+    {
+      "command_va": "0x443994",
+      "count": 256,
+      "micro_pc": 768,
+      "sha256": "320c8b6abc6c4f961cda216a99502181f0ee4de8936e5730a4a134cc48e0dda7",
+      "source_va": 4471192,
+      "word": "0x4a000300"
+    },
+    {
+      "command_va": "0x44419c",
+      "count": 201,
+      "micro_pc": 1024,
+      "sha256": "460ec8ad74f2f4b5135e8f5b32b397ae45799ca9dbb4702755689a784b83a8a3",
+      "source_va": 4473248,
+      "word": "0x4ac90400"
+    }
+  ],
+  "combined_program_sha256": "3be61f7a56d57e73c14077b659ba0f3ef4a0ff9a7a78e53c9cb13bd485c24bd8",
+  "evidence_grade": "CONFIRMED_BY_EXE",
+  "live_residency": "UNKNOWN"
+}

@@ -1,0 +1,196 @@
+{
+  "schema": "ps2-bird-contract-v1",
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "runtime_validation": "NOT_PERFORMED",
+  "asset": {
+    "bank": "Misc/Animals/BurdyBrown; White branch if owner+94==0",
+    "keys": {
+      "flight": [
+        0,
+        1,
+        2
+      ],
+      "ground": 3
+    },
+    "selected_frame": "2 source PSB triangles -> 4 CPU vertices -> one quad"
+  },
+  "visual_owner": "1af460 -> entity+4c en2d;1b0410 bank/mode/animation;1b0508 translation",
+  "queue": "21ea20 interface+4c -> vtable485a34 target3301c8 -> renderer ordinary sprite vector+14 ->3302b8 ->337a98",
+  "coordinate_math": {
+    "world_translation": "entity carrier->en2d matrix preserved by billboard",
+    "billboard": "330530(camera-row2 XZ, verticalY); no normalization; scale0.1",
+    "local_xy": "337a98 X=-0.5+signedX,Y=0.5-signedY; UVs from PSB atlas rect",
+    "camera_basis": "3387c8 ->36fc18 ->renderer+220; live camera unknown"
+  },
+  "packet": {
+    "cpu_stride": 48,
+    "cache_stride": 64,
+    "qwords": [
+      "control count|0x8000,1,0,0",
+      "RGBA float packed bytes*0.5",
+      "UV",
+      "XYZW=1"
+    ],
+    "cache_create": "362138 virtual5c ->31f0a8; vtable4854f0",
+    "cache_build": "virtual74 ->3201b0",
+    "batch_max_vertices": 32,
+    "geometry": "31de48 ->31d7c8 REF/UNPACK/MSCAL0x00f ->31dce8 ->31ddd8",
+    "draw": "3376c0 ->317120 ->31e010 DMA CALL;316ce0/316b88 ->30ea80 VIF1 DMA"
+  },
+  "textures": "3376c0 primary bind ->311c50; bank PSB ->2fd7d0 ->2f84f0 GXI. Secondary default has no second reflected bird pass proved",
+  "state": "3376c0 world materialmode8 ->312610; selector42de60 reset0 in common prolog;31c438/31af50",
+  "GS": {
+    "GIF_TAG": {
+      "and_mask": "ffc07fffffffffff",
+      "or_bits": "003e000000000000",
+      "known_mask": "003f800000000000"
+    },
+    "TEST": {
+      "and_mask": "fffffffffff9c000",
+      "or_bits": "0000000000041000",
+      "known_mask": "0000000000063fff",
+      "fields": {
+        "ATE": 0,
+        "ATST": 0,
+        "AREF": 0,
+        "AFAIL": 1,
+        "DATE": "INHERITED",
+        "DATM": "INHERITED",
+        "ZTE": "INHERITED",
+        "ZTST": 2
+      }
+    },
+    "ALPHA": {
+      "and_mask": "ffffff00ffffff00",
+      "or_bits": "0000000000000044",
+      "known_mask": "000000ff000000ff",
+      "fields": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 1,
+        "FIX": 0
+      }
+    },
+    "ZBUF": {
+      "and_mask": "fffffffeffffffff",
+      "or_bits": "0000000100000000",
+      "known_mask": "0000000100000000",
+      "fields": {
+        "ZBP": "INHERITED",
+        "PSM": "INHERITED",
+        "ZMSK": 1
+      }
+    },
+    "TEX0": {
+      "and_mask": "ffffffe3ffffffff",
+      "or_bits": "0000000400000000",
+      "known_mask": "0000001c00000000",
+      "fields": {
+        "TBP0": "INHERITED",
+        "PSM": "INHERITED",
+        "TCC": 1,
+        "TFX": 0
+      }
+    },
+    "TEX1": {
+      "and_mask": "fffff000ffe7fe1e",
+      "or_bits": "0000000000000061",
+      "known_mask": "00000fff001801e1",
+      "fields": {
+        "LCM": 1,
+        "MXL": "INHERITED",
+        "MMAG": 1,
+        "MMIN": 1,
+        "MTBA": "INHERITED",
+        "L": 0,
+        "K": 0
+      }
+    },
+    "FBA": {
+      "and_mask": "fffffffffffffffe",
+      "or_bits": "0000000000000000",
+      "known_mask": "0000000000000001",
+      "fields": {
+        "FBA": 0
+      }
+    },
+    "PRIM": {
+      "PRIM": 4,
+      "IIP": 1,
+      "TME": 1,
+      "FGE": 1,
+      "ABE": 1,
+      "FST": "INHERITED",
+      "CTXT": "INHERITED"
+    },
+    "blend_equation": "(Cs-Cd)*As/128+Cd; selectors A0 B1 C0 D1",
+    "CLAMP": "Per atlas rect: WMS=2 WMT=2; min/max from cache+44/+48/+4c/+50; high bits inherited",
+    "boundary": "Mode8 templates; texture bind can overwrite TEX0/TEX1; FRAME/TEXA not resolved"
+  },
+  "vu": {
+    "embedded_program_confirmed": true,
+    "upload_producer": "Original311370 JAL317208 ->DMA CALL442170 ->five MPG chunks",
+    "upload_chunks": [
+      {
+        "command_va": "0x44217c",
+        "count": 256,
+        "micro_pc": 0,
+        "sha256": "4af35729b5ac7753e65b730f491fcd107e7978ce87a6ccca9f711702ca830e4e",
+        "source_va": 4465024,
+        "word": "0x4a000000"
+      },
+      {
+        "command_va": "0x442984",
+        "count": 256,
+        "micro_pc": 256,
+        "sha256": "0950571ea077b21f9f6dbb54b5463f71789895062c75c90ae0a94bdef3ab92ff",
+        "source_va": 4467080,
+        "word": "0x4a000100"
+      },
+      {
+        "command_va": "0x44318c",
+        "count": 256,
+        "micro_pc": 512,
+        "sha256": "f9ef7bfe3214431a925e1d4b2dce3fe73914d2819e7f4108e7fbc107ee52ab1a",
+        "source_va": 4469136,
+        "word": "0x4a000200"
+      },
+      {
+        "command_va": "0x443994",
+        "count": 256,
+        "micro_pc": 768,
+        "sha256": "320c8b6abc6c4f961cda216a99502181f0ee4de8936e5730a4a134cc48e0dda7",
+        "source_va": 4471192,
+        "word": "0x4a000300"
+      },
+      {
+        "command_va": "0x44419c",
+        "count": 201,
+        "micro_pc": 1024,
+        "sha256": "460ec8ad74f2f4b5135e8f5b32b397ae45799ca9dbb4702755689a784b83a8a3",
+        "source_va": 4473248,
+        "word": "0x4ac90400"
+      }
+    ],
+    "program_hash": "See upload-evidence.json; same freshly hash-checked canonical program bytes as WATER1/TREEBLEND1",
+    "entry": "0x00f",
+    "selector": 0,
+    "math": "ordinary UV; world/view/projection; perspective Q; color FTOI0; XYZ FTOI4; ADC/clip; GIF output",
+    "xgkick": "micro0x0fa (ELF0x00442950); shared flush0x3d7",
+    "live_residency": "UNKNOWN",
+    "live_frame": "NOT_CAPTURED"
+  },
+  "visibility": "Manager spawn/retirement XZ distances; en2d visible bit and command checks; inherited ordinary VU clip. No captured visible population",
+  "unknowns": [
+    "effective Animals/MaxBirds",
+    "actual MarkerList registry pointers on missing-local-list courses",
+    "scheduler cadence/pause",
+    "global RNG state at spawn",
+    "FRAME/TEXA and inherited GS fields",
+    "live VU residency",
+    "one identified bird-to-frame capture",
+    "normal milling population producer"
+  ]
+}

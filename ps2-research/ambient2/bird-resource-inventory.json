@@ -1,0 +1,299 @@
+{
+  "schema": "ps2-bird-contract-v1",
+  "resources": [
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN_000.GXI",
+      "decoded_size": 16392,
+      "decoded_sha256": "d9e7d619822c0811c45295df8f1a25e1822b533c0f698050d2eafad81963ba98",
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN_000.GXI",
+        "offset": 1209899619,
+        "stored_size": 639,
+        "directory_size_0x08": 639,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "4ca3653b01ecd7bdc0a4990aaf93903da83dee3d652babf07931d1cf8ae555bd",
+        "payload_sha256": "d9e7d619822c0811c45295df8f1a25e1822b533c0f698050d2eafad81963ba98",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "type": "TEXTURE",
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "d9e7d619822c0811c45295df8f1a25e1822b533c0f698050d2eafad81963ba98",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_unique_count": 2,
+        "alpha_nonzero_pixels": 176,
+        "average_rgba": [
+          195.063721,
+          3.387939,
+          194.30835,
+          10.957031
+        ]
+      },
+      "loader": "0x002fd7d0",
+      "consumer": "0x003376c0 -> 0x00311c50"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYWHITE.PSB",
+      "decoded_size": 720,
+      "decoded_sha256": "cbf6589c26d3fd8c10f533b2464ae558a9cbe6c1ccb5132249d31cac2d2b697e",
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYWHITE.PSB",
+        "offset": 1209900258,
+        "stored_size": 312,
+        "directory_size_0x08": 312,
+        "unpacked_size": 720,
+        "compression": "packfs_lzo",
+        "stored_sha256": "2e87c0fb8e694d92e287486f123677ec7bb72f94044a341cc5df8c1d7be81c88",
+        "payload_sha256": "cbf6589c26d3fd8c10f533b2464ae558a9cbe6c1ccb5132249d31cac2d2b697e",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "type": "SPRITE_BANK",
+      "mapping": [
+        {
+          "offset": 12,
+          "width": 8,
+          "key_u32": 0,
+          "image_index_u32": 0,
+          "printable_character": null,
+          "evidence": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "offset": 20,
+          "width": 8,
+          "key_u32": 1,
+          "image_index_u32": 1,
+          "printable_character": null,
+          "evidence": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "offset": 28,
+          "width": 8,
+          "key_u32": 2,
+          "image_index_u32": 2,
+          "printable_character": null,
+          "evidence": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "offset": 36,
+          "width": 8,
+          "key_u32": 3,
+          "image_index_u32": 3,
+          "printable_character": null,
+          "evidence": "CONFIRMED_BY_BOTH"
+        }
+      ],
+      "images": [
+        {
+          "key": 0,
+          "source_triangle_count": 2,
+          "local_bounds": [
+            -8,
+            -3,
+            8,
+            13
+          ]
+        },
+        {
+          "key": 1,
+          "source_triangle_count": 2,
+          "local_bounds": [
+            -8,
+            -12,
+            8,
+            4
+          ]
+        },
+        {
+          "key": 2,
+          "source_triangle_count": 2,
+          "local_bounds": [
+            -7,
+            -12,
+            9,
+            4
+          ]
+        },
+        {
+          "key": 3,
+          "source_triangle_count": 2,
+          "local_bounds": [
+            -8,
+            -11,
+            8,
+            5
+          ]
+        }
+      ],
+      "texture_references": [
+        "burdywhite_000"
+      ],
+      "loader": "0x00380a08 -> 0x00386d28",
+      "consumer": "0x00337a98"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYWHITE_000.GXI",
+      "decoded_size": 16392,
+      "decoded_sha256": "1266dcc3ed1301293fbe40e97489c2015f92460f39682b41974e07baccf317b0",
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYWHITE_000.GXI",
+        "offset": 1209900570,
+        "stored_size": 639,
+        "directory_size_0x08": 639,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "b60636845c4191212c1ac6bfabd40d86f6f0bbdb95d6a12fb050044be13ef3fe",
+        "payload_sha256": "1266dcc3ed1301293fbe40e97489c2015f92460f39682b41974e07baccf317b0",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "type": "TEXTURE",
+      "gxi": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 64,
+        "height": 64,
+        "size": 16392,
+        "sha256": "1266dcc3ed1301293fbe40e97489c2015f92460f39682b41974e07baccf317b0",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_unique_count": 2,
+        "alpha_nonzero_pixels": 176,
+        "average_rgba": [
+          199.776855,
+          8.52002,
+          199.649902,
+          10.957031
+        ]
+      },
+      "loader": "0x002fd7d0",
+      "consumer": "0x003376c0 -> 0x00311c50"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN.PSB",
+      "decoded_size": 720,
+      "decoded_sha256": "38aa140093718b2cbb1e652d96219bd81737c40baca4a7d308235dbcbdf7de1d",
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN.PSB",
+        "offset": 1209899307,
+        "stored_size": 312,
+        "directory_size_0x08": 312,
+        "unpacked_size": 720,
+        "compression": "packfs_lzo",
+        "stored_sha256": "65eea2b45fe826805553716602c6bb896e6d1aa64a025bc9edc4641ff25b8da8",
+        "payload_sha256": "38aa140093718b2cbb1e652d96219bd81737c40baca4a7d308235dbcbdf7de1d",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "type": "SPRITE_BANK",
+      "mapping": [
+        {
+          "offset": 12,
+          "width": 8,
+          "key_u32": 0,
+          "image_index_u32": 0,
+          "printable_character": null,
+          "evidence": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "offset": 20,
+          "width": 8,
+          "key_u32": 1,
+          "image_index_u32": 1,
+          "printable_character": null,
+          "evidence": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "offset": 28,
+          "width": 8,
+          "key_u32": 2,
+          "image_index_u32": 2,
+          "printable_character": null,
+          "evidence": "CONFIRMED_BY_BOTH"
+        },
+        {
+          "offset": 36,
+          "width": 8,
+          "key_u32": 3,
+          "image_index_u32": 3,
+          "printable_character": null,
+          "evidence": "CONFIRMED_BY_BOTH"
+        }
+      ],
+      "images": [
+        {
+          "key": 0,
+          "source_triangle_count": 2,
+          "local_bounds": [
+            -8,
+            -3,
+            8,
+            13
+          ]
+        },
+        {
+          "key": 1,
+          "source_triangle_count": 2,
+          "local_bounds": [
+            -8,
+            -12,
+            8,
+            4
+          ]
+        },
+        {
+          "key": 2,
+          "source_triangle_count": 2,
+          "local_bounds": [
+            -7,
+            -12,
+            9,
+            4
+          ]
+        },
+        {
+          "key": 3,
+          "source_triangle_count": 2,
+          "local_bounds": [
+            -8,
+            -11,
+            8,
+            5
+          ]
+        }
+      ],
+      "texture_references": [
+        "burdybrown_000"
+      ],
+      "loader": "0x00380a08 -> 0x00386d28",
+      "consumer": "0x00337a98"
+    }
+  ],
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "runtime_validation": "NOT_PERFORMED"
+}

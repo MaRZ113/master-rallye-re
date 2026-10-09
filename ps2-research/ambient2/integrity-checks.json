@@ -1,0 +1,44 @@
+{
+  "canonical_inputs": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "canonical_source_result": "PASS; fresh post-analysis hashes match preflight",
+  "selected_PC_input": {
+    "path": "D:/Game/Master Rallye/corpora/retail/Data.sma_unpacked/DataGx/Vehicles/LandCruiser/citybird128-tga.dxt",
+    "sha256": "eb48ecfe81b45acef6931d978d128e9c49d1897f6019b0f99fe8e35af9316090",
+    "result": "UNCHANGED"
+  },
+  "SDK": {
+    "head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "status": "## research/r5t-course-archaeology...origin/research/r5t-course-archaeology",
+    "result": "UNCHANGED"
+  },
+  "PC_renderer_proxy_diff": "EMPTY",
+  "primary_branch": "master",
+  "precommit_head": "9ace2be4384f2a052482016e5a4873758934b7b5",
+  "parallel_changes_preserved": [
+    " M README.md",
+    " M tests/synthetic/test_observatory_release.py",
+    " M tools/runtime/broker_observatory.py",
+    " M tools/runtime/observatory_version.py",
+    "?? docs/releases/observatory-0.2.3-beta.md",
+    "?? tests/synthetic/test_observatory_remote_anchors.py"
+  ],
+  "unittest_isolated_success_lines": 268,
+  "scope": "No original asset/EXE,SDK or PC renderer writer in this phase"
+}

@@ -19,12 +19,14 @@ def main():
     ap.add_argument('--window', nargs=2, type=lambda s: int(s, 0), required=True)
     ap.add_argument('--addresses', nargs='+', type=lambda s: int(s, 0), required=True)
     ap.add_argument('--refs', nargs='*', type=lambda s: int(s, 0), default=[])
-    ap.add_argument('--track', choices=['ui1', 'ui2', 'ambient1', 'grass1', 'water1', 'refl1', 'dressing1', 'treeblend1'], default='ui1',
+    ap.add_argument('--track', choices=['ui1', 'ui2', 'ambient1', 'grass1', 'water1', 'refl1', 'dressing1', 'treeblend1', 'ambient2'], default='ui1',
                     help='Ignored local export directory; defaults to the original UI1 track')
     ap.add_argument('--ee-scalar', action='store_true',
                     help='Normalize EE SQRT operand and MULT rd for scalar dataflow; requires no HI/LO reads in window')
     ap.add_argument('--ee-sqrt-only', action='store_true',
                     help='Normalize only EE SQRT operands; preserve MULT and HI/LO instructions')
+    ap.add_argument('--ee-mult-sites', nargs='*', type=lambda s: int(s, 0), default=[],
+                    help='Explicit audited EE MULT rd sites; low32 only, HI/LO are not modeled')
     a = ap.parse_args()
     b = a.elf.read_bytes()
     if hashlib.sha256(b).hexdigest() != SHA:
@@ -34,6 +36,12 @@ def main():
         raise ValueError('Invalid or excessive UI query window')
     if any(not lo <= v < hi for v in a.addresses):
         raise ValueError('Function address outside query window')
+    for va in a.ee_mult_sites:
+        if not lo <= va < hi or va & 3:
+            raise ValueError('EE MULT site outside aligned query window')
+        word = struct.unpack_from('<I', b, va-0xff000)[0]
+        if word >> 26 != 0 or word & 63 not in (24, 25) or not (word >> 11) & 31:
+            raise ValueError('Explicit site is not EE MULT with nonzero rd')
     if a.ee_scalar and any((w := struct.unpack_from('<I', b, va-0xff000)[0]) >> 26 == 0
                            and w & 63 in (16, 18) for va in range(lo, hi, 4)):
         raise ValueError('EE scalar MULT surrogate cannot preserve HI/LO consumers')
@@ -76,7 +84,7 @@ def main():
             if word>>26 in (0x1e, 0x1f):
                 replacement = ((0x37 if word>>26 == 0x1e else 0x3f)<<26)|(word&0x3ffffff)
                 kind = 'LQ/SQ low64 only'
-            elif a.ee_scalar and word >> 26 == 0 and word & 63 in (24, 25) and (word >> 11) & 31:
+            elif (a.ee_scalar or va in a.ee_mult_sites) and word >> 26 == 0 and word & 63 in (24, 25) and (word >> 11) & 31:
                 replacement = 0x70000002 | (word & 0x03fff800)
                 kind = 'EE MULT rd low32 only; HI/LO not modeled'
             elif (a.ee_scalar or a.ee_sqrt_only) and word >> 21 == 0x230 and word & 63 == 4:

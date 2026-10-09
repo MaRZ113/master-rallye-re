@@ -1,0 +1,28 @@
+{
+  "files_scanned": 7595,
+  "xml_scanned": 122,
+  "owner_hits": [],
+  "xml_with_bird_sound_strings": 35,
+  "name_hits": [
+    {
+      "path": "DataGx/Vehicles/LandCruiser/citybird128-tga.dxt",
+      "size": 65556,
+      "sha256": "eb48ecfe81b45acef6931d978d128e9c49d1897f6019b0f99fe8e35af9316090"
+    }
+  ],
+  "geometry_absence_claim": false,
+  "root": "D:/Game/Master Rallye/corpora/retail/Data.sma_unpacked",
+  "search_scope": "All7595 filenames; all122 decoded XML text files, case-insensitive BirdManager/Burdy/Hawk/bird/animals token leads; no compiled DX model absence inferred",
+  "owner_terms": [
+    "gaAnimals_BirdManager",
+    "gaAnimals_FlyBird",
+    "gaAnimals_Miller"
+  ],
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "classification": "NOT_FOUND_IN_SCANNED_PC_CORPUS; controller/visual candidates only",
+  "limitations": [
+    "No PC executable BirdManager reverse",
+    "No exhaustive compiled DX bird-shaped geometry classification",
+    "Bird ambient sound references do not establish visual birds"
+  ]
+}

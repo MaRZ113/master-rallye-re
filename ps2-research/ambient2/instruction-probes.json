@@ -1,0 +1,382 @@
+{
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "address_mapping": "Canonical PT_LOAD file_offset=VA-0xff000",
+  "windows": {
+    "rise": {
+      "start": "0x1b0ecc",
+      "end_exclusive": "0x1b0ee4",
+      "word_count": 6,
+      "sha256": "0f8c4a58025f7b96d5214ffdb034fc3e6415d03b3c9f74ba4a486de835df83d5",
+      "words": [
+        "3c0141f0",
+        "44810800",
+        "c602001c",
+        "46010003",
+        "46001080",
+        "e602001c"
+      ]
+    },
+    "speed_travel": {
+      "start": "0x1b0f08",
+      "end_exclusive": "0x1b0f3c",
+      "word_count": 13,
+      "sha256": "5e1aac24f234e507a7a1046682c9f75ef8ec5a4de44395723d59e7be6f9e6132",
+      "words": [
+        "3c0141f0",
+        "44811800",
+        "0200282d",
+        "c6010028",
+        "4600a306",
+        "46030003",
+        "c602002c",
+        "03a0202d",
+        "46000840",
+        "460308c3",
+        "e6010028",
+        "46031080",
+        "e602002c"
+      ]
+    },
+    "rng": {
+      "start": "0x1d5df0",
+      "end_exclusive": "0x1d5e6c",
+      "word_count": 31,
+      "sha256": "00322d8a37d3116d2b1528dd7af3c96048e5d30a342bd21df35cc074c6c305d8",
+      "words": [
+        "0080402d",
+        "3403adc8",
+        "8d050000",
+        "3406bc8f",
+        "24070d47",
+        "50600001",
+        "000001cd",
+        "00a3001a",
+        "3402adc8",
+        "00002812",
+        "00002010",
+        "00862018",
+        "00a72818",
+        "00852023",
+        "1c800005",
+        "ad040000",
+        "3c027fff",
+        "3442ffff",
+        "00821021",
+        "ad020000",
+        "8d030000",
+        "3c0200ff",
+        "3442ffff",
+        "3c013380",
+        "44810800",
+        "00621824",
+        "44830000",
+        "00000000",
+        "46800020",
+        "03e00008",
+        "46010002"
+      ]
+    },
+    "switch_counter": {
+      "start": "0x1b17fc",
+      "end_exclusive": "0x1b1828",
+      "word_count": 11,
+      "sha256": "d09c33a0e95832bf34dee642aa3dad6419d76c81b304c7b314a2ab949b74a897",
+      "words": [
+        "8c640010",
+        "8c62001c",
+        "0044102a",
+        "10400006",
+        "24820001",
+        "0060202d",
+        "0c06c60e",
+        "ac600010",
+        "10000003",
+        "7bbf0000",
+        "ac620010"
+      ]
+    },
+    "brown_writer": {
+      "start": "0x1af140",
+      "end_exclusive": "0x1af15c",
+      "word_count": 7,
+      "sha256": "bc26daa23dfdd56b470b7b6c8040c544c42646ce8ae590d7e898986c9f17c4b0",
+      "words": [
+        "26060010",
+        "8e060094",
+        "3c050047",
+        "03a0202d",
+        "0c078ae6",
+        "24a52c48",
+        "3c050047"
+      ]
+    },
+    "both_lists": {
+      "start": "0x1af370",
+      "end_exclusive": "0x1af38c",
+      "word_count": 7,
+      "sha256": "96c7f3a7d41886eeca1430e75501db65bbcf0714eb405eb7910a28d384446465",
+      "words": [
+        "0040182d",
+        "8e0200ac",
+        "10400032",
+        "ae0300a8",
+        "10600031",
+        "7bbf0040",
+        "0c0804d4"
+      ]
+    },
+    "write_position": {
+      "start": "0x1b0f44",
+      "end_exclusive": "0x1b0f70",
+      "word_count": 11,
+      "sha256": "bd3d5fd477c85d005b811c28ba0a3de76d788041e5f0a5112511de009be4fa73",
+      "words": [
+        "c7a10000",
+        "26020050",
+        "3c013f80",
+        "44811000",
+        "e6010050",
+        "7bbf0030",
+        "c7a00004",
+        "7bb10020",
+        "e4400004",
+        "7bb00010",
+        "c7a10008"
+      ]
+    },
+    "factory_manager": {
+      "start": "0x15d298",
+      "end_exclusive": "0x15d2ac",
+      "word_count": 5,
+      "sha256": "ec82857a1219be465fec4929122d1f25ee5fae80bba5a4b60590def416a2d2d7",
+      "words": [
+        "0220202d",
+        "0c0ab502",
+        "240400b0",
+        "0c06ba2e",
+        "0040202d"
+      ]
+    },
+    "material_selector_reset": {
+      "start": "0x312610",
+      "end_exclusive": "0x312630",
+      "words": [
+        "27bdff50",
+        "3c0a0043",
+        "7fbe0090",
+        "254edec0",
+        "7fbf00a0",
+        "25cdffa0",
+        "7fb70080",
+        "3402fffc"
+      ],
+      "sha256": "5f0a97c74d512809ebd7713ceee7eddad70bc6ba6ad3aee8615ada0fc45f1c48",
+      "word_count": 8,
+      "scope": "Interior instructions; not a new function entry"
+    },
+    "world_sprite_mode8": {
+      "start": "0x3157cc",
+      "end_exclusive": "0x3157dc",
+      "words": [
+        "3c190043",
+        "3408fff7",
+        "00084438",
+        "3508ffff"
+      ],
+      "sha256": "d3e9c3eb1e0e9d94fd78721329aa04b14e57577d13acadfae833e87639ad24c0",
+      "word_count": 4,
+      "scope": "Interior instructions; not a new function entry"
+    },
+    "sprite_pair_step": {
+      "start": "0x3386f8",
+      "end_exclusive": "0x33870c",
+      "words": [
+        "8fa600fc",
+        "26f70048",
+        "8fa500f8",
+        "24c60048",
+        "8ca20004"
+      ],
+      "sha256": "5e4924f6b55815d69933f3037c0991abd373683d380f0eb87676102d33fbb9ad",
+      "word_count": 5,
+      "scope": "Interior instructions; not a new function entry"
+    }
+  },
+  "precision": "Original bytes: EXACT_ELF_OPERATION; scalar probe execution: FLOAT32_RECONSTRUCTION",
+  "vu_pairs": [
+    {
+      "elf_va": "0x442200",
+      "end_bit": false,
+      "lower": {
+        "args": [
+          "vi1",
+          "0",
+          "vi12"
+        ],
+        "fd": 0,
+        "fs": 12,
+        "ft": 1,
+        "imm11": 0,
+        "mask": "w",
+        "op": "ILW.w"
+      },
+      "lower_word": "0x8216000",
+      "micro_pc": "0x10",
+      "upper": {
+        "args": [],
+        "fd": 11,
+        "fs": 0,
+        "ft": 0,
+        "imm11": 767,
+        "mask": "",
+        "op": "NOP"
+      },
+      "upper_word": "0x2ff"
+    },
+    {
+      "elf_va": "0x442228",
+      "end_bit": false,
+      "lower": {
+        "args": [
+          "vi11",
+          "317",
+          "vi0"
+        ],
+        "fd": 4,
+        "fs": 0,
+        "ft": 11,
+        "imm11": 317,
+        "mask": "w",
+        "op": "ILW.w"
+      },
+      "lower_word": "0x82b013d",
+      "micro_pc": "0x15",
+      "upper": {
+        "args": [],
+        "fd": 11,
+        "fs": 0,
+        "ft": 0,
+        "imm11": 767,
+        "mask": "",
+        "op": "NOP"
+      },
+      "upper_word": "0x2ff"
+    },
+    {
+      "elf_va": "0x442378",
+      "end_bit": false,
+      "lower": {
+        "args": [
+          "vf12",
+          "vi12",
+          "3"
+        ],
+        "fd": 0,
+        "fs": 12,
+        "ft": 12,
+        "imm11": 3,
+        "mask": "xyzw",
+        "op": "LQ.xyzw"
+      },
+      "lower_word": "0x1ec6003",
+      "micro_pc": "0x3f",
+      "upper": {
+        "args": [],
+        "fd": 11,
+        "fs": 0,
+        "ft": 0,
+        "imm11": 767,
+        "mask": "",
+        "op": "NOP"
+      },
+      "upper_word": "0x2ff"
+    },
+    {
+      "elf_va": "0x442380",
+      "end_bit": false,
+      "lower": {
+        "args": [
+          "vi8",
+          "vi0",
+          "vi2"
+        ],
+        "fd": 8,
+        "fs": 0,
+        "ft": 2,
+        "imm11": 560,
+        "mask": "",
+        "op": "IADD"
+      },
+      "lower_word": "0x80020230",
+      "micro_pc": "0x40",
+      "upper": {
+        "args": [
+          "ACC",
+          "vf13",
+          "vf12.x"
+        ],
+        "fd": 6,
+        "fs": 13,
+        "ft": 12,
+        "imm11": 444,
+        "mask": "xyzw",
+        "op": "MULAx.xyzw"
+      },
+      "upper_word": "0x1ec69bc"
+    },
+    {
+      "elf_va": "0x442950",
+      "end_bit": false,
+      "lower": {
+        "args": [
+          "vi8"
+        ],
+        "fd": 27,
+        "fs": 8,
+        "ft": 0,
+        "imm11": -260,
+        "mask": "",
+        "op": "XGKICK"
+      },
+      "lower_word": "0x800046fc",
+      "micro_pc": "0xfa",
+      "upper": {
+        "args": [],
+        "fd": 11,
+        "fs": 0,
+        "ft": 0,
+        "imm11": 767,
+        "mask": "",
+        "op": "NOP"
+      },
+      "upper_word": "0x2ff"
+    },
+    {
+      "elf_va": "0x444050",
+      "end_bit": false,
+      "lower": {
+        "args": [
+          "vi8"
+        ],
+        "fd": 27,
+        "fs": 8,
+        "ft": 0,
+        "imm11": -260,
+        "mask": "",
+        "op": "XGKICK"
+      },
+      "lower_word": "0x800046fc",
+      "micro_pc": "0x3d7",
+      "upper": {
+        "args": [],
+        "fd": 11,
+        "fs": 0,
+        "ft": 0,
+        "imm11": 767,
+        "mask": "",
+        "op": "NOP"
+      },
+      "upper_word": "0x2ff"
+    }
+  ]
+}

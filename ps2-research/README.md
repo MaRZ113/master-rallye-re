@@ -142,3 +142,11 @@ camera/LOD/wind and live texture/VU boundaries remain explicit.
 [foliage_runtime.py](tools/foliage_runtime.py) exposes bounded material/state/source
 diagnostics; the [handoff](treeblend1/HANDOFF.md) includes small historical test
 fixtures and original instruction probes. No PC foliage implementation is included.
+
+The [AMBIENT2 bird reverse](ambient2/final-report.md) connects authored spawn
+origins to BirdManager pooling, the original global RNG and FlyBird equations,
+actual world translation, three-frame PSB animation and the ordinary world-sprite
+GS/VIF path. [bird_runtime.py](tools/bird_runtime.py) provides explicit-state
+diagnostics; the [handoff](ambient2/HANDOFF.md) retains small regression fixtures.
+Live population/list registry, scheduler, ground activation and VU/frame evidence
+remain separately qualified. No PC bird implementation is included.

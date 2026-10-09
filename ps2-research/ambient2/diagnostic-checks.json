@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "mode": "inventory",
+      "executed_command": [
+        "C:\\Users\\MaRZ\\scoop\\apps\\python\\current\\python.exe",
+        "ps2-research/tools/bird_runtime.py",
+        "inventory",
+        "--input",
+        "D:/Game/Master Rallye PS2",
+        "--output",
+        "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\data\\ambient2\\inventory-cli.json"
+      ],
+      "matches": "bird-course-inventory.json",
+      "sha256": "17067a5dd8664854336351b981ad9a64f3853591153b010bc012a890af4aea61",
+      "result": "PASS"
+    },
+    {
+      "mode": "resources",
+      "executed_command": [
+        "C:\\Users\\MaRZ\\scoop\\apps\\python\\current\\python.exe",
+        "ps2-research/tools/bird_runtime.py",
+        "resources",
+        "--input",
+        "D:/Game/Master Rallye PS2",
+        "--output",
+        "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\data\\ambient2\\resources-cli.json"
+      ],
+      "matches": "bird-resource-inventory.json",
+      "sha256": "a71101967e2eda4ad5d0c5834d4428389ff4fb71174685f520feccf1c80008a0",
+      "result": "PASS"
+    },
+    {
+      "mode": "contract",
+      "executed_command": [
+        "C:\\Users\\MaRZ\\scoop\\apps\\python\\current\\python.exe",
+        "ps2-research/tools/bird_runtime.py",
+        "contract",
+        "--output",
+        "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\data\\ambient2\\contract-cli.json"
+      ],
+      "matches": "bird-render-contract.json",
+      "sha256": "75fb89b22142d10e88e35cfdf9eeebda12b75687933067588aa7e55f044e90c6",
+      "result": "PASS"
+    },
+    {
+      "mode": "trace",
+      "executed_command": [
+        "C:\\Users\\MaRZ\\scoop\\apps\\python\\current\\python.exe",
+        "ps2-research/tools/bird_runtime.py",
+        "trace",
+        "--state",
+        "ps2-research/data/ambient2/synthetic-state.json",
+        "--steps",
+        "15",
+        "--output",
+        "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\data\\ambient2\\trace-cli.json"
+      ],
+      "matches": "synthetic-flight-trace.json",
+      "sha256": "2cd97a11dcc4829be0d1503068a9b17c59b958ccbf6243eecc9033eccfc9df2f",
+      "result": "PASS"
+    },
+    {
+      "mode": "trace",
+      "executed_command": [
+        "C:\\Users\\MaRZ\\scoop\\apps\\python\\current\\python.exe",
+        "ps2-research/tools/bird_runtime.py",
+        "trace",
+        "--state",
+        "ps2-research/data/ambient2/synthetic-state.json",
+        "--steps",
+        "15",
+        "--output",
+        "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\data\\ambient2\\trace-repeat-cli.json"
+      ],
+      "matches": "synthetic-flight-trace.json",
+      "sha256": "2cd97a11dcc4829be0d1503068a9b17c59b958ccbf6243eecc9033eccfc9df2f",
+      "result": "PASS"
+    }
+  ],
+  "runtime_validation": "NOT_PERFORMED"
+}

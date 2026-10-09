@@ -1,0 +1,4930 @@
+{
+  "schema": "ps2-bird-contract-v1",
+  "canonical_inputs": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "courses": [
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+      "decoded_sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "850.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 200.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 850.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 6,
+              "ordered_xyz_f32_sha256": "3b3d4dc7b81aaa49809c68d0946419488381e9f94f8e912258fc4deef91a3769",
+              "bounds_xyz": [
+                [
+                  -1481.6700439453125,
+                  32.939998626708984,
+                  440.6099853515625
+                ],
+                [
+                  -1076.550048828125,
+                  54.939998626708984,
+                  1188.3699951171875
+                ]
+              ],
+              "marker_no_order_sha256": "a135d923df771e246631fa3901059cccac879d9b14b6e88ed87a4d3e53065efa",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 10,
+              "ordered_xyz_f32_sha256": "f7c782c49be90e2f60e8f0693edff9f14ce41cf3bc2f3f2e74358cf189824770",
+              "bounds_xyz": [
+                [
+                  -3307.820068359375,
+                  11.670000076293945,
+                  -141.1199951171875
+                ],
+                [
+                  -1674.6700439453125,
+                  91.88999938964844,
+                  991.8099975585938
+                ]
+              ],
+              "marker_no_order_sha256": "3762d4924ba76667b814e50fb19c782767453f24e6d758f1f20821be3d61153a",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "FRANCE1",
+      "pc_source": "DataScene/RaceTest/France1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+        "offset": 1224256130,
+        "stored_size": 58229,
+        "directory_size_0x08": 58229,
+        "unpacked_size": 475491,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a38090fca7af3f8c0efb5e2ed9327d86f85ca0a7e0793d51e9af2d3f15a07727",
+        "payload_sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+      "decoded_sha256": "73994778517d708c542cec93fadbc80d9f243986a80e98445f7a401ef61ffc99",
+      "managers": [
+        {
+          "egg_list": "IContManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "1000.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 100.0,
+            "Max Mil Dist": 1000.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 15,
+              "ordered_xyz_f32_sha256": "0b98fb291edec0fd2502b8d98112f4c9e95cc3609c4c3c6cd9d9731a9b80e41b",
+              "bounds_xyz": [
+                [
+                  101.52999877929688,
+                  52.13999938964844,
+                  -329.79998779296875
+                ],
+                [
+                  1384.8599853515625,
+                  82.41999816894531,
+                  1032.43994140625
+                ]
+              ],
+              "marker_no_order_sha256": "ea3055568da18248358c8695fca2041231fe350317f7bac55e708e1e616eeb56",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "FRANCE2",
+      "pc_source": "DataScene/RaceTest/France2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+        "offset": 1224314359,
+        "stored_size": 50928,
+        "directory_size_0x08": 50928,
+        "unpacked_size": 410142,
+        "compression": "packfs_lzo",
+        "stored_sha256": "8035bc78b127a5e0e2b87e95b691d9dda1b589ed426b7ab97b256794a2ca44e3",
+        "payload_sha256": "73994778517d708c542cec93fadbc80d9f243986a80e98445f7a401ef61ffc99",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+      "decoded_sha256": "b9d4d752f181b0915b1fa82a4eebc48d25dbb1287a92007bf0a8968aae77c780",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 900.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 29,
+              "ordered_xyz_f32_sha256": "df8dd765e325d4ea5c43e917843e2a9906c5e85a2d74ed9f607dbf670d801161",
+              "bounds_xyz": [
+                [
+                  -3120.81005859375,
+                  3.25,
+                  -355.5400085449219
+                ],
+                [
+                  1168.3499755859375,
+                  91.25,
+                  499.9599914550781
+                ]
+              ],
+              "marker_no_order_sha256": "55fcbdf58f4fe14eb167c23e5dfdca9ec15a86412959a4e9c2e85f4ade1bce65",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "FRANCEM",
+      "pc_source": "DataScene/RaceTest/FranceM.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+        "offset": 1224365287,
+        "stored_size": 56060,
+        "directory_size_0x08": 56060,
+        "unpacked_size": 457432,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e6b30856c0316db66a7dd9b0aca61ebbe6f177a99f6743bf907da807743b58ca",
+        "payload_sha256": "b9d4d752f181b0915b1fa82a4eebc48d25dbb1287a92007bf0a8968aae77c780",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+      "decoded_sha256": "961d479907fd1ae23efa090a86e73f99d08397db6f1f7971a0f792aff7408f0a",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 28,
+              "ordered_xyz_f32_sha256": "70ec42f5cd0a2e1469cf7ee3f3862baec5f4dc9129d2c8d81803c3e72cfc9bb7",
+              "bounds_xyz": [
+                [
+                  -2646.419921875,
+                  27.15999984741211,
+                  -406.1499938964844
+                ],
+                [
+                  889.760009765625,
+                  92.16000366210938,
+                  1032.4000244140625
+                ]
+              ],
+              "marker_no_order_sha256": "55ca61e2aac277d6da348583169484f184f4365291f03ebdc371c8a82b45d24c",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "FRANCES1",
+      "pc_source": "DataScene/RaceTest/FranceS1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+        "offset": 1224421347,
+        "stored_size": 45642,
+        "directory_size_0x08": 45642,
+        "unpacked_size": 385941,
+        "compression": "packfs_lzo",
+        "stored_sha256": "df701ba807c24894fc7d8ece926ad0ca46a17ce01d9b8a3760a684e022f37fcd",
+        "payload_sha256": "961d479907fd1ae23efa090a86e73f99d08397db6f1f7971a0f792aff7408f0a",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+      "decoded_sha256": "61f18daf5146c79f21334708a195fe72f0f79cfc4e8282e3fb95ac9d20c64c1e",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 5,
+              "ordered_xyz_f32_sha256": "21dece9a2539fba844333f27115c736d2fa12761b4a02bf5955e2a47b4717da3",
+              "bounds_xyz": [
+                [
+                  1272.02001953125,
+                  61.11000061035156,
+                  -325.989990234375
+                ],
+                [
+                  1380.81005859375,
+                  62.779998779296875,
+                  -307.7900085449219
+                ]
+              ],
+              "marker_no_order_sha256": "c420429d9f6fa341aedaf57bccb009d898d77683a2029b0b639915e3e6838280",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "FRANCES2",
+      "pc_source": "DataScene/RaceTest/FranceS2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+        "offset": 1224466989,
+        "stored_size": 56696,
+        "directory_size_0x08": 56696,
+        "unpacked_size": 460975,
+        "compression": "packfs_lzo",
+        "stored_sha256": "99bda25bc06d66c51b7248dff065fc70976739137fbcc3407e2566701036cf05",
+        "payload_sha256": "61f18daf5146c79f21334708a195fe72f0f79cfc4e8282e3fb95ac9d20c64c1e",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+      "decoded_sha256": "6584be244c0081dff1b11ae41f4a30da1905adcd99d753e5a921c2c1f27e1bef",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 34,
+              "ordered_xyz_f32_sha256": "98f08cca23fd92ece8aeed5b2193bb0396f84e4b31dd30350ba2af7087648ade",
+              "bounds_xyz": [
+                [
+                  -3209.419921875,
+                  0.3799999952316284,
+                  295.2300109863281
+                ],
+                [
+                  1033.8800048828125,
+                  81.20999908447266,
+                  1196.52001953125
+                ]
+              ],
+              "marker_no_order_sha256": "1c57335ec0726d5726f3ea0af958978b3cc2460c184b6b33aeafb3d3fa795e49",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "FRANCEW",
+      "pc_source": "DataScene/RaceTest/FranceW.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+        "offset": 1224523685,
+        "stored_size": 54487,
+        "directory_size_0x08": 54487,
+        "unpacked_size": 443571,
+        "compression": "packfs_lzo",
+        "stored_sha256": "f3ae34ffc8aeee1a9f638eb1b4c47f365822fab4daa0652581799815dd630bb3",
+        "payload_sha256": "6584be244c0081dff1b11ae41f4a30da1905adcd99d753e5a921c2c1f27e1bef",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+      "decoded_sha256": "6615efe8ff52dacb7b0312576e27f1404a7ba37edb90d388c8c833876ec772ee",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 23,
+              "ordered_xyz_f32_sha256": "5a00382cf97bf1f5dcf88804b8ff0b825fe86ac12d84757fb44dfeff24be37b7",
+              "bounds_xyz": [
+                [
+                  -2887.320068359375,
+                  3.2100000381469727,
+                  255.7100067138672
+                ],
+                [
+                  1176.8299560546875,
+                  80.43000030517578,
+                  1197.2099609375
+                ]
+              ],
+              "marker_no_order_sha256": "a25c67d635a8aba6e43144c5c09a74a7fadaacbfbf6ce39e2b710917d5d6f244",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "FRANCEWFLIP",
+      "pc_source": "DataScene/RaceTest/FranceWFlip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+        "offset": 1224578172,
+        "stored_size": 49311,
+        "directory_size_0x08": 49311,
+        "unpacked_size": 409353,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c2657ad39e7d0c52e4a0219b996b80035d00e6b4c4d71529d43cf6e1d902a036",
+        "payload_sha256": "6615efe8ff52dacb7b0312576e27f1404a7ba37edb90d388c8c833876ec772ee",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+      "decoded_sha256": "f089fdb13a2647255212ddb9737f0ca6fd4f70a31791b54afe3c7f8634a82ed7",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 13,
+              "ordered_xyz_f32_sha256": "bd4fa279cae5564af7ddbfb1c95cd10e90a4dc66018212c2481313fe806bd367",
+              "bounds_xyz": [
+                [
+                  -2416.179931640625,
+                  22.829999923706055,
+                  -681.9199829101562
+                ],
+                [
+                  -1398.4300537109375,
+                  145.77999877929688,
+                  160.77999877929688
+                ]
+              ],
+              "marker_no_order_sha256": "0d43b97036c99bee7392e148d4aa260cae6650e02d51cad49b8970ecf6e144bb",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "ITALY1",
+      "pc_source": "DataScene/RaceTest/Italy1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+        "offset": 1224627483,
+        "stored_size": 34975,
+        "directory_size_0x08": 34975,
+        "unpacked_size": 283135,
+        "compression": "packfs_lzo",
+        "stored_sha256": "68710f92b543a77f8adddc7222b82ea31fbe4f740aec102331e13154f0eafc78",
+        "payload_sha256": "f089fdb13a2647255212ddb9737f0ca6fd4f70a31791b54afe3c7f8634a82ed7",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "decoded_sha256": "56ef29e13f9cc3f64fb1d2d31b0cc293d3ccd08deed8e88e2a78752b90574c69",
+      "managers": [
+        {
+          "egg_list": "IContManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 7,
+              "ordered_xyz_f32_sha256": "f5675de963ea58bb76fd995866e112bb67b52234f3de5997b0ffafd04ea457e7",
+              "bounds_xyz": [
+                [
+                  -653.3900146484375,
+                  -93.77999877929688,
+                  -474.8299865722656
+                ],
+                [
+                  697.219970703125,
+                  -42.2400016784668,
+                  376.9800109863281
+                ]
+              ],
+              "marker_no_order_sha256": "5c6ac80081e2a1264498fb9c61e181315a944d884fe323070b0be5a486bcb260",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 3,
+              "ordered_xyz_f32_sha256": "c954caceaf5e8e8adbfae390ed4ff418cbf85c489edd64e0bc044a66b704f0ee",
+              "bounds_xyz": [
+                [
+                  616.8499755859375,
+                  -65.5,
+                  -180.4199981689453
+                ],
+                [
+                  688.6900024414062,
+                  -60.560001373291016,
+                  383.42999267578125
+                ]
+              ],
+              "marker_no_order_sha256": "96fdb58f98dee7296bf076e907cc538bbad7f30cfd5c5daf3deeec044a28e921",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "ITALY2",
+      "pc_source": "DataScene/RaceTest/Italy2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+        "offset": 1224662458,
+        "stored_size": 41290,
+        "directory_size_0x08": 41290,
+        "unpacked_size": 330681,
+        "compression": "packfs_lzo",
+        "stored_sha256": "8ef7d74ae3a4b7958ff4a2f70b1ce7959df338630d42b3fb5480a794cb2ee439",
+        "payload_sha256": "56ef29e13f9cc3f64fb1d2d31b0cc293d3ccd08deed8e88e2a78752b90574c69",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+      "decoded_sha256": "4906b90b90560a73df3b73ed11b5fd536accbdd1a02d1f599531c694902a5cee",
+      "managers": [
+        {
+          "egg_list": "IContManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 100.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 8,
+              "ordered_xyz_f32_sha256": "134f9018fbbe32fc58f24355c9284e26c185d641bcb71b0f2d008415b746e8ad",
+              "bounds_xyz": [
+                [
+                  1864.0,
+                  -77.23999786376953,
+                  -423.17999267578125
+                ],
+                [
+                  3332.489990234375,
+                  -41.58000183105469,
+                  1326.6400146484375
+                ]
+              ],
+              "marker_no_order_sha256": "9dd4f0a87e8464171eed767118c82a6a8ca5a3651def8e474faaa5c6c35c4ee3",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 20,
+              "ordered_xyz_f32_sha256": "bc37c3dd4528832589bfe849621bc5163372923dd0ce1c4f880a552a69e607f6",
+              "bounds_xyz": [
+                [
+                  1864.1500244140625,
+                  -68.33999633789062,
+                  -482.010009765625
+                ],
+                [
+                  3398.580078125,
+                  -29.059999465942383,
+                  1342.2900390625
+                ]
+              ],
+              "marker_no_order_sha256": "f78db00d8e4896a0fc9dcf8cec84967c3f1393dfd0fc79595e2b1b48f7e2e9c7",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "ITALY3",
+      "pc_source": "DataScene/RaceTest/Italy3.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+        "offset": 1224703748,
+        "stored_size": 37268,
+        "directory_size_0x08": 37268,
+        "unpacked_size": 302669,
+        "compression": "packfs_lzo",
+        "stored_sha256": "d56d2e4090365646aa4bc02ca4895258860a40463a6e1c86f84505425939de0a",
+        "payload_sha256": "4906b90b90560a73df3b73ed11b5fd536accbdd1a02d1f599531c694902a5cee",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+      "decoded_sha256": "d6e818e132d2061577c7b43c2bd42d3bc8fac66b28e195de2e71957cdcadb85a",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 12,
+              "ordered_xyz_f32_sha256": "f7727b44beb1f267228384037c550d6ef21da54c891433a840a9395ff3e47d07",
+              "bounds_xyz": [
+                [
+                  -2287.8701171875,
+                  -60.439998626708984,
+                  -981.0700073242188
+                ],
+                [
+                  616.6599731445312,
+                  144.50999450683594,
+                  -180.08999633789062
+                ]
+              ],
+              "marker_no_order_sha256": "2e718e8600d47a6eb88355e5a0a2eeab181aef043bba43871157ae0a42256837",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "ITALYM1",
+      "pc_source": "DataScene/RaceTest/ItalyM1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+        "offset": 1224741016,
+        "stored_size": 49060,
+        "directory_size_0x08": 49060,
+        "unpacked_size": 408632,
+        "compression": "packfs_lzo",
+        "stored_sha256": "6134d7048cd4d7c37ae33edb6ae99f37feab9e83df6f01f5e4aa59ef5f74a6f3",
+        "payload_sha256": "d6e818e132d2061577c7b43c2bd42d3bc8fac66b28e195de2e71957cdcadb85a",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+      "decoded_sha256": "83402e92b8092edb7c82e6b6dc9b4bd0490d9547a8882a864cfaa127094315ad",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 22,
+              "ordered_xyz_f32_sha256": "b98c7baed0fe33374caa553b8d86cd6bba1bf76d67f56b9f61c541843343adbc",
+              "bounds_xyz": [
+                [
+                  -2746.300048828125,
+                  -72.22000122070312,
+                  -1199.3399658203125
+                ],
+                [
+                  616.8200073242188,
+                  196.1699981689453,
+                  -77.87000274658203
+                ]
+              ],
+              "marker_no_order_sha256": "aa5f0af930164b0d4c29a3aefd40152e69363d3e2f0f6c1b4b1e10946015b4ab",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "ITALYM1FLIP",
+      "pc_source": "DataScene/RaceTest/ItalyM1Flip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+        "offset": 1224790076,
+        "stored_size": 48924,
+        "directory_size_0x08": 48924,
+        "unpacked_size": 404855,
+        "compression": "packfs_lzo",
+        "stored_sha256": "acf728e4d2c206346803f835673ad6d3522ab66502b24c1821a4f19f41ae1e2e",
+        "payload_sha256": "83402e92b8092edb7c82e6b6dc9b4bd0490d9547a8882a864cfaa127094315ad",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+      "decoded_sha256": "133f3872bc08251fdc7d6f1f275421b5ac7f00ee601d739589034a7f46681ec3",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 5,
+              "ordered_xyz_f32_sha256": "0e4fba7d76595036d484c069e9872824699833f09bd52cc5bb772491e371b2a4",
+              "bounds_xyz": [
+                [
+                  2341.1298828125,
+                  -65.61000061035156,
+                  -387.6499938964844
+                ],
+                [
+                  3072.64990234375,
+                  -42.54999923706055,
+                  -153.16000366210938
+                ]
+              ],
+              "marker_no_order_sha256": "c420429d9f6fa341aedaf57bccb009d898d77683a2029b0b639915e3e6838280",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 20,
+              "ordered_xyz_f32_sha256": "80707d0d786da9a4ad5402ed3d739c77634f3699bf33bcf9c5e2230abd639d0b",
+              "bounds_xyz": [
+                [
+                  -836.2100219726562,
+                  -64.98999786376953,
+                  -495.45001220703125
+                ],
+                [
+                  3303.0400390625,
+                  84.44999694824219,
+                  383.2900085449219
+                ]
+              ],
+              "marker_no_order_sha256": "f78db00d8e4896a0fc9dcf8cec84967c3f1393dfd0fc79595e2b1b48f7e2e9c7",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "ITALYM2",
+      "pc_source": "DataScene/RaceTest/ItalyM2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+        "offset": 1224839000,
+        "stored_size": 42262,
+        "directory_size_0x08": 42262,
+        "unpacked_size": 368488,
+        "compression": "packfs_lzo",
+        "stored_sha256": "449d9a9ac56b7a2c0d0d67f89a4aee4deeb23b40971a56c240f8ce562fc7d02c",
+        "payload_sha256": "133f3872bc08251fdc7d6f1f275421b5ac7f00ee601d739589034a7f46681ec3",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "decoded_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 900.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 14,
+              "ordered_xyz_f32_sha256": "26e9ba2908068ff53d71754bbc3aebfd9d5d7d6ad7ab3d51128ddb44eb3ef0eb",
+              "bounds_xyz": [
+                [
+                  -2017.4599609375,
+                  -30.34000015258789,
+                  -1102.8900146484375
+                ],
+                [
+                  152.64999389648438,
+                  120.94000244140625,
+                  672.5700073242188
+                ]
+              ],
+              "marker_no_order_sha256": "b68c09fb0296efcb259224fcdb3d08afa25b56f13024f60aec4bc0ff056e43e2",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "ITALYS1",
+      "pc_source": "DataScene/RaceTest/ItalyS1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+        "offset": 1224881262,
+        "stored_size": 40712,
+        "directory_size_0x08": 40712,
+        "unpacked_size": 353158,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e04042a11cd2658894e33a69de9757685c1614f7f3cdc18abfc02504a6e39f5f",
+        "payload_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+      "decoded_sha256": "e43d3a14d063814590a582e5d968b6f04c7b68d75e5e4b3c8240c2c822161957",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 100.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 11,
+              "ordered_xyz_f32_sha256": "72fbf2232b2e21ca40c8ced29f702c83a36339438ba6b94dcdfae11b554f2c06",
+              "bounds_xyz": [
+                [
+                  -2124.699951171875,
+                  -0.7799999713897705,
+                  -504.510009765625
+                ],
+                [
+                  -392.7300109863281,
+                  130.3800048828125,
+                  169.47000122070312
+                ]
+              ],
+              "marker_no_order_sha256": "ccdc9697a5c8dbfc33ffe073fe833671826f1f36f8758987105f25490be6bdc5",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "ITALYS2",
+      "pc_source": "DataScene/RaceTest/ItalyS2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+        "offset": 1224921974,
+        "stored_size": 42099,
+        "directory_size_0x08": 42099,
+        "unpacked_size": 363960,
+        "compression": "packfs_lzo",
+        "stored_sha256": "f54c1d35429f46e97bd8c00084d66378d554ce3754d79a110ce3d98cbe588ed7",
+        "payload_sha256": "e43d3a14d063814590a582e5d968b6f04c7b68d75e5e4b3c8240c2c822161957",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+      "decoded_sha256": "d5e5d88c50cd641b97058dd74dcb07ab9b349c49bcf7f9bab59cd70a27ad4ff8",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 20,
+              "ordered_xyz_f32_sha256": "743940bb8a3ab2e4c12c48f40269a816327c692cec9c801c55abaef71a5eb251",
+              "bounds_xyz": [
+                [
+                  406.82000732421875,
+                  -66.9800033569336,
+                  -495.3500061035156
+                ],
+                [
+                  3397.010009765625,
+                  -1.5299999713897705,
+                  1332.0799560546875
+                ]
+              ],
+              "marker_no_order_sha256": "f78db00d8e4896a0fc9dcf8cec84967c3f1393dfd0fc79595e2b1b48f7e2e9c7",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "ITALYS3",
+      "pc_source": "DataScene/RaceTest/ItalyS3.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+        "offset": 1224964073,
+        "stored_size": 42950,
+        "directory_size_0x08": 42950,
+        "unpacked_size": 347629,
+        "compression": "packfs_lzo",
+        "stored_sha256": "805ddc188324b39fe2f5cc3d5f34798b6fd45efc0b106280939a9eae846b626c",
+        "payload_sha256": "d5e5d88c50cd641b97058dd74dcb07ab9b349c49bcf7f9bab59cd70a27ad4ff8",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+      "decoded_sha256": "ba5fae57e1b1cb0ed46b4b75ed6609d078ef5632384ce5da4ab06ccb1e3e338d",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 4,
+              "ordered_xyz_f32_sha256": "6f602a3b9c0a98d83aa25b1773106cfa13e90403cb75ace77e213dd86185c7c7",
+              "bounds_xyz": [
+                [
+                  1745.699951171875,
+                  -73.61000061035156,
+                  888.4199829101562
+                ],
+                [
+                  2123.360107421875,
+                  -59.599998474121094,
+                  1257.300048828125
+                ]
+              ],
+              "marker_no_order_sha256": "725becb1a60a6e44baf043cdf8815b22d5d09d032cc6ed7ba23c704295ace111",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 18,
+              "ordered_xyz_f32_sha256": "b865e204fdc426fdc8a18e3f208f79c383031819b7922a3777228d8aa680d7a4",
+              "bounds_xyz": [
+                [
+                  -182.8699951171875,
+                  -73.11000061035156,
+                  -514.510009765625
+                ],
+                [
+                  3310.260009765625,
+                  53.83000183105469,
+                  1338.4000244140625
+                ]
+              ],
+              "marker_no_order_sha256": "df72a386689bdbea214a76a369eeb4f2089580c6ef2cb7fbf0ddfefaa289d689",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "ITALYS3FLIP",
+      "pc_source": "DataScene/RaceTest/ItalyS3Flip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+        "offset": 1225007023,
+        "stored_size": 45551,
+        "directory_size_0x08": 45551,
+        "unpacked_size": 369894,
+        "compression": "packfs_lzo",
+        "stored_sha256": "2e419f27e160c19d8c164263e8c65539f40dcca1125665a66916685e7306a1de",
+        "payload_sha256": "ba5fae57e1b1cb0ed46b4b75ed6609d078ef5632384ce5da4ab06ccb1e3e338d",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "decoded_sha256": "2d7249f24e6556c13be8f38027b1df22bd1e49d94b81ccfabbb6f61420a13e1a",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "1000.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 900.0,
+            "Min Mil Dist": 100.0,
+            "Max Mil Dist": 1000.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 12,
+              "ordered_xyz_f32_sha256": "80a06d3ba1f291fa1ef4901a63417cbfa0c6aedbd22d73b9a6cf32612ad2a7b8",
+              "bounds_xyz": [
+                [
+                  -698.760009765625,
+                  -74.43000030517578,
+                  -345.82000732421875
+                ],
+                [
+                  3047.989990234375,
+                  -41.439998626708984,
+                  661.6699829101562
+                ]
+              ],
+              "marker_no_order_sha256": "2e718e8600d47a6eb88355e5a0a2eeab181aef043bba43871157ae0a42256837",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 6,
+              "ordered_xyz_f32_sha256": "cf53d1387e11695f191d362c430d7ce3c7a112809263fb1260ae43f7e9ac6d5b",
+              "bounds_xyz": [
+                [
+                  594.8900146484375,
+                  -66.72000122070312,
+                  -371.80999755859375
+                ],
+                [
+                  2869.760009765625,
+                  -39.290000915527344,
+                  614.9500122070312
+                ]
+              ],
+              "marker_no_order_sha256": "a135d923df771e246631fa3901059cccac879d9b14b6e88ed87a4d3e53065efa",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "ITALYS4",
+      "pc_source": "DataScene/RaceTest/ItalyS4.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+        "offset": 1225052574,
+        "stored_size": 46316,
+        "directory_size_0x08": 46316,
+        "unpacked_size": 408846,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c6f9731656c8c2b96f1a8f77c5dcbf3e37cd8311ffc8324353cf9cf06a5701d8",
+        "payload_sha256": "2d7249f24e6556c13be8f38027b1df22bd1e49d94b81ccfabbb6f61420a13e1a",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "decoded_sha256": "d9461c464e967d52773aeaf691520d6ef0b130f062d8b9590d17bd9fc0110af0",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 900.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 19,
+              "ordered_xyz_f32_sha256": "ac73d561c9c6dee41945c5fba8a9fc9ee913c56d7d51c9c543736e9d7fe2d1fd",
+              "bounds_xyz": [
+                [
+                  -2561.139892578125,
+                  -37.66999816894531,
+                  -403.17999267578125
+                ],
+                [
+                  -229.16000366210938,
+                  125.72000122070312,
+                  271.6300048828125
+                ]
+              ],
+              "marker_no_order_sha256": "4fde2a78b27ddcada2e4b9b7ed0f16232d4ac884150c467a9e36ed32f3962874",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "ITALYW1",
+      "pc_source": "DataScene/RaceTest/ItalyW1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+        "offset": 1225098890,
+        "stored_size": 47812,
+        "directory_size_0x08": 47812,
+        "unpacked_size": 425607,
+        "compression": "packfs_lzo",
+        "stored_sha256": "d984f255b39ae81e6e3d366b8ae62b7a5cb66a80d6ba484dda2a8a552d312829",
+        "payload_sha256": "d9461c464e967d52773aeaf691520d6ef0b130f062d8b9590d17bd9fc0110af0",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "decoded_sha256": "e910034391104ec29c6456a4e13cc6c697b614b06b245a53d85be1d2c2011126",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 17,
+              "ordered_xyz_f32_sha256": "9184088f3ed8d13e39875631b703cea586e334b64400417f0ed6f7576e1156f3",
+              "bounds_xyz": [
+                [
+                  -1044.8499755859375,
+                  -65.61000061035156,
+                  54.599998474121094
+                ],
+                [
+                  3138.159912109375,
+                  -16.719999313354492,
+                  1339.81005859375
+                ]
+              ],
+              "marker_no_order_sha256": "467d279aa432ac5512ea430e93258e75d79a296f92f83d2352a82d91b4b88f56",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "ITALYW2",
+      "pc_source": "DataScene/RaceTest/ItalyW2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+        "offset": 1225146702,
+        "stored_size": 49866,
+        "directory_size_0x08": 49866,
+        "unpacked_size": 437358,
+        "compression": "packfs_lzo",
+        "stored_sha256": "2cd29ce46557e7af3096a6a89c8a9f6f2bbb33408f7f8e702362b86fedabfaf1",
+        "payload_sha256": "e910034391104ec29c6456a4e13cc6c697b614b06b245a53d85be1d2c2011126",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+      "decoded_sha256": "08ad416db70206e2e33cc4d45d5bb8193f49c6daec1cdca2f1d5e669e05091ab",
+      "managers": [
+        {
+          "egg_list": "IContManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 900.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 19,
+              "ordered_xyz_f32_sha256": "8d62f4345ee110598c12284a484a4c84250fa7bbbd1d54c168f2451b6cfe7183",
+              "bounds_xyz": [
+                [
+                  21.270000457763672,
+                  38.41999816894531,
+                  -733.27001953125
+                ],
+                [
+                  1133.81005859375,
+                  110.4800033569336,
+                  713.6199951171875
+                ]
+              ],
+              "marker_no_order_sha256": "4fde2a78b27ddcada2e4b9b7ed0f16232d4ac884150c467a9e36ed32f3962874",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "SPAIN1",
+      "pc_source": "DataScene/RaceTest/Spain1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+        "offset": 1225196568,
+        "stored_size": 36874,
+        "directory_size_0x08": 36874,
+        "unpacked_size": 315723,
+        "compression": "packfs_lzo",
+        "stored_sha256": "8664760d82ef9d75dfd792db4b34bb24c1399aff1fffdb1508dc817caf9e3673",
+        "payload_sha256": "08ad416db70206e2e33cc4d45d5bb8193f49c6daec1cdca2f1d5e669e05091ab",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+      "decoded_sha256": "6a064bdcf407ab026d5f9640f6ce33cc8c59c6272ba3afabdb6128dec3256016",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 25,
+              "ordered_xyz_f32_sha256": "5fe3b7cd8cbc6ca43d6c63e0aab418bb6d64c2380d96d0f64f479e337a3d34ac",
+              "bounds_xyz": [
+                [
+                  1592.6700439453125,
+                  36.709999084472656,
+                  -942.8699951171875
+                ],
+                [
+                  2795.199951171875,
+                  103.54000091552734,
+                  159.07000732421875
+                ]
+              ],
+              "marker_no_order_sha256": "85f4faa02852ac927b5db4e2c0f86b95ef1e3af97f169454dd814f1e8ae167fb",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "SPAIN2",
+      "pc_source": "DataScene/RaceTest/Spain2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+        "offset": 1225233442,
+        "stored_size": 41982,
+        "directory_size_0x08": 41982,
+        "unpacked_size": 366565,
+        "compression": "packfs_lzo",
+        "stored_sha256": "64869c0cd43680432ba203c4f194db9bad04a016f60060bf5dbbbe118dc64be5",
+        "payload_sha256": "6a064bdcf407ab026d5f9640f6ce33cc8c59c6272ba3afabdb6128dec3256016",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+      "decoded_sha256": "1f6e7e4c90c13e6326e7e20dacc9aafcf2b5aa9cc7837507965b5eddf3f88aa5",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 12,
+              "ordered_xyz_f32_sha256": "b48c6df9b4d7ede463893f8429bde23bba5e0b34f4765495d5ea40692c83447a",
+              "bounds_xyz": [
+                [
+                  875.27001953125,
+                  36.13999938964844,
+                  -733.760009765625
+                ],
+                [
+                  1963.56005859375,
+                  94.41999816894531,
+                  -87.77999877929688
+                ]
+              ],
+              "marker_no_order_sha256": "2e718e8600d47a6eb88355e5a0a2eeab181aef043bba43871157ae0a42256837",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "SPAINM",
+      "pc_source": "DataScene/RaceTest/SpainM.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+        "offset": 1225275424,
+        "stored_size": 44742,
+        "directory_size_0x08": 44742,
+        "unpacked_size": 386867,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a1c65270f9f783d104ce56a3a9cabf6c4c0466b33cae7ef4830cfce8a3f54425",
+        "payload_sha256": "1f6e7e4c90c13e6326e7e20dacc9aafcf2b5aa9cc7837507965b5eddf3f88aa5",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+      "decoded_sha256": "949ac964982b8175bc7ab022af3efa4ccae04436bc93c0fe0f4157e231ecfb9d",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 100.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 9,
+              "ordered_xyz_f32_sha256": "7e90ed000ce3d6cb0d3baf39f8a3077d00f3fdb7529ba87111deb1349713a105",
+              "bounds_xyz": [
+                [
+                  509.1700134277344,
+                  39.93000030517578,
+                  -557.6199951171875
+                ],
+                [
+                  2689.97998046875,
+                  72.87999725341797,
+                  764.3099975585938
+                ]
+              ],
+              "marker_no_order_sha256": "131a9f760d0e9c5f89cdb91344ab1af35a21b6c91c3ac528b0afcfb4e94f9d27",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "SPAINS1",
+      "pc_source": "DataScene/RaceTest/SpainS1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+        "offset": 1225320166,
+        "stored_size": 43783,
+        "directory_size_0x08": 43783,
+        "unpacked_size": 360900,
+        "compression": "packfs_lzo",
+        "stored_sha256": "cf79022b321b86bece4e0e4fd11be7c96777dc92d99c6dc095be99ba936e5b88",
+        "payload_sha256": "949ac964982b8175bc7ab022af3efa4ccae04436bc93c0fe0f4157e231ecfb9d",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+      "decoded_sha256": "dd6322e62c41ffb2b044e4874ac1808bafba2d83527bc15079e4c4ad9d086418",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 29,
+              "ordered_xyz_f32_sha256": "93857125e8a51c59b635b0530830e0f831aae8b7ce2dfa79ae6005b48736fe78",
+              "bounds_xyz": [
+                [
+                  -6.190000057220459,
+                  37.060001373291016,
+                  -724.9000244140625
+                ],
+                [
+                  2612.81005859375,
+                  69.16999816894531,
+                  770.0800170898438
+                ]
+              ],
+              "marker_no_order_sha256": "55fcbdf58f4fe14eb167c23e5dfdca9ec15a86412959a4e9c2e85f4ade1bce65",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "SPAINS1FLIP",
+      "pc_source": "DataScene/RaceTest/SpainS1Flip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+        "offset": 1225363949,
+        "stored_size": 44206,
+        "directory_size_0x08": 44206,
+        "unpacked_size": 367412,
+        "compression": "packfs_lzo",
+        "stored_sha256": "02b92c23ef4361fd67dba7b0df5474348c69efe64460681ca52927e851bcdc8b",
+        "payload_sha256": "dd6322e62c41ffb2b044e4874ac1808bafba2d83527bc15079e4c4ad9d086418",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+      "decoded_sha256": "a86028f610083c4769a9c0826106eafa17087cd06dcd34bd7c676779db4d2b45",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 4,
+              "ordered_xyz_f32_sha256": "c44e1a6d863dfb90ebca8f714fdd7dfac5dd578f8fff621c38d44147c4388206",
+              "bounds_xyz": [
+                [
+                  60.75,
+                  27.049999237060547,
+                  -848.9099731445312
+                ],
+                [
+                  1166.47998046875,
+                  52.060001373291016,
+                  -190.33999633789062
+                ]
+              ],
+              "marker_no_order_sha256": "725becb1a60a6e44baf043cdf8815b22d5d09d032cc6ed7ba23c704295ace111",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 7,
+              "ordered_xyz_f32_sha256": "a124c0a0073fbcce9f37989023ce96576fefdc12784344abb7d71e35d1ebf96b",
+              "bounds_xyz": [
+                [
+                  21.190000534057617,
+                  41.61000061035156,
+                  -615.3499755859375
+                ],
+                [
+                  1209.5899658203125,
+                  94.11000061035156,
+                  -87.58999633789062
+                ]
+              ],
+              "marker_no_order_sha256": "5c6ac80081e2a1264498fb9c61e181315a944d884fe323070b0be5a486bcb260",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "SPAINS2",
+      "pc_source": "DataScene/RaceTest/SpainS2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+        "offset": 1225408155,
+        "stored_size": 39170,
+        "directory_size_0x08": 39170,
+        "unpacked_size": 318838,
+        "compression": "packfs_lzo",
+        "stored_sha256": "dff730d96dc875f55a16f1f520dd9b1a7db42f3e306c7e7c8bf0ee66c7bcdf6f",
+        "payload_sha256": "a86028f610083c4769a9c0826106eafa17087cd06dcd34bd7c676779db4d2b45",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+      "decoded_sha256": "fc439bc40aaa64bb257c870220154082fcbd2a4751a72f53380e87cd5ba984ca",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 900.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 3,
+              "ordered_xyz_f32_sha256": "771b84c142d9a7afeca92b232184379ce7781107a0fa54b5370e41b320a5ba11",
+              "bounds_xyz": [
+                [
+                  950.2100219726562,
+                  28.389999389648438,
+                  74.33999633789062
+                ],
+                [
+                  2156.4599609375,
+                  31.110000610351562,
+                  492.19000244140625
+                ]
+              ],
+              "marker_no_order_sha256": "96fdb58f98dee7296bf076e907cc538bbad7f30cfd5c5daf3deeec044a28e921",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 3,
+              "ordered_xyz_f32_sha256": "a43ac79a096890d996fd7f2baaa6d6de2ffbad348950f4978102da8d03aa9dbf",
+              "bounds_xyz": [
+                [
+                  1024.7099609375,
+                  56.13999938964844,
+                  19.799999237060547
+                ],
+                [
+                  2676.719970703125,
+                  57.529998779296875,
+                  283.0199890136719
+                ]
+              ],
+              "marker_no_order_sha256": "96fdb58f98dee7296bf076e907cc538bbad7f30cfd5c5daf3deeec044a28e921",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "SPAINW",
+      "pc_source": "DataScene/RaceTest/SpainW.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+        "offset": 1225447325,
+        "stored_size": 45117,
+        "directory_size_0x08": 45117,
+        "unpacked_size": 363900,
+        "compression": "packfs_lzo",
+        "stored_sha256": "111d1e9c0c0f0452bd991d26a2288d52555380caa7b3f4b07378f704b4b1e4af",
+        "payload_sha256": "fc439bc40aaa64bb257c870220154082fcbd2a4751a72f53380e87cd5ba984ca",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+      "decoded_sha256": "3f608f088959a055dafae017800fa5fc73d00bbb44f99340848b66338a188203",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 16,
+              "ordered_xyz_f32_sha256": "9caa7c95af7d6528cd951fdde9fb3b524764b7e94e2f1c094a6f4387e63cd857",
+              "bounds_xyz": [
+                [
+                  21.329999923706055,
+                  35.810001373291016,
+                  -414.2699890136719
+                ],
+                [
+                  2659.8701171875,
+                  104.36000061035156,
+                  749.1500244140625
+                ]
+              ],
+              "marker_no_order_sha256": "81266461f03104b1ca15490f4dffaed56fb047f531e2b0f0c8b8d8798a261584",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "SPAINWFLIP",
+      "pc_source": "DataScene/RaceTest/SpainWFlip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+        "offset": 1225492442,
+        "stored_size": 42529,
+        "directory_size_0x08": 42529,
+        "unpacked_size": 350782,
+        "compression": "packfs_lzo",
+        "stored_sha256": "d59f9025c6ad2d6143b102ca61bba263860fbbe445f3b595b885af26a295efa7",
+        "payload_sha256": "3f608f088959a055dafae017800fa5fc73d00bbb44f99340848b66338a188203",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "decoded_sha256": "dca7c2e5887e346312681cb7a3fc2451b9febe03e5361ffef39437604a12ee03",
+      "managers": [
+        {
+          "egg_list": "IContManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 900.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 12,
+              "ordered_xyz_f32_sha256": "99f3f5be1938ee8a0d9b9a93f81ac5a240be11eb14b688e24a07a96b30a3e6fa",
+              "bounds_xyz": [
+                [
+                  -1140.969970703125,
+                  -3.6700000762939453,
+                  -1258.8299560546875
+                ],
+                [
+                  -226.9600067138672,
+                  72.55999755859375,
+                  -64.13999938964844
+                ]
+              ],
+              "marker_no_order_sha256": "2e718e8600d47a6eb88355e5a0a2eeab181aef043bba43871157ae0a42256837",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "TURKEY1",
+      "pc_source": "DataScene/RaceTest/Turkey1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+        "offset": 1225534971,
+        "stored_size": 46590,
+        "directory_size_0x08": 46590,
+        "unpacked_size": 388270,
+        "compression": "packfs_lzo",
+        "stored_sha256": "0c7023ecace450533b2c8e6941efaaa106f34bc9027b3deebe0c22a40457ee25",
+        "payload_sha256": "dca7c2e5887e346312681cb7a3fc2451b9febe03e5361ffef39437604a12ee03",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+      "decoded_sha256": "31f5b0fa50367ebf40fb2c7b333913a3c791085d9965112a633df46b33b3ed81",
+      "managers": [
+        {
+          "egg_list": "IContManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 11,
+              "ordered_xyz_f32_sha256": "28bc6a7efe96374376e779a6f618373573b8496ef833b6988c67df1f8fd30313",
+              "bounds_xyz": [
+                [
+                  -16.299999237060547,
+                  22.950000762939453,
+                  -157.7899932861328
+                ],
+                [
+                  1412.97998046875,
+                  90.55999755859375,
+                  683.3900146484375
+                ]
+              ],
+              "marker_no_order_sha256": "ccdc9697a5c8dbfc33ffe073fe833671826f1f36f8758987105f25490be6bdc5",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "TURKEY2",
+      "pc_source": "DataScene/RaceTest/Turkey2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+        "offset": 1225581561,
+        "stored_size": 36260,
+        "directory_size_0x08": 36260,
+        "unpacked_size": 311759,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e86a0532e361e793bdddf01c2a0cdd072f15e2ef3314a01b509df35a9fb88f83",
+        "payload_sha256": "31f5b0fa50367ebf40fb2c7b333913a3c791085d9965112a633df46b33b3ed81",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "decoded_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+      "managers": [
+        {
+          "egg_list": "IContManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 900.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 800.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 12,
+              "ordered_xyz_f32_sha256": "7c1b8a9f42060b71d0947058738a4b19036502e2ed616beab5877564621bee9e",
+              "bounds_xyz": [
+                [
+                  1934.8800048828125,
+                  31.559999465942383,
+                  -1015.4600219726562
+                ],
+                [
+                  3450.489990234375,
+                  85.5,
+                  541.1400146484375
+                ]
+              ],
+              "marker_no_order_sha256": "2e718e8600d47a6eb88355e5a0a2eeab181aef043bba43871157ae0a42256837",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "TURKEY3",
+      "pc_source": "DataScene/RaceTest/Turkey3.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+        "offset": 1225617821,
+        "stored_size": 51412,
+        "directory_size_0x08": 51412,
+        "unpacked_size": 436130,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c9960b18b69a5c14dfdb43b39d5ca5d72dd52ecb6eac707f95f47c1ab9f25d55",
+        "payload_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "decoded_sha256": "4d66a1bc7b3564e255402372f25decc7a1d38e3321b29549486e38f824f93fd6",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 3,
+              "ordered_xyz_f32_sha256": "2e52d35332ac330e984b1ec6e41f68a38bdb4bc8c696aee843453f717e790b60",
+              "bounds_xyz": [
+                [
+                  386.1499938964844,
+                  9.020000457763672,
+                  -244.36000061035156
+                ],
+                [
+                  1127.449951171875,
+                  33.90999984741211,
+                  -24.479999542236328
+                ]
+              ],
+              "marker_no_order_sha256": "96fdb58f98dee7296bf076e907cc538bbad7f30cfd5c5daf3deeec044a28e921",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 12,
+              "ordered_xyz_f32_sha256": "9e5fbeeb21aac1719e7efa50fe3c2cbc33496ef3b04ca0fe3d317ea953280948",
+              "bounds_xyz": [
+                [
+                  -1124.1600341796875,
+                  11.390000343322754,
+                  -1212.780029296875
+                ],
+                [
+                  1128.25,
+                  65.0,
+                  -20.290000915527344
+                ]
+              ],
+              "marker_no_order_sha256": "2e718e8600d47a6eb88355e5a0a2eeab181aef043bba43871157ae0a42256837",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "TURKEYM",
+      "pc_source": "DataScene/RaceTest/TurkeyM.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+        "offset": 1225669233,
+        "stored_size": 52671,
+        "directory_size_0x08": 52671,
+        "unpacked_size": 445574,
+        "compression": "packfs_lzo",
+        "stored_sha256": "6ee4450a0af50a334011467c58359fbe304a05a9a61640e73d20bc2301d9547a",
+        "payload_sha256": "4d66a1bc7b3564e255402372f25decc7a1d38e3321b29549486e38f824f93fd6",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+      "decoded_sha256": "194c09b97a02efd9c5b30e3a370e403632adfa879199696612c1ad7728456e64",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "False",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": true,
+              "authored_point_count": 3,
+              "ordered_xyz_f32_sha256": "abd4c59edb0b9339c2820a2b5b2b51e019f4afd65342f32ebbb9899fe34871fe",
+              "bounds_xyz": [
+                [
+                  30.469999313354492,
+                  33.369998931884766,
+                  -0.3400000035762787
+                ],
+                [
+                  1482.9000244140625,
+                  62.709999084472656,
+                  599.1799926757812
+                ]
+              ],
+              "marker_no_order_sha256": "96fdb58f98dee7296bf076e907cc538bbad7f30cfd5c5daf3deeec044a28e921",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 6,
+              "ordered_xyz_f32_sha256": "441c014ff1e406fb822479fa71090be8e459e809df6fbad44822fd0bf8e9ea40",
+              "bounds_xyz": [
+                [
+                  136.3300018310547,
+                  53.31999969482422,
+                  53.2599983215332
+                ],
+                [
+                  1597.0,
+                  91.04000091552734,
+                  707.0
+                ]
+              ],
+              "marker_no_order_sha256": "a135d923df771e246631fa3901059cccac879d9b14b6e88ed87a4d3e53065efa",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "BOTH_LOCAL_LISTS_PRESENT"
+        }
+      ],
+      "course": "TURKEYS1",
+      "pc_source": "DataScene/RaceTest/TurkeyS1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+        "offset": 1225721904,
+        "stored_size": 46586,
+        "directory_size_0x08": 46586,
+        "unpacked_size": 388641,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a4fc941a6d6d73f2fee365513cd4f8dec0475d100a0db038e0701a0c86ab7af1",
+        "payload_sha256": "194c09b97a02efd9c5b30e3a370e403632adfa879199696612c1ad7728456e64",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+      "decoded_sha256": "a9bd520ddb28d3f4e913eb32dc613fe1424c860773e305b32efcae9ac74277eb",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 9,
+              "ordered_xyz_f32_sha256": "ddc2b14c5bb065134255b8c5767c1ea0f25d20029af551e3bd992ce584c588f1",
+              "bounds_xyz": [
+                [
+                  190.3699951171875,
+                  21.579999923706055,
+                  -162.5
+                ],
+                [
+                  1635.5699462890625,
+                  63.5,
+                  174.6699981689453
+                ]
+              ],
+              "marker_no_order_sha256": "131a9f760d0e9c5f89cdb91344ab1af35a21b6c91c3ac528b0afcfb4e94f9d27",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "TURKEYS2",
+      "pc_source": "DataScene/RaceTest/TurkeyS2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+        "offset": 1225768490,
+        "stored_size": 52416,
+        "directory_size_0x08": 52416,
+        "unpacked_size": 434053,
+        "compression": "packfs_lzo",
+        "stored_sha256": "1db8ed320991c9e76e4a1d087149e64623280f1bcea972f28b9d5ee54b32699b",
+        "payload_sha256": "a9bd520ddb28d3f4e913eb32dc613fe1424c860773e305b32efcae9ac74277eb",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "decoded_sha256": "6861e2da78032e13430ab7fde238f68405882787836edba558bdfe3f2fc78734",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 11,
+              "ordered_xyz_f32_sha256": "104f8fa79989949e4fcc8170fe54edbfd1e8cce6b880e081969d516c27bd50c7",
+              "bounds_xyz": [
+                [
+                  13.630000114440918,
+                  21.719999313354492,
+                  -179.22999572753906
+                ],
+                [
+                  3079.7900390625,
+                  53.560001373291016,
+                  500.94000244140625
+                ]
+              ],
+              "marker_no_order_sha256": "ccdc9697a5c8dbfc33ffe073fe833671826f1f36f8758987105f25490be6bdc5",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "TURKEYS2FLIP",
+      "pc_source": "DataScene/RaceTest/TurkeyS2Flip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+        "offset": 1225820906,
+        "stored_size": 50524,
+        "directory_size_0x08": 50524,
+        "unpacked_size": 423175,
+        "compression": "packfs_lzo",
+        "stored_sha256": "fec6790d5ea69d0eec547cea1606d042966d744213c5efe4baabd56b55be7d43",
+        "payload_sha256": "6861e2da78032e13430ab7fde238f68405882787836edba558bdfe3f2fc78734",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+      "decoded_sha256": "d3f6ca2853a3cfe448edd06e86ff0cae4184812bc6259b256fbabe50dd940f90",
+      "managers": [
+        {
+          "egg_list": "IConManager",
+          "egg": "birds",
+          "ai_attributes": {
+            "No": "0"
+          },
+          "parameters": [
+            {
+              "Name": "Milling MarkerList",
+              "Type": "String",
+              "Value": "MillList"
+            },
+            {
+              "Name": "Flight MarkerList",
+              "Type": "String",
+              "Value": "FlightList"
+            },
+            {
+              "Name": "Min Fly Dist",
+              "Type": "Float",
+              "Value": "100.00000"
+            },
+            {
+              "Name": "Max Fly Dist",
+              "Type": "Float",
+              "Value": "800.00000"
+            },
+            {
+              "Name": "Min Mil Dist",
+              "Type": "Float",
+              "Value": "200.00000"
+            },
+            {
+              "Name": "Max Mil Dist",
+              "Type": "Float",
+              "Value": "900.00000"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Rnd Mil",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Rnd Fly",
+              "Type": "Int",
+              "Value": "10"
+            },
+            {
+              "Name": "Bird Brown",
+              "Type": "Bool",
+              "Value": "True"
+            }
+          ],
+          "references": {
+            "milling": "MillList",
+            "flight": "FlightList"
+          },
+          "resolved_config": {
+            "Min Fly Dist": 100.0,
+            "Max Fly Dist": 800.0,
+            "Min Mil Dist": 200.0,
+            "Max Mil Dist": 900.0,
+            "Rnd Fly": 10,
+            "Rnd Mil": 10
+          },
+          "bird_brown_authored": [
+            "True",
+            "True"
+          ],
+          "bird_brown_loaded": true,
+          "bird_brown_note": "1af150 calls Boolean writer 1e2b98; fresh owner +94 remains 1",
+          "lists": {
+            "milling": {
+              "present": false,
+              "authored_point_count": 0,
+              "ordered_xyz_f32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "bounds_xyz": null,
+              "marker_no_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            },
+            "flight": {
+              "present": true,
+              "authored_point_count": 10,
+              "ordered_xyz_f32_sha256": "9e31eb9ebc89dcf365b8a05d50c93b4dd4cca30709ff1eabce46655eb405990f",
+              "bounds_xyz": [
+                [
+                  -1406.4200439453125,
+                  43.119998931884766,
+                  -999.030029296875
+                ],
+                [
+                  1077.5999755859375,
+                  85.44999694824219,
+                  707.1400146484375
+                ]
+              ],
+              "marker_no_order_sha256": "3762d4924ba76667b814e50fb19c782767453f24e6d758f1f20821be3d61153a",
+              "runtime_record_stride": 80,
+              "position_offset": 64,
+              "direction_basis_offset": 16,
+              "homogeneous_w_offset": 76
+            }
+          },
+          "update_pointer_gate": "MISSING_LOCAL_LIST; EXTERNAL_REGISTRY_CONTENT_UNKNOWN"
+        }
+      ],
+      "course": "TURKEYW",
+      "pc_source": "DataScene/RaceTest/TurkeyW.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+        "offset": 1225871430,
+        "stored_size": 43853,
+        "directory_size_0x08": 43853,
+        "unpacked_size": 370567,
+        "compression": "packfs_lzo",
+        "stored_sha256": "edd775a8ae25d73f19edfdaf6161d1b0afc0137eb7d7a5e3805d8d8e23db8d39",
+        "payload_sha256": "d3f6ca2853a3cfe448edd06e86ff0cae4184812bc6259b256fbabe50dd940f90",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    }
+  ],
+  "totals": {
+    "course_pairs": 36,
+    "managers": 36,
+    "flight_points": 542,
+    "milling_points": 55,
+    "local_milling_lists": 10
+  },
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_validation": "NOT_PERFORMED"
+}

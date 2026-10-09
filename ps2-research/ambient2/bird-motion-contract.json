@@ -1,0 +1,62 @@
+{
+  "schema": "ps2-bird-contract-v1",
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "grade": "CONFIRMED_BY_EXE",
+  "rng": {
+    "global_accessor": "0x001d5f70",
+    "state_pointer": "0x004262a8",
+    "initial_seed": 12345,
+    "next": "0x001d5df0",
+    "q": 44488,
+    "a": 48271,
+    "r": 3399,
+    "m": 2147483647,
+    "update": "v=s32((s%q)*a-trunc(s/q)*r); if v<=0 v=s32(v+m); state=u32(v)",
+    "output": "float32(state & 0x00ffffff) * 2^-24",
+    "range": "lo+unit*(hi-lo)",
+    "integer": "lo+floor(float32(unit*(hi-lo))); if result==hi return lo",
+    "seed_provenance": "Process-constructor seed; actual course spawn state UNKNOWN; shared with other systems"
+  },
+  "spawn": {
+    "entry": "0x001afa20",
+    "gate": "both resolved list pointers; free pool; nonempty FlightList",
+    "trigger": "u=U(0.1,1); clock+=0.003; trigger if u<clock*0.1; reset clock even if later gate fails",
+    "count": "min(available_free,R(0,RndFly)); stock authoredRndFly10 means candidate0..9",
+    "selection": "nearest XZ; first full list, then [previous-5,previous+5) clipped; add R(0,3), clamp; cache base",
+    "distance": "MinFlyDist^2 < XZ_distance_squared < MaxFlyDist^2",
+    "origin": "All entities in one selected burst receive same marker XYZ; queued at manager+68",
+    "activation": "1affe0 activates at most one pending entity per manager invocation"
+  },
+  "flight": {
+    "constructor": "0x001b0950",
+    "initialize": "0x001b0a40",
+    "update": "0x001b0e68",
+    "position": "0x001b0f88",
+    "initial_random_call_order": [
+      "U(0,15): speed+=",
+      "U(0,60): unused amplitude24",
+      "unit()>0.5: amplitude sign",
+      "U(0,0.12): lateral mix",
+      "unit()>0.5: lateral sign",
+      "U(0.001,0.2): direction Y"
+    ],
+    "W": "normalize((observer.x-origin.x,0,observer.z-origin.z))",
+    "P": "(W.z,0,-W.x)",
+    "direction": "normalize(replaceY(-(1-r)*W+sign*r*P,U(0.001,0.2)))",
+    "update_order": [
+      "if D.y<0.35: D.y+=U(0.001,0.05)/30",
+      "speed+=U(0.1,2.5)/30",
+      "travel+=updated_speed/30",
+      "position=origin+current_direction*total_travel"
+    ],
+    "normalization": "Initial only; squared-length <= 2^-23 returns zero",
+    "fixed_divisor": 30,
+    "actual_invocations_per_second": "UNKNOWN",
+    "write": "entity+50 en3d translation +50/+54/+58/+5c; 1b0508 mirrors to entity+4c en2d"
+  },
+  "flock": "Independent controllers, shared burst origin. No neighbor steering or shared spline in traced path",
+  "retirement": "1b01f8/1b0238 horizontal distance > MaxFlyDist^2 from first registry entry; equality retained; return to free pool",
+  "animation": "Separate owner slot1; keys0..2, advance on fifth invocation; ground key3",
+  "precision": "FLOAT32_RECONSTRUCTION; no PS2 FPU bit-exactness claim",
+  "runtime_validation": "NOT_PERFORMED"
+}

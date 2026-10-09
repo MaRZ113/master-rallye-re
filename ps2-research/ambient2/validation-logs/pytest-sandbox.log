@@ -1,0 +1,625 @@
+................................................ [ 15%]
+................................................................................................................................................................................................................................FF.FF..F.............. [ 95%]
+.....F.......                                                    [100%]
+================================== FAILURES ===================================
+____________________ Directory.test_direct_seek_extraction ____________________
+
+self = <test_tngtool.Directory testMethod=test_direct_seek_extraction>
+
+    def test_direct_seek_extraction(self):
+        entry=t.parse_directory(tiny_directory())['entries'][1]
+        with tempfile.TemporaryDirectory() as temp:
+>           p=Path(temp)/'TNG.000';p.write_bytes(b'padabcdtail')
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:162:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:801: in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/MaRZ/AppData/Local/Packages/sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}/AC/Temp/tmpu9mevvva/TNG.000')
+mode = 'wb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmpu9mevvva\\TNG.000'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:776: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmpu9mevvva'
+dir_fd = None
+onexc = <function TemporaryDirectory._rmtree.<locals>.onexc at 0x0000023E600A1010>
+
+    def _rmtree_unsafe(path, dir_fd, onexc):
+        if dir_fd is not None:
+            raise NotImplementedError("dir_fd unavailable on this platform")
+        try:
+            st = os.lstat(path)
+        except OSError as err:
+            onexc(os.lstat, path, err)
+            return
+        try:
+            if _rmtree_islink(st):
+                # symlinks to directories are forbidden, see bug #1669
+                raise OSError("Cannot call rmtree on a symbolic link")
+        except OSError as err:
+            onexc(os.path.islink, path, err)
+            # can't continue even if onexc hook returns
+            return
+        def onerror(err):
+            if not isinstance(err, FileNotFoundError):
+                onexc(os.scandir, err.filename, err)
+        results = os.walk(path, topdown=False, onerror=onerror, followlinks=os._walk_symlinks_as_files)
+        for dirpath, dirnames, filenames in results:
+            for name in dirnames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.rmdir(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.rmdir, fullname, err)
+            for name in filenames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.unlink(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.unlink, fullname, err)
+        try:
+>           os.rmdir(path)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmpu9mevvva'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:707: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_tngtool.Directory testMethod=test_direct_seek_extraction>
+
+    def test_direct_seek_extraction(self):
+        entry=t.parse_directory(tiny_directory())['entries'][1]
+>       with tempfile.TemporaryDirectory() as temp:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:161:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:971: in __exit__
+    self.cleanup()
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:975: in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:955: in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:852: in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:711: in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:927: in onexc
+    _resetperms(path)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:287: in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+func = <built-in function chmod>
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmpu9mevvva'
+args = (448,)
+
+    def _dont_follow_symlinks(func, path, *args):
+        # Pass follow_symlinks=False, unless not supported on this platform.
+        if func in _os.supports_follow_symlinks:
+>           func(path, *args, follow_symlinks=False)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmpu9mevvva'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:276: PermissionError
+____________________ Directory.test_input_overwrite_guard _____________________
+
+self = <test_tngtool.Directory testMethod=test_input_overwrite_guard>
+
+    def test_input_overwrite_guard(self):
+        with self.assertRaises(t.FormatError):t.protect_inputs(Path('TNG.PAK'),[Path('TNG.PAK')])
+        with tempfile.TemporaryDirectory() as temp:
+>           source=Path(temp)/'TNG.PAK';source.write_bytes(b'synthetic')
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:155:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:801: in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/MaRZ/AppData/Local/Packages/sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}/AC/Temp/tmp87z258wo/TNG.PAK')
+mode = 'wb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp87z258wo\\TNG.PAK'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:776: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp87z258wo'
+dir_fd = None
+onexc = <function TemporaryDirectory._rmtree.<locals>.onexc at 0x0000023E600A1430>
+
+    def _rmtree_unsafe(path, dir_fd, onexc):
+        if dir_fd is not None:
+            raise NotImplementedError("dir_fd unavailable on this platform")
+        try:
+            st = os.lstat(path)
+        except OSError as err:
+            onexc(os.lstat, path, err)
+            return
+        try:
+            if _rmtree_islink(st):
+                # symlinks to directories are forbidden, see bug #1669
+                raise OSError("Cannot call rmtree on a symbolic link")
+        except OSError as err:
+            onexc(os.path.islink, path, err)
+            # can't continue even if onexc hook returns
+            return
+        def onerror(err):
+            if not isinstance(err, FileNotFoundError):
+                onexc(os.scandir, err.filename, err)
+        results = os.walk(path, topdown=False, onerror=onerror, followlinks=os._walk_symlinks_as_files)
+        for dirpath, dirnames, filenames in results:
+            for name in dirnames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.rmdir(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.rmdir, fullname, err)
+            for name in filenames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.unlink(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.unlink, fullname, err)
+        try:
+>           os.rmdir(path)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp87z258wo'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:707: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_tngtool.Directory testMethod=test_input_overwrite_guard>
+
+    def test_input_overwrite_guard(self):
+        with self.assertRaises(t.FormatError):t.protect_inputs(Path('TNG.PAK'),[Path('TNG.PAK')])
+>       with tempfile.TemporaryDirectory() as temp:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:154:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:971: in __exit__
+    self.cleanup()
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:975: in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:955: in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:852: in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:711: in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:927: in onexc
+    _resetperms(path)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:287: in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+func = <built-in function chmod>
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp87z258wo'
+args = (448,)
+
+    def _dont_follow_symlinks(func, path, *args):
+        # Pass follow_symlinks=False, unless not supported on this platform.
+        if func in _os.supports_follow_symlinks:
+>           func(path, *args, follow_symlinks=False)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp87z258wo'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:276: PermissionError
+______________ Directory.test_json_uses_platform_independent_lf _______________
+
+self = <test_tngtool.Directory testMethod=test_json_uses_platform_independent_lf>
+
+    def test_json_uses_platform_independent_lf(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/'manifest.json'
+>           t.write_json(path,{'path':r'\TNG\A.GXI','size':4})
+
+ps2-research\tests\test_tngtool.py:119:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+ps2-research\tools\tngtool.py:354: in write_json
+    path.write_text(json.dumps(obj,indent=2,ensure_ascii=True)+'\n',encoding='utf-8',newline='\n')
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:814: in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/MaRZ/AppData/Local/Packages/sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}/AC/Temp/tmp796clep3/manifest.json')
+mode = 'w', buffering = -1, encoding = 'utf-8', errors = None, newline = '\n'
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp796clep3\\manifest.json'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:776: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp796clep3'
+dir_fd = None
+onexc = <function TemporaryDirectory._rmtree.<locals>.onexc at 0x0000023E600A22A0>
+
+    def _rmtree_unsafe(path, dir_fd, onexc):
+        if dir_fd is not None:
+            raise NotImplementedError("dir_fd unavailable on this platform")
+        try:
+            st = os.lstat(path)
+        except OSError as err:
+            onexc(os.lstat, path, err)
+            return
+        try:
+            if _rmtree_islink(st):
+                # symlinks to directories are forbidden, see bug #1669
+                raise OSError("Cannot call rmtree on a symbolic link")
+        except OSError as err:
+            onexc(os.path.islink, path, err)
+            # can't continue even if onexc hook returns
+            return
+        def onerror(err):
+            if not isinstance(err, FileNotFoundError):
+                onexc(os.scandir, err.filename, err)
+        results = os.walk(path, topdown=False, onerror=onerror, followlinks=os._walk_symlinks_as_files)
+        for dirpath, dirnames, filenames in results:
+            for name in dirnames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.rmdir(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.rmdir, fullname, err)
+            for name in filenames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.unlink(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.unlink, fullname, err)
+        try:
+>           os.rmdir(path)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp796clep3'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:707: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_tngtool.Directory testMethod=test_json_uses_platform_independent_lf>
+
+    def test_json_uses_platform_independent_lf(self):
+>       with tempfile.TemporaryDirectory() as temp:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:117:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:971: in __exit__
+    self.cleanup()
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:975: in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:955: in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:852: in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:711: in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:927: in onexc
+    _resetperms(path)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:287: in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+func = <built-in function chmod>
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp796clep3'
+args = (448,)
+
+    def _dont_follow_symlinks(func, path, *args):
+        # Pass follow_symlinks=False, unless not supported on this platform.
+        if func in _os.supports_follow_symlinks:
+>           func(path, *args, follow_symlinks=False)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp796clep3'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:276: PermissionError
+______________________ Directory.test_nested_extraction _______________________
+
+self = <test_tngtool.Directory testMethod=test_nested_extraction>
+
+    def test_nested_extraction(self):
+        frame=framed()
+        entry=t.parse_directory(tiny_directory())['entries'][1]
+        entry.update(offset=3,stored_size=len(frame),storage_codec='gz')
+        with tempfile.TemporaryDirectory() as temp:
+>           p=Path(temp)/'TNG.000';p.write_bytes(b'pad'+frame+b'tail')
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:175:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:801: in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/MaRZ/AppData/Local/Packages/sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}/AC/Temp/tmp7rz29935/TNG.000')
+mode = 'wb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp7rz29935\\TNG.000'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:776: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp7rz29935'
+dir_fd = None
+onexc = <function TemporaryDirectory._rmtree.<locals>.onexc at 0x0000023E600A1D20>
+
+    def _rmtree_unsafe(path, dir_fd, onexc):
+        if dir_fd is not None:
+            raise NotImplementedError("dir_fd unavailable on this platform")
+        try:
+            st = os.lstat(path)
+        except OSError as err:
+            onexc(os.lstat, path, err)
+            return
+        try:
+            if _rmtree_islink(st):
+                # symlinks to directories are forbidden, see bug #1669
+                raise OSError("Cannot call rmtree on a symbolic link")
+        except OSError as err:
+            onexc(os.path.islink, path, err)
+            # can't continue even if onexc hook returns
+            return
+        def onerror(err):
+            if not isinstance(err, FileNotFoundError):
+                onexc(os.scandir, err.filename, err)
+        results = os.walk(path, topdown=False, onerror=onerror, followlinks=os._walk_symlinks_as_files)
+        for dirpath, dirnames, filenames in results:
+            for name in dirnames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.rmdir(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.rmdir, fullname, err)
+            for name in filenames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.unlink(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.unlink, fullname, err)
+        try:
+>           os.rmdir(path)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp7rz29935'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:707: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_tngtool.Directory testMethod=test_nested_extraction>
+
+    def test_nested_extraction(self):
+        frame=framed()
+        entry=t.parse_directory(tiny_directory())['entries'][1]
+        entry.update(offset=3,stored_size=len(frame),storage_codec='gz')
+>       with tempfile.TemporaryDirectory() as temp:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:174:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:971: in __exit__
+    self.cleanup()
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:975: in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:955: in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:852: in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:711: in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:927: in onexc
+    _resetperms(path)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:287: in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+func = <built-in function chmod>
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp7rz29935'
+args = (448,)
+
+    def _dont_follow_symlinks(func, path, *args):
+        # Pass follow_symlinks=False, unless not supported on this platform.
+        if func in _os.supports_follow_symlinks:
+>           func(path, *args, follow_symlinks=False)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp7rz29935'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:276: PermissionError
+________________________ Directory.test_symlink_escape ________________________
+
+self = <test_tngtool.Directory testMethod=test_symlink_escape>
+
+    def test_symlink_escape(self):
+        with tempfile.TemporaryDirectory() as temp:
+>           root=Path(temp)/'root';root.mkdir()
+                                   ^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:182:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/MaRZ/AppData/Local/Packages/sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}/AC/Temp/tmp11kqo1l1/root')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp11kqo1l1\\root'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\pathlib\__init__.py:1016: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp11kqo1l1'
+dir_fd = None
+onexc = <function TemporaryDirectory._rmtree.<locals>.onexc at 0x0000023E53784040>
+
+    def _rmtree_unsafe(path, dir_fd, onexc):
+        if dir_fd is not None:
+            raise NotImplementedError("dir_fd unavailable on this platform")
+        try:
+            st = os.lstat(path)
+        except OSError as err:
+            onexc(os.lstat, path, err)
+            return
+        try:
+            if _rmtree_islink(st):
+                # symlinks to directories are forbidden, see bug #1669
+                raise OSError("Cannot call rmtree on a symbolic link")
+        except OSError as err:
+            onexc(os.path.islink, path, err)
+            # can't continue even if onexc hook returns
+            return
+        def onerror(err):
+            if not isinstance(err, FileNotFoundError):
+                onexc(os.scandir, err.filename, err)
+        results = os.walk(path, topdown=False, onerror=onerror, followlinks=os._walk_symlinks_as_files)
+        for dirpath, dirnames, filenames in results:
+            for name in dirnames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.rmdir(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.rmdir, fullname, err)
+            for name in filenames:
+                fullname = os.path.join(dirpath, name)
+                try:
+                    os.unlink(fullname)
+                except FileNotFoundError:
+                    continue
+                except OSError as err:
+                    onexc(os.unlink, fullname, err)
+        try:
+>           os.rmdir(path)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp11kqo1l1'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:707: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_tngtool.Directory testMethod=test_symlink_escape>
+
+    def test_symlink_escape(self):
+>       with tempfile.TemporaryDirectory() as temp:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ps2-research\tests\test_tngtool.py:181:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:971: in __exit__
+    self.cleanup()
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:975: in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:955: in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:852: in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\shutil.py:711: in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:927: in onexc
+    _resetperms(path)
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:287: in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+func = <built-in function chmod>
+path = 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp11kqo1l1'
+args = (448,)
+
+    def _dont_follow_symlinks(func, path, *args):
+        # Pass follow_symlinks=False, unless not supported on this platform.
+        if func in _os.supports_follow_symlinks:
+>           func(path, *args, follow_symlinks=False)
+E           PermissionError: [WinError 5] Access is denied: 'C:\\Users\\MaRZ\\AppData\\Local\\Packages\\sandbox.{72ffa8bb-dc36-4650-97c3-53cd5c27b6d8}\\AC\\Temp\\tmp11kqo1l1'
+
+C:\Users\MaRZ\scoop\apps\python\current\Lib\tempfile.py:276: PermissionError
+_______ RenderTests.test_existing_hard_link_cannot_overwrite_its_source _______
+
+self = <test_water_runtime.RenderTests testMethod=test_existing_hard_link_cannot_overwrite_its_source>
+
+    def test_existing_hard_link_cannot_overwrite_its_source(self):
+        scratch = w.ROOT/'data'/'water1'
+        scratch.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=scratch) as folder:
+            source, output = Path(folder)/'source', Path(folder)/'output'
+            source.write_bytes(b'SYNTHETIC original input')
+>           os.link(source, output)
+E           PermissionError: [WinError 5] Access is denied: 'D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\data\\water1\\tmp2vc123s_\\source' -> 'D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\data\\water1\\tmp2vc123s_\\output'
+
+ps2-research\tests\test_water_runtime.py:209: PermissionError
+=========================== short test summary info ===========================
+FAILED ps2-research/tests/test_tngtool.py::Directory::test_direct_seek_extraction
+FAILED ps2-research/tests/test_tngtool.py::Directory::test_input_overwrite_guard
+FAILED ps2-research/tests/test_tngtool.py::Directory::test_json_uses_platform_independent_lf
+FAILED ps2-research/tests/test_tngtool.py::Directory::test_nested_extraction
+FAILED ps2-research/tests/test_tngtool.py::Directory::test_symlink_escape - P...
+FAILED ps2-research/tests/test_water_runtime.py::RenderTests::test_existing_hard_link_cannot_overwrite_its_source
+6 failed, 301 passed, 290 subtests passed in 70.34s (0:01:10)

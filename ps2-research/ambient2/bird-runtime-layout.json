@@ -1,0 +1,111 @@
+{
+  "schema": "ps2-bird-contract-v1",
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "evidence_grade": "CONFIRMED_BY_EXE",
+  "manager": {
+    "bytes": 176,
+    "constructor": "0x001ae8b8",
+    "vtable": "0x00473c10",
+    "fields": {
+      "0x0c": "MinMilDist float; default200",
+      "0x10": "MaxMilDist float; default1500",
+      "0x14": "MinFlyDist float; default100",
+      "0x18": "MaxFlyDist float; default600",
+      "0x1c": "flight trigger clock; +0.003 per eligible invocation",
+      "0x20": "second clock; selected normal update consumer unresolved",
+      "0x24": "ground takeoff clock; +0.001 per invocation",
+      "0x28": "interned bank name; default Misc/Animals/BurdyBrown",
+      "0x2c": "RndFly int; upper clamp10",
+      "0x30": "RndMil int; selected periodic takeoff uses literal10 instead",
+      "0x34": "pool capacity; constructor16; optional Animals/MaxBirds override",
+      "0x38..0x40": "free entity pointer vector begin/end/capacity",
+      "0x44..0x4c": "ground/milling pointer vector",
+      "0x50..0x58": "flying pointer vector",
+      "0x5c..0x64": "pending milling vector; normal producer unknown",
+      "0x68..0x70": "pending takeoff vector; burst or ground escape",
+      "0x74..0x7c": "observer XYZ copied from registry entries+c0/c4/c8",
+      "0x80": "nearest milling marker cache; constructor -1",
+      "0x84": "nearest flight marker cache; constructor -1",
+      "0x88..0x90": "Car0..Car3 interned name vector; not read by selected normal update",
+      "0x94": "brown selector; constructor1; 1af150 writes property instead of reading",
+      "0x98": "visual uniform scale0.1",
+      "0x9c": "translation copy flag; constructor1",
+      "0xa0": "interned Milling MarkerList name; MillList",
+      "0xa4": "interned Flight MarkerList name; FlightList",
+      "0xa8": "resolved milling list pointer",
+      "0xac": "resolved flight list pointer"
+    },
+    "vtable_functions": {
+      "destructor": "0x001aec50",
+      "clone": "0x001cec68",
+      "schema_write": "0x001aef78",
+      "config": "0x001af0b0",
+      "update": "0x001af330",
+      "init": "0x001af1c0"
+    }
+  },
+  "entity": {
+    "bytes": 124,
+    "constructor": "0x0021e290",
+    "en2d_visual_pointer": "0x4c",
+    "en3d_carrier_pointer": "0x50",
+    "scene_priority_byte": "0x48 = 1"
+  },
+  "en2d": {
+    "bytes": 144,
+    "constructor": "0x00205bf8",
+    "matrix": "0x20..0x5c",
+    "mode": "0x64 = 0 world sprite",
+    "billboard": "0x74 = 1 Y-locked",
+    "flags": "0x78 |= 6",
+    "bank": "0x2062a8 setter"
+  },
+  "en3d_carrier": {
+    "bytes": 128,
+    "translation": "0x50,0x54,0x58; homogeneous W0x5c=1",
+    "model": "No bird PSM is assigned in 1af460"
+  },
+  "fly_ai": {
+    "bytes": 48,
+    "vtable": "0x00473bd0",
+    "fields": {
+      "0x0c..0x14": "fixed flight origin XYZ",
+      "0x18..0x20": "direction XYZ; rises without renormalization",
+      "0x24": "100 +/- random60; position helper ignores this parameter",
+      "0x28": "speed; constructor15",
+      "0x2c": "accumulated travel"
+    }
+  },
+  "bank_switcher": {
+    "bytes": 32,
+    "vtable": "0x00473210",
+    "fields": {
+      "0x0c": "current key",
+      "0x10": "counter",
+      "0x14": "first key0",
+      "0x18": "last key2",
+      "0x1c": "strict counter threshold3"
+    }
+  },
+  "milling_ai": {
+    "bytes": 96,
+    "vtable": "0x00473b90",
+    "normal_activation": "UNKNOWN LINK; selected manager update has no call to normal milling producer"
+  },
+  "marker_record": {
+    "bytes": 80,
+    "position_offsets": [
+      64,
+      68,
+      72
+    ],
+    "basis_offsets": [
+      16,
+      32,
+      48
+    ],
+    "w_offset": 76,
+    "loader": "0x001ff7a8"
+  },
+  "runtime_validation": "NOT_PERFORMED"
+}

@@ -1,0 +1,43 @@
+test_compact_contract_contains_no_point_array (test_bird_runtime.Authored.test_compact_contract_contains_no_point_array) ... ok
+test_duplicate_list_fails_closed (test_bird_runtime.Authored.test_duplicate_list_fails_closed) ... ok
+test_duplicate_points_are_not_deduplicated (test_bird_runtime.Authored.test_duplicate_points_are_not_deduplicated) ... ok
+test_duplicate_properties_preserved_and_brown_write_bug (test_bird_runtime.Authored.test_duplicate_properties_preserved_and_brown_write_bug) ... ok
+test_exact_owner_name_no_silent_normalization (test_bird_runtime.Authored.test_exact_owner_name_no_silent_normalization) ... ok
+test_first_typed_number_is_used_and_upper_clamp_only (test_bird_runtime.Authored.test_first_typed_number_is_used_and_upper_clamp_only) ... ok
+test_malformed_wrong_version_nonfinite_and_entities (test_bird_runtime.Authored.test_malformed_wrong_version_nonfinite_and_entities) ... ok
+test_marker_no_does_not_sort_source_order (test_bird_runtime.Authored.test_marker_no_does_not_sort_source_order) ... ok
+test_missing_and_empty_list_are_distinct (test_bird_runtime.Authored.test_missing_and_empty_list_are_distinct) ... ok
+test_original_bird_resources_match_frozen_parser_and_bank_evidence (test_bird_runtime.Corpus.test_original_bird_resources_match_frozen_parser_and_bank_evidence) ... ok
+test_reextract_all36_against_frozen_counts_hashes_and_references (test_bird_runtime.Corpus.test_reextract_all36_against_frozen_counts_hashes_and_references) ... ok
+test_source_instruction_windows_match_original_elf_bytes (test_bird_runtime.Corpus.test_source_instruction_windows_match_original_elf_bytes) ... ok
+test_upload_commands_and_program_bytes_are_separate (test_bird_runtime.Corpus.test_upload_commands_and_program_bytes_are_separate) ... ok
+test_current_direction_times_total_travel_not_integrated_velocity (test_bird_runtime.Motion.test_current_direction_times_total_travel_not_integrated_velocity) ... ok
+test_initializer_uses_six_random_draws (test_bird_runtime.Motion.test_initializer_uses_six_random_draws) ... ok
+test_invalid_xyz_and_nonfinite_rejected (test_bird_runtime.Motion.test_invalid_xyz_and_nonfinite_rejected) ... ok
+test_origin_equal_observer_has_vertical_direction (test_bird_runtime.Motion.test_origin_equal_observer_has_vertical_direction) ... ok
+test_original_fpu_windows_independently_check_operation_order (test_bird_runtime.Motion.test_original_fpu_windows_independently_check_operation_order) ... ok
+test_trace_is_repeatable_and_explicitly_synthetic (test_bird_runtime.Motion.test_trace_is_repeatable_and_explicitly_synthetic) ... ok
+test_y_threshold_stops_only_rise_random_draw (test_bird_runtime.Motion.test_y_threshold_stops_only_rise_random_draw) ... ok
+test_integer_upper_exclusive_and_empty_range (test_bird_runtime.Randomness.test_integer_upper_exclusive_and_empty_range) ... ok
+test_invalid_state_rejected_without_invented_seed (test_bird_runtime.Randomness.test_invalid_state_rejected_without_invented_seed) ... ok
+test_output_is_low24_not_modulus_division (test_bird_runtime.Randomness.test_output_is_low24_not_modulus_division) ... ok
+test_positive_state_independent_modular_oracle (test_bird_runtime.Randomness.test_positive_state_independent_modular_oracle) ... ok
+test_zero_and_signed_inputs_retain_defined_integer_operations (test_bird_runtime.Randomness.test_zero_and_signed_inputs_retain_defined_integer_operations) ... ok
+test_cached_half_open_window_is_not_global_closest (test_bird_runtime.Selection.test_cached_half_open_window_is_not_global_closest) ... ok
+test_empty_invalid_index_and_nonfinite_fail_closed (test_bird_runtime.Selection.test_empty_invalid_index_and_nonfinite_fail_closed) ... ok
+test_horizontal_nearest_ignores_height (test_bird_runtime.Selection.test_horizontal_nearest_ignores_height) ... ok
+test_random_positive_offset_is_clamped (test_bird_runtime.Selection.test_random_positive_offset_is_clamped) ... ok
+test_strict_spawn_annulus (test_bird_runtime.Selection.test_strict_spawn_annulus) ... ok
+test_tie_is_first_in_scanned_source_order (test_bird_runtime.Selection.test_tie_is_first_in_scanned_source_order) ... ok
+test_asset_metadata_is_four_alternative_quads_not_eight_live_faces (test_bird_runtime.Visual.test_asset_metadata_is_four_alternative_quads_not_eight_live_faces) ... ok
+test_camera_y_locked_basis_not_velocity_orientation (test_bird_runtime.Visual.test_camera_y_locked_basis_not_velocity_orientation) ... ok
+test_missing_visual_freezes_switcher (test_bird_runtime.Visual.test_missing_visual_freezes_switcher) ... ok
+test_mode8_separates_blend_test_depth_enable_and_write (test_bird_runtime.Visual.test_mode8_separates_blend_test_depth_enable_and_write) ... ok
+test_original_data_outputs_cannot_escape_ignored_root (test_bird_runtime.Visual.test_original_data_outputs_cannot_escape_ignored_root) ... ok
+test_three_frame_cycle_every_five_owner_invocations (test_bird_runtime.Visual.test_three_frame_cycle_every_five_owner_invocations) ... ok
+test_vertical_camera_fallback_keeps_scale (test_bird_runtime.Visual.test_vertical_camera_fallback_keeps_scale) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 4.874s
+
+OK
