@@ -40,6 +40,8 @@ class RMod1CompositionAuditTests(unittest.TestCase):
             with zipfile.ZipFile(output) as archive:
                 names = archive.namelist()
                 self.assertIn("archive-index.json", names)
+                self.assertNotIn("README.md", names)
+                self.assertIn("research/r-mod1/README.md", names)
                 self.assertFalse(any(name.lower().endswith((".exe", ".dll", ".dx", ".dxt", ".bin", ".dump.bin")) for name in names))
                 index = json.loads(archive.read("archive-index.json"))
                 self.assertTrue(index["source_only"])

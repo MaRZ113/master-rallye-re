@@ -14,7 +14,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".research-output" / "r-mod1"
 FIXED_FILES = (
-    "README.md",
     "src/native/rmod1/core.hpp",
     "tests/rmod1/core_tests.cpp",
     "tests/synthetic/test_r_mod1_core.py",
