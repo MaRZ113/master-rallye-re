@@ -6,12 +6,18 @@
 
 The D3D8 device wrapper observes a successful `SetTransform(D3DTS_VIEW, ...)` only when all of these hold:
 
-- the game callsite is the exact retail wrapper return VA `0x0053FA75` / RVA `0x0013FA75`;
+- the caller is the main executable and the return RVA is the verified gameplay VIEW site `0x00161A26` (VA `0x00561A26`);
 - the process executable matches the existing exact retail compatibility profile and camera/FOV capability;
 - `Trace.Enabled=1` and an existing F10 capture is active;
+- requested and effective native projection states are both known and perspective;
+- the native `SetTransform` call succeeded;
 - no observation for the current device frame has already been emitted.
 
-It uses guarded `safe_copy` reads for the camera manager, renderer current-camera chain, selected camera, and pose/frustum fields. It records both the game's requested logical projection (used to classify source45/source90) and the effective native projection from the D3D shadow after forwarding, plus the input VIEW matrix. It writes one compact `camera_owner_observation` JSON record to the session JSONL log, correlated by device and frame with the usual F10 frame capture. It records pointer-read validity separately from null pointers and emits non-finite floats as JSON `null`.
+The gameplay projection return VA/RVA `0x0053FA75` / `0x0013FA75` remains reserved for the existing GameFov projection policy and cannot satisfy the camera VIEW gate. The UI projection and VIEW sites (`0x00161ED3`, `0x00161FDC`) are excluded by the exact callsite gate. The gate is a production helper exercised directly by the native regression tests.
+
+It uses guarded `safe_copy` reads for the camera manager, renderer current-camera chain, selected camera, and pose/frustum fields. It records both the game's requested logical projection (used to classify source45/source90) and the effective native projection from the D3D shadow after forwarding, plus the input VIEW matrix. The full `camera_owner_observation` remains in the uniquely named session JSONL; it records pointer-read validity separately from null pointers and emits non-finite floats as JSON `null`. The same device/frame's compact `frame_summary.camera_probe` status is present in both the session JSONL and matching F10 frame JSONL. Correlate with the session filename, device, frame, and `frame_begin` executable/proxy hashes. Status distinguishes an absent verified site, inactive capture, unsupported profile, missing/ineligible projection, incomplete VIEW or owner reads, emission, duplicate suppression, serialization failure, and session-write failure.
+
+The per-device-frame allowance is checked only after the exact callsite, native HRESULT, trace/capture state, supported build profile, and both perspective matrices are validated. It is claimed only after a guarded copy of the VIEW succeeds. An incomplete owner chain still produces one honest partial observation with read flags; the frame summary marks `owner_reads_complete=false`. A failed serialization or session write consumes the already-bounded attempt and is reported without retrying.
 
 The probe does not write game memory, alter D3D state, install another game hook, consume input, or change current Freecam/FOV policies. Unknown executables and unsupported profiles receive stock forwarding and no game-specific observation.
 
@@ -43,7 +49,7 @@ No control mapping is selected in this diagnostic-only stage. Input/camera-cycle
 | Alt+Tab / focus loss | Existing renderer focus/display handling remains unchanged. | No mouse capture or camera movement. |
 | Pause/unpause | No new pause polling or game-state access. | Unsupported until mode/owner evidence is collected. |
 | Camera selector change | Probe reports the next captured owner/matrix; it writes nothing. | No stale camera pointer can be retained. |
-| Device Reset/release | Existing FOV scope restores through its current owner; probe has no persistent state beyond per-device frame suppression. | No new restoration path is needed because no camera data is changed. |
+| Device Reset/release | Existing FOV scope restores through its current owner; probe status and its once-per-frame claim are cleared at Reset/frame completion. | No new restoration path is needed because no camera data is changed. |
 | Frontend/race/replay transition | Observation is only emitted at the exact SetTransform callsite during F10 capture. | No mode is activated or overridden. |
 
 The diagnostic is deliberately a narrow observation, not a partially implemented Freecam. The focused runtime procedure is in [runtime-test-plan.md](runtime-test-plan.md).

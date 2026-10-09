@@ -78,14 +78,14 @@ Session::Session(){
 }
 Session& session(){static Session* s=new Session();return *s;}
 uint64_t Session::device_serial() noexcept {EnterCriticalSection(&lock_);auto n=++serial_;LeaveCriticalSection(&lock_);return n;}
-void Session::write(const std::string& s) noexcept {
- try {std::string line=s+'\n';EnterCriticalSection(&lock_);
+bool Session::write(const std::string& s) noexcept {
+ try {std::string line=s+'\n';EnterCriticalSection(&lock_);bool written=false;
   if(file_!=INVALID_HANDLE_VALUE && bytes_+line.size()<=16*1024*1024){
    DWORD done=0;if(!WriteFile(file_,line.data(),static_cast<DWORD>(line.size()),&done,nullptr)||done!=line.size()){
     LARGE_INTEGER at;at.QuadPart=bytes_;SetFilePointerEx(file_,at,nullptr,FILE_BEGIN);SetEndOfFile(file_);CloseHandle(file_);file_=INVALID_HANDLE_VALUE;OutputDebugStringA("R-GFX3 logging failed; forwarding remains active\n");
-   }else bytes_+=done;
-  }LeaveCriticalSection(&lock_);
- }catch(...){OutputDebugStringA("R-GFX3 log allocation failure\n");}
+   }else {bytes_+=done;written=true;}
+  }LeaveCriticalSection(&lock_);return written;
+ }catch(...){OutputDebugStringA("R-GFX3 log allocation failure\n");return false;}
 }
 void note_real_runtime(HMODULE m,const std::wstring& requested) noexcept {
  try{auto& s=session();s.real_path=utf8(module_path(m));s.write("{\"type\":\"real_runtime\",\"requested_path\":"+quote(utf8(requested))+",\"actual_path\":"+quote(s.real_path)+",\"loaded\":"+(m?"true":"false")+"}");}catch(...){}

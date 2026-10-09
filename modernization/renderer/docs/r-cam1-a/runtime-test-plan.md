@@ -1,67 +1,45 @@
-# R-CAM1-A camera owner runtime validation
+# R-CAM1-A1 camera owner diagnostic validation
 
-**Purpose:** collect a small set of read-only owner observations needed to decide whether an exact-build, single-player Freecam gate and transient CPU/D3D camera integration can be proven. This procedure does not test a Freecam because no movement feature is enabled in this candidate.
+**Status: `READY_FOR_CAMERA_DIAGNOSTIC_VALIDATION`.** This short procedure validates the corrected read-only camera-owner probe. It does not test Freecam movement; no Freecam option, hotkey, or camera write exists.
 
-## Setup
+## Candidate and configuration
 
-Use the exact pristine retail executable (SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`) with the R-CAM1-A `d3d8.dll` candidate. Prefer Windowed (`Display.Mode=1`) or Borderless (`Display.Mode=2`); do not use known-broken Exclusive recovery. Keep all other renderer options unchanged during the first comparison.
+Use the exact pristine retail executable (SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`) and the newly built Win32 candidate `modernization/renderer/.build-r-cam1-a/Release/d3d8.dll`. Confirm the installed candidate SHA256 against the validation record before launch. Keep the stable Windowed configuration and all other visual settings unchanged. Do not use Experimental Exclusive Fullscreen.
 
-Enable the existing trace if needed:
+For the three captures, use these existing INI keys:
 
 ```ini
+[Display]
+Mode=1
+
+[Camera]
+GameplayFOV=0
+
 [Trace]
 Enabled=1
 FrameSummaries=1
 
-[Camera]
-GameplayFOV=0
+[PS2FoliagePilot]
+Mode=0
+Diagnostics=0
 ```
 
-No Freecam INI option or hotkey exists. F10 is the existing one-frame capture key and remains reserved. Each capture should produce the ordinary `frame-...jsonl` plus a `camera_owner_observation` line in its matching session JSONL, joined by `device` and `frame`. Do not send or commit continuous raw logs; retain only the small set of captures listed below.
+Press F10 once per screen state and wait for each one-frame capture to complete before moving to the next state.
 
-## Capture sequence
+## Three captures
 
-1. **Frontend preview:** in the main menu or Quick Race vehicle preview, press F10 once while the car preview is visible. Record the screen/context and expected source-45 family.
-2. **France1 race:** start a single-player Quick Race with default camera. Once the scene is stable, press F10 once.
-3. **Stock camera variants:** cycle through each available stock camera mode and press F10 once per settled mode. Include pause/unpause only if the game retains its camera owner while paused.
-4. **Replay or Attract:** if readily accessible, collect one capture during replay playback and one during Replay Theatre/Attract. Do not spend time bypassing normal menus to reach these states.
-5. **Transition lifetime:** return to the frontend, re-enter France1, and take one new default-camera capture. This checks whether manager/current-camera pointers change or are reused across the normal transition.
-6. **Optional FOV comparison:** only after the first set is complete, repeat the default-race capture with the existing GameplayFOV enabled. This is a projection/culling regression observation, not a Freecam test.
+1. **Frontend vehicle preview.** Open the frontend vehicle preview and capture once. If this screen submits the observed source45 VIEW path, the session event should identify `projection_family="source45"`; otherwise, the matching `frame_summary.camera_probe` must report a bounded skip reason. No frontend camera state may change.
+2. **France1 default camera.** Enter a France1 Quick Race, wait for a stable view, and capture once. Expected caller RVA is `0x00161A26`, projection family is source90, and the session JSONL contains one `camera_owner_observation`. Owner mismatch or incomplete reads remain useful diagnostic evidence and must not suppress the payload.
+3. **France1 alternate stock camera.** Select another stock camera, wait for the view to settle, and capture once. Expected caller RVA remains `0x00161A26`; the observation must have a new device/frame association and comparable owner/pose fields.
 
-## What to inspect
+Do not add camera cycling, replay, attract, long driving, FOV changes, or other captures to this corrective check.
 
-For each `camera_owner_observation`, compare:
+## Files and correlation
 
-- executable identity, device and frame;
-- caller VA/RVA (`0x0053FA75` / `0x0013FA75`);
-- `projection_family` and the F10 frame's logical/effective projection setters;
-- manager count and its validity, all readable camera pointers, renderer singleton/holder/current-camera read status, `camera_index`, and `owner_match`;
-- camera viewport against the game client/active viewport;
-- camera source angle, side planes, previous/current poses, and finite values;
-- D3D VIEW against the camera pose pair and expected movement as the stock selector changes;
-- whether pointer/count/index/projection family distinguishes the supported race path from every sampled unsupported context;
-- whether the selected camera remains stable through pause, camera cycling, Reset/resize, and re-entry.
+Retain the unique session JSONL and the three corresponding `frame-...jsonl` files. Label the three captures in a short note with screen state and camera selection. The full `camera_owner_observation` payload is written only to the session JSONL. Each F10 frame file contains its regular transform events and the compact `frame_summary.camera_probe` status. Join records using the session filename as capture identity, then `device` and `frame`; confirm the session header and each frame's `frame_begin` executable/proxy hashes match the tested binaries.
 
-The event records both requested logical projection (the camera-family signal) and effective native D3D projection, plus input VIEW. It does not include raw input, alter the game, or record every draw. The frame file contains the wrapper's corresponding transform events; use the session event's `device` + `frame` to correlate it.
+The status reports one of the bounded outcomes, including `no_verified_gameplay_view_site_observed`, `gameplay_view_observed_capture_inactive`, `executable_profile_unsupported`, `projection_state_unavailable`, `projection_ineligible`, `camera_owner_read_incomplete`, `observation_emitted`, `duplicate_observation_suppressed`, `serialization_failure`, or `session_write_failed`. `owner_reads_complete=false` means the partial payload was emitted with the existing per-field read flags; it does not represent a valid Freecam owner.
 
-## PASS / FAIL decision
+## Diagnostic decision
 
-**Diagnostic pass** requires all of the following:
-
-- all expected read flags and the selected manager/current-camera identity are internally consistent during the normal single-player race;
-- camera pose, planes, viewport and D3D transform data are finite and stable enough to reconstruct a single effective owner;
-- stock camera cycling either preserves that owner safely or produces a predictable owner transition;
-- the supported race contexts have a reliable exact-runtime discriminator that rejects every sampled preview, replay, attract, cinematic, and multi-camera context. A source-90 projection, manager count of one, or camera index zero alone is not sufficient;
-- no observed pointer reuse or transition invalidates the documented identity/lifetime checks.
-
-If any unsupported context has the same candidate discriminator as a race, or a required owner/pose read is unavailable, the gate **fails closed** and the Freecam stays disabled. Static evidence and F10 traces do not prove in-game movement or visual correctness.
-
-## Evidence to retain
-
-For a diagnostic pass or failure, keep:
-
-- one session JSONL and matching F10 frame files for the frontend preview, each distinct race owner, and each accessible unsupported camera context;
-- the exact executable SHA and candidate DLL SHA from the session header;
-- a short note for each capture identifying screen/state, active stock camera selection, focus/pause/reset condition, and whether all pointer-read flags were true.
-
-Raw captures remain local diagnostic data and are not added to the source handoff archive.
+The callsite correction is validated when the race captures emit from `0x00161A26`, the source45/source90 family remains visible in JSON, no UI VIEW is admitted, and camera reads remain observational and guarded. A coherent owner still requires human review of the manager/current-camera identity, camera index, viewport, side planes, previous/current poses, and D3D VIEW. This phase does not authorize Freecam movement or change the status from `READY_FOR_CAMERA_DIAGNOSTIC_VALIDATION`.

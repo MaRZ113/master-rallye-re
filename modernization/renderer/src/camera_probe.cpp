@@ -21,6 +21,74 @@ void matrix(std::ostream& out,const float* values) {
 }
 void matrix(std::ostream& out,const D3DMATRIX& value){matrix(out,&value.m[0][0]);}
 void optional_pointer(std::ostream& out,bool known,uintptr_t value){if(known)out<<value;else out<<"null";}
+std::string hex_rva(uint32_t rva){std::ostringstream out;out<<"0x"<<std::hex<<std::setw(8)<<std::setfill('0')<<rva;return out.str();}
+}
+
+CameraProbeGateResult camera_probe_gate(const CameraProbeGateInput& input) noexcept {
+ CameraProbeGateResult out{};
+ out.gameplay_view_site=input.transform_type==D3DTS_VIEW&&input.exe_caller&&input.caller_rva==GAMEPLAY_VIEW_RETURN_RVA;
+ if(!out.gameplay_view_site)return out;
+ if(FAILED(input.native_result))out.status=CameraProbeStatus::NativeSetTransformFailed;
+ else if(!input.trace_enabled)out.status=CameraProbeStatus::TraceDisabled;
+ else if(!input.profile_supported)out.status=CameraProbeStatus::ExecutableProfileUnsupported;
+ else if(!input.capture_active)out.status=CameraProbeStatus::CaptureInactive;
+ else if(!input.requested_projection_known||!input.effective_projection_known)out.status=CameraProbeStatus::ProjectionUnavailable;
+ else if(!symmetric_lh(input.requested_projection)||!symmetric_lh(input.effective_projection))out.status=CameraProbeStatus::ProjectionIneligible;
+ else if(input.observation_already_claimed)out.status=CameraProbeStatus::DuplicateSuppressed;
+ else out.status=CameraProbeStatus::ReadyForObservation;
+ return out;
+}
+
+const char* camera_probe_status_name(CameraProbeStatus status) noexcept {
+ switch(status){
+  case CameraProbeStatus::NoVerifiedGameplayViewSite:return "no_verified_gameplay_view_site_observed";
+  case CameraProbeStatus::NativeSetTransformFailed:return "native_set_transform_failed";
+  case CameraProbeStatus::TraceDisabled:return "trace_disabled";
+  case CameraProbeStatus::ExecutableProfileUnsupported:return "executable_profile_unsupported";
+  case CameraProbeStatus::CaptureInactive:return "gameplay_view_observed_capture_inactive";
+  case CameraProbeStatus::ProjectionUnavailable:return "projection_state_unavailable";
+  case CameraProbeStatus::ProjectionIneligible:return "projection_ineligible";
+  case CameraProbeStatus::DuplicateSuppressed:return "duplicate_observation_suppressed";
+  case CameraProbeStatus::ReadyForObservation:return "ready_for_observation";
+  case CameraProbeStatus::ViewMatrixReadIncomplete:return "view_matrix_read_incomplete";
+  case CameraProbeStatus::OwnerReadIncomplete:return "camera_owner_read_incomplete";
+  case CameraProbeStatus::ObservationEmitted:return "observation_emitted";
+  case CameraProbeStatus::SerializationFailure:return "serialization_failure";
+  case CameraProbeStatus::SessionWriteFailed:return "session_write_failed";
+ }
+ return "unknown";
+}
+
+void CameraProbeFrameDiagnostic::record_gate(const CameraProbeGateResult& result,uint32_t rva) noexcept {
+ if(!result.gameplay_view_site)return;
+ gameplay_view_site_seen=true;caller_rva=rva;status=result.status;
+ if(result.status==CameraProbeStatus::DuplicateSuppressed&&duplicate_suppressed!=UINT32_MAX)++duplicate_suppressed;
+}
+bool CameraProbeFrameDiagnostic::claim_observation() noexcept {
+ if(observation_claimed)return false;
+ observation_claimed=true;return true;
+}
+void CameraProbeFrameDiagnostic::record_outcome(CameraProbeStatus value,bool emitted,bool reads_known,bool reads_complete) noexcept {
+ status=value;observation_emitted=emitted;owner_reads_known=reads_known;owner_reads_complete=reads_known&&reads_complete;
+}
+std::string camera_probe_frame_summary_json(const CameraProbeFrameDiagnostic& diagnostic) {
+ std::ostringstream out;
+ out<<"{\"status\":"<<quote(camera_probe_status_name(diagnostic.status))
+    <<",\"gameplay_view_site_seen\":"<<(diagnostic.gameplay_view_site_seen?"true":"false")
+    <<",\"caller_rva\":"<<(diagnostic.gameplay_view_site_seen?quote(hex_rva(diagnostic.caller_rva)):"null")
+    <<",\"observation_claimed\":"<<(diagnostic.observation_claimed?"true":"false")
+    <<",\"observation_emitted\":"<<(diagnostic.observation_emitted?"true":"false")
+    <<",\"owner_reads_complete\":";
+ if(diagnostic.owner_reads_known)out<<(diagnostic.owner_reads_complete?"true":"false");else out<<"null";
+ out<<",\"duplicate_suppressed\":"<<diagnostic.duplicate_suppressed<<'}';
+ return out.str();
+}
+
+bool camera_owner_reads_complete(const CameraOwnerObservation& owner) noexcept {
+ if(!owner.manager_pointer_read||!owner.manager_count_read||!owner.manager_count_valid||
+    !owner.renderer_pointer_read||!owner.renderer_holder_read||!owner.current_camera_read||!owner.camera_read)return false;
+ for(int32_t i=0;i<owner.manager_count;++i)if(!owner.manager_camera_read[static_cast<size_t>(i)])return false;
+ return true;
 }
 
 bool read_camera_owner_observation(uintptr_t base,CameraOwnerObservation& out) noexcept {

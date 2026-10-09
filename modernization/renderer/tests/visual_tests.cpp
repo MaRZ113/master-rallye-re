@@ -91,6 +91,8 @@ void wrapper_contracts(){
  MockRootBase raw_root;Raw raw;auto* root=new Root8(&raw_root);auto* w=new Device8(&raw,root);auto c=enabled();auto cap=caps();
  CHECK(raw.caps_calls==0);w->SetTextureStageState(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR);CHECK(raw.setters==1&&raw.tss[0][17]==2);
  auto original=perspective();CHECK(w->SetTransform(D3DTS_PROJECTION,&original)==S_OK);CHECK(raw.received==&original);
+ auto view=perspective();raw.result=D3DERR_INVALIDCALL;auto test_pc=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x1000;
+ CHECK(w->set_transform_at(D3DTS_VIEW,&view,test_pc)==D3DERR_INVALIDCALL&&raw.received==&view);raw.result=S_OK;
  CHECK(w->DrawPrimitive(D3DPT_TRIANGLELIST,0,7)==S_OK&&raw.draws==1);
  w->visuals.configure(c,true,&cap,S_OK);CHECK(w->SetTextureStageState(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR)==S_OK);
  CHECK(raw.tss[0][17]==3&&raw.tss[0][21]==8);CHECK(w->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,0,3,0,1)==raw.hr&&raw.last==71);CHECK(w->trace.shadow.tss[0][17].value==2&&w->trace.effective_shadow.tss[0][17].value==3);

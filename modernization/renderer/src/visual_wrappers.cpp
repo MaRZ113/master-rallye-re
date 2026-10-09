@@ -59,21 +59,40 @@ HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* in
  trace.culling=game_fov.status();
  const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
 HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
- if(SUCCEEDED(hr)&&type==D3DTS_VIEW&&exe&&rva==GAMEPLAY_PROJECTION_RETURN_RVA&&trace.enabled&&trace.control.active){
-  const auto& requested_projection=trace.shadow.matrices[D3DTS_PROJECTION];
-  const auto& effective_projection=trace.effective_shadow.matrices[D3DTS_PROJECTION];
-  if(requested_projection.known&&symmetric_lh(requested_projection.value)&&effective_projection.known&&
-     symmetric_lh(effective_projection.value)&&trace.claim_camera_observation_frame()){
-   auto& runtime=session();
-   if(runtime.target&&runtime.compatibility.fov.supported()){
-    CameraOwnerObservation owner{};D3DMATRIX observed_view{};
-    const uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
-    if(base==0x00400000&&safe_copy(&observed_view,input,sizeof(observed_view))){
-     read_camera_owner_observation(base,owner);
-     try{runtime.write(camera_owner_observation_json(owner,trace.device_id(),trace.frame_number(),rva,requested_projection.value,effective_projection.value,observed_view));}catch(...){}
-    }
+ if(type==D3DTS_VIEW&&exe){
+ CameraProbeGateInput probe_input{};probe_input.transform_type=type;probe_input.exe_caller=exe;probe_input.caller_rva=rva;
+ probe_input.native_result=hr;probe_input.trace_enabled=trace.enabled;probe_input.capture_active=trace.control.active;
+ probe_input.profile_supported=trace.camera_probe_profile_supported();
+ probe_input.observation_already_claimed=trace.camera_probe_diagnostic.observation_claimed;
+ const auto& requested_projection=trace.shadow.matrices[D3DTS_PROJECTION];
+ const auto& effective_projection=trace.effective_shadow.matrices[D3DTS_PROJECTION];
+ probe_input.requested_projection_known=requested_projection.known;probe_input.effective_projection_known=effective_projection.known;
+ if(requested_projection.known)probe_input.requested_projection=requested_projection.value;
+ if(effective_projection.known)probe_input.effective_projection=effective_projection.value;
+ const CameraProbeGateResult probe_gate=camera_probe_gate(probe_input);
+ if(probe_gate.gameplay_view_site){
+  trace.camera_probe_diagnostic.record_gate(probe_gate,rva);
+  if(probe_gate.status==CameraProbeStatus::ReadyForObservation){
+   D3DMATRIX observed_view{};
+   if(!safe_copy(&observed_view,input,sizeof(observed_view)))
+    trace.camera_probe_diagnostic.record_outcome(CameraProbeStatus::ViewMatrixReadIncomplete,false);
+   else if(!trace.claim_camera_observation_frame()){
+    CameraProbeGateResult duplicate{CameraProbeStatus::DuplicateSuppressed,true};trace.camera_probe_diagnostic.record_gate(duplicate,rva);
+   }else{
+    CameraOwnerObservation owner{};const uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
+    if(base==0x00400000)read_camera_owner_observation(base,owner);
+    const bool reads_complete=camera_owner_reads_complete(owner);
+    try{
+     auto& runtime=session();
+     const auto record=camera_owner_observation_json(owner,trace.device_id(),trace.frame_number(),rva,
+      requested_projection.value,effective_projection.value,observed_view);
+     const bool emitted=runtime.write(record);
+     trace.camera_probe_diagnostic.record_outcome(emitted?(reads_complete?CameraProbeStatus::ObservationEmitted:CameraProbeStatus::OwnerReadIncomplete):CameraProbeStatus::SessionWriteFailed,
+      emitted,true,reads_complete);
+    }catch(...){trace.camera_probe_diagnostic.record_outcome(CameraProbeStatus::SerializationFailure,false,true,reads_complete);}
    }
   }
+ }
  }
  return hr;
 }

@@ -28,7 +28,7 @@ public:
  Compatibility compatibility;
  std::atomic_bool foliage_provenance_available{true};
  VisualConfig visual_config;std::wstring config_path;
- void write(const std::string& record) noexcept;
+ bool write(const std::string& record) noexcept;
  uint64_t device_serial() noexcept;
 private:
  friend Session& session();

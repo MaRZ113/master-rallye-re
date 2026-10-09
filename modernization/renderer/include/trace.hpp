@@ -5,6 +5,7 @@
 #include "vehicle_semantics.hpp"
 #include "game_fov.hpp"
 #include "foliage_probe.hpp"
+#include "camera_probe.hpp"
 #include <mutex>
 #include <memory>
 #include <atomic>
@@ -40,7 +41,7 @@ public:
  void configure_classifier(bool known,uintptr_t base) noexcept {classifier_known_=known;exe_base_=base;tracker_.reset();if(semantics_)semantics_->clear();race_context_=race_seen_this_frame_=race_history_=false;}
  uint64_t frame_number() const noexcept {return frame_;}
  uint64_t device_id() const noexcept {return device_;}
- bool claim_camera_observation_frame() noexcept {if(camera_observation_frame_==frame_)return false;camera_observation_frame_=frame_;return true;}
+ bool claim_camera_observation_frame() noexcept {return camera_probe_diagnostic.claim_observation();}
  size_t learned_signatures() const noexcept {return semantics_?semantics_->size():0;}
  bool race_context() const noexcept {return race_context_;}
  uint64_t classifier_epoch() const noexcept {return tracker_.epoch();}
@@ -52,6 +53,8 @@ public:
  FovCullStatus culling;
  std::string quality_metadata="null",ui_metadata="null";
  CaptureControl control;
+ CameraProbeFrameDiagnostic camera_probe_diagnostic;
+ bool camera_probe_profile_supported() const noexcept {return camera_probe_profile_supported_;}
  ResourceRegistry resources;
 private:
  std::map<uint32_t,std::string> foliage_records_;
@@ -59,10 +62,11 @@ private:
  VehicleSemanticSource pending_semantic_source_=VehicleSemanticSource::None;
  uint64_t live_body_draws_=0,learned_reflection_draws_=0,live_reflection_draws_=0;bool classifier_known_=false,race_context_=false,race_seen_this_frame_=false,race_history_=false;uintptr_t exe_base_=0;
  CRITICAL_SECTION lock_{};bool lock_ok_=false;
- uint64_t device_=0,frame_=1,primitives_=0,camera_observation_frame_=0;
+ uint64_t device_=0,frame_=1,primitives_=0;
  std::array<uint64_t,97> counts_{};
  uint64_t reset_count_=0,relearn_count_=0;size_t reset_removed_=0;bool waiting_relearn_=false;
  uint64_t reflection_candidates_=0,reflection_draws_=0,reflection_triangles_=0,reflection_writes_=0;
+ bool camera_probe_profile_supported_=false;
  std::unique_ptr<FrameBuffer> capture_;
  uint32_t pending_draw_=UINT32_MAX;
  Known<uint32_t> last_cooperative_;

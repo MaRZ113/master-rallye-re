@@ -39,7 +39,7 @@ void state(std::ostream& o,const Draw& d){
 Trace::Trace() noexcept {
  semantics_.reset(new(std::nothrow)VehicleSemantics);
  lock_ok_=InitializeCriticalSectionEx(&lock_,2000,0)!=FALSE;
- try {auto& s=session();enabled=lock_ok_&&s.enabled;device_=s.device_serial();classifier_known_=s.compatibility.vehicle.supported();exe_base_=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));}catch(...){enabled=false;}
+ try {auto& s=session();enabled=lock_ok_&&s.enabled;device_=s.device_serial();classifier_known_=s.compatibility.vehicle.supported();camera_probe_profile_supported_=s.target&&s.compatibility.fov.supported();exe_base_=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));}catch(...){enabled=false;}
 }
 Trace::~Trace(){if(lock_ok_)DeleteCriticalSection(&lock_);}
 Trace::Guard::Guard(Trace& t) noexcept :t_(t),held_(t.lock_ok_){if(held_)EnterCriticalSection(&t.lock_);}
@@ -122,7 +122,7 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
    if(waiting_relearn_&&tracker_.stats().constellations){++relearn_count_;waiting_relearn_=false;}
   }
   if(slot==14&&static_cast<int32_t>(result)>=0){reset_removed_=resources.successful_reset();tracker_.reset();if(semantics_)semantics_->clear();race_context_=race_seen_this_frame_=race_history_=false;++reset_count_;waiting_relearn_=true;reflection_restore_pending.known=false;}
-  if(!enabled){if(slot==15){tracker_.next_frame();if(semantics_)semantics_->next_frame();live_body_draws_=learned_reflection_draws_=live_reflection_draws_=0;race_seen_this_frame_=false;++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;}return;}
+  if(!enabled){if(slot==15){tracker_.next_frame();if(semantics_)semantics_->next_frame();live_body_draws_=learned_reflection_draws_=live_reflection_draws_=0;race_seen_this_frame_=false;camera_probe_diagnostic=CameraProbeFrameDiagnostic{};++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;}return;}
   if(control.active&&capture_){
    if(capture_->event_count==MAX_EVENTS){capture_->truncated=true;++capture_->dropped;}
    else if(!capture_->truncated){auto& e=capture_->events[capture_->event_count++];e=Event{};e.slot=slot;e.result=result;e.args=args;e.pc=pc;e.effective_args=native;e.feature=feature;e.suppressed=suppressed;e.native_only=native_only;e.culling_synchronized=culling.synchronized;
@@ -139,10 +139,10 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
   }
   if(slot==14){D3DPRESENT_PARAMETERS p{};bool valid=safe_copy(&p,(void*)args.a[0],sizeof(p));
    session().write("{\"type\":\"reset\",\"device\":"+std::to_string(device_)+",\"hresult\":"+std::to_string(result)+",\"frame\":"+std::to_string(frame_)+",\"metadata_removed\":"+std::to_string(static_cast<int32_t>(result)>=0?reset_removed_:0)+",\"metadata_retained\":"+std::to_string(resources.items.size())+",\"classifier_epoch\":"+std::to_string(tracker_.epoch())+",\"parameters_before\":"+(reset_before_.known?pp_json(reset_before_.value):"null")+",\"parameters_after\":"+(valid?pp_json(p):"null")+"}");
-   if(control.active)finish(result,false,"reset");control.abort();control.boundary=false;
+   if(control.active)finish(result,false,"reset");control.abort();control.boundary=false;camera_probe_diagnostic=CameraProbeFrameDiagnostic{};
   }
   if(slot==3&&(!last_cooperative_.known||last_cooperative_.value!=result)){last_cooperative_.set(result);session().write("{\"type\":\"cooperative_level\",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+",\"hresult\":"+std::to_string(result)+"}");}
-  if(slot==15){finish(result,control.boundary,"present");tracker_.next_frame();if(semantics_)semantics_->next_frame();live_body_draws_=learned_reflection_draws_=live_reflection_draws_=0;race_seen_this_frame_=false;++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;control.finish_present();if(control.active)start_capture();}
+  if(slot==15){finish(result,control.boundary,"present");tracker_.next_frame();if(semantics_)semantics_->next_frame();live_body_draws_=learned_reflection_draws_=live_reflection_draws_=0;race_seen_this_frame_=false;camera_probe_diagnostic=CameraProbeFrameDiagnostic{};++frame_;counts_.fill(0);primitives_=0;reflection_candidates_=reflection_draws_=reflection_triangles_=reflection_writes_=0;control.finish_present();if(control.active)start_capture();}
  }catch(...){enabled=false;tracker_.reset();if(semantics_)semantics_->clear();control.abort();OutputDebugStringA("R-GFX3 trace disabled after instrumentation failure\n");}
 }
 void Trace::start_capture() noexcept {
@@ -154,7 +154,7 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
  try {
   auto stats=tracker_.stats();
   auto& s=session();std::ostringstream summary;summary<<"{\"type\":\"frame_summary\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"complete_interval\":"<<(complete?"true":"false")<<",\"present_hresult\":"<<result<<",\"primitive_total\":"<<primitives_<<",\"classifier\":{\"dynamic_tracks\":"<<stats.dynamic<<",\"chassis_candidates\":"<<stats.chassis<<",\"vehicle_constellations\":"<<stats.constellations<<",\"vehicle_body_draws\":"<<stats.body_draws<<",\"vehicle_wheel_draws\":"<<stats.wheel_draws<<",\"ambiguities\":"<<stats.ambiguities<<",\"vehicle_structural_admissions\":"<<stats.structural_admissions<<",\"vehicle_dynamic_admissions\":"<<stats.dynamic_admissions<<",\"vehicle_retained_identities\":"<<stats.retained<<",\"vehicle_identity_demotions\":"<<stats.demotions<<",\"body_material_mutations\":"<<stats.mutations<<",\"reflection_candidate_draws\":"<<reflection_candidates_<<",\"reflection_modified_draws\":"<<reflection_draws_<<",\"reflection_modified_triangles\":"<<reflection_triangles_<<",\"reflection_native_writes\":"<<reflection_writes_<<",\"learned_vehicle_body_signatures\":"<<learned_signatures()<<",\"live_vehicle_body_draws\":"<<live_body_draws_<<",\"learned_signature_reflection_draws\":"<<learned_reflection_draws_<<",\"live_constellation_reflection_draws\":"<<live_reflection_draws_<<",\"vehicle_signature_promotions\":"<<(semantics_?semantics_->promotions:0)<<",\"vehicle_signature_invalidations\":"<<(semantics_?semantics_->invalidations:0)<<",\"unproven_semantic_observations\":"<<(semantics_?semantics_->rejections:0)<<",\"reset_count\":"<<reset_count_<<",\"relearn_count\":"<<relearn_count_<<",\"epoch\":"<<tracker_.epoch()<<",\"race_seen_this_frame\":"<<(race_seen_this_frame_?"true":"false")<<"},\"fov_culling\":{\"installed\":"<<(culling.installed?"true":"false")<<",\"synchronized\":"<<(culling.synchronized?"true":"false")<<",\"restored\":"<<(culling.restored?"true":"false")<<",\"width\":"<<culling.width<<",\"height\":"<<culling.height<<",\"source_angle\":"<<culling.source<<",\"vfov\":"<<culling.vfov<<",\"hfov\":"<<culling.hfov<<",\"synchronized_frames\":"<<culling.synchronized_frames<<",\"failures\":"<<culling.failures<<",\"reason\":"<<quote(culling.reason)<<"},\"quality\":"<<quality_metadata<<",\"ui_margins\":"<<ui_metadata<<",\"counts\":{";
-  for(int i=0;i<97;++i){if(i)summary<<',';summary<<quote(METHOD_NAMES[i])<<':'<<counts_[i];}summary<<"},\"bypass_suspected\":"<<((counts_[15]&&(!counts_[34]||!counts_[35]))?"true":"false")<<"}";
+  for(int i=0;i<97;++i){if(i)summary<<',';summary<<quote(METHOD_NAMES[i])<<':'<<counts_[i];}summary<<"},\"bypass_suspected\":"<<((counts_[15]&&(!counts_[34]||!counts_[35]))?"true":"false")<<",\"camera_probe\":"<<camera_probe_frame_summary_json(camera_probe_diagnostic)<<'}';
   if(s.summaries&&(frame_==1||frame_%60==0||control.active))s.write(summary.str());
   if(!control.active||!capture_)return;
   wchar_t name[100];swprintf_s(name,L"\\frame-%lu-d%llu-%08llu.jsonl",GetCurrentProcessId(),device_,frame_);
