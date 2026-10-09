@@ -1,6 +1,6 @@
 # R-EXCL1 — True Exclusive Fullscreen Recovery
 
-**Status: `DEFERRED_KNOWN_BROKEN`. This is a backlog record, not an active implementation phase.** The user has chosen to proceed on supported Windowed/Borderless modes. No Exclusive fix is attempted by the R-GFX5 stable checkpoint.
+**Status: `DEFERRED_KNOWN_BROKEN`. This is a backlog record, not an active implementation phase.** Windowed and Borderless remain the supported development modes. No Exclusive fix is attempted by the R-GFX5 stable checkpoint.
 
 ## User-visible failure
 
@@ -25,21 +25,50 @@ Pristine retail EXE SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b8650
 | Renderer recreation | `0x0053F350` / `0x0013F350` | Rebuilds the owner and reports mode to Broker |
 | Frontend owner comparison | `0x00653080` / `0x00253080` | Compares Broker fullscreen selection with owner mode |
 
-`CONFIRMED_BY_EXE`: owner `+0x1C` is zero for native fullscreen and nonzero for native windowed; the presentation `Windowed` field follows that selection on CreateDevice. The WM_SIZE Reset branch does not first call TestCooperativeLevel. The separate CheckCooperative path distinguishes DEVICELOST from DEVICENOTRESET. This static distinction alone does not show which path executed at the human failure or what native readiness returned at that instant.
+`CONFIRMED_BY_EXE`: owner `+0x1C` is zero for native fullscreen and nonzero for native windowed; the presentation `Windowed` field follows that selection on CreateDevice. The WM_SIZE Reset branch does not first call TestCooperativeLevel. The separate CheckCooperative path distinguishes DEVICELOST from DEVICENOTRESET.
 
-`STRONG_HYPOTHESIS`: if the game's live mode owner remains windowed while the proxy owns a true Exclusive presentation, restored WM_SIZE may enter the immediate Reset path before native device readiness. The hypothesis explains the geometry and ordering concerns, but is unconfirmed.
+`STRONG_HYPOTHESIS`: if the game's live mode owner remains windowed while the proxy owns a true Exclusive presentation, restored WM_SIZE may enter the immediate Reset path before native device readiness. New traces confirm the owner/presentation mismatch and an early failed Reset, but do not establish the complete causal chain.
 
 ## Unknowns to preserve
 
-- The exact writer of the decorated restore style.
-- The native game-owner mode byte at the failure.
-- Whether the failing Reset was reached through WM_SIZE before focus/activation completed.
-- The native cooperative HRESULT immediately before that Reset.
-- Whether focus loss, window ownership mismatch, or both cause the failure.
-- A safe synchronization seam that keeps the game HWND owner and native D3D presentation coherent.
-- Whether the game can recover without suppressing a genuine native failure.
+- Which code path writes the restored decorated style.
+- Exact complete call-stack attribution for the fatal recovery path.
+- Whether the premature Reset was initiated specifically by WM_SIZE in every failing case.
+- Which original game lifecycle boundary can safely synchronize native game mode with proxy presentation.
+- Whether a correct recovery can be implemented without breaking resource ownership, Windowed or Borderless.
+- Whether the mode mismatch is the sole cause or one contributor.
 
-R-GFX5-8 added bounded event ordering, style-change stack context, exact-retail read-only owner observation and a native TestCooperativeLevel probe immediately before Exclusive Reset. The probe records evidence and forwards the real Reset result unchanged; it does not wait, retry, or alter ownership. Those artifacts are described in the [runtime handoff](r-gfx5-8/runtime-handoff.md). This checkpoint performs no new instrumentation or runtime test.
+## R-GFX5-8 — Additional Exclusive Restore Trace Evidence
+
+The following observations were independently inspected during the stable-checkpoint review in two R-GFX5-8 sessions:
+
+| Capture | Mode | Evidence |
+|---|---|---|
+| `session-20261009-122510-49004.jsonl` | Exclusive 640×480 | `TestCooperativeLevel` returned `D3DERR_DEVICELOST` while minimized (event 51); the pre-Reset query also returned DEVICELOST (event 61), followed by native Reset returning DEVICELOST (event 63). Effective Reset parameters remained 640×480 with `Windowed=FALSE`. |
+| `session-20261009-122644-33496.jsonl` | Exclusive 1280×720 | DEVICELOST at event 51; pre-Reset DEVICELOST at 62; native Reset DEVICELOST at 64; pre-Reset `DEVICENOTRESET` at 90; pre-Reset `S_OK` at 100; native Reset `S_OK` at 114 and 123. |
+
+Both captures recorded this simultaneous Exclusive state:
+
+```text
+game_windowed_flag_0x1c = 1
+game_window_owner.windowed = 1
+game_window_owner.presentation_windowed = 0
+effective D3D8 Windowed = FALSE
+```
+
+`CONFIRMED_BY_TRACE`: the live game owner reports Windowed while the effective D3D8 presentation is Exclusive. `CONFIRMED_BY_EXE`: owner `+0x1C` is zero for native fullscreen and nonzero for native windowed, as documented in the static owner map above. The causal effect of this mismatch remains unproven.
+
+In the 640×480 capture, the restored decorated HWND was observed with outer size 640×480, client size 624×441, style `0x16CF0000`, and ex-style `0x108`. The game requested dimensions corresponding to that client geometry, while the proxy retained the selected 640×480 Exclusive target and `Windowed=FALSE`; native Reset still returned `D3DERR_DEVICELOST`. The failure was therefore not caused by forwarding 624×441 as the effective fullscreen size. The 16×39 difference is specific to this observed window and is not a universal Win32 border delta.
+
+HRESULTs: `D3DERR_DEVICELOST=0x88760868`, `D3DERR_DEVICENOTRESET=0x88760869`, `S_OK=0x00000000`. The 1280×720 trace shows native recovery readiness and later successful Reset calls, but the earlier failed result had already returned to the game and Error 2010 was still reported. Native success alone does not establish application-level recovery.
+
+Static owner facts remain: `0x0055A4D0` handles the original window-message path; `0x0055AE40` wraps native Reset; `0x0055AED0` applies the game's window-mode transition; and `0x0055AF50` handles cooperative-level recovery. The WM_SIZE path can reach Reset without a prior cooperative query, while the separate readiness path treats DEVICELOST and DEVICENOTRESET differently. See [R-GFX5-8 static analysis](r-gfx5-8/exclusive-static-analysis.md) for the full VA/RVA map, conventions and lifetime evidence.
+
+These are trace-review findings, not a new runtime run. The raw JSONL files are not included in the source repository. The capture identifiers and executable/proxy identities are retained here: pristine retail `MRallye.exe` SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`; renderer DLL SHA256 `fda771e03dc3bc5457d995ea755933f9a3982fc280ece061d5b6329ad9f3f543`.
+
+The following remain unresolved: whether focus loss or the owner mismatch is the sole cause; which safe synchronization seam can keep the game HWND owner and native D3D presentation coherent; and whether recovery can preserve genuine native failures without breaking resource ownership, Windowed, or Borderless behavior.
+
+R-GFX5-8 added bounded event ordering, style-change stack context, exact-retail read-only owner observation and a native TestCooperativeLevel probe immediately before Exclusive Reset. The probe records evidence and forwards the real Reset result unchanged; it does not wait, retry, or alter ownership. Those artifacts are described in the [runtime procedure](r-gfx5-8/runtime-handoff.md). No new instrumentation or runtime test is part of this documentation update.
 
 ## Resume constraints
 

@@ -1,5 +1,5 @@
 {
-  "schema": "mr-renderer-stable-checkpoint-v1",
+  "schema": "mr-renderer-stable-checkpoint-v2",
   "checkpoint_id": "R-GFX5-STABLE-2026-10-09",
   "creation_date": "2026-10-09",
   "repository": "master-rallye-re-general",
@@ -45,23 +45,23 @@
     "windowed": {
       "ini_mode": 1,
       "status": "SUPPORTED",
-      "human_runtime": "PASS",
+      "in_game_validation": "PASS",
       "evidence_grade": "CONFIRMED_BY_RUNTIME",
-      "notes": "User-confirmed immediate live resizing after explicit initial size. Configured dimensions initialize the normal client; genuine subsequent resize updates the normal target."
+      "notes": "In-game validation confirmed immediate live resizing after explicit initial size. Configured dimensions initialize the normal client; genuine subsequent resize updates the normal target."
     },
     "borderless": {
       "ini_mode": 2,
       "status": "SUPPORTED",
-      "human_runtime": "PRIOR_ACCEPTED_BASELINE",
+      "in_game_validation": "PRIOR_ACCEPTED_BASELINE",
       "evidence_grade": "CONFIRMED_BY_RUNTIME",
-      "notes": "Earlier user testing reported Borderless, Alt+Tab and high-resolution behavior healthy. This checkpoint adds no new combined test."
+      "notes": "Prior in-game validation accepted Borderless, Alt+Tab and high-resolution behavior. This checkpoint adds no new combined test."
     },
     "exclusive_fullscreen": {
       "ini_mode": 3,
       "status": "EXPERIMENTAL_KNOWN_BROKEN_ON_RECOVERY",
-      "human_runtime": "FAIL_AFTER_MINIMIZE_OR_FOCUS_LOSS",
+      "in_game_validation": "FAIL_AFTER_MINIMIZE_OR_FOCUS_LOSS",
       "evidence_grade": "CONFIRMED_BY_RUNTIME",
-      "notes": "Error 2010 remains reproducible after restore. Earlier trace summaries recorded successful true Exclusive CreateDevice and initial Reset; keep Mode=3 semantics unchanged and do not recommend this mode for development."
+      "notes": "Error 2010 remains reproducible after restore. Trace evidence records successful true Exclusive CreateDevice and initial Reset; keep Mode=3 semantics unchanged and do not recommend this mode for development."
     }
   },
   "graphics_features": {
@@ -113,13 +113,34 @@
       "failure": "True Exclusive may fail with Error 2010 after focus loss/minimize and restore."
     }
   ],
-  "human_runtime_evidence": {
-    "windowed_live_resize": "User-reported PASS for R-GFX5-8 after the original-request/HWND admission fix.",
-    "preservemargins_v2": "Prior user-reported PASS for race HUD, animated menu elements, pause/resume and extreme aspect.",
+  "in_game_validation": {
+    "windowed_live_resize": "PASS in R-GFX5-8 after the original-request/HWND admission fix.",
+    "preservemargins_v2": "Prior PASS for race HUD, animated menu elements, pause/resume and extreme aspect.",
     "borderless": "Previously accepted R-GFX5 behavior; no new checkpoint test.",
-    "exclusive_recovery": "User-reported reproducible failure; Error 2010 remains after restore.",
+    "exclusive_recovery": "FAIL after minimize or focus loss; Error 2010 remains reproducible.",
+    "uncombined_features": "No new full combined in-game validation matrix is claimed."
+  },
+  "validation_source": {
+    "in_game_validation": "Prior R-GFX5-8 and checkpoint review results; no new game session was run for this checkpoint.",
     "raw_capture_included": false,
-    "uncombined_features": "No new full combined runtime matrix is claimed."
+    "raw_capture_limitation": "R-GFX5-8 session JSONL files are not included in the source repository."
+  },
+  "trace_evidence": {
+    "source_executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "renderer_dll_sha256": "fda771e03dc3bc5457d995ea755933f9a3982fc280ece061d5b6329ad9f3f543",
+    "captures": [
+      {
+        "id": "session-20261009-122510-49004.jsonl",
+        "mode": "Exclusive 640x480",
+        "evidence": "Owner/presentation Windowed mismatch; DEVICELOST at events 51, 61 and 63; native Reset remained 640x480 with Windowed=FALSE."
+      },
+      {
+        "id": "session-20261009-122644-33496.jsonl",
+        "mode": "Exclusive 1280x720",
+        "evidence": "Owner/presentation Windowed mismatch; DEVICELOST at events 51, 62 and 64; DEVICENOTRESET at 90; S_OK at 100; native Reset S_OK at 114 and 123."
+      }
+    ],
+    "review_status": "Previously inspected during checkpoint review; raw session JSONL is unavailable in the current source repository."
   },
   "synthetic_validation_evidence": {
     "source": "modernization/renderer/docs/r-gfx5-8/validation.md",
@@ -157,6 +178,6 @@
     "git_diff_check": "PASS",
     "python_native_compileall_rerun": false,
     "game_runtime_tests_rerun": false,
-    "runtime_verdict_source": "User report in the stable checkpoint request"
+    "validation_source": "Prior checkpoint review and R-GFX5-8 records; the documentation update does not claim a new in-game test."
   }
 }

@@ -1,4 +1,4 @@
-# R-GFX5-7 human runtime handoff
+# R-GFX5-7 in-game validation procedure
 
 This build is ready for Windowed validation and a diagnostic Exclusive run. Synthetic tests do not establish GPU/runtime success. Keep foliage diagnostics disabled during display acceptance.
 
@@ -9,11 +9,11 @@ Use `[Display] Mode=1`, `Width=1280`, `Height=720`, `RefreshRate=0` for W1–W5.
 - **W1 — Initial size:** start the game, visit the frontend, and enter Quick Race. Confirm a 1280×720 client and no reset loop.
 - **W2 — Horizontal drag:** drag the left and right edges repeatedly. Confirm the image follows the client without snapping back.
 - **W3 — Vertical/corner drag:** resize height and both dimensions. Try an extreme shape such as 1734×480 if the desktop permits. Check aspect and watch for recentering.
-- **W4 — Maximize/restore:** after resizing, maximize and restore several times. The maximized client should own its temporary backbuffer; restore should return to the latest user-sized normal window.
+- **W4 — Maximize/restore:** after resizing, maximize and restore several times. The maximized client should own its temporary backbuffer; restore should return to the latest accepted normal target.
 - **W5 — Initial versus later size:** start at 1280×720 and drag to another size. Confirm both initial sizing and the later resize are honored.
 - **W6 — Combined quality:** after W1–W5 pass, enable PreserveMargins, AF16, MSAA4, Gameplay FOV, and the previously verified MenuFreezeFix. Resize in the frontend and race; check HUD/menu animation, aspect, viewport, and Reset behavior.
 
-If `Width=0` and `Height=0` is useful as a separate smoke test, the first game size should be adopted and subsequent corroborated user resizing should update the normal target.
+If `Width=0` and `Height=0` is useful as a separate smoke test, the first game size should be adopted and subsequent corroborated resizing should update the normal target.
 
 ## Exclusive tests
 

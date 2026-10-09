@@ -1,63 +1,63 @@
-# R-GFX5-8 — короткий runtime handoff
+# R-GFX5-8 — in-game validation procedure
 
-Статус: **READY_FOR_DIAGNOSTIC_RUNTIME**. Windowed исправлен по подтверждённой причине и проверен синтетически. В Exclusive добавлена диагностика владельца и порядка восстановления; исправление Error 2010 пока не заявляется. Игра в этой сессии не запускалась.
+Status at the time of this phase: **READY_FOR_DIAGNOSTIC_RUNTIME**. Windowed had a source-level correction and synthetic coverage. Exclusive had additional static evidence and bounded diagnostics, but no recovery fix. The game was not launched during the R-GFX5-8 implementation session.
 
-## Кандидат и provenance
+## Candidate identity
 
-DLL: `modernization/renderer/.build-msvc/Release/d3d8.dll` в `master-rallye-re-general`. SHA256 `fda771e03dc3bc5457d995ea755933f9a3982fc280ece061d5b6329ad9f3f543`, размер **1 531 392 байта**, PE32/I386. Заголовок нового session JSONL должен содержать `proxy_version=R-GFX5-8` и этот `proxy_sha256`. EXE/INI и прежний кандидат сохраняются; автоматического развёртывания здесь не было.
+DLL: `modernization/renderer/.build-msvc/Release/d3d8.dll` in `master-rallye-re-general`. SHA256 `fda771e03dc3bc5457d995ea755933f9a3982fc280ece061d5b6329ad9f3f543`, size **1,531,392 bytes**, PE32/I386. A new session JSONL header should contain `proxy_version=R-GFX5-8` and this `proxy_sha256`. The EXE, INI and previous candidate remain unchanged; automatic deployment is not part of this procedure.
 
-Для нового теста использовать собранный текущий DLL, содержащий PC-VISUAL-PILOT1 upload provenance. Не подменять его старым pre-foliage DLL. Исходники, тесты и документация собраны в [source handoff](R-GFX5-8-handoff.zip); DLL и игровые материалы в этот архив не входят.
+Use the current build containing PC-VISUAL-PILOT1 upload provenance; do not substitute the earlier pre-foliage DLL. Source, tests and documentation are included in the [source handoff](R-GFX5-8-handoff.zip); the DLL and game assets are excluded.
 
 ## Windowed W1–W6
 
-Начать с `[Display] Mode=1, Width=1280, Height=720`. AA/UI — Stock, FOV выключен, foliage diagnostics выключены. Для W1/W2 сначала ничего не максимизировать и не сворачивать.
+Start with `[Display] Mode=1, Width=1280, Height=720`. Keep AA/UI at Stock, FOV off and foliage diagnostics off. Do not maximize or minimize before W1/W2.
 
-| Тест | Действие | PASS |
+| Test | Action | PASS criteria |
 |---|---|---|
-| W1 | Сразу после старта тянуть правый край | ширина/нативный backbuffer следуют HWND, высота 720 остаётся; нет snap-back/2010 |
-| W2 | Новый старт; сразу тянуть угол | обе оси следуют HWND без начального Maximize/Restore |
-| W3 | `Width=0, Height=0`; новый старт и горизонтальный resize | прежний рабочий auto-size путь сохранён |
-| W4 | Сначала вручную изменить нормальный размер, затем несколько Maximize/Restore | maximized — размер OS client; restore — последний пользовательский normal target |
-| W5 | Minimize/Restore, затем ещё один обычный resize | нет 0×0 target, старого pinning или Reset-loop |
-| W6 | Широкий клиент примерно 1734×480, затем узкий | backbuffer/аспект без накопления ошибки; позже отдельная проверка PreserveMargins |
+| W1 | Immediately drag the right edge after startup | Width and native backbuffer follow the HWND; height remains 720; no snap-back or Error 2010 |
+| W2 | Restart and immediately drag a corner | Both axes follow the HWND without an initial Maximize/Restore |
+| W3 | Set `Width=0, Height=0`, restart and drag horizontally | Existing auto-size behavior remains intact |
+| W4 | Resize the normal window, then maximize and restore several times | Maximized backbuffer uses the OS client; restore uses the latest normal target |
+| W5 | Minimize/restore, then perform another normal resize | No 0×0 target, stale size pinning or Reset loop |
+| W6 | Resize to a wide client near 1734×480, then to a narrow shape | Backbuffer/aspect remain stable; validate PreserveMargins separately |
 
-Новый `windowed_resize_admission` должен показывать исходные requested dimensions == actual client, `initial_window_commit_complete=true`, `decision=accepted_hwnd_client_change`, обе оси normalized_logical == новый клиент. Следующий `display_native_attempt` Reset должен послать эти размеры и вернуть S_OK. Решение admission само по себе ещё не доказывает native успех. Если отказ остаётся, приложить соответствующую запись с decision/previous_committed_style/exstyle и реальным результатом.
+`windowed_resize_admission` should show original requested dimensions equal to actual client dimensions, `initial_window_commit_complete=true`, `decision=accepted_hwnd_client_change`, and both `normalized_logical` axes equal to the new client. The following `display_native_attempt` Reset should send these dimensions and return S_OK. Admission alone does not prove native success. On failure, retain the corresponding decision, previous committed style/ex-style and actual result.
 
 ## Exclusive E1–E6
 
-Первый короткий запуск: `[Display] Mode=3, Width=640, Height=480, RefreshRate=0`; AA/UI Stock, FOV off, MenuFreezeFix off, foliage Mode=0/Diagnostics=0. Остальные условия не менять в ходе одного контрольного запуска.
+Start with `[Display] Mode=3, Width=640, Height=480, RefreshRate=0`; keep AA/UI at Stock, FOV off, MenuFreezeFix off, foliage Mode=0 and Diagnostics=0. Keep the remaining settings fixed for the control run.
 
-| Тест | Действие | PASS |
+| Test | Action | PASS criteria |
 |---|---|---|
-| E1 | Frontend не менее 60 секунд | настоящий Windowed=FALSE; startup/initial Reset успешны, нет самопроизвольного 2010 |
-| E2 | Один Minimize/Alt+Tab и Restore | настоящее восстановление устройства, без Error 2010 |
-| E3 | Только после E2 PASS: повторить несколько циклов | нет накопления Reset/resource/focus ошибок |
-| E4 | Поддерживаемый перечислением режим 1920×1080, повторить E1–E3 | восстановление истинного Exclusive на высоком разрешении |
-| E5 | Только после консервативного PASS включить MSAA4 | native capability/reset без регрессии |
-| E6 | Frontend → Quick Race → race → frontend → quit | рабочее устройство, штатный выход |
+| E1 | Remain in the frontend for at least 60 seconds | True `Windowed=FALSE`; startup and initial Reset succeed; no spontaneous Error 2010 |
+| E2 | Minimize or Alt+Tab once, then restore | Device recovery completes without Error 2010 |
+| E3 | Only after E2 passes, repeat several cycles | No accumulating Reset/resource/focus errors |
+| E4 | Use an enumerated 1920×1080 mode and repeat E1–E3 | True Exclusive recovery works at the higher resolution |
+| E5 | Only after conservative settings pass, enable MSAA4 | Native capability and Reset remain valid |
+| E6 | Frontend → Quick Race → race → frontend → quit | Device remains usable and exits normally |
 
-Если E2 снова даёт Error 2010, остановить этот запуск и передать **один самый короткий полный session JSONL из `MRRRenderer/logs/`**, соответствующий INI и указание действия/момента сбоя. E4–E6 и большие F10/RAM/VRAM dumps тогда не нужны. Желательно pristine retail для read-only game owner; на modified EXE message/native diagnostics работают, а новый owner tap честно остаётся unknown. Это не меняет существующую feature-local совместимость.
+If E2 produces Error 2010, stop that run and retain one shortest complete session JSONL from `MRRenderer/logs/`, the matching INI and the exact minimize/restore action. Further high-resolution/MSAA/race repetitions and large F10/RAM/VRAM dumps are unnecessary at that point. A pristine retail executable is preferred for read-only game-owner observation; message/native diagnostics remain available on modified executables, while the new owner observation remains unknown. Existing feature-local compatibility is unchanged.
 
-## Что выяснит новый capture
+## Evidence supplied by a new capture
 
-1. `display_window_message`: первый WM_STYLECHANGING с old/new и `transition_stack` показывает возможного автора изменения стиля. Stack — свидетельство конкретного вызова, не автоматический causal verdict.
-2. Перед/после WM_SIZE фиксируют, находится ли Reset внутри игрового WndProc и какие activation/focus события уже пришли.
-3. `window_context.game_window_owner` на валидированном pristine: +0x1C (`windowed`), PP.Windowed, HWND, saved_style, flags. `windowed=1` одновременно с `native_windowed_flag=0` подтвердит рассогласование native owner/presentation.
-4. `display_reset_readiness` фиксирует реальный cooperative HRESULT непосредственно перед native Reset. DEVICELOST означает раннюю попытку при недоступном устройстве; DEVICENOTRESET перед failed Reset требует другого объяснения. Сам probe не изменяет результат.
-5. `display_native_begin` → readiness → `display_native_attempt` задают параметры/результат; общий event_sequence и device_lifetime_id/epoch позволяют сопоставить их с окнами/фокусом. Нативная ошибка остаётся настоящей.
+1. `display_window_message`: the first WM_STYLECHANGING record, old/new style and `transition_stack` identify possible style-change ownership. A stack supports call attribution; it is not by itself a causal verdict.
+2. Before/after WM_SIZE records establish whether Reset is nested inside the game WndProc and show preceding activation/focus events.
+3. `window_context.game_window_owner` on a validated pristine executable records `+0x1C` (`windowed`), PP.Windowed, HWND, saved style and flags. `windowed=1` with `native_windowed_flag=0` establishes disagreement between native owner and presentation state.
+4. `display_reset_readiness` records the cooperative HRESULT immediately before native Reset. DEVICELOST indicates the device is unavailable; DEVICENOTRESET before a failed Reset requires another explanation. The probe does not change the result.
+5. `display_native_begin` → readiness → `display_native_attempt` records parameters and results. Shared `event_sequence` and `device_lifetime_id`/epoch correlate them with window and focus events. Native errors remain genuine.
 
-`transition_owner=renderer_window_commit` отделяет собственную постановку Windowed/Borderless от неатрибутированного `game_or_os_unresolved`. `display_watch=pre_and_post_observer_installed` должен быть в quality metadata; при partial/unavailable или `display_message_budget_exhausted` это ограничение нужно сохранить вместе с логом.
+`transition_owner=renderer_window_commit` identifies a renderer-owned Windowed/Borderless placement. `game_or_os_unresolved` means attribution remains unavailable. Preserve the `display_watch` quality metadata; if it reports partial/unavailable observation or `display_message_budget_exhausted`, retain that limitation with the log.
 
-Можно получить компактную сводку:
+Create a compact summary with:
 
 ```powershell
 python modernization/renderer/tools/audit_quality_runtime.py "PATH\session-R-GFX5-8.jsonl"
 ```
 
-Поле `observed_reset_while_device_lost` не является визуальным PASS/FAIL: оно сохраняет и readiness, и настоящий native result. Исходный JSONL нужен для первого style/focus события.
+`observed_reset_while_device_lost` is not a visual PASS/FAIL result; it preserves cooperative readiness alongside the native result. The original JSONL is required to establish the first style/focus event.
 
-## Общая регрессия после независимых PASS
+## Combined regression after independent PASS
 
-Прежний стабильный Borderless/Windowed режим: PreserveMargins, AF16, MSAA4, Gameplay FOV, MenuFreezeFix, ViewDependent2D. Frontend → Quick Race → гонка с AI → pause/unpause → смена камер → Alt+Tab → frontend → quit. Проверить отсутствие HUD jitter, прежний preview/FOV/culling, стабильные AI reflections, brake lamps, курсор и штатный выход. Foliage diagnostics оставить off. Backdrop остаётся BACKDROP_ASSET_EXTENSION_REQUIRED.
+Use the previously accepted Borderless or Windowed mode with PreserveMargins, AF16, MSAA4, Gameplay FOV, MenuFreezeFix and ViewDependent2D. Run Frontend → Quick Race → AI race → pause/resume → camera changes → Alt+Tab → frontend → quit. Check HUD stability, preview/FOV/culling, AI reflections, brake lamps, cursor behavior and clean exit. Keep foliage diagnostics off. Backdrop status remains `BACKDROP_ASSET_EXTENSION_REQUIRED`.
 
-Для ответа достаточно: W1/W2/W3/W4/W5/W6 PASS/FAIL; E1/E2 (затем E3–E6 при успехе); Error 2010 yes/no; combined PASS/FAIL. R-GFX5 closeout возможен только после human PASS обоих режимов. R-CAM1/фотография/HD UI сейчас не начинаются.
+Record W1–W6 and E1/E2 results (then E3–E6 if E2 passes), Error 2010 occurrence, and combined-regression result. R-GFX5 closeout requires independent in-game PASS for both display modes. R-CAM1, Photo Mode and HD UI are outside this validation procedure.

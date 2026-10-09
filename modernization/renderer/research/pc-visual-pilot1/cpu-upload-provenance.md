@@ -7,7 +7,7 @@ Scope: code-only continuation of PC-VISUAL-PILOT1; no new game capture and no dr
 
 The two supplied audit records cover complete frames 306081 and 329935. Each reports 128 attempted probes, zero readable probes, and `buffer_not_safe_for_readonly_probe` for every candidate. All sampled vertex and index buffers had `D3DUSAGE_WRITEONLY` (`Usage=8`) in `D3DPOOL_MANAGED` (`Pool=1`). The audit hashes are `949e5f748db1c283acb4c5a0367a6ff1d22ea86a96a5fb72dcd5544a239458f4` and `97ac9e3d8682179fb77b40545a014b362aab39ffecf56c7e5587fcbfadb68d85`.
 
-These captures contain no geometry fingerprint. `TARGET_IDENTITY_NOT_FOUND` means **no content evidence because every probe was blocked**. It does not show that bush01 was absent, nor does the user-reported course label establish course identity inside the renderer. No fallback READONLY lock or material override was attempted.
+These captures contain no geometry fingerprint. `TARGET_IDENTITY_NOT_FOUND` means **no content evidence because every probe was blocked**. It does not show that bush01 was absent, nor does the externally supplied course label establish course identity inside the renderer. No fallback READONLY lock or material override was attempted.
 
 ## Implemented observation path
 

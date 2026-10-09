@@ -4,7 +4,7 @@
 
 This pass is based on `master` starting at `f43d720e08961791ad46875af0d15430ed555e02`, the PC-VISUAL-PILOT1 CPU-upload-provenance handoff. That commit is an ancestor of the implementation. The foliage provenance path and its synthetic tests remain in the current renderer. Source and mock behavior are reported as `CONFIRMED_BY_SOURCE` and `CONFIRMED_BY_SYNTHETIC_TEST`; no game run was performed for this pass.
 
-The user's latest runtime report confirms PreserveMargins v2 stability. That remains `CONFIRMED_BY_RUNTIME` as a prior human test result. The current Exclusive `D3DERR_DEVICELOST` sequence is also a user-reported runtime observation, but its causal owner has not been captured in a new trace.
+Prior in-game validation confirms PreserveMargins v2 stability; that result remains `CONFIRMED_BY_RUNTIME`. Exclusive `D3DERR_DEVICELOST` is also a recorded runtime observation, but its causal owner was not captured in a new trace during R-GFX5-7.
 
 ## Windowed size ownership
 
@@ -14,7 +14,7 @@ On first Windowed CreateDevice, nonzero INI dimensions establish the initial cli
 
 A later normal resize is admitted only when the HWND is valid, the window is neither maximized nor minimized, no renderer-owned window commit is active, the HWND is the last accepted device window, style/ex-style/menu identity is unchanged, and both actual client dimensions and the game's Reset request match. Only a successful native Reset replaces the normal target. An unrelated Reset request leaves the target unchanged. A failed Reset leaves both the accepted target and effective device parameters unchanged.
 
-If a normal window already has the expected style/menu and its actual client matches the effective backbuffer, the current OS rectangle is accepted as user-owned placement. An outer-rectangle move alone does not recenter the window or call `SetWindowPos`. While maximized, the OS owns placement and the actual client dimensions drive the backbuffer, viewport, and effective aspect; they do not replace the normal target. Restore follows the latest accepted normal client size. Minimized or zero-sized clients never become normal targets.
+If a normal window already has the expected style/menu and its actual client matches the effective backbuffer, the current OS rectangle is accepted as application-owned placement. An outer-rectangle move alone does not recenter the window or call `SetWindowPos`. While maximized, the OS owns placement and the actual client dimensions drive the backbuffer, viewport, and effective aspect; they do not replace the normal target. Restore follows the latest accepted normal client size. Minimized or zero-sized clients never become normal targets.
 
 Reset echo protection remains separate from live resize admission. A renderer-induced equivalent echo is suppressed without a native Reset. A real later resize is evaluated from fresh HWND state. Successful Reset epoch telemetry advances only after an actual successful native Reset; failed Reset and suppressed echoes do not advance it. The existing device wrapper remains responsible for the pool-aware resource transition, including conservative foliage mirror invalidation.
 

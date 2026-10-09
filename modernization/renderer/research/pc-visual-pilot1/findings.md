@@ -6,7 +6,7 @@ Source inspection freshly reproduced France1 node3509209 versus compiled draw54/
 
 All995 France1 compiled draw groups were checked: no target face occurs in another group;25 groups use bush01-tga. A separate Turkey3 compiled control has939 groups and no target face hashes. These are source checks, not native negative-control captures.
 
-60 existing game F10 files contain10077 indexed draws and81 calls with48 triangles. They lack course ownership and geometry-content evidence. The user's France1 coverage is uncertain. Pointer/range hashes from the existing vehicle classifier are not hashes of vertex content. No historical call was promoted to the target.
+60 existing game F10 files contain10077 indexed draws and81 calls with48 triangles. They lack course ownership and geometry-content evidence. France1 coverage is uncertain. Pointer/range hashes from the existing vehicle classifier are not hashes of vertex content. No historical call was promoted to the target.
 
 The new probe calls native getters and, only for readable managed/system-memory nondynamic non-WRITEONLY buffers, bounded READONLY locks. It records hashes, generation observations, WORLD bits, stage0/1 states, native alpha/depth/cull states and diffuse-alpha summaries. No geometry arrays or texture pixels are written.
 

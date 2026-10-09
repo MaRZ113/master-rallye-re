@@ -23,8 +23,8 @@ All995 France1 source groups and939 Turkey3 controls were scanned. CanonicalPS2 
 | 13 Tests | PASS | 9native,114Python,proxy,compileall,diffcheck |
 | 14 Diagnostics | PASS | boundedF10nativecontent/stateprobe |
 | 15 Texture policy | PASS | stockonly;Mode2invalid/deferred |
-| 16 PC runtime | BLOCKED | humancapture required |
-| 17 PS2 reference | BLOCKED | humanreference pending |
+| 16 PC runtime | BLOCKED | in-game capture required |
+| 17 PS2 reference | BLOCKED | reference capture pending |
 | 18 Visual assessment | BLOCKED | no activefeature or visualacceptance |
 | 19 No original asset edits | PASS | read-onlycorpora,SDKclean |
 | 20 Scope discipline | PASS | no course/asset/EXE/deployment/push or broadfeature |

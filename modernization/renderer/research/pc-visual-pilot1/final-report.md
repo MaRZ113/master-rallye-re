@@ -54,7 +54,7 @@ Fresh source checks reproduced France1 compiled record54 and the strict24/24 PS2
 
 The PC DX SHA256 is `a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5`; TXT is `fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958`. The target multiset fingerprint is `2b60b1f044601052bb5eaeca074615abe3947fdc1b0769c17d300a0b3b3e6f7d`.
 
-25 France1 groups share the texture, but none of the994 other compiled groups contains the target faces. Turkey3's939 draw groups also contain none. These are source checks. The60 historical game captures have10077 indexed calls, including81 calls with48 triangles, but lack course and content ownership. The user's France1 coverage is uncertain. No call is promoted to compiled record54.
+25 France1 groups share the texture, but none of the994 other compiled groups contains the target faces. Turkey3's939 draw groups also contain none. These are source checks. The60 historical game captures have10077 indexed calls, including81 calls with48 triangles, but lack course and content ownership. France1 coverage is uncertain. No call is promoted to compiled record54.
 
 Missing live links are the API partition, course/resource owner, transform and upload revisions, and negative controls. See [source metadata](source-signatures.json) and [historical audit](historical-trace-audit.json).
 
@@ -74,7 +74,7 @@ The game retains its stock texture. No replacement, replay, second pass, transpa
 
 The baseline passed8 native suites and100 Python tests under normal permissions. The final checkpoint passed9 native suites and114 Python tests, proxy verification, compileall, diff-check and11 renderer-recon tests. Restricted baseline temp-cleanup errors and development failures remain in ignored logs. The production F10 serializer test uses a synthetic backend and supplies no game-runtime evidence. Repeated source JSON is identical. Pytest passed 114 tests and 15 subtests. The extracted source-only handoff independently built all 9 native suites, passed all 114 Python tests and proxy verification without game data. Details are in [validation.json](validation.json).
 
-# G. Required user capture
+# G. Required in-game capture
 
 First obtain a diagnostic France1 F10 capture. This build cannot perform a visual Mode1 A/B comparison. The DLL was not installed into the game. Follow [runtime-test-plan.md](runtime-test-plan.md). A content match still needs course/upload ownership and live negative controls before a five-state RAII override can be authorized by the identity gate. PC and PCSX2 visual acceptance remain pending.
 

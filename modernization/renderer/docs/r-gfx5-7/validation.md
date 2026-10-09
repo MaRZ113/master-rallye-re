@@ -2,7 +2,7 @@
 
 ## Status
 
-`READY_FOR_DIAGNOSTIC_RUNTIME` is the intended checkpoint if implementation, regression suites, and Win32 verification pass. Windowed live resizing is ready for human testing. Exclusive remains unresolved pending a causal runtime trace. This document must not be read as a game-runtime pass.
+`READY_FOR_DIAGNOSTIC_RUNTIME` is the intended checkpoint if implementation, regression suites, and Win32 verification pass. Windowed live resizing still requires in-game validation. Exclusive remains unresolved pending a causal runtime trace. This document does not claim a game-runtime pass.
 
 ## Source and handoff
 
@@ -12,7 +12,7 @@
 - PC-VISUAL-PILOT1 CPU upload provenance: preserved from that commit
 - Foliage Mode 1: still blocked and Stock
 - Foliage diagnostics: off by default; no material override added
-- PreserveMargins v2: `CONFIRMED_BY_RUNTIME` from the user's prior test report
+- PreserveMargins v2: `CONFIRMED_BY_RUNTIME` from prior in-game validation
 
 ## Test results
 
@@ -39,7 +39,7 @@ Evidence grades remain separate:
 - `CONFIRMED_BY_SOURCE`: implementation and static data flow reviewed.
 - `CONFIRMED_BY_EXE`: exact-build Ghidra instructions at `0x0055AB90` and `0x0055AED0`.
 - `CONFIRMED_BY_SYNTHETIC_TEST`: mock lifecycle assertions.
-- `CONFIRMED_BY_RUNTIME`: only behavior actually reported by the user.
+- `CONFIRMED_BY_RUNTIME`: behavior observed during in-game validation; not inferred from offline test results.
 - `UNKNOWN`: current Exclusive causal transition and physical Windowed resize behavior on this build.
 
 ## Final build and commit

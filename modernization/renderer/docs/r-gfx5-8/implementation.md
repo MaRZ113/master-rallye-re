@@ -1,6 +1,6 @@
 # R-GFX5-8: initial resize correction and Exclusive ownership checkpoint
 
-Status: **READY_FOR_DIAGNOSTIC_RUNTIME**. Windowed has a causal source fix and temporal synthetic coverage. Exclusive has new static evidence and targeted observation, with no speculative recovery mutation. Both require the human handoff; R-GFX5 remains open.
+Status: **READY_FOR_DIAGNOSTIC_RUNTIME**. Windowed has a causal source fix and temporal synthetic coverage. Exclusive has new static evidence and targeted observation, with no speculative recovery mutation. Both still require in-game validation; R-GFX5 remains open.
 
 The work started at `88bf3decd411b8b65e11e8b801650867097d186b` in `master-rallye-re-general`, branch `master`. The CPU-upload handoff `f43d720e08961791ad46875af0d15430ed555e02` is an ancestor. No branch/worktree was created or switched. Existing Observatory edits are outside this commit. No game binary or PS2 research was edited.
 
@@ -16,7 +16,7 @@ The work started at `88bf3decd411b8b65e11e8b801650867097d186b` in `master-rallye
 | Restore | 1280×720 | refreshed to normal request | 1280×720 | 1280×720 | normal baseline catches up |
 | Later horizontal drag | 1384×720 | 1280×720 | 1384×720 | 1384×720 | admit |
 
-The maximized example is a synthetic size, not a claimed human monitor size. The human supplied the 1447×720 rejection, 1384×720 later acceptance, and Width/Height=0 944×480 control in the R-GFX5-8 attachment. Raw human session JSONL was not available for independent recomputation.
+The maximized example is a synthetic size, not an observed monitor size. The R-GFX5-8 validation record includes the 1447×720 rejection, 1384×720 later acceptance, and Width/Height=0 944×480 control. Raw session JSONL was unavailable for independent recomputation.
 
 `CONFIRMED_BY_SYNTHETIC_TEST`: the new startup-order test failed against the unchanged R-GFX5-7 source on the first horizontal resize. The same assertion passes after the fix, without a maximize/minimize step. Width/Height=0 previously worked because the unchanged axis did not differ from the 640×480 logical baseline.
 
@@ -26,7 +26,7 @@ The maximized example is a synthetic size, not a claimed human monitor size. The
 
 The first normal target still comes from INI/game dimensions and is centered by the existing successful native/placement transaction. `initial_window_commit_complete_` becomes true only after matching client synchronization; it does not depend on a timer or maximize. A new normal target is accepted only after native Reset succeeds. A failure preserves the last accepted target and effective descriptor.
 
-Existing guards remain: same HWND, valid nonzero bounded dimensions, actual original-request/client agreement, stable style/ex-style/menu, decorated normal window, no minimize, no renderer commit or shutdown. No style ranges or geometry heuristics were broadened. An uncorroborated game request stays at the accepted target. A successful live resize or move retains the user's outer placement without another `SetWindowPos`. Maximize temporarily uses the OS client and preserves the latest normal target. Restore/minimize retain the established contracts.
+Existing guards remain: same HWND, valid nonzero bounded dimensions, actual original-request/client agreement, stable style/ex-style/menu, decorated normal window, no minimize, no renderer commit or shutdown. No style ranges or geometry heuristics were broadened. An uncorroborated game request stays at the accepted target. A successful live resize or move retains the current outer placement without another `SetWindowPos`. Maximize temporarily uses the OS client and preserves the latest normal target. Restore/minimize retain the established contracts.
 
 Equivalent renderer commit echoes still return through the existing dedicated branch, without a native Reset, resource generation transition, or mirror invalidation. New tests cover an echo followed immediately by the first real drag. The `Device8::Reset` resource path was not changed.
 
@@ -44,7 +44,7 @@ Caps per pipeline: 128 admissions, 128 native attempts/begins/readiness records,
 
 See [static owner analysis](exclusive-static-analysis.md). The exact retail window owner can now be read safely through two agreeing pointer chains, the vtable, HWND, and validated flags. This is read-only and whole-hash gated only for this new observation; existing feature-local FOV/VehicleSemantics compatibility remains unchanged.
 
-No mode synchronization, original function call, owner write, game code patch, HWND restyling after Reset, silent Borderless fallback, or retry loop was introduced. There is still no runtime proof identifying the writer of `0x16CF0000`, the live game-mode mismatch, or cooperative readiness immediately before the human's failed Reset. The original WM_SIZE path and the cooperative recovery path differ substantially, so guessing at a single mode byte would be unsafe. Option D of the R-GFX5-8 prompt applies.
+No mode synchronization, original function call, owner write, game code patch, HWND restyling after Reset, silent Borderless fallback, or retry loop was introduced. At this checkpoint there was no runtime proof identifying the writer of `0x16CF0000`, the live game-mode mismatch, or cooperative readiness immediately before the failed Reset. The original WM_SIZE path and the cooperative recovery path differ substantially, so guessing at a single mode byte would be unsafe. The R-GFX5-8 scope decision deferred behavioral changes pending those observations.
 
 ## Preserved baseline
 
